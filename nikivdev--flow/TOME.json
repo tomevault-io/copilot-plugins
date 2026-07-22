@@ -1,0 +1,69 @@
+{
+  "name": "flow",
+  "owner": "nikivdev",
+  "repo": "flow",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "quality-bun-feature-delivery",
+      "path": ".ai/skills/quality-bun-feature-delivery",
+      "github_url": "https://github.com/nikivdev/flow/tree/main/.ai/skills/quality-bun-feature-delivery",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".ai/skills/pr-markdown-body-file/skill.md",
+      "github_url": "https://github.com/nikivdev/flow/tree/main/.ai/skills/pr-markdown-body-file/skill.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".ai/skills/quality-bun-feature-delivery/skill.md",
+      "github_url": "https://github.com/nikivdev/flow/tree/main/.ai/skills/quality-bun-feature-delivery/skill.md",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".ai/skills/env/skill.md",
+      "github_url": "https://github.com/nikivdev/flow/tree/main/.ai/skills/env/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nikivdev/flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:45:13Z"
+}
