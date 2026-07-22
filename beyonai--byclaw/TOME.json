@@ -1,0 +1,393 @@
+{
+  "name": "ByClaw",
+  "owner": "beyonai",
+  "repo": "ByClaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ByClaw",
+      "path": "byclaw-exe/skills/byai-sqlite/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/byclaw-exe/skills/byai-sqlite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/dws/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/dws/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/bycli/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/bycli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/iwhalehub/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/iwhalehub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/github-issues-mgmt/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/github-issues-mgmt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/github-code-analysis/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/github-code-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/eiirp/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/eiirp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/query/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/enrich/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/enrich/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/ingest/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/testing/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/publish/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/migrate/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/capture/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/reports/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/reports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/install/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/maintain/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/maintain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/skillify/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/skillify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/ask-user/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/ask-user/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/briefing/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/structured-ontology-manager/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/structured-ontology-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/brain-pdf/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/brain-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/brain-ops/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/brain-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/cold-start/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/cold-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/smoke-test/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/smoke-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/soul-audit/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/soul-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/book-mirror/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/book-mirror/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/unstructured-ontology-manager/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/unstructured-ontology-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/idea-ingest/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/idea-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/schema-unify/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/schema-unify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/media-ingest/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/media-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/schema-author/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/schema-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/data-research/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/data-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/skill-creator/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/citation-fixer/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/citation-fixer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/gbrain-upgrade/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/gbrain-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/cron-scheduler/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/cron-scheduler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/archive-crawler/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/archive-crawler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/skillpack-check/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/skillpack-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/skill-optimizer/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/skill-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/signal-detector/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/signal-detector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/daily-task-prep/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/daily-task-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/brain-taxonomist/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/brain-taxonomist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/frontmatter-guard/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/frontmatter-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/concept-synthesis/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/concept-synthesis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/skillpack-harvest/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/skillpack-harvest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/voice-note-ingest/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/voice-note-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/strategic-reading/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/strategic-reading/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/meeting-ingestion/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/meeting-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/repo-architecture/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/repo-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/cross-modal-review/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/cross-modal-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/article-enrichment/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/article-enrichment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/webhook-transforms/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/webhook-transforms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/daily-task-manager/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/daily-task-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/minion-orchestrator/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/minion-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/perplexity-research/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/perplexity-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ByClaw",
+      "path": "middleware/openclaw/skills/gbrain/references/functional-area-resolver/SKILL.md",
+      "github_url": "https://github.com/beyonai/ByClaw/tree/main/middleware/openclaw/skills/gbrain/references/functional-area-resolver/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/beyonai/ByClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:49:16Z"
+}
