@@ -1,0 +1,14 @@
+{
+  "name": "isaac-sim--isaacautomator",
+  "displayName": "IsaacAutomator",
+  "description": "IsaacAutomator",
+  "version": "1.0.0",
+  "author": "isaac-sim",
+  "homepage": "https://github.com/isaac-sim/IsaacAutomator",
+  "skills": [
+    {
+      "name": "IsaacAutomator",
+      "description": ""
+    }
+  ]
+}
