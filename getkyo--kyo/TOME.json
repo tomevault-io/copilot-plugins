@@ -1,0 +1,87 @@
+{
+  "name": "kyo",
+  "owner": "getkyo",
+  "repo": "kyo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kyo",
+      "path": ".claude/skills/readme/SKILL.md",
+      "github_url": "https://github.com/getkyo/kyo/tree/main/.claude/skills/readme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kyo",
+      "path": ".claude/skills/readme-edit/SKILL.md",
+      "github_url": "https://github.com/getkyo/kyo/tree/main/.claude/skills/readme-edit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kyo",
+      "path": ".claude/skills/readme-draft/SKILL.md",
+      "github_url": "https://github.com/getkyo/kyo/tree/main/.claude/skills/readme-draft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kyo",
+      "path": ".claude/skills/readme-verify/SKILL.md",
+      "github_url": "https://github.com/getkyo/kyo/tree/main/.claude/skills/readme-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kyo",
+      "path": ".claude/skills/readme-critique/SKILL.md",
+      "github_url": "https://github.com/getkyo/kyo/tree/main/.claude/skills/readme-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kyo",
+      "path": ".claude/skills/readme-analyze-source/SKILL.md",
+      "github_url": "https://github.com/getkyo/kyo/tree/main/.claude/skills/readme-analyze-source/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kyo",
+      "path": ".claude/skills/readme-analyze-existing/SKILL.md",
+      "github_url": "https://github.com/getkyo/kyo/tree/main/.claude/skills/readme-analyze-existing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/getkyo/kyo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:52:34Z"
+}
