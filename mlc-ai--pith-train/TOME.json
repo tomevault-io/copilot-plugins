@@ -1,9 +1,9 @@
 {
-  "name": "pith-train",
+  "name": "Pith-Train",
   "owner": "mlc-ai",
-  "repo": "pith-train",
-  "description": "Compact and Agent-Native MoE Training System",
-  "type": "config",
+  "repo": "Pith-Train",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,57 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "source_url": "https://github.com/mlc-ai/pith-train",
+  "skills": [
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/add-new-model/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/add-new-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/estimate-memory/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/estimate-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/add-memory-prints/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/add-memory-prints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/launch-with-slurm/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/launch-with-slurm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/analyze-nsys-profile/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/analyze-nsys-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/capture-nsys-profile/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/capture-nsys-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/validate-correctness/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/validate-correctness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "path": ".agents/skills/setup-benchmark-inputs/SKILL.md",
+      "github_url": "https://github.com/mlc-ai/Pith-Train/tree/main/.agents/skills/setup-benchmark-inputs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mlc-ai/Pith-Train",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-14T23:37:44Z"
+  "distributed_at": "2026-07-22T09:04:02Z"
 }
