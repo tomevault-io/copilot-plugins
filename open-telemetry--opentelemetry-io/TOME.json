@@ -1,0 +1,93 @@
+{
+  "name": "opentelemetry.io",
+  "owner": "open-telemetry",
+  "repo": "opentelemetry.io",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/draft-issue/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/draft-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/review-blog-post/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/review-blog-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/review-pull-request/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/review-pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/update-git-submodule/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/update-git-submodule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/update-old-blog-ignores/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/update-old-blog-ignores/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/refresh-refcache-pr-fix/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/refresh-refcache-pr-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/update-i18n-drift-status/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/update-i18n-drift-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentelemetry.io",
+      "path": ".claude/skills/resolve-refcache-conflicts/SKILL.md",
+      "github_url": "https://github.com/open-telemetry/opentelemetry.io/tree/main/.claude/skills/resolve-refcache-conflicts/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/open-telemetry/opentelemetry.io",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:56:25Z"
+}
