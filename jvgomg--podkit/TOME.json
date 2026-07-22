@@ -3,8 +3,8 @@
   "owner": "jvgomg",
   "repo": "podkit",
   "description": "\ud83d\udd04\ud83c\udfb5Modern TypeScript toolkit and CLI for managing iPods",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "podkit",
+      "path": ".agents/skills/astro/SKILL.md",
+      "github_url": "https://github.com/jvgomg/podkit/tree/main/.agents/skills/astro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podkit",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/jvgomg/podkit/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podkit",
+      "path": ".agents/skills/team-lead/SKILL.md",
+      "github_url": "https://github.com/jvgomg/podkit/tree/main/.agents/skills/team-lead/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podkit",
+      "path": ".agents/skills/write-a-prd/SKILL.md",
+      "github_url": "https://github.com/jvgomg/podkit/tree/main/.agents/skills/write-a-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podkit",
+      "path": ".agents/skills/prd-to-tasks/SKILL.md",
+      "github_url": "https://github.com/jvgomg/podkit/tree/main/.agents/skills/prd-to-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "podkit",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/jvgomg/podkit/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/jvgomg/podkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T01:12:10Z"
+  "distributed_at": "2026-07-22T22:46:08Z"
 }
