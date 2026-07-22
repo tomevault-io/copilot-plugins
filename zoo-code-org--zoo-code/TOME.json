@@ -1,0 +1,63 @@
+{
+  "name": "Zoo-Code",
+  "owner": "Zoo-Code-Org",
+  "repo": "Zoo-Code",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Zoo-Code",
+      "path": ".roo/skills/evals-context/SKILL.md",
+      "github_url": "https://github.com/Zoo-Code-Org/Zoo-Code/tree/main/.roo/skills/evals-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Zoo-Code",
+      "path": ".roo/skills/roo-translation/SKILL.md",
+      "github_url": "https://github.com/Zoo-Code-Org/Zoo-Code/tree/main/.roo/skills/roo-translation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Zoo-Code",
+      "path": ".roo/skills/roo-conflict-resolution/SKILL.md",
+      "github_url": "https://github.com/Zoo-Code-Org/Zoo-Code/tree/main/.roo/skills/roo-conflict-resolution/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Zoo-Code-Org/Zoo-Code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:57:19Z"
+}
