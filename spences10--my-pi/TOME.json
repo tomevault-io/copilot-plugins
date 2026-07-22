@@ -1,0 +1,75 @@
+{
+  "name": "my-pi",
+  "owner": "spences10",
+  "repo": "my-pi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "my-pi",
+      "path": ".agents/pi-validation-flow/SKILL.md",
+      "github_url": "https://github.com/spences10/my-pi/tree/main/.agents/pi-validation-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-pi",
+      "path": ".agents/pi-primitive-check/SKILL.md",
+      "github_url": "https://github.com/spences10/my-pi/tree/main/.agents/pi-primitive-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-pi",
+      "path": ".agents/pi-release-workflow/SKILL.md",
+      "github_url": "https://github.com/spences10/my-pi/tree/main/.agents/pi-release-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-pi",
+      "path": ".agents/pi-package-sandbox-test/SKILL.md",
+      "github_url": "https://github.com/spences10/my-pi/tree/main/.agents/pi-package-sandbox-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-pi",
+      "path": ".agents/pi-extension-development/SKILL.md",
+      "github_url": "https://github.com/spences10/my-pi/tree/main/.agents/pi-extension-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spences10/my-pi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:45:38Z"
+}
