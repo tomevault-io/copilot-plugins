@@ -1,0 +1,126 @@
+{
+  "name": "adobe--helix-website",
+  "displayName": "helix-website",
+  "description": "helix-website",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/helix-website",
+  "skills": [
+    {
+      "name": "authoring-analysis",
+      "description": ""
+    },
+    {
+      "name": "block-inventory",
+      "description": ""
+    },
+    {
+      "name": "building-blocks",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "generate-import-html",
+      "description": ""
+    },
+    {
+      "name": "identify-page-structure",
+      "description": ""
+    },
+    {
+      "name": "content-modeling",
+      "description": ""
+    },
+    {
+      "name": "page-import",
+      "description": ""
+    },
+    {
+      "name": "preview-import",
+      "description": ""
+    },
+    {
+      "name": "scrape-webpage",
+      "description": ""
+    },
+    {
+      "name": "docs-search",
+      "description": ""
+    },
+    {
+      "name": "testing-blocks",
+      "description": ""
+    },
+    {
+      "name": "content-driven-development",
+      "description": ""
+    },
+    {
+      "name": "block-collection-and-party",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "description": ""
+    }
+  ]
+}
