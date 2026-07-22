@@ -1,0 +1,46 @@
+{
+  "name": "arize-ai--openinference",
+  "displayName": "openinference",
+  "description": "openinference",
+  "version": "1.0.0",
+  "author": "Arize-ai",
+  "homepage": "https://github.com/Arize-ai/openinference",
+  "skills": [
+    {
+      "name": "python-canary-fix",
+      "description": ""
+    },
+    {
+      "name": "python-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "description": ""
+    },
+    {
+      "name": "openinference",
+      "description": ""
+    }
+  ]
+}
