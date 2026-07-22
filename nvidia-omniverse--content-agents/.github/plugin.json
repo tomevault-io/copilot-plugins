@@ -1,0 +1,118 @@
+{
+  "name": "nvidia-omniverse--content-agents",
+  "displayName": "content-agents",
+  "description": "content-agents",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/content-agents",
+  "skills": [
+    {
+      "name": "deploy-physics-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-material-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-material-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-physics-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-physics-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-material-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "quickstart",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "description": ""
+    }
+  ]
+}
