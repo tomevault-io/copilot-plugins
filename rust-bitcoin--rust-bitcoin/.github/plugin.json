@@ -1,0 +1,9 @@
+{
+  "name": "rust-bitcoin--rust-bitcoin",
+  "displayName": "rust-bitcoin",
+  "description": "rust-bitcoin",
+  "version": "1.0.0",
+  "author": "rust-bitcoin",
+  "homepage": "https://github.com/rust-bitcoin/rust-bitcoin",
+  "skills": []
+}
