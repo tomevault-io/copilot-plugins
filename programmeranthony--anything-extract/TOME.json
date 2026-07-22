@@ -1,0 +1,135 @@
+{
+  "name": "Anything-Extract",
+  "owner": "ProgrammerAnthony",
+  "repo": "Anything-Extract",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/prd-to-plan/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/prd-to-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/write-a-prd/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/write-a-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/edit-article/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/edit-article/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/prd-to-issues/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/prd-to-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/write-a-skill/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/write-a-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/architecture-doc/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/architecture-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/backend-code-review/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/backend-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/design-an-interface/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/design-an-interface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/ubiquitous-language/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/ubiquitous-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/frontend-code-review/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/frontend-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/request-refactor-plan/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/request-refactor-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Anything-Extract",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/ProgrammerAnthony/Anything-Extract/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ProgrammerAnthony/Anything-Extract",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:09:40Z"
+}
