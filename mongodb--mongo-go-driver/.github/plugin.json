@@ -1,0 +1,14 @@
+{
+  "name": "mongodb--mongo-go-driver",
+  "displayName": "mongo-go-driver",
+  "description": "mongo-go-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-go-driver",
+  "skills": [
+    {
+      "name": "mongo-go-driver",
+      "description": ""
+    }
+  ]
+}
