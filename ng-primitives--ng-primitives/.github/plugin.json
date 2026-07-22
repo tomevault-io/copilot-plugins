@@ -1,0 +1,14 @@
+{
+  "name": "ng-primitives--ng-primitives",
+  "displayName": "ng-primitives",
+  "description": "ng-primitives",
+  "version": "1.0.0",
+  "author": "ng-primitives",
+  "homepage": "https://github.com/ng-primitives/ng-primitives",
+  "skills": [
+    {
+      "name": "ng-primitives",
+      "description": ""
+    }
+  ]
+}
