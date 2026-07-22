@@ -1,0 +1,14 @@
+{
+  "name": "allisonwang-db--pyspark-data-sources",
+  "displayName": "pyspark-data-sources",
+  "description": "pyspark-data-sources",
+  "version": "1.0.0",
+  "author": "allisonwang-db",
+  "homepage": "https://github.com/allisonwang-db/pyspark-data-sources",
+  "skills": [
+    {
+      "name": "pyspark-data-sources",
+      "description": ""
+    }
+  ]
+}
