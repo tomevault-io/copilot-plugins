@@ -1,0 +1,327 @@
+{
+  "name": "realitycheck",
+  "owner": "lhl",
+  "repo": "realitycheck",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "export",
+      "path": "integrations/codex/skills/export",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/export",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/realitycheck",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/realitycheck",
+      "description": ""
+    },
+    {
+      "name": "realitycheck-export",
+      "path": "integrations/opencode/skills/realitycheck-export",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/realitycheck-export",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/check/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/check/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/check/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/rc-stats/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/rc-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/check/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/rc-export/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/rc-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/rc-search/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/rc-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/rc-stats/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/rc-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/rc-analyze/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/rc-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/rc-extract/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/rc-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/rc-export/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/rc-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/rc-search/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/rc-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/check/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/rc-analyze/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/rc-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/rc-extract/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/rc-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/rc-validate/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/rc-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/rc-stats/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/rc-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/rc-validate/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/rc-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/rc-export/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/rc-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/rc-search/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/rc-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/realitycheck/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/realitycheck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/rc-stats/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/rc-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/rc-analyze/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/rc-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/pi/skills/rc-synthesize/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/pi/skills/rc-synthesize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/rc-extract/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/rc-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/rc-export/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/rc-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/rc-search/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/rc-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/rc-analyze/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/rc-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/amp/skills/rc-synthesize/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/amp/skills/rc-synthesize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/rc-extract/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/rc-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/rc-validate/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/rc-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/rc-stats/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/rc-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/realitycheck/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/realitycheck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/rc-export/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/rc-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/rc-validate/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/rc-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/rc-search/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/rc-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/rc-analyze/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/rc-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/codex/skills/rc-synthesize/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/codex/skills/rc-synthesize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/rc-extract/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/rc-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/realitycheck/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/realitycheck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/claude/skills/rc-synthesize/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/claude/skills/rc-synthesize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/rc-validate/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/rc-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/realitycheck/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/realitycheck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "realitycheck",
+      "path": "integrations/opencode/skills/rc-synthesize/SKILL.md",
+      "github_url": "https://github.com/lhl/realitycheck/tree/main/integrations/opencode/skills/rc-synthesize/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lhl/realitycheck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:35:06Z"
+}
