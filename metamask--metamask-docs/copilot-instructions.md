@@ -1,50 +1,67 @@
 ## metamask-docs
 
-> Product-specific guidance for Snaps documentation, including naming, content areas, and generated-content constraints.
+> This repository contains the source for [docs.metamask.io](https://docs.metamask.io), the MetaMask
 
+# MetaMask developer documentation
 
-# Snaps
+<!-- vale off -->
 
-## Naming
+This repository contains the source for [docs.metamask.io](https://docs.metamask.io), the MetaMask
+developer documentation site. It is built with Docusaurus and covers multiple products aimed at
+dapp developers and wallet extension builders.
 
-- **Snaps** (capital S) refers to the platform or ecosystem.
-- **a Snap** (capital S, singular) refers to an individual extension.
-- Do not use lowercase "snaps" or "snap" in prose (only in code identifiers or file paths).
+<!-- vale on -->
 
-## Content areas
+## Products
 
-Snaps uses a content structure that differs slightly from other products:
+| Product            | Path                  | Sidebar file              | Description                                                                         |
+| ------------------ | --------------------- | ------------------------- | ----------------------------------------------------------------------------------- |
+| MetaMask Connect   | `metamask-connect/`   | `mm-connect-sidebar.js`   | Connect dapps to MetaMask extension and mobile, across EVM, Solana, and multichain. |
+| Embedded Wallets   | `embedded-wallets/`   | `ew-sidebar.js`           | Embed wallet functionality directly into applications.                              |
+| Smart Accounts Kit | `smart-accounts-kit/` | `gator-sidebar.js`        | Create smart accounts with delegated permissions, and request advanced permissions. |
+| Agent Wallet       | `agent-wallet/`       | `agent-wallet-sidebar.js` | Give AI agents programmatic wallet access via the `mm` CLI with mandatory security. |
+| Agent Wallet       | `agent-wallet/`       | `agent-wallet-sidebar.js` | Give AI agents programmatic wallet access via the `mm` CLI with mandatory security. |
+| Snaps              | `snaps/`              | `snaps-sidebar.js`        | Extend MetaMask by creating custom mini-apps.                                       |
 
-| Folder          | Type                  | Description                                   |
-|-----------------|-----------------------|-----------------------------------------------|
-| `learn/`        | Explanation           | Conceptual content, best practices, tutorials |
-| `how-to/`       | How-to                | Procedural step-by-step guides                |
-| `features/`     | Feature reference     | Feature-centric documentation                 |
-| `reference/`    | API reference         | Snaps API and Keyring API methods             |
-| `get-started/`  | Onboarding            | First-time setup and onboarding               |
+Infura API and dashboard documentation lives at [Infura documentation](https://docs.infura.io/) in the [Infura docs repository](https://github.com/INFURA/docs.infura).
 
-## Generated reference pages
+## Editorial standards
 
-Reference pages under `snaps/reference/snaps-api/` are **generated** from a JSON schema by the
-`plugin-snaps-docs.ts` build plugin. Do not edit these files directly. To update their content,
-edit the source schema or the plugin in `src/plugins/plugin-snaps-docs.ts`.
+Follow these guides when writing or editing documentation:
 
-## Experimental features
+- [Consensys documentation style guide](https://docs-template.consensys.net/contribute/style-guide)
+- [Consensys Markdown formatting guide](https://docs-template.consensys.net/contribute/format-markdown)
+- [Microsoft Writing Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/)
+<!-- vale off -->
+- [Diataxis framework](https://diataxis.fr/) for content structure
+<!-- vale on -->
 
-The `flaskOnly` admonition keyword is available in Snaps docs for features that require MetaMask
-Flask. Use it like any other admonition:
+The rules under `.cursor/rules/` cover the most actionable parts of these references.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contribution workflow.
 
-```markdown
-:::flaskOnly
-This feature is experimental and only available in MetaMask Flask.
-:::
-```
+## Critical rules
 
-## Sidebar
+1. **Do not invent API behavior.** Never state as fact any API parameter, return value, or behavior
+   that you have not verified against the codebase or published reference. If you are uncertain,
+   flag it for review.
+2. **Respect product boundaries.** Each product has its own documentation tree and sidebar. Do not
+   move content across product boundaries without explicit approval from the documentation team.
+3. **Use the canonical terminology.** See `.cursor/rules/terminology.mdc` for the required spelling
+   and casing of product and industry terms.
+4. **Verify before publishing.** Preview changes locally with `npm start` before requesting review.
+5. **Pass the CI linter.** PRs are checked by a
+   [Vale-based linter](https://github.com/Consensys/github-actions/tree/main/docs-spelling-check)
+   that enforces Microsoft style and Consensys terminology. Fix warnings before requesting review.
 
-The sidebar configuration is in [snaps-sidebar.js](snaps-sidebar.js).
+## AI guidance
+
+Detailed editorial, formatting, and product-specific rules are in `.cursor/rules/`. These rules
+apply automatically when you edit files matching their glob patterns.
+
+Agent skills live under `.cursor/skills/<skill-name>/SKILL.md`. This repo includes **author-page**
+(scaffold and draft new pages) and **style-review** (editorial compliance before PR). Cursor loads
+these when the task matches each skill's description.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/MetaMask)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/MetaMask)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [MetaMask/metamask-docs](https://github.com/MetaMask/metamask-docs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
