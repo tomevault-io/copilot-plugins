@@ -1,0 +1,14 @@
+{
+  "name": "aws-deadline--deadline-cloud",
+  "displayName": "deadline-cloud",
+  "description": "deadline-cloud",
+  "version": "1.0.0",
+  "author": "aws-deadline",
+  "homepage": "https://github.com/aws-deadline/deadline-cloud",
+  "skills": [
+    {
+      "name": "deadline-cloud",
+      "description": ""
+    }
+  ]
+}
