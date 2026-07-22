@@ -3,8 +3,8 @@
   "owner": "ai-dynamo",
   "repo": "aitune",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "aitune",
+      "path": ".claude/skills/aitune-tune/SKILL.md",
+      "github_url": "https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-tune/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aitune",
+      "path": ".claude/skills/aitune-commit/SKILL.md",
+      "github_url": "https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aitune",
+      "path": ".claude/skills/aitune-release/SKILL.md",
+      "github_url": "https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aitune",
+      "path": ".claude/skills/aitune-inspect/SKILL.md",
+      "github_url": "https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-inspect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aitune",
+      "path": ".claude/skills/aitune-validate/SKILL.md",
+      "github_url": "https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aitune",
+      "path": ".claude/skills/aitune-benchmark/SKILL.md",
+      "github_url": "https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aitune",
+      "path": ".claude/skills/aitune-docs-update/SKILL.md",
+      "github_url": "https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-docs-update/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ai-dynamo/aitune",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T20:55:45Z"
+  "distributed_at": "2026-07-22T19:43:49Z"
 }
