@@ -1,0 +1,51 @@
+{
+  "name": "unraid-management-agent",
+  "owner": "ruaan-deysel",
+  "repo": "unraid-management-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "unraid-management-agent",
+      "path": "skills/unraid-management-agent/SKILL.md",
+      "github_url": "https://github.com/ruaan-deysel/unraid-management-agent/tree/main/skills/unraid-management-agent/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ruaan-deysel/unraid-management-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T18:19:22Z"
+}
