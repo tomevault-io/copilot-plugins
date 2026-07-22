@@ -1,0 +1,447 @@
+{
+  "name": "DesktopGo",
+  "owner": "Aixbox",
+  "repo": "DesktopGo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/audit/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/polish/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/audit/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/audit/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/harden/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/delight/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/animate/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/polish/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/polish/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/distill/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/arrange/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/arrange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/harden/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/harden/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/typeset/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/typeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/extract/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/critique/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/delight/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/delight/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/animate/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/animate/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/distill/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/distill/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/arrange/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/arrange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/arrange/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/arrange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/typeset/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/typeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/typeset/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/typeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/extract/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/extract/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/critique/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/critique/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/overdrive/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/overdrive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/overdrive/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/overdrive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/overdrive/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/overdrive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".codex/skills/teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.codex/skills/teach-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".agents/skills/teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.agents/skills/teach-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/teach-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DesktopGo",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/Aixbox/DesktopGo/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Aixbox/DesktopGo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:19:17Z"
+}
