@@ -1,0 +1,9 @@
+{
+  "name": "thaitop--esp32-claude-quota",
+  "displayName": "esp32-claude-quota",
+  "description": "A desk display for Claude Code's two usage windows, plus a few ambient readouts, running on the \"Cheap Yellow Display\"",
+  "version": "1.0.0",
+  "author": "thaitop",
+  "homepage": "https://github.com/thaitop/esp32-claude-quota",
+  "skills": []
+}
