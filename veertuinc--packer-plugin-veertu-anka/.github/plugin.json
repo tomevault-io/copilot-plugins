@@ -1,0 +1,9 @@
+{
+  "name": "veertuinc--packer-plugin-veertu-anka",
+  "displayName": "packer-plugin-veertu-anka",
+  "description": "packer-plugin-veertu-anka",
+  "version": "1.0.0",
+  "author": "veertuinc",
+  "homepage": "https://github.com/veertuinc/packer-plugin-veertu-anka",
+  "skills": []
+}
