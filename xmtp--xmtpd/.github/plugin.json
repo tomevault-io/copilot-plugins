@@ -1,7 +1,7 @@
 {
   "name": "xmtp--xmtpd",
   "displayName": "xmtpd",
-  "description": "AI instruction files for xmtpd by xmtp",
+  "description": "xmtpd",
   "version": "1.0.0",
   "author": "xmtp",
   "homepage": "https://github.com/xmtp/xmtpd",
@@ -12,6 +12,26 @@
     },
     {
       "name": "writing-queries",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
+      "description": ""
+    },
+    {
+      "name": "xmtpd",
       "description": ""
     }
   ]
