@@ -4,7 +4,7 @@
   "repo": "next-shadcn-dashboard-starter",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -173,5 +173,5 @@
   ],
   "source_url": "https://github.com/Kiranism/next-shadcn-dashboard-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T22:39:58Z"
+  "distributed_at": "2026-07-22T22:41:29Z"
 }
