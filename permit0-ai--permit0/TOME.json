@@ -1,0 +1,63 @@
+{
+  "name": "permit0",
+  "owner": "permit0-ai",
+  "repo": "permit0",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "permit0",
+      "path": "skills/writing-plan-docs/SKILL.md",
+      "github_url": "https://github.com/permit0-ai/permit0/tree/main/skills/writing-plan-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "permit0",
+      "path": "skills/revising-plan-docs/SKILL.md",
+      "github_url": "https://github.com/permit0-ai/permit0/tree/main/skills/revising-plan-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "permit0",
+      "path": "skills/reviewing-plan-docs/SKILL.md",
+      "github_url": "https://github.com/permit0-ai/permit0/tree/main/skills/reviewing-plan-docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/permit0-ai/permit0",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T23:18:25Z"
+}
