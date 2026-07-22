@@ -4,7 +4,7 @@
   "repo": "oda-canvas",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/tmforum-oda",
+  "source_url": "https://github.com/tmforum-oda/oda-canvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T23:54:39Z"
+  "distributed_at": "2026-07-22T07:12:24Z"
 }
