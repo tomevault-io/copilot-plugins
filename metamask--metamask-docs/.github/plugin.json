@@ -4,6 +4,15 @@
   "description": "metamask-docs",
   "version": "1.0.0",
   "author": "MetaMask",
-  "homepage": "https://tomevault.io/claim/MetaMask",
-  "skills": []
+  "homepage": "https://github.com/MetaMask/metamask-docs",
+  "skills": [
+    {
+      "name": "metamask-docs",
+      "description": ""
+    },
+    {
+      "name": "metamask-docs",
+      "description": ""
+    }
+  ]
 }
