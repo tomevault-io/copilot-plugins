@@ -1,0 +1,14 @@
+{
+  "name": "googlecloudplatform--ramble",
+  "displayName": "ramble",
+  "description": "ramble",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/ramble",
+  "skills": [
+    {
+      "name": "ramble",
+      "description": ""
+    }
+  ]
+}
