@@ -1,0 +1,111 @@
+{
+  "name": "ui-kit",
+  "owner": "commercetools",
+  "repo": "ui-kit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/remember/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/renovate-review/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/renovate-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/security-auditor/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/security-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/renovate-migrate/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/renovate-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/jira-implement-task/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/jira-implement-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/pr-review-navigator/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/pr-review-navigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/repo-maintenance-node/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/repo-maintenance-node/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/repo-healthcheck-node/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/repo-healthcheck-node/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/agent-restore-context/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/agent-restore-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/jira-create-epic-from-plan/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/jira-create-epic-from-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ui-kit",
+      "path": ".agents/skills/agent-restore-context-setup/SKILL.md",
+      "github_url": "https://github.com/commercetools/ui-kit/tree/main/.agents/skills/agent-restore-context-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/commercetools/ui-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:46:16Z"
+}
