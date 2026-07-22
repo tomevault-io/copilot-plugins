@@ -1,0 +1,14 @@
+{
+  "name": "yutkat--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles",
+  "version": "1.0.0",
+  "author": "yutkat",
+  "homepage": "https://github.com/yutkat/dotfiles",
+  "skills": [
+    {
+      "name": "dotfiles",
+      "description": ""
+    }
+  ]
+}
