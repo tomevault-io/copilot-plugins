@@ -1,0 +1,159 @@
+{
+  "name": "esp-claw",
+  "owner": "espressif",
+  "repo": "esp-claw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "esp-claw",
+      "path": "components/lua_modules/lua_module_ble/skills/ble/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/lua_modules/lua_module_ble/skills/ble/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/common/skill_builder/skills/skill_creator/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/common/skill_builder/skills/skill_creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_modules/claw_memory/skills/memory_ops/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_modules/claw_memory/skills/memory_ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/common/skill_builder/skills/skills_lab_search/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/common/skill_builder/skills/skills_lab_search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/lua_modules/lua_module_ble_hid/skills/ble_hid/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/lua_modules/lua_module_ble_hid/skills/ble_hid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/lua_modules/lua_driver_touch/skills/read_touch/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/lua_modules/lua_driver_touch/skills/read_touch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "application/edge_agent/fatfs_image/storage/skills/plan_mode/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/application/edge_agent/fatfs_image/storage/skills/plan_mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/common/skill_builder/skills/skills_lab_downloader/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/common/skill_builder/skills/skills_lab_downloader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/lua_modules/lua_module_camera/skills/take_picture/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/lua_modules/lua_module_camera/skills/take_picture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_modules/claw_memory/skills/profile_memory_ops/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_modules/claw_memory/skills/profile_memory_ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "application/edge_agent/fatfs_image/storage/skills/light_switch/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/application/edge_agent/fatfs_image/storage/skills/light_switch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_capabilities/cap_scheduler/skills/cap_scheduler/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_capabilities/cap_scheduler/skills/cap_scheduler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "application/edge_agent/fatfs_image/storage/skills/scheduled_task/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/application/edge_agent/fatfs_image/storage/skills/scheduled_task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_capabilities/cap_router_mgr/skills/cap_router_mgr/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_capabilities/cap_router_mgr/skills/cap_router_mgr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_capabilities/cap_web_search/skills/cap_web_search/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_capabilities/cap_web_search/skills/cap_web_search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_capabilities/cap_im_platform/skills/cap_im_platform/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_capabilities/cap_im_platform/skills/cap_im_platform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_capabilities/cap_http_request/skills/cap_http_request/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_capabilities/cap_http_request/skills/cap_http_request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/claw_capabilities/cap_llm_inspect/skills/cap_llm_inspect_image/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/claw_capabilities/cap_llm_inspect/skills/cap_llm_inspect_image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "esp-claw",
+      "path": "components/lua_modules/lua_module_http_server/skills/http_server_lua_demo/SKILL.md",
+      "github_url": "https://github.com/espressif/esp-claw/tree/main/components/lua_modules/lua_module_http_server/skills/http_server_lua_demo/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/espressif/esp-claw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:18:23Z"
+}
