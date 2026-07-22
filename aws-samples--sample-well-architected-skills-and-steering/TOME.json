@@ -1,0 +1,63 @@
+{
+  "name": "sample-well-architected-skills-and-steering",
+  "owner": "aws-samples",
+  "repo": "sample-well-architected-skills-and-steering",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sample-well-architected-skills-and-steering",
+      "path": "skills/wa-review/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering/tree/main/skills/wa-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-well-architected-skills-and-steering",
+      "path": "skills/wa-builder/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering/tree/main/skills/wa-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-well-architected-skills-and-steering",
+      "path": "skills/migration-readiness/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering/tree/main/skills/migration-readiness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T14:05:07Z"
+}
