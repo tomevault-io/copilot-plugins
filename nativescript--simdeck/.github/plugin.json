@@ -1,0 +1,14 @@
+{
+  "name": "nativescript--simdeck",
+  "displayName": "SimDeck",
+  "description": "SimDeck",
+  "version": "1.0.0",
+  "author": "NativeScript",
+  "homepage": "https://github.com/NativeScript/SimDeck",
+  "skills": [
+    {
+      "name": "SimDeck",
+      "description": ""
+    }
+  ]
+}
