@@ -1,0 +1,349 @@
+## realitycheck
+
+> Please refer to `README.md`, `docs/PLAN-separation.md`, `docs/IMPLEMENTATION.md`, and `docs/DEPLOY.md` for project-specific details.
+
+# Reality Check - Development Guide
+
+Please refer to `README.md`, `docs/PLAN-separation.md`, `docs/IMPLEMENTATION.md`, and `docs/DEPLOY.md` for project-specific details.
+This `AGENTS.md`/`CLAUDE.md` is specifically for ground rules, process, and behavior notes.
+
+## Shared Repo / Multi-Agent Safety (MUST FOLLOW)
+
+This repo may be edited by multiple agents concurrently. Treat the working tree as shared state.
+
+### Before any change (required)
+- Run `git status --porcelain`.
+- If the working tree has unrelated changes, proceed normally but do not touch them; stage only your own files (`git add <paths>` / `git add -p`).
+- If you need to edit a file that already has changes you did not create (potential conflict), flag it and ask the user how to proceed.
+- If there are merge conflicts, STOP and ask the user how to proceed.
+
+### Never discard others’ work (hard rule)
+- NEVER run any command that can delete/overwrite existing work unless the user explicitly instructs it.
+  This includes (but is not limited to):
+  - `git restore ...`
+  - `git checkout -- ...`
+  - `git checkout .`
+  - `git reset --hard ...`
+  - `git clean -fd ...`
+  - `rm -rf ...` / overwriting redirects like `> file`
+  - bulk rewrites that destroy local edits (e.g., aggressive formatters) unless requested
+
+### Scope discipline
+- Only edit files needed for the user’s current request.
+- Do not “clean up”, refactor, or revert unrelated diffs in touched files.
+- If you need to avoid committing unrelated diffs, use `git add <paths>` or `git add -p`; never “fix” by reverting other hunks.
+
+### If conflicts are unavoidable
+- Coordinate: propose a plan that preserves both sets of edits (e.g., separate commits/branches/patches),
+  and wait for explicit user instruction before any destructive resolution.
+
+## Project Overview
+
+Reality Check is a framework for rigorous, systematic analysis of claims, sources, predictions, and argument chains. It provides:
+- LanceDB-backed storage with semantic search
+- Structured methodology for claim extraction and evaluation
+- Evidence hierarchy and prediction tracking
+- Claude Code plugin for workflow automation
+
+## Key Directories
+
+```
+realitycheck/
+├── scripts/          # Core Python CLI tools (db.py, validate.py, export.py, migrate.py)
+├── tests/            # pytest test suite
+├── integrations/     # Tool-specific integrations
+│   ├── claude/       # Claude Code plugin and skills
+│   │   ├── plugin/   # Plugin (commands/, hooks/, scripts/)
+│   │   └── skills/   # Global skills (alternative to plugin)
+│   └── codex/        # OpenAI Codex skills
+├── methodology/      # Analysis methodology docs (extracted from framework)
+├── docs/             # Development docs (PLAN-*.md, IMPLEMENTATION.md)
+└── examples/         # Minimal example data
+```
+
+## Roles (Planners / Coders / Reviewers)
+
+We use separate lanes for development work:
+
+- **Planner**: produces/updates specs and punchlists in `docs/` (typically between sprints).
+- **Coder**: owns all implementation patches (code + tests) and repo changes.
+- **Reviewer**: analysis-only; must not author implementation patches (no code changes).
+- **Human lead**: arbitrates scope, risk, and disagreements; decides what is a blocker vs a deferral.
+
+Rules:
+- Reviewers provide findings + rationale + suggested fixes, but do not change the repo.
+- Coders translate reviewer findings into tracked punchlist/checklist entries before implementing fixes.
+- Reviewer follow-up is confirmation-only (resolved / unresolved with rationale), not code changes.
+
+## Development Philosophy: Spec → Plan → Test → Implement
+
+**This project is strictly spec/plan/test-driven.** The goal is a high-quality, maintainable framework that's easy to update and extend. Every feature follows this cycle:
+
+### The Cycle
+
+1. **Spec**: Define requirements clearly in `docs/` before writing any code
+2. **Plan**: Create implementation plan with affected files (tree diagram)
+3. **Test**: Write unit tests AND e2e tests BEFORE implementation
+4. **Implement**: Write minimal code to pass the tests
+5. **Validate**: Run full test suite - all tests must pass
+6. **Commit**: Atomic commits with passing tests only
+
+### Why Tests First?
+
+- **Clarifies requirements** - Writing tests forces you to think through edge cases
+- **Prevents scope creep** - You only implement what the tests require
+- **Enables refactoring** - Tests catch regressions when you improve code later
+- **Documents behavior** - Tests are executable specifications
+- **Catches bugs early** - Faster to fix issues before code is "done"
+
+### Test Coverage Requirements
+
+- **Unit tests**: Every public function in `scripts/*.py` must have tests
+- **E2E tests**: Every user workflow must have integration tests
+- **Edge cases**: Error paths, empty inputs, boundary conditions
+- **No skipping**: If a test fails, fix it before proceeding
+
+## Documentation as Source of Truth
+
+- Treat `docs/` as the source of truth and always prioritize keeping them up to date
+- `docs/PLAN-separation.md` - Architecture and implementation plan
+- `docs/IMPLEMENTATION.md` - Progress tracking (punchlist + worklog)
+- `docs/DEPLOY.md` - Release quick reference
+- `docs/PUBLISH.md` - Full release punch list (PyPI + GitHub)
+- `docs/CHANGELOG.md` - Release notes
+- When reporting stats/counts (tests, claims, churn, LOC, coverage), scope them to a specific commit/tag and record the exact command(s) used
+- When making changes: update docs, run tests, then commit
+
+## Workflow Expectations
+
+### Before Picking Up Work
+- Check git status/log for recent changes
+- Review open items in the active implementation doc (`docs/IMPLEMENTATION.md` or the relevant `docs/IMPLEMENTATION-*.md`)
+- Confirm your plan aligns with documented approach
+- For non-trivial work, add a brief pre-analysis note in the active implementation doc before coding (scope, risks, validation plan)
+- **Review existing tests** to understand expected behavior
+
+### During Execution
+- **Write tests first** for the feature/fix you're implementing
+- Leave breadcrumbs in the active implementation doc (commands run, decisions made)
+- Run tests incrementally as you go
+- Keep commits atomic and focused
+
+### After Changes
+- Update the active implementation doc (check items, add notes)
+- Run targeted tests, then broader suites as needed (see Validation Matrix below)
+- **All tests must pass** before committing
+- Commit with descriptive message
+
+### After Changes Validation Matrix
+
+```bash
+# 1) Targeted (fast): run the narrowest tests that match your change
+uv run pytest tests/test_db.py -q
+uv run pytest tests/test_validate.py::TestSpecificCheck -q
+
+# 2) Focused suites (run when relevant to your change)
+uv run pytest tests/test_db.py tests/test_validate.py -q
+uv run python scripts/validate.py  # if data exists
+
+# 3) Full suite (milestone closure or before claiming completion of non-trivial work)
+uv run pytest -v
+
+# 4) Optional (coverage + embedding tests)
+uv run pytest --cov=scripts --cov-report=term-missing
+REALITYCHECK_EMBED_SKIP=1 uv run pytest -v  # skip embedding tests if torch issues
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+uv run pytest -v
+
+# Skip embedding tests if torch issues
+REALITYCHECK_EMBED_SKIP=1 uv run pytest -v
+
+# Run with coverage
+uv run pytest --cov=scripts --cov-report=term-missing
+
+# Run specific test file
+uv run pytest tests/test_db.py
+
+# Run specific test class
+uv run pytest tests/test_db.py::TestClaimsCRUD
+```
+
+### Test Structure
+
+```
+tests/
+├── conftest.py        # Shared fixtures (temp_db_path, sample_claim, etc.)
+├── test_db.py         # Unit tests for db.py
+├── test_migrate.py    # Unit tests for migrate.py
+├── test_validate.py   # Unit tests for validate.py
+├── test_export.py     # Unit tests for export.py
+└── test_e2e.py        # End-to-end integration tests
+```
+
+### Pre-Commit Checklist
+
+- [ ] Tests pass: `uv run pytest`
+- [ ] Validation passes: `uv run python scripts/validate.py` (if data exists)
+- [ ] Staged diff reviewed: `git diff --staged --name-only` then `git diff --staged`
+- [ ] No untracked files in commit
+- [ ] Commit message is descriptive
+
+## Git Practices
+
+- **Commit frequently** with descriptive messages
+- **No bylines** or co-author footers in commits
+- **Use conventional commits**: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`
+- **Add files explicitly** - never use `git add .`, `git add -A`, or `git commit -a`
+- **ALWAYS** verify staged files before commit using `git diff --staged --name-only`
+- **ALWAYS** review the staged diff before commit using `git diff --staged`
+- If unrelated changes exist in the worktree, leave them untouched
+- **Atomic commits** - group related changes, separate unrelated ones
+- **Run validation** before pushing
+
+### Commit Message Format
+
+```
+type: short summary (imperative mood)
+
+- Bullet points for details if needed
+- What changed and why
+```
+
+Examples:
+```
+feat: add semantic search to db.py CLI
+docs: update PLAN-separation.md with plugin distribution
+fix: handle empty lists in PyArrow schema conversion
+test: add claim relationship tests
+```
+
+## Code Quality
+
+### Before Submitting Code
+- [ ] Self-review: is this understandable without explanation?
+- [ ] Modular: can each function be understood in isolation?
+- [ ] Tested: are success and error paths covered?
+- [ ] Documented: do complex parts have comments?
+
+### Common Patterns
+
+**Environment variable for DB path:**
+```python
+DB_PATH = Path(os.environ.get("REALITYCHECK_DATA", "data/realitycheck.lance"))
+```
+
+**CLI subcommands in db.py:**
+```python
+parser = argparse.ArgumentParser()
+subparsers = parser.add_subparsers(dest="command")
+subparsers.add_parser("init", help="Initialize database")
+# ... etc
+```
+
+**Test fixtures:**
+```python
+@pytest.fixture
+def sample_claim():
+    return {
+        "id": "TEST-2026-001",
+        "text": "Test claim",
+        "type": "[T]",
+        "domain": "TEST",
+        # ...
+    }
+```
+
+## Claim Integrity and Definition of Done
+
+### Claim Integrity (Done/Shipped/Complete)
+
+Any claim of "done", "shipped", "complete", or "closed" must include evidence for all three:
+
+- **Test evidence**: exact validation command(s) + outcomes (include e2e when relevant).
+- **Runtime/wiring evidence**: where the behavior is enforced in the live path (not just a helper function).
+- **Docs parity evidence**: punchlist/worklog updated, and relevant docs updated when behavior/guarantees change.
+
+Truth-in-claims:
+- Use truth-scoped wording; do not overclaim universal behavior when behavior is conditional (e.g., optional backends, feature flags, tool-specific paths).
+- Prefer "when X is enabled" / "in mode Y" / "fails closed when Z is unavailable" over "always/guarantees/prevents".
+
+### Definition of Done (Features)
+
+- [ ] Code implemented (minimal patch)
+- [ ] Tests green (targeted + relevant suites; full suite at milestone closure)
+- [ ] Claim-integrity evidence recorded (tests + runtime + docs parity)
+- [ ] Any remaining gaps explicitly deferred (see below)
+
+### Deferrals
+
+- Unresolved items stay in the active milestone's deferrals list in the relevant `docs/IMPLEMENTATION-*.md`.
+- Each deferral must include: **ID**, **rationale**, **risk**, and **target milestone/version**.
+- Use `docs/TODO.md` for items beyond the current release scope (post-release backlog).
+
+### Review Trace (Findings -> IDs -> Commits)
+
+- Convert reviewer findings into tracked IDs before remediation.
+- Commit messages for remediation should reference the finding ID and whether it is initial remediation or re-review closure.
+- Log the exact validation commands + outcomes in the implementation worklog when closing items.
+
+## Plugin Development
+
+The Claude Code plugin lives in `integrations/claude/plugin/` and provides slash commands that inject methodology + call scripts.
+
+### Plugin Structure
+```
+integrations/claude/plugin/
+├── .claude-plugin/plugin.json    # Metadata
+├── commands/*.md                  # Slash command definitions
+├── hooks/hooks.json               # Lifecycle hooks
+├── scripts/*.sh                   # Shell wrappers for Python scripts
+└── lib/                           # Bundled Python scripts (for distribution)
+```
+
+### Testing Commands
+Use the `--plugin-dir` flag (local plugin discovery is currently broken):
+```bash
+claude --plugin-dir /path/to/realitycheck/integrations/claude/plugin
+```
+
+### Keeping Hooks and Skills in Sync
+
+The Claude plugin includes lifecycle hooks that automate tasks like auto-commit after database operations. Codex (and other integrations) don't support hooks, so skills must document equivalent manual steps.
+
+**Source of truth:** `integrations/claude/plugin/hooks/` scripts define the canonical behavior.
+
+When modifying hook behavior:
+1. Update the hook script (e.g., `auto-commit-data.sh`)
+2. Update corresponding skill docs to describe the manual equivalent
+3. Update `docs/WORKFLOWS.md` to note any cross-tool differences
+
+Key sync points:
+- **Auto-commit:** `hooks/post-db-modify.sh` → Codex skill "Data Repo Version Control" section
+- **README stats:** `scripts/update-readme-stats.sh` → Codex skill optional step (also used by plugin hooks)
+
+## Handling Blockers
+
+If you encounter:
+- **Permission issues**: Stop and flag for resolution
+- **Test failures**: Fix before proceeding (don't skip)
+- **Unclear requirements**: Check docs first, then ask
+- **Merge conflicts**: Resolve carefully, test after
+
+## Meta: Evolving This File
+
+This AGENTS.md is a living document. Update it when:
+- You discover a workflow pattern that helps
+- Something caused confusion
+- A new tool or process gets introduced
+- You learn something that would help the next person
+
+Keep changes focused on process/behavior, not project-specific details (those go in docs/).
+
+---
+> Source: [lhl/realitycheck](https://github.com/lhl/realitycheck) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
