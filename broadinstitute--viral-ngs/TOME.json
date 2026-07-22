@@ -1,0 +1,69 @@
+{
+  "name": "viral-ngs",
+  "owner": "broadinstitute",
+  "repo": "viral-ngs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "viral-ngs",
+      "path": ".agents/skills/dsub-batch-jobs/SKILL.md",
+      "github_url": "https://github.com/broadinstitute/viral-ngs/tree/main/.agents/skills/dsub-batch-jobs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viral-ngs",
+      "path": ".agents/skills/container-vulns/SKILL.md",
+      "github_url": "https://github.com/broadinstitute/viral-ngs/tree/main/.agents/skills/container-vulns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viral-ngs",
+      "path": ".agents/skills/regression-testing/SKILL.md",
+      "github_url": "https://github.com/broadinstitute/viral-ngs/tree/main/.agents/skills/regression-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viral-ngs",
+      "path": ".agents/skills/claude-on-vertex-ci/SKILL.md",
+      "github_url": "https://github.com/broadinstitute/viral-ngs/tree/main/.agents/skills/claude-on-vertex-ci/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/broadinstitute/viral-ngs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:43:55Z"
+}
