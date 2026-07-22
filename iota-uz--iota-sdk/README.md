@@ -1,0 +1,32 @@
+# iota-sdk
+
+> Tome by [iota-uz](https://github.com/iota-uz/iota-sdk), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [iota-uz/iota-sdk](https://github.com/iota-uz/iota-sdk).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (5)
+
+- [e2e-testing](https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/e2e-testing)
+- [railway-cli](https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/railway-cli)
+- [iota-sdk](https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/railway-cli/skill.md)
+- [iota-sdk](https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/e2e-testing/skill.md)
+- [iota-sdk](https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/database-connection/skill.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/iota-uz/iota-sdk](https://github.com/iota-uz/iota-sdk)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-q -->
