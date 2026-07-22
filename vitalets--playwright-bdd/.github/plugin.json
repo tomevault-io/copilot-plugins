@@ -1,0 +1,18 @@
+{
+  "name": "vitalets--playwright-bdd",
+  "displayName": "playwright-bdd",
+  "description": "playwright-bdd",
+  "version": "1.0.0",
+  "author": "vitalets",
+  "homepage": "https://github.com/vitalets/playwright-bdd",
+  "skills": [
+    {
+      "name": "playwright-bdd",
+      "description": ""
+    },
+    {
+      "name": "playwright-bdd",
+      "description": ""
+    }
+  ]
+}
