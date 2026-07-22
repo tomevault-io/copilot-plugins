@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--uaa",
+  "displayName": "uaa",
+  "description": "uaa",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/uaa",
+  "skills": []
+}
