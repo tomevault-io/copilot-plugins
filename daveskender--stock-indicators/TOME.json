@@ -1,0 +1,99 @@
+{
+  "name": "Stock.Indicators",
+  "owner": "DaveSkender",
+  "repo": "Stock.Indicators",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/markdown/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/markdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/vitepress/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/vitepress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/code-completion/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/code-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/indicator-stream/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/indicator-stream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/indicator-buffer/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/indicator-buffer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/indicator-series/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/indicator-series/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/indicator-catalog/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/indicator-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Stock.Indicators",
+      "path": ".agents/skills/testing-standards/SKILL.md",
+      "github_url": "https://github.com/DaveSkender/Stock.Indicators/tree/main/.agents/skills/testing-standards/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DaveSkender/Stock.Indicators",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:19:34Z"
+}
