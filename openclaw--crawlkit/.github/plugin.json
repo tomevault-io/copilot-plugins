@@ -1,0 +1,18 @@
+{
+  "name": "openclaw--crawlkit",
+  "displayName": "crawlkit",
+  "description": "crawlkit",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/crawlkit",
+  "skills": [
+    {
+      "name": "crawlkit",
+      "description": ""
+    },
+    {
+      "name": "crawlkit",
+      "description": ""
+    }
+  ]
+}
