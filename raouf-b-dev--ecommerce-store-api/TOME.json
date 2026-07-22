@@ -1,0 +1,117 @@
+{
+  "name": "ecommerce-store-api",
+  "owner": "raouf-b-dev",
+  "repo": "ecommerce-store-api",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ecommerce-store-api",
+      "path": ".agents/skills/quality-gates-check/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.agents/skills/quality-gates-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".claude/skills/quality-gates-check/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.claude/skills/quality-gates-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".agents/skills/docs-state-maintainer/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.agents/skills/docs-state-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".claude/skills/docs-state-maintainer/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.claude/skills/docs-state-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".agents/skills/architecture-boundary-guard/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.agents/skills/architecture-boundary-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".claude/skills/architecture-boundary-guard/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.claude/skills/architecture-boundary-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".agents/skills/module-conventions-generator/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.agents/skills/module-conventions-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".claude/skills/module-conventions-generator/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.claude/skills/module-conventions-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".github/skills/quality-gates-check/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.github/skills/quality-gates-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".github/skills/docs-state-maintainer/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.github/skills/docs-state-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".github/skills/architecture-boundary-guard/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.github/skills/architecture-boundary-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-store-api",
+      "path": ".github/skills/module-conventions-generator/SKILL.md",
+      "github_url": "https://github.com/raouf-b-dev/ecommerce-store-api/tree/main/.github/skills/module-conventions-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/raouf-b-dev/ecommerce-store-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:10:52Z"
+}
