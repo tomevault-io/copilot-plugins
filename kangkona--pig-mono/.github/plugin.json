@@ -1,0 +1,14 @@
+{
+  "name": "kangkona--pig-mono",
+  "displayName": "pig-mono",
+  "description": "pig-mono",
+  "version": "1.0.0",
+  "author": "kangkona",
+  "homepage": "https://github.com/kangkona/pig-mono",
+  "skills": [
+    {
+      "name": "pig-mono",
+      "description": ""
+    }
+  ]
+}
