@@ -1,0 +1,81 @@
+{
+  "name": "hermes-relay",
+  "owner": "Codename-11",
+  "repo": "hermes-relay",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hermes-relay",
+      "path": "relay_server/SKILL.md",
+      "github_url": "https://github.com/Codename-11/hermes-relay/tree/main/relay_server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-relay",
+      "path": "skills/android/SKILL.md",
+      "github_url": "https://github.com/Codename-11/hermes-relay/tree/main/skills/android/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-relay",
+      "path": "skills/devops/hermes-relay-pair/SKILL.md",
+      "github_url": "https://github.com/Codename-11/hermes-relay/tree/main/skills/devops/hermes-relay-pair/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-relay",
+      "path": "skills/devops/hermes-relay-status/SKILL.md",
+      "github_url": "https://github.com/Codename-11/hermes-relay/tree/main/skills/devops/hermes-relay-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-relay",
+      "path": "skills/devops/hermes-relay-doctor/SKILL.md",
+      "github_url": "https://github.com/Codename-11/hermes-relay/tree/main/skills/devops/hermes-relay-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes-relay",
+      "path": "skills/devops/hermes-relay-self-setup/SKILL.md",
+      "github_url": "https://github.com/Codename-11/hermes-relay/tree/main/skills/devops/hermes-relay-self-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Codename-11/hermes-relay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:07:21Z"
+}
