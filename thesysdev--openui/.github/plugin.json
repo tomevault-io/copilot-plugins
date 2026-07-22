@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "thesysdev",
   "homepage": "https://github.com/thesysdev/openui",
-  "skills": []
+  "skills": [
+    {
+      "name": "openui",
+      "description": ""
+    }
+  ]
 }
