@@ -1,0 +1,22 @@
+{
+  "name": "kubernetes-sigs--agent-sandbox",
+  "displayName": "agent-sandbox",
+  "description": "agent-sandbox enables easy management of isolated, stateful, singleton workloads, ideal for use cases like AI agent runtimes.",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/agent-sandbox",
+  "skills": [
+    {
+      "name": "agent-sandbox",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "description": ""
+    }
+  ]
+}
