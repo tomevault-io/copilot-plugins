@@ -1,0 +1,18 @@
+{
+  "name": "datadog--datadog-ci",
+  "displayName": "datadog-ci",
+  "description": "datadog-ci",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-ci",
+  "skills": [
+    {
+      "name": "datadog-ci",
+      "description": ""
+    },
+    {
+      "name": "datadog-ci",
+      "description": ""
+    }
+  ]
+}
