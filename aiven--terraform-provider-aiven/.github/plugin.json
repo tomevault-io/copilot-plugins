@@ -1,0 +1,22 @@
+{
+  "name": "aiven--terraform-provider-aiven",
+  "displayName": "terraform-provider-aiven",
+  "description": "terraform-provider-aiven",
+  "version": "1.0.0",
+  "author": "aiven",
+  "homepage": "https://github.com/aiven/terraform-provider-aiven",
+  "skills": [
+    {
+      "name": "tf-resource-generator",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-aiven",
+      "description": ""
+    },
+    {
+      "name": "terraform-provider-aiven",
+      "description": ""
+    }
+  ]
+}
