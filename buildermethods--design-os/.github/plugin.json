@@ -1,0 +1,14 @@
+{
+  "name": "buildermethods--design-os",
+  "displayName": "design-os",
+  "description": "design-os",
+  "version": "1.0.0",
+  "author": "buildermethods",
+  "homepage": "https://github.com/buildermethods/design-os",
+  "skills": [
+    {
+      "name": "design-os",
+      "description": ""
+    }
+  ]
+}
