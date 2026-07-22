@@ -1,0 +1,201 @@
+{
+  "name": "tree-sitter-analyzer",
+  "owner": "aimasteracc",
+  "repo": "tree-sitter-analyzer",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-deps/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-find/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-find/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-graph/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-index/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-landing/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-landing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-temporal/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-temporal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-pr-review/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-structure/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-constraints/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-edit-safety/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-edit-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-health-watch/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-health-watch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-refactor-queue/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-refactor-queue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": ".claude/skills/tsa-edit-then-verify/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/.claude/skills/tsa-edit-then-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-deps/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-find/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-find/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-graph/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-index/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-landing/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-landing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-temporal/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-temporal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-pr-review/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-structure/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-constraints/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-edit-safety/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-edit-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-health-watch/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-health-watch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-refactor-queue/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-refactor-queue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tree-sitter-analyzer",
+      "path": "tree_sitter_analyzer/skills/tsa-edit-then-verify/SKILL.md",
+      "github_url": "https://github.com/aimasteracc/tree-sitter-analyzer/tree/main/tree_sitter_analyzer/skills/tsa-edit-then-verify/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aimasteracc/tree-sitter-analyzer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:47:47Z"
+}
