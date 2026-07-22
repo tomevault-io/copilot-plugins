@@ -1,0 +1,14 @@
+{
+  "name": "provectus--awos",
+  "displayName": "awos",
+  "description": "Agentic Workflow Operating System for Coding Assistance",
+  "version": "1.0.0",
+  "author": "provectus",
+  "homepage": "https://github.com/provectus/awos",
+  "skills": [
+    {
+      "name": "awos",
+      "description": ""
+    }
+  ]
+}
