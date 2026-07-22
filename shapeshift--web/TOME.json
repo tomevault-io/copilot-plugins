@@ -1,0 +1,93 @@
+{
+  "name": "web",
+  "owner": "shapeshift",
+  "repo": "web",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chain-integration",
+      "path": ".claude/skills/chain-integration",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/chain-integration",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": ".claude/skills/react-best-practices",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "swapper-integration",
+      "path": ".claude/skills/swapper-integration",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/swapper-integration",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "path": ".claude/skills/qabot-fixture/SKILL.md",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/qabot-fixture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "path": ".claude/skills/chain-integration/SKILL.md",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/chain-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "path": ".claude/skills/swapper-integration/SKILL.md",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/swapper-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "path": ".claude/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web",
+      "path": ".claude/skills/chain-integration-crew/skill.md",
+      "github_url": "https://github.com/shapeshift/web/tree/main/.claude/skills/chain-integration-crew/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shapeshift/web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:43:47Z"
+}
