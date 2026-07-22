@@ -1,0 +1,14 @@
+{
+  "name": "cloudbytes-academy--cloudbytes-dev",
+  "displayName": "CloudBytes.dev",
+  "description": "CloudBytes.dev",
+  "version": "1.0.0",
+  "author": "CloudBytes-Academy",
+  "homepage": "https://github.com/CloudBytes-Academy/CloudBytes.dev",
+  "skills": [
+    {
+      "name": "CloudBytes.dev",
+      "description": ""
+    }
+  ]
+}
