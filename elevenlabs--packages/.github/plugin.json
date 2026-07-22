@@ -1,0 +1,14 @@
+{
+  "name": "elevenlabs--packages",
+  "displayName": "packages",
+  "description": "packages",
+  "version": "1.0.0",
+  "author": "elevenlabs",
+  "homepage": "https://github.com/elevenlabs/packages",
+  "skills": [
+    {
+      "name": "packages",
+      "description": ""
+    }
+  ]
+}
