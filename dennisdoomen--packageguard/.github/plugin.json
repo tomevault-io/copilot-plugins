@@ -1,0 +1,14 @@
+{
+  "name": "dennisdoomen--packageguard",
+  "displayName": "packageguard",
+  "description": "Dependency scanner to ensure only certain NuGet and NPM packages are used",
+  "version": "1.0.0",
+  "author": "dennisdoomen",
+  "homepage": "https://github.com/dennisdoomen/packageguard",
+  "skills": [
+    {
+      "name": "packageguard",
+      "description": ""
+    }
+  ]
+}
