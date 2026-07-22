@@ -5,22 +5,5 @@
   "version": "1.0.0",
   "author": "lnxjedi",
   "homepage": "https://github.com/lnxjedi/gopherbot",
-  "skills": [
-    {
-      "name": "gopherbot-multi-protocol-migration",
-      "description": ""
-    },
-    {
-      "name": "gopherbot",
-      "description": ""
-    },
-    {
-      "name": "gopherbot",
-      "description": ""
-    },
-    {
-      "name": "gopherbot",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
