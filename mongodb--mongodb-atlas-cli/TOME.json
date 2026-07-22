@@ -1,0 +1,51 @@
+{
+  "name": "mongodb-atlas-cli",
+  "owner": "mongodb",
+  "repo": "mongodb-atlas-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mongodb-atlas-cli",
+      "path": ".agents/skills/atlas-cli-open-pr/SKILL.md",
+      "github_url": "https://github.com/mongodb/mongodb-atlas-cli/tree/main/.agents/skills/atlas-cli-open-pr/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mongodb/mongodb-atlas-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T18:36:07Z"
+}
