@@ -1,0 +1,189 @@
+{
+  "name": "druid",
+  "owner": "alibaba",
+  "repo": "druid",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openspec-apply-change",
+      "path": ".qoder/skills/openspec-apply-change",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-apply-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-continue-change",
+      "path": ".cursor/skills/openspec-continue-change",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-continue-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-new-change",
+      "path": ".cursor/skills/openspec-new-change",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-new-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-onboard",
+      "path": ".cursor/skills/openspec-onboard",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-onboard",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".qoder/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.qoder/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "druid",
+      "path": ".cursor/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/alibaba/druid/tree/main/.cursor/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alibaba/druid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:31:01Z"
+}
