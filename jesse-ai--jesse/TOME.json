@@ -1,0 +1,51 @@
+{
+  "name": "jesse",
+  "owner": "jesse-ai",
+  "repo": "jesse",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jesse",
+      "path": ".claude/skills/jesse-strategy-tests/SKILL.md",
+      "github_url": "https://github.com/jesse-ai/jesse/tree/main/.claude/skills/jesse-strategy-tests/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jesse-ai/jesse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:59:59Z"
+}
