@@ -1,0 +1,9 @@
+{
+  "name": "vana-com--vana-react",
+  "displayName": "vana-react",
+  "description": "React hooks and components for integrating with the Vana Network.",
+  "version": "1.0.0",
+  "author": "vana-com",
+  "homepage": "https://github.com/vana-com/vana-react",
+  "skills": []
+}
