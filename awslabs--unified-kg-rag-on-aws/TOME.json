@@ -1,0 +1,44 @@
+{
+  "name": "unified-kg-rag-on-aws",
+  "owner": "awslabs",
+  "repo": "unified-kg-rag-on-aws",
+  "description": "AWS-native knowledge graph RAG framework unifying two graph-retrieval methodologies \u2014 Microsoft GraphRAG community summarization and LightRAG dual-level keyword search \u2014 on Amazon Bedrock, Neptune, and OpenSearch. Multi-hop QA over document corpora, with incremental indexing and multilingual support.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/awslabs/unified-kg-rag-on-aws",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:39:50Z"
+}
