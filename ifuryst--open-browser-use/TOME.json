@@ -1,0 +1,57 @@
+{
+  "name": "open-browser-use",
+  "owner": "iFurySt",
+  "repo": "open-browser-use",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "open-browser-use",
+      "path": "skills/open-browser-use/SKILL.md",
+      "github_url": "https://github.com/iFurySt/open-browser-use/tree/main/skills/open-browser-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-browser-use",
+      "path": "docs/references/chrome/0.1.7/skills/chrome/SKILL.md",
+      "github_url": "https://github.com/iFurySt/open-browser-use/tree/main/docs/references/chrome/0.1.7/skills/chrome/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iFurySt/open-browser-use",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T04:09:14Z"
+}
