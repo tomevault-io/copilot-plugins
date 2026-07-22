@@ -1,0 +1,93 @@
+{
+  "name": "butler",
+  "owner": "ptarmiganlabs",
+  "repo": "butler",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "butler",
+      "path": ".claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "butler",
+      "path": ".claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "butler",
+      "path": ".claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "butler",
+      "path": ".claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "butler",
+      "path": ".claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "butler",
+      "path": ".claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "butler",
+      "path": ".github/skills/agentic-workflows/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.github/skills/agentic-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "butler",
+      "path": ".github/skills/agentic-workflow-designer/SKILL.md",
+      "github_url": "https://github.com/ptarmiganlabs/butler/tree/main/.github/skills/agentic-workflow-designer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ptarmiganlabs/butler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:21:44Z"
+}
