@@ -1,0 +1,26 @@
+{
+  "name": "gravitee-io--gravitee-access-management",
+  "displayName": "gravitee-access-management",
+  "description": "gravitee-access-management",
+  "version": "1.0.0",
+  "author": "gravitee-io",
+  "homepage": "https://github.com/gravitee-io/gravitee-access-management",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "gravitee-access-management",
+      "description": ""
+    },
+    {
+      "name": "gravitee-access-management",
+      "description": ""
+    },
+    {
+      "name": "gravitee-access-management",
+      "description": ""
+    }
+  ]
+}
