@@ -1,0 +1,14 @@
+{
+  "name": "tryagi--openai",
+  "displayName": "OpenAI",
+  "description": "OpenAI",
+  "version": "1.0.0",
+  "author": "tryAGI",
+  "homepage": "https://github.com/tryAGI/OpenAI",
+  "skills": [
+    {
+      "name": "OpenAI",
+      "description": ""
+    }
+  ]
+}
