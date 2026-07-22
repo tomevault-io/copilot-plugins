@@ -1,0 +1,34 @@
+{
+  "name": "transloadit--node-sdk",
+  "displayName": "node-sdk",
+  "description": "node-sdk",
+  "version": "1.0.0",
+  "author": "transloadit",
+  "homepage": "https://github.com/transloadit/node-sdk",
+  "skills": [
+    {
+      "name": "gh-pr-to-green",
+      "description": ""
+    },
+    {
+      "name": "handover",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "node-sdk",
+      "description": ""
+    },
+    {
+      "name": "node-sdk",
+      "description": ""
+    },
+    {
+      "name": "node-sdk",
+      "description": ""
+    }
+  ]
+}
