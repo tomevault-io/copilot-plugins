@@ -1,0 +1,34 @@
+{
+  "name": "alps-asd--app-state-diagram",
+  "displayName": "app-state-diagram",
+  "description": "app-state-diagram",
+  "version": "1.0.0",
+  "author": "alps-asd",
+  "homepage": "https://github.com/alps-asd/app-state-diagram",
+  "skills": [
+    {
+      "name": "openapi",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "app-state-diagram",
+      "description": ""
+    },
+    {
+      "name": "app-state-diagram",
+      "description": ""
+    },
+    {
+      "name": "app-state-diagram",
+      "description": ""
+    },
+    {
+      "name": "app-state-diagram",
+      "description": ""
+    }
+  ]
+}
