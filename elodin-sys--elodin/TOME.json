@@ -1,0 +1,105 @@
+{
+  "name": "elodin",
+  "owner": "elodin-sys",
+  "repo": "elodin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/bevy/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/bevy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-db/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-db/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/nox-py-dev/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/nox-py-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-nix/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-nix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-dev/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-aleph/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-aleph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-tracy/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-tracy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-cranelift/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-cranelift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-simulation/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-simulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "elodin",
+      "path": ".cursor/skills/elodin-editor-dev/SKILL.md",
+      "github_url": "https://github.com/elodin-sys/elodin/tree/main/.cursor/skills/elodin-editor-dev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/elodin-sys/elodin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:07:01Z"
+}
