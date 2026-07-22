@@ -1,0 +1,34 @@
+{
+  "name": "husamql3--pstrack",
+  "displayName": "pstrack",
+  "description": "pstrack",
+  "version": "1.0.0",
+  "author": "husamql3",
+  "homepage": "https://github.com/husamql3/pstrack",
+  "skills": [
+    {
+      "name": "better-auth-best-practices",
+      "description": ""
+    },
+    {
+      "name": "create-auth-skill",
+      "description": ""
+    },
+    {
+      "name": "drizzle",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "wrangler",
+      "description": ""
+    },
+    {
+      "name": "zustand",
+      "description": ""
+    }
+  ]
+}
