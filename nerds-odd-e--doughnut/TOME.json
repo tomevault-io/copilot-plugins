@@ -1,0 +1,111 @@
+{
+  "name": "doughnut",
+  "owner": "nerds-odd-e",
+  "repo": "doughnut",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/bug-fixing/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/bug-fixing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/execute-plan/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/execute-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/database-erd/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/database-erd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/cloud-vm-setup/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/cloud-vm-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/manual-testing/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/manual-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/phased-planning/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/phased-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/mutation-testing/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/mutation-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/test-optimization/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/test-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/generate-api-client/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/generate-api-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/post-change-refactor/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/post-change-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "doughnut",
+      "path": ".cursor/skills/codebase-retrospective/SKILL.md",
+      "github_url": "https://github.com/nerds-odd-e/doughnut/tree/main/.cursor/skills/codebase-retrospective/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nerds-odd-e/doughnut",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:55:44Z"
+}
