@@ -1,0 +1,273 @@
+{
+  "name": "addfox",
+  "owner": "addfox",
+  "repo": "addfox",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "addfox",
+      "path": ".agents/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/audit/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/polish/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/harden/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/delight/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/animate/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/distill/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/extract/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/critique/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/researcher/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/researcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/docs-write/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/docs-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/docs-review/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/docs-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/docs-lookup/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/docs-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/dev-workflow/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/dev-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/cicd-workflow/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/cicd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/codebase-stats/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/codebase-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/schema-migrator/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/schema-migrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/docker-workflow/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/docker-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/security-auditor/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/security-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/readme-generator/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/readme-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/docker-validator/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/docker-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/teach-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/refactor-executor/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/refactor-executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/refactor-analyzer/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/refactor-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/hierarchy-unifier/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/hierarchy-unifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/migrate-to-addfox/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/migrate-to-addfox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/error-standardizer/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/error-standardizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/dependency-analyzer/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/dependency-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/production-code-workflow/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/production-code-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "addfox",
+      "path": ".agents/skills/library-implementer-python/SKILL.md",
+      "github_url": "https://github.com/addfox/addfox/tree/main/.agents/skills/library-implementer-python/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/addfox/addfox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:18:44Z"
+}
