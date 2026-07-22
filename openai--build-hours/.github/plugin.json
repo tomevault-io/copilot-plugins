@@ -1,0 +1,14 @@
+{
+  "name": "openai--build-hours",
+  "displayName": "build-hours",
+  "description": "build-hours",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/build-hours",
+  "skills": [
+    {
+      "name": "build-hours",
+      "description": ""
+    }
+  ]
+}
