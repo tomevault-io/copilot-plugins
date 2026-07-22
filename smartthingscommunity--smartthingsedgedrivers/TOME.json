@@ -1,0 +1,69 @@
+{
+  "name": "SmartThingsEdgeDrivers",
+  "owner": "SmartThingsCommunity",
+  "repo": "SmartThingsEdgeDrivers",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "path": ".agents/skills/linting-and-style/SKILL.md",
+      "github_url": "https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/tree/main/.agents/skills/linting-and-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "path": ".agents/skills/testing-edge-drivers/SKILL.md",
+      "github_url": "https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/tree/main/.agents/skills/testing-edge-drivers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "path": ".agents/skills/understanding-profiles/SKILL.md",
+      "github_url": "https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/tree/main/.agents/skills/understanding-profiles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdgeDrivers",
+      "path": ".agents/skills/understanding-lua-libraries/SKILL.md",
+      "github_url": "https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/tree/main/.agents/skills/understanding-lua-libraries/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:43:02Z"
+}
