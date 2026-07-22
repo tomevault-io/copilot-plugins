@@ -1,0 +1,327 @@
+{
+  "name": "dotfiles",
+  "owner": "mikker",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/steve/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/steve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/commit/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/defuddle/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/defuddle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/librarian/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/librarian/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/sentry-cli/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/sentry-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/chrome-cdp/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/chrome-cdp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/proper-fix/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/proper-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/web-search/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/web-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/playwriter/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/playwriter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/hunk-review/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/hunk-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/oklch-skill/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/oklch-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/web-browser/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/web-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/swiftui-pro/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/swiftui-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/rails-hotwire/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/rails-hotwire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/diagram-first/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/diagram-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/visit-webpage/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/visit-webpage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/refactor-pass/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/refactor-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/upgrade-stripe/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/upgrade-stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/dhh-ruby-style/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/dhh-ruby-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/swiftui-skills/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/swiftui-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/tailwind-modern/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/tailwind-modern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/gemini-imagegen/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/gemini-imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/stripe-projects/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/stripe-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/pear-v2-runtime/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/pear-v2-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/bare-importmaps/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/bare-importmaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/dhh-rails-style/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/dhh-rails-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/beautiful-mermaid/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/beautiful-mermaid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/autobonk-contexts/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/autobonk-contexts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/solidify-codebase/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/solidify-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/project-skill-audit/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/project-skill-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/swiftui-ui-patterns/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/swiftui-ui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/nitro-kit-components/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/nitro-kit-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/andrew-kane-gem-writer/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/andrew-kane-gem-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/hyperstack-foundations/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/hyperstack-foundations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/macos-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/macos-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/swift-concurrency-expert/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/swift-concurrency-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/holepunch-app-composition/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/holepunch-app-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/make-interfaces-feel-better/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/make-interfaces-feel-better/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/reread-files-before-editing/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/reread-files-before-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/swiftui-skills/swiftui_skills/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/swiftui-skills/swiftui_skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/swiftui-pro/skills/swiftui-pro/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/swiftui-pro/skills/swiftui-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents.symlink/skills/ask-questions-if-underspecified/SKILL.md",
+      "github_url": "https://github.com/mikker/dotfiles/tree/main/agents.symlink/skills/ask-questions-if-underspecified/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mikker/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:03:19Z"
+}
