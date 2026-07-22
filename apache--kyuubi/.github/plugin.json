@@ -1,0 +1,9 @@
+{
+  "name": "apache--kyuubi",
+  "displayName": "kyuubi",
+  "description": "kyuubi",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/kyuubi",
+  "skills": []
+}
