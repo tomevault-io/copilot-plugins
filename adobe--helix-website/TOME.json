@@ -1,0 +1,219 @@
+{
+  "name": "helix-website",
+  "owner": "adobe",
+  "repo": "helix-website",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "authoring-analysis",
+      "path": ".claude/skills/authoring-analysis",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/authoring-analysis",
+      "description": ""
+    },
+    {
+      "name": "block-inventory",
+      "path": ".claude/skills/block-inventory",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/block-inventory",
+      "description": ""
+    },
+    {
+      "name": "building-blocks",
+      "path": ".claude/skills/building-blocks",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/building-blocks",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "generate-import-html",
+      "path": ".claude/skills/generate-import-html",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/generate-import-html",
+      "description": ""
+    },
+    {
+      "name": "identify-page-structure",
+      "path": ".claude/skills/identify-page-structure",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/identify-page-structure",
+      "description": ""
+    },
+    {
+      "name": "content-modeling",
+      "path": ".claude/skills/content-modeling",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/content-modeling",
+      "description": ""
+    },
+    {
+      "name": "page-import",
+      "path": ".claude/skills/page-import",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/page-import",
+      "description": ""
+    },
+    {
+      "name": "preview-import",
+      "path": ".claude/skills/preview-import",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/preview-import",
+      "description": ""
+    },
+    {
+      "name": "scrape-webpage",
+      "path": ".claude/skills/scrape-webpage",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/scrape-webpage",
+      "description": ""
+    },
+    {
+      "name": "docs-search",
+      "path": ".claude/skills/docs-search",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/docs-search",
+      "description": ""
+    },
+    {
+      "name": "testing-blocks",
+      "path": ".claude/skills/testing-blocks",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/testing-blocks",
+      "description": ""
+    },
+    {
+      "name": "content-driven-development",
+      "path": ".claude/skills/content-driven-development",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/content-driven-development",
+      "description": ""
+    },
+    {
+      "name": "block-collection-and-party",
+      "path": ".claude/skills/block-collection-and-party",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/block-collection-and-party",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/docs-search/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/docs-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/page-import/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/page-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/testing-blocks/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/testing-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/preview-import/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/preview-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/scrape-webpage/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/scrape-webpage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/building-blocks/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/building-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/block-inventory/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/block-inventory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/content-modeling/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/content-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/page-decomposition/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/page-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/authoring-analysis/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/authoring-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/generate-import-html/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/generate-import-html/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/identify-page-structure/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/identify-page-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/block-collection-and-party/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/block-collection-and-party/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "helix-website",
+      "path": ".claude/skills/content-driven-development/SKILL.md",
+      "github_url": "https://github.com/adobe/helix-website/tree/main/.claude/skills/content-driven-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adobe/helix-website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:32:19Z"
+}
