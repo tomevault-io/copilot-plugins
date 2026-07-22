@@ -1,0 +1,14 @@
+{
+  "name": "openshift--api",
+  "displayName": "api",
+  "description": "api",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/api",
+  "skills": [
+    {
+      "name": "api",
+      "description": ""
+    }
+  ]
+}
