@@ -1,0 +1,9 @@
+{
+  "name": "staff-room--notion-agreements-automation",
+  "displayName": "notion-agreements-automation",
+  "description": "Automated agreement lifecycle management with e-signatures and billing integration",
+  "version": "1.0.0",
+  "author": "Staff-Room",
+  "homepage": "https://github.com/Staff-Room/notion-agreements-automation",
+  "skills": []
+}
