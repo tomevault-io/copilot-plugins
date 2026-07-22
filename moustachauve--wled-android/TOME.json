@@ -1,0 +1,147 @@
+{
+  "name": "WLED-Android",
+  "owner": "Moustachauve",
+  "repo": "WLED-Android",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/compose-ui/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/compose-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/coil-compose/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/coil-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-testing/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-retrofit/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-retrofit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-viewmodel/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-viewmodel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/compose-navigation/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/compose-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-coroutines/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-coroutines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-data-layer/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-gradle-logic/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-gradle-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-architecture/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-accessibility/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/android-emulator-skill/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/android-emulator-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/gradle-build-performance/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/gradle-build-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/xml-to-compose-migration/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/xml-to-compose-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/compose-performance-audit/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/compose-performance-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/kotlin-concurrency-expert/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/kotlin-concurrency-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "WLED-Android",
+      "path": ".github/skills/rxjava-to-coroutines-migration/SKILL.md",
+      "github_url": "https://github.com/Moustachauve/WLED-Android/tree/main/.github/skills/rxjava-to-coroutines-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Moustachauve/WLED-Android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:54:12Z"
+}
