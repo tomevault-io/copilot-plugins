@@ -1,0 +1,99 @@
+{
+  "name": "codemod",
+  "owner": "codemod",
+  "repo": "codemod",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codemod-semantic-providers",
+      "path": ".agents/skills/codemod-semantic-providers",
+      "github_url": "https://github.com/codemod/codemod/tree/main/.agents/skills/codemod-semantic-providers",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": "skills/codemod/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/skills/codemod/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": ".agents/skills/codemod-docs/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/.agents/skills/codemod-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": ".agents/skills/codemod-cli-tui/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/.agents/skills/codemod-cli-tui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": "crates/cli/src/templates/skill/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/crates/cli/src/templates/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": ".agents/skills/codemod-jssg-sandbox/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/.agents/skills/codemod-jssg-sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": ".agents/skills/codemod-rust-workspace/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/.agents/skills/codemod-rust-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": ".agents/skills/codemod-semantic-providers/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/.agents/skills/codemod-semantic-providers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codemod",
+      "path": "crates/cli/src/templates/ai-native-cli/codemod-cli/SKILL.md",
+      "github_url": "https://github.com/codemod/codemod/tree/main/crates/cli/src/templates/ai-native-cli/codemod-cli/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/codemod/codemod",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T14:15:55Z"
+}
