@@ -1,0 +1,14 @@
+{
+  "name": "haehnchen--idea-php-symfony2-plugin",
+  "displayName": "idea-php-symfony2-plugin",
+  "description": "idea-php-symfony2-plugin",
+  "version": "1.0.0",
+  "author": "Haehnchen",
+  "homepage": "https://github.com/Haehnchen/idea-php-symfony2-plugin",
+  "skills": [
+    {
+      "name": "idea-php-symfony2-plugin",
+      "description": ""
+    }
+  ]
+}
