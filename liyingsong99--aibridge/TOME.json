@@ -1,0 +1,87 @@
+{
+  "name": "AIBridge",
+  "owner": "liyingsong99",
+  "repo": "AIBridge",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AIBridge",
+      "path": "Skill~/unity-yaml-editing/SKILL.md",
+      "github_url": "https://github.com/liyingsong99/AIBridge/tree/main/Skill~/unity-yaml-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AIBridge",
+      "path": "Skill~/aibridge-code-index/SKILL.md",
+      "github_url": "https://github.com/liyingsong99/AIBridge/tree/main/Skill~/aibridge-code-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AIBridge",
+      "path": "Skill~/aibridge-prefab-patch/SKILL.md",
+      "github_url": "https://github.com/liyingsong99/AIBridge/tree/main/Skill~/aibridge-prefab-patch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AIBridge",
+      "path": "Skill~/aibridge-batch-script/SKILL.md",
+      "github_url": "https://github.com/liyingsong99/AIBridge/tree/main/Skill~/aibridge-batch-script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AIBridge",
+      "path": "Skill~/aibridge-development-workflow/SKILL.md",
+      "github_url": "https://github.com/liyingsong99/AIBridge/tree/main/Skill~/aibridge-development-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AIBridge",
+      "path": "Skill~/aibridge-workflow-orchestration/SKILL.md",
+      "github_url": "https://github.com/liyingsong99/AIBridge/tree/main/Skill~/aibridge-workflow-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AIBridge",
+      "path": "Skill~/SKILL.md",
+      "github_url": "https://github.com/liyingsong99/AIBridge/tree/main/Skill~/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/liyingsong99/AIBridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T12:07:40Z"
+}
