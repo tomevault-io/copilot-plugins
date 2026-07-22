@@ -1,0 +1,14 @@
+{
+  "name": "zcf0508--unplugin-devpilot",
+  "displayName": "unplugin-devpilot",
+  "description": "unplugin-devpilot",
+  "version": "1.0.0",
+  "author": "zcf0508",
+  "homepage": "https://github.com/zcf0508/unplugin-devpilot",
+  "skills": [
+    {
+      "name": "unplugin-devpilot",
+      "description": ""
+    }
+  ]
+}
