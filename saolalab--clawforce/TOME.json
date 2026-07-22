@@ -1,0 +1,363 @@
+{
+  "name": "clawforce",
+  "owner": "saolalab",
+  "repo": "clawforce",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clawforce",
+      "path": "clawbot/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/clawbot/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "clawbot/skills/cron/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/clawbot/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "clawbot/skills/memory/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/clawbot/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "clawbot/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/clawbot/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "clawbot/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/clawbot/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/sre/workspace/skills/monitoring/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/sre/workspace/skills/monitoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/cto/workspace/skills/tech-radar/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/cto/workspace/skills/tech-radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/default/workspace/skills/github/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/default/workspace/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/ceo/workspace/skills/company-ops/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/ceo/workspace/skills/company-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/default/workspace/skills/weather/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/default/workspace/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/default/workspace/skills/skills_sh/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/default/workspace/skills/skills_sh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/sre/workspace/skills/infrastructure/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/sre/workspace/skills/infrastructure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/hr-manager/workspace/skills/recruiting/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/hr-manager/workspace/skills/recruiting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/hr-manager/workspace/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/hr-manager/workspace/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/hr-manager/workspace/skills/people-ops/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/hr-manager/workspace/skills/people-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/sre/workspace/skills/incident-response/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/sre/workspace/skills/incident-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/devops-engineer/workspace/skills/ci-cd/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/devops-engineer/workspace/skills/ci-cd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/software-engineer/workspace/skills/git/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/software-engineer/workspace/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/ceo/workspace/skills/strategic-planning/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/ceo/workspace/skills/strategic-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/cto/workspace/skills/architecture-review/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/cto/workspace/skills/architecture-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/product-manager/workspace/skills/roadmap/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/product-manager/workspace/skills/roadmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/legal-counsel/workspace/skills/compliance/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/legal-counsel/workspace/skills/compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/software-engineer/workspace/skills/testing/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/software-engineer/workspace/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/technical-writer/workspace/skills/api-docs/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/technical-writer/workspace/skills/api-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/ux-designer/workspace/skills/user-research/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/ux-designer/workspace/skills/user-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/data-analyst/workspace/skills/data-analysis/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/data-analyst/workspace/skills/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/data-analyst/workspace/skills/data-pipeline/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/data-analyst/workspace/skills/data-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/data-analyst/workspace/skills/visualization/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/data-analyst/workspace/skills/visualization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/ux-designer/workspace/skills/design-systems/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/ux-designer/workspace/skills/design-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/qa-engineer/workspace/skills/test-automation/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/qa-engineer/workspace/skills/test-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/finance-controller/workspace/skills/budgeting/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/finance-controller/workspace/skills/budgeting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/legal-counsel/workspace/skills/risk-assessment/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/legal-counsel/workspace/skills/risk-assessment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/product-manager/workspace/skills/user-research/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/product-manager/workspace/skills/user-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/legal-counsel/workspace/skills/contract-review/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/legal-counsel/workspace/skills/contract-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/qa-engineer/workspace/skills/quality-assurance/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/qa-engineer/workspace/skills/quality-assurance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/software-engineer/workspace/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/software-engineer/workspace/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/finance-controller/workspace/skills/bookkeeping/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/finance-controller/workspace/skills/bookkeeping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/technical-writer/workspace/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/technical-writer/workspace/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/marketing-lead/workspace/skills/growth-analytics/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/marketing-lead/workspace/skills/growth-analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/marketing-lead/workspace/skills/content-creation/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/marketing-lead/workspace/skills/content-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/project-manager/workspace/skills/project-tracking/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/project-manager/workspace/skills/project-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/solution-architect/workspace/skills/solution-design/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/solution-architect/workspace/skills/solution-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/sales-lead/workspace/skills/partnership-development/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/sales-lead/workspace/skills/partnership-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/project-manager/workspace/skills/resource-management/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/project-manager/workspace/skills/resource-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/business-analyst/workspace/skills/process-improvement/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/business-analyst/workspace/skills/process-improvement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/security-engineer/workspace/skills/penetration-testing/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/security-engineer/workspace/skills/penetration-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/customer-support-lead/workspace/skills/customer-success/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/customer-support-lead/workspace/skills/customer-success/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/business-analyst/workspace/skills/requirements-analysis/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/business-analyst/workspace/skills/requirements-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/finance-controller/workspace/skills/financial-reporting/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/finance-controller/workspace/skills/financial-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/solution-architect/workspace/skills/integration-patterns/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/solution-architect/workspace/skills/integration-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/customer-support-lead/workspace/skills/ticket-management/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/customer-support-lead/workspace/skills/ticket-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/devops-engineer/workspace/skills/infrastructure-automation/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/devops-engineer/workspace/skills/infrastructure-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clawforce",
+      "path": "marketplace/roles/security-engineer/workspace/skills/vulnerability-management/SKILL.md",
+      "github_url": "https://github.com/saolalab/clawforce/tree/main/marketplace/roles/security-engineer/workspace/skills/vulnerability-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/saolalab/clawforce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:25:23Z"
+}
