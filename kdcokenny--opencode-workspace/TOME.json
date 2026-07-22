@@ -1,0 +1,105 @@
+{
+  "name": "opencode-workspace",
+  "owner": "kdcokenny",
+  "repo": "opencode-workspace",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opencode-workspace",
+      "path": "src/skill/code-review/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skill/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skill/plan-review/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skill/plan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skills/plan-review/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skills/plan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skill/plan-protocol/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skill/plan-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skills/plan-protocol/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skills/plan-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skill/code-philosophy/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skill/code-philosophy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skills/code-philosophy/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skills/code-philosophy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skill/frontend-philosophy/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skill/frontend-philosophy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opencode-workspace",
+      "path": "src/skills/frontend-philosophy/SKILL.md",
+      "github_url": "https://github.com/kdcokenny/opencode-workspace/tree/main/src/skills/frontend-philosophy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kdcokenny/opencode-workspace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:48:01Z"
+}
