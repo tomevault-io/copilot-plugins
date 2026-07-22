@@ -1,0 +1,63 @@
+{
+  "name": "agent-sandbox",
+  "owner": "kubernetes-sigs",
+  "repo": "agent-sandbox",
+  "description": "agent-sandbox enables easy management of isolated, stateful, singleton workloads, ideal for use cases like AI agent runtimes.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/dev-rules/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/agent-sandbox/tree/main/.agents/skills/dev-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/bump-go-version/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/agent-sandbox/tree/main/.agents/skills/bump-go-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sandbox",
+      "path": ".agents/skills/k8s-api-conventions/SKILL.md",
+      "github_url": "https://github.com/kubernetes-sigs/agent-sandbox/tree/main/.agents/skills/k8s-api-conventions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kubernetes-sigs/agent-sandbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:44:37Z"
+}
