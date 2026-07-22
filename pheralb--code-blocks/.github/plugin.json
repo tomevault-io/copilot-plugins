@@ -1,0 +1,14 @@
+{
+  "name": "pheralb--code-blocks",
+  "displayName": "code-blocks",
+  "description": "code-blocks",
+  "version": "1.0.0",
+  "author": "pheralb",
+  "homepage": "https://github.com/pheralb/code-blocks",
+  "skills": [
+    {
+      "name": "code-blocks",
+      "description": ""
+    }
+  ]
+}
