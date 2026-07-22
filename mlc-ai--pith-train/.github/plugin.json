@@ -1,9 +1,42 @@
 {
   "name": "mlc-ai--pith-train",
-  "displayName": "pith-train",
-  "description": "Compact and Agent-Native MoE Training System",
+  "displayName": "Pith-Train",
+  "description": "Pith-Train",
   "version": "1.0.0",
   "author": "mlc-ai",
-  "homepage": "https://github.com/mlc-ai/pith-train",
-  "skills": []
+  "homepage": "https://github.com/mlc-ai/Pith-Train",
+  "skills": [
+    {
+      "name": "Pith-Train",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "description": ""
+    },
+    {
+      "name": "Pith-Train",
+      "description": ""
+    }
+  ]
 }
