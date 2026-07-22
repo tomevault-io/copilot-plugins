@@ -1,0 +1,14 @@
+{
+  "name": "gethugothemes--hargo-hugo",
+  "displayName": "hargo-hugo",
+  "description": "hargo-hugo",
+  "version": "1.0.0",
+  "author": "gethugothemes",
+  "homepage": "https://github.com/gethugothemes/hargo-hugo",
+  "skills": [
+    {
+      "name": "hargo-hugo",
+      "description": ""
+    }
+  ]
+}
