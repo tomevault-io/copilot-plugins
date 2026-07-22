@@ -1,0 +1,34 @@
+{
+  "name": "bartholomej--node-csfd-api",
+  "displayName": "node-csfd-api",
+  "description": "node-csfd-api",
+  "version": "1.0.0",
+  "author": "bartholomej",
+  "homepage": "https://github.com/bartholomej/node-csfd-api",
+  "skills": [
+    {
+      "name": "add_mcp_tool",
+      "description": ""
+    },
+    {
+      "name": "implement_scraper_feature",
+      "description": ""
+    },
+    {
+      "name": "validate_changes",
+      "description": ""
+    },
+    {
+      "name": "node-csfd-api",
+      "description": ""
+    },
+    {
+      "name": "node-csfd-api",
+      "description": ""
+    },
+    {
+      "name": "node-csfd-api",
+      "description": ""
+    }
+  ]
+}
