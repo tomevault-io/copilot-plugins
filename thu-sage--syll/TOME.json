@@ -1,0 +1,123 @@
+{
+  "name": "syll",
+  "owner": "THU-SAGE",
+  "repo": "syll",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "syll",
+      "path": "syll/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/cron/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/github/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/weather/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/gui-agent/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/gui-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/file-retrieval/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/file-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/local-mail-sim/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/local-mail-sim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/morning-podcast/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/morning-podcast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/photoshop-cutout/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/photoshop-cutout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/mihoyo-checkin-sim/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/mihoyo-checkin-sim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "syll",
+      "path": "syll/skills/audition-clean-voice/SKILL.md",
+      "github_url": "https://github.com/THU-SAGE/syll/tree/main/syll/skills/audition-clean-voice/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/THU-SAGE/syll",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:36:18Z"
+}
