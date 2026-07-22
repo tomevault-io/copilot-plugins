@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--nimbus",
+  "displayName": "nimbus",
+  "description": "Docs for humans and agents, built on Astro",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/nimbus",
+  "skills": []
+}
