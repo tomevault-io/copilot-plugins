@@ -1,0 +1,9 @@
+{
+  "name": "rossoctl--rossoctl",
+  "displayName": "rossoctl",
+  "description": "Main Kagenti repo - installer, UI and docs",
+  "version": "1.0.0",
+  "author": "rossoctl",
+  "homepage": "https://github.com/rossoctl/rossoctl",
+  "skills": []
+}
