@@ -1,0 +1,14 @@
+{
+  "name": "leosssvip-dot--remotion-ad-video-skill",
+  "displayName": "remotion-ad-video-skill",
+  "description": "remotion-ad-video-skill",
+  "version": "1.0.0",
+  "author": "leosssvip-dot",
+  "homepage": "https://github.com/leosssvip-dot/remotion-ad-video-skill",
+  "skills": [
+    {
+      "name": "remotion-ad-video-skill",
+      "description": ""
+    }
+  ]
+}
