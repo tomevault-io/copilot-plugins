@@ -1,0 +1,14 @@
+{
+  "name": "hazat--badge",
+  "displayName": "badge",
+  "description": "badge",
+  "version": "1.0.0",
+  "author": "HazAT",
+  "homepage": "https://github.com/HazAT/badge",
+  "skills": [
+    {
+      "name": "badge",
+      "description": ""
+    }
+  ]
+}
