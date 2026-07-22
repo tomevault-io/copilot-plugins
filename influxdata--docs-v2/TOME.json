@@ -1,0 +1,87 @@
+{
+  "name": "docs-v2",
+  "owner": "influxdata",
+  "repo": "docs-v2",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "content-editing",
+      "path": ".claude/skills/content-editing",
+      "github_url": "https://github.com/influxdata/docs-v2/tree/main/.claude/skills/content-editing",
+      "description": ""
+    },
+    {
+      "name": "cypress-e2e-testing",
+      "path": ".claude/skills/cypress-e2e-testing",
+      "github_url": "https://github.com/influxdata/docs-v2/tree/main/.claude/skills/cypress-e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "docs-cli-workflow",
+      "path": ".claude/skills/docs-cli-workflow",
+      "github_url": "https://github.com/influxdata/docs-v2/tree/main/.claude/skills/docs-cli-workflow",
+      "description": ""
+    },
+    {
+      "name": "hugo-template-dev",
+      "path": ".claude/skills/hugo-template-dev",
+      "github_url": "https://github.com/influxdata/docs-v2/tree/main/.claude/skills/hugo-template-dev",
+      "description": ""
+    },
+    {
+      "name": "influxdb3-test-setup",
+      "path": ".claude/skills/influxdb3-test-setup",
+      "github_url": "https://github.com/influxdata/docs-v2/tree/main/.claude/skills/influxdb3-test-setup",
+      "description": ""
+    },
+    {
+      "name": "vale-linting",
+      "path": ".claude/skills/vale-linting",
+      "github_url": "https://github.com/influxdata/docs-v2/tree/main/.claude/skills/vale-linting",
+      "description": ""
+    },
+    {
+      "name": "vale-rule-config",
+      "path": ".claude/skills/vale-rule-config",
+      "github_url": "https://github.com/influxdata/docs-v2/tree/main/.claude/skills/vale-rule-config",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/influxdata/docs-v2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:34:55Z"
+}
