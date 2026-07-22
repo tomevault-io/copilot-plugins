@@ -1,0 +1,14 @@
+{
+  "name": "featurevisor--featurevisor",
+  "displayName": "featurevisor",
+  "description": "featurevisor",
+  "version": "1.0.0",
+  "author": "featurevisor",
+  "homepage": "https://github.com/featurevisor/featurevisor",
+  "skills": [
+    {
+      "name": "featurevisor",
+      "description": ""
+    }
+  ]
+}
