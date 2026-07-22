@@ -1,0 +1,147 @@
+{
+  "name": "laravel-expressive",
+  "owner": "WendellAdriel",
+  "repo": "laravel-expressive",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/package-docs/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/package-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/package-docs/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/package-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/package-release/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/package-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/package-release/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/package-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/package-testing/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/package-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/package-testing/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/package-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/package-scaffold/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/package-scaffold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/package-scaffold/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/package-scaffold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/skeleton-development/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/skeleton-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/skeleton-development/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/skeleton-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/package-compatibility/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/package-compatibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/package-compatibility/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/package-compatibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/package-generate-skill/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/package-generate-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/package-generate-skill/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/package-generate-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".agents/skills/package-service-provider/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.agents/skills/package-service-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": ".claude/skills/package-service-provider/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/.claude/skills/package-service-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "laravel-expressive",
+      "path": "resources/boost/skills/expressive-development/SKILL.md",
+      "github_url": "https://github.com/WendellAdriel/laravel-expressive/tree/main/resources/boost/skills/expressive-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/WendellAdriel/laravel-expressive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:58:09Z"
+}
