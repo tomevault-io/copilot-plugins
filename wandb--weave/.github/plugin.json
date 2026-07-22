@@ -1,0 +1,26 @@
+{
+  "name": "wandb--weave",
+  "displayName": "weave",
+  "description": "weave",
+  "version": "1.0.0",
+  "author": "wandb",
+  "homepage": "https://github.com/wandb/weave",
+  "skills": [
+    {
+      "name": "bump-version",
+      "description": ""
+    },
+    {
+      "name": "publish-pypi",
+      "description": ""
+    },
+    {
+      "name": "weave",
+      "description": ""
+    },
+    {
+      "name": "weave",
+      "description": ""
+    }
+  ]
+}
