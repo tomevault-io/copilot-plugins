@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongoid",
+  "displayName": "mongoid",
+  "description": "mongoid",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongoid",
+  "skills": []
+}
