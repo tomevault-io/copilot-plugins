@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter).
+Original source: `CLAUDE.md` in [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -40,7 +40,7 @@ Original source: `AGENTS.md` in [Kiranism/next-shadcn-dashboard-starter](https:/
 - [next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md)
 - [next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter/tree/main/.claude/skills/vercel-composition-patterns/SKILL.md)
 
-From [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter) — a repo with 6697+ stars on GitHub.
+From [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter) — a repo with 6707+ stars on GitHub.
 
 ---
 
