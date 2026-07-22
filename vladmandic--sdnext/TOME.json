@@ -1,0 +1,183 @@
+{
+  "name": "sdnext",
+  "owner": "vladmandic",
+  "repo": "sdnext",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reference-catalog",
+      "path": ".github/skills/reference-catalog",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/reference-catalog",
+      "description": ""
+    },
+    {
+      "name": "fix-lint",
+      "path": ".github/skills/fix-lint",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/fix-lint",
+      "description": ""
+    },
+    {
+      "name": "analyze-model",
+      "path": ".github/skills/analyze-model",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/analyze-model",
+      "description": ""
+    },
+    {
+      "name": "github-issues",
+      "path": ".github/skills/github-issues",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/github-issues",
+      "description": ""
+    },
+    {
+      "name": "check-models",
+      "path": ".github/skills/check-models",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/check-models",
+      "description": ""
+    },
+    {
+      "name": "debug-model",
+      "path": ".github/skills/debug-model",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/debug-model",
+      "description": ""
+    },
+    {
+      "name": "check-api",
+      "path": ".github/skills/check-api",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/check-api",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/todo/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/fix-lint/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/fix-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/check-api/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/check-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/port-model/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/port-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/debug-model/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/debug-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/update-docs/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/check-models/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/check-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/analyze-model/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/analyze-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/github-issues/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/github-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/check-scripts/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/check-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/port-pipeline/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/port-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/diffusers-code/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/diffusers-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/github-features/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/github-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/check-processing/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/check-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/check-schedulers/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/check-schedulers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sdnext",
+      "path": ".github/skills/reference-catalog/SKILL.md",
+      "github_url": "https://github.com/vladmandic/sdnext/tree/main/.github/skills/reference-catalog/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vladmandic/sdnext",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:46:14Z"
+}
