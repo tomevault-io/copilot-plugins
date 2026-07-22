@@ -1,0 +1,177 @@
+{
+  "name": "Neovim-Moaid",
+  "owner": "MoaidHathot",
+  "repo": "Neovim-Moaid",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/McpLense/mcplense/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/McpLense/mcplense/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Orchestra/mcp-catalog/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Orchestra/mcp-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/actionview/actionview/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/actionview/actionview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/powerreview/reviewing-prs/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/powerreview/reviewing-prs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Zakira.Recall/zakira-recall/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Zakira.Recall/zakira-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Zakira.Replay/zakira-replay/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Zakira.Replay/zakira-replay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Zakira.Conduit/zakira-conduit/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Zakira.Conduit/zakira-conduit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Zakira.Replay/zakira-replay-cli/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Zakira.Replay/zakira-replay-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Zakira.Replay/zakira-replay-mcp/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Zakira.Replay/zakira-replay-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Zakira.Exchange/zakira-exchange/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Zakira.Exchange/zakira-exchange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Orchestra/orchestration-authoring/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Orchestra/orchestration-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Orchestra/reusable-orchestrations/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Orchestra/reusable-orchestrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/Zakira.Conduit/local-skill-sample/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/Zakira.Conduit/local-skill-sample/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/skills/powerreview/responding-to-comments/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/skills/powerreview/responding-to-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/IcMs/skills/icm-investigator/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/IcMs/skills/icm-investigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/PullRequests/skills/persona-ohads/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/PullRequests/skills/persona-ohads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/PullRequests/skills/persona-liabadi/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/PullRequests/skills/persona-liabadi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/Personal/RaindropWatcher/skills/raindrop-router/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/Personal/RaindropWatcher/skills/raindrop-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/PullRequests/Personas/ohads/Skills/persona-ohads/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/PullRequests/Personas/ohads/Skills/persona-ohads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/PullRequests/Personas/liabadi/Skills/persona-liabadi/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/PullRequests/Personas/liabadi/Skills/persona-liabadi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/PullRequests/Personas/MatanBorenkraout/Skills/persona-mborenkraout/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/PullRequests/Personas/MatanBorenkraout/Skills/persona-mborenkraout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neovim-Moaid",
+      "path": "config/Orchestra/Workspace/orchestrations/PullRequests/skills-actionview/creating-comment-response-actionview-entry/SKILL.md",
+      "github_url": "https://github.com/MoaidHathot/Neovim-Moaid/tree/main/config/Orchestra/Workspace/orchestrations/PullRequests/skills-actionview/creating-comment-response-actionview-entry/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MoaidHathot/Neovim-Moaid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:50:08Z"
+}
