@@ -1,0 +1,69 @@
+{
+  "name": "godot-admob-plugin",
+  "owner": "poingstudios",
+  "repo": "godot-admob-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "godot-admob-plugin",
+      "path": ".agents/skills/sync/SKILL.md",
+      "github_url": "https://github.com/poingstudios/godot-admob-plugin/tree/main/.agents/skills/sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "godot-admob-plugin",
+      "path": ".agents/skills/doc-master/SKILL.md",
+      "github_url": "https://github.com/poingstudios/godot-admob-plugin/tree/main/.agents/skills/doc-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "godot-admob-plugin",
+      "path": ".agents/skills/parity-checker/SKILL.md",
+      "github_url": "https://github.com/poingstudios/godot-admob-plugin/tree/main/.agents/skills/parity-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "godot-admob-plugin",
+      "path": ".agents/skills/release-manager/SKILL.md",
+      "github_url": "https://github.com/poingstudios/godot-admob-plugin/tree/main/.agents/skills/release-manager/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/poingstudios/godot-admob-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:06:00Z"
+}
