@@ -1,0 +1,14 @@
+{
+  "name": "quantco--dataframely",
+  "displayName": "dataframely",
+  "description": "A declarative, \ud83d\udc3b\u200d\u2744\ufe0f-native data frame validation library.",
+  "version": "1.0.0",
+  "author": "Quantco",
+  "homepage": "https://github.com/Quantco/dataframely",
+  "skills": [
+    {
+      "name": "dataframely",
+      "description": ""
+    }
+  ]
+}
