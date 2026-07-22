@@ -1,0 +1,14 @@
+{
+  "name": "goniz--mlx-vulkan",
+  "displayName": "mlx-vulkan",
+  "description": "mlx-vulkan",
+  "version": "1.0.0",
+  "author": "goniz",
+  "homepage": "https://github.com/goniz/mlx-vulkan",
+  "skills": [
+    {
+      "name": "mlx-vulkan",
+      "description": ""
+    }
+  ]
+}
