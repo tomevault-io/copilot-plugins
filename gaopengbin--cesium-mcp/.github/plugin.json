@@ -1,0 +1,14 @@
+{
+  "name": "gaopengbin--cesium-mcp",
+  "displayName": "cesium-mcp",
+  "description": "AI-powered CesiumJS 3D globe control  49 tools for camera, entities, layers, animation & spatial analysis via Model Context Protocol (MCP). Natural language to 3D GIS.",
+  "version": "1.0.0",
+  "author": "gaopengbin",
+  "homepage": "https://github.com/gaopengbin/cesium-mcp",
+  "skills": [
+    {
+      "name": "cesium-mcp",
+      "description": ""
+    }
+  ]
+}
