@@ -1,0 +1,219 @@
+{
+  "name": "nix-config",
+  "owner": "wimpysworld",
+  "repo": "nix-config",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/gh/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/gh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/nix/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/nix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/write-skill/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/write-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/write-command/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/write-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/audio-metrics/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/audio-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/write-assistant/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/write-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/write-agents-md/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/write-agents-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/prose-style-reference/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/prose-style-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-font/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-font/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-data/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-math/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-math/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/writing-clearly-and-concisely/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/writing-clearly-and-concisely/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-audio/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-mouse/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-mouse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-image/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-video/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-video/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-event/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-event/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-sound/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-sound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-touch/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-touch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-timer/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-timer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-system/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-window/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-window/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-physics/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-joystick/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-joystick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-keyboard/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-keyboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/_mixins/agentic/assistants/skills/love/references/api/love-filesystem/SKILL.md",
+      "github_url": "https://github.com/wimpysworld/nix-config/tree/main/home-manager/_mixins/agentic/assistants/skills/love/references/api/love-filesystem/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wimpysworld/nix-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:51:56Z"
+}
