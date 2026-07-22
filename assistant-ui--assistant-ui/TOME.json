@@ -1,0 +1,69 @@
+{
+  "name": "assistant-ui",
+  "owner": "assistant-ui",
+  "repo": "assistant-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "assistant-ui",
+      "path": ".claude/skills/butflow/SKILL.md",
+      "github_url": "https://github.com/assistant-ui/assistant-ui/tree/main/.claude/skills/butflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "assistant-ui",
+      "path": ".claude/skills/update-deps/SKILL.md",
+      "github_url": "https://github.com/assistant-ui/assistant-ui/tree/main/.claude/skills/update-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "assistant-ui",
+      "path": ".claude/skills/trusted-publishing/SKILL.md",
+      "github_url": "https://github.com/assistant-ui/assistant-ui/tree/main/.claude/skills/trusted-publishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "assistant-ui",
+      "path": "packages/cli/plugin/skills/assistant-ui/SKILL.md",
+      "github_url": "https://github.com/assistant-ui/assistant-ui/tree/main/packages/cli/plugin/skills/assistant-ui/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/assistant-ui/assistant-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:22:40Z"
+}
