@@ -1,0 +1,117 @@
+{
+  "name": "story-skills",
+  "owner": "danjdewhurst",
+  "repo": "story-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chapter-writing",
+      "path": "skills/chapter-writing",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/chapter-writing",
+      "description": ""
+    },
+    {
+      "name": "character-management",
+      "path": "skills/character-management",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/character-management",
+      "description": ""
+    },
+    {
+      "name": "plot-structure",
+      "path": "skills/plot-structure",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/plot-structure",
+      "description": ""
+    },
+    {
+      "name": "story-init",
+      "path": "skills/story-init",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/story-init",
+      "description": ""
+    },
+    {
+      "name": "worldbuilding",
+      "path": "skills/worldbuilding",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/worldbuilding",
+      "description": ""
+    },
+    {
+      "name": "story-skills",
+      "path": "skills/story-init/SKILL.md",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/story-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "story-skills",
+      "path": "skills/worldbuilding/SKILL.md",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/worldbuilding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "story-skills",
+      "path": "skills/plot-structure/SKILL.md",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/plot-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "story-skills",
+      "path": "skills/chapter-writing/SKILL.md",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/chapter-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "story-skills",
+      "path": "skills/story-maintenance/SKILL.md",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/story-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "story-skills",
+      "path": "skills/revision-continuity/SKILL.md",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/revision-continuity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "story-skills",
+      "path": "skills/character-management/SKILL.md",
+      "github_url": "https://github.com/danjdewhurst/story-skills/tree/main/skills/character-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/danjdewhurst/story-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:34:48Z"
+}
