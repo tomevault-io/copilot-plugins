@@ -1,0 +1,538 @@
+{
+  "name": "resgrid--core",
+  "displayName": "Core",
+  "description": "Core",
+  "version": "1.0.0",
+  "author": "Resgrid",
+  "homepage": "https://github.com/Resgrid/Core",
+  "skills": [
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "description": ""
+    }
+  ]
+}
