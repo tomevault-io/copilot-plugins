@@ -1,0 +1,14 @@
+{
+  "name": "hortonworks--cloudbreak",
+  "displayName": "cloudbreak",
+  "description": "cloudbreak",
+  "version": "1.0.0",
+  "author": "hortonworks",
+  "homepage": "https://github.com/hortonworks/cloudbreak",
+  "skills": [
+    {
+      "name": "cloudbreak",
+      "description": ""
+    }
+  ]
+}
