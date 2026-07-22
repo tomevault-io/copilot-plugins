@@ -1,0 +1,14 @@
+{
+  "name": "redvars--peacock",
+  "displayName": "peacock",
+  "description": "peacock",
+  "version": "1.0.0",
+  "author": "redvars",
+  "homepage": "https://github.com/redvars/peacock",
+  "skills": [
+    {
+      "name": "peacock",
+      "description": ""
+    }
+  ]
+}
