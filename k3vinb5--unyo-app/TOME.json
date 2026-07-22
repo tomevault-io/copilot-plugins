@@ -1,0 +1,87 @@
+{
+  "name": "unyo-app",
+  "owner": "K3vinb5",
+  "repo": "unyo-app",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "unyo-app",
+      "path": ".agents/skills/unyo-ui-presentation/SKILL.md",
+      "github_url": "https://github.com/K3vinb5/unyo-app/tree/main/.agents/skills/unyo-ui-presentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unyo-app",
+      "path": ".agents/skills/unyo-domain-data-layer/SKILL.md",
+      "github_url": "https://github.com/K3vinb5/unyo-app/tree/main/.agents/skills/unyo-domain-data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unyo-app",
+      "path": ".agents/skills/unyo-routing-navigation/SKILL.md",
+      "github_url": "https://github.com/K3vinb5/unyo-app/tree/main/.agents/skills/unyo-routing-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unyo-app",
+      "path": ".agents/skills/unyo-reactive-notifiers/SKILL.md",
+      "github_url": "https://github.com/K3vinb5/unyo-app/tree/main/.agents/skills/unyo-reactive-notifiers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unyo-app",
+      "path": ".agents/skills/unyo-dependency-injection/SKILL.md",
+      "github_url": "https://github.com/K3vinb5/unyo-app/tree/main/.agents/skills/unyo-dependency-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unyo-app",
+      "path": ".agents/skills/fjson-dart-bean-generator/SKILL.md",
+      "github_url": "https://github.com/K3vinb5/unyo-app/tree/main/.agents/skills/fjson-dart-bean-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unyo-app",
+      "path": ".agents/skills/unyo-bloc-state-management/SKILL.md",
+      "github_url": "https://github.com/K3vinb5/unyo-app/tree/main/.agents/skills/unyo-bloc-state-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/K3vinb5/unyo-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:52:54Z"
+}
