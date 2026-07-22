@@ -1,6 +1,6 @@
 # Codex-Workspace
 
-> Tome by [RichardGeorgeDavis](https://github.com/RichardGeorgeDavis/Codex-Workspace) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [RichardGeorgeDavis](https://github.com/RichardGeorgeDavis/Codex-Workspace), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
