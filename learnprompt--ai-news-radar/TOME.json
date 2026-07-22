@@ -1,0 +1,57 @@
+{
+  "name": "ai-news-radar",
+  "owner": "LearnPrompt",
+  "repo": "ai-news-radar",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-news-radar",
+      "path": "skills/radar/SKILL.md",
+      "github_url": "https://github.com/LearnPrompt/ai-news-radar/tree/main/skills/radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-news-radar",
+      "path": "skills/ai-news-radar/SKILL.md",
+      "github_url": "https://github.com/LearnPrompt/ai-news-radar/tree/main/skills/ai-news-radar/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LearnPrompt/ai-news-radar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:41:11Z"
+}
