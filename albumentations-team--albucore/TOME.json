@@ -1,0 +1,63 @@
+{
+  "name": "albucore",
+  "owner": "albumentations-team",
+  "repo": "albucore",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "albucore",
+      "path": ".codex/skills/albucore-public-api/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/albucore/tree/main/.codex/skills/albucore-public-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "albucore",
+      "path": ".codex/skills/albucore-benchmarks/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/albucore/tree/main/.codex/skills/albucore-benchmarks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "albucore",
+      "path": ".codex/skills/albucore-conventions/SKILL.md",
+      "github_url": "https://github.com/albumentations-team/albucore/tree/main/.codex/skills/albucore-conventions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/albumentations-team/albucore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:48:32Z"
+}
