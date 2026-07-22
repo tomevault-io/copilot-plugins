@@ -1,0 +1,18 @@
+{
+  "name": "gitguardian--ggmcp",
+  "displayName": "ggmcp",
+  "description": "ggmcp",
+  "version": "1.0.0",
+  "author": "GitGuardian",
+  "homepage": "https://github.com/GitGuardian/ggmcp",
+  "skills": [
+    {
+      "name": "ggmcp",
+      "description": ""
+    },
+    {
+      "name": "ggmcp",
+      "description": ""
+    }
+  ]
+}
