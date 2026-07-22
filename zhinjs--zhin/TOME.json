@@ -1,0 +1,291 @@
+{
+  "name": "zhin",
+  "owner": "zhinjs",
+  "repo": "zhin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zhin",
+      "path": "plugins/utils/rss/skills/rss/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/rss/skills/rss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/60s/skills/60s/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/60s/skills/60s/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/qq/skills/qq/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/qq/skills/qq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/music/skills/music/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/music/skills/music/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/kook/skills/kook/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/kook/skills/kook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/lark/skills/lark/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/lark/skills/lark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/line/skills/line/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/line/skills/line/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/qrcode/skills/qrcode/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/qrcode/skills/qrcode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/wecom/skills/wecom/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/wecom/skills/wecom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/slack/skills/slack/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/slack/skills/slack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/milky/skills/milky/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/milky/skills/milky/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/email/skills/email/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/email/skills/email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/github/skills/github/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/github/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/napcat/skills/napcat/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/napcat/skills/napcat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/satori/skills/satori/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/satori/skills/satori/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/repeater/skills/repeater/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/repeater/skills/repeater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/discord/skills/discord/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/discord/skills/discord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/sandbox/skills/sandbox/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/sandbox/skills/sandbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/short-url/skills/short-url/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/short-url/skills/short-url/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/group-suite/skills/checkin/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/group-suite/skills/checkin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/dingtalk/skills/dingtalk/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/dingtalk/skills/dingtalk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/telegram/skills/telegram/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/telegram/skills/telegram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/onebot11/skills/onebot11/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/onebot11/skills/onebot11/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/onebot12/skills/onebot12/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/onebot12/skills/onebot12/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "examples/full-bot/skills/memory-consolidate/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/examples/full-bot/skills/memory-consolidate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/adapters/wechat-mp/skills/wechat-mp/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/adapters/wechat-mp/skills/wechat-mp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/code-runner/skills/code-runner/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/code-runner/skills/code-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/link-poster/skills/link-poster/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/link-poster/skills/link-poster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "examples/test-bot/skills/tencent-channel-community/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/examples/test-bot/skills/tencent-channel-community/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/github/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "plugins/utils/group-suite/skills/group-daily-analysis/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/plugins/utils/group-suite/skills/group-daily-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/plugin-test/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/plugin-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/plugin-init/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/plugin-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/plugin-publish/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/plugin-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/plugin-quality/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/plugin-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": "packages/toolkit/create-zhin/template/skills/plugin-develop/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/packages/toolkit/create-zhin/template/skills/plugin-develop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": ".github/skills/zhin-audit/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/.github/skills/zhin-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": ".github/skills/zhin-plugin-refactoring/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/.github/skills/zhin-plugin-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zhin",
+      "path": ".github/skills/zhin-plugin-standard-development/SKILL.md",
+      "github_url": "https://github.com/zhinjs/zhin/tree/main/.github/skills/zhin-plugin-standard-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhinjs/zhin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:01:30Z"
+}
