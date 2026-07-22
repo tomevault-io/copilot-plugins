@@ -1,0 +1,219 @@
+{
+  "name": "vultisig-ios",
+  "owner": "vultisig",
+  "repo": "vultisig-ios",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/ship/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/lint/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/make/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/make/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/batch/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/localize/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/localize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/delegate/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/delegate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/ui-testing/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/ui-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/approve-pr/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/approve-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/batch-tasks/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/batch-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/orchestrate/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/orchestrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/batch-retry/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/batch-retry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/build-check/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/build-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/batch-review/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/batch-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/create-issue/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/create-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/ui-components/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/ui-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/logging-guide/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/logging-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/create-branch/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/create-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/swift-patterns/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/swift-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/swiftdata-guide/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/swiftdata-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/fix-pr-comments/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/fix-pr-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/check-platforms/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/check-platforms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/networking-guide/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/networking-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/blockchain-guide/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/blockchain-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/batch-fix-reviews/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/batch-fix-reviews/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/resolve-conflicts/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/resolve-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/resolve-pr-comments/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/resolve-pr-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vultisig-ios",
+      "path": ".claude/skills/reference-codebases/SKILL.md",
+      "github_url": "https://github.com/vultisig/vultisig-ios/tree/main/.claude/skills/reference-codebases/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vultisig/vultisig-ios",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:11:21Z"
+}
