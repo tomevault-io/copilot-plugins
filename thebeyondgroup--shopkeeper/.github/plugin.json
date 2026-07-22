@@ -1,0 +1,26 @@
+{
+  "name": "thebeyondgroup--shopkeeper",
+  "displayName": "shopkeeper",
+  "description": "shopkeeper",
+  "version": "1.0.0",
+  "author": "TheBeyondGroup",
+  "homepage": "https://github.com/TheBeyondGroup/shopkeeper",
+  "skills": [
+    {
+      "name": "shopkeeper",
+      "description": ""
+    },
+    {
+      "name": "shopkeeper",
+      "description": ""
+    },
+    {
+      "name": "shopkeeper",
+      "description": ""
+    },
+    {
+      "name": "shopkeeper",
+      "description": ""
+    }
+  ]
+}
