@@ -1,0 +1,69 @@
+{
+  "name": "spectrum-design-data",
+  "owner": "adobe",
+  "repo": "spectrum-design-data",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spectrum-design-data",
+      "path": ".claude/skills/enhance-sync-pr/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-design-data/tree/main/.claude/skills/enhance-sync-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-design-data",
+      "path": "tools/s2-docs-mcp/skills/s2-docs/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-design-data/tree/main/tools/s2-docs-mcp/skills/s2-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-design-data",
+      "path": "tools/design-data-skill/skills/design-data/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-design-data/tree/main/tools/design-data-skill/skills/design-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spectrum-design-data",
+      "path": "tools/design-data-agent-mcp/skills/design-data/SKILL.md",
+      "github_url": "https://github.com/adobe/spectrum-design-data/tree/main/tools/design-data-agent-mcp/skills/design-data/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adobe/spectrum-design-data",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:54:06Z"
+}
