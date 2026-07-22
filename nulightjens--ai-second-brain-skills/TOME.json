@@ -1,0 +1,57 @@
+{
+  "name": "ai-second-brain-skills",
+  "owner": "NulightJens",
+  "repo": "ai-second-brain-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-second-brain-skills",
+      "path": "wiki-self-heal/SKILL.md",
+      "github_url": "https://github.com/NulightJens/ai-second-brain-skills/tree/main/wiki-self-heal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-second-brain-skills",
+      "path": "llm-wiki-setup/SKILL.md",
+      "github_url": "https://github.com/NulightJens/ai-second-brain-skills/tree/main/llm-wiki-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NulightJens/ai-second-brain-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:30:11Z"
+}
