@@ -1,88 +1,115 @@
 ## databricks-sdk-go
 
-> Testing standards and anti-patterns for the Databricks SDK.
+> Go SDK for the Databricks platform. Auto-generated API clients from OpenAPI specs,
 
+# Databricks SDK for Go
 
-# Testing
+Go SDK for the Databricks platform. Auto-generated API clients from OpenAPI specs,
+with hand-written authentication, configuration, and transport infrastructure.
 
-`testify` is **discouraged in new packages** and **tolerated in existing packages**.
-The SDK aims to minimize third-party dependencies.
+For scoped coding rules, skills, and prompt templates, see the `.agent/` directory.
 
-- **New packages**: use Go's standard `testing` package with `google/go-cmp` for complex comparisons
-- **Existing packages that already use testify**: keep using it for consistency within that package
-- Do NOT introduce testify into a package that doesn't already use it
+### Rules (`.agent/rules/`)
+- **api-design.md** — API design principles for the Databricks SDK.
+- **error-handling.md** — Error handling conventions for the Databricks SDK.
+- **style-guide.md** — Go code style and naming conventions for the Databricks SDK.
+- **testing.md** — Testing standards and anti-patterns for the Databricks SDK.
 
-Table-driven tests are preferred for API client methods:
+### Skills (`.agent/skills/`)
+- **write-pr-description** — Write or improve a GitHub pull request description.
 
-```go
-for _, tc := range testCases {
-    t.Run(tc.name, func(t *testing.T) {
-        // ...
-        if diff := cmp.Diff(tc.want, got); diff != "" {
-            t.Errorf("mismatch (-want +got):\n%s", diff)
-        }
-    })
-}
+### Prompts (`.agent/prompts/`)
+- **code-review.md** — Review PR or code changes for backward compatibility, correctness, and style.
+
+## Development
+
+Prerequisites: Go 1.24+ (see `go.mod`), `goimports`, `staticcheck`, `gotestsum`.
+
+```bash
+make build      # go build ./...
+make test       # Unit tests with coverage
+make fmt        # goimports + gofmt
+make lint       # staticcheck ./...
+make integration # Integration tests (requires cloud env)
+make vendor     # Vendor dependencies
+make coverage   # View HTML coverage report
+make codegen    # Regenerate service/ from OpenAPI specs
 ```
 
-- Unit tests: `*_test.go` alongside source files
-- Integration tests: use `//go:build cloud` build tag
-- HTTP fixtures: `httpclient/fixtures/` for mocking HTTP responses
-- Generated mocks: `experimental/mocks/` (do not hand-write mocks for generated services)
-- Test helpers: `qa/` package for integration test utilities
-- Call `t.Helper()` at the start of test helper functions (correct line numbers in failures)
-- For configurable options, always test three cases: (1) explicit values, (2) nil/unset default, (3) empty value
-- When a feature spans multiple implementations, test the same scenarios consistently in each
-- Inject `time.Now` as `func() time.Time` for time-dependent logic — makes tests deterministic
-- Always check errors — never use `_` for error returns in tests
-- Assert on exact expected values, not partial matches (e.g., full header value, not just prefix)
-- Extract repeated test values to shared `const`/`var` to convey intent and avoid silent drift
-- Add explicit timeouts to channel/goroutine-based tests to prevent hanging
-- Use `defer close(ch)` for channel cleanup to handle error paths safely
+CI runs `make test` across Go 1.24, 1.25, and 1.26; lint and fmt run on Go 1.26.
+Code must compile on all CI versions — do not use stdlib APIs newer than Go 1.24
+(the module's minimum version in `go.mod`) without a local shim.
 
-## Naming and Style
+## Architecture
 
-- Use `want` for expected values and `got` for actual values — not `expected`/`actual`
-- Use **named struct fields** in test mock initialization: `&IDToken{Value: tok}` not `&IDToken{tok}`
-- Use existing test utilities (e.g., `auth.TokenSourceFn`) rather than creating new
-  one-off mock types
+```
+├── apierr/         # API error types and handling
+├── client/         # High-level DatabricksClient (wraps workspace + account APIs)
+├── config/         # Authentication and client configuration (core, hand-written)
+├── credentials/    # Credential providers (OAuth, PAT, Azure, GCP, etc.)
+├── experimental/   # Experimental features and generated mocks
+├── httpclient/     # HTTP transport layer, request/response handling
+├── internal/       # Internal utilities
+├── listing/        # Iterator patterns for paginated API responses
+├── logger/         # Logging infrastructure
+├── marshal/        # JSON marshalling utilities
+├── openapi/        # Code generator (reads OpenAPI specs, generates service/)
+├── retries/        # Retry logic and policies
+├── service/        # Auto-generated API service clients (DO NOT EDIT)
+├── useragent/      # User-agent string construction
+├── .codegen/       # Code generation templates (.tmpl files)
+└── qa/             # Integration test helpers (RandomName, RandomEmail, etc.)
+```
 
-## Test Design Philosophy
+## Generated Code — DO NOT EDIT
 
-- **Pragmatic about test value**: don't write tests that can't catch real regressions.
-  If removing the tested code wouldn't be caught by the test, the test is not useful
-- **Prefer blackbox tests over whitebox tests**: verify observable behavior, not
-  implementation details. When structural constraints make blackbox testing impossible,
-  consider refactoring for testability — but not at the cost of breaking backward compatibility
-- **Test at the right abstraction level**: test behavior through the public interface of
-  a component, not through its internals. Tests for `ErrorRetrier` logic belong in
-  `errors_test.go`, not in tests for `ApiClient` that happens to use it
-- **Mock at the right level**: mock the nearest interface boundary, not deep internals.
-  Prefer mocking `PersistentAuth` over the `OAuthClient` it wraps
-- **Prefer isolated tests by design**: use dependency injection and mocks rather than
-  relying on environment cleanup utilities like `CleanupEnvironment`. Structure tests
-  so each validates one layer of logic
-- **Don't over-engineer test safety nets**: if the only way a function panics is a
-  runtime stack overflow, a recovery wrapper adds no value
-- Use mock helpers (e.g., `withMockEnv`) consistently — don't mix `t.Setenv` and
-  mock helpers in the same test
+- `service/` — API service clients, generated from OpenAPI specs.
+  Every file starts with `// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.`
+- `experimental/mocks/` — Mock implementations, generated by mockery.
+  Every file starts with `// Code generated by mockery. DO NOT EDIT.`
 
-## Anti-Patterns (never do these)
+To regenerate: `make codegen` (requires OpenAPI specs).
+After regenerating, run `make fmt` and `make lint`.
 
-- Deleting or skipping flaky tests instead of fixing the root cause
-- Tests depending on execution order or shared mutable state
-- Non-descriptive test names (`TestFoo`, `TestBasic`) — follow the same pattern as Go
-  `Example` functions: `TestFunctionName_description` (e.g., `TestHostType_missingScheme`,
-  `TestConfig_HostType_missingScheme` for a method on a type)
-- `time.Now` i ntests — use a mock clock
-- Testing generated code in `service/` — test your hand-written code that uses it
-- Exporting methods solely for test access — use `cmp.Diff` to compare structs,
-  or write internal (`_test.go` in same package) tests instead
-- Unnecessary concurrency in tests — if goroutines/channels aren't clearly needed, don't use them
-- Accepting workarounds without understanding root causes — if `CleanupEnvironment` is
-  needed, investigate *why* the environment is dirty
+**Hand-written code** lives in: `config/`, `credentials/`, `httpclient/`, `apierr/`,
+`listing/`, `retries/`, `marshal/`, `logger/`, `useragent/`, `client/`, `internal/`, `openapi/`.
+
+## Common Mistakes
+
+- Do NOT edit files in `service/` or `experimental/mocks/` — they are auto-generated and will be overwritten
+- Do NOT use `context.Background()` in production code (only in tests)
+- Do NOT add new files to `service/` manually — update OpenAPI specs and run `make codegen`
+- Do NOT add dependencies without checking license compatibility (Apache 2.0 required)
+- Do NOT break backwards compatibility of exported APIs without discussion
+- Do NOT use `os.Exit()` outside of `main.go` entry points
+
+## Where to Put New Code
+
+1. New API service client? → Update OpenAPI spec, run `make codegen`
+2. New auth method? → `credentials/` (implement `CredentialsProvider` interface)
+3. Auth config change? → `config/`
+4. HTTP transport change? → `httpclient/`
+5. New error type? → `apierr/`
+6. New pagination pattern? → `listing/`
+7. Retry logic change? → `retries/`
+8. Code generation change? → `openapi/` and `.codegen/` templates
+9. Experimental/unstable API? → `experimental/` or `config/experimental/`
+
+## Pull Requests
+
+PR template requires: Changes (linked issues + functionality) and Tests sections.
+All PRs must have the `DCO` sign-off (`git commit -s`).
+Run `make fmt test lint` before submitting.
+
+### Changelog
+
+Every PR must update `NEXT_CHANGELOG.md` under the appropriate section
+(Breaking Changes, New Features and Improvements, Bug Fixes, Documentation,
+Internal Changes, or API Changes). CI will fail if the file is not modified.
+
+For PRs that don't need a changelog entry (e.g., documentation-only, CI config,
+agentic coding infrastructure), add `NO_CHANGELOG=true` to the PR description body.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/databricks)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/databricks)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [databricks/databricks-sdk-go](https://github.com/databricks/databricks-sdk-go) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
