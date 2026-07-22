@@ -1,8 +1,10 @@
 ## nemesis
 
-> **NEVER read, open, or access `.env` files under any circumstances.** This includes:
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## File Restrictions
 
@@ -18,15 +20,6 @@ If you need environment variable information, refer to `env.example` instead.
 ## Project Overview
 
 Nemesis is an open-source, centralized data processing platform (v2.0) that ingests, enriches, and enables collaborative analysis of files collected during offensive security assessments. Built on Docker with Dapr integration, it functions as an "offensive VirusTotal."
-
-## Project Structure & Module Organization
-
-Nemesis is organized as a multi-service monorepo:
-- `projects/`: deployable services (for example `web_api`, `file_enrichment`, `frontend`, `agents`), each typically with its own `pyproject.toml` and `tests/`.
-- `libs/`: shared Python libraries (`common`, `file_linking`, `nemesis_dpapi`, `file_enrichment_modules`).
-- `infra/`: Docker, Dapr, Traefik, and observability configuration.
-- `tools/`: repo-level developer scripts (`install_dev_env.sh`, `lint.sh`, `test.sh`, `nemesis-ctl.sh`).
-- `docs/`: MkDocs content and generated API documentation assets.
 
 ## Common Commands
 
@@ -61,10 +54,9 @@ cd projects/web_api && uv sync
 
 ### Package Management
 
-For adding, upgrading, or removing packages, use the `$managing-packages` skill.
+For adding, upgrading, or removing packages, use the `/managing-packages` skill.
 
 ### Linting & Formatting (Ruff)
-
 Run linting/formatting after each fix/change.
 ```bash
 # Check all Python code (configured in root pyproject.toml)
@@ -90,8 +82,12 @@ cd projects/web_api && uv run pytest tests/test_specific.py
 cd projects/web_api && uv run pytest tests/test_file.py::test_function_name
 ```
 
-### Docker Commands
+### Testing Guidelines
+- **Write tests for every new feature.** New functionality must include tests before it is considered complete.
+- **Cover both happy path and unhappy path cases.** Tests should verify correct behavior with valid inputs (positive cases) and proper error handling with invalid inputs, missing data, edge cases, and failure conditions (negative cases).
+- **Mock external services.** Do not make real calls to external dependencies (Dapr, SeaweedFS, PostgreSQL, RabbitMQ, etc.) in unit tests. Use mocks or fakes to isolate the code under test.
 
+### Docker Commands
 Information about building dev/prod container images can be found in the [docker compose docs](./docs/docker_compose.md).
 
 General instructions for dev docker containers/images:
@@ -108,12 +104,6 @@ docker compose up -d --build web-api web-api-dapr
 ```
 
 **Note:** Services using Dapr (file-enrichment, web-api, alerting, etc.) have a companion `-dapr` sidecar container. When rebuilding these services, always restart both the service and its Dapr sidecar to ensure proper communication.
-
-## Testing Guidelines
-
-- **Write tests for every new feature.** New functionality must include tests before it is considered complete.
-- **Cover both happy path and unhappy path cases.** Tests should verify correct behavior with valid inputs (positive cases) and proper error handling with invalid inputs, missing data, edge cases, and failure conditions (negative cases).
-- **Mock external services.** Do not make real calls to external dependencies (Dapr, SeaweedFS, PostgreSQL, RabbitMQ, etc.) in unit tests. Use mocks or fakes to isolate the code under test.
 
 ## Architecture
 
@@ -171,37 +161,24 @@ infra/              # Infrastructure configuration
 - `.env`: Passwords, URLs, feature flags (copy from `env.example`)
 - `infra/postgres/01-schema.sql`: Database schema
 
-### Adding Enrichment Modules
 
+
+### Adding Enrichment Modules
 New file enrichment modules go in `libs/file_enrichment_modules/`. Each module implements a standard interface for detecting applicable files and extracting data.
 
-## Codex Skills
-
-Repo-local Codex skills live under `.codex/skills/`.
-- Use `$enrichment-module-builder <file type description>` to run the guided module workflow for new modules.
-- Use `$managing-packages <task>` when adding, upgrading, removing, or syncing Python dependencies.
-
-## Coding Style & Naming Conventions
-- Python version target is 3.13 (`>=3.13,<3.14` in project manifests).
-- Follow root Ruff config: 4-space indentation, 120-char line length, double quotes, and sorted imports.
-- Naming: Python modules/functions `snake_case`, classes `PascalCase`, constants `UPPER_SNAKE_CASE`.
-- In frontend code, keep component filenames `PascalCase` under `projects/frontend/src/components`.
-
-## Commit Guidelines
-- Match existing commit style: short, imperative subjects like `fix docs`, `bump deps`, `linting, lint+test scripts`; optional issue/PR refs (for example `(#100)`).
-
-### Kubernetes (k3d) Deployment
+### Kubernetes (k3d / k3s) Deployment
 
 See [k8s/README.md](./k8s/README.md) and [docs/kubernetes.md](./docs/kubernetes.md) for full documentation.
 
 ```bash
-# Setup cluster (k3d + Traefik + Dapr + KEDA via Helm)
-./k8s/scripts/setup-cluster.sh
+# Setup cluster — choose one:
+./k8s/scripts/setup-cluster-k3d.sh   # k3d (k3s-in-Docker, local dev)
+./k8s/scripts/setup-cluster-k3s.sh   # k3s (native, VMs/bare-metal)
 
 # Deploy with pre-built images
 ./k8s/scripts/deploy.sh install
 
-# Build locally and deploy
+# Build locally and deploy (k3d only)
 ./k8s/scripts/deploy.sh install --build
 
 # Check status
@@ -210,17 +187,13 @@ See [k8s/README.md](./k8s/README.md) and [docs/kubernetes.md](./docs/kubernetes.
 # Verify deployment
 ./k8s/scripts/verify.sh
 
-# Teardown
-./k8s/scripts/teardown-cluster.sh
+# Teardown — match the setup method used:
+./k8s/scripts/teardown-cluster-k3d.sh   # k3d
+./k8s/scripts/teardown-cluster-k3s.sh   # k3s
 ```
 
-Helm chart is at `k8s/helm/nemesis/`. Configuration in `values.yaml`. KEDA autoscales `file-enrichment` and `document-conversion` based on RabbitMQ queue depth.
-
-## Configuration Tips
-- Do not commit secrets; keep `.env` local and derive it from `env.example`.
-- When changing runtime topology, update related `compose*.yaml` and `infra/*` files in the same commit.
-- For k8s changes, update the Helm chart under `k8s/helm/nemesis/` and test with `./k8s/scripts/deploy.sh install --dry-run`.
+Helm chart is at `k8s/helm/nemesis/`. Configuration in `values.yaml`.
 
 ---
 > Source: [SpecterOps/Nemesis](https://github.com/SpecterOps/Nemesis) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
