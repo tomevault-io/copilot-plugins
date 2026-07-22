@@ -1,0 +1,9 @@
+{
+  "name": "upperstream--packer-templates",
+  "displayName": "packer-templates",
+  "description": "packer-templates",
+  "version": "1.0.0",
+  "author": "upperstream",
+  "homepage": "https://github.com/upperstream/packer-templates",
+  "skills": []
+}
