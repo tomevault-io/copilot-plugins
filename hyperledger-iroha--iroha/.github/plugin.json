@@ -1,0 +1,26 @@
+{
+  "name": "hyperledger-iroha--iroha",
+  "displayName": "iroha",
+  "description": "iroha",
+  "version": "1.0.0",
+  "author": "hyperledger-iroha",
+  "homepage": "https://github.com/hyperledger-iroha/iroha",
+  "skills": [
+    {
+      "name": "iroha",
+      "description": ""
+    },
+    {
+      "name": "iroha",
+      "description": ""
+    },
+    {
+      "name": "iroha",
+      "description": ""
+    },
+    {
+      "name": "iroha",
+      "description": ""
+    }
+  ]
+}
