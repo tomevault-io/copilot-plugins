@@ -1,0 +1,429 @@
+{
+  "name": "platform",
+  "owner": "tutur3u",
+  "repo": "platform",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": ".agents/skills/agent-browser",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "flutter-expert",
+      "path": ".agents/skills/flutter-expert",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/flutter-expert",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": ".agents/skills/systematic-debugging",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "path": ".agents/skills/turborepo",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/turborepo",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/github/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/ai-sdk/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/ai-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/gpt-taste/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/gpt-taste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/gemini-api/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/gemini-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/streamdown/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/streamdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/gke-basics/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/gke-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/generative-ui/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/minimalist-ui/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/minimalist-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/flutter-expert/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/flutter-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/alloydb-basics/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/alloydb-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/firebase-basics/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/firebase-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/bigquery-basics/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/bigquery-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/cloud-run-basics/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/cloud-run-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/cloud-sql-basics/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/cloud-sql-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/stitch-design-taste/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/stitch-design-taste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/marketing-psychology/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/marketing-psychology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/image-taste-frontend/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/image-taste-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/design-taste-frontend/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/design-taste-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-cli/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/high-end-visual-design/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/high-end-visual-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".opencode/skill/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.opencode/skill/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/industrial-brutalist-ui/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/industrial-brutalist-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/full-output-enforcement/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/full-output-enforcement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/google-cloud-recipe-auth/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/google-cloud-recipe-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-commit/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-ci-docs/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-ci-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/redesign-existing-projects/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/redesign-existing-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/vercel-react-native-skills/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/vercel-react-native-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-database/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-platform/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-platform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-cli-tasks/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-cli-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".opencode/skill/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.opencode/skill/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-cms-studio/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-cms-studio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/google-cloud-waf-reliability/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/google-cloud-waf-reliability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-devbox-ops/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-devbox-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-cli-finance/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-cli-finance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-web-release/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-web-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/google-cloud-recipe-onboarding/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/google-cloud-recipe-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-external-apps/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-external-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/supabase-postgres-best-practices/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/supabase-postgres-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-review-comments/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-review-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-satellite-app-ux/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-satellite-app-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/google-cloud-waf-cost-optimization/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/google-cloud-waf-cost-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-mobile-task-board/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-mobile-task-board/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-e2e-auth-debugging/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-e2e-auth-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-agent-coordination/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-agent-coordination/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-validation-offload/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-validation-offload/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": ".agents/skills/google-cloud-networking-observability/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/.agents/skills/google-cloud-networking-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "platform",
+      "path": "plugins/tuturuuu/skills/tuturuuu-development-tooling/SKILL.md",
+      "github_url": "https://github.com/tutur3u/platform/tree/main/plugins/tuturuuu/skills/tuturuuu-development-tooling/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tutur3u/platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:44:50Z"
+}
