@@ -1,0 +1,99 @@
+{
+  "name": "MathClaw",
+  "owner": "MathClaw-ruc",
+  "repo": "MathClaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/cron/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/memory/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/github/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/weather/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathClaw",
+      "path": "mathclaw/skills/markdown-converter/SKILL.md",
+      "github_url": "https://github.com/MathClaw-ruc/MathClaw/tree/main/mathclaw/skills/markdown-converter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MathClaw-ruc/MathClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:50:08Z"
+}
