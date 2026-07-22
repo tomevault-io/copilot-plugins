@@ -1,0 +1,9 @@
+{
+  "name": "fast-actions--setup-dotnet",
+  "displayName": "setup-dotnet",
+  "description": "setup-dotnet",
+  "version": "1.0.0",
+  "author": "fast-actions",
+  "homepage": "https://github.com/fast-actions/setup-dotnet",
+  "skills": []
+}
