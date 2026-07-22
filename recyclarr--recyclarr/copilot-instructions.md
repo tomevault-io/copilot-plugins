@@ -1,0 +1,423 @@
+## recyclarr
+
+> enables the user-visible capability.
+
+# AGENTS
+
+.NET CLI tool for synchronizing TRaSH Guides to Sonarr/Radarr. Mainline branch: `master`.
+
+## Linear
+
+- Issue prefix: `REC-` (e.g. REC-74 is Linear; #74 is GitHub)
+- Issue statuses: Backlog, Todo, In Progress, Done, Canceled, Duplicate
+- Project statuses: Backlog, Planned, In Progress, Completed, Canceled
+- Labels: Bug, Tech Debt, Documentation, Templates, Blocked By Trash Guides
+
+Issue lifecycle:
+
+- MUST transition to "In Progress" when starting work
+- MUST transition to "Done" after the final commit lands
+- MUST check comments when reading issue details
+
+Project lifecycle:
+
+- MUST transition to "In Progress" when starting work on any issue in the project
+- MUST transition to "Completed" when all issues are done
+- SHOULD transition to "Canceled" if the project is abandoned
+
+Scope separation:
+
+- Linear tracks work items and progress; the repo tracks design and architectural knowledge
+  (`docs/architecture/`, `docs/decisions/`). MUST NOT duplicate between them.
+- Linear project descriptions SHOULD link to relevant ADRs and architecture docs.
+- MUST NOT put design rationale, decision records, or living design reference into Linear.
+
+## Agent Architecture
+
+Single primary agent with direct access to all files and tools. Subagents for bounded contexts:
+
+- **trash-guides**: Read-only research against the TRaSH Guides repo (uses haiku for cost). MUST use
+  this subagent for any question about TRaSH Guides content (custom formats, quality profiles,
+  naming, quality sizes, trash_ids). NEVER use the generic explore agent for guides research.
+- **commit**: Git operations after user approval
+
+## Skills
+
+Per-skill triggers. MUST load before acting on the governed task; a skill loaded in parallel with
+that action arrives too late.
+
+- `testing`: MUST load for any work under `tests/**`, including authoring tests, updating E2E
+  fixtures, debugging failures, or running `coverage.py` / `Run-E2ETests.ps1`.
+- `changelog`: MUST load when adding, editing, or reorganizing entries in `CHANGELOG.md`, or when
+  drafting release notes.
+- `decisions`: MUST load when creating, editing, or superseding ADRs or PDRs under
+  `docs/decisions/`.
+- `mapperly`: MUST load when writing, editing, or debugging `Riok.Mapperly` mapper classes
+  (`[Mapper]`-attributed partials, `*Mapper.cs` under `ServarrApi/`, RMG-prefixed diagnostics).
+- `duplication-vs-abstraction`: MUST load when weighing whether to extract a shared abstraction,
+  base class, or generic helper, particularly across Sonarr/Radarr parallels, Refit-generated
+  clients, or anti-corruption layers over distinct external systems.
+- `rx-observables`: MUST load when writing, editing, or reviewing code that uses `System.Reactive`
+  (Rx.NET), `IObservable`/`IObserver`, subjects, `CompositeDisposable`, or `TestScheduler`.
+- `minimal-apis`: MUST load when writing, editing, or reviewing ASP.NET Core Minimal API endpoints,
+  route handlers, route groups, endpoint filters, OpenAPI configuration, or embedded Kestrel server
+  code.
+
+## Project Context
+
+- Uses SLNX format (`Recyclarr.slnx`) instead of traditional SLN files.
+- Components: Cli (entry) -> Core (logic) -> TrashGuide/ServarrApi (integrations)
+- DI: Autofac. Every library gets its own Autofac Module to keep registration modular.
+- Config: YAML with JSON Schema validation (see YAML Schema Maintenance)
+- Testing: NUnit 4 + NSubstitute + AutoFixture + parallel execution
+- Dotnet tools in `.config/dotnet-tools.json`
+- CLI: `Spectre.Console` package for CLI framework
+
+## Code Review Comments
+
+The `// CodeReview:` marker flags questions or concerns for review before commit. A pre-commit hook
+prevents accidental commits containing these markers.
+
+Lifecycle:
+
+1. Human adds `// CodeReview: <question>` during implementation
+2. Agents MUST stop and present each unresolved CodeReview comment to the user before declaring work
+   complete
+3. Resolution: either address the concern (refactor, add context) or the user explicitly dismisses
+   it
+4. Remove the marker only after resolution; NEVER silently delete
+
+When running `pre-commit run` mid-development (before commit), pass `SKIP=no-review-markers` to
+suppress the hook: `SKIP=no-review-markers pre-commit run --files <files>`
+
+## Coding Standards & Development Requirements
+
+- You MUST use dependency injection for all dependencies; NEVER manually 'new' objects in production
+  code. Concrete implementations get injected; tests can substitute. Search existing registrations
+  before adding new ones.
+- Search existing code first: `rg "pattern"` before writing new code. Holistically and
+  comprehensively make changes, don't just do it in isolation which ignores other important areas of
+  code that might be in-scope or indirectly affected by a change.
+- Reuse or extend existing implementations before adding parallel ones. DRY targets knowledge
+  duplication, not incidental syntactic similarity; when weighing extraction of a shared abstraction
+  (base class, generic helper, unified interface), load the `duplication-vs-abstraction` skill
+  first.
+- CRITICAL: Follow SOLID, YAGNI principles. Every abstraction must justify its existence with
+  concrete current needs.
+- .NET 10.0 (C# 14) + nullable reference types
+- Zero warnings/analysis issues — treat warnings as errors
+- Prefer polymorphism over enums when modeling behavior or extensibility. Propose enum vs
+  polymorphism tradeoffs for discussion rather than defaulting to enums.
+- Avoid interface pollution: not every service class needs an interface. Add interfaces when
+  justified (testability, more than one implementation).
+- When registering types as themselves in Autofac, `RegisterType<>()` already registers "as self",
+  so don't use `.AsSelf()`; it is redundant.
+
+### Language Features
+
+All features below are available on net10.0 / C# 14. Use for new code; opportunistically refactor
+existing code when revisiting.
+
+- File-scoped namespaces: `namespace MyApp.Core;`
+- Primary constructors: `class Service(IDep dep, ILogger logger)`
+- Collection expressions: `[]`, `[item]`, `[..first, ..second]`
+  - NEVER use `new[]`, `new List<T>()`, `Array.Empty<T>()`
+  - For type inference, prefer `[new T { }, new T { }]` over casts
+  - Use `T[] x = [...]` only when simpler forms fail
+- `field` keyword in properties: `public string Name { get; set => field = value ?? throw new
+  ArgumentNullException(); } = "";`
+  - NEVER use explicit backing fields when `field` suffices
+- Extension members via `extension` blocks in a top-level nongeneric `static class`
+  - NEVER use `this` parameter syntax for new extension methods
+- Null-conditional assignment: `obj?.Prop = value;` over null checks wrapping assignment
+- Lambda modifiers without types: `(text, out result) => int.TryParse(text, out result)`
+  - NEVER add redundant parameter types when modifiers alone suffice
+- Pattern matching: `is not null`, switch expressions, property patterns
+  - Property patterns: `obj is Type { Prop: value }` over `obj is Type t && t.Prop == value`
+  - Extended property pattern: `obj is { Outer.Inner: value }`
+  - Empty property pattern: `{ } name` matches non-null and binds
+- `[GeneratedRegex]` on `static partial` properties returning `Regex`
+  - NEVER use `new Regex()`, `static readonly Regex` fields, or static `Regex.IsMatch()`/
+    `Regex.Replace()` methods
+
+### Code Idioms
+
+- `internal` for implementation classes; `public` only for genuine external APIs. Concrete classes
+  implementing public interfaces should be `internal`.
+- Records for data models; favor immutability; use `IReadOnlyCollection`, `IReadOnlyDictionary`,
+  `init` setters
+- JSON serialization: configure naming policy, converters, and style via `JsonSerializerOptions` (or
+  source-generated `JsonSerializerContext`). Check for existing options before creating new
+  instances. Reserve per-property attributes (`[JsonPropertyName]`, etc.) for exceptions to the
+  convention.
+- `[UsedImplicitly]` for runtime-used members (deserialization, reflection, DI). Common for DTOs:
+  `[UsedImplicitly(ImplicitUseKindFlags.Assign, ImplicitUseTargetFlags.WithMembers)]`
+- Warning suppression: `[SuppressMessage]` with `Justification` on class/method level; prefer
+  class-level when multiple members need same suppression. NEVER use `#pragma warning disable`.
+- LINQ method syntax only; NEVER use query syntax (`from`/`where`/`select` keywords). Prefer method
+  chaining over loops.
+- Named arguments for boolean literals: `new Options(SendInfo: false, SendEmpty: true)`. Also use
+  named arguments for consecutive same-type parameters to clarify intent.
+- Filesystem operations: use `IDirectoryInfo`/`IFileInfo` extension methods (`.File()`,
+  `.SubDirectory()`, `.IsAncestorOf()`) over raw `IFileSystem` access (`fs.Path.Combine`,
+  `fs.FileInfo.New`). The extensions handle path joining idiomatically and keep `IFileSystem` out of
+  method signatures.
+- `ValueTask` for hot paths; `CancellationToken` everywhere (variable name: `ct`)
+- Local functions go after `return`/`continue` statements; add explicit `return;`/`continue;` if
+  needed to separate main logic from local function definitions
+
+### Comment Guidelines
+
+Comments must earn their place by reducing cognitive load.
+
+When to comment:
+
+- LINQ chains (3+ operations): Brief comment stating transformation goal
+- Conditional blocks with non-obvious purpose: One-line comment (e.g., `// Explicit: user
+  specified`)
+- Private methods: Block comment if name + parameters don't make purpose self-evident
+- Early returns/continues: Include reason if not obvious from context
+- Complex algorithms: Comment explaining approach at top, not line-by-line
+- Null-suppression operator (`!`): Every use MUST have an inline comment explaining why null is
+  impossible at that point (e.g., `// non-null: validated above`). The comment documents the runtime
+  guarantee so reviewers can verify it and future maintainers can detect if the invariant breaks.
+- General: Any code where a reader would pause and wonder "why?" or "what's happening here?"
+- XML doc comments (`/// <summary>`): Use for public/internal interfaces, classes, and non-obvious
+  members where IntelliSense tooltips add value. Skip for private implementation details.
+
+NEVER: Commented-out code, restating what code literally does
+
+## Backward Compatibility
+
+- **CODE**: No backward compatibility required - refactor freely
+- **USER DATA**: Mandatory backward compatibility - User-observable things like YAML configs and
+  settings files must remain functional.
+- DEPRECATIONS: Removed or deprecated features need helpful user-facing diagnostics. Look at
+  existing patterns in the code base for this BEFORE you make a modification. Follow these existing
+  patterns.
+- **EXCEPTION**: Backward compatibility *NOT REQUIRED* if modifying unreleased functionality (use
+  git logs since latest tag to determine; also check `[Unreleased]` section of `CHANGELOG.md`)
+
+## YAML Schema Maintenance
+
+The JSON schemas in `schemas/` are the single source of truth for the structure and validation of
+`recyclarr.yml` and `settings.yml`. When adding, removing, or renaming properties, changing types,
+defaults, or constraints, or modifying enum values, you MUST update the relevant schema in
+`schemas/` alongside the code change. Consult the schemas directly when you need to understand or
+generate valid YAML; there is no separate reference document to keep in sync.
+
+## Sync Philosophy
+
+All sync operations must be deterministic.
+
+**Independent pipelines** (Quality Profiles, Quality Sizes, Media Naming, Media Management):
+
+- Items sync independently; partial sync within pipeline is acceptable
+- Invalid items are skipped with errors; valid items proceed
+
+**Dependent pipelines** (Custom Formats):
+
+- All items must sync or the entire pipeline fails
+- Failure cascades to skip dependent pipelines (CF failure → QP skipped)
+- Rationale: QP scoring requires complete CF data; partial CFs cause silent mis-scoring
+
+**Diagnostics:**
+
+- `AddError()`: Issues that cause items or pipelines to be skipped
+- `AddWarning()`: Deprecations and informational messages only
+
+## YAML Error Handling
+
+Two layers translate YamlDotNet failures into user-facing messages. Both produce the same enriched
+exception type (`ConfigParsingException`); they differ in where translation happens.
+
+- Can deserialization continue? → **Deprecation system** (`DeprecatedPropertyInspector` via
+  `IYamlBehavior`). Skips the property, collects a warning, config loads normally.
+- Did deserialization fail? → **YamlBehavior handlers + catch-site fallback**. Handlers inside the
+  YamlDotNet pipeline (`INodeDeserializer`) catch structural mismatches where property/node context
+  is needed. `ConfigParser` catch block is the final fallback.
+
+Key constraint: YamlDotNet exceptions often lack property names or contain C# type names instead of
+YAML names. Handlers that need property context MUST operate inside the pipeline, not post-hoc.
+
+## Console and Logging Output
+
+The `--log` flag controls which output channel is visible to users:
+
+- `--log` **omitted**: IAnsiConsole -> console (visible); ILogger -> file only
+- `--log [level]`: IAnsiConsole -> void (hidden); ILogger -> file + console
+
+Output channel usage:
+
+- `IAnsiConsole`: User-facing output (progress, results, prompts). Visible by default.
+- `ILogger`: Diagnostic information. Always written to log files; visible on console only with
+  --log.
+- NEVER use `Console.WriteLine`
+
+### Dual Output Pattern
+
+User-visible information must go to both console and log:
+
+- Sync command: Diagnostics flow through a publisher/subscriber system that handles both channels
+  automatically. Use `AddError()`/`AddWarning()` on the publisher; the framework routes to console
+  and log.
+- Other commands: Must output to both channels manually:
+
+```csharp
+// User-visible information
+console.WriteLine(message);
+log.Information(message);
+
+// Deprecations
+console.MarkupLine("[darkorange bold][[DEPRECATED]][/] " + message);
+log.Warning(message);
+```
+
+## Repository Structure
+
+- `src/`: All C# source code
+- `tests/`: All C# unit and integration tests
+- `ci/`: Scripts and utilities for GitHub workflows
+- `.github/`: GitHub actions and workflows
+- `scripts/`: Convenience scripts
+- `docs/`: Documentation
+  - `architecture/`: Current system design (what is)
+  - `decisions/`: MADR-based decision records
+    - `architecture/`: Technical implementation decisions (ADRs)
+    - `product/`: Strategic and upstream-driven decisions (PDRs)
+  - `reference/`: External reference materials (Discord summaries, upstream docs)
+
+Key files:
+
+- `src/Recyclarr.Cli/` - Primary CLI project (entry point)
+- `Directory.Packages.props` - NuGet central package management
+- `schemas/` - JSON Schemas for Recyclarr YAML files
+
+## Codanna
+
+Code intelligence MCP server. Config: `.codanna/settings.toml`. Index: `.codanna/index/`
+(gitignored, rebuilt locally).
+
+MUST NOT pass path arguments to `codanna index` or use `codanna add-dir`/`codanna remove-dir`; these
+mutate `settings.toml` by regenerating the full file with absolute paths and boilerplate. Use
+`codanna index` (no args) or `codanna index --force` to (re)build from `indexed_paths` in config
+without mutation.
+
+MUST prefer Codanna tools over grep/glob/file reading for codebase exploration. Use
+`semantic_search_with_context` and `analyze_impact` first; narrow with `find_symbol`, `get_calls`,
+`find_callers`. Fall back to file tools only when Codanna lacks the needed context (e.g. reading
+full file contents, searching non-code files, exact string matching).
+
+## Tooling Requirements
+
+- CSharpier is the ONLY formatting tool. Never use `dotnet format` or other formatters.
+- MUST run `pre-commit run --files <file1> <file2> ...` for all changes
+- Use `dotnet test` at solution level to verify all tests pass. Use `dotnet build --no-incremental`
+  when a clean rebuild is needed.
+- Use `-v q` for `dotnet test` and `dotnet build` to show only warnings and errors.
+- You MUST use the dotnet CLI when: adding packages, removing packages, adding projects to solution.
+  Prioritize the CLI for all project-specific modifications if possible.
+- Central package management: specify versions in `Directory.Packages.props`, not in individual
+  csproj files.
+- When running `dotnet test` or `dotnet build`, MUST limit output to 200 lines.
+
+**Development and Testing:**
+
+All under `./scripts`.
+
+- `coverage.py`: Run tests with coverage (`--run`) and query results (`files`, `uncovered`,
+  `lowest`)
+- `Run-E2ETests.ps1`: **MUST** use this to run E2E tests. NEVER use `dotnet test` for E2E.
+- `Docker-Recyclarr.ps1`: Run Recyclarr in container; auto-starts dependent services via `docker
+  compose up -d`
+- `query_issues.py`: Query Qodana issues from GitHub code scanning API
+  - Flags: `-p <path>`, `-r <rule>`, `-s <severity>` (default: warning), `-b <branch>`
+
+**ONLY for human use (AI must never run these):**
+
+- `prepare_release.py`: Initiates a release of Recyclarr.
+
+**Gitignore management:**
+
+- `Update-Gitignore.ps1`: Updates the global `.gitignore`.
+- `Commit-Gitignore.ps1`: Commit git ignore changes.
+
+## Commits and Changelog
+
+Use this priority order (highest to lowest) to determine commit type:
+
+### Tier 1: User-Facing (require CHANGELOG)
+
+Conventional Commits serves semver (2 buckets: feat/fix). Keep a Changelog serves users (3 buckets:
+Added/Changed/Fixed). These are two separate decisions made in order.
+
+**Step 1: Commit type (determines semver bump).**
+
+Ask: "Could a user report this as broken?" This includes crashes, garbled output, wrong results,
+missing data, or any behavior that fails to meet reasonable expectations. If yes: `fix`. Otherwise,
+ask: "Does this change user-visible behavior (e.g. new capability, enhanced output, modified
+defaults)?" If yes: `feat`. If neither: skip to Tier 2.
+
+- `fix:` -> Corrects behavior a user could report as broken (PATCH bump)
+- `feat:` -> User-visible change that is not a bug fix (MINOR bump)
+- `perf:` -> Significant, measurable performance improvement (PATCH bump)
+- Append `!` for breaking changes regardless of type (MAJOR bump)
+
+**Step 2: Changelog category (describes the change for users).**
+
+Given a Tier 1 commit, pick the changelog section by what happened:
+
+- **Added**: A capability that did not exist before (e.g. new command, new flag, new config option)
+- **Changed**: Existing behavior now works differently (e.g. enhanced output, modified defaults,
+  adjusted limits, breaking changes, performance improvements)
+- **Fixed**: Something was broken and now it works correctly
+
+A single commit type can map to different changelog categories. `feat` produces either Added or
+Changed depending on whether the capability is new or an enhancement. `fix` almost always produces
+Fixed. Breaking changes (`!`) produce Changed or Removed.
+
+Multi-commit features: use `refactor` for infrastructure commits, `feat` only for the commit that
+enables the user-visible capability.
+
+### Tier 2: Path-Based (no CHANGELOG)
+
+If Tier 1 doesn't apply, match file paths:
+
+- `test:` -> `tests/**`
+- `ci:` -> `.github/**`, `ci/**`
+- `build:` -> `*.props`, `*.csproj`, `*.slnx`, `.config/dotnet-tools.json`
+- `docs:` -> `docs/**`, `*.md` (including `CHANGELOG.md` if committed alone)
+
+### Tier 3: Catch-All (no CHANGELOG)
+
+If neither Tier 1 nor Tier 2 applies:
+
+- `refactor:` -> C# changes in `src/**` (internal restructuring, code reorganization)
+- `chore:` -> All other non-C# changes (`scripts/**`, `.renovate/*`, `renovate.json5`,
+  `.editorconfig`, `.vscode/*`, `schemas/*`, linter configs, etc.)
+
+### Scopes
+
+Derive scope from primary file path:
+
+- `src/*/Pipelines/*` -> `(sync)`
+- `src/*/Config/*` -> `(config)`
+- `src/*/Console/Commands/*` -> `(cli)`
+- `src/*/Cache/*` -> `(cache)`
+- `schemas/*` -> `(yaml)`
+
+### CHANGELOG Format
+
+MUST NEVER read the entire `CHANGELOG.md`; the file is massive. MUST read only from the top with a
+limited line range (e.g. 50 lines) to capture the `[Unreleased]` section. The file follows Keep a
+Changelog, so the newest entries are always at the top.
+
+The `changelog` skill has detailed format and conventions.
+
+**IMPORTANT**: When planning user-facing changes (`feat`, `fix`, `perf`), always include
+`CHANGELOG.md` in scope. Verify changelog updates are part of the implementation plan before
+starting work.
+
+---
+> Source: [recyclarr/recyclarr](https://github.com/recyclarr/recyclarr) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
