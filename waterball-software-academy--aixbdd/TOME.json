@@ -1,0 +1,273 @@
+{
+  "name": "aixbdd",
+  "owner": "Waterball-Software-Academy",
+  "repo": "aixbdd",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/skill-rca/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/skill-rca/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-plan/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-core/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-tasks/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-kickoff/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-kickoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-api-plan/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-api-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-reconcile/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-reconcile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-implement/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-data-plan/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-data-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-red-execute/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-red-execute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-red-evaluate/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-red-evaluate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-auto-starter/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-auto-starter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-form-activity/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-form-activity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-form-ddl-spec/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-form-ddl-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-form-api-spec/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-form-api-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-flows-specify/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-flows-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-rules-specify/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-rules-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-green-execute/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-green-execute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-green-evaluate/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-green-evaluate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-form-story-spec/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-form-story-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-spec-by-example/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-spec-by-example/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-pen-to-storybook/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-pen-to-storybook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-form-entity-spec/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-form-entity-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-refactor-execute/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-refactor-execute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-refactor-evaluate/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-refactor-evaluate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-form-class-diagram/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-form-class-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/hierarchical-skill-creator/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/hierarchical-skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-form-sequence-diagram/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-form-sequence-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-skill-granularity-rule/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-skill-granularity-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-spec-by-example-analyze/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-spec-by-example-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/no-markdown-decoration-principle/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/no-markdown-decoration-principle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/skill-family-consistency-analyze/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/skill-family-consistency-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-principle-starter-stableness/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-principle-starter-stableness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/aibdd-feature-file-writing-principle/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/aibdd-feature-file-writing-principle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/no-markdown-decoration-principle/examples/Bad/pdf-processing/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/no-markdown-decoration-principle/examples/Bad/pdf-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/no-markdown-decoration-principle/examples/Good/pdf-processing/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/no-markdown-decoration-principle/examples/Good/pdf-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/no-markdown-decoration-principle/examples/Bad/mermaid-class-diagram/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/no-markdown-decoration-principle/examples/Bad/mermaid-class-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aixbdd",
+      "path": ".agents/skills/no-markdown-decoration-principle/examples/Good/mermaid-class-diagram/SKILL.md",
+      "github_url": "https://github.com/Waterball-Software-Academy/aixbdd/tree/main/.agents/skills/no-markdown-decoration-principle/examples/Good/mermaid-class-diagram/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Waterball-Software-Academy/aixbdd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:04:51Z"
+}
