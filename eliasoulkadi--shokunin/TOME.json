@@ -1,0 +1,429 @@
+{
+  "name": "shokunin",
+  "owner": "EliasOulkadi",
+  "repo": "shokunin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kubernetes",
+      "path": ".pack/skills/kubernetes",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/kubernetes",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "path": ".pack/skills/ci-cd",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/ci-cd",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".pack/skills/flutter",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/flutter",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".pack/skills/code-review",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": ".pack/skills/git-workflow",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": ".pack/skills/documentation",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/kami/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/kami/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/init/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/plan/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/taste/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/taste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/kagen/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/kagen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/ci-cd/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/ci-cd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/docker/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/memory/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/finance/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/finance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/seo-geo/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/seo-geo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/flutter/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/flutter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/strategy/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/humanize/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/humanize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/chromadb/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/chromadb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/db-admin/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/db-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/research/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/api-forge/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/api-forge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/taste-soft/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/taste-soft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/impeccable/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/playwright/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/kubernetes/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/kubernetes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/zen-review/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/zen-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/runbook-gen/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/runbook-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/db-sculptor/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/db-sculptor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/motion-craft/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/motion-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/brand-design/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/brand-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/react-native/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/react-native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/cross-review/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/cross-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/aesthetic-web/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/aesthetic-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/landing-craft/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/landing-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/neon-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/documentation/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/legal-counsel/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/legal-counsel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/whendone-plus/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/whendone-plus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/error-handler/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/error-handler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/communication/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/communication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/portfolio-auto/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/portfolio-auto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/auth-architect/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/auth-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/test-commander/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/test-commander/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/translate-craft/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/translate-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/senior-engineer/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/senior-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/component-forge/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/component-forge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/shokunin-update/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/shokunin-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/taste-minimalist/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/taste-minimalist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/efficient-coding/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/efficient-coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/responsive-engine/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/responsive-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/content-marketing/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/content-marketing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/business-proposals/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/business-proposals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/windows-powershell/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/windows-powershell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/comprehensive-review/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/comprehensive-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/performance-profiler/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/performance-profiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shokunin",
+      "path": ".pack/skills/zen-comprehensive-review/SKILL.md",
+      "github_url": "https://github.com/EliasOulkadi/shokunin/tree/main/.pack/skills/zen-comprehensive-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/EliasOulkadi/shokunin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T16:55:14Z"
+}
