@@ -1,0 +1,22 @@
+{
+  "name": "saleor--saleor-dashboard",
+  "displayName": "saleor-dashboard",
+  "description": "saleor-dashboard",
+  "version": "1.0.0",
+  "author": "saleor",
+  "homepage": "https://github.com/saleor/saleor-dashboard",
+  "skills": [
+    {
+      "name": "analyze-failures",
+      "description": ""
+    },
+    {
+      "name": "saleor-dashboard",
+      "description": ""
+    },
+    {
+      "name": "saleor-dashboard",
+      "description": ""
+    }
+  ]
+}
