@@ -1,0 +1,69 @@
+{
+  "name": "skylos",
+  "owner": "duriantaco",
+  "repo": "skylos",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skylos",
+      "path": ".agents/skills/skylos/SKILL.md",
+      "github_url": "https://github.com/duriantaco/skylos/tree/main/.agents/skills/skylos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skylos",
+      "path": ".claude/skills/skylos/SKILL.md",
+      "github_url": "https://github.com/duriantaco/skylos/tree/main/.claude/skills/skylos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skylos",
+      "path": ".agents/skills/skylos-security/SKILL.md",
+      "github_url": "https://github.com/duriantaco/skylos/tree/main/.agents/skills/skylos-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skylos",
+      "path": ".claude/skills/skylos-security/SKILL.md",
+      "github_url": "https://github.com/duriantaco/skylos/tree/main/.claude/skills/skylos-security/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/duriantaco/skylos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:42:12Z"
+}
