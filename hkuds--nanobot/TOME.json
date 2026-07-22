@@ -1,0 +1,117 @@
+{
+  "name": "nanobot",
+  "owner": "HKUDS",
+  "repo": "nanobot",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/my/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/my/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/cron/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/github/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/memory/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/weather/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/long-goal/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/long-goal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/update-setup/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/update-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanobot",
+      "path": "nanobot/skills/image-generation/SKILL.md",
+      "github_url": "https://github.com/HKUDS/nanobot/tree/main/nanobot/skills/image-generation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HKUDS/nanobot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:13:50Z"
+}
