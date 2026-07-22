@@ -1,101 +1,51 @@
 ## spec
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This repository is a Go workspace for `github.com/oaswrap/spec`. Core package files live at the repository root and in `openapi/`, `option/`, `pkg/`, and `internal/`. Router adapters are separate modules under `adapter/<framework>openapi/`, each with its own examples, tests, and `go.mod`. Runnable examples live in `examples/` and adapter `example/` directories. Golden YAML fixtures and expected OpenAPI output live in `testdata/` and adapter `testdata/` directories.
 
-# CLAUDE.md
+# Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Structure & Module Organization
 
-## Commands
+This repository is a Go workspace for `github.com/oaswrap/spec`. Core package files live at the repository root and in `openapi/`, `option/`, `pkg/`, and `internal/`. Router adapters are separate modules under `adapter/<framework>openapi/`, each with its own examples, tests, and `go.mod`. Runnable examples live in `examples/` and adapter `example/` directories. Golden YAML fixtures and expected OpenAPI output live in `testdata/` and adapter `testdata/` directories.
 
-### Development Tools (install once)
-```bash
-make install-tools   # installs gotestsum and golangci-lint
+## Build, Test, and Development Commands
+
+- `make install-tools`: installs `golangci-lint`.
+- `make test`: runs core and adapter tests with `go test`.
+- `make test-adapter`: runs only adapter module tests.
+- `make test-update`: regenerates golden files when output changes intentionally.
+- `make testcov` / `make testcov-html`: produces coverage reports in `coverage/`.
+- `make lint`: runs `golangci-lint` for core and adapters.
+- `make tidy`: runs `go mod tidy` across core, adapters, and examples.
+- `make sync`: updates the Go workspace.
+- `make check`: runs sync, tidy, lint, and all tests.
+
+Use `go test ./... -run TestName` for focused core tests, or run the same command inside an adapter module for adapter-specific work.
+
+## Coding Style & Naming Conventions
+
+Use standard Go formatting (`gofmt`) and idiomatic Go naming. Package names are short lowercase names such as `openapi`, `option`, or `parser`. Test files must use the `_test.go` suffix. Adapter directories follow the `<framework>openapi` pattern, for example `fiberopenapi` and `ginopenapi`. Keep public APIs documented when exported names are not self-explanatory.
+
+## Testing Guidelines
+
+Tests use Go's standard `testing` package, with golden-file coverage for generated OpenAPI YAML. Add or update tests for behavior changes, especially changes to route registration, schema reflection, options, or adapter output. When running `make test-update`, review all generated fixture diffs before committing.
+
+## Commit & Pull Request Guidelines
+
+Use Conventional Commits:
+
+```text
+feat: add response header option
+fix: handle empty path group correctly
+docs: clarify WithSecurity usage
 ```
 
-### Testing
-```bash
-make test                    # run core + all adapter tests
-make test-adapter            # run adapter tests only
-make test-update             # update golden files (testdata/*.yaml)
-make testcov                 # run tests with coverage
-make testcov-html            # generate + open HTML coverage report
+Accepted types include `feat`, `fix`, `docs`, `style`, `refactor`, `test`, and `chore`. Keep commits focused. Pull requests should describe what changed, why it changed, affected modules or adapters, related issues, and tests run. Include fixture updates when generated output changes.
 
-# Run a single test (core)
-go test ./... -run TestName
+## Agent-Specific Instructions
 
-# Run a single adapter test
-cd adapter/fiberopenapi && go test ./... -run TestName
-```
-
-### Code Quality
-```bash
-make lint    # lint core and all adapters
-make tidy    # go mod tidy for core + all adapters
-make sync    # go work sync
-make check   # sync + tidy + lint + test (full local CI)
-```
-
-### Release (two-stage flow)
-```bash
-make release-prepare VERSION=x.y.z   # Stage 1: tag core + sync adapter go.mod
-# then commit and push the adapter go.mod changes
-make release-publish VERSION=x.y.z   # Stage 2: tag and push all adapters
-make release-dry-run VERSION=x.y.z   # preview without making changes
-```
-
-## Architecture
-
-This is a **Go workspace monorepo** (`go.work`) containing:
-- **Core module** (`github.com/oaswrap/spec`) — the OpenAPI spec builder
-- **Adapter modules** (`adapter/<name>/`) — framework-specific wrappers, each a separate Go module with its own `go.mod`
-
-### Core module
-
-| File/Package | Purpose |
-|---|---|
-| `types.go` | Public interfaces: `Generator`, `Router`, `Route`, `reflector`, `spec` |
-| `router.go` | `generator` struct — implements route registration, grouping, and spec serialization |
-| `reflector.go` | Dispatches to OAS 3.0 or 3.1 reflector based on version string |
-| `reflector3.go` / `reflector31.go` | Version-specific reflectors wrapping `swaggest/openapi-go` |
-| `operation.go` | Builds operation context from options |
-| `jsonschema.go` | JSON Schema helpers |
-| `option/` | All `option.OpenAPIOption`, `option.OperationOption`, `option.GroupOption` constructors |
-| `openapi/` | Internal config structs and OpenAPI entity types |
-| `pkg/` | Shared utilities: `mapper`, `parser`, `dto`, `testutil`, `util` |
-| `internal/` | Private helpers: `debuglog`, `errs`, `mapper`, `parser` |
-
-### How spec generation works
-
-1. `NewRouter`/`NewGenerator` creates a `generator` with a `reflector` (OAS 3.0 or 3.1).
-2. Route methods (`Get`, `Post`, etc.) register `route` objects (lazy — no reflector call yet).
-3. `Group` creates child `generator`s sharing the same `reflector`; group options are propagated at build time.
-4. On first `MarshalYAML`/`MarshalJSON`/`Validate`, `buildOnce()` fires: flattens the route tree and calls `reflector.Add()` for each route, applying group options.
-5. `reflector.Add()` translates `option.OperationOption` functions into the `swaggest/openapi-go` operation model.
-
-### Adapters
-
-Each adapter (e.g. `adapter/fiberopenapi`) wraps both the framework router and `spec.Generator`:
-- `NewRouter(frameworkRouter, opts...)` → returns the adapter's `Generator` interface
-- Route methods register handlers on the framework router **and** call `spec.Router.Add()` for documentation
-- Docs UI (`/docs`) and YAML spec (`/docs/openapi.yaml`) routes are added automatically unless `option.DisableDocs()` is set
-- Each adapter uses a `parser.ColonParamParser` (or similar) to convert framework-specific path params (e.g. `:id`) to OpenAPI style (`{id}`)
-
-### Golden-file testing
-
-Tests in `router_test.go` and adapter `router_test.go` compare generated YAML output against files in `testdata/`. Run `make test-update` to regenerate them after intentional changes.
-
-### Versioning & tagging
-
-- Core tag: `v1.2.3`
-- Adapter tags: `adapter/<name>/v1.2.3`
-- After tagging core, run `make sync-adapter-deps VERSION=x.y.z` to pin adapter `go.mod` to the new core version, then commit before publishing adapter tags.
-
-### Git hooks (lefthook)
-
-Pre-commit: `gofmt`, `go vet`, `golangci-lint`, `go mod tidy`.  
-Commit messages must follow Conventional Commits: `feat|fix|docs|style|refactor|test|chore`.
+Follow existing patterns before adding abstractions. Changes to core generation may require adapter and golden-file updates. Do not modify release tags, generated coverage reports, or unrelated module files unless the task explicitly requires it.
 
 ---
 > Source: [oaswrap/spec](https://github.com/oaswrap/spec) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
