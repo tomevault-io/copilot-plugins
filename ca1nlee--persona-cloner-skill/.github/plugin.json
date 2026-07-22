@@ -1,0 +1,14 @@
+{
+  "name": "ca1nlee--persona-cloner-skill",
+  "displayName": "persona-cloner-skill",
+  "description": "persona-cloner-skill",
+  "version": "1.0.0",
+  "author": "Ca1nlee",
+  "homepage": "https://github.com/Ca1nlee/persona-cloner-skill",
+  "skills": [
+    {
+      "name": "persona-cloner-skill",
+      "description": ""
+    }
+  ]
+}
