@@ -1,0 +1,9 @@
+{
+  "name": "akernel-dev--akernel",
+  "displayName": "akernel",
+  "description": "Programmable datacenter-scale infrastructure for Agents.",
+  "version": "1.0.0",
+  "author": "akernel-dev",
+  "homepage": "https://github.com/akernel-dev/akernel",
+  "skills": []
+}
