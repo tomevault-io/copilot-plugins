@@ -1,0 +1,165 @@
+{
+  "name": "beutl",
+  "owner": "b-editor",
+  "repo": "beutl",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-test/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-build/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-pre-pr/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-pre-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-format/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-drawable/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-drawable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-coverage/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-git-commit/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-git-branch/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-git-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-filter-effect/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-filter-effect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-ai-self-review/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-ai-self-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "beutl",
+      "path": ".claude/skills/beutl-tooltab-extension/SKILL.md",
+      "github_url": "https://github.com/b-editor/beutl/tree/main/.claude/skills/beutl-tooltab-extension/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/b-editor/beutl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:20:31Z"
+}
