@@ -1,0 +1,9 @@
+{
+  "name": "heckenmann--docker-swarm-dashboard",
+  "displayName": "docker-swarm-dashboard",
+  "description": "docker-swarm-dashboard",
+  "version": "1.0.0",
+  "author": "heckenmann",
+  "homepage": "https://github.com/heckenmann/docker-swarm-dashboard",
+  "skills": []
+}
