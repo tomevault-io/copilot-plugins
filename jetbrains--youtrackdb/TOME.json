@@ -1,0 +1,129 @@
+{
+  "name": "youtrackdb",
+  "owner": "JetBrains",
+  "repo": "youtrackdb",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/ai-tells/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/ai-tells/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/edit-design/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/edit-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/review-docs/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/review-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/review-plan/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/review-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/create-plan/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/create-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/fix-ci-failure/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/fix-ci-failure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/execute-tracks/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/execute-tracks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/analyze-changes/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/analyze-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/migrate-workflow/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/migrate-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/review-workflow-pr/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/review-workflow-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/create-presentation/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/create-presentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "youtrackdb",
+      "path": ".claude/skills/readability-feedback/SKILL.md",
+      "github_url": "https://github.com/JetBrains/youtrackdb/tree/main/.claude/skills/readability-feedback/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JetBrains/youtrackdb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:42:40Z"
+}
