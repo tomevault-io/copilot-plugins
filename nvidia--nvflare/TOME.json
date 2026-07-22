@@ -1,0 +1,81 @@
+{
+  "name": "NVFlare",
+  "owner": "NVIDIA",
+  "repo": "NVFlare",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "NVFlare",
+      "path": "skills/nvflare-orient/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVFlare/tree/main/skills/nvflare-orient/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NVFlare",
+      "path": "skills/nvflare-diagnose-job/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVFlare/tree/main/skills/nvflare-diagnose-job/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NVFlare",
+      "path": "skills/nvflare-convert-pytorch/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVFlare/tree/main/skills/nvflare-convert-pytorch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NVFlare",
+      "path": "research/auto-fl-research/skills/autofl-nvflare/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVFlare/tree/main/research/auto-fl-research/skills/autofl-nvflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NVFlare",
+      "path": "research/auto-fl-research/skills/autofl-nvflare-report/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVFlare/tree/main/research/auto-fl-research/skills/autofl-nvflare-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NVFlare",
+      "path": "tests/unit_test/tool/agent_skill_checks/fixtures/valid/nvflare-example-skill/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/NVFlare/tree/main/tests/unit_test/tool/agent_skill_checks/fixtures/valid/nvflare-example-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/NVFlare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:55:34Z"
+}
