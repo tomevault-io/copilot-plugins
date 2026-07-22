@@ -217,9 +217,21 @@
       "path": "shared/skills/ssh-keychain-access/SKILL.md",
       "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/ssh-keychain-access/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "repos/workspace-hub/.codex/skills/graphify/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/repos/workspace-hub/.codex/skills/graphify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "shared/skills/supermachine-api/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/supermachine-api/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:31:16Z"
+  "distributed_at": "2026-07-22T22:31:27Z"
 }
