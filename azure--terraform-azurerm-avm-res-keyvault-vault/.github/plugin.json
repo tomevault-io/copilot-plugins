@@ -1,0 +1,14 @@
+{
+  "name": "azure--terraform-azurerm-avm-res-keyvault-vault",
+  "displayName": "terraform-azurerm-avm-res-keyvault-vault",
+  "description": "terraform-azurerm-avm-res-keyvault-vault",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-res-keyvault-vault",
+  "skills": [
+    {
+      "name": "terraform-azurerm-avm-res-keyvault-vault",
+      "description": ""
+    }
+  ]
+}
