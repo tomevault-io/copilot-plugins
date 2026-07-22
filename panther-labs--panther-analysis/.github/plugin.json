@@ -1,0 +1,14 @@
+{
+  "name": "panther-labs--panther-analysis",
+  "displayName": "panther-analysis",
+  "description": "panther-analysis",
+  "version": "1.0.0",
+  "author": "panther-labs",
+  "homepage": "https://github.com/panther-labs/panther-analysis",
+  "skills": [
+    {
+      "name": "panther-analysis",
+      "description": ""
+    }
+  ]
+}
