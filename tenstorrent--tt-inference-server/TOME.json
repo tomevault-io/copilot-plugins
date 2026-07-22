@@ -1,0 +1,63 @@
+{
+  "name": "tt-inference-server",
+  "owner": "tenstorrent",
+  "repo": "tt-inference-server",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tt-inference-server",
+      "path": ".claude/skills/add-v2-code/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-inference-server/tree/main/.claude/skills/add-v2-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-inference-server",
+      "path": "tt-media-server/cpp_server/.cursor/skills/profile-cpp-server/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-inference-server/tree/main/tt-media-server/cpp_server/.cursor/skills/profile-cpp-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tt-inference-server",
+      "path": "tt-media-server/cpp_server/.cursor/skills/build-blaze-images/SKILL.md",
+      "github_url": "https://github.com/tenstorrent/tt-inference-server/tree/main/tt-media-server/cpp_server/.cursor/skills/build-blaze-images/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tenstorrent/tt-inference-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:09:29Z"
+}
