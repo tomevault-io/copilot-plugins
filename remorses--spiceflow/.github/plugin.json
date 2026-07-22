@@ -1,0 +1,14 @@
+{
+  "name": "remorses--spiceflow",
+  "displayName": "spiceflow",
+  "description": "spiceflow",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/spiceflow",
+  "skills": [
+    {
+      "name": "spiceflow",
+      "description": ""
+    }
+  ]
+}
