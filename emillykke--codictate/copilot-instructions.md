@@ -1,139 +1,40 @@
 ## codictate
 
-> Codictate is a local-first dictation app. The user presses a global keyboard shortcut, speaks into their microphone, and the transcribed (and optionally formatted) text is pasted wherever the cursor is. Everything runs on-device — no cloud services, no accounts, no analytics.
+> Local-first voice dictation for macOS and Windows. Users press a global shortcut, speak, and transcribed text is pasted at the cursor — no cloud, no account.
 
-# Codictate — Architecture
+# Codictate
 
-## What Codictate does
+Local-first voice dictation for macOS and Windows. Users press a global shortcut, speak, and transcribed text is pasted at the cursor — no cloud, no account.
 
-Codictate is a local-first dictation app. The user presses a global keyboard shortcut, speaks into their microphone, and the transcribed (and optionally formatted) text is pasted wherever the cursor is. Everything runs on-device — no cloud services, no accounts, no analytics.
+Built with **Electrobun** (NOT Electron — never use Electron APIs or patterns), **Bun**, **React 19**, **Tailwind CSS v4**, and **Vite**.
 
-Supported platforms: macOS (Apple Silicon, macOS 13+) and Windows (x64, Windows 10+).
+@AGENTS.md
 
-## Tech stack
+## Quick reference
 
-| Layer | Technology |
-|-------|-----------|
-| Desktop framework | Electrobun (NOT Electron) |
-| Main process runtime | Bun |
-| Frontend | React 19, Vite, Tailwind CSS v4 |
-| Animation | Motion (Framer Motion) |
-| Data fetching | @tanstack/react-query |
-| Speech-to-text | Whisper (whisper-cli via whisper.cpp) and Parakeet (FluidAudio/FluidInference via CodictateParakeetHelper) |
-| Formatting | llama.cpp running Qwen2.5 3B / Qwen3 4B, or Apple Intelligence (macOS 26+) |
-| Native helpers | Swift (macOS), Rust (Windows) |
+| Command | Purpose |
+|---------|---------|
+| `bun run start` | Dev mode (macOS) |
+| `bun run dev:hmr` | Dev with HMR (macOS) |
+| `bun run start:windows` | Dev mode (Windows) |
+| `bun run lint:fix` | ESLint fix |
+| `bun run tsc` | Type-check both tsconfigs |
 
-## Project structure
+## Font sizing — important
 
-```
-src/
-  bun/                          # Main process (Bun + Electrobun)
-    index.ts                    # Entry point
-    AppConfig/                  # Persistent app configuration
-    platform/                   # Platform-specific code
-      macos/                    #   macOS implementations
-      windows/                  #   Windows implementations
-      linux/                    #   Linux implementations (planned)
-    setup-indicator-window.ts   # Recording indicator lifecycle
-    setup-menu.ts               # App menu
-    setup-recording.ts          # Dictation recording orchestration
-    setup-tray.ts               # System tray
-    setup-window.ts             # Main window
-    utils/                      # Utilities (keyboard, audio, etc.)
+The app uses **Iceland** (`font-sans`) as body text and **Iceberg** (`font-brand`) for branding. Both fonts render extremely small at standard sizes. Always use larger-than-typical font sizes when displaying text — the base body size is `23px` (see `src/mainview/index.css`). When adding new UI, follow this convention: sizes that look correct in other fonts will be too small here. Scale up.
 
-  mainview/                     # React frontend (Vite-bundled)
-    main.tsx                    # React entry
-    App.tsx                     # Root component and routing
-    index.css                   # Tailwind + theme tokens
-    rpc.ts                      # Electrobun RPC bridge
-    app-events.ts               # App-level event handling
-    indicator/                  # Recording indicator webview
-    components/
-      Brand/                    # Branding (wordmark)
-      Common/                   # Shared UI (Kbd, RecordingOrb, tooltips, etc.)
-      Home/                     # Home screen
-      Layout/                   # App layout shell
-      MainContainer.tsx         # Main container component
-      Onboarding/               # First-run onboarding
-      Permissions/              # macOS permission prompts
-      Settings/                 # Settings modal and sections
+## Key conventions
 
-  shared/                       # Types and constants shared between bun and mainview
-    types.ts                    # Core shared types
-    platform.ts                 # Platform detection
-    speech-models.ts            # Speech model definitions
-    whisper-models.ts           # Whisper model configs
-    formatting-modes.ts         # Formatting mode definitions
-    dictation-shortcut.ts       # Shortcut config types
-    shortcut-options.ts         # Available shortcut options
-    recording-duration-presets.ts
-    transcription-languages.ts
-    windows-helper-protocol.ts  # IPC protocol for Windows helper
-
-native/
-  CodictateWindowHelper/        # macOS: recording HUD (AppKit NSPanel)
-  CodictateParakeetHelper/      # macOS: Parakeet ASR (FluidAudio engine)
-  CodictateObserverHelper/      # macOS: correction observer
-  CodictateWindowsHelper/       # Windows: keyboard hook + mic + indicator (Rust)
-
-scripts/
-  pre-build.ts                  # Downloads vendor binaries + Whisper model
-  post-build.ts                 # App bundle patching + codesign
-  release.sh                    # Version bump + tag push
-
-docs/
-  INSTALL.md                    # User install guide
-  FORMATTING.md                 # Formatting feature docs
-  RELEASING.md                  # Maintainer release guide
-  RECORDING_INDICATOR.md        # Recording HUD architecture
-  MACOS_SIGNING_AND_NOTARIZATION.md
-  AEROSPACE.md                  # AeroSpace window rule
-
-vendors/                        # Pre-built vendor binaries (whisper-cli, llama-completion, etc.)
-```
-
-## Key architecture details
-
-### Electrobun — not Electron
-
-Electrobun uses the OS native webview instead of bundling Chromium. Import patterns:
-- Main process: `import { ... } from "electrobun/bun"`
-- Browser/webview: `import { ... } from "electrobun/view"`
-- Bundled views loaded via `views://` URLs
-- Views must be registered in `electrobun.config.ts`
-
-### Recording indicator
-
-A native floating HUD showing dictation state (ready / recording / transcribing). On macOS it's a Swift AppKit `NSPanel` (`CodictateWindowHelper`); on Windows it's a Win32 layered window inside `CodictateWindowsHelper` (Rust). Both communicate with the main Bun process over stdin/stdout JSON lines.
-
-See `docs/RECORDING_INDICATOR.md` for full details.
-
-### Speech engines
-
-- **Whisper**: runs via `whisper-cli` (built from whisper.cpp). The default engine.
-- **Parakeet**: runs via `CodictateParakeetHelper` (macOS only). The engine ID in code is `whisperkit` but the actual engine is **FluidAudio** (FluidInference) — not WhisperKit.
-
-### Formatting pipeline
-
-Raw transcription can be reformatted before pasting (e.g. turning spoken words into a structured email):
-- **llama.cpp backend**: runs Qwen2.5 3B (~2 GB) or Qwen3 4B (~2.5 GB) locally via `llama-completion`
-- **Apple Intelligence backend**: macOS 26+ only, uses on-device Apple Intelligence
-
-## Frontend theme
-
-Defined in `src/mainview/index.css`:
-
-```css
---font-sans: "Iceland"        /* Body text */
---font-brand: "Iceberg"       /* Branding / display */
---color-codictate-page         /* Page background (black) */
---color-codictate-canvas       /* Canvas background */
---color-codictate-foreground   /* Text color (white) */
---color-codictate-paper        /* Semi-transparent surface */
-```
-
-Both Iceland and Iceberg fonts are very small at standard sizes — always use larger font sizes than typical. The base body font-size is 23px.
+- **Electrobun imports**: main process uses `import { ... } from "electrobun/bun"`, browser context uses `import { ... } from "electrobun/view"`
+- **Views**: loaded via `views://` URLs; must be registered in `electrobun.config.ts`
+- **Platform code**: `src/bun/platform/` has `macos/`, `windows/`, and `linux/` subdirectories — platform-specific logic lives there
+- **Shared types**: `src/shared/` contains types and constants used by both main process and frontend
+- **Styling**: Tailwind v4 with custom theme tokens defined in `src/mainview/index.css` (`--color-codictate-*`, `--font-sans`, `--font-brand`)
+- **Animation**: uses `motion` (Framer Motion) — already a dependency
+- **Data fetching**: `@tanstack/react-query` is the data-fetching layer
+- **App stays in tray**: `exitOnLastWindowClosed: false` — the app lives in the system tray
 
 ---
 > Source: [EmilLykke/codictate](https://github.com/EmilLykke/codictate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
