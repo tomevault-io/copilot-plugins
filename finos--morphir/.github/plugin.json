@@ -1,0 +1,30 @@
+{
+  "name": "finos--morphir",
+  "displayName": "morphir",
+  "description": "morphir",
+  "version": "1.0.0",
+  "author": "finos",
+  "homepage": "https://github.com/finos/morphir",
+  "skills": [
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "description": ""
+    },
+    {
+      "name": "morphir",
+      "description": ""
+    },
+    {
+      "name": "morphir",
+      "description": ""
+    },
+    {
+      "name": "morphir",
+      "description": ""
+    }
+  ]
+}
