@@ -1,0 +1,22 @@
+{
+  "name": "chainsafe--lodestar",
+  "displayName": "lodestar",
+  "description": "lodestar",
+  "version": "1.0.0",
+  "author": "ChainSafe",
+  "homepage": "https://github.com/ChainSafe/lodestar",
+  "skills": [
+    {
+      "name": "lodestar",
+      "description": ""
+    },
+    {
+      "name": "lodestar",
+      "description": ""
+    },
+    {
+      "name": "lodestar",
+      "description": ""
+    }
+  ]
+}
