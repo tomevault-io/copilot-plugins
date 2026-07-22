@@ -1,0 +1,14 @@
+{
+  "name": "arch3rpro--1panel-appstore",
+  "displayName": "1Panel-Appstore",
+  "description": "1Panel-Appstore",
+  "version": "1.0.0",
+  "author": "arch3rPro",
+  "homepage": "https://github.com/arch3rPro/1Panel-Appstore",
+  "skills": [
+    {
+      "name": "1Panel-Appstore",
+      "description": ""
+    }
+  ]
+}
