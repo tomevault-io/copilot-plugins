@@ -1,0 +1,14 @@
+{
+  "name": "azure--terraform-azurerm-avm-ptn-aks-production",
+  "displayName": "terraform-azurerm-avm-ptn-aks-production",
+  "description": "terraform-azurerm-avm-ptn-aks-production",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production",
+  "skills": [
+    {
+      "name": "terraform-azurerm-avm-ptn-aks-production",
+      "description": ""
+    }
+  ]
+}
