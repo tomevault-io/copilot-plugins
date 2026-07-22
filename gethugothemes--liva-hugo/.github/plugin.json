@@ -1,0 +1,14 @@
+{
+  "name": "gethugothemes--liva-hugo",
+  "displayName": "liva-hugo",
+  "description": "liva-hugo",
+  "version": "1.0.0",
+  "author": "gethugothemes",
+  "homepage": "https://github.com/gethugothemes/liva-hugo",
+  "skills": [
+    {
+      "name": "liva-hugo",
+      "description": ""
+    }
+  ]
+}
