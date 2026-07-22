@@ -1,0 +1,46 @@
+{
+  "name": "davidgasquez--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles",
+  "version": "1.0.0",
+  "author": "davidgasquez",
+  "homepage": "https://github.com/davidgasquez/dotfiles",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "modern-python",
+      "description": ""
+    },
+    {
+      "name": "self-contained-python-script",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "description": ""
+    }
+  ]
+}
