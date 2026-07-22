@@ -1,0 +1,22 @@
+{
+  "name": "openshift--oc-mirror",
+  "displayName": "oc-mirror",
+  "description": "oc-mirror",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/oc-mirror",
+  "skills": [
+    {
+      "name": "oc-mirror",
+      "description": ""
+    },
+    {
+      "name": "oc-mirror",
+      "description": ""
+    },
+    {
+      "name": "oc-mirror",
+      "description": ""
+    }
+  ]
+}
