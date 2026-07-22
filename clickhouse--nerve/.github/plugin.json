@@ -1,0 +1,14 @@
+{
+  "name": "clickhouse--nerve",
+  "displayName": "nerve",
+  "description": "nerve",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/nerve",
+  "skills": [
+    {
+      "name": "nerve",
+      "description": ""
+    }
+  ]
+}
