@@ -1,0 +1,14 @@
+{
+  "name": "allocnode--oh-my-sage",
+  "displayName": "oh-my-sage",
+  "description": "oh-my-sage",
+  "version": "1.0.0",
+  "author": "allocnode",
+  "homepage": "https://github.com/allocnode/oh-my-sage",
+  "skills": [
+    {
+      "name": "oh-my-sage",
+      "description": ""
+    }
+  ]
+}
