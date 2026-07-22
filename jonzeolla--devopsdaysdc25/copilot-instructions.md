@@ -1,46 +1,45 @@
-## project
+## testing
 
-> You are working on devopsdaysdc25, a Python application built with modern best practices.
+> pattern: "**/*test*.py"
 
-type: always
+type: auto-attached
+pattern: "**/*test*.py"
 
 ---
 
-# devopsdaysdc25 Project Rules
+# Testing Guidelines
 
-You are working on devopsdaysdc25, a Python application built with modern best practices.
+## Test Structure
+- Unit tests in `tests/unit/`
+- Integration tests in `tests/integration/`
+- Use pytest fixtures for setup
+- Mark tests: `@pytest.mark.unit` or `@pytest.mark.integration`
 
-## Project Info
-- Description: Let's vibe 🚀
-- Company: jonzeolla
-- Python 3.13+
-- Package manager: uv (NOT pip/poetry)
+## Coverage Requirements
+- Minimum 80% coverage
+- Run with: `task test`
+- View report: `open htmlcov/index.html`
 
-## Tech Stack
-- Testing: pytest (>80% coverage)
-- Linting: ruff, pyright, refurb
-- Security: grype, syft
-- Docker: Multi-platform builds
-- CI/CD: GitHub Actions
+## Test Patterns
+```python
+import pytest
+from devopsdaysdc25.module import function
 
-## Code Requirements
-- Max line: 120 chars
-- Type hints required
-- Google-style docstrings
-- pathlib only (no os.path)
-- logging only (no print)
-- Specific exceptions
+def test_function_success():
+    """Test successful case."""
+    result = function(valid_input)
+    assert result == expected
 
-## Key Commands
-```bash
-task init          # Setup
-task build test    # Before commits
-task docker-build  # Build container
-task release       # Release
+def test_function_error():
+    """Test error handling."""
+    with pytest.raises(SpecificError):
+        function(invalid_input)
+
+@pytest.fixture
+def sample_data():
+    """Provide test data."""
+    return {"key": "value"}
 ```
-
-## Important
-Look for `NotImplementedError` markers - implement these with business logic.
 
 ---
 > Source: [JonZeolla/devopsdaysdc25](https://github.com/JonZeolla/devopsdaysdc25) — distributed by [TomeVault](https://tomevault.io).
