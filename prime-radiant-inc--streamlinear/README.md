@@ -5,15 +5,19 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [prime-radiant-inc/streamlinear](https://github.com/prime-radiant-inc/streamlinear).
+Original source: `CLAUDE.md` in [prime-radiant-inc/streamlinear](https://github.com/prime-radiant-inc/streamlinear).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [streamlinear](https://github.com/prime-radiant-inc/streamlinear/tree/main/.claude-plugin/skills/linear/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/prime-radiant-inc/streamlinear](https://github.com/prime-radiant-inc/streamlinear)
 
