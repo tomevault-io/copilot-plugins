@@ -1,0 +1,18 @@
+{
+  "name": "vercel--vercel",
+  "displayName": "vercel",
+  "description": "vercel",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/vercel",
+  "skills": [
+    {
+      "name": "vercel-cli",
+      "description": ""
+    },
+    {
+      "name": "vercel",
+      "description": ""
+    }
+  ]
+}
