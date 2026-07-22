@@ -1,0 +1,75 @@
+{
+  "name": "iota-sdk",
+  "owner": "iota-uz",
+  "repo": "iota-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "e2e-testing",
+      "path": ".claude/skills/e2e-testing",
+      "github_url": "https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "railway-cli",
+      "path": ".claude/skills/railway-cli",
+      "github_url": "https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/railway-cli",
+      "description": ""
+    },
+    {
+      "name": "iota-sdk",
+      "path": ".claude/skills/railway-cli/skill.md",
+      "github_url": "https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/railway-cli/skill.md",
+      "description": ""
+    },
+    {
+      "name": "iota-sdk",
+      "path": ".claude/skills/e2e-testing/skill.md",
+      "github_url": "https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/e2e-testing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "iota-sdk",
+      "path": ".claude/skills/database-connection/skill.md",
+      "github_url": "https://github.com/iota-uz/iota-sdk/tree/main/.claude/skills/database-connection/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iota-uz/iota-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:35:57Z"
+}
