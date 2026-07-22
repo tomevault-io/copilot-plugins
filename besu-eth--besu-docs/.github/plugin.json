@@ -1,0 +1,18 @@
+{
+  "name": "besu-eth--besu-docs",
+  "displayName": "besu-docs",
+  "description": "besu-docs",
+  "version": "1.0.0",
+  "author": "besu-eth",
+  "homepage": "https://github.com/besu-eth/besu-docs",
+  "skills": [
+    {
+      "name": "besu-docs",
+      "description": ""
+    },
+    {
+      "name": "besu-docs",
+      "description": ""
+    }
+  ]
+}
