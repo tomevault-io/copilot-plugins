@@ -1,0 +1,14 @@
+{
+  "name": "qoder-ai--qoder-community",
+  "displayName": "qoder-community",
+  "description": "qoder-community",
+  "version": "1.0.0",
+  "author": "Qoder-AI",
+  "homepage": "https://github.com/Qoder-AI/qoder-community",
+  "skills": [
+    {
+      "name": "qoder-community",
+      "description": ""
+    }
+  ]
+}
