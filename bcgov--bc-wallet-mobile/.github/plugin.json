@@ -1,0 +1,18 @@
+{
+  "name": "bcgov--bc-wallet-mobile",
+  "displayName": "bc-wallet-mobile",
+  "description": "bc-wallet-mobile",
+  "version": "1.0.0",
+  "author": "bcgov",
+  "homepage": "https://github.com/bcgov/bc-wallet-mobile",
+  "skills": [
+    {
+      "name": "bcsc-core-native-testing",
+      "description": ""
+    },
+    {
+      "name": "bc-wallet-mobile",
+      "description": ""
+    }
+  ]
+}
