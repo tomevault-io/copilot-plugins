@@ -1,0 +1,333 @@
+{
+  "name": "oh-my-design",
+  "owner": "kwakseongjae",
+  "repo": "oh-my-design",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "omd-sync",
+      "path": "skills/omd-sync",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-sync",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-init/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-sync/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-taste/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-taste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-learn/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-apply/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-apply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-harness/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-final-qa/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-final-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-remember/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-kr-writer/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-kr-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/claude-design/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/claude-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".codex/skills/omd-init/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-asset-fetch/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-asset-fetch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-codex-image/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-codex-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".codex/skills/omd-sync/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-init/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-orchestrator/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".codex/skills/omd-learn/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".codex/skills/omd-apply/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-apply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-sync/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-learn/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-apply/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-apply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".agents/skills/omd-design/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.agents/skills/omd-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".codex/skills/omd-harness/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-locale-adapter/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-locale-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-designer-review/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-designer-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-migrate/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-harness/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".codex/skills/omd-remember/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-final-qa/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-final-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-remember/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-reference-capture/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-reference-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-kr-writer/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-kr-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-experiment-gallery/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-experiment-gallery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-codex-image/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-codex-image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-batch-launch/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-batch-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".agents/skills/google-analytics/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.agents/skills/google-analytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-orchestrator/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".agents/skills/omd-add-reference/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.agents/skills/omd-add-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": "skills/omd-lab-02-design-harness/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-lab-02-design-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-locale-adapter/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-locale-adapter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-designer-review/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-designer-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-release-hygiene/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-release-hygiene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-component-harvest/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-component-harvest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".codex/skills/omd-lab-02-design-harness/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-lab-02-design-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-lab-02-design-harness/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-lab-02-design-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oh-my-design",
+      "path": ".claude/skills/omd-lab-01-designmd-impact/SKILL.md",
+      "github_url": "https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-lab-01-designmd-impact/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kwakseongjae/oh-my-design",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T13:42:49Z"
+}
