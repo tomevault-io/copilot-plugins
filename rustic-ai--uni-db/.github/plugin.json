@@ -1,0 +1,14 @@
+{
+  "name": "rustic-ai--uni-db",
+  "displayName": "uni-db",
+  "description": "uni-db",
+  "version": "1.0.0",
+  "author": "rustic-ai",
+  "homepage": "https://github.com/rustic-ai/uni-db",
+  "skills": [
+    {
+      "name": "uni-db",
+      "description": ""
+    }
+  ]
+}
