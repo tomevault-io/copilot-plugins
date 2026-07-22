@@ -1,0 +1,18 @@
+{
+  "name": "zplug--zplug",
+  "displayName": "zplug",
+  "description": "zplug",
+  "version": "1.0.0",
+  "author": "zplug",
+  "homepage": "https://github.com/zplug/zplug",
+  "skills": [
+    {
+      "name": "zplug",
+      "description": ""
+    },
+    {
+      "name": "zplug",
+      "description": ""
+    }
+  ]
+}
