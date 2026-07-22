@@ -1,0 +1,18 @@
+{
+  "name": "coddy-project--coddy-agent",
+  "displayName": "coddy-agent",
+  "description": "coddy-agent",
+  "version": "1.0.0",
+  "author": "coddy-project",
+  "homepage": "https://github.com/coddy-project/coddy-agent",
+  "skills": [
+    {
+      "name": "coddy-agent",
+      "description": ""
+    },
+    {
+      "name": "coddy-agent",
+      "description": ""
+    }
+  ]
+}
