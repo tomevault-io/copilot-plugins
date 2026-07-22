@@ -1,0 +1,46 @@
+{
+  "name": "square--workflow-kotlin",
+  "displayName": "workflow-kotlin",
+  "description": "workflow-kotlin",
+  "version": "1.0.0",
+  "author": "square",
+  "homepage": "https://github.com/square/workflow-kotlin",
+  "skills": [
+    {
+      "name": "workflow-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "description": ""
+    },
+    {
+      "name": "workflow-kotlin",
+      "description": ""
+    }
+  ]
+}
