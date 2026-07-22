@@ -1,0 +1,273 @@
+{
+  "name": "awesome-agv",
+  "owner": "irahardianto",
+  "repo": "awesome-agv",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/adr/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/adr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/guardrails/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/guardrails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/sql-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/sql-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/cpp-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/cpp-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/php-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/php-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/java-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/java-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/ruby-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/ruby-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/react-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/react-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/rails-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/rails-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/swift-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/swift-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/chaos-testing/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/chaos-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/mobile-design/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/mobile-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/csharp-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/csharp-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/nextjs-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/nextjs-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/django-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/django-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/dotnet-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/dotnet-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/kotlin-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/kotlin-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/elixir-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/elixir-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/ml-engineering/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/ml-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/angular-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/angular-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/laravel-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/laravel-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/cli-development/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/cli-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/data-engineering/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/data-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/embedded-systems/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/embedded-systems/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/perf-optimization/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/perf-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/incident-response/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/incident-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/api-documentation/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/api-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/javascript-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/javascript-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/browser-automation/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/browser-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/debugging-protocol/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/debugging-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/spring-boot-idioms/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/spring-boot-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/payment-integration/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/payment-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/sequential-thinking/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/sequential-thinking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/refactoring-patterns/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/refactoring-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/research-methodology/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/research-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-agv",
+      "path": ".agents/skills/supply-chain-security/SKILL.md",
+      "github_url": "https://github.com/irahardianto/awesome-agv/tree/main/.agents/skills/supply-chain-security/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/irahardianto/awesome-agv",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:23:31Z"
+}
