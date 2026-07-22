@@ -1,201 +1,100 @@
 ## smartbookmark
 
-> 面向人类开发者与自动化助手（Agent）：在修改代码、补充文档或做功能设计前，请先读完本文，并按文中顺序查阅 `docs/` 下的资料。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md — 协作与开发约定
+# CLAUDE.md
 
-面向人类开发者与自动化助手（Agent）：在修改代码、补充文档或做功能设计前，请先读完本文，并按文中顺序查阅 `docs/` 下的资料。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
----
+## Project Overview
 
-## 开发前必读
+Smart Bookmark is a **Manifest V3 Chrome extension** (Chrome 108+) for managing bookmarks. The extension maintains its own bookmark store (`chrome.storage.local`) as the primary data source, with Chrome native bookmarks as a secondary/fusion source. It provides quick save, popup/side panel, quick search, and settings pages. Features include AI tag generation, embedding-based search, WebDAV sync, and folder recommendations.
 
-**在进行任何开发工作之前，必须先阅读并遵循：**
+The primary development guidance document is `AGENTS.md` — read it first. Architecture details are in `docs/architecture/PROJECT_ARCHITECTURE.md`.
 
-- [`docs/README.md`](docs/README.md) — 文档目录说明、索引、新增文档的放置规则与维护约定。
+## Build & Develop
 
-读完上述文件后，再按任务类型继续查阅：
+```bash
+# Switch to development environment (updates env.js + manifest.json)
+python3 build.py development
 
-- 需要理解整体架构与模块边界 → [`docs/architecture/PROJECT_ARCHITECTURE.md`](docs/architecture/PROJECT_ARCHITECTURE.md)
-- 涉及具体功能 → `docs/features/<功能名>/`（如存在 `SPEC.md`、`DESIGN.md` 则优先阅读）
-- 涉及交互、快捷键或行为验收 → `docs/testing/` 下对应回归清单
-- 发布、同步、排障 → `docs/operations/`（如有）
+# Switch to production environment
+python3 build.py production
 
----
+# Create release ZIPs for Chrome + Edge (runs build.py production, then packages)
+bash build.sh
 
-## 项目概况
+# Dry-run to verify packaging excludes dev files
+rsync -avn --exclude-from='exclude_list.txt' . /tmp/smart-bookmark-packcheck
+```
 
-**smart-bookmark（Smart Bookmark）** 是一个基于 **Manifest V3** 的 Chrome 扩展，主要能力包括：
+The build pipeline: `build.py` sets the env → `build.sh` uses `rsync --exclude-from=exclude_list.txt` to copy files to a temp dir → zips the result. The authoritative list of excluded files is `exclude_list.txt`. Manifest variants per store live in `config/manifest.{chrome,edge}.json`.
 
-- 在扩展自有存储中管理书签，并与 Chrome 原生书签读取、融合与双向同步
-- 提供 quick save、侧栏（popup）、quick search、设置页等多入口
-- 支持标签、摘要、embedding 等搜索增强能力
-- 支持 WebDAV 配置同步；代码中保留已关闭的云同步相关骨架
+There are no automated tests. Manual regression checklists are in `docs/testing/`.
 
-**主要运行时与入口文件（细化说明见架构文档）：**
+## Runtime Contexts (critical)
 
-| 区域 | 典型入口 |
-|------|----------|
-| Background（Service Worker） | `background.js` |
-| 侧栏 / 主界面 | `popup.html`、`popup.js` |
-| 快速保存 | `quickSave.html`、`quickSave.js` |
-| 设置 | `settings.html` 等 |
-| 扩展清单 | `manifest.json` |
+The extension runs in **separate contexts** — never treat them as the same process:
 
----
+| Context | Entry | Lifecycle |
+|---------|-------|-----------|
+| Service Worker | `background.js` | Non-persistent, can terminate any time |
+| Side Panel | `popup.html` / `popup.js` | Lives while panel is open |
+| Quick Save | `quickSave.html` / `quickSave.js` | Per-invocation (Ctrl+B / Cmd+B) |
+| Quick Search | `quickSearch.html` / `quickSearch.js` | Per-invocation (Ctrl+K / Cmd+K) |
+| Settings | `settings.html` / `settings.js` | Long-lived options page |
+| Content Script | `contentScript.js`, `versionCheck.js` | Only on localhost:8080 |
 
-## 核心原则
+Cross-context communication uses `chrome.runtime.sendMessage` / `chrome.runtime.connect` only. Message types are defined in `consts.js`.
 
-- 从用户要解决的问题出发，优先交付最小可验证方案，而不是直接堆功能。
-- 优先选择最简单可行方案，避免过度抽象和过早优化。
-- 发现稳定模式后，考虑沉淀为共享约定、文档、rule 或 skill。
+## Architecture at a Glance
 
----
+### Storage Layers
+- **`chrome.storage.local`** — Extension bookmark data (keys: `bookmark.<url>`), sync config, sync state. Managed by `storageManager.js`.
+- **`chrome.storage.sync`** — Light user settings. Managed by `settingsManager.js`.
+- **`chrome.storage.session`** — Service worker caches (e.g., Chrome bookmark id→url mapping).
 
-## 开发工作流
+### Key Modules
 
-### 理解需求
+| Layer | Files | Role |
+|-------|-------|------|
+| Foundation | `consts.js`, `logger.js`, `i18n.js`, `common.js`, `env.js` | Constants, logging, i18n, shared utilities |
+| Data | `models.js`, `storageManager.js`, `settingsManager.js` | Bookmark model, local storage CRUD, settings |
+| Bookmarks | `util.js`, `bookmarkOps.js`, `search.js`, `directoryViewData.js` | Aggregation, edit/delete ops, search, directory tree |
+| AI | `api.js`, `folderRecommender.js` | Tag/embedding generation, folder recommendations |
+| Sync | `chromeBookmarkSync.js`, `autoSync.js`, `webdavSync.js`, `webdavClient.js` | Chrome bookmark sync, WebDAV, auto-sync scheduling |
+| UI | `popup.js`, `quickSave.js`, `quickSearch.js`, `settings.js`, `bookmarkEditManager.js`, `filterManager.js`, `themeManager.js`, `browserBookmarkSelector.js`, `iconPicker.js` | Page logic |
 
-- 先查看项目当前状态（文件结构、文档、最近提交），再开始提问。
-- 评估范围：如果请求涉及多个独立子系统，立即指出并帮助用户拆分为子项目，明确独立性、关联关系和构建顺序。每个子项目走独立的 设计→计划→实施 周期。
-- 对范围适当的项目，通过逐个提问完善理解：
-  - 每条消息只问一个问题，优先用选择题
-  - 聚焦于：目的、限制条件、成功标准
-  - 主动识别缺失信息：数据来源、使用场景、权限范围、是否跨 context
+### Data Model
 
-### 探索方案
+- **`UnifiedBookmark`** (in `models.js`): union of extension + Chrome bookmarks, with `source` field (`extension` / `chrome`) and `_presence` field (`extension_only` / `chrome_only` / `both`).
+- **`BookmarkSource`**: extension-origin bookmarks stored under key `bookmark.<url>` — the URL is the unique identifier.
+- **`_`-prefixed fields**: runtime-only fields (e.g. `_presence`, `_nodeKey`, `_facet`). `sanitizeBookmarkForStorage()` removes only runtime fields; `sanitizeBookmarkForExport()` removes ALL `_` fields.
 
-- 当实现路径不明确时，提出 2–3 种方案并说明各自的权衡。
-- 先给出推荐方案及理由，再列出备选。
-- 对会影响交互、数据模型或权限边界的关键决策，先显式说明取舍。
+### Two Aggregation Views
 
-### 展示设计
+Always check both when changing bookmark aggregation:
+- **`getAllBookmarks()`** in `util.js` — flat list for search and general display
+- **`getBookmarksForDirectoryView()`** in `directoryViewData.js` — tree-structured view matching Chrome's folder hierarchy
 
-- 确认理解后，分部分展示设计：架构、组件、数据流、错误处理、测试策略。
-- 根据复杂度调整篇幅：简单部分几句话概括，复杂部分 200–300 字详细说明。
-- 每完成一个部分后确认是否符合预期；遇到不清楚的地方随时返回澄清。
+## Critical Constraints
 
-### 确认后再实施
+1. **Chrome bookmark writes must go through background proxy**. Never call `chrome.bookmarks.*` write APIs directly from pages. Path: `bookmarkOps → message → background → ChromeBookmarkSync.proxy*`. This prevents the mute mechanism from breaking and avoids "self-triggered" event loops.
 
-- 设计展示完毕后，必须等待用户明确确认才能开始实现。不要在同一轮回复中既展示设计又动手改代码。
-- 如果用户提出调整，先更新设计再次确认，直到用户同意后再进入实施。
+2. **Service Worker is not persistent**. Don't rely on in-memory state. Critical caches must be rebuildable from `chrome.storage.session` or `chrome.storage.local`.
 
----
+3. **New `_` fields require sanitize check**. When adding a field prefixed with `_`, decide if it's runtime-only or persistent, then update the appropriate sanitize function.
 
-## 代码规范
+4. **Cloud sync is disabled**. `sync.js` and `FEATURE_FLAGS.ENABLE_CLOUD_SYNC` are retained as a skeleton but not active.
 
-### 可读性与命名
+5. **i18n is mandatory**. User-facing strings must use `chrome.i18n.getMessage()` with keys in `_locales/{en,zh_CN}/messages.json`.
 
-- 用能表达意图的命名，避免模糊缩写和语义重叠的变量名。
-- 通过结构和命名让代码自解释，注释主要用于解释"为什么"，不是重复"做了什么"。
+6. **CSS variables, not hardcoded colors**. Use `css/theme.css` custom properties. Add new variables there first.
 
-### 结构与隔离
+## When Changing Specific Features
 
-- 保持函数和模块单一职责，避免一个函数同时处理状态、渲染、事件和数据转换。
-- 把相关逻辑放在一起，把可复用逻辑抽成明确接口，避免复制粘贴式扩展。
-- 常量和配置应集中表达，不要把硬编码值散落在实现里。
-- 将系统拆为更小的单元，每个单元有明确目的、定义良好的接口，可独立理解和测试。
-- 检验边界质量：能否不读内部实现就理解其作用？能否替换实现而不破坏调用方？
-- 当文件变大时，视为职责过多的信号，主动拆分。
-- 新增抽象前先确认它真的减少复杂度，而不是把简单逻辑包装得更难读。
-
-### 修改前先理解
-
-- 提出变更前先探索当前结构，遵循已有模式和约定。
-- 修改前先读完整相关链路，而不是只看命中的几行。至少确认：
-  - 数据从哪里来
-  - 状态如何变化
-  - 调用链和事件链如何闭环
-- 当现有代码存在影响当前工作的问题（文件过大、边界模糊、职责纠缠），将针对性改进纳入设计。
-- 不提出与当前目标无关的重构。
-
-### 调试纪律
-
-- 先描述现象，再判断根因，再决定修改点。
-- 避免纯试错式改动；每个修复都应能解释"为什么这里会出错"。
-- 涉及异步、事件或消息流时，说明如何用日志或 DevTools 验证判断。
-
-### 验证要求
-
-- 每次完整修改后都要给出验证方式，至少覆盖：
-  - 正常路径
-  - 边界情况
-  - 错误处理
-  - 对现有交互的影响
-- 若无法运行自动化测试，也要给出可执行的手动回归步骤。
-
-### 重构安全
-
-- 重构必须保持行为等价，优先缩小责任边界、减少耦合，而不是只搬代码位置。
-- 修改后让局部代码比进入时更清晰，而不是只把功能"塞进去"。
-
----
-
-## Chrome 扩展架构约束
-
-### 运行时感知
-
-- 涉及书签、存储、同步、消息通信的改动前，先阅读 `docs/architecture/PROJECT_ARCHITECTURE.md`，确认运行时边界、存储分层和同步链路。
-- 修改前先确认代码运行在哪个上下文（`background` / service worker、`content script`、`popup` / `options`）。
-- 设计改动时明确跨上下文边界，不要把不同运行时当成同一进程。
-
-### 生命周期约束
-
-- Service Worker **非常驻**：不能假设它一直存活。
-- 依赖生命周期的状态必须可恢复，不要把关键状态只放在内存里。
-- 异步初始化必须保证调用方只在状态 ready 后继续执行。
-
-### 消息边界
-
-- 跨上下文通信只通过显式消息或连接：`chrome.runtime.sendMessage`、`chrome.tabs.sendMessage`、`chrome.runtime.connect`。
-- 消息设计要写清 `sender`、`receiver`、`payload`。
-- 避免隐式共享状态、魔法字段和"顺便携带"的上下文数据。
-
-### 持久化策略
-
-- 持久数据放 `chrome.storage.local`，会话级状态放 `chrome.storage.session`。
-- 高频读写可以加缓存，但缓存必须可重建，不能成为唯一真相源。
-- 本项目存储分层：
-  - 插件书签主数据 → `LocalStorageMgr`
-  - 用户设置 → `SettingsManager`（`chrome.storage.sync`）
-  - 同步配置和同步状态 → `SyncSettingsManager` / `SyncStatusManager`
-  - Chrome 书签写操作统一走 `bookmarkOps → background → ChromeBookmarkSync.proxy*`
-
-### 失败处理
-
-- 跨上下文调用要考虑无响应、超时和权限不足。
-- 关键消息流和 API 调用要保留可调试日志，便于在 DevTools 中定位问题。
-
-### 性能护栏
-
-- 重计算优先放在 background，而不是 content script。
-- 避免高频 storage I/O 和细粒度消息风暴。
-- 能批量处理的操作不要拆成大量零散调用。
-
----
-
-## 开发规范补充
-
-1. **平台与清单** — 使用 **Manifest V3**，后台使用 Service Worker；目标环境 **Chrome 108+**。
-2. **权限与内容脚本** — Content Scripts 遵循最小权限，仅在必要时注入；新增权限须在清单与文档中有明确理由。
-3. **数据安全** — 用户相关数据传输使用 **HTTPS**。
-4. **国际化** — 用户可见文案需走扩展 i18n 机制；新增字符串要补全多语言，key 命名遵循现有 `_locales` 约定，尽量复用已有 key。
-5. **UI** — 需考虑响应式，在不同分辨率下可用；函数与关键代码块建议配有中文注释。
-6. **样式与主题（CSS）** — 不要硬编码颜色，优先使用 [`css/theme.css`](css/theme.css) 中的 CSS 自定义属性。需要新颜色时先在 `theme.css` 新增变量，再在业务 CSS 中引用；浅色、深色及跟随系统主题块均需补齐。
-7. **文档同步** — 行为或交互变更时，按 [`docs/README.md`](docs/README.md) 的规则更新对应文档；新增 UI/快捷键等优先补充 `docs/testing/` 中的回归清单。
-
----
-
-## 文档与规范索引
-
-| 说明 | 路径 |
-|------|------|
-| 文档总索引与维护约定（**必读**） | `docs/README.md` |
-| 项目架构总览 | `docs/architecture/PROJECT_ARCHITECTURE.md` |
-| 目录视图等功能规范 | `docs/features/` |
-| 回归与测试清单 | `docs/testing/` |
-| 主题与颜色变量（CSS） | `css/theme.css` |
+See `docs/architecture/PROJECT_ARCHITECTURE.md` §10 for detailed "what to read first" guides for: bookmark storage structure, directory view, Chrome bookmark linkage, sync logic, search/AI generation, and folder recommendations.
 
 ---
 > Source: [howoii/SmartBookmark](https://github.com/howoii/SmartBookmark) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
