@@ -1,0 +1,98 @@
+## conductor-oss
+
+> > Instructions for AI agents contributing to Conductor OSS.
+
+# AGENTS.md
+
+> Instructions for AI agents contributing to Conductor OSS.
+
+## Project Overview
+
+Conductor OSS is a local-first AI agent orchestrator built with Rust + Next.js. It dispatches coding tasks from Markdown kanban boards to agent CLIs, running them in isolated worktrees with live dashboard streaming.
+
+## Before You Start
+
+1. Read `CLAUDE.md` for architecture and conventions
+2. Run `cargo test --workspace` to verify the build
+3. Check `CONDUCTOR-TAGS.md` for task tagging conventions
+4. Branch from `main`, use conventional commit messages
+
+## Code Style
+
+### Rust (primary codebase)
+
+- Error handling: `thiserror` for library errors, `anyhow` for binaries
+- Async: tokio runtime, axum for HTTP
+- Database: sqlx with SQLite, migrations in `conductor-db`
+- State: `Arc<RwLock<T>>` or `DashMap` for concurrent access
+- Tests: inline `#[cfg(test)]` modules plus crate and workspace integration tests
+- No `unwrap()` in library code; use `?` or explicit error handling
+
+### TypeScript (dashboard + CLI launcher)
+
+- Runtime: Bun >= 1.2
+- Framework: Next.js 16, App Router
+- No default exports in library code
+- ESM only
+
+## PR Checklist
+
+- [ ] `cargo test --workspace` passes
+- [ ] `cargo clippy --workspace` has no warnings
+- [ ] `bun run typecheck` passes (if TS changes)
+- [ ] PR has `## Type of Change` section with checkboxes
+- [ ] PR has `## User-Facing Release Notes` with plain-English bullets
+
+## Key Directories
+
+```
+crates/
+  conductor-core/       # Types, config, board parsing, task models
+  conductor-server/     # HTTP server, routes, state, SSE
+  conductor-db/         # SQLite persistence
+  conductor-executors/  # Agent adapters, process management
+  conductor-git/        # Git operations
+  conductor-relay/      # Relay server for bridge and remote terminal flows
+  conductor-watcher/    # File system watching
+  conductor-cli/        # Rust CLI
+  conductor-types/      # Shared bridge/transport protocol types
+  notify-rust/          # Desktop notification support
+bridge-cmd/             # Companion bridge binary used by paired-device flows
+packages/
+  cli/                  # npm CLI launcher
+  core/                 # Shared TS types (being superseded by Rust)
+  web/                  # Next.js dashboard
+```
+
+## Common Tasks
+
+### Adding a new agent adapter
+
+1. Create `crates/conductor-executors/src/agents/<name>.rs`
+2. Implement `Executor` trait: `spawn()`, `build_args()`, `kind()`, `binary_path()`
+3. Register in `crates/conductor-executors/src/agents/mod.rs`
+4. Add discovery logic in `crates/conductor-executors/src/discovery.rs`
+
+### Adding a new API route
+
+1. Create route handler in `crates/conductor-server/src/routes/<name>.rs`
+2. Register in `crates/conductor-server/src/routes/mod.rs`
+3. Add to router in `crates/conductor-server/src/lib.rs`
+
+### Adding a database migration
+
+1. Add migration SQL in `crates/conductor-db/src/migrations.rs`
+2. Bump migration version
+3. Test with fresh database
+
+## Architecture Constraints
+
+- **Local-first:** The core workflow must run fully local; optional remote helpers must not become hosted source-of-truth state or credential proxies
+- **native-pty-first:** Runtime defaults to the native PTY session pipeline; old runtime aliases are compatibility-only
+- **SQLite-only:** No external database dependencies
+- **Agent-agnostic:** Conductor orchestrates; agents do their own auth and billing
+- **Markdown-native:** Board state lives in `CONDUCTOR.md`, readable by humans and Obsidian
+
+---
+> Source: [charannyk06/conductor-oss](https://github.com/charannyk06/conductor-oss) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
