@@ -1,0 +1,22 @@
+{
+  "name": "grafana--plugin-tools",
+  "displayName": "plugin-tools",
+  "description": "plugin-tools",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/plugin-tools",
+  "skills": [
+    {
+      "name": "plugin-tools",
+      "description": ""
+    },
+    {
+      "name": "plugin-tools",
+      "description": ""
+    },
+    {
+      "name": "plugin-tools",
+      "description": ""
+    }
+  ]
+}
