@@ -1,0 +1,14 @@
+{
+  "name": "idoknow--campux",
+  "displayName": "Campux",
+  "description": "Campux",
+  "version": "1.0.0",
+  "author": "idoknow",
+  "homepage": "https://github.com/idoknow/Campux",
+  "skills": [
+    {
+      "name": "Campux",
+      "description": ""
+    }
+  ]
+}
