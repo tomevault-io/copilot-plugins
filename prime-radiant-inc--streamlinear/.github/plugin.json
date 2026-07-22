@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "prime-radiant-inc",
   "homepage": "https://github.com/prime-radiant-inc/streamlinear",
-  "skills": [
-    {
-      "name": "streamlinear",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
