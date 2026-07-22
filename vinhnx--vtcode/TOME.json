@@ -1,0 +1,57 @@
+{
+  "name": "vtcode",
+  "owner": "vinhnx",
+  "repo": "vtcode",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-creator",
+      "path": "vtcode-core/src/skills/assets/samples/skill-creator",
+      "github_url": "https://github.com/vinhnx/vtcode/tree/main/vtcode-core/src/skills/assets/samples/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-installer",
+      "path": "vtcode-core/src/skills/assets/samples/skill-installer",
+      "github_url": "https://github.com/vinhnx/vtcode/tree/main/vtcode-core/src/skills/assets/samples/skill-installer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vinhnx/vtcode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:41:17Z"
+}
