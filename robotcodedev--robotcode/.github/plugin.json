@@ -1,0 +1,14 @@
+{
+  "name": "robotcodedev--robotcode",
+  "displayName": "robotcode",
+  "description": "robotcode",
+  "version": "1.0.0",
+  "author": "robotcodedev",
+  "homepage": "https://github.com/robotcodedev/robotcode",
+  "skills": [
+    {
+      "name": "robotcode",
+      "description": ""
+    }
+  ]
+}
