@@ -1,0 +1,105 @@
+{
+  "name": "storybook",
+  "owner": "storybookjs",
+  "repo": "storybook",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fix-linting-types-on-pr",
+      "path": ".agents/skills/fix-linting-types-on-pr",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/fix-linting-types-on-pr",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/pr/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/canary/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/canary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/docs-review/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/docs-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/minor-release/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/minor-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/github-qa-labels/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/github-qa-labels/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".claude/skills/github-qa-labels/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.claude/skills/github-qa-labels/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/storybook-upgrade/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/storybook-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".claude/skills/storybook-upgrade/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.claude/skills/storybook-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": ".agents/skills/fix-linting-types-on-pr/SKILL.md",
+      "github_url": "https://github.com/storybookjs/storybook/tree/main/.agents/skills/fix-linting-types-on-pr/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/storybookjs/storybook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:46:01Z"
+}
