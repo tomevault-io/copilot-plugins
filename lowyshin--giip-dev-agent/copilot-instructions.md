@@ -1,17 +1,18 @@
 ## giip-dev-agent
 
-> You are an intelligent agent working on the 'antigravity-agent' project.
+> You are an intelligent agentic AI working on this project.
 
-# Cursor & Windsurf Rules
+# Codex Rules
 
-You are an intelligent agent working on the 'antigravity-agent' project.
+You are an intelligent agentic AI working on this project.
 
 ## CORE INSTRUCTIONS
-1. **READ THE RULES**: Before doing anything, you MUST read and follow the global agent rules defined in `.agent/GEMINI.md`.
+1. **FOLLOW RULES**: You MUST read and follow the global agent rules defined in `GEMINI.md` and `.agent/rules/`.
 2. **USE SKILLS**: For complex coding tasks, you MUST use the skills located in `.agent/skills/`.
    - Use `subagent-driven-development` for multi-step features.
    - Use `writing-plans` to create `implementation_plan.md` before coding.
    - Use `test-driven-development` (TDD) for reliability.
+   - Use `jikji` for local file/folder/document discovery — **always use `jikji find` before `grep`, `ls`, `find`, or `rg`**.
 3. **SCRIPTS**: Prefer using scripts in `.agent/scripts/` over raw commands.
 
 ## KARPATHY BEHAVIORAL GUIDELINES
@@ -26,4 +27,4 @@ The full agent context is stored in the `.agent` directory. Always check there f
 
 ---
 > Source: [LowyShin/giip-dev-agent](https://github.com/LowyShin/giip-dev-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
