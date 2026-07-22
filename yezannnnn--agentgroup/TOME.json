@@ -1,0 +1,195 @@
+{
+  "name": "agentGroup",
+  "owner": "yezannnnn",
+  "repo": "agentGroup",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentGroup",
+      "path": "kyle/skills/senior-qa/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/kyle/skills/senior-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "kyle/skills/tdd-guide/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/kyle/skills/tdd-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "ella/skills/senior-frontend/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/ella/skills/senior-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "ella/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/ella/.agents/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-qa/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/tdd-guide/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/tdd-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-devops/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-backend/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-frontend/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-fullstack/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-fullstack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-architect/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "max/skills/pm-claude-skills/skills/prd-template/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/max/skills/pm-claude-skills/skills/prd-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "max/skills/pm-claude-skills/skills/meeting-notes/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/max/skills/pm-claude-skills/skills/meeting-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-ml-engineer/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-ml-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-data-engineer/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-data-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/ms365-tenant-manager/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/ms365-tenant-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/tech-stack-evaluator/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/tech-stack-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-data-scientist/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-data-scientist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-computer-vision/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-computer-vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/aws-solution-architect/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/aws-solution-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "max/skills/pm-claude-skills/skills/stakeholder-update/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/max/skills/pm-claude-skills/skills/stakeholder-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "jarvis/skills/engineering-team/senior-prompt-engineer/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/jarvis/skills/engineering-team/senior-prompt-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "max/skills/pm-claude-skills/skills/competitive-analysis/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/max/skills/pm-claude-skills/skills/competitive-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentGroup",
+      "path": "max/skills/pm-claude-skills/skills/user-research-synthesis/SKILL.md",
+      "github_url": "https://github.com/yezannnnn/agentGroup/tree/main/max/skills/pm-claude-skills/skills/user-research-synthesis/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yezannnnn/agentGroup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:23:48Z"
+}
