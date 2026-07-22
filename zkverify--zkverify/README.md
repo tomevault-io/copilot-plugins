@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zkVerify/zkVerify](https://github.com/zkVerify/zkVerify).
+Original source: `CLAUDE.md` in [zkVerify/zkVerify](https://github.com/zkVerify/zkVerify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [zkVerify/zkVerify](https://github.com/zkVerify/
 - [zkVerify](https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/refine-patch/SKILL.md)
 - [zkVerify](https://github.com/zkVerify/zkVerify/tree/main/.claude/skills/investigate-benchmark/SKILL.md)
 
-From [zkVerify/zkVerify](https://github.com/zkVerify/zkVerify) — a repo with 482+ stars on GitHub.
+From [zkVerify/zkVerify](https://github.com/zkVerify/zkVerify) — a repo with 481+ stars on GitHub.
 
 ---
 
