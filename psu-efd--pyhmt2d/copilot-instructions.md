@@ -1,10 +1,10 @@
 ## pyhmt2d
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Commands
 
@@ -106,10 +106,10 @@ AI_Tools/
 passed to `get_project_info()` and stored in the session — no tool after that
 needs `model_type` specified. All tools return `{"status", "data", "message"}`.
 
-**MCP setup** (Codex Desktop / Codex):
+**MCP setup** (Claude Desktop / Claude Code):
 ```bash
 pip install pyHMT2D[ai]
-Codex mcp add pyHMT2D -- python -m pyHMT2D.AI_Tools.mcp_server
+claude mcp add pyHMT2D -- python -m pyHMT2D.AI_Tools.mcp_server
 ```
 
 ### Tests
@@ -120,4 +120,4 @@ solver installations (SRH-2D or HEC-RAS) and real input files.
 
 ---
 > Source: [psu-efd/pyHMT2D](https://github.com/psu-efd/pyHMT2D) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
