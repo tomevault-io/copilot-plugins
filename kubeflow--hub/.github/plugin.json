@@ -1,0 +1,26 @@
+{
+  "name": "kubeflow--hub",
+  "displayName": "hub",
+  "description": "hub",
+  "version": "1.0.0",
+  "author": "kubeflow",
+  "homepage": "https://github.com/kubeflow/hub",
+  "skills": [
+    {
+      "name": "hub",
+      "description": ""
+    },
+    {
+      "name": "hub",
+      "description": ""
+    },
+    {
+      "name": "hub",
+      "description": ""
+    },
+    {
+      "name": "hub",
+      "description": ""
+    }
+  ]
+}
