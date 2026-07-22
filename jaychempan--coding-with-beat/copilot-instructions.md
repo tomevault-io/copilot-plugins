@@ -13,21 +13,26 @@ use `smart_search()` instead of `search()`.
 Use `search()` only when the user provides a specific track title,
 artist name, or album title.
 
-## Loved / 喜欢列表
+## Smart search: multi-angle display
 
-When user says: 从喜欢里 / 收藏里找 / 我喜欢的 / loved only / play from liked / 心动歌单
-→ call `search_loved(query)` instead of `smart_search()`
+When handling a mood/vibe/scene music request, call `smart_search()` **once** with
+the `queries` parameter containing 2–3 keyword angles. Do NOT call `smart_search()`
+multiple times — each call overwrites the queue, so `play_number()` will index into
+the wrong results.
 
-When user says: 列出收藏 / 我的喜欢 / show liked / list loved / 喜欢列表
-→ call `list_loved()`
+Example for "深夜写代码":
 
-Normal `smart_search()` already includes loved tracks (ranked first, tagged `[♥ 喜欢]`).
+```python
+smart_search(queries=[
+    "lofi hip hop late night coding instrumental",
+    "lofi jazz late night rain cozy",
+    "synthwave retrowave night drive electronic",
+])
+```
 
-## Tips / 帮助
-
-When user says: DJ 能做什么 / DJ Buddy 能做什么 / DJ 有什么指令 / DJ 怎么用 / ask DJ / DJ help / what can DJ do
-→ call `tips()`
+The tool returns globally numbered results grouped by direction with emoji labels.
+Ask the user to pick by number and call `play_number(N)`. Do NOT auto-play.
 
 ---
 > Source: [jaychempan/coding-with-beat](https://github.com/jaychempan/coding-with-beat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
