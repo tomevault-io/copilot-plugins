@@ -1,0 +1,105 @@
+{
+  "name": "roslyn",
+  "owner": "dotnet",
+  "repo": "roslyn",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "roslyn",
+      "path": ".github/skills/snap/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/snap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/ci-analysis/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/ci-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/validate-sdk/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/validate-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/formatting-log/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/formatting-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/analyzer-codefix/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/analyzer-codefix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/merge-into-branch/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/merge-into-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/vmr-codeflow-status/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/vmr-codeflow-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/new-compiler-feature/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/new-compiler-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roslyn",
+      "path": ".github/skills/integration-test-analysis/SKILL.md",
+      "github_url": "https://github.com/dotnet/roslyn/tree/main/.github/skills/integration-test-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dotnet/roslyn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:14:40Z"
+}
