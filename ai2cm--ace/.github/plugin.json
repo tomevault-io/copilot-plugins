@@ -1,0 +1,14 @@
+{
+  "name": "ai2cm--ace",
+  "displayName": "ace",
+  "description": "ace",
+  "version": "1.0.0",
+  "author": "ai2cm",
+  "homepage": "https://github.com/ai2cm/ace",
+  "skills": [
+    {
+      "name": "ace",
+      "description": ""
+    }
+  ]
+}
