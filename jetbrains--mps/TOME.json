@@ -1,0 +1,525 @@
+{
+  "name": "MPS",
+  "owner": "JetBrains",
+  "repo": "MPS",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-ide-plugin/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-ide-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-dsl-memory/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-dsl-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-node-editing/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-node-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-mcp-workflow/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-mcp-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-baselanguage/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-baselanguage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-editor/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-actions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-textgen/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-textgen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-behavior/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-behavior/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-generator/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-language-analysis/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-language-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-intentions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-intentions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-typesystem/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-typesystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-accessories/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-accessories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-distribution-build/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-distribution-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-run-configurations/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-run-configurations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-constraints/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-model-manipulation/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-model-manipulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-language-inheritance/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-language-inheritance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-language-aspects-overview/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-language-aspects-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-structure-concepts/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-structure-concepts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": "plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-editor-menus-and-keymaps/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/plugins/mcp-tools/resources/jetbrains/mps/agents/mcp/skills/mps-aspect-editor-menus-and-keymaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/commits/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/commits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/commits/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/commits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/actions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/actions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/registry/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/registry/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/registry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-bugfix/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-bugfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-bugfix/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-bugfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/code-style/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/code-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/code-style/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/code-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/teamcity-cli/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/teamcity-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/teamcity-cli/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/teamcity-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-ide-plugin/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-ide-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-ide-plugin/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-ide-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-dsl-memory/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-dsl-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-dsl-memory/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-dsl-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-node-editing/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-node-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-node-editing/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-node-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-mcp-workflow/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-mcp-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-mcp-workflow/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-mcp-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-baselanguage/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-baselanguage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-baselanguage/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-baselanguage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-editor/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-editor/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-actions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-actions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-textgen/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-textgen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-textgen/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-textgen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-behavior/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-behavior/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-behavior/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-behavior/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-generator/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-generator/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-language-analysis/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-language-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-language-analysis/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-language-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-intentions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-intentions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-intentions/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-intentions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-typesystem/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-typesystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-typesystem/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-typesystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-accessories/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-accessories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-accessories/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-accessories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-distribution-build/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-distribution-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-distribution-build/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-distribution-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-run-configurations/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-run-configurations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-run-configurations/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-run-configurations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-constraints/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-constraints/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-constraints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-model-manipulation/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-model-manipulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-model-manipulation/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-model-manipulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-language-inheritance/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-language-inheritance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-language-inheritance/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-language-inheritance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-language-aspects-overview/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-language-aspects-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-language-aspects-overview/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-language-aspects-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-structure-concepts/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-structure-concepts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-structure-concepts/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-structure-concepts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".agents/skills/mps-aspect-editor-menus-and-keymaps/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.agents/skills/mps-aspect-editor-menus-and-keymaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MPS",
+      "path": ".claude/skills/mps-aspect-editor-menus-and-keymaps/SKILL.md",
+      "github_url": "https://github.com/JetBrains/MPS/tree/main/.claude/skills/mps-aspect-editor-menus-and-keymaps/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JetBrains/MPS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T00:44:10Z"
+}
