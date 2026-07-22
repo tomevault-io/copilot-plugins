@@ -1,0 +1,141 @@
+{
+  "name": "jupyter-studio",
+  "owner": "deepelementlab",
+  "repo": "jupyter-studio",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/codex/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/opencode/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/opencode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/deepnote/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/deepnote/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/clickhouse-io/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/clickhouse-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/golang-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/golang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/django-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/django-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/docker-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/docker-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/backend-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/deployment-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/deployment-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/database-migrations/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/database-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jupyter-studio",
+      "path": "clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/springboot-patterns/SKILL.md",
+      "github_url": "https://github.com/deepelementlab/jupyter-studio/tree/main/clawcode/clawcode/plugin/builtin_plugins/clawcode-skills/skills/springboot-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deepelementlab/jupyter-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T06:04:20Z"
+}
