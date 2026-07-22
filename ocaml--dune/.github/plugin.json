@@ -1,0 +1,14 @@
+{
+  "name": "ocaml--dune",
+  "displayName": "dune",
+  "description": "dune",
+  "version": "1.0.0",
+  "author": "ocaml",
+  "homepage": "https://github.com/ocaml/dune",
+  "skills": [
+    {
+      "name": "dune",
+      "description": ""
+    }
+  ]
+}
