@@ -3,8 +3,8 @@
   "owner": "SAP-samples",
   "repo": "cloud-cap-hana-swapi",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/SAP-samples",
+  "skills": [
+    {
+      "name": "cloud-cap-hana-swapi",
+      "path": ".claude/skills/load-and-test/SKILL.md",
+      "github_url": "https://github.com/SAP-samples/cloud-cap-hana-swapi/tree/main/.claude/skills/load-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-cap-hana-swapi",
+      "path": ".claude/skills/scrape-and-load/SKILL.md",
+      "github_url": "https://github.com/SAP-samples/cloud-cap-hana-swapi/tree/main/.claude/skills/scrape-and-load/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloud-cap-hana-swapi",
+      "path": ".github/skills/cap-change-workflow/SKILL.md",
+      "github_url": "https://github.com/SAP-samples/cloud-cap-hana-swapi/tree/main/.github/skills/cap-change-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SAP-samples/cloud-cap-hana-swapi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T00:38:37Z"
+  "distributed_at": "2026-07-22T19:38:48Z"
 }
