@@ -1,0 +1,57 @@
+{
+  "name": "moosestack",
+  "owner": "514-labs",
+  "repo": "moosestack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "moosestack",
+      "path": "apps/framework-cli/tests/fixtures/agent-skills/skills/514/cli/SKILL.md",
+      "github_url": "https://github.com/514-labs/moosestack/tree/main/apps/framework-cli/tests/fixtures/agent-skills/skills/514/cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moosestack",
+      "path": "apps/framework-cli/tests/fixtures/agent-skills/skills/clickhouse/best-practices/SKILL.md",
+      "github_url": "https://github.com/514-labs/moosestack/tree/main/apps/framework-cli/tests/fixtures/agent-skills/skills/clickhouse/best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/514-labs/moosestack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:34:25Z"
+}
