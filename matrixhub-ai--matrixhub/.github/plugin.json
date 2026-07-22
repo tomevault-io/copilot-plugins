@@ -1,0 +1,14 @@
+{
+  "name": "matrixhub-ai--matrixhub",
+  "displayName": "matrixhub",
+  "description": "matrixhub",
+  "version": "1.0.0",
+  "author": "matrixhub-ai",
+  "homepage": "https://github.com/matrixhub-ai/matrixhub",
+  "skills": [
+    {
+      "name": "matrixhub",
+      "description": ""
+    }
+  ]
+}
