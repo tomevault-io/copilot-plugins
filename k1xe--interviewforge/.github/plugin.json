@@ -1,0 +1,14 @@
+{
+  "name": "k1xe--interviewforge",
+  "displayName": "InterviewForge",
+  "description": "InterviewForge",
+  "version": "1.0.0",
+  "author": "K1XE",
+  "homepage": "https://github.com/K1XE/InterviewForge",
+  "skills": [
+    {
+      "name": "InterviewForge",
+      "description": ""
+    }
+  ]
+}
