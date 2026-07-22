@@ -1,0 +1,135 @@
+{
+  "name": "superpowers-openspec-team-skills",
+  "owner": "SYZ-Coder",
+  "repo": "superpowers-openspec-team-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "team-skills/openspec-feature-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/team-skills/openspec-feature-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "team-skills/superpowers-feature-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/team-skills/superpowers-feature-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "team-skills/openspec-superpowers-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/team-skills/openspec-superpowers-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "team-skills/superpowers-learning-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/team-skills/superpowers-learning-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "team-skills/superpowers-openspec-superpowers-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/team-skills/superpowers-openspec-superpowers-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/codex/bundles/openspec-feature/skills/openspec-feature-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/codex/bundles/openspec-feature/skills/openspec-feature-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/opencode/bundles/openspec-feature/skills/openspec-feature-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/opencode/bundles/openspec-feature/skills/openspec-feature-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/codex/bundles/superpowers-feature/skills/superpowers-feature-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/codex/bundles/superpowers-feature/skills/superpowers-feature-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/codex/bundles/openspec-superpowers/skills/openspec-superpowers-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/codex/bundles/openspec-superpowers/skills/openspec-superpowers-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/codex/bundles/superpowers-learning/skills/superpowers-learning-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/codex/bundles/superpowers-learning/skills/superpowers-learning-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/opencode/bundles/superpowers-feature/skills/superpowers-feature-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/opencode/bundles/superpowers-feature/skills/superpowers-feature-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/opencode/bundles/openspec-superpowers/skills/openspec-superpowers-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/opencode/bundles/openspec-superpowers/skills/openspec-superpowers-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/opencode/bundles/superpowers-learning/skills/superpowers-learning-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/opencode/bundles/superpowers-learning/skills/superpowers-learning-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/codex/bundles/superpowers-openspec-superpowers/skills/superpowers-openspec-superpowers-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/codex/bundles/superpowers-openspec-superpowers/skills/superpowers-openspec-superpowers-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superpowers-openspec-team-skills",
+      "path": "dist/opencode/bundles/superpowers-openspec-superpowers/skills/superpowers-openspec-superpowers-workflow/SKILL.md",
+      "github_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/opencode/bundles/superpowers-openspec-superpowers/skills/superpowers-openspec-superpowers-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SYZ-Coder/superpowers-openspec-team-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:47:22Z"
+}
