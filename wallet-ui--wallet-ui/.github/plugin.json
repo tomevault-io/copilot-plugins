@@ -1,0 +1,18 @@
+{
+  "name": "wallet-ui--wallet-ui",
+  "displayName": "wallet-ui",
+  "description": "wallet-ui",
+  "version": "1.0.0",
+  "author": "wallet-ui",
+  "homepage": "https://github.com/wallet-ui/wallet-ui",
+  "skills": [
+    {
+      "name": "install-wallet-ui-react-native",
+      "description": ""
+    },
+    {
+      "name": "wallet-ui",
+      "description": ""
+    }
+  ]
+}
