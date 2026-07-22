@@ -3,8 +3,8 @@
   "owner": "madebyaris",
   "repo": "advance-minimax-m2-cursor-rules",
   "description": "Agentic-first Cursor Rules powered by MiniMax M2 \u2014 clarify-first prompting, interleaved thinking, and full tool orchestration for production-ready AI coding",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "advance-minimax-m2-cursor-rules",
+      "path": ".cursor/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules/tree/main/.cursor/skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "advance-minimax-m2-cursor-rules",
+      "path": ".cursor/skills/anti-slop-design/SKILL.md",
+      "github_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules/tree/main/.cursor/skills/anti-slop-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "advance-minimax-m2-cursor-rules",
+      "path": ".cursor/skills/3d-web-experiences/SKILL.md",
+      "github_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules/tree/main/.cursor/skills/3d-web-experiences/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "advance-minimax-m2-cursor-rules",
+      "path": ".cursor/skills/minimax-m3-long-context/SKILL.md",
+      "github_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules/tree/main/.cursor/skills/minimax-m3-long-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "advance-minimax-m2-cursor-rules",
+      "path": ".cursor/skills/incident-triage-harness/SKILL.md",
+      "github_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules/tree/main/.cursor/skills/incident-triage-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "advance-minimax-m2-cursor-rules",
+      "path": ".cursor/skills/minimax-multimodal-toolkit/SKILL.md",
+      "github_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules/tree/main/.cursor/skills/minimax-multimodal-toolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "advance-minimax-m2-cursor-rules",
+      "path": ".cursor/skills/minimax-m3-multimodal-input/SKILL.md",
+      "github_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules/tree/main/.cursor/skills/minimax-m3-multimodal-input/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/madebyaris/advance-minimax-m2-cursor-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T07:36:05Z"
+  "distributed_at": "2026-07-22T11:40:23Z"
 }
