@@ -1,0 +1,14 @@
+{
+  "name": "shapecrawler--shapecrawler",
+  "displayName": "ShapeCrawler",
+  "description": "ShapeCrawler",
+  "version": "1.0.0",
+  "author": "ShapeCrawler",
+  "homepage": "https://github.com/ShapeCrawler/ShapeCrawler",
+  "skills": [
+    {
+      "name": "ShapeCrawler",
+      "description": ""
+    }
+  ]
+}
