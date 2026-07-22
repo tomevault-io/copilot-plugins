@@ -1,0 +1,159 @@
+{
+  "name": "Lsglang",
+  "owner": "guqiong96",
+  "repo": "Lsglang",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/add-jit-kernel/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/add-jit-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/add-sgl-kernel/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/add-sgl-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/clean-startup-log/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/clean-startup-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/write-sglang-test/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/write-sglang-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/ci-workflow-guide/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/ci-workflow-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/sglang-cherrypick/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/sglang-cherrypick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/speculative-naming/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/speculative-naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/env-var-conventions/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/env-var-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/debug-distributed-hang/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/debug-distributed-hang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/large-class-init-style/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/large-class-init-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/llm-serving-auto-benchmark/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/llm-serving-auto-benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/mechanical-refactor-verify/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/mechanical-refactor-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/llm-torch-profiler-analysis/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/llm-torch-profiler-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/sglang-prod-incident-triage/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/sglang-prod-incident-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": ".claude/skills/sglang-bisect-ci-regression/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/.claude/skills/sglang-bisect-ci-regression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-performance/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-modelopt-quant/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-modelopt-quant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Lsglang",
+      "path": "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md",
+      "github_url": "https://github.com/guqiong96/Lsglang/tree/main/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/guqiong96/Lsglang",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:13:21Z"
+}
