@@ -1,0 +1,14 @@
+{
+  "name": "mercurytechnologies--hs-temporal-sdk",
+  "displayName": "hs-temporal-sdk",
+  "description": "hs-temporal-sdk",
+  "version": "1.0.0",
+  "author": "MercuryTechnologies",
+  "homepage": "https://github.com/MercuryTechnologies/hs-temporal-sdk",
+  "skills": [
+    {
+      "name": "hs-temporal-sdk",
+      "description": ""
+    }
+  ]
+}
