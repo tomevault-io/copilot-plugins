@@ -4,7 +4,7 @@
   "repo": "fastapi-blog",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/fike/fastapi-blog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T00:16:24Z"
+  "distributed_at": "2026-07-22T23:58:22Z"
 }
