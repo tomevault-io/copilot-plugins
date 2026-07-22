@@ -1,0 +1,837 @@
+{
+  "name": "Core",
+  "owner": "Resgrid",
+  "repo": "Core",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Core",
+      "path": ".forge/skills/ddd/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/ddd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/ddd/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/ddd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/ddd/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/ddd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/docker/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/openapi/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/openapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/ef-core/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/ef-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/serilog/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/serilog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/testing/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/docker/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/logging/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/logging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/caching/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/caching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/openapi/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/openapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/ef-core/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/ef-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/serilog/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/serilog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/logging/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/logging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/caching/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/caching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/messaging/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/messaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/docker/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/aspire/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/aspire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/openapi/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/openapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/resilience/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/resilience/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/ef-core/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/ef-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/serilog/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/serilog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/testing/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/messaging/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/messaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/logging/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/logging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/caching/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/caching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/resilience/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/resilience/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/scaffolding/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/scaffolding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/minimal-api/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/minimal-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/de-sloppify/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/de-sloppify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/scaffolding/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/scaffolding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/split-memory/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/split-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/minimal-api/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/minimal-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/learning-log/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/learning-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/messaging/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/messaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/80-20-review/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/80-20-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/health-check/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/health-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/de-sloppify/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/de-sloppify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/resilience/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/resilience/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/opentelemetry/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/opentelemetry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/split-memory/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/split-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/learning-log/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/learning-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/80-20-review/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/80-20-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/health-check/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/health-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/configuration/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/modern-csharp/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/modern-csharp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/project-setup/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/scaffolding/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/scaffolding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/opentelemetry/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/opentelemetry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/minimal-api/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/minimal-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/authentication/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/vertical-slice/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/vertical-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/configuration/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/modern-csharp/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/modern-csharp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/api-versioning/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/wrap-up-ritual/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/wrap-up-ritual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/project-setup/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/de-sloppify/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/de-sloppify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/instinct-system/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/instinct-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/split-memory/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/split-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/authentication/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/learning-log/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/learning-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/vertical-slice/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/vertical-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/80-20-review/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/80-20-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/health-check/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/health-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/api-versioning/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/wrap-up-ritual/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/wrap-up-ritual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/model-selection/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/model-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/instinct-system/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/instinct-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/autonomous-loops/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/autonomous-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/opentelemetry/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/opentelemetry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/workflow-mastery/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/workflow-mastery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/configuration/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/modern-csharp/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/modern-csharp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/project-setup/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/model-selection/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/model-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/container-publish/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/container-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/autonomous-loops/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/autonomous-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/workflow-mastery/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/workflow-mastery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/project-structure/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/project-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/authentication/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/vertical-slice/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/vertical-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/api-versioning/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/api-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/wrap-up-ritual/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/wrap-up-ritual/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/session-management/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/session-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/container-publish/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/container-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/httpclient-factory/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/httpclient-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/instinct-system/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/instinct-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/clean-architecture/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/project-structure/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/project-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/context-discipline/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/context-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/convention-learner/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/convention-learner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/migration-workflow/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/migration-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/model-selection/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/model-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/session-management/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/session-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/httpclient-factory/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/httpclient-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/autonomous-loops/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/autonomous-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/workflow-mastery/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/workflow-mastery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/clean-architecture/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/context-discipline/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/context-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/convention-learner/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/convention-learner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/migration-workflow/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/migration-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/architecture-advisor/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/architecture-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/container-publish/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/container-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/project-structure/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/project-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/self-correction-loop/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/self-correction-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/dependency-injection/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/dependency-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".forge/skills/code-review-workflow/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.forge/skills/code-review-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/architecture-advisor/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/architecture-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/session-management/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/session-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/httpclient-factory/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/httpclient-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/clean-architecture/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/self-correction-loop/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/self-correction-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/context-discipline/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/context-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/dependency-injection/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/dependency-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".claude/skills/code-review-workflow/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.claude/skills/code-review-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/convention-learner/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/convention-learner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/migration-workflow/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/migration-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/architecture-advisor/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/architecture-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/self-correction-loop/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/self-correction-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/dependency-injection/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/dependency-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Core",
+      "path": ".opencode/skills/code-review-workflow/SKILL.md",
+      "github_url": "https://github.com/Resgrid/Core/tree/main/.opencode/skills/code-review-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Resgrid/Core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:50:54Z"
+}
