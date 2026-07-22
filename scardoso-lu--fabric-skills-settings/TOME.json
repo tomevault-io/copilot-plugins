@@ -1,0 +1,129 @@
+{
+  "name": "fabric-skills-settings",
+  "owner": "scardoso-lu",
+  "repo": "fabric-skills-settings",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/prd/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/rtk/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/rtk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/mock-data/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/mock-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/fabric-ops/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/fabric-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/fabric-model/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/fabric-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/fabric-ingest/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/fabric-ingest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/semantic-model/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/semantic-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/fabric-validate/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/fabric-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/fabric-pipeline/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/fabric-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/fabric-transform/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/fabric-transform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric-skills-settings",
+      "path": "server/skills/fabric-notebook-loop/SKILL.md",
+      "github_url": "https://github.com/scardoso-lu/fabric-skills-settings/tree/main/server/skills/fabric-notebook-loop/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/scardoso-lu/fabric-skills-settings",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:08:28Z"
+}
