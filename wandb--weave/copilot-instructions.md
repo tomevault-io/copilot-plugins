@@ -1,0 +1,448 @@
+## weave
+
+> - When you learn something new about the codebase or introduce a new concept, update this file (`AGENTS.md`) to reflect the new knowledge. This is YOUR FILE! It should grow and evolve with you.
+
+# Agent instructions for `weave` repository
+
+## Core Rules
+
+- When you learn something new about the codebase or introduce a new concept, update this file (`AGENTS.md`) to reflect the new knowledge. This is YOUR FILE! It should grow and evolve with you.
+- If there is something that doesn't make sense architecturally, devex-wise, or product-wise, please update the `Requests to Humans` section below.
+- Always follow the established coding patterns and conventions in the codebase.
+- Document any significant architectural decisions or changes.
+
+## Python Import Rules
+
+**IMPORTANT: Always place imports at the top of Python files.**
+
+- All imports must be at the module level (top of the file), not inside functions or methods.
+- The only exceptions are:
+  - Circular import avoidance (must be documented with a comment explaining why)
+  - Optional dependencies that may not be installed (must be wrapped in try/except)
+  - TYPE_CHECKING imports for type hints only
+- Note: Imports inside functions are not caught by linting. **Agents must self-enforce this rule.**
+
+❌ **Never do this:**
+
+```python
+def my_function():
+    import re  # BAD: import inside function
+    return re.match(...)
+```
+
+✅ **Always do this:**
+
+```python
+import re  # GOOD: import at top of file
+
+def my_function():
+    return re.match(...)
+```
+
+## Development Setup
+
+### Local Development (uv)
+
+This project uses `uv` for dependency management. Dependencies are organized into **dependency-groups** (not extras) in `pyproject.toml`.
+
+**Quick reference:**
+
+- **Run tests**: `uv run --group test python -m pytest <path> -v`
+- **Run linting**: `uvx ruff check <path>`
+- **Run lint with auto-fix**: `uvx ruff check --fix <path>`
+
+**Common pitfalls:**
+
+- Do NOT use bare `python -m pytest` — the `python` on PATH may be from a uv cache, not the project `.venv`. Always use `uv run`.
+- Do NOT use `--extra test` — `test` is a dependency-group, not an optional-dependency. Use `--group test`.
+- `ruff` is not installed in any project dependency group. Use `uvx ruff` to run it.
+- Ruff now enforces `PLW` rules. `PLW0602`, `PLW0603`, `PLW1641`, and `PLW3201` are handled with spot-level inline `# noqa` on specific lines (not global/per-file ignore). Prefer fixing code first; if intentional, suppress only the exact line.
+- Be careful with `PLW1514` autofixes on serialization-sensitive code (`weave/type_handlers/Content/content.py`, `weave/type_handlers/Audio/audio.py`) and mocked file I/O (`weave/trace_server/costs/update_costs.py`): adding `encoding=` changed behavior/tests, so these files are explicitly ignored for that rule.
+
+### Codex Development (nox)
+
+- Your machine should be setup for you automatically via `bin/codex_setup.sh`
+- If you encounter any setup issues:
+  1. Check the setup script for potential problems
+  2. Update `bin/codex_setup.sh` with necessary fixes
+  3. Document any manual steps required in this section
+
+_Important:_ For OpenAI Codex agents (most likely you!), your environment does not have internet access. If you need something setup beforehand, this is where you need to do it.
+
+## Codebase Structure
+
+### Main Components
+
+- `weave/` - Core implementation
+  - `weave/` - Python package implementation
+  - `weave/trace_server` - Backend server implementation
+
+## Generated Files — Do Not Hand-Edit
+
+`weave/trace_server/model_providers/model_providers.json` and `weave/trace_server/costs/cost_checkpoint.json` are generated. Never edit them by hand — regenerate with `make update_model_providers` / `make update_costs` (see `weave/Makefile`).
+
+Note: the scripts read `modelsBegin.json`/`modelsFinal.json`, which are symlinks into wandb/core and only resolve when this repo is checked out as the submodule inside wandb/core (`services/weave-trace/weave-python/weave-public`).
+
+### Trace Server API / Node SDK Schema
+
+When trace-server request/response models or route schemas change, refresh the API schema used by the Node SDK:
+
+1. From this repo, run `make -C ../../weave-trace export-api-schema` to regenerate the sibling trace service's `openapi.json` from the FastAPI app.
+2. Copy that schema into the tracked Node SDK schema: `cp ../../weave-trace/openapi.json sdks/node/weave.openapi.json`.
+3. Regenerate the TypeScript client from `sdks/node`: `pnpm run generate-api`.
+
+Evaluation result rows merge agent span links from two sources: legacy
+`weave.genai_span_ref` call attributes and OTel spans whose promoted
+`eval_run_id` plus `eval_predict_and_score_call_id` columns identify the
+trial. Keep the promoted-column hydration best-effort so eval results remain
+available during rolling deploys.
+
+If `sdks/node/node_modules` is missing, run `pnpm install --frozen-lockfile` in `sdks/node` first. Do not use `npm install`; this SDK is pinned to pnpm.
+
+## Python Testing Guidelines
+
+### Test Framework
+
+- Testing is managed by `nox` with multiple shards for different Python versions
+- Each shard represents specific package configurations
+
+### Server fixtures (do NOT hand-roll fake servers)
+
+- **Never create a `_FakeServer`, stub, or mock `TraceServerInterface`** to test
+  server-side logic. Use the existing `client` fixture (gives `client.server` +
+  `client.project_id`) or the `trace_server` fixture, which run against a real
+  ClickHouse backend. Build inputs with the real APIs
+  (`obj_create`, `table_create`, etc.). Mock only external services we don't own.
+
+### Assert on the complete payload (no substring / membership checks)
+
+Assert on the **full value**, not that a fragment appears somewhere inside a
+stringified payload. Substring (`in`) and membership checks pass on accidental
+matches and let the rest of the payload drift undetected, so prefer them only
+when membership in a collection is genuinely the contract under test.
+
+❌ **Never do this:**
+
+```python
+assert "short memo" in msg                 # substring of a serialized blob
+assert "error" in str(response)
+assert "note" in feedback.payload          # key-presence instead of value
+```
+
+✅ **Always do this:**
+
+```python
+assert feedback.payload == {"note": "short memo", "emoji": "👍"}  # whole object
+assert feedback.payload["note"] == "short memo"                   # exact field
+```
+
+If you only care about one field, pin that field with `==`; if you care about
+the shape, compare the whole dict/object. The same rule applies to SQL: assert
+the complete query string, never `assert "WHERE x" in sql`.
+
+### VCR + ClickHouse isolation (integration tests)
+
+- Integration tests replay provider traffic from VCR cassettes while the weave
+  client concurrently talks to ClickHouse over localhost HTTP. vcrpy is not
+  safe for that concurrency out of the box: its urllib3 passthrough wraps real
+  sends in `force_reset()`, which briefly unpatches httpx/httpcore globally and
+  lets provider calls escape an active cassette to the live API (seen as real
+  OpenAI 429s in CI). `tests/integrations/conftest.py` carries two autouse
+  fixtures that prevent this — read their docstrings before touching VCR
+  config, and keep `tests/integrations/langchain/test_vcr_isolation.py` green.
+- Corollary: a real provider 4xx during a `record_mode="none"` cassette means
+  VCR's patches were absent at request time (an isolation bug), not that the
+  cassette failed to match — matching failures raise
+  `CannotOverwriteExistingCassetteException` instead.
+
+### Key Test Shards
+
+Focus on these primary test shards:
+
+- `tests-3.12(shard='trace')` - Core tracing functionality
+- `tests-3.12(shard='flow')` - Higher level work"flow" objects
+- `tests-3.12(shard='trace_server')` - Server implementation
+- `tests-3.12(shard='trace_server_bindings')` - Server bindings
+
+### Running Tests
+
+**IMPORTANT**: Any test depending on the `client` fixture runs against ClickHouse, the only trace-server backend. Locally, the test fixtures auto-start a ClickHouse Docker container if one isn't already running, so Docker must be available. Pass `--clickhouse-process=true` to use a local `clickhouse-server` binary instead of Docker.
+
+#### Basic Test Commands
+
+1. Run all tests in a specific shard: `nox --no-install -e "tests-3.12(shard='trace')"`
+2. Run a specific test by appending `-- [test]` like so: `nox --no-install -e "tests-3.12(shard='trace')" -- tests/trace/test_client_trace.py::test_simple_op`
+3. Run linting: `nox --no-install -e lint` (Note: This will modify files)
+
+_Important:_ Since you don't have internet access, you must run `nox` with `--no-install`. We have pre-installed the requirements on the above shards.
+
+#### Critical Path Information
+
+**Test paths must be relative to the repository root**, not the `tests/` directory.
+
+Examples:
+
+- ✅ CORRECT: `-- tests/trace/test_dataset.py::test_basic_dataset_lifecycle`
+- ❌ WRONG: `-- trace/test_dataset.py::test_basic_dataset_lifecycle`
+
+#### Backend Selection
+
+The `--trace-server` flag selects the backend: `clickhouse` (default) or
+`fake` (in-memory).
+
+**Fake / in-memory (Fastest for Development):**
+
+```bash
+nox --no-install -e "tests-3.12(shard='trace')" -- tests/trace/test_client_trace.py::test_simple_op --trace-server=fake
+```
+
+The fake backend (`weave/trace_server/in_memory_trace_server.py`,
+`InMemoryTraceServer`) is a pure-Python, dict-backed drop-in replacement that
+lives parallel to the ClickHouse implementation. It replicates **ClickHouse**
+(the production backend) at the interface level: JSON_VALUE string typing for
+dynamic fields, `to*OrNull` cast rules, NULLS-LAST ordering, DateTime64
+comparisons, and computed summary fields. Tests that assert ClickHouse
+*internals* (SQL, table routing/residence, insert batching, bucket file
+storage) are gated with `client_is_clickhouse` and skip on the fake. No
+files, no SQL, no Docker.
+
+**ClickHouse (the real backend):**
+
+```bash
+nox --no-install -e "tests-3.12(shard='trace')" -- tests/trace/test_client_trace.py::test_simple_op
+```
+
+ClickHouse is the only trace-server backend (`--trace-server` defaults to
+`clickhouse`):
+
+```bash
+nox --no-install -e "tests-3.12(shard='trace')" -- tests/trace/test_client_trace.py::test_simple_op
+```
+
+**Note:** ClickHouse tests require Docker to be running (the fixtures start a
+container automatically), or a local `clickhouse-server` binary with
+`--clickhouse-process=true`. When neither is available, use the in-memory
+fake with `--trace-server=fake`.
+
+#### Remote HTTP Trace Server Implementation Selection
+
+The `--remote-http-trace-server` flag controls which **remote HTTP trace server implementation** is used for testing trace server bindings:
+
+**RemoteHTTPTraceServer (Default):**
+
+```bash
+nox --no-install -e "tests-3.12(shard='trace_server_bindings')" -- tests/trace_server_bindings/test_trace_server_bindings.py --remote-http-trace-server=remote
+```
+
+**StainlessRemoteHTTPTraceServer:**
+
+```bash
+nox --no-install -e "tests-3.12(shard='trace_server_bindings')" -- tests/trace_server_bindings/test_trace_server_bindings.py --remote-http-trace-server=stainless
+```
+
+**Important Notes:**
+
+- The `--remote-http-trace-server` flag is for **trace server binding implementation** (RemoteHTTPTraceServer vs StainlessRemoteHTTPTraceServer)
+- Both implementations share the same test file; the flag determines which server class is used
+
+#### Environment Issues
+
+**Color Flag Conflicts:**
+If you encounter an error like `Can not specify both --no-color and --force-color`, this is due to conflicting environment variables. Unset them before running nox:
+
+```bash
+unset NO_COLOR FORCE_COLOR && nox --no-install -e "tests-3.12(shard='trace')" -- tests/trace/test_dataset.py::test_basic_dataset_lifecycle
+```
+
+**Prek stashing behavior:**
+`nox --no-install -e lint` runs `prek`, and prek stashes unstaged changes before running hooks. If you need to validate a fix to one file (for example with `--mypy-only`), stage that file first or run the checker directly, otherwise hooks may run against older content.
+
+**Markdown serialization and MTSAAS env:**
+`weave/type_handlers/Markdown/markdown.py` only stores large markdown payloads in `markup.md` when `is_mtsaas()` is true. If local `WANDB_BASE_URL`/`WF_TRACE_SERVER_URL` differs from CI defaults, `test_serialization_correctness[markdown]` may fail locally with inline markup differences. For CI-like behavior, set:
+
+```bash
+WF_TRACE_SERVER_URL=https://trace.wandb.ai nox --no-install -e "tests-3.12(shard='trace')" -- tests/trace/data_serialization/test_serialization_correctness.py::test_serialization_correctness[markdown]
+```
+
+#### Reinstalling Dependencies
+
+If you encounter import errors or missing modules, reinstall the test shard environment:
+
+```bash
+nox --install-only -e "tests-3.12(shard='trace')"
+```
+
+Then run your tests with `--no-install` as usual.
+
+### LangChain Integration Tests
+
+The langchain integration tests work fully on macOS including chromadb/vector store tests.
+
+**Running LangChain Tests:**
+
+```bash
+nox --no-install -e "tests-3.12(shard='langchain')" -- tests/integrations/langchain/
+```
+
+## Typescript Testing Guidelines
+
+The Node SDK (`sdks/node`) is a **pnpm** project — it ships a `pnpm-lock.yaml`
+and pins `"packageManager": "pnpm@10.8.1"` in `package.json`. Do **not** run
+`npm i`: npm's resolver crashes trying to dedupe pnpm's symlink `node_modules`
+(`TypeError: Cannot read properties of null (reading 'matches')`).
+
+```
+cd sdks/node
+pnpm install
+pnpm test
+```
+
+To run an example (e.g. the Claude Agent SDK demo), `dist/` must be built first
+(`import 'weave'` self-resolves via the package `exports` to `dist/index.mjs`);
+`pnpm install` builds it via the `prepare` script. Then:
+
+```
+pnpm exec tsx examples/claudeAgents.ts
+```
+
+## Code Review & PR Guidelines
+
+### PR Requirements
+
+- Title format: `<type>(<scope>): <description>`, where `<type>` is one of
+  `chore`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `security`,
+  `test`. A scope is **required** (`requireScope: true`) and CI validates it
+  (`.github/workflows/pr.yaml`).
+- **Pick the scope by which SDK/area the change touches:**
+  - `weave_ts` — **required for ALL TypeScript / Node SDK changes** (anything
+    under `sdks/node/`). Any PR that modifies the TS SDK must be marked
+    `(weave_ts)`, e.g. `fix(weave_ts): ...`, `feat(weave_ts): ...`,
+    `chore(weave_ts): ...`.
+  - `weave` — the Python SDK and trace server (the default for `weave/…`
+    changes), e.g. `fix(weave): ...`, `feat(weave): ...`, `chore(weave): ...`.
+  - Other valid scopes (see `pr.yaml` for the authoritative list): `ui`, `app`,
+    `dev`, `deps`, `inference`.
+- If a single PR spans both the Python and TS SDKs, prefer splitting it; if that
+  isn't practical, scope it to the SDK that carries the primary change and call
+  out the other in the PR body.
+- Provide detailed PR summaries including:
+  - Purpose of changes
+  - Testing performed
+  - Any breaking changes
+  - Related issues/PRs
+
+### Pre-commit Checklist
+
+1. Run lint
+2. Ensure all tests pass
+3. Update documentation if needed
+4. Check for any breaking changes
+
+### GitHub Actions Authentication
+
+- Prefer native `${{ secrets.GITHUB_TOKEN }}` for repository-local workflow operations that only need the current repo.
+- Use `actions/create-github-app-token@v3` with `vars.WANDBOT_3000_APP_ID` and `secrets.WANDBOT_3000_PRIVATE_KEY` for cross-repository access or bot pushes that must behave like app-authenticated writes.
+- Do not introduce new GitHub PAT secrets in workflows unless there is no viable `GITHUB_TOKEN` or GitHub App alternative.
+
+## Common Development Patterns
+
+### Code Organization
+
+- Python code follows standard module organization
+- TypeScript/React components are organized by feature
+- Shared utilities should be placed in appropriate common directories
+
+### Error Handling
+
+- Use appropriate error types from `weave.errors`
+- Include meaningful error messages
+- Add error handling tests
+
+### Integration Testing
+
+- Since autopatching was removed from `weave.init()`, integration tests must explicitly patch their integrations
+- Add a fixture with `autouse=True` at the top of each integration test file to enable patching
+- Example pattern:
+  ```python
+  @pytest.fixture(autouse=True)
+  def patch_integration() -> Generator[None, None, None]:
+      patcher = get_integration_patcher()
+      patcher.attempt_patch()
+      yield
+      patcher.undo_patch()
+  ```
+- Some integrations (like instructor) may need to patch multiple libraries
+
+### Documentation
+
+- Update relevant docstrings for Python code
+- Add JSDoc comments for TypeScript code
+- Update this file when introducing new patterns or concepts
+
+---
+
+## Integration Patching
+
+### Automatic Implicit Patching
+
+Weave provides automatic implicit patching for all supported integrations using an import hook mechanism:
+
+- **Automatic Patching**: Libraries are automatically patched regardless of when they are imported
+- **Import Hook**: An import hook intercepts library imports and applies patches automatically
+- **Explicit Patching**: Optional manual patching is still available for fine-grained control
+
+Example:
+
+```python
+# Automatic patching - works regardless of import order!
+
+# Option 1: Import before weave.init()
+import openai
+import weave
+weave.init('my-project')  # OpenAI is automatically patched!
+
+# Option 2: Import after weave.init()
+import weave
+weave.init('my-project')
+import anthropic  # Automatically patched via import hook!
+
+# Option 3: Explicit patching (optional)
+import weave
+weave.init('my-project')
+weave.patch_openai()  # Manually patch if needed
+```
+
+### Available Patch Functions
+
+All integrations have corresponding patch functions for explicit control: `patch_openai()`, `patch_anthropic()`, `patch_mistral()`, etc.
+
+### Technical Implementation
+
+The import hook uses Python's `sys.meta_path` to intercept imports and automatically apply patches when supported libraries are imported. This ensures seamless integration tracking without requiring users to manage import order or make explicit patch calls.
+
+### Disabling Implicit Patching
+
+If you prefer explicit control over which integrations are patched, you can disable implicit patching:
+
+```python
+# Via settings parameter
+weave.init('my-project', settings={'implicitly_patch_integrations': False})
+
+# Via environment variable
+export WEAVE_IMPLICITLY_PATCH_INTEGRATIONS=false
+```
+
+When disabled, you must explicitly call patch functions like `weave.patch_openai()` to enable tracing for integrations.
+
+# Requests to Humans
+
+This section contains a list of questions, clarifications, or tasks that LLM agents wish to have humans complete.
+If there is something that doesn't make sense architecturally, devex-wise, or product-wise, please update this file and the humans will take care of it.
+Think of this as the reverse-task assignment - a place where you can communicate back to us.
+
+- [ ] Add TypeScript testing guidelines
+- [ ] ...
+
+---
+> Source: [wandb/weave](https://github.com/wandb/weave) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
