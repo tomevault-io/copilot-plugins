@@ -1,0 +1,14 @@
+{
+  "name": "konippi--servo-fetch",
+  "displayName": "servo-fetch",
+  "description": "servo-fetch",
+  "version": "1.0.0",
+  "author": "konippi",
+  "homepage": "https://github.com/konippi/servo-fetch",
+  "skills": [
+    {
+      "name": "servo-fetch",
+      "description": ""
+    }
+  ]
+}
