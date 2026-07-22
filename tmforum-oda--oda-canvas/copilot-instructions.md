@@ -1,165 +1,135 @@
 ## oda-canvas
 
-> The TM Forum Open Digital Architecture (ODA) Canvas is an execution environment for ODA Components that follows the Kubernetes Operator Pattern. This repository contains the Reference Implementation, open-source code, use cases, and test kit for an ODA Canvas implementation.
+> BDD (Behaviour-Driven Development) test suite that validates ODA Canvas compliance. Features are written in Gherkin and executed with Cucumber.js against a live Kubernetes cluster.
 
+# AGENTS.md — feature-definition-and-test-kit/
 
-# Windsurf Rules for TM Forum ODA Canvas
+BDD (Behaviour-Driven Development) test suite that validates ODA Canvas compliance. Features are written in Gherkin and executed with Cucumber.js against a live Kubernetes cluster.
 
-## Project Overview
+## Technology
 
-The TM Forum Open Digital Architecture (ODA) Canvas is an execution environment for ODA Components that follows the Kubernetes Operator Pattern. This repository contains the Reference Implementation, open-source code, use cases, and test kit for an ODA Canvas implementation.
+- **Test runner**: Cucumber.js v7 (`@cucumber/cucumber`)
+- **Assertions**: Chai
+- **Language**: JavaScript (CommonJS — uses `require()`, not ES modules)
+- **Runtime**: Node.js
 
-## Key Concepts
+## Directory Structure
 
-- **ODA Canvas**: Execution environment that supports ODA Components by providing access to cloud-native services (API Gateway, Service Mesh, Observability, Identity Management, etc.)
-- **ODA Component**: Software components following the ODA Component Specification with metadata for lifecycle management
-- **Operators**: Management-plane functions that manage ODA Components using the Kubernetes Operator Pattern
-- **Webhooks**: Integration with Kubernetes Control Plane supporting multiple versions of the ODA Component Standard
-- **BDD Testing**: Behavior-Driven Development approach for documenting and testing Canvas behaviors
+```
+feature-definition-and-test-kit/
+  features/
+    UC###-F###-<Description>.feature    # Gherkin feature files
+    step-definition/                    # Step implementations
+      ComponentManagementSteps.js
+      APIManagementSteps.js
+      IdentityManagementSteps.js
+      ObservabilitySteps.js
+      ...
+  testData/                             # Test component YAMLs and fixtures
+  utilities/                            # Shared utility npm packages (local)
+    component-utils/
+    identity-manager-utils-keycloak/
+    package-manager-utils-helm/
+    resource-inventory-utils-kubernetes/
+    observability-utils-kubernetes/
+  local-tests/                          # Local test configurations
+```
 
-## Architecture
+## Feature File Conventions
 
-The ODA Canvas implements a modular architecture with independent operators:
+### Naming
 
-- **Component Management**: Manages component lifecycle and decomposition into ExposedAPIs, IdentityConfigs, etc.
-- **API Management**: Manages API Gateway/Service Mesh for security, throttling, and non-functional services
-- **Identity Config**: Configures Identity Management Services
-- **Secrets Management**: Optional operator for configuring secrets
-- **Dependency Management**: Enables components to discover API dependencies
+Files follow: `UC<NNN>-F<NNN>-<Descriptive-Name>.feature`
+- Example: `UC003-F001-Expose-APIs-Create-API-Resource.feature`
+- Words in descriptive name are hyphenated
 
-## Development Commands
+### Structure
 
-### BDD Tests (Feature Definition and Test Kit)
+```gherkin
+# This feature corresponds to use case UC003 - Configure Exposed APIs
+# and covers the scenario where...
+
+@UC003 @UC003-F001
+Feature: UC003-F001 Expose APIs: Create API Resource
+
+  Scenario Outline: ...
+    Given ...
+    When ...
+    Then ...
+
+    Examples:
+      | param1 | param2 |
+      | value1 | value2 |
+```
+
+### Tags
+
+- `@UC###` — Use case tag (e.g., `@UC003`)
+- `@UC###-F###` — Feature tag (e.g., `@UC003-F001`)
+- `@SkipTest` — Mark features to be skipped
+- Tags go on separate lines above the `Feature:` line
+
+### Parameters
+
+Use single-quoted `'<ParamName>'` convention in Gherkin step text.
+
+## Step Definition Conventions
+
+- One file per domain: `ComponentManagementSteps.js`, `APIManagementSteps.js`, etc.
+- Import utilities via local packages: `require('resource-inventory-utils-kubernetes')`
+- Use `global.currentReleaseName` and `global.namespace` for shared state
+- Define timeout constants: `COMPONENT_DEPLOY_TIMEOUT = 600 * 1000`
+- Use `DEBUG_LOGS` flag for verbose output
+
+## Do
+
+- Write feature files that are **implementation-agnostic** — test Canvas behaviour, not specific operator internals
+- Use the utility layer for Kubernetes and Helm interactions, not direct API calls in step definitions
+- Follow the `UC###-F###` naming convention strictly
+- Add both `@UC###` and `@UC###-F###` tags to every feature
+- Start feature files with a comment block explaining the business context
+- Use `Scenario Outline` with `Examples` tables for parameterised tests
+- Update the use case library README when adding new features
+
+## Don't
+
+- Do not reference specific operator implementations in step definitions
+- Do not make direct Kubernetes API calls in step definitions — use the utility packages
+- Do not skip the header comment explaining the feature's business context
+- Do not run tests without a live Kubernetes cluster with Canvas deployed
+
+## Commands
+
 ```bash
-cd feature-definition-and-test-kit
+# Install dependencies
 npm install
-npm start                    # Run BDD tests and publish results
-npm run start:tags          # Run BDD tests with specific tags
-```
 
-### Canvas Portal (Vue.js Frontend)
-```bash
-cd canvas-portal/portal-web
-npm install
-npm run dev                  # Development server
-npm run build               # Production build
-npm run lint                # Lint code
-npm run format              # Format code with Prettier
-```
-
-### Java Components (Spring Boot)
-```bash
-cd canvas-portal
-mvn clean install          # Build all Java modules
-mvn spring-boot:run         # Run Spring Boot applications
-```
-
-### Python Operators (KOPF Framework)
-```bash
-cd source/operators
-pip install -r requirements.txt     # Install Python dependencies
-python componentOperator.py         # Run component operator
-```
-
-### TMF Services
-
-#### Node.js Services (TMF639 Resource Inventory)
-```bash
-cd source/tmf-services/TMF639_Resource_Inventory
-npm install
-npm start                   # Start TMF639 service
-```
-
-#### Python Services (MCP Resource Inventory)
-```bash
-cd source/tmf-services/MCP_Resource_Inventory
-# Using UV package manager
-uv install                  # Install dependencies
-uv run pytest              # Run tests
-uv run python resource_inventory_mcp_server.py  # Start server
-
-# Alternative with pip
-pip install -e .
-pytest                      # Run tests
-python -m resource_inventory_mcp_server  # Start server
-```
-
-### Kubernetes Commands
-```bash
-# Check Canvas version
-kubectl get crd components.oda.tmforum.org -o jsonpath='{.spec.versions[?(@.served==true)].name}'
-
-# Deploy Canvas using Helm
-helm install oda-canvas charts/canvas-oda
-
-# View components
-kubectl get components
-kubectl get exposedapis
-```
-
-## Project Structure
-
-- `charts/`: Helm charts for deploying Canvas components
-- `canvas-portal/`: Spring Boot + Vue.js web portal for Canvas management
-- `feature-definition-and-test-kit/`: BDD tests and utilities for Canvas validation
-- `installation/`: Installation guides and deployment scripts
-- `source/`: Core Canvas implementation
-  - `operators/`: Kubernetes operators (Component, API, Identity, Secrets Management)
-  - `webhooks/`: Kubernetes admission webhooks
-  - `utilities/`: Development and troubleshooting tools
-  - `tmf-services/`: TMF API implementations
-- `usecase-library/`: Use cases documenting component-canvas interactions
-
-## Technology Stack
-
-- **Backend**: Python (KOPF framework), Java (Spring Boot), Node.js
-- **Frontend**: Vue.js 3, Element Plus UI, Vite
-- **Container**: Docker, Kubernetes
-- **Deployment**: Helm charts
-- **Testing**: Cucumber.js (BDD), JUnit (Java), pytest (Python)
-- **Package Management**: Maven (Java), npm (Node.js), uv/pip (Python)
-
-## Development Guidelines
-
-1. Follow BDD approach: create use cases first, then BDD scenarios, then implementation
-2. Use Kubernetes Operator Pattern for new operators
-3. Support N-2 versions of ODA Component Standard (currently v1, v1beta4, v1beta3)
-4. Include comprehensive docstrings in source code
-5. Follow existing code conventions and patterns in each language
-6. Create tests for all new functionality
-
-## Testing
-
-### BDD Feature Tests
-Run the comprehensive test suite that validates Canvas compliance:
-```bash
-cd feature-definition-and-test-kit
+# Run all BDD tests
 npm start
+
+# Run tests with specific tags
+npm run start:tags
+
+# Run a single feature
+npx cucumber-js features/UC003-F001-Expose-APIs-Create-API-Resource.feature
 ```
 
-### Unit Tests
-- Python: `pytest` in operator directories
-- Java: `mvn test` in Java modules
-- Node.js: `npm test` in service directories
+## Utilities
 
-## Important Files
+Utilities are **local npm packages** linked via `file:` in `package.json`. They are NOT published to npm.
 
-- `Canvas-design.md`: Overall Canvas design documentation
-- `SecurityPrinciples.md`: Security principles and guidelines
-- `Authentication-design.md`: Authentication design patterns
-- `charts/canvas-oda/values.yaml`: Main Canvas configuration
-- `source/operators/requirements.txt`: Python operator dependencies
-- `.github/copilot-instructions.md`: AI coding assistant guidelines
+| Package | Purpose |
+|---------|---------|
+| `component-utils` | API URL retrieval, test data loading/validation |
+| `identity-manager-utils-keycloak` | Keycloak token/role management |
+| `package-manager-utils-helm` | Helm chart install/upgrade/uninstall |
+| `resource-inventory-utils-kubernetes` | Kubernetes resource queries |
+| `observability-utils-kubernetes` | Observability checks |
 
-## Component Specification Versions
+## Environment
 
-The Canvas supports multiple versions of the ODA Component Specification:
-- v1 (current)
-- v1beta4 (deprecated)
-- v1beta3 (deprecated with warnings)
-
-Always check component version compatibility when making changes to operators or webhooks.
+Tests require a `.env` file at the root for configuration. Key variables include Keycloak credentials (`KEYCLOAK_USER`, `KEYCLOAK_PASSWORD`, `KEYCLOAK_BASE_URL`, `KEYCLOAK_REALM`).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/tmforum-oda) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [tmforum-oda/oda-canvas](https://github.com/tmforum-oda/oda-canvas) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
