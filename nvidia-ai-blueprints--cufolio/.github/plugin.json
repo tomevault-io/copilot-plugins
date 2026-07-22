@@ -1,0 +1,14 @@
+{
+  "name": "nvidia-ai-blueprints--cufolio",
+  "displayName": "cuFOLIO",
+  "description": "cuFOLIO",
+  "version": "1.0.0",
+  "author": "NVIDIA-AI-Blueprints",
+  "homepage": "https://github.com/NVIDIA-AI-Blueprints/cuFOLIO",
+  "skills": [
+    {
+      "name": "cuFOLIO",
+      "description": ""
+    }
+  ]
+}
