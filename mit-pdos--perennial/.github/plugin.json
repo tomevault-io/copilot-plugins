@@ -1,0 +1,14 @@
+{
+  "name": "mit-pdos--perennial",
+  "displayName": "perennial",
+  "description": "perennial",
+  "version": "1.0.0",
+  "author": "mit-pdos",
+  "homepage": "https://github.com/mit-pdos/perennial",
+  "skills": [
+    {
+      "name": "perennial",
+      "description": ""
+    }
+  ]
+}
