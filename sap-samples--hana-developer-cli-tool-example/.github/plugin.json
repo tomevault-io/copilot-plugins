@@ -1,0 +1,22 @@
+{
+  "name": "sap-samples--hana-developer-cli-tool-example",
+  "displayName": "hana-developer-cli-tool-example",
+  "description": "hana-developer-cli-tool-example",
+  "version": "1.0.0",
+  "author": "SAP-samples",
+  "homepage": "https://github.com/SAP-samples/hana-developer-cli-tool-example",
+  "skills": [
+    {
+      "name": "hana-developer-cli-tool-example",
+      "description": ""
+    },
+    {
+      "name": "hana-developer-cli-tool-example",
+      "description": ""
+    },
+    {
+      "name": "hana-developer-cli-tool-example",
+      "description": ""
+    }
+  ]
+}
