@@ -3,8 +3,8 @@
   "owner": "databricks",
   "repo": "databricks-sdk-go",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/databricks",
+  "skills": [
+    {
+      "name": "databricks-sdk-go",
+      "path": ".agent/skills/write-pr-description/SKILL.md",
+      "github_url": "https://github.com/databricks/databricks-sdk-go/tree/main/.agent/skills/write-pr-description/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/databricks/databricks-sdk-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T00:57:09Z"
+  "distributed_at": "2026-07-22T19:36:52Z"
 }
