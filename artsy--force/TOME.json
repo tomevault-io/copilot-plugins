@@ -1,0 +1,69 @@
+{
+  "name": "force",
+  "owner": "artsy",
+  "repo": "force",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adding-a-new-app-route",
+      "path": ".claude/skills/adding-a-new-app-route",
+      "github_url": "https://github.com/artsy/force/tree/main/.claude/skills/adding-a-new-app-route",
+      "description": ""
+    },
+    {
+      "name": "force",
+      "path": ".claude/skills/beep/SKILL.md",
+      "github_url": "https://github.com/artsy/force/tree/main/.claude/skills/beep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "force",
+      "path": ".claude/skills/fix-sentry-issue/SKILL.md",
+      "github_url": "https://github.com/artsy/force/tree/main/.claude/skills/fix-sentry-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "force",
+      "path": ".claude/skills/adding-a-new-app-route/SKILL.md",
+      "github_url": "https://github.com/artsy/force/tree/main/.claude/skills/adding-a-new-app-route/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/artsy/force",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:43:55Z"
+}
