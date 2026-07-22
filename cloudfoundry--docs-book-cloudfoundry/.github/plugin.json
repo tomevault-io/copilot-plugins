@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--docs-book-cloudfoundry",
+  "displayName": "docs-book-cloudfoundry",
+  "description": "docs-book-cloudfoundry",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/docs-book-cloudfoundry",
+  "skills": []
+}
