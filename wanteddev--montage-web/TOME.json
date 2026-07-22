@@ -1,0 +1,63 @@
+{
+  "name": "montage-web",
+  "owner": "wanteddev",
+  "repo": "montage-web",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "montage-web",
+      "path": ".claude/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/wanteddev/montage-web/tree/main/.claude/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "montage-web",
+      "path": ".claude/skills/sync-icons/SKILL.md",
+      "github_url": "https://github.com/wanteddev/montage-web/tree/main/.claude/skills/sync-icons/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "montage-web",
+      "path": ".claude-plugin/montage-web-guide/skills/montage-react/SKILL.md",
+      "github_url": "https://github.com/wanteddev/montage-web/tree/main/.claude-plugin/montage-web-guide/skills/montage-react/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wanteddev/montage-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:29:59Z"
+}
