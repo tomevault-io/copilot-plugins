@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "isomoes",
   "homepage": "https://github.com/isomoes/blivedm_rs",
-  "skills": []
+  "skills": [
+    {
+      "name": "blivedm_rs",
+      "description": ""
+    }
+  ]
 }
