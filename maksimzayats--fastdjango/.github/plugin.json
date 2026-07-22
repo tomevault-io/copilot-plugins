@@ -1,0 +1,22 @@
+{
+  "name": "maksimzayats--fastdjango",
+  "displayName": "fastdjango",
+  "description": "fastdjango",
+  "version": "1.0.0",
+  "author": "maksimzayats",
+  "homepage": "https://github.com/maksimzayats/fastdjango",
+  "skills": [
+    {
+      "name": "docs-reader",
+      "description": ""
+    },
+    {
+      "name": "feature-developer",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "description": ""
+    }
+  ]
+}
