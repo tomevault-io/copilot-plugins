@@ -1,0 +1,18 @@
+{
+  "name": "pysan3--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles",
+  "version": "1.0.0",
+  "author": "pysan3",
+  "homepage": "https://github.com/pysan3/dotfiles",
+  "skills": [
+    {
+      "name": "dotfiles",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "description": ""
+    }
+  ]
+}
