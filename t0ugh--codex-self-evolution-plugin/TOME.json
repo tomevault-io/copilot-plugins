@@ -1,0 +1,63 @@
+{
+  "name": "codex-self-evolution-plugin",
+  "owner": "T0UGH",
+  "repo": "codex-self-evolution-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codex-self-evolution-plugin",
+      "path": "skills/csep-session-recall/SKILL.md",
+      "github_url": "https://github.com/T0UGH/codex-self-evolution-plugin/tree/main/skills/csep-session-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-self-evolution-plugin",
+      "path": "plugins/codex-self-evolution/skills/csep-session-recall/SKILL.md",
+      "github_url": "https://github.com/T0UGH/codex-self-evolution-plugin/tree/main/plugins/codex-self-evolution/skills/csep-session-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codex-self-evolution-plugin",
+      "path": "src/codex_self_evolution/plugin_bundle/skills/csep-session-recall/SKILL.md",
+      "github_url": "https://github.com/T0UGH/codex-self-evolution-plugin/tree/main/src/codex_self_evolution/plugin_bundle/skills/csep-session-recall/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/T0UGH/codex-self-evolution-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:53:25Z"
+}
