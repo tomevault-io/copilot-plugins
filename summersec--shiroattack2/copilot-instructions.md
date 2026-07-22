@@ -1,72 +1,80 @@
 ## shiroattack2
 
-> mvn install:install-file -Dfile=libs/jEG-Core-1.0.0.jar -DgroupId=jeg -DartifactId=jeg-core -Dversion=1.0.0 -Dpackaging=jar
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md — ShiroAttack2
+# CLAUDE.md
 
-## 构建
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Build & Run
 
 ```bash
-# 首次构建前安装本地 JAR（仅需一次）
+# 前置步骤：安装本地 JAR 到 Maven（仅首次需要）
 mvn install:install-file -Dfile=libs/jEG-Core-1.0.0.jar -DgroupId=jeg -DartifactId=jeg-core -Dversion=1.0.0 -Dpackaging=jar
 mvn install:install-file -Dfile=libs/jmg-sdk-1.0.9.jar -DgroupId=jmg -DartifactId=jmg-sdk -Dversion=1.0.9 -Dpackaging=jar
 
-# 打包 fat JAR
+# 打包为可执行 fat JAR（含所有依赖）
 mvn clean package -DskipTests
-# 产物: target/shiro_attack-5.1.1-all.jar
+
+# 产物路径: target/shiro_attack-5.1.1-all.jar
+
+# 运行 CLI（命令行模式，无需 GUI）
+java -cp target/shiro_attack-5.1.1-all.jar com.summersec.attack.CLI.MainCLI <command> [options]
+
+# CLI 可用命令: detect | crack | exec | memshell | changekey | gui
+# 详见 .claude/skills/shiro-attack-cli/SKILL.md
+
+# 运行（需要 JavaFX 运行时，Java 8）
+java -jar target/shiro_attack-5.1.1-all.jar
 ```
 
-**本地环境**（Windows）：`JAVA_HOME=C:\Program Files\Zulu\zulu-8`，Maven 在 `D:\apache-maven-3.9.9\bin\mvn.cmd`。Java 8 必须带 JavaFX（推荐 Zulu 8+fx）。
+本项目无测试套件；仅有 GitHub Release CI（推送 tag 触发）。
 
-`pom.xml` 的 `bootclasspath` 引用了 `rt.jar` + `jce.jar`——在纯 JDK 11+ 上编译会失败，必须用 JDK 8。
+## 插件市场
 
-`assembly.xml` 使用 `<scope>test</scope>` 解包依赖——system scope 的 JAR（`lib/`、`libs/`）通过此机制打进 fat JAR。
+本项目同时也是 Claude Code 插件市场，通过 `.claude-plugin/marketplace.json` 注册了 `shiro-attack-cli` 技能。
 
-**无测试套件**，无 lint/typecheck。仅 release workflow 作为 CI。
+```bash
+# 安装（来源为 GitHub）
+claude plugins add github:SummerSec/ShiroAttack2
+```
 
-## 入口
+支持平台：Claude Code (`.claude-plugin/`)、Codex CLI (`.codex-plugin/`)、Cursor (`.cursor-plugin/`)。skill 源文件在 `skills/shiro-attack-cli/SKILL.md`。
 
-| 模式 | 类 |
-|------|----|
-| JavaFX GUI | `com.summersec.attack.UI.Main` |
-| CLI | `com.summersec.attack.CLI.MainCLI` — 命令: `detect`, `crack`, `exec`, `memshell`, `changekey`, `gui` |
+## 架构概述
 
-CLI 支持 `--json` 输出机器可读结果。
+ShiroAttack2 是一个利用 Apache Shiro rememberMe AES 反序列化漏洞（Shiro-550）的 JavaFX GUI 工具。
 
-## 架构要点
+### 攻击流程
 
-- `attack.core.AttackService` — 编排 Key 爆破、Gadget 探测、命令执行、内存马注入的单一入口
-- `attack.deser.util.Gadgets` — 通过 Javassist 构造 `TemplatesImpl`，把回显/内存马类嵌入 translet
-- `attack.Encrypt/` — AES-CBC（Shiro ≤1.2.4，`CbcEncrypt`） / AES-GCM（Shiro ≥1.2.5，`GcmEncrypt`），CLI 用 `--cbc` / `--gcm` 指定
-- `com.summersec.x/` — 内存马 Filter/Servlet 源码（哥斯拉、冰蝎、蚁剑、reGeorg 等），通过 Javassist 编译后 Base64 编码发送给目标，由 `InjectMemTool` 在目标反序列化时 `defineClass` 加载
-- `org.apache.shiro.*` — 内嵌 Shiro 1.2.4 加密源码，可独立定制
+1. **密钥爆破** — `deser/plugins/keytest/KeyEcho.java` 将 `SimplePrincipalCollection` 序列化后用候选密钥（`resources/data/shiro_key.txt`）逐一加密，通过响应判断有效密钥
+2. **Gadget 链选择** — 用户在 UI 中选择适合目标 classpath 的 `CommonsBeanutils` 变体（1.8.3 / 1.9.2 / AttrCompare）
+3. **回显类型选择** — Tomcat / Spring / DFS-AllEcho / NoEcho / 反弹 Shell
+4. **Payload 构造** — `deser/util/Gadgets.java` 用 Javassist 将回显类嵌入 `TemplatesImpl` translet，Gadget 链包装后序列化
+5. **加密发送** — `Encrypt/CbcEncrypt.java`（AES-CBC）或 `Encrypt/GcmEncrypt.java`（AES-GCM）加密后 Base64 编码，写入 rememberMe cookie 发送
 
-### MemBytes 模式
+### 主要包职责
 
-`MemBytes.getBytes(option)` 默认返回 `MEM_TOOLS` 中硬编码的 Base64 字节码。调用 `MemBytes.setDynamicMode(true)` 后可改用 Javassist 运行时编译 `com.summersec.x.*` 源码。
+| 包 | 职责 |
+|---|---|
+| `attack.UI` | JavaFX 入口 (`Main`) 和主窗口控制器 |
+| `attack.core` | `AttackService` — 串联爆破、Gadget、加密、发送的编排层 |
+| `attack.Encrypt` | AES-CBC / AES-GCM 加密；`KeyGenerator` 生成新密钥 |
+| `attack.deser.payloads` | CommonsBeanutils gadget 链实现 |
+| `attack.deser.echo` | 各平台回显 Payload 生成（Tomcat/Spring/DFS/Reverse/NoEcho） |
+| `attack.deser.plugins` | 内存马注入（`InjectMemTool`）、密钥探测（`KeyEcho`）|
+| `attack.deser.frame` | Shiro cookie 序列化/加密封装 |
+| `attack.deser.util` | `Gadgets`（TemplatesImpl 构造）、反射工具、JavaVersion |
+| `attack.utils` | HTTP 请求（Hutool）、AES 工具、控制台输出 |
+| `attack.entity` | `ControllersFactory`（JavaFX 控制器注册表）、`RequestInfo` |
+| `org.apache.shiro.*` | 内嵌 Shiro 加密源码（`AesCipherService` 等），便于定制 |
 
-### Gadget 自动探测顺序（`MainCLI:215-222`）
+### 关键依赖说明
 
-优先尝试 String/AttrCompare/ObjectToStringComparator 变体（无需目标 commons-collections），回退到依赖 `ComparableComparator` 的 CB1 变体。
-
-## SystemPath 依赖
-
-| JAR | 位置 | 用途 |
-|-----|------|------|
-| `commons-beanutils-1.8.3.jar` | `lib/1.8.3/` | CB 1.8.3 gadget |
-| `commons-beanutils-1.9.2.jar` | `lib/1.9.2/` | CB 1.9.2 gadget |
-| `jEG-Core-1.0.0.jar` | `libs/` | 加密库 |
-| `jmg-sdk-1.0.9.jar` | `libs/` | 内存马生成 SDK |
-
-## 发布
-
-推送 tag（`v*` 或 `X.Y.Z`）触发 Release。构建产物为 `*-all.jar`，release bundle 额外包含 `lib/` 和 `data/`。可选版本说明放 `docs/releases/<tag>.md`。Allatori 混淆配置已注释。
-
-## 运行时依赖
-
-- `data/shiro_key.txt` — Base64 Key 字典（每行一个），**文件本身为空**，必须提供真实 key
-- `lib/` — CB JAR，用于运行时 gadget 链 classpath
+- `lib/` 目录下的本地 JAR（`commons-beanutils-1.8.3.jar` 等）通过 `pom.xml` 中 `systemPath` 引入，是 Gadget 链的实际攻击依赖，与常规 Maven 依赖分开管理
+- `assembly.xml` 配置将 test-scope 依赖也解包进 fat JAR
+- Allatori 混淆配置已存在但在 `pom.xml` 中被注释，发布时可按需启用
 
 ---
 > Source: [SummerSec/ShiroAttack2](https://github.com/SummerSec/ShiroAttack2) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
