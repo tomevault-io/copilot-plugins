@@ -1,0 +1,357 @@
+{
+  "name": "MathModeling-skills",
+  "owner": "zhnnky329",
+  "repo": "MathModeling-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/paper-polisher/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/paper-polisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/problem-parser/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/problem-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/paper-polisher/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/paper-polisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/method-selector/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/method-selector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/problem-parser/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/problem-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/method-selector/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/method-selector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/reference-manager/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/reference-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/problem-classifier/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/problem-classifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/robustness-checker/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/robustness-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/reference-manager/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/reference-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/problem-classifier/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/problem-classifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/robustness-checker/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/robustness-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/model-code-analyzer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/model-code-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/paper-section-writer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/paper-section-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/python-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/python-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/matlab-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/matlab-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/completeness-auditor/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/completeness-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/data-auditor-cleaner/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/data-auditor-cleaner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/figure-table-planner/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/figure-table-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/model-code-analyzer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/model-code-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/symbol-table-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/symbol-table-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/paper-section-writer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/paper-section-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/workflow-orchestrator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/workflow-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/python-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/python-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/matlab-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/matlab-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/completeness-auditor/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/completeness-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/data-auditor-cleaner/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/data-auditor-cleaner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/figure-table-planner/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/figure-table-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/symbol-table-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/symbol-table-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/workflow-orchestrator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/workflow-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/final-method-explainer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/final-method-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/related-paper-analyzer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/related-paper-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/result-report-generator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/result-report-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/final-method-explainer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/final-method-explainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/related-paper-analyzer/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/related-paper-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/modeler-decision-logger/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/modeler-decision-logger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/decision-prompt-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/decision-prompt-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/result-report-generator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/result-report-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/solution-package-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/solution-package-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/modeler-decision-logger/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/modeler-decision-logger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/decision-prompt-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/decision-prompt-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/quality-assurance-auditor/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/quality-assurance-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/solution-package-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/solution-package-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/model-assumptions-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/model-assumptions-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/quality-assurance-auditor/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/quality-assurance-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/model-assumptions-builder/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/model-assumptions-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/python-model-code-generator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/python-model-code-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".codex/skills/matlab-model-code-generator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.codex/skills/matlab-model-code-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/python-model-code-generator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/python-model-code-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MathModeling-skills",
+      "path": ".claude/skills/matlab-model-code-generator/SKILL.md",
+      "github_url": "https://github.com/zhnnky329/MathModeling-skills/tree/main/.claude/skills/matlab-model-code-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhnnky329/MathModeling-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:49:29Z"
+}
