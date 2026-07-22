@@ -1,0 +1,14 @@
+{
+  "name": "stackrox--stackrox",
+  "displayName": "stackrox",
+  "description": "stackrox",
+  "version": "1.0.0",
+  "author": "stackrox",
+  "homepage": "https://github.com/stackrox/stackrox",
+  "skills": [
+    {
+      "name": "stackrox",
+      "description": ""
+    }
+  ]
+}
