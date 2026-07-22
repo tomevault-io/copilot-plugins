@@ -3,8 +3,8 @@
   "owner": "MetaMask",
   "repo": "metamask-docs",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/MetaMask",
+  "skills": [
+    {
+      "name": "metamask-docs",
+      "path": ".cursor/skills/author-page/SKILL.md",
+      "github_url": "https://github.com/MetaMask/metamask-docs/tree/main/.cursor/skills/author-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metamask-docs",
+      "path": ".cursor/skills/style-review/SKILL.md",
+      "github_url": "https://github.com/MetaMask/metamask-docs/tree/main/.cursor/skills/style-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MetaMask/metamask-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T08:38:26Z"
+  "distributed_at": "2026-07-22T08:40:28Z"
 }
