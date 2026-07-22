@@ -15,13 +15,6 @@ Original source: `CLAUDE.md` in [lnxjedi/gopherbot](https://github.com/lnxjedi/g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (4)
-
-- [gopherbot-multi-protocol-migration](https://github.com/lnxjedi/gopherbot/tree/main/.agents/skills/gopherbot-multi-protocol-migration)
-- [gopherbot](https://github.com/lnxjedi/gopherbot/tree/main/.codex/skills/gopherbot-architecture-guardrails/SKILL.md)
-- [gopherbot](https://github.com/lnxjedi/gopherbot/tree/main/.agents/skills/gopherbot-architecture-guardrails/SKILL.md)
-- [gopherbot](https://github.com/lnxjedi/gopherbot/tree/main/.claude/skills/gopherbot-architecture-guardrails/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/lnxjedi/gopherbot](https://github.com/lnxjedi/gopherbot)
 
 ---
