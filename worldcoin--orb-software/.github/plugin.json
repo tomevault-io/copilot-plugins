@@ -1,0 +1,14 @@
+{
+  "name": "worldcoin--orb-software",
+  "displayName": "orb-software",
+  "description": "orb-software",
+  "version": "1.0.0",
+  "author": "worldcoin",
+  "homepage": "https://github.com/worldcoin/orb-software",
+  "skills": [
+    {
+      "name": "orb-software",
+      "description": ""
+    }
+  ]
+}
