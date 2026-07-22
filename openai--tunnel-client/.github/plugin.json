@@ -1,0 +1,14 @@
+{
+  "name": "openai--tunnel-client",
+  "displayName": "tunnel-client",
+  "description": "tunnel-client",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/tunnel-client",
+  "skills": [
+    {
+      "name": "tunnel-client",
+      "description": ""
+    }
+  ]
+}
