@@ -1,0 +1,93 @@
+{
+  "name": "Browser4",
+  "owner": "platonai",
+  "repo": "Browser4",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/main/resources/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/main/resources/skills/x-sql/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/x-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/main/resources/skills/weather/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/main/resources/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/main/resources/skills/web-scraping/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/web-scraping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/main/resources/skills/form-filling/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/form-filling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/test/resources/skills/script-runner/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/test/resources/skills/script-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "browser4-agentic/src/main/resources/skills/data-validation/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/data-validation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/platonai/Browser4",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:02:07Z"
+}
