@@ -1,0 +1,14 @@
+{
+  "name": "mangiucugna--json-repair",
+  "displayName": "json_repair",
+  "description": "json_repair",
+  "version": "1.0.0",
+  "author": "mangiucugna",
+  "homepage": "https://github.com/mangiucugna/json_repair",
+  "skills": [
+    {
+      "name": "json_repair",
+      "description": ""
+    }
+  ]
+}
