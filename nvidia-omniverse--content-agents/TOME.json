@@ -1,0 +1,207 @@
+{
+  "name": "content-agents",
+  "owner": "NVIDIA-Omniverse",
+  "repo": "content-agents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deploy-physics-agent-docker",
+      "path": ".codex/skills/deploy-physics-agent-docker",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.codex/skills/deploy-physics-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-material-agent-docker",
+      "path": ".claude/skills/deploy-material-agent-docker",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.claude/skills/deploy-material-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-material-agent-docker",
+      "path": ".codex/skills/deploy-material-agent-docker",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.codex/skills/deploy-material-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-physics-agent-docker",
+      "path": ".claude/skills/deploy-physics-agent-docker",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.claude/skills/deploy-physics-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-physics-agent-docker",
+      "path": ".agents/skills/deploy-physics-agent-docker",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-physics-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "deploy-material-agent-docker",
+      "path": ".agents/skills/deploy-material-agent-docker",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-material-agent-docker",
+      "description": ""
+    },
+    {
+      "name": "quickstart",
+      "path": ".agents/skills/quickstart",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/quickstart",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/vision/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/brev-cli/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/brev-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/print-usd/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/print-usd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/image-gen/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/image-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/quickstart/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/render-usd/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/render-usd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/flatten-usd/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/flatten-usd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/physics-agent-cli/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/physics-agent-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/texture-agent-cli/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/texture-agent-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/deploy-collection/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-collection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/material-agent-cli/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/material-agent-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/deploy-ovrtx-docker/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-ovrtx-docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/validation-agent-cli/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/validation-agent-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/physics-agent-client/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/physics-agent-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/texture-agent-client/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/texture-agent-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/deploy-image-gen-brev/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-image-gen-brev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/material-agent-client/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/material-agent-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/deploy-texture-agent-brev/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-texture-agent-brev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/deploy-physics-agent-docker/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-physics-agent-docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "content-agents",
+      "path": ".agents/skills/deploy-material-agent-docker/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-Omniverse/content-agents/tree/main/.agents/skills/deploy-material-agent-docker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA-Omniverse/content-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:53:34Z"
+}
