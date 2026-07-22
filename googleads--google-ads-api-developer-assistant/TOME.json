@@ -3,8 +3,8 @@
   "owner": "googleads",
   "repo": "google-ads-api-developer-assistant",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,57 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/googleads",
+  "skills": [
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/explain/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/explain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/ext_version/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/ext_version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/step_by_step/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/step_by_step/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/validate_gaql/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/validate_gaql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/inspect_object/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/inspect_object/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/get_cids_under_mcc/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/get_cids_under_mcc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/pmax_listing_filter/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/pmax_listing_filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "google-ads-api-developer-assistant",
+      "path": ".agents/skills/troubleshoot_conversions/SKILL.md",
+      "github_url": "https://github.com/googleads/google-ads-api-developer-assistant/tree/main/.agents/skills/troubleshoot_conversions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/googleads/google-ads-api-developer-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T10:37:11Z"
+  "distributed_at": "2026-07-22T19:37:45Z"
 }
