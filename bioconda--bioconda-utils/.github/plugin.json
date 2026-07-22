@@ -1,0 +1,9 @@
+{
+  "name": "bioconda--bioconda-utils",
+  "displayName": "bioconda-utils",
+  "description": "bioconda-utils",
+  "version": "1.0.0",
+  "author": "bioconda",
+  "homepage": "https://github.com/bioconda/bioconda-utils",
+  "skills": []
+}
