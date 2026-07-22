@@ -1,62 +1,49 @@
 ## cloud-cap-hana-swapi
 
-> hana-cli (npm: hana-cli, install: `npm install -g hana-cli`) is a command-line tool for SAP HANA database development. It simplifies complex multi-step database operations into single commands. It is a development tool, not a replacement for hdbsql or production admin tools.
+> - You MUST search for CDS definitions, like entities, fields and services (which include HTTP endpoints) with cds-mcp, only if it fails you MAY read `*.cds` files in the project.
 
-# hana-cli — AI Coding Assistant Context
+# Project Guidelines
 
-## About hana-cli
+## Critical CAP Guardrails
 
-hana-cli (npm: hana-cli, install: `npm install -g hana-cli`) is a command-line tool for SAP HANA database development. It simplifies complex multi-step database operations into single commands. It is a development tool, not a replacement for hdbsql or production admin tools.
+- You MUST search for CDS definitions, like entities, fields and services (which include HTTP endpoints) with cds-mcp, only if it fails you MAY read `*.cds` files in the project.
+- You MUST search for CAP docs with cds-mcp EVERY TIME you create, modify CDS models or when using APIs or the `cds` CLI from CAP. Do NOT propose, suggest or make any changes without first checking it.
 
-**Version:** 4.202603.2  
-**Requirements:** Node.js ≥ 20.19.0  
-**Module:** ESM (`"type": "module"`)
+## Architecture
 
-## When to Use hana-cli
+- This repository is a CAP sample with most implementation code under `cap/`.
+- Core boundaries:
+  - `cap/db/`: CDS domain model and DB-specific model extensions (`hana/`, `sqlite/`)
+  - `cap/srv/`: service definitions (`*-service.cds`), handlers (`*.js`), and Fiori annotations (`*-fiori.cds`)
+  - `cap/app/`: UI assets and preview app content
+  - `cap/docs/`: generated OpenAPI/AsyncAPI artifacts
+  - `cap/types/`: generated TypeScript model/service types
 
-Use hana-cli when a developer needs to:
-- **Explore schemas**: `hana-cli tables`, `hana-cli views`, `hana-cli schemas`
-- **Inspect objects**: `hana-cli inspectTable`, `hana-cli inspectView`, `hana-cli inspectProcedure`
-- **Import/export data**: `hana-cli import`, `hana-cli export`
-- **Run queries**: `hana-cli querySimple --query "SQL"`
-- **Check health**: `hana-cli healthCheck`, `hana-cli systemInfo`
-- **Manage connections**: `hana-cli connect`, `hana-cli status`
-- **Profile data**: `hana-cli dataProfile`, `hana-cli dataValidator`
-- **Compare schemas**: `hana-cli compareSchema`, `hana-cli compareData`
-- **Monitor performance**: `hana-cli expensiveStatements`, `hana-cli memoryAnalysis`
-- **Manage security**: `hana-cli users`, `hana-cli roles`, `hana-cli securityScan`
-- **Work with HANA Cloud**: `hana-cli hanaCloudInstances`, `hana-cli hanaCloudStart`
-- **Manage HDI**: `hana-cli containers`, `hana-cli adminHDI`
+## Build and Run
 
-## Key Patterns
+- Run Node-based commands in `cap/`.
+- Runtime baseline: Node.js `>=20`.
+- Common commands:
+  - `npm run build` (CDS build)
+  - `npm start` (serve CAP app)
+  - `npm run watch` (hybrid profile)
+  - `npm run sqlite` / `npm run pg` (DB profile watch)
+  - `npm run load` (load fixture data)
+  - `npm run hana` (deploy to HANA HDI container)
 
-1. **Always verify connection first:** `hana-cli status`
-2. **Explore before modifying:** Use `tables`, `inspectTable`, `dataProfile` before import/export
-3. **Use dry-run for imports:** `hana-cli import --filename data.csv --table X --schema Y --dryRun`
-4. **Use --output flag:** Many commands support `--output json|csv|table|excel`
-5. **Use --query flag with querySimple:** `hana-cli querySimple --query "SELECT ..."` (not positional args)
-6. **Interactive mode:** Run `hana-cli` with no arguments for a menu-driven experience
+## Conventions
 
-## Connection Setup
+- Keep service contract and UI annotations separated:
+  - service definitions in `*-service.cds`
+  - Fiori annotations in matching `*-fiori.cds`
+- Keep custom logic in service handlers under `cap/srv/*.js` (for example, event hooks in `people-service.js`).
+- CAP profile-specific behavior is configured in `cap/package.json` under `cds.requires` and profile blocks like `[sqlite]` and `[pg]`.
 
-```bash
-hana-cli connect                    # Interactive wizard
-hana-cli connectViaServiceKey       # Via BTP service key
-hana-cli copy2DefaultEnv            # Copy to default-env.json for CAP projects
-hana-cli status                     # Verify connection
-```
+## Known Pitfalls
 
-## Reference
-
-For the complete command reference with all parameters, see:
-- HANA_CLI_REFERENCE.md (full reference, all commands)
-- HANA_CLI_QUICKSTART.md (getting started, top 10 commands)
-- HANA_CLI_EXAMPLES.md (real-world scenarios)
-- HANA_CLI_WORKFLOWS.md (multi-step workflows)
-- categories/*.md (per-category deep dives)
-
-Or run `hana-cli <command> --help` for any specific command.
+- After HANA deployment, generated folders may be cleared; re-run `npm run build`.
+- SQLite can fail under parallel data loading (`SQLITE_BUSY`); prefer a non-parallel loader path for local SQLite scenarios.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/SAP-samples) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [SAP-samples/cloud-cap-hana-swapi](https://github.com/SAP-samples/cloud-cap-hana-swapi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
