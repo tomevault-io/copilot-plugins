@@ -1,0 +1,14 @@
+{
+  "name": "zhinjs--qq-official-bot",
+  "displayName": "qq-official-bot",
+  "description": "qq-official-bot",
+  "version": "1.0.0",
+  "author": "zhinjs",
+  "homepage": "https://github.com/zhinjs/qq-official-bot",
+  "skills": [
+    {
+      "name": "qq-official-bot",
+      "description": ""
+    }
+  ]
+}
