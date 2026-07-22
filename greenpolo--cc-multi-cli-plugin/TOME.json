@@ -1,0 +1,99 @@
+{
+  "name": "cc-multi-cli-plugin",
+  "owner": "greenpolo",
+  "repo": "cc-multi-cli-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "multi-cli-anything",
+      "path": "plugins/multi/skills/multi-cli-anything",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/multi-cli-anything",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/customize/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/multi-cli-runtime/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/multi-cli-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/codex-cli-runtime/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/codex-cli-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/gpt-5-4-prompting/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/gpt-5-4-prompting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/multi-cli-anything/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/multi-cli-anything/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/multi-plan-handoff/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/multi-plan-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/multi-result-handling/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/multi-result-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-multi-cli-plugin",
+      "path": "plugins/multi/skills/codex-result-handling/SKILL.md",
+      "github_url": "https://github.com/greenpolo/cc-multi-cli-plugin/tree/main/plugins/multi/skills/codex-result-handling/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/greenpolo/cc-multi-cli-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:52:41Z"
+}
