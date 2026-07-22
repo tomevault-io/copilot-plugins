@@ -1,0 +1,34 @@
+{
+  "name": "clerk--clerk-ios",
+  "displayName": "clerk-ios",
+  "description": "clerk-ios",
+  "version": "1.0.0",
+  "author": "clerk",
+  "homepage": "https://github.com/clerk/clerk-ios",
+  "skills": [
+    {
+      "name": "swift-concurrency",
+      "description": ""
+    },
+    {
+      "name": "swift-testing-expert",
+      "description": ""
+    },
+    {
+      "name": "clerk-ios",
+      "description": ""
+    },
+    {
+      "name": "clerk-ios",
+      "description": ""
+    },
+    {
+      "name": "clerk-ios",
+      "description": ""
+    },
+    {
+      "name": "clerk-ios",
+      "description": ""
+    }
+  ]
+}
