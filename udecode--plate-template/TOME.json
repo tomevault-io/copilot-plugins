@@ -1,0 +1,147 @@
+{
+  "name": "plate-template",
+  "owner": "udecode",
+  "repo": "plate-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/react/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/testing/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/autogoal/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/autogoal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/hard-cut/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/hard-cut/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/components/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/autoreview/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/autoreview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/dev-browser/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/dev-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/orchestrator/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/react-useeffect/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/react-useeffect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/video-transcripts/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/video-transcripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/browser-debug-setup/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/browser-debug-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/agent-browser-issue/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/agent-browser-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/typescript-advanced-types/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/typescript-advanced-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plate-template",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/udecode/plate-template/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/udecode/plate-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T20:32:44Z"
+}
