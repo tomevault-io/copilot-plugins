@@ -3,7 +3,7 @@
   "owner": "riba2534",
   "repo": "feishu-cli",
   "description": "feishu-cli \u662f\u4e00\u4e2a\u529f\u80fd\u5b8c\u6574\u7684\u98de\u4e66\u5f00\u653e\u5e73\u53f0\u547d\u4ee4\u884c\u5de5\u5177\u3002\u5b83\u5c06\u98de\u4e66\u6587\u6863\u3001\u77e5\u8bc6\u5e93\u3001\u7535\u5b50\u8868\u683c\u3001\u6d88\u606f\u3001\u65e5\u5386\u3001\u4efb\u52a1\u7b49\u64cd\u4f5c\u5c01\u88c5\u4e3a\u7b80\u6d01\u7684\u547d\u4ee4\u884c\u63a5\u53e3\uff0c\u6838\u5fc3\u80fd\u529b\u662f Markdown \u2194 \u98de\u4e66\u6587\u6863\u53cc\u5411\u65e0\u635f\u8f6c\u6362\u3002",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/riba2534/feishu-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T08:37:49Z"
+  "distributed_at": "2026-07-22T09:58:19Z"
 }
