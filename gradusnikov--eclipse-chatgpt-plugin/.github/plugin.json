@@ -1,0 +1,30 @@
+{
+  "name": "gradusnikov--eclipse-chatgpt-plugin",
+  "displayName": "eclipse-chatgpt-plugin",
+  "description": "eclipse-chatgpt-plugin",
+  "version": "1.0.0",
+  "author": "gradusnikov",
+  "homepage": "https://github.com/gradusnikov/eclipse-chatgpt-plugin",
+  "skills": [
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "description": ""
+    },
+    {
+      "name": "eclipse-chatgpt-plugin",
+      "description": ""
+    }
+  ]
+}
