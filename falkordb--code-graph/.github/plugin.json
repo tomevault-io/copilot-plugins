@@ -1,0 +1,14 @@
+{
+  "name": "falkordb--code-graph",
+  "displayName": "code-graph",
+  "description": "code-graph",
+  "version": "1.0.0",
+  "author": "FalkorDB",
+  "homepage": "https://github.com/FalkorDB/code-graph",
+  "skills": [
+    {
+      "name": "code-graph",
+      "description": ""
+    }
+  ]
+}
