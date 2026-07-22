@@ -1,0 +1,14 @@
+{
+  "name": "dbt-labs--docs-getdbt-com",
+  "displayName": "docs.getdbt.com",
+  "description": "docs.getdbt.com",
+  "version": "1.0.0",
+  "author": "dbt-labs",
+  "homepage": "https://github.com/dbt-labs/docs.getdbt.com",
+  "skills": [
+    {
+      "name": "docs.getdbt.com",
+      "description": ""
+    }
+  ]
+}
