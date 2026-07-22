@@ -1,0 +1,14 @@
+{
+  "name": "autogluon--tabarena",
+  "displayName": "tabarena",
+  "description": "tabarena",
+  "version": "1.0.0",
+  "author": "autogluon",
+  "homepage": "https://github.com/autogluon/tabarena",
+  "skills": [
+    {
+      "name": "tabarena",
+      "description": ""
+    }
+  ]
+}
