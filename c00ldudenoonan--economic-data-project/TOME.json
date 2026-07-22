@@ -1,0 +1,135 @@
+{
+  "name": "economic-data-project",
+  "owner": "C00ldudeNoonan",
+  "repo": "economic-data-project",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/docker-env/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/docker-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/start-issue/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/start-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/dagster-init/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/dagster-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/dagster-expert/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/dagster-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/github-explorer/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/github-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/git-pr-workflow/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/git-pr-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/dignified-python/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/dignified-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/design-philosophy/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/design-philosophy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/dagster-development/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/dagster-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/tailwind-css-data-viz/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/tailwind-css-data-viz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/context-doc-maintainer/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/context-doc-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/react-component-architecture/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/react-component-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/_legacy/dignified-python-local/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/_legacy/dignified-python-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/create-custom-dagster-component/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/create-custom-dagster-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "economic-data-project",
+      "path": ".claude/skills/typescript-financial-data-modeling/SKILL.md",
+      "github_url": "https://github.com/C00ldudeNoonan/economic-data-project/tree/main/.claude/skills/typescript-financial-data-modeling/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/C00ldudeNoonan/economic-data-project",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:46:33Z"
+}
