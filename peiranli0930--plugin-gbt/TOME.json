@@ -1,0 +1,387 @@
+{
+  "name": "Plugin-GBT",
+  "owner": "PeiranLi0930",
+  "repo": "Plugin-GBT",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Plugin-GBT",
+      "path": "skills/gbt/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/skills/gbt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/gog/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/gog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/sag/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/sag/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/xurl/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/xurl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/imsg/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/imsg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/slack/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/slack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/github/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/oracle/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/oracle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/notion/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/notion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/gemini/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/gemini/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/blucli/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/blucli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/weather/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/openhue/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/openhue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/discord/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/discord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/camsnap/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/camsnap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/songsee/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/songsee/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/gifgrep/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/gifgrep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/himalaya/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/himalaya/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/peekaboo/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/peekaboo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/sonoscli/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/sonoscli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/obsidian/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/obsidian/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/nano-pdf/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/nano-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/eightctl/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/eightctl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/goplaces/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/goplaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/mcporter/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/mcporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/ordercli/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/ordercli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/gh-issues/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/gh-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/1password/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/1password/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/bear-notes/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/bear-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/voice-call/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/voice-call/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/things-mac/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/things-mac/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/healthcheck/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/healthcheck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/bluebubbles/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/bluebubbles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/extensions/lobster/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/extensions/lobster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/model-usage/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/model-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/blogwatcher/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/blogwatcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/apple-notes/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/apple-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/coding-agent/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/coding-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/session-logs/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/session-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/video-frames/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/video-frames/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/openai-whisper/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/openai-whisper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/spotify-player/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/spotify-player/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/apple-reminders/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/apple-reminders/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/sherpa-onnx-tts/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/sherpa-onnx-tts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/nano-banana-pro/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/nano-banana-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/openai-image-gen/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/openai-image-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/skills/openai-whisper-api/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/skills/openai-whisper-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/extensions/diffs/skills/diffs/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/extensions/diffs/skills/diffs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/extensions/acpx/skills/acp-router/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/extensions/acpx/skills/acp-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Plugin-GBT",
+      "path": "node_modules/@mariozechner/pi-coding-agent/examples/extensions/dynamic-resources/SKILL.md",
+      "github_url": "https://github.com/PeiranLi0930/Plugin-GBT/tree/main/node_modules/@mariozechner/pi-coding-agent/examples/extensions/dynamic-resources/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PeiranLi0930/Plugin-GBT",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:56:33Z"
+}
