@@ -1,0 +1,30 @@
+{
+  "name": "iota-uz--iota-sdk",
+  "displayName": "iota-sdk",
+  "description": "iota-sdk",
+  "version": "1.0.0",
+  "author": "iota-uz",
+  "homepage": "https://github.com/iota-uz/iota-sdk",
+  "skills": [
+    {
+      "name": "e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "railway-cli",
+      "description": ""
+    },
+    {
+      "name": "iota-sdk",
+      "description": ""
+    },
+    {
+      "name": "iota-sdk",
+      "description": ""
+    },
+    {
+      "name": "iota-sdk",
+      "description": ""
+    }
+  ]
+}
