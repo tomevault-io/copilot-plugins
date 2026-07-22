@@ -4,7 +4,7 @@
   "repo": "devopsdaysdc25",
   "description": "My DevOps Day DC 2025 demo",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JonZeolla/devopsdaysdc25",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T19:07:57Z"
+  "distributed_at": "2026-07-22T19:14:47Z"
 }
