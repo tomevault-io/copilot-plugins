@@ -1,0 +1,723 @@
+{
+  "name": "rust-skills",
+  "owner": "huiali",
+  "repo": "rust-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rust-actor",
+      "path": ".codex/skills/rust-actor",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-actor",
+      "description": ""
+    },
+    {
+      "name": "rust-anti-pattern",
+      "path": ".codex/skills/rust-anti-pattern",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-anti-pattern",
+      "description": ""
+    },
+    {
+      "name": "rust-async",
+      "path": ".codex/skills/rust-async",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-async",
+      "description": ""
+    },
+    {
+      "name": "rust-async-pattern",
+      "path": ".codex/skills/rust-async-pattern",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-async-pattern",
+      "description": ""
+    },
+    {
+      "name": "rust-auth",
+      "path": ".codex/skills/rust-auth",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-auth",
+      "description": ""
+    },
+    {
+      "name": "rust-cache",
+      "path": ".codex/skills/rust-cache",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-cache",
+      "description": ""
+    },
+    {
+      "name": "rust-coding",
+      "path": ".codex/skills/rust-coding",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-coding",
+      "description": ""
+    },
+    {
+      "name": "rust-concurrency",
+      "path": ".codex/skills/rust-concurrency",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-concurrency",
+      "description": ""
+    },
+    {
+      "name": "rust-const",
+      "path": ".codex/skills/rust-const",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-const",
+      "description": ""
+    },
+    {
+      "name": "rust-coroutine",
+      "path": ".codex/skills/rust-coroutine",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-coroutine",
+      "description": ""
+    },
+    {
+      "name": "rust-distributed",
+      "path": ".codex/skills/rust-distributed",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-distributed",
+      "description": ""
+    },
+    {
+      "name": "rust-dpdk",
+      "path": ".codex/skills/rust-dpdk",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-dpdk",
+      "description": ""
+    },
+    {
+      "name": "rust-ebpf",
+      "path": ".codex/skills/rust-ebpf",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ebpf",
+      "description": ""
+    },
+    {
+      "name": "rust-ecosystem",
+      "path": ".codex/skills/rust-ecosystem",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "rust-embedded",
+      "path": ".codex/skills/rust-embedded",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-embedded",
+      "description": ""
+    },
+    {
+      "name": "rust-error",
+      "path": ".codex/skills/rust-error",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-error",
+      "description": ""
+    },
+    {
+      "name": "rust-error-advanced",
+      "path": ".codex/skills/rust-error-advanced",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-error-advanced",
+      "description": ""
+    },
+    {
+      "name": "rust-ffi",
+      "path": ".codex/skills/rust-ffi",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ffi",
+      "description": ""
+    },
+    {
+      "name": "rust-gpu",
+      "path": ".codex/skills/rust-gpu",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-gpu",
+      "description": ""
+    },
+    {
+      "name": "rust-learner",
+      "path": ".codex/skills/rust-learner",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-learner",
+      "description": ""
+    },
+    {
+      "name": "rust-lifetime-complex",
+      "path": ".codex/skills/rust-lifetime-complex",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-lifetime-complex",
+      "description": ""
+    },
+    {
+      "name": "rust-linear-type",
+      "path": ".codex/skills/rust-linear-type",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-linear-type",
+      "description": ""
+    },
+    {
+      "name": "rust-macro",
+      "path": ".codex/skills/rust-macro",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-macro",
+      "description": ""
+    },
+    {
+      "name": "rust-middleware",
+      "path": ".codex/skills/rust-middleware",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-middleware",
+      "description": ""
+    },
+    {
+      "name": "rust-mutability",
+      "path": ".codex/skills/rust-mutability",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-mutability",
+      "description": ""
+    },
+    {
+      "name": "rust-ownership",
+      "path": ".codex/skills/rust-ownership",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ownership",
+      "description": ""
+    },
+    {
+      "name": "rust-performance",
+      "path": ".codex/skills/rust-performance",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-performance",
+      "description": ""
+    },
+    {
+      "name": "rust-pin",
+      "path": ".codex/skills/rust-pin",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-pin",
+      "description": ""
+    },
+    {
+      "name": "rust-resource",
+      "path": ".codex/skills/rust-resource",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-resource",
+      "description": ""
+    },
+    {
+      "name": "rust-skill",
+      "path": ".codex/skills/rust-skill",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-skill",
+      "description": ""
+    },
+    {
+      "name": "rust-skill-index",
+      "path": ".codex/skills/rust-skill-index",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-skill-index",
+      "description": ""
+    },
+    {
+      "name": "rust-type-driven",
+      "path": ".codex/skills/rust-type-driven",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-type-driven",
+      "description": ""
+    },
+    {
+      "name": "rust-unsafe",
+      "path": ".codex/skills/rust-unsafe",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-unsafe",
+      "description": ""
+    },
+    {
+      "name": "rust-web",
+      "path": ".codex/skills/rust-web",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-web",
+      "description": ""
+    },
+    {
+      "name": "rust-xacml",
+      "path": ".codex/skills/rust-xacml",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-xacml",
+      "description": ""
+    },
+    {
+      "name": "rust-zero-cost",
+      "path": ".codex/skills/rust-zero-cost",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-zero-cost",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-web/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-ffi/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-ffi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-pin/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-pin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-gpu/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-gpu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-auth/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-ebpf/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-ebpf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-dpdk/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-dpdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-async/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-async/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-error/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-error/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-macro/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-macro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-const/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-const/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-actor/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-actor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-cache/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-cache/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-skill/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-xacml/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-xacml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-coding/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-unsafe/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-unsafe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-learner/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-learner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-testing/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-embedded/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-embedded/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-resource/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-resource/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-database/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-ecosystem/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-ecosystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-ownership/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-ownership/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-zero-cost/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-zero-cost/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-mutability/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-mutability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-web/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-ffi/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ffi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-pin/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-pin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-middleware/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-gpu/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-gpu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-performance/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-concurrency/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-type-driven/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-type-driven/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-auth/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-distributed/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-distributed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-ebpf/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ebpf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-dpdk/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-dpdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-skill-index/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-skill-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-linear-type/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-linear-type/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-anti-pattern/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-anti-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-async/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-async/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-error/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-error/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-macro/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-macro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-const/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-const/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-actor/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-actor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-cache/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-cache/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-skill/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-xacml/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-xacml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-coding/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-unsafe/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-unsafe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-async-pattern/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-async-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-observability/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-learner/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-learner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-error-advanced/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-error-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-testing/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-embedded/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-embedded/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-resource/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-resource/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-database/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-ecosystem/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ecosystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-ownership/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-ownership/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": "skills/rust-lifetime-complex/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/skills/rust-lifetime-complex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-zero-cost/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-zero-cost/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-mutability/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-mutability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-middleware/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-performance/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-concurrency/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-concurrency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-type-driven/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-type-driven/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-distributed/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-distributed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-skill-index/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-skill-index/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-linear-type/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-linear-type/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-anti-pattern/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-anti-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-async-pattern/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-async-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-observability/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-error-advanced/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-error-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rust-skills",
+      "path": ".codex/skills/rust-lifetime-complex/SKILL.md",
+      "github_url": "https://github.com/huiali/rust-skills/tree/main/.codex/skills/rust-lifetime-complex/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/huiali/rust-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T05:32:13Z"
+}
