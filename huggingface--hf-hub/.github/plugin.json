@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--hf-hub",
+  "displayName": "hf-hub",
+  "description": "hf-hub",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/hf-hub",
+  "skills": []
+}
