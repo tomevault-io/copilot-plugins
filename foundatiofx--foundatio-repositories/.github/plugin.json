@@ -1,0 +1,14 @@
+{
+  "name": "foundatiofx--foundatio-repositories",
+  "displayName": "Foundatio.Repositories",
+  "description": "Foundatio.Repositories",
+  "version": "1.0.0",
+  "author": "FoundatioFx",
+  "homepage": "https://github.com/FoundatioFx/Foundatio.Repositories",
+  "skills": [
+    {
+      "name": "Foundatio.Repositories",
+      "description": ""
+    }
+  ]
+}
