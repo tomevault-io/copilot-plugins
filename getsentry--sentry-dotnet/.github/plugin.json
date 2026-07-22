@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-dotnet",
+  "displayName": "sentry-dotnet",
+  "description": "sentry-dotnet",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-dotnet",
+  "skills": []
+}
