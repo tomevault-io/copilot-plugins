@@ -1,0 +1,63 @@
+{
+  "name": "fastdjango",
+  "owner": "maksimzayats",
+  "repo": "fastdjango",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs-reader",
+      "path": ".claude/skills/docs-reader",
+      "github_url": "https://github.com/maksimzayats/fastdjango/tree/main/.claude/skills/docs-reader",
+      "description": ""
+    },
+    {
+      "name": "feature-developer",
+      "path": ".claude/skills/feature-developer",
+      "github_url": "https://github.com/maksimzayats/fastdjango/tree/main/.claude/skills/feature-developer",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "path": ".claude/skills/test-writer",
+      "github_url": "https://github.com/maksimzayats/fastdjango/tree/main/.claude/skills/test-writer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maksimzayats/fastdjango",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:36:53Z"
+}
