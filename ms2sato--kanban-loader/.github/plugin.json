@@ -1,0 +1,9 @@
+{
+  "name": "ms2sato--kanban-loader",
+  "displayName": "kanban-loader",
+  "description": "vibe-kanban loader on docker ",
+  "version": "1.0.0",
+  "author": "ms2sato",
+  "homepage": "https://github.com/ms2sato/kanban-loader",
+  "skills": []
+}
