@@ -1,0 +1,14 @@
+{
+  "name": "homeassistant-extras--pi-hole-card",
+  "displayName": "pi-hole-card",
+  "description": "pi-hole-card",
+  "version": "1.0.0",
+  "author": "homeassistant-extras",
+  "homepage": "https://github.com/homeassistant-extras/pi-hole-card",
+  "skills": [
+    {
+      "name": "pi-hole-card",
+      "description": ""
+    }
+  ]
+}
