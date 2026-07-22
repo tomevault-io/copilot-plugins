@@ -1,0 +1,99 @@
+{
+  "name": "PowerToys",
+  "owner": "microsoft",
+  "repo": "PowerToys",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "release-note-generation",
+      "path": ".github/skills/release-note-generation",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/.github/skills/release-note-generation",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": ".github/skills/winmd-api-search/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/.github/skills/winmd-api-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": ".github/skills/wpf-to-winui3-migration/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/.github/skills/wpf-to-winui3-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": ".github/skills/release-note-generation/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/.github/skills/release-note-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": "src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-dock-band/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-dock-band/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": "src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/publish-extension/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/publish-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": "src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-fallback-commands/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-fallback-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": "src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-adaptive-card-form/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-adaptive-card-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PowerToys",
+      "path": "src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-extension-settings/SKILL.md",
+      "github_url": "https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal/ExtensionTemplate/TemplateCmdPalExtension/.github/skills/add-extension-settings/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/PowerToys",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T02:42:10Z"
+}
