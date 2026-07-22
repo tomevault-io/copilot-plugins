@@ -1,0 +1,14 @@
+{
+  "name": "dirien--minecraft-prometheus-exporter",
+  "displayName": "minecraft-prometheus-exporter",
+  "description": "minecraft-prometheus-exporter",
+  "version": "1.0.0",
+  "author": "dirien",
+  "homepage": "https://github.com/dirien/minecraft-prometheus-exporter",
+  "skills": [
+    {
+      "name": "minecraft-prometheus-exporter",
+      "description": ""
+    }
+  ]
+}
