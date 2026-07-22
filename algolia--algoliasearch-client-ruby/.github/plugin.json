@@ -1,0 +1,9 @@
+{
+  "name": "algolia--algoliasearch-client-ruby",
+  "displayName": "algoliasearch-client-ruby",
+  "description": "algoliasearch-client-ruby",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/algoliasearch-client-ruby",
+  "skills": []
+}
