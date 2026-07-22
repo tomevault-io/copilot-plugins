@@ -1,0 +1,117 @@
+{
+  "name": "gaik-toolkit",
+  "owner": "GAIK-project",
+  "repo": "gaik-toolkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gaik-toolkit",
+      "path": ".claude/skills/gaik-sync/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/.claude/skills/gaik-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": ".claude/skills/gaik-toolkit/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/.claude/skills/gaik-toolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": ".claude/skills/solution-wizard/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/.claude/skills/solution-wizard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": ".claude/skills/gaik-add-examples/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/.claude/skills/gaik-add-examples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": ".claude/skills/create-evaluations/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/.claude/skills/create-evaluations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": "implementation_layer/solution_wizard/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/implementation_layer/solution_wizard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": ".claude/skills/build-software-component/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/.claude/skills/build-software-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": ".claude/skills/create-usecase-description/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/.claude/skills/create-usecase-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": "implementation_layer/no-code-assets/agent-skills/report-writing-skill/report-writing/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/implementation_layer/no-code-assets/agent-skills/report-writing-skill/report-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": "implementation_layer/no-code-assets/agent-skills/incident-report-writing/incident-report-writing/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/implementation_layer/no-code-assets/agent-skills/incident-report-writing/incident-report-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": "implementation_layer/no-code-assets/agent-skills/purchase-order-processing/purchase-order-processing/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/implementation_layer/no-code-assets/agent-skills/purchase-order-processing/purchase-order-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gaik-toolkit",
+      "path": "implementation_layer/no-code-assets/agent-skills/construction-diary-creation/construction-diary-creation/SKILL.md",
+      "github_url": "https://github.com/GAIK-project/gaik-toolkit/tree/main/implementation_layer/no-code-assets/agent-skills/construction-diary-creation/construction-diary-creation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GAIK-project/gaik-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:41:32Z"
+}
