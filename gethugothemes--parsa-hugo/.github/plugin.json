@@ -1,0 +1,14 @@
+{
+  "name": "gethugothemes--parsa-hugo",
+  "displayName": "parsa-hugo",
+  "description": "parsa-hugo",
+  "version": "1.0.0",
+  "author": "gethugothemes",
+  "homepage": "https://github.com/gethugothemes/parsa-hugo",
+  "skills": [
+    {
+      "name": "parsa-hugo",
+      "description": ""
+    }
+  ]
+}
