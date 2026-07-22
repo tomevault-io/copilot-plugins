@@ -1,0 +1,9 @@
+{
+  "name": "feincms--django-content-editor",
+  "displayName": "django-content-editor",
+  "description": "django-content-editor",
+  "version": "1.0.0",
+  "author": "feincms",
+  "homepage": "https://github.com/feincms/django-content-editor",
+  "skills": []
+}
