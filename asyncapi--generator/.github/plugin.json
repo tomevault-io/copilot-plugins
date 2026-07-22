@@ -1,0 +1,14 @@
+{
+  "name": "asyncapi--generator",
+  "displayName": "generator",
+  "description": "generator",
+  "version": "1.0.0",
+  "author": "asyncapi",
+  "homepage": "https://github.com/asyncapi/generator",
+  "skills": [
+    {
+      "name": "generator",
+      "description": ""
+    }
+  ]
+}
