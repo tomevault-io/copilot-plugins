@@ -1,0 +1,9 @@
+{
+  "name": "agoda-com--agent-catalog-eval",
+  "displayName": "agent-catalog-eval",
+  "description": "agent-catalog-eval",
+  "version": "1.0.0",
+  "author": "agoda-com",
+  "homepage": "https://github.com/agoda-com/agent-catalog-eval",
+  "skills": []
+}
