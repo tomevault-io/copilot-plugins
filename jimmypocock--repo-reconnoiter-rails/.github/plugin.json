@@ -1,0 +1,9 @@
+{
+  "name": "jimmypocock--repo-reconnoiter-rails",
+  "displayName": "repo-reconnoiter-rails",
+  "description": "An Open Source Intelligence API that analyzes GitHub trending repositories using AI to provide developers with context-aware recommendations.",
+  "version": "1.0.0",
+  "author": "jimmypocock",
+  "homepage": "https://github.com/jimmypocock/repo-reconnoiter-rails",
+  "skills": []
+}
