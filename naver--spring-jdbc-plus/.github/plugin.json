@@ -1,0 +1,14 @@
+{
+  "name": "naver--spring-jdbc-plus",
+  "displayName": "spring-jdbc-plus",
+  "description": "spring-jdbc-plus",
+  "version": "1.0.0",
+  "author": "naver",
+  "homepage": "https://github.com/naver/spring-jdbc-plus",
+  "skills": [
+    {
+      "name": "spring-jdbc-plus",
+      "description": ""
+    }
+  ]
+}
