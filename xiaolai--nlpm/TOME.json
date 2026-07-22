@@ -1,0 +1,237 @@
+{
+  "name": "nlpm",
+  "owner": "xiaolai",
+  "repo": "nlpm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "conventions-codex",
+      "path": "skills/nlpm/conventions-codex",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/conventions-codex",
+      "description": ""
+    },
+    {
+      "name": "conventions-codex",
+      "path": "codex/skills/conventions-codex",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/conventions-codex",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/rules/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/rules/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/scoring/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/scoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/testing/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/scoring/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/scoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/patterns/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/testing/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/patterns/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/vocabulary/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/vocabulary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/vocabulary/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/vocabulary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/conventions/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/conventions/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/writing-rules/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/writing-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/orchestration/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/writing-hooks/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/writing-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/writing-rules/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/writing-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/orchestration/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/writing-hooks/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/writing-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/writing-agents/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/writing-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/writing-skills/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/writing-plugins/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/writing-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/writing-agents/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/writing-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/writing-plugins/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/writing-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/conventions-codex/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/conventions-codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/conventions-claude/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/conventions-claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/conventions-codex/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/conventions-codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/conventions-claude/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/conventions-claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "skills/nlpm/conventions-antigravity/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/skills/nlpm/conventions-antigravity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nlpm",
+      "path": "codex/skills/conventions-antigravity/SKILL.md",
+      "github_url": "https://github.com/xiaolai/nlpm/tree/main/codex/skills/conventions-antigravity/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xiaolai/nlpm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:09:46Z"
+}
