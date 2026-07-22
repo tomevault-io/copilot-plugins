@@ -1,0 +1,14 @@
+{
+  "name": "cumt-robin--fullstack-blog",
+  "displayName": "fullstack-blog",
+  "description": "fullstack-blog",
+  "version": "1.0.0",
+  "author": "cumt-robin",
+  "homepage": "https://github.com/cumt-robin/fullstack-blog",
+  "skills": [
+    {
+      "name": "fullstack-blog",
+      "description": ""
+    }
+  ]
+}
