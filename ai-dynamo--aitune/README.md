@@ -5,15 +5,25 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ai-dynamo/aitune](https://github.com/ai-dynamo/aitune).
+Original source: `CLAUDE.md` in [ai-dynamo/aitune](https://github.com/ai-dynamo/aitune).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (7)
+
+- [aitune](https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-tune/SKILL.md)
+- [aitune](https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-commit/SKILL.md)
+- [aitune](https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-release/SKILL.md)
+- [aitune](https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-inspect/SKILL.md)
+- [aitune](https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-validate/SKILL.md)
+- [aitune](https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-benchmark/SKILL.md)
+- [aitune](https://github.com/ai-dynamo/aitune/tree/main/.claude/skills/aitune-docs-update/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ai-dynamo/aitune](https://github.com/ai-dynamo/aitune)
 
