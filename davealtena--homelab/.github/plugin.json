@@ -1,0 +1,14 @@
+{
+  "name": "davealtena--homelab",
+  "displayName": "homelab",
+  "description": "homelab",
+  "version": "1.0.0",
+  "author": "davealtena",
+  "homepage": "https://github.com/davealtena/homelab",
+  "skills": [
+    {
+      "name": "homelab",
+      "description": ""
+    }
+  ]
+}
