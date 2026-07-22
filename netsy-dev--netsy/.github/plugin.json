@@ -1,0 +1,14 @@
+{
+  "name": "netsy-dev--netsy",
+  "displayName": "netsy",
+  "description": "netsy",
+  "version": "1.0.0",
+  "author": "netsy-dev",
+  "homepage": "https://github.com/netsy-dev/netsy",
+  "skills": [
+    {
+      "name": "netsy",
+      "description": ""
+    }
+  ]
+}
