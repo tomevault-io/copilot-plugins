@@ -1,0 +1,14 @@
+{
+  "name": "nicoknl--tasks-map",
+  "displayName": "tasks-map",
+  "description": "tasks-map",
+  "version": "1.0.0",
+  "author": "NicoKNL",
+  "homepage": "https://github.com/NicoKNL/tasks-map",
+  "skills": [
+    {
+      "name": "tasks-map",
+      "description": ""
+    }
+  ]
+}
