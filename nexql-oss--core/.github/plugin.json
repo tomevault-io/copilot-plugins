@@ -1,0 +1,9 @@
+{
+  "name": "nexql-oss--core",
+  "displayName": "core",
+  "description": "Intelligent PostgreSQL tooling for VS Code | Build, explore, and query Postgres faster",
+  "version": "1.0.0",
+  "author": "NexQL-OSS",
+  "homepage": "https://github.com/NexQL-OSS/core",
+  "skills": []
+}
