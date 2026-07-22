@@ -1,43 +1,139 @@
 ## databasemcpserver
 
-> - Keep solution-level files at the repository root, including `DatabaseMcpServer.slnx`, `global.json`, `nuget.config`, and MCP config examples.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-- Keep solution-level files at the repository root, including `DatabaseMcpServer.slnx`, `global.json`, `nuget.config`, and MCP config examples.
-- Main server code lives in `src/DatabaseMcpServer/`. Entry points and composition are in `Program.cs` and `Extensions/`.
-- Group runtime logic by responsibility: `Services/` for implementations, `Interfaces/` for contracts, `Helpers/` for shared parsing/sanitization/configuration utilities, `Filters/` for cross-cutting MCP filters, and `Models/` for DTOs.
-- Tool classes belong under `Tools/Command`, `Tools/Query`, `Tools/Documentation`, `Tools/Export`, or `Tools/Management`; keep each tool focused and single-purpose.
-- CLI and local web configuration code live in `Cli/` and `Web/`. Tests are in `tests/DatabaseMcpServer.Tests/`. Documentation and database presets are in `Doc/` and `DatabaseSetting/`. The optional Vue UI is in `website/`.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- `dotnet build 'DatabaseMcpServer.slnx'` — compile the full solution and validate package references.
-- `dotnet test 'DatabaseMcpServer.slnx'` — run all xUnit tests discovered under `tests/`.
-- `DB_CONNECTION_STRING=... DB_TYPE=MySql dotnet run --project 'src/DatabaseMcpServer/DatabaseMcpServer.csproj'` — launch the stdio MCP server for a local smoke test.
-- `dotnet pack 'src/DatabaseMcpServer/DatabaseMcpServer.csproj' -c Release` — create the NuGet/global-tool package.
-- `powershell -ExecutionPolicy Bypass -File scripts/verify.ps1` — run repository verification scripts when preparing releases.
+## Project Overview
 
-## Coding Style & Naming Conventions
-- Use C# 12 with nullable enabled, implicit usings, four-space indentation, file-scoped namespaces, and braces on the next line.
-- Prefer constructor injection and small, testable classes. Reuse shared helpers for SQL safety, connection masking, JSON defaults, and argument validation.
-- Use PascalCase for public types and members, `_camelCase` for private readonly fields, and camelCase for parameters/local variables.
-- Keep comments minimal and rationale-focused. Save text files as UTF-8 without BOM.
+DatabaseMcpServer is a .NET MCP (Model Context Protocol) server published as a .NET Global Tool on NuGet. It gives AI assistants structured access to 19+ database types via 57 MCP tools over stdio transport. The core ORM is **SqlSugar**.
 
-## Testing Guidelines
-- Framework: xUnit. Name test classes `ClassUnderTestTests` and test methods with clear behavior-focused names.
-- Keep tests deterministic and isolated; mock or fake database-facing dependencies unless a test is explicitly integration-oriented.
-- Document required environment variables before adding integration tests that need live databases.
+## Build & Run Commands
 
-## Commit & Pull Request Guidelines
-- Branch from `main` using `feature/<topic>` or `fix/<topic>`.
-- Write imperative commits, such as `Add schema export validation`, and mention behavioral impact when useful.
-- Pull requests should summarize changes, list touched tools/services, link issues, and include verification evidence such as test output, sample JSON responses, or screenshots for UI changes.
+```bash
+# Build (multi-target: net9.0 + net10.0)
+dotnet build 'DatabaseMcpServer.slnx'
 
-## Security & Configuration Tips
-- Never commit secrets. Provide credentials through `DB_CONNECTION_STRING`, `DB_TYPE`, `SEQ_SERVER_URL`, and `SEQ_API_KEY`, or local ignored config files.
-- Mask connection strings in logs and responses. Route new SQL execution paths through existing sanitization and dangerous-operation guards.
+# Run locally (requires DB_CONFIG_PATH env var pointing to databases.json)
+dotnet run --project 'src\DatabaseMcpServer\DatabaseMcpServer.csproj'
+
+# Package as NuGet global tool
+dotnet pack 'src\DatabaseMcpServer\DatabaseMcpServer.csproj' -c Release
+
+# Run tests
+dotnet test 'tests\DatabaseMcpServer.Tests\DatabaseMcpServer.Tests.csproj'
+
+# Verify installed CLI version (the binary has no --version flag; exits 2 on it)
+dotnet tool list --global | Select-String databasemcpserver
+```
+
+Tests live in `tests/DatabaseMcpServer.Tests/` and use xUnit.
+
+## Environment Variables
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `DB_CONFIG_PATH` | Yes | Absolute path to `databases.json` config file |
+| `SEQ_SERVER_URL` | No | Seq log server URL |
+| `SEQ_API_KEY` | No | Seq API key |
+| `DB_DDL_WHITELIST` | No | Semicolon-separated regex patterns to whitelist DDL operations |
+
+Legacy v1.x env vars (`DB_CONNECTION_STRING`, `DB_TYPE`) are rejected at startup with an error.
+
+## Architecture
+
+### Single-project monolith
+
+Everything lives in one `.csproj` — no library projects or test projects. Multi-targets `net9.0` and `net10.0`.
+
+### Startup flow (Program.cs)
+
+1. Creates Generic Host, configures Serilog (console to stderr, optional Seq sink)
+2. Warmup: pre-loads SqlSugar provider assemblies (ClickHouse, MongoDB, GaussDB, OceanBase) to avoid single-file publish failures
+3. Registers DI singletons: `DatabaseHelper`, `DatabaseConfigService`, `DatabaseDocumentationStrategyFactory`, `DatabaseDocumentationService`
+4. Registers MCP server with stdio transport and 6 tool classes
+5. Runs the host
+
+### Key directories
+
+- **src/DatabaseMcpServer/Tools/** — MCP tool implementations, split by concern:
+  - `Management/ConnectionTools.cs` (9 tools) — connection testing, switching, health checks
+  - `Management/SchemaTools.cs` (34 tools) — table/column/index/constraint CRUD via `DbMaintenance`
+  - `Query/QueryTools.cs` (5 tools) — SELECT queries, scalar, multi-result-set
+  - `Command/CommandTools.cs` (5 tools) — INSERT/UPDATE/DELETE, stored procedures, batch execution
+  - `Export/ExcelExportTools.cs` (3 tools) — Excel export via ClosedXML
+  - `Documentation/DocumentationTools.cs` (1 tool) — database documentation generation
+- **src/DatabaseMcpServer/Services/** — `DatabaseConfigService` (loads `databases.json`, manages SqlSugarScope connection pool with double-check locking), `DatabaseDocumentationService`
+- **src/DatabaseMcpServer/Strategies/** — Strategy pattern in two areas:
+  - `DBSetting/` — 22 `IDatabaseOptimizationStrategy` implementations (one per DB type) + factory. Applied when creating SqlSugar clients.
+  - `Documentation/` — `IDatabaseDocumentationStrategy` implementations (MySQL, PostgreSQL, SQL Server, Oracle, default) + factory
+- **src/DatabaseMcpServer/Helpers/** — `DatabaseHelper` handles SQL parsing, JSON serialization of results, dangerous operation detection (regex-based DDL blocking), parameter binding
+- **src/DatabaseMcpServer/Models/** — `DatabaseConnection`, `DatabasesConfig`, `ApiResult<T>`, `DatabaseMcpException` with `DatabaseErrorCode` enum
+- **src/DatabaseMcpServer/Filters/** — `McpExceptionFilter` for centralized error handling
+- **src/DatabaseMcpServer/Interfaces/** — Service contracts (`IDatabaseConfigService`, `IDatabaseHelperService`, `IDatabaseDocumentationService`)
+
+### How MCP tools work
+
+Each tool method is decorated with `[McpServerTool]` and `[Description]`. The typical pattern:
+1. Get a `SqlSugarScope` client from `_databaseConfig.CreateClient()`
+2. Call SqlSugar's `DbMaintenance`, `Ado`, or `Queryable` API
+3. Serialize results via `_databaseHelper.SerializeResult()`
+4. Exceptions caught by `McpExceptionFilter.HandleException()`
+
+### Adding a new database type
+
+1. Create a new `XxxOptimizationStrategy : IDatabaseOptimizationStrategy` in `src/DatabaseMcpServer/Strategies/DBSetting/`
+2. Register it in `DatabaseOptimizationStrategyFactory`
+3. Add a `DbType` string mapping in `DatabaseHelper.ParseDbType()`
+4. (Optional) Add a documentation strategy in `src/DatabaseMcpServer/Strategies/Documentation/`
+5. Add a configuration guide in `DatabaseSetting/`
+
+See `Doc/extending-database-optimization.md` for details.
+
+### Security model
+
+- SQL sent to `SqlQuery` / `ExecuteCommand` is checked against dangerous operation regex patterns (DROP TABLE, DROP DATABASE, TRUNCATE TABLE, ALTER TABLE, CREATE TABLE)
+- Blocked unless matched by `DB_DDL_WHITELIST` regex
+- Parameters are bound as `SugarParameter[]` to prevent injection
+- Connection string passwords are masked in config summaries
+
+## Coding Conventions
+
+- C# 12, implicit usings, nullable enabled, file-scoped namespaces
+- Four-space indentation, braces on next line
+- PascalCase for public members, `_camelCase` for private readonly fields, camelCase for parameters
+- Constructor injection, all services registered as singletons
+- UTF-8 encoding (no BOM)
+
+## Configuration
+
+`databases.json` structure — array of database connections with optional per-DB optimization settings:
+
+```json
+{
+  "databases": [
+    {
+      "name": "my-db",
+      "connectionString": "...",
+      "dbType": "MySql",
+      "description": "...",
+      "isDefault": true,
+      "optimizationSettings": { "enableBulkCopy": "true" }
+    }
+  ]
+}
+```
+
+See `databases.json.example` for all 23 supported DB types and their optimization options. Per-database configuration docs are in `DatabaseSetting/`.
+
+## Commit Conventions
+
+- Branch from `main` using `feature/<topic>`
+- Imperative mood commit messages (e.g., "Add schema diff tool")
+- Include behavioral impact, touched tools/services, linked issues, and verification evidence
 
 ---
 > Source: [ttcc666/DatabaseMcpServer](https://github.com/ttcc666/DatabaseMcpServer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
