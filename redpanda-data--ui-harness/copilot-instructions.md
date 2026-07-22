@@ -1,96 +1,128 @@
 ## ui-harness
 
-> Rules: bun tsgo biome vitest | React Compiler handles memoization | fix types properly (type guards, generics) | UI from @/components/ui/ | <Button> for all buttons | zustand:create<T>()() useShallow | env from @/env | TanStack Router for routing | connect-query for data fetching | TDD: failing test first, always
+> bun tsgo biome vitest | Compiler memoize | fix type (guard, generic) | `@/components/ui/` | `<Button>` always | zustand `create<T>()()` `useShallow` | `@/env` | TanStack Router | connect-query | TDD: fail first | browser: `agent-browser` / `bunx playwright` (CLI) -- never "no browser tools"
 
 # Project Rules
 
-## Quick Reference
+## Quick Ref (every turn)
 
-Rules: bun tsgo biome vitest | React Compiler handles memoization | fix types properly (type guards, generics) | UI from @/components/ui/ | <Button> for all buttons | zustand:create<T>()() useShallow | env from @/env | TanStack Router for routing | connect-query for data fetching | TDD: failing test first, always
+bun tsgo biome vitest | Compiler memoize | fix type (guard, generic) | `@/components/ui/` | `<Button>` always | zustand `create<T>()()` `useShallow` | `@/env` | TanStack Router | connect-query | TDD: fail first | browser: `agent-browser` / `bunx playwright` (CLI) -- never "no browser tools"
 
 ## Toolchain
 
-bun (pkg mgr) | tsgo (type check) | Biome (lint/format) | --force-with-lease for force pushes
-Safe rm -rf: node_modules, dist, .next, build, .cache, .turbo, coverage
+`bun` pkg | `tsgo` typecheck | Biome lint/fmt | `--force-with-lease` | safe rm: node_modules dist .next build .cache .turbo coverage
+
+## Bash Discipline
+
+`find` -> `-maxdepth N` or `| head` | `git log` -> `-n 30` or `--oneline` | `grep -r` -> Grep tool | `cat` >200 line -> Read | `llm-truncate` cap 4KB | `bash-verbose-guard` nudge pre-exec | `rtk-rewrite` auto-prefix git/cargo/test/gh/tsc w/ `rtk` (60-90% cut) -- get: `brew install rtk` -- filter: `.rtk/filters.toml`
 
 ## Commits
 
-`type(scope): description` -- feat|fix|refactor|style|test|docs|chore|perf|ci|build|revert. Scope required. Lowercase, 5-72 chars.
+`type(scope): description` -- feat fix refactor style test docs chore perf ci build revert -- scope need -- lowercase, 5-72 char
 
 ## Code Quality
 
-Run `bun run lint:fix` + `bun run type:check` before finish. Prefer: date-fns>moment, lodash-es>lodash, clsx>classnames.
+`bun run lint:fix` + `bun run type:check` pre-done | light dep: date-fns lodash-es clsx
 
 ## React
 
-- Functional components only (React Compiler require)
-- `@/components/ui/` for all form/interactive UI
-- DOMPurify for user HTML. JSON.parse() for data, textContent for text, setHTML for safe HTML
-- Type guards/generics/schema validation -- no `as any`, no `@ts-ignore`
-- `focus-visible:ring-*` not outline. React Compiler handle memo -- remove useMemo/useCallback/React.memo
-- `aria-label` on icon buttons. `<Button>` need: onClick|asChild|type="submit"|disabled
-- `<Link>` for navigation. Direct source imports (tree-shaking). `{ passive: true }` on scroll/touch/wheel
-- `React.lazy()` for heavy deps. `structuredClone()` for cloning. `.requestSubmit()` for forms
-- `Number()` or `parseInt(s,10)`. `Number.isNaN()`. Named useEffect callbacks.
+- Functional only (Compiler) | `@/components/ui/` | DOMPurify user HTML
+- `JSON.parse()` data, `textContent` text, `setHTML` safe HTML
+- Fix type: guard, generic, schema -- no `as any`/`as never`/`biome-ignore noExplicitAny`
+- `focus-visible:ring-*` not outline:none | Compiler memoize -- no `useMemo`/`useCallback`/`React.memo`
+- `aria-label` icon-only `<Button>` | every `<Button>`: `onClick`/`asChild`/`type="submit"`/`disabled`
+- `<Link>` nav | direct import (tree-shake) | `{ passive: true }` scroll/touch/wheel
+- `React.lazy()` heavy dep | `structuredClone()` deep clone | `.requestSubmit()` form
+- `.filter()`/`Array.with()` remove | `Number()`/`parseInt(s,10)` | `Number.isNaN()`
+- `<Button>` click thing | function to `setTimeout` | name useEffect: `useEffect(function syncX(){...},[deps])`
+- Form mode: `onChange` only | field validate need | err inline via FormMessage
+- Hook in `/hooks/`, not route file | route >300 LOC -> `/request-refactor-plan`
+- No `window.location` -- router/env | side-effect: `useMutation` not raw fetch
+- No `throw new Error()` ConnectRPC -- `ConnectError.from()` | proto enum not magic number
+- `useWatch()` not `form.watch()` | spread `...field` RHF | `mutate()` need `onError`
+- `ConnectError.from(error)` + `formatToastErrorMessageGRPC()` | `*Mutation` suffix
+- No `@redpanda-data/ui` -- registry | no direct `lucide-react` -- `components/icons`
+- No inline `staleTime`/`gcTime` -- named const
+- Proto form: `useProtoForm` own state -- no parallel `useState<*Config>` / `useState<*Auth>` (hook)
+- `form.setValue(name, v, { shouldDirty: true, shouldValidate: true })` -- option need unless silence on purpose (hook)
+- Multi-field form: render `<FormErrorSummary>` / `role="alert"` / `aria-live` (hook) -- submit err screen-reader visible
+- Proto label/desc: hydrate from `getFieldDescription(schema, field)` via `ProtoAnnotations` registry -- no hardcode string in JSX when proto annotation exist
 
 ## Tailwind
 
-Utility classes. Design tokens (`bg-primary`). Fix specificity at source. variant prop on registry components. `100dvh` for viewport. `width:100%` for containers. Keep user-scalable enabled.
+Utility class | design token `var(--destructive)` `bg-primary` | fix specificity at source | variant prop registry component | `100dvh` | `width:100%` | keep user-scalable (WCAG 1.4.4)
 
-## Env
+## Env Vars
 
-`import { env } from "@/env"` (t3-env+zod). All vars in `src/env.ts`. Exception: `process.env` in build/test configs.
+`@/env` (t3-env+zod) | declare in `src/env.ts` | `process.env` OK build/test config only
 
-## Accessibility
+## A11y
 
-`<img>` need alt. Clickable div/span need role+tabIndex+keyboard handler. combobox->aria-expanded+aria-controls. dialog->aria-label/labelledby. tablist->child role="tab".
+`<img>` need `alt` | click div/span: `role` `tabIndex` kbd handler | combobox: `aria-expanded`+`aria-controls` | dialog: `aria-label`/`aria-labelledby` | tablist need tab child | disabled `<Button>`: wrap `<Tooltip>` why | `aria-invalid` need `aria-describedby` | no nested interactive
 
 ## Zustand
 
-`create<T>()()` double-parens. `useShallow` for multi-value selectors. `persist` for localStorage.
+`create<T>()()` | `useShallow` multi-select | `persist` local storage
 
 ## State & Data
 
-zustand=client, TanStack Query=server. connect-query for ConnectRPC (exception: useTransport/callUnaryMethod). Proto v2: `create(Schema,{})`, `timestampFromDate()`, `anyPack()` with typeRegistry. `handleSubmit(onSubmit, onError)`.
+zustand client, TanStack Query server | connect-query for ConnectRPC (except `useTransport`/`callUnaryMethod`) | Protobuf v2: `create(Schema,{...})` schema-first | `timestampFromDate()` Timestamp | `anyPack()` Any+`typeRegistry` | `handleSubmit(onSubmit, onError)` | FieldMask: `Object.keys(dirtyFields)` never hardcode | `invalidateQueries` > `refetchQueries` -- always `await` | new file need test -- `/tdd`
 
-## Lifecycle
+## Lifecycle (MANDATORY -- hooks enforce)
 
-1. Understand -> 2. Plan -> 2b. `/domain-model` (DDD-light grill + CONTEXT.md/ADR updates) -> 3. TDD (RED->GREEN->REFACTOR) -> 4-6. `/go` (verify -> self-review -> `/simplify` -> `/commit-push-pr` -> monitor CI -> fix -> done). Hard bug? `/diagnose` (feedback-loop-first 6-phase). Bug to ticket? `/triage` (GH or Jira).
+Order every task. Hooks block skipped steps.
 
-Aliases: `/work` = `/development-lifecycle` (full). `/go` = phases 4-6 (ship tail).
+1. **Understand** -- explore, one question at time, propose
+2. **Plan** -- exact path, code, expect output
+3. **Implement** -- `/tdd` every file. Fail first -> pass -> refactor
+4-6. **`/go`** -- verify -> self-review -> `/simplify` -> `/commit-push-pr` -> monitor CI -> fix -> done
 
-Effort: high (Understand) -> xhigh (Plan) -> xhigh (TDD) -> high (Simplify) -> high (Verify) -> xhigh (Review). No `max` on Opus 4.7 (diminishing returns + overthinking).
+Alias: `/work` = `/development-lifecycle` (full). `/go` = phase 4-6 (ship tail).
 
-Subagent model: Explore -> Sonnet (codebase greps don't need Opus). Plan/Review -> Opus xhigh. general-purpose -> Sonnet if plan is atomic, Opus otherwise.
+### Effort per phase (Opus 4.7)
+
+Default `high`. Implement(TDD) + Plan + Review(sec/arch) = `xhigh`. No `max` -- diminish return + overthink 4.7. Never inject `ultrathink` prompt/hook/skill -- 4.7 silent downgrade xhigh->high.
+
+### Subagent model choice (cost)
+
+Explore -> Sonnet (grep no need Opus). Plan/Review -> Opus xhigh. general-purpose -> Sonnet if plan atomic, Opus else. Haiku 4.5 lookup/boilerplate.
+
+### Monitor (not sleep)
+
+`Bash(run_in_background)` + `Monitor` stream output:
+CI: `gh pr checks <n> --watch` | dev server | vitest watcher | container log | build output
 
 ## UX Copy
 
-Sentence case. No Latin abbreviations (for example, that is, and so on, through). No ableist language. Gender-neutral.
+Sentence case | no Latin abbrev (for example, that is, and so on, through) | no ableist word | they/them
 
 ## Tests
 
-Failing test FIRST. `userEvent.setup()` + `getByRole`. `waitFor()` for async. .test.ts=unit, .test.tsx=integration, e2e/*.spec.ts=Playwright. Co-locate with source.
+Fail first -> pass | `userEvent.setup()` + `getByRole` | `await waitFor(()=>expect(...))` async | `.test.ts` unit `.test.tsx` integration `.browser.test.tsx` visual `e2e/*.spec.ts` Playwright | co-locate | `test()` not `it()` | `vi.fn()`/`vi.mock()`/`vi.spyOn()` | `.toBeVisible()` > `.toBeInTheDocument()` | no `waitForTimeout` | no `test.skip` E2E (`test.fixme()` known bug) | `createRouterTransport` ConnectRPC mock | `data-testid` interactive | `test.step()` Playwright
+Green != done. Zero warn local AND CI. `DeprecationWarning`, React `act()`, unhandled rejection, `@ts-ignore`, `npm WARN deprecated` = fix at source. Hook: `test-warning-check` (local, Bash PostToolUse) + `ci-warning-audit` (Stop, scan `gh run view --log` on green). Escape: `// allow: test-warning` in test file w/ reason, or `TEST_WARNINGS_ALLOW=1` / `CI_WARNING_AUDIT=0` env.
 
-## Resilience
+## Logging
 
-Route data fetching->errorComponent. React.lazy()->`<Suspense fallback>`. Query hooks->loading/error/empty states. Async handlers->error handling.
+Structured JSON | requestId/traceId every entry | log at decision point | named level per module | never log secret/PII
 
-### Unhappy Paths (enforced by hook)
+## Error Handling
 
-- **Catch blocks**: set error state, re-throw, or call error handler -- never swallow silent
-- **Error + form**: early return with error UI when deserialization/parse fail -- don't render form below broken Alert
-- **Validation depth**: check format (URL regex, enum values, UPPER_SNAKE pattern), not just presence/truthiness
-- **Exhaustive switch**: `default: never` or `satisfies never` -- new union variants must fail loud
-- **Async validation**: onChange + async validator need AbortController or debounce -- no stale race conditions
-- **All errors visible**: `errors.map()` not `errors[0]` -- user see every validation failure
-- **Oneof/union fields**: clear previous branch values on switch -- ghost data cause silent bugs
-- **Form inputs**: URL fields use `type="url"`, secret-ref fields use `type="text"` (user verify format)
-- **aria-invalid** on error inputs, not just data-invalid -- screen readers need ARIA
+Boundary: route+loader -> `errorComponent` (hook) | `React.lazy()` in `<Suspense>` | handle loading+error+empty
+Catch: set err state / re-throw / handler -- no silent fallback, no log-only UI | parse err: early return `<ErrorState />`
+ConnectError field: `findDetails(BadRequestSchema)` in `onError` -> iterate `fieldViolations` -> `form.setError` per violation -- toast only non-field (hook)
+Validate: format not presence | UPPER_SNAKE pattern | exhaustive: `default: never`/`satisfies never`
+Async: `onChange` async need `AbortController` | `mutate()` need `onError` (hook) | `Promise.allSettled` partial-fail
+Form UX: show ALL err | `aria-invalid`+`aria-describedby` (hook) | disabled submit: `<Tooltip>` why (hook) | URL: `type="url"` | secret: `type="text"` when verify
+State: oneof clear prev on switch | auth/config separate from form | FieldMask `paths`: `Object.keys(dirtyFields)` (hook)
+
+## Auto Mode
+
+Deny rule mirror `enforce-toolchain.sh` | test `bunx skills:*` allow rule | admin: `autoMode.environment` whitelist | `claude auto-mode defaults` schema | plan->approve->auto natural fit
 
 ## Auto-Generated (skip)
 
-*.gen.ts/tsx, *_pb.ts/js, *_connectquery.ts, files with @generated/DO NOT EDIT in first 5 lines.
+`*.gen.ts`/`*.gen.tsx` | `*_pb.ts`/`*_pb.js` | `*_connectquery.ts` | `@generated`/`DO NOT EDIT` first 5 line
 
 ---
 > Source: [redpanda-data/ui-harness](https://github.com/redpanda-data/ui-harness) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
