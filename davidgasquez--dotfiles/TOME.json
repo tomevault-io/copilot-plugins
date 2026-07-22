@@ -1,0 +1,99 @@
+{
+  "name": "dotfiles",
+  "owner": "davidgasquez",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": "agents/skills/agent-browser",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "agents/skills/git-commit",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "modern-python",
+      "path": "agents/skills/modern-python",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/modern-python",
+      "description": ""
+    },
+    {
+      "name": "self-contained-python-script",
+      "path": "agents/skills/self-contained-python-script",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/self-contained-python-script",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "path": "agents/skills/web-search",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/web-search",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/qmd/SKILL.md",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/qmd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/web-browser/SKILL.md",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/web-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/python-development/SKILL.md",
+      "github_url": "https://github.com/davidgasquez/dotfiles/tree/main/agents/skills/python-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/davidgasquez/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T11:34:59Z"
+}
