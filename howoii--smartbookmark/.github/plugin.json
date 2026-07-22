@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "howoii",
   "homepage": "https://github.com/howoii/SmartBookmark",
-  "skills": []
+  "skills": [
+    {
+      "name": "SmartBookmark",
+      "description": ""
+    },
+    {
+      "name": "SmartBookmark",
+      "description": ""
+    }
+  ]
 }
