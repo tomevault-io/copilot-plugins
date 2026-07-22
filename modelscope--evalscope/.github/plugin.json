@@ -1,0 +1,14 @@
+{
+  "name": "modelscope--evalscope",
+  "displayName": "evalscope",
+  "description": "evalscope",
+  "version": "1.0.0",
+  "author": "modelscope",
+  "homepage": "https://github.com/modelscope/evalscope",
+  "skills": [
+    {
+      "name": "evalscope",
+      "description": ""
+    }
+  ]
+}
