@@ -1,0 +1,14 @@
+{
+  "name": "jsonresume--jsonresume-org",
+  "displayName": "jsonresume.org",
+  "description": "jsonresume.org",
+  "version": "1.0.0",
+  "author": "jsonresume",
+  "homepage": "https://github.com/jsonresume/jsonresume.org",
+  "skills": [
+    {
+      "name": "jsonresume.org",
+      "description": ""
+    }
+  ]
+}
