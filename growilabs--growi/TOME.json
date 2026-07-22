@@ -1,0 +1,255 @@
+{
+  "name": "growi",
+  "owner": "growilabs",
+  "repo": "growi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "app-architecture",
+      "path": "apps/app/.claude/skills/app-architecture",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/app-architecture",
+      "description": ""
+    },
+    {
+      "name": "app-commands",
+      "path": "apps/app/.claude/skills/app-commands",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/app-commands",
+      "description": ""
+    },
+    {
+      "name": "app-specific-patterns",
+      "path": "apps/app/.claude/skills/app-specific-patterns",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/app-specific-patterns",
+      "description": ""
+    },
+    {
+      "name": "essential-test-design",
+      "path": ".claude/skills/learned/essential-test-design",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/learned/essential-test-design",
+      "description": ""
+    },
+    {
+      "name": "essential-test-patterns",
+      "path": ".claude/skills/learned/essential-test-patterns",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/learned/essential-test-patterns",
+      "description": ""
+    },
+    {
+      "name": "monorepo-overview",
+      "path": ".claude/skills/monorepo-overview",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/monorepo-overview",
+      "description": ""
+    },
+    {
+      "name": "tech-stack",
+      "path": ".claude/skills/tech-stack",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/tech-stack",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-impl/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-impl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-debug/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-review/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-steering/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-steering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-discovery/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-init/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-quick/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-quick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-tasks/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-batch/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-design/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-status/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/investigate-issue/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/investigate-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-validate-gap/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-validate-gap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-cleanup/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-validate-impl/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-validate-impl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-steering-custom/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-steering-custom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-validate-design/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-validate-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/essential-test-design/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/essential-test-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-spec-requirements/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-spec-requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/kiro-verify-completion/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/kiro-verify-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": ".claude/skills/essential-test-patterns/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/.claude/skills/essential-test-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": "apps/app/.claude/skills/app-architecture/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/app-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": "apps/app/.claude/skills/build-optimization/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/build-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": "apps/app/.claude/skills/app-specific-patterns/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/app-specific-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": "apps/app/.claude/skills/vendor-styles-components/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/vendor-styles-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": "apps/app/.claude/skills/learned/fix-broken-next-symlinks/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/learned/fix-broken-next-symlinks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": "apps/app/.claude/skills/learned/page-save-origin-semantics/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/learned/page-save-origin-semantics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "growi",
+      "path": "apps/app/.claude/skills/learned/page-transition-and-rendering-flow/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi/tree/main/apps/app/.claude/skills/learned/page-transition-and-rendering-flow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/growilabs/growi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T08:32:27Z"
+}
