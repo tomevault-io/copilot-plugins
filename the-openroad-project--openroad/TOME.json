@@ -1,0 +1,69 @@
+{
+  "name": "OpenROAD",
+  "owner": "The-OpenROAD-Project",
+  "repo": "OpenROAD",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenROAD",
+      "path": ".agents/skills/fix-bug/SKILL.md",
+      "github_url": "https://github.com/The-OpenROAD-Project/OpenROAD/tree/main/.agents/skills/fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenROAD",
+      "path": ".agents/skills/add-test/SKILL.md",
+      "github_url": "https://github.com/The-OpenROAD-Project/OpenROAD/tree/main/.agents/skills/add-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenROAD",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/The-OpenROAD-Project/OpenROAD/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenROAD",
+      "path": ".agents/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/The-OpenROAD-Project/OpenROAD/tree/main/.agents/skills/triage-issue/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/The-OpenROAD-Project/OpenROAD",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T14:09:38Z"
+}
