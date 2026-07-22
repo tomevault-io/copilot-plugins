@@ -1,0 +1,105 @@
+{
+  "name": "neug",
+  "owner": "alibaba",
+  "repo": "neug",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "neug",
+      "path": "skills/codegraph/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/skills/codegraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/sync-tasks/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/sync-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/speckit.plan/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/speckit.plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/sync-modules/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/sync-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/create-issue/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/create-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/speckit.tasks/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/speckit.tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/speckit.specify/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/speckit.specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/generate-testcase/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/generate-testcase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neug",
+      "path": ".cursor/skills/update-with-comments/SKILL.md",
+      "github_url": "https://github.com/alibaba/neug/tree/main/.cursor/skills/update-with-comments/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alibaba/neug",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:06:42Z"
+}
