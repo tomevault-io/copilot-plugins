@@ -1,0 +1,30 @@
+# AI instruction files for cesium-mcp
+
+> Sourced from [gaopengbin/cesium-mcp](https://github.com/gaopengbin/cesium-mcp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+AI-powered CesiumJS 3D globe control  49 tools for camera, entities, layers, animation & spatial analysis via Model Context Protocol (MCP). Natural language to 3D GIS.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [gaopengbin/cesium-mcp](https://github.com/gaopengbin/cesium-mcp).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [cesium-mcp](https://github.com/gaopengbin/cesium-mcp/tree/main/skills/cesium-quickstart/skill.md)
+
+From [gaopengbin/cesium-mcp](https://github.com/gaopengbin/cesium-mcp) — a repo with 121+ stars on GitHub.
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-s -->
