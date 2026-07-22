@@ -1,0 +1,159 @@
+{
+  "name": "lightspeed-service",
+  "owner": "openshift",
+  "repo": "lightspeed-service",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lightspeed-service",
+      "path": "skills/node-not-ready/skill.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/skills/node-not-ready/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/raise-pr/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/raise-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/resolve-cve/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/resolve-cve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/deps-update/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/deps-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/rebase-clean/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/rebase-clean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": "skills/pod-failure-diagnosis/skill.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/skills/pod-failure-diagnosis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/find-dead-code/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/find-dead-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": "tests/test_skills/test-triage/skill.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/tests/test_skills/test-triage/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/version-update/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/version-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/find-complexity/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/find-complexity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/validate-and-fix/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/validate-and-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/safe-code-change/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/safe-code-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/find-duplication/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/find-duplication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": "skills/namespace-troubleshooting/skill.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/skills/namespace-troubleshooting/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": "tests/test_skills/test-migration/skill.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/tests/test_skills/test-migration/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": "skills/degraded-operator-recovery/skill.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/skills/degraded-operator-recovery/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": "skills/route-ingress-troubleshooting/skill.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/skills/route-ingress-troubleshooting/skill.md",
+      "description": ""
+    },
+    {
+      "name": "lightspeed-service",
+      "path": ".cursor/skills/investigate-ci-failure/SKILL.md",
+      "github_url": "https://github.com/openshift/lightspeed-service/tree/main/.cursor/skills/investigate-ci-failure/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openshift/lightspeed-service",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T09:08:48Z"
+}
