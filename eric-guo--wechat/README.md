@@ -1,21 +1,21 @@
 # wechat
 
-> Tome by [Eric-Guo](https://github.com/Eric-Guo/wechat) — distributed by [TomeVault](https://tomevault.io/claim/Eric-Guo)
+> Tome by [Eric-Guo](https://github.com/Eric-Guo/wechat), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Eric-Guo/wechat](https://github.com/Eric-Guo/wechat).
+Original source: `AGENTS.md` in [Eric-Guo/wechat](https://github.com/Eric-Guo/wechat).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/Eric-Guo)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Eric-Guo/wechat](https://github.com/Eric-Guo/wechat)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install Eric-Guo/wechat
 ```
-Or browse all formats at [https://tomevault.io/claim/Eric-Guo](https://tomevault.io/claim/Eric-Guo).
+Source: [github.com/Eric-Guo/wechat](https://github.com/Eric-Guo/wechat).
 
 <!-- genome:t-i-p -->
