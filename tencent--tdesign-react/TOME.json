@@ -1,0 +1,69 @@
+{
+  "name": "tdesign-react",
+  "owner": "Tencent",
+  "repo": "tdesign-react",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tdesign-react",
+      "path": ".codebuddy/skills/tdesign-pro-component/SKILL.md",
+      "github_url": "https://github.com/Tencent/tdesign-react/tree/main/.codebuddy/skills/tdesign-pro-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tdesign-react",
+      "path": ".codebuddy/skills/tdesign-test-component/SKILL.md",
+      "github_url": "https://github.com/Tencent/tdesign-react/tree/main/.codebuddy/skills/tdesign-test-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tdesign-react",
+      "path": ".codebuddy/skills/tdesign-component-style/SKILL.md",
+      "github_url": "https://github.com/Tencent/tdesign-react/tree/main/.codebuddy/skills/tdesign-component-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tdesign-react",
+      "path": ".codebuddy/skills/tdesign-create-component/SKILL.md",
+      "github_url": "https://github.com/Tencent/tdesign-react/tree/main/.codebuddy/skills/tdesign-create-component/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Tencent/tdesign-react",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T03:36:03Z"
+}
