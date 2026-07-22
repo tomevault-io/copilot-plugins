@@ -1,0 +1,57 @@
+{
+  "name": "skills",
+  "owner": "AgoraIO",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "skills/agora/SKILL.md",
+      "github_url": "https://github.com/AgoraIO/skills/tree/main/skills/agora/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/agora/references/testing-guidance/SKILL.md",
+      "github_url": "https://github.com/AgoraIO/skills/tree/main/skills/agora/references/testing-guidance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AgoraIO/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T04:06:05Z"
+}
