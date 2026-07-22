@@ -1,0 +1,63 @@
+{
+  "name": "ziglint",
+  "owner": "rockorager",
+  "repo": "ziglint",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "new-rule",
+      "path": ".agents/skills/new-rule",
+      "github_url": "https://github.com/rockorager/ziglint/tree/main/.agents/skills/new-rule",
+      "description": ""
+    },
+    {
+      "name": "ziglint",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/rockorager/ziglint/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ziglint",
+      "path": ".agents/skills/new-rule/SKILL.md",
+      "github_url": "https://github.com/rockorager/ziglint/tree/main/.agents/skills/new-rule/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rockorager/ziglint",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T17:45:36Z"
+}
