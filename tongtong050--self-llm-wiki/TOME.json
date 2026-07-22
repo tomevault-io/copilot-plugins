@@ -1,0 +1,44 @@
+{
+  "name": "self-llm-wiki",
+  "owner": "tongtong050",
+  "repo": "self-llm-wiki",
+  "description": "\u901a\u7528\u4e2a\u4eba\u77e5\u8bc6\u5e93 vault\uff0c\u914d\u5408 cognition-hub Obsidian \u63d2\u4ef6\u4e0e Claude Code Agent \u5de5\u4f5c\u6d41\uff0c\u6784\u6210\u5b8c\u6574\u7684\u8ba4\u77e5\u751f\u4ea7\u7ba1\u7ebf\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tongtong050/self-llm-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-22T19:11:13Z"
+}
