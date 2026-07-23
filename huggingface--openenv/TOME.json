@@ -1,0 +1,141 @@
+{
+  "name": "OpenEnv",
+  "owner": "huggingface",
+  "repo": "OpenEnv",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OpenEnv",
+      "path": ".agents/skills/hf-cli/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.agents/skills/hf-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/sprint/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/sprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/watch-pr/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/watch-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/simplify/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/deploy-hf/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/deploy-hf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/implement/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/rfc-check/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/rfc-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/update-docs/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".agents/skills/openenv-cli/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.agents/skills/openenv-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/work-on-issue/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/work-on-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/pre-submit-pr/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/pre-submit-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/alignment-review/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/alignment-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/hf-space-recovery/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/hf-space-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenEnv",
+      "path": ".claude/skills/generate-openenv-env/SKILL.md",
+      "github_url": "https://github.com/huggingface/OpenEnv/tree/main/.claude/skills/generate-openenv-env/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/huggingface/OpenEnv",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:25:35Z"
+}
