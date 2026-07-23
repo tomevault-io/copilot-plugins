@@ -1,13 +1,11 @@
-# AI instruction files for comfy-pilot
+# Comfy-Pilot
 
-> Sourced from [ConstantineB6/comfy-pilot](https://github.com/ConstantineB6/comfy-pilot) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-MCP server + embedded terminal that lets Claude Code see and edit your ComfyUI workflows
+> Tome by [ConstantineB6](https://github.com/ConstantineB6/Comfy-Pilot), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ConstantineB6/comfy-pilot](https://github.com/ConstantineB6/comfy-pilot).
+Original source: `CLAUDE.md` in [ConstantineB6/Comfy-Pilot](https://github.com/ConstantineB6/Comfy-Pilot).
 
 ## Also available for
 
@@ -17,10 +15,14 @@ Original source: `CLAUDE.md` in [ConstantineB6/comfy-pilot](https://github.com/C
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ConstantineB6/comfy-pilot](https://github.com/ConstantineB6/comfy-pilot)
+## Bundled Skills (1)
+
+- [Comfy-Pilot](https://github.com/ConstantineB6/Comfy-Pilot/tree/main/.claude/skills/comfy-nodes/SKILL.md)
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ConstantineB6/Comfy-Pilot](https://github.com/ConstantineB6/Comfy-Pilot)
 
 ---
 
 Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-c-p -->
+<!-- genome:t-c-p -->
