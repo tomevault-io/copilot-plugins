@@ -1,0 +1,590 @@
+{
+  "name": "anthropics--claude-for-legal",
+  "displayName": "claude-for-legal",
+  "description": "claude-for-legal",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/claude-for-legal",
+  "skills": [
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal",
+      "description": ""
+    }
+  ]
+}
