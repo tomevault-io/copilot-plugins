@@ -3,8 +3,8 @@
   "owner": "fitlab-ai",
   "repo": "agent-infra",
   "description": "Collaboration infrastructure for AI coding agents | AI \u7f16\u7a0b\u4ee3\u7406\u7684\u534f\u4f5c\u57fa\u7840\u8bbe\u65bd",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,189 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/test/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/code-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/code-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/plan-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/plan-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/block-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/block-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/check-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/check-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/review-code/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/review-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/review-plan/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/review-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/cancel-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/cancel-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/create-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/create-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/init-labels/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/init-labels/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/analyze-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/analyze-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/import-issue/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/import-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/restore-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/restore-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/post-release/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/post-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/refine-title/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/refine-title/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/complete-task/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/complete-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/archive-tasks/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/archive-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/close-codescan/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/close-codescan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/review-analysis/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/review-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/import-codescan/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/import-codescan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/init-milestones/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/init-milestones/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/close-dependabot/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/close-dependabot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/test-integration/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/test-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/import-dependabot/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/import-dependabot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/update-agent-infra/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/update-agent-infra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/upgrade-dependency/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/upgrade-dependency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-infra",
+      "path": ".agents/skills/create-release-note/SKILL.md",
+      "github_url": "https://github.com/fitlab-ai/agent-infra/tree/main/.agents/skills/create-release-note/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/fitlab-ai/agent-infra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:43:54Z"
+  "distributed_at": "2026-07-23T08:04:05Z"
 }
