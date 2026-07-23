@@ -1,0 +1,602 @@
+{
+  "name": "zekaisuni--claude-for-legal-turkish",
+  "displayName": "claude-for-legal-turkish",
+  "description": "claude-for-legal-turkish",
+  "version": "1.0.0",
+  "author": "ZekaiSuni",
+  "homepage": "https://github.com/ZekaiSuni/claude-for-legal-turkish",
+  "skills": [
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "description": ""
+    }
+  ]
+}
