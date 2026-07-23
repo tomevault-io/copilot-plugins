@@ -1,0 +1,18 @@
+{
+  "name": "mongodb--mongodb-atlas-kubernetes",
+  "displayName": "mongodb-atlas-kubernetes",
+  "description": "mongodb-atlas-kubernetes",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongodb-atlas-kubernetes",
+  "skills": [
+    {
+      "name": "investigate-e2e-failure",
+      "description": ""
+    },
+    {
+      "name": "mongodb-atlas-kubernetes",
+      "description": ""
+    }
+  ]
+}
