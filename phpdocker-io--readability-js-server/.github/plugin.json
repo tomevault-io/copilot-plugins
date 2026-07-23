@@ -1,0 +1,9 @@
+{
+  "name": "phpdocker-io--readability-js-server",
+  "displayName": "readability-js-server",
+  "description": "readability-js-server",
+  "version": "1.0.0",
+  "author": "phpdocker-io",
+  "homepage": "https://github.com/phpdocker-io/readability-js-server",
+  "skills": []
+}
