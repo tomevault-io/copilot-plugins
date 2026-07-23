@@ -1,0 +1,153 @@
+{
+  "name": "KeyStore",
+  "owner": "heyallencao",
+  "repo": "KeyStore",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "KeyStore",
+      "path": "operation/qa/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/operation/qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "support/help/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/support/help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "operation/ship/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/operation/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "decision/brief/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/decision/brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "decision/review/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/decision/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "execution/verify/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/execution/verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "operation/release/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/operation/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "operation/pr-prep/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/operation/pr-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "support/knowledge/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/support/knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "execution/diagnose/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/execution/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "decision/roundtable/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/decision/roundtable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "execution/implement/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/execution/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "support/docs-writer/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/support/docs-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "execution/test-first/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/execution/test-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "execution/bug-triage/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/execution/bug-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "orchestration/handoff/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/orchestration/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "decision/writing-plan/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/decision/writing-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KeyStore",
+      "path": "orchestration/orchestrate/SKILL.md",
+      "github_url": "https://github.com/heyallencao/KeyStore/tree/main/orchestration/orchestrate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/heyallencao/KeyStore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:48:18Z"
+}
