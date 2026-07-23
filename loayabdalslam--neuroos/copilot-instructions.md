@@ -1,231 +1,283 @@
 ## neuroos
 
-> NeuroOS features a powerful multi-agent AI system inspired by Crew AI, designed to handle complex tasks through collaborative agent workflows. Each agent has specific roles, expertise, and access to system tools.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# NeuroOS Agents Documentation
+# CLAUDE.md
 
-## Overview
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-NeuroOS features a powerful multi-agent AI system inspired by Crew AI, designed to handle complex tasks through collaborative agent workflows. Each agent has specific roles, expertise, and access to system tools.
+## Project Overview
 
----
+**NeuroOS** is an AI-powered desktop operating system built with Electron, React, and TypeScript. It provides a windowed desktop environment with an integrated AI assistant that can execute tools, manage files, and control applications. The system features multi-user authentication, workspace management, and integration with multiple LLM providers (Gemini, OpenAI, Ollama) and external services via Composio.
 
-## Agent System Architecture
+## Development Commands
 
-### Agent Roles
-
-| Agent | Role | Description |
-|-------|------|-------------|
-| **Coordinator** | Orchestrator | Manages workflow, delegates tasks, synthesizes results |
-| **Planner** | Strategist | Analyzes tasks, creates execution plans, maps dependencies |
-| **Researcher** | Information Gatherer | Browses web, scrapes pages, retrieves data |
-| **Executor** | Action Performer | Creates files, runs commands, executes tasks |
-| **Analyst** | Reviewer | Analyzes data, reviews outputs, provides insights |
-
----
-
-## Available Tools by Agent
-
-### Coordinator Agent
-- `open_app` - Open system applications
-- `close_app` - Close running applications
-- `list_running_apps` - List open windows
-- `send_notification` - Show system notifications
-- `get_system_info` - Get system information
-- `open_file` - Open files in viewer
-- `add_board_widget` - Add widgets to NeuroBoard
-- `update_memory` - Save persistent memory
-- `save_to_workspace` - Save files to workspace
-
-### Planner Agent
-- `open_app` - Open applications
-- `list_running_apps` - List running apps
-- `get_system_info` - System information
-- `get_app_windows` - Get window list
-- `update_memory` - Update memory
-- `list_files` - List workspace files
-- `read_file` - Read file contents
-
-### Researcher Agent
-**Browser Tools:**
-- `browser_navigate` - Navigate to URL
-- `browser_scrape` - Extract page content
-- `web_fetch` - CORS-free fetch
-- `search_web` - Google search
-- `web_research` - Multi-URL research
-- `browser_click` - Click elements
-- `browser_type` - Type in inputs
-- `browser_key` - Press keyboard keys
-- `browser_submit` - Submit forms
-- `browser_scroll` - Scroll pages
-- `browser_wait` - Wait for elements
-- `browser_evaluate` - Execute JavaScript
-- `browser_get_info` - Get page metadata
-- `browser_get_links` - Extract links
-- `browser_get_html` - Get raw HTML
-- `browser_save` - Save content to workspace
-
-**File Tools:**
-- `read_file` - Read files
-- `list_files` - List directory contents
-
-### Executor Agent
-**OS Tools:**
-- `open_app`, `close_app`, `list_running_apps`
-- `send_notification`, `open_file`
-- `add_board_widget`, `update_memory`, `save_to_workspace`
-
-**File Tools:**
-- `save_file` - Create/write files
-- `read_file` - Read files
-- `append_file` - Append to files
-- `update_file` - Update files (find/replace)
-- `list_files` - List directory
-- `create_folder` - Create directories
-- `delete_file` - Delete files
-
-**Shell Tools:**
-- `run_shell` - Execute shell commands
-
-**Generate Tools:**
-- `generate_report` - Generate markdown reports
-- `generate_image` - Generate AI images
-
-### Analyst Agent
-- `get_app_windows`, `get_system_info`, `list_running_apps`
-- `update_memory`
-- `list_files`, `read_file`, `save_file`, `append_file`
-- `browser_scrape`, `web_fetch`, `browser_get_info`, `browser_get_links`
-- `generate_report`
-
----
-
-## Using the Crew AI System
-
-### Basic Usage
-
-```typescript
-import { createCrew } from './lib/ai/crew';
-
-const crew = createCrew({
-    tasks: [
-        { 
-            id: 'research', 
-            description: 'Research the latest AI trends', 
-            status: 'pending', 
-            dependencies: [] 
-        },
-        { 
-            id: 'write_report', 
-            description: 'Write a research report', 
-            status: 'pending', 
-            dependencies: ['research'] 
-        }
-    ],
-    verbose: true,
-    planningEnabled: true
-});
-
-const result = await crew.execute(context);
-console.log(result.finalOutput);
+### Setup & Installation
+```bash
+npm install                    # Install dependencies
+npm run lint                   # TypeScript type checking (no emit)
 ```
 
-### Task Configuration
-
-```typescript
-interface Task {
-    id: string;
-    description: string;
-    status: 'pending' | 'in_progress' | 'completed' | 'failed';
-    assignedAgent?: string;
-    result?: string;
-    error?: string;
-    dependencies: string[];
-}
+### Development
+```bash
+npm run dev                    # Start Vite dev server only (web mode, port 5173)
+npm run electron:dev           # Start full Electron + Vite dev environment (recommended)
+npm run preview               # Preview production build locally
 ```
 
-### Execution Flow
-
-1. **Planning Phase** - Planner analyzes tasks and assigns agents
-2. **Execution Phase** - Agents execute their assigned tasks
-3. **Dependency Resolution** - Tasks wait for dependencies to complete
-4. **Synthesis** - Coordinator aggregates results
-
----
-
-## Browser Automation
-
-The Researcher agent has full access to Neuro Browser automation:
-
-### Navigation
-```json
-{ "tool": "browser_navigate", "args": { "url": "https://example.com" } }
+### Building
+```bash
+npm run build                 # Full build: TypeScript + Vite + Electron
+npm run electron:build        # Build production Electron app with installer
+npm run clean                 # Remove build artifacts (dist, dist-electron)
 ```
 
-### Scraping
-```json
-{ "tool": "browser_scrape", "args": { "maxLength": 6000 } }
+### Key Notes
+- **Development**: Use `npm run electron:dev` for full desktop app development. This runs Vite on port 5173 and launches Electron with hot reload.
+- **Type Checking**: Run `npm run lint` before commits to catch TypeScript errors.
+- **Build Output**: Production builds output to `release/{version}/` with NSIS installer for Windows.
+
+## Architecture Overview
+
+### High-Level Structure
+
+NeuroOS follows a **layered architecture** with clear separation between the Electron main process, React frontend, and AI/tool systems:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    React Frontend (src/)                     │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ App.tsx (root) → Auth/Onboarding → Desktop Shell    │   │
+│  │  ├─ WindowManager (app lifecycle)                   │   │
+│  │  ├─ Taskbar, StartMenu, Desktop                     │   │
+│  │  └─ Apps (Chat, FileExplorer, Settings, etc.)       │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ State Management (Zustand stores)                    │   │
+│  │  ├─ authStore (users, auth state)                   │   │
+│  │  ├─ settingsStore (AI config, theme)                │   │
+│  │  ├─ workspaceStore (file system path)               │   │
+│  │  ├─ sessionStore (chat history)                     │   │
+│  │  └─ composioStore (external integrations)           │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ AI & Tool Systems (src/lib/ai/)                      │   │
+│  │  ├─ crew.ts (multi-agent orchestration)             │   │
+│  │  ├─ toolEngine.ts (tool registry & execution)       │   │
+│  │  ├─ tools/ (business, composio, OS tools)           │   │
+│  │  └─ llm/factory.ts (provider abstraction)           │   │
+│  └──────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                            ↕ IPC
+┌─────────────────────────────────────────────────────────────┐
+│              Electron Main Process (native-shell/)           │
+│  ├─ main.ts (window creation, IPC handlers)                 │
+│  ├─ preload.ts (context bridge for secure API)              │
+│  └─ File system, app lifecycle, system integration          │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Search
-```json
-{ "tool": "search_web", "args": { "query": "latest AI news" } }
+### Key Architectural Patterns
+
+#### 1. **IPC Communication (Electron ↔ React)**
+- **Frontend → Main**: React calls `window.electron.*` methods (exposed via preload.ts)
+- **Main → Frontend**: IPC events trigger React state updates
+- **File System**: All file operations go through IPC to the main process for security
+- **Path Validation**: `isPathSafe()` in main.ts validates all user-provided paths
+
+#### 2. **State Management (Zustand)**
+All state is managed via Zustand stores with persistence middleware:
+- **authStore**: User profiles, authentication, PIN verification (SHA-256 hashed)
+- **settingsStore**: AI provider config, theme, user preferences
+- **workspaceStore**: Selected workspace path (persisted across restarts)
+- **sessionStore**: Chat history and messages
+- **composioStore**: External service integrations and permissions
+
+#### 3. **AI & Tool Execution**
+- **Tool Registry** (`toolEngine.ts`): Central registry of all available tools
+- **Tool Categories**: `os`, `file`, `shell`, `browser`, `generate`, `automation`, `business`
+- **Tool Execution**: `executeTool()` runs tools with context (file access, app control, etc.)
+- **Multi-Agent System** (`crew.ts`): Agents (Coordinator, Planner, Researcher, etc.) with specialized roles and tool access
+- **Composio Integration**: External app integrations (email, Slack, GitHub, etc.) via Composio SDK
+
+#### 4. **LLM Provider Abstraction**
+- **Factory Pattern** (`llm/factory.ts`): `getLLMProvider()` returns provider instance
+- **Supported Providers**: Gemini, OpenAI, Ollama, any OpenAI-compatible API
+- **Streaming**: All providers support token-by-token streaming responses
+- **Vision Models**: Specific models (Claude, GPT-4V, Gemini Pro Vision) support image input
+
+#### 5. **Application System**
+- **App Registry** (`lib/apps.ts`): Defines all available apps with metadata
+- **Window Management**: `WindowManager` orchestrates app lifecycle (open, close, minimize, maximize)
+- **App Components**: Each app is a React component that receives `windowData` prop
+- **Built-in Apps**: Chat, FileExplorer, Settings, Terminal, Board, LLMManager, etc.
+
+### File Organization
+
+```
+src/
+├── apps/                      # Application components
+│   ├── Chat.tsx              # AI chat with streaming & tool execution
+│   ├── FileExplorer/         # File manager with workspace support
+│   ├── Settings.tsx          # AI provider & system settings
+│   ├── Terminal.tsx          # Terminal emulator
+│   ├── Board/                # Dashboard/widget system
+│   ├── LLMManager/           # LLM provider management
+│   ├── MCPConnectors.tsx     # Model Context Protocol integration
+│   └── [other apps]
+│
+├── components/               # Shared UI components
+│   ├── WindowManager.tsx     # App window orchestration
+│   ├── Taskbar.tsx          # Bottom taskbar with app launcher
+│   ├── StartMenu.tsx        # Application menu
+│   ├── Desktop.tsx          # Desktop background & icons
+│   ├── OSWindow.tsx         # Draggable window container
+│   ├── LockScreen.tsx       # PIN authentication
+│   ├── OnboardingFlow.tsx   # First-run setup
+│   ├── ContextMenu.tsx      # Right-click context menus
+│   └── [other components]
+│
+├── hooks/                    # Custom React hooks
+│   ├── useOS.ts             # OS state & app control
+│   └── useFileSystem.ts     # File system operations bridge
+│
+├── stores/                   # Zustand state stores
+│   ├── authStore.ts         # User auth & profiles
+│   ├── settingsStore.ts     # App settings & AI config
+│   ├── workspaceStore.ts    # Workspace path persistence
+│   ├── sessionStore.ts      # Chat history
+│   └── composioStore.ts     # External integrations
+│
+├── lib/
+│   ├── ai/
+│   │   ├── crew.ts          # Multi-agent orchestration
+│   │   ├── toolEngine.ts    # Tool registry & execution
+│   │   ├── tools/
+│   │   │   ├── businessTools.ts    # Composio integrations
+│   │   │   ├── composioTools.ts    # Composio SDK wrapper
+│   │   │   └── [other tool sets]
+│   │   └── llm/
+│   │       ├── factory.ts          # Provider abstraction
+│   │       ├── types.ts            # LLM type definitions
+│   │       ├── errors.ts           # Error handling
+│   │       └── [provider implementations]
+│   ├── composio/
+│   │   ├── composioClient.ts       # Composio SDK client
+│   │   └── composioSDKClient.ts    # SDK wrapper
+│   ├── designSystem/               # Theme & styling
+│   ├── apps.ts                     # App registry
+│   └── utils.ts                    # Shared utilities
+│
+├── types/
+│   └── electron.d.ts        # Window.electron type definitions
+│
+├── App.tsx                  # Root component (auth flow, boot animation)
+└── main.tsx                 # React entry point
+
+native-shell/
+├── main.ts                  # Electron main process
+├── preload.ts              # Context bridge (secure API)
+└── tsconfig.json           # Electron TypeScript config
 ```
 
-### Interaction
-```json
-{ "tool": "browser_click", "args": { "selector": "#submit-btn" } }
-{ "tool": "browser_type", "args": { "text": "hello", "selector": "#input" } }
-```
+## Key Concepts & Patterns
 
----
+### Tool Execution Flow
+1. **User Input** → Chat component receives message
+2. **LLM Call** → Provider streams response with tool calls (XML/JSON format)
+3. **Tool Parsing** → `parseToolCalls()` extracts tool name and arguments
+4. **Tool Execution** → `executeTool()` runs tool with context (file access, app control)
+5. **Result Handling** → Tool result sent back to LLM for synthesis
+6. **Iteration** → Loop continues until LLM stops calling tools (max 12 iterations)
 
-## File Operations
+### Multi-Agent System (Crew)
+- **Coordinator**: Orchestrates workflow, delegates tasks, synthesizes results
+- **Planner**: Analyzes complex tasks, creates execution plans
+- **Researcher**: Gathers information, searches, analyzes data
+- **Analyst**: Performs analysis, generates insights
+- **Executor**: Executes tasks, runs tools, manages operations
 
-### Read File
-```json
-{ "tool": "read_file", "args": { "filename": "data.json" } }
-```
+Each agent has specific tools and expertise. Tasks can have dependencies and are executed in order.
 
-### Write File
-```json
-{ "tool": "save_file", "args": { "filename": "output.md", "content": "# Report" } }
-```
+### Authentication & Security
+- **PIN-Based**: Users authenticate with PIN (SHA-256 hashed, never stored plaintext)
+- **Multi-User**: Multiple user profiles with separate settings
+- **Path Validation**: All file paths validated against whitelist (home dir, app dir, allowed roots)
+- **Context Isolation**: Electron context isolation enabled, nodeIntegration disabled
+- **IPC Security**: All IPC handlers validate input and check authentication
 
-### List Files
-```json
-{ "tool": "list_files", "args": { "path": "documents" } }
-```
+### Workspace System
+- **Persistent Path**: User selects workspace folder on first run, persisted in store
+- **File Operations**: All file operations scoped to workspace path
+- **Validation**: Workspace path checked on startup; cleared if moved/deleted
 
----
+## Common Development Tasks
 
-## Best Practices
+### Adding a New Tool
+1. Create tool definition in `src/lib/ai/tools/[category]Tools.ts`
+2. Implement handler function with `ToolContext` parameter
+3. Register tool: `registerTool(toolDefinition)`
+4. Add to appropriate agent's tool list in `crew.ts`
 
-1. **Clear Task Descriptions** - Provide detailed task descriptions for better results
-2. **Set Dependencies** - Define task dependencies for proper execution order
-3. **Use Appropriate Agents** - Match tasks to agent capabilities
-4. **Enable Planning** - Let the Planner optimize task assignments
-5. **Monitor Execution** - Use verbose mode to track progress
+### Adding a New App
+1. Create component in `src/apps/[AppName].tsx`
+2. Add to app registry in `src/lib/apps.ts`
+3. Implement `windowData` prop handling
+4. Add icon and metadata to registry entry
 
----
+### Adding a New LLM Provider
+1. Create provider class in `src/lib/llm/providers/[Provider].ts`
+2. Implement `stream()` method for streaming responses
+3. Register in factory: `src/lib/llm/factory.ts`
+4. Add to settings UI for configuration
 
-## Error Handling
+### Debugging Tool Execution
+- Chat component logs thinking blocks with tool calls/results
+- `ThinkBlock` component shows execution timeline
+- Tool errors display with fallback suggestions
+- Check `toolEngine.ts` for parsing/execution logic
 
-The system includes:
-- Automatic retry for transient failures
-- Dependency deadlock detection
-- Maximum iteration limits (prevents infinite loops)
-- Timeout handling for long-running operations
+## Important Notes
 
----
+### Composio Integration
+- Composio provides 1000+ external app integrations
+- Tools are loaded dynamically based on user permissions
+- Requires API key configuration in settings
+- Business tools (email, Slack, GitHub, etc.) use Composio SDK
 
-## Performance
+### Streaming & Performance
+- All LLM responses stream token-by-token for responsiveness
+- Tool execution happens during streaming (agentic loop)
+- Max 12 iterations to prevent infinite loops
+- Thinking blocks track execution timeline for debugging
 
-- Task execution is parallelized when dependencies allow
-- Tool results are cached for reuse
-- Memory is persisted across sessions
-- Browser automation uses efficient DOM targeting
+### Type Safety
+- TypeScript strict mode enabled
+- Electron types defined in `src/types/electron.d.ts`
+- Tool definitions are strongly typed
+- Store actions are type-safe via Zustand
+
+### Environment Variables
+- `GEMINI_API_KEY`: Gemini API key (optional, can be set in Settings)
+- `VITE_DEV_SERVER_URL`: Set by electron:dev script
+- Other provider keys configured via Settings UI
+
+## Testing & Verification
+
+- **Type Checking**: `npm run lint` (no emit, just checking)
+- **Build Verification**: `npm run build` compiles everything
+- **Dev Testing**: `npm run electron:dev` for interactive testing
+- **Production Build**: `npm run electron:build` creates installer
+
+## Git & Deployment
+
+- **Main Branch**: Production-ready code
+- **Releases**: Published via GitHub (electron-updater configured)
+- **Installer**: NSIS-based Windows installer with auto-update support
+- **Version**: Managed in `package.json`, used in build output path
 
 ---
 > Source: [loayabdalslam/NeuroOS](https://github.com/loayabdalslam/NeuroOS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
