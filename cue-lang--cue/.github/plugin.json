@@ -1,0 +1,14 @@
+{
+  "name": "cue-lang--cue",
+  "displayName": "cue",
+  "description": "cue",
+  "version": "1.0.0",
+  "author": "cue-lang",
+  "homepage": "https://github.com/cue-lang/cue",
+  "skills": [
+    {
+      "name": "cue",
+      "description": ""
+    }
+  ]
+}
