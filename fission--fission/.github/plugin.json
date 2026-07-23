@@ -1,0 +1,30 @@
+{
+  "name": "fission--fission",
+  "displayName": "fission",
+  "description": "fission",
+  "version": "1.0.0",
+  "author": "fission",
+  "homepage": "https://github.com/fission/fission",
+  "skills": [
+    {
+      "name": "workflow-tool-versions",
+      "description": ""
+    },
+    {
+      "name": "fission",
+      "description": ""
+    },
+    {
+      "name": "fission",
+      "description": ""
+    },
+    {
+      "name": "fission",
+      "description": ""
+    },
+    {
+      "name": "fission",
+      "description": ""
+    }
+  ]
+}
