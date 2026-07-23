@@ -1,0 +1,153 @@
+{
+  "name": "torch-xpu-ops",
+  "owner": "intel",
+  "repo": "torch-xpu-ops",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/skill-writer/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/skill-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/xpu-alignment/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/xpu-alignment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/issue-handler/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/issue-handler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/at-dispatch-v2/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/at-dispatch-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/release-branching/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/release-branching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/oob-perf-analysis/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/oob-perf-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/xpu-build-pytorch/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/xpu-build-pytorch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/xpu-nightly-ci-fix/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/xpu-nightly-ci-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/xpu-issues-triaging/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/xpu-issues-triaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/xpu-ops-pr-creation/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/xpu-ops-pr-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/action/unitrace/setup/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/action/unitrace/setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/issue-handler/issue-fix/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/issue-handler/issue-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/action/sycl/source-oneapi/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/action/sycl/source-oneapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/issue-handler/issue-format/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/issue-handler/issue-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/action/tmux/tmux-long-tasks/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/action/tmux/tmux-long-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/issue-handler/test-verification/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/issue-handler/test-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "torch-xpu-ops",
+      "path": ".claude/skills/action/intel-gpu-device-selection/SKILL.md",
+      "github_url": "https://github.com/intel/torch-xpu-ops/tree/main/.claude/skills/action/intel-gpu-device-selection/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/intel/torch-xpu-ops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:50:05Z"
+}
