@@ -1,0 +1,9 @@
+{
+  "name": "jenkinsci--dingtalk-plugin",
+  "displayName": "dingtalk-plugin",
+  "description": "dingtalk-plugin",
+  "version": "1.0.0",
+  "author": "jenkinsci",
+  "homepage": "https://github.com/jenkinsci/dingtalk-plugin",
+  "skills": []
+}
