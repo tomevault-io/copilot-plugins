@@ -1,0 +1,63 @@
+{
+  "name": "shopper",
+  "owner": "shopperlabs",
+  "repo": "shopper",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "shopper-development",
+      "path": "packages/admin/resources/boost/skills/shopper-development",
+      "github_url": "https://github.com/shopperlabs/shopper/tree/main/packages/admin/resources/boost/skills/shopper-development",
+      "description": ""
+    },
+    {
+      "name": "shopper",
+      "path": "packages/admin/resources/boost/skills/shopper-development/SKILL.md",
+      "github_url": "https://github.com/shopperlabs/shopper/tree/main/packages/admin/resources/boost/skills/shopper-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "shopper",
+      "path": "packages/admin/resources/boost/skills/shopper-customization/SKILL.md",
+      "github_url": "https://github.com/shopperlabs/shopper/tree/main/packages/admin/resources/boost/skills/shopper-customization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shopperlabs/shopper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:01:35Z"
+}
