@@ -1,0 +1,26 @@
+{
+  "name": "chakra-ui--chakra-ui",
+  "displayName": "chakra-ui",
+  "description": "chakra-ui",
+  "version": "1.0.0",
+  "author": "chakra-ui",
+  "homepage": "https://github.com/chakra-ui/chakra-ui",
+  "skills": [
+    {
+      "name": "chakra-ui-migrate",
+      "description": ""
+    },
+    {
+      "name": "chakra-ui",
+      "description": ""
+    },
+    {
+      "name": "chakra-ui",
+      "description": ""
+    },
+    {
+      "name": "chakra-ui",
+      "description": ""
+    }
+  ]
+}
