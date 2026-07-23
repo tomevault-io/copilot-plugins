@@ -1,0 +1,14 @@
+{
+  "name": "synadia-ai--synadia-agents",
+  "displayName": "synadia-agents",
+  "description": "synadia-agents",
+  "version": "1.0.0",
+  "author": "synadia-ai",
+  "homepage": "https://github.com/synadia-ai/synadia-agents",
+  "skills": [
+    {
+      "name": "synadia-agents",
+      "description": ""
+    }
+  ]
+}
