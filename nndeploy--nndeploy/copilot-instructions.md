@@ -1,10 +1,10 @@
 ## nndeploy
 
-> This file provides guidance to codex when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to codex when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -15,9 +15,8 @@ nndeploy is a high-performance AI deployment framework for edge computing (deskt
 ### Basic Build (Linux/macOS)
 
 ```bash
-mkdir build && cd build
-cp ../cmake/config.cmake .
-# Edit config.cmake to enable desired backends
+mkdir build && cd build # 假如存在，则不新建
+cp ../cmake/config.cmake . # 假如当前目录已经存在config.cmake，则不拷贝
 cmake ..
 make -j
 make install
@@ -49,12 +48,6 @@ pip install -e .
 Python bindings require C++17 ABI for tokenizer-cpp support.
 
 ### Test Execution
-
-Tests use GoogleTest framework and are located in `test/`:
-```bash
-cd build
-ctest --verbose
-```
 
 Run individual tests: `./test/edge_test`, `./test/graph_test`
 
@@ -197,4 +190,4 @@ python -c "import nndeploy; graph = nndeploy.dag.Graph(''); graph.load_file('wor
 
 ---
 > Source: [nndeploy/nndeploy](https://github.com/nndeploy/nndeploy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
