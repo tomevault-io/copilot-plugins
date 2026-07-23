@@ -1,0 +1,34 @@
+{
+  "name": "thomasgauvin--claude-agent-sdk-in-cloudflare-containers",
+  "displayName": "claude-agent-sdk-in-cloudflare-containers",
+  "description": "claude-agent-sdk-in-cloudflare-containers",
+  "version": "1.0.0",
+  "author": "thomasgauvin",
+  "homepage": "https://github.com/thomasgauvin/claude-agent-sdk-in-cloudflare-containers",
+  "skills": [
+    {
+      "name": "codebase-architecture-analysis",
+      "description": ""
+    },
+    {
+      "name": "codebase-fix-and-pr",
+      "description": ""
+    },
+    {
+      "name": "configure-git-cli",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-in-cloudflare-containers",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-in-cloudflare-containers",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-in-cloudflare-containers",
+      "description": ""
+    }
+  ]
+}
