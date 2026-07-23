@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--pytorch-image-models",
+  "displayName": "pytorch-image-models",
+  "description": "pytorch-image-models",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/pytorch-image-models",
+  "skills": []
+}
