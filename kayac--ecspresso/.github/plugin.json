@@ -1,0 +1,14 @@
+{
+  "name": "kayac--ecspresso",
+  "displayName": "ecspresso",
+  "description": "ecspresso",
+  "version": "1.0.0",
+  "author": "kayac",
+  "homepage": "https://github.com/kayac/ecspresso",
+  "skills": [
+    {
+      "name": "ecspresso",
+      "description": ""
+    }
+  ]
+}
