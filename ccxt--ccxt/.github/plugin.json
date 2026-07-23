@@ -1,0 +1,58 @@
+{
+  "name": "ccxt--ccxt",
+  "displayName": "ccxt",
+  "description": "ccxt",
+  "version": "1.0.0",
+  "author": "ccxt",
+  "homepage": "https://github.com/ccxt/ccxt",
+  "skills": [
+    {
+      "name": "ccxt-csharp",
+      "description": ""
+    },
+    {
+      "name": "ccxt-go",
+      "description": ""
+    },
+    {
+      "name": "ccxt-php",
+      "description": ""
+    },
+    {
+      "name": "ccxt-python",
+      "description": ""
+    },
+    {
+      "name": "ccxt-typescript",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "description": ""
+    }
+  ]
+}
