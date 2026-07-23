@@ -1,0 +1,14 @@
+{
+  "name": "jumpstarter-dev--jumpstarter",
+  "displayName": "jumpstarter",
+  "description": "jumpstarter",
+  "version": "1.0.0",
+  "author": "jumpstarter-dev",
+  "homepage": "https://github.com/jumpstarter-dev/jumpstarter",
+  "skills": [
+    {
+      "name": "jumpstarter",
+      "description": ""
+    }
+  ]
+}
