@@ -1,0 +1,14 @@
+{
+  "name": "ais-one--novex-kit",
+  "displayName": "novex-kit",
+  "description": "novex-kit",
+  "version": "1.0.0",
+  "author": "ais-one",
+  "homepage": "https://github.com/ais-one/novex-kit",
+  "skills": [
+    {
+      "name": "novex-kit",
+      "description": ""
+    }
+  ]
+}
