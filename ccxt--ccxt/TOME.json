@@ -1,0 +1,117 @@
+{
+  "name": "ccxt",
+  "owner": "ccxt",
+  "repo": "ccxt",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ccxt-csharp",
+      "path": ".claude/skills/ccxt-csharp",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-csharp",
+      "description": ""
+    },
+    {
+      "name": "ccxt-go",
+      "path": ".claude/skills/ccxt-go",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-go",
+      "description": ""
+    },
+    {
+      "name": "ccxt-php",
+      "path": ".claude/skills/ccxt-php",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-php",
+      "description": ""
+    },
+    {
+      "name": "ccxt-python",
+      "path": ".claude/skills/ccxt-python",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-python",
+      "description": ""
+    },
+    {
+      "name": "ccxt-typescript",
+      "path": ".claude/skills/ccxt-typescript",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-typescript",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "path": ".claude/skills/ccxt-go/SKILL.md",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "path": ".claude/skills/ccxt-php/SKILL.md",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-php/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "path": ".claude/skills/ccxt-java/SKILL.md",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-java/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "path": ".claude/skills/ccxt-python/SKILL.md",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "path": ".claude/skills/ccxt-csharp/SKILL.md",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-csharp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "path": ".claude/skills/new-exchange/SKILL.md",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/new-exchange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ccxt",
+      "path": ".claude/skills/ccxt-typescript/SKILL.md",
+      "github_url": "https://github.com/ccxt/ccxt/tree/main/.claude/skills/ccxt-typescript/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ccxt/ccxt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:34:11Z"
+}
