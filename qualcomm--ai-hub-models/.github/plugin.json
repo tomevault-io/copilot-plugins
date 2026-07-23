@@ -1,0 +1,22 @@
+{
+  "name": "qualcomm--ai-hub-models",
+  "displayName": "ai-hub-models",
+  "description": "ai-hub-models",
+  "version": "1.0.0",
+  "author": "qualcomm",
+  "homepage": "https://github.com/qualcomm/ai-hub-models",
+  "skills": [
+    {
+      "name": "ai-hub-models",
+      "description": ""
+    },
+    {
+      "name": "ai-hub-models",
+      "description": ""
+    },
+    {
+      "name": "ai-hub-models",
+      "description": ""
+    }
+  ]
+}
