@@ -1,0 +1,9 @@
+{
+  "name": "sage-bionetworks--synapsepythonclient",
+  "displayName": "synapsePythonClient",
+  "description": "synapsePythonClient",
+  "version": "1.0.0",
+  "author": "Sage-Bionetworks",
+  "homepage": "https://github.com/Sage-Bionetworks/synapsePythonClient",
+  "skills": []
+}
