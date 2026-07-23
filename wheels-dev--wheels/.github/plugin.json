@@ -1,0 +1,106 @@
+{
+  "name": "wheels-dev--wheels",
+  "displayName": "wheels",
+  "description": "wheels",
+  "version": "1.0.0",
+  "author": "wheels-dev",
+  "homepage": "https://github.com/wheels-dev/wheels",
+  "skills": [
+    {
+      "name": "wheels-anti-pattern-detector",
+      "description": ""
+    },
+    {
+      "name": "wheels-api-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-auth-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-controller-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-debugging",
+      "description": ""
+    },
+    {
+      "name": "wheels-deployment",
+      "description": ""
+    },
+    {
+      "name": "wheels-documentation-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-migration-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-model-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-refactoring",
+      "description": ""
+    },
+    {
+      "name": "wheels-test-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-view-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "description": ""
+    }
+  ]
+}
