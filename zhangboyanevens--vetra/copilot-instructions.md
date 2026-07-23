@@ -1,51 +1,42 @@
-## md3-hig-design
+## vetra-companies-templates-db
 
-> MD3 + Apple HIG hybrid UI baseline (Google/Meta/Apple frontend standards)
+> Do not modify Vetra Companies/Templates database without explicit user request
 
 
-# MD3 + Apple HIG Design Baseline
+# Vetra Companies & Templates — Database Freeze (STRICT)
 
-Default for all frontend UI work unless the user explicitly overrides a parameter or replaces the whole system.
+**User data in `vetra_companies` / `vetra_templates` is production-critical. Do not risk it.**
 
-## Tokens
+Unless the user **explicitly** asks to change the database layer, do **not** modify:
 
-Use CSS variables from `src/styles/tokens.css` — never hardcode colors/spacing when a token exists.
+## Backend (Neon / Postgres) — FORBIDDEN
 
-## Typography
+- Tables: `vetra_companies`, `vetra_templates`
+- DB logic in `backend/app/db/neon.py` for company/template CRUD, migrations, bootstrap, or legacy copy
+- API routes: `/api/neon/vetra/companies`, `/api/neon/vetra/templates` in `backend/app/api/neon_routes.py`
+- Schemas: `VetraCompany*`, `VetraTemplate*` in `backend/app/models/project_schemas.py`
+- SQL docs/migrations that define or alter these two tables
+- One-off scripts that INSERT/UPDATE/DELETE vetra rows (read-only audit scripts are OK)
 
-- Font stack: `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif` + `Noto Sans SC`, `PingFang SC`, `Microsoft YaHei`
-- Weights: 400 / 500 / 700 only
-- Scale: 12 / 14 / 16 / 20 / 24 / 28 / 32px; ≤6 sizes per page
-- Body: 16px desktop, 17px mobile; `line-height: 1.5`; `html { font-size: 16px }`
-- Code: `Consolas, Menlo`
+## Allowed without asking
 
-## Color (WCAG AA)
+- Frontend UI/UX for Companies, Templates, Outreach views
+- Frontend workspace sync, cache, and API **clients** when fixing load/display bugs **without** changing API contract or DB shape
+- Read-only diagnostics (e.g. `backend/scripts/audit_vetra_data.py`)
+- Outreach features that **read** company/template data
 
-- Text: `#202124`; secondary `#5f6368`; no pure `#000` body text
-- Primary: `#1a73e8`; semantic success/warning/error only
-- ≤8 total colors; lowercase hex
+## Required before any DB change
 
-## Spacing & layout
+- User must clearly request a database/schema/API persistence change in the current message
+- Keep `vetra_companies` (introduction only) and `vetra_templates` (subject/body only) as **separate** stores
+- Never merge lists or share one table again
+- Never auto-seed, auto-delete, or overwrite server data from empty client state
 
-- 8px grid: 4 / 8 / 16 / 24 / 32 / 48px
-- Touch targets ≥48×48px; icons 24px
-- Prose `max-width: 65ch`; page padding ≥24px desktop / ≥16px mobile
+## Frontend safety rules
 
-## Shape
-
-- Border radius: 4px or 8px only (two tiers)
-- Single-layer soft shadow; no glassmorphism or stacked shadows
-
-## CSS rules
-
-- Lowercase selectors/properties; ≤3 nesting levels; avoid `!important`
-- Ant Design theme synced via `src/theme/antdTheme.ts`
-
-## Override priority
-
-1. User specifies one parameter → change only that
-2. User replaces whole design system → follow new system
-3. No instruction → enforce this baseline
+- Never apply an empty server list over cached/local snapshot that has records
+- Persist successful fetches to scoped localStorage as backup
+- Fix auth/sync races without touching backend persistence
 
 ---
 > Source: [ZhangBoyanEvens/Vetra](https://github.com/ZhangBoyanEvens/Vetra) — distributed by [TomeVault](https://tomevault.io).
