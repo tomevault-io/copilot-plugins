@@ -3,8 +3,8 @@
   "owner": "gastownhall",
   "repo": "gascity",
   "description": "Orchestration-builder SDK for multi-agent coding workflows",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "gascity",
+      "path": "internal/bootstrap/packs/core/skills/gc-city/SKILL.md",
+      "github_url": "https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-city/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gascity",
+      "path": "internal/bootstrap/packs/core/skills/gc-rigs/SKILL.md",
+      "github_url": "https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-rigs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gascity",
+      "path": "internal/bootstrap/packs/core/skills/gc-work/SKILL.md",
+      "github_url": "https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gascity",
+      "path": "internal/bootstrap/packs/core/skills/gc-mail/SKILL.md",
+      "github_url": "https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-mail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gascity",
+      "path": "internal/bootstrap/packs/core/skills/gc-agents/SKILL.md",
+      "github_url": "https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gascity",
+      "path": "internal/bootstrap/packs/core/skills/gc-dispatch/SKILL.md",
+      "github_url": "https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-dispatch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gascity",
+      "path": "internal/bootstrap/packs/core/skills/gc-dashboard/SKILL.md",
+      "github_url": "https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-dashboard/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/gastownhall/gascity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:09:07Z"
+  "distributed_at": "2026-07-23T08:00:30Z"
 }
