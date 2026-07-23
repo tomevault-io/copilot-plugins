@@ -1,0 +1,9 @@
+{
+  "name": "jenkinsci--opentelemetry-plugin",
+  "displayName": "opentelemetry-plugin",
+  "description": "opentelemetry-plugin",
+  "version": "1.0.0",
+  "author": "jenkinsci",
+  "homepage": "https://github.com/jenkinsci/opentelemetry-plugin",
+  "skills": []
+}
