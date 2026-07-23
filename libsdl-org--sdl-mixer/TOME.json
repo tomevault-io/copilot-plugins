@@ -4,7 +4,7 @@
   "repo": "SDL_mixer",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/libsdl-org/SDL_mixer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T15:09:20Z"
+  "distributed_at": "2026-07-23T18:02:30Z"
 }
