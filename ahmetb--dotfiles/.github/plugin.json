@@ -1,0 +1,14 @@
+{
+  "name": "ahmetb--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles",
+  "version": "1.0.0",
+  "author": "ahmetb",
+  "homepage": "https://github.com/ahmetb/dotfiles",
+  "skills": [
+    {
+      "name": "dotfiles",
+      "description": ""
+    }
+  ]
+}
