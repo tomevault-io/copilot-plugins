@@ -1,9 +1,370 @@
 {
   "name": "orchestra-research--ai-research-skills",
-  "displayName": "AI-Research-SKILLs",
-  "description": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. ",
+  "displayName": "AI-research-SKILLs",
+  "description": "AI-research-SKILLs",
   "version": "1.0.0",
   "author": "Orchestra-Research",
-  "homepage": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
-  "skills": []
+  "homepage": "https://github.com/Orchestra-Research/AI-research-SKILLs",
+  "skills": [
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": ""
+    }
+  ]
 }
