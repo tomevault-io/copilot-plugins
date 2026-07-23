@@ -25,4 +25,4 @@ author and that you are contributing your changes under the Zlib license.
 
 ---
 > Source: [libsdl-org/SDL_net](https://github.com/libsdl-org/SDL_net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
