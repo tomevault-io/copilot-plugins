@@ -1,0 +1,9 @@
+{
+  "name": "braintree--popup-bridge-android",
+  "displayName": "popup-bridge-android",
+  "description": "popup-bridge-android",
+  "version": "1.0.0",
+  "author": "braintree",
+  "homepage": "https://github.com/braintree/popup-bridge-android",
+  "skills": []
+}
