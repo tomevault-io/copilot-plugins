@@ -1,0 +1,34 @@
+{
+  "name": "walterra--eddoapp",
+  "displayName": "eddoapp",
+  "description": "eddoapp",
+  "version": "1.0.0",
+  "author": "walterra",
+  "homepage": "https://github.com/walterra/eddoapp",
+  "skills": [
+    {
+      "name": "eddo-todo",
+      "description": ""
+    },
+    {
+      "name": "eddo-work",
+      "description": ""
+    },
+    {
+      "name": "searxng-search",
+      "description": ""
+    },
+    {
+      "name": "eddoapp",
+      "description": ""
+    },
+    {
+      "name": "eddoapp",
+      "description": ""
+    },
+    {
+      "name": "eddoapp",
+      "description": ""
+    }
+  ]
+}
