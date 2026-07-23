@@ -2,9 +2,9 @@
   "name": "askdb",
   "owner": "mgorabbani",
   "repo": "askdb",
-  "description": "Give AI agents safe access to your database.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mgorabbani/askdb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T10:19:48Z"
+  "distributed_at": "2026-07-23T22:42:26Z"
 }
