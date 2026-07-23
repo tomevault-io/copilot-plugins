@@ -111,4 +111,4 @@ If an integration pathway, framework, version, or capability is not properly sup
 
 ---
 > Source: [Garudex-Labs/caracal](https://github.com/Garudex-Labs/caracal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
