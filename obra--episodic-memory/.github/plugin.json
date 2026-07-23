@@ -1,0 +1,18 @@
+{
+  "name": "obra--episodic-memory",
+  "displayName": "episodic-memory",
+  "description": "episodic-memory",
+  "version": "1.0.0",
+  "author": "obra",
+  "homepage": "https://github.com/obra/episodic-memory",
+  "skills": [
+    {
+      "name": "remembering-conversations",
+      "description": ""
+    },
+    {
+      "name": "episodic-memory",
+      "description": ""
+    }
+  ]
+}
