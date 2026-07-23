@@ -1,0 +1,171 @@
+{
+  "name": "TEngine",
+  "owner": "Alex-Rachel",
+  "repo": "TEngine",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/luban-dev/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/luban-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/luban-dev/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/luban-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/tengine-dev/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/tengine-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/tengine-dev/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/tengine-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/html-to-ugui/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/html-to-ugui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.codex/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.codex/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TEngine",
+      "path": "UnityProject/.claude/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/Alex-Rachel/TEngine/tree/main/UnityProject/.claude/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Alex-Rachel/TEngine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:40:53Z"
+}
