@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [useautumn/autumn](https://github.com/useautumn/autumn).
+Original source: `CLAUDE.md` in [useautumn/autumn](https://github.com/useautumn/autumn).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -45,7 +45,7 @@ Original source: `AGENTS.md` in [useautumn/autumn](https://github.com/useautumn/
 - [autumn](https://github.com/useautumn/autumn/tree/main/packages/atmn-tests/.claude/skills/autumn-billing-page/SKILL.md)
 - [autumn](https://github.com/useautumn/autumn/tree/main/packages/atmn-tests/.claude/skills/autumn-modelling-pricing-plans/SKILL.md)
 
-From [useautumn/autumn](https://github.com/useautumn/autumn) — a repo with 2621+ stars on GitHub.
+From [useautumn/autumn](https://github.com/useautumn/autumn) — a repo with 2624+ stars on GitHub.
 
 ---
 
