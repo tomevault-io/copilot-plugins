@@ -1,0 +1,87 @@
+{
+  "name": "flash-list",
+  "owner": "Shopify",
+  "repo": "flash-list",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flash-list",
+      "path": ".claude/skills/raise-pr/SKILL.md",
+      "github_url": "https://github.com/Shopify/flash-list/tree/main/.claude/skills/raise-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-list",
+      "path": ".claude/skills/agent-device/SKILL.md",
+      "github_url": "https://github.com/Shopify/flash-list/tree/main/.claude/skills/agent-device/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-list",
+      "path": ".claude/skills/triage-issue/SKILL.md",
+      "github_url": "https://github.com/Shopify/flash-list/tree/main/.claude/skills/triage-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-list",
+      "path": ".claude/skills/review-and-test/SKILL.md",
+      "github_url": "https://github.com/Shopify/flash-list/tree/main/.claude/skills/review-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-list",
+      "path": ".claude/skills/analyze-feedback/SKILL.md",
+      "github_url": "https://github.com/Shopify/flash-list/tree/main/.claude/skills/analyze-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-list",
+      "path": ".claude/skills/fix-github-issue/SKILL.md",
+      "github_url": "https://github.com/Shopify/flash-list/tree/main/.claude/skills/fix-github-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flash-list",
+      "path": ".claude/skills/upgrade-react-native/SKILL.md",
+      "github_url": "https://github.com/Shopify/flash-list/tree/main/.claude/skills/upgrade-react-native/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Shopify/flash-list",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:13:49Z"
+}
