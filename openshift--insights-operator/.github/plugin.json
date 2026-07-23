@@ -1,0 +1,14 @@
+{
+  "name": "openshift--insights-operator",
+  "displayName": "insights-operator",
+  "description": "insights-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/insights-operator",
+  "skills": [
+    {
+      "name": "insights-operator",
+      "description": ""
+    }
+  ]
+}
