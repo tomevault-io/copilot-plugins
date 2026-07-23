@@ -1,0 +1,63 @@
+{
+  "name": "sp1",
+  "owner": "succinctlabs",
+  "repo": "sp1",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sp1",
+      "path": ".claude/skills/ci-clippy/SKILL.md",
+      "github_url": "https://github.com/succinctlabs/sp1/tree/main/.claude/skills/ci-clippy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sp1",
+      "path": ".claude/skills/sp1-profiling/SKILL.md",
+      "github_url": "https://github.com/succinctlabs/sp1/tree/main/.claude/skills/sp1-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sp1",
+      "path": ".claude/skills/update-sp1-patches/SKILL.md",
+      "github_url": "https://github.com/succinctlabs/sp1/tree/main/.claude/skills/update-sp1-patches/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/succinctlabs/sp1",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T19:34:54Z"
+}
