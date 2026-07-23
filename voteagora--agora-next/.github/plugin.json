@@ -1,0 +1,14 @@
+{
+  "name": "voteagora--agora-next",
+  "displayName": "agora-next",
+  "description": "agora-next",
+  "version": "1.0.0",
+  "author": "voteagora",
+  "homepage": "https://github.com/voteagora/agora-next",
+  "skills": [
+    {
+      "name": "agora-next",
+      "description": ""
+    }
+  ]
+}
