@@ -1,0 +1,14 @@
+{
+  "name": "arch10--calculator-plus",
+  "displayName": "Calculator-Plus",
+  "description": "Calculator-Plus",
+  "version": "1.0.0",
+  "author": "arch10",
+  "homepage": "https://github.com/arch10/Calculator-Plus",
+  "skills": [
+    {
+      "name": "Calculator-Plus",
+      "description": ""
+    }
+  ]
+}
