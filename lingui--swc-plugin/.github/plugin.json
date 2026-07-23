@@ -1,0 +1,14 @@
+{
+  "name": "lingui--swc-plugin",
+  "displayName": "swc-plugin",
+  "description": "swc-plugin",
+  "version": "1.0.0",
+  "author": "lingui",
+  "homepage": "https://github.com/lingui/swc-plugin",
+  "skills": [
+    {
+      "name": "swc-plugin",
+      "description": ""
+    }
+  ]
+}
