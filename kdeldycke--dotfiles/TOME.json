@@ -1,0 +1,165 @@
+{
+  "name": "dotfiles",
+  "owner": "kdeldycke",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/pr-triage/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/pr-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/babysit-ci/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/babysit-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/brand-assets/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/brand-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/fill-web-form/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/fill-web-form/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/repomatic-deps/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/repomatic-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/awesome-triage/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/awesome-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/upstream-audit/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/upstream-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/repomatic-ship/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/repomatic-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/repomatic-init/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/repomatic-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/file-bug-report/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/file-bug-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/repomatic-audit/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/repomatic-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/benchmark-update/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/benchmark-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/translation-sync/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/translation-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/repomatic-topics/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/repomatic-topics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/sphinx-docs-sync/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/sphinx-docs-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/av-false-positive/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/av-false-positive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/audit-repo-issues/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/audit-repo-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/rename-with-dates/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/rename-with-dates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/repomatic-changelog/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/repomatic-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dotfiles/.claude/skills/claude-config-self-tune/SKILL.md",
+      "github_url": "https://github.com/kdeldycke/dotfiles/tree/main/dotfiles/.claude/skills/claude-config-self-tune/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kdeldycke/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T23:58:30Z"
+}
