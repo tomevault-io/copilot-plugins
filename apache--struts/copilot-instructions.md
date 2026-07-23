@@ -1,39 +1,92 @@
 ## struts
 
-> You are helping a security researcher evaluate and report potential vulnerabilities in Apache Struts.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Vulnerability Research Agent
+# CLAUDE.md
 
-You are helping a security researcher evaluate and report potential vulnerabilities in Apache Struts.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-[`SECURITY.md`](SECURITY.md) is the source of truth for the Apache Struts vulnerability reporting process. **Read it first and follow it.** This file is a short
-LLM-facing wrapper around that policy; it does not replace it.
+For detailed procedures, use the specialized agents and commands in `.claude/agents/` and `.claude/commands/`.
 
-## Workflow
+## Project Overview
 
-Before drafting any report, opening an issue, posting publicly, or reaching a security conclusion:
+Apache Struts is a mature MVC web application framework for Java (originally WebWork 2). Current version: **7.2.0-SNAPSHOT**. Uses OGNL for value stack expressions and FreeMarker for UI tag templates.
 
-1. **Pre-reporting checks** — complete every step in [`SECURITY.md` § Before Reporting](SECURITY.md#before-reporting):
-   - read the Struts security policy,
-   - read the Struts security guidelines,
-   - check previously disclosed vulnerabilities and Security Bulletins.
-2. **Assess** the finding against the questions in [`SECURITY.md` § Assessment](SECURITY.md#assessment), and route it through the disposition guide in
-   [`THREAT_MODEL.md`](THREAT_MODEL.md) (scope, trust boundaries, in-model security properties, and the known-non-findings list). If the answers do not still
-   point to a likely new framework vulnerability, stop and explain — do not draft a new report.
-3. **Report privately** to `security@struts.apache.org` following [`SECURITY.md` § Private Report Requirements](SECURITY.md#private-report-requirements) and
-   [§ Report Quality Rules](SECURITY.md#report-quality-rules).
+### Build Commands
 
-Do not open a public GitHub issue, Jira issue, pull request, mailing list thread, or discussion for a suspected vulnerability before private triage.
+```bash
+# Run tests (skip assembly for speed)
+mvn test -DskipAssembly
 
-## Rules for AI Agents
+# Single test in specific module
+mvn test -DskipAssembly -pl core -Dtest=MyClassTest#testMethodName
 
-- **Never submit a pull request that fixes a suspected vulnerability.** Before opening any PR, verify the change is not a security patch — OGNL injection,
-  parameter filtering bypass, file upload exploit, authentication or authorization bypass, RCE, SSRF, path traversal, deserialization, XSS in framework
-  components, etc. If it is, stop and direct the researcher to report it privately to `security@struts.apache.org` instead. Vulnerability fixes go through
-  the private security process, not public PRs.
-- Do not speculate beyond what can be demonstrated. If severity is uncertain, say so explicitly.
-- If the issue turns out to be application misconfiguration, an already-disclosed CVE, or a non-Struts problem, stop and explain — do not draft a new report.
+# Jakarta EE 11 / Spring 7 profile
+mvn clean install -Pjakartaee11
+```
+
+### Project Structure
+
+```
+struts/
+├── core/           # struts2-core - main framework
+├── plugins/        # Plugin modules (json, rest, spring, tiles, velocity, etc.)
+├── apps/           # Sample applications (showcase, rest-showcase)
+├── assembly/       # Distribution packaging
+├── bom/            # Bill of Materials for dependency management
+├── parent/         # Parent POM with shared configuration
+└── jakarta/        # Jakarta EE compatibility modules
+```
+
+### Core Architecture
+
+**Request Lifecycle**: `Dispatcher` → `ActionProxy` → `ActionInvocation` → Interceptor stack → `Action` → Result
+
+Key packages in `org.apache.struts2`:
+
+- `dispatcher` - Request handling, `Dispatcher`, servlet integration
+- `interceptor` - Built-in interceptors (params, validation, fileUpload)
+- `components` - UI tag components (form, textfield, submit)
+- `action` - Action interfaces (`UploadedFilesAware`, `SessionAware`, etc.)
+- `security` - Security utilities and OGNL member access policies
+
+## Security-Critical Patterns
+
+Apache Struts has a history of security vulnerabilities (OGNL injection, temp file exploits). Apply these Struts-specific patterns:
+
+1. **Temporary files**: Use UUID-based names in controlled locations (see example below)
+2. **OGNL expressions**: Evaluate only framework-generated OGNL; use allowlist member access
+3. **File uploads**: Validate content types, sanitize filenames, enforce size limits
+4. **Parameter filtering**: Use `ParameterNameAware` to restrict accepted parameter names
+
+```java
+// Secure temporary file pattern
+protected File createTemporaryFile(String fileName, Path location) {
+    String uid = UUID.randomUUID().toString().replace("-", "_");
+    return location.resolve("upload_" + uid + ".tmp").toFile();
+}
+```
+
+## Security Reports & Scans
+
+For any security-related activity — vulnerability scans, security analysis, drafting security reports — **[`SECURITY.md`](SECURITY.md) is the source of truth**.
+Read it first and follow its pre-reporting checks, assessment checklist, and reporting requirements. Reports must be sent privately to
+`security@struts.apache.org`; do not open a public GitHub issue, Jira issue, pull request, or mailing list thread for a suspected vulnerability before private
+triage. [`AGENTS.md`](AGENTS.md) is a shorter LLM-facing wrapper around the same process.
+
+## Testing
+
+Tests use JUnit 5 with AssertJ assertions and Mockito for mocking. Run with `mvn test -DskipAssembly`.
+
+## Pull Requests
+
+- **Title format**: `WW-XXXX Description` (Jira ticket ID required)
+- **Link ticket in description**: `Fixes [WW-XXXX](https://issues.apache.org/jira/browse/WW-XXXX)`
+- **Issue tracker**: https://issues.apache.org/jira/projects/WW
+- **Never submit a PR that fixes a suspected vulnerability.** Before opening a PR, verify the change is not a security patch (OGNL injection, parameter
+  filtering bypass, file upload exploit, auth bypass, RCE, SSRF, path traversal, deserialization, XSS in framework components, etc.). If it is, stop and report
+  it privately to `security@struts.apache.org` — see [`SECURITY.md`](SECURITY.md).
 
 ---
 > Source: [apache/struts](https://github.com/apache/struts) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
