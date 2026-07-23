@@ -1,0 +1,9 @@
+{
+  "name": "rubyatscale--bigrails-redis",
+  "displayName": "bigrails-redis",
+  "description": "bigrails-redis",
+  "version": "1.0.0",
+  "author": "rubyatscale",
+  "homepage": "https://github.com/rubyatscale/bigrails-redis",
+  "skills": []
+}
