@@ -1,0 +1,75 @@
+{
+  "name": "devenv",
+  "owner": "cachix",
+  "repo": "devenv",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "devenv",
+      "path": ".agents/skills/create-service/SKILL.md",
+      "github_url": "https://github.com/cachix/devenv/tree/main/.agents/skills/create-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "path": ".agents/skills/create-language/SKILL.md",
+      "github_url": "https://github.com/cachix/devenv/tree/main/.agents/skills/create-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "path": "tests/opencode/fixtures/complex-skill/SKILL.md",
+      "github_url": "https://github.com/cachix/devenv/tree/main/tests/opencode/fixtures/complex-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "path": "tests/opencode/fixtures/skills-dir/alpha/SKILL.md",
+      "github_url": "https://github.com/cachix/devenv/tree/main/tests/opencode/fixtures/skills-dir/alpha/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "path": "docs/src/.well-known/agent-skills/devenv-setup/SKILL.md",
+      "github_url": "https://github.com/cachix/devenv/tree/main/docs/src/.well-known/agent-skills/devenv-setup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cachix/devenv",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:24:43Z"
+}
