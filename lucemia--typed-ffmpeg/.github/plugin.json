@@ -1,0 +1,14 @@
+{
+  "name": "lucemia--typed-ffmpeg",
+  "displayName": "typed-ffmpeg",
+  "description": "typed-ffmpeg",
+  "version": "1.0.0",
+  "author": "lucemia",
+  "homepage": "https://github.com/lucemia/typed-ffmpeg",
+  "skills": [
+    {
+      "name": "typed-ffmpeg",
+      "description": ""
+    }
+  ]
+}
