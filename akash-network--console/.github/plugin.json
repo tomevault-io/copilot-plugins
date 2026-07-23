@@ -1,0 +1,22 @@
+{
+  "name": "akash-network--console",
+  "displayName": "console",
+  "description": "console",
+  "version": "1.0.0",
+  "author": "akash-network",
+  "homepage": "https://github.com/akash-network/console",
+  "skills": [
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    },
+    {
+      "name": "console",
+      "description": ""
+    }
+  ]
+}
