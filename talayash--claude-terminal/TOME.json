@@ -1,0 +1,87 @@
+{
+  "name": "claude-terminal",
+  "owner": "talayash",
+  "repo": "claude-terminal",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-terminal",
+      "path": ".claude/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/talayash/claude-terminal/tree/main/.claude/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-terminal",
+      "path": ".claude/skills/rust-patterns/SKILL.md",
+      "github_url": "https://github.com/talayash/claude-terminal/tree/main/.claude/skills/rust-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-terminal",
+      "path": ".agents/skills/claude-terminal/SKILL.md",
+      "github_url": "https://github.com/talayash/claude-terminal/tree/main/.agents/skills/claude-terminal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-terminal",
+      "path": ".claude/skills/claude-terminal/SKILL.md",
+      "github_url": "https://github.com/talayash/claude-terminal/tree/main/.claude/skills/claude-terminal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-terminal",
+      "path": ".claude/skills/security-review/SKILL.md",
+      "github_url": "https://github.com/talayash/claude-terminal/tree/main/.claude/skills/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-terminal",
+      "path": ".claude/skills/verification-loop/SKILL.md",
+      "github_url": "https://github.com/talayash/claude-terminal/tree/main/.claude/skills/verification-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-terminal",
+      "path": ".claude/skills/frontend-patterns/SKILL.md",
+      "github_url": "https://github.com/talayash/claude-terminal/tree/main/.claude/skills/frontend-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/talayash/claude-terminal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T09:11:40Z"
+}
