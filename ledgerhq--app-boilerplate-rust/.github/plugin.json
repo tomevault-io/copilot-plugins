@@ -1,0 +1,9 @@
+{
+  "name": "ledgerhq--app-boilerplate-rust",
+  "displayName": "app-boilerplate-rust",
+  "description": "app-boilerplate-rust",
+  "version": "1.0.0",
+  "author": "LedgerHQ",
+  "homepage": "https://github.com/LedgerHQ/app-boilerplate-rust",
+  "skills": []
+}
