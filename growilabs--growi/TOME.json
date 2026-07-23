@@ -4,7 +4,7 @@
   "repo": "growi",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -251,5 +251,5 @@
   ],
   "source_url": "https://github.com/growilabs/growi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T08:32:27Z"
+  "distributed_at": "2026-07-23T04:39:59Z"
 }
