@@ -1,0 +1,30 @@
+{
+  "name": "cachix--devenv",
+  "displayName": "devenv",
+  "description": "devenv",
+  "version": "1.0.0",
+  "author": "cachix",
+  "homepage": "https://github.com/cachix/devenv",
+  "skills": [
+    {
+      "name": "devenv",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "description": ""
+    },
+    {
+      "name": "devenv",
+      "description": ""
+    }
+  ]
+}
