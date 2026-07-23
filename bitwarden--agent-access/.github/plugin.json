@@ -1,0 +1,14 @@
+{
+  "name": "bitwarden--agent-access",
+  "displayName": "agent-access",
+  "description": "agent-access",
+  "version": "1.0.0",
+  "author": "bitwarden",
+  "homepage": "https://github.com/bitwarden/agent-access",
+  "skills": [
+    {
+      "name": "agent-access",
+      "description": ""
+    }
+  ]
+}
