@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "Alchemist-X",
   "homepage": "https://github.com/Alchemist-X/predict-raven",
-  "skills": []
+  "skills": [
+    {
+      "name": "predict-raven",
+      "description": ""
+    },
+    {
+      "name": "predict-raven",
+      "description": ""
+    },
+    {
+      "name": "predict-raven",
+      "description": ""
+    }
+  ]
 }
