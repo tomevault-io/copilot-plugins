@@ -3,8 +3,8 @@
   "owner": "QwenLM",
   "repo": "qwen-code",
   "description": "An open-source AI agent that lives in your terminal.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,177 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/bugfix/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/bugfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/triage/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/feat-dev/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/feat-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/codegraph/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/codegraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/create-issue/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/create-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/qwen-code-claw/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/qwen-code-claw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/terminal-capture/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/terminal-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/memory-leak-debug/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/memory-leak-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/structured-debugging/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/structured-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/docs-update-from-diff/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/docs-update-from-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/agent-reproduce-align/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/agent-reproduce-align/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/openwork-desktop-sync/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/openwork-desktop-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/tmux-real-user-testing/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/tmux-real-user-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/docs-audit-and-refresh/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/docs-audit-and-refresh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": ".qwen/skills/agent-reproduce-feature/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/.qwen/skills/agent-reproduce-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/core/src/skills/bundled/loop/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/core/src/skills/bundled/loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/core/src/skills/bundled/batch/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/core/src/skills/bundled/batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/core/src/skills/bundled/stuck/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/core/src/skills/bundled/stuck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/core/src/skills/bundled/review/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/core/src/skills/bundled/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/core/src/skills/bundled/new-app/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/core/src/skills/bundled/new-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/core/src/skills/bundled/simplify/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/core/src/skills/bundled/simplify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/core/src/skills/bundled/qc-helper/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/core/src/skills/bundled/qc-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/desktop/.agents/skills/desktop-pet/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/desktop/.agents/skills/desktop-pet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/desktop/.agents/skills/desktop-develop/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/desktop/.agents/skills/desktop-develop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/desktop/.agents/skills/desktop-brand-builder/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/desktop/.agents/skills/desktop-brand-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/cli/src/commands/extensions/examples/skills/skills/synonyms/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/cli/src/commands/extensions/examples/skills/skills/synonyms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "qwen-code",
+      "path": "packages/cli/src/commands/extensions/examples/starter/skills/synonyms/SKILL.md",
+      "github_url": "https://github.com/QwenLM/qwen-code/tree/main/packages/cli/src/commands/extensions/examples/starter/skills/synonyms/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/QwenLM/qwen-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:19:23Z"
+  "distributed_at": "2026-07-23T05:03:47Z"
 }
