@@ -4,7 +4,7 @@
   "repo": "tree-sitter-analyzer",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -197,5 +197,5 @@
   ],
   "source_url": "https://github.com/aimasteracc/tree-sitter-analyzer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:47:47Z"
+  "distributed_at": "2026-07-23T06:02:13Z"
 }
