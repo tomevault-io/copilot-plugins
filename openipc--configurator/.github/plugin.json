@@ -1,0 +1,9 @@
+{
+  "name": "openipc--configurator",
+  "displayName": "configurator",
+  "description": "configurator",
+  "version": "1.0.0",
+  "author": "OpenIPC",
+  "homepage": "https://github.com/OpenIPC/configurator",
+  "skills": []
+}
