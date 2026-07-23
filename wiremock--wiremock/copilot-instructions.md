@@ -24,4 +24,4 @@ The following packages contain messaging/websocket functionality:
 
 ---
 > Source: [wiremock/wiremock](https://github.com/wiremock/wiremock) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
