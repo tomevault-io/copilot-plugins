@@ -1,0 +1,231 @@
+{
+  "name": "amethyst",
+  "owner": "vitorpamplona",
+  "repo": "amethyst",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "compose-expert",
+      "path": ".claude/skills/compose-expert",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-expert",
+      "description": ""
+    },
+    {
+      "name": "kotlin-coroutines",
+      "path": ".claude/skills/kotlin-coroutines",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-coroutines",
+      "description": ""
+    },
+    {
+      "name": "kotlin-expert",
+      "path": ".claude/skills/kotlin-expert",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-expert",
+      "description": ""
+    },
+    {
+      "name": "kotlin-multiplatform",
+      "path": ".claude/skills/kotlin-multiplatform",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-multiplatform",
+      "description": ""
+    },
+    {
+      "name": "nostr-expert",
+      "path": ".claude/skills/nostr-expert",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/nostr-expert",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/amy-expert/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/amy-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/nostr-expert/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/nostr-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/relay-client/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/relay-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/auth-signers/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/auth-signers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/kotlin-expert/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/gradle-expert/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/gradle-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/account-state/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/account-state/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/feed-patterns/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/feed-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/android-expert/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/android-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/desktop-expert/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/desktop-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-expert/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/kotlin-coroutines/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-coroutines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/quartz-integration/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/quartz-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/kotlin-multiplatform/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-multiplatform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/find-non-lambda-logs/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/find-non-lambda-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-side-effects/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-side-effects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-slot-api-pattern/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-slot-api-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/kotlin-types-value-class/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-types-value-class/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/find-missing-translations/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/find-missing-translations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-state-deferred-reads/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-state-deferred-reads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-stability-diagnostics/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-stability-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-state-holder-ui-split/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-state-holder-ui-split/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/kotlin-flow-state-event-modeling/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-flow-state-event-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-modifier-and-layout-style/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-modifier-and-layout-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/compose-recomposition-performance/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/compose-recomposition-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "amethyst",
+      "path": ".claude/skills/kotlin-coroutines-structured-concurrency/SKILL.md",
+      "github_url": "https://github.com/vitorpamplona/amethyst/tree/main/.claude/skills/kotlin-coroutines-structured-concurrency/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vitorpamplona/amethyst",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:37:18Z"
+}
