@@ -1,0 +1,57 @@
+{
+  "name": "learning-sdk",
+  "owner": "letta-ai",
+  "repo": "learning-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "learning-sdk",
+      "path": "examples/claude_email_agent/agent/.claude/skills/action-creator/SKILL.md",
+      "github_url": "https://github.com/letta-ai/learning-sdk/tree/main/examples/claude_email_agent/agent/.claude/skills/action-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "learning-sdk",
+      "path": "examples/claude_email_agent/agent/.claude/skills/listener-creator/SKILL.md",
+      "github_url": "https://github.com/letta-ai/learning-sdk/tree/main/examples/claude_email_agent/agent/.claude/skills/listener-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/letta-ai/learning-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:46:32Z"
+}
