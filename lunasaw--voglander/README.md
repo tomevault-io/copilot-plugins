@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lunasaw/voglander](https://github.com/lunasaw/voglander).
+Original source: `CLAUDE.md` in [lunasaw/voglander](https://github.com/lunasaw/voglander).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -24,7 +24,7 @@ Original source: `AGENTS.md` in [lunasaw/voglander](https://github.com/lunasaw/v
 - [voglander](https://github.com/lunasaw/voglander/tree/main/.agents/skills/diagnose-error-logs/SKILL.md)
 - [voglander](https://github.com/lunasaw/voglander/tree/main/.claude/skills/diagnose-error-logs/SKILL.md)
 
-From [lunasaw/voglander](https://github.com/lunasaw/voglander) — a repo with 343+ stars on GitHub.
+From [lunasaw/voglander](https://github.com/lunasaw/voglander) — a repo with 346+ stars on GitHub.
 
 ---
 
