@@ -1,0 +1,165 @@
+{
+  "name": "benefriches",
+  "owner": "incubateur-ademe",
+  "repo": "benefriches",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "path": ".claude/skills/code-reviewer",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "create-database-migration",
+      "path": ".claude/skills/create-database-migration",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/create-database-migration",
+      "description": ""
+    },
+    {
+      "name": "create-e2e-test",
+      "path": ".claude/skills/create-e2e-test",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/create-e2e-test",
+      "description": ""
+    },
+    {
+      "name": "implement-plan",
+      "path": ".claude/skills/implement-plan",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/implement-plan",
+      "description": ""
+    },
+    {
+      "name": "plan-feature",
+      "path": ".claude/skills/plan-feature",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/plan-feature",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": ".claude/skills/react-best-practices",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": ".claude/skills/security-review",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "worktree",
+      "path": ".claude/skills/worktree",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/worktree",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/adr/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/adr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/worktree/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/plan-feature/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/plan-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/run-e2e-tests/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/run-e2e-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/worktree-merge/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/worktree-merge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/implement-plan/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/implement-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/create-e2e-test/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/create-e2e-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/security-review/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/e2e-coverage-check/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/e2e-coverage-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "benefriches",
+      "path": ".claude/skills/create-database-migration/SKILL.md",
+      "github_url": "https://github.com/incubateur-ademe/benefriches/tree/main/.claude/skills/create-database-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/incubateur-ademe/benefriches",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:41:29Z"
+}
