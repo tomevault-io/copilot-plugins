@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "Git-on-my-level",
   "homepage": "https://github.com/Git-on-my-level/codex-autorunner",
-  "skills": []
+  "skills": [
+    {
+      "name": "codex-autorunner",
+      "description": ""
+    }
+  ]
 }
