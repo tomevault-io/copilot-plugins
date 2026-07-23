@@ -1,0 +1,42 @@
+{
+  "name": "selmakcby--claude-agents-skills",
+  "displayName": "claude-agents-skills",
+  "description": "claude-agents-skills",
+  "version": "1.0.0",
+  "author": "selmakcby",
+  "homepage": "https://github.com/selmakcby/claude-agents-skills",
+  "skills": [
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-skills",
+      "description": ""
+    }
+  ]
+}
