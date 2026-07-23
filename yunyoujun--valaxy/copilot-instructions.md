@@ -1,10 +1,10 @@
 ## valaxy
 
-> This file provides guidance to Codex (https://Codex.com/code) when working with code in this repository.
+> This file provides guidance to Claude Code (https://claude.com/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (https://Codex.com/code) when working with code in this repository.
+This file provides guidance to Claude Code (https://claude.com/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -276,7 +276,7 @@ The dev server supports hot reload for:
 - Styles
 
 ### Node Version
-Requires Node.js 18+ or 20+
+Requires Node.js >= 22.12 (Vite 8 + unplugin-vue-markdown@32; Node 18/20 dropped in v1.0)
 
 ## Testing Strategy
 
@@ -301,4 +301,4 @@ Releases are automated via `.github/workflows/release.yml`
 
 ---
 > Source: [YunYouJun/valaxy](https://github.com/YunYouJun/valaxy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
