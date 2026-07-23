@@ -1,0 +1,9 @@
+{
+  "name": "dnsimple--dns-erlang",
+  "displayName": "dns_erlang",
+  "description": "dns_erlang",
+  "version": "1.0.0",
+  "author": "dnsimple",
+  "homepage": "https://github.com/dnsimple/dns_erlang",
+  "skills": []
+}
