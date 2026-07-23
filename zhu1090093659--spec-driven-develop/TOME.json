@@ -4,7 +4,7 @@
   "repo": "spec_driven_develop",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/zhu1090093659/spec_driven_develop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:02:29Z"
+  "distributed_at": "2026-07-23T11:07:24Z"
 }
