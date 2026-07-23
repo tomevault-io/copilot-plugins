@@ -1,0 +1,93 @@
+{
+  "name": "spring-boot-istio",
+  "owner": "piomin",
+  "repo": "spring-boot-istio",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/clean-code/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/clean-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/jpa-patterns/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/jpa-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/java-migration/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/java-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/design-patterns/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/design-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/logging-patterns/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/logging-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/java-code-review/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/java-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/api-contract-review/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/api-contract-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-istio",
+      "path": ".claude/skills/spring-boot-patterns/SKILL.md",
+      "github_url": "https://github.com/piomin/spring-boot-istio/tree/main/.claude/skills/spring-boot-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/piomin/spring-boot-istio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:09:11Z"
+}
