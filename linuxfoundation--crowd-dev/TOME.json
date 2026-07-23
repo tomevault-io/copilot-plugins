@@ -1,0 +1,93 @@
+{
+  "name": "crowd.dev",
+  "owner": "linuxfoundation",
+  "repo": "crowd.dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/dco/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/dco/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/adr/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/adr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/preflight/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/preflight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/packages-worker-setup/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/packages-worker-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/scaffold-snowflake-connector/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/scaffold-snowflake-connector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crowd.dev",
+      "path": ".claude/skills/packages-worker-add-entrypoint/SKILL.md",
+      "github_url": "https://github.com/linuxfoundation/crowd.dev/tree/main/.claude/skills/packages-worker-add-entrypoint/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/linuxfoundation/crowd.dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:37:33Z"
+}
