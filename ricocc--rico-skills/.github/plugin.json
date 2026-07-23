@@ -1,0 +1,22 @@
+{
+  "name": "ricocc--rico-skills",
+  "displayName": "rico-skills",
+  "description": "rico-skills",
+  "version": "1.0.0",
+  "author": "ricocc",
+  "homepage": "https://github.com/ricocc/rico-skills",
+  "skills": [
+    {
+      "name": "rico-skills",
+      "description": ""
+    },
+    {
+      "name": "rico-skills",
+      "description": ""
+    },
+    {
+      "name": "rico-skills",
+      "description": ""
+    }
+  ]
+}
