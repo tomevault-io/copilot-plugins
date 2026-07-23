@@ -1,0 +1,63 @@
+{
+  "name": "Router4Delphi",
+  "owner": "academiadocodigo",
+  "repo": "Router4Delphi",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Router4Delphi",
+      "path": ".claude/skills/memory-safety/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/Router4Delphi/tree/main/.claude/skills/memory-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Router4Delphi",
+      "path": ".claude/skills/coding-patterns/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/Router4Delphi/tree/main/.claude/skills/coding-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Router4Delphi",
+      "path": ".claude/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/Router4Delphi/tree/main/.claude/skills/changelog-format/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/academiadocodigo/Router4Delphi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:07:19Z"
+}
