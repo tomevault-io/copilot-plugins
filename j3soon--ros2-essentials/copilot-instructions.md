@@ -1,48 +1,88 @@
 ## ros2-essentials
 
-> - `*_ws/` are independent ROS2 workspaces. Each contains `docker/compose.yaml`, `docker/Dockerfile`, `.devcontainer/`, and `src/` (ROS2 packages built with colcon inside the container).
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-- `*_ws/` are independent ROS2 workspaces. Each contains `docker/compose.yaml`, `docker/Dockerfile`, `.devcontainer/`, and `src/` (ROS2 packages built with colcon inside the container).
-- `docker_modules/` holds shared install scripts exposed to workspace builds through Docker Compose `additional_contexts`.
-- `docs/` is MkDocs content, including per-workspace docs under `docs/<workspace-name>/`.
-- `scripts/` contains setup helpers (e.g., `post_install.sh`, `create_workspace.sh`).
-- `tests/` contains lint-style checks for compose files, Dockerfiles, MkDocs, and workspace templates.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- `./scripts/post_install.sh`: refreshes local env files, shared cache volumes, and the optional Isaac Sim host link.
-- `./scripts/enable_module.sh <MODULE>`: enable a module in the current workspace `docker/compose.yaml` (prompts for workspace/module selection if needed).
-- `cd <workspace>/docker && docker compose build`: builds the workspace image.
-- `cd <workspace>/docker && docker compose up -d`: starts containers in the background.
-- `cd <workspace>/docker && docker compose exec <service> bash`: opens a shell in the container.
-- `./scripts/create_workspace.sh <new_workspace_name>`: scaffolds a new workspace from `template_ws`.
-- `./tests/test_all.sh`: runs linting scripts for structure and config validation.
+## Overview
 
-## Coding Style & Naming Conventions
-- Workspaces must follow the `*_ws` naming pattern.
-- Use `docker/compose.yaml` (not `compose.yml` or other variants).
-- Keep required default files in each workspace: `.devcontainer/devcontainer.json`, `docker/Dockerfile`, `docker/compose.yaml`, `src/`, and `README.md`.
-- Prefer USDA over USD for Omniverse/Isaac assets where possible.
+ROS2 Humble multi-workspace repository for Autonomous Mobile Robots (AMRs) and robotic arm manipulators. Supports Isaac Sim/Lab/ROS for simulation-to-reality deployment. Targets amd64 (simulation+real) and arm64 (real only).
 
-## Testing Guidelines
-- Primary checks are Python-based lint scripts executed via `./tests/test_all.sh`.
-- `lint_comp_template.py` treats `tests/diff_base/` as the canonical baseline; when `template_ws` intentionally changes, update `tests/diff_base/` and sync other workspaces as needed. Do not use `{PLACEHOLDER_MULTILINE}` in the baseline templates unless the user explicitly asks for it.
-- You can skip workspaces by setting `IGNORED_WORKSPACES` (e.g., `export IGNORED_WORKSPACES="tmp_ws"`).
+## Build & Run Commands
 
-## Commit & Pull Request Guidelines
-- Open and self-assign a GitHub issue before starting.
-- Branch naming: `feat/<name>` or `fix/<name>`.
-- Commit messages must follow Conventional Commits and include rationale and sources when relevant.
-- When `template_ws` changes require syncing other workspaces, make a separate minimal "unify" commit (preferred message: `feat: Unify workspaces style`).
-- If code/content is copied, include source and commit permalink in the commit message.
-- Add `Co-authored-by` lines for contributors who helped; avoid force-pushes once review starts.
+```sh
+# After clone, or when local env files/volumes need refresh:
+./scripts/post_install.sh
 
-## Configuration Tips
-- Set `export USER_UID=$(id -u)` on the host to match container user permissions.
-- Enable/disable modules via `build.args` in `docker/compose.yaml` (e.g., `CARTOGRAPHER=ON`).
+# Recreate shared cache volumes if needed:
+./scripts/post_install.sh --recreate-volumes --remove-containers
+
+# Build and run a workspace:
+cd <workspace_name>/docker
+docker compose build
+docker compose up -d
+docker compose exec <service_name> bash
+
+# Pull pre-built images (faster than building):
+cd <workspace_name>/docker
+docker compose pull
+
+# Create a new workspace:
+./scripts/create_workspace.sh <new_workspace_name>
+
+# Run linting tests:
+./tests/test_all.sh
+```
+
+## Architecture
+
+### Workspace Structure (`*_ws/`)
+Each workspace is independent and follows this pattern:
+- `docker/compose.yaml` - Primary build/run configuration with module args
+- `docker/Dockerfile` - Multi-arch image definition (copies scripts from the `docker_modules` build context)
+- `.devcontainer/` - VS Code Dev Container configuration
+- `src/` - ROS2 packages (colcon builds these inside container)
+
+### Docker Modules (`docker_modules/`)
+Shared install scripts (e.g., `install_ros.sh`, `install_isaac_sim.sh`) exposed to workspace builds through the `docker_modules` Docker Compose `additional_contexts` entry.
+
+Modules are enabled/disabled via `build.args` in `compose.yaml`:
+```yaml
+args:
+  CARTOGRAPHER: "YES"  # or "" to disable
+  RTABMAP: "YES"
+  ISAAC_SIM_VERSION: "5.1.0"  # or "" to skip
+  ISAAC_LAB_VERSION: "2.3.2"
+```
+
+### Key Files
+- `template_ws/` - Base workspace used as reference for creating new workspaces
+- `docs/` - MkDocs documentation source (each workspace has `docs/<workspace-name>/`)
+- `scripts/setup_docker_volume.sh` - Sets up shared Docker volumes
+
+## Key Conventions
+
+- Docker module changes are picked up through the named `docker_modules` build context; rebuild affected images after module changes.
+- Set `export USER_UID=$(id -u)` in host shell for container user permissions
+- Workspaces share Docker volumes: `ros2-gazebo-cache`, `ros2-isaac-sim-cache`, `ros2-isaac-ros-assets`
+- `template_ws` Docker cache is shared by other workspaces to save build time
+
+## Linting
+
+The `tests/` directory contains Python linting scripts:
+- `lint_compose.py` - Validates compose.yaml files
+- `lint_dockerfile.py` - Validates Dockerfiles
+- `lint_comp_template.py` - Checks workspace compliance with template
+- `lint_filenames.py` - Validates file naming conventions
+- `lint_gitignore.py` - Checks gitignore consistency
+- `lint_workflows.py` - Validates GitHub Actions workflows
+- `lint_mkdocs.py` - Validates documentation structure
+- `lint_readme.py` - Checks README files
+
+Set `IGNORED_WORKSPACES` env var to skip specific workspaces during linting.
 
 ---
 > Source: [j3soon/ros2-essentials](https://github.com/j3soon/ros2-essentials) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
