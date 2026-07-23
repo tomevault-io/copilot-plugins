@@ -4,7 +4,7 @@
   "repo": "merchant-center-application-kit",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -83,5 +83,5 @@
   ],
   "source_url": "https://github.com/commercetools/merchant-center-application-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:07:55Z"
+  "distributed_at": "2026-07-23T08:51:52Z"
 }
