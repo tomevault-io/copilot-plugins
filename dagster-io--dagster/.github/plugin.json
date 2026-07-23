@@ -1,0 +1,14 @@
+{
+  "name": "dagster-io--dagster",
+  "displayName": "dagster",
+  "description": "dagster",
+  "version": "1.0.0",
+  "author": "dagster-io",
+  "homepage": "https://github.com/dagster-io/dagster",
+  "skills": [
+    {
+      "name": "dagster",
+      "description": ""
+    }
+  ]
+}
