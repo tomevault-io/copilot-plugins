@@ -3,8 +3,8 @@
   "owner": "radiantlogicinc",
   "repo": "fastworkflow",
   "description": "A framework for building large-scale, deterministic, interactive workflows with a fault-tolerant, conversational UX",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "beads-workflow",
+      "path": ".cursor/skills/beads-workflow",
+      "github_url": "https://github.com/radiantlogicinc/fastworkflow/tree/main/.cursor/skills/beads-workflow",
+      "description": ""
+    },
+    {
+      "name": "fastworkflow",
+      "path": ".cursor/skills/beads-workflow/SKILL.md",
+      "github_url": "https://github.com/radiantlogicinc/fastworkflow/tree/main/.cursor/skills/beads-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fastworkflow",
+      "path": ".cursor/skills/landing-the-plane/SKILL.md",
+      "github_url": "https://github.com/radiantlogicinc/fastworkflow/tree/main/.cursor/skills/landing-the-plane/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/radiantlogicinc/fastworkflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T19:55:48Z"
+  "distributed_at": "2026-07-23T08:12:18Z"
 }
