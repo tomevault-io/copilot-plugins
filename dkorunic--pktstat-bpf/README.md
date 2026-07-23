@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dkorunic/pktstat-bpf](https://github.com/dkorunic/pktstat-bpf).
+Original source: `CLAUDE.md` in [dkorunic/pktstat-bpf](https://github.com/dkorunic/pktstat-bpf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dkorunic/pktstat-bpf](https://github.com/dkorunic/pktstat-bpf) — a repo with 149+ stars on GitHub.
+From [dkorunic/pktstat-bpf](https://github.com/dkorunic/pktstat-bpf) — a repo with 150+ stars on GitHub.
 
 ---
 
