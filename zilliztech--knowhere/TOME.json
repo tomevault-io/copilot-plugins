@@ -1,0 +1,99 @@
+{
+  "name": "knowhere",
+  "owner": "zilliztech",
+  "repo": "knowhere",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture",
+      "path": ".claude/skills/architecture",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/architecture",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": ".claude/skills/code-quality",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": ".claude/skills/git-workflow",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "knowhere",
+      "path": ".claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "knowhere",
+      "path": ".claude/skills/building/SKILL.md",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/building/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "knowhere",
+      "path": ".claude/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "knowhere",
+      "path": ".claude/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "knowhere",
+      "path": ".claude/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/zilliztech/knowhere/tree/main/.claude/skills/architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zilliztech/knowhere",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:45:30Z"
+}
