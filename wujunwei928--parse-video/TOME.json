@@ -4,7 +4,7 @@
   "repo": "parse-video",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/wujunwei928/parse-video",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:53:40Z"
+  "distributed_at": "2026-07-23T11:13:15Z"
 }
