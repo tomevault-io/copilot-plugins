@@ -1,0 +1,75 @@
+{
+  "name": "config",
+  "owner": "himkt",
+  "repo": "config",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "config",
+      "path": "claude/skills/github-cli/SKILL.md",
+      "github_url": "https://github.com/himkt/config/tree/main/claude/skills/github-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/skills/english-review/SKILL.md",
+      "github_url": "https://github.com/himkt/config/tree/main/claude/skills/english-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/skills/bilingual-explain/SKILL.md",
+      "github_url": "https://github.com/himkt/config/tree/main/claude/skills/bilingual-explain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/skills/pathfinder-explain/SKILL.md",
+      "github_url": "https://github.com/himkt/config/tree/main/claude/skills/pathfinder-explain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/skills/nixos-boot-troubleshoot/SKILL.md",
+      "github_url": "https://github.com/himkt/config/tree/main/claude/skills/nixos-boot-troubleshoot/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/himkt/config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:39:06Z"
+}
