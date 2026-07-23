@@ -1,0 +1,141 @@
+{
+  "name": "preguntas-entrevista-react",
+  "owner": "midudev",
+  "repo": "preguntas-entrevista-react",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/seo/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/performance/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/next-upgrade/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/next-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/best-practices/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/migrate-oxlint/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/migrate-oxlint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/core-web-vitals/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/core-web-vitals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/web-quality-audit/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/web-quality-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/nodejs-best-practices/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/nodejs-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/next-cache-components/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/next-cache-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/tailwind-css-patterns/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/tailwind-css-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/nodejs-backend-patterns/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/nodejs-backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "preguntas-entrevista-react",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/midudev/preguntas-entrevista-react/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/midudev/preguntas-entrevista-react",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:51:43Z"
+}
