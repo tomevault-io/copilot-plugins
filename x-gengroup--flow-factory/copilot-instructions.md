@@ -1,34 +1,13 @@
-## variable-naming
+## flow-factory
 
-> Variable and identifier naming in code and docs — contextual, meaningful abbreviations; no initialism-only or overly long names
+> - **Scratch files only** — All temporary/intermediate files (analysis reports, investigation notes, checklists, diagrams) MUST go under `.scratch/` (git-ignored). NEVER write to the project root or any tracked directory.
 
+@AGENTS.md
 
-# Variable and identifier naming
+# Hard Rules (always enforced, including sub-agents)
 
-Applies when writing or editing **Python** under `src/flow_factory/` (modules, functions, parameters, locals, comprehensions, type aliases) and when authoring **Markdown** that contains code or pseudocode (guidance, `.agents/`, README, research notes). Docstrings and comments should use the same naming discipline as implementation code.
-
-## Requirements
-
-- **Contextual names**: Reflect role, domain, and scope (what the value is, not only its type). Prefer a short, widely understood abbreviation over spelling out every word when surrounding code or prose already establishes context.
-- **Abbreviations**: Use conventional ML/diffusion shorthand only when it stays unambiguous in context (e.g. `num_inference_steps`, `guidance_scale`). If an abbreviation could be read multiple ways, spell it out or add a word (e.g. `video_latents` not a bare `vl`).
-- **Avoid initialism-only minimal names**: Do not use bare unrelated initials or single-letter names except idiomatic loop indices or math symbols that the surrounding docstring or comment defines. Prefer `negative_prompt` over `np` when `np` would collide with NumPy; prefer `connector_mask` over `cm` when clarity matters.
-- **Avoid excessive length**: Do not chain redundant qualifiers into a sentence-like identifier. Prefer `max_seq_len` or `max_sequence_length` (pick one convention in a module) over `maximum_sequence_length_for_the_text_encoder_in_this_pipeline`.
-
-## Examples
-
-```text
-# Too minimal / unclear without definition
-cfg, u, v, tmp, obj, fp, ap
-
-# Too long / noisy
-the_packed_video_latent_tensor_after_vae_encode
-
-# Prefer
-guidance_scale, uncond_embeds, video_latents, packed_latents, connector_attention_mask
-```
-
-For public APIs and cross-module types, align names with existing `flow_factory` patterns so readers can grep and navigate consistently.
+- **Scratch files only** — All temporary/intermediate files (analysis reports, investigation notes, checklists, diagrams) MUST go under `.scratch/` (git-ignored). NEVER write to the project root or any tracked directory.
 
 ---
 > Source: [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
