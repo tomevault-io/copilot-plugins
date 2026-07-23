@@ -1,0 +1,66 @@
+{
+  "name": "ab604--claude-code-r-skills",
+  "displayName": "claude-code-r-skills",
+  "description": "claude-code-r-skills",
+  "version": "1.0.0",
+  "author": "ab604",
+  "homepage": "https://github.com/ab604/claude-code-r-skills",
+  "skills": [
+    {
+      "name": "r-oop",
+      "description": ""
+    },
+    {
+      "name": "r-package-development",
+      "description": ""
+    },
+    {
+      "name": "r-performance",
+      "description": ""
+    },
+    {
+      "name": "r-style-guide",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "tidyverse-patterns",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "description": ""
+    }
+  ]
+}
