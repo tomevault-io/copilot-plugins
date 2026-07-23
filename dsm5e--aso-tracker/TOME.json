@@ -1,0 +1,171 @@
+{
+  "name": "aso-tracker",
+  "owner": "dsm5e",
+  "repo": "aso-tracker",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-soul/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-soul/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-apps/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-apps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-audio/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-style/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-cinema/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-cinema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-prompt/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-camera/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-camera/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-motion/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-assist/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-assist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-recall/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-models/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-recipes/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-recipes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-seedance/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-seedance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-pipeline/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-moodboard/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-moodboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-workspaces/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-workspaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-image-shots/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-image-shots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-vibe-motion/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-vibe-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-mixed-media/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-mixed-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aso-tracker",
+      "path": "aso-video/docs/higgsfield-prompts/skills/higgsfield-troubleshoot/SKILL.md",
+      "github_url": "https://github.com/dsm5e/aso-tracker/tree/main/aso-video/docs/higgsfield-prompts/skills/higgsfield-troubleshoot/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dsm5e/aso-tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T19:43:17Z"
+}
