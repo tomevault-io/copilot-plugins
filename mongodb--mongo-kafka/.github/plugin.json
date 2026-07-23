@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongo-kafka",
+  "displayName": "mongo-kafka",
+  "description": "mongo-kafka",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-kafka",
+  "skills": []
+}
