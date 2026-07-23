@@ -1,0 +1,14 @@
+{
+  "name": "psprosen-dev--openclaw-on-android",
+  "displayName": "OpenClaw-On-Android",
+  "description": "OpenClaw-On-Android",
+  "version": "1.0.0",
+  "author": "PsProsen-Dev",
+  "homepage": "https://github.com/PsProsen-Dev/OpenClaw-On-Android",
+  "skills": [
+    {
+      "name": "OpenClaw-On-Android",
+      "description": ""
+    }
+  ]
+}
