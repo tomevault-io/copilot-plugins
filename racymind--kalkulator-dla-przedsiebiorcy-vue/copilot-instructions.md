@@ -1,73 +1,87 @@
 ## kalkulator-dla-przedsiebiorcy-vue
 
-> ﻿# Financial Calculator - Development Guidelines
+> Build and maintain `kalkulator-finansowy` with high confidence in business logic, stable architecture, and fast, test-backed delivery.
 
-﻿# Financial Calculator - Development Guidelines
+# AGENTS.md - Codex Agent Guide
 
-Auto-generated from feature plans. Last updated: 2026-01-24
+## Mission
 
-## Technologies
+Build and maintain `kalkulator-finansowy` with high confidence in business logic, stable architecture, and fast, test-backed delivery.
 
-- **Framework**: Vue 3.4+ with Quasar 2.18+
-- **Language**: TypeScript 4.5+
-- **State**: Pinia 2.x
-- **Testing**: Vitest 2.x
-- **Platform**: PWA + Cordova
+## Coding Conventions
 
-## Project Structure
+Follow existing conventions from sibling files in the same module/path before editing.
 
-```text
-src/
-├── components/[moduleName]/    # Calculator modules
-│   ├── components/             # Vue components
-│   ├── interfaces/             # TS interfaces
-│   ├── logic/                  # Logic (extends BasicCalculator)
-│   ├── pages/                  # Pages
-│   ├── types/                  # TS types
-│   └── store.ts                # Pinia store
-├── logic/                      # Shared logic
-│   ├── BasicCalculator.ts      # Base class
-│   ├── constants.ts            # Constants (taxes, ZUS)
-│   └── validationRules.ts      # Validation rules
-└── pages/                      # Main pages
+General:
 
-test/vitest/__tests__/
-├── modules/[moduleName]/       # Module tests
-└── logic/                      # Shared logic tests
-```
+- UI text must be in Polish.
+- Use Polish diacritics in user-facing UI text.
+- Store text files as UTF-8 and keep Polish characters as literal glyphs (do not replace them with `\uXXXX` escapes).
+- Use descriptive names:
+  - prefer `isRegisteredForDiscounts`
+  - avoid unclear names like `discount()`
+- Keep identifier style consistent:
+  - use `camelCase` for both variables and constants
+  - do not use `UPPER_SNAKE_CASE` for JS/TS constants
+- Keep comments minimal and only for non-obvious logic.
+- Keep module types consolidated (single type file pattern per module).
 
-## Commands
+TypeScript and imports:
 
-```bash
-# Run dev server
-npm start
+- Prefer Vite aliases (`src/`, `components/`, `stores/`, `logic/`, `composables/`) over deep relative imports.
+- Use enums for state/status values instead of free-form status strings.
 
-# Test specific module
-npx vitest run test/vitest/__tests__/modules/[moduleName]/[testName].test.ts
+Lint/format expectations (enforced):
 
-# All tests
-npm run test:unit:ci
+- No semicolons
+- Single quotes
+- Trailing commas on multiline structures
+- PascalCase component names in templates
 
-# Build
-npm run build
-```
+## Testing Policy
 
-## Code Style
+A change is not complete until tests proving behavior are added or updated and executed successfully.
 
-- **Logic**: Extend `BasicCalculator`
-- **Validation**: Use `validationRules`
-- **UI**: Quasar components
-- **UI Language**: Polish
-- **Rounding**: 2 decimal places (grosze)
-- **Tests**: Include all output values
+Use tests instead of ad hoc verification scripts when tests can prove functionality.
 
-## Module Pattern
+Commands:
 
-Reference: `src/components/contractWork/`
+- All tests: `npm run test:unit:ci`
+- Specific test: `npx vitest run <path-to-test>`
+- Lint: `npm run lint`
 
-<!-- MANUAL ADDITIONS START -->
-<!-- MANUAL ADDITIONS END -->
+Test location:
+
+- `test/vitest/__tests__/...`
+
+Recommended module-test pattern:
+
+- Set a static law-rules year in `beforeEach` (do not depend on current system year)
+- Assert all result fields, not a subset
+- Include invalid input scenarios that should throw when data is missing
+
+## Frontend Visibility Checklist
+
+If a frontend change is reported as missing:
+
+1. Confirm the relevant branch and files are updated.
+2. Ask the user to run `npm start` for dev view.
+3. If checking production bundle behavior, ask the user to run `npm run build`.
+
+## Landing Page Local Server
+
+For manual checks of the PHP landing page:
+
+1. Run from `landing-page/`: `php -S 127.0.0.1:8000 router.php`
+2. Open: `http://127.0.0.1:8000/`
+3. Stop server with `Ctrl+C` (foreground) or `Stop-Process -Id <PID>` (PowerShell background process)
+
+## Communication Style
+
+- Keep responses concise.
+- Focus explanations on business logic, architecture decisions, and tradeoffs.
+- Skip obvious details and avoid filler.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/RacyMind) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [RacyMind/kalkulator-dla-przedsiebiorcy-vue](https://github.com/RacyMind/kalkulator-dla-przedsiebiorcy-vue) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
