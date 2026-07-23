@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--maintenance-packages",
+  "displayName": "maintenance-packages",
+  "description": "maintenance-packages",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/maintenance-packages",
+  "skills": []
+}
