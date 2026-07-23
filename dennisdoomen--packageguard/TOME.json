@@ -4,7 +4,7 @@
   "repo": "packageguard",
   "description": "Dependency scanner to ensure only certain NuGet and NPM packages are used",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/dennisdoomen/packageguard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:54:25Z"
+  "distributed_at": "2026-07-23T10:44:20Z"
 }
