@@ -1,0 +1,207 @@
+{
+  "name": "dotfiles",
+  "owner": "ryoppippi",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "commit",
+      "path": "agents/skills/commit",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "council",
+      "path": "agents/skills/council",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/council",
+      "description": ""
+    },
+    {
+      "name": "create-commits-and-push",
+      "path": "agents/skills/create-commits-and-push",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/create-commits-and-push",
+      "description": ""
+    },
+    {
+      "name": "fix-ci",
+      "path": "agents/skills/fix-ci",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/fix-ci",
+      "description": ""
+    },
+    {
+      "name": "pr-apply-review",
+      "path": "agents/skills/pr-apply-review",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/pr-apply-review",
+      "description": ""
+    },
+    {
+      "name": "react-server-components",
+      "path": "agents/skills/react-server-components",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/react-server-components",
+      "description": ""
+    },
+    {
+      "name": "you-might-not-need-an-effect",
+      "path": "agents/skills/you-might-not-need-an-effect",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/you-might-not-need-an-effect",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/fix-ci/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/council/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/council/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/ask-codex/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/ask-codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/merge-main/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/merge-main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/codex-review/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/codex-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/missing-tools/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/missing-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/vitest-testing/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/vitest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".claude/skills/nix-gc-direnv/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/.claude/skills/nix-gc-direnv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/pr-apply-review/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/pr-apply-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/typescript-style/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/typescript-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/skill-maintenance/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/skill-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/nix-github-rate-limit/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/nix-github-rate-limit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/react-server-components/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/react-server-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/create-commits-and-push/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/create-commits-and-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/session-summary-japanese/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/session-summary-japanese/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "agents/skills/you-might-not-need-an-effect/SKILL.md",
+      "github_url": "https://github.com/ryoppippi/dotfiles/tree/main/agents/skills/you-might-not-need-an-effect/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ryoppippi/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:40:15Z"
+}
