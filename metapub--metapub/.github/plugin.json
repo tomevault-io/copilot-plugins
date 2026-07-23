@@ -1,0 +1,14 @@
+{
+  "name": "metapub--metapub",
+  "displayName": "metapub",
+  "description": "metapub",
+  "version": "1.0.0",
+  "author": "metapub",
+  "homepage": "https://github.com/metapub/metapub",
+  "skills": [
+    {
+      "name": "metapub",
+      "description": ""
+    }
+  ]
+}
