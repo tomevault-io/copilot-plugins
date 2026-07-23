@@ -1,0 +1,75 @@
+{
+  "name": "serverless-samples",
+  "owner": "aws-samples",
+  "repo": "serverless-samples",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "serverless-samples",
+      "path": "claude-hub/examples/org/skills/code-standards/SKILL.md",
+      "github_url": "https://github.com/aws-samples/serverless-samples/tree/main/claude-hub/examples/org/skills/code-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serverless-samples",
+      "path": "claude-hub/examples/org/skills/fragment-update/SKILL.md",
+      "github_url": "https://github.com/aws-samples/serverless-samples/tree/main/claude-hub/examples/org/skills/fragment-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serverless-samples",
+      "path": "claude-hub/examples/org/skills/security-review/SKILL.md",
+      "github_url": "https://github.com/aws-samples/serverless-samples/tree/main/claude-hub/examples/org/skills/security-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serverless-samples",
+      "path": "claude-hub/examples/teams/api/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/aws-samples/serverless-samples/tree/main/claude-hub/examples/teams/api/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "serverless-samples",
+      "path": "claude-hub/examples/fragments/python-lambda/.claude/skills/sam-deploy/SKILL.md",
+      "github_url": "https://github.com/aws-samples/serverless-samples/tree/main/claude-hub/examples/fragments/python-lambda/.claude/skills/sam-deploy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/serverless-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:42:34Z"
+}
