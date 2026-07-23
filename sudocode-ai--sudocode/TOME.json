@@ -1,0 +1,57 @@
+{
+  "name": "sudocode",
+  "owner": "sudocode-ai",
+  "repo": "sudocode",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sudocode",
+      "path": "skills/sudocode",
+      "github_url": "https://github.com/sudocode-ai/sudocode/tree/main/skills/sudocode",
+      "description": ""
+    },
+    {
+      "name": "sudocode",
+      "path": "skills/sudocode/SKILL.md",
+      "github_url": "https://github.com/sudocode-ai/sudocode/tree/main/skills/sudocode/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sudocode-ai/sudocode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:35:52Z"
+}
