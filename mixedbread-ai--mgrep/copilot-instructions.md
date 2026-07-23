@@ -1,276 +1,127 @@
 ## mgrep
 
-> > This file provides context and guidelines for AI coding agents working on the mgrep codebase. It follows the [AGENT.md specification](https://github.com/agentmd/agent.md) and incorporates best practices from Anthropic, OpenAI, and Google.
+> > Project context for Claude Code and AI coding agents. For comprehensive agent guidelines, see @AGENTS.md.
 
-# AGENTS.md
+# CLAUDE.md
 
-> This file provides context and guidelines for AI coding agents working on the mgrep codebase. It follows the [AGENT.md specification](https://github.com/agentmd/agent.md) and incorporates best practices from Anthropic, OpenAI, and Google.
+> Project context for Claude Code and AI coding agents. For comprehensive agent guidelines, see @AGENTS.md.
 
-## Project Overview
-
-**mgrep** is a semantic search CLI tool that brings natural language understanding to code search. It's built with TypeScript and designed to work seamlessly with AI coding agents.
-
-### Core Purpose
-
-- Replace pattern-based grep with semantic, natural-language search
-- Index and search code, PDFs, images, and text files
-- Integrate with coding agents (Claude Code, Codex, OpenCode, Factory Droid)
-- Provide web search capabilities alongside local file search
-
-### Tech Stack
-
-- **Runtime**: Node.js (ESM modules)
-- **Language**: TypeScript 5.x with strict mode
-- **Package Manager**: pnpm
-- **Linting/Formatting**: Biome
-- **Testing**: bats (Bash Automated Testing System)
-- **API**: Mixedbread SDK for semantic search
-
-## Project Structure
-
-```
-mgrep/
-├── src/
-│   ├── index.ts              # CLI entry point, command registration
-│   ├── commands/             # CLI command implementations
-│   │   ├── login.ts          # Authentication flow
-│   │   ├── logout.ts         # Session cleanup
-│   │   ├── search.ts         # Core search functionality
-│   │   ├── switch-org.ts     # Organization switching
-│   │   ├── watch.ts          # File watching and indexing
-│   │   └── watch_mcp.ts      # MCP (Model Context Protocol) watch
-│   ├── install/              # Agent integration installers
-│   │   ├── claude-code.ts    # Claude Code integration
-│   │   ├── codex.ts          # Codex integration
-│   │   ├── droid.ts          # Factory Droid integration
-│   │   └── opencode.ts       # OpenCode integration
-│   └── lib/                  # Shared utilities and core logic
-│       ├── auth.ts           # Authentication utilities
-│       ├── config.ts         # Configuration management
-│       ├── context.ts        # Execution context
-│       ├── file.ts           # File operations
-│       ├── git.ts            # Git integration
-│       ├── logger.ts         # Logging utilities
-│       ├── organizations.ts  # Organization management
-│       ├── store.ts          # Mixedbread store operations
-│       ├── sync-helpers.ts   # Synchronization utilities
-│       ├── token.ts          # Token management
-│       ├── utils.ts          # General utilities
-│       └── warning.ts        # Warning display utilities
-├── test/
-│   ├── test.bats             # Integration tests
-│   └── assets/               # Test fixtures
-├── plugins/                  # Plugin definitions
-├── guides/                   # Documentation guides
-└── .claude-plugin/           # Claude Code plugin config
-```
-
-## Build & Development Commands
+## Quick Reference
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Build the project
-pnpm build
-
-# Development build + run
-pnpm dev
-
-# Run tests
-pnpm test
-
-# Format and lint code
-pnpm format          # Auto-fix issues
-pnpm format:check    # Check only (CI)
-pnpm lint            # Lint check
-
-# Type checking
-pnpm typecheck
+# Essential commands
+pnpm install          # Install dependencies
+pnpm build            # Build project
+pnpm typecheck        # Type check (run before committing)
+pnpm test             # Run tests
+pnpm format           # Format code with Biome
+pnpm lint             # Check for lint errors
 ```
 
-## Code Style & Conventions
+## Project Context
 
-### TypeScript Standards
+**mgrep** is a semantic search CLI that replaces pattern-based grep with natural language understanding. Key areas:
 
-- **Strict mode enabled** - All code must pass `tsc --strict`
-- **Explicit return types** - All exported functions must declare return types
-- **Prefer interfaces** - Use interfaces over types for public APIs
-- **No `any`** - Use `unknown` or generics instead
+| Directory | Purpose |
+|-----------|---------|
+| `src/commands/` | CLI command implementations |
+| `src/install/` | Agent integration installers |
+| `src/lib/` | Core utilities (auth, git, store, file ops) |
+| `test/` | bats integration tests |
 
-### Naming Conventions
+## Critical Patterns
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Classes | PascalCase | `FileProcessor` |
-| Functions/Variables | camelCase | `processFile` |
-| Constants | UPPER_SNAKE_CASE | `MAX_FILE_SIZE` |
-| Files | kebab-case | `sync-helpers.ts` |
+- **ESM imports**: Always use `.js` extension even for `.ts` files
+- **Commander pattern**: All CLI commands use `commander` package
+- **Mixedbread SDK**: Core search functionality via `@mixedbread/sdk`
 
-### Import Organization
+## Best Practices & Clean Code Guidelines
 
-```typescript
-// 1. Node.js built-ins
-import * as fs from "node:fs";
-import * as path from "node:path";
+Maintaining a clean, consistent, and reliable codebase is essential for scalability and collaboration. The following principles should guide all TypeScript contributions.
 
-// 2. Third-party packages
-import { program } from "commander";
-import chalk from "chalk";
+### 1. General Principles
 
-// 3. Internal modules (absolute paths)
-import { auth } from "./lib/auth.js";
+- Readability over cleverness — Code should be self-explanatory and easy to follow. Future maintainers should understand why something is done, not just what it does.
+- Small, focused modules — Keep files and functions short. Each function should do one thing and do it well.
+- Avoid repetition (DRY) — Reuse existing utilities or patterns instead of duplicating logic.
+- Use meaningful names — Variable, function, and class names should clearly describe their intent and domain.
 
-// 4. Local files (relative paths)
-import { search } from "./commands/search.js";
+### 2. TypeScript-Specific Practices
+
+- Prefer explicit types — Always declare return types for exported functions and classes.
+
+```ts
+function getUser(id: string): Promise<User> {
+  // ...
+}
 ```
 
-### Documentation
+- Use interfaces over types for contracts — Especially for public APIs or reusable data structures.
+- Enable strict mode — Keep "strict": true in your tsconfig.json to enforce type safety.
+- Leverage enums and discriminated unions — Use them for well-defined state management or event typing.
+- Avoid any — Replace with generics or unknown where possible to maintain type safety.
 
-- **JSDoc for all exports** - Include parameter descriptions and return types
-- **Minimal inline comments** - Code should be self-explanatory
-- **Comment "why" not "what"** - Only explain non-obvious decisions
+### 3. Code Style & Structure
 
-## Testing Guidelines
+- Follow consistent naming conventions:
+  - Classes: PascalCase
+  - Variables/functions: camelCase
+  - Constants: UPPER_SNAKE_CASE
+- Organize imports logically:
+  - Built-ins → third-party → internal modules → local files
+- Use Biome for formatting and linting. Do not commit code with unresolved lint errors.
+- Avoid deeply nested logic — Extract nested logic into helper functions or early returns.
+- Document all exported functions with JSDoc — Include parameter descriptions, return types, and behavior notes. Code should be self-documenting through clear naming, but JSDoc provides essential context for public APIs.
+- Avoid inline comments unless totally necessary — Prefer self-explanatory code and JSDoc documentation. Inline comments should only explain "why" when the reason is non-obvious, not "what" the code does.
+- Separate concerns into focused modules — Group related functionality into dedicated files (e.g., `lib/git.ts` for git operations, `lib/auth.ts` for authentication). Keep modules small and focused on a single responsibility.
 
-### Running Tests
+### 4. Testing & Validation
 
-```bash
-# Run all tests (excludes long-running tests)
-pnpm test
+- Write unit tests for all core logic and utilities.
+- Test-driven mindset — If you fix a bug, add a test that prevents regression.
+- Use descriptive test names — Clearly describe expected behavior (e.g., `it('returns 404 if user not found')`).
+- Avoid mocking everything — Prefer integration tests where practical.
 
-# Run specific test
-bats test/test.bats --filter "test name pattern"
+### 5. Error Handling & Logging
 
-# Run including long-running tests
-bats test/test.bats
-```
+- Fail gracefully — Always handle potential errors with meaningful messages.
+- Use custom error classes for domain-specific failures.
+- Avoid console logs in production; use structured logging or monitoring utilities.
 
-### Writing Tests
+### 6. Module Organization & Architecture
 
-- Tests use **bats** (Bash Automated Testing System)
-- Test files go in `test/` directory
-- Use descriptive test names: `@test "search returns results for valid query"`
-- Tag long-running tests with `# bats test_tags=long-running`
+- Keep utility files focused — Avoid creating monolithic utility files. Split large utility modules by domain (e.g., file operations, git operations, API operations).
+- Group related functionality — Place related functions in the same module. Use the `lib/` directory for reusable, domain-specific utilities.
+- Export only what's needed — Make functions private (not exported) when they're only used within the same module. Export only the public API.
 
-### Test Requirements
+### 7. Git & Code Review
 
-When making changes:
-1. **Bug fixes** - Add a regression test
-2. **New features** - Add integration tests covering happy path and edge cases
-3. **Refactors** - Ensure existing tests pass
+- Commit small and often — Each commit should have a single purpose.
+- Use descriptive commit messages following the `type(scope): description` convention (e.g., `feat(auth): add token refresh logic`).
+- Be open to feedback — Reviews are opportunities for shared learning and improving code quality.
 
-## Git Workflow
+### 8. Agent Change Documentation
 
-### Commit Messages
+When making changes as an AI agent:
 
-Follow conventional commits: `type(scope): description`
+- **Document your changes** — Update relevant documentation if behavior changes
+- **Add tests for new code** — All new functionality needs test coverage
+- **Run verification** — Always run `pnpm typecheck && pnpm test` before completing
+- **Refactor when beneficial** — If you notice code that could be cleaner, propose improvements
 
-| Type | Usage |
-|------|-------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `refactor` | Code restructuring (no behavior change) |
-| `docs` | Documentation only |
-| `test` | Adding/updating tests |
-| `chore` | Maintenance tasks |
+## Slash Commands
 
-Examples:
-```
-feat(search): add web search support
-fix(auth): handle expired token refresh
-refactor(store): extract sync logic to helper
-```
+Custom commands available in `.claude/commands/`:
 
-### Branch Strategy
-
-- `main` - Production-ready code
-- Feature branches: `feat/description` or `fix/description`
-- PRs require passing CI checks
-
-## Security Considerations
-
-### Never Commit
-
-- API keys or tokens
-- `.env` files with secrets
-- User credentials
-- Private keys
-
-### Safe Patterns
-
-- Use environment variables for secrets: `MXBAI_API_KEY`
-- Configuration files should have `.example` versions
-- Validate all user input before processing
-
-## Agent-Specific Guidelines
-
-### Before Making Changes
-
-1. **Read relevant files first** - Understand existing patterns before modifying
-2. **Check for existing utilities** - Look in `src/lib/` before creating new helpers
-3. **Run typecheck** - `pnpm typecheck` before committing
-
-### When Adding Features
-
-1. Follow the command pattern in `src/commands/`
-2. Register new commands in `src/index.ts`
-3. Add corresponding tests in `test/test.bats`
-4. Update documentation if user-facing
-
-### When Fixing Bugs
-
-1. Write a failing test first (when practical)
-2. Make the minimal change to fix the issue
-3. Verify the test passes
-4. Check for similar issues elsewhere
-
-### When Refactoring
-
-1. Ensure comprehensive test coverage exists
-2. Make small, incremental changes
-3. Run `pnpm typecheck` and `pnpm test` after each change
-4. Don't mix refactoring with feature changes
-
-## Common Pitfalls
-
-- **ESM imports** - Always use `.js` extension in imports (even for `.ts` files)
-- **Async/await** - Handle promise rejections properly
-- **File paths** - Use `node:path` for cross-platform compatibility
-- **Git operations** - Use utilities in `src/lib/git.ts`
-
-## Environment Setup
-
-### Required
-
-- Node.js 18+
-- pnpm 8+
-
-### Optional
-
-- `MXBAI_API_KEY` - For headless/CI authentication
-- `NODE_ENV=development` - Connect to local Mixedbread API
-
-## Verification Checklist
-
-Before submitting changes, verify:
-
-- [ ] `pnpm typecheck` passes
-- [ ] `pnpm lint` passes
-- [ ] `pnpm test` passes
-- [ ] New code follows existing patterns
-- [ ] No secrets or credentials in code
-- [ ] Documentation updated if needed
-
-## Reference Files
-
-For deeper context on specific areas:
-
-- @claude.md - Clean code guidelines and TypeScript best practices
-- @README.md - User-facing documentation and usage examples
-- @src/lib/store.ts - Core search and sync logic
-- @src/commands/search.ts - Search command implementation
+| Command | Purpose |
+|---------|---------|
+| `/verify` | Run full verification suite (typecheck, lint, test) |
+| `/add-command` | Create a new CLI command |
+| `/add-test` | Add a new test case |
+| `/fix-bug` | Systematic bug fixing workflow |
+| `/refactor` | Safe refactoring process |
+| `/add-integration` | Add new agent integration |
 
 ---
 > Source: [mixedbread-ai/mgrep](https://github.com/mixedbread-ai/mgrep) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
