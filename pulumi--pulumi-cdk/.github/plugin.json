@@ -1,0 +1,9 @@
+{
+  "name": "pulumi--pulumi-cdk",
+  "displayName": "pulumi-cdk",
+  "description": "pulumi-cdk",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-cdk",
+  "skills": []
+}
