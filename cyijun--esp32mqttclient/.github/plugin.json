@@ -1,0 +1,9 @@
+{
+  "name": "cyijun--esp32mqttclient",
+  "displayName": "ESP32MQTTClient",
+  "description": "ESP32MQTTClient",
+  "version": "1.0.0",
+  "author": "cyijun",
+  "homepage": "https://github.com/cyijun/ESP32MQTTClient",
+  "skills": []
+}
