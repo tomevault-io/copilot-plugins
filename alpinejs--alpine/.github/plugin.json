@@ -1,0 +1,22 @@
+{
+  "name": "alpinejs--alpine",
+  "displayName": "alpine",
+  "description": "alpine",
+  "version": "1.0.0",
+  "author": "alpinejs",
+  "homepage": "https://github.com/alpinejs/alpine",
+  "skills": [
+    {
+      "name": "summarize-activity",
+      "description": ""
+    },
+    {
+      "name": "alpine",
+      "description": ""
+    },
+    {
+      "name": "alpine",
+      "description": ""
+    }
+  ]
+}
