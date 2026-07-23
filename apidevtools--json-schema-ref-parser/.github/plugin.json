@@ -1,0 +1,9 @@
+{
+  "name": "apidevtools--json-schema-ref-parser",
+  "displayName": "json-schema-ref-parser",
+  "description": "json-schema-ref-parser",
+  "version": "1.0.0",
+  "author": "APIDevTools",
+  "homepage": "https://github.com/APIDevTools/json-schema-ref-parser",
+  "skills": []
+}
