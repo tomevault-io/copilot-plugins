@@ -1,0 +1,123 @@
+{
+  "name": "Umbraco-CMS",
+  "owner": "umbraco",
+  "repo": "Umbraco-CMS",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Umbraco-CMS",
+      "path": ".claude/skills/umb-review/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/.claude/skills/umb-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": ".claude/skills/umb-bump-version/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/.claude/skills/umb-bump-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/core-add-module/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/core-add-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-create-kind/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-create-kind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-deprecate-api/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-deprecate-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-create-package/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-create-package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-add-value-type/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-add-value-type/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-create-workspace/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-create-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-create-condition/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-create-condition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-add-localization/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-add-localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-create-repository/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-create-repository/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-add-value-summary/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-add-value-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Umbraco-CMS",
+      "path": "src/Umbraco.Web.UI.Client/.claude/skills/general-create-extension-type/SKILL.md",
+      "github_url": "https://github.com/umbraco/Umbraco-CMS/tree/main/src/Umbraco.Web.UI.Client/.claude/skills/general-create-extension-type/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/umbraco/Umbraco-CMS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:15:04Z"
+}
