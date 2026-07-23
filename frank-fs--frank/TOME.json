@@ -1,0 +1,87 @@
+{
+  "name": "frank",
+  "owner": "frank-fs",
+  "repo": "frank",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frank",
+      "path": ".claude/skills/babysit/SKILL.md",
+      "github_url": "https://github.com/frank-fs/frank/tree/main/.claude/skills/babysit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frank",
+      "path": ".claude/skills/techdebt/SKILL.md",
+      "github_url": "https://github.com/frank-fs/frank/tree/main/.claude/skills/techdebt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frank",
+      "path": ".claude/skills/decompose/skill.md",
+      "github_url": "https://github.com/frank-fs/frank/tree/main/.claude/skills/decompose/skill.md",
+      "description": ""
+    },
+    {
+      "name": "frank",
+      "path": ".claude/skills/discipline/skill.md",
+      "github_url": "https://github.com/frank-fs/frank/tree/main/.claude/skills/discipline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "frank",
+      "path": ".claude/skills/expert-review/SKILL.md",
+      "github_url": "https://github.com/frank-fs/frank/tree/main/.claude/skills/expert-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frank",
+      "path": ".claude/skills/commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/frank-fs/frank/tree/main/.claude/skills/commit-push-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frank",
+      "path": ".claude/skills/milestone-execute/SKILL.md",
+      "github_url": "https://github.com/frank-fs/frank/tree/main/.claude/skills/milestone-execute/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/frank-fs/frank",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:53:18Z"
+}
