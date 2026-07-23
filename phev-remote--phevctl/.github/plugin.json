@@ -1,0 +1,9 @@
+{
+  "name": "phev-remote--phevctl",
+  "displayName": "phevctl",
+  "description": "phevctl",
+  "version": "1.0.0",
+  "author": "phev-remote",
+  "homepage": "https://github.com/phev-remote/phevctl",
+  "skills": []
+}
