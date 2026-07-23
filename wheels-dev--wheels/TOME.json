@@ -1,0 +1,189 @@
+{
+  "name": "wheels",
+  "owner": "wheels-dev",
+  "repo": "wheels",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "wheels-anti-pattern-detector",
+      "path": "examples/tweet/.claude/skills/wheels-anti-pattern-detector",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-anti-pattern-detector",
+      "description": ""
+    },
+    {
+      "name": "wheels-api-generator",
+      "path": "examples/tweet/.claude/skills/wheels-api-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-api-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-auth-generator",
+      "path": "examples/tweet/.claude/skills/wheels-auth-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-auth-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-controller-generator",
+      "path": "examples/tweet/.claude/skills/wheels-controller-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-controller-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-debugging",
+      "path": "examples/tweet/.claude/skills/wheels-debugging",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-debugging",
+      "description": ""
+    },
+    {
+      "name": "wheels-deployment",
+      "path": "examples/tweet/.claude/skills/wheels-deployment",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-deployment",
+      "description": ""
+    },
+    {
+      "name": "wheels-documentation-generator",
+      "path": "examples/tweet/.claude/skills/wheels-documentation-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-documentation-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-migration-generator",
+      "path": "examples/tweet/.claude/skills/wheels-migration-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-migration-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-model-generator",
+      "path": "examples/tweet/.claude/skills/wheels-model-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-model-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-refactoring",
+      "path": "examples/tweet/.claude/skills/wheels-refactoring",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-refactoring",
+      "description": ""
+    },
+    {
+      "name": "wheels-test-generator",
+      "path": "examples/tweet/.claude/skills/wheels-test-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-test-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels-view-generator",
+      "path": "examples/tweet/.claude/skills/wheels-view-generator",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-view-generator",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-debugging/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-deployment/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-refactoring/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-api-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-api-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-view-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-view-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-test-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-test-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-auth-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-auth-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-model-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-model-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-migration-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-migration-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-controller-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-controller-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-anti-pattern-detector/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-anti-pattern-detector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wheels",
+      "path": "examples/tweet/.claude/skills/wheels-documentation-generator/SKILL.md",
+      "github_url": "https://github.com/wheels-dev/wheels/tree/main/examples/tweet/.claude/skills/wheels-documentation-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wheels-dev/wheels",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:50:14Z"
+}
