@@ -1,0 +1,339 @@
+{
+  "name": "fabric",
+  "owner": "microbus-io",
+  "repo": "fabric",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-web",
+      "path": ".claude/skills/microbus/add-web",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-web",
+      "description": ""
+    },
+    {
+      "name": "remove-feature",
+      "path": ".claude/skills/microbus/remove-feature",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/remove-feature",
+      "description": ""
+    },
+    {
+      "name": "take-tour",
+      "path": ".claude/skills/microbus/take-tour",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/take-tour",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-web/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-task/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/take-tour/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/take-tour/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-metric/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-metric/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-config/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-ticker/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-ticker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-function/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-workflow/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/init-project/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/init-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/sequel/add-sql-fields/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/sequel/add-sql-fields/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/housekeeping/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/housekeeping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/python/add-python-task/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/python/add-python-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-37-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-37-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-35-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-35-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-30-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-30-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-28-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-28-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-27-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-27-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-24-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-24-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/modify-feature/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/modify-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-36-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-36-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-29-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-29-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-26-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-26-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-32-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-32-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/remove-feature/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/remove-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-22-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-22-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-27-1/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-27-1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-23-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-23-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/sequel/rename-sql-table/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/sequel/rename-sql-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-25-0/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-25-0/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/sequel/remove-sql-fields/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/sequel/remove-sql-fields/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/sequel/modify-sql-fields/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/sequel/modify-sql-fields/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/sequel/rename-sql-object/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/sequel/rename-sql-object/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-microbus/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-microbus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-microservice/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-microservice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-inbound-event/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-inbound-event/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/translate-strings/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/translate-strings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/python/add-python-function/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/python/add-python-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/add-outbound-event/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/add-outbound-event/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/sequel/add-sql-microservice/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/sequel/add-sql-microservice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/review-microservice/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/review-microservice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/review-architecture/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/review-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/python/add-python-microservice/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/python/add-python-microservice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/regenerate-boilerplate/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/regenerate-boilerplate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-22-0-microservice/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-22-0-microservice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/microbus/import-openapi-microservice/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/microbus/import-openapi-microservice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": ".claude/skills/upgrade/upgrade-v1-23-0-microservice/SKILL.md",
+      "github_url": "https://github.com/microbus-io/fabric/tree/main/.claude/skills/upgrade/upgrade-v1-23-0-microservice/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microbus-io/fabric",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:35:40Z"
+}
