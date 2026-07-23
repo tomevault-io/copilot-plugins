@@ -1,0 +1,3657 @@
+{
+  "name": "harness-100",
+  "owner": "revfactory",
+  "repo": "harness-100",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vulnerability-patterns",
+      "path": "en/21-code-reviewer/.claude/skills/vulnerability-patterns",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/21-code-reviewer/.claude/skills/vulnerability-patterns",
+      "description": ""
+    },
+    {
+      "name": "fullstack-webapp",
+      "path": "en/16-fullstack-webapp/.claude/skills/fullstack-webapp",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/16-fullstack-webapp/.claude/skills/fullstack-webapp",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/57-exam-prep/.claude/skills/exam-prep/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/57-exam-prep/.claude/skills/exam-prep/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/57-exam-prep/.claude/skills/exam-prep/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/57-exam-prep/.claude/skills/exam-prep/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/83-sop-writer/.claude/skills/sop-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/83-sop-writer/.claude/skills/sop-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/83-sop-writer/.claude/skills/sop-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/83-sop-writer/.claude/skills/sop-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/62-adr-writer/.claude/skills/adr-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/62-adr-writer/.claude/skills/adr-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/62-adr-writer/.claude/skills/adr-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/62-adr-writer/.claude/skills/adr-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/37-web-scraper/.claude/skills/web-scraper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/37-web-scraper/.claude/skills/web-scraper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/37-web-scraper/.claude/skills/web-scraper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/37-web-scraper/.claude/skills/web-scraper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/18-api-designer/.claude/skills/api-designer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/18-api-designer/.claude/skills/api-designer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/42-bi-dashboard/.claude/skills/bi-dashboard/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/42-bi-dashboard/.claude/skills/bi-dashboard/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/73-meal-planner/.claude/skills/meal-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/73-meal-planner/.claude/skills/meal-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/54-grant-writer/.claude/skills/grant-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/54-grant-writer/.claude/skills/grant-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/18-api-designer/.claude/skills/api-designer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/18-api-designer/.claude/skills/api-designer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/94-audit-report/.claude/skills/audit-report/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/94-audit-report/.claude/skills/audit-report/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/94-audit-report/.claude/skills/audit-report/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/94-audit-report/.claude/skills/audit-report/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/42-bi-dashboard/.claude/skills/bi-dashboard/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/42-bi-dashboard/.claude/skills/bi-dashboard/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/54-grant-writer/.claude/skills/grant-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/54-grant-writer/.claude/skills/grant-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/73-meal-planner/.claude/skills/meal-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/73-meal-planner/.claude/skills/meal-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/40-cli-tool-builder/.claude/skills/ux-linter/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/40-cli-tool-builder/.claude/skills/ux-linter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/40-cli-tool-builder/.claude/skills/ux-linter/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/40-cli-tool-builder/.claude/skills/ux-linter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/36-design-system/.claude/skills/wcag-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/36-design-system/.claude/skills/wcag-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/36-design-system/.claude/skills/wcag-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/36-design-system/.claude/skills/wcag-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/83-sop-writer/.claude/skills/process-mapping/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/83-sop-writer/.claude/skills/process-mapping/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/83-sop-writer/.claude/skills/process-mapping/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/83-sop-writer/.claude/skills/process-mapping/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/100-ip-portfolio/.claude/skills/ip-portfolio/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/100-ip-portfolio/.claude/skills/ip-portfolio/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/100-ip-portfolio/.claude/skills/ip-portfolio/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/100-ip-portfolio/.claude/skills/ip-portfolio/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/83-sop-writer/.claude/skills/checklist-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/83-sop-writer/.claude/skills/checklist-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/83-sop-writer/.claude/skills/checklist-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/83-sop-writer/.claude/skills/checklist-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/28-security-audit/.claude/skills/cve-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/28-security-audit/.claude/skills/cve-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/28-security-audit/.claude/skills/cve-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/28-security-audit/.claude/skills/cve-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/42-bi-dashboard/.claude/skills/chart-selector/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/42-bi-dashboard/.claude/skills/chart-selector/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/42-bi-dashboard/.claude/skills/chart-selector/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/42-bi-dashboard/.claude/skills/chart-selector/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/88-risk-register/.claude/skills/risk-register/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/88-risk-register/.claude/skills/risk-register/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/27-data-pipeline/.claude/skills/data-pipeline/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/27-data-pipeline/.claude/skills/data-pipeline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/55-rfp-responder/.claude/skills/rfp-responder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/55-rfp-responder/.claude/skills/rfp-responder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/88-risk-register/.claude/skills/risk-register/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/88-risk-register/.claude/skills/risk-register/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/21-code-reviewer/.claude/skills/code-reviewer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/21-code-reviewer/.claude/skills/code-reviewer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/26-infra-as-code/.claude/skills/infra-as-code/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/26-infra-as-code/.claude/skills/infra-as-code/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/07-comic-creator/.claude/skills/comic-creator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/07-comic-creator/.claude/skills/comic-creator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/21-code-reviewer/.claude/skills/code-reviewer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/21-code-reviewer/.claude/skills/code-reviewer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/20-cicd-pipeline/.claude/skills/cicd-pipeline/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/20-cicd-pipeline/.claude/skills/cicd-pipeline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/36-design-system/.claude/skills/design-system/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/36-design-system/.claude/skills/design-system/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/26-infra-as-code/.claude/skills/infra-as-code/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/26-infra-as-code/.claude/skills/infra-as-code/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/20-cicd-pipeline/.claude/skills/cicd-pipeline/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/20-cicd-pipeline/.claude/skills/cicd-pipeline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/36-design-system/.claude/skills/design-system/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/36-design-system/.claude/skills/design-system/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/32-data-analysis/.claude/skills/data-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/32-data-analysis/.claude/skills/data-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/31-ml-experiment/.claude/skills/ml-experiment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/31-ml-experiment/.claude/skills/ml-experiment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/32-data-analysis/.claude/skills/data-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/32-data-analysis/.claude/skills/data-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/31-ml-experiment/.claude/skills/ml-experiment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/31-ml-experiment/.claude/skills/ml-experiment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/07-comic-creator/.claude/skills/comic-creator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/07-comic-creator/.claude/skills/comic-creator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/27-data-pipeline/.claude/skills/data-pipeline/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/27-data-pipeline/.claude/skills/data-pipeline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/55-rfp-responder/.claude/skills/rfp-responder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/55-rfp-responder/.claude/skills/rfp-responder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/18-api-designer/.claude/skills/api-error-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/18-api-designer/.claude/skills/api-error-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/18-api-designer/.claude/skills/api-error-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/18-api-designer/.claude/skills/api-error-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/36-design-system/.claude/skills/token-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/36-design-system/.claude/skills/token-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/36-design-system/.claude/skills/token-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/36-design-system/.claude/skills/token-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/28-security-audit/.claude/skills/security-audit/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/28-security-audit/.claude/skills/security-audit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/70-legal-research/.claude/skills/legal-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/70-legal-research/.claude/skills/legal-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/76-travel-planner/.claude/skills/travel-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/76-travel-planner/.claude/skills/travel-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/76-travel-planner/.claude/skills/travel-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/76-travel-planner/.claude/skills/travel-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/58-thesis-advisor/.claude/skills/thesis-advisor/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/58-thesis-advisor/.claude/skills/thesis-advisor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/08-course-builder/.claude/skills/course-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/08-course-builder/.claude/skills/course-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/58-thesis-advisor/.claude/skills/thesis-advisor/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/58-thesis-advisor/.claude/skills/thesis-advisor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/34-data-migration/.claude/skills/data-migration/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/34-data-migration/.claude/skills/data-migration/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/68-patent-drafter/.claude/skills/patent-drafter/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/68-patent-drafter/.claude/skills/patent-drafter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/75-tax-calculator/.claude/skills/tax-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/75-tax-calculator/.claude/skills/tax-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/68-patent-drafter/.claude/skills/patent-drafter/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/68-patent-drafter/.claude/skills/patent-drafter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/34-data-migration/.claude/skills/data-migration/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/34-data-migration/.claude/skills/data-migration/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/98-academic-paper/.claude/skills/academic-paper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/98-academic-paper/.claude/skills/academic-paper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/56-language-tutor/.claude/skills/language-tutor/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/56-language-tutor/.claude/skills/language-tutor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/33-text-processor/.claude/skills/text-processor/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/33-text-processor/.claude/skills/text-processor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/98-academic-paper/.claude/skills/academic-paper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/98-academic-paper/.claude/skills/academic-paper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/56-language-tutor/.claude/skills/language-tutor/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/56-language-tutor/.claude/skills/language-tutor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/05-game-narrative/.claude/skills/game-narrative/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/05-game-narrative/.claude/skills/game-narrative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/33-text-processor/.claude/skills/text-processor/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/33-text-processor/.claude/skills/text-processor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/08-course-builder/.claude/skills/course-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/08-course-builder/.claude/skills/course-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/06-brand-identity/.claude/skills/brand-identity/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/06-brand-identity/.claude/skills/brand-identity/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/28-security-audit/.claude/skills/security-audit/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/28-security-audit/.claude/skills/security-audit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/05-game-narrative/.claude/skills/game-narrative/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/05-game-narrative/.claude/skills/game-narrative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/02-podcast-studio/.claude/skills/podcast-studio/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/02-podcast-studio/.claude/skills/podcast-studio/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/06-brand-identity/.claude/skills/brand-identity/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/06-brand-identity/.claude/skills/brand-identity/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/02-podcast-studio/.claude/skills/podcast-studio/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/02-podcast-studio/.claude/skills/podcast-studio/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/42-bi-dashboard/.claude/skills/kpi-tree-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/42-bi-dashboard/.claude/skills/kpi-tree-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/42-bi-dashboard/.claude/skills/kpi-tree-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/42-bi-dashboard/.claude/skills/kpi-tree-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/02-podcast-studio/.claude/skills/podcast-growth/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/02-podcast-studio/.claude/skills/podcast-growth/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/02-podcast-studio/.claude/skills/podcast-growth/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/02-podcast-studio/.claude/skills/podcast-growth/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/37-web-scraper/.claude/skills/anti-bot-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/37-web-scraper/.claude/skills/anti-bot-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/37-web-scraper/.claude/skills/anti-bot-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/37-web-scraper/.claude/skills/anti-bot-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/50-pricing-strategy/.claude/skills/psm-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/50-pricing-strategy/.claude/skills/psm-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/50-pricing-strategy/.claude/skills/psm-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/50-pricing-strategy/.claude/skills/psm-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/70-legal-research/.claude/skills/legal-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/70-legal-research/.claude/skills/legal-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/75-tax-calculator/.claude/skills/tax-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/75-tax-calculator/.claude/skills/tax-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/65-personal-branding/.claude/skills/linkedin-seo/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/65-personal-branding/.claude/skills/linkedin-seo/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/65-personal-branding/.claude/skills/linkedin-seo/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/65-personal-branding/.claude/skills/linkedin-seo/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/05-game-narrative/.claude/skills/branching-logic/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/05-game-narrative/.claude/skills/branching-logic/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/05-game-narrative/.claude/skills/branching-logic/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/05-game-narrative/.claude/skills/branching-logic/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/08-course-builder/.claude/skills/learning-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/08-course-builder/.claude/skills/learning-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/08-course-builder/.claude/skills/learning-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/08-course-builder/.claude/skills/learning-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/76-travel-planner/.claude/skills/route-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/76-travel-planner/.claude/skills/route-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/76-travel-planner/.claude/skills/route-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/76-travel-planner/.claude/skills/route-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/54-grant-writer/.claude/skills/scoring-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/54-grant-writer/.claude/skills/scoring-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/54-grant-writer/.claude/skills/scoring-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/54-grant-writer/.claude/skills/scoring-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/100-ip-portfolio/.claude/skills/patent-valuation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/100-ip-portfolio/.claude/skills/patent-valuation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/49-customer-support/.claude/skills/csat-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/49-customer-support/.claude/skills/csat-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/07-comic-creator/.claude/skills/visual-narrative/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/07-comic-creator/.claude/skills/visual-narrative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/07-comic-creator/.claude/skills/visual-narrative/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/07-comic-creator/.claude/skills/visual-narrative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/49-customer-support/.claude/skills/csat-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/49-customer-support/.claude/skills/csat-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/08-course-builder/.claude/skills/lab-scaffolding/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/08-course-builder/.claude/skills/lab-scaffolding/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/56-language-tutor/.claude/skills/cefr-assessment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/56-language-tutor/.claude/skills/cefr-assessment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/56-language-tutor/.claude/skills/cefr-assessment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/56-language-tutor/.claude/skills/cefr-assessment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/06-brand-identity/.claude/skills/brand-archetype/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/06-brand-identity/.claude/skills/brand-archetype/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/08-course-builder/.claude/skills/lab-scaffolding/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/08-course-builder/.claude/skills/lab-scaffolding/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/06-brand-identity/.claude/skills/brand-archetype/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/06-brand-identity/.claude/skills/brand-archetype/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/37-web-scraper/.claude/skills/selector-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/37-web-scraper/.claude/skills/selector-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/37-web-scraper/.claude/skills/selector-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/37-web-scraper/.claude/skills/selector-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/28-security-audit/.claude/skills/threat-modeling/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/28-security-audit/.claude/skills/threat-modeling/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/28-security-audit/.claude/skills/threat-modeling/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/28-security-audit/.claude/skills/threat-modeling/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/01-youtube-production/.claude/skills/hook-writing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/01-youtube-production/.claude/skills/hook-writing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/01-youtube-production/.claude/skills/hook-writing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/01-youtube-production/.claude/skills/hook-writing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/65-personal-branding/.claude/skills/ats-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/65-personal-branding/.claude/skills/ats-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/65-personal-branding/.claude/skills/ats-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/65-personal-branding/.claude/skills/ats-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/54-grant-writer/.claude/skills/budget-rule-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/54-grant-writer/.claude/skills/budget-rule-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/54-grant-writer/.claude/skills/budget-rule-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/54-grant-writer/.claude/skills/budget-rule-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/57-exam-prep/.claude/skills/bloom-taxonomy-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/57-exam-prep/.claude/skills/bloom-taxonomy-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/57-exam-prep/.claude/skills/bloom-taxonomy-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/57-exam-prep/.claude/skills/bloom-taxonomy-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/07-comic-creator/.claude/skills/panel-composition/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/07-comic-creator/.claude/skills/panel-composition/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/07-comic-creator/.claude/skills/panel-composition/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/07-comic-creator/.claude/skills/panel-composition/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/05-game-narrative/.claude/skills/dialogue-systems/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/05-game-narrative/.claude/skills/dialogue-systems/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/05-game-narrative/.claude/skills/dialogue-systems/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/05-game-narrative/.claude/skills/dialogue-systems/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/89-event-organizer/.claude/skills/event-organizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/89-event-organizer/.claude/skills/event-organizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/90-hiring-pipeline/.claude/skills/hiring-pipeline/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/90-hiring-pipeline/.claude/skills/hiring-pipeline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/59-coding-bootcamp/.claude/skills/coding-bootcamp/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/59-coding-bootcamp/.claude/skills/coding-bootcamp/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/46-product-manager/.claude/skills/product-manager/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/46-product-manager/.claude/skills/product-manager/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/80-wedding-planner/.claude/skills/wedding-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/80-wedding-planner/.claude/skills/wedding-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/90-hiring-pipeline/.claude/skills/hiring-pipeline/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/90-hiring-pipeline/.claude/skills/hiring-pipeline/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/59-coding-bootcamp/.claude/skills/coding-bootcamp/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/59-coding-bootcamp/.claude/skills/coding-bootcamp/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/46-product-manager/.claude/skills/product-manager/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/46-product-manager/.claude/skills/product-manager/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/51-investor-report/.claude/skills/investor-report/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/51-investor-report/.claude/skills/investor-report/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/89-event-organizer/.claude/skills/event-organizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/89-event-organizer/.claude/skills/event-organizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/24-test-automation/.claude/skills/test-automation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/24-test-automation/.claude/skills/test-automation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/80-wedding-planner/.claude/skills/wedding-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/80-wedding-planner/.claude/skills/wedding-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/51-investor-report/.claude/skills/investor-report/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/51-investor-report/.claude/skills/investor-report/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/85-public-speaking/.claude/skills/public-speaking/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/85-public-speaking/.claude/skills/public-speaking/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/86-proposal-writer/.claude/skills/proposal-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/86-proposal-writer/.claude/skills/proposal-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/44-market-research/.claude/skills/market-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/44-market-research/.claude/skills/market-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/38-chatbot-builder/.claude/skills/chatbot-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/38-chatbot-builder/.claude/skills/chatbot-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/38-chatbot-builder/.claude/skills/chatbot-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/38-chatbot-builder/.claude/skills/chatbot-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/74-fitness-program/.claude/skills/fitness-program/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/74-fitness-program/.claude/skills/fitness-program/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/24-test-automation/.claude/skills/test-automation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/24-test-automation/.claude/skills/test-automation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/74-fitness-program/.claude/skills/fitness-program/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/74-fitness-program/.claude/skills/fitness-program/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/41-llm-app-builder/.claude/skills/llm-app-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/41-llm-app-builder/.claude/skills/llm-app-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/86-proposal-writer/.claude/skills/proposal-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/86-proposal-writer/.claude/skills/proposal-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/85-public-speaking/.claude/skills/public-speaking/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/85-public-speaking/.claude/skills/public-speaking/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/41-llm-app-builder/.claude/skills/llm-app-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/41-llm-app-builder/.claude/skills/llm-app-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/11-book-publishing/.claude/skills/book-publishing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/11-book-publishing/.claude/skills/book-publishing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/11-book-publishing/.claude/skills/book-publishing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/11-book-publishing/.claude/skills/book-publishing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/61-competency-modeler/.claude/skills/ksa-taxonomy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/61-competency-modeler/.claude/skills/ksa-taxonomy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/61-competency-modeler/.claude/skills/ksa-taxonomy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/61-competency-modeler/.claude/skills/ksa-taxonomy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/55-rfp-responder/.claude/skills/win-theme-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/55-rfp-responder/.claude/skills/win-theme-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/48-sales-enablement/.claude/skills/roi-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/48-sales-enablement/.claude/skills/roi-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/48-sales-enablement/.claude/skills/roi-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/48-sales-enablement/.claude/skills/roi-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/62-adr-writer/.claude/skills/madr-template-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/62-adr-writer/.claude/skills/madr-template-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/62-adr-writer/.claude/skills/madr-template-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/62-adr-writer/.claude/skills/madr-template-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/06-brand-identity/.claude/skills/color-psychology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/06-brand-identity/.claude/skills/color-psychology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/06-brand-identity/.claude/skills/color-psychology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/06-brand-identity/.claude/skills/color-psychology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/53-financial-modeler/.claude/skills/dcf-valuation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/53-financial-modeler/.claude/skills/dcf-valuation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/55-rfp-responder/.claude/skills/win-theme-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/55-rfp-responder/.claude/skills/win-theme-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/44-market-research/.claude/skills/market-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/44-market-research/.claude/skills/market-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/95-procurement-docs/.claude/skills/vendor-scoring/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/95-procurement-docs/.claude/skills/vendor-scoring/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/95-procurement-docs/.claude/skills/vendor-scoring/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/95-procurement-docs/.claude/skills/vendor-scoring/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/26-infra-as-code/.claude/skills/cloud-cost-models/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/26-infra-as-code/.claude/skills/cloud-cost-models/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/26-infra-as-code/.claude/skills/cloud-cost-models/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/26-infra-as-code/.claude/skills/cloud-cost-models/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/89-event-organizer/.claude/skills/budget-planning/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/89-event-organizer/.claude/skills/budget-planning/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/89-event-organizer/.claude/skills/budget-planning/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/89-event-organizer/.claude/skills/budget-planning/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/52-scenario-planner/.claude/skills/steep-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/52-scenario-planner/.claude/skills/steep-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/76-travel-planner/.claude/skills/budget-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/76-travel-planner/.claude/skills/budget-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/76-travel-planner/.claude/skills/budget-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/76-travel-planner/.claude/skills/budget-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/53-financial-modeler/.claude/skills/unit-economics/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/53-financial-modeler/.claude/skills/unit-economics/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/24-test-automation/.claude/skills/mocking-strategy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/24-test-automation/.claude/skills/mocking-strategy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/24-test-automation/.claude/skills/mocking-strategy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/24-test-automation/.claude/skills/mocking-strategy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/46-product-manager/.claude/skills/rice-prioritizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/46-product-manager/.claude/skills/rice-prioritizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/46-product-manager/.claude/skills/rice-prioritizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/46-product-manager/.claude/skills/rice-prioritizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/41-llm-app-builder/.claude/skills/prompt-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/41-llm-app-builder/.claude/skills/prompt-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/57-exam-prep/.claude/skills/error-pattern-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/57-exam-prep/.claude/skills/error-pattern-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/57-exam-prep/.claude/skills/error-pattern-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/57-exam-prep/.claude/skills/error-pattern-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/52-scenario-planner/.claude/skills/steep-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/52-scenario-planner/.claude/skills/steep-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/90-hiring-pipeline/.claude/skills/competency-model/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/90-hiring-pipeline/.claude/skills/competency-model/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/90-hiring-pipeline/.claude/skills/competency-model/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/90-hiring-pipeline/.claude/skills/competency-model/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/56-language-tutor/.claude/skills/spaced-repetition/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/56-language-tutor/.claude/skills/spaced-repetition/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/56-language-tutor/.claude/skills/spaced-repetition/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/56-language-tutor/.claude/skills/spaced-repetition/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/55-rfp-responder/.claude/skills/pricing-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/55-rfp-responder/.claude/skills/pricing-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/89-event-organizer/.claude/skills/venue-evaluation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/89-event-organizer/.claude/skills/venue-evaluation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/89-event-organizer/.claude/skills/venue-evaluation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/89-event-organizer/.claude/skills/venue-evaluation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/18-api-designer/.claude/skills/rest-api-conventions/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/18-api-designer/.claude/skills/rest-api-conventions/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/18-api-designer/.claude/skills/rest-api-conventions/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/18-api-designer/.claude/skills/rest-api-conventions/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/06-brand-identity/.claude/skills/naming-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/06-brand-identity/.claude/skills/naming-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/06-brand-identity/.claude/skills/naming-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/06-brand-identity/.claude/skills/naming-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/11-book-publishing/.claude/skills/book-metadata-seo/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/11-book-publishing/.claude/skills/book-metadata-seo/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/11-book-publishing/.claude/skills/book-metadata-seo/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/11-book-publishing/.claude/skills/book-metadata-seo/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/21-code-reviewer/.claude/skills/refactoring-catalog/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/21-code-reviewer/.claude/skills/refactoring-catalog/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/21-code-reviewer/.claude/skills/refactoring-catalog/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/21-code-reviewer/.claude/skills/refactoring-catalog/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/81-technical-writer/.claude/skills/diagram-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/81-technical-writer/.claude/skills/diagram-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/81-technical-writer/.claude/skills/diagram-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/81-technical-writer/.claude/skills/diagram-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/02-podcast-studio/.claude/skills/audio-storytelling/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/02-podcast-studio/.claude/skills/audio-storytelling/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/02-podcast-studio/.claude/skills/audio-storytelling/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/02-podcast-studio/.claude/skills/audio-storytelling/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/60-debate-simulator/.claude/skills/debate-simulator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/60-debate-simulator/.claude/skills/debate-simulator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/60-debate-simulator/.claude/skills/debate-simulator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/60-debate-simulator/.claude/skills/debate-simulator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/98-academic-paper/.claude/skills/citation-standards/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/98-academic-paper/.claude/skills/citation-standards/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/40-cli-tool-builder/.claude/skills/cli-tool-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/40-cli-tool-builder/.claude/skills/cli-tool-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/40-cli-tool-builder/.claude/skills/cli-tool-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/40-cli-tool-builder/.claude/skills/cli-tool-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/69-privacy-engineer/.claude/skills/privacy-engineer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/69-privacy-engineer/.claude/skills/privacy-engineer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/43-startup-launcher/.claude/skills/startup-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/43-startup-launcher/.claude/skills/startup-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/69-privacy-engineer/.claude/skills/privacy-engineer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/69-privacy-engineer/.claude/skills/privacy-engineer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/48-sales-enablement/.claude/skills/sales-enablement/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/48-sales-enablement/.claude/skills/sales-enablement/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/78-personal-finance/.claude/skills/personal-finance/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/78-personal-finance/.claude/skills/personal-finance/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/82-report-generator/.claude/skills/report-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/82-report-generator/.claude/skills/report-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/49-customer-support/.claude/skills/customer-support/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/49-customer-support/.claude/skills/customer-support/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/48-sales-enablement/.claude/skills/sales-enablement/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/48-sales-enablement/.claude/skills/sales-enablement/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/81-technical-writer/.claude/skills/technical-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/81-technical-writer/.claude/skills/technical-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/50-pricing-strategy/.claude/skills/pricing-strategy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/50-pricing-strategy/.claude/skills/pricing-strategy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/50-pricing-strategy/.claude/skills/pricing-strategy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/50-pricing-strategy/.claude/skills/pricing-strategy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/49-customer-support/.claude/skills/customer-support/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/49-customer-support/.claude/skills/customer-support/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/78-personal-finance/.claude/skills/personal-finance/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/78-personal-finance/.claude/skills/personal-finance/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/45-gov-funding-plan/.claude/skills/gov-funding-plan/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/45-gov-funding-plan/.claude/skills/gov-funding-plan/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/95-procurement-docs/.claude/skills/procurement-docs/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/95-procurement-docs/.claude/skills/procurement-docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/16-fullstack-webapp/.claude/skills/fullstack-webapp/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/16-fullstack-webapp/.claude/skills/fullstack-webapp/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/95-procurement-docs/.claude/skills/procurement-docs/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/95-procurement-docs/.claude/skills/procurement-docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/82-report-generator/.claude/skills/report-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/82-report-generator/.claude/skills/report-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/81-technical-writer/.claude/skills/technical-writer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/81-technical-writer/.claude/skills/technical-writer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/16-fullstack-webapp/.claude/skills/fullstack-webapp/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/16-fullstack-webapp/.claude/skills/fullstack-webapp/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/52-scenario-planner/.claude/skills/scenario-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/52-scenario-planner/.claude/skills/scenario-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/99-sustainability-audit/.claude/skills/ghg-protocol/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/99-sustainability-audit/.claude/skills/ghg-protocol/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/99-sustainability-audit/.claude/skills/ghg-protocol/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/99-sustainability-audit/.claude/skills/ghg-protocol/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/85-public-speaking/.claude/skills/rhetoric-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/85-public-speaking/.claude/skills/rhetoric-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/85-public-speaking/.claude/skills/rhetoric-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/85-public-speaking/.claude/skills/rhetoric-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/86-proposal-writer/.claude/skills/win-theme-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/86-proposal-writer/.claude/skills/win-theme-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/86-proposal-writer/.claude/skills/win-theme-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/86-proposal-writer/.claude/skills/win-theme-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/69-privacy-engineer/.claude/skills/data-flow-mapper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/69-privacy-engineer/.claude/skills/data-flow-mapper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/39-changelog-generator/.claude/skills/commit-parser/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/39-changelog-generator/.claude/skills/commit-parser/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/69-privacy-engineer/.claude/skills/data-flow-mapper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/69-privacy-engineer/.claude/skills/data-flow-mapper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/39-changelog-generator/.claude/skills/commit-parser/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/39-changelog-generator/.claude/skills/commit-parser/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/52-scenario-planner/.claude/skills/scenario-planner/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/52-scenario-planner/.claude/skills/scenario-planner/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/43-startup-launcher/.claude/skills/startup-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/43-startup-launcher/.claude/skills/startup-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/45-gov-funding-plan/.claude/skills/gov-funding-plan/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/45-gov-funding-plan/.claude/skills/gov-funding-plan/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/61-competency-modeler/.claude/skills/bars-assessment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/61-competency-modeler/.claude/skills/bars-assessment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/61-competency-modeler/.claude/skills/bars-assessment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/61-competency-modeler/.claude/skills/bars-assessment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/44-market-research/.claude/skills/porter-five-forces/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/44-market-research/.claude/skills/porter-five-forces/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/45-gov-funding-plan/.claude/skills/scoring-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/45-gov-funding-plan/.claude/skills/scoring-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/48-sales-enablement/.claude/skills/objection-handler/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/48-sales-enablement/.claude/skills/objection-handler/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/48-sales-enablement/.claude/skills/objection-handler/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/48-sales-enablement/.claude/skills/objection-handler/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/45-gov-funding-plan/.claude/skills/scoring-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/45-gov-funding-plan/.claude/skills/scoring-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/81-technical-writer/.claude/skills/api-doc-standards/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/81-technical-writer/.claude/skills/api-doc-standards/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/81-technical-writer/.claude/skills/api-doc-standards/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/81-technical-writer/.claude/skills/api-doc-standards/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/44-market-research/.claude/skills/porter-five-forces/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/44-market-research/.claude/skills/porter-five-forces/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/20-cicd-pipeline/.claude/skills/deployment-strategies/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/20-cicd-pipeline/.claude/skills/deployment-strategies/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/20-cicd-pipeline/.claude/skills/deployment-strategies/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/20-cicd-pipeline/.claude/skills/deployment-strategies/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/100-ip-portfolio/.claude/skills/ip-landscape-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/100-ip-portfolio/.claude/skills/ip-landscape-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/100-ip-portfolio/.claude/skills/ip-landscape-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/100-ip-portfolio/.claude/skills/ip-landscape-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/16-fullstack-webapp/.claude/skills/component-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/16-fullstack-webapp/.claude/skills/component-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/16-fullstack-webapp/.claude/skills/component-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/16-fullstack-webapp/.claude/skills/component-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/59-coding-bootcamp/.claude/skills/tech-interview-prep/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/59-coding-bootcamp/.claude/skills/tech-interview-prep/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/59-coding-bootcamp/.claude/skills/tech-interview-prep/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/59-coding-bootcamp/.claude/skills/tech-interview-prep/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/02-podcast-studio/.claude/skills/interview-techniques/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/02-podcast-studio/.claude/skills/interview-techniques/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/02-podcast-studio/.claude/skills/interview-techniques/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/02-podcast-studio/.claude/skills/interview-techniques/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/98-academic-paper/.claude/skills/research-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/98-academic-paper/.claude/skills/research-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/90-hiring-pipeline/.claude/skills/interview-scorecard/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/90-hiring-pipeline/.claude/skills/interview-scorecard/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/90-hiring-pipeline/.claude/skills/interview-scorecard/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/90-hiring-pipeline/.claude/skills/interview-scorecard/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/58-thesis-advisor/.claude/skills/research-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/58-thesis-advisor/.claude/skills/research-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/65-personal-branding/.claude/skills/personal-branding/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/65-personal-branding/.claude/skills/personal-branding/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/53-financial-modeler/.claude/skills/financial-modeler/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/53-financial-modeler/.claude/skills/financial-modeler/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/91-onboarding-system/.claude/skills/onboarding-system/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/91-onboarding-system/.claude/skills/onboarding-system/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/65-personal-branding/.claude/skills/personal-branding/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/65-personal-branding/.claude/skills/personal-branding/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/53-financial-modeler/.claude/skills/financial-modeler/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/53-financial-modeler/.claude/skills/financial-modeler/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/91-onboarding-system/.claude/skills/onboarding-system/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/91-onboarding-system/.claude/skills/onboarding-system/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/66-contract-analyzer/.claude/skills/contract-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/66-contract-analyzer/.claude/skills/contract-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/93-feedback-analyzer/.claude/skills/feedback-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/93-feedback-analyzer/.claude/skills/feedback-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/03-newsletter-engine/.claude/skills/newsletter-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/03-newsletter-engine/.claude/skills/newsletter-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/66-contract-analyzer/.claude/skills/contract-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/66-contract-analyzer/.claude/skills/contract-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/93-feedback-analyzer/.claude/skills/feedback-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/93-feedback-analyzer/.claude/skills/feedback-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/22-legacy-modernizer/.claude/skills/legacy-modernizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/22-legacy-modernizer/.claude/skills/legacy-modernizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/03-newsletter-engine/.claude/skills/newsletter-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/03-newsletter-engine/.claude/skills/newsletter-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/22-legacy-modernizer/.claude/skills/legacy-modernizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/22-legacy-modernizer/.claude/skills/legacy-modernizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/92-operations-manual/.claude/skills/operations-manual/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/92-operations-manual/.claude/skills/operations-manual/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/72-regulatory-filing/.claude/skills/regulatory-filing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/72-regulatory-filing/.claude/skills/regulatory-filing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/92-operations-manual/.claude/skills/operations-manual/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/92-operations-manual/.claude/skills/operations-manual/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/94-audit-report/.claude/skills/finding-classification/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/94-audit-report/.claude/skills/finding-classification/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/94-audit-report/.claude/skills/finding-classification/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/94-audit-report/.claude/skills/finding-classification/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/59-coding-bootcamp/.claude/skills/code-kata-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/59-coding-bootcamp/.claude/skills/code-kata-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/59-coding-bootcamp/.claude/skills/code-kata-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/59-coding-bootcamp/.claude/skills/code-kata-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/03-newsletter-engine/.claude/skills/email-copywriting/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/03-newsletter-engine/.claude/skills/email-copywriting/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/03-newsletter-engine/.claude/skills/email-copywriting/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/03-newsletter-engine/.claude/skills/email-copywriting/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/85-public-speaking/.claude/skills/audience-engagement/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/85-public-speaking/.claude/skills/audience-engagement/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/93-feedback-analyzer/.claude/skills/sentiment-scoring/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/93-feedback-analyzer/.claude/skills/sentiment-scoring/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/85-public-speaking/.claude/skills/audience-engagement/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/85-public-speaking/.claude/skills/audience-engagement/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/31-ml-experiment/.claude/skills/model-selection-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/31-ml-experiment/.claude/skills/model-selection-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/31-ml-experiment/.claude/skills/model-selection-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/31-ml-experiment/.claude/skills/model-selection-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/32-data-analysis/.claude/skills/visualization-chooser/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/32-data-analysis/.claude/skills/visualization-chooser/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/32-data-analysis/.claude/skills/visualization-chooser/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/32-data-analysis/.claude/skills/visualization-chooser/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/95-procurement-docs/.claude/skills/contract-checklist/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/95-procurement-docs/.claude/skills/contract-checklist/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/39-changelog-generator/.claude/skills/semver-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/39-changelog-generator/.claude/skills/semver-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/39-changelog-generator/.claude/skills/semver-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/39-changelog-generator/.claude/skills/semver-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/95-procurement-docs/.claude/skills/contract-checklist/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/95-procurement-docs/.claude/skills/contract-checklist/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/25-incident-postmortem/.claude/skills/rca-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/25-incident-postmortem/.claude/skills/rca-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/25-incident-postmortem/.claude/skills/rca-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/25-incident-postmortem/.claude/skills/rca-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/72-regulatory-filing/.claude/skills/regulatory-filing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/72-regulatory-filing/.claude/skills/regulatory-filing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/21-code-reviewer/.claude/skills/vulnerability-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/21-code-reviewer/.claude/skills/vulnerability-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/21-code-reviewer/.claude/skills/vulnerability-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/21-code-reviewer/.claude/skills/vulnerability-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/10-social-media-manager/.claude/skills/hashtag-science/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/10-social-media-manager/.claude/skills/hashtag-science/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/10-social-media-manager/.claude/skills/hashtag-science/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/10-social-media-manager/.claude/skills/hashtag-science/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/74-fitness-program/.claude/skills/periodization-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/74-fitness-program/.claude/skills/periodization-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/74-fitness-program/.claude/skills/periodization-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/74-fitness-program/.claude/skills/periodization-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/05-game-narrative/.claude/skills/quest-design-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/05-game-narrative/.claude/skills/quest-design-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/05-game-narrative/.claude/skills/quest-design-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/05-game-narrative/.claude/skills/quest-design-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/96-real-estate-analyst/.claude/skills/location-scoring/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/96-real-estate-analyst/.claude/skills/location-scoring/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/96-real-estate-analyst/.claude/skills/location-scoring/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/96-real-estate-analyst/.claude/skills/location-scoring/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/51-investor-report/.claude/skills/ir-narrative-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/51-investor-report/.claude/skills/ir-narrative-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/51-investor-report/.claude/skills/ir-narrative-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/51-investor-report/.claude/skills/ir-narrative-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/72-regulatory-filing/.claude/skills/form-filling-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/72-regulatory-filing/.claude/skills/form-filling-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/75-tax-calculator/.claude/skills/tax-bracket-simulator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/75-tax-calculator/.claude/skills/tax-bracket-simulator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/24-test-automation/.claude/skills/test-design-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/24-test-automation/.claude/skills/test-design-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/24-test-automation/.claude/skills/test-design-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/24-test-automation/.claude/skills/test-design-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/51-investor-report/.claude/skills/kpi-benchmark-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/51-investor-report/.claude/skills/kpi-benchmark-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/51-investor-report/.claude/skills/kpi-benchmark-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/51-investor-report/.claude/skills/kpi-benchmark-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/88-risk-register/.claude/skills/risk-response-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/88-risk-register/.claude/skills/risk-response-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/88-risk-register/.claude/skills/risk-response-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/88-risk-register/.claude/skills/risk-response-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/72-regulatory-filing/.claude/skills/form-filling-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/72-regulatory-filing/.claude/skills/form-filling-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/75-tax-calculator/.claude/skills/tax-bracket-simulator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/75-tax-calculator/.claude/skills/tax-bracket-simulator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/20-cicd-pipeline/.claude/skills/pipeline-security-gates/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/20-cicd-pipeline/.claude/skills/pipeline-security-gates/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/20-cicd-pipeline/.claude/skills/pipeline-security-gates/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/20-cicd-pipeline/.claude/skills/pipeline-security-gates/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/17-mobile-app-builder/.claude/skills/mobile-ux-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/17-mobile-app-builder/.claude/skills/mobile-ux-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/17-mobile-app-builder/.claude/skills/mobile-ux-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/17-mobile-app-builder/.claude/skills/mobile-ux-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/58-thesis-advisor/.claude/skills/academic-writing-style/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/58-thesis-advisor/.claude/skills/academic-writing-style/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/58-thesis-advisor/.claude/skills/academic-writing-style/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/58-thesis-advisor/.claude/skills/academic-writing-style/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/63-research-assistant/.claude/skills/citation-formatter/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/63-research-assistant/.claude/skills/citation-formatter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/63-research-assistant/.claude/skills/citation-formatter/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/63-research-assistant/.claude/skills/citation-formatter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/08-course-builder/.claude/skills/assessment-engineering/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/08-course-builder/.claude/skills/assessment-engineering/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/08-course-builder/.claude/skills/assessment-engineering/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/08-course-builder/.claude/skills/assessment-engineering/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/07-comic-creator/.claude/skills/character-design-system/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/07-comic-creator/.claude/skills/character-design-system/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/07-comic-creator/.claude/skills/character-design-system/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/07-comic-creator/.claude/skills/character-design-system/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/04-content-repurposer/.claude/skills/content-repurposer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/04-content-repurposer/.claude/skills/content-repurposer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/19-database-architect/.claude/skills/database-architect/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/19-database-architect/.claude/skills/database-architect/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/61-competency-modeler/.claude/skills/competency-modeler/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/61-competency-modeler/.claude/skills/competency-modeler/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/19-database-architect/.claude/skills/database-architect/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/19-database-architect/.claude/skills/database-architect/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/67-compliance-checker/.claude/skills/compliance-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/67-compliance-checker/.claude/skills/compliance-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/63-research-assistant/.claude/skills/research-assistant/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/63-research-assistant/.claude/skills/research-assistant/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/17-mobile-app-builder/.claude/skills/mobile-app-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/17-mobile-app-builder/.claude/skills/mobile-app-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/67-compliance-checker/.claude/skills/compliance-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/67-compliance-checker/.claude/skills/compliance-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/63-research-assistant/.claude/skills/research-assistant/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/63-research-assistant/.claude/skills/research-assistant/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/84-meeting-strategist/.claude/skills/meeting-strategist/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/84-meeting-strategist/.claude/skills/meeting-strategist/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/61-competency-modeler/.claude/skills/competency-modeler/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/61-competency-modeler/.claude/skills/competency-modeler/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/71-service-legal-docs/.claude/skills/service-legal-docs/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/71-service-legal-docs/.claude/skills/service-legal-docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/04-content-repurposer/.claude/skills/content-repurposer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/04-content-repurposer/.claude/skills/content-repurposer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/71-service-legal-docs/.claude/skills/service-legal-docs/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/71-service-legal-docs/.claude/skills/service-legal-docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/84-meeting-strategist/.claude/skills/meeting-strategist/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/84-meeting-strategist/.claude/skills/meeting-strategist/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/17-mobile-app-builder/.claude/skills/mobile-app-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/17-mobile-app-builder/.claude/skills/mobile-app-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/01-youtube-production/.claude/skills/youtube-production/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/01-youtube-production/.claude/skills/youtube-production/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/47-strategy-framework/.claude/skills/strategy-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/47-strategy-framework/.claude/skills/strategy-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/47-strategy-framework/.claude/skills/strategy-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/47-strategy-framework/.claude/skills/strategy-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/01-youtube-production/.claude/skills/youtube-production/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/01-youtube-production/.claude/skills/youtube-production/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/97-ecommerce-launcher/.claude/skills/ecommerce-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/97-ecommerce-launcher/.claude/skills/ecommerce-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/97-ecommerce-launcher/.claude/skills/ecommerce-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/97-ecommerce-launcher/.claude/skills/ecommerce-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/91-onboarding-system/.claude/skills/buddy-program-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/91-onboarding-system/.claude/skills/buddy-program-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/91-onboarding-system/.claude/skills/buddy-program-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/91-onboarding-system/.claude/skills/buddy-program-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/62-adr-writer/.claude/skills/quality-attribute-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/62-adr-writer/.claude/skills/quality-attribute-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/40-cli-tool-builder/.claude/skills/arg-parser-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/40-cli-tool-builder/.claude/skills/arg-parser-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/40-cli-tool-builder/.claude/skills/arg-parser-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/40-cli-tool-builder/.claude/skills/arg-parser-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/62-adr-writer/.claude/skills/quality-attribute-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/62-adr-writer/.claude/skills/quality-attribute-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/11-book-publishing/.claude/skills/developmental-editing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/11-book-publishing/.claude/skills/developmental-editing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/11-book-publishing/.claude/skills/developmental-editing/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/11-book-publishing/.claude/skills/developmental-editing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/22-legacy-modernizer/.claude/skills/dependency-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/22-legacy-modernizer/.claude/skills/dependency-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/22-legacy-modernizer/.claude/skills/dependency-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/22-legacy-modernizer/.claude/skills/dependency-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/49-customer-support/.claude/skills/escalation-flowchart/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/49-customer-support/.claude/skills/escalation-flowchart/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/49-customer-support/.claude/skills/escalation-flowchart/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/49-customer-support/.claude/skills/escalation-flowchart/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/74-fitness-program/.claude/skills/exercise-biomechanics/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/74-fitness-program/.claude/skills/exercise-biomechanics/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/09-documentary-research/.claude/skills/interview-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/09-documentary-research/.claude/skills/interview-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/09-documentary-research/.claude/skills/interview-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/09-documentary-research/.claude/skills/interview-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/43-startup-launcher/.claude/skills/pitch-deck-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/43-startup-launcher/.claude/skills/pitch-deck-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/46-product-manager/.claude/skills/story-point-estimator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/46-product-manager/.claude/skills/story-point-estimator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/46-product-manager/.claude/skills/story-point-estimator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/46-product-manager/.claude/skills/story-point-estimator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/92-operations-manual/.claude/skills/flowchart-standards/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/92-operations-manual/.claude/skills/flowchart-standards/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/92-operations-manual/.claude/skills/flowchart-standards/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/92-operations-manual/.claude/skills/flowchart-standards/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/43-startup-launcher/.claude/skills/pitch-deck-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/43-startup-launcher/.claude/skills/pitch-deck-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/74-fitness-program/.claude/skills/exercise-biomechanics/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/74-fitness-program/.claude/skills/exercise-biomechanics/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/68-patent-drafter/.claude/skills/claim-drafting-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/68-patent-drafter/.claude/skills/claim-drafting-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/68-patent-drafter/.claude/skills/claim-drafting-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/68-patent-drafter/.claude/skills/claim-drafting-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/70-legal-research/.claude/skills/case-analysis-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/70-legal-research/.claude/skills/case-analysis-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/10-social-media-manager/.claude/skills/viral-copywriting/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/10-social-media-manager/.claude/skills/viral-copywriting/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/47-strategy-framework/.claude/skills/okr-quality-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/47-strategy-framework/.claude/skills/okr-quality-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/47-strategy-framework/.claude/skills/okr-quality-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/47-strategy-framework/.claude/skills/okr-quality-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/10-social-media-manager/.claude/skills/viral-copywriting/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/10-social-media-manager/.claude/skills/viral-copywriting/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/66-contract-analyzer/.claude/skills/clause-risk-database/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/66-contract-analyzer/.claude/skills/clause-risk-database/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/66-contract-analyzer/.claude/skills/clause-risk-database/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/66-contract-analyzer/.claude/skills/clause-risk-database/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/81-technical-writer/.claude/skills/code-example-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/81-technical-writer/.claude/skills/code-example-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/81-technical-writer/.claude/skills/code-example-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/81-technical-writer/.claude/skills/code-example-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/66-contract-analyzer/.claude/skills/negotiation-playbook/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/66-contract-analyzer/.claude/skills/negotiation-playbook/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/53-financial-modeler/.claude/skills/sensitivity-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/53-financial-modeler/.claude/skills/sensitivity-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/53-financial-modeler/.claude/skills/sensitivity-analysis/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/53-financial-modeler/.claude/skills/sensitivity-analysis/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/66-contract-analyzer/.claude/skills/negotiation-playbook/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/66-contract-analyzer/.claude/skills/negotiation-playbook/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/84-meeting-strategist/.claude/skills/decision-frameworks/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/84-meeting-strategist/.claude/skills/decision-frameworks/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/04-content-repurposer/.claude/skills/content-atomization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/04-content-repurposer/.claude/skills/content-atomization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/04-content-repurposer/.claude/skills/content-atomization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/04-content-repurposer/.claude/skills/content-atomization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/47-strategy-framework/.claude/skills/tows-matrix-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/47-strategy-framework/.claude/skills/tows-matrix-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/47-strategy-framework/.claude/skills/tows-matrix-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/47-strategy-framework/.claude/skills/tows-matrix-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/91-onboarding-system/.claude/skills/learning-path-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/91-onboarding-system/.claude/skills/learning-path-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/91-onboarding-system/.claude/skills/learning-path-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/91-onboarding-system/.claude/skills/learning-path-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/44-market-research/.claude/skills/tam-sam-som-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/44-market-research/.claude/skills/tam-sam-som-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/04-content-repurposer/.claude/skills/platform-adaptation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/04-content-repurposer/.claude/skills/platform-adaptation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/04-content-repurposer/.claude/skills/platform-adaptation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/04-content-repurposer/.claude/skills/platform-adaptation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/44-market-research/.claude/skills/tam-sam-som-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/44-market-research/.claude/skills/tam-sam-som-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/70-legal-research/.claude/skills/case-analysis-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/70-legal-research/.claude/skills/case-analysis-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/01-youtube-production/.claude/skills/thumbnail-psychology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/01-youtube-production/.claude/skills/thumbnail-psychology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/01-youtube-production/.claude/skills/thumbnail-psychology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/01-youtube-production/.claude/skills/thumbnail-psychology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/11-book-publishing/.claude/skills/cover-design-psychology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/11-book-publishing/.claude/skills/cover-design-psychology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/11-book-publishing/.claude/skills/cover-design-psychology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/11-book-publishing/.claude/skills/cover-design-psychology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/16-fullstack-webapp/.claude/skills/api-security-checklist/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/16-fullstack-webapp/.claude/skills/api-security-checklist/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/16-fullstack-webapp/.claude/skills/api-security-checklist/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/16-fullstack-webapp/.claude/skills/api-security-checklist/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/82-report-generator/.claude/skills/kpi-dashboard-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/82-report-generator/.claude/skills/kpi-dashboard-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/82-report-generator/.claude/skills/kpi-dashboard-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/82-report-generator/.claude/skills/kpi-dashboard-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/15-visual-storytelling/.claude/skills/visual-storytelling/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/15-visual-storytelling/.claude/skills/visual-storytelling/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/39-changelog-generator/.claude/skills/changelog-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/39-changelog-generator/.claude/skills/changelog-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/39-changelog-generator/.claude/skills/changelog-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/39-changelog-generator/.claude/skills/changelog-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/25-incident-postmortem/.claude/skills/incident-postmortem/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/25-incident-postmortem/.claude/skills/incident-postmortem/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/96-real-estate-analyst/.claude/skills/real-estate-analyst/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/96-real-estate-analyst/.claude/skills/real-estate-analyst/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/77-space-concept-board/.claude/skills/space-concept-board/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/77-space-concept-board/.claude/skills/space-concept-board/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/25-incident-postmortem/.claude/skills/incident-postmortem/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/25-incident-postmortem/.claude/skills/incident-postmortem/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/96-real-estate-analyst/.claude/skills/real-estate-analyst/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/96-real-estate-analyst/.claude/skills/real-estate-analyst/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/77-space-concept-board/.claude/skills/space-concept-board/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/77-space-concept-board/.claude/skills/space-concept-board/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/15-visual-storytelling/.claude/skills/visual-storytelling/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/15-visual-storytelling/.claude/skills/visual-storytelling/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/41-llm-app-builder/.claude/skills/chunking-strategy-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/41-llm-app-builder/.claude/skills/chunking-strategy-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/41-llm-app-builder/.claude/skills/chunking-strategy-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/41-llm-app-builder/.claude/skills/chunking-strategy-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/38-chatbot-builder/.claude/skills/intent-taxonomy-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/38-chatbot-builder/.claude/skills/intent-taxonomy-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/38-chatbot-builder/.claude/skills/intent-taxonomy-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/38-chatbot-builder/.claude/skills/intent-taxonomy-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/26-infra-as-code/.claude/skills/terraform-module-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/26-infra-as-code/.claude/skills/terraform-module-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/26-infra-as-code/.claude/skills/terraform-module-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/26-infra-as-code/.claude/skills/terraform-module-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/31-ml-experiment/.claude/skills/experiment-tracking-setup/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/31-ml-experiment/.claude/skills/experiment-tracking-setup/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/31-ml-experiment/.claude/skills/experiment-tracking-setup/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/31-ml-experiment/.claude/skills/experiment-tracking-setup/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/96-real-estate-analyst/.claude/skills/cap-rate-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/96-real-estate-analyst/.claude/skills/cap-rate-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/03-newsletter-engine/.claude/skills/audience-segmentation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/03-newsletter-engine/.claude/skills/audience-segmentation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/03-newsletter-engine/.claude/skills/audience-segmentation/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/03-newsletter-engine/.claude/skills/audience-segmentation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/34-data-migration/.claude/skills/data-validation-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/34-data-migration/.claude/skills/data-validation-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/34-data-migration/.claude/skills/data-validation-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/34-data-migration/.claude/skills/data-validation-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/94-audit-report/.claude/skills/internal-control-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/94-audit-report/.claude/skills/internal-control-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/94-audit-report/.claude/skills/internal-control-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/94-audit-report/.claude/skills/internal-control-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/92-operations-manual/.claude/skills/knowledge-base-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/92-operations-manual/.claude/skills/knowledge-base-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/92-operations-manual/.claude/skills/knowledge-base-design/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/92-operations-manual/.claude/skills/knowledge-base-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/60-debate-simulator/.claude/skills/argumentation-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/60-debate-simulator/.claude/skills/argumentation-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/60-debate-simulator/.claude/skills/argumentation-framework/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/60-debate-simulator/.claude/skills/argumentation-framework/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/09-documentary-research/.claude/skills/narrative-structure/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/09-documentary-research/.claude/skills/narrative-structure/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/09-documentary-research/.claude/skills/narrative-structure/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/09-documentary-research/.claude/skills/narrative-structure/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/10-social-media-manager/.claude/skills/platform-algorithms/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/10-social-media-manager/.claude/skills/platform-algorithms/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/10-social-media-manager/.claude/skills/platform-algorithms/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/10-social-media-manager/.claude/skills/platform-algorithms/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/27-data-pipeline/.claude/skills/dag-orchestration-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/27-data-pipeline/.claude/skills/dag-orchestration-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/80-wedding-planner/.claude/skills/wedding-budget-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/80-wedding-planner/.claude/skills/wedding-budget-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/27-data-pipeline/.claude/skills/dag-orchestration-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/27-data-pipeline/.claude/skills/dag-orchestration-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/70-legal-research/.claude/skills/legal-writing-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/70-legal-research/.claude/skills/legal-writing-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/97-ecommerce-launcher/.claude/skills/product-copy-formulas/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/97-ecommerce-launcher/.claude/skills/product-copy-formulas/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/97-ecommerce-launcher/.claude/skills/product-copy-formulas/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/97-ecommerce-launcher/.claude/skills/product-copy-formulas/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/71-service-legal-docs/.claude/skills/unfair-terms-detector/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/71-service-legal-docs/.claude/skills/unfair-terms-detector/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/93-feedback-analyzer/.claude/skills/text-analytics-methods/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/93-feedback-analyzer/.claude/skills/text-analytics-methods/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/93-feedback-analyzer/.claude/skills/text-analytics-methods/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/93-feedback-analyzer/.claude/skills/text-analytics-methods/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/77-space-concept-board/.claude/skills/spatial-layout-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/77-space-concept-board/.claude/skills/spatial-layout-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/77-space-concept-board/.claude/skills/spatial-layout-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/77-space-concept-board/.claude/skills/spatial-layout-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/45-gov-funding-plan/.claude/skills/budget-standard-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/45-gov-funding-plan/.claude/skills/budget-standard-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/77-space-concept-board/.claude/skills/color-harmony-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/77-space-concept-board/.claude/skills/color-harmony-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/77-space-concept-board/.claude/skills/color-harmony-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/77-space-concept-board/.claude/skills/color-harmony-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/33-text-processor/.claude/skills/sentiment-lexicon-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/33-text-processor/.claude/skills/sentiment-lexicon-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/33-text-processor/.claude/skills/sentiment-lexicon-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/33-text-processor/.claude/skills/sentiment-lexicon-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/70-legal-research/.claude/skills/legal-writing-methodology/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/70-legal-research/.claude/skills/legal-writing-methodology/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/52-scenario-planner/.claude/skills/decision-trigger-mapper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/52-scenario-planner/.claude/skills/decision-trigger-mapper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/52-scenario-planner/.claude/skills/decision-trigger-mapper/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/52-scenario-planner/.claude/skills/decision-trigger-mapper/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/35-api-client-generator/.claude/skills/sdk-design-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/35-api-client-generator/.claude/skills/sdk-design-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/35-api-client-generator/.claude/skills/sdk-design-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/35-api-client-generator/.claude/skills/sdk-design-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/68-patent-drafter/.claude/skills/prior-art-search-strategy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/68-patent-drafter/.claude/skills/prior-art-search-strategy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/51-investor-report/.claude/skills/financial-ratio-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/51-investor-report/.claude/skills/financial-ratio-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/51-investor-report/.claude/skills/financial-ratio-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/51-investor-report/.claude/skills/financial-ratio-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/68-patent-drafter/.claude/skills/prior-art-search-strategy/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/68-patent-drafter/.claude/skills/prior-art-search-strategy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/80-wedding-planner/.claude/skills/vendor-negotiation-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/80-wedding-planner/.claude/skills/vendor-negotiation-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/80-wedding-planner/.claude/skills/vendor-negotiation-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/80-wedding-planner/.claude/skills/vendor-negotiation-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/34-data-migration/.claude/skills/type-mapping-encyclopedia/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/34-data-migration/.claude/skills/type-mapping-encyclopedia/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/34-data-migration/.claude/skills/type-mapping-encyclopedia/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/34-data-migration/.claude/skills/type-mapping-encyclopedia/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/45-gov-funding-plan/.claude/skills/budget-standard-checker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/45-gov-funding-plan/.claude/skills/budget-standard-checker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/72-regulatory-filing/.claude/skills/permit-requirements-db/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/72-regulatory-filing/.claude/skills/permit-requirements-db/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/33-text-processor/.claude/skills/nlp-preprocessing-toolkit/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/33-text-processor/.claude/skills/nlp-preprocessing-toolkit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/33-text-processor/.claude/skills/nlp-preprocessing-toolkit/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/33-text-processor/.claude/skills/nlp-preprocessing-toolkit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/72-regulatory-filing/.claude/skills/permit-requirements-db/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/72-regulatory-filing/.claude/skills/permit-requirements-db/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/87-crisis-communication/.claude/skills/stakeholder-mapping/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/87-crisis-communication/.claude/skills/stakeholder-mapping/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/87-crisis-communication/.claude/skills/stakeholder-mapping/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/87-crisis-communication/.claude/skills/stakeholder-mapping/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/71-service-legal-docs/.claude/skills/cross-document-linker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/71-service-legal-docs/.claude/skills/cross-document-linker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/22-legacy-modernizer/.claude/skills/strangler-fig-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/22-legacy-modernizer/.claude/skills/strangler-fig-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/22-legacy-modernizer/.claude/skills/strangler-fig-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/22-legacy-modernizer/.claude/skills/strangler-fig-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/71-service-legal-docs/.claude/skills/cross-document-linker/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/71-service-legal-docs/.claude/skills/cross-document-linker/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/19-database-architect/.claude/skills/normalization-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/19-database-architect/.claude/skills/normalization-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/19-database-architect/.claude/skills/normalization-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/19-database-architect/.claude/skills/normalization-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/17-mobile-app-builder/.claude/skills/app-store-optimization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/17-mobile-app-builder/.claude/skills/app-store-optimization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/17-mobile-app-builder/.claude/skills/app-store-optimization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/17-mobile-app-builder/.claude/skills/app-store-optimization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/12-advertising-campaign/.claude/skills/media-mix-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/12-advertising-campaign/.claude/skills/media-mix-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/12-advertising-campaign/.claude/skills/media-mix-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/12-advertising-campaign/.claude/skills/media-mix-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/82-report-generator/.claude/skills/data-visualization-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/82-report-generator/.claude/skills/data-visualization-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/82-report-generator/.claude/skills/data-visualization-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/82-report-generator/.claude/skills/data-visualization-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/12-advertising-campaign/.claude/skills/advertising-campaign/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/12-advertising-campaign/.claude/skills/advertising-campaign/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/30-open-source-launcher/.claude/skills/open-source-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/30-open-source-launcher/.claude/skills/open-source-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/35-api-client-generator/.claude/skills/api-client-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/35-api-client-generator/.claude/skills/api-client-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/35-api-client-generator/.claude/skills/api-client-generator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/35-api-client-generator/.claude/skills/api-client-generator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/99-sustainability-audit/.claude/skills/sustainability-audit/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/99-sustainability-audit/.claude/skills/sustainability-audit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/99-sustainability-audit/.claude/skills/sustainability-audit/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/99-sustainability-audit/.claude/skills/sustainability-audit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/10-social-media-manager/.claude/skills/social-media-manager/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/10-social-media-manager/.claude/skills/social-media-manager/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/30-open-source-launcher/.claude/skills/open-source-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/30-open-source-launcher/.claude/skills/open-source-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/87-crisis-communication/.claude/skills/crisis-communication/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/87-crisis-communication/.claude/skills/crisis-communication/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/09-documentary-research/.claude/skills/documentary-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/09-documentary-research/.claude/skills/documentary-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/09-documentary-research/.claude/skills/documentary-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/09-documentary-research/.claude/skills/documentary-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/10-social-media-manager/.claude/skills/social-media-manager/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/10-social-media-manager/.claude/skills/social-media-manager/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/12-advertising-campaign/.claude/skills/advertising-campaign/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/12-advertising-campaign/.claude/skills/advertising-campaign/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/87-crisis-communication/.claude/skills/crisis-communication/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/87-crisis-communication/.claude/skills/crisis-communication/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/75-tax-calculator/.claude/skills/deduction-optimizer-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/75-tax-calculator/.claude/skills/deduction-optimizer-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/78-personal-finance/.claude/skills/financial-ratio-analyzer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/78-personal-finance/.claude/skills/financial-ratio-analyzer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/23-microservice-designer/.claude/skills/ddd-context-mapping/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/23-microservice-designer/.claude/skills/ddd-context-mapping/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/23-microservice-designer/.claude/skills/ddd-context-mapping/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/23-microservice-designer/.claude/skills/ddd-context-mapping/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/25-incident-postmortem/.claude/skills/sla-impact-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/25-incident-postmortem/.claude/skills/sla-impact-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/25-incident-postmortem/.claude/skills/sla-impact-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/25-incident-postmortem/.claude/skills/sla-impact-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/60-debate-simulator/.claude/skills/logical-fallacy-detector/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/60-debate-simulator/.claude/skills/logical-fallacy-detector/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/60-debate-simulator/.claude/skills/logical-fallacy-detector/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/60-debate-simulator/.claude/skills/logical-fallacy-detector/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/67-compliance-checker/.claude/skills/audit-checklist-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/67-compliance-checker/.claude/skills/audit-checklist-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/67-compliance-checker/.claude/skills/audit-checklist-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/67-compliance-checker/.claude/skills/audit-checklist-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/75-tax-calculator/.claude/skills/deduction-optimizer-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/75-tax-calculator/.claude/skills/deduction-optimizer-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/52-scenario-planner/.claude/skills/scenario-narrative-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/52-scenario-planner/.claude/skills/scenario-narrative-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/52-scenario-planner/.claude/skills/scenario-narrative-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/52-scenario-planner/.claude/skills/scenario-narrative-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/84-meeting-strategist/.claude/skills/facilitation-techniques/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/84-meeting-strategist/.claude/skills/facilitation-techniques/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/84-meeting-strategist/.claude/skills/facilitation-techniques/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/84-meeting-strategist/.claude/skills/facilitation-techniques/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/23-microservice-designer/.claude/skills/distributed-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/23-microservice-designer/.claude/skills/distributed-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/23-microservice-designer/.claude/skills/distributed-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/23-microservice-designer/.claude/skills/distributed-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/97-ecommerce-launcher/.claude/skills/conversion-optimization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/97-ecommerce-launcher/.claude/skills/conversion-optimization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/97-ecommerce-launcher/.claude/skills/conversion-optimization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/97-ecommerce-launcher/.claude/skills/conversion-optimization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/35-api-client-generator/.claude/skills/openapi-spec-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/35-api-client-generator/.claude/skills/openapi-spec-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/35-api-client-generator/.claude/skills/openapi-spec-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/35-api-client-generator/.claude/skills/openapi-spec-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/69-privacy-engineer/.claude/skills/gdpr-pipa-cross-reference/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/69-privacy-engineer/.claude/skills/gdpr-pipa-cross-reference/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/43-startup-launcher/.claude/skills/unit-economics-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/43-startup-launcher/.claude/skills/unit-economics-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/69-privacy-engineer/.claude/skills/gdpr-pipa-cross-reference/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/69-privacy-engineer/.claude/skills/gdpr-pipa-cross-reference/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/13-presentation-designer/.claude/skills/slide-layout-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/13-presentation-designer/.claude/skills/slide-layout-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/13-presentation-designer/.claude/skills/slide-layout-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/13-presentation-designer/.claude/skills/slide-layout-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/99-sustainability-audit/.claude/skills/materiality-assessment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/99-sustainability-audit/.claude/skills/materiality-assessment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/99-sustainability-audit/.claude/skills/materiality-assessment/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/99-sustainability-audit/.claude/skills/materiality-assessment/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/13-presentation-designer/.claude/skills/presentation-designer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/13-presentation-designer/.claude/skills/presentation-designer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/79-side-project-launcher/.claude/skills/side-project-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/79-side-project-launcher/.claude/skills/side-project-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/29-performance-optimizer/.claude/skills/performance-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/29-performance-optimizer/.claude/skills/performance-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/79-side-project-launcher/.claude/skills/side-project-launcher/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/79-side-project-launcher/.claude/skills/side-project-launcher/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/23-microservice-designer/.claude/skills/microservice-designer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/23-microservice-designer/.claude/skills/microservice-designer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/23-microservice-designer/.claude/skills/microservice-designer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/23-microservice-designer/.claude/skills/microservice-designer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/29-performance-optimizer/.claude/skills/performance-optimizer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/29-performance-optimizer/.claude/skills/performance-optimizer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/13-presentation-designer/.claude/skills/presentation-designer/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/13-presentation-designer/.claude/skills/presentation-designer/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/38-chatbot-builder/.claude/skills/conversation-flow-validator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/38-chatbot-builder/.claude/skills/conversation-flow-validator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/38-chatbot-builder/.claude/skills/conversation-flow-validator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/38-chatbot-builder/.claude/skills/conversation-flow-validator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/09-documentary-research/.claude/skills/investigative-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/09-documentary-research/.claude/skills/investigative-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/09-documentary-research/.claude/skills/investigative-research/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/09-documentary-research/.claude/skills/investigative-research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/73-meal-planner/.claude/skills/ingredient-substitution-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/73-meal-planner/.claude/skills/ingredient-substitution-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/73-meal-planner/.claude/skills/ingredient-substitution-engine/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/73-meal-planner/.claude/skills/ingredient-substitution-engine/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/15-visual-storytelling/.claude/skills/image-prompt-engineering/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/15-visual-storytelling/.claude/skills/image-prompt-engineering/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/15-visual-storytelling/.claude/skills/image-prompt-engineering/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/15-visual-storytelling/.claude/skills/image-prompt-engineering/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/12-advertising-campaign/.claude/skills/ad-copywriting-formulas/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/12-advertising-campaign/.claude/skills/ad-copywriting-formulas/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/12-advertising-campaign/.claude/skills/ad-copywriting-formulas/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/12-advertising-campaign/.claude/skills/ad-copywriting-formulas/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/78-personal-finance/.claude/skills/compound-interest-simulator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/78-personal-finance/.claude/skills/compound-interest-simulator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/78-personal-finance/.claude/skills/compound-interest-simulator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/78-personal-finance/.claude/skills/compound-interest-simulator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/50-pricing-strategy/.claude/skills/price-elasticity-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/50-pricing-strategy/.claude/skills/price-elasticity-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/67-compliance-checker/.claude/skills/regulation-knowledge-base/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/67-compliance-checker/.claude/skills/regulation-knowledge-base/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/67-compliance-checker/.claude/skills/regulation-knowledge-base/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/67-compliance-checker/.claude/skills/regulation-knowledge-base/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/19-database-architect/.claude/skills/query-optimization-catalog/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/19-database-architect/.claude/skills/query-optimization-catalog/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/19-database-architect/.claude/skills/query-optimization-catalog/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/19-database-architect/.claude/skills/query-optimization-catalog/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/64-knowledge-base-builder/.claude/skills/knowledge-base-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/64-knowledge-base-builder/.claude/skills/knowledge-base-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/64-knowledge-base-builder/.claude/skills/knowledge-base-builder/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/64-knowledge-base-builder/.claude/skills/knowledge-base-builder/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/63-research-assistant/.claude/skills/systematic-review-protocol/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/63-research-assistant/.claude/skills/systematic-review-protocol/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/63-research-assistant/.claude/skills/systematic-review-protocol/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/63-research-assistant/.claude/skills/systematic-review-protocol/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/87-crisis-communication/.claude/skills/media-response-templates/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/87-crisis-communication/.claude/skills/media-response-templates/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/03-newsletter-engine/.claude/skills/deliverability-optimization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/03-newsletter-engine/.claude/skills/deliverability-optimization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/87-crisis-communication/.claude/skills/media-response-templates/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/87-crisis-communication/.claude/skills/media-response-templates/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/03-newsletter-engine/.claude/skills/deliverability-optimization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/03-newsletter-engine/.claude/skills/deliverability-optimization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/30-open-source-launcher/.claude/skills/community-health-metrics/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/30-open-source-launcher/.claude/skills/community-health-metrics/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/30-open-source-launcher/.claude/skills/community-health-metrics/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/30-open-source-launcher/.claude/skills/community-health-metrics/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/13-presentation-designer/.claude/skills/data-visualization-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/13-presentation-designer/.claude/skills/data-visualization-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/13-presentation-designer/.claude/skills/data-visualization-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/13-presentation-designer/.claude/skills/data-visualization-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/79-side-project-launcher/.claude/skills/market-sizing-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/79-side-project-launcher/.claude/skills/market-sizing-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/79-side-project-launcher/.claude/skills/market-sizing-calculator/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/79-side-project-launcher/.claude/skills/market-sizing-calculator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/64-knowledge-base-builder/.claude/skills/information-architecture/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/64-knowledge-base-builder/.claude/skills/information-architecture/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/64-knowledge-base-builder/.claude/skills/information-architecture/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/64-knowledge-base-builder/.claude/skills/information-architecture/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/29-performance-optimizer/.claude/skills/caching-strategy-selector/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/29-performance-optimizer/.claude/skills/caching-strategy-selector/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/79-side-project-launcher/.claude/skills/techstack-decision-matrix/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/79-side-project-launcher/.claude/skills/techstack-decision-matrix/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/79-side-project-launcher/.claude/skills/techstack-decision-matrix/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/79-side-project-launcher/.claude/skills/techstack-decision-matrix/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/29-performance-optimizer/.claude/skills/caching-strategy-selector/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/29-performance-optimizer/.claude/skills/caching-strategy-selector/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/15-visual-storytelling/.claude/skills/narrative-structure-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/15-visual-storytelling/.claude/skills/narrative-structure-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/15-visual-storytelling/.claude/skills/narrative-structure-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/15-visual-storytelling/.claude/skills/narrative-structure-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/14-translation-localization/.claude/skills/translation-quality-mqm/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/14-translation-localization/.claude/skills/translation-quality-mqm/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/64-knowledge-base-builder/.claude/skills/content-lifecycle-manager/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/64-knowledge-base-builder/.claude/skills/content-lifecycle-manager/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/64-knowledge-base-builder/.claude/skills/content-lifecycle-manager/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/64-knowledge-base-builder/.claude/skills/content-lifecycle-manager/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/14-translation-localization/.claude/skills/translation-quality-mqm/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/14-translation-localization/.claude/skills/translation-quality-mqm/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/29-performance-optimizer/.claude/skills/query-optimization-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/29-performance-optimizer/.claude/skills/query-optimization-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/14-translation-localization/.claude/skills/translation-localization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/14-translation-localization/.claude/skills/translation-localization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/14-translation-localization/.claude/skills/translation-localization/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/14-translation-localization/.claude/skills/translation-localization/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/29-performance-optimizer/.claude/skills/query-optimization-patterns/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/29-performance-optimizer/.claude/skills/query-optimization-patterns/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/30-open-source-launcher/.claude/skills/license-compatibility-matrix/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/30-open-source-launcher/.claude/skills/license-compatibility-matrix/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/30-open-source-launcher/.claude/skills/license-compatibility-matrix/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/30-open-source-launcher/.claude/skills/license-compatibility-matrix/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "en/14-translation-localization/.claude/skills/cultural-adaptation-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/en/14-translation-localization/.claude/skills/cultural-adaptation-guide/skill.md",
+      "description": ""
+    },
+    {
+      "name": "harness-100",
+      "path": "ko/14-translation-localization/.claude/skills/cultural-adaptation-guide/skill.md",
+      "github_url": "https://github.com/revfactory/harness-100/tree/main/ko/14-translation-localization/.claude/skills/cultural-adaptation-guide/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/revfactory/harness-100",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:36:44Z"
+}
