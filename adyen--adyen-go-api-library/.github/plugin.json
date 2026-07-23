@@ -1,0 +1,9 @@
+{
+  "name": "adyen--adyen-go-api-library",
+  "displayName": "adyen-go-api-library",
+  "description": "adyen-go-api-library",
+  "version": "1.0.0",
+  "author": "Adyen",
+  "homepage": "https://github.com/Adyen/adyen-go-api-library",
+  "skills": []
+}
