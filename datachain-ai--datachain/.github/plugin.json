@@ -1,0 +1,22 @@
+{
+  "name": "datachain-ai--datachain",
+  "displayName": "datachain",
+  "description": "datachain",
+  "version": "1.0.0",
+  "author": "datachain-ai",
+  "homepage": "https://github.com/datachain-ai/datachain",
+  "skills": [
+    {
+      "name": "datachain",
+      "description": ""
+    },
+    {
+      "name": "datachain",
+      "description": ""
+    },
+    {
+      "name": "datachain",
+      "description": ""
+    }
+  ]
+}
