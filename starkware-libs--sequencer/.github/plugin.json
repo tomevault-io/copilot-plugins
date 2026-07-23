@@ -1,0 +1,18 @@
+{
+  "name": "starkware-libs--sequencer",
+  "displayName": "sequencer",
+  "description": "sequencer",
+  "version": "1.0.0",
+  "author": "starkware-libs",
+  "homepage": "https://github.com/starkware-libs/sequencer",
+  "skills": [
+    {
+      "name": "sequencer",
+      "description": ""
+    },
+    {
+      "name": "sequencer",
+      "description": ""
+    }
+  ]
+}
