@@ -1,0 +1,14 @@
+{
+  "name": "lifinance--widget",
+  "displayName": "widget",
+  "description": "widget",
+  "version": "1.0.0",
+  "author": "lifinance",
+  "homepage": "https://github.com/lifinance/widget",
+  "skills": [
+    {
+      "name": "widget",
+      "description": ""
+    }
+  ]
+}
