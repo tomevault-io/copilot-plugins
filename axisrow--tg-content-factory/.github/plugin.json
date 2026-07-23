@@ -1,0 +1,14 @@
+{
+  "name": "axisrow--tg-content-factory",
+  "displayName": "tg_content_factory",
+  "description": "tg_content_factory",
+  "version": "1.0.0",
+  "author": "axisrow",
+  "homepage": "https://github.com/axisrow/tg_content_factory",
+  "skills": [
+    {
+      "name": "tg_content_factory",
+      "description": ""
+    }
+  ]
+}
