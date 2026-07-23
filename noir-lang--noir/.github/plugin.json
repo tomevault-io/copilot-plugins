@@ -1,0 +1,58 @@
+{
+  "name": "noir-lang--noir",
+  "displayName": "noir",
+  "description": "noir",
+  "version": "1.0.0",
+  "author": "noir-lang",
+  "homepage": "https://github.com/noir-lang/noir",
+  "skills": [
+    {
+      "name": "bisect-ssa-pass",
+      "description": ""
+    },
+    {
+      "name": "debug-fuzzer-failure",
+      "description": ""
+    },
+    {
+      "name": "extract-fuzzer-repro",
+      "description": ""
+    },
+    {
+      "name": "noir-frontend-tests",
+      "description": ""
+    },
+    {
+      "name": "noir-idioms",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "description": ""
+    }
+  ]
+}
