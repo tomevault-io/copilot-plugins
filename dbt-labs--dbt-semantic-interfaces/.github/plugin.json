@@ -1,0 +1,9 @@
+{
+  "name": "dbt-labs--dbt-semantic-interfaces",
+  "displayName": "dbt-semantic-interfaces",
+  "description": "dbt-semantic-interfaces",
+  "version": "1.0.0",
+  "author": "dbt-labs",
+  "homepage": "https://github.com/dbt-labs/dbt-semantic-interfaces",
+  "skills": []
+}
