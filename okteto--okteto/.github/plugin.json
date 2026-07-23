@@ -1,0 +1,42 @@
+{
+  "name": "okteto--okteto",
+  "displayName": "okteto",
+  "description": "okteto",
+  "version": "1.0.0",
+  "author": "okteto",
+  "homepage": "https://github.com/okteto/okteto",
+  "skills": [
+    {
+      "name": "fix-cves",
+      "description": ""
+    },
+    {
+      "name": "lint-check",
+      "description": ""
+    },
+    {
+      "name": "new-feature",
+      "description": ""
+    },
+    {
+      "name": "okteto",
+      "description": ""
+    },
+    {
+      "name": "okteto",
+      "description": ""
+    },
+    {
+      "name": "okteto",
+      "description": ""
+    },
+    {
+      "name": "okteto",
+      "description": ""
+    },
+    {
+      "name": "okteto",
+      "description": ""
+    }
+  ]
+}
