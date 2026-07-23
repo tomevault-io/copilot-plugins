@@ -1,0 +1,14 @@
+{
+  "name": "hegeldev--hegel-skill",
+  "displayName": "hegel-skill",
+  "description": "hegel-skill",
+  "version": "1.0.0",
+  "author": "hegeldev",
+  "homepage": "https://github.com/hegeldev/hegel-skill",
+  "skills": [
+    {
+      "name": "hegel-skill",
+      "description": ""
+    }
+  ]
+}
