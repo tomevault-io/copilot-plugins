@@ -4,7 +4,7 @@
   "repo": "knowledge-pipline",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YesIamGodt/knowledge-pipline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T23:15:28Z"
+  "distributed_at": "2026-07-23T11:59:41Z"
 }
