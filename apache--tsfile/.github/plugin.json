@@ -1,0 +1,14 @@
+{
+  "name": "apache--tsfile",
+  "displayName": "tsfile",
+  "description": "tsfile",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/tsfile",
+  "skills": [
+    {
+      "name": "tsfile",
+      "description": ""
+    }
+  ]
+}
