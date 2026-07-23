@@ -1,0 +1,9 @@
+{
+  "name": "meilisearch--meilisearch-java",
+  "displayName": "meilisearch-java",
+  "description": "meilisearch-java",
+  "version": "1.0.0",
+  "author": "meilisearch",
+  "homepage": "https://github.com/meilisearch/meilisearch-java",
+  "skills": []
+}
