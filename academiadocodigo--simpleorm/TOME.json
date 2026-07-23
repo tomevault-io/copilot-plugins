@@ -1,0 +1,99 @@
+{
+  "name": "SimpleORM",
+  "owner": "academiadocodigo",
+  "repo": "SimpleORM",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/memory-safety/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/memory-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/entity-mapping/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/entity-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/sql-generation/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/sql-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/delphi-patterns/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/delphi-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/delphi-validator/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/delphi-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/changelog-format/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/changelog-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/horse-integration/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/horse-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/isimplequery-contract/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/isimplequery-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SimpleORM",
+      "path": ".claude/skills/delphi-project-structure/SKILL.md",
+      "github_url": "https://github.com/academiadocodigo/SimpleORM/tree/main/.claude/skills/delphi-project-structure/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/academiadocodigo/SimpleORM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:18:54Z"
+}
