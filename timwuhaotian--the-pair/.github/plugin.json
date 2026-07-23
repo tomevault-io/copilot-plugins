@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "timwuhaotian",
   "homepage": "https://github.com/timwuhaotian/the-pair",
-  "skills": []
+  "skills": [
+    {
+      "name": "the-pair",
+      "description": ""
+    }
+  ]
 }
