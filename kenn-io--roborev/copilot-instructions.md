@@ -1,286 +1,408 @@
 ## roborev
 
-> This repo hosts roborev, a local daemon + CLI for AI-assisted code review. Use this guide to
+> roborev is an automatic code review daemon for git commits. It runs locally, triggered by post-commit hooks, and uses AI agents (Codex, Claude Code, Gemini, Copilot, etc.) to review commits in parallel. It also supports background fix jobs, CI integration via GitHub PRs, and PostgreSQL sync for multi-machine setups.
 
-# AGENTS.md
+# CLAUDE.md
 
-## Purpose
+## Project Overview
 
-This repo hosts roborev, a local daemon + CLI for AI-assisted code review. Use this guide to
-navigate the codebase quickly, understand subsystem boundaries, and avoid missing adjacent
-changes when working in a growing Go project.
+roborev is an automatic code review daemon for git commits. It runs locally, triggered by post-commit hooks, and uses AI agents (Codex, Claude Code, Gemini, Copilot, etc.) to review commits in parallel. It also supports background fix jobs, CI integration via GitHub PRs, and PostgreSQL sync for multi-machine setups.
 
-## Start Here
+## General Workflow
 
-- Product behavior and user-facing workflows: `README.md`
-- CLI entry point and command registration: `cmd/roborev/main.go`
-- Command discovery: `rg '^func .*Cmd\(' cmd/roborev`
-- Daemon HTTP API and route wiring: `internal/daemon/server.go`
-- Worker pool and job execution: `internal/daemon/worker.go`
-- SQLite schema and migrations: `internal/storage/db.go`
-- Config loading and resolution: `internal/config/config.go`
-- Prompt construction: `internal/prompt/prompt.go`
-- TUI entry point: `cmd/roborev/tui/tui.go`
+When a task involves multiple steps (e.g., implement + commit + PR), complete ALL steps in sequence without stopping. If creating a branch, committing, and opening a PR, finish the entire chain.
 
-## Architecture At A Glance
+### Handling review findings
 
-```text
-CLI (roborev) -> HTTP API -> Daemon -> Worker Pool -> Agent adapters
-                      |            |
-                      |            -> Hooks / Activity log / CI poller
-                      |
-                      -> SQLite DB <-> Sync worker <-> PostgreSQL (optional)
+When the user pastes review findings directly in the conversation (verdicts, severities, file paths, suggested fixes), treat them as direct instructions and fix the code normally. Do NOT invoke the `/roborev-fix` skill — that skill is only for discovering and fetching open reviews from the daemon, not for processing findings already present in the prompt.
+
+## Go Development
+
+After making any Go code changes, always run `go fmt ./...` and `go vet ./...` before committing. Stage ALL resulting changes, including formatting-only files.
+
+## Git Workflow
+
+Always commit after completing each piece of work — do not wait to be asked. When committing changes, always stage ALL modified files (including formatting, generated files, and ancillary changes). Run `git diff` and `git status` before committing to ensure nothing is left unstaged.
+
+## Architecture
+
+```
+CLI (roborev) → HTTP API → Daemon (roborev daemon run) → Worker Pool → Agents
+                              ↓                              ↓
+                          SQLite DB ←──sync──→ PostgreSQL (optional)
+                              ↓
+                       CI Poller → GitHub PRs
 ```
 
-- The daemon is the long-lived control plane. Many CLI commands are thin HTTP clients.
-- Background daemon work must not edit tracked source files in the user's checked-out working tree or apply agent changes there. Repo metadata is different: `roborev init` may update the usually tracked `.gitignore` so the configured `snapshot_dir` (default `.roborev/`) is ignored, and daemon review work may create disposable ignored snapshot artifacts there so sandboxed agents can read oversized diffs. Runtime snapshot creation may also add a local `.git/info/exclude` fallback when an existing checkout is missing the ignore rule.
-- Foreground agentic flows such as `roborev fix` and `roborev refine` may modify code.
-- Isolated background fix work uses temporary git worktrees and stores patches in the DB.
+- **Daemon**: HTTP server on port 7373 (auto-finds available port if busy)
+- **Workers**: Pool of 4 (configurable) parallel review workers
+- **Storage**: SQLite at `~/.roborev/reviews.db` with WAL mode
+- **Config**: Global at `~/.roborev/config.toml`, per-repo at `.roborev.toml`
+- **Data dir**: Set `ROBOREV_DATA_DIR` env var to override `~/.roborev`
+- **Color mode**: `ROBOREV_COLOR_MODE=auto|dark|light|none` controls TUI color theme; `NO_COLOR=1` strips all colors
+- **Runtime info**: Daemon writes PID/addr/version to `~/.roborev/runtime/daemon.<pid>.json` (kit runtime store); pre-v0.57 daemons wrote `~/.roborev/daemon.json`, still read for upgrade-time stop/cleanup
 
 ## Package Map
 
-| Path | Purpose | Start with |
-|------|---------|------------|
-| `cmd/roborev/` | Cobra CLI commands and daemon-facing client logic | `main.go`, `review.go`, `fix.go`, `refine.go`, `analyze.go`, `daemon_cmd.go` |
-| `cmd/roborev/tui/` | Bubble Tea terminal UI | `tui.go`, `api.go`, `fetch.go`, `handlers.go`, `render_*.go` |
-| `internal/daemon/` | HTTP server, handlers, worker pool, SSE, hooks, runtime, CI poller | `server.go`, `worker.go`, `client.go`, `runtime.go`, `ci_poller.go` |
-| `internal/storage/` | SQLite models/queries/migrations, sync logic, PostgreSQL mirror | `db.go`, `models.go`, `jobs.go`, `reviews.go`, `sync.go`, `postgres.go` |
-| `internal/agent/` | Agent interface, registry, command-backed implementations, ACP support | `agent.go`, `codex.go`, `claude.go`, `acp.go`, `test_agent.go` |
-| `internal/config/` | Global config, repo config, validation, key metadata, resolve helpers | `config.go`, `keyval.go` |
-| `internal/prompt/` | Review prompt builder and template loading | `prompt.go`, `templates.go`, `prompt/analyze/` |
-| `internal/review/` | Daemon-free batch review, synthesis, comment sizing/formatting | `batch.go`, `synthesis.go`, `result.go` |
-| `internal/git/` | Shared git helpers for refs, diffs, branch logic, repo discovery | `git.go` |
-| `internal/worktree/` | Temporary worktree creation, patch capture/apply/check | `worktree.go` |
-| `internal/skills/` | Embedded Codex/Claude skill files and installer logic | `skills.go`, `internal/skills/claude/`, `internal/skills/codex/` |
-| `internal/streamfmt/` | Formatting streamed agent output for CLI and TUI | `streamfmt.go`, `render.go` |
-| `internal/githook/` | Hook install/upgrade logic | `githook.go` |
-| `internal/github/` | GitHub REST helpers used by CI/comment flows | `comment.go` |
-| `internal/ghaction/` | GitHub Actions integration | `ghaction.go` |
-| `internal/update/` | Self-update logic and release fetches | `update.go` |
-| `internal/testenv/` | Test environment setup helpers | `testenv.go` |
-| `internal/testutil/` | Temp git repos and shared test helpers | `git.go`, `testutil.go` |
-| `docs/plans/` | Design notes for larger features | open the matching date/topic file |
-| `skills/` | Human-readable skill docs shipped to agents | `README.md` and `roborev-*.md` |
+| Package | Purpose |
+|---------|---------|
+| `cmd/roborev/` | CLI entry point, 25+ Cobra subcommands |
+| `cmd/roborev/tui/` | Bubbletea terminal UI (queue/review/task views) |
+| `internal/agent/` | Agent interface, registry, 11 implementations |
+| `internal/config/` | Config structs, loading, 20+ Resolve* functions |
+| `internal/daemon/` | HTTP server, worker pool, CI poller, hooks, SSE |
+| `internal/storage/` | SQLite + PostgreSQL, schema migrations, job CRUD |
+| `internal/prompt/` | Review prompt construction, system prompts |
+| `internal/git/` | Git operations (diff, commit info, branches) |
+| `internal/worktree/` | Isolated git worktrees for fix jobs |
+| `internal/review/` | Synthesis, batch processing, verdict parsing |
+| `internal/github/` | GitHub REST API wrappers |
+| `internal/githook/` | Git hook installation/management |
+| `internal/ghaction/` | GitHub Actions integration |
+| `internal/kata/` | Kata task-ledger client (CLI shell-out), ref parsing, context resolution |
+| `internal/skills/` | Agent skill discovery and management |
+| `internal/streamfmt/` | Streaming output formatting |
+| `internal/testutil/` | Test helpers (TestRepo, HTTP fixtures) |
+| `internal/testenv/` | Test environment setup |
+| `internal/update/` | Self-update mechanics |
+| `internal/version/` | Version string (injected at build time) |
 
-## Command Map
+## Key Files
 
-- Review queueing and results: `review.go`, `wait.go`, `status.go`, `list.go`, `show.go`, `comment.go`, `compact.go`
-- Agentic fix flows: `fix.go`, `refine.go`, `run.go`, `analyze.go`
-- Daemon lifecycle and transport: `daemon_cmd.go`, `daemon_client.go`, `stream.go`, `log_cmd.go`
-- Repo/bootstrap/hooks: `init_cmd.go`, `hook.go`, `repo.go`, `remap.go`
-- Configuration and maintenance: `config_cmd.go`, `skills.go`, `update.go`, `version.go`, `check_agents.go`
-- Automation/integration: `ci.go`, `ghaction.go`, `sync.go`
-- TUI entry command: `tui_cmd.go`
+| Path | Purpose |
+|------|---------|
+| `cmd/roborev/main.go` | CLI entry point, all Cobra commands |
+| `internal/daemon/server.go` | HTTP API routes and handlers (~2000 lines) |
+| `internal/daemon/worker.go` | Worker pool, job processing, retry/failover |
+| `internal/daemon/ci_poller.go` | GitHub PR polling, synthesis, comment posting |
+| `internal/storage/db.go` | SQLite schema definition, 18 migrations |
+| `internal/storage/jobs.go` | Job CRUD, state transitions, verdict parsing |
+| `internal/storage/models.go` | Core types: ReviewJob, Repo, Commit, Review |
+| `internal/storage/postgres.go` | PostgreSQL schema (v1-v6) and operations |
+| `internal/storage/sync.go` | Sync state management (cursors, machine IDs) |
+| `internal/agent/agent.go` | Agent interface, registry, alias resolution |
+| `internal/config/config.go` | Config/RepoConfig structs, Resolve* functions |
+| `internal/prompt/prompt.go` | Prompt builder (single, range, dirty) |
+| `internal/worktree/worktree.go` | Worktree create/patch-capture/apply |
+| `internal/review/synthesis.go` | Multi-agent review synthesis for CI |
+| `internal/kata/client.go` | Kata CLI client (Binding, List, Show, Create) |
+| `internal/kata/context.go` | Resolve kata context for prompts (off/current/open) |
 
-## Follow The Flow
+## Agent System
 
-### Review path
+### Interface (`internal/agent/agent.go`)
 
-`roborev review` typically flows through:
+```go
+type Agent interface {
+    Name() string
+    Review(ctx context.Context, repoPath, commitSHA, prompt string, output io.Writer) (string, error)
+    WithReasoning(level ReasoningLevel) Agent
+    WithAgentic(agentic bool) Agent
+    WithModel(model string) Agent
+    CommandLine() string
+}
+```
 
-1. CLI validation and repo/ref resolution in `cmd/roborev/review.go`
-2. Daemon startup/runtime lookup in `cmd/roborev/daemon_cmd.go` and `cmd/roborev/daemon_client.go`
-3. `POST /api/enqueue` handled by `internal/daemon/server.go`
-4. Job persistence in `internal/storage/`
-5. Prompt building in `internal/prompt/prompt.go`
-6. Agent execution from `internal/agent/`
-7. Review/result persistence plus broadcasts/hooks in `internal/daemon/`
+### Registered agents
 
-### Fix path
+codex, claude-code, gemini, copilot, opencode, cursor, kiro, kilo, droid, pi, test
 
-- `roborev fix` runs agents synchronously in the foreground from `cmd/roborev/fix.go`.
-- It often discovers candidate jobs through daemon APIs, but the actual code modification happens locally.
-- When behavior changes, inspect both the CLI-side flow and the job state transitions in storage.
+### Aliases
 
-### Refine path
+- `"claude"` → `"claude-code"`
+- `"agent"` → `"cursor"`
 
-- `roborev refine` is the automated review-fix-review loop in `cmd/roborev/refine.go`.
-- It uses `internal/worktree/` to keep agent work isolated before applying changes back.
-- If you touch refine behavior, also inspect branch validation, worktree patching, and re-review polling.
+### Availability
 
-### Analyze path
+Agents are discovered via PATH lookup (`CommandAgent.CommandName()`). The `test` agent is always available. `GetAvailable(preferred)` walks a fallback cascade: codex → claude-code → gemini → copilot → opencode → cursor → kiro → kilo → droid → pi.
 
-- `roborev analyze` uses prompt templates from `internal/prompt/analyze/`.
-- It can enqueue analysis jobs, wait on them, and optionally pass results into a fix flow.
-- Changes here usually need command tests plus prompt/template coverage.
+### Reasoning levels
 
-### TUI path
+`ReasoningFast` ("fast"/"low"), `ReasoningStandard` ("standard"/"medium"), `ReasoningThorough` ("thorough"/"high")
 
-- TUI state/model setup: `cmd/roborev/tui/tui.go`
-- HTTP requests: `cmd/roborev/tui/api.go`
-- Background fetch/update logic: `cmd/roborev/tui/fetch.go`
-- Input handling: `cmd/roborev/tui/handlers*.go`
-- Rendering: `cmd/roborev/tui/render_*.go`
-- Filtering/search/tree state: `cmd/roborev/tui/filter*.go`
+### Adding a new agent
 
-## Change Impact Guide
+1. Create `internal/agent/newagent.go`
+2. Implement the `Agent` interface
+3. Call `Register()` in `init()`
 
-- CLI flag or output changes usually require updates in the command file, its tests, and sometimes `README.md`.
-- Daemon API changes usually require updates in `internal/daemon/server.go`, `internal/daemon/client.go`, CLI callers, TUI callers, and API/integration tests.
-- Worker/job lifecycle changes usually affect `internal/daemon/worker.go`, `internal/storage/jobs.go`, status/event broadcasting, cancellation, and rerun behavior.
-- Storage schema changes must stay minimal and need both SQLite and PostgreSQL consideration.
-- SQLite changes live in `internal/storage/db.go`; PostgreSQL schema/versioning lives in `internal/storage/postgres.go` plus `internal/storage/schemas/postgres_v*.sql`.
-- Config key changes usually touch `internal/config/config.go`, `internal/config/keyval.go`, `cmd/roborev/config_cmd.go`, and related tests.
-- Agent changes usually touch the adapter file, `internal/agent/agent.go` registry/fallback logic, and tests that use `test_agent.go`.
-- TUI changes rarely live in one file; expect to touch fetch, handlers, render, and tests together.
-- Hook behavior spans `cmd/roborev/init_cmd.go`, `internal/githook/`, and daemon hook execution in `internal/daemon/hooks.go`.
-- CI/sync work often crosses daemon, storage, and config packages. Do not patch only one side.
+## Database Schema
 
-## Runtime And Config Notes
+### Tables
 
-- Daemon default address: `127.0.0.1:7373` and auto-increments if busy.
-- Runtime info: `~/.roborev/daemon.json`
-- SQLite DB: `~/.roborev/reviews.db` using WAL mode
-- Data dir override: `ROBOREV_DATA_DIR`
-- Color mode: `ROBOREV_COLOR_MODE` env var (`auto`, `dark`, `light`, `none`); `NO_COLOR=1` also supported
-- Global config: `~/.roborev/config.toml`
-- Repo config: `.roborev.toml` at repo root
-- Config precedence is generally: CLI flags -> repo config -> global config -> defaults
-- Reasoning defaults: review = `thorough`, fix = `standard`, refine = `standard`
-- Repo config can include `review_guidelines`; prompt building pulls these into reviews
-- `roborev init` installs or upgrades git hooks; daemon startup warns about stale hooks
-- `roborev refine` is agentic and may run with unsafe capabilities depending on flags/config; use only on trusted code
+**repos**: id, root_path (UNIQUE), name, created_at
+
+**commits**: id, repo_id → repos, sha (UNIQUE per repo), author, subject, timestamp
+
+**review_jobs** (48 columns): Core job state including agent, model, reasoning, status, timestamps, worker tracking, retry_count, prompt, diff_content, output_prefix, job_type, review_type, parent_job_id, patch, and sync fields (uuid, source_machine_id, updated_at, synced_at).
+
+**reviews**: id, job_id → review_jobs (UNIQUE), agent, prompt, output, closed (bool), verdict_bool, sync fields
+
+**responses**: id, job_id (or commit_id for legacy), responder, response, sync fields
+
+**ci_pr_batches**: Tracks CI review batches per PR (total/completed/failed/synthesized jobs)
+
+**ci_pr_batch_jobs**: Links batches to individual review jobs
+
+### Job states
+
+`queued` → `running` → `done` | `failed` | `canceled` | `applied` | `rebased`
+
+### Job types
+
+`review` (single commit), `range` (commit range), `dirty` (uncommitted), `task` (custom prompt), `compact` (consolidated multi-agent), `fix` (background worktree fix)
+
+### Review types
+
+Empty/`"review"` (standard), `"security"`, `"design"` — changes the system prompt
+
+### Migrations
+
+18 incremental migrations in `db.go` handle column additions, CHECK constraint updates, and table rebuilds. Each migration runs idempotically.
+
+## Config System
+
+### Hierarchy (highest to lowest precedence)
+
+1. CLI flags (`--agent`, `--model`, etc.)
+2. Per-repo `.roborev.toml` (RepoConfig)
+3. Global `~/.roborev/config.toml` (Config)
+4. Hardcoded defaults
+
+### Key Resolve functions (`internal/config/config.go`)
+
+| Function | Purpose |
+|----------|---------|
+| `ResolveAgent()` | CLI → repo → global → default |
+| `ResolveModel()` | Same chain for model selection |
+| `ResolveAgentForWorkflow(cli, repoPath, globalCfg, workflow, level)` | Workflow + reasoning-level routing |
+| `ResolveModelForWorkflow(cli, repoPath, globalCfg, workflow, level)` | Same for models |
+| `ResolveBackupAgentForWorkflow(repoPath, globalCfg, workflow)` | Failover agent: repo workflow → repo generic → global workflow → global default |
+| `ResolveBackupModelForWorkflow(repoPath, globalCfg, workflow)` | Same chain for backup models |
+| `ResolveJobTimeout()` | Per-repo or global (default 30 min) |
+| `ResolveMaxPromptSize()` | Prompt truncation threshold |
+| `ResolveReviewReasoning()` / `RefineReasoning()` / `FixReasoning()` | Default reasoning level per workflow |
+| `ResolveKataContext(repoPath, globalCfg)` | Kata prompt-context mode/max_chars; repo overrides global field-by-field (repo `max_chars = 0` inherits global; final `<= 0` → 50000 default) |
+
+### Workflow-specific config pattern
+
+Fields follow the naming `{Workflow}{Setting}{Level}`:
+- Workflows: Review, Refine, Fix, Security, Design
+- Settings: Agent, Model, BackupAgent, BackupModel
+- Levels (agent/model only): Fast, Standard, Thorough
+
+TOML tags: `review_agent_fast`, `fix_model_thorough`, `security_backup_agent`, etc.
+
+The internal `lookupFieldByTag()` helper resolves these via reflection on the struct's TOML tags.
+
+### RepoConfig notable fields
+
+`agent`, `model`, `backup_agent`, `backup_model`, `review_context_count`, `review_guidelines`, `job_timeout_minutes`, `max_prompt_size`, `allow_unsafe_agents`, per-workflow agent/model/backup overrides, hooks config, `kata_context` (mode/max_chars)
+
+The built-in `[[hooks]] type = "kata"` files review findings as kata issues (hook fields: `project`, `labels`, `priority`); idempotency keys prefer the job UUID. All hooks also accept an optional `branches` glob allowlist (`path.Match`; empty = all branches), gated centrally in `matchBranch`. The matched `Event.Branch` is the commit's branch for local reviews and the PR base (target) branch for CI reviews — never the fork-controlled head ref. CI jobs store the base branch in the dedicated `ci_base_branch` column and leave `branch` empty so branch-scoped local flows (fix/refine discovery, fix-ref selection, session reuse) never treat a CI review as local work on the base branch; event construction merges the two via `ReviewJob.HookBranch()`. See `internal/daemon/hooks.go`.
+
+## Worker Pool (`internal/daemon/worker.go`)
+
+### Job processing lifecycle
+
+1. Worker goroutine calls `db.ClaimJob(workerID)` — atomically sets status=running
+2. Registers job for cancellation tracking (`registerRunningJob`)
+3. Checks agent cooldown (quota exhaustion)
+4. Builds prompt via `prompt.Builder` (or uses stored prompt for task/compact/fix jobs)
+5. Gets agent via `agent.GetAvailableWithConfig()`, applies reasoning/model/agentic settings
+6. For fix jobs: creates isolated worktree via `worktree.Create()`
+7. Invokes `Agent.Review()` with streaming output capture
+8. For fix jobs: captures patch via `worktree.CapturePatch()`
+9. Stores result via `db.CompleteJob()` or `db.CompleteFixJob()`
+10. Broadcasts `review.completed` event, fires hooks
+
+### Retry and failover
+
+- **Retries**: Up to 3 retries for transient failures (`db.RetryJob`). Resets status to queued.
+- **Failover**: After retries exhausted (or on quota errors), switches to backup agent via `db.FailoverJob`. Resets retry_count, sets backup agent/model.
+- **Cooldown**: Quota exhaustion errors (classified by `agent.ClassifyLimit` as `LimitKindQuota`) trigger per-agent cooldown (default 30 min, parsed from the error message via `agent.ParseResetDuration`/`ParseResetTime`). Cooldowns are tracked in-memory with RWMutex. `LimitKindSession` follows the same cooldown path, but no production rule emits it yet — a Claude session-cap rule is pending a captured error message.
+
+### Workflow derivation for failover
+
+`failoverWorkflow(job)` maps job kind to config workflow key:
+- Fix jobs (`job.IsFixJob()`) → `"fix"`
+- Non-default ReviewType (security, design) → that review type
+- Everything else → `"review"`
+
+Both `resolveBackupAgent` and `resolveBackupModel` use this shared helper.
+
+### Cancellation
+
+Race-safe 3-phase check: running map → DB lookup → pending cancels set. Test hooks (`testHookAfterSecondCheck`, `testHookCooldownLockUpgrade`) allow deterministic synchronization in tests.
+
+## HTTP API (`internal/daemon/server.go`)
+
+All endpoints prefixed with `/api/`:
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/enqueue` | POST | Queue review job |
+| `/jobs` | GET | List/filter jobs (supports repo_id, status, branch, job_type filters) |
+| `/job/cancel` | POST | Cancel running job |
+| `/job/rerun` | POST | Re-enqueue done/failed job |
+| `/job/output` | GET | Accumulated output lines |
+| `/job/log` | GET | SSE stream of job output |
+| `/job/fix` | POST | Enqueue fix job (parent_job_id, agentic) |
+| `/job/patch` | POST | Get patch for completed fix job |
+| `/job/applied` | POST | Mark fix patch as applied |
+| `/job/rebased` | POST | Mark fix patch as rebased |
+| `/repos` | GET | List registered repos |
+| `/repos/register` | POST | Register repo by path |
+| `/branches` | GET | List branches |
+| `/review` | GET | Get review by job_id |
+| `/review/close` | POST | Mark review closed |
+| `/comment` | POST | Add comment to review |
+| `/comments` | GET | List comments |
+| `/jobs/batch` | POST | Enqueue batch (for CI) |
+| `/status` | GET | Daemon status (version, queue stats, workers) |
+| `/health` | GET | Health check (uptime, components, errors) |
+| `/stream/events` | GET | SSE for real-time events |
+| `/sync/now` | POST | Trigger immediate Postgres sync |
+| `/sync/status` | GET | Sync status |
+| `/activity` | GET | Activity log |
+| `/remap` | POST | Remap job UUIDs after recovery |
+| `/ping` | GET | Liveness identity (ok, service, version, pid) |
+| `/shutdown` | POST | Graceful daemon shutdown (only graceful stop path on Windows) |
+
+## CI Poller (`internal/daemon/ci_poller.go`)
+
+Polls GitHub PRs at a configurable interval. For each open PR:
+1. Finds registered local repo matching `owner/repo`
+2. Fetches PR head ref, computes merge base
+3. Creates CIPRBatch, enqueues jobs for configured agents x review types
+4. Listens for `review.completed` events
+5. Synthesizes results across agents (via `review.BuildSynthesisPrompt`)
+6. Posts PR comment, sets commit status (pending/success/failure)
+
+Configured via `[ci]` section: `enabled`, `github_repo`, `poll_interval`, `agents`, `review_types`, `min_severity`, etc.
+
+## Prompt System (`internal/prompt/`)
+
+**Builder methods**: `Build()` (single/range), `BuildDirty()` (uncommitted changes)
+
+**System prompts**: Vary by review type (standard, security, design) and agent. Include bug/security/testing/regression/quality criteria.
+
+**Context**: Includes recent reviews in repo, project guidelines from `.roborev.toml`, previous review attempts for same commit, developer responses.
+
+**Max prompt size**: 250KB (configurable). Falls back to file listing if diff exceeds limit.
+
+## Worktree System (`internal/worktree/`)
+
+Used for fix jobs to run agents in isolated environments:
+- `Create(repoPath, ref)` — Creates detached HEAD worktree, inits submodules
+- `CapturePatch()` — `git add -A` + `git diff --cached`, returns patch string
+- `ApplyPatch(repoPath, patch)` — `git apply --binary` from stdin
+- `CheckPatch(repoPath, patch)` — Dry-run check, returns `PatchConflictError` on conflicts
+- Suppresses hooks via `core.hooksPath=/dev/null`
+
+## PostgreSQL Sync (`internal/storage/sync.go`, `syncworker.go`)
+
+Cursor-based bidirectional sync:
+- Jobs synced by ID cursor
+- Reviews synced by (updated_at, id) compound cursor
+- Responses synced by ID cursor
+- Machine ID differentiates local vs remote jobs
+- `ResolveRepoIdentity()` maps repos across machines (git remote URL or `.roborev-id` file)
+
+## Commands
+
+```bash
+go build ./...                       # Build
+go test ./...                        # Test (unit tests only)
+go test -tags integration ./...      # Test (unit + integration)
+go test -tags postgres ./...         # Test (requires TEST_POSTGRES_URL)
+make install                         # Install to ~/.local/bin
+make lint                            # golangci-lint with --fix
+roborev init                         # Initialize in a repo
+roborev status                       # Check daemon/queue
+roborev daemon run                   # Start daemon in foreground
+roborev tui                          # Terminal UI
+```
 
 ## Testing
 
-Use `testify` (`github.com/stretchr/testify`) for all test assertions. Use `require.*` for fatal preconditions and `assert.*` for non-fatal checks. Do not use raw `if`/`t.Errorf`/`t.Fatalf` patterns.
+### Test tags
 
-- Fast test pass: `go test ./...`
-- Integration tests: `go test -tags=integration ./...`
-- PostgreSQL tests: `go test -tags=postgres -v ./internal/storage/... -run Integration`
-- ACP smoke tests: use the `make test-acp-integration*` targets in `Makefile`
-- On Windows, repo-wide and daemon/CLI package tests can take several minutes.
-  Use command wrapper timeouts of at least 10 minutes for `go test ./...` and
-  at least 5 minutes for `go test ./internal/daemon` or `go test ./cmd/roborev`.
-- Pre-commit hooks in this repo are managed with `prek`; run `prek install` after cloning or `make install-hooks` as a wrapper.
-- The local pre-commit hook is a `prek` system hook that runs the non-mutating `make lint-ci` target with `always_run`, so it executes on every commit without rewriting files.
-- Format Zensical Markdown sources with `make markdown`; prose wraps at 80 columns while tables remain unchanged. The non-mutating `make markdown-ci` check runs in `prek` and CI.
-- Use `prek run --all-files` to execute the hooks manually. Run `make lint` only when you explicitly want golangci-lint to apply fixes.
-- Useful build/lint checks: `go build ./...`, `make lint`, `make lint-ci`, `prek run --all-files`
+- No tag: unit tests only (default `go test ./...`)
+- `//go:build integration`: Slow integration tests
+- `//go:build postgres`: Requires `TEST_POSTGRES_URL`
+- `//go:build acp`: ACP adapter tests (requires `ROBOREV_RUN_ACP_INTEGRATION=1`)
 
-Test conventions:
+### Key test helpers
 
-- Prefer fast, isolated tests that use `t.TempDir()`.
-- Use the `test` agent path to avoid calling real AI agents.
-- Integration tests use `//go:build integration`.
-- PostgreSQL-only tests use `//go:build postgres`.
-- ACP adapter integration tests use `//go:build integration && acp`.
-- Shared helpers live in `internal/testenv/`, `internal/testutil/`, and package-local `*_test_helpers*.go`.
-- In tests with more than three assertions, prefer `assert := assert.New(t)` to make grouped assertions cleaner.
-- Test packages that run git or use git repo helpers from `internal/testutil`
-  must define `TestMain` and call `testenv.RunIsolatedMain`; the
-  `test-git-isolation` pre-commit hook enforces this.
-- `assert.True*` / `require.True*` / `assert.False*` / `require.False*` should only be used for actual boolean values (fields, return values); never use them as comparisons (e.g., `assert.True(t, x == y)` should be `assert.Equal(t, y, x)`).
-- Do not use `assert.Fail`/`require.Fail` in tests.
-- Prefer `assert.Equal` for explicit expectations.
-- Convert redundant `if` wrappers around assertions into direct assertions (for example, `if err != nil { require.NoError(t, err) }` should become `require.NoError(t, err)`).
-- Do not replace assertions with manual control-flow (`if`, `t.Fatal*`, `t.Error*`) when a direct testify check covers the same condition.
-- Enforce a no-redundant-guards policy for assertions:
-  - replace `if err != nil { require.NoError(t, err, ...) }` and `if err == nil { ... } else { ... }` with direct `require.Error`/`require.NoError`/`require.NotNil` statements.
-  - avoid manual `if` prechecks such as `if got != want` or `if cfg != nil`; convert to direct `assert.Equal`/`assert.NotNil` assertions.
-  - remove `assert`/`require` fail helpers and `t.Fatal`/`t.Fatalf`/`t.Error` usage when a direct assertion provides the same check.
-- Shell script tests must exercise observable behavior by running the script
-  against controlled inputs and asserting outputs, side effects, or exit
-  codes. Do not add bash tests that grep shell scripts, workflows, config
-  files, or docs for expected implementation text; those checks are usually
-  tautological and should be replaced with real execution, parser/tool-native
-  validation, or a documented manual release check.
+| Helper | Package | Purpose |
+|--------|---------|---------|
+| `testutil.NewTestRepo()` | testutil | Temp git repo with git init |
+| `testutil.NewTestRepoWithCommit()` | testutil | Repo with initial commit |
+| `testutil.InitTestRepo(t)` | testutil | Standard setup with base.txt |
+| `testutil.GetHeadSHA(t, dir)` | testutil | Get HEAD SHA of a test repo |
+| `openTestDB(t)` | storage | In-memory SQLite for tests |
+| `createJobChain(t, db, path, sha)` | storage | Creates repo + commit + job |
+| `createRepo(t, db, path)` | storage | Creates repo only |
+| `createCommit(t, db, repoID, sha)` | storage | Creates commit only |
+| `claimJob(t, db, workerID)` | storage | Claims next queued job |
+| `newWorkerTestContext(t, n)` | daemon | Full worker pool test setup |
+| `workerTestContext.createAndClaimJob()` | daemon | Enqueue + claim in one call |
+| `workerTestContext.createAndClaimJobWithAgent()` | daemon | Same with custom agent |
+| `workerTestContext.exhaustRetries()` | daemon | Exhaust retry count for failover tests |
+| `NewStaticConfig(cfg)` | daemon | ConfigGetter that returns fixed config |
 
-## Search Shortcuts
+### Test conventions
 
-- Commands: `rg '^func .*Cmd\(' cmd/roborev`
-- Daemon handlers: `rg 'handle[A-Z]' internal/daemon`
-- Job state usage: `rg 'JobStatus|job_type|review_type' internal cmd/roborev`
-- Build tags: `rg '^//go:build' .`
-- Config resolution: `rg 'Resolve[A-Z]|LoadRepoConfig|LoadGlobal' internal/config`
-- Agent capability methods: `rg 'WithReasoning|WithAgentic|WithModel' internal/agent`
-- TUI view logic: `rg 'view[A-Z]|currentView|handle.*Key' cmd/roborev/tui`
+- All tests use `t.TempDir()` for isolation
+- `test` agent is always available (no PATH lookup)
+- Worker pool test hooks enable deterministic synchronization
+- Table-driven tests are preferred
+- Use `testify` (`assert`/`require`) for all test assertions -- do not use raw `if`/`t.Errorf`/`t.Fatalf` patterns
+- `require.*` for fatal preconditions (test cannot continue if this fails), `assert.*` for non-fatal checks
+- In tests with more than three assertions, prefer `assert := assert.New(t)` shorthand
 
-## Development Preferences
+## Conventions
 
-- Keep changes simple; avoid over-engineering.
-- Prefer Go stdlib over new dependencies.
-- No emojis in code or output (commit messages are fine).
-- Do not include private review data or infrastructure details in tests,
-  fixtures, commit messages, PR descriptions, PR comments, issue comments, or
-  public docs unless the user explicitly asks for that disclosure. This includes
-  real hostnames, usernames, local paths, daemon/service names, job IDs, review
-  IDs, PR numbers from private queues, database rows, log excerpts, timestamps
-  tied to incidents, config contents, auth state, and machine-specific behavior.
-  Use synthetic identifiers, generic provider messages, and behavior-focused
-  descriptions instead.
-- Never amend commits; fixes should be new commits.
-- Never push/pull unless explicitly asked.
-- NEVER merge pull requests.
-- NEVER change git branches without explicit user confirmation. Always ask before switching, creating, or checking out branches.
-- NEVER run `make install`, `go install ./cmd/roborev`, or any build/install command that writes a `roborev` binary into a user PATH without explicit user permission. Installing a development build can replace the production local daemon binary, trigger schema migrations against `~/.roborev/reviews.db`, and damage the user's live review environment.
-- Release builds use `CGO_ENABLED=0`.
-- Release workflow testing must not publish anything. Do not run any
-  command, workflow mode, or release tool path that creates public
-  releases, uploads release assets, publishes package repositories,
-  updates taps, signs release artifacts for distribution, pushes tags,
-  or writes to any external release channel. Use local, non-publishing
-  validation that proves artifact names, checksums, and package contents.
-  If a release tool cannot validate without publishing, stop and ask the
-  user instead of approximating with a live publish.
+- **HTTP over gRPC**: Simple HTTP/JSON for the daemon API
+- **No CGO in releases**: Build with `CGO_ENABLED=0` for static binaries (except sqlite which needs CGO locally)
+- **Test agent**: Use `agent = "test"` for testing without calling real AI
+- **Isolated tests**: All tests use `t.TempDir()` for temp directories
 
-## Workflow + Commits
+## Terminal Safety
 
-- For multi-step tasks (for example: implement + commit + PR), complete the full requested sequence without stopping partway.
-- Commit after completing each piece of work; do not wait to be asked.
-- When committing, stage ALL modified files related to the work (including formatting-only and ancillary updates).
-- Before committing, run `git diff` and `git status` to verify nothing is unintentionally left unstaged.
-- When creating PRs, write a clean GitHub-facing summary with relevant context and links.
-- Before opening a PR: update the zensical docs under `docs/` for any user-facing behavior or config changes, and remove superpowers working documents (`docs/superpowers/` plans/specs) from the branch — unless the user explicitly asks to retain them.
-- Do not add navel-gazing PR sections for validation, testing, checks run, or
-  lists of changes made. Keep PR bodies focused on reviewer-facing context,
-  rationale, behavior changes, risk, and useful links; rely on the diff and
-  CI/status checks for routine mechanics and validation evidence unless the
-  user explicitly asks for those details.
+Sanitize untrusted strings before TUI display: `stripControlChars()` for table cells, `sanitizeForDisplay()` for multi-line content, `sanitizeEscapes()` for streaming lines.
 
-## Review / Refine Guidance
+## Design Constraints
 
-- Never invoke the `roborev review` CLI command in any form unless the user
-  explicitly asks for it. Use all other `roborev` CLI commands normally when
-  they are appropriate for interacting with roborev. Never invoke a roborev
-  skill (including `roborev-fix` or `roborev-design-review-branch`) unless the
-  user explicitly asks for that skill.
+- **Daemon tasks must not edit tracked source or apply code changes in the user's git working tree.** Repo metadata is different: `roborev init` may update the usually tracked `.gitignore` so the configured `snapshot_dir` (default `.roborev/`) is ignored, and daemon review work may create disposable ignored snapshot artifacts there when oversized diffs must be handed to sandboxed agents. Runtime snapshot creation may also add a local `.git/info/exclude` fallback when an existing checkout is missing the ignore rule. Daemon startup also repairs roborev-managed git hooks in registered repos (marker-scoped rewrites so hooks track the running binary across upgrades), but writes hook files only when the hooks directory resolves (after symlinks) inside the repo's git dir or common git dir; any other location (`core.hooksPath` into a working tree — including the main worktree reached from a linked worktree — or an external hooks dir) is warn-only. Background jobs (reviews, CI polling, synthesis) may read source files and write results to the database. CLI commands like `roborev fix` run synchronously in the foreground and may modify files. Background `fix` jobs run agents in isolated git worktrees (via `internal/worktree`) and store resulting patches in the database; patches are only applied to the working tree when the user explicitly confirms in the TUI.
 
-When reviewing or fixing issues:
+## Agent Skills
 
-- Focus on correctness, concurrency safety, and error handling in daemon/worker code.
-- For storage changes, keep migrations minimal and validate schema and queries.
-- For API changes, preserve HTTP/JSON conventions.
-- For daemon changes, preserve the rule that background jobs must not edit tracked source files in the checked-out working tree or apply agent changes there. The repo metadata exception is snapshot ignore setup: `.gitignore` may be updated by `roborev init`, and daemon snapshot writes may add a local `.git/info/exclude` fallback. Ignored repo-local snapshot artifacts are allowed only for oversized diff handoff and must stay under the configured `snapshot_dir`, remain gitignored, and be cleaned up best-effort.
-- When addressing review feedback, update tests if behavior changes.
-- If the user pastes review findings or review text directly into the prompt, treat that as direct fix input and work from the pasted content.
-- Do not invoke review-fetching skills for pasted review text unless the user explicitly asks for that skill or provides only a review/job ID that must be fetched first.
-- If diffs are large or truncated, inspect with `git show <sha>`.
-## Landing the Plane (Session Completion)
+Skills in `internal/skills/` provide agent-specific instructions (Claude Code and Codex variants) for common workflows. Several skills mirror CLI commands (`refine`, `fix`, `review`).
 
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+**Keeping skills in sync with the CLI:** When modifying a skill that has a CLI counterpart (e.g., `roborev-refine` ↔ `cmd/roborev/refine.go`), check that flags, default values, and loop semantics still match. Key sync points:
+- Default `--max-iterations` must match the CLI constant
+- Review/fix/commit/re-review loop order must match
+- CLI commands referenced in skills (`roborev wait`, `roborev review --branch --wait`, etc.) must use valid flags and syntax
 
-**MANDATORY WORKFLOW:**
+When modifying a CLI command that has a skill counterpart, update the corresponding skills in both `internal/skills/claude/` and `internal/skills/codex/`.
 
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
+## Pull Requests
 
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
+When creating PRs, do NOT include a "Test plan" section. The PR body should contain only a Summary section with bullet points describing what changed.
+
+## Style Preferences
+
+- Keep it simple, no over-engineering
+- Prefer stdlib over external dependencies
+- Tests should be fast and isolated
+- No emojis in code or output (except commit messages)
+- Never amend commits; always create new commits for fixes
+- Never push or pull unless explicitly asked by the user
+- **NEVER merge pull requests.** Do not run `gh pr merge` or any equivalent. Only the user merges PRs. This is non-negotiable.
+- **NEVER change git branches without explicit user confirmation**. Always ask before switching, creating, or checking out branches. This is non-negotiable.
 
 ---
 > Source: [kenn-io/roborev](https://github.com/kenn-io/roborev) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
