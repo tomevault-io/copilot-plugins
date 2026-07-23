@@ -1,0 +1,26 @@
+{
+  "name": "alonronin--mockingoose",
+  "displayName": "mockingoose",
+  "description": "mockingoose",
+  "version": "1.0.0",
+  "author": "alonronin",
+  "homepage": "https://github.com/alonronin/mockingoose",
+  "skills": [
+    {
+      "name": "mongoose-mongodb",
+      "description": ""
+    },
+    {
+      "name": "mockingoose",
+      "description": ""
+    },
+    {
+      "name": "mockingoose",
+      "description": ""
+    },
+    {
+      "name": "mockingoose",
+      "description": ""
+    }
+  ]
+}
