@@ -2,7 +2,7 @@
 
 > AI agent integration for CesiumJS. A monorepo providing an MCP server that lets AI agents control a 3D globe (CesiumJS) in the browser via WebSocket, plus IDE tooling for Cesium API doc lookup and code generation.
 
-# AGENTS.md — cesium-mcp
+# CLAUDE.md — cesium-mcp
 
 AI agent integration for CesiumJS. A monorepo providing an MCP server that lets AI agents control a 3D globe (CesiumJS) in the browser via WebSocket, plus IDE tooling for Cesium API doc lookup and code generation.
 
@@ -15,7 +15,7 @@ packages/
   cesium-mcp-dev/       # IDE assistant — Cesium API doc queries and code generation
 examples/               # browser-agent, dify-integration, emergency-response, minimal, video
 docs/                   # VitePress site (guide, api, design, examples, zh-CN)
-.Codex-plugin/         # Codex plugin manifest
+.claude-plugin/         # Claude Code plugin manifest
 hooks/                  # Plugin hooks (SessionStart, etc.)
 skills/                 # Plugin skills (/cesium-quickstart)
 ```
@@ -88,4 +88,4 @@ Meta-tools `list_toolsets` / `enable_toolset` let agents discover and activate t
 
 ---
 > Source: [gaopengbin/cesium-mcp](https://github.com/gaopengbin/cesium-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
