@@ -1,0 +1,14 @@
+{
+  "name": "reaptor--elmish-land",
+  "displayName": "elmish-land",
+  "description": "elmish-land",
+  "version": "1.0.0",
+  "author": "reaptor",
+  "homepage": "https://github.com/reaptor/elmish-land",
+  "skills": [
+    {
+      "name": "elmish-land",
+      "description": ""
+    }
+  ]
+}
