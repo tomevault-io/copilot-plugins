@@ -1,0 +1,141 @@
+{
+  "name": "decision-lab",
+  "owner": "pymc-labs",
+  "repo": "decision-lab",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "decision-lab",
+      "path": "skills/dlab-cli/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/skills/dlab-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": ".claude/skills/opencode/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/.claude/skills/opencode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "skills/raw/run-analyzer/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/skills/raw/run-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "skills/raw/create-dpack/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/skills/raw/create-dpack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "skills/raw/create-agents/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/skills/raw/create-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": ".claude/skills/tui-design/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/.claude/skills/tui-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": ".claude/skills/run-analyzer/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/.claude/skills/run-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": ".claude/skills/create-dpack/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/.claude/skills/create-dpack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": ".claude/skills/create-agents/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/.claude/skills/create-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "skills/raw/create-dpack-interactive/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/skills/raw/create-dpack-interactive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "decision-packs/mmm/opencode/skills/data/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/decision-packs/mmm/opencode/skills/data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": ".claude/skills/create-dpack-interactive/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/.claude/skills/create-dpack-interactive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "decision-packs/mmm/opencode/skills/samplers/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/decision-packs/mmm/opencode/skills/samplers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "decision-packs/mmm/opencode/skills/distributions/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/decision-packs/mmm/opencode/skills/distributions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "decision-packs/mmm/opencode/skills/pymc-marketing-mmm/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/decision-packs/mmm/opencode/skills/pymc-marketing-mmm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "decision-lab",
+      "path": "decision-packs/mmm/opencode/skills/informative-priors/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/decision-lab/tree/main/decision-packs/mmm/opencode/skills/informative-priors/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pymc-labs/decision-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:45:50Z"
+}
