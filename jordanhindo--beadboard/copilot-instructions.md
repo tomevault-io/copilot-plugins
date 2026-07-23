@@ -1,331 +1,98 @@
 ## beadboard
 
-> Execution-first, evidence-first, beads-driven.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Agent Operating Manual (BeadBoard)
+# CLAUDE.md
 
-Execution-first, evidence-first, beads-driven.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Core Rules
+## What Is BeadBoard
 
-0. Memory lives in `bd` decision beads, not markdown files. See **Native Memory Workflow** below.
-1. **Bead naming format is MANDATORY**: `beadboard-<epic>.x.x` for tasks and subtasks.
-   - Example: `beadboard-05a.1` (task under epic beadboard-05a), `beadboard-05a.1.1` (subtask)
-   - **WHY**: Tasks without parent-child relationships to an epic are ORPHANS and will NOT appear in the left panel navigation.
-   - Always run `bd dep relate <epic-id> <task-id> --type parent-child` after creating a task bead.
-2. **Never work without a bead**: Every task, bug fix, or feature must have a corresponding bead created BEFORE starting work.
-   - Follow `docs/protocols/bead-prompting.md` when creating bead descriptions.
-   - Ensure correct dependencies and parent epic are set.
-3. Working directory: `codex/beadboard`. Run all `bd` and `npm` commands from here.
-4. `bd` is the source of truth for work state. No direct writes to `.beads/issues.jsonl`.
-5. **"yo" / "what's up" / any greeting** → run `bd query "status=closed" --sort closed --reverse --limit 10` and `bd ready`, then suggest the next bead.
-6. Evidence before assertions: never claim fixed/passing/done without fresh command output.
-7. Keep user-facing labels and UI copy simple and explicit.
-8. Reuse shared code paths/components; avoid one-off logic drift across views.
-9. BeadBoard is a multi-agent coordination system first. Optimize for swarm execution clarity over cosmetics.
-10. Runtime UI is query-driven from `/` (`view=social|graph`). Do not reintroduce App Router page sprawl without approval.
-11. Keep the active page surface minimal under `src/app`. Maintain backward-compatible redirects in `next.config.ts` when route contracts change.
-12. **Close beads with evidence**: When finished, always close beads with detailed notes including commands run, files changed, and verification output.
+BeadBoard is a Windows-native local dashboard for the [Beads](https://github.com/steveyegge/beads) issue tracker. It reads `.beads/issues.jsonl` files directly from repos and renders them as an **agent-first operations console**: a unified shell with Social, Graph, and Activity lenses for monitoring multi-agent work, managing swarms, and intervening on blockers. It supports multi-project aggregation, real-time file watching with SSE, and swarm/archetype coordination.
 
+**Active UX implementation spec**: `docs/plans/2026-02-28-ux-redesign-synthesis-prd.md`
 
-## Craft Standards
-
-- **Demand Elegance**: For non-trivial changes, ask "is there a more elegant way?" before presenting. Skip for simple, obvious fixes.
-- **Autonomous Bug Fixes**: When given a bug report, diagnose and fix it. Point at evidence (logs, tests, diffs) — don't ask for hand-holding.
-- **Learn from Corrections**: After any user correction, create or supersede a `mem-canonical` decision bead capturing the pattern so the mistake isn't repeated.
-
-## Agent Identity (Required)
-
-Every agent — orchestrator or worker — must have an agent bead before claiming any work.
-
-1. **On session start**, create your agent bead:
-   ```bash
-   bd create --title="Agent: <role-name>" --description="<what this agent does>" --type=task --priority=0 --label="gt:agent,role:<orchestrator|ui|graph|backend|infra>"
-   ```
-2. **When claiming work**, always include `--assignee`:
-   ```bash
-   bd update <task-id> --status in_progress --assignee <your-agent-bead-id>
-   ```
-3. **When dispatching sub-agents**, their prompt must include:
-   - Step 1: create their own `gt:agent` bead
-   - Every `bd update --status in_progress` must include `--assignee <their-bead-id>`
-
-Agent presence in the UI (liveness dots, graph node overlays) depends on assignee fields being populated.
-
-## Agent Workflow
+## Commands
 
 ```bash
-# 1. Read memory
-bd show beadboard-116 beadboard-60a beadboard-zas   # hard rules
+npm run dev          # Start Next.js dev server (localhost:3000)
+npm run build        # Production build
+npm run typecheck    # tsc --noEmit
+npm run lint         # eslint
+npm run test         # Runs all tests (explicitly enumerated in package.json)
+```
 
-# 2. Find work
-bd ready
-bd show <id>                                         # read full spec + acceptance criteria
+Run a single test:
+```bash
+node --import tsx --test tests/lib/parser.test.ts
+```
 
-# 3. Create your agent bead (if not already done this session)
-bd create --title="Agent: <role>" --type=task --priority=0 --label="gt:agent,role:<role>"
+**New test files must be added to the `test` script in `package.json`** — the suite is explicitly enumerated, not auto-discovered.
 
-# 4. Claim
-bd update <id> --status in_progress --assignee <your-agent-bead-id>
+## Verification gates (run before closing any code bead)
 
-# 5. Implement (TDD: write failing test first, then code)
-
-# 6. Verify
+```bash
 npm run typecheck && npm run lint && npm run test
-
-# 7. Record evidence + close
-bd update <id> --notes "<commands run and their output>"
-bd close <id> --reason "<what was completed>"
-
-# 8. Memory review
-# If reusable lesson → create/supersede canonical memory node
-# If no lesson → bd update <id> --notes "Memory review: no new reusable memory."
-
-# 9. Sync
-bd dolt pull && bd dolt push
 ```
 
-**Wrong flags to avoid:**
-- `bd close` does not support `--notes` — update first, then close
-- `bd create` uses `--label` not `--labels`
+## Architecture
 
-## Native Memory Workflow (Required)
+**Stack**: Next.js 15 (App Router) · React 19 · Tailwind CSS · TypeScript (strict) · @xyflow/react (graphs) · Dagre (layout) · Chokidar (file watching) · Remotion (video generation)
 
-Memory source-of-truth is `bd` + Dolt history. Canonical memories are `type=decision` beads.
+### Data flow
 
-**Labels:** `mem-canonical, mem-hard|mem-soft, memory, memory-<domain>`
+1. **Source of truth**: `.beads/issues.jsonl` files on disk, mutated only via `bd` CLI commands.
+2. **Parser** (`src/lib/parser.ts`): Reads JSONL, normalizes dependencies and fields into `BeadIssue` objects.
+3. **Aggregate read** (`src/lib/aggregate-read.ts`): Merges issues across multiple project roots based on project scope/mode.
+4. **Realtime** (`src/lib/realtime.ts`): `IssuesEventBus` singleton dispatches change events. SSE endpoint (`src/app/api/events/route.ts`) streams them to the browser.
+5. **Watcher** (`src/lib/watcher.ts`): Chokidar-based `IssuesWatchManager` watches JSONL + WAL + `.last_touched` files, coalesces events via `ProjectEventCoalescer`, and emits through the event bus. Snapshot diffing detects per-issue changes.
+6. **Writeback** (`src/lib/writeback.ts`): API mutations write back to JSONL through `bd`-compatible paths.
 
-**Domain anchors:**
-| Anchor | Domain |
-|---|---|
-| `beadboard-76p` | Architecture |
-| `beadboard-nq9` | Workflow Protocol |
-| `beadboard-5r1` | Agent Operations |
-| `beadboard-fld` | UI/UX |
-| `beadboard-8st` | Reliability & Errors |
+### Key directories
 
-**Key canonical memories (read at session start):**
-- `beadboard-116` — [HARD] Evidence before completion claims
-- `beadboard-60a` — [HARD] Dependencies model execution order
-- `beadboard-zas` — [HARD] Shared logic for cross-view behavior
-- `beadboard-dvp` — [SOFT] Parallelize independent work
-- `beadboard-6fv` — [HARD] Triage stale-state via parity + watcher checks
+- `src/app/` — Next.js App Router pages and API routes
+  - `/` — **Primary entry point.** `UnifiedShell` with query-param-driven views: `?view=social|graph|activity`
+  - `/graph`, `/sessions`, `/timeline` — Legacy routes. Still exist but are not linked from the unified shell. Do not add new features here; migrate functionality into the unified shell instead.
+  - `/api/beads/` — CRUD endpoints for beads (create, read, update, close, reopen, comment)
+  - `/api/events/` — SSE endpoint for real-time updates
+  - `/api/swarm/` — Swarm coordination endpoints (create, launch, join, leave, status, templates)
+  - `/api/mission/` — Mission/epic management endpoints
+  - `/api/agents/` — Agent registry endpoints
+- `src/components/` — UI components organized by feature (kanban, graph, sessions, swarm, shared, activity, etc.)
+  - `shared/unified-shell.tsx` — **Root layout.** Top bar, left panel, middle content (view-switched), right panel, thread drawer
+  - `shared/left-panel.tsx` — Navigation spine: view switcher (Social/Graph/Activity), epic tree, filters
+  - `shared/top-bar.tsx` — Global header: identity, health, blocked triage, metric tiles
+  - `activity/contextual-right-panel.tsx` — Right panel content router (branches on URL context)
+  - `activity/activity-panel.tsx` — Activity/telemetry feed (also used as the `activity` view content)
+  - `graph/smart-dag.tsx` — DAG renderer using @xyflow/react + Dagre
+  - `social/social-page.tsx` — Social lens: grouped task cards with dependency/thread context
+- `src/lib/` — Core logic (parser, types, pathing, watcher, realtime, registry, scanner, mutations, graph layout)
+  - `types.ts` — Central type definitions (`BeadIssue`, `BeadStatus`, `ProjectContext`, etc.)
+  - `pathing.ts` — Windows path canonicalization (drive letter normalization, path keys)
+  - `bd-path.ts` — Resolves the `bd` CLI binary path
+- `src/hooks/` — React hooks for subscriptions (`use-beads-subscription`, `use-swarm-list`, `use-url-state`, etc.)
+- `components/ui/` — shadcn/ui primitives
+- `tests/` — Node.js native test runner with tsx loader; mirrors src structure
+- `scripts/` — CLI utilities (`bb.ts` — BeadBoard CLI, Playwright capture scripts)
+- `docs/` — RFCs, ADRs, protocols, and feature specs
 
-**Creating a canonical memory:**
-```bash
-bd create --title="[MEMORY][DOMAIN][HARD|SOFT] Rule" \
-  --description="Scope: ...\nOut of Scope: ...\nRule: ...\nRationale: ...\nFailure Mode: ..." \
-  --type=decision --priority=1 \
-  --label="mem-canonical,mem-hard,memory,memory-<domain>"
-bd dep relate <anchor-id> <memory-id>          # link to domain anchor
-bd dep relate <memory-id> <source-bead-id>     # link to 2–5 evidence beads
-```
+### Path alias
 
-**Rules:**
-1. Memory indexing uses `bd dep relate`, not blocker edges.
-2. Memory evolution uses `bd supersede <old> --with <new>`; do not rewrite history.
-3. Fresh agents validate provenance: `bd show <memory-id>` + `bd dep list <memory-id>`.
-4. Apply noise budget from `help/memory/schema_and_noise_budget.txt` before adding nodes.
+`@/*` maps to the project root (configured in `tsconfig.json`).
 
-## Bead Prompting Standard
+### Windows considerations
 
-1. Follow `docs/protocols/bead-prompting.md` when creating or rewriting bead details.
-2. Descriptions are model-facing prompts, not prose notes.
-3. Every bead needs explicit `Scope`, `Out of Scope`, and `Success Criteria`.
-4. Dependency flow must be minimal and execution-correct.
+- All path handling must canonicalize Windows paths (drive letter casing, backslash normalization). Use `canonicalizeWindowsPath` and `windowsPathKey` from `src/lib/pathing.ts`.
+- Webpack filesystem cache is disabled in dev mode (`next.config.ts`) to avoid Windows ENOENT errors.
 
-## Dependency Discipline
+### ESLint config
 
-1. Dependencies model execution order, not visual order.
-2. If a bead is parallelizable, do not chain it unnecessarily.
-3. After closing a bead, run `bd ready` to confirm what's now unblocked.
+`@typescript-eslint/no-explicit-any` and `prefer-const` are intentionally turned off. `eslint.config.mjs` uses flat config with `next/core-web-vitals` and `next/typescript`.
 
-## Test-First Implementation
+## Beads workflow
 
-1. Write the failing test first. Run it. Confirm the right failure reason.
-2. Implement the smallest code to pass.
-3. Re-run focused tests, then full gates.
-4. New test files must be added to the `test` script in `package.json` — the suite is explicitly enumerated.
-
-## Verification Gates (Required)
-
-Run before closing any bead that changes code:
-
-```bash
-npm run typecheck
-npm run lint
-npm run test
-```
-
-**Non-negotiable:** Never claim done/passing/fixed/closed without running these in the current session and citing their output.
-
-## Parallel Agent Pattern
-
-1. Parent agent owns orchestration and integration.
-2. Worker agent owns one bead only — claims it, tests it, verifies it, closes it.
-3. Worker reports exact files changed and command output.
-4. Parent re-verifies full repo gates before final status claims.
-5. Keep diffs scoped to intended files; include test files with feature/bugfix code; do not mix unrelated cleanup in the same bead.
-
-## Realtime / Refresh Bug Triage
-
-When status updates are stale or require refresh:
-
-1. Verify source-of-truth parity (`bd show` vs app output).
-2. Confirm read path prefers live Dolt data.
-3. Confirm watcher coverage: DB + WAL + `.beads/last-touched`.
-4. Confirm SSE event flow and client subscription across all active views.
-5. Add regression tests for watcher/events behavior.
-
-## Common Failure Patterns (Do Not Repeat)
-
-1. **Wrong `bd` flags**: `bd close` has no `--notes`; update first then close.
-2. **Premature completion**: never close before running fresh typecheck + lint + test.
-3. **Scope creep in parallel work**: worker agents touch only their assigned files.
-4. **Dependency direction mistakes**: validate blockers/ready semantics before changing status logic.
-5. **Duplicate fixes across views**: centralize shared logic; do not patch one surface only.
-6. **Stale realtime assumptions**: confirm watcher inputs include DB + WAL + touch markers.
-7. **Missing test registration**: new test files must be in the `npm run test` script.
-8. **Documentation drift**: do not claim features in `README.md` that are not shipped.
-
-## Session Completion (Landing the Plane)
-
-1. Create beads for remaining follow-ups.
-2. Run quality gates if code changed.
-3. Update/close beads with notes and evidence.
-4. Memory review: create/supersede canonical nodes for reusable lessons, or note "Memory review: no new reusable memory."
-5. Update `NEXT_SESSION_PROMPT.md` with: what changed, what is verified, open risks, exact next bead(s), skills used, memory nodes created.
-6. Sync:
-   ```bash
-   bd dolt pull && bd dolt push
-   git add -p && git commit -m "..." && git push
-   ```
-
-## Data Backend & Platform Notes
-
-Dolt SQL server at `127.0.0.1:3307`. Read path: `readIssuesViaDolt()` → Dolt (primary), falls back to `issues.jsonl` if unreachable. SSE real-time: `bd` touches `.beads/last-touched` on every write → Chokidar fires → SSE event.
-
-**Mixed WSL2 + Windows**: if frontend and `bd` run on different platforms, enable mirrored networking:
-```
-# C:\Users\<you>\.wslconfig
-[wsl2]
-networkingMode=mirrored
-```
-Then `wsl --shutdown`. Not required for single-platform setups.
-
-<!-- BEGIN BEADS INTEGRATION v:1 profile:full hash:d4f96305 -->
-## Issue Tracking with bd (beads)
-
-**IMPORTANT**: This project uses **bd (beads)** for ALL issue tracking. Do NOT use markdown TODOs, task lists, or other tracking methods.
-
-### Why bd?
-
-- Dependency-aware: Track blockers and relationships between issues
-- Git-friendly: Dolt-powered version control with native sync
-- Agent-optimized: JSON output, ready work detection, discovered-from links
-- Prevents duplicate tracking systems and confusion
-
-### Quick Start
-
-**Check for ready work:**
-
-```bash
-bd ready --json
-```
-
-**Create new issues:**
-
-```bash
-bd create "Issue title" --description="Detailed context" -t bug|feature|task -p 0-4 --json
-bd create "Issue title" --description="What this issue is about" -p 1 --deps discovered-from:bd-123 --json
-```
-
-**Claim and update:**
-
-```bash
-bd update <id> --claim --json
-bd update bd-42 --priority 1 --json
-```
-
-**Complete work:**
-
-```bash
-bd close bd-42 --reason "Completed" --json
-```
-
-### Issue Types
-
-- `bug` - Something broken
-- `feature` - New functionality
-- `task` - Work item (tests, docs, refactoring)
-- `epic` - Large feature with subtasks
-- `chore` - Maintenance (dependencies, tooling)
-
-### Priorities
-
-- `0` - Critical (security, data loss, broken builds)
-- `1` - High (major features, important bugs)
-- `2` - Medium (default, nice-to-have)
-- `3` - Low (polish, optimization)
-- `4` - Backlog (future ideas)
-
-### Workflow for AI Agents
-
-1. **Check ready work**: `bd ready` shows unblocked issues
-2. **Claim your task atomically**: `bd update <id> --claim`
-3. **Work on it**: Implement, test, document
-4. **Discover new work?** Create linked issue:
-   - `bd create "Found bug" --description="Details about what was found" -p 1 --deps discovered-from:<parent-id>`
-5. **Complete**: `bd close <id> --reason "Done"`
-
-### Auto-Sync
-
-bd automatically syncs via Dolt:
-
-- Each write auto-commits to Dolt history
-- Use `bd dolt push`/`bd dolt pull` for remote sync
-- No manual export/import needed!
-
-### Important Rules
-
-- ✅ Use bd for ALL task tracking
-- ✅ Always use `--json` flag for programmatic use
-- ✅ Link discovered work with `discovered-from` dependencies
-- ✅ Check `bd ready` before asking "what should I work on?"
-- ❌ Do NOT create markdown TODO lists
-- ❌ Do NOT use external issue trackers
-- ❌ Do NOT duplicate tracking systems
-
-For more details, see README.md and docs/QUICKSTART.md.
-
-## Landing the Plane (Session Completion)
-
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
-
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd dolt push
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
-
-<!-- END BEADS INTEGRATION -->
+Use `bd` as the sole interface for mutating beads. Never write to `.beads/issues.jsonl` directly. See `AGENTS.md` for the full operating manual including dependency discipline, parallel agent patterns, and session completion protocol.
 
 ---
 > Source: [jordanhindo/beadboard](https://github.com/jordanhindo/beadboard) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
