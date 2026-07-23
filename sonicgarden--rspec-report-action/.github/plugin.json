@@ -1,0 +1,9 @@
+{
+  "name": "sonicgarden--rspec-report-action",
+  "displayName": "rspec-report-action",
+  "description": "rspec-report-action",
+  "version": "1.0.0",
+  "author": "SonicGarden",
+  "homepage": "https://github.com/SonicGarden/rspec-report-action",
+  "skills": []
+}
