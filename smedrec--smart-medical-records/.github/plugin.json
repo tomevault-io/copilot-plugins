@@ -1,0 +1,9 @@
+{
+  "name": "smedrec--smart-medical-records",
+  "displayName": "smart-medical-records",
+  "description": "A modern, open-source medical records system for registering patient cases with treatments, forms, and conclusions. ",
+  "version": "1.0.0",
+  "author": "smedrec",
+  "homepage": "https://github.com/smedrec/smart-medical-records",
+  "skills": []
+}
