@@ -4,7 +4,7 @@
   "repo": "pabpereza",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -95,5 +95,5 @@
   ],
   "source_url": "https://github.com/pabpereza/pabpereza",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T09:41:51Z"
+  "distributed_at": "2026-07-23T08:10:45Z"
 }
