@@ -1,0 +1,14 @@
+{
+  "name": "epam--statgpt",
+  "displayName": "statgpt",
+  "description": "statgpt",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/statgpt",
+  "skills": [
+    {
+      "name": "statgpt",
+      "description": ""
+    }
+  ]
+}
