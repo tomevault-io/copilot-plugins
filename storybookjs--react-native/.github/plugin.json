@@ -1,0 +1,30 @@
+{
+  "name": "storybookjs--react-native",
+  "displayName": "react-native",
+  "description": "react-native",
+  "version": "1.0.0",
+  "author": "storybookjs",
+  "homepage": "https://github.com/storybookjs/react-native",
+  "skills": [
+    {
+      "name": "setup-react-native-storybook",
+      "description": ""
+    },
+    {
+      "name": "writing-react-native-storybook-stories",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "description": ""
+    }
+  ]
+}
