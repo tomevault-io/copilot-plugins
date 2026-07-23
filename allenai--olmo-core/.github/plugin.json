@@ -1,0 +1,14 @@
+{
+  "name": "allenai--olmo-core",
+  "displayName": "OLMo-core",
+  "description": "OLMo-core",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/OLMo-core",
+  "skills": [
+    {
+      "name": "OLMo-core",
+      "description": ""
+    }
+  ]
+}
