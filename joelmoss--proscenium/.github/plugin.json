@@ -1,0 +1,26 @@
+{
+  "name": "joelmoss--proscenium",
+  "displayName": "proscenium",
+  "description": "proscenium",
+  "version": "1.0.0",
+  "author": "joelmoss",
+  "homepage": "https://github.com/joelmoss/proscenium",
+  "skills": [
+    {
+      "name": "compile",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "proscenium",
+      "description": ""
+    },
+    {
+      "name": "proscenium",
+      "description": ""
+    }
+  ]
+}
