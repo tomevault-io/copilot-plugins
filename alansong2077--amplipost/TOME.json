@@ -4,7 +4,7 @@
   "repo": "Amplipost",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/AlanSong2077/Amplipost",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T06:41:01Z"
+  "distributed_at": "2026-07-23T02:31:15Z"
 }
