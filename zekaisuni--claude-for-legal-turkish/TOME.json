@@ -1,0 +1,933 @@
+{
+  "name": "claude-for-legal-turkish",
+  "owner": "ZekaiSuni",
+  "repo": "claude-for-legal-turkish",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/takedown/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/takedown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/ramp/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/ramp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/memo/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/memo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/portfolio/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/portfolio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/clearance/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/clearance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/draft/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/draft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/fto-triage/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/fto-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/oss-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/oss-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/status/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/session/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/cease-desist/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/cease-desist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/gaps/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/study-plan/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/study-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/flashcards/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/flashcards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/deadlines/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/deadlines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/case-brief/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/case-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "product-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/product-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/build-guide/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/build-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/dpa-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/dpa-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/invention-intake/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/invention-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/ip-clause-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/ip-clause-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/legal-writing/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/legal-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/exam-forecast/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/exam-forecast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/irac-practice/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/irac-practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/comments/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-builder-hub/skills/disable/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-builder-hub/skills/disable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/client-intake/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/client-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/client-letter/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/client-letter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/socratic-drill/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/socratic-drill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/oc-status/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/oc-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/cold-call-prep/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/cold-call-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/log-leave/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/log-leave/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/nda-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/nda-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/outline-builder/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/outline-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/research-start/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/research-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/dsar-response/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/dsar-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/chronology/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/chronology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/legal-hold/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/legal-hold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "product-legal/skills/launch-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/product-legal/skills/launch-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-builder-hub/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-builder-hub/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-builder-hub/skills/uninstall/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-builder-hub/skills/uninstall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/infringement-triage/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/infringement-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/policy-monitor/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/policy-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/policy-diff/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/policy-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/claim-chart/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/claim-chart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/pia-generation/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/pia-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/form-generation/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/form-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ip-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ip-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/matter-close/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/matter-close/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/board-minutes/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/board-minutes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/semester-handoff/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/semester-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/use-case-triage/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/use-case-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/client-comms-log/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/client-comms-log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/gap-surfacer/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/gap-surfacer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/demand-draft/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/demand-draft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/wage-hour-qa/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/wage-hour-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/customize/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/customize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/matter-intake/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/matter-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/bar-prep-questions/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/bar-prep-questions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/matter-update/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/matter-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/tabular-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/tabular-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/reg-gap-analysis/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/reg-gap-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/leave-tracker/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/leave-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "product-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/product-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/demand-intake/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/demand-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/hiring-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/hiring-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-builder-hub/skills/skill-manager/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-builder-hub/skills/skill-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/written-consent/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/written-consent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/ai-tool-handoff/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/ai-tool-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/policy-redraft/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/policy-redraft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "product-legal/skills/is-this-a-problem/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/product-legal/skills/is-this-a-problem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "law-student/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/law-student/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/subpoena-triage/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/subpoena-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/saas-msa-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/saas-msa-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/deposition-prep/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/deposition-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/renewal-tracker/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/renewal-tracker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/ai-inventory/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/ai-inventory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/demand-received/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/demand-received/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/matter-briefing/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/matter-briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/policy-drafting/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/policy-drafting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/entity-compliance/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/entity-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/closing-checklist/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/closing-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/deal-team-summary/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/deal-team-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/reg-feed-watcher/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/reg-feed-watcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/portfolio-status/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/portfolio-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/review-proposals/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/review-proposals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/handbook-updates/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/handbook-updates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/expansion-update/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/expansion-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/aia-generation/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/aia-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/policy-monitor/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/policy-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/policy-starter/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/policy-starter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "product-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/product-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "privacy-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/privacy-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-builder-hub/skills/registry-browser/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-builder-hub/skills/registry-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/amendment-history/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/amendment-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/expansion-kickoff/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/expansion-kickoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/investigation-add/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/investigation-add/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/use-case-triage/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/use-case-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/termination-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/termination-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/escalation-flagger/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/escalation-flagger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/investigation-memo/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/investigation-memo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/investigation-open/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/investigation-open/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/plain-language-letters/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/plain-language-letters/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/matter-workspace/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/matter-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/reg-gap-analysis/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/reg-gap-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-clinic/skills/supervisor-review-queue/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-clinic/skills/supervisor-review-queue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/vendor-ai-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/vendor-ai-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/stakeholder-summary/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/stakeholder-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/investigation-query/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/investigation-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/privilege-log-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/privilege-log-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "regulatory-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/regulatory-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "product-legal/skills/marketing-claims-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/product-legal/skills/marketing-claims-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "product-legal/skills/feature-risk-assessment/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/product-legal/skills/feature-risk-assessment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-builder-hub/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-builder-hub/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/integration-management/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/integration-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "litigation-legal/skills/brief-section-drafter/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/litigation-legal/skills/brief-section-drafter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/worker-classification/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/worker-classification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/investigation-summary/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/investigation-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/internal-investigation/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/internal-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "ai-governance-legal/skills/cold-start-interview/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/ai-governance-legal/skills/cold-start-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "commercial-legal/skills/vendor-agreement-review/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/commercial-legal/skills/vendor-agreement-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "employment-legal/skills/international-expansion/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/employment-legal/skills/international-expansion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "legal-builder-hub/skills/related-skills-surfacer/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/legal-builder-hub/skills/related-skills-surfacer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/diligence-issue-extraction/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/diligence-issue-extraction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "corporate-legal/skills/material-contract-schedule/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/corporate-legal/skills/material-contract-schedule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-turkish",
+      "path": "external_plugins/cocounsel-legal/skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish/tree/main/external_plugins/cocounsel-legal/skills/deep-research/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ZekaiSuni/claude-for-legal-turkish",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:45:10Z"
+}
