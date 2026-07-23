@@ -1,0 +1,14 @@
+{
+  "name": "akonan--wiremd",
+  "displayName": "wiremd",
+  "description": "wiremd",
+  "version": "1.0.0",
+  "author": "akonan",
+  "homepage": "https://github.com/akonan/wiremd",
+  "skills": [
+    {
+      "name": "wiremd",
+      "description": ""
+    }
+  ]
+}
