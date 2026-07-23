@@ -4,7 +4,7 @@
   "repo": "ByClaw",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -389,5 +389,5 @@
   ],
   "source_url": "https://github.com/beyonai/ByClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:49:16Z"
+  "distributed_at": "2026-07-23T06:03:03Z"
 }
