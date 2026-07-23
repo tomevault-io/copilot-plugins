@@ -1,0 +1,26 @@
+{
+  "name": "mglaman--phpstan-drupal",
+  "displayName": "phpstan-drupal",
+  "description": "phpstan-drupal",
+  "version": "1.0.0",
+  "author": "mglaman",
+  "homepage": "https://github.com/mglaman/phpstan-drupal",
+  "skills": [
+    {
+      "name": "gen-test",
+      "description": ""
+    },
+    {
+      "name": "phpstan-internals",
+      "description": ""
+    },
+    {
+      "name": "phpstan-drupal",
+      "description": ""
+    },
+    {
+      "name": "phpstan-drupal",
+      "description": ""
+    }
+  ]
+}
