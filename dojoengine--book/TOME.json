@@ -1,0 +1,177 @@
+{
+  "name": "book",
+  "owner": "dojoengine",
+  "repo": "book",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dojo-client",
+      "path": "skills/dojo-client",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-client",
+      "description": ""
+    },
+    {
+      "name": "dojo-config",
+      "path": "skills/dojo-config",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-config",
+      "description": ""
+    },
+    {
+      "name": "dojo-deploy",
+      "path": "skills/dojo-deploy",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-deploy",
+      "description": ""
+    },
+    {
+      "name": "dojo-indexer",
+      "path": "skills/dojo-indexer",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-indexer",
+      "description": ""
+    },
+    {
+      "name": "dojo-migrate",
+      "path": "skills/dojo-migrate",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-migrate",
+      "description": ""
+    },
+    {
+      "name": "dojo-review",
+      "path": "skills/dojo-review",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-review",
+      "description": ""
+    },
+    {
+      "name": "dojo-test",
+      "path": "skills/dojo-test",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-test",
+      "description": ""
+    },
+    {
+      "name": "dojo-token",
+      "path": "skills/dojo-token",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-token",
+      "description": ""
+    },
+    {
+      "name": "dojo-world",
+      "path": "skills/dojo-world",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-world",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-vrf/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-vrf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-test/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-init/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-world/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-token/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-token/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-model/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-deploy/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-client/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-config/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-system/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-review/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-migrate/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "path": "skills/dojo-indexer/SKILL.md",
+      "github_url": "https://github.com/dojoengine/book/tree/main/skills/dojo-indexer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dojoengine/book",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:36:11Z"
+}
