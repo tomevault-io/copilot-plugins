@@ -1,0 +1,69 @@
+{
+  "name": "get_it",
+  "owner": "flutter-it",
+  "repo": "get_it",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flutter-architecture-expert",
+      "path": "skills/flutter-architecture-expert",
+      "github_url": "https://github.com/flutter-it/get_it/tree/main/skills/flutter-architecture-expert",
+      "description": ""
+    },
+    {
+      "name": "get-it-expert",
+      "path": "skills/get-it-expert",
+      "github_url": "https://github.com/flutter-it/get_it/tree/main/skills/get-it-expert",
+      "description": ""
+    },
+    {
+      "name": "get_it",
+      "path": "skills/get-it-expert/SKILL.md",
+      "github_url": "https://github.com/flutter-it/get_it/tree/main/skills/get-it-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get_it",
+      "path": "skills/flutter-architecture-expert/SKILL.md",
+      "github_url": "https://github.com/flutter-it/get_it/tree/main/skills/flutter-architecture-expert/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/flutter-it/get_it",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:38:08Z"
+}
