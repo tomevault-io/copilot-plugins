@@ -1,0 +1,18 @@
+{
+  "name": "submariner-io--shipyard",
+  "displayName": "shipyard",
+  "description": "shipyard",
+  "version": "1.0.0",
+  "author": "submariner-io",
+  "homepage": "https://github.com/submariner-io/shipyard",
+  "skills": [
+    {
+      "name": "cve-fix",
+      "description": ""
+    },
+    {
+      "name": "shipyard",
+      "description": ""
+    }
+  ]
+}
