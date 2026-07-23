@@ -1,0 +1,159 @@
+{
+  "name": "gamekit-cli",
+  "owner": "gamekit-agent",
+  "repo": "gamekit-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/adding-ui/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/adding-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/screenshot/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/screenshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/quality-gate/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/quick-tweaks/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/quick-tweaks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/adding-audio/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/adding-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/adding-juice/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/adding-juice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/adding-player/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/adding-player/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/verify-changes/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/verify-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/adding-enemies/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/adding-enemies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/scene-awareness/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/scene-awareness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/using-3d-models/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/using-3d-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/multiplayer-setup/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/multiplayer-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/level-progression/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/level-progression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/setting-up-cameras/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/setting-up-cameras/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/creating-materials/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/creating-materials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/setting-up-physics/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/setting-up-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/setting-up-triggers/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/setting-up-triggers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/creating-animations/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/creating-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gamekit-cli",
+      "path": "template/.claude/skills/adding-collectibles/SKILL.md",
+      "github_url": "https://github.com/gamekit-agent/gamekit-cli/tree/main/template/.claude/skills/adding-collectibles/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gamekit-agent/gamekit-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:38:23Z"
+}
