@@ -4,7 +4,7 @@
   "repo": "hermes-alpha",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -527,5 +527,5 @@
   ],
   "source_url": "https://github.com/kaminocorp/hermes-alpha",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T16:47:01Z"
+  "distributed_at": "2026-07-23T15:50:52Z"
 }
