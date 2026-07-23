@@ -4,7 +4,7 @@
   "repo": "nyx",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/mwdavisii/nyx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:15:39Z"
+  "distributed_at": "2026-07-23T09:02:04Z"
 }
