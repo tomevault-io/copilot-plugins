@@ -4,7 +4,7 @@
   "repo": "firo",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/firoorg/firo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T13:22:42Z"
+  "distributed_at": "2026-07-23T14:49:00Z"
 }
