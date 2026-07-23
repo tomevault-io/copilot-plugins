@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pubkey/rxdb](https://github.com/pubkey/rxdb).
+Original source: `CLAUDE.md` in [pubkey/rxdb](https://github.com/pubkey/rxdb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [pubkey/rxdb](https://github.com/pubkey/rxdb).
 - [verify](https://github.com/pubkey/rxdb/tree/main/.agent/skills/verify)
 - [rxdb](https://github.com/pubkey/rxdb/tree/main/.agent/skills/verify/SKILL.md)
 
-From [pubkey/rxdb](https://github.com/pubkey/rxdb) — a repo with 23280+ stars on GitHub.
+From [pubkey/rxdb](https://github.com/pubkey/rxdb) — a repo with 23283+ stars on GitHub.
 
 ---
 
