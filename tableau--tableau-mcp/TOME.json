@@ -3,8 +3,8 @@
   "owner": "tableau",
   "repo": "tableau-mcp",
   "description": "Tableau's official MCP Server. Helping Agents see and understand data.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "tableau-mcp",
+      "path": ".claude/skills/create-pr-from-commits/SKILL.md",
+      "github_url": "https://github.com/tableau/tableau-mcp/tree/main/.claude/skills/create-pr-from-commits/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tableau/tableau-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:45:15Z"
+  "distributed_at": "2026-07-23T08:08:34Z"
 }
