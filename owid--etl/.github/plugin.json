@@ -1,0 +1,126 @@
+{
+  "name": "owid--etl",
+  "displayName": "etl",
+  "description": "etl",
+  "version": "1.0.0",
+  "author": "owid",
+  "homepage": "https://github.com/owid/etl",
+  "skills": [
+    {
+      "name": "check-metadata-typos",
+      "description": ""
+    },
+    {
+      "name": "streamlit-app",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "description": ""
+    }
+  ]
+}
