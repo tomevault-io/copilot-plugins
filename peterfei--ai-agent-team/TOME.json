@@ -1,0 +1,129 @@
+{
+  "name": "ai-agent-team",
+  "owner": "peterfei",
+  "repo": "ai-agent-team",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "changelog-generator",
+      "path": ".claude/skills/changelog-generator",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/changelog-generator",
+      "description": ""
+    },
+    {
+      "name": "drawnote",
+      "path": ".claude/skills/drawnote",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/drawnote",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/drawnote/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/drawnote/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/qa-engineer/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/qa-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/backend-dev/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/backend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/tech-leader/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/tech-leader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/frontend-dev/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/frontend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/softcopyright/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/softcopyright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/tidymydesktop/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/tidymydesktop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/thread-manager/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/thread-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/devops-engineer/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/devops-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/product-manager/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/product-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/fullstack-engineer/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/fullstack-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-team",
+      "path": ".claude/skills/changelog-generator/SKILL.md",
+      "github_url": "https://github.com/peterfei/ai-agent-team/tree/main/.claude/skills/changelog-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/peterfei/ai-agent-team",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T21:33:39Z"
+}
