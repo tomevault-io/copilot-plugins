@@ -1,46 +1,156 @@
 ## nyx
 
-> `nyx` is a multi-platform Nix flake for NixOS, macOS, Arch, and Nix-on-Droid. Start at `flake.nix`, then follow `lib/default.nix` into platform and home-manager modules.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-`nyx` is a multi-platform Nix flake for NixOS, macOS, Arch, and Nix-on-Droid. Start at `flake.nix`, then follow `lib/default.nix` into platform and home-manager modules.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- `system/<platform>/hosts/<hostname>/`: host entrypoints such as `default.nix`, `home.nix`, and `system.nix`
-- `home/<platform>/` and `home/shared/modules/`: user-level modules grouped by area like `app/`, `dev/`, `shell/`, and `theme/`
-- `nix/`: overlays, custom packages, and shared Nix configuration
-- `users/`: reusable user profiles
-- `setup/`: bootstrap scripts for Arch, macOS, WSL, and virtual installs
-- `assets/`: screenshots and static docs assets
+## What This Repository Is
 
-## Build, Test, and Development Commands
-- `nix develop`: enter the dev shell with `git`, `git-crypt`, and Nix tooling
-- `./switch.sh`: detect the current platform and apply the active host configuration
-- `nix flake show`: validate flake outputs and catch syntax issues early
-- `sudo nixos-rebuild dry-build --flake .#<hostname>`: validate a NixOS host without switching
-- `sudo darwin-rebuild switch --flake .`: apply the macOS configuration
-- `home-manager switch --show-trace --flake .#<hostname>`: apply an Arch host profile
-- `./build-iso.sh` or `./build-vm.sh`: build the special installer/VM outputs
+**Nyx** is a personal multi-platform Nix Flakes configuration repository managing system and user configurations across NixOS (bare-metal, WSL2), macOS (Darwin), Arch Linux (standalone home-manager), and Android (Nix-on-Droid). It is declarative infrastructure-as-code — there are no traditional tests, build artifacts, or application code.
 
-## Coding Style & Naming Conventions
-Use 2-space indentation in `.nix` and shell files, matching the existing tree. Keep modules small and place them under the nearest platform or shared category. Name modules `default.nix` inside descriptive directories such as `home/shared/modules/dev/node/` or `system/nixos/modules/system/docker/`. Prefer lowercase hostnames and platform-first paths. If you touch shell scripts, keep them POSIX-friendly where practical and run `shfmt` if available; for Nix, use `nixpkgs-fmt` when reformatting larger changes.
+## Key Commands
 
-## Testing Guidelines
-There is no conventional unit-test suite here. Treat validation as:
+### Rebuild and Apply Configuration
 
-- `nix flake show` for every change
-- a target-specific dry build before merging
-- `./switch.sh` only on the machine that matches the host you changed
+```bash
+# Auto-detects OS and applies correct rebuild
+./switch.sh
 
-When editing bootstrap scripts in `setup/`, document the affected platform and test path in the PR.
+# NixOS (manual)
+sudo nixos-rebuild switch --show-trace --flake .#<hostname>
 
-## Commit & Pull Request Guidelines
-Recent history uses short, direct subjects such as `sketchybar`, `Arch Build Refactor (#86)`, and `Cleanup (#89)`. Keep commit messages brief, present-tense, and scoped to one platform or feature. PRs should include the affected hosts, the validation commands you ran, and screenshots for visible desktop changes such as Hyprland, SketchyBar, or Dock updates.
+# macOS (manual)
+sudo darwin-rebuild switch --flake .
 
-## Secrets & Safety
-Do not commit decrypted secrets or machine-specific credentials. Secrets wiring lives under `secrets/` and `system/shared/secrets/`; if a change depends on private inputs, note the expectation clearly in the PR.
+# Arch Linux (manual) — switch.sh runs 02-install-packages.sh --sync automatically
+setup/arch/02-install-packages.sh --sync
+home-manager switch --show-trace --flake .#<hostname>
+
+# Android
+nix-on-droid switch --show-trace --flake .
+```
+
+### Validate Before Applying
+
+```bash
+# Check flake outputs and syntax
+nix flake show
+
+# Dry-run (builds without activating)
+sudo nixos-rebuild dry-build --flake .#<hostname>
+sudo darwin-rebuild dry-build --flake .
+
+# Build a specific host's derivation without switching
+nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel
+nix build .#darwinConfigurations.<hostname>.system
+```
+
+### Build Special Images
+
+```bash
+# Bootable installer ISO
+nix build .#nixosConfigurations.livecd.config.system.build.isoImage
+
+# VirtualBox OVA
+nix build .#nixosConfigurations.virtualbox.config.system.build.isoImage
+
+# Scripts
+./build-iso.sh
+./build-vm.sh
+```
+
+### Development Shell
+
+```bash
+nix develop          # Enter dev shell (provides git, git-crypt, nixUnstable)
+nix flake update     # Update all flake inputs in flake.lock
+nix flake update <input>  # Update a single input
+```
+
+## Architecture
+
+### Configuration Layers
+
+```
+flake.nix  →  lib/default.nix  →  system/<platform>/  +  home/
+                (mkNixSystemConfiguration, mkHome)
+```
+
+**`flake.nix`** is the entry point. It defines all inputs (nixpkgs, home-manager, hyprland, agenix, nix-darwin, nixos-wsl, nix-on-droid, etc.) and maps hostnames to their configurations via `lib/default.nix` helper functions.
+
+**`lib/default.nix`** provides four builder functions:
+- `mkNixSystemConfiguration` — builds NixOS and Darwin configurations, handles specialization by platform type (`nixos`, `darwin`, `iso`, `vm`, `wsl`)
+- `mkArchConfiguration` — builds standalone home-manager configurations for Arch Linux hosts
+- `mkHome` — builds standalone home-manager configurations
+- `mkNixOnDroidConfiguration` — builds Android configurations
+
+### Directory Structure
+
+- **`system/`** — system-level modules and host definitions
+  - `shared/` — cross-platform: profiles (`desktop.nix`, `macbook.nix`, `work.nix`), secrets, common modules
+  - `nixos/` — NixOS kernel/boot/hardware; hosts under `nixos/hosts/<hostname>/`
+  - `darwin/` — macOS-specific (yabai, dock, brews, casks); hosts under `darwin/hosts/<hostname>/`
+  - `arch/` — Arch Linux host home-manager configs; hosts under `arch/hosts/<hostname>/`
+  - `droid/` — Android Nix-on-Droid system config
+
+- **`home/`** — user-level home-manager modules
+  - `shared/modules/` — cross-platform modules by category: `app/`, `dev/`, `shell/`, `theme/`, `ai/`, `gaming/`
+  - `nixos/`, `darwin/`, `arch/`, `droid/` — platform-specific home modules
+  - `config/` — raw dotfiles symlinked into `$HOME` (`.config/`, `.ssh/`, `.gnupg/`, shell profiles)
+
+- **`nix/`** — nixpkgs config (`config.nix`), daemon config (`nix.conf`), overlays, custom packages
+
+- **`users/`** — user profile definitions (`mwdavisii.nix`, `mdavis67.nix`, `nixos.nix`, `droid.nix`)
+
+- **`setup/`** — platform-specific install/bootstrap scripts
+  - `arch/` — 3-phase Arch Linux setup: `01-install.sh` (archiso), `02-install-packages.sh` (desktop packages), `03-setup-nix.sh` (Nix + home-manager). See [`setup/arch/README.md`](setup/arch/README.md)
+  - `wsl/` — WSL2 setup scripts
+  - `macos/` — macOS setup scripts
+  - `virtual/` — Virtual machine setup
+
+- **`secrets/`** — age-encrypted secrets; `secrets/secrets.nix` defines key recipients
+
+### Host Configuration Pattern
+
+Each host has a directory under `system/<platform>/hosts/<hostname>/` containing some combination of:
+- `default.nix` — enables/disables `nyx` modules and secrets via the `nyx` namespace options
+- `home.nix` — per-host user home configuration
+- `system.nix` — hardware/networking for that machine
+
+### Module Toggle Pattern
+
+Hosts configure themselves through the `nyx` option namespace:
+
+```nix
+nyx = {
+  modules.system.hyprland.enable = true;
+  secrets.userSSHKeys.enable = true;
+  profiles.desktop.enable = true;
+};
+```
+
+### Secrets (agenix)
+
+Secrets are encrypted with `age` and stored in `secrets/encrypted/`. The `secrets/secrets.nix` file defines which SSH/age keys can decrypt each secret. To add or re-key secrets, edit `secrets/secrets.nix` and run `agenix` commands from the `secrets/` directory.
+
+## Supported Hosts
+
+| Hostname | Platform | Description |
+|---|---|---|
+| `hephaestus` | NixOS | Home desktop (i9 / AMD 7900xt) |
+| `ares` | NixOS (WSL) | Personal WSL2 instance |
+| `nixos` | NixOS (WSL) | Generic WSL2 |
+| `hydra` | NixOS | Home lab k3s VM on Proxmox |
+| `livecd` | NixOS | Bootable installer ISO |
+| `virtualbox` | NixOS | VirtualBox VM image |
+| `L242731` | Arch Linux | Work Dell |
+| `prometheus` | Arch Linux | Home desktop (i7-12700F / AMD RX 6900 XT) |
+| `mwdavis-workm1` | Darwin | Work MacBook M1 16" |
+| `L241729` | Darwin | Additional Darwin host |
+| `default` | Nix-on-Droid | Google Pixel Fold |
 
 ---
 > Source: [mwdavisii/nyx](https://github.com/mwdavisii/nyx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
