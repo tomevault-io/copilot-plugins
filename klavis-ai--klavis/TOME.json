@@ -4,7 +4,7 @@
   "repo": "klavis",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/Klavis-AI/klavis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:12:45Z"
+  "distributed_at": "2026-07-23T11:09:35Z"
 }
