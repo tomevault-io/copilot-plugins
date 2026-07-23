@@ -1,0 +1,14 @@
+{
+  "name": "fengkx--beancount-lsp",
+  "displayName": "beancount-lsp",
+  "description": "beancount-lsp",
+  "version": "1.0.0",
+  "author": "fengkx",
+  "homepage": "https://github.com/fengkx/beancount-lsp",
+  "skills": [
+    {
+      "name": "beancount-lsp",
+      "description": ""
+    }
+  ]
+}
