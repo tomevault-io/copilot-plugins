@@ -4,7 +4,7 @@
   "repo": "sql2json",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/fsistemas/sql2json",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T18:01:57Z"
+  "distributed_at": "2026-07-23T11:15:23Z"
 }
