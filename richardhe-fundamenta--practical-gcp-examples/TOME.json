@@ -1,0 +1,81 @@
+{
+  "name": "practical-gcp-examples",
+  "owner": "richardhe-fundamenta",
+  "repo": "practical-gcp-examples",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "practical-gcp-examples",
+      "path": "adk-agy-agent/skills/echo/SKILL.md",
+      "github_url": "https://github.com/richardhe-fundamenta/practical-gcp-examples/tree/main/adk-agy-agent/skills/echo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "practical-gcp-examples",
+      "path": "adk-agy-agent/skills/reverse/SKILL.md",
+      "github_url": "https://github.com/richardhe-fundamenta/practical-gcp-examples/tree/main/adk-agy-agent/skills/reverse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "practical-gcp-examples",
+      "path": "adk-agy-agent/skills/gemini-api/SKILL.md",
+      "github_url": "https://github.com/richardhe-fundamenta/practical-gcp-examples/tree/main/adk-agy-agent/skills/gemini-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "practical-gcp-examples",
+      "path": "adk-agy-agent/skills/bigquery-basics/SKILL.md",
+      "github_url": "https://github.com/richardhe-fundamenta/practical-gcp-examples/tree/main/adk-agy-agent/skills/bigquery-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "practical-gcp-examples",
+      "path": "adk-agy-agent/skills/prime-factorizer/SKILL.md",
+      "github_url": "https://github.com/richardhe-fundamenta/practical-gcp-examples/tree/main/adk-agy-agent/skills/prime-factorizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "practical-gcp-examples",
+      "path": "adk-agent-sandbox/skills/analyst-chart-table/SKILL.md",
+      "github_url": "https://github.com/richardhe-fundamenta/practical-gcp-examples/tree/main/adk-agent-sandbox/skills/analyst-chart-table/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/richardhe-fundamenta/practical-gcp-examples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:46:41Z"
+}
