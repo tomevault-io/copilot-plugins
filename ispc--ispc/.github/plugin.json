@@ -1,0 +1,26 @@
+{
+  "name": "ispc--ispc",
+  "displayName": "ispc",
+  "description": "ispc",
+  "version": "1.0.0",
+  "author": "ispc",
+  "homepage": "https://github.com/ispc/ispc",
+  "skills": [
+    {
+      "name": "ispc-builtins",
+      "description": ""
+    },
+    {
+      "name": "ispc-lit-tests",
+      "description": ""
+    },
+    {
+      "name": "ispc",
+      "description": ""
+    },
+    {
+      "name": "ispc",
+      "description": ""
+    }
+  ]
+}
