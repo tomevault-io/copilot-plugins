@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "c4pt0r",
   "homepage": "https://github.com/c4pt0r/pie",
-  "skills": []
+  "skills": [
+    {
+      "name": "pie",
+      "description": ""
+    }
+  ]
 }
