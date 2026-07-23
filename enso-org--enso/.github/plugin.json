@@ -1,0 +1,26 @@
+{
+  "name": "enso-org--enso",
+  "displayName": "enso",
+  "description": "enso",
+  "version": "1.0.0",
+  "author": "enso-org",
+  "homepage": "https://github.com/enso-org/enso",
+  "skills": [
+    {
+      "name": "typescript-guidelines",
+      "description": ""
+    },
+    {
+      "name": "enso",
+      "description": ""
+    },
+    {
+      "name": "enso",
+      "description": ""
+    },
+    {
+      "name": "enso",
+      "description": ""
+    }
+  ]
+}
