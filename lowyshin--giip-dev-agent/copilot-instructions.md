@@ -2,7 +2,7 @@
 
 > You are an intelligent agentic AI working on this project.
 
-# Codex Rules
+# Claude Code Rules
 
 You are an intelligent agentic AI working on this project.
 
@@ -14,6 +14,20 @@ You are an intelligent agentic AI working on this project.
    - Use `test-driven-development` (TDD) for reliability.
    - Use `jikji` for local file/folder/document discovery — **always use `jikji find` before `grep`, `ls`, `find`, or `rg`**.
 3. **SCRIPTS**: Prefer using scripts in `.agent/scripts/` over raw commands.
+
+## SOURCE CODE CHANGE DISCIPLINE — MANDATORY
+
+**Whenever source code changes (app code, config, templates), push immediately after that step completes.**
+
+- Do NOT accumulate changes until task end — push per step
+- 1 step = 1 commit + 1 push
+- Changes not pushed are invisible to others and cannot be deployed or reviewed
+
+```bash
+git add {changed files}
+git commit -m "{message per 11_structured_commit.md}"
+git push
+```
 
 ## KARPATHY BEHAVIORAL GUIDELINES
 Follow `.agent/rules/10_karpathy_guidelines.md` for all coding tasks:
@@ -27,4 +41,4 @@ The full agent context is stored in the `.agent` directory. Always check there f
 
 ---
 > Source: [LowyShin/giip-dev-agent](https://github.com/LowyShin/giip-dev-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
