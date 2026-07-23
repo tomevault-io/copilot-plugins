@@ -1,0 +1,26 @@
+{
+  "name": "getsentry--sentry-unreal",
+  "displayName": "sentry-unreal",
+  "description": "sentry-unreal",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-unreal",
+  "skills": [
+    {
+      "name": "sentry-unreal",
+      "description": ""
+    },
+    {
+      "name": "sentry-unreal",
+      "description": ""
+    },
+    {
+      "name": "sentry-unreal",
+      "description": ""
+    },
+    {
+      "name": "sentry-unreal",
+      "description": ""
+    }
+  ]
+}
