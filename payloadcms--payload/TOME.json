@@ -1,0 +1,99 @@
+{
+  "name": "payload",
+  "owner": "payloadcms",
+  "repo": "payload",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "payload",
+      "path": "tools/claude-plugin/skills/payload",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/tools/claude-plugin/skills/payload",
+      "description": ""
+    },
+    {
+      "name": "triage-ci-flake",
+      "path": ".claude/skills/triage-ci-flake",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/.claude/skills/triage-ci-flake",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "path": ".claude/skills/ui4/SKILL.md",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/.claude/skills/ui4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "path": ".claude/skills/ui4-review/SKILL.md",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/.claude/skills/ui4-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "path": ".claude/skills/triage-ci-flake/SKILL.md",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/.claude/skills/triage-ci-flake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "path": ".claude/skills/ui4-convert-tests/SKILL.md",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/.claude/skills/ui4-convert-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "path": ".claude/skills/audit-dependencies/SKILL.md",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/.claude/skills/audit-dependencies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "path": "tools/claude-plugin/skills/payload/SKILL.md",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/tools/claude-plugin/skills/payload/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "path": ".claude/skills/generate-translations/SKILL.md",
+      "github_url": "https://github.com/payloadcms/payload/tree/main/.claude/skills/generate-translations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/payloadcms/payload",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:48:02Z"
+}
