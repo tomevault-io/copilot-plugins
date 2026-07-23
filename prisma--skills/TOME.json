@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -113,5 +113,5 @@
   ],
   "source_url": "https://github.com/prisma/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:41:45Z"
+  "distributed_at": "2026-07-23T10:36:04Z"
 }
