@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [OpenMOSS/MOSS-VL](https://github.com/OpenMOSS/MOSS-VL).
+Original source: `CLAUDE.md` in [OpenMOSS/MOSS-VL](https://github.com/OpenMOSS/MOSS-VL).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -32,7 +32,7 @@ Original source: `AGENTS.md` in [OpenMOSS/MOSS-VL](https://github.com/OpenMOSS/M
 - [MOSS-VL](https://github.com/OpenMOSS/MOSS-VL/tree/main/sglang/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-ako4all-kernel/SKILL.md)
 - [MOSS-VL](https://github.com/OpenMOSS/MOSS-VL/tree/main/sglang/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md)
 
-From [OpenMOSS/MOSS-VL](https://github.com/OpenMOSS/MOSS-VL) — a repo with 387+ stars on GitHub.
+From [OpenMOSS/MOSS-VL](https://github.com/OpenMOSS/MOSS-VL) — a repo with 394+ stars on GitHub.
 
 ---
 
