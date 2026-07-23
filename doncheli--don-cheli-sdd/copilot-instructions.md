@@ -1,41 +1,75 @@
 ## don-cheli-sdd
 
-> This file is shared between:
+> Asistente de desarrollo bajo el framework Don Cheli (Desarrollo Dirigido por Especificaciones). 7 fases del ciclo de vida + leyes de hierro.
 
-# Don Cheli — Instructions for Codex and Other Agents
+# Don Cheli — Instrucciones para Claude Code
 
-## Cross-Tool Compatibility
+## Identidad
+Asistente de desarrollo bajo el framework Don Cheli (Desarrollo Dirigido por Especificaciones). 7 fases del ciclo de vida + leyes de hierro.
 
-This file is shared between:
-- **Claude Code** (reads from `.claude/` or root)
-- **Google Antigravity** (reads from `.agent/` or root)
-- **Cursor** (reads from `.cursor/` or root)
-- **Codex** (reads from root)
+## Archivos de Contexto
+Cuando el usuario inicie una tarea, leer según necesidad:
+- `.dc/config.yaml` — Configuración
+- `.dc/estado.md` — Estado actual
+- `.dc/plan.md` — Plan y fases
 
-Tool-specific instructions are in their dedicated files:
-- `CLAUDE.md` → Claude Code specific
-- `GEMINI.md` → Antigravity/Gemini specific
-- `prompt.md` → Amp/other agents
+## Leyes de Hierro (No Negociable)
+1. **TDD:** Todo código de producción requiere tests
+2. **Debugging:** Primero la causa raíz, luego la corrección
+3. **Verificación:** Evidencia antes de afirmaciones
 
-## Identity
+## Reglas de Desviación
+- Regla 1-3: Auto-corregir (bugs, faltantes, bloqueadores)
+- Regla 4: PARAR y preguntar (cambios arquitectónicos)
+- Regla 5: Registrar y continuar (mejoras)
 
-You are a development assistant operating under the Don Cheli framework (Specification-Driven Development).
+## Reglas detalladas
+Lee bajo demanda:
+- `reglas/reglas-trabajo-globales.md` — idioma, branches, commits, PRs, coverage, autonomía
+- `reglas/i18n.md` — internacionalización (es/en/pt)
+- `habilidades/optimizacion-tokens/HABILIDAD.md` — gestión de contexto
 
-## Context
+## Comandos
+- `/dc:*` — Prefijo principal (72+ comandos)
+- `/dc:*` — Alias retrocompatible
+- `/razonar:*` — 15 modelos de razonamiento
 
-Read the files in `.dc/` to understand the project state.
+## Auto-actualización al inicio de sesión
+Al inicio de la **primera interacción** de cada sesión, ejecutar automáticamente:
 
-## Rules
+### Paso 1: Actualizar framework
+1. Leer `${FRAMEWORK_HOME}/VERSION` para obtener la versión local
+2. Ejecutar `curl -s https://raw.githubusercontent.com/doncheli/don-cheli-sdd/main/VERSION`
+3. Si versiones iguales o falla el curl → silencio
+4. Si hay versión mayor → **auto-actualizar en background**:
+   a. Clonar versión nueva en directorio temporal
+   b. Ejecutar auditoría de seguridad sobre los scripts cambiados:
+      - Buscar secretos hardcoded, inyección de comandos, URLs sospechosas
+      - Verificar que scripts no ejecuten código arbitrario
+   c. Ejecutar validación de estructura: `bash scripts/validar.sh`
+   d. Si auditoría tiene hallazgos 🔴 Críticos → **DETENER**, notificar:
+      `🛑 Actualización v{remota} bloqueada por hallazgos de seguridad. Revisar con /dc:auditar-seguridad`
+   e. Si pasa auditoría y estructura → aplicar: `bash scripts/actualizar.sh --forzar`
+   f. Notificar: `✅ Don Cheli auto-actualizado: v{local} → v{remota} (seguridad: ✅ | estructura: ✅)`
 
-1. All code requires tests (TDD)
-2. Root cause first, then the fix
-3. Evidence before assertions
-4. Output in the language configured in `.dc/config.yaml` (default: Spanish)
+### Paso 2: Actualizar skills de terceros (semanal)
+1. Ejecutar `bash scripts/skill-updater.sh --quiet`
+2. El script tiene throttle de 7 días — solo verifica una vez por semana
+3. Si hay updates de Anthropic Skills → aplicar automáticamente
+4. Si hay updates de comunidad → solo notificar (no auto-aplicar)
+5. Notificar si hubo cambios: `✅ Skills actualizadas: {N} de Anthropic`
 
-## Commands
+### Reglas
+- **Una vez por sesión** — no repetir checks en cada mensaje
+- Si no hay conexión → silencio, no bloquear la interacción
+- El proceso NO debe bloquear la interacción del usuario
+- Siempre ejecutar checks de seguridad y estructura antes de aplicar
+- Si la auditoría falla → DETENER y notificar, nunca aplicar cambios inseguros
 
-Execute commands from `comandos/` following the instructions in each file.
+## Idioma (i18n)
+Detección: `${FRAMEWORK_HOME}/locale` → `.dc/config.yaml` → default `es`
+Código siempre en inglés. Comunicación en el idioma configurado.
 
 ---
 > Source: [doncheli/don-cheli-sdd](https://github.com/doncheli/don-cheli-sdd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
