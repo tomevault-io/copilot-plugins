@@ -1,0 +1,69 @@
+{
+  "name": "livewire",
+  "owner": "livewire",
+  "repo": "livewire",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "summarize-activity",
+      "path": ".claude/skills/summarize-activity",
+      "github_url": "https://github.com/livewire/livewire/tree/main/.claude/skills/summarize-activity",
+      "description": ""
+    },
+    {
+      "name": "livewire",
+      "path": ".claude/skills/test/SKILL.md",
+      "github_url": "https://github.com/livewire/livewire/tree/main/.claude/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livewire",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/livewire/livewire/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "livewire",
+      "path": ".claude/skills/summarize-activity/SKILL.md",
+      "github_url": "https://github.com/livewire/livewire/tree/main/.claude/skills/summarize-activity/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/livewire/livewire",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:58:29Z"
+}
