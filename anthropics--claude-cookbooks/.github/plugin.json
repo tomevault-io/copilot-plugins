@@ -1,0 +1,42 @@
+{
+  "name": "anthropics--claude-cookbooks",
+  "displayName": "claude-cookbooks",
+  "description": "claude-cookbooks",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/claude-cookbooks",
+  "skills": [
+    {
+      "name": "analyzing-financial-statements",
+      "description": ""
+    },
+    {
+      "name": "applying-brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "creating-financial-models",
+      "description": ""
+    },
+    {
+      "name": "claude-cookbooks",
+      "description": ""
+    },
+    {
+      "name": "claude-cookbooks",
+      "description": ""
+    },
+    {
+      "name": "claude-cookbooks",
+      "description": ""
+    },
+    {
+      "name": "claude-cookbooks",
+      "description": ""
+    },
+    {
+      "name": "claude-cookbooks",
+      "description": ""
+    }
+  ]
+}
