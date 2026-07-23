@@ -1,6 +1,19 @@
 ## laravel-translations
 
-> <laravel-boost-guidelines>
+> This is the **free** version (`outhebox/laravel-translations`). The pro version lives at `../laravel-translations-pro` and depends on this package — never introduce breaking changes without checking the pro version.
+
+# Free & Pro Architecture
+
+This is the **free** version (`outhebox/laravel-translations`). The pro version lives at `../laravel-translations-pro` and depends on this package — never introduce breaking changes without checking the pro version.
+
+## How Pro Extends Free
+
+- **Composer**: Pro requires `outhebox/laravel-translations` via a path symlink and uses a separate namespace (`Outhebox\TranslationsPro`).
+- **Backend**: Pro never overrides free classes. It adds its own controllers, services, models, and commands. It hooks into free via event listeners (`TranslationSaved`, `ImportCompleted`).
+- **Frontend**: Pro's Vite config defines a `@free` alias pointing to `../laravel-translations/resources/js`. Pro components either re-export from `@free/...` (when no changes needed) or provide their own implementation.
+- **Types**: Pro re-exports `@free/types/translations` and extends as needed.
+- **Database**: Free models already include pro-ready fields (`ai_generated`, `ai_provider`, `needs_review`, `priority`, `context_note`). Pro adds its own migration tables (revisions, activity_logs, glossary, etc.).
+- **Tests**: Each package has its own `tests/Pest.php` and `TestCase`. Pro references free routes from its vendor directory.
 
 <laravel-boost-guidelines>
 === .ai/testing rules ===
@@ -313,4 +326,4 @@ Wayfinder generates TypeScript functions for Laravel routes. Import from `@/acti
 
 ---
 > Source: [MohmmedAshraf/laravel-translations](https://github.com/MohmmedAshraf/laravel-translations) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
