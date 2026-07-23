@@ -1,0 +1,14 @@
+{
+  "name": "mystenlabs--walrus",
+  "displayName": "walrus",
+  "description": "walrus",
+  "version": "1.0.0",
+  "author": "MystenLabs",
+  "homepage": "https://github.com/MystenLabs/walrus",
+  "skills": [
+    {
+      "name": "walrus",
+      "description": ""
+    }
+  ]
+}
