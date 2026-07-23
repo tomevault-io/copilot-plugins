@@ -1,0 +1,261 @@
+{
+  "name": "civitai",
+  "owner": "civitai",
+  "repo": "civitai",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-review",
+      "path": ".claude/skills/agent-review",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/agent-review",
+      "description": ""
+    },
+    {
+      "name": "browser-automation",
+      "path": ".claude/skills/browser-automation",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/browser-automation",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-query",
+      "path": ".claude/skills/clickhouse-query",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/clickhouse-query",
+      "description": ""
+    },
+    {
+      "name": "clickup",
+      "path": ".claude/skills/clickup",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/clickup",
+      "description": ""
+    },
+    {
+      "name": "component-preview",
+      "path": ".claude/skills/component-preview",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/component-preview",
+      "description": ""
+    },
+    {
+      "name": "dev-server",
+      "path": ".claude/skills/dev-server",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/dev-server",
+      "description": ""
+    },
+    {
+      "name": "postgres-query",
+      "path": ".claude/skills/postgres-query",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/postgres-query",
+      "description": ""
+    },
+    {
+      "name": "quick-mockups",
+      "path": ".claude/skills/quick-mockups",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/quick-mockups",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "path": ".claude/skills/ralph",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/ralph",
+      "description": ""
+    },
+    {
+      "name": "worktree",
+      "path": ".claude/skills/worktree",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/worktree",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/flipt/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/flipt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/axiom/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/axiom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/stripe/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/clickup/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/clickup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/discord/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/discord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/metabase/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/metabase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/freshdesk/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/freshdesk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/ux-design/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/ux-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/rgb-proxy/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/rgb-proxy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/cloudflare/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/dev-server/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/dev-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/mod-actions/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/mod-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/bitdex-test/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/bitdex-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/retool-query/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/retool-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/add-ecosystem/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/add-ecosystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/redis-inspect/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/redis-inspect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/deploy-status/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/deploy-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/quick-mockups/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/quick-mockups/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/xguard-manager/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/xguard-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/clickhouse-query/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/clickhouse-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/component-preview/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/component-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/meilisearch-admin/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/meilisearch-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/browser-automation/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/browser-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/add-generation-support/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/add-generation-support/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/write-model-description/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/write-model-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "civitai",
+      "path": ".claude/skills/add-prompt-enhancement-guide/SKILL.md",
+      "github_url": "https://github.com/civitai/civitai/tree/main/.claude/skills/add-prompt-enhancement-guide/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/civitai/civitai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:35:06Z"
+}
