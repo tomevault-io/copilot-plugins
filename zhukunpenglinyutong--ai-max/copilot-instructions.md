@@ -1,57 +1,108 @@
 ## ai-max
 
-> 位于 `~/.claude/agents/`:
+> 这是一个项目级 CLAUDE.md 文件示例。请将其放置在项目根目录中。
 
-# Agent 编排
+# 示例项目 CLAUDE.md
 
-## 可用 Agent
+这是一个项目级 CLAUDE.md 文件示例。请将其放置在项目根目录中。
 
-位于 `~/.claude/agents/`:
+## 项目概述
 
-| Agent | 用途 | 使用场景 |
-|-------|---------|-------------|
-| planner | 实现规划 | 复杂功能、重构 |
-| architect | 系统设计 | 架构决策 |
-| tdd-guide | 测试驱动开发 | 新功能、Bug 修复 |
-| code-reviewer | 代码审查 | 编写代码后 |
-| security-reviewer | 安全分析 | 提交前 |
-| build-error-resolver | 修复构建错误 | 构建失败时 |
-| e2e-runner | E2E 测试 | 关键用户流程 |
-| refactor-cleaner | 死代码清理 | 代码维护 |
-| doc-updater | 文档更新 | 更新文档 |
+[简要描述你的项目 - 它的功能、技术栈]
 
-## 立即使用 Agent
+## 关键规则
 
-无需用户提示即可使用：
-1. 复杂功能请求 - 使用 **planner** agent
-2. 刚编写/修改的代码 - 使用 **code-reviewer** agent
-3. Bug 修复或新功能 - 使用 **tdd-guide** agent
-4. 架构决策 - 使用 **architect** agent
+### 1. 代码组织
 
-## 并行任务执行
+- 多个小文件优于少量大文件
+- 高内聚，低耦合
+- 每个文件通常 200-400 行，最大 800 行
+- 按功能/领域组织，而非按类型组织
 
-对于独立操作，始终使用并行 Task 执行：
+### 2. 代码风格
 
-```markdown
-# 正确: 并行执行
-并行启动 3 个 agent：
-1. Agent 1: auth.ts 安全分析
-2. Agent 2: 缓存系统性能审查
-3. Agent 3: utils.ts 类型检查
+- 代码、注释或文档中不使用表情符号
+- 始终保持不可变性 - 永不修改对象或数组
+- 生产代码中禁止 console.log
+- 使用 try/catch 进行正确的错误处理
+- 使用 Zod 或类似工具进行输入验证
 
-# 错误: 不必要的顺序执行
-先执行 agent 1，然后 agent 2，最后 agent 3
+### 3. 测试
+
+- TDD：先写测试
+- 最低 80% 覆盖率
+- 工具函数需要单元测试
+- API 需要集成测试
+- 关键流程需要端到端测试
+
+### 4. 安全
+
+- 禁止硬编码密钥
+- 敏感数据使用环境变量
+- 验证所有用户输入
+- 仅使用参数化查询
+- 启用 CSRF 保护
+
+## 文件结构
+
+```
+src/
+|-- app/              # Next.js 应用路由
+|-- components/       # 可复用 UI 组件
+|-- hooks/            # 自定义 React hooks
+|-- lib/              # 工具库
+|-- types/            # TypeScript 类型定义
 ```
 
-## 多视角分析
+## 关键模式
 
-对于复杂问题，使用分角色子 agent：
-- 事实审查员
-- 高级工程师
-- 安全专家
-- 一致性审查员
-- 冗余检查员
+### API 响应格式
+
+```typescript
+interface ApiResponse<T> {
+  success: boolean
+  data?: T
+  error?: string
+}
+```
+
+### 错误处理
+
+```typescript
+try {
+  const result = await operation()
+  return { success: true, data: result }
+} catch (error) {
+  console.error('Operation failed:', error)
+  return { success: false, error: 'User-friendly message' }
+}
+```
+
+## 环境变量
+
+```bash
+# 必需
+DATABASE_URL=
+API_KEY=
+
+# 可选
+DEBUG=false
+```
+
+## 可用命令
+
+- `/aimax:tdd` - 测试驱动开发工作流
+- `/aimax:plan` - 创建实现计划
+- `/aimax:code-review` - 审查代码质量
+- `/aimax:build-fix` - 修复构建错误
+
+## Git 工作流
+
+- 约定式提交：`feat:`、`fix:`、`refactor:`、`docs:`、`test:`
+- 永不直接提交到 main 分支
+- PR 需要审查
+- 合并前所有测试必须通过
 
 ---
 > Source: [zhukunpenglinyutong/ai-max](https://github.com/zhukunpenglinyutong/ai-max) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
