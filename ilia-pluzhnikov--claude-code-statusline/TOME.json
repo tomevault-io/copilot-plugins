@@ -4,7 +4,7 @@
   "repo": "claude-code-statusline",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ilia-pluzhnikov/claude-code-statusline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T15:43:12Z"
+  "distributed_at": "2026-07-23T19:56:52Z"
 }
