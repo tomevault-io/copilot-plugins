@@ -1,33 +1,44 @@
 ## hype
 
-> Core packages live at repo root (e.g., `element.go`, `parser.go`) and follow Go's standard package-per-file pattern, each paired with `*_test.go`. The CLI wrapper sits in `cmd/hype`, which builds the `hype` binary. Content templates and examples live under `docs/`, `mdx/`, and `slides/`, while reusable fixtures are stored in `testdata/`. Helper utilities and adapters reside in `internal/` plus feature-specific subfolders such as `atomx/` and `binding/`.
+> - **NEVER commit directly to main** - Always create a feature branch and submit a PR
 
-# Repository Guidelines
+# Claude Code Instructions for Hype
 
-## Project Structure & Module Organization
+## Critical Rules
 
-Core packages live at repo root (e.g., `element.go`, `parser.go`) and follow Go's standard package-per-file pattern, each paired with `*_test.go`. The CLI wrapper sits in `cmd/hype`, which builds the `hype` binary. Content templates and examples live under `docs/`, `mdx/`, and `slides/`, while reusable fixtures are stored in `testdata/`. Helper utilities and adapters reside in `internal/` plus feature-specific subfolders such as `atomx/` and `binding/`.
+- **NEVER commit directly to main** - Always create a feature branch and submit a PR
+- **NEVER force push to main** - The branch is protected
 
-## Build, Test, and Development Commands
+## Git Workflow
 
-- `make test`: runs `go test -count 1 -race -vet=off -cover` across all packages except generated docs.
-- `make build`: produces a local `hype` binary from `cmd/hype/`.
-- `go run ./cmd/hype --help`: inspect CLI options without installing.
-- `make docs` or `make hype`: regenerate `README.md` from `hype.md`; run after changing documentation templates.
-- `go install ./cmd/hype`: install the CLI into your `$GOBIN` for reuse in other projects.
+1. Create a feature branch: `git checkout -b <type>/<description>`
+2. Make changes and commit
+3. Push branch: `git push -u origin <branch-name>`
+4. Create PR: `gh pr create`
 
-## Coding Style & Naming Conventions
+Branch naming conventions:
+- `feat/` - New features
+- `fix/` - Bug fixes
+- `docs/` - Documentation changes
+- `refactor/` - Code refactoring
 
-Use Go 1.25+ features conservatively and keep compiler warnings at zero. Format code via `gofmt` (tabs for indentation, blank lines between logical sections) and lint with `revive` using `revive.toml`. Exported identifiers should read like `Parser`, `ExecuteError`, while private helpers stay lowerCamel. Keep package boundaries focused; avoid cyclic imports by adding shared helpers to `internal/`.
+## Project Structure
 
-## Testing Guidelines
+- `blog/` - Blog generator package
+- `cmd/hype/cli/` - CLI commands
+- `docs/` - Documentation source files
+- `hype.md` - Source for README.md generation
 
-Unit tests mirror their source files (e.g., `figure_test.go`) and should cover happy paths plus failure parsing cases. Add integration coverage for the CLI in `cli_integration_test.go` when touching command behavior. Run `make cov` to inspect HTML coverage locally and target meaningful assertions rather than snapshot dumps. Table-driven tests are preferred; name cases with short strings describing the scenario. All new features require a failing test before implementation when practical.
+## README Generation
 
-## Commit & Pull Request Guidelines
+The README.md is generated from `hype.md` using:
 
-Follow the existing history style: short imperative subject plus optional PR reference, e.g., `Fix non-deterministic JSON output (#46)`. Group related changes into one commit and keep generated files (like `README.md`) in the same commit when they stem from code changes. Pull requests should link issues, describe the behavior change, list verification steps (`make test`, `go run examples/...`), and include screenshots when user-facing output changes. Ensure CI (GitHub Actions `tests.yml`) passes before requesting review.
+```bash
+hype export -format=markdown -f hype.md > README.md
+```
+
+Always regenerate README.md after modifying `hype.md` or any included docs.
 
 ---
 > Source: [gopherguides/hype](https://github.com/gopherguides/hype) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
