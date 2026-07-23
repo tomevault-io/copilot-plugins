@@ -1,0 +1,225 @@
+{
+  "name": "protocol",
+  "owner": "0xMiden",
+  "repo": "protocol",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-padding/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-padding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-constants/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-constants/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/intra-doc-links/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/intra-doc-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/use-bon-builder/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/use-bon-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-doc-comments/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-doc-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/felt-construction/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/felt-construction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/use-test-fixtures/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/use-test-fixtures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/checked-arithmetic/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/checked-arithmetic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-file-structure/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-file-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-named-literals/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-named-literals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-inline-comments/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-inline-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-error-constants/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-error-constants/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/preserve-error-source/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/preserve-error-source/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/return-error-not-panic/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/return-error-not-panic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/cheap-masm-equivalents/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/cheap-masm-equivalents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/advice-provider-hygiene/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/advice-provider-hygiene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/validate-in-constructor/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/validate-in-constructor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-locals-over-globals/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-locals-over-globals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/lowercase-error-messages/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/lowercase-error-messages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/conversion-method-naming/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/conversion-method-naming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/u32-assert-before-u32-ops/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/u32-assert-before-u32-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/parametrize-related-tests/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/parametrize-related-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-rust-constant-parity/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-rust-constant-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/masm-explicit-stack-inputs/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/masm-explicit-stack-inputs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/non-exhaustive-public-types/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/non-exhaustive-public-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/private-fields-with-accessors/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/private-fields-with-accessors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/workspace-shared-dependencies/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/workspace-shared-dependencies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/assert-specific-error-in-tests/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/assert-specific-error-in-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/domain-newtypes-over-primitives/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/domain-newtypes-over-primitives/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "protocol",
+      "path": ".claude/skills/decouple-component-from-storage/SKILL.md",
+      "github_url": "https://github.com/0xMiden/protocol/tree/main/.claude/skills/decouple-component-from-storage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/0xMiden/protocol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T19:41:50Z"
+}
