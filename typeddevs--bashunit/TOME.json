@@ -1,0 +1,105 @@
+{
+  "name": "bashunit",
+  "owner": "TypedDevs",
+  "repo": "bashunit",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/pr/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/fix-test/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/fix-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/gh-issue/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/gh-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/gh-issues/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/gh-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/tdd-cycle/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/tdd-cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/pre-release/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/pre-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/add-assertion/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/add-assertion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bashunit",
+      "path": ".claude/skills/check-coverage/SKILL.md",
+      "github_url": "https://github.com/TypedDevs/bashunit/tree/main/.claude/skills/check-coverage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TypedDevs/bashunit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T21:38:30Z"
+}
