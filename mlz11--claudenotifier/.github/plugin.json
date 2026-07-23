@@ -1,0 +1,22 @@
+{
+  "name": "mlz11--claudenotifier",
+  "displayName": "ClaudeNotifier",
+  "description": "ClaudeNotifier",
+  "version": "1.0.0",
+  "author": "mlz11",
+  "homepage": "https://github.com/mlz11/ClaudeNotifier",
+  "skills": [
+    {
+      "name": "ClaudeNotifier",
+      "description": ""
+    },
+    {
+      "name": "ClaudeNotifier",
+      "description": ""
+    },
+    {
+      "name": "ClaudeNotifier",
+      "description": ""
+    }
+  ]
+}
