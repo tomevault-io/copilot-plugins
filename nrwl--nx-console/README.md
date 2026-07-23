@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nrwl/nx-console](https://github.com/nrwl/nx-console).
+Original source: `CLAUDE.md` in [nrwl/nx-console](https://github.com/nrwl/nx-console).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -44,7 +44,7 @@ Original source: `AGENTS.md` in [nrwl/nx-console](https://github.com/nrwl/nx-con
 - [nx-console](https://github.com/nrwl/nx-console/tree/main/.github/skills/nx-run-tasks/SKILL.md)
 - [nx-console](https://github.com/nrwl/nx-console/tree/main/.github/skills/link-workspace-packages/SKILL.md)
 
-From [nrwl/nx-console](https://github.com/nrwl/nx-console) — a repo with 1410+ stars on GitHub.
+From [nrwl/nx-console](https://github.com/nrwl/nx-console) — a repo with 1409+ stars on GitHub.
 
 ---
 
