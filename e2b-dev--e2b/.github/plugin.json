@@ -1,0 +1,14 @@
+{
+  "name": "e2b-dev--e2b",
+  "displayName": "E2B",
+  "description": "E2B",
+  "version": "1.0.0",
+  "author": "e2b-dev",
+  "homepage": "https://github.com/e2b-dev/E2B",
+  "skills": [
+    {
+      "name": "E2B",
+      "description": ""
+    }
+  ]
+}
