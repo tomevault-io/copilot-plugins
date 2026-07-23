@@ -1,0 +1,75 @@
+{
+  "name": "JEngine",
+  "owner": "JasonXuDeveloper",
+  "repo": "JEngine",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "JEngine",
+      "path": ".claude-plugin/skills/jaction/SKILL.md",
+      "github_url": "https://github.com/JasonXuDeveloper/JEngine/tree/main/.claude-plugin/skills/jaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JEngine",
+      "path": ".claude-plugin/skills/editor-ui/SKILL.md",
+      "github_url": "https://github.com/JasonXuDeveloper/JEngine/tree/main/.claude-plugin/skills/editor-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JEngine",
+      "path": ".claude-plugin/skills/messagebox/SKILL.md",
+      "github_url": "https://github.com/JasonXuDeveloper/JEngine/tree/main/.claude-plugin/skills/messagebox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JEngine",
+      "path": ".claude-plugin/skills/jobjectpool/SKILL.md",
+      "github_url": "https://github.com/JasonXuDeveloper/JEngine/tree/main/.claude-plugin/skills/jobjectpool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "JEngine",
+      "path": ".claude-plugin/skills/game-patterns/SKILL.md",
+      "github_url": "https://github.com/JasonXuDeveloper/JEngine/tree/main/.claude-plugin/skills/game-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JasonXuDeveloper/JEngine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:21:07Z"
+}
