@@ -1,0 +1,14 @@
+{
+  "name": "openshift--managed-velero-operator",
+  "displayName": "managed-velero-operator",
+  "description": "managed-velero-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/managed-velero-operator",
+  "skills": [
+    {
+      "name": "managed-velero-operator",
+      "description": ""
+    }
+  ]
+}
