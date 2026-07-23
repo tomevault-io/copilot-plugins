@@ -1,0 +1,315 @@
+{
+  "name": "jvm-skills",
+  "owner": "jvm-skills",
+  "repo": "jvm-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/fix/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/fix/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/fix/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/spec/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/spec/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/spec/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/kotest/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/kotest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/commit/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/kotest/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/kotest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/kotest/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/kotest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/commit/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/tdd-task/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/tdd-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/tdd-task/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/tdd-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/tdd-task/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/tdd-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/ui-review/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/ui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/interview/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/ui-review/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/ui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/ui-review/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/ui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/interview/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/interview/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/test-gradle/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/test-gradle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/test-gradle/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/test-gradle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/test-gradle/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/test-gradle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/rebase-commit/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/rebase-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/ralph-coverage/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/ralph-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/rebase-commit/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/rebase-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/rebase-commit/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/rebase-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/performance-web/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/performance-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/ralph-coverage/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/ralph-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/ralph-coverage/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/ralph-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/performance-web/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/performance-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/performance-web/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/performance-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/mutation-testing/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/mutation-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/mutation-testing/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/mutation-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/mutation-testing/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/mutation-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/jooq-best-practices/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/jooq-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/restart-spring-boot/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/restart-spring-boot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/jooq-best-practices/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/jooq-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/jooq-best-practices/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/jooq-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/restart-spring-boot/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/restart-spring-boot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/restart-spring-boot/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/restart-spring-boot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".junie/skills/coverage-kover-gradle/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.junie/skills/coverage-kover-gradle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".agents/skills/coverage-kover-gradle/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.agents/skills/coverage-kover-gradle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jvm-skills",
+      "path": ".claude/skills/coverage-kover-gradle/SKILL.md",
+      "github_url": "https://github.com/jvm-skills/jvm-skills/tree/main/.claude/skills/coverage-kover-gradle/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jvm-skills/jvm-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:41:19Z"
+}
