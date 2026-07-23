@@ -1,0 +1,87 @@
+{
+  "name": "medusa",
+  "owner": "medusajs",
+  "repo": "medusa",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "writing-docs",
+      "path": ".claude/skills/writing-docs",
+      "github_url": "https://github.com/medusajs/medusa/tree/main/.claude/skills/writing-docs",
+      "description": ""
+    },
+    {
+      "name": "writing-tsdocs",
+      "path": ".claude/skills/writing-tsdocs",
+      "github_url": "https://github.com/medusajs/medusa/tree/main/.claude/skills/writing-tsdocs",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "path": ".claude/skills/writing-docs/SKILL.md",
+      "github_url": "https://github.com/medusajs/medusa/tree/main/.claude/skills/writing-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "path": ".claude/skills/writing-tsdocs/SKILL.md",
+      "github_url": "https://github.com/medusajs/medusa/tree/main/.claude/skills/writing-tsdocs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "path": ".claude/skills/triaging-issues/SKILL.md",
+      "github_url": "https://github.com/medusajs/medusa/tree/main/.claude/skills/triaging-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "path": ".claude/skills/writing-releases/SKILL.md",
+      "github_url": "https://github.com/medusajs/medusa/tree/main/.claude/skills/writing-releases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "path": ".claude/skills/writing-tutorials/SKILL.md",
+      "github_url": "https://github.com/medusajs/medusa/tree/main/.claude/skills/writing-tutorials/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/medusajs/medusa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:52:19Z"
+}
