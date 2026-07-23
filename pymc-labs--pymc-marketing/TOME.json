@@ -1,0 +1,141 @@
+{
+  "name": "pymc-marketing",
+  "owner": "pymc-labs",
+  "repo": "pymc-marketing",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-best-practice",
+      "path": ".cursor/skills/code-best-practice",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/code-best-practice",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": ".cursor/skills/commit",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "make-plan",
+      "path": ".cursor/skills/make-plan",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/make-plan",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": "skills/mmm-modeling/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/skills/mmm-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".cursor/skills/commit/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".claude/skills/research/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.claude/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".cursor/skills/research/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".claude/skills/implement/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.claude/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".cursor/skills/implement/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".claude/skills/make-plan/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.claude/skills/make-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".cursor/skills/make-plan/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/make-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".claude/skills/work-in-repo/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.claude/skills/work-in-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".cursor/skills/work-in-repo/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/work-in-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".claude/skills/code-best-practice/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.claude/skills/code-best-practice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pymc-marketing",
+      "path": ".cursor/skills/code-best-practice/SKILL.md",
+      "github_url": "https://github.com/pymc-labs/pymc-marketing/tree/main/.cursor/skills/code-best-practice/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pymc-labs/pymc-marketing",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:33:27Z"
+}
