@@ -1,0 +1,14 @@
+{
+  "name": "altimateai--vscode-dbt-power-user",
+  "displayName": "vscode-dbt-power-user",
+  "description": "vscode-dbt-power-user",
+  "version": "1.0.0",
+  "author": "AltimateAI",
+  "homepage": "https://github.com/AltimateAI/vscode-dbt-power-user",
+  "skills": [
+    {
+      "name": "vscode-dbt-power-user",
+      "description": ""
+    }
+  ]
+}
