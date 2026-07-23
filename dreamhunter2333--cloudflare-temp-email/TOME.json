@@ -1,0 +1,81 @@
+{
+  "name": "cloudflare_temp_email",
+  "owner": "dreamhunter2333",
+  "repo": "cloudflare_temp_email",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "version-upgrade",
+      "path": ".claude/skills/version-upgrade",
+      "github_url": "https://github.com/dreamhunter2333/cloudflare_temp_email/tree/main/.claude/skills/version-upgrade",
+      "description": ""
+    },
+    {
+      "name": "cloudflare_temp_email",
+      "path": "skills/cf-temp-mail-agent-mail/SKILL.md",
+      "github_url": "https://github.com/dreamhunter2333/cloudflare_temp_email/tree/main/skills/cf-temp-mail-agent-mail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare_temp_email",
+      "path": ".claude/skills/cf-temp-mail-release/SKILL.md",
+      "github_url": "https://github.com/dreamhunter2333/cloudflare_temp_email/tree/main/.claude/skills/cf-temp-mail-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare_temp_email",
+      "path": ".claude/skills/cf-temp-mail-release-notify/SKILL.md",
+      "github_url": "https://github.com/dreamhunter2333/cloudflare_temp_email/tree/main/.claude/skills/cf-temp-mail-release-notify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare_temp_email",
+      "path": ".claude/skills/cf-temp-mail-version-upgrade/SKILL.md",
+      "github_url": "https://github.com/dreamhunter2333/cloudflare_temp_email/tree/main/.claude/skills/cf-temp-mail-version-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloudflare_temp_email",
+      "path": ".claude/skills/cf-temp-mail-upgrade-dependencies/SKILL.md",
+      "github_url": "https://github.com/dreamhunter2333/cloudflare_temp_email/tree/main/.claude/skills/cf-temp-mail-upgrade-dependencies/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dreamhunter2333/cloudflare_temp_email",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:51:44Z"
+}
