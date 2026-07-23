@@ -1,0 +1,14 @@
+{
+  "name": "nakajima-foundation--ownplate",
+  "displayName": "ownplate",
+  "description": "ownplate",
+  "version": "1.0.0",
+  "author": "Nakajima-Foundation",
+  "homepage": "https://github.com/Nakajima-Foundation/ownplate",
+  "skills": [
+    {
+      "name": "ownplate",
+      "description": ""
+    }
+  ]
+}
