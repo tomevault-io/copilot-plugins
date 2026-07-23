@@ -1,0 +1,14 @@
+{
+  "name": "apra-labs--aprapipes",
+  "displayName": "ApraPipes",
+  "description": "ApraPipes",
+  "version": "1.0.0",
+  "author": "Apra-Labs",
+  "homepage": "https://github.com/Apra-Labs/ApraPipes",
+  "skills": [
+    {
+      "name": "ApraPipes",
+      "description": ""
+    }
+  ]
+}
