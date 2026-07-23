@@ -1,0 +1,14 @@
+{
+  "name": "zulip--zulip-flutter",
+  "displayName": "zulip-flutter",
+  "description": "zulip-flutter",
+  "version": "1.0.0",
+  "author": "zulip",
+  "homepage": "https://github.com/zulip/zulip-flutter",
+  "skills": [
+    {
+      "name": "zulip-flutter",
+      "description": ""
+    }
+  ]
+}
