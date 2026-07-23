@@ -1,0 +1,58 @@
+{
+  "name": "rubys--showcase",
+  "displayName": "showcase",
+  "description": "showcase",
+  "version": "1.0.0",
+  "author": "rubys",
+  "homepage": "https://github.com/rubys/showcase",
+  "skills": [
+    {
+      "name": "compare-erb-js",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "description": ""
+    },
+    {
+      "name": "fly-ssh",
+      "description": ""
+    },
+    {
+      "name": "navigator",
+      "description": ""
+    },
+    {
+      "name": "render-page",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "description": ""
+    }
+  ]
+}
