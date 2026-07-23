@@ -1,0 +1,177 @@
+{
+  "name": "config",
+  "owner": "sorah",
+  "repo": "config",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "coding",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/coding",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/coding",
+      "description": ""
+    },
+    {
+      "name": "commit-style",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/commit-style",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/commit-style",
+      "description": ""
+    },
+    {
+      "name": "japanese-text",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/japanese-text",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/japanese-text",
+      "description": ""
+    },
+    {
+      "name": "rails",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/rails",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/rails",
+      "description": ""
+    },
+    {
+      "name": "rails",
+      "path": "claude/marketplace/plugins/sorah-spec/skills/rails",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-spec/skills/rails",
+      "description": ""
+    },
+    {
+      "name": "ruby",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/ruby",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/ruby",
+      "description": ""
+    },
+    {
+      "name": "ruby",
+      "path": "claude/marketplace/plugins/sorah-spec/skills/ruby",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-spec/skills/ruby",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/security",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/security",
+      "description": ""
+    },
+    {
+      "name": "spec-conventions",
+      "path": "claude/marketplace/plugins/sorah-spec/skills/spec-conventions",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-spec/skills/spec-conventions",
+      "description": ""
+    },
+    {
+      "name": "terraform",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/terraform",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/terraform",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-spec/skills/ruby/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-spec/skills/ruby/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-spec/skills/rails/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-spec/skills/rails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/ruby/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/ruby/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/rust/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/rust/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/rails/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/rails/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/coding/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/security/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/terraform/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/terraform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/typescript/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/commit-style/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/commit-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-guides/skills/japanese-text/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-guides/skills/japanese-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "config",
+      "path": "claude/marketplace/plugins/sorah-spec/skills/spec-conventions/SKILL.md",
+      "github_url": "https://github.com/sorah/config/tree/main/claude/marketplace/plugins/sorah-spec/skills/spec-conventions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sorah/config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:32:19Z"
+}
