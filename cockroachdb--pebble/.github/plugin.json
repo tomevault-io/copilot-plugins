@@ -1,0 +1,26 @@
+{
+  "name": "cockroachdb--pebble",
+  "displayName": "pebble",
+  "description": "pebble",
+  "version": "1.0.0",
+  "author": "cockroachdb",
+  "homepage": "https://github.com/cockroachdb/pebble",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "pebble",
+      "description": ""
+    },
+    {
+      "name": "pebble",
+      "description": ""
+    },
+    {
+      "name": "pebble",
+      "description": ""
+    }
+  ]
+}
