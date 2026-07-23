@@ -1,0 +1,14 @@
+{
+  "name": "edu-ai-builders--visual-cognition-slides",
+  "displayName": "visual-cognition-slides",
+  "description": "visual-cognition-slides",
+  "version": "1.0.0",
+  "author": "edu-ai-builders",
+  "homepage": "https://github.com/edu-ai-builders/visual-cognition-slides",
+  "skills": [
+    {
+      "name": "visual-cognition-slides",
+      "description": ""
+    }
+  ]
+}
