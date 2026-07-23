@@ -1,0 +1,9 @@
+{
+  "name": "go-delve--delve",
+  "displayName": "delve",
+  "description": "delve",
+  "version": "1.0.0",
+  "author": "go-delve",
+  "homepage": "https://github.com/go-delve/delve",
+  "skills": []
+}
