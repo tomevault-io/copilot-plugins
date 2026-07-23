@@ -1,0 +1,57 @@
+{
+  "name": "vapor-ui",
+  "owner": "goorm-dev",
+  "repo": "vapor-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vapor-ui",
+      "path": "skills/vapor-ui/SKILL.md",
+      "github_url": "https://github.com/goorm-dev/vapor-ui/tree/main/skills/vapor-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vapor-ui",
+      "path": ".claude/skills/write-component-jsdocs/SKILL.md",
+      "github_url": "https://github.com/goorm-dev/vapor-ui/tree/main/.claude/skills/write-component-jsdocs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/goorm-dev/vapor-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:48:59Z"
+}
