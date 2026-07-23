@@ -1,0 +1,93 @@
+{
+  "name": "web-sequence",
+  "owner": "ZenUml",
+  "repo": "web-sequence",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/land-pr/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/land-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/spot-check/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/spot-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/babysit-pr/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/babysit-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/report-bug/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/report-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/release-app/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/release-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/ship-branch/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/ship-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/submit-branch/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/submit-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-sequence",
+      "path": ".claude/skills/validate-branch/SKILL.md",
+      "github_url": "https://github.com/ZenUml/web-sequence/tree/main/.claude/skills/validate-branch/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ZenUml/web-sequence",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:59:28Z"
+}
