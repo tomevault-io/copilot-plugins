@@ -1,0 +1,9 @@
+{
+  "name": "opencyphal--libcanard",
+  "displayName": "libcanard",
+  "description": "libcanard",
+  "version": "1.0.0",
+  "author": "OpenCyphal",
+  "homepage": "https://github.com/OpenCyphal/libcanard",
+  "skills": []
+}
