@@ -1,0 +1,9 @@
+{
+  "name": "algorand--go-algorand-sdk",
+  "displayName": "go-algorand-sdk",
+  "description": "go-algorand-sdk",
+  "version": "1.0.0",
+  "author": "algorand",
+  "homepage": "https://github.com/algorand/go-algorand-sdk",
+  "skills": []
+}
