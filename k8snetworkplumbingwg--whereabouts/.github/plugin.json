@@ -1,0 +1,9 @@
+{
+  "name": "k8snetworkplumbingwg--whereabouts",
+  "displayName": "whereabouts",
+  "description": "whereabouts",
+  "version": "1.0.0",
+  "author": "k8snetworkplumbingwg",
+  "homepage": "https://github.com/k8snetworkplumbingwg/whereabouts",
+  "skills": []
+}
