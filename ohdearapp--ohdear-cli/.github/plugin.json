@@ -1,0 +1,14 @@
+{
+  "name": "ohdearapp--ohdear-cli",
+  "displayName": "ohdear-cli",
+  "description": "ohdear-cli",
+  "version": "1.0.0",
+  "author": "ohdearapp",
+  "homepage": "https://github.com/ohdearapp/ohdear-cli",
+  "skills": [
+    {
+      "name": "ohdear-cli",
+      "description": ""
+    }
+  ]
+}
