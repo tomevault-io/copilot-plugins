@@ -1,0 +1,75 @@
+{
+  "name": "hyperui",
+  "owner": "markmead",
+  "repo": "hyperui",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hyperui",
+      "path": ".agents/skills/hyperui-code-style/SKILL.md",
+      "github_url": "https://github.com/markmead/hyperui/tree/main/.agents/skills/hyperui-code-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperui",
+      "path": ".agents/skills/modern-web-guidance/SKILL.md",
+      "github_url": "https://github.com/markmead/hyperui/tree/main/.agents/skills/modern-web-guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperui",
+      "path": ".agents/skills/building-components/SKILL.md",
+      "github_url": "https://github.com/markmead/hyperui/tree/main/.agents/skills/building-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperui",
+      "path": ".agents/skills/hyperui-github-manager/SKILL.md",
+      "github_url": "https://github.com/markmead/hyperui/tree/main/.agents/skills/hyperui-github-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperui",
+      "path": ".agents/skills/hyperui-component-builder/SKILL.md",
+      "github_url": "https://github.com/markmead/hyperui/tree/main/.agents/skills/hyperui-component-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/markmead/hyperui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:19:13Z"
+}
