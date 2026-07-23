@@ -1,0 +1,147 @@
+{
+  "name": "dotUI",
+  "owner": "mehdibha",
+  "repo": "dotUI",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-ssr/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-ssr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-start-core/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-start-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-react-start/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-react-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-core/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-plugin/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-start-deployment/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-start-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-start-middleware/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-start-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-navigation/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-type-safety/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-type-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-path-params/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-path-params/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-data-loading/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-data-loading/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-start-server-routes/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-start-server-routes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-search-params/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-search-params/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-devtools-vite-plugin/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-devtools-vite-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-start-execution-model/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-start-execution-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-start-server-functions/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-start-server-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotUI",
+      "path": ".claude/skills/tanstack-router-not-found-and-errors/SKILL.md",
+      "github_url": "https://github.com/mehdibha/dotUI/tree/main/.claude/skills/tanstack-router-not-found-and-errors/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mehdibha/dotUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:41:53Z"
+}
