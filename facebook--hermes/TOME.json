@@ -1,0 +1,81 @@
+{
+  "name": "hermes",
+  "owner": "facebook",
+  "repo": "hermes",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gc-safe-coding",
+      "path": ".claude/skills/gc-safe-coding",
+      "github_url": "https://github.com/facebook/hermes/tree/main/.claude/skills/gc-safe-coding",
+      "description": ""
+    },
+    {
+      "name": "hermes",
+      "path": ".claude/skills/gc-safe-coding/SKILL.md",
+      "github_url": "https://github.com/facebook/hermes/tree/main/.claude/skills/gc-safe-coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes",
+      "path": ".claude/skills/add-ir-instruction/SKILL.md",
+      "github_url": "https://github.com/facebook/hermes/tree/main/.claude/skills/add-ir-instruction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes",
+      "path": ".claude/skills/modify-jsi-features/SKILL.md",
+      "github_url": "https://github.com/facebook/hermes/tree/main/.claude/skills/modify-jsi-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes",
+      "path": ".claude/skills/binary-size-analysis/SKILL.md",
+      "github_url": "https://github.com/facebook/hermes/tree/main/.claude/skills/binary-size-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hermes",
+      "path": ".claude/skills/non-interactive-git-rebase/SKILL.md",
+      "github_url": "https://github.com/facebook/hermes/tree/main/.claude/skills/non-interactive-git-rebase/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/facebook/hermes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:56:55Z"
+}
