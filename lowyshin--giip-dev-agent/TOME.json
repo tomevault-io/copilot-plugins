@@ -4,7 +4,7 @@
   "repo": "giip-dev-agent",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -401,5 +401,5 @@
   ],
   "source_url": "https://github.com/LowyShin/giip-dev-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:52:07Z"
+  "distributed_at": "2026-07-23T08:05:32Z"
 }
