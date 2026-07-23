@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tsparticles/tsparticles](https://github.com/tsparticles/tsparticles).
+Original source: `CLAUDE.md` in [tsparticles/tsparticles](https://github.com/tsparticles/tsparticles).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -39,7 +39,7 @@ Original source: `AGENTS.md` in [tsparticles/tsparticles](https://github.com/tsp
 - [tsparticles](https://github.com/tsparticles/tsparticles/tree/main/.cursor/skills/link-workspace-packages/SKILL.md)
 - [tsparticles](https://github.com/tsparticles/tsparticles/tree/main/.opencode/skills/link-workspace-packages/SKILL.md)
 
-From [tsparticles/tsparticles](https://github.com/tsparticles/tsparticles) — a repo with 8928+ stars on GitHub.
+From [tsparticles/tsparticles](https://github.com/tsparticles/tsparticles) — a repo with 8932+ stars on GitHub.
 
 ---
 
