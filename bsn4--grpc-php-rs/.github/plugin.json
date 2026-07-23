@@ -1,0 +1,9 @@
+{
+  "name": "bsn4--grpc-php-rs",
+  "displayName": "grpc-php-rs",
+  "description": "grpc-php-rs",
+  "version": "1.0.0",
+  "author": "BSN4",
+  "homepage": "https://github.com/BSN4/grpc-php-rs",
+  "skills": []
+}
