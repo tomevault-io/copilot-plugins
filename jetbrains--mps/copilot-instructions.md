@@ -94,7 +94,7 @@ Use the `mps-mcp-workflow` skill whenever the task involves MPS project structur
 
 The `mps_mcp_*` tools act on the MPS project open in the running MPS instance, and the IDEA MCP tools act on the project open in IDEA. One checkout can expose several projects to the same MCP server — for example, this repository plus the IntelliJ platform sources opened alongside it (see Platform sources below), or a VCS root containing several MPS project subdirectories. When a tool reports "no project" or "multiple projects opened", first call `mps_mcp_list_open_projects`, then pass the intended project's `mpsProjectBaseDirectory` via the host's project-path argument (for IDEA tools, the absolute `projectPath`); the path must be at or inside the project that owns the code, not a parent directory. Note that some repositories keep the MPS project in a subdirectory (e.g. `tools/BigProject` in mbeddr / MPS-extensions), in which case the MPS project base directory is below the repository root. When more than one project is open and it is not obvious from your request or the current editor focus which one a query or change should target, ask the user which project to use rather than guessing — the open projects share a single module repository, so the wrong choice silently returns the wrong nodes or gets a cross-project write refused.
 
-Agent configuration is separate from project resolution. `mps_mcp_initialize_project_for_agents` installs the skills and the `AGENTS.md`/`CLAUDE.md` guides into the repository / workspace root — its `targetDirectory`, derived from the open project's enclosing VCS root when left empty — which may be an *ancestor* of the MPS project directory. Do not pass `projectPath` to that tool.
+Agent configuration is separate from project resolution. `mps_mcp_initialize_project_for_agents` installs the skills and the `AGENTS.md`/`CLAUDE.md` guides into the repository / workspace root — its `targetDirectory`, derived from the open project's enclosing VCS root when left empty — which may be an *ancestor* of the MPS project directory. When calling that tool, still pass `projectPath` (the framework needs it to route any `mps_mcp_*` call) — use the open project's base directory, not an ancestor; only `targetDirectory` (left empty to derive it) is allowed to resolve to an ancestor such as the repo root.
 
 ## Rules For Generated Code
 
@@ -181,8 +181,8 @@ These rules are **mandatory** — always follow them, not just when a skill is a
 
 ## Skills
 
-A skill is a set of local instructions stored in a `SKILL.md` file under `.agents/skills/<skill-name>/`. Start with `mps-mcp-workflow` for the overview and a directory of every other skill.
+A skill is a set of local instructions stored in a `SKILL.md` file under `.claude/skills/<skill-name>/` (or `.agents/skills/<skill-name>/` for MPS-specific skills). Start with `mps-mcp-workflow` for the overview and a directory of every other skill.
 
 ---
 > Source: [JetBrains/MPS](https://github.com/JetBrains/MPS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
