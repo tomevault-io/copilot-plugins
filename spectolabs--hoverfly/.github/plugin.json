@@ -1,0 +1,14 @@
+{
+  "name": "spectolabs--hoverfly",
+  "displayName": "hoverfly",
+  "description": "hoverfly",
+  "version": "1.0.0",
+  "author": "SpectoLabs",
+  "homepage": "https://github.com/SpectoLabs/hoverfly",
+  "skills": [
+    {
+      "name": "hoverfly",
+      "description": ""
+    }
+  ]
+}
