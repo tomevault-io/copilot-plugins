@@ -1,0 +1,43 @@
+## ddd
+
+> 2.仓储层使用 mybatisplus，禁止手写 sql
+
+1.禁止使用 lombok
+2.仓储层使用 mybatisplus，禁止手写 sql
+例如：
+@Mapper
+public interface ProviderRepository extends MyBatisPlusExtRepository<ProviderEntity> {
+
+}
+3.项目架构是ddd，架构如下：
+API-》APP 使用 api 层的 xxxCreateRequest 或者 xxxUpdateReqeust 对象
+APP-》Dmain 需要通过 app 层的 xxxAssembler 转换成对应的 xxxEntity
+Domain -》APP 返回 Entity 或者聚合根
+App -》API 返回的是 DTO，通过 Assembler
+
+4.命名规范：
+请求对象
+XxxCreatedRequest
+XxxUpdateRequest
+
+App 层
+XxxAppService
+
+Domain 层
+
+XxxDomainService
+
+实体类：
+XxxEntity
+
+5.基础设施层可以再任意地方调用
+6.关键地方需要使用日志，不要写不必要的垃圾日志
+7.依赖注入需要使用构造函数的方式
+8.事务需要在 app 层使用，并且是更新才需要使用
+9.使用 get 表示一定能获取，获取不到抛出异常，find 能返回 null
+10.禁止使用Optional
+11.遵循 ddd 架构，但是仓促层是在各自的领域层中并且基础设施层可以在任意层调用
+
+---
+> Source: [lucky-aeon/API-Premium-Gateway](https://github.com/lucky-aeon/API-Premium-Gateway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
