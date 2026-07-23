@@ -1,0 +1,753 @@
+{
+  "name": "nanowave",
+  "owner": "moasq",
+  "repo": "nanowave",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/media/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": ".claude/skills/nanowave-testing/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/.claude/skills/nanowave-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/gestures/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/gestures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always/layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/tvos/gestures/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/tvos/gestures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always/review/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/maps/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/maps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/typography/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/typography/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/components/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/animations/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/modern-apis/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/modern-apis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/performance/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always/swiftui/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always/swiftui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/speech/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/speech/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/timers/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/timers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/charts/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/camera/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/camera/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/watchos/haptics/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/watchos/haptics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/liquid-glass/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/liquid-glass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/watchos/widgets/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/watchos/widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/paywall/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/paywall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/design-system/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/storage/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/list-patterns/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/list-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/widgets/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/haptics/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/haptics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/watchos/gestures/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/watchos/gestures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/accessibility/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always/navigation/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always/navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/supabase/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/supabase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": ".claude/skills/nanowave-go-development/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/.claude/skills/nanowave-go-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/color-contrast/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/color-contrast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/spacing-layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/spacing-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always/components/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/text-formatting/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/text-formatting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/adaptive-layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/adaptive-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/scroll-patterns/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/scroll-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/forms-and-input/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/forms-and-input/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": ".claude/skills/nanowave-skill-authoring/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/.claude/skills/nanowave-skill-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/ui-review/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/ui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-tvos/layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-tvos/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/app-clips/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/app-clips/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/feedback-states/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/feedback-states/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/dark-mode/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/dark-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/healthkit/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/healthkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/view-complexity/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/view-complexity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/watchos/biometrics/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/watchos/biometrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/extensions/widgets/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/extensions/widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/state-management/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/state-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-macos/layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-macos/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/revenuecat/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/revenuecat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/view-composition/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/view-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/biometrics/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/biometrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/app-review/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/app-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always/design-system/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/swift-conventions/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/swift-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-publish/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/user-assets/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/user-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/extensions/app-clips/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/extensions/app-clips/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-workflow/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/repositories/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/repositories/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-watchos/layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-watchos/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/siri-intents/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/siri-intents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/localization/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-tvos/components/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-tvos/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-visionos/layout/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-visionos/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-tvos/navigation/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-tvos/navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/navigation-patterns/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/navigation-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-cli-usage/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-cli-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/website-links/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/website-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/notifications/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/notifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-macos/navigation/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-macos/navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/ui/swift-conventions-ui/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/ui/swift-conventions-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-macos/components/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-macos/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": ".claude/skills/nanowave-pipeline-development/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/.claude/skills/nanowave-pipeline-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/spritekit-game/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/spritekit-game/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/authentication/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-ppp-pricing/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-ppp-pricing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-xcode-build/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-xcode-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-id-resolver/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-id-resolver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-wall-submit/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-wall-submit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/macos/keyboard-shortcuts/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/macos/keyboard-shortcuts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/share-extension/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/share-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/live-activities/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/live-activities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-watchos/navigation/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-watchos/navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-tvos/tvos-patterns/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-tvos/tvos-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-crash-triage/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-crash-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asset-management/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asset-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/visionos/spatial-gestures/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/visionos/spatial-gestures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/safari-extension/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/safari-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-watchos/components/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-watchos/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-app-create-ui/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-app-create-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-metadata-sync/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-metadata-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-visionos/components/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-visionos/components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-visionos/navigation/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-visionos/navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-signing-setup/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-signing-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/apple-translation/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/apple-translation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/foundation-models/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/foundation-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/extensions/share-extension/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/extensions/share-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/extensions/live-activities/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/extensions/live-activities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-macos/macos-patterns/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-macos/macos-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-manual-actions/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-manual-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-shots-pipeline/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-shots-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/extensions/safari-extension/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/extensions/safari-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-version-routing/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-version-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-build-lifecycle/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-build-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-hitl-interaction/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-hitl-interaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/subscription-manager/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/subscription-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-submission-health/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-submission-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-screenshot-upload/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-screenshot-upload/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-submission-prereqs/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-submission-prereqs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-watchos/watchos-patterns/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-watchos/watchos-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/extensions/notification-service/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/extensions/notification-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/always-visionos/visionos-patterns/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/always-visionos/visionos-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-revenuecat-catalog-sync/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-revenuecat-catalog-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-testflight-orchestration/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-testflight-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nanowave",
+      "path": "internal/skills/data/features/asc-subscription-localization/SKILL.md",
+      "github_url": "https://github.com/moasq/nanowave/tree/main/internal/skills/data/features/asc-subscription-localization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/moasq/nanowave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:44:10Z"
+}
