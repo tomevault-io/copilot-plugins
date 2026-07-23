@@ -1,0 +1,14 @@
+{
+  "name": "shugo--textbringer",
+  "displayName": "textbringer",
+  "description": "textbringer",
+  "version": "1.0.0",
+  "author": "shugo",
+  "homepage": "https://github.com/shugo/textbringer",
+  "skills": [
+    {
+      "name": "textbringer",
+      "description": ""
+    }
+  ]
+}
