@@ -1,0 +1,9 @@
+{
+  "name": "ramilito--kubectl-nvim",
+  "displayName": "kubectl.nvim",
+  "description": "kubectl.nvim",
+  "version": "1.0.0",
+  "author": "Ramilito",
+  "homepage": "https://github.com/Ramilito/kubectl.nvim",
+  "skills": []
+}
