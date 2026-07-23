@@ -1,0 +1,14 @@
+{
+  "name": "chardet--chardet",
+  "displayName": "chardet",
+  "description": "chardet",
+  "version": "1.0.0",
+  "author": "chardet",
+  "homepage": "https://github.com/chardet/chardet",
+  "skills": [
+    {
+      "name": "chardet",
+      "description": ""
+    }
+  ]
+}
