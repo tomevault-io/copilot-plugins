@@ -1,0 +1,9 @@
+{
+  "name": "adyen--adyen-php-api-library",
+  "displayName": "adyen-php-api-library",
+  "description": "adyen-php-api-library",
+  "version": "1.0.0",
+  "author": "Adyen",
+  "homepage": "https://github.com/Adyen/adyen-php-api-library",
+  "skills": []
+}
