@@ -1,0 +1,117 @@
+{
+  "name": "showcase",
+  "owner": "rubys",
+  "repo": "showcase",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "compare-erb-js",
+      "path": ".claude/skills/compare-erb-js",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/compare-erb-js",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "path": ".claude/skills/deployment",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/deployment",
+      "description": ""
+    },
+    {
+      "name": "fly-ssh",
+      "path": ".claude/skills/fly-ssh",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/fly-ssh",
+      "description": ""
+    },
+    {
+      "name": "navigator",
+      "path": ".claude/skills/navigator",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/navigator",
+      "description": ""
+    },
+    {
+      "name": "render-page",
+      "path": ".claude/skills/render-page",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/render-page",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "path": ".claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "path": ".claude/skills/database/SKILL.md",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "path": ".claude/skills/navigator/SKILL.md",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/navigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "path": ".claude/skills/deployment/SKILL.md",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "path": ".claude/skills/render-page/SKILL.md",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/render-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "path": ".claude/skills/compare-erb-js/skill.md",
+      "github_url": "https://github.com/rubys/showcase/tree/main/.claude/skills/compare-erb-js/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rubys/showcase",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:36:50Z"
+}
