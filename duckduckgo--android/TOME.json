@@ -4,7 +4,7 @@
   "repo": "Android",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/duckduckgo/Android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:35:38Z"
+  "distributed_at": "2026-07-23T05:28:59Z"
 }
