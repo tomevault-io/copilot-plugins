@@ -1,0 +1,38 @@
+{
+  "name": "talmolab--sleap",
+  "displayName": "sleap",
+  "description": "sleap",
+  "version": "1.0.0",
+  "author": "talmolab",
+  "homepage": "https://github.com/talmolab/sleap",
+  "skills": [
+    {
+      "name": "investigation",
+      "description": ""
+    },
+    {
+      "name": "qt-testing",
+      "description": ""
+    },
+    {
+      "name": "sleap-support",
+      "description": ""
+    },
+    {
+      "name": "sleap",
+      "description": ""
+    },
+    {
+      "name": "sleap",
+      "description": ""
+    },
+    {
+      "name": "sleap",
+      "description": ""
+    },
+    {
+      "name": "sleap",
+      "description": ""
+    }
+  ]
+}
