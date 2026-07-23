@@ -1,23 +1,33 @@
 # gascity
 
-> Tome by [gastownhall](https://github.com/gastownhall/gascity) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [gastownhall](https://github.com/gastownhall/gascity), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 Orchestration-builder SDK for multi-agent coding workflows
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gastownhall/gascity](https://github.com/gastownhall/gascity).
+Original source: `CLAUDE.md` in [gastownhall/gascity](https://github.com/gastownhall/gascity).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/gastownhall/gascity](https://github.com/gastownhall/gascity)
+## Bundled Skills (7)
+
+- [gascity](https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-city/SKILL.md)
+- [gascity](https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-rigs/SKILL.md)
+- [gascity](https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-work/SKILL.md)
+- [gascity](https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-mail/SKILL.md)
+- [gascity](https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-agents/SKILL.md)
+- [gascity](https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-dispatch/SKILL.md)
+- [gascity](https://github.com/gastownhall/gascity/tree/main/internal/bootstrap/packs/core/skills/gc-dashboard/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/gastownhall/gascity](https://github.com/gastownhall/gascity)
 
 ---
 
