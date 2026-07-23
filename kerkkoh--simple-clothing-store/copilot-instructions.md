@@ -1,51 +1,296 @@
 ## simple-clothing-store
 
-> Simple Clothing Store — React (CRA) frontend + Express backend e-commerce app using Printful and PayPal APIs. No database; product data comes from Printful API. See `README.md` and `CLAUDE.MD` for details.
+> Simple Clothing Store is an e-commerce clothing store implementation built with React and Node.js. The project aims for an almost databaseless design by leveraging the Printful API for product management and fulfillment, and PayPal for payment processing.
 
-# AGENTS.md
+# Simple Clothing Store - Project Guide for Claude
 
-## Cursor Cloud specific instructions
+## Project Overview
 
-### Project overview
+Simple Clothing Store is an e-commerce clothing store implementation built with React and Node.js. The project aims for an almost databaseless design by leveraging the Printful API for product management and fulfillment, and PayPal for payment processing.
 
-Simple Clothing Store — React (CRA) frontend + Express backend e-commerce app using Printful and PayPal APIs. No database; product data comes from Printful API. See `README.md` and `CLAUDE.MD` for details.
+**Current Status:** The project is currently broken due to Printful API updates. A major v2.0.0 rewrite is planned to migrate to Next.js, TypeScript, and serverless architecture.
 
-### Environment setup
+**Version:** 0.0.2
+**License:** MIT
+**Repository:** https://github.com/kerkkoh/simple-clothing-store
 
-- **Package manager:** npm. Two install locations: root (`/workspace`) and frontend (`/workspace/frontend`).
-- **`.env` file:** Copy `.env.template` to `.env`. Set `DEMO=true` to run without real API keys. Without `PRINTFUL_SECRET`, the products list will be empty and store info blank — this is expected.
-- **Node version:** `package.json` specifies `engines.node: "13.14.x"` but the app runs fine on Node 22.x.
-- **Sass compatibility:** The frontend pins `node-sass` as an alias for `sass@1.32.13`. If `npm install` resolves a newer sass version, the CRA build will fail with `ParserError`. Reinstall with `npm install --legacy-peer-deps node-sass@npm:sass@1.32.13` in `frontend/` if this happens.
-- **OpenSSL legacy provider:** react-scripts 4 requires `NODE_OPTIONS=--openssl-legacy-provider` on Node 17+ for both `npm run build` and `npm start` in the frontend.
+## Architecture
 
-### Running services
+### Stack
 
-| Service | Command | Port | Notes |
-|---|---|---|---|
-| Backend (Express) | `npm start` (root) | 3001 | Serves built frontend from `./build/` and API at `/api/*` |
-| Backend (dev) | `npm run watch` (root) | 3001 | Uses nodemon for auto-reload |
-| Frontend (dev) | `NODE_OPTIONS=--openssl-legacy-provider npm start` (frontend/) | 3000 | CRA dev server, proxies API to localhost:3001 |
+**Backend:**
+- Node.js (v13.14.x)
+- Express server
+- API Integrations:
+  - Printful REST API (for product management and fulfillment)
+  - PayPal REST API (for payment processing)
 
-To run both in dev mode, start the backend first (`npm run watch` in root), then the frontend dev server.
+**Frontend:**
+- React 17 (with hooks, no classes)
+- React Router (for routing)
+- Bootstrap 5 (responsive design)
+- SASS/SCSS (styling)
+- Create React App (build tooling)
 
-### Linting
+**Key Dependencies:**
+- `@paypal/checkout-server-sdk` - PayPal integration
+- `currency.js` - Currency handling
+- `axios` - HTTP client
+- `dotenv` - Environment configuration
 
-- **Backend:** `npx eslint server.js lib/` (root) — uses `eslint-config-google`. Pre-existing lint errors in `lib/`.
-- **Frontend:** `npx eslint src/` (frontend/) — uses `eslint-plugin-react`.
-
-### Testing
-
-No automated test suite exists. Manual testing only. The frontend `package.json` has `react-scripts test` but no test files are present.
-
-### Building
+## Project Structure
 
 ```
-cd frontend && NODE_OPTIONS=--openssl-legacy-provider npm run build
-cp -r build ../build
+simple-clothing-store/
+├── server.js              # Main Express server
+├── lib/                   # Backend utilities
+│   ├── datab.js          # "Database" - product descriptions, discounts, VAT
+│   ├── paypal.js         # PayPal API client
+│   └── printfulclient.js # Printful API client
+├── frontend/              # React frontend
+│   ├── public/           # Static assets
+│   └── src/
+│       ├── App.js        # Main React component
+│       ├── config.js     # Frontend configuration
+│       ├── components/   # React components
+│       │   ├── Store.js  # Store/product listing
+│       │   ├── Product.js # Product detail view
+│       │   ├── cart/     # Shopping cart components
+│       │   ├── order/    # Order management components
+│       │   └── utils/    # Utility components
+│       ├── services/     # API and storage services
+│       └── sass/         # Custom styles
+├── .env.template         # Environment variables template
+├── docker-compose.yml    # Docker composition
+└── Dockerfile           # Docker configuration
 ```
 
-Or use the npm script: `npm run build-tux` (Linux) / `npm run build-win` (Windows) from root. Note these scripts also start the server after building.
+## Key Files
+
+### Backend
+
+**server.js** (Main entry point)
+- Express server setup
+- API routes for products, store info, discounts, orders
+- Integrates Printful and PayPal clients
+- Serves built React frontend
+
+**lib/datab.js**
+- Acts as a lightweight "database"
+- Contains:
+  - Product descriptions (keyed by Printful product ID)
+  - Discount codes and their percentages
+  - VAT (Value Added Tax) rate
+
+**lib/printfulclient.js**
+- Custom Printful API client
+- Handles authentication and API requests
+
+**lib/paypal.js**
+- PayPal SDK configuration
+- Creates PayPal client for sandbox/production
+
+### Frontend
+
+**frontend/src/App.js**
+- Main React component
+- Sets up routing with React Router
+- Manages global state (cart, products)
+
+**frontend/src/config.js**
+- Frontend configuration
+- Store information (name, description, currency)
+- PayPal client ID
+
+**frontend/src/components/Store.js**
+- Product listing page
+- Displays all products from Printful
+
+**frontend/src/components/cart/Cart.js**
+- Shopping cart functionality
+- Persistent cart using localStorage
+
+**frontend/src/services/**
+- `products.js` - API calls to backend
+- `localstorage.js` - Cart persistence
+
+## Configuration
+
+### Environment Variables (.env)
+
+Required environment variables (see `.env.template`):
+
+```
+PRINTFUL_SECRET=          # Printful API secret key
+PAYPAL_CLIENT_ID=         # PayPal client ID
+PAYPAL_CLIENT_SECRET=     # PayPal client secret
+PORT=                     # Optional: Server port (defaults to 3001)
+```
+
+### Frontend Configuration (frontend/src/config.js)
+
+Set store information and PayPal client ID.
+
+### Database Configuration (lib/datab.js)
+
+Configure:
+1. **Product Descriptions:** Add entries in `items` array with product ID and description
+2. **Discount Codes:** Add discount codes and percentages in `discounts` object
+3. **VAT Rate:** Set VAT percentage as integer in `vat` property
+
+## Development Workflow
+
+### Installation
+
+1. Clone repository
+2. Set up configuration files (`.env` and `config.js`)
+3. Install dependencies:
+   ```bash
+   npm install              # Root dependencies
+   cd frontend && npm install  # Frontend dependencies
+   ```
+
+### Running the Application
+
+**With Docker (Recommended):**
+```bash
+docker-compose up
+```
+
+**Manual Build:**
+```bash
+# Linux
+npm run build-tux        # First build
+npm run build-tux-clean  # Subsequent builds
+
+# Windows
+npm run build-win        # First build
+npm run build-win-clean  # Subsequent builds
+```
+
+**Development:**
+```bash
+npm start               # Start server on port 3001
+cd frontend && npm start  # Development server with hot reload
+```
+
+### Build Process
+
+The build scripts:
+1. Build React frontend (`npm run build` in frontend/)
+2. Move build folder to root
+3. Start Express server to serve built frontend
+
+## API Endpoints
+
+**Products:**
+- `GET /api/products` - Get all products
+- `GET /api/products/:id` - Get specific product
+
+**Store:**
+- `GET /api/store` - Get store information
+
+**Discounts:**
+- `POST /api/discounts` - Validate discount code
+
+**Orders:**
+- `GET /api/orders` - Get orders (demo only)
+- `POST /api/orders` - Create order (payment integration)
+
+## Current Limitations & Known Issues
+
+1. **Printful API Broken:** The project is incompatible with current Printful API
+2. **No Persistent Database:** Using in-memory storage and local files
+3. **Security:** Not production-ready, no penetration testing
+4. **No Input Validation:** Missing validation and verification
+5. **No Error Handling:** Limited error handling throughout
+6. **Information Hiding:** Backend exposes too much product data to frontend
+7. **Cart Sync Issues:** No handling for out-of-sync cart vs. store products
+
+## Planned v2.0.0 Changes
+
+Major rewrite planned with:
+1. Migration to Next.js (SSR + unified frontend/backend)
+2. Migration to TypeScript
+3. Update to Printful API v2
+4. Serverless/edge function architecture
+5. Lightweight persistent database (Vercel KV or PostgreSQL)
+6. Docker-based deployment
+7. Free deployment on Vercel
+
+## Working Features
+
+**Frontend:**
+- Responsive design with Bootstrap
+- Product browsing with multiple variants (sizes)
+- Persistent shopping cart (localStorage)
+- Currency handling via currency.js
+- Discount code validation
+- Order status viewing with Printful data
+- React Router for seamless navigation
+
+**Backend:**
+- Product loading from Printful API
+- Store configuration via lib/datab.js
+- Discount code system
+
+## Missing/Planned Features
+
+**Frontend:**
+- Admin panel for store management
+- Error handling and user messages
+- Order cancellation
+- Product quantity in basket
+- Theming support
+
+**Backend:**
+- Better information hiding
+- Shipping and VAT calculation before order confirmation
+- Error handling
+- Email notifications
+- Order management
+- Input validation
+
+## Development Notes
+
+- Server runs on port 3001 by default (configurable via .env)
+- Frontend development proxy points to `http://localhost:3001`
+- Built frontend is served by Express from `/build` directory
+- Cart persists in browser localStorage
+- Products are cached in memory on server startup
+- Node.js version locked to 13.14.x (may need updating)
+
+## Docker
+
+The project includes Docker support:
+- `Dockerfile` - Builds Node.js container
+- `docker-compose.yml` - Orchestrates the service
+- `.dockerignore` - Excludes unnecessary files from build
+
+## Deployment
+
+Currently supports:
+- Heroku (with automatic PORT configuration)
+- Docker containers
+- Traditional Node.js hosting
+
+Future: Vercel serverless deployment (v2.0.0)
+
+## Testing
+
+No automated tests currently implemented.
+
+## Contributing
+
+PRs are accepted and appreciated. The project follows Google's ESLint configuration.
+
+## Additional Resources
+
+- [Printful API Docs](https://developers.printful.com/docs/)
+- [PayPal REST API Docs](https://developer.paypal.com/docs/api/overview/)
+- [React Documentation](https://reactjs.org/)
+- [Express Documentation](https://expressjs.com/)
 
 ---
 > Source: [kerkkoh/simple-clothing-store](https://github.com/kerkkoh/simple-clothing-store) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
