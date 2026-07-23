@@ -1,0 +1,57 @@
+{
+  "name": "paper2patent",
+  "owner": "7toCR",
+  "repo": "paper2patent",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "paper2patent",
+      "path": "skills/paper2patent/SKILL.md",
+      "github_url": "https://github.com/7toCR/paper2patent/tree/main/skills/paper2patent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "paper2patent",
+      "path": ".claude/skills/paper2patent/SKILL.md",
+      "github_url": "https://github.com/7toCR/paper2patent/tree/main/.claude/skills/paper2patent/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/7toCR/paper2patent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T03:26:53Z"
+}
