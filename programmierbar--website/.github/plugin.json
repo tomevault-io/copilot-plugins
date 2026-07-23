@@ -1,0 +1,14 @@
+{
+  "name": "programmierbar--website",
+  "displayName": "website",
+  "description": "website",
+  "version": "1.0.0",
+  "author": "programmierbar",
+  "homepage": "https://github.com/programmierbar/website",
+  "skills": [
+    {
+      "name": "website",
+      "description": ""
+    }
+  ]
+}
