@@ -2,11 +2,11 @@
 
 > **Be extremely concise. Sacrifice grammar for concision. Terse responses preferred. No fluff.**
 
-# AGENTS.md
+# CLAUDE.md
 
 **Be extremely concise. Sacrifice grammar for concision. Terse responses preferred. No fluff.**
 
-This file provides guidance to AI coding assistants when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Overview
 
@@ -118,36 +118,7 @@ We handle ONLY the most important cases. Don't add functionality unless it's sma
 | In main unreleased | Preferred         | Minimize friction for other developers   |
 | Released           | Required          | Prevent breaking downstream integrations |
 
-## Code Review
-
-For code review guidelines, see `REVIEW.md`.
-
-### PR Review Comment Format
-
-**Use inline comments** for specific feedback on code changes. Use the GitHub API to post reviews:
-
-```bash
-gh api repos/{owner}/{repo}/pulls/{pr}/reviews --input - << 'EOF'
-{
-  "event": "COMMENT",
-  "body": "Overall summary (optional)",
-  "comments": [
-    {"path": "file.ts", "line": 42, "body": "Specific issue here"},
-    {"path": "file.ts", "start_line": 10, "line": 15, "body": "Multi-line comment"}
-  ]
-}
-EOF
-```
-
-| Feedback Type        | Where                                   |
-| -------------------- | --------------------------------------- |
-| Specific code issue  | Inline comment on that line             |
-| Repeated pattern     | Inline on first, mention others in body |
-| Architecture concern | Summary body                            |
-
-**Limitation**: Can only comment on lines in the diff (changed lines). Comments on unchanged code fail.
-
-## Tips for AI Coding Sessions
+## Tips for Claude Code Sessions
 
 1. **Run tests incrementally** - `pnpm run build && mocha` for specific test files
 2. **Check existing patterns** - Search codebase for similar implementations
@@ -169,7 +140,7 @@ EOF
 - Check `git log` or blame before assuming why code exists
 - Verify imports exist in `package.json` before using them
 
-## When the AI Gets It Wrong
+## When Claude Gets It Wrong
 
 If output seems wrong, check:
 
@@ -180,4 +151,4 @@ If output seems wrong, check:
 
 ---
 > Source: [hyperlane-xyz/hyperlane-registry](https://github.com/hyperlane-xyz/hyperlane-registry) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
