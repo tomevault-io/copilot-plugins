@@ -1,0 +1,34 @@
+{
+  "name": "internlm--xtuner",
+  "displayName": "xtuner",
+  "description": "xtuner",
+  "version": "1.0.0",
+  "author": "InternLM",
+  "homepage": "https://github.com/InternLM/xtuner",
+  "skills": [
+    {
+      "name": "xtuner",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "description": ""
+    }
+  ]
+}
