@@ -1,0 +1,18 @@
+{
+  "name": "ubolonton--emacs-module-rs",
+  "displayName": "emacs-module-rs",
+  "description": "emacs-module-rs",
+  "version": "1.0.0",
+  "author": "ubolonton",
+  "homepage": "https://github.com/ubolonton/emacs-module-rs",
+  "skills": [
+    {
+      "name": "emacs-module-rs",
+      "description": ""
+    },
+    {
+      "name": "emacs-module-rs",
+      "description": ""
+    }
+  ]
+}
