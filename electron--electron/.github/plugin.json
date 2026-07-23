@@ -1,0 +1,14 @@
+{
+  "name": "electron--electron",
+  "displayName": "electron",
+  "description": "electron",
+  "version": "1.0.0",
+  "author": "electron",
+  "homepage": "https://github.com/electron/electron",
+  "skills": [
+    {
+      "name": "electron",
+      "description": ""
+    }
+  ]
+}
