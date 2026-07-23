@@ -1,0 +1,14 @@
+{
+  "name": "bengry--typedash",
+  "displayName": "typedash",
+  "description": "typedash",
+  "version": "1.0.0",
+  "author": "bengry",
+  "homepage": "https://github.com/bengry/typedash",
+  "skills": [
+    {
+      "name": "typedash",
+      "description": ""
+    }
+  ]
+}
