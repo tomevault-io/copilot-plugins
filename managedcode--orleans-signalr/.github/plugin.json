@@ -1,0 +1,9 @@
+{
+  "name": "managedcode--orleans-signalr",
+  "displayName": "Orleans.SignalR",
+  "description": "Orleans.SignalR",
+  "version": "1.0.0",
+  "author": "managedcode",
+  "homepage": "https://github.com/managedcode/Orleans.SignalR",
+  "skills": []
+}
