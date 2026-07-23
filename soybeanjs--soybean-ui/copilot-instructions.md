@@ -1,30 +1,55 @@
 ## soybean-ui
 
-> This scoped AGENTS file is a routing bridge for assistants editing `packages/ui/test/specs/components/**`.
+> `.github/` is the single source of truth. If this file conflicts with `.github/`, `.github/` wins.
 
-# COMPONENT TESTS
+# AI Assistant Bridge — soybean-ui
 
-This scoped AGENTS file is a routing bridge for assistants editing `packages/ui/test/specs/components/**`.
+`.github/` is the single source of truth. If this file conflicts with `.github/`, `.github/` wins.
 
-Before editing files here, read and obey these `.github` sources:
+Read the root `AGENTS.md` first for the repository map and scoped bridge locations, then follow `.github/assistant-rules.md` and `.github/copilot-instructions.md`.
 
-1. `.github/assistant-rules.md`
-2. `.github/copilot-instructions.md`
-3. `.github/instructions/typescript-functional-style.instructions.md`
-4. `.github/instructions/soybean-ui-component-overview.instructions.md` when the tests change is part of component work
-5. `.github/instructions/soybean-ui-testing.instructions.md`
-6. `.github/instructions/soybean-ui-accessibility-rtl.instructions.md` when the assertions involve a11y or RTL semantics
+## Universal rules (read for every edit)
 
-If the task is part of component delivery, also apply the relevant checklist file at the end.
+- `.github/instructions/typescript-functional-style.instructions.md`
+- `.github/instructions/vue-sfc.instructions.md` (for .vue files)
 
-Use this file only as routing and local path context. Normative rules stay in `.github/`.
+## Component work (editing `packages/headless/` or `packages/ui/src/components/`)
 
-## LOCAL CONTEXT
+- `.github/instructions/soybean-ui-component-overview.instructions.md`
+- `.github/instructions/soybean-ui-headless.instructions.md` (for `packages/headless/src/components/`)
+- `.github/instructions/soybean-ui-ui-layer.instructions.md` (for `packages/ui/src/components/`)
+- `.github/instructions/soybean-ui-accessibility-rtl.instructions.md`
 
-- Component tests should track the current delivery model: implementation changes often require synchronized updates across docs, playground examples, generated API data, and tests
-- When a public API or behavior changes, verify that the corresponding docs page now uses `UsageCode`, `PlaygroundGallery`, and `ComponentApi`, and that generated API data has been refreshed via `pnpm sui api` when needed
-- For demo-driven assertions, remember that `apps/playground/src/examples/{component}/index.vue` is now a thin `PlaygroundGallery` entry point and child demos no longer carry local title headings by default
+## Delivery surfaces
+
+- `.github/instructions/soybean-ui-playground.instructions.md` (for `apps/playground/`)
+- `.github/instructions/soybean-ui-docs.instructions.md` (for `apps/docs/`)
+- `.github/instructions/soybean-ui-testing.instructions.md` (for `packages/ui/test/`)
+
+If a component task changes public exports, docs rendering, playground delivery, or API descriptions, also apply `.github/instructions/soybean-ui-checklist.instructions.md` at the finish.
+
+## Commit / changelog
+
+- `.github/instructions/git-commit-convention.instructions.md`
+
+## Architecture constraints — never violate
+
+- Data flow: `packages/headless/` → `packages/ui/` only. Never import `@soybeanjs/ui` from `packages/headless/`
+- No CSS classes or `<style>` blocks in headless SFCs
+- No ARIA / `role` / `tabindex` / keyboard handlers in `packages/ui/` (UI layer)
+- Never use `any`, `@ts-ignore`, `@ts-expect-error`
+- Context values must be `ComputedRef` or `ShallowRef` — never plain reactive primitives
+- `variants.ts` must start with `// @unocss-include`
+- Never export `use{Name}Ui` from headless barrel; only export `provide{Name}Ui`
+
+## Generated surfaces
+
+- Public export changes must be synced through the official scripts, not hand-edited generated files.
+- Use `pnpm sui headless` for `packages/headless/src/constants/components.ts` and `packages/headless/src/namespaced/index.ts`.
+- Use `pnpm sui ui` for `packages/ui/src/constants/components.ts`.
+- Use `pnpm sui api` and, when needed, `pnpm sui api-locales` for `apps/docs/src/generated/api/` and `apps/docs/src/generated/api-locales/`, then `pnpm sui api-translate -- --locale <locale>` for non-English API descriptions.
+- Use `pnpm sui changelog` for `apps/docs/src/generated/changelog/` and `apps/docs/src/generated/changelog-locales/`, then `pnpm sui changelog-translate -- --locale <locale>` for non-English changelog summaries.
 
 ---
 > Source: [soybeanjs/soybean-ui](https://github.com/soybeanjs/soybean-ui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
