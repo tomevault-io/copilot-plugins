@@ -1,0 +1,14 @@
+{
+  "name": "benchmark-action--github-action-benchmark",
+  "displayName": "github-action-benchmark",
+  "description": "github-action-benchmark",
+  "version": "1.0.0",
+  "author": "benchmark-action",
+  "homepage": "https://github.com/benchmark-action/github-action-benchmark",
+  "skills": [
+    {
+      "name": "github-action-benchmark",
+      "description": ""
+    }
+  ]
+}
