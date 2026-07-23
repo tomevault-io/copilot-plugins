@@ -1,0 +1,165 @@
+{
+  "name": "intlayer",
+  "owner": "aymericzip",
+  "repo": "intlayer",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "intlayer-cli",
+      "path": ".agents/skills/intlayer-cli",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-cli",
+      "description": ""
+    },
+    {
+      "name": "intlayer-content",
+      "path": ".agents/skills/intlayer-content",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-content",
+      "description": ""
+    },
+    {
+      "name": "intlayer-react",
+      "path": ".agents/skills/intlayer-react",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-react",
+      "description": ""
+    },
+    {
+      "name": "intlayer-usage",
+      "path": ".agents/skills/intlayer-usage",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-usage",
+      "description": ""
+    },
+    {
+      "name": "intlayer-vue",
+      "path": ".agents/skills/intlayer-vue",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-vue",
+      "description": ""
+    },
+    {
+      "name": "intlayer-next-js",
+      "path": ".agents/skills/intlayer-next-js",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-next-js",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-cli/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-vue/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-react/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-react/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-solid/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-solid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-astro/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-astro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-usage/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-config/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-preact/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-preact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-svelte/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-svelte/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-content/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-next-js/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-next-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-angular/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-angular/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-compiler/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-compiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intlayer",
+      "path": ".agents/skills/intlayer-remote-content/SKILL.md",
+      "github_url": "https://github.com/aymericzip/intlayer/tree/main/.agents/skills/intlayer-remote-content/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aymericzip/intlayer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:33:14Z"
+}
