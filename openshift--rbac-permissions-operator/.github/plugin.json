@@ -1,0 +1,14 @@
+{
+  "name": "openshift--rbac-permissions-operator",
+  "displayName": "rbac-permissions-operator",
+  "description": "rbac-permissions-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/rbac-permissions-operator",
+  "skills": [
+    {
+      "name": "rbac-permissions-operator",
+      "description": ""
+    }
+  ]
+}
