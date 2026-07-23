@@ -1,0 +1,14 @@
+{
+  "name": "churchcrm--crm",
+  "displayName": "CRM",
+  "description": "CRM",
+  "version": "1.0.0",
+  "author": "ChurchCRM",
+  "homepage": "https://github.com/ChurchCRM/CRM",
+  "skills": [
+    {
+      "name": "CRM",
+      "description": ""
+    }
+  ]
+}
