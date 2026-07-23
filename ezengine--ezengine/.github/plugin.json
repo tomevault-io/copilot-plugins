@@ -1,0 +1,14 @@
+{
+  "name": "ezengine--ezengine",
+  "displayName": "ezEngine",
+  "description": "ezEngine",
+  "version": "1.0.0",
+  "author": "ezEngine",
+  "homepage": "https://github.com/ezEngine/ezEngine",
+  "skills": [
+    {
+      "name": "ezEngine",
+      "description": ""
+    }
+  ]
+}
