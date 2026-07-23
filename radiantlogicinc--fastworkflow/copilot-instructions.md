@@ -1,47 +1,60 @@
 ## fastworkflow
 
-> This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Agent Instructions
+# CLAUDE.md
 
-This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Quick Reference
+## Project Overview
 
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --status in_progress  # Claim work
-bd close <id>         # Complete work
-bd sync               # Sync with git
+`fastWorkflow` is a Python framework for building NLP-driven workflows and AI agents with deterministic or LLM-powered business logic. It enables "AI-enabling" existing Python applications by wrapping their classes and methods with an intent-detection and parameter-extraction pipeline built on DSPy, scikit-learn, and Pydantic.
+
+## Testing Philosophy
+
+(from `.cursor/rules/testing_rules.mdc`):
+- Don't use Mock fixtures — all tests are integration tests against real components
+- Use the real test workflows in `tests/example_workflow/` and `tests/hello_world_workflow/`
+- Do NOT remove pytest tests without explicit user approval
+
+## fastworkflow CLI
+
+Run `fastworkflow --help` for the full command list (`examples`, `train`, `run`, `build`, `refine`, `run_fastapi_mcp`). Non-obvious behavior:
+- `run` defaults to agent mode; `--assistant` runs deterministic mode.
+- Prefix a command with `/` at the interactive prompt to force deterministic (non-agentic) execution.
+
+## Architecture: Three Phases
+
+```
+Build-Time → Train-Time → Run-Time
 ```
 
-## Landing the Plane (Session Completion)
+**Build-time** (`fastworkflow/build/`): AST-introspects your Python application and generates `_commands/*.py` files plus `context_inheritance_model.json`.
 
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+**Train-time** (`fastworkflow/train/`): Generates synthetic utterances (via LLM + HuggingFace `datasets`) and trains intent-detection models (DistilBERT/BERT via scikit-learn). Outputs go to `___command_info/` inside the workflow directory.
 
-**MANDATORY WORKFLOW:**
+**Run-time**: A three-stage pipeline for every user turn:
+1. **Intent Detection** – sklearn classifier identifies the target command
+2. **Parameter Extraction** – DSPy + Pydantic validates and extracts inputs
+3. **Command Execution** – runs your business logic and generates a response
 
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd sync
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
+**Topology B** (current): `WorkflowExecutionContext` is synchronous and transport-free. FastAPI embeds it per-request by calling `process_message` directly. `ask_user` suspends trajectory via `CommandCancelledError` and resumes on next message. `ChatSession` adds optional queues for the CLI `keep_alive` loop.
 
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
+## Environment Variables
+
+Two env files per workflow (see `fastworkflow/examples/fastworkflow.env` for a template):
+
+- `fastworkflow.env` — model strings (`LLM_AGENT`, `LLM_PARAM_EXTRACTION`, etc.), logging, intent model IDs
+- `fastworkflow.passwords.env` — API keys (`LITELLM_API_KEY_AGENT`, etc.)
+
+Key models (all default to `mistral/mistral-small-latest`): `LLM_SYNDATA_GEN`, `LLM_PARAM_EXTRACTION`, `LLM_RESPONSE_GEN`, `LLM_PLANNER`, `LLM_AGENT`, `LLM_CONVERSATION_STORE`.
+
+LiteLLM Proxy: prefix model names with `litellm_proxy/` and set `LITELLM_PROXY_API_BASE`.
+
+## Issue Tracking
+
+Use **`bd` (beads)** for all task tracking — not markdown TODOs. See `AGENTS.md` for full `bd` command reference.
 
 ---
 > Source: [radiantlogicinc/fastworkflow](https://github.com/radiantlogicinc/fastworkflow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
