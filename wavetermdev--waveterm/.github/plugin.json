@@ -1,0 +1,66 @@
+{
+  "name": "wavetermdev--waveterm",
+  "displayName": "waveterm",
+  "description": "waveterm",
+  "version": "1.0.0",
+  "author": "wavetermdev",
+  "homepage": "https://github.com/wavetermdev/waveterm",
+  "skills": [
+    {
+      "name": "add-config",
+      "description": ""
+    },
+    {
+      "name": "add-rpc",
+      "description": ""
+    },
+    {
+      "name": "context-menu",
+      "description": ""
+    },
+    {
+      "name": "create-view",
+      "description": ""
+    },
+    {
+      "name": "electron-api",
+      "description": ""
+    },
+    {
+      "name": "wps-events",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "description": ""
+    }
+  ]
+}
