@@ -1,0 +1,87 @@
+{
+  "name": "typeDiagram",
+  "owner": "Nimblesite",
+  "repo": "typeDiagram",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "typeDiagram",
+      "path": ".claude/skills/ci-prep/SKILL.md",
+      "github_url": "https://github.com/Nimblesite/typeDiagram/tree/main/.claude/skills/ci-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typeDiagram",
+      "path": ".claude/skills/fix-bug/SKILL.md",
+      "github_url": "https://github.com/Nimblesite/typeDiagram/tree/main/.claude/skills/fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typeDiagram",
+      "path": ".claude/skills/submit-pr/SKILL.md",
+      "github_url": "https://github.com/Nimblesite/typeDiagram/tree/main/.claude/skills/submit-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typeDiagram",
+      "path": ".claude/skills/spec-check/SKILL.md",
+      "github_url": "https://github.com/Nimblesite/typeDiagram/tree/main/.claude/skills/spec-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typeDiagram",
+      "path": ".claude/skills/code-dedup/SKILL.md",
+      "github_url": "https://github.com/Nimblesite/typeDiagram/tree/main/.claude/skills/code-dedup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typeDiagram",
+      "path": ".claude/skills/website-audit/SKILL.md",
+      "github_url": "https://github.com/Nimblesite/typeDiagram/tree/main/.claude/skills/website-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "typeDiagram",
+      "path": ".claude/skills/upgrade-packages/SKILL.md",
+      "github_url": "https://github.com/Nimblesite/typeDiagram/tree/main/.claude/skills/upgrade-packages/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Nimblesite/typeDiagram",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T09:02:49Z"
+}
