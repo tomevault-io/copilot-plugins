@@ -1,0 +1,14 @@
+{
+  "name": "genlayerlabs--genlayer-cli",
+  "displayName": "genlayer-cli",
+  "description": "genlayer-cli",
+  "version": "1.0.0",
+  "author": "genlayerlabs",
+  "homepage": "https://github.com/genlayerlabs/genlayer-cli",
+  "skills": [
+    {
+      "name": "genlayer-cli",
+      "description": ""
+    }
+  ]
+}
