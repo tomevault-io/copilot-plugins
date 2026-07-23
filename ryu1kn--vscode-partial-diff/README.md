@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ryu1kn/vscode-partial-diff](https://github.com/ryu1kn/vscode-partial-diff).
+Original source: `CLAUDE.md` in [ryu1kn/vscode-partial-diff](https://github.com/ryu1kn/vscode-partial-diff).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
