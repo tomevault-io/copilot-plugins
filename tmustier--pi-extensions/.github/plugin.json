@@ -1,0 +1,34 @@
+{
+  "name": "tmustier--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "pi-extensions",
+  "version": "1.0.0",
+  "author": "tmustier",
+  "homepage": "https://github.com/tmustier/pi-extensions",
+  "skills": [
+    {
+      "name": "extending-pi",
+      "description": ""
+    },
+    {
+      "name": "ralph-wiggum",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "pi-extensions",
+      "description": ""
+    },
+    {
+      "name": "pi-extensions",
+      "description": ""
+    },
+    {
+      "name": "pi-extensions",
+      "description": ""
+    }
+  ]
+}
