@@ -1,0 +1,63 @@
+{
+  "name": "libxmtp",
+  "owner": "xmtp",
+  "repo": "libxmtp",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "working-with-nix",
+      "path": ".claude/skills/working-with-nix",
+      "github_url": "https://github.com/xmtp/libxmtp/tree/main/.claude/skills/working-with-nix",
+      "description": ""
+    },
+    {
+      "name": "libxmtp",
+      "path": ".claude/skills/working-with-nix/SKILL.md",
+      "github_url": "https://github.com/xmtp/libxmtp/tree/main/.claude/skills/working-with-nix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "libxmtp",
+      "path": ".claude/skills/writing-rust-tests/SKILL.md",
+      "github_url": "https://github.com/xmtp/libxmtp/tree/main/.claude/skills/writing-rust-tests/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xmtp/libxmtp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:57:18Z"
+}
