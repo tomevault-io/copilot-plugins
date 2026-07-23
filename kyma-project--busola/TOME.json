@@ -4,7 +4,7 @@
   "repo": "busola",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/kyma-project/busola",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:37:28Z"
+  "distributed_at": "2026-07-23T09:13:23Z"
 }
