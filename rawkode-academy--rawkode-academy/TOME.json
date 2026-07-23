@@ -4,7 +4,7 @@
   "repo": "rawkode-academy",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/rawkode-academy/rawkode-academy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:42:52Z"
+  "distributed_at": "2026-07-23T04:48:50Z"
 }
