@@ -1,100 +1,105 @@
 ## cc-crossbeam
 
-> Reference file catalog for the California ADU Regulatory Decision Engine
+> Reference file catalog for the Buena Park ADU City Skill
 
 
-# California ADU — Reference File Catalog
+# Buena Park ADU — Reference File Catalog
 
 All reference files are in the `references/` directory. Each has YAML frontmatter with `title`, `category`, `relevance`, and `key_code_sections`.
 
-Use the decision tree in `SKILL.md` to determine which files to load for a given query. Most questions require 3-5 files, not all 28.
+Use the decision tree in `SKILL.md` to determine which files to load for a given query. Most questions require 2-4 files, not all 12.
 
 ---
 
-## Unit Types
+## ADU Ordinance
 
-Classification files — load these first to determine which rules apply.
+The local ADU ordinance provisions, split into two files for manageability.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `unit-types-66323.md` | The four Gov. Code § 66323 ADU categories and combinations table — what's allowed on each lot type | Gov. Code § 66323 |
-| `unit-types-adu-general.md` | ADU definition, three physical types (attached, detached, converted), when each applies | Gov. Code §§ 66313(a), 66314 |
-| `unit-types-jadu.md` | JADU-specific rules: 500 sq ft max, must be within existing/proposed dwelling, owner-occupancy, efficiency kitchen | Gov. Code §§ 66333-66339 |
-| `unit-types-multifamily.md` | Multifamily ADU rules: converted from non-livable space, detached (up to 8 or 25% of units), size limits | Gov. Code §§ 66314, 66323 |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `ordinance-adu-standards.md` | Development standards from § 19.348.010 (C.1–C.8) | Location, height, setbacks, size limits, units allowed per lot, parking, state law comparisons |
+| `ordinance-adu-rules.md` | Operational rules from § 19.348.010 (C.9–C.20) | Vehicular access, utilities, restricted areas, fire codes, park fees, design standards, sale/rental restrictions, JADU requirements |
 
-## Development Standards
+## Compliance
 
-Physical requirements for ADU construction.
+State oversight and compliance gap analysis.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `standards-height.md` | Height limits by ADU type and context: 16 ft base, 18 ft transit/multistory, 25 ft attached | Gov. Code § 66321(b)(4) |
-| `standards-size.md` | Size requirements: 150 sq ft efficiency, 850 sq ft 1-BR, 1,000 sq ft 2+BR, 1,200 sq ft max detached, FAR/lot coverage | Gov. Code §§ 66314(d)(4)-(5), 66321(b)(2)-(3), 66325(b) |
-| `standards-setbacks.md` | Setback rules: 4 ft max side/rear, front setback limits, no setback for conversions | Gov. Code §§ 66314(d)(7), 66321(b)(3) |
-| `standards-parking.md` | Parking requirements: max 1 space per ADU, 6 exemption categories (transit, historic, car share, etc.) | Gov. Code § 66314(d)(10)-(11) |
-| `standards-fire.md` | Fire protection and sprinkler rules: when sprinklers are required, fire access, fire hazard zones | Gov. Code § 66314(d)(12); HSC § 13275 |
-| `standards-solar.md` | Solar and energy code requirements: CalGreen/Title 24 applicability to ADUs | California Energy Code |
-| `standards-design.md` | Objective vs. subjective design standards: prohibition on subjective review, bedroom requirements | Gov. Code §§ 66313(i), 66314(b)(1) |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `hcd-compliance.md` | HCD findings letter analysis and state preemption notes | 6 non-compliance items, which are fixed vs. unresolved, when state law preempts local ordinance |
 
-## Permitting and Fees
+## Building Codes
 
-Process rules, fee calculations, and funding sources.
+Code editions, local amendments, and construction requirements.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `permit-process.md` | Ministerial review: 15 business day completeness, 60-day approval, deemed-approved, appeal process, pre-approved plans (AB 1332) | Gov. Code §§ 66317(a)(2), 66317(d)(1), 66320(a), 66328, 66329(a), 65852.27 |
-| `permit-fees.md` | Impact fees: ≤ 750 sq ft interior livable space exemption, proportionality to primary dwelling, school fees, assessable space, utility connection fees | Gov. Code §§ 66311.5, 66324, 66323; Ed. Code § 17620 |
-| `permit-funding.md` | ADU financing programs: CalHFA ADU Grant, FHA guidelines, Freddie Mac, Fannie Mae products | Various |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `building-codes.md` | Title 15 building code adoptions and local amendments | 2022 CBC/CRC/CPC/CMC/CEC editions, local amendment details, Title 15 chapter index, elevation permits |
 
 ## Zoning
 
-Jurisdiction-wide rules and environmental constraints.
+Base zone development standards that interact with ADU rules.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `zoning-general.md` | General zoning rules: ADUs don't count toward density, density bonus law interaction, SDBL, zoning overrides | Gov. Code §§ 66326, 65915 |
-| `zoning-hazards.md` | Hazard zone rules: very high fire hazard severity zones, coastal zone, Coastal Commission role | Gov. Code § 66329; PRC §§ 4125-4290 |
-| `zoning-nonconforming.md` | Nonconforming zoning and building code violations: ADUs can be built despite nonconforming conditions | Gov. Code § 66322 |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `zoning-residential.md` | Residential zone standards (RS-6/8/10/16, RM-20) | Zone descriptions, lot coverage (40%), setbacks, heights, accessory structures, fencing |
 
-## Ownership and Use
+## Fire Safety
 
-Rules about who can live in, rent, or sell ADUs.
+OCFA requirements and fire hazard zones.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `ownership-use.md` | Owner-occupancy (JADUs only), 30-day minimum rental term, short-term rental prohibition, deed restrictions | Gov. Code §§ 66315, 66318, 66336 |
-| `ownership-sales.md` | Separate conveyance rules, condominium conversion (AB 1033), qualified nonprofit requirements | Gov. Code §§ 66340-66342 |
-| `ownership-hoa.md` | HOA restrictions: CC&Rs cannot prohibit ADUs, HOA review timeline limits, reasonable restrictions | Civ. Code §§ 4751, 714.3 |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `fire-ocfa.md` | OCFA fire requirements and fire hazard zones | OCFA IB-01-21, sprinkler triggers, screening form, road width, fire stations, FHSZ maps |
 
-## Special Topics
+## Transit and Parking
 
-Specific housing types and related laws.
+Transit proximity benefits for ADUs.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `special-manufactured.md` | Manufactured homes as ADUs, mobilehome park rules, tiny homes classification | Gov. Code § 66313(a)(2); HSC §§ 18007, 18210 |
-| `special-sb9.md` | SB 9 interaction: urban lot split, four-unit cap on single-family lots, how ADU law interacts with SB 9 | Gov. Code §§ 65852.21, 66411.7 |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `transit-parking.md` | Transit stops and ADU height/parking benefits | Metrolink station, OCTA bus routes, 1/2-mile transit zone, height bonus, parking exemptions |
 
-## Compliance and Enforcement
+## Permit Process
 
-Local ordinance rules, unpermitted ADUs, and housing planning.
+How to submit and get an ADU permitted.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `compliance-unpermitted.md` | Unpermitted ADU legalization: pre-January 1, 2020 amnesty, inspection process, fee waivers, 5-year protection | Gov. Code §§ 66331, 66332 |
-| `compliance-ordinances.md` | Local ADU ordinances: what cities must include, HCD review and enforcement powers, bonus unit programs | Gov. Code §§ 66314, 66325 |
-| `compliance-housing.md` | Housing elements: RHNA credit for ADUs, Prohousing Designation Program, reporting requirements | Gov. Code §§ 65583, 66330 |
-| `compliance-utilities.md` | Utility connections: separate connection rules, utility company requirements, CPUC complaint process | Gov. Code § 66324(d)-(e) |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `permit-process.md` | Submittal requirements, contacts, forms, inspections | Plan sheets required, staff directory, hours, handouts, standard details, inspection process |
 
-## Reference
+## Fees
 
-Glossary and legislative history.
+All fee-related information.
 
-| File | Description | Key Code Sections |
-|------|-------------|-------------------|
-| `glossary.md` | All defined terms from the handbook with legal citations | Gov. Code § 66313; Various |
-| `legislative-changes.md` | Bill summaries (2019-2025), SB 477 renumbering table, statutory changes table | Gov. Code §§ 66310-66342, 66311.5, 66333.5 |
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `fees-impacts.md` | Development impact fees, building fees, exemptions | Traffic/police/park fees, 4% surcharge, ADU exemptions, fee schedule PDFs |
+
+## Utilities and Site
+
+Infrastructure, drainage, and grading.
+
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `utilities-grading.md` | Water/sewer/electrical, stormwater, grading, flood overlay | Utility providers, connection fees, 1.85" stormwater retention, OC Grading Code, elevation permits |
+
+## Energy
+
+Title 24 energy compliance.
+
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `energy-climate.md` | Climate Zone 8 and Title 24 prescriptive requirements | Insulation R-values, wall assemblies, solar PV, ADU-as-addition relaxations |
+
+## Context
+
+Housing policy and related programs.
+
+| File | Description | Key Topics |
+|------|-------------|------------|
+| `context-housing-sb9.md` | Housing element, RHNA, SB 9, pre-approved plans | 8,919-unit RHNA, 7,962-unit shortfall, SB 9 lot split rules, compound density strategy |
 
 ---
 > Source: [mikeOnBreeze/cc-crossbeam](https://github.com/mikeOnBreeze/cc-crossbeam) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
