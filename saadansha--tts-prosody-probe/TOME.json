@@ -4,7 +4,7 @@
   "repo": "tts-prosody-probe",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saadansha/tts-prosody-probe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T21:08:46Z"
+  "distributed_at": "2026-07-23T00:59:54Z"
 }
