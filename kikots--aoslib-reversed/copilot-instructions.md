@@ -1,39 +1,32 @@
-## packet-system
+## project-overview
 
-> The game uses a packet-based networking system where each packet type represents a specific game action or state.
+> This project aims to reverse engineer Ace Of Spades 1.x libraries, specifically focusing on packets and server logic with the goal of remaking a server for the game.
 
-# Ace Of Spades Packet System
+# Ace Of Spades Library Reverse Engineering Project
 
-## Packet Architecture
-The game uses a packet-based networking system where each packet type represents a specific game action or state.
+## Project Purpose
+This project aims to reverse engineer Ace Of Spades 1.x libraries, specifically focusing on packets and server logic with the goal of remaking a server for the game.
 
-## Packet Implementation
-Each packet in [test_packets.py](mdc:test_packets.py) follows a similar pattern:
-1. Create packet instance
-2. Set packet properties
-3. Serialize to binary (write)
-4. Deserialize from binary (read)
-5. Verify properties match
+## Project Structure
+- **aosdump/**: Contains the existing compiled binary (original implementation)
+  - **aoslib/**: Original game library implementation
+  - **shared/**: Original shared components
+- **aoslib/**: Our new implementation of the game library
+- **shared/**: Our new implementation of shared components
+- **build/**: Compiled versions of our new implementation
+- [test_packets.py](mdc:test_packets.py): Test script that compares original vs new implementation
 
-## Key Packet Types
-- **Game State**: InitialInfo, SetHP, MapEnded, etc.
-- **Player Actions**: ShootPacket, BlockBuild, ChangeTeam, etc.
-- **World Objects**: PlaceMG, PlaceMedPack, PlaceC4, etc.
-- **UI/Feedback**: ChatMessage, ShowTextMessage, PlaySound, etc.
+## Testing Methodology
+The project uses a dual-testing approach to validate packet implementations:
+1. Python 2: `py2 ./test_packets.py` - Tests against the original implementation
+2. Python 3: `py ./test_packets.py` - Tests against our new implementation
 
-## Testing Process
-The test_packets.py file contains both the packet definitions and the test functions to verify their correctness.
+The test script automatically adjusts paths based on Python version to test the appropriate implementation.
 
-The packet verification works by:
-1. Creating a packet with known test values
-2. Writing the packet to a ByteWriter (serialization)
-3. Reading the packet from a ByteReader (deserialization)
-4. Dumping the packet properties to verify integrity
-
-## Python Version Handling
-- Python 2 is used to test against the original implementation in the aosdump directory
-- Python 3 is used to test against the new implementation in the project root
-- The script automatically adjusts import paths based on Python version
+## Key Components
+- **Packets**: The [test_packets.py](mdc:test_packets.py) file contains implementations of various packet types used in the game
+- **ByteWriter/ByteReader**: Utility classes for serializing/deserializing packet data
+- Each packet test function creates a packet with test values, serializes it, then deserializes it to verify correctness
 
 ---
 > Source: [KikoTs/aoslib-reversed](https://github.com/KikoTs/aoslib-reversed) — distributed by [TomeVault](https://tomevault.io).
