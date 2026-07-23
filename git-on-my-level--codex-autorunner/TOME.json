@@ -3,8 +3,8 @@
   "owner": "Git-on-my-level",
   "repo": "codex-autorunner",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "codex-autorunner",
+      "path": ".agents/skills/desloppify/SKILL.md",
+      "github_url": "https://github.com/Git-on-my-level/codex-autorunner/tree/main/.agents/skills/desloppify/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Git-on-my-level/codex-autorunner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T16:42:35Z"
+  "distributed_at": "2026-07-23T08:01:59Z"
 }
