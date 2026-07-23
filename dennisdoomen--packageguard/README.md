@@ -7,11 +7,11 @@ Dependency scanner to ensure only certain NuGet and NPM packages are used
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dennisdoomen/packageguard](https://github.com/dennisdoomen/packageguard).
+Original source: `CLAUDE.md` in [dennisdoomen/packageguard](https://github.com/dennisdoomen/packageguard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
