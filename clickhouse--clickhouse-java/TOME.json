@@ -4,7 +4,7 @@
   "repo": "clickhouse-java",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/ClickHouse/clickhouse-java",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T11:33:27Z"
+  "distributed_at": "2026-07-23T09:23:08Z"
 }
