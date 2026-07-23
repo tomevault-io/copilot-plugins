@@ -1,0 +1,9 @@
+{
+  "name": "packagist--private-packagist-api-client",
+  "displayName": "private-packagist-api-client",
+  "description": "private-packagist-api-client",
+  "version": "1.0.0",
+  "author": "packagist",
+  "homepage": "https://github.com/packagist/private-packagist-api-client",
+  "skills": []
+}
