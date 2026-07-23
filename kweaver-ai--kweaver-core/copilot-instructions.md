@@ -1,247 +1,125 @@
 ## kweaver-core
 
-> Agent 列表和普通对话优先使用 simple API。创建、详情、发布、取消发布和删除属于管理能力，通过 `kweaver.getClient().agents` 调用。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Agents 使用
+# CLAUDE.md
 
-Agent 列表和普通对话优先使用 simple API。创建、详情、发布、取消发布和删除属于管理能力，通过 `kweaver.getClient().agents` 调用。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 列表
+## Build & Development Commands
 
-`kweaver.agents()` 返回已发布 Agent 列表，适合在用户应用中展示可用 Agent。
-
-```js
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
-
-kweaver.configure({
-  baseUrl: process.env.KWEAVER_BASE_URL,
-  accessToken: process.env.KWEAVER_TOKEN,
-});
-
-const agents = await kweaver.agents({
-  keyword: 'sales',
-  limit: 10,
-});
-
-console.log(agents);
+### Backend (Go)
+```bash
+cd server
+go mod tidy          # 安装依赖
+go run main.go       # 运行服务
+go build -o vega-backend  # 构建
+go test ./...        # 运行所有测试
+go test -v ./logics/catalog/...  # 运行单个包的测试
+go vet ./...         # 静态检查
 ```
 
-本地 no-auth 环境：
-
-```js
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
-
-kweaver.configure({
-  baseUrl: 'http://127.0.0.1:13020',
-  auth: false,
-});
-
-const agents = await kweaver.agents({ limit: 10 });
-console.log(agents);
+### Frontend (React)
+```bash
+cd frontend
+npm install          # 安装依赖
+npm run dev          # 开发服务器
+npm run build        # 生产构建
+npm run lint         # ESLint 检查
+npm run preview      # 预览构建结果
 ```
 
-## 创建
+### Configuration
+服务配置文件: `./config/vega-backend-config.yaml`
 
-创建 Agent 时，将 Agent 配置作为普通 JS object 传入。实际项目中也可以从用户项目自己的 JSON 文件读取配置，再传给 `client.agents.create()`。
+## Architecture
 
-```js
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
+VEGA Manager 采用六边形架构 (Hexagonal Architecture / Ports & Adapters):
 
-kweaver.configure({
-  baseUrl: process.env.KWEAVER_BASE_URL,
-  accessToken: process.env.KWEAVER_TOKEN,
-});
-
-const client = kweaver.getClient();
-
-const config = {
-  input: {
-    fields: [
-      {
-        name: 'query',
-        type: 'string',
-      },
-      {
-        name: 'history',
-        type: 'object',
-      },
-      {
-        name: 'header',
-        type: 'object',
-      },
-      {
-        name: 'self_config',
-        type: 'object',
-      },
-    ],
-    augment: {
-      enable: false,
-      data_source: {},
-    },
-    rewrite: {
-      enable: false,
-      llm_config: {
-        id: '',
-        name: 'test',
-        max_tokens: 1000,
-        retrieval_max_tokens: 1000,
-        model_type: 'llm',
-        temperature: 0.5,
-        top_p: 0.5,
-        top_k: 0,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      },
-    },
-    temp_zone_config: null,
-  },
-  system_prompt: '',
-  is_dolphin_mode: 0,
-  dolphin: '',
-  pre_dolphin: [],
-  post_dolphin: [],
-  memory: {
-    is_enabled: false,
-  },
-  related_question: {
-    is_enabled: false,
-  },
-  plan_mode: {
-    is_enabled: false,
-  },
-  data_source: {
-    knowledge_network: [],
-  },
-  skills: {
-    tools: [],
-    agents: [],
-    mcps: [],
-  },
-  llms: [
-    {
-      is_default: true,
-      llm_config: {
-        model_type: 'llm',
-        temperature: 1,
-        top_p: 1,
-        top_k: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-        max_tokens: 1000,
-        retrieval_max_tokens: 32,
-        id: '1951511743712858112',
-        name: 'mini-gpt5',
-      },
-    },
-  ],
-  output: {
-    default_format: 'markdown',
-    variables: {
-      answer_var: 'answer',
-    },
-  },
-  preset_questions: [],
-};
-
-const created = await client.agents.create({
-  name: `doc_sdk_agent_${Date.now()}`,
-  profile: 'Decision Agent SDK user guide example',
-  product_key: 'DIP',
-  config,
-});
-
-console.log(created.id);
+```
+server/
+├── interfaces/         # 端口定义 (Ports) - 服务和数据访问接口
+├── logics/             # 核心业务逻辑 - 服务实现
+│   ├── catalog/        # Catalog 服务
+│   ├── resource/       # Resource 服务
+│   └── connectors/     # 数据源连接器 (Factory 模式)
+├── driveradapters/     # 主适配器 (Primary Adapters) - HTTP REST 处理器
+└── drivenadapters/     # 次适配器 (Secondary Adapters) - 数据库访问、外部服务
+    ├── catalog/        # Catalog 数据访问
+    ├── resource/       # Resource 数据访问
+    └── opensearch/     # OpenSearch 客户端
 ```
 
-如果配置已经保存在业务项目自己的 JSON 文件中，可以这样读取：
+### 核心概念
 
-```js
-import fs from 'node:fs/promises';
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
+**Catalog (数据目录)**: 数据源连接，可以是物理数据源(MySQL, S3, Kafka等)或逻辑目录(虚拟视图)
 
-kweaver.configure({
-  baseUrl: process.env.KWEAVER_BASE_URL,
-  accessToken: process.env.KWEAVER_TOKEN,
-});
+**Resource (数据资源)**: 数据资源实体，支持9种类型:
+- 物理: table, file, fileset, api, metric, topic, index
+- 逻辑: logicview, dataset
 
-const client = kweaver.getClient();
-const config = JSON.parse(await fs.readFile('./agent-config.json', 'utf8'));
+**Connectors**: 可插拔的数据源连接器，按类型组织在 `logics/connectors/`:
+- table/ (MySQL, PostgreSQL, 达梦, Oracle, ClickHouse)
+- index/ (OpenSearch, Elasticsearch)
+- 计划中: fileset/, topic/, metric/, api/
 
-const created = await client.agents.create({
-  name: `doc_sdk_agent_${Date.now()}`,
-  profile: 'Decision Agent SDK user guide example',
-  product_key: 'DIP',
-  config,
-});
+### REST API
 
-console.log(created);
-```
+基础路径: `/api/vega-backend/v1`
 
-## 详情
+| 资源 | 端点 |
+|------|------|
+| Catalog | GET/POST `/catalogs`, GET/PUT/DELETE `/catalogs/:id` |
+| Catalog 状态 | GET `/catalogs/:id/status`, POST `/catalogs/:id/test-connection` |
+| Resource | GET/POST `/resources`, GET/PUT/DELETE `/resources/:id` |
+| Resource 操作 | GET `/resources/:id/schema`, POST `/resources/:id/enable\|disable\|sync` |
+| 健康检查 | GET `/health` |
 
-```js
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
+#### 端点设计规则
 
-kweaver.configure({
-  baseUrl: process.env.KWEAVER_BASE_URL,
-  accessToken: process.env.KWEAVER_TOKEN,
-});
+**禁止新增"嵌套列表"端点**：不要为"列出某个父资源下的子资源"再开 `GET /{parent}/{parent_id}/{children}` 这种端点。
 
-const client = kweaver.getClient();
-const detail = await client.agents.get('agent-id');
+- 正确做法：在 `/{children}` 列表端点上加 query 过滤，如 `GET /build-tasks?resource_id={id}` 而不是 `GET /resources/{id}/build-tasks`。
+- 理由：(1) 子资源的列表语义已由 `/{children}` 承载，嵌套形态会让同一查询暴露在两个端点，OpenAPI / SDK 表达分裂；(2) 父资源的存在性校验属于"过滤参数指向不存在实体"——这种情况 list 端点应当返回空列表，而不是 404；如果真要做存在性校验，那它是动作类语义而非列表，应另设端点。
+- 例外：动作端点保留嵌套形态（`POST /catalogs/:id/discover`、`POST /build-tasks/:id/start`），因为它们对父资源做操作，不是单纯的列表视图。
 
-console.log(detail);
-```
+**列表端点的过滤参数命名**：`?{singular_parent}_id=` 或 `?{filter}_id=`，单值。要支持多值过滤时使用 `?{singular_parent}_ids=a,b,c`（逗号分隔）或 query 重复 `?id=a&id=b`，不要走 path。
 
-## 发布与取消发布
+**批量删除走 path**：`DELETE /{resource}/{ids}`（逗号分隔，单条即长度 1 的退化），与 `/catalogs/:ids`、`/resources/:ids` 对齐；不要用 `?ids=` query 形态。语义：整体事务，任一预校验失败整批不删。可选 `?ignore_missing=true` 放宽不存在性检查；状态类拦截（如 running task）不可绕过。
 
-发布时直接调用 `publish`。如需业务域相关能力，以服务端或 SDK 默认配置为准。
+## Database
 
-```js
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
+MariaDB/MySQL 8.0+，主要表:
+- `t_catalog` - 目录/数据源配置
+- `t_resource` - 数据资源定义，含 schema (JSON)
+- `t_resource_schema_history` - Schema 变更历史
 
-kweaver.configure({
-  baseUrl: process.env.KWEAVER_BASE_URL,
-  accessToken: process.env.KWEAVER_TOKEN,
-});
+迁移脚本: `migrations/mariadb/`
 
-const client = kweaver.getClient();
+### Schema 字段类型系统
 
-const result = await client.agents.publish('agent-id');
+VEGA 统一类型: `integer`, `unsigned_integer`, `float`, `decimal`, `string`, `text`, `date`, `datetime`, `time`, `boolean`, `binary`, `json`, `vector`
 
-console.log(result);
-```
+字段特征 (Features): `keyword`, `fulltext`, `vector`
 
-```js
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
+## Frontend
 
-kweaver.configure({
-  baseUrl: process.env.KWEAVER_BASE_URL,
-  accessToken: process.env.KWEAVER_TOKEN,
-});
+React 19 + Vite + Tailwind CSS + React Router
 
-const client = kweaver.getClient();
-await client.agents.unpublish('agent-id');
-```
+路由:
+- `/` - Dashboard
+- `/catalogs` - 目录管理
+- `/resources` - 资源列表
+- `/resources/:id` - 资源详情
+- `/query` - 查询工作台
 
-## 删除
+## Development Conventions
 
-如果 Agent 已经发布，先取消发布，再删除。
-
-```js
-import kweaver from '@kweaver-ai/kweaver-sdk/kweaver';
-
-kweaver.configure({
-  baseUrl: process.env.KWEAVER_BASE_URL,
-  accessToken: process.env.KWEAVER_TOKEN,
-});
-
-const client = kweaver.getClient();
-
-await client.agents.unpublish('agent-id');
-await client.agents.delete('agent-id');
-```
+- 所有代码注释使用中文
+- 依赖注入通过构造函数，接口定义在 `interfaces/`
+- 错误码定义在 `errors/`，国际化在 `locale/`
+- 新增连接器类型需在 `logics/connectors/factory/` 注册
 
 ---
 > Source: [kweaver-ai/kweaver-core](https://github.com/kweaver-ai/kweaver-core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
