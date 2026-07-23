@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "NarHakobyan",
   "homepage": "https://github.com/NarHakobyan/awesome-nest-boilerplate",
-  "skills": []
+  "skills": [
+    {
+      "name": "awesome-nest-boilerplate",
+      "description": ""
+    }
+  ]
 }
