@@ -1,44 +1,134 @@
 ## weapp-tailwindcss
 
-> - 本文件适用于 `packages/tailwindcss-core-plugins-extractor`。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Package Guidelines (`packages/tailwindcss-core-plugins-extractor`)
+# CLAUDE.md
 
-## 适用范围
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- 本文件适用于 `packages/tailwindcss-core-plugins-extractor`。
-- 该包属于“脚本生成 + 发布产物”模式，核心是稳定提取 Tailwind Core Plugins 数据。
+## Project Overview
 
-## 目录与职责
+**weapp-tailwindcss** is a Turbo-based monorepo that brings TailwindCSS atomic styling to mini-program (小程序) developers. It provides comprehensive TailwindCSS support for WeChat Mini Programs, Taro, uni-app, remax, mpx, and other mini-program frameworks across webpack, vite, rspack, rollup, rolldown, and gulp build tools.
 
-- `scripts/main.js`：生成入口，负责刷新 `src/corePlugins/*`、`src/theme/screens.ts`、`src/index.ts`。
-- `scripts/extract.js`：提取逻辑核心（`getUtilities`、规范化）。
-- `src/corePlugins/`：生成产物目录。
-- `src/index.ts`：由脚本生成的统一导出入口。
+## Monorepo Structure
 
-## 生成规则（硬约束）
+- **packages/** - Core packages including:
+  - `weapp-tailwindcss` - Main package with CLI (`weapp-tailwindcss` or `weapp-tw`)
+  - `@weapp-tailwindcss/shared` - Shared utilities
+  - `@weapp-tailwindcss/postcss` - PostCSS plugin
+  - `@weapp-tailwindcss/babel` - Babel transformations
+  - `@weapp-tailwindcss/logger` - Logging utilities
+  - `tailwindcss-injector`, `tailwindcss-core-plugins-extractor`, `tailwindcss-config` - Build tool integrations
 
-- `src/corePlugins/*` 与 `src/index.ts` 视为“生成文件”，默认不手工编辑。
-- 若需要调整提取行为，优先修改 `scripts/extract.js` 或 `scripts/main.js`，再执行生成脚本。
-- 涉及 Tailwind 版本变更时，必须整体重生成，不做局部手工修补。
+- **packages-runtime/** - Runtime-specific implementations (vite, webpack integrations)
 
-## 开发要求
+- **apps/** - Reserved workspace; mini-program demo projects have moved to `demo/`
 
-- 修改脚本后，必须检查导出稳定性（导出项是否完整、顺序是否可预期）。
-- 保持输出结构可序列化且稳定，避免引入与运行时环境相关的非确定性字段。
-- 不在该包引入与提取目标无关的业务逻辑，保持“纯提取工具包”定位。
+- **demo/** - Framework-specific demo projects for the retained Tailwind CSS v3/v4 matrix (gulp, mpx, Taro webpack/vite, uni-app vite, weapp-vite)
 
-## 推荐验证命令
+- **templates/** - Project templates for different frameworks
 
-- `pnpm --filter tailwindcss-core-plugins-extractor extract`
-- `pnpm --filter tailwindcss-core-plugins-extractor build`
-- 验证输出是否更新：`git diff -- packages/tailwindcss-core-plugins-extractor/src`
+- **website/** - Documentation website
 
-## 提交前检查
+- **benchmark/** - Performance benchmarking tools
 
-- 若 `scripts/**` 变更但 `src/corePlugins/**` 无变更，需确认是否遗漏重生成。
-- 若输出文件变化过大，提交说明中应明确 Tailwind 版本或提取策略变动原因。
+- **e2e/** - End-to-end tests with CSS snapshot testing
+
+## Common Development Commands
+
+### Build
+```bash
+pnpm build                # Build all packages (uses turbo cache)
+pnpm build:nocache        # Build without cache (TURBO_FORCE=1)
+pnpm build:apps           # Build apps only
+pnpm build:pkgs           # Build packages only
+pnpm build:docs           # Build documentation website
+pnpm build:demo           # Build demo apps
+```
+
+### Test
+```bash
+pnpm test                 # Run all tests (vitest)
+pnpm test:dev             # Run tests in watch mode
+pnpm test:core            # Run main package tests
+pnpm test:plugins         # Run plugin package tests
+pnpm test:typography      # Run typography tests
+pnpm test:ui              # Run tests with UI
+pnpm e2e                  # Run end-to-end tests
+pnpm e2e:u                # Update e2e snapshots
+pnpm bench                # Run benchmarks
+```
+
+### Development
+```bash
+pnpm dev:apps             # Run all apps in development mode
+pnpm format               # Format code with prettier
+pnpm lint                 # Lint code
+pnpm lint:fix             # Fix linting issues
+```
+
+### Release
+```bash
+pnpm release              # Create changeset
+pnpm pr                   # Enter alpha prerelease mode
+pnpm pr:beta              # Enter beta prerelease mode
+pnpm pr:exit              # Exit prerelease mode
+pnpm publish-packages     # Build, test, version, and publish
+```
+
+### Demo Management
+```bash
+pnpm demo:install         # Install dependencies for demos
+pnpm demo:install:beta    # Install beta versions for demos
+pnpm demo:install:alpha   # Install alpha versions for demos
+```
+
+## Architecture Notes
+
+### Package Entry Points
+The main `weapp-tailwindcss` package exports multiple entry points for different use cases:
+- Default: webpack/vite plugin
+- `./webpack4`: PostCSS 7 + webpack 4 compatibility
+- `./vite`, `./webpack`, `./gulp`, `./core`: Build-specific integrations
+- `./escape`, `./types`, `./defaults`, `./presets`: Utilities
+- CSS exports: `./preflight.css`, `./theme.css`, `./utilities.css`, `./uni-app-x.css`
+
+### Turbo Build System
+- Uses turbo for task orchestration and caching
+- Build dependencies are defined in `turbo.json`
+- `packages/*` and `packages-runtime/*` must build before `apps/*` and `demo/*`
+
+### Workspace Dependencies
+- Uses pnpm workspaces with `catalog:` for centralized dependency versioning (see `pnpm-workspace.yaml`)
+- Internal packages reference each other with `workspace:*`
+
+### Testing Architecture
+- Root `vitest.config.ts` dynamically discovers all package vitest configs from workspace
+- E2E tests use CSS snapshot testing (`e2e/update-snapshots` script syncs snapshots)
+
+### Node.js Requirements
+- Root package requires `node >= 18.0.0`
+- Main `weapp-tailwindcss` package requires `node ^18.17.0 || >=20.5.0`
+- Package manager: pnpm@11.5.3
+
+### TailwindCSS Version Support
+- Supports TailwindCSS v4, v3, and v2 JIT
+- Different entry points handle different TailwindCSS versions
+
+## CLI Tool
+The package provides a CLI via `bin/weapp-tailwindcss.js`:
+```bash
+weapp-tailwindcss patch    # Patch TailwindCSS for mini-program compatibility
+weapp-tw patch             # Shorthand alias
+```
+
+## Special Conventions
+- ES modules throughout (`type: "module"`)
+- TypeScript strict mode
+- Changesets for version management
+- Commitlint enforces conventional commits
+- Primary documentation is in Chinese (tw.icebreaker.top)
 
 ---
 > Source: [sonofmagic/weapp-tailwindcss](https://github.com/sonofmagic/weapp-tailwindcss) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
