@@ -2,109 +2,83 @@
 
 > > - 本目录中的 `CLAUDE.md` 与 `AGENTS.md` 是配对文档
 
-# AGENTS.md
+# CLAUDE.md
 
 > **同步维护要求**
 >
 > - 本目录中的 `CLAUDE.md` 与 `AGENTS.md` 是配对文档
 > - AI 修改其中任意一份时，必须同步检查并更新另一份的对应说明
-> - 前端规范的 Canonical 细则仍以 `CLAUDE.md` 为主，`AGENTS.md` 负责 skills 导航与执行入口
 > - `.claude/skills/` 是本仓库 skills 的唯一事实来源，Codex 使用 `.agents/skills/`
 > - 若映射缺失，请在 `Tier0` 根仓库执行 `bash shell/map-agent-skills.sh`
-> - 根仓库 `update-*` 脚本会在同步代码后自动补齐 skills 映射
+>
+> 本节为当前有效约束；若与后文历史内容冲突，以本节为准。所有文字类描述一律使用中文。
 
-## 1) Canonical 规范来源
+## AI 开发规范（Canonical）
 
-- 执行任何开发任务前，先遵循 [CLAUDE.md](./CLAUDE.md) 的 Canonical 约束。
-- `AGENTS.md` 仅维护：skills 导航、调用顺序、少量补充约定。
-- 后续新增/修改规则时，先更新 `CLAUDE.md`，并同步检查 `AGENTS.md` 的导航与入口说明是否需要更新。
+### 语言
 
-## 2) Skills 导航
+- 所有输出（注释、文档、commit 信息、对话）必须使用中文。
 
-以下是项目内可用 skills（版本化到仓库）。
+### Skills
 
-### 场景层（scenarios）
+- Skills 单一来源：`.claude/skills/`；Codex 映射目录：`.agents/skills/`。
+- 始终通过 `Skill` 工具调用，不要手动读取 skill 文件。
+- 若 Codex 未识别到 skills，在 `Tier0` 根仓库执行 `bash shell/map-agent-skills.sh`，然后重开会话。
+- Skills 导航详见 [AGENTS.md](./AGENTS.md)。
 
-- `tier0-delivery-orchestrator`：端到端交付编排（接口确认 → service 封装 → 页面对接 → UI 高还原）  
-  file: `.claude/skills/scenarios/tier0-delivery-orchestrator.md`
-- `tier0-systematic-debugging`：系统化排障（先证据后修复，禁止猜修）  
-  file: `.claude/skills/scenarios/tier0-systematic-debugging.md`
+### 复用优先
 
-### 能力层（capabilities）
+- 实现前先搜索 `src/components/`、`src/hooks/`、`src/utils/` 是否已有可用实现。
+- 高频易被忽略的工具：`ProTable`（`@/components/pro-table`）、`usePagination`、`useTranslate`、`ApiWrapper`（`@/utils/request`）。
 
-- `tier0-page-api-integration`：页面与 `src/apis/inter-api` 的标准对接  
-  file: `.claude/skills/capabilities/tier0-page-api-integration.md`
-- `tier0-ui-high-fidelity-build`：页面与组件高还原开发（含严格 i18n 约束）  
-  file: `.claude/skills/capabilities/tier0-ui-high-fidelity-build.md`
-- `tier0-writing-plans-lite`：轻量可执行计划编写  
-  file: `.claude/skills/capabilities/tier0-writing-plans-lite.md`
-- `i18n-setup`：i18n 配置与校验流程  
-  file: `.claude/skills/capabilities/i18n-setup.md`
-- `match-screenshot-colors`：截图颜色映射到项目 CSS 变量体系  
-  file: `.claude/skills/match-screenshot-colors/skill.md`
+### UI 开发
 
-## 3) Skill 调用规则
+- UI 开发前必须阅读 [`DESIGN.md`](./DESIGN.md)，了解颜色体系、组件规范与布局原则。
+- 还原截图/设计稿时，**必须先调用 `match-screenshot-colors` skill** 映射颜色到 CSS 变量。
+- 颜色必须使用 `var(--supos-*)` CSS 变量，禁止硬编码色值（`#161616`、`#f4f4f4` 等）。
+- 优先使用应用级语义变量（`--supos-*`，定义于 `apps/web/src/index.scss :root`），禁止直接使用主题级变量（`--supos-t-*`）。
+- 图标只使用 `@carbon/icons-react`，禁止引入其他图标库。
+- 路由 import 使用 `react-router`，禁止 `react-router-dom`。
+- 样式使用 SCSS Modules，class 名 kebab-case。
 
-- 用户显式提到 skill 名称（如 `$tier0-ui-high-fidelity-build`）时，优先使用该 skill。
-- 多阶段需求优先从 `tier0-delivery-orchestrator` 开始。
-- 优先场景层编排，再调用能力层。
-- 优先通过 `Skill` 工具调用 skills；若 skill 缺失/不可读，需明确说明并采用最近 fallback。
-- 本仓库使用小写 `skill.md` 作为部分 skill 入口，映射脚本会自动转换为 Codex 可识别的 `SKILL.md` 包装目录。
-- 执行映射脚本后，需要重开 Codex 会话刷新 skills 列表。
+### i18n
 
-### 用户意图 → Skill 映射
+- 所有用户可见文案必须国际化，禁止硬编码中英文字符串。
+- React 组件内使用 `useTranslate()` 或 `useTranslate('ComponentName')`；非 React 场景使用 `getIntl`。
+- 词条源文件是 `src/locale/index.js`（中文源），**禁止只改生成的 JSON 文件**。
+- 新增词条后执行 `pnpm intl:once` 或 `pnpm intl:watch` 生成 `zh-CN.json` / `en-US.json`。
+- i18n key 末级名控制在 25 字符以内，优先短语义命名，禁止整句式 key。
 
-| 你想做什么                             | 用哪个 Skill                              |
-| -------------------------------------- | ----------------------------------------- |
-| 新建一个完整页面（接口 + 样式 + 状态） | `tier0-delivery-orchestrator`             |
-| 照着设计稿还原一个页面                 | `tier0-ui-high-fidelity-build`            |
-| 后端给了新接口，要对接到页面           | `tier0-page-api-integration`              |
-| 加国际化 / 多语言支持                  | `i18n-setup`                              |
-| 截图颜色映射到 CSS 变量                | `match-screenshot-colors`                 |
-| 遇到报错 / 功能行为不对                | `tier0-systematic-debugging`              |
-| 写一个执行计划                         | `tier0-writing-plans-lite`                |
-| **加个新功能 / 不确定用哪个**          | **`tier0-delivery-orchestrator`（兜底）** |
+### API 层
 
----
+- 禁止在页面组件内直接使用 `axios` 或 `fetch`，统一通过 `src/apis/inter-api/<module>.ts` 封装。
+- 使用 `ApiWrapper`（`@/utils/request`）封装请求。
+- 所有 API 从 `src/apis/inter-api/index.ts` 统一导出。
 
-## 项目快速参考
+### 禁止项
 
-### 目录结构
+- 禁止在生产代码中遗留 `console.log`（提交前必须清理）。
+- 禁止使用 `@ts-ignore` / `@ts-expect-error` 作为永久方案。
+- 禁止硬编码颜色值、业务常量（角色名、状态码等）。
+- 禁止引入 `@carbon/icons-react` 以外的图标库。
+- 禁止引入 Ant Design 以外的 UI 组件库。
+- 排障禁止"先试试这个改动"式猜修，必须先定位根因。
 
-- `apps/web`：主 React 18 + Vite 前端
-- `apps/services-express`：Express v5 API（CopilotKit + 健康检查）
-- `packages/`：共享脚本与 TS 配置
-- `plugins/`：模块联邦插件
+### 提交前检查
 
-### 常用命令
+- `pnpm lint` 无报错。
+- 若改动涉及 i18n：`src/locale/index.js` 已更新 → `pnpm intl:once` → 确认 JSON 同步。
+- 清理 `console.log` 和临时 `@ts-ignore`。
+- 机密配置放 `.env`，禁止提交。
 
-```bash
-pnpm install
-pnpm dev:web                  # 启动前端
-pnpm dev:servicesExpress      # 启动 AI 服务（按需）
-pnpm build:web
-pnpm lint
-pnpm intl:once                # 生成 i18n JSON
-```
+### 停机条件
 
-### 业务模块速查
+出现以下情况必须暂停并询问用户：
 
-- **核心**：UNS、采集流/事件流、仪表盘、插件管理、开放数据、账号/角色
-- **主要路由**：`/home`、`/uns`、`/collection-flow`、`/EventFlow`、`/dashboards`、`/plugin-management`
-- **权限**：`pageList/buttonList` 控制菜单与按钮；`AuthWrapper` 包裹权限组件
-- **API 前缀**：`/inter-api/supos/...`；CopilotKit：`/copilotkit`
-
-### 环境变量（常用）
-
-- `API_PROXY_URL`、`VITE_ASSET_PREFIX`、`VITE_REMOTE_PREFIX`、`PORT`、`LLM_*`
-- 登录：`loginPath` 或 `/tier0-login`；免登录 `/freeLogin?token=...&redirectUri=...`
-
-### 常见排查
-
-- 登录循环/403：检查 `loginPath`、`authEnable`、资源启用与用户 `pageList`
-- 接口报错：检查 `.env` 代理配置
-- 插件加载失败：确认插件安装与联邦配置
+- API 合同不明确，继续会造成破坏性改动。
+- 设计信息不足，无法确认高还原交付。
+- 排障连续 3 次假设失败，需先复盘数据流设计。
 
 ---
 > Source: [FREEZONEX/Tier0-Edge](https://github.com/FREEZONEX/Tier0-Edge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
