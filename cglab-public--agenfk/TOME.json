@@ -3,8 +3,8 @@
   "owner": "cglab-public",
   "repo": "agenfk",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agenfk",
+      "path": "skills/opencode/agenfk-flow/SKILL.md",
+      "github_url": "https://github.com/cglab-public/agenfk/tree/main/skills/opencode/agenfk-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agenfk",
+      "path": "skills/claude-code/agenfk-flow/SKILL.md",
+      "github_url": "https://github.com/cglab-public/agenfk/tree/main/skills/claude-code/agenfk-flow/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/cglab-public/agenfk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T00:52:08Z"
+  "distributed_at": "2026-07-23T23:51:03Z"
 }
