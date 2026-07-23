@@ -4,7 +4,7 @@
   "repo": "templewallet-mobile",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/madfish-solutions/templewallet-mobile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T00:42:03Z"
+  "distributed_at": "2026-07-23T12:05:14Z"
 }
