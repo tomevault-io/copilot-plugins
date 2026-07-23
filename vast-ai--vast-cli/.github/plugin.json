@@ -1,0 +1,14 @@
+{
+  "name": "vast-ai--vast-cli",
+  "displayName": "vast-cli",
+  "description": "vast-cli",
+  "version": "1.0.0",
+  "author": "vast-ai",
+  "homepage": "https://github.com/vast-ai/vast-cli",
+  "skills": [
+    {
+      "name": "vast-cli",
+      "description": ""
+    }
+  ]
+}
