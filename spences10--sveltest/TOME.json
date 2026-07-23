@@ -2,9 +2,9 @@
   "name": "sveltest",
   "owner": "spences10",
   "repo": "sveltest",
-  "description": "AI instruction files for sveltest by spences10",
+  "description": "",
   "type": "tome",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,15 @@
       "path": ".claude/skills/svelte-testing",
       "github_url": "https://github.com/spences10/sveltest/tree/main/.claude/skills/svelte-testing",
       "description": ""
+    },
+    {
+      "name": "sveltest",
+      "path": ".claude/skills/svelte-testing/SKILL.md",
+      "github_url": "https://github.com/spences10/sveltest/tree/main/.claude/skills/svelte-testing/SKILL.md",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/spences10",
+  "source_url": "https://github.com/spences10/sveltest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T05:43:38Z"
+  "distributed_at": "2026-07-23T07:47:07Z"
 }
