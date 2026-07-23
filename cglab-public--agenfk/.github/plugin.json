@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "cglab-public",
   "homepage": "https://github.com/cglab-public/agenfk",
-  "skills": []
+  "skills": [
+    {
+      "name": "agenfk",
+      "description": ""
+    },
+    {
+      "name": "agenfk",
+      "description": ""
+    }
+  ]
 }
