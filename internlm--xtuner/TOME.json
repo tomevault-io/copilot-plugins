@@ -1,0 +1,81 @@
+{
+  "name": "xtuner",
+  "owner": "InternLM",
+  "repo": "xtuner",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "xtuner",
+      "path": ".claude/skills/model_patch/SKILL.md",
+      "github_url": "https://github.com/InternLM/xtuner/tree/main/.claude/skills/model_patch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "path": ".claude/skills/add_hf_model/SKILL.md",
+      "github_url": "https://github.com/InternLM/xtuner/tree/main/.claude/skills/add_hf_model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "path": ".claude/skills/sphinx-debug/SKILL.md",
+      "github_url": "https://github.com/InternLM/xtuner/tree/main/.claude/skills/sphinx-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "path": ".claude/skills/model_normalize/SKILL.md",
+      "github_url": "https://github.com/InternLM/xtuner/tree/main/.claude/skills/model_normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "path": ".claude/skills/xtuner-custom-judger/SKILL.md",
+      "github_url": "https://github.com/InternLM/xtuner/tree/main/.claude/skills/xtuner-custom-judger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xtuner",
+      "path": ".claude/skills/xtuner-sync-supported-models/SKILL.md",
+      "github_url": "https://github.com/InternLM/xtuner/tree/main/.claude/skills/xtuner-sync-supported-models/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/InternLM/xtuner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T19:33:17Z"
+}
