@@ -1,44 +1,100 @@
 ## klavis
 
-> - `packages/app`: MCP server plus management web UI. Server code lives in `packages/app/src/server`, UI in `packages/app/src/web`, and tests in `packages/app/test`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-- `packages/app`: MCP server plus management web UI. Server code lives in `packages/app/src/server`, UI in `packages/app/src/web`, and tests in `packages/app/test`.
-- `packages/mcp`: shared MCP tools/library consumed by the server. Source is in `packages/mcp/src`, with tests in `packages/mcp/test` and a few `*.test.ts` files co-located in `src`.
-- `packages/e2e-python`: Python-based end-to-end harnesses and fixtures.
-- Root-level docs and support files live in `docs/`, `docs-internal/`, `scripts/`, `spec/`, and `Dockerfile`.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- `pnpm install`: install workspace dependencies (Corepack-managed pnpm).
-- `pnpm build`: build all workspace packages.
-- `pnpm dev`: watch the MCP package and run the server with HMR.
-- `pnpm start`: start the production server from `packages/app`.
-- `pnpm lint`, `pnpm typecheck`, `pnpm format`, `pnpm test`: run repo-wide checks.
-- Package-specific tests: `pnpm -C packages/app test` or `pnpm -C packages/mcp test`.
-- Full local pipeline: `pnpm run buildrun` (clean, build, lint, test, start).
+## Project Overview
 
-## Coding Style & Naming Conventions
-- TypeScript ESM across packages.
-- Prettier enforces tabs (`useTabs: true`, `tabWidth: 2`), semicolons, single quotes, and `printWidth: 120`.
-- ESLint rules are strict in `packages/mcp` and server code (no `any`, consistent type imports, prefer `interface` type definitions).
-- Tests use `.test.ts` or `.spec.ts` naming.
+This is a Google Cloud MCP (Model Context Protocol) server project that provides Python wrapper modules for managing various Google Cloud Platform services. The project is designed to be a comprehensive interface for GCP operations through MCP.
 
-## Testing Guidelines
-- Unit/integration tests run with Vitest in both `packages/app` and `packages/mcp`.
-- Run all tests with `pnpm test` or package-specific commands above.
-- No explicit coverage gate is configured; add tests for new tools, transports, or formatting logic.
+## Architecture
 
-## Commit & Pull Request Guidelines
-- Recent history mixes merge commits and conventional-style messages like `chore: release vX`; no enforced convention.
-- Keep commits small and descriptive; add a scope when it clarifies the area (`app`, `mcp`).
-- PRs should include a concise summary, test results, linked issue (if applicable), and screenshots for UI changes under `packages/app/src/web`.
+The project follows a modular architecture with separate managers for each GCP service:
 
-## Security & Configuration Tips
-- Provide auth via environment variables (`DEFAULT_HF_TOKEN`, `HF_TOKEN`); do not commit secrets.
-- `TRANSPORT` controls server mode (`stdio`, `streamableHttp`, `streamableHttpJson`). Document any new env vars in `README.md`.
+- **BigQuery** (`src/big_query.py`): Data warehouse operations including query execution, data loading/exporting, job management, and cost estimation
+- **Cloud Logging** (`src/cloud_logging.py`): Log management operations including reading/writing logs, managing buckets, sinks, exclusions, and metrics
+- **Cloud Storage** (`src/cloud_storage.py`): Bucket and object management including CRUD operations, lifecycle management, and batch operations
+- **Compute Engine** (`src/compute_engine.py`): Virtual machine management including instance lifecycle operations and zone management
+
+Each manager class follows a consistent pattern:
+- Constructor takes `project_id` and optional `service_account_path`
+- Methods return dictionaries with operation results
+- Comprehensive error handling and logging
+- Support for both service account and default credential authentication
+
+## Development Commands
+
+### Setup
+```bash
+# Install dependencies (when pyproject.toml is configured)
+pip install -e .
+
+# Or install Google Cloud libraries manually
+pip install google-cloud-bigquery google-cloud-logging google-cloud-storage google-cloud-compute
+```
+
+### Authentication
+- Place service account JSON file as `service-account-key.json` in project root
+- Or use default credentials with `gcloud auth application-default login`
+
+### Running
+```bash
+python main.py
+```
+
+## Key Design Patterns
+
+### Manager Classes
+Each GCP service has a dedicated manager class that:
+- Handles authentication via service account or default credentials
+- Provides high-level methods that wrap GCP client operations
+- Returns structured dictionaries for easy MCP integration
+- Includes comprehensive error handling and logging
+
+### Error Handling
+- All methods include try/catch blocks with specific exception handling
+- Google Cloud exceptions (NotFound, Conflict, etc.) are caught specifically
+- Logging is used consistently throughout for debugging
+
+### Data Structures
+- Methods return dictionaries rather than native GCP objects for better serialization
+- Helper methods like `_bucket_to_dict()` and `_blob_to_dict()` standardize return formats
+- Optional parameters use sensible defaults
+
+## Authentication Patterns
+
+The codebase supports two authentication patterns:
+1. **Service Account File**: Pass path to JSON key file in constructor
+2. **Default Credentials**: Omit service account parameter to use ambient credentials
+
+## Common Operations
+
+### BigQuery
+- Query execution with cost estimation via dry-run mode
+- Data loading from CSV files and DataFrames
+- Export to Cloud Storage
+- Job management and monitoring
+
+### Cloud Logging
+- Structured and text log writing
+- Advanced log filtering and searching
+- Log bucket and sink management
+- Export to BigQuery and Cloud Storage
+
+### Cloud Storage
+- Bucket lifecycle management
+- Batch upload/download operations
+- Signed URL generation
+- Object search and metadata management
+
+### Compute Engine
+- VM instance lifecycle operations
+- Zone listing and management
+- Operation status monitoring
 
 ---
 > Source: [Klavis-AI/klavis](https://github.com/Klavis-AI/klavis) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
