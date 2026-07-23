@@ -4,7 +4,7 @@
   "repo": "unraid-management-agent",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/ruaan-deysel/unraid-management-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T18:19:22Z"
+  "distributed_at": "2026-07-23T11:16:08Z"
 }
