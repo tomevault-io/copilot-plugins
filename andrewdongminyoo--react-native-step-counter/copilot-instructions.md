@@ -1,62 +1,137 @@
 ## react-native-step-counter
 
-> - `src/`: TypeScript bridge and public API (`NativeStepCounter.ts`, `index.tsx`).
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- `src/`: TypeScript bridge and public API (`NativeStepCounter.ts`, `index.tsx`).
-- `android/src/main/`: Android native module and manifest.
-- `ios/`: iOS native implementation (`StepCounter.mm`, `SOMotionDetecter.*`).
-- `example/`: React Native workspace for manual integration testing.
-- `lib/`: Generated build output from `bob build` (treat as generated artifacts).
-- `.github/`: CI workflows, issue templates, and PR template.
-- `documents/`: Generated API documentation.
+## Project Overview
 
-## Build, Test, and Development Commands
+`react-native-step-counter-newarch` is a React Native **TurboModule library** that tracks step counts using native device sensors. It uses the **New Architecture** (Fabric/TurboModules) and is built with `react-native-builder-bob`.
 
-- `yarn install`: Install root and workspace dependencies.
-- `yarn typecheck`: Run TypeScript checks for the library package.
-- `yarn prepare`: Build distributable artifacts into `lib/`.
-- `yarn clean`: Remove generated build outputs from root and example apps.
-- `yarn example start`: Start Metro for the example app (with `--reset-cache`).
-- `yarn example android` / `yarn example ios`: Run example app on device/simulator.
-- `yarn example clean`: Clean Android/Metro/Watchman/Yarn caches in the example app.
-- `yarn example postclean`: Reinstall iOS Pods in `example/ios` after cleaning.
-- `yarn example build:android`: Run CI-aligned Android build for the example app.
-- `yarn example build:ios`: Run Debug iOS build for the example app.
-- `trunk check`: Run configured lint/security checks from `.trunk/trunk.yaml`.
-- `trunk fmt`: Apply formatter fixes supported by Trunk.
+- iOS: Uses `CMPedometer` (CoreMotion) and `SOMotionDetecter`
+- Android: Uses the hardware step counter sensor (API 19+) with accelerometer fallback
 
-## Coding Style & Naming Conventions
+## Monorepo Structure
 
-- Use 2-space indentation, LF endings, UTF-8 (`.editorconfig`).
-- Prettier rules (`.prettierrc.mjs`): `semi: true`, `singleQuote: false`, `printWidth: 100`.
-- Naming:
-  - `PascalCase` for types/interfaces/classes.
-  - `camelCase` for functions/variables.
-  - `UPPER_SNAKE_CASE` for exported constants.
-- Keep cross-platform JS/TS API changes in `src/`; keep platform behavior in `android/` and `ios/`.
+This is a Yarn workspace monorepo (Yarn 4.x):
 
-## Testing Guidelines
+- **Root** — library source, native modules, build configuration
+- **`example/`** — standalone React Native app that demonstrates and tests the library
 
-- Jest is configured via `jest.config.js` (`@react-native/jest-preset` preset) and `jest.setup.ts`.
-- Add tests as `*.test.ts` / `*.test.tsx` (prefer colocated tests or `src/__tests__/`).
-- Run unit tests with `yarn test` (add `--coverage` for a coverage report).
-- For native changes, validate behavior in `example/` on affected platforms (Android/iOS).
+The example app uses the local library via workspace resolution. Native code changes require a full rebuild of the example app.
 
-## Commit & Pull Request Guidelines
+## Commands
 
-- Follow the observed Conventional Commit + gitmoji format:
-  - `feat: ✨ ...`, `fix: ♻️ ...`, `docs: 📝 ...`, `chore: 🔨 ...`.
-- Keep commits focused and reference related issues where applicable.
-- Use `.github/PULL_REQUEST_TEMPLATE.md`:
-  - Fill summary, change list, related issue, and test steps.
-  - Mark change type and checklist items.
-  - Include screenshots/GIFs for UI-visible changes.
-- Discuss API or breaking changes in an issue before opening a large PR.
+All commands are run from the root directory unless noted.
+
+### Development
+
+```sh
+yarn                        # Install dependencies for all workspaces
+yarn prepare                # Build the library (runs bob build → outputs to lib/)
+yarn typecheck              # TypeScript type check (tsc --noEmit)
+trunk check                 # Lint with Trunk (prettier, ktlint, swiftformat, etc.)
+trunk fmt                   # Auto-fix lint issues
+yarn test                   # Run unit tests (jest --runInBand --no-watchman; same command CI runs)
+yarn test path/to/file.test.ts  # Run a single test file
+```
+
+### Example App
+
+```sh
+yarn example start          # Start Metro bundler
+yarn example android        # Run on Android device/emulator
+yarn example ios            # Run on iOS simulator
+yarn example build:android  # Build Android APK (arm64-v8a, no daemon)
+yarn example build:ios      # Build iOS in Debug mode
+```
+
+### Clean Build Artifacts
+
+```sh
+yarn clean                  # Remove android/build, example/android/build, example/android/app/build, example/ios/build, example/ios/Pods, lib/
+```
+
+### iOS Setup (after native changes)
+
+```sh
+cd example && bundle exec pod install --project-directory=ios
+```
+
+### Release
+
+```sh
+yarn release-it             # Bump version, generate CHANGELOG, commit/tag/push, publish to npm and GitHub
+```
+
+Config in `.release-it.json`. Uses `@release-it/conventional-changelog` with conventional commits preset. Runs `npm run prepare` after version bump automatically.
+
+## Architecture
+
+### JavaScript Layer (`src/`)
+
+- **`src/NativeStepCounter.ts`** — TurboModule spec definition. Defines the `Spec` interface registered as `"StepCounter"` via `TurboModuleRegistry.getEnforcing`. Exports `StepCountData` type and constants (`NAME`, `VERSION`, `eventName`).
+- **`src/index.tsx`** — Public API. Wraps the native module with a `NativeEventEmitter`, exposes:
+  - `isStepCountingSupported()` → Promise with `{ supported, granted }`
+  - `startStepCounterUpdate(start, callback)` → returns `EventSubscription`
+  - `stopStepCounterUpdate()` → removes only the subscription created by the most recent `startStepCounterUpdate` (tracked as `_activeSubscription`) and stops native updates; external listeners are left intact
+  - `parseStepData(data)` → transforms raw `StepCountData` into human-readable `ParsedStepCountData`
+  - `createStepCountFilter(options?)` → returns a stateful filter that drops false-positive bursts (any cadence faster than `minimumStepIntervalMs`, default 250) and rebases later cumulative values so ignored steps do not reappear
+
+### Native Layer
+
+**iOS (`ios/`)**:
+
+- `StepCounter.h / .mm` — Main Objective-C module. Implements `isStepCountingSupported`, `startStepCounterUpdate`, `stopStepCounterUpdate`. Uses `CMPedometer` for step data and `SOMotionDetecter` for motion detection. Emits `StepCounter.stepCounterUpdate` events.
+- `SOMotionDetecter.h / .m` — Motion detection helper used by the iOS module.
+- New Architecture support via `#ifdef RCT_NEW_ARCH_ENABLED` guard with `NativeStepCounterSpecJSI`.
+
+**Android (`android/src/main/java/com/stepcounter/`)**:
+
+- `StepCounterModule.kt` — Extends `NativeStepCounterSpec`. Selects sensor service based on device capability (prefers hardware step counter, falls back to accelerometer). Requires `ACTIVITY_RECOGNITION` permission.
+- `StepCounterPackage.kt` — Standard RN package registration.
+- `services/SensorListenService.kt` — Abstract base for sensor services; registers with `SensorManager` and emits events via `RCTDeviceEventEmitter`.
+- `services/StepCounterService.kt` — Uses `TYPE_STEP_COUNTER` hardware sensor (API 19+).
+- `services/AccelerometerService.kt` — Fallback for devices without hardware step counter; processes raw accelerometer data.
+- `utils/AndroidVersionHelper.kt` — API level compatibility checks.
+- `utils/SensorFusionMath.kt` — Vector math utilities for accelerometer-based step detection.
+- Min SDK: 24, Target/Compile SDK: 36, Kotlin 2.0.21.
+
+### Build System
+
+- **`react-native-builder-bob`** — Builds library to `lib/` in two targets: ESM module (`lib/module/`) and TypeScript declarations (`lib/typescript/`).
+- **Codegen** — Configured via `codegenConfig` in `package.json` (name: `StepCounterSpec`, type: `modules`, Java package: `com.stepcounter`).
+- **Trunk** — Manages linting (prettier, ktlint, swiftformat, shellcheck, markdownlint, yamllint, actionlint). Run via `trunk` CLI, not via yarn scripts.
+
+## Testing
+
+Jest is configured in `jest.config.js` (preset: `@react-native/jest-preset`). `jest.setup.ts` mocks `TurboModuleRegistry.getEnforcing` globally, returning stubs for all native methods. Tests live under `src/__tests__/` (`index.test.ts`) and `example/src/__tests__/` (`App.test.tsx`, `LogCat.test.tsx`) — a single root Jest run covers both.
+
+The `jest-config` package is used in `jest.config.js` for default `moduleFileExtensions`. `modulePathIgnorePatterns` excludes `example/node_modules` and `lib/`.
+
+## Compatibility
+
+- **v0.3.0+**: New Architecture (TurboModule/Fabric) is **required**. The library no longer supports the legacy bridge architecture.
+- **Not supported**: Expo Go, Expo managed workflow, React Native < 0.71 (the `react-native` peer dependency requires `>=0.71.0`).
+- For legacy architecture support, use a version prior to v0.3.0.
+
+## Key Conventions
+
+- **Node version**: `lts/jod` (Node 22 LTS; see `.nvmrc`)
+- **Package manager**: Yarn 4.x only — do not use npm or pnpm.
+- TypeScript strict mode is enabled with `noUnusedLocals`, `noUnusedParameters`, `noUncheckedIndexedAccess`.
+- Event name constant: `"StepCounter.stepCounterUpdate"` (defined in `NativeStepCounter.ts`).
+- **Timestamp flow**: JS passes `Date.getTime()` (Unix **milliseconds**) to native via `startStepCounterUpdate`. Native auto-normalizes the incoming value (accepts both milliseconds and seconds) and returns `startDate`/`endDate` in `StepCountData` as Unix timestamps in **milliseconds**.
+- `parseStepData` assumes a daily goal of 10,000 steps and calculates calories as `steps * 0.045 kCal`.
+
+## Editing Native Code
+
+- **Xcode**: Open `example/ios/StepCounterExample.xcworkspace`. Library files are under `Pods > Development Pods > react-native-step-counter-newarch`.
+- **Android Studio**: Open `example/android`. Library files appear under `react-native-step-counter-newarch`.
+- After any native change, rebuild the example app (`yarn example android` or `yarn example ios`).
 
 ---
 > Source: [AndrewDongminYoo/react-native-step-counter](https://github.com/AndrewDongminYoo/react-native-step-counter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
