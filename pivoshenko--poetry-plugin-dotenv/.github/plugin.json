@@ -1,0 +1,9 @@
+{
+  "name": "pivoshenko--poetry-plugin-dotenv",
+  "displayName": "poetry-plugin-dotenv",
+  "description": "poetry-plugin-dotenv",
+  "version": "1.0.0",
+  "author": "pivoshenko",
+  "homepage": "https://github.com/pivoshenko/poetry-plugin-dotenv",
+  "skills": []
+}
