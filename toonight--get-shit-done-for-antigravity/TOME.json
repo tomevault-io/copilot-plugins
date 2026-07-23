@@ -1,0 +1,105 @@
+{
+  "name": "get-shit-done-for-antigravity",
+  "owner": "toonight",
+  "repo": "get-shit-done-for-antigravity",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/planner/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/debugger/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/executor/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/executor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/verifier/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/verifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/plan-checker/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/plan-checker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/token-budget/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/token-budget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/context-fetch/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/context-fetch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/codebase-mapper/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/codebase-mapper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/empirical-validation/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/empirical-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "get-shit-done-for-antigravity",
+      "path": ".agents/skills/context-health-monitor/SKILL.md",
+      "github_url": "https://github.com/toonight/get-shit-done-for-antigravity/tree/main/.agents/skills/context-health-monitor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/toonight/get-shit-done-for-antigravity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:52:09Z"
+}
