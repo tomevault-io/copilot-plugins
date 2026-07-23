@@ -1,0 +1,18 @@
+{
+  "name": "psd-tools--psd-tools",
+  "displayName": "psd-tools",
+  "description": "psd-tools",
+  "version": "1.0.0",
+  "author": "psd-tools",
+  "homepage": "https://github.com/psd-tools/psd-tools",
+  "skills": [
+    {
+      "name": "psd-tools",
+      "description": ""
+    },
+    {
+      "name": "psd-tools",
+      "description": ""
+    }
+  ]
+}
