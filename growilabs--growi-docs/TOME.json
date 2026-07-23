@@ -1,0 +1,51 @@
+{
+  "name": "growi-docs",
+  "owner": "growilabs",
+  "repo": "growi-docs",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "growi-docs",
+      "path": ".claude/skills/growi-upgrade-guide/SKILL.md",
+      "github_url": "https://github.com/growilabs/growi-docs/tree/main/.claude/skills/growi-upgrade-guide/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/growilabs/growi-docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T00:13:15Z"
+}
