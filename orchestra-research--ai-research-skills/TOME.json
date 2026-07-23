@@ -1,9 +1,9 @@
 {
-  "name": "AI-Research-SKILLs",
+  "name": "AI-research-SKILLs",
   "owner": "Orchestra-Research",
-  "repo": "AI-Research-SKILLs",
-  "description": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. Maintained by Orchestra Research.",
-  "type": "config",
+  "repo": "AI-research-SKILLs",
+  "description": "",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,549 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "source_url": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
+  "skills": [
+    {
+      "name": "AI-research-SKILLs",
+      "path": "15-rag/faiss/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/15-rag/faiss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "15-rag/qdrant/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/15-rag/qdrant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "15-rag/chroma/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/15-rag/chroma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "13-mlops/mlflow/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/13-mlops/mlflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "15-rag/pinecone/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/15-rag/pinecone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "14-agents/crewai/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/14-agents/crewai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "13-mlops/swanlab/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/13-mlops/swanlab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "14-agents/autogpt/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/14-agents/autogpt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "14-agents/a-evolve/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/14-agents/a-evolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/clip/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/clip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "14-agents/langchain/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/14-agents/langchain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "03-fine-tuning/peft/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/03-fine-tuning/peft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "10-optimization/hqq/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/10-optimization/hqq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "10-optimization/awq/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/10-optimization/awq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/llava/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/llava/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "14-agents/llamaindex/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/14-agents/llamaindex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "13-mlops/tensorboard/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/13-mlops/tensorboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "10-optimization/gguf/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/10-optimization/gguf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "10-optimization/gptq/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/10-optimization/gptq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/blip-2/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/blip-2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "0-autoresearch-skill/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/0-autoresearch-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/openpi/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/openpi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/verl/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/verl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/whisper/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/whisper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/slime/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/slime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/miles/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/miles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "03-fine-tuning/axolotl/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/03-fine-tuning/axolotl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "03-fine-tuning/unsloth/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/03-fine-tuning/unsloth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/simpo/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/simpo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "09-infrastructure/modal/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/09-infrastructure/modal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/audiocraft/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/audiocraft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/openvla-oft/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/openvla-oft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/openrlhf/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/openrlhf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "12-inference-serving/vllm/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/12-inference-serving/vllm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "09-infrastructure/skypilot/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/09-infrastructure/skypilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "16-prompt-engineering/dspy/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/16-prompt-engineering/dspy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "17-observability/langsmith/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/17-observability/langsmith/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "01-model-architecture/rwkv/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/01-model-architecture/rwkv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "13-mlops/weights-and-biases/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/13-mlops/weights-and-biases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/torchforge/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/torchforge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "05-data-processing/ray-data/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/05-data-processing/ray-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "12-inference-serving/sglang/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/12-inference-serving/sglang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/cosmos-policy/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/cosmos-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "01-model-architecture/mamba/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/01-model-architecture/mamba/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "15-rag/sentence-transformers/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/15-rag/sentence-transformers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "11-evaluation/nemo-evaluator/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/11-evaluation/nemo-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "03-fine-tuning/llama-factory/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/03-fine-tuning/llama-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "01-model-architecture/litgpt/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/01-model-architecture/litgpt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "10-optimization/bitsandbytes/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/10-optimization/bitsandbytes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "02-tokenization/sentencepiece/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/02-tokenization/sentencepiece/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "01-model-architecture/nanogpt/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/01-model-architecture/nanogpt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "16-prompt-engineering/outlines/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/16-prompt-engineering/outlines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/segment-anything/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/segment-anything/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "18-multimodal/stable-diffusion/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/18-multimodal/stable-diffusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "16-prompt-engineering/guidance/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/16-prompt-engineering/guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "12-inference-serving/llama-cpp/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/12-inference-serving/llama-cpp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "07-safety-alignment/llamaguard/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/07-safety-alignment/llamaguard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "05-data-processing/nemo-curator/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/05-data-processing/nemo-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "10-optimization/flash-attention/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/10-optimization/flash-attention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "16-prompt-engineering/instructor/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/16-prompt-engineering/instructor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "01-model-architecture/torchtitan/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/01-model-architecture/torchtitan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/trl-fine-tuning/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/trl-fine-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "06-post-training/grpo-rl-training/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/06-post-training/grpo-rl-training/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "12-inference-serving/tensorrt-llm/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/12-inference-serving/tensorrt-llm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "08-distributed-training/ray-train/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/08-distributed-training/ray-train/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "08-distributed-training/accelerate/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/08-distributed-training/accelerate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "19-emerging-techniques/moe-training/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/19-emerging-techniques/moe-training/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "11-evaluation/lm-evaluation-harness/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/11-evaluation/lm-evaluation-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "20-ml-paper-writing/ml-paper-writing/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/20-ml-paper-writing/ml-paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "19-emerging-techniques/model-pruning/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/19-emerging-techniques/model-pruning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "20-ml-paper-writing/academic-plotting/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/20-ml-paper-writing/academic-plotting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "08-distributed-training/pytorch-fsdp2/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/08-distributed-training/pytorch-fsdp2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "07-safety-alignment/constitutional-ai/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/07-safety-alignment/constitutional-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "08-distributed-training/megatron-core/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/08-distributed-training/megatron-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "02-tokenization/huggingface-tokenizers/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/02-tokenization/huggingface-tokenizers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "04-mechanistic-interpretability/pyvene/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/04-mechanistic-interpretability/pyvene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "04-mechanistic-interpretability/nnsight/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/04-mechanistic-interpretability/nnsight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "04-mechanistic-interpretability/saelens/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/04-mechanistic-interpretability/saelens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "11-evaluation/bigcode-evaluation-harness/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/11-evaluation/bigcode-evaluation-harness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "20-ml-paper-writing/systems-paper-writing/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/20-ml-paper-writing/systems-paper-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "08-distributed-training/pytorch-lightning/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/08-distributed-training/pytorch-lightning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "22-agent-native-research-artifact/compiler/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/22-agent-native-research-artifact/compiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "19-emerging-techniques/speculative-decoding/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/19-emerging-techniques/speculative-decoding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "19-emerging-techniques/knowledge-distillation/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/19-emerging-techniques/knowledge-distillation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "20-ml-paper-writing/presenting-conference-talks/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/20-ml-paper-writing/presenting-conference-talks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "04-mechanistic-interpretability/transformer-lens/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/04-mechanistic-interpretability/transformer-lens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "22-agent-native-research-artifact/rigor-reviewer/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/22-agent-native-research-artifact/rigor-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "21-research-ideation/brainstorming-research-ideas/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/21-research-ideation/brainstorming-research-ideas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "22-agent-native-research-artifact/research-manager/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/22-agent-native-research-artifact/research-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "path": "21-research-ideation/creative-thinking-for-research/SKILL.md",
+      "github_url": "https://github.com/Orchestra-Research/AI-research-SKILLs/tree/main/21-research-ideation/creative-thinking-for-research/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Orchestra-Research/AI-research-SKILLs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:39:37Z"
+  "distributed_at": "2026-07-23T02:38:41Z"
 }
