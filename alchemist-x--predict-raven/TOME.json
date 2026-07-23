@@ -3,8 +3,8 @@
   "owner": "Alchemist-X",
   "repo": "predict-raven",
   "description": "The first autonomous, continuously-running trading agent for prediction markets. Live on Polymarket.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "predict-raven",
+      "path": "skills/daily-pulse/SKILL.md",
+      "github_url": "https://github.com/Alchemist-X/predict-raven/tree/main/skills/daily-pulse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "predict-raven",
+      "path": "skills/probability-analysis/SKILL.md",
+      "github_url": "https://github.com/Alchemist-X/predict-raven/tree/main/skills/probability-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "predict-raven",
+      "path": "vendor/repos/polymarket-market-pulse/polymarket-market-pulse-zh/SKILL.md",
+      "github_url": "https://github.com/Alchemist-X/predict-raven/tree/main/vendor/repos/polymarket-market-pulse/polymarket-market-pulse-zh/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Alchemist-X/predict-raven",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:34:15Z"
+  "distributed_at": "2026-07-23T23:39:26Z"
 }
