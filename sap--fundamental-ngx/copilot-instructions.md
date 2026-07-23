@@ -1,371 +1,149 @@
 ## fundamental-ngx
 
-> Document: Angular 22+ Development Guidelines for Fundamental NGX
+> Angular component library (Angular 22+, NX monorepo, Yarn 4).
 
-<!--
-Document: Angular 22+ Development Guidelines for Fundamental NGX
-Last Updated: April 17, 2026
-Version: 5.1
-Purpose: Comprehensive guide for AI agents and developers working with Angular 22+ in NX monorepo
-Note: Detailed documentation has been split into separate files in docs/agents/
--->
+# Fundamental NGX
 
-# Angular 22+ Development Guidelines
+Angular component library (Angular 22+, NX monorepo, Yarn 4).
+All components standalone by default.
 
-## Table of Contents
+## Architecture
 
-1. [Persona](#persona)
-2. [Quick Reference](#quick-reference)
-3. [Quick Decision Guide](#quick-decision-guide)
-4. [Common Mistakes to Avoid](#common-mistakes-to-avoid)
-5. [Development Workflow](#development-workflow)
-6. [Component Structure](#component-structure)
-7. [Commit & PR Guidelines](#commit--pr-guidelines)
-8. [Detailed Documentation](#detailed-documentation)
+NX monorepo with publishable libraries:
 
----
+| Library                   | Scope tag                | Prefix | Purpose                                                   |
+| ------------------------- | ------------------------ | ------ | --------------------------------------------------------- |
+| `libs/core`               | `scope:fd`               | `fd-`  | Base UI components (button, dialog, card, calendar, etc.) |
+| `libs/platform`           | `scope:fdp`              | `fdp-` | Higher-level composites built on core                     |
+| `libs/cdk`                | `scope:cdk`              | `fdk-` | Utilities, forms, data-source abstractions                |
+| `libs/btp`                | `scope:fdb`              | `fdb-` | Business Technology Platform components                   |
+| `libs/cx`                 | `scope:cx`               | `cx-`  | Customer Experience components                            |
+| `libs/i18n`               | `scope:i18n`             | —      | Internationalization (signal-based)                       |
+| `libs/datetime-adapter`   | `scope:datetime-adapter` | —      | Date/time adapters                                        |
+| `libs/ui5-webcomponents*` | `scope:ui5`              | `ui5-` | Generated Angular wrappers for UI5 Web Components         |
+| `apps/docs`               | `scope:docs`             | —      | Documentation / showcase app                              |
 
-## Persona
+**Dependency rules** (enforced by `nx-enforce-module-boundaries`):
 
-You are a dedicated Angular, TypeScript frontend developer who thrives on leveraging the absolute latest features of the framework. You are currently immersed in Angular v21+, passionately adopting signals for reactive state management, embracing standalone components, utilizing the new control flow (`@if`, `@for`, `@switch`), and implementing zoneless change detection.
+- `cdk` has no library deps (base layer)
+- `core` depends on `cdk`, `i18n`
+- `platform` depends on `core`, `cdk`, `i18n`
+- `btp`, `cx` depend on `core`, `platform`, `cdk`
+- `ui5-*` depends on `ui5-webcomponents-base` only
+- `docs` can import everything
 
-You are working in an **NX monorepo** with libraries: `core`, `platform`, `cdk`, `btp`, `cx`, `i18n`, `datetime-adapter`, `ui5-webcomponents`.
-
-**When implementing changes, you always explain and reason about your decisions.**
-
----
-
-## Quick Reference
-
-### Essential Commands
+## Commands
 
 ```bash
-# Build/Lint/Test specific library
+# Build / lint / test a library
 nx run <library>:build
 nx run <library>:lint
 nx run <library>:test --testfile=<filename>.spec.ts
 
-# Examples
-nx run cdk:test --testfile=line-clamp.directive.spec.ts
-nx run core:test --testfile=button.component.spec.ts
-
-# Run affected only
+# Affected only (prefer this for validation)
 nx affected:build
 nx affected:lint
 nx affected:test
+
+# Format code (run after finishing code changes)
+yarn format
+
+# Serve docs app
+yarn start
+
+# Clear NX cache if stale
+nx reset
+
+# E2E / integration tests (see docs/e2e-testing.md)
+npx playwright test                    # Run all
+npx playwright test --grep "core/button"    # Run specific
+npx playwright test --update-snapshots # Update baselines
+npx playwright show-report             # View results
 ```
 
-### Component Selector Prefix
-
-All components use `fd-` prefix: `fd-button`, `fd-dialog`, `fd-card`
-
-### Angular Resources
-
-- [Components](https://angular.dev/essentials/components)
-- [Signals](https://angular.dev/essentials/signals)
-- [Templates](https://angular.dev/essentials/templates)
-- [Dependency Injection](https://angular.dev/essentials/dependency-injection)
-
----
-
-## Quick Decision Guide
-
-| Scenario                                  | Solution                                    |
-| ----------------------------------------- | ------------------------------------------- |
-| Managing local component state            | Use `signal()`                              |
-| Deriving state from signals               | Use `computed()`                            |
-| Signal vs plain property                  | Only `signal()` if reactive consumer exists |
-| Deriving local mutable state from inputs  | Use `linkedSignal()`                        |
-| Reacting to signal changes (side effects) | Use `effect()`                              |
-| DOM manipulation after rendering          | Use `afterRender()` / `afterNextRender()`   |
-| Async data fetching with signals          | Use `resource()`                            |
-| Component input                           | Use `input()` signal                        |
-| Component output                          | Use `output()` function                     |
-| Two-way binding                           | Use `model()` signal                        |
-| Host bindings and event listeners         | Use `host: {}` in decorator                 |
-| Async operations (HTTP, timers)           | Use RxJS Observables                        |
-| BehaviorSubject for state                 | Migrate to `signal()`                       |
-| Querying view children/DOM elements       | Use `viewChild()` / `viewChildren()`        |
-| Querying projected content                | Use `contentChild()` / `contentChildren()`  |
-| Parent setting child defaults             | Use InjectionToken pattern                  |
-| Setting signal input programmatically     | Use setter method pattern                   |
-
----
-
-## Common Mistakes to Avoid
-
-| ❌ Don't Do This                      | ✅ Do This Instead                        | Why                                 |
-| ------------------------------------- | ----------------------------------------- | ----------------------------------- |
-| `@HostBinding()` / `@HostListener()`  | Use `host: {}` in decorator               | Better tree-shaking, AOT            |
-| `@Input()` / `@Output()` decorators   | Use `input()` / `output()`                | Signal-based, auto change detection |
-| `standalone: true` in decorator       | Omit it (default in Angular 22+)          | Cleaner code                        |
-| `ngClass` / `ngStyle`                 | Use `class` / `style` bindings            | Direct binding is simpler           |
-| `*ngIf` / `*ngFor` / `*ngSwitch`      | Use `@if` / `@for` / `@switch`            | New control flow syntax             |
-| `BehaviorSubject` for local state     | Use `signal()`                            | Simpler, automatic cleanup          |
-| `signal()` for internal bookkeeping   | Use plain property                        | No reactive consumer                |
-| `signal.set(); markForCheck();`       | Just `signal.set();`                      | Signals auto-notify                 |
-| Custom `DestroyedService`             | Use `DestroyRef` + `takeUntilDestroyed()` | Built-in Angular                    |
-| `CssClassBuilder` + `@applyCssClass`  | Use `computed()` + `host: { '[class]': }` | Signal-based                        |
-| Mutate object then `signal.set(same)` | `signal.update(o => ({...o, k: v}))`      | Reference equality = silent no-op   |
-| `effect(() => sig.set(derived))`      | Use `computed()` or `linkedSignal`        | Effects are for side effects only   |
-| Conditional signal read in `effect`   | Read tracked signals before `if`          | Unread signal = untracked dep       |
-| Protected after private members       | Protected before private                  | ESLint member ordering              |
-| `allowSignalWrites: true` in effect   | Remove the option                         | Deprecated in Angular 22+           |
-
----
-
-## Development Workflow
-
-### The Build-Test-Lint Cycle
-
-After making code changes, follow this validation sequence:
-
-```bash
-# 1. Compile - catches type errors
-nx run <library>:build
-
-# 2. Lint - catches style violations
-nx run <library>:lint
-
-# 3. Test - catches logic errors
-nx run <library>:test --testfile=<file>.spec.ts
-```
-
-### When to Validate
-
-| Change Type                | When                    | Why                                  |
-| -------------------------- | ----------------------- | ------------------------------------ |
-| Type annotation changes    | After each file         | TypeScript may not infer as expected |
-| Adding/removing properties | Immediately             | References may break                 |
-| New test suites            | After writing           | Verify tests pass                    |
-| Multiple file refactoring  | After each logical step | Catch errors early                   |
-
-### Test Writing Guidelines
-
-**Focus on realistic user scenarios, not edge cases.**
-
-✅ **Write tests for:**
-
-- User interactions, valid configurations, lifecycle, accessibility
-
-❌ **Don't write tests for:**
-
-- TypeScript-prevented scenarios, Angular DI-prevented scenarios, implementation details
-
----
-
-## Component Structure
-
-### Modern Angular 22+ Component
-
-```typescript
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-
-@Component({
-    selector: 'fd-example',
-    templateUrl: './example.component.html',
-    styleUrl: './example.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [OtherComponent],
-    host: {
-        '[class]': '_cssClass()',
-        '(click)': 'handleClick($event)'
-    }
-})
-export class ExampleComponent {
-    // 1. Signal inputs/outputs
-    readonly label = input<string>('');
-    readonly disabled = input(false, { transform: booleanAttribute });
-    readonly clicked = output<MouseEvent>();
-
-    // 2. Protected computed/injected (template-accessible)
-    protected readonly _cssClass = computed(() => {
-        const classes = ['fd-example'];
-        if (this.disabled()) classes.push('fd-example--disabled');
-        return classes.join(' ');
-    });
-    protected readonly _service = inject(MyService);
-
-    // 3. Private fields LAST
-    private readonly _elementRef = inject(ElementRef);
-
-    // 4. Methods
-    protected handleClick(event: MouseEvent): void {
-        if (!this.disabled()) {
-            this.clicked.emit(event);
-        }
-    }
-}
-```
-
-### Member Ordering (ESLint enforced)
-
-1. Decorated properties (`@Input`, `@Output`, `@ViewChild`)
-2. Signal inputs/outputs (`input()`, `output()`, `model()`)
-3. Public → Protected → Private fields
-4. Constructor
-5. Public → Protected → Private methods
-
-### Key Patterns
-
-| Pattern             | Code                                                    |
-| ------------------- | ------------------------------------------------------- |
-| **Signal input**    | `readonly value = input<string>('');`                   |
-| **Required input**  | `readonly id = input.required<string>();`               |
-| **Signal output**   | `readonly clicked = output<MouseEvent>();`              |
-| **Two-way binding** | `readonly selected = model<boolean>(false);`            |
-| **Computed**        | `readonly total = computed(() => this.a() + this.b());` |
-| **LinkedSignal**    | `readonly edit = linkedSignal(() => this.initial());`   |
-| **Host class**      | `host: { '[class]': '_cssClass()' }`                    |
-| **Cleanup**         | `takeUntilDestroyed(inject(DestroyRef))`                |
-
----
-
-## Commit & PR Guidelines
-
-### Commit Format
-
-```
-<type>(<scope>): <subject>
-
-[body]
-
-[BREAKING CHANGE: description]
-```
-
-### Types
-
-`feat` | `fix` | `docs` | `style` | `refactor` | `test` | `build` | `ci` | `chore`
-
-### Scopes (Required)
-
-`core` | `platform` | `cdk` | `btp` | `cx` | `i18n` | `datetime-adapter` | `ui5` | `docs` | `e2e` | `ci`
-
-### Breaking Changes
-
-```
-fix(core)!: remove deprecated API
-
-BREAKING CHANGE: DestroyedService removed. Use DestroyRef + takeUntilDestroyed().
-```
-
-### PR Title Format
-
-```
-<type>(<scope>): <subject>
-```
-
-- `WIP` prefix = will NOT be merged
-- Use `feat` or `fix` to bump version
-
----
-
-## Detailed Documentation
-
-For comprehensive patterns and examples, see the detailed documentation:
-
-| Topic                      | File                                                                   |
-| -------------------------- | ---------------------------------------------------------------------- |
-| **Angular Patterns**       | [docs/agents/angular-patterns.md](docs/agents/angular-patterns.md)     |
-| **Dependency Injection**   | [docs/agents/di-patterns.md](docs/agents/di-patterns.md)               |
-| **State Management**       | [docs/agents/state-management.md](docs/agents/state-management.md)     |
-| **Testing Guidelines**     | [docs/agents/testing-guidelines.md](docs/agents/testing-guidelines.md) |
-| **Internationalization**   | [docs/agents/i18n-patterns.md](docs/agents/i18n-patterns.md)           |
-| **NX Workflow**            | [docs/agents/nx-workflow.md](docs/agents/nx-workflow.md)               |
-| **Breaking Changes**       | [docs/agents/breaking-changes.md](docs/agents/breaking-changes.md)     |
-| **Fundamental Styles CSS** | [docs/agents/fundamental-styles.md](docs/agents/fundamental-styles.md) |
-
-### Detailed Documentation Contents
-
-**[angular-patterns.md](docs/agents/angular-patterns.md)**
-
-- Signal inputs, outputs, models
-- Computed signals and CSS class building
-- LinkedSignal for mutable derived state
-- Effects and untracked()
-- Host bindings
-- Queries (viewChild, contentChild)
-- Render lifecycle hooks
-- Resource API
-- Migrating from CssClassBuilder
-- Component member ordering
-
-**[di-patterns.md](docs/agents/di-patterns.md)**
-
-- Pattern 1: Contextual defaults with InjectionTokens
-- Pattern 2: Component composition with InjectionTokens
-- Pattern 3: Programmatic signal input updates
-- Why @ContentChild doesn't work with signal inputs
-
-**[state-management.md](docs/agents/state-management.md)**
-
-- When to use signals vs plain properties
-- Immutable update patterns for signals (mutation trap)
-- Effect vs Observables vs linkedSignal decision guide
-- linkedSignal for mutable derived state
-- BehaviorSubject + combineLatest migration
-- Migrating classes that extend BehaviorSubject
-- Signal-based change detection
-
-**[testing-guidelines.md](docs/agents/testing-guidelines.md)**
-
-- Test commands and running specific files
-- Realistic vs unrealistic test scenarios
-- Testing signal-based components
-- Testing DI patterns
-- Testing async operations
-- ESLint compliance in tests
-
-**[i18n-patterns.md](docs/agents/i18n-patterns.md)**
-
-- Signal-based i18n API
-- Translation factory pattern
-- Dynamic translations with context
-- Custom language/locale
-- Global language switching
-
-**[nx-workflow.md](docs/agents/nx-workflow.md)**
-
-- Workspace structure
-- Build/test/lint commands
-- Running specific test files
-- Incremental validation
-- NX best practices
-
-**[breaking-changes.md](docs/agents/breaking-changes.md)**
-
-- What constitutes a breaking change
-- Breaking change commit format
-- Dead code removal process
-- Documentation file guidelines
-
-**[fundamental-styles.md](docs/agents/fundamental-styles.md)**
-
-- BEM naming convention (block, element, modifier, state classes)
-- CSS class building with computed signals
-- SCSS import patterns
-- Design tokens (SAP CSS custom properties)
-- Accessibility patterns per component
-- Common pitfalls (wrong state classes, hardcoded colors)
-- MCP server tools reference (Claude Code)
-
----
-
-## Code of Conduct
-
-This project follows the [Contributor Covenant Code of Conduct v2.0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
-
----
-
-## Document Maintenance
-
-When this document is updated:
-
-1. Update the "Last Updated" date in the metadata header
-2. Increment version number if making structural changes
-3. Verify all internal anchor links still work
-4. Update the detailed docs if patterns change
+**IMPORTANT:** Always run `yarn format` after finishing code changes, before running build/lint/test.
+
+## Landmines
+
+- **DO NOT** add `standalone: true` to components/directives/pipes -- it's the default since Angular 19.
+- **DO NOT** use `@HostBinding` / `@HostListener` -- use `host: {}` in the decorator.
+- **DO NOT** use `*ngIf` / `*ngFor` / `*ngSwitch` -- use `@if` / `@for` / `@switch` control flow.
+- **DO NOT** pass `allowSignalWrites` to `effect()` -- the option no longer exists; signal writes in effects work by default.
+- **DO NOT** use `BehaviorSubject` for local component state -- use `signal()`.
+- **DO NOT** use custom `DestroyedService` -- use `DestroyRef` + `takeUntilDestroyed()`.
+- **DO NOT** use `CssClassBuilder` + `@applyCssClass` -- use `computed()` + `host: { '[class]': }`.
+- **DO NOT** edit files in `libs/ui5-webcomponents*/` by hand -- they are auto-generated by `libs/webc-generator`. Edit the generator instead.
+- **DO NOT** use `signal.set()` then `markForCheck()` when the signal is read in the template or a host binding -- Angular automatically tracks and marks the component. If you need to trigger change detection outside of a template-consumed signal, `markForCheck()` is still valid.
+- **DO NOT** mutate objects/arrays in place then call `signal.set()` with the same reference -- signals use reference equality (`===`), so same-reference updates are silently ignored. Always create new references: `signal.update(arr => [...arr, newItem])`, `signal.update(obj => ({ ...obj, key: val }))`.
+- **DO NOT** use `effect()` to derive state from other signals -- use `computed()` (read-only) or `linkedSignal()` (writable/resettable). Effects are for **side effects only**: DOM manipulation, logging, external API calls.
+- **DO NOT** rely on conditional signal reads inside `effect()` / `computed()` -- if a signal is only read inside an `if` branch, it won't be tracked when that branch isn't taken. Read tracked signals before conditional logic, or restructure to ensure all dependencies are always read.
+- **DO NOT** use `ngClass` / `ngStyle` -- use direct `class` / `style` bindings.
+- **DO NOT** grep `node_modules/fundamental-styles/` for CSS classes -- use the `fundamental-styles` MCP tools (`get_css_classes`, `get_component_html`, etc.) which provide structured, complete data.
+- **DO NOT** use `afterNextRender()` / `afterRender()` to set properties on child components -- we hit NG0100 when `FormItemComponent` used `afterNextRender` to set `ariaLabelledBy` on a content child (PR #14045). Moving to `ngAfterContentInit` fixed it. Angular docs recommend `afterNextRender` for DOM operations (measuring layout, third-party library init), not for modifying component state.
+- ESLint enforces **member ordering**: decorated props, then signal inputs/outputs, then public, then protected, then private. Protected **before** private, always.
+
+### New code vs existing code
+
+- **New** components/directives/pipes: use `input()`, `output()`, `model()`, `computed()`, `linkedSignal()`, `host: {}`.
+- **Existing** code: both `@Input()`/`@Output()` decorators and signal functions are fine.
+- When modifying existing `@Input()`/`@Output()`: prefer migrating to signal functions if the change is already in scope, but don't refactor just for the sake of it.
+
+## Skills
+
+Invoke with `/skill-name` (e.g. `/preflight`). Skills live in `.claude/skills/`.
+
+| Skill               | What it does                                                                       |
+| ------------------- | ---------------------------------------------------------------------------------- |
+| `setup-project`     | Set up a new Angular app with `@fundamental-ngx` installed, themed, and verified   |
+| `build-form`        | Build a reactive form with `fdp-form-group`, field validation, and error messages  |
+| `build-table`       | Build a platform data table with sorting, filtering, pagination, and row selection |
+| `build-page-layout` | Build a page layout using `fd-dynamic-page` or `fdp-dynamic-page`                  |
+| `scaffold`          | Generate a working component (dialog, table, card, form, shell, layout-grid)       |
+| `migrate`           | Migrate a component or directive to Angular 22+ signal-based patterns              |
+| `create-test`       | Generate or update unit tests following project testing conventions                |
+| `i18n-manage`       | Add, rename, or remove i18n translation keys across the codebase                   |
+| `adopt-styles`      | Adopt breaking changes from `fundamental-styles` into Angular components           |
+| `update-docs`       | Verify and update documentation examples against the current public API            |
+| `best-practices`    | Audit code against project conventions and Angular 22+ best practices              |
+| `a11y-audit`        | Audit a component for WCAG AA accessibility compliance                             |
+| `review-pr`         | Review a pull request against project conventions                                  |
+| `preflight`         | Run local quality gates before creating a PR                                       |
+
+## MCP Tools (`@fundamental-ngx/mcp`)
+
+Use the `fundamental-ngx` MCP server to discover and understand components. Available tools:
+
+| Tool                     | When to use                                                                                                                                                                                                                                                                                               |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `list_components`        | Browse all components; filter by `library` (e.g. `@fundamental-ngx/core`) or `category`                                                                                                                                                                                                                   |
+| `search_components`      | Keyword search across names, selectors, descriptions                                                                                                                                                                                                                                                      |
+| `get_component_api`      | Full inputs/outputs/methods for a specific component                                                                                                                                                                                                                                                      |
+| `get_component_examples` | Working code examples from the docs app                                                                                                                                                                                                                                                                   |
+| `get_usage_guide`        | Import path, minimal template, required inputs, and pitfalls. **Use bare keys for best results**: `"dialog"`, `"table"`, `"button"`, `"card"`, `"setup"` (project setup), `"ui5"` (UI5 setup). Selector names like `"fd-dialog"` bypass the curated guides and return lower-quality auto-generated output |
+| `compare_components`     | Side-by-side API diff and alternatives between two components                                                                                                                                                                                                                                             |
+
+**Discovery workflow**: `search_components` → `list_components(library=...)` → `get_component_api` → `get_component_examples`
+
+### Core vs Platform form layer
+
+For data-entry forms, prefer the **platform** form layer over bare core components:
+
+- Use `fdp-form-group` + `fdp-form-field` from `@fundamental-ngx/platform/form` — they wire up labels, validation messages, layout, and accessibility automatically.
+- Use bare `fd-form-group` / `fd-form-item` from `@fundamental-ngx/core/form` only when building a custom form abstraction or when the platform layer is explicitly too heavy.
+
+## Detailed Reference
+
+For in-depth patterns, read on demand (not auto-loaded):
+
+- `docs/agents/angular-patterns.md` -- signals, computed, host bindings, queries, effects
+- `docs/agents/di-patterns.md` -- InjectionToken patterns, programmatic signal updates
+- `docs/agents/state-management.md` -- signal vs property decision guide
+- `docs/agents/testing-guidelines.md` -- realistic test scenarios, signal testing
+- `docs/agents/i18n-patterns.md` -- translation API usage, host bindings, testing
+- `docs/agents/nx-workflow.md` -- workspace commands, incremental validation
+- `docs/agents/breaking-changes.md` -- what constitutes a breaking change
+- `docs/agents/fundamental-styles.md` -- CSS class naming (BEM), design tokens, accessibility, MCP tools
 
 ---
 > Source: [SAP/fundamental-ngx](https://github.com/SAP/fundamental-ngx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
