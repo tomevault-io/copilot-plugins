@@ -1,0 +1,9 @@
+{
+  "name": "run-as-root--magento2-prometheus-exporter",
+  "displayName": "magento2-prometheus-exporter",
+  "description": "magento2-prometheus-exporter",
+  "version": "1.0.0",
+  "author": "run-as-root",
+  "homepage": "https://github.com/run-as-root/magento2-prometheus-exporter",
+  "skills": []
+}
