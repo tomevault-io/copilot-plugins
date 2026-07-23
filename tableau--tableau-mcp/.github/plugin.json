@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "tableau",
   "homepage": "https://github.com/tableau/tableau-mcp",
-  "skills": []
+  "skills": [
+    {
+      "name": "tableau-mcp",
+      "description": ""
+    }
+  ]
 }
