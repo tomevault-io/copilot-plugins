@@ -1,0 +1,225 @@
+{
+  "name": "atopile",
+  "owner": "atopile",
+  "repo": "atopile",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atopile-skills",
+      "path": ".claude/skills/atopile-skills",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/atopile-skills",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "compiler",
+      "path": ".claude/skills/compiler",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/compiler",
+      "description": ""
+    },
+    {
+      "name": "dev",
+      "path": ".claude/skills/dev",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/dev",
+      "description": ""
+    },
+    {
+      "name": "fabll",
+      "path": ".claude/skills/fabll",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/fabll",
+      "description": ""
+    },
+    {
+      "name": "graph",
+      "path": ".claude/skills/graph",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/graph",
+      "description": ""
+    },
+    {
+      "name": "lsp",
+      "path": ".claude/skills/lsp",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/lsp",
+      "description": ""
+    },
+    {
+      "name": "pyzig",
+      "path": ".claude/skills/pyzig",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/pyzig",
+      "description": ""
+    },
+    {
+      "name": "sexp",
+      "path": ".claude/skills/sexp",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/sexp",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/ato/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/ato/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/dev/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/lsp/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/lsp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/sexp/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/sexp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/agent/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/fabll/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/fabll/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/graph/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/pyzig/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/pyzig/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/solver/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/solver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/library/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/faebryk/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/faebryk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/frontend/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/planning/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/compiler/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/compiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/sexp_bench/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/sexp_bench/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/ato-language/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/ato-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/domain-layer/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/domain-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/package-agent/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/package-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/agent-summary/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/agent-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atopile",
+      "path": ".claude/skills/atopile-skills/SKILL.md",
+      "github_url": "https://github.com/atopile/atopile/tree/main/.claude/skills/atopile-skills/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/atopile/atopile",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:32:13Z"
+}
