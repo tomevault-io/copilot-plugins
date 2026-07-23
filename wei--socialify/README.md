@@ -1,30 +1,32 @@
 # socialify
 
-> Tome by [wei](https://github.com/wei/socialify) — distributed by [TomeVault](https://tomevault.io/claim/wei)
-
-AI instruction files for socialify by wei
+> Tome by [wei](https://github.com/wei/socialify), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wei/socialify](https://github.com/wei/socialify).
+Original source: `CLAUDE.md` in [wei/socialify](https://github.com/wei/socialify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/wei](https://tomevault.io/claim/wei)
-
-## Bundled Skills (2)
+## Bundled Skills (5)
 
 - [add-icon](https://github.com/wei/socialify/tree/main/.github/skills/add-icon)
 - [frontend-design](https://github.com/wei/socialify/tree/main/.github/skills/frontend-design)
+- [socialify](https://github.com/wei/socialify/tree/main/.github/skills/add-icon/SKILL.md)
+- [socialify](https://github.com/wei/socialify/tree/main/.github/skills/frontend-design/SKILL.md)
+- [socialify](https://github.com/wei/socialify/tree/main/.github/skills/upgrade-simple-icons/SKILL.md)
+
+From [wei/socialify](https://github.com/wei/socialify) — a repo with 2213+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/wei) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:t-e-s -->
