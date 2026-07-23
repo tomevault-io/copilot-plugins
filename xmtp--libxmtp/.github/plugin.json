@@ -1,0 +1,22 @@
+{
+  "name": "xmtp--libxmtp",
+  "displayName": "libxmtp",
+  "description": "libxmtp",
+  "version": "1.0.0",
+  "author": "xmtp",
+  "homepage": "https://github.com/xmtp/libxmtp",
+  "skills": [
+    {
+      "name": "working-with-nix",
+      "description": ""
+    },
+    {
+      "name": "libxmtp",
+      "description": ""
+    },
+    {
+      "name": "libxmtp",
+      "description": ""
+    }
+  ]
+}
