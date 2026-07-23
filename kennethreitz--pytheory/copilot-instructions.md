@@ -1,0 +1,51 @@
+## pytheory
+
+> When releasing to PyPI, always do all three:
+
+# Claude Code Instructions
+
+## Release Process
+
+When releasing to PyPI, always do all three:
+
+1. **Tag the commit**: `git tag v0.X.Y`
+2. **Push the tag**: `git push origin --tags`
+3. **Create a GitHub release**: `gh release create v0.X.Y --title "v0.X.Y: Short description" --notes "Release notes" --latest`
+
+Don't forget to update `CHANGELOG.md` *before* the release commit.
+
+## Version Bumping
+
+- `pyproject.toml` and `pytheory/__init__.py` must match
+- Run `uv lock` after changing the version
+- Patch releases (0.X.Y) for bug fixes and small additions
+- Minor releases (0.X.0) for new features
+
+## Testing
+
+```
+uv run python -m pytest tests/ -x -q --tb=short -m "not slow"
+```
+
+## Publishing
+
+Preferred — uses the existing `~/.pypirc` credentials, no token in the chat:
+
+```
+uv build && uvx twine upload dist/pytheory-0.X.Y*
+```
+
+(`uv publish` does NOT read `~/.pypirc`; only use `uv publish --token <token>`
+as a fallback if `.pypirc` isn't available.)
+
+## Music Preferences
+
+- Detune: keep at 8-15, don't go above 25
+- Humanize: 0.2 is the sweet spot for melodic parts
+- Drum humanize: 0.15 default is good
+- No swing unless specifically asked
+- Sine and triangle are underrated — use them more
+
+---
+> Source: [kennethreitz/pytheory](https://github.com/kennethreitz/pytheory) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
