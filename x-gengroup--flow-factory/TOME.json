@@ -3,8 +3,8 @@
   "owner": "X-GenGroup",
   "repo": "Flow-Factory",
   "description": "A unified framework for easy reinforcement learning in Flow-Matching models",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Flow-Factory",
+      "path": ".agents/skills/ff-debug/SKILL.md",
+      "github_url": "https://github.com/X-GenGroup/Flow-Factory/tree/main/.agents/skills/ff-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flow-Factory",
+      "path": ".agents/skills/ff-review/SKILL.md",
+      "github_url": "https://github.com/X-GenGroup/Flow-Factory/tree/main/.agents/skills/ff-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flow-Factory",
+      "path": ".agents/skills/ff-develop/SKILL.md",
+      "github_url": "https://github.com/X-GenGroup/Flow-Factory/tree/main/.agents/skills/ff-develop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flow-Factory",
+      "path": ".agents/skills/ff-new-model/SKILL.md",
+      "github_url": "https://github.com/X-GenGroup/Flow-Factory/tree/main/.agents/skills/ff-new-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flow-Factory",
+      "path": ".agents/skills/ff-new-reward/SKILL.md",
+      "github_url": "https://github.com/X-GenGroup/Flow-Factory/tree/main/.agents/skills/ff-new-reward/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Flow-Factory",
+      "path": ".agents/skills/ff-new-algorithm/SKILL.md",
+      "github_url": "https://github.com/X-GenGroup/Flow-Factory/tree/main/.agents/skills/ff-new-algorithm/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/X-GenGroup/Flow-Factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T11:45:26Z"
+  "distributed_at": "2026-07-23T08:01:17Z"
 }
