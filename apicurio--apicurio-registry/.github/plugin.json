@@ -1,0 +1,22 @@
+{
+  "name": "apicurio--apicurio-registry",
+  "displayName": "apicurio-registry",
+  "description": "apicurio-registry",
+  "version": "1.0.0",
+  "author": "Apicurio",
+  "homepage": "https://github.com/Apicurio/apicurio-registry",
+  "skills": [
+    {
+      "name": "apicurio-registry",
+      "description": ""
+    },
+    {
+      "name": "apicurio-registry",
+      "description": ""
+    },
+    {
+      "name": "apicurio-registry",
+      "description": ""
+    }
+  ]
+}
