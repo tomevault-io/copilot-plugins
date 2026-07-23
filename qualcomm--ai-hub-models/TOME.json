@@ -1,0 +1,63 @@
+{
+  "name": "ai-hub-models",
+  "owner": "qualcomm",
+  "repo": "ai-hub-models",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-hub-models",
+      "path": ".claude/skills/nightly-analyze/SKILL.md",
+      "github_url": "https://github.com/qualcomm/ai-hub-models/tree/main/.claude/skills/nightly-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-hub-models",
+      "path": ".claude/skills/kb-weekly-update/SKILL.md",
+      "github_url": "https://github.com/qualcomm/ai-hub-models/tree/main/.claude/skills/kb-weekly-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-hub-models",
+      "path": ".claude/skills/scorecard-analyze/SKILL.md",
+      "github_url": "https://github.com/qualcomm/ai-hub-models/tree/main/.claude/skills/scorecard-analyze/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/qualcomm/ai-hub-models",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:31:57Z"
+}
