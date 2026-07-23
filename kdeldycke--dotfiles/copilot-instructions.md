@@ -1,0 +1,134 @@
+## dotfiles
+
+> Use first-person singular ("I", "my") in all prose written on behalf of the user: issue descriptions, PR bodies, feature requests, comments, documentation. Never use first-person plural ("we", "our") unless the text genuinely refers to a group.
+
+@~/.claude/tropes.md
+
+## Voice and punctuation
+
+Use first-person singular ("I", "my") in all prose written on behalf of the user: issue descriptions, PR bodies, feature requests, comments, documentation. Never use first-person plural ("we", "our") unless the text genuinely refers to a group.
+
+Use ":" instead of em dashes for inline elaboration or appositive clauses.
+
+## Code organization
+
+Do not make autonomous decisions about module boundaries, file placement, or architectural structure. When intent is ambiguous, ask before reorganizing. The user has strong opinions about where code lives and how modules are scoped.
+
+## Commits and PRs
+
+Never run `git commit`, `git push`, `gh pr create`, or any other command that creates a commit, pushes to a remote, or opens a pull request unless I have explicitly authorized that specific action in the current conversation. Staging changes, drafting commit messages, and showing diffs are fine; the actual commit, push, or PR creation requires my explicit go-ahead each time. A prior authorization does not carry over to later actions.
+
+Never include AI attribution in commits or PRs. No `Co-Authored-By` lines, no "Generated with Claude Code", no mention of being an AI or which model produced the code. Do not reference model names, versions, or codenames in commit messages, PR titles, or PR bodies.
+
+Write commit messages as a human developer would — describe what the code change does and why, not how it was produced. Keep internal tooling references (specific tools, Slack channels, internal links) out of public-facing text.
+
+Never write `#N` (a literal `#` followed by a number) in commit messages, PR titles, or PR bodies unless N is the actual number of a GitHub issue or pull request in the target repository. GitHub auto-links every `#N` token to issue/PR N, so positional references like `test #1` or `tests #14 and #15` render as misleading cross-references to unrelated tickets. Use plain numbers (`test 1`, `tests 14 and 15`), backtick-quote the identifier when it names a slot in a test plan or list (`` test `1` ``, `` item `14` ``), or rephrase (`the first test`, `the fourteenth case`).
+
+## Shell commands
+
+Never use `$()` command substitutions inside `gh` (or any other) Bash calls. The sandbox flags `$()` as a separate security check that fires regardless of permission allow rules — it can't statically verify what executes inside a substitution. Instead, run compound commands as separate sequential Bash calls: capture the inner result first, then use it in the next call. Both commands then match the allow rules individually and auto-approve.
+
+## Code generation preferences
+
+For any non-trivial workflow, data processing, or multi-step logic: write Python, not Bash. The user is an advanced Python developer and can quickly read, inspect, and validate Python code. Short one-liners and simple Bash scripts are fine for convenience and performance, but anything with branching logic, string manipulation, data transformation, or error handling should be Python.
+
+## Data visualization
+
+When producing matplotlib figures, follow the design system at https://github.com/temataro/better-graphs for readable, presentation-ready plots: it codifies Tufte-style design rules, a chart-selection guide, and a `house_style.py` styling module (`apply_theme()`, `polish()`, `takeaway_title()`) that replaces matplotlib defaults with accent-led palettes, trimmed spines, unit-aware ticks, and takeaway-focused titles.
+
+## Terminology and spelling
+
+Use correct capitalization for proper nouns and trademarked names:
+
+<!-- typos:off -->
+
+- **PyPI** (not ~~PyPi~~): the Python Package Index. The "I" is capitalized because it stands for "Index". See [PyPI trademark guidelines](https://pypi.org/trademarks/).
+- **GitHub** (not ~~Github~~)
+- **GitHub Actions** (not ~~Github Actions~~ or ~~GitHub actions~~)
+- **JavaScript** (not ~~Javascript~~)
+- **TypeScript** (not ~~Typescript~~)
+- **macOS** (not ~~MacOS~~ or ~~macos~~)
+- **iOS** (not ~~IOS~~ or ~~ios~~)
+
+<!-- typos:on -->
+
+## Version formatting
+
+The version string is always bare (like `1.2.3`). The `v` prefix is a **tag namespace**: it only appears when the reference is to a git tag or something derived from a tag (action ref, comparison URL, commit message). This aligns with PEP 440, PyPI, and semver conventions.
+
+Rules:
+
+1. **No `v` prefix on package versions.** Anywhere the version identifies the *package* (PyPI, changelog heading, CLI output, `pyproject.toml`), use the bare version: `1.2.3`.
+2. **`v` prefix on tag references.** Anywhere the version identifies a *git tag* (comparison URLs, action refs, commit messages, PR titles), use `v1.2.3`.
+3. **Always backtick-escape versions in prose.** Both `v1.2.3` (tag) and `1.2.3` (package) are identifiers, not natural language. Wrap them in single backticks: `` `v1.2.3` ``, `` `1.2.3` ``.
+4. **Development versions** follow PEP 440: `1.2.3.dev0` with optional `+{short_sha}` local identifier.
+
+## File naming conventions
+
+Use the longest, most explicit file extension available. For YAML, that means `.yaml` (not `.yml`). Apply the same principle to all extensions (like `.html` not `.htm`, `.jpeg` not `.jpg`).
+
+Use lowercase filenames everywhere.
+
+### GitHub exceptions
+
+GitHub silently ignores certain files unless they use the exact name it expects. These are the known hard constraints where the long-form / lowercase rule does **not** apply:
+
+| File                     | Required name                       |
+| ------------------------ | ----------------------------------- |
+| Issue form templates     | `.github/ISSUE_TEMPLATE/*.yml`      |
+| Issue template config    | `.github/ISSUE_TEMPLATE/config.yml` |
+| Funding config           | `.github/funding.yml`               |
+| Release notes config     | `.github/release.yml`               |
+| Issue template directory | `.github/ISSUE_TEMPLATE/`           |
+| Code owners              | `CODEOWNERS`                        |
+
+Workflows (`.github/workflows/*.yaml`) and action metadata (`action.yaml`) accept both `.yml` and `.yaml`: use `.yaml`.
+
+## Markdown and documentation
+
+Markdown files have no line-length limit: do not hard-wrap prose in markdown. Each sentence or logical clause should flow as a single long line; let the renderer handle wrapping.
+
+Titles in markdown use sentence case.
+
+Use the natural auto-generated heading anchor for cross-references. Add an explicit anchor (`(my-anchor)=` in MyST, `<a id="…"></a>` in plain GFM) only when the natural one is unavailable: duplicate headings, non-heading targets.
+
+## YAML workflows
+
+For single-line commands, use plain inline `run:`. For multi-line, use the folded block scalar (`>`) which joins lines with spaces: no backslash continuations needed. Use the literal block scalar (`|`) only when preserved newlines are required (multi-statement scripts, heredocs).
+
+## Modern `typing` practices
+
+Use modern equivalents from `collections.abc` and built-in types instead of `typing` imports. Use `X | Y` instead of `Union` and `X | None` instead of `Optional`. New modules should include `from __future__ import annotations` ([PEP 563](https://peps.python.org/pep-0563/)).
+
+Omit type annotations on local variables, loop variables, and assignments when the type is obvious from the right-hand side. Add an explicit annotation only when the type checker cannot infer it (empty collections needing a specific element type, `None` initializations where the intended type is ambiguous). Function signatures are unaffected: always annotate parameters and return types.
+
+## Testing guidelines
+
+- Use `@pytest.mark.parametrize` when testing the same logic for multiple inputs. Prefer parametrize over copy-pasted test functions that differ only in their data.
+- Keep test logic simple with straightforward asserts.
+- Do not use classes for grouping tests. Write test functions as top-level module functions. Only use test classes when they provide shared fixtures, setup/teardown methods, or class-level state.
+
+## Ordering conventions
+
+Keep definitions sorted for readability and to minimize merge conflicts:
+
+- **YAML configuration keys**: alphabetically within each mapping level.
+- **Documentation lists and tables**: alphabetically, unless a logical order (like chronological in changelog) takes precedence.
+
+## Command-line options
+
+Always prefer long-form options over short-form for readability in workflow files and scripts (like `--output` not `-o`, `--verbose` not `-v`).
+
+## Common maintenance pitfalls
+
+- **CI debugging starts from the URL.** When a workflow fails, fetch the run logs first (`gh run view --log-failed`). Do not guess at the cause.
+- **Trace to root cause before coding a fix.** When a bug surfaces, audit its scope across the codebase before writing the patch. If the same pattern appears in multiple places, the fix belongs at the shared layer.
+- **Simplify before adding.** When asked to improve something, first ask whether existing code or tools already cover the case. Remove dead code and unused abstractions before introducing new ones.
+- **Documentation drift.** Version references, command output, and workflow descriptions in docs go stale after every release or refactor. Verify docs against actual behavior after changes, not against your assumption of what the code does.
+- **Type-checking divergence across Python versions.** Code that passes `mypy` locally on Python 3.14 may fail in CI under `--python-version 3.10`. Always check against the minimum supported version when modifying type-sensitive code.
+- **Angle-bracket placeholders in bash code blocks.** `mdformat-shfmt` runs `shfmt` on ```` ```bash ``` ```` fences. `shfmt` parses `<foo>` as input redirection and `>foo` as output redirection, then reorders the command. Use curly braces (`{foo}`) for placeholders in bash examples instead.
+- **Route through existing infrastructure, don't bypass it.** Before writing a new helper, check whether the codebase already has a mechanism for the same operation. A bug caused by data taking the wrong code path is better fixed by routing data to the right path than by duplicating logic at the wrong one.
+
+---
+> Source: [kdeldycke/dotfiles](https://github.com/kdeldycke/dotfiles) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
