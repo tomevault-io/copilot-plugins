@@ -4,7 +4,7 @@
   "repo": "docs",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -101,5 +101,5 @@
   ],
   "source_url": "https://github.com/mintlify/docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T11:37:43Z"
+  "distributed_at": "2026-07-23T19:30:40Z"
 }
