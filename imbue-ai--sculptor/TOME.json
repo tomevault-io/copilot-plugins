@@ -1,0 +1,183 @@
+{
+  "name": "sculptor",
+  "owner": "imbue-ai",
+  "repo": "sculptor",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/update-help-docs/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/update-help-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/address-comments/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/address-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/write-release-notes/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/write-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/batch-claude-runner/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/batch-claude-runner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/update-review-rules/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/update-review-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/run-integration-test/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/run-integration-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/code-review-checklist/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/code-review-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/measure-react-renders/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/measure-react-renders/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-plugin/skills/help/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-plugin/skills/help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/debug-integration-test/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/debug-integration-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/write-integration-test/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/write-integration-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": ".claude/skills/frontend-design-tokens/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/.claude/skills/frontend-design-tokens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/spec/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/plan/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/mock/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/mock/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/build/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/review/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/fix-bug/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-plugin/skills/sculpt-cli/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-plugin/skills/sculpt-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/architect/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-experimental/skills/stack/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-experimental/skills/stack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-workflow/skills/setup-repo/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-workflow/skills/setup-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sculptor",
+      "path": "sculptor/sculptor-experimental/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/imbue-ai/sculptor/tree/main/sculptor/sculptor-experimental/skills/handoff/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/imbue-ai/sculptor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:54:43Z"
+}
