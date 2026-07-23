@@ -1,0 +1,441 @@
+{
+  "name": "bkit-claude-code",
+  "owner": "popup-studio-ai",
+  "repo": "bkit-claude-code",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bkend-auth",
+      "path": "skills/bkend-auth",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-auth",
+      "description": ""
+    },
+    {
+      "name": "bkend-cookbook",
+      "path": "skills/bkend-cookbook",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-cookbook",
+      "description": ""
+    },
+    {
+      "name": "bkend-data",
+      "path": "skills/bkend-data",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-data",
+      "description": ""
+    },
+    {
+      "name": "bkend-quickstart",
+      "path": "skills/bkend-quickstart",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-quickstart",
+      "description": ""
+    },
+    {
+      "name": "bkend-storage",
+      "path": "skills/bkend-storage",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-storage",
+      "description": ""
+    },
+    {
+      "name": "bkit-rules",
+      "path": "skills/bkit-rules",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkit-rules",
+      "description": ""
+    },
+    {
+      "name": "bkit-templates",
+      "path": "skills/bkit-templates",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkit-templates",
+      "description": ""
+    },
+    {
+      "name": "claude-code-learning",
+      "path": "skills/claude-code-learning",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/claude-code-learning",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "desktop-app",
+      "path": "skills/desktop-app",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/desktop-app",
+      "description": ""
+    },
+    {
+      "name": "development-pipeline",
+      "path": "skills/development-pipeline",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/development-pipeline",
+      "description": ""
+    },
+    {
+      "name": "dynamic",
+      "path": "skills/dynamic",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/dynamic",
+      "description": ""
+    },
+    {
+      "name": "enterprise",
+      "path": "skills/enterprise",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/enterprise",
+      "description": ""
+    },
+    {
+      "name": "mobile-app",
+      "path": "skills/mobile-app",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/mobile-app",
+      "description": ""
+    },
+    {
+      "name": "pdca",
+      "path": "skills/pdca",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/pdca",
+      "description": ""
+    },
+    {
+      "name": "phase-1-schema",
+      "path": "skills/phase-1-schema",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-1-schema",
+      "description": ""
+    },
+    {
+      "name": "phase-2-convention",
+      "path": "skills/phase-2-convention",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-2-convention",
+      "description": ""
+    },
+    {
+      "name": "phase-3-mockup",
+      "path": "skills/phase-3-mockup",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-3-mockup",
+      "description": ""
+    },
+    {
+      "name": "phase-4-api",
+      "path": "skills/phase-4-api",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-4-api",
+      "description": ""
+    },
+    {
+      "name": "phase-5-design-system",
+      "path": "skills/phase-5-design-system",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-5-design-system",
+      "description": ""
+    },
+    {
+      "name": "phase-6-ui-integration",
+      "path": "skills/phase-6-ui-integration",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-6-ui-integration",
+      "description": ""
+    },
+    {
+      "name": "phase-7-seo-security",
+      "path": "skills/phase-7-seo-security",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-7-seo-security",
+      "description": ""
+    },
+    {
+      "name": "phase-8-review",
+      "path": "skills/phase-8-review",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-8-review",
+      "description": ""
+    },
+    {
+      "name": "phase-9-deployment",
+      "path": "skills/phase-9-deployment",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-9-deployment",
+      "description": ""
+    },
+    {
+      "name": "plan-plus",
+      "path": "skills/plan-plus",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/plan-plus",
+      "description": ""
+    },
+    {
+      "name": "starter",
+      "path": "skills/starter",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/starter",
+      "description": ""
+    },
+    {
+      "name": "zero-script-qa",
+      "path": "skills/zero-script-qa",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/zero-script-qa",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/btw/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/btw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/pdca/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/pdca/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkit/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/audit/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/sprint/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/sprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/deploy/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/starter/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/starter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/dynamic/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/dynamic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/control/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/rollback/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/rollback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/qa-phase/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/qa-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/plan-plus/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/plan-plus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkit-rules/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkit-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/mobile-app/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/mobile-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/enterprise/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/enterprise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkend-data/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkend-auth/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/pdca-batch/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/pdca-batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/desktop-app/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/desktop-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/code-review/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/skill-create/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/skill-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/skill-status/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/skill-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/pm-discovery/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/pm-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkend-storage/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/zero-script-qa/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/zero-script-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-8-review/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-8-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-3-mockup/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-3-mockup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkit-templates/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkit-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-1-schema/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-1-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkend-cookbook/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-cookbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/bkend-quickstart/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/bkend-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-2-convention/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-2-convention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-9-deployment/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-9-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/cc-version-analysis/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/cc-version-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-7-seo-security/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-7-seo-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/claude-code-learning/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/claude-code-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/development-pipeline/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/development-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-5-design-system/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-5-design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bkit-claude-code",
+      "path": "skills/phase-6-ui-integration/SKILL.md",
+      "github_url": "https://github.com/popup-studio-ai/bkit-claude-code/tree/main/skills/phase-6-ui-integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/popup-studio-ai/bkit-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:34:28Z"
+}
