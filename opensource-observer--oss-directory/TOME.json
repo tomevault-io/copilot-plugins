@@ -1,0 +1,87 @@
+{
+  "name": "oss-directory",
+  "owner": "opensource-observer",
+  "repo": "oss-directory",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oss-directory",
+      "path": ".claude/skills/add-logo/SKILL.md",
+      "github_url": "https://github.com/opensource-observer/oss-directory/tree/main/.claude/skills/add-logo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-directory",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/opensource-observer/oss-directory/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-directory",
+      "path": ".claude/skills/bulk-update/SKILL.md",
+      "github_url": "https://github.com/opensource-observer/oss-directory/tree/main/.claude/skills/bulk-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-directory",
+      "path": ".claude/skills/add-project/SKILL.md",
+      "github_url": "https://github.com/opensource-observer/oss-directory/tree/main/.claude/skills/add-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-directory",
+      "path": ".claude/skills/update-project/SKILL.md",
+      "github_url": "https://github.com/opensource-observer/oss-directory/tree/main/.claude/skills/update-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-directory",
+      "path": ".claude/skills/add-collection/SKILL.md",
+      "github_url": "https://github.com/opensource-observer/oss-directory/tree/main/.claude/skills/add-collection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oss-directory",
+      "path": ".claude/skills/enrich-collection/SKILL.md",
+      "github_url": "https://github.com/opensource-observer/oss-directory/tree/main/.claude/skills/enrich-collection/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/opensource-observer/oss-directory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:58:16Z"
+}
