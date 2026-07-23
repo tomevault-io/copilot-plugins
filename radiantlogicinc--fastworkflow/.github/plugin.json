@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "radiantlogicinc",
   "homepage": "https://github.com/radiantlogicinc/fastworkflow",
-  "skills": []
+  "skills": [
+    {
+      "name": "beads-workflow",
+      "description": ""
+    },
+    {
+      "name": "fastworkflow",
+      "description": ""
+    },
+    {
+      "name": "fastworkflow",
+      "description": ""
+    }
+  ]
 }
