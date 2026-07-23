@@ -7,11 +7,11 @@ AI-powered CesiumJS 3D globe control  49 tools for camera, entities, layers, ani
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gaopengbin/cesium-mcp](https://github.com/gaopengbin/cesium-mcp).
+Original source: `CLAUDE.md` in [gaopengbin/cesium-mcp](https://github.com/gaopengbin/cesium-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
