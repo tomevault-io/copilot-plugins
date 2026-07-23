@@ -14,7 +14,7 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
 This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
 
 - php - 8.5.2
-- laravel/framework (LARAVEL) - v12
+- laravel/framework (LARAVEL) - v13
 - laravel/prompts (PROMPTS) - v0
 - laravel/sanctum (SANCTUM) - v4
 - larastan/larastan (LARASTAN) - v3
@@ -190,16 +190,16 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 - If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
 
-=== laravel/v12 rules ===
+=== laravel/v13 rules ===
 
-# Laravel 12
+# Laravel 13
 
 - CRITICAL: ALWAYS use `search-docs` tool for version-specific Laravel documentation and updated code examples.
 - Since Laravel 11, Laravel has a new streamlined file structure which this project uses.
 
-## Laravel 12 Structure
+## Laravel 13 Structure
 
-- In Laravel 12, middleware are no longer registered in `app/Http/Kernel.php`.
+- In Laravel 13, middleware are no longer registered in `app/Http/Kernel.php`.
 - Middleware are configured declaratively in `bootstrap/app.php` using `Application::configure()->withMiddleware()`.
 - `bootstrap/app.php` is the file to register middleware, exceptions, and routing files.
 - `bootstrap/providers.php` contains application specific service providers.
@@ -221,18 +221,6 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 - If you have modified any PHP files, you must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
 - Do not run `vendor/bin/pint --test --format agent`, simply run `vendor/bin/pint --format agent` to fix any formatting issues.
-
-=== git rules ===
-
-# Git & Commits
-
-- Always increment the patch version in `version.php` before committing (e.g. `5.8.1` → `5.8.2`). Include `version.php` in every commit.
-- Use [Conventional Commits](https://www.conventionalcommits.org/) format:
-  - `feat:` for new features
-  - `fix:` for bug fixes
-  - `refactor:` for code changes that neither fix bugs nor add features
-  - `chore:` for maintenance tasks, version bumps, etc.
-  - Example: `refactor: extract Prospect base class from Lead and Customer`
 
 === phpunit/core rules ===
 
@@ -256,4 +244,4 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 ---
 > Source: [Roskus/prospero-flow-crm](https://github.com/Roskus/prospero-flow-crm) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
