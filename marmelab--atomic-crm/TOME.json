@@ -4,7 +4,7 @@
   "repo": "atomic-crm",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -119,5 +119,5 @@
   ],
   "source_url": "https://github.com/marmelab/atomic-crm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T08:34:29Z"
+  "distributed_at": "2026-07-23T07:34:55Z"
 }
