@@ -1,0 +1,14 @@
+{
+  "name": "bekk--db-scheduler-ui",
+  "displayName": "db-scheduler-ui",
+  "description": "db-scheduler-ui",
+  "version": "1.0.0",
+  "author": "bekk",
+  "homepage": "https://github.com/bekk/db-scheduler-ui",
+  "skills": [
+    {
+      "name": "db-scheduler-ui",
+      "description": ""
+    }
+  ]
+}
