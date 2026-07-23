@@ -1,0 +1,14 @@
+{
+  "name": "growilabs--growi-docs",
+  "displayName": "growi-docs",
+  "description": "growi-docs",
+  "version": "1.0.0",
+  "author": "growilabs",
+  "homepage": "https://github.com/growilabs/growi-docs",
+  "skills": [
+    {
+      "name": "growi-docs",
+      "description": ""
+    }
+  ]
+}
