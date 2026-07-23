@@ -1,0 +1,63 @@
+{
+  "name": "geoserver",
+  "owner": "hishamkaram",
+  "repo": "geoserver",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "geoserver",
+      "path": ".claude/skills/non-breaking-v1/SKILL.md",
+      "github_url": "https://github.com/hishamkaram/geoserver/tree/main/.claude/skills/non-breaking-v1/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geoserver",
+      "path": ".claude/skills/add-context-twin/SKILL.md",
+      "github_url": "https://github.com/hishamkaram/geoserver/tree/main/.claude/skills/add-context-twin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geoserver",
+      "path": ".claude/skills/geoserver-rest-quirks/SKILL.md",
+      "github_url": "https://github.com/hishamkaram/geoserver/tree/main/.claude/skills/geoserver-rest-quirks/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hishamkaram/geoserver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:29:44Z"
+}
