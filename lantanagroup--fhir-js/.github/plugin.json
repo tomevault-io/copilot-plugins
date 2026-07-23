@@ -1,0 +1,9 @@
+{
+  "name": "lantanagroup--fhir-js",
+  "displayName": "FHIR.js",
+  "description": "FHIR.js",
+  "version": "1.0.0",
+  "author": "lantanagroup",
+  "homepage": "https://github.com/lantanagroup/FHIR.js",
+  "skills": []
+}
