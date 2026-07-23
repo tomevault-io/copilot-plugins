@@ -1,0 +1,14 @@
+{
+  "name": "opencyphal--pycyphal",
+  "displayName": "pycyphal",
+  "description": "pycyphal",
+  "version": "1.0.0",
+  "author": "OpenCyphal",
+  "homepage": "https://github.com/OpenCyphal/pycyphal",
+  "skills": [
+    {
+      "name": "pycyphal",
+      "description": ""
+    }
+  ]
+}
