@@ -1,0 +1,14 @@
+{
+  "name": "scality--metalk8s",
+  "displayName": "metalk8s",
+  "description": "metalk8s",
+  "version": "1.0.0",
+  "author": "scality",
+  "homepage": "https://github.com/scality/metalk8s",
+  "skills": [
+    {
+      "name": "metalk8s",
+      "description": ""
+    }
+  ]
+}
