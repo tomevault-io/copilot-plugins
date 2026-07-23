@@ -1,0 +1,9 @@
+{
+  "name": "angristan--openvpn-install",
+  "displayName": "openvpn-install",
+  "description": "openvpn-install",
+  "version": "1.0.0",
+  "author": "angristan",
+  "homepage": "https://github.com/angristan/openvpn-install",
+  "skills": []
+}
