@@ -1,0 +1,42 @@
+{
+  "name": "radioactive-labs--plutonium-core",
+  "displayName": "plutonium-core",
+  "description": "plutonium-core",
+  "version": "1.0.0",
+  "author": "radioactive-labs",
+  "homepage": "https://github.com/radioactive-labs/plutonium-core",
+  "skills": [
+    {
+      "name": "plutonium",
+      "description": ""
+    },
+    {
+      "name": "plutonium-assets",
+      "description": ""
+    },
+    {
+      "name": "plutonium-definition",
+      "description": ""
+    },
+    {
+      "name": "plutonium-installation",
+      "description": ""
+    },
+    {
+      "name": "plutonium-invites",
+      "description": ""
+    },
+    {
+      "name": "plutonium-model",
+      "description": ""
+    },
+    {
+      "name": "plutonium-policy",
+      "description": ""
+    },
+    {
+      "name": "plutonium-portal",
+      "description": ""
+    }
+  ]
+}
