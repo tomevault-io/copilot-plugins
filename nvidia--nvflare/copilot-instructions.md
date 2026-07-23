@@ -1,54 +1,159 @@
 ## nvflare
 
-> Start with `program.md`. It is the general research-org entry point for the agent.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-## Entry point
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Start with `program.md`. It is the general research-org entry point for the agent.
-Then read the active task profile. If the human does not specify one, use
-`tasks/cifar10/profile.md`.
+## Project Overview
 
-Use the active task's `mutation_schema.yaml` only when `program.md` or the active task profile directs you to the hard mutation bounds, or when choosing a mutation axis. If anything here conflicts with `program.md`, follow `program.md` unless a human explicitly overrides it. If a task profile conflicts with generic `program.md` text on task budget, environment, metric, or edit surface, follow the task profile.
+NVIDIA FLARE (NVFlare) is a domain-agnostic, open-source Python SDK for federated learning. It allows ML/DL workflows to be adapted to a federated paradigm, enabling secure, privacy-preserving distributed multi-party collaboration.
 
-## Mission
+**Key capabilities:** PyTorch/TensorFlow/Scikit-learn/XGBoost support, horizontal and vertical FL, built-in FL algorithms (FedAvg, FedProx, FedOpt, Scaffold, Ditto), privacy preservation (differential privacy, homomorphic encryption, PSI).
 
-Improve this Auto-FL NVFlare harness without breaking the federated contract.
+## Common Commands
 
-## Files you may edit
+### Development Setup
+```bash
+# Install development dependencies (macOS)
+python3 -m pip install -e .[dev_mac]
 
-Preferred mutation files:
-- task-local `client.py`
-- shared `tasks/shared/custom_aggregators.py`
-- task-local `job.py`
-- task-local `model.py` for registered architecture variants under the active parameter cap
+# Install development dependencies (Linux)
+python3 -m pip install -e .[dev]
+```
 
-Do not change unless explicitly requested:
-- shared `data/*` or task-local data bridge files
+### Testing
+```bash
+# Run all checks (license, style, tests with coverage)
+./runtest.sh
 
-## Hard invariants
+# Run unit tests only
+./runtest.sh -u
 
-You must preserve all of the following unless a human explicitly asks for a protocol upgrade:
-- `flare.init()`
-- `while flare.is_running():`
-- `input_model = flare.receive()`
-- `flare.send(output_model)`
-- `model.load_state_dict(input_model.params, strict=True)`
-- `compute_model_diff(...)`
-- `output_model.params_type == ParamsType.DIFF`
-- `output_model.meta["NUM_STEPS_CURRENT_ROUND"]`
-- the optional `if flare.is_evaluate():` branch
-- the same selected `model_arch` must be instantiated on server and clients for a run
-- `model_arch` and `max_model_params` are fixed budget fields unless the campaign is explicitly labeled as an architecture subcampaign
+# Run unit tests with coverage report
+./runtest.sh -u -c
 
-## Required workflow after every edit
+# Run a specific test file
+python3 -m pytest tests/unit_test/path/to/test_file.py -v
 
-1. Run the active task profile's validation command, with `TASK_DIR` set to the active task.
-2. Run the active task profile's smoke command. For non-CIFAR tasks, pass the task-specific `SMOKE_ARGS` or run `bash scripts/run_iteration.sh ...` with the active task budget.
-3. Record the mutation in `results.tsv`
-4. Summarize the mutation in `templates/mutation_report.md`
+# Run a specific test
+python3 -m pytest tests/unit_test/path/to/test_file.py::TestClass::test_method -v
+
+# Run tests in parallel (8 processes)
+python3 -m pytest --numprocesses=8 -v tests/unit_test
+```
+
+### Code Style
+```bash
+# Check code style (flake8, black, isort)
+./runtest.sh -s
+
+# Auto-fix code style
+./runtest.sh -f
+
+# Check license headers
+./runtest.sh -l
+```
+
+### Documentation
+```bash
+# Build documentation
+./build_doc.sh --html
+
+# Clean documentation
+./build_doc.sh --clean
+```
+
+### Clean Build Artifacts
+```bash
+./runtest.sh --clean
+```
+
+## Architecture Overview
+
+### Core Concepts
+
+NVFlare uses a **server-client federated architecture**:
+- **Server**: Runs a **Controller** that schedules **Tasks** and aggregates results
+- **Clients**: Run **Executors** that execute tasks on local data
+- **Shareable**: The dict-based data structure for communication between server and clients
+- **FLContext**: Context object passing data between FL components (supports private/public and sticky/non-sticky properties)
+
+### Key Components (nvflare/apis/)
+
+| Component | Purpose |
+|-----------|---------|
+| `Controller` | Server-side workflow orchestrator that schedules tasks to clients |
+| `Executor` | Client-side task processor that runs on federated client nodes |
+| `Shareable` | Data container for server-client communication |
+| `FLContext` | Context for passing data between FL components |
+| `Task` | Work unit assigned by Controller to client workers |
+| `Filter` | Transforms Shareable data in/out of components |
+| `FLComponent` | Base class for all FL components |
+
+### Controller Task Distribution Methods
+- `broadcast()` / `broadcast_and_wait()`: Send task to multiple clients
+- `send()` / `send_and_wait()`: Send task to a single client
+- `relay()` / `relay_and_wait()`: Sequential task execution across clients
+
+### Package Structure
+
+```
+nvflare/
+├── apis/           # Core API specifications and interfaces
+├── app_common/     # Common application utilities and FL algorithms
+├── app_opt/        # Optional dependencies (HE, PSI, ML frameworks)
+├── client/         # Client-side FLARE Client API
+├── job_config/     # Job definition and configuration (FedJob API)
+├── private/        # Internal implementations
+├── fuel/           # Core infrastructure utilities
+├── tool/           # CLI tools
+├── dashboard/      # Web dashboard
+└── lighter/        # Provisioning tools
+```
+
+### Running Modes
+- **Simulator**: Local development (`nvflare simulator`)
+- **POC**: Proof-of-concept deployment
+- **Production**: Full distributed deployment with provisioning
+
+## Code Style Requirements
+
+- **Formatter**: black (line length: 120)
+- **Linter**: flake8
+- **Import sorter**: isort (black profile)
+- **Python**: 3.10, 3.11, 3.12, 3.13, 3.14
+
+All Python files must include Apache 2.0 license header:
+```python
+# Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# ...
+```
+
+## Test Conventions
+
+- Test files: `tests/unit_test/` following `[module_name]_test.py` pattern
+- Integration tests: `tests/integration_test/`
+- Framework: pytest with pytest-xdist (parallel) and pytest-cov (coverage)
+
+## CLI Entry Point
+
+The `nvflare` CLI is the main entry point:
+```bash
+nvflare --help
+nvflare simulator --help
+```
+
+## Personal Configuration
+
+Create a `CLAUDE.local.md` file (git-ignored) for personal preferences such as:
+- Preferred coding patterns
+- Local environment specifics
+- Custom shortcuts or workflows
 
 ---
 > Source: [NVIDIA/NVFlare](https://github.com/NVIDIA/NVFlare) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
