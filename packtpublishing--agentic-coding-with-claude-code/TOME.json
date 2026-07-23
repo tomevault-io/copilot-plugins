@@ -1,0 +1,51 @@
+{
+  "name": "Agentic-Coding-with-Claude-Code",
+  "owner": "PacktPublishing",
+  "repo": "Agentic-Coding-with-Claude-Code",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Agentic-Coding-with-Claude-Code",
+      "path": "Chapter09/.claude/skills/git-pushing/SKILL.MD",
+      "github_url": "https://github.com/PacktPublishing/Agentic-Coding-with-Claude-Code/tree/main/Chapter09/.claude/skills/git-pushing/SKILL.MD",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PacktPublishing/Agentic-Coding-with-Claude-Code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T14:05:39Z"
+}
