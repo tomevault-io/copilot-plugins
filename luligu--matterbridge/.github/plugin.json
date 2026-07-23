@@ -1,0 +1,14 @@
+{
+  "name": "luligu--matterbridge",
+  "displayName": "matterbridge",
+  "description": "matterbridge",
+  "version": "1.0.0",
+  "author": "Luligu",
+  "homepage": "https://github.com/Luligu/matterbridge",
+  "skills": [
+    {
+      "name": "matterbridge",
+      "description": ""
+    }
+  ]
+}
