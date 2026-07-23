@@ -4,7 +4,7 @@
   "repo": "economic-data-project",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -131,5 +131,5 @@
   ],
   "source_url": "https://github.com/C00ldudeNoonan/economic-data-project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:46:33Z"
+  "distributed_at": "2026-07-23T09:17:21Z"
 }
