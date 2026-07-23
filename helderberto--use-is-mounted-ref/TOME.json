@@ -1,0 +1,63 @@
+{
+  "name": "use-is-mounted-ref",
+  "owner": "helderberto",
+  "repo": "use-is-mounted-ref",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "use-is-mounted-ref",
+      "path": ".claude/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/helderberto/use-is-mounted-ref/tree/main/.claude/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "use-is-mounted-ref",
+      "path": ".claude/skills/lint/SKILL.md",
+      "github_url": "https://github.com/helderberto/use-is-mounted-ref/tree/main/.claude/skills/lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "use-is-mounted-ref",
+      "path": ".claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/helderberto/use-is-mounted-ref/tree/main/.claude/skills/testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/helderberto/use-is-mounted-ref",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:45:39Z"
+}
