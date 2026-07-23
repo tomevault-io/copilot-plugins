@@ -1,0 +1,14 @@
+{
+  "name": "mcvickerlab--genvarloader",
+  "displayName": "GenVarLoader",
+  "description": "GenVarLoader",
+  "version": "1.0.0",
+  "author": "mcvickerlab",
+  "homepage": "https://github.com/mcvickerlab/GenVarLoader",
+  "skills": [
+    {
+      "name": "GenVarLoader",
+      "description": ""
+    }
+  ]
+}
