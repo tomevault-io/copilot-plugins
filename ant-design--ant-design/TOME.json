@@ -1,0 +1,81 @@
+{
+  "name": "ant-design",
+  "owner": "ant-design",
+  "repo": "ant-design",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ant-design",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/ant-design/ant-design/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ant-design",
+      "path": ".agents/skills/commit-msg/SKILL.md",
+      "github_url": "https://github.com/ant-design/ant-design/tree/main/.agents/skills/commit-msg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ant-design",
+      "path": ".agents/skills/issue-reply/SKILL.md",
+      "github_url": "https://github.com/ant-design/ant-design/tree/main/.agents/skills/issue-reply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ant-design",
+      "path": ".agents/skills/test-review/SKILL.md",
+      "github_url": "https://github.com/ant-design/ant-design/tree/main/.agents/skills/test-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ant-design",
+      "path": ".agents/skills/version-release/SKILL.md",
+      "github_url": "https://github.com/ant-design/ant-design/tree/main/.agents/skills/version-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ant-design",
+      "path": ".agents/skills/changelog-collect/SKILL.md",
+      "github_url": "https://github.com/ant-design/ant-design/tree/main/.agents/skills/changelog-collect/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ant-design/ant-design",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:17:36Z"
+}
