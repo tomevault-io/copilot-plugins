@@ -1,0 +1,57 @@
+{
+  "name": "moonwell-contracts-v2",
+  "owner": "moonwell-fi",
+  "repo": "moonwell-contracts-v2",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "moonwell-contracts-v2",
+      "path": ".claude/skills/mip/SKILL.md",
+      "github_url": "https://github.com/moonwell-fi/moonwell-contracts-v2/tree/main/.claude/skills/mip/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moonwell-contracts-v2",
+      "path": ".claude/skills/simulate-mip/SKILL.md",
+      "github_url": "https://github.com/moonwell-fi/moonwell-contracts-v2/tree/main/.claude/skills/simulate-mip/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/moonwell-fi/moonwell-contracts-v2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T09:57:31Z"
+}
