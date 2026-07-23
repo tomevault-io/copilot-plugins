@@ -1,0 +1,14 @@
+{
+  "name": "lyonjs--shortvid-io",
+  "displayName": "shortvid.io",
+  "description": "shortvid.io",
+  "version": "1.0.0",
+  "author": "lyonjs",
+  "homepage": "https://github.com/lyonjs/shortvid.io",
+  "skills": [
+    {
+      "name": "shortvid.io",
+      "description": ""
+    }
+  ]
+}
