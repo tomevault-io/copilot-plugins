@@ -1,0 +1,14 @@
+{
+  "name": "aiven-open--karapace",
+  "displayName": "karapace",
+  "description": "karapace",
+  "version": "1.0.0",
+  "author": "Aiven-Open",
+  "homepage": "https://github.com/Aiven-Open/karapace",
+  "skills": [
+    {
+      "name": "karapace",
+      "description": ""
+    }
+  ]
+}
