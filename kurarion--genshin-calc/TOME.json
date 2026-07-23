@@ -4,7 +4,7 @@
   "repo": "Genshin-Calc",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/Kurarion/Genshin-Calc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:19:31Z"
+  "distributed_at": "2026-07-23T05:21:58Z"
 }
