@@ -1,0 +1,98 @@
+{
+  "name": "dojoengine--book",
+  "displayName": "book",
+  "description": "book",
+  "version": "1.0.0",
+  "author": "dojoengine",
+  "homepage": "https://github.com/dojoengine/book",
+  "skills": [
+    {
+      "name": "dojo-client",
+      "description": ""
+    },
+    {
+      "name": "dojo-config",
+      "description": ""
+    },
+    {
+      "name": "dojo-deploy",
+      "description": ""
+    },
+    {
+      "name": "dojo-indexer",
+      "description": ""
+    },
+    {
+      "name": "dojo-migrate",
+      "description": ""
+    },
+    {
+      "name": "dojo-review",
+      "description": ""
+    },
+    {
+      "name": "dojo-test",
+      "description": ""
+    },
+    {
+      "name": "dojo-token",
+      "description": ""
+    },
+    {
+      "name": "dojo-world",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    },
+    {
+      "name": "book",
+      "description": ""
+    }
+  ]
+}
