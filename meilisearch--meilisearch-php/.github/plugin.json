@@ -1,0 +1,9 @@
+{
+  "name": "meilisearch--meilisearch-php",
+  "displayName": "meilisearch-php",
+  "description": "meilisearch-php",
+  "version": "1.0.0",
+  "author": "meilisearch",
+  "homepage": "https://github.com/meilisearch/meilisearch-php",
+  "skills": []
+}
