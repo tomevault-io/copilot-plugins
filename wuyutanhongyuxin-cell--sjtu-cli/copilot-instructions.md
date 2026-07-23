@@ -1,110 +1,354 @@
 ## sjtu-cli
 
-> > **codex / 其它 AI agent 自动加载入口**。
+> > 本文件是 SJTU-CLI 项目的 Claude Code 指令，基于"通用 AI 编程规范"填充项目专属区域。
 
-> **codex / 其它 AI agent 自动加载入口**。
-> 与 `CLAUDE.md`（Claude Code 用）并列，内容**互补不冲突**：本文件只写 codex 接力专属的"红线 + 当前状态 + 任务索引"。
-> codex 启动后**必须**先读完本文件 + `docs/codex-handoff/SAFETY-REDLINES.md`，再读 `CLAUDE.md` 补充项目宪法。
+# CLAUDE.md — SJTU-CLI 项目规范
 
----
-
-# SJTU-CLI · AGENTS.md（codex 接力交接）
-
-## 1. 你是谁 / 在干什么
-
-你是 **codex**（OpenAI 系），接手 Claude Code 推进到一半的 SJTU-CLI 项目。
-**接手原因**：Claude 用户额度耗尽，需要 codex 把 T5 Plan 收尾（剩 T7 验证 commit / T8 文档 / T9 用户亲跑）。
-
-**项目宪法 = `CLAUDE.md`**（适用于所有 AI agent，不只是 Claude）。本文件覆写或扩充其中针对 codex 的部分。
-
-## 2. 项目当前快照（HEAD = `980859f`）
-
-- 分支：`main`
-- 已完成：S0..S3f / Canvas Video V5.F；**T5 Plan T1..T6** 已 commit
-- 工作区（未 commit）：
-  - `src/cli/jwc/calendar_cli.rs`（新建，27 行）— T7 文件
-  - `src/cli/jwc/mod.rs`（修改，**200 行 整** ← 卡硬上限，不能再加内容）
-- **下一步**：T7 验证 + commit → T8 文档收尾 → T9 用户亲跑 4 端真机 smoke
-- 详细任务索引见 `docs/codex-handoff/README.md`
-
-## 3. 不可越界的硬红线（违反 = 立即停手）
-
-> **完整版**：`docs/codex-handoff/SAFETY-REDLINES.md`。**此处只列触发即终止的 5 条**。
-
-1. **i.sjtu / 交我办 = 只读访客**。绝对不点"提交 / 确认 / 保存 / 绑定 / 修改 / 删除 / 退订 / 申请 / 撤回"任一按钮；绝对不触动个人信息（信息维护）与选课菜单。即使用户 session 在握，也按"只读"操作。
-2. **不引入新依赖**。`Cargo.toml` 改动 = 主对话先批准。clippy / fmt 不算"新依赖"。
-3. **不 `git push`** / 不 `git push --force` / 不动 main 分支历史。**只 commit 到本地**，让用户自己 push。
-4. **不动既有命令的 envelope**（grades / schedule / gpa / exams / today / week / next / login 等）。只能**新增**字段，不能改既有字段名 / 类型 / 含义。
-5. **不动这些目录 / 文件**（已有真实数据或敏感配置）：
-   - `~/.sjtu-cli/`（用户 session）
-   - `tests/fixtures/jwc/academic_calendar_*.json`（已落盘 fixture，T6 已用）
-   - 任何含 `session.json` / `cookies.json` / 真实学号姓名的文件
-
-## 4. 接力 driven 工作流（codex 自走）
-
-详见 `docs/codex-handoff/DRIVEN-WORKFLOW.md`。**核心 4 条**：
-
-1. **fresh subagent per task**（如 codex 支持 subagent / 子会话）—— 不让一个 agent 同时背 3 个 task 上下文，污染极重。
-2. **两阶段 review**：实装 agent → spec compliance 检查 agent → code quality 检查 agent → 通过才 commit。
-3. **trust but verify**：subagent 报告"DONE"必须自己跑 `cargo check` + `cargo clippy --all-targets -- -D warnings` + `cargo fmt --all -- --check` + `wc -l` 三件套 **亲自核验**，不信 agent 的口述。
-4. **遇阻立即停 + 报告主对话**，不要自作主张大改。`docs/codex-handoff/README.md` 给出每个 task 的"停手判断条件"。
-
-## 5. 行数硬限制（再强调一次）
-
-| 文件类型 | 上限 | 当前接近上限的文件 |
-|---|---|---|
-| 单 `.rs` 源文件 | **200 行** | `src/cli/jwc/mod.rs` **= 200 行**（卡线，再加就违规） |
-| 单测文件 | 300 行 | — |
-| 单模块目录（含子文件） | 2000 行 | — |
-| 配置文件（`*.toml`） | 100 行 | — |
-
-**T7 commit 之后**，如有任何后续任务需要再动 `cli/jwc/mod.rs`，**先拆 `GpaScopeArg` / `GpaRankArg` 的 impl 到 `src/cli/jwc/gpa_cli.rs`**（参考 `schedule_cli.rs` / `calendar_cli.rs` 已建立的拆分范式）。
-
-## 6. 沟通与汇报协议
-
-完成每个 task 后向用户发送 4 段式报告：
-
-```
-STATUS: DONE | DONE_WITH_CONCERNS | NEEDS_CONTEXT | BLOCKED
-
-## 完成的事
-- 文件 X（XX 行）+ 文件 Y（XX 行）
-- 测试：XX/XX 全过 / clippy 0 warning / fmt 0 diff
-- commit SHA: xxxxxx
-
-## 关键命令证据
-- cargo check 最后 5 行
-- cargo clippy 最后 5 行
-- wc -l 关键文件
-
-## 偏离 / 顾虑
-（行数是否超 200 / 是否新建了未在 plan 里的文件 / 其他）
-```
-
-## 7. 启动 checklist（codex 第一次进项目时跑一遍）
-
-- [ ] `git status` 确认工作区与本文件 §2 描述一致
-- [ ] `git log --oneline -10` 确认 HEAD = `980859f` 及最近 5 个 commit
-- [ ] `cargo check 2>&1 | tail -5` 确认主分支编译通过
-- [ ] `cat docs/codex-handoff/SAFETY-REDLINES.md` 读完红线
-- [ ] `cat docs/codex-handoff/README.md` 进入任务索引
-- [ ] 按索引顺序：先 T7 → 再 T8 → 最后 T9（T9 = 用户亲跑，codex 只提供 checklist）
-
-## 8. 何时主动停下来问用户
-
-立即停 + 问，不要硬推：
-
-- 任何编译错 / 测试 fail 在 3 次尝试内修不掉
-- 需要新建 plan 中未列的文件 / 改 plan 中未列的文件
-- 任何文件即将超过行数上限
-- 任何 cargo 输出含 "downloading" / "compiling" 新 crate（暗示有依赖偷渡）
-- 任何 git 操作可能影响远程（push / fetch + merge / rebase）
-- 任何疑似触碰 i.sjtu 写操作的代码（POST / 表单提交 / 状态变更）
+> 本文件是 SJTU-CLI 项目的 Claude Code 指令，基于"通用 AI 编程规范"填充项目专属区域。
+> Claude Code 每次启动自动读取。
 
 ---
 
-**最后一句话**：你不是在赶进度，你是在保住别人 6 周的工作不被 1 次 AI 失控弄崩。**慢一点没关系，错一行不行**。
+## [项目专属区域]
+
+### 项目名称
+**SJTU-CLI** —— 上海交通大学"交我办"命令行工具
+
+### 一句话描述
+给 SJTU 师生用的终端 CLI，通过 JAccount 扫码登录后，一行命令查课表 / 成绩 / 一卡通 / 通知 / Canvas，输出支持 YAML/JSON，方便 AI Agent 调用。
+
+### 技术栈（Rust 实现）
+- **语言**：Rust（stable, edition 2021）
+- **包管理 / 构建**：cargo
+- **CLI 框架**：clap 4（derive API）
+- **HTTP 客户端**：reqwest（features: `cookies` / `json` / `rustls-tls` / `gzip`）
+- **异步运行时**：tokio（`rt-multi-thread` + `macros`）
+- **浏览器自动化**：headless_chrome（纯 Rust CDP 驱动）
+- **Cookie 提取兜底**：rookie（browser-cookie3 的 Rust 等价）
+- **HTML 解析**：scraper（html5ever）
+- **QR 终端显示**：qrcode + ANSI 色块
+- **序列化**：serde + serde_json + serde_yml + toml
+- **表格 / 颜色**：comfy-table + owo-colors
+- **TTY 检测**：is-terminal
+- **时间**：chrono（含 `serde` feature）
+- **路径**：directories（跨平台 `~/.sjtu-cli/` 定位）
+- **金额**：rust_decimal（一卡通消费金额，禁用 f64）
+- **错误**：anyhow（bin 层）+ thiserror（lib 层）
+- **日志**：tracing + tracing-subscriber
+- **测试**：内置 `#[test]` + tokio-test + mockito
+- **Lint**：cargo clippy + cargo fmt
+- **CI**：GitHub Actions（stable × windows / ubuntu / macos）
+
+### 项目结构
+```
+sjtu-cli/
+├── Cargo.toml                       # 依赖 + 构建配置
+├── Cargo.lock
+├── rust-toolchain.toml              # 固定 stable
+├── README.md
+├── SKILL.md                         # AI Agent 使用指南
+├── SCHEMA.md                        # 输出信封契约
+├── CLAUDE.md                        # 本文件
+├── .env.example
+├── config.example.toml
+├── src/
+│   ├── main.rs                      # 二进制入口，调用 cli::run
+│   ├── lib.rs                       # 模块 re-export；VERSION 常量
+│   ├── cli.rs                       # clap 命令枚举 + 派发
+│   ├── config.rs                    # ~/.sjtu-cli/ 路径管理
+│   ├── cookies/                     # Cookie 模型 + 文件 I/O（S2 瑕疵修复时拆分）
+│   │   ├── mod.rs                   # Cookie / Session struct + redacted 三元组键
+│   │   ├── io.rs                   # load / save / clear（主 + 子 session）
+│   │   └── tests.rs                 # redacted + path 防覆盖单测
+│   ├── error.rs                     # thiserror 统一异常
+│   ├── output.rs                    # Envelope + TTY 检测 + YAML/JSON/Table 切换
+│   ├── auth/                        # 登录模块
+│   │   ├── mod.rs
+│   │   ├── qr_login.rs              # ★ headless_chrome QR 扫码
+│   │   ├── qr_render.rs             # 终端 ANSI QR 重绘
+│   │   ├── browser_extract.rs       # rookie cookie 兜底
+│   │   └── cas/                     # 子系统 CAS 跳转（S2 拆分）
+│   │       ├── mod.rs               # cas_login + follow_redirect_chain
+│   │       ├── client.rs            # 注入主 session 构造 reqwest Client
+│   │       └── tests.rs             # mockito 跳转链单测
+│   ├── apps/                        # 每个子系统一个文件
+│   │   ├── mod.rs
+│   │   ├── jwc.rs                   # 教务（课表/成绩）
+│   │   ├── library/                 # 图书馆借阅（weijieyue.lib.sjtu.edu.cn:8080）
+│   │   │   ├── mod.rs
+│   │   │   ├── client.rs            # OAuth dance + Client + 3 业务方法
+│   │   │   ├── http.rs              # cookie 注入 + fetch_json
+│   │   │   ├── models.rs            # Loan / HistoryRow / Fine serde struct
+│   │   │   ├── throttle.rs          # 300ms 节流
+│   │   │   └── tests_parse.rs       # fixture + mockito e2e
+│   │   ├── mail/                    # 邮箱（mail.sjtu.edu.cn Zimbra SOAP）
+│   │   │   ├── mod.rs               # re-export + MailClient 入口
+│   │   │   ├── client.rs            # SSO 跟链 + ZM_AUTH_TOKEN + 4 只读方法
+│   │   │   ├── http.rs              # build_client + SOAP POST + token 抽取
+│   │   │   ├── soap.rs              # SOAP envelope builder（只读 4 类，红线注入 read=0）
+│   │   │   ├── parser.rs            # quick-xml 流式解析 SearchResponse / GetMsgResponse
+│   │   │   ├── extract.rs           # ZM_AUTH_TOKEN 从 Set-Cookie / SOAP body 提取
+│   │   │   ├── models.rs            # Mail / MailFull / Address struct
+│   │   │   ├── throttle.rs          # 300ms 节流
+│   │   │   └── tests_parse.rs       # fixture parse 单测 + mockito e2e
+│   │   ├── card.rs                  # 一卡通
+│   │   ├── notifications.rs         # 交我办通知
+│   │   └── canvas.rs                # Canvas LMS
+│   ├── commands/                    # CLI 子命令实现
+│   │   ├── mod.rs
+│   │   ├── auth_cmds.rs             # login/logout/status/whoami
+│   │   ├── schedule.rs              # schedule/today/week/next
+│   │   ├── grades.rs                # grades/gpa
+│   │   ├── card.rs                  # card/card history
+│   │   ├── library/                 # 图书馆借阅命令
+│   │   │   ├── mod.rs
+│   │   │   ├── data.rs
+│   │   │   └── handlers.rs
+│   │   ├── mail/                    # 邮箱命令
+│   │   │   ├── mod.rs
+│   │   │   ├── data.rs              # MailListData / MailListRow / MailReadData
+│   │   │   └── handlers.rs          # cmd_mail_list / cmd_mail_read
+│   │   ├── notifications.rs
+│   │   └── canvas.rs
+│   └── models/                      # struct（derive Serialize/Deserialize）
+│       ├── mod.rs
+│       ├── course.rs
+│       ├── grade.rs
+│       ├── card_record.rs
+│       └── notification.rs
+├── tests/                           # 集成测试
+├── tasks/
+│   ├── todo.md                      # 任务清单
+│   └── lessons.md                   # 经验积累
+└── .github/workflows/ci.yml
+```
+
+### 当前阶段
+- **已完成**：S0 骨架 / S1 QR 扫码登录 / S2 CAS 子系统跳转 / S3a-e 水源・消息・日程・办事・电费（5 子系统 read-only） / S3f jwc MVP 成绩查询 + CAS / S3f-T5 jwc 校历 iCal MVP（课表 + 考试 + 学年校历三路 fail-soft / RFC 5545 / FNV-1a UID 幂等；4 端真机 + 幂等通过 2026-05-15） / Canvas Video MVP — CP-V1..V4（LTI launch + list + download + batch）/ V5.A mp4-full + ffmpeg single-channel baseline / V5.B/D/E-B+ audio-only 3 轮优化失败 → **V5.F 撤回**（删 audio_dl/m4a_mux/mp4_box 3 目录 -2092 行）/ V5.F 真机 9 讲 batch 15.13 min ≤ 25 min 目标 / **CAS retry 层 follow-up（T9 真机盲区根治；jwc 9 个 call site 透明 auto-refresh；SubSessionStale 强类型信号 + downcast 跨 anyhow 链 6 测守护；ical fail-soft 吃信号 bug 修复；T8 真机 CP-CR-1/2/3 全过 2026-05-16）** / **S3 Phase 2 第一弹 — T4 一卡通 OAuth2 完整（OAuth2 Authorization Code 手卷 / api.sjtu.edu.cn / 17 commits / 17 新文件 + 4 修改 / 42 单测 / cli/cmd handlers 全过；真机 CP T14-T16 阻塞 client_id 审批，待用户走 developer.sjtu.edu.cn 流程）2026-05-17** / **S3 Phase 2 第二弹 — T4 一卡通 weixin path fallback 完整（OAuth2 client_id 审批阻塞背景下的双轨方案 / Envelope.meta + via.rs CardVia + weixin/ 6 子文件 HTML scrape + data_weixin 转换器 + handlers/cli --via dispatch / 11 commits / 9 新源文件 + 2 fixture HTML + SCHEMA.md / ~40 新单测 全过 / scraper 0.21 依赖加 / 真机 CP 4 项 + OQ-WX 3 项阻塞用户校园网） 2026-05-18** / **T4 weixin D12 三层 bug 修复 + parser 实站重写（surgical 4 轮锁定 L1 主 session 被 `_` 永久忽略 / L2 cookie jar domain mismatch 静默拒绝 / L3 reqwest URL parser 拒 OAuth2 scope 裸空格 + parser P1 实站 HTML 与 plan 阶段猜测完全不符；10 commits = T1 fixture + T2/T3 sanitize/follow + T4 L2 + T5/T6 L1 + T7/T8 parser + T9 fmt+clippy + T11 docs；fixture 用真机 dump 脱敏替换；OQ-WX-1/2/3 全部回填；stale 信号语义改 SessionExpired；321 测试全绿；真机 CP-WX 5 项阻塞用户校园网）2026-05-19** / **T7 图书馆借阅 MVP + R6 真机 CP**（loans / history / fines；主 jaccount session 直透传 + OAuth dance + 一次性 token；HTTP 8080 plain text；**红线**不实装 renew/payment 端点；R6 真机第一发 503 锁定 production code 漏 `.no_proxy()` —— v2rayN/Clash 系统代理截 :8080 非标端口；fix 后三连全过 `count:0`（用户从未借书）；lessons R11；OQ-LIB-1/5 待真书验，OQ-LIB-6 推论"空 fines 走 result:1+fineArray:[]"）2026-05-20 / **T8 邮箱 MVP — Zimbra SOAP 路线完成**（`mail list` / `mail read` 双子命令 + 别名 `mail ls` + `--unread` / `--search` / `--limit` / `--offset`；主 jaccount session 直透传 + SSO 跟链 + `ZM_AUTH_TOKEN` envelope **显式注入**（关键 trap：cookie 单独不够 → 500 service.AUTH_REQUIRED）；quick-xml 0.34 流式解析 SearchResponse / GetMsgResponse / Fault；`build_get_msg_envelope` **编译期注入 `read="0" html="0" max="50000"` 红线**（永不标已读 / 永不取 HTML / 限 50KB）；SendMsg / SaveDraft / 所有 `*Action` SOAP 类**编译期硬禁**；9 个 `src/apps/mail/*.rs` + 3 个 `src/commands/mail/*` + 1 个 `src/cli/mail.rs` = 1267 行（**全部 ≤ 200 行硬限**）；19 mail tests + total 359 tests 全过；R1-R5 共 14 commits + spec compliance + code quality 两阶段 review；真机 CP-M1/M2/M3/M4 4/4 全过；R7 CP 时发现 plan-level 漏洞一并 ship：CSRF token 强制（csrf=1:1 flag）+ SOAP 1.1 namespace + Content-Type text/xml，新文件 csrf.rs + soap.rs/client.rs/tests_parse.rs 改签名，commit 26e388e 364 tests pass）2026-05-20→21
+- **下一步**：① CP-WX-BAL/AUTO/HIST-7d/30d/STALE 5 项真机校园网内跑（用户触发）② T14-T16 真机 CP（client_id 到位后跑：CP-T4-AUTH/BAL/HIST/REFRESH 7 项）③ S3 Phase 2 候选续 — 通知聚合 / 图书馆借阅 / Phase 2 多卡支持；新 follow-up：① OQ-1 PKCE 是否被服务端强制（CP-T4-AUTH 真机答）② OQ-3 refresh_token 一次性策略观察（T16 + 1-2 周数据）③ elec/services/jwbmessage 接入 CAS retry 层 ④ elec/http.rs::truncate UTF-8 byte-slice 同款修 ⑤ HTML 改版风险 OQ-WX-3 阶段性复测（H1/Q2）⑥ balance_parse.rs 206 行 / history_parse.rs 244 行 略超 200 行硬限，下次"清理一下"按 `_parse_tests.rs` 拆 tests；新 T7 follow-up（CP-L1/L2/L3 已过，但用户从未借书，schema 仍有盲区）：OQ-LIB-1 getInfo borrowArray 字段名待真书反推 / OQ-LIB-5 history filter/pagination 待真历史 / OQ-LIB-2/3/4 三连未触发 stale 路径，待 sjtu logout 后复跑或真机 30 天后过期触发；**新 T8 follow-up**：OQ-M-1 SearchResponse `more` 属性精确分页（当前 `estimate_has_more` 用 count==limit 启发，Zimbra `<SearchResponse more="1">` 真值未解析）/ OQ-MAIL-1 真实邮件 from/to 多地址 fixture 反推 / OQ-MAIL-2 HTML-only 邮件 body_warning 验证 / OQ-MAIL-3 大附件 size_bytes 阈值用法 / OQ-MAIL-4 Zimbra Fault Code 全集补全（当前只识 service.AUTH_REQUIRED）/ OQ-MAIL-5 SOAP context schema 是否随 Zimbra 升级变化 / OQ-MAIL-6 真机 `--limit 500` 上限观察 / OQ-MAIL-7 CSRF token 过期 / 轮换策略 / OQ-MAIL-8 用户邮箱客户端复核 CP-M4 id=3084 仍 unread
+- **详细进度**：见 `tasks/todo.md`
+- **经验总结**：见 `tasks/lessons.md`（**2026-05-21 R16 Zimbra `csrf=1:1` flag 强制 envelope `<csrfToken>` + `/zimbra/mail` HTML 嵌 JS 字面抽 csrf token + SOAP 1.1 namespace + Content-Type text/xml 三项 plan-level fix（R7 CP 时发现）** / **2026-05-20 R12 Zimbra SOAP `<context><authToken>` envelope 显式注入红线 / R13 `read="0" html="0"` 编译期写入 builder 不暴露用户层 / R14 IMAP 路线放弃因 jaccount master password 不可代输 / R15 plan 字面与现状脱节时跟随现状（implementer 不替 controller 决策）** / 2026-05-20 R11 HTTP plain text + 非标端口 production 必须 `.no_proxy()` / 2026-05-19 reqwest URL parser × OAuth2 scope 空格 + cookie jar domain 分桶 + `_` 标参数误用 / 2026-05-16 CAS retry 收尾 / 2026-05-17 OAuth2 手卷 vs crate / Browser Drop 杀子进程坑 / dateTimAccount 拼写陷阱）
+
+### 项目专属约束
+- **合规第一**：只做读操作；不做抢课 / 代登录 / 批量爬他人
+- **i.sjtu / 交我办 硬红线（无论 CLI 实现期 还是 MCP 浏览器调研期）**：
+  - 严禁触动用户个人信息（"信息维护"全部子项 / 头像 / 联系方式 / 地址 / 密码 / 银行卡 等）
+  - 严禁触动选课内容（"选课" 主菜单全部子项 / 加退课 / 退选 / 选课志愿 / 抢课 等）
+  - 严禁提交任何表单 / 点击任何"提交 / 确认 / 保存 / 绑定 / 修改 / 删除 / 退订 / 申请 / 撤回"按钮
+  - 调研期 chrome-devtools 仅允许：take_snapshot / take_screenshot / list_network_requests / get_network_request / evaluate_script（且 evaluate 的 JS 必须是只读，不调任何 form.submit() / fetch POST/PUT/DELETE）
+  - 即便用户已扫码登录、session 在握，也按"我是只读访客"操作，不替用户决策任何状态变更
+- **用户隐私**：`~/.sjtu-cli/` 权限 600（Unix）/ 仅当前用户可读（Windows ACL 可留 TODO）；日志脱敏学号姓名
+- **Cookie 安全**：不提交任何真实 cookie；`.gitignore` 必须含 `session.json`、`sub_sessions/`
+- **金额**：一卡通消费金额必须用 `rust_decimal::Decimal`，绝不用 f32/f64
+- **多子系统适配**：每个 SJTU 子系统（jwc / card / canvas / library）独立一个 `apps/*.rs`，只改一处
+- **参考范式**：主参考 `xiaohongshu-cli` 的三级认证 + Envelope（跨语言移植）；辅参考 `bilibili-cli` 的 async 结构
+
+---
+
+## 开发者背景
+
+我不是专业开发者，使用 Claude Code 辅助编程。请：
+- 代码加中文注释，关键逻辑额外解释
+- 遇到复杂问题先给方案让我确认，不要直接大改
+- 报错时解释原因 + 修复方案，不要只贴代码
+- 优先最简实现，不要过度工程化
+- Rust 初学者友好：遇到生命周期 / trait bound 报错时讲清楚原理
+
+---
+
+## 上下文管理规范（核心）
+
+### 1. 文件行数硬限制
+
+| 文件类型 | 最大行数 | 超限动作 |
+|----------|----------|----------|
+| 单个源代码文件（.rs） | **200 行** | 立即拆分为多个文件 |
+| 单个模块目录（含 mod.rs 与所有子文件） | **2000 行** | 拆分为子模块 |
+| 测试文件 | **300 行** | 按功能拆分测试文件 |
+| 配置文件（Cargo.toml / *.toml）| **100 行** | 拆分为多个配置文件 |
+
+**每次创建或修改文件后，检查行数。接近限制时主动提醒我。**
+
+### 2. 每个目录必须有 README.md（当目录下有 3 个以上文件时）
+
+内容模板：
+```markdown
+# 目录名
+
+## 用途
+一句话说明这个目录做什么。
+
+## 文件清单
+- `xxx.rs` — 做什么（~行数）
+- `yyy.rs` — 做什么（~行数）
+
+## 依赖关系
+- 本目录依赖：xxx 模块
+- 被以下模块依赖：yyy
+```
+
+### 3. 定期清理（每 2-3 天新功能开发后执行一次）
+
+当我说 **"清理一下"** 时：
+
+1. **行数审计**：列出所有超过 150 行的文件，建议拆分
+2. **死代码检测**：`cargo +nightly udeps` 或手工找未 `use` / 未 `pub use` 的函数
+3. **TODO 清理**：列出所有 `// TODO` / `// FIXME` / `// HACK`
+4. **一次性脚本**：找出临时 `examples/*.rs`、单次运行的 bin，建议删除
+5. **描述同步**：检查 CLAUDE.md 项目结构 vs 实际目录
+6. **依赖检查**：`Cargo.toml` 无未使用依赖（`cargo-machete` 或手动）
+
+---
+
+## Sub-Agent 并行调度规则
+
+**并行派遣**（全部满足）：
+- 3+ 不相关任务
+- 不操作同一文件
+- 无输入输出依赖
+
+**顺序派遣**（任一触发）：
+- B 需要 A 的输出
+- 同文件（合并冲突风险）
+- 范围不明
+
+**后台 Agent**：研究/分析类（不改文件）后台跑，不阻塞主对话。
+
+---
+
+## 编码规范
+
+### 错误处理
+- 所有外部调用（HTTP、文件 IO、进程调用）必须返回 `Result<T, E>`
+- 库层错误用 `thiserror` 定义精确 variant；bin 层用 `anyhow` 收口
+- 失败时 graceful degradation：友好提示 + 缓存/默认值
+- `tracing` 记录详情；对用户只返回 Envelope `error.message`，不暴露 stack / 内部路径
+
+### 函数设计
+- 单个函数 ≤ 30 行（超了就拆）
+- 动词开头：`fetch_schedule()` / `parse_grade_table()`
+- 每个 `pub fn` 有 doc comment（`///`），说明输入输出和可能的 error variant
+- 尽量不用 `.unwrap()` / `.expect()`；必须用时写明为什么不会 panic
+
+### 依赖管理
+- **不要自行引入新依赖**，需要新 crate 时先问我
+- 优先 std，其次已声明依赖
+- 新增依赖立即更新 `Cargo.toml`，并说明 feature flag 选择
+- 拒绝同时引入功能重叠的 crate（比如已有 reqwest 就不要再加 ureq）
+
+### 配置管理
+- 敏感信息（JAccount cookie）放 `~/.sjtu-cli/session.json`（Unix 权限 600）
+- 非敏感配置放 `config.toml`
+- 绝不硬编码 cookie / 学号 / 密钥
+
+---
+
+## Git 规范
+
+### Commit 信息格式
+```
+<类型>: <一句话描述>
+类型：feat | fix | refactor | docs | chore
+```
+
+### Commit 前检查
+- 没有 `.env` / `session.json` / `sub_sessions/` / `target/` / `*.log`
+- 代码能编译（至少 `cargo check` 不报错）
+- 没有任何真实 cookie / 学号 / 姓名
+- `cargo fmt --check` 通过
+
+---
+
+## 沟通规范
+
+### AI 不确定时
+- **直接说不确定**，不编造
+- 给 2-3 方案让我选
+- 标明优缺点
+
+### 任务太大时
+- 不一口气全做完
+- 先给 5-8 步拆分计划让我确认
+- 每完成一步告诉我进度
+
+### 代码出问题时
+1. 是什么问题（一句话）
+2. 为什么（原因分析，含 Rust 特性层面的解释如适用）
+3. 修复方案
+- 不要只说"我来修一下"然后默默改一堆
+
+### 关键词触发
+
+| 我说 | 你做 |
+|------|------|
+| "清理一下" | 执行定期清理流程 |
+| "拆一下" | 检查指定文件/模块，给拆分方案 |
+| "健康检查" | 完整项目健康度检查（cargo check + clippy + fmt + 行数审计）|
+| "现在到哪了" | 总结进度，参考 `tasks/todo.md` |
+| "省着点" | 减少 token：简短、不重复输出完整文件 |
+| "全力跑" | 可并行、大改、不逐步确认 |
+
+---
+
+## 性能优化（省钱 + 保持 AI 聪明）
+
+### Token 节省
+1. 只输出变更部分，不重复整个文件
+2. 简单问题不贴全部相关代码
+3. 长文件只输出相关函数
+4. 用 `// ... existing code ...` 标记未修改
+
+### 上下文保鲜
+1. 对话 > 20 轮建议 `/compact`
+2. 切换模块建议新 session
+3. 大量探索用 sub-agent
+4. Debug 用 Explore sub-agent 搜索
+
+### 何时开新 Session
+- 当前 > 30 轮
+- 切到完全不同模块
+- AI 回复质量下降（前后矛盾）
+- 大型重构
+
+---
+
+## 项目文件模板
+
+### 新模块 Checklist
+- [ ] 目录级 README.md（文件数 ≥ 3 时）
+- [ ] `mod.rs` + 子文件
+- [ ] 每个文件 module doc comment（`//!`）+ 中文注释
+- [ ] 行数 < 200
+- [ ] 更新 CLAUDE.md 项目结构
+- [ ] 更新 `tasks/todo.md`
+
+### 新功能 Checklist
+- [ ] `Result<T, E>` 错误处理
+- [ ] 有缓存策略（若调外部 API）
+- [ ] 不引入新依赖（或已批准）
+- [ ] 文件行数未超限
+- [ ] 能独立 `cargo test` 测试
+
+---
+
+## SJTU-CLI 专属提醒
+
+### 登录相关
+- **任何时候不要打印完整 cookie**，日志只打前 8 位 + `***`
+- QR 登录失败时给用户 3 种降级：重试 / `--browser` 走 rookie 提取 / 手动粘贴
+- 子系统 session 过期时自动走 CAS 刷新，不要弹框要求用户重新扫码
+
+### 子系统相关
+- 教务处（jwc）返回 HTML 可能改版：解析失败时 Envelope 附 `error.raw_snippet` 而非崩溃
+- 一卡通金额：`rust_decimal::Decimal`，序列化为字符串（避免 JSON 的 f64 精度坑）
+- Canvas 优先使用官方 REST API + Personal Access Token，次选 OAuth2；不优先页面爬取
+- 通知去重按 `(source, notification_id)` 复合键
+
+### 测试相关
+- 单元测试用 `mockito` 启本地 HTTP server，不真打 SJTU 服务器
+- 真实 API 测试加 `#[ignore]`，`cargo test -- --ignored` 才跑
+- CI 默认 `cargo test`（跳过 ignored）
 
 ---
 > Source: [wuyutanhongyuxin-cell/SJTU_CLI](https://github.com/wuyutanhongyuxin-cell/SJTU_CLI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
