@@ -1,0 +1,14 @@
+{
+  "name": "spree--spree",
+  "displayName": "spree",
+  "description": "spree",
+  "version": "1.0.0",
+  "author": "spree",
+  "homepage": "https://github.com/spree/spree",
+  "skills": [
+    {
+      "name": "spree",
+      "description": ""
+    }
+  ]
+}
