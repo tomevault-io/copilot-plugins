@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Garudex-Labs/caracal](https://github.com/Garudex-Labs/caracal).
+Original source: `CLAUDE.md` in [Garudex-Labs/caracal](https://github.com/Garudex-Labs/caracal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [Garudex-Labs/caracal](https://github.com/Garude
 - [documentation-validation](https://github.com/Garudex-Labs/caracal/tree/main/playbooks/policies/github-copilot/.github/skills/documentation-validation)
 - [documentation-validation](https://github.com/Garudex-Labs/caracal/tree/main/playbooks/policies/claude-code/.claude/skills/documentation-validation)
 
-From [Garudex-Labs/caracal](https://github.com/Garudex-Labs/caracal) — a repo with 158+ stars on GitHub.
+From [Garudex-Labs/caracal](https://github.com/Garudex-Labs/caracal) — a repo with 159+ stars on GitHub.
 
 ---
 
