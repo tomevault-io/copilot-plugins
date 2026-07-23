@@ -1,44 +1,57 @@
 ## uniapp-vue3-template
 
-> 辅助生成 Git 提交信息
+> uni-app（Vue 3 + Composition API）/ Vite 5+ / Pinia / uview-plus 3.4+ / UnoCSS / Scss / TypeScript / ESLint / pnpm
 
+# CLAUDE.md
 
-# Git 提交规范
+## 技术栈
 
-- 你是一位前端开发专家，精通 Git 操作
+uni-app（Vue 3 + Composition API）/ Vite 5+ / Pinia / uview-plus 3.4+ / UnoCSS / Scss / TypeScript / ESLint / pnpm
 
-## Commit 规范
+## 目录结构
 
-提交模板 `type: message`，具体要求如下:
+```
+├ build/                # Vite 配置与插件
+├ env/                  # 环境变量（.env / .env.test / .env.production）
+├ scripts/              # 构建脚本（post-upgrade / verify-commit）
+├ src/
+│  ├ api/               # 接口（模块/index.ts + types.ts）
+│  ├ components/        # 公共组件
+│  ├ hooks/             # Composables
+│  ├ locale/            # i18n
+│  ├ pages/             # 页面
+│  ├ plugins/           # 插件
+│  ├ router/            # 路由（运行时解析 pages.json）
+│  ├ static/            # 静态资源
+│  ├ store/modules/     # Pinia Store（按模块划分）
+│  └ utils/             # 工具函数
+├ types/                # 全局 TS 类型
+└ uno.config.ts         # UnoCSS 配置
+```
 
-1. 注意英文冒号后有一个空格
-2. `type` 的枚举值有:
+## 常用命令
 
-- `feat` 新功能
-- `fix` 修复错误
-- `perf` 性能优化
-- `refactor` 重构代码
-- `docs` 文档和注释
-- `types` 类型相关
-- `test` 单测相关
-- `ci` 持续集成、工作流
-- `revert` 撤销更改
-- `chore` 琐事（更新依赖、修改配置等）
+```bash
+pnpm install                 # 安装依赖（必须用 pnpm）
+pnpm dev:h5                  # H5 开发
+pnpm dev:mp-weixin           # 微信小程序开发
+pnpm build:h5-prod           # H5 生产构建
+pnpm build:mp-weixin-prod    # 微信小程序生产构建
+pnpm eslint:fix              # ESLint 自动修复
+pnpm stylelint:fix           # StyleLint 自动修复
+pnpm type-check              # TypeScript 类型检查
+pnpm cz                      # 引导式 Git 提交
+```
 
-3. 保持 `message` 简洁明了，描述清楚变更内容
+## 架构要点
 
-## 分支说明
-
-- `main / master`: 主分支
-- `gh-pages`: GitHub Pages 构建分支
-
-## 其他
-
-- 禁止自动提交，除非有明确的指示
-- 提交前确保代码通过代码校验和单元测试
-- 避免大型提交，尽量将变更分解为小的、相关的提交
+- **条件编译**: `// #ifdef PLATFORM` / `// #endif` 处理多端差异
+- **路由鉴权**: pages.json 中设置 `"needLogin": true`；TabBar 页面在 `onShow` 中调用 `usePermission()`
+- **网络请求**: `src/utils/request/index.ts`，Token 在 header `token` 字段，`custom.auth = false` 跳过鉴权，401 自动刷新 Token
+- **状态持久化**: pinia-plugin-persistedstate + uni.getStorageSync/setStorageSync
+- **环境变量**: `VITE_API_BASE_URL` / `VITE_APP_PROXY` / `VITE_API_PREFIX` / `VITE_DROP_CONSOLE`
+- **Vite 插件**: 统一注册在 `build/plugins/index.ts`，CDN 替换和体积分析默认关闭
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/oyjt)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/oyjt)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [oyjt/uniapp-vue3-template](https://github.com/oyjt/uniapp-vue3-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
