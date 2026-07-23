@@ -1,0 +1,18 @@
+{
+  "name": "voltcyclone--pcileechfwgenerator",
+  "displayName": "PCILeechFWGenerator",
+  "description": "PCILeechFWGenerator",
+  "version": "1.0.0",
+  "author": "VoltCyclone",
+  "homepage": "https://github.com/VoltCyclone/PCILeechFWGenerator",
+  "skills": [
+    {
+      "name": "PCILeechFWGenerator",
+      "description": ""
+    },
+    {
+      "name": "PCILeechFWGenerator",
+      "description": ""
+    }
+  ]
+}
