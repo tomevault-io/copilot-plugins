@@ -4,7 +4,7 @@
   "repo": "dojo.js",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -119,5 +119,5 @@
   ],
   "source_url": "https://github.com/dojoengine/dojo.js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T05:59:11Z"
+  "distributed_at": "2026-07-23T01:38:09Z"
 }
