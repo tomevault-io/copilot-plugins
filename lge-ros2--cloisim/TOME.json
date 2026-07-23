@@ -1,0 +1,153 @@
+{
+  "name": "cloisim",
+  "owner": "lge-ros2",
+  "repo": "cloisim",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-ui-feature/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-ui-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-new-plugin/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-new-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-new-sensor/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-new-sensor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-mesh-import/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-mesh-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/debug-transport/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/debug-transport/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-sdf-element/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-sdf-element/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-noise-model/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-noise-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/narrow-debug-fix/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/narrow-debug-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-compute-shader/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-compute-shader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-actor-animation/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-actor-animation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-motor-controller/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-motor-controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-protobuf-message/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-protobuf-message/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/coordinate-conversion/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/coordinate-conversion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/add-websocket-command/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/add-websocket-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/setup-material-texture/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/setup-material-texture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/manage-world-lifecycle/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/manage-world-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/configure-joint-articulation/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/configure-joint-articulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cloisim",
+      "path": ".github/skills/debug-plugin-lifecycle-transport/SKILL.md",
+      "github_url": "https://github.com/lge-ros2/cloisim/tree/main/.github/skills/debug-plugin-lifecycle-transport/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lge-ros2/cloisim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T09:14:10Z"
+}
