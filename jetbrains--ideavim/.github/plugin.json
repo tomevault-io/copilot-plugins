@@ -1,0 +1,38 @@
+{
+  "name": "jetbrains--ideavim",
+  "displayName": "ideavim",
+  "description": "ideavim",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/ideavim",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "ideavim",
+      "description": ""
+    },
+    {
+      "name": "ideavim",
+      "description": ""
+    },
+    {
+      "name": "ideavim",
+      "description": ""
+    },
+    {
+      "name": "ideavim",
+      "description": ""
+    },
+    {
+      "name": "ideavim",
+      "description": ""
+    },
+    {
+      "name": "ideavim",
+      "description": ""
+    }
+  ]
+}
