@@ -1,0 +1,9 @@
+{
+  "name": "nacos-group--nacos-sdk-rust",
+  "displayName": "nacos-sdk-rust",
+  "description": "nacos-sdk-rust",
+  "version": "1.0.0",
+  "author": "nacos-group",
+  "homepage": "https://github.com/nacos-group/nacos-sdk-rust",
+  "skills": []
+}
