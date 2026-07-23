@@ -1,0 +1,14 @@
+{
+  "name": "natemcmaster--commandlineutils",
+  "displayName": "CommandLineUtils",
+  "description": "CommandLineUtils",
+  "version": "1.0.0",
+  "author": "natemcmaster",
+  "homepage": "https://github.com/natemcmaster/CommandLineUtils",
+  "skills": [
+    {
+      "name": "CommandLineUtils",
+      "description": ""
+    }
+  ]
+}
