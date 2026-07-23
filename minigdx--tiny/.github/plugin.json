@@ -1,0 +1,14 @@
+{
+  "name": "minigdx--tiny",
+  "displayName": "tiny",
+  "description": "tiny",
+  "version": "1.0.0",
+  "author": "minigdx",
+  "homepage": "https://github.com/minigdx/tiny",
+  "skills": [
+    {
+      "name": "tiny",
+      "description": ""
+    }
+  ]
+}
