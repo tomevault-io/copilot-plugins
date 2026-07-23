@@ -1,0 +1,18 @@
+{
+  "name": "microsoft--playwright-python",
+  "displayName": "playwright-python",
+  "description": "playwright-python",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/playwright-python",
+  "skills": [
+    {
+      "name": "playwright-roll",
+      "description": ""
+    },
+    {
+      "name": "playwright-python",
+      "description": ""
+    }
+  ]
+}
