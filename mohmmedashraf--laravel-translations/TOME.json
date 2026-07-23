@@ -4,7 +4,7 @@
   "repo": "laravel-translations",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/MohmmedAshraf/laravel-translations",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:11:59Z"
+  "distributed_at": "2026-07-23T02:55:03Z"
 }
