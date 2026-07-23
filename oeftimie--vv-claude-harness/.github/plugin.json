@@ -1,0 +1,9 @@
+{
+  "name": "oeftimie--vv-claude-harness",
+  "displayName": "vv-claude-harness",
+  "description": "This is my Claude Code harness, a combination between Anthropic's guidelines for long running harness and an implementation of the Manus style persistent markdown planning with files .",
+  "version": "1.0.0",
+  "author": "oeftimie",
+  "homepage": "https://github.com/oeftimie/vv-claude-harness",
+  "skills": []
+}
