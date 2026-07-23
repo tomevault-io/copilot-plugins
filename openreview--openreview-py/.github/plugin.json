@@ -1,0 +1,14 @@
+{
+  "name": "openreview--openreview-py",
+  "displayName": "openreview-py",
+  "description": "openreview-py",
+  "version": "1.0.0",
+  "author": "openreview",
+  "homepage": "https://github.com/openreview/openreview-py",
+  "skills": [
+    {
+      "name": "openreview-py",
+      "description": ""
+    }
+  ]
+}
