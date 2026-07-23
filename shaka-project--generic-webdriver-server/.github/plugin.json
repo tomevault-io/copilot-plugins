@@ -1,0 +1,9 @@
+{
+  "name": "shaka-project--generic-webdriver-server",
+  "displayName": "generic-webdriver-server",
+  "description": "generic-webdriver-server",
+  "version": "1.0.0",
+  "author": "shaka-project",
+  "homepage": "https://github.com/shaka-project/generic-webdriver-server",
+  "skills": []
+}
