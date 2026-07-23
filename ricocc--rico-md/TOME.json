@@ -4,7 +4,7 @@
   "repo": "rico-md",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/ricocc/rico-md",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:47:52Z"
+  "distributed_at": "2026-07-23T11:11:01Z"
 }
