@@ -1,0 +1,9 @@
+{
+  "name": "wagtail--draftjs-exporter",
+  "displayName": "draftjs_exporter",
+  "description": "draftjs_exporter",
+  "version": "1.0.0",
+  "author": "wagtail",
+  "homepage": "https://github.com/wagtail/draftjs_exporter",
+  "skills": []
+}
