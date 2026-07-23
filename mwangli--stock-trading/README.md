@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mwangli/stock-trading](https://github.com/mwangli/stock-trading).
+Original source: `CLAUDE.md` in [mwangli/stock-trading](https://github.com/mwangli/stock-trading).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -33,7 +33,7 @@ Original source: `AGENTS.md` in [mwangli/stock-trading](https://github.com/mwang
 - [stock-trading](https://github.com/mwangli/stock-trading/tree/main/.trae/skills/finishing-a-development-branch/SKILL.md)
 - [stock-trading](https://github.com/mwangli/stock-trading/tree/main/.trae/skills/verification-before-completion/SKILL.md)
 
-From [mwangli/stock-trading](https://github.com/mwangli/stock-trading) — a repo with 144+ stars on GitHub.
+From [mwangli/stock-trading](https://github.com/mwangli/stock-trading) — a repo with 145+ stars on GitHub.
 
 ---
 
