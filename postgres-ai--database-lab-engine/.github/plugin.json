@@ -1,0 +1,9 @@
+{
+  "name": "postgres-ai--database-lab-engine",
+  "displayName": "database-lab-engine",
+  "description": "database-lab-engine",
+  "version": "1.0.0",
+  "author": "postgres-ai",
+  "homepage": "https://github.com/postgres-ai/database-lab-engine",
+  "skills": []
+}
