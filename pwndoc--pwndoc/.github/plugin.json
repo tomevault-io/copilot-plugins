@@ -1,0 +1,34 @@
+{
+  "name": "pwndoc--pwndoc",
+  "displayName": "pwndoc",
+  "description": "pwndoc",
+  "version": "1.0.0",
+  "author": "pwndoc",
+  "homepage": "https://github.com/pwndoc/pwndoc",
+  "skills": [
+    {
+      "name": "test-frontend-unit",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "description": ""
+    }
+  ]
+}
