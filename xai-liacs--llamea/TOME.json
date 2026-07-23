@@ -4,7 +4,7 @@
   "repo": "LLaMEA",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XAI-liacs/LLaMEA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T21:13:34Z"
+  "distributed_at": "2026-07-23T04:11:53Z"
 }
