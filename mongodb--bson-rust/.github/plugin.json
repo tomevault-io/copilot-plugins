@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--bson-rust",
+  "displayName": "bson-rust",
+  "description": "bson-rust",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/bson-rust",
+  "skills": []
+}
