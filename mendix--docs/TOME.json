@@ -1,0 +1,87 @@
+{
+  "name": "docs",
+  "owner": "mendix",
+  "repo": "docs",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs-add/SKILL.md",
+      "github_url": "https://github.com/mendix/docs/tree/main/.claude/skills/docs-add/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs-review/SKILL.md",
+      "github_url": "https://github.com/mendix/docs/tree/main/.claude/skills/docs-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs-polish/SKILL.md",
+      "github_url": "https://github.com/mendix/docs/tree/main/.claude/skills/docs-polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs-enhance/SKILL.md",
+      "github_url": "https://github.com/mendix/docs/tree/main/.claude/skills/docs-enhance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs-alt-text/SKILL.md",
+      "github_url": "https://github.com/mendix/docs/tree/main/.claude/skills/docs-alt-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs-pr-review/SKILL.md",
+      "github_url": "https://github.com/mendix/docs/tree/main/.claude/skills/docs-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs-proofread/SKILL.md",
+      "github_url": "https://github.com/mendix/docs/tree/main/.claude/skills/docs-proofread/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mendix/docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:53:56Z"
+}
