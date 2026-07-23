@@ -1,0 +1,22 @@
+{
+  "name": "plankevm--plank-monorepo",
+  "displayName": "plank-monorepo",
+  "description": "plank-monorepo",
+  "version": "1.0.0",
+  "author": "plankevm",
+  "homepage": "https://github.com/plankevm/plank-monorepo",
+  "skills": [
+    {
+      "name": "plank-monorepo",
+      "description": ""
+    },
+    {
+      "name": "plank-monorepo",
+      "description": ""
+    },
+    {
+      "name": "plank-monorepo",
+      "description": ""
+    }
+  ]
+}
