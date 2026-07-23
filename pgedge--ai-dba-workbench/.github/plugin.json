@@ -1,0 +1,14 @@
+{
+  "name": "pgedge--ai-dba-workbench",
+  "displayName": "ai-dba-workbench",
+  "description": "ai-dba-workbench",
+  "version": "1.0.0",
+  "author": "pgEdge",
+  "homepage": "https://github.com/pgEdge/ai-dba-workbench",
+  "skills": [
+    {
+      "name": "ai-dba-workbench",
+      "description": ""
+    }
+  ]
+}
