@@ -1,0 +1,18 @@
+{
+  "name": "scify--laravel-cookie-guard",
+  "displayName": "laravel-cookie-guard",
+  "description": "laravel-cookie-guard",
+  "version": "1.0.0",
+  "author": "scify",
+  "homepage": "https://github.com/scify/laravel-cookie-guard",
+  "skills": [
+    {
+      "name": "github-issues",
+      "description": ""
+    },
+    {
+      "name": "laravel-cookie-guard",
+      "description": ""
+    }
+  ]
+}
