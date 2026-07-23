@@ -4,7 +4,7 @@
   "repo": "primitives",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/radix-ng/primitives",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T11:49:10Z"
+  "distributed_at": "2026-07-23T08:38:32Z"
 }
