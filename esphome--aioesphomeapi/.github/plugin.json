@@ -1,0 +1,14 @@
+{
+  "name": "esphome--aioesphomeapi",
+  "displayName": "aioesphomeapi",
+  "description": "aioesphomeapi",
+  "version": "1.0.0",
+  "author": "esphome",
+  "homepage": "https://github.com/esphome/aioesphomeapi",
+  "skills": [
+    {
+      "name": "aioesphomeapi",
+      "description": ""
+    }
+  ]
+}
