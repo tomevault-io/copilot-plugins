@@ -1,103 +1,72 @@
 ## growi
 
-> A build-time extraction package that produces a minimal emoji native lookup JSON
+> Kiro-style Spec-Driven Development on an agentic SDLC
 
-# @growi/emoji-mart-data
+@AGENTS.md
 
-A build-time extraction package that produces a minimal emoji native lookup JSON
-from `@emoji-mart/data`. The generated artifact is consumed by two places in the
-monorepo:
+# Agentic SDLC and Spec-Driven Development
 
-| Consumer | Usage |
-|---|---|
-| `apps/app` — `emoji.ts` (remark plugin) | Converts `:shortcode:` → native emoji during server-side Markdown rendering |
-| `packages/editor` — `emojiAutocompletionSettings.ts` | Populates CodeMirror autocomplete suggestions with native emoji previews |
+Kiro-style Spec-Driven Development on an agentic SDLC
 
----
+## Project Context
 
-## Why this package was created
+### Paths
+- Steering: `.kiro/steering/`
+- Specs: `.kiro/specs/`
 
-### The problem: Turbopack externalisation
+### Steering vs Specification
 
-After migrating from webpack to Turbopack, packages that are statically imported
-in SSR-reachable code are **externalised** — Turbopack creates runtime symlinks
-under `.next/node_modules/` instead of inlining them. Any externalised package
-must be listed under `dependencies` (not `devDependencies`) in `apps/app/package.json`,
-otherwise `pnpm deploy --prod` produces a broken production artifact.
+**Steering** (`.kiro/steering/`) - Guide AI with project-wide rules and context
+**Specs** (`.kiro/specs/`) - Formalize development process for individual features
 
-`@emoji-mart/data` (~4 MB JSON) was statically imported in `apps/app/emoji.ts` and
-in `packages/editor/emojiAutocompletionSettings.ts`. Both import paths were
-transitively reachable from SSR, so Turbopack externalised the package and it
-had to live in `apps/app` `dependencies`.
+### Active Specifications
+- Check `.kiro/specs/` for active specifications
+- Use `/kiro-spec-status [feature-name]` to check progress
 
-### The fix: break the static import chain
+## Development Guidelines
+- Think in English, generate responses in English. All Markdown content written to project files (e.g., requirements.md, design.md, tasks.md, research.md, validation reports) MUST be written in the target language configured for this specification (see spec.json.language).
 
-The consumers only need a `name → native-emoji` mapping, a tiny subset of the
-full `@emoji-mart/data` payload. By extracting that mapping at build time into a
-plain JSON file and publishing it as `@growi/emoji-mart-data`, the static imports
-of `@emoji-mart/data` are eliminated:
+## Minimal Workflow
+- Phase 0 (optional): `/kiro-steering`, `/kiro-steering-custom`
+- Discovery: `/kiro-discovery "idea"` — determines action path, writes brief.md + roadmap.md for multi-spec projects
+- Phase 1 (Specification):
+  - Single spec: `/kiro-spec-quick {feature} [--auto]` or step by step:
+    - `/kiro-spec-init "description"`
+    - `/kiro-spec-requirements {feature}`
+    - `/kiro-validate-gap {feature}` (optional: for existing codebase)
+    - `/kiro-spec-design {feature} [-y]`
+    - `/kiro-validate-design {feature}` (optional: design review)
+    - `/kiro-spec-tasks {feature} [-y]`
+  - Multi-spec: `/kiro-spec-batch` — creates all specs from roadmap.md in parallel by dependency wave
+- Phase 2 (Implementation): `/kiro-impl {feature} [tasks]`
+  - Without task numbers: autonomous mode (subagent per task + independent review + final validation)
+  - With task numbers: manual mode (selected tasks in main context, still reviewer-gated before completion)
+  - `/kiro-validate-impl {feature}` (standalone re-validation)
+- Phase 3 (Post-implementation): `/kiro-spec-cleanup {feature}` — trim HOW, preserve WHY for future refactoring
+- Progress check: `/kiro-spec-status {feature}` (use anytime)
 
-- **`emoji.ts`** and **`emojiAutocompletionSettings.ts`** now import
-  `@growi/emoji-mart-data` (a JSON, bundled inline by Turbopack — never externalised).
-- **`EmojiButton.tsx`** still needs the full `@emoji-mart/data` for the
-  `<Picker>` component, but loads it via `import()` inside a `useEffect` (the
-  only pattern confirmed to prevent Turbopack externalisation).
+## Skills Structure
+Skills are located in `.claude/skills/kiro-*/SKILL.md`
+- Each skill is a directory with a `SKILL.md` file
+- Skills run inline with access to conversation context
+- Skills may delegate parallel research to subagents for efficiency
+- Additional files (templates, examples) can be added to skill directories
+- `kiro-review` — task-local adversarial review protocol used by reviewer subagents
+- `kiro-debug` — root-cause-first debug protocol used by debugger subagents
+- `kiro-verify-completion` — fresh-evidence gate before success or completion claims
+- **If there is even a 1% chance a skill applies to the current task, invoke it.** Do not skip skills because the task seems simple.
 
-Result: `@emoji-mart/data` and `@emoji-mart/react` are removed from
-`apps/app` `dependencies` entirely and remain only in `packages/editor`
-`devDependencies`.
+## Development Rules
+- 3-phase approval workflow: Requirements → Design → Tasks → Implementation
+- Human review required each phase; use `-y` only for intentional fast-track
+- Keep steering current and verify alignment with `/kiro-spec-status`
+- Follow the user's instructions precisely, and within that scope act autonomously: gather the necessary context and complete the requested work end-to-end in this run, asking questions only when essential information is missing or the instructions are critically ambiguous.
 
----
-
-## Why one output file is sufficient
-
-During design we initially expected to need **two** output files:
-
-- A *full* lookup for `apps/app` (all emoji, any order)
-- A *category-ordered* lookup for `packages/editor` autocomplete (8 categories,
-  UX-friendly order)
-
-Investigation of `@emoji-mart/data/sets/15/native.json` showed that the dataset
-has **exactly 8 categories** and all 1870 emojis fall into them:
-
-```
-people   529   nature  152   foods    133   activity  85
-places   218   objects 261   symbols  223   flags     269
-total: 1870  =  Object.keys(emojis).length
-```
-
-The `component` category (skin-tone modifier entries that could inflate the
-count) does not exist as a standalone category — skin tones are embedded inside
-each emoji's `skins[]` array and are not addressable by `:shortcode:`.
-
-Therefore one category-ordered file satisfies both consumers:
-
-- `apps/app/emoji.ts` does key lookups (`lookup[name]`) — order is irrelevant.
-- `packages/editor/emojiAutocompletionSettings.ts` uses `Object.keys(lookup)` —
-  category order means common emojis surface first in autocomplete.
-
----
-
-## Maintenance
-
-Whenever `@emoji-mart/data` is upgraded, regenerate the lookup:
-
-```bash
-turbo run build --filter @growi/emoji-mart-data
-```
-
-Or directly from this package directory:
-
-```bash
-node bin/extract.ts
-```
-
-Commit the updated `pnpm-lock.yaml` and re-verify with:
-
-```bash
-turbo run build --filter @growi/app
-```
+## Steering Configuration
+- Load entire `.kiro/steering/` as project memory
+- Default files: `product.md`, `tech.md`, `structure.md`
+- Custom files are supported (managed via `/kiro-steering-custom`)
 
 ---
 > Source: [growilabs/growi](https://github.com/growilabs/growi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
