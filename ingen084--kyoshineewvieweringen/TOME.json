@@ -1,0 +1,57 @@
+{
+  "name": "KyoshinEewViewerIngen",
+  "owner": "ingen084",
+  "repo": "KyoshinEewViewerIngen",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "creating-claude-code-skills",
+      "path": ".claude/skills/creating-claude-code-skills",
+      "github_url": "https://github.com/ingen084/KyoshinEewViewerIngen/tree/main/.claude/skills/creating-claude-code-skills",
+      "description": ""
+    },
+    {
+      "name": "KyoshinEewViewerIngen",
+      "path": ".claude/skills/creating-claude-code-skills/SKILL.md",
+      "github_url": "https://github.com/ingen084/KyoshinEewViewerIngen/tree/main/.claude/skills/creating-claude-code-skills/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ingen084/KyoshinEewViewerIngen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:11:29Z"
+}
