@@ -1,0 +1,14 @@
+{
+  "name": "larsxyz--gravity-simulator",
+  "displayName": "Gravity-Simulator",
+  "description": "Gravity-Simulator",
+  "version": "1.0.0",
+  "author": "larsXYZ",
+  "homepage": "https://github.com/larsXYZ/Gravity-Simulator",
+  "skills": [
+    {
+      "name": "Gravity-Simulator",
+      "description": ""
+    }
+  ]
+}
