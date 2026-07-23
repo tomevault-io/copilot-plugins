@@ -1,0 +1,14 @@
+{
+  "name": "noharm-ai--backend",
+  "displayName": "backend",
+  "description": "backend",
+  "version": "1.0.0",
+  "author": "noharm-ai",
+  "homepage": "https://github.com/noharm-ai/backend",
+  "skills": [
+    {
+      "name": "backend",
+      "description": ""
+    }
+  ]
+}
