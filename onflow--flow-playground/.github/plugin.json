@@ -1,0 +1,9 @@
+{
+  "name": "onflow--flow-playground",
+  "displayName": "flow-playground",
+  "description": "flow-playground",
+  "version": "1.0.0",
+  "author": "onflow",
+  "homepage": "https://github.com/onflow/flow-playground",
+  "skills": []
+}
