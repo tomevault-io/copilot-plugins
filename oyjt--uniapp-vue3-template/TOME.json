@@ -2,9 +2,9 @@
   "name": "uniapp-vue3-template",
   "owner": "oyjt",
   "repo": "uniapp-vue3-template",
-  "description": "AI instruction files for uniapp-vue3-template by oyjt",
+  "description": "",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,135 @@
       "path": ".agents/skills/vue-best-practices",
       "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/vue-best-practices",
       "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".trae/skills/vue/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.trae/skills/vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".trae/skills/vite/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.trae/skills/vite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".trae/skills/pnpm/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.trae/skills/pnpm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".trae/skills/antfu/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.trae/skills/antfu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".trae/skills/pinia/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.trae/skills/pinia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".agents/skills/vue/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".cursor/skills/vue/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.cursor/skills/vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".trae/skills/unocss/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.trae/skills/unocss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".agents/skills/vite/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/vite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".cursor/skills/vite/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.cursor/skills/vite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".agents/skills/pnpm/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/pnpm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".cursor/skills/pnpm/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.cursor/skills/pnpm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".agents/skills/antfu/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/antfu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".cursor/skills/antfu/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.cursor/skills/antfu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".agents/skills/pinia/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/pinia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".cursor/skills/pinia/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.cursor/skills/pinia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".agents/skills/unocss/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/unocss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".cursor/skills/unocss/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.cursor/skills/unocss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".trae/skills/vue-best-practices/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.trae/skills/vue-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".agents/skills/vue-best-practices/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.agents/skills/vue-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uniapp-vue3-template",
+      "path": ".cursor/skills/vue-best-practices/SKILL.md",
+      "github_url": "https://github.com/oyjt/uniapp-vue3-template/tree/main/.cursor/skills/vue-best-practices/SKILL.md",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/oyjt",
+  "source_url": "https://github.com/oyjt/uniapp-vue3-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:58:32Z"
+  "distributed_at": "2026-07-23T23:33:57Z"
 }
