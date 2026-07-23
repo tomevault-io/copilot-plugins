@@ -3,8 +3,8 @@
   "owner": "Tai-ch0802",
   "repo": "arc-like-chrome-extension",
   "description": "A Chrome extension that mimics the vertical tabs of the Arc browser.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,93 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/sa/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/sa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/sdd/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/sdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/prd/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/refactoring/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/pull-request/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/image-master/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/image-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/puppeteer-test/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/puppeteer-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/commit-message-helper/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/commit-message-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/cleanup-merged-branches/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/cleanup-merged-branches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "arc-like-chrome-extension",
+      "path": ".agent/skills/update-multilingual-docs/SKILL.md",
+      "github_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension/tree/main/.agent/skills/update-multilingual-docs/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Tai-ch0802/arc-like-chrome-extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T18:45:48Z"
+  "distributed_at": "2026-07-23T08:07:30Z"
 }
