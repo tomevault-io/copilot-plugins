@@ -1,0 +1,75 @@
+{
+  "name": "evalyn",
+  "owner": "shihongDev",
+  "repo": "evalyn",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "evalyn",
+      "path": "sdk/skills/evalyn/SKILL.md",
+      "github_url": "https://github.com/shihongDev/evalyn/tree/main/sdk/skills/evalyn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evalyn",
+      "path": "sdk/skills/evalyn-eval/SKILL.md",
+      "github_url": "https://github.com/shihongDev/evalyn/tree/main/sdk/skills/evalyn-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evalyn",
+      "path": "sdk/skills/evalyn-setup/SKILL.md",
+      "github_url": "https://github.com/shihongDev/evalyn/tree/main/sdk/skills/evalyn-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evalyn",
+      "path": "sdk/skills/evalyn-analyze/SKILL.md",
+      "github_url": "https://github.com/shihongDev/evalyn/tree/main/sdk/skills/evalyn-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evalyn",
+      "path": "sdk/skills/evalyn-calibrate/SKILL.md",
+      "github_url": "https://github.com/shihongDev/evalyn/tree/main/sdk/skills/evalyn-calibrate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shihongDev/evalyn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:43:44Z"
+}
