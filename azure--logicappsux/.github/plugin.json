@@ -1,0 +1,14 @@
+{
+  "name": "azure--logicappsux",
+  "displayName": "LogicAppsUX",
+  "description": "LogicAppsUX",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/LogicAppsUX",
+  "skills": [
+    {
+      "name": "LogicAppsUX",
+      "description": ""
+    }
+  ]
+}
