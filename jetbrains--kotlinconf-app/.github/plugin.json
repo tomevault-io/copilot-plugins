@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--kotlinconf-app",
+  "displayName": "kotlinconf-app",
+  "description": "kotlinconf-app",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/kotlinconf-app",
+  "skills": []
+}
