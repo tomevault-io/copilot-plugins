@@ -1,0 +1,105 @@
+{
+  "name": "aiobotocore",
+  "owner": "aio-libs",
+  "repo": "aiobotocore",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/open-pr/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/open-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/port-tests/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/port-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/complete-run/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/complete-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/draft-release/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/draft-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/pyright-delta/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/pyright-delta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/check-async-need/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/check-async-need/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/analyze-pr-feedback/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/analyze-pr-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/check-override-drift/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/check-override-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiobotocore",
+      "path": "plugins/aiobotocore-bot/skills/update-botocore-bounds/SKILL.md",
+      "github_url": "https://github.com/aio-libs/aiobotocore/tree/main/plugins/aiobotocore-bot/skills/update-botocore-bounds/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aio-libs/aiobotocore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:58:37Z"
+}
