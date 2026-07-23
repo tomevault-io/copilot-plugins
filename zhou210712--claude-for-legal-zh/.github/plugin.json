@@ -1,0 +1,610 @@
+{
+  "name": "zhou210712--claude-for-legal-zh",
+  "displayName": "claude-for-legal-ZH",
+  "description": "claude-for-legal-ZH",
+  "version": "1.0.0",
+  "author": "zhou210712",
+  "homepage": "https://github.com/zhou210712/claude-for-legal-ZH",
+  "skills": [
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    },
+    {
+      "name": "claude-for-legal-ZH",
+      "description": ""
+    }
+  ]
+}
