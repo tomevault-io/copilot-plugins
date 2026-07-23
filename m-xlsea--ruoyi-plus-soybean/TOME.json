@@ -4,7 +4,7 @@
   "repo": "ruoyi-plus-soybean",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -101,5 +101,5 @@
   ],
   "source_url": "https://github.com/m-xlsea/ruoyi-plus-soybean",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:39:36Z"
+  "distributed_at": "2026-07-23T13:39:59Z"
 }
