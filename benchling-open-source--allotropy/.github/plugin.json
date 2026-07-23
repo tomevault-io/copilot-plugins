@@ -1,0 +1,14 @@
+{
+  "name": "benchling-open-source--allotropy",
+  "displayName": "allotropy",
+  "description": "allotropy",
+  "version": "1.0.0",
+  "author": "Benchling-Open-Source",
+  "homepage": "https://github.com/Benchling-Open-Source/allotropy",
+  "skills": [
+    {
+      "name": "allotropy",
+      "description": ""
+    }
+  ]
+}
