@@ -1,0 +1,14 @@
+{
+  "name": "stripe--stripe-react-native",
+  "displayName": "stripe-react-native",
+  "description": "stripe-react-native",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/stripe-react-native",
+  "skills": [
+    {
+      "name": "stripe-react-native",
+      "description": ""
+    }
+  ]
+}
