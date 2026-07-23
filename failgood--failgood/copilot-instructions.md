@@ -1,0 +1,270 @@
+## failgood
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+FailGood is a test runner for Kotlin focusing on simplicity, usability, and speed. The main features include:
+
+- Fast parallel test execution
+- Simple test DSL in pure Kotlin
+- No configuration - everything runs in parallel by default
+- Good isolation - tests run with fresh instances of dependencies
+- IntelliJ IDEA integration
+- Gradle integration
+- Compatible with various assertion libraries
+
+## Build Structure
+
+The project uses a Gradle composite build with convention plugins:
+
+- **build-logic/** - Contains convention plugins and centralized configuration
+  - `failgood.common` - Common settings for all projects (Kotlin, testing, formatting)
+  - `failgood.publishing` - Maven publishing configuration
+  - `failgood.versions` - Centralized version management via a `Versions` data class
+- **Version Management** - All versions are centralized in `build-logic/src/Versions.kt`
+  - Access versions in build scripts: `val versions: Versions by project.extra`
+  - Use like: `${versions.coroutines}`, `${versions.pitest}`, etc.
+
+## Build and Test Commands
+
+### Running Tests
+
+The primary way to run all tests is using the `./ci` script:
+
+```bash
+./ci
+```
+
+This script:
+1. Formats the code using ktfmtFormat
+2. Runs the Gradle `ci` task (which runs both regression tests and all regular tests)
+
+For development, you can also run specific test tasks:
+
+```bash
+# Run FailGood's main test suite
+./gradlew :failgood:testMain
+
+# Run multi-threading performance tests
+./gradlew :failgood:multiThreadedTest
+
+# Auto-test (watches for changes and runs tests)
+./gradlew :failgood:autotest
+
+# Run just the CI tests
+./gradlew ci
+```
+
+### Running in IntelliJ IDEA
+
+To run tests in IDEA, run the `FailGoodBootstrap.kt` class or right-click on any test class with the `@Test` annotation.
+
+## MANDATORY DEBUGGING PRACTICES
+
+When debugging issues in this codebase, you MUST follow these strict guidelines:
+
+1. **ALWAYS REPRODUCE ISSUES IN ISOLATION FIRST**
+   - Create minimal standalone test cases using basic tools (javac/java) outside of build systems
+   - Break complex issues down to the smallest possible test case that exhibits the problem
+   - Never assume the cause - prove it with a reproducible test
+
+2. **USE INCREMENTAL APPROACH FOR COMPLEX COMMANDS**
+   - Split complex commands (like classpath construction) into separate steps
+   - First determine the complete classpath, then use it in the java command
+   - Avoid subshells and complex one-liners that hide errors
+
+3. **NEVER "WORK AROUND" WITHOUT UNDERSTANDING**
+   - Do not implement "fixes" without understanding the root cause
+   - Resist adding configuration flags or properties without proving they address the core issue
+   - Document the actual problem once identified (like the unreferenced logback appender issue)
+
+4. **ESCALATE METHODICALLY**
+   - Start with the simplest test case and gradually add complexity
+   - Test each component in isolation before combining them
+   - Document each finding to build evidence toward the root cause
+
+## Debugging Guidelines
+
+- Never add debug output to diagnose a test failure. Write a simpler test instead
+
+## Test Structure
+
+Tests are defined in classes with the `@Test` annotation:
+
+```kotlin
+@Test
+class MyTest {
+    val tests = testCollection {
+        it("should do something") {
+            // test code
+        }
+        
+        describe("some context") {
+            it("should handle a specific case") {
+                // test code
+            }
+        }
+    }
+}
+```
+
+## Resource Management
+
+Resources are created inline and disposed automatically:
+
+```kotlin
+val tests = describe(MyServer::class) {
+    val myWebserver = autoClose(Server()) { it.close() }
+    
+    it("should handle requests") {
+        // test using myWebserver
+    }
+}
+```
+
+## Test Isolation
+
+Each test runs with its own instance of dependencies. The context block is executed again for each test to ensure proper isolation.
+
+## Parameterized Tests
+
+Use Kotlin's standard library functions for parameterized tests:
+
+```kotlin
+(1..5).forEach { value ->
+    it("works with $value") {
+        // test with value
+    }
+}
+```
+
+## Assertion Best Practices
+
+### Kotlin Power Assert
+
+FailGood uses Kotlin's power assert feature, which provides detailed output when assertions fail. Power assert shows the values of all intermediate expressions in the assertion, making it easy to understand why a test failed.
+
+Example of power assert output:
+```
+assert(typeOf<Collection<String>>().niceString().uppercase().contains("WRONG"))
+       |                            |            |           |
+       |                            |            |           false
+       |                            |            COLLECTION<STRING>
+       |                            Collection<String>
+       java.util.Collection<java.lang.String> (Kotlin reflection is not available)
+```
+
+This means:
+1. **Keep production code execution out of assertions** - Extract results of production code (like `Suite.run()`) to variables
+2. **Keep navigation inline in assertions** - Power assert shows each step of property access and transformations like `.filter().map()`
+3. **Avoid using `!!` in assertions** - Use `assertNotNull()` for safer null handling
+4. **Preserve exact assertion logic when refactoring** - Don't simplify or change test behavior
+
+Example of good assertion style:
+```kotlin
+// Production code execution extracted
+val result = Suite { contextFixture() }.run(silent = true)
+// Navigation inline for power assert visibility
+assert(result.tests.filter { it.isSuccess }.map { it.name } == expectedNames)
+```
+
+Power assert output comparison:
+
+With extracted intermediate value:
+```
+val successful = testResults.filter { it.isSuccess }
+assert(successful.map { it.test.testName } == listOf("test 1", "WRONG"))
+       |          |                        |
+       |          |                        false
+       |          [test 1, test 2, test 3]
+       [TestPlusResult(...), TestPlusResult(...), ...]
+```
+
+With inline navigation (better):
+```
+assert(testResults.filter { it.isSuccess }.map { it.test.testName } == listOf("test 1", "WRONG"))
+       |           |                       |                        |
+       |           |                       |                        false
+       |           |                       [test 1, test 2, test 3]
+       |           [TestPlusResult(...), TestPlusResult(...), ...]
+       [TestPlusResult(...), TestPlusResult(...), TestPlusResult(...), ...]
+```
+
+The inline version shows each transformation step, making debugging easier.
+
+## Test Independence with autoClose
+
+Tests MUST be location-independent using the autoClose pattern with nio.file API:
+
+```kotlin
+import java.nio.file.Files
+import java.nio.file.Path
+import kotlin.io.path.*
+
+it("test name") {
+    // Create temp directory with automatic cleanup
+    val tempDir = autoClose(Files.createTempDirectory("test-")) { 
+        it.deleteRecursively() 
+    }
+    
+    // Create directory structure - createDirectories creates all parents
+    val dataDir = tempDir.resolve("path/to/data")
+    Files.createDirectories(dataDir)
+    
+    // Load fixtures from classpath
+    this::class.java.getResourceAsStream("/fixtures/data.xml")?.use { 
+        Files.copy(it, dataDir.resolve("data.xml"))
+    }
+    
+    // Test against temp directory
+    val component = MyComponent(dataDir.toString())
+    component.process()
+    
+    // Verify results
+    assert(Files.exists(dataDir.resolve("output.json")))
+}
+```
+
+Key principles:
+- Use `autoClose` for cleanup (no try/finally)
+- Use `java.nio.file` API (not `java.io.File`)
+- Load fixtures from classpath using `getResourceAsStream`
+- Use `Files.createDirectories()` to create full paths at once
+- Tests must work from any working directory
+
+## when committing
+
+- please run git status and git diff before committing to make sure you clearly understand what is going to be committed. then think hard if you need to exclude files and if everything is in the shape you want it to be
+- if i tell you to do something and it turns out that that is hard or maybe even impossible please stop and ask what to do. do not just do anything or decide that the task i told you to do should not be done.
+
+## Problem-Solving Guidelines
+
+- **Never accept "impossible" or "not supported" without thorough investigation**
+  - Check all linked resources in bug reports and issues
+  - Look for workarounds that others have found
+  - Test edge cases and alternative approaches
+
+- **When hitting apparent limitations:**
+  - Find the exact code causing the limitation
+  - Look for configuration options or workarounds
+  - Check how others have solved similar problems
+  - The more "impossible" something seems, the more important it is to solve
+
+- **Follow through completely:**
+  - When finding a relevant issue/bug report, read ALL of it including comments and linked resources
+  - Don't stop at the first obstacle - that's usually where the real work begins
+  - If something seems hardcoded, find WHERE it's hardcoded and look for ways around it
+
+- **The tricky problems are the most important:**
+  - Easy problems don't need AI assistance
+  - When things get complex, that's when to dig deeper, not give up
+  - "Known limitations" often have unknown workarounds
+
+---
+> Source: [failgood/failgood](https://github.com/failgood/failgood) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
