@@ -1,0 +1,18 @@
+{
+  "name": "dwmkerr--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles",
+  "version": "1.0.0",
+  "author": "dwmkerr",
+  "homepage": "https://github.com/dwmkerr/dotfiles",
+  "skills": [
+    {
+      "name": "ark-dashboard-testing",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "description": ""
+    }
+  ]
+}
