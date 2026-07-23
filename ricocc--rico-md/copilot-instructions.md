@@ -1,78 +1,83 @@
 ## rico-md
 
-> 本文件用于约束 AI 代码代理（如 Codex / Claude）在本仓库中的行为，确保改动与当前实现一致。
+> > 本文件由 Claude Code 自动读取。目的是让 AI 快速理解代码组织方式，避免改错东西。
 
-# AGENTS.md
+# Rico MD — Claude Code 协作文档
 
-本文件用于约束 AI 代码代理（如 Codex / Claude）在本仓库中的行为，确保改动与当前实现一致。
+> 本文件由 Claude Code 自动读取。目的是让 AI 快速理解代码组织方式，避免改错东西。
+> 产品定义见 docs/PRD.md，设计规范见 docs/DESIGN.md。
 
-## 项目定位
+## 这个项目是什么
 
-Rico MD 是一个面向微信公众号排版的纯前端 Markdown 编辑器。
+面向微信公众号的纯前端 Markdown 编辑器。无构建步骤，静态文件直接运行。
 
-- 无构建流程，基于静态页面 + ES Modules
-- 入口页：`index.html`
-- 独立关于页：`about.html`
-- 主逻辑：`assets/scripts/main.js`
-
-## 当前版本关键事实（请以此为准）
-
-1. 自动保存为固定 `5 秒` 防抖（不是 800ms，也不是可配置项）
-2. 顶部导航包含：主题 / 代码 / 设置 / 关于
-3. 代码块显示项已归入“代码”面板：
-   - 显示代码语言
-   - 显示复制按钮
-   - 显示 macOS 装饰
-4. 删除文档走确认弹窗流程；删除最后一篇后会自动新建空白文档
-5. About 页面与样式已拆分：`about.html` + `assets/styles/about.css`
-6. 图片链路为：压缩 + IndexedDB + `img://` 协议 + 复制时转 Base64
-
-## 关键不变量（必须保持）
-
-- 删除流程结束后必须满足：
-  - `documents.length >= 1`
-  - `activeDocumentId` 指向有效文档
-- 弹窗初始状态必须隐藏：`deleteConfirm.show === false`
-- 偏好存储键保持兼容（不要随意改名）：
-  - `currentStyle`
-  - `markdownInput`
-  - `documents`
-  - `activeDocumentId`
-  - `codeBlockSettings`
-
-## 代码结构速览
-
-- `assets/scripts/main.js`：应用状态、文档管理、保存、交互入口
-- `assets/scripts/core/`：Markdown 渲染、粘贴处理、图片存储与压缩
-- `assets/scripts/export/clipboard-exporter.js`：复制到公众号相关处理
-- `assets/scripts/storage/preferences.js`：本地持久化与防抖保存
-- `assets/scripts/ui/`：主题、代码主题、面板、Toast
-- `assets/styles/themes/`：正文主题定义
-- `assets/scripts/ui/code-themes.js`：代码块主题定义
-
-## 开发约束
-
-- 保持纯前端运行方式，不引入额外构建工具
-- 尽量做最小改动，避免无关重构
-- 新增配置时优先考虑向后兼容
-- 涉及存储/删除逻辑时必须覆盖空列表与无 active 的边界
-- 保留公众号复制兼容链路（内联样式、图片 Base64、结构转换）
-
-## 本地验证清单（改动后至少自测）
-
-1. 输入后约 5 秒触发自动保存，刷新后内容可恢复
-2. 单文档删除后自动补出空白文档，不出现左侧空列表
-3. 多文档删除时 active 切换合理，内容不丢
-4. “代码”面板三项显示开关生效
-5. About 页面可打开，图片资源加载正常
-
-## 运行方式
+## 怎么跑
 
 ```bash
-python -m http.server 8080
-# 打开 http://localhost:8080
+python -m http.server 8080   # 或 ./start.sh
+# http://localhost:8080
 ```
+
+## 代码怎么组织的
+
+入口是 `index.html`，加载 `assets/scripts/main.js` 启动 Vue 应用。
+
+```
+main.js          →  应用入口。Vue 实例、状态管理、文档生命周期、工具栏交互
+core/            →  不依赖 UI 的基础能力（渲染、图片、粘贴、高亮）
+export/          →  复制/导出策略（公众号、X/Twitter、公式各一个文件）
+storage/         →  localStorage 读写（偏好设置）
+ui/              →  界面逻辑（主题管理、面板、Toast、代码主题）
+styles/          →  CSS（base、editor、panel、about、themes/）
+```
+
+改功能时先定位到对应目录，不要在 main.js 里堆逻辑。
+
+## 改动时要注意的
+
+### 存储兼容性（最容易出问题）
+
+这些 localStorage 键已有用户数据，不能改名、不能改数据结构：
+
+`currentStyle` `markdownInput` `documents` `activeDocumentId` `codeBlockSettings`
+
+IndexedDB 数据库名 `WechatEditorImages` 也不能改。
+
+`img://` 协议用于编辑器内图片引用，渲染时替换为 blob URL，复制时替换为 Base64。这三个环节的替换逻辑分散在不同文件中，改图片处理时要确保三个环节都对。
+
+### 文档删除的边界
+
+删除操作必须保证 `documents.length >= 1`。删完最后一篇后要自动新建空白文档，`activeDocumentId` 必须指向有效文档。弹窗初始状态 `deleteConfirm.show === false`。
+
+### 主题系统
+
+正文主题和代码主题是独立的，分别管理：
+- 正文主题：`styles/themes/` 目录下的 JS 文件，由 `ui/theme-manager.js` 加载
+- 代码主题：`ui/code-themes.js`，面板中有迷你预览卡片
+
+新增主题时两个系统分别处理，不要混在一起。
+
+### 公众号复制的兼容性
+
+公众号不支持 CSS Grid、Flexbox（部分）、CSS Variables。复制到公众号时 `clipboard-exporter.js` 会做转换：
+- Grid → Table
+- 样式全部内联化
+- 图片转 Base64
+- 公式从 KaTeX 转 MathJax SVG
+
+改复制相关逻辑后，必须实际粘贴到公众号编辑器验证，预览正常不代表复制后正常。
+
+### 样式文件
+
+CSS 拆分为 base / editor / panel / about 四个文件，不要把样式写回 index.html 的 `<style>` 标签里。
+
+## 不要做的事
+
+- 不要引入 npm / Vite / Webpack 等构建工具
+- 不要引入后端
+- 不要把分散在 core/、export/ 等目录的代码合并回单文件
+- 不要改动已有的 localStorage 键名和数据结构
 
 ---
 > Source: [ricocc/rico-md](https://github.com/ricocc/rico-md) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
