@@ -1,0 +1,22 @@
+{
+  "name": "shopperlabs--shopper",
+  "displayName": "shopper",
+  "description": "shopper",
+  "version": "1.0.0",
+  "author": "shopperlabs",
+  "homepage": "https://github.com/shopperlabs/shopper",
+  "skills": [
+    {
+      "name": "shopper-development",
+      "description": ""
+    },
+    {
+      "name": "shopper",
+      "description": ""
+    },
+    {
+      "name": "shopper",
+      "description": ""
+    }
+  ]
+}
