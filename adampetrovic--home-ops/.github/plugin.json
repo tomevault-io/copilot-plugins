@@ -1,0 +1,14 @@
+{
+  "name": "adampetrovic--home-ops",
+  "displayName": "home-ops",
+  "description": "home-ops",
+  "version": "1.0.0",
+  "author": "adampetrovic",
+  "homepage": "https://github.com/adampetrovic/home-ops",
+  "skills": [
+    {
+      "name": "home-ops",
+      "description": ""
+    }
+  ]
+}
