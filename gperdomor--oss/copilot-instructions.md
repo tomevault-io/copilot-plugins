@@ -28,4 +28,4 @@
 
 ---
 > Source: [gperdomor/oss](https://github.com/gperdomor/oss) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
