@@ -4,7 +4,7 @@
   "repo": "excessibility",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -59,5 +59,5 @@
   ],
   "source_url": "https://github.com/lessthanseventy/excessibility",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:07:23Z"
+  "distributed_at": "2026-07-23T02:48:06Z"
 }
