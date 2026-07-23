@@ -4,7 +4,7 @@
   "repo": "obsidian-llm-wiki",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -221,5 +221,5 @@
   ],
   "source_url": "https://github.com/songzhuozhu/obsidian-llm-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T16:45:06Z"
+  "distributed_at": "2026-07-23T13:53:56Z"
 }
