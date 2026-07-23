@@ -1,0 +1,18 @@
+{
+  "name": "restgroup--rstsr",
+  "displayName": "rstsr",
+  "description": "rstsr",
+  "version": "1.0.0",
+  "author": "RESTGroup",
+  "homepage": "https://github.com/RESTGroup/rstsr",
+  "skills": [
+    {
+      "name": "rstsr",
+      "description": ""
+    },
+    {
+      "name": "rstsr",
+      "description": ""
+    }
+  ]
+}
