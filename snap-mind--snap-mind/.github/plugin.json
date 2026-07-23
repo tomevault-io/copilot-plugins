@@ -1,0 +1,14 @@
+{
+  "name": "snap-mind--snap-mind",
+  "displayName": "snap-mind",
+  "description": "A cross-platform desktop AI assistant that lets you translate, rewrite, summarize, and brainstorm with just a hotkey.",
+  "version": "1.0.0",
+  "author": "Snap-Mind",
+  "homepage": "https://github.com/Snap-Mind/snap-mind",
+  "skills": [
+    {
+      "name": "snap-mind",
+      "description": ""
+    }
+  ]
+}
