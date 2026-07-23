@@ -1,0 +1,81 @@
+{
+  "name": "Longbridge-Quantitative-Trading",
+  "owner": "zhengyongjie16",
+  "repo": "Longbridge-Quantitative-Trading",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Longbridge-Quantitative-Trading",
+      "path": ".codex/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/zhengyongjie16/Longbridge-Quantitative-Trading/tree/main/.codex/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Longbridge-Quantitative-Trading",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/zhengyongjie16/Longbridge-Quantitative-Trading/tree/main/.claude/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Longbridge-Quantitative-Trading",
+      "path": ".codex/skills/core-program-business-logic/SKILL.md",
+      "github_url": "https://github.com/zhengyongjie16/Longbridge-Quantitative-Trading/tree/main/.codex/skills/core-program-business-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Longbridge-Quantitative-Trading",
+      "path": ".claude/skills/core-program-business-logic/SKILL.md",
+      "github_url": "https://github.com/zhengyongjie16/Longbridge-Quantitative-Trading/tree/main/.claude/skills/core-program-business-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Longbridge-Quantitative-Trading",
+      "path": ".codex/skills/typescript-project-specifications/SKILL.md",
+      "github_url": "https://github.com/zhengyongjie16/Longbridge-Quantitative-Trading/tree/main/.codex/skills/typescript-project-specifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Longbridge-Quantitative-Trading",
+      "path": ".claude/skills/typescript-project-specifications/SKILL.md",
+      "github_url": "https://github.com/zhengyongjie16/Longbridge-Quantitative-Trading/tree/main/.claude/skills/typescript-project-specifications/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhengyongjie16/Longbridge-Quantitative-Trading",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:21:52Z"
+}
