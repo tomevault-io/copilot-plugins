@@ -1,0 +1,63 @@
+{
+  "name": "plank-monorepo",
+  "owner": "plankevm",
+  "repo": "plank-monorepo",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "plank-monorepo",
+      "path": "plankc/.claude/skills/data-structure/SKILL.md",
+      "github_url": "https://github.com/plankevm/plank-monorepo/tree/main/plankc/.claude/skills/data-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plank-monorepo",
+      "path": "plankc/.claude/skills/parser-engineer/SKILL.md",
+      "github_url": "https://github.com/plankevm/plank-monorepo/tree/main/plankc/.claude/skills/parser-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plank-monorepo",
+      "path": "plankc/.claude/skills/frontend-diagnostics/SKILL.md",
+      "github_url": "https://github.com/plankevm/plank-monorepo/tree/main/plankc/.claude/skills/frontend-diagnostics/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/plankevm/plank-monorepo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T19:40:08Z"
+}
