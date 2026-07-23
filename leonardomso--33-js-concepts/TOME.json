@@ -1,0 +1,153 @@
+{
+  "name": "33-js-concepts",
+  "owner": "leonardomso",
+  "repo": "33-js-concepts",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "concept-workflow",
+      "path": ".claude/skills/concept-workflow",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/concept-workflow",
+      "description": ""
+    },
+    {
+      "name": "fact-check",
+      "path": ".claude/skills/fact-check",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/fact-check",
+      "description": ""
+    },
+    {
+      "name": "resource-curator",
+      "path": ".claude/skills/resource-curator",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/resource-curator",
+      "description": ""
+    },
+    {
+      "name": "seo-review",
+      "path": ".claude/skills/seo-review",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/seo-review",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "path": ".claude/skills/test-writer",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/test-writer",
+      "description": ""
+    },
+    {
+      "name": "write-concept",
+      "path": ".claude/skills/write-concept",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/write-concept",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".claude/skills/fact-check/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/fact-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".claude/skills/seo-review/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/seo-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".claude/skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".opencode/skill/fact-check/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.opencode/skill/fact-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".opencode/skill/seo-review/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.opencode/skill/seo-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".opencode/skill/test-writer/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.opencode/skill/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".claude/skills/write-concept/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/write-concept/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".opencode/skill/write-concept/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.opencode/skill/write-concept/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".claude/skills/resource-curator/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/resource-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".claude/skills/concept-workflow/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.claude/skills/concept-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".opencode/skill/resource-curator/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.opencode/skill/resource-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "33-js-concepts",
+      "path": ".opencode/skill/concept-workflow/SKILL.md",
+      "github_url": "https://github.com/leonardomso/33-js-concepts/tree/main/.opencode/skill/concept-workflow/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/leonardomso/33-js-concepts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:33:33Z"
+}
