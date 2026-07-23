@@ -1,0 +1,9 @@
+{
+  "name": "acryldata--datahub-helm",
+  "displayName": "datahub-helm",
+  "description": "datahub-helm",
+  "version": "1.0.0",
+  "author": "acryldata",
+  "homepage": "https://github.com/acryldata/datahub-helm",
+  "skills": []
+}
