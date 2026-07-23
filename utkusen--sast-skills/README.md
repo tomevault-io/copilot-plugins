@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [utkusen/sast-skills](https://github.com/utkusen/sast-skills).
+Original source: `CLAUDE.md` in [utkusen/sast-skills](https://github.com/utkusen/sast-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -38,7 +38,7 @@ Original source: `AGENTS.md` in [utkusen/sast-skills](https://github.com/utkusen
 - [sast-skills](https://github.com/utkusen/sast-skills/tree/main/sast-files/.agents/skills/sast-businesslogic/SKILL.md)
 - [sast-skills](https://github.com/utkusen/sast-skills/tree/main/sast-files/.claude/skills/sast-businesslogic/SKILL.md)
 
-From [utkusen/sast-skills](https://github.com/utkusen/sast-skills) — a repo with 1183+ stars on GitHub.
+From [utkusen/sast-skills](https://github.com/utkusen/sast-skills) — a repo with 1201+ stars on GitHub.
 
 ---
 
