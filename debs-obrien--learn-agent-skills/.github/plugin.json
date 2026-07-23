@@ -1,0 +1,22 @@
+{
+  "name": "debs-obrien--learn-agent-skills",
+  "displayName": "learn-agent-skills",
+  "description": "learn-agent-skills",
+  "version": "1.0.0",
+  "author": "debs-obrien",
+  "homepage": "https://github.com/debs-obrien/learn-agent-skills",
+  "skills": [
+    {
+      "name": "readme-wizard",
+      "description": ""
+    },
+    {
+      "name": "learn-agent-skills",
+      "description": ""
+    },
+    {
+      "name": "learn-agent-skills",
+      "description": ""
+    }
+  ]
+}
