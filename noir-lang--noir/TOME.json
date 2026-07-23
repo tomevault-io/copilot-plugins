@@ -1,0 +1,117 @@
+{
+  "name": "noir",
+  "owner": "noir-lang",
+  "repo": "noir",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bisect-ssa-pass",
+      "path": ".claude/skills/bisect-ssa-pass",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/bisect-ssa-pass",
+      "description": ""
+    },
+    {
+      "name": "debug-fuzzer-failure",
+      "path": ".claude/skills/debug-fuzzer-failure",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/debug-fuzzer-failure",
+      "description": ""
+    },
+    {
+      "name": "extract-fuzzer-repro",
+      "path": ".claude/skills/extract-fuzzer-repro",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/extract-fuzzer-repro",
+      "description": ""
+    },
+    {
+      "name": "noir-frontend-tests",
+      "path": ".claude/skills/noir-frontend-tests",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/noir-frontend-tests",
+      "description": ""
+    },
+    {
+      "name": "noir-idioms",
+      "path": ".claude/skills/noir-idioms",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/noir-idioms",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "path": ".claude/skills/noir-idioms/SKILL.md",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/noir-idioms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "path": ".claude/skills/bisect-ssa-pass/SKILL.md",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/bisect-ssa-pass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "path": ".claude/skills/reduce-ssa-repro/SKILL.md",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/reduce-ssa-repro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "path": ".claude/skills/noir-optimize-acir/SKILL.md",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/noir-optimize-acir/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "path": ".claude/skills/noir-frontend-tests/SKILL.md",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/noir-frontend-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "path": ".claude/skills/debug-fuzzer-failure/SKILL.md",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/debug-fuzzer-failure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "noir",
+      "path": ".claude/skills/extract-fuzzer-repro/SKILL.md",
+      "github_url": "https://github.com/noir-lang/noir/tree/main/.claude/skills/extract-fuzzer-repro/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/noir-lang/noir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:45:03Z"
+}
