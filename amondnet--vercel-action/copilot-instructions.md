@@ -1,92 +1,85 @@
 ## vercel-action
 
-> Problem definition → small, safe change → change review → refactor — repeat the loop.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-Problem definition → small, safe change → change review → refactor — repeat the loop.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Mandatory Rules
+@AGENTS.md
 
-- Before changing anything, read the relevant files end to end, including all call/reference paths.
-- Keep tasks, commits, and PRs small.
-- If you make assumptions, record them in the Issue/PR/ADR.
-- Never commit or log secrets; validate all inputs and encode/normalize outputs.
-- Avoid premature abstraction and use intention-revealing names.
-- Compare at least two options before deciding.
+## Project Overview
 
-## Mindset
+This is a GitHub Action that deploys projects to Vercel. It's a pnpm-based package that integrates with GitHub workflows to automate deployments, providing more control than Vercel's native GitHub integration.
 
-- Think like a senior engineer.
-- Don’t jump in on guesses or rush to conclusions.
-- Always evaluate multiple approaches; write one line each for pros/cons/risks, then choose the simplest solution.
+## Package Manager
 
-## Code & File Reference Rules
+This project uses **pnpm** as its package manager. The project is configured as a monorepo with workspaces for the example projects. Make sure to use pnpm commands instead of npm.
 
-- Read files thoroughly from start to finish (no partial reads).
-- Before changing code, locate and read definitions, references, call sites, related tests, docs/config/flags.
-- Do not change code without having read the entire file.
-- Before modifying a symbol, run a global search to understand pre/postconditions and leave a 1–3 line impact note.
+## Essential Commands
 
-## Required Coding Rules
+### Development
+```bash
+pnpm install            # Install dependencies
+pnpm start              # Run the action locally (node ./index.js)
+pnpm run lint           # Run ESLint
+pnpm run lint:fix       # Run ESLint and fix issues
+pnpm test               # Run Jest tests
+pnpm run all            # Run lint, package, and test in sequence
+```
 
-- Before coding, write a Problem 1-Pager: Context / Problem / Goal / Non-Goals / Constraints.
-- Enforce limits: file ≤ 300 LOC, function ≤ 50 LOC, parameters ≤ 5, cyclomatic complexity ≤ 10. If exceeded, split/refactor.
-- Prefer explicit code; no hidden “magic.”
-- Follow DRY, but avoid premature abstraction.
-- Isolate side effects (I/O, network, global state) at the boundary layer.
-- Catch only specific exceptions and present clear user-facing messages.
-- Use structured logging and do not log sensitive data (propagate request/correlation IDs when possible).
-- Account for time zones and DST.
+### Building for Distribution
+```bash
+pnpm run build        # Build the action with ncc (outputs to dist/)
+```
 
-## Testing Rules
+**Important**: The `dist/` folder must be committed when creating releases. This contains the bundled action code that GitHub Actions will execute.
 
-- New code requires new tests; bug fixes must include a regression test (write it to fail first).
-- Tests must be deterministic and independent; replace external systems with fakes/contract tests.
-- Include ≥1 happy path and ≥1 failure path in e2e tests.
-- Proactively assess risks from concurrency/locks/retries (duplication, deadlocks, etc.).
+## Architecture
 
-## Security Rules
+### Core Components
 
-- Never leave secrets in code/logs/tickets.
-- Validate, normalize, and encode inputs; use parameterized operations.
-- Apply the Principle of Least Privilege.
+1. **index.js**: Main entry point that:
+   - Reads GitHub Action inputs (vercel-token, github-token, etc.)
+   - Executes Vercel CLI commands for deployment
+   - Comments on PRs/commits with deployment URLs
+   - Handles alias domain assignment
+   - Manages environment variables for Vercel org/project
 
-## Clean Code Rules
+2. **action.yml**: Defines the GitHub Action interface:
+   - Input parameters configuration
+   - Output values (preview-url, preview-name)
+   - Runtime environment (Node.js 20)
 
-- Use intention-revealing names.
-- Each function should do one thing.
-- Keep side effects at the boundary.
-- Prefer guard clauses first.
-- Symbolize constants (no hardcoding).
-- Structure code as Input → Process → Return.
-- Report failures with specific errors/messages.
-- Make tests serve as usage examples; include boundary and failure cases.
+### Key Dependencies
+- `@actions/core`: GitHub Actions toolkit for inputs/outputs
+- `@actions/exec`: Execute shell commands
+- `@actions/github`: GitHub API interactions
+- `vercel`: CLI for deployments
+- `axios`: HTTP requests for alias management
 
-## Anti-Pattern Rules
+### Deployment Flow
+1. Action reads configuration from inputs and environment
+2. Sets up Vercel org/project IDs from `.vercel/` directory
+3. Executes `vercel` command with appropriate flags
+4. Parses deployment URL from output
+5. Optionally assigns alias domains
+6. Comments on GitHub PR/commit with deployment info
 
-- Don’t modify code without reading the whole context.
-- Don’t expose secrets.
-- Don’t ignore failures or warnings.
-- Don’t introduce unjustified optimization or abstraction.
-- Don’t overuse broad exceptions.
+## Testing Approach
 
-## Commit Convention Rules
+- Jest is configured but tests are minimal (index.test.js is empty)
+- Manual testing through example projects in `example/` directory
+- GitHub Actions workflows test different scenarios
 
-- Follow `@commitlint/config-conventional` specification (https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional).
-- Format: `<type>[optional scope]: <description>`.
-- Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`.
-- Type must be lowercase and non-empty.
-- Subject must not be empty, not end with period (.), and avoid sentence-case/start-case/pascal-case/upper-case.
-- Header max length: 100 characters.
-- Body and footer require leading blank line, max line length: 100 characters.
-- Breaking changes: use `BREAKING CHANGE:` in footer with blank line before it.
-- Examples:
-  - ✅ `fix: resolve memory leak in user service`
-  - ✅ `feat(auth): add OAuth2 integration`
-  - ❌ `Fix: Some Message.` (wrong case, ends with period)
-  - ❌ `random: some change` (invalid type)
+## Important Conventions
+
+1. **Vercel Configuration**: Projects must have `github.enabled: false` in vercel.json
+2. **Project Linking**: The `.vercel/` directory with org/project IDs must be committed
+3. **Build Process**: Builds should happen in GitHub Actions, not Vercel
+4. **Backward Compatibility**: Maintain support for deprecated "zeit-" prefixed inputs
+5. **Error Handling**: Use proper exit codes and clear error messages for CI/CD integration
 
 ---
 > Source: [amondnet/vercel-action](https://github.com/amondnet/vercel-action) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
