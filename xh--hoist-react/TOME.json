@@ -4,7 +4,7 @@
   "repo": "hoist-react",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/xh/hoist-react",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:48:22Z"
+  "distributed_at": "2026-07-23T07:44:47Z"
 }
