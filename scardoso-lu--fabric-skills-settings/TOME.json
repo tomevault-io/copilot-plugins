@@ -4,7 +4,7 @@
   "repo": "fabric-skills-settings",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -125,5 +125,5 @@
   ],
   "source_url": "https://github.com/scardoso-lu/fabric-skills-settings",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:08:28Z"
+  "distributed_at": "2026-07-23T08:58:32Z"
 }
