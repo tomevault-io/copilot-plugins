@@ -1,18 +1,14 @@
 ## rxdb
 
-> - **Database**: RxDB (local-first, NoSQL)
+> - **Build All**: `npm run build`
 
-# AGENTS.md
+# CLAUDE.md
 
-## Project Overview
-- **Database**: RxDB (local-first, NoSQL)
-- **Language**: TypeScript
-- **State Management**: Reactive (RxJS Observables)
-- **Paths**: Source code in `src/`, tests in `test/`, documentation in `docs-src/`.
-
-## Tooling
+## Build Commands
 - **Build All**: `npm run build`
 - **Documentation Build**: `npm run docs:build`
+
+## Test Commands
 - **Run All Tests**: `npm run test`
 - **Fast Tests (Parallel)**: `npm run test:fast`
 - **Fast Memory Tests**: `npm run test:fast:memory`
@@ -22,14 +18,44 @@
 - **Lint**: `npm run lint`
 - **Lint Fix**: `npm run lint:fix`
 - **Check Types**: `npm run check-types`
+
+## Development Scripts
 - **Unwatch Tests**: `npm run dev`
+- **Watch Example**: `npm run dev:example`
+- **Generate Error Messages**: `npm run generate:error-messages`
+- **Start Docs Server**: `npm run docs:serve`
 
 ## Code Style & Patterns
 - **Language**: TypeScript
+- **Database**: RxDB (local-first, NoSQL)
+- **State Management**: Reactive (RxJS Observables)
 - **Formatting**: Uses ESLint. Run `npm run lint` to check and `npm run lint:fix` to auto-fix.
 - **Imports**: Uses ES modules (import/export).
+- **Paths**: Source code in `src/`, tests in `test/`, documentation in `docs-src/`.
 - **TypeScript**: Do not use enums. Prefer types instead of interfaces.
-- **Errors**: Do not use `throw new Error()`. Use `throw new RxError()` instead to reduce build size and do not include full error messages in production builds. Use the error codes from `src/rx-error.ts` and add new error codes if needed like `PL1`, `PL2`. Example: `throw newRxError('PL1', { plugin });`
+- **Errors**: Do not use `throw new Error()`. Use `throw newRxError()` or `throw newRxTypeError()` instead to reduce build size and do not include full error messages in production builds. Use the error codes from `src/rx-error.ts` and add new error codes if needed like `PL1`, `PL2`. Example: `throw newRxError('PL1', { plugin });`
+## Development Workflow
+
+```sh
+# 1. Make changes
+
+# 2. Build
+npm run build
+
+# 3. Run tests
+npm run test:fast:memory
+
+# 4. Run lint
+npm run lint
+
+# 5. Check TypeScript types
+npm run check-types
+```
+
+## Changelog Rule
+- Whenever you add a testcase or implement a FIX, add a changelog entry file under `orga/changelog/`.
+- Prefer including a link to the root issue or pull request in that changelog line.
+- Do NOT add a changelog entry for changes that are neither a testcase nor a FIX. For example, adding a SEM landingpage under `docs-src/src/pages/sem/` must not produce a changelog entry.
 
 ## Documentation Style
 - SHOULD use clear, simple language.
@@ -212,35 +238,6 @@ Do not reproduce (authentic errors in old pages; write the correct form):
 - Cross-link sibling articles to knit the cluster together (framework articles link each other; alternative articles link `local-first-future.md`, `realtime-database.md`).
 - FAQ `<details>` questions target long-tail search queries.
 
-
-
-## Development Workflow
-
-After making any code changes, run these checks in order and fix any issues before finishing:
-
-```sh
-# 1. Lint JavaScript/TypeScript files
-npm run lint
-
-# 2. Check TypeScript types
-npm run check-types
-
-# 3. Build source files
-npm run build
-
-# 4. Run fast memory tests
-npm run test:fast:memory
-```
-
-## Changelog Rule
-- Whenever you add a testcase or implement a FIX, add a changelog entry file under `orga/changelog/`.
-- Prefer including a link to the root issue or pull request in that changelog line.
-
-
-## Not allowed edits
-
-- Do never edit anything in the `/docs` folder. This folder is generated only. The documentation page sources are in `/docs-src`, edit these instead.
-
 ---
 > Source: [pubkey/rxdb](https://github.com/pubkey/rxdb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
