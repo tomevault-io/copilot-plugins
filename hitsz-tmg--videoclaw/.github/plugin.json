@@ -1,0 +1,14 @@
+{
+  "name": "hitsz-tmg--videoclaw",
+  "displayName": "VideoClaw",
+  "description": "VideoClaw",
+  "version": "1.0.0",
+  "author": "HITsz-TMG",
+  "homepage": "https://github.com/HITsz-TMG/VideoClaw",
+  "skills": [
+    {
+      "name": "VideoClaw",
+      "description": ""
+    }
+  ]
+}
