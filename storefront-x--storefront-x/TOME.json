@@ -1,0 +1,123 @@
+{
+  "name": "storefront-x",
+  "owner": "storefront-x",
+  "repo": "storefront-x",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/checkout-smoke-test/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/checkout-smoke-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "storefront-x",
+      "path": ".claude/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/storefront-x/storefront-x/tree/main/.claude/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/storefront-x/storefront-x",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:27:21Z"
+}
