@@ -4,7 +4,7 @@
   "repo": "engpro-advpl-tlpp-skills",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -245,5 +245,5 @@
   ],
   "source_url": "https://github.com/totvs/engpro-advpl-tlpp-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T09:52:12Z"
+  "distributed_at": "2026-07-23T10:49:55Z"
 }
