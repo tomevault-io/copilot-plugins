@@ -1,0 +1,9 @@
+{
+  "name": "cloudposse--terraform-provider-utils",
+  "displayName": "terraform-provider-utils",
+  "description": "terraform-provider-utils",
+  "version": "1.0.0",
+  "author": "cloudposse",
+  "homepage": "https://github.com/cloudposse/terraform-provider-utils",
+  "skills": []
+}
