@@ -1,0 +1,9 @@
+{
+  "name": "apache--celix",
+  "displayName": "celix",
+  "description": "celix",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/celix",
+  "skills": []
+}
