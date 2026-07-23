@@ -1,0 +1,9 @@
+{
+  "name": "matelang--jwt-go-aws-kms",
+  "displayName": "jwt-go-aws-kms",
+  "description": "jwt-go-aws-kms",
+  "version": "1.0.0",
+  "author": "matelang",
+  "homepage": "https://github.com/matelang/jwt-go-aws-kms",
+  "skills": []
+}
