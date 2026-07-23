@@ -1,0 +1,189 @@
+{
+  "name": "character-arc",
+  "owner": "uu201",
+  "repo": "character-arc",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "character-arc",
+      "path": "resources/skills/community-skills/humanizer-zh/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/community-skills/humanizer-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/community-skills/style-fusion/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/community-skills/style-fusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-cover/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-cover/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-deslop/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-deslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/community-skills/style-fingerprint/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/community-skills/style-fingerprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-long-scan/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-long-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-tools/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-long-write/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-long-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-short-scan/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-short-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-pacing/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-pacing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-genres/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-genres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-short-write/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-short-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-emotion/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-emotion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-long-analyze/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-long-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-polishing/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-polishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/oh-story-claudecode/story-short-analyze/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/oh-story-claudecode/story-short-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-compliance/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-compliance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-innovation/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-innovation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-worldbuilding/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-worldbuilding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-anti-detection/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-anti-detection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-language-style/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-language-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-pleasure-points/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-pleasure-points/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-character-design/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-character-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "character-arc",
+      "path": "resources/skills/Distilled-Novel-Toolbox/novel-commercialization/SKILL.md",
+      "github_url": "https://github.com/uu201/character-arc/tree/main/resources/skills/Distilled-Novel-Toolbox/novel-commercialization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/uu201/character-arc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:43:40Z"
+}
