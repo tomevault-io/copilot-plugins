@@ -1,0 +1,9 @@
+{
+  "name": "udondan--cdk-ec2-key-pair",
+  "displayName": "cdk-ec2-key-pair",
+  "description": "cdk-ec2-key-pair",
+  "version": "1.0.0",
+  "author": "udondan",
+  "homepage": "https://github.com/udondan/cdk-ec2-key-pair",
+  "skills": []
+}
