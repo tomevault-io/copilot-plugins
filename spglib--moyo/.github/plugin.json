@@ -1,0 +1,14 @@
+{
+  "name": "spglib--moyo",
+  "displayName": "moyo",
+  "description": "moyo",
+  "version": "1.0.0",
+  "author": "spglib",
+  "homepage": "https://github.com/spglib/moyo",
+  "skills": [
+    {
+      "name": "moyo",
+      "description": ""
+    }
+  ]
+}
