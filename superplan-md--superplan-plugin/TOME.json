@@ -1,0 +1,147 @@
+{
+  "name": "superplan-plugin",
+  "owner": "superplan-md",
+  "repo": "superplan-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-tdd/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-plan/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-docs/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-entry/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-entry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-shape/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-shape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-route/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-route/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-debug/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-guard/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-review/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-verify/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-execute/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-execute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-context/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-handoff/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-release/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/codex/skills/office-hours/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/codex/skills/office-hours/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-brainstorm/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "superplan-plugin",
+      "path": "output/skills/superplan-postmortem/SKILL.md",
+      "github_url": "https://github.com/superplan-md/superplan-plugin/tree/main/output/skills/superplan-postmortem/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/superplan-md/superplan-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:38:10Z"
+}
