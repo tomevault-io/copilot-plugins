@@ -1,65 +1,125 @@
 ## gogh
 
-> Gogh is a GitHub repository manager (ghq-like) with automation features (overlay/script/hook/extra). The CLI is the primary entry point.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-## Purpose
-Gogh is a GitHub repository manager (ghq-like) with automation features (overlay/script/hook/extra). The CLI is the primary entry point.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Architecture (enforced by arch-go)
-- core/: domain entities and interfaces, no dependencies on other layers
-- app/: use cases and business logic, depends only on core
-- infra/: external integrations (filesystem, git, GitHub REST/GraphQL)
-- ui/: CLI adapter using Cobra
+## Project Overview
 
-## Entry Point / DI
-- cmd/gogh/main.go builds stores/services and passes them to ui/cli.
-- ui/cli/app.go wires all commands and persists stores in PersistentPostRunE.
+Gogh is a GitHub repository management tool written in Go, inspired by ghq. It manages GitHub repositories with features like cloning, forking, creating repositories, overlays, hooks, and scripts. A key feature is support for multiple root directories where repositories can be stored.
 
-## Config & Persistence
-- Stores are TOML-based (app/config/*) and implement core/store interfaces.
-- Paths are XDG-based and can be overridden by GOGH_*_PATH env vars.
-- config.LoadAlternative loads v4 then falls back to v0 stores.
-- "migrate" forces re-save to the current v4 format.
+## Architecture
 
-## Key Domain Concepts
-- Reference = host/owner/name with optional alias (core/repository/parser.go).
-- Layout = root/host/owner/name (infra/filesystem/layout_service.go).
-- Finder scans roots to resolve refs/paths (infra/filesystem/finder_service.go).
-- Multi-root is first-class (workspace roots + primary root).
+The project follows clean architecture with four distinct layers:
 
-## Automation System
-- Overlay: file content stored separately; apply writes file to repo path.
-- Script: Lua code stored separately; run uses gopher-lua.
-- Hook: triggers on post-clone/post-fork/post-create; runs overlay or script.
-- Extra: bundle of overlays+hooks for reuse.
-- Hook invocation: app/hook/invoke/usecase.go.
+1. **Core Layer** (`core/`) - Domain entities and interfaces, no external dependencies
+2. **Application Layer** (`app/`) - Use cases and business logic, only imports from core
+3. **Infrastructure Layer** (`infra/`) - External integrations (filesystem, git, github)
+4. **UI Layer** (`ui/`) - CLI implementation using Cobra framework
 
-## Script Execution Pipeline
-- script invoke spawns "gogh script run" as a subprocess and sends a gob payload.
-- Hidden command: ui/cli/commands/script_run.go; skips execution when GOGH_TEST_MODE=1.
-- Lua globals table is named "gogh" (see lua/gogh.lua).
+**Important**: Architecture boundaries are enforced by arch-go. Core cannot depend on other layers, app cannot depend on infra/ui.
 
-## Git/GitHub Integration
-- Git ops are via core/git interface + infra/git (go-git).
-- GitHub hosting uses REST + GraphQL (infra/github + infra/githubv4).
-- Device auth is implemented in infra/github/authenticate_service.go.
+## Development Commands
 
-## Dev Commands (from CLAUDE.md)
-- make gen: generate GraphQL client + mocks
-- make lint: golangci-lint + arch-go
-- make test: go test with race
-- make man: docs
-- make install: build/install
-- gofmt: use gofumpt
+```bash
+# Generate code (GraphQL client, mocks)
+make gen
 
-## Testing Conventions (from CLAUDE.md)
-- Use standard library testing (no testify).
-- Public funcs: *_test.go in separate package.
-- Private funcs: *_private_test.go in same package.
-- Always run tests with -p 1.
+# Run linting (golangci-lint + arch-go)
+make lint
+
+# Run tests with race detection
+make test
+
+# Generate documentation
+make man
+
+# Build and install
+make install
+
+# Run a single test (always use -p 1 to limit parallel execution)
+go test -p 1 -v -run TestName ./path/to/package
+
+# Format Go files with gofumpt (handles formatting and trailing newlines)
+go run mvdan.cc/gofumpt@latest -w path/to/file.go
+```
+
+## Testing Conventions
+
+- Public function tests: `*_test.go` in separate test packages (import tested package as `testtarget`)
+- Private function tests: `*_private_test.go` in same package
+- Mock files: Place in separate `*_mock/` directories
+- Use `go.uber.org/mock` for mock generation
+- **DO NOT use testify package** - use standard library testing only
+- **ALWAYS run tests with `-p 1` flag** to limit parallel execution (e.g., `go test -p 1 ./...`)
+
+## Key Components
+
+### Multi-Root Directory Management
+- Gogh supports multiple root directories for storing repositories
+- Primary root: Default location for new clones
+- `roots` command: Manages root directories (add/remove/list/set-primary)
+- Root directories are stored in `app/config/workspace.go`
+
+### Repository Operations
+- Clone/fork/create/delete: `app/action/` 
+- Local repository management: `app/repo/`
+- Path resolution: `core/repository/`
+
+### Automation System (Hooks, Scripts, Overlays)
+
+The automation system consists of three interconnected components:
+
+1. **Scripts** - Lua scripts that can be executed in repository contexts
+   - Uses `yuin/gopher-lua` and `vadv/gopher-lua-libs`
+   - Scripts receive repository context via `gogh` global table
+   - Management: `app/script/`, `core/script/`
+
+2. **Overlays** - Predefined files that can be applied to repositories
+   - Used for templates, config files, .gitignore, etc.
+   - Must be manually applied with `gogh overlay apply` or automatically via hooks
+   - Management: `app/overlay/`, `core/overlay/`
+
+3. **Hooks** - Event-driven automation triggers
+   - Trigger events: post-clone, post-fork, post-create
+   - Can execute either overlays or scripts automatically
+   - Pattern-based repository matching
+   - Management: `app/hook/`, `core/hook/`
+
+### GitHub Integration
+- REST API: `infra/github/`
+- GraphQL: `infra/githubv4/` (generated code)
+
+## Important Files
+
+- `cmd/gogh/main.go` - Entry point
+- `ui/cli/app.go` - CLI application setup with all commands
+- `app/config/config.go` - Configuration management
+- `core/workspace/workspace.go` - Workspace interface for multi-root support
+
+## Code Generation
+
+GraphQL client code is generated from `infra/githubv4/*.graphql` files. After modifying these files, run `make gen`.
+
+## Development Notes
+
+- Comments should be in Japanese when beneficial for understanding
+- Code and tests should be in English
+- Follow existing patterns when adding new commands or features
+- Multi-root directory support is a key feature - always consider this in path operations
+- The `roots` command manages multiple repository storage locations, not the CLI root command
+- Overlays are never applied automatically - they must be applied manually or through hooks
+- Hook system can trigger overlay application and script execution based on repository events
+
+## Code Quality
+
+- **ALWAYS run `make lint` before committing** to ensure code quality and architecture compliance
+- **ALWAYS format Go files with gofumpt after making changes** - use `go run mvdan.cc/gofumpt@latest -w path/to/file.go`
+  - This ensures consistent formatting and proper trailing newlines
+  - gofumpt is a stricter gofmt that enforces additional formatting rules
 
 ---
 > Source: [kyoh86/gogh](https://github.com/kyoh86/gogh) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
