@@ -1,0 +1,9 @@
+{
+  "name": "immobiliare--backstage-plugin-gitlab",
+  "displayName": "backstage-plugin-gitlab",
+  "description": "backstage-plugin-gitlab",
+  "version": "1.0.0",
+  "author": "immobiliare",
+  "homepage": "https://github.com/immobiliare/backstage-plugin-gitlab",
+  "skills": []
+}
