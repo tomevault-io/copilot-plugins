@@ -1,0 +1,9 @@
+{
+  "name": "go-playground--validator",
+  "displayName": "validator",
+  "description": "validator",
+  "version": "1.0.0",
+  "author": "go-playground",
+  "homepage": "https://github.com/go-playground/validator",
+  "skills": []
+}
