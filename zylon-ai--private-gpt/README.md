@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zylon-ai/private-gpt](https://github.com/zylon-ai/private-gpt).
+Original source: `CLAUDE.md` in [zylon-ai/private-gpt](https://github.com/zylon-ai/private-gpt).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [zylon-ai/private-gpt](https://github.com/zylon-
 
 - [private-gpt](https://github.com/zylon-ai/private-gpt/tree/main/private_gpt/resources/skills/guidelines/SKILL.md)
 
-From [zylon-ai/private-gpt](https://github.com/zylon-ai/private-gpt) — a repo with 57353+ stars on GitHub.
+From [zylon-ai/private-gpt](https://github.com/zylon-ai/private-gpt) — a repo with 57356+ stars on GitHub.
 
 ---
 
