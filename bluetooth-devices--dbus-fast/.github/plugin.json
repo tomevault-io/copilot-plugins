@@ -1,0 +1,14 @@
+{
+  "name": "bluetooth-devices--dbus-fast",
+  "displayName": "dbus-fast",
+  "description": "dbus-fast",
+  "version": "1.0.0",
+  "author": "Bluetooth-Devices",
+  "homepage": "https://github.com/Bluetooth-Devices/dbus-fast",
+  "skills": [
+    {
+      "name": "dbus-fast",
+      "description": ""
+    }
+  ]
+}
