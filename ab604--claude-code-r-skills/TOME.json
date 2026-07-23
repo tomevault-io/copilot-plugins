@@ -1,0 +1,129 @@
+{
+  "name": "claude-code-r-skills",
+  "owner": "ab604",
+  "repo": "claude-code-r-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "r-oop",
+      "path": ".claude/skills/r-oop",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-oop",
+      "description": ""
+    },
+    {
+      "name": "r-package-development",
+      "path": ".claude/skills/r-package-development",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-package-development",
+      "description": ""
+    },
+    {
+      "name": "r-performance",
+      "path": ".claude/skills/r-performance",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-performance",
+      "description": ""
+    },
+    {
+      "name": "r-style-guide",
+      "path": ".claude/skills/r-style-guide",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-style-guide",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "path": ".claude/skills/tdd-workflow",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "tidyverse-patterns",
+      "path": ".claude/skills/tidyverse-patterns",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/tidyverse-patterns",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/r-oop/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-oop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/r-bayes/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-bayes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/r-performance/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/r-style-guide/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-style-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/rlang-patterns/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/rlang-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/tidyverse-patterns/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/tidyverse-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-r-skills",
+      "path": ".claude/skills/r-package-development/SKILL.md",
+      "github_url": "https://github.com/ab604/claude-code-r-skills/tree/main/.claude/skills/r-package-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ab604/claude-code-r-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:31:16Z"
+}
