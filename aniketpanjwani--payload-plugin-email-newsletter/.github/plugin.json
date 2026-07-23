@@ -1,0 +1,30 @@
+{
+  "name": "aniketpanjwani--payload-plugin-email-newsletter",
+  "displayName": "payload-plugin-email-newsletter",
+  "description": "payload-plugin-email-newsletter",
+  "version": "1.0.0",
+  "author": "aniketpanjwani",
+  "homepage": "https://github.com/aniketpanjwani/payload-plugin-email-newsletter",
+  "skills": [
+    {
+      "name": "broadcast-api",
+      "description": ""
+    },
+    {
+      "name": "payload-v3-endpoints",
+      "description": ""
+    },
+    {
+      "name": "payload-plugin-email-newsletter",
+      "description": ""
+    },
+    {
+      "name": "payload-plugin-email-newsletter",
+      "description": ""
+    },
+    {
+      "name": "payload-plugin-email-newsletter",
+      "description": ""
+    }
+  ]
+}
