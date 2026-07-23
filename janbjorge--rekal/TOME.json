@@ -3,8 +3,8 @@
   "owner": "janbjorge",
   "repo": "rekal",
   "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "rekal",
+      "path": "skills/rekal-save/SKILL.md",
+      "github_url": "https://github.com/janbjorge/rekal/tree/main/skills/rekal-save/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rekal",
+      "path": "skills/rekal-usage/SKILL.md",
+      "github_url": "https://github.com/janbjorge/rekal/tree/main/skills/rekal-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rekal",
+      "path": "skills/rekal-hygiene/SKILL.md",
+      "github_url": "https://github.com/janbjorge/rekal/tree/main/skills/rekal-hygiene/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/janbjorge/rekal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T12:49:34Z"
+  "distributed_at": "2026-07-23T02:16:31Z"
 }
