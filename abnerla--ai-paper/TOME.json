@@ -1,0 +1,141 @@
+{
+  "name": "AI_paper",
+  "owner": "Abnerla",
+  "repo": "AI_paper",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/topic-refiner/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/topic-refiner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/flowchart-expert/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/flowchart-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/diagram-validator/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/diagram-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/outline-optimizer/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/outline-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/reference-formatter/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/reference-formatter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/literature-searcher/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/literature-searcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/data-table-generator/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/data-table-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/methodology-designer/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/methodology-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/academic-paper-writer/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/academic-paper-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/academic-tone-polisher/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/academic-tone-polisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/abstract-focus-enhancer/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/abstract-focus-enhancer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/research-method-advisor/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/research-method-advisor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/diagram-template-library/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/diagram-template-library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/research-question-refiner/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/research-question-refiner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/citation-format-validator/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/citation-format-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI_paper",
+      "path": "Management/skills_src/argument-structure-checker/SKILL.md",
+      "github_url": "https://github.com/Abnerla/AI_paper/tree/main/Management/skills_src/argument-structure-checker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Abnerla/AI_paper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:55:38Z"
+}
