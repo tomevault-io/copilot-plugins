@@ -1,0 +1,93 @@
+{
+  "name": "neural-memory",
+  "owner": "nhadaututtheky",
+  "repo": "neural-memory",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "neural-memory",
+      "path": ".claude-plugin/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/.claude-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neural-memory",
+      "path": "integrations/neural-memory/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/integrations/neural-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neural-memory",
+      "path": ".claude-plugin/skills/memory-audit/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/.claude-plugin/skills/memory-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neural-memory",
+      "path": ".claude-plugin/skills/memory-intake/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/.claude-plugin/skills/memory-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neural-memory",
+      "path": "src/neural_memory/skills/memory-audit/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/src/neural_memory/skills/memory-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neural-memory",
+      "path": ".claude-plugin/skills/memory-evolution/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/.claude-plugin/skills/memory-evolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neural-memory",
+      "path": "src/neural_memory/skills/memory-intake/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/src/neural_memory/skills/memory-intake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neural-memory",
+      "path": "src/neural_memory/skills/memory-evolution/SKILL.md",
+      "github_url": "https://github.com/nhadaututtheky/neural-memory/tree/main/src/neural_memory/skills/memory-evolution/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nhadaututtheky/neural-memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:34:02Z"
+}
