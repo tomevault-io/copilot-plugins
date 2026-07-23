@@ -1,0 +1,147 @@
+{
+  "name": "og-image",
+  "owner": "nuxt-modules",
+  "repo": "og-image",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kane50613-takumi",
+      "path": ".claude/skills/kane50613-takumi",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/kane50613-takumi",
+      "description": ""
+    },
+    {
+      "name": "nuxt-fonts",
+      "path": ".claude/skills/nuxt-fonts",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/nuxt-fonts",
+      "description": ""
+    },
+    {
+      "name": "parcel-bundler-lightningcss",
+      "path": ".claude/skills/parcel-bundler-lightningcss",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/parcel-bundler-lightningcss",
+      "description": ""
+    },
+    {
+      "name": "unjs-fontaine",
+      "path": ".claude/skills/unjs-fontaine",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/unjs-fontaine",
+      "description": ""
+    },
+    {
+      "name": "unjs-unifont",
+      "path": ".claude/skills/unjs-unifont",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/unjs-unifont",
+      "description": ""
+    },
+    {
+      "name": "vercel-satori",
+      "path": ".claude/skills/vercel-satori",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/vercel-satori",
+      "description": ""
+    },
+    {
+      "name": "vitest-skilld",
+      "path": ".claude/skills/vitest-skilld",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/vitest-skilld",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/nuxt-fonts/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/nuxt-fonts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/unjs-unifont/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/unjs-unifont/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/vitest-skilld/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/vitest-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/vercel-satori/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/vercel-satori/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/satori-skilld/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/satori-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/unjs-fontaine/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/unjs-fontaine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/kane50613-takumi/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/kane50613-takumi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/lightningcss-skilld/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/lightningcss-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/takumi-rs-core-skilld/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/takumi-rs-core-skilld/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "og-image",
+      "path": ".claude/skills/parcel-bundler-lightningcss/SKILL.md",
+      "github_url": "https://github.com/nuxt-modules/og-image/tree/main/.claude/skills/parcel-bundler-lightningcss/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nuxt-modules/og-image",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:37:31Z"
+}
