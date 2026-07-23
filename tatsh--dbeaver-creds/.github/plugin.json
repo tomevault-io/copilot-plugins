@@ -1,0 +1,18 @@
+{
+  "name": "tatsh--dbeaver-creds",
+  "displayName": "dbeaver-creds",
+  "description": "dbeaver-creds",
+  "version": "1.0.0",
+  "author": "Tatsh",
+  "homepage": "https://github.com/Tatsh/dbeaver-creds",
+  "skills": [
+    {
+      "name": "dbeaver-creds",
+      "description": ""
+    },
+    {
+      "name": "dbeaver-creds",
+      "description": ""
+    }
+  ]
+}
