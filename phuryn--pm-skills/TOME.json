@@ -4,7 +4,7 @@
   "repo": "pm-skills",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -443,5 +443,5 @@
   ],
   "source_url": "https://github.com/phuryn/pm-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T03:00:41Z"
+  "distributed_at": "2026-07-23T23:49:13Z"
 }
