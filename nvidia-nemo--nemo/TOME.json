@@ -1,0 +1,75 @@
+{
+  "name": "NeMo",
+  "owner": "NVIDIA-NeMo",
+  "repo": "NeMo",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "NeMo",
+      "path": ".claude/skills/verify/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/NeMo/tree/main/.claude/skills/verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "path": ".claude/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/NeMo/tree/main/.claude/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "path": ".claude/skills/babysit-pr/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/NeMo/tree/main/.claude/skills/babysit-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "path": ".claude/skills/debug-training-logs/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/NeMo/tree/main/.claude/skills/debug-training-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "path": ".claude/skills/nemo-speech-asr-finetune/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/NeMo/tree/main/.claude/skills/nemo-speech-asr-finetune/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA-NeMo/NeMo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:15:24Z"
+}
