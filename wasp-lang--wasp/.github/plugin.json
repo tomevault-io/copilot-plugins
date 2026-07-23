@@ -1,0 +1,26 @@
+{
+  "name": "wasp-lang--wasp",
+  "displayName": "wasp",
+  "description": "wasp",
+  "version": "1.0.0",
+  "author": "wasp-lang",
+  "homepage": "https://github.com/wasp-lang/wasp",
+  "skills": [
+    {
+      "name": "wasp",
+      "description": ""
+    },
+    {
+      "name": "wasp",
+      "description": ""
+    },
+    {
+      "name": "wasp",
+      "description": ""
+    },
+    {
+      "name": "wasp",
+      "description": ""
+    }
+  ]
+}
