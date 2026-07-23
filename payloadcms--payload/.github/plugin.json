@@ -1,0 +1,46 @@
+{
+  "name": "payloadcms--payload",
+  "displayName": "payload",
+  "description": "payload",
+  "version": "1.0.0",
+  "author": "payloadcms",
+  "homepage": "https://github.com/payloadcms/payload",
+  "skills": [
+    {
+      "name": "payload",
+      "description": ""
+    },
+    {
+      "name": "triage-ci-flake",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "description": ""
+    },
+    {
+      "name": "payload",
+      "description": ""
+    }
+  ]
+}
