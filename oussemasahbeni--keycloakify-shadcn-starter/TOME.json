@@ -1,0 +1,129 @@
+{
+  "name": "keycloakify-shadcn-starter",
+  "owner": "Oussemasahbeni",
+  "repo": "keycloakify-shadcn-starter",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".agents/skills/audit/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.agents/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".claude/skills/audit/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.claude/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.agents/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".claude/skills/shadcn/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.claude/skills/shadcn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".agents/skills/polish/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.agents/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".claude/skills/polish/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.claude/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".agents/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.agents/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".claude/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.claude/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".agents/skills/distill/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.agents/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".claude/skills/distill/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.claude/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".agents/skills/critique/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.agents/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".claude/skills/critique/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.claude/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".agents/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.agents/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "keycloakify-shadcn-starter",
+      "path": ".claude/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter/tree/main/.claude/skills/optimize/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Oussemasahbeni/keycloakify-shadcn-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:47:32Z"
+}
