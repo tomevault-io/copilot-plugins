@@ -1,69 +1,55 @@
 ## nx-console
 
-> Nx Console is an Nx monorepo producing a VS Code extension (`apps/vscode`), a JetBrains IntelliJ plugin (`apps/intellij`), an MCP server (`apps/nx-mcp`), and a shared Nx Language Server (`apps/nxls`). No databases or external services are required.
+> - On writing comments:
 
-# Cursor Cloud specific instructions
+# Guidelines for how to work in Nx Console
 
-## Overview
+## Code style & development
 
-Nx Console is an Nx monorepo producing a VS Code extension (`apps/vscode`), a JetBrains IntelliJ plugin (`apps/intellij`), an MCP server (`apps/nx-mcp`), and a shared Nx Language Server (`apps/nxls`). No databases or external services are required.
+- On writing comments:
+  - Skip all obvious comments - anything inferrable from function names/context
+  - Keep only complex logic explanations - hard-to-understand algorithms or business rules
+- Follow existing patterns exactly - Some things to build in one editor integration might already exist in the other. Always check similar implementations in the codebase and match their structure/naming.
+- **Kotlin/IntelliJ code**: Always use direct imports instead of fully qualified names
+  - ❌ Bad: `dev.nx.console.utils.ProjectLevelCoroutineHolderService.getInstance(project)`
+  - ✅ Good: Import `dev.nx.console.utils.ProjectLevelCoroutineHolderService` at the top, then use `ProjectLevelCoroutineHolderService.getInstance(project)`
+  - This applies to all classes from the `dev.nx.console.*` packages and other packages
+  - Exception: Only use fully qualified names when there are naming conflicts that cannot be resolved with import aliases
+- before creating a commit, run `npx nx format --fix` and if kotlin files were touched, `npx nx run-many -t ktfmtFormat` to make sure formatting is applied
 
-## Prerequisites
+## Running Tests
 
-- **Node.js v18** (LTS Hydrogen) — pinned in `.nvmrc`
-- **Yarn 3.2.3** — pinned via `.yarnrc.yml` `yarnPath`; uses `node-modules` linker
-- **Java 21 + Gradle** — only for the IntelliJ plugin (`apps/intellij`); not needed for TS-only work
+- when running e2e or unit tests and you want to just run one file, always run via nx but pass in the file as a param. Example: `npx nx run nx-mcp-e2e:e2e-local -- project-details-filter` (this will run any test with project-details-filter in the filename)
 
-## Key commands
+<!-- nx configuration start-->
+<!-- Leave the start & end comments to automatically receive updates. -->
 
-All commands documented in `CONTRIBUTING.md`. Quick reference:
+## General Guidelines for working with Nx
 
-- **Lint:** `yarn nx run-many --target=lint`
-- **Test:** `yarn nx run-many --target=test` (Jest for TS projects, Gradle `check` for IntelliJ)
-- **Build:** `yarn nx build vscode` / `yarn nx build nxls` / `yarn nx build nx-mcp`
-- **Format check:** `node ./tools/scripts/check-formatting.js` (also the pre-commit hook)
-- **Format fix:** `yarn nx format:write`
+- For navigating/exploring the workspace, invoke the `nx-workspace` skill first - it has patterns for querying projects, targets, and dependencies
+- When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
+- Prefix nx commands with the workspace's package manager (e.g., `pnpm nx build`, `npm exec nx test`) - avoids using globally installed CLI
+- You have access to the Nx MCP server and its tools, use them to help the user
+- For Nx plugin best practices, check `node_modules/@nx/<plugin>/PLUGIN.md`. Not all plugins have this file - proceed without it if unavailable.
+- NEVER guess CLI flags - always check nx_docs or `--help` first when unsure
 
-## Environment file
+## Scaffolding & Generators
 
-The `.env` file at the workspace root sets `NX_ISOLATE_PLUGINS=true` and `NX_NATIVE_COMMAND_RUNNER=false`. Do not remove it.
+- For scaffolding tasks (creating apps, libs, project structure, setup), ALWAYS invoke the `nx-generate` skill FIRST before exploring or calling MCP tools
 
-## Launching the Extension Development Host
+## When to use nx_docs
 
-VS Code is not pre-installed but can be installed on-the-fly:
+- USE for: advanced config options, unfamiliar flags, migration guides, plugin configuration, edge cases
+- DON'T USE for: basic generator syntax (`nx g @nx/react:app`), standard commands, things you already know
+- The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
 
-```
-sudo apt-get update -qq && sudo apt-get install -y code
-```
+<!-- nx configuration end-->
 
-Then launch the Extension Development Host against a test workspace:
+## Self-Healing CI
 
-```
-npx nx run vscode:build:debug
-code --extensionDevelopmentPath=/workspace/dist/apps/vscode /path/to/nx-workspace --no-sandbox
-```
-
-After VS Code opens, trust the workspace when prompted, then reload (Ctrl+R) to fully activate the extension. The Nx Console panel will appear in the sidebar.
-
-## Testing the nx-mcp server with MCP Inspector CLI
-
-After building (`nx build nx-mcp`), use the [MCP Inspector CLI](https://github.com/modelcontextprotocol/inspector) to test the server programmatically via stdio — no manual SSE wiring needed:
-
-```bash
-# List all available tools
-npx @modelcontextprotocol/inspector --cli node dist/apps/nx-mcp/main.js /workspace --method tools/list
-
-# Call a specific tool (target args go before --method)
-npx @modelcontextprotocol/inspector --cli node dist/apps/nx-mcp/main.js /workspace --method tools/call --tool-name nx_workspace
-npx @modelcontextprotocol/inspector --cli node dist/apps/nx-mcp/main.js /workspace --method tools/call --tool-name nx_docs --tool-arg userQuery=caching
-npx @modelcontextprotocol/inspector --cli node dist/apps/nx-mcp/main.js /workspace --method tools/call --tool-name nx_project_details --tool-arg projectName=nxls
-```
-
-## Gotchas
-
-- The `yarn watch` / `nx run vscode:watch:debug` command requires the Nx Daemon (`npx nx daemon --start`). In headless/containerized environments the daemon's file watcher may not initialize properly, causing watch to fail. Use one-off builds (`nx run vscode:build:debug`) instead.
-- The nxls language server is designed for stdio communication with IDE clients. It can be verified to start with `node dist/apps/nxls/main.js --stdio` but will error on connection disposal when stdin closes — this is expected.
+Predefined fix:
+If a failed task id contains ":lint", fix it by running linting on the project where it failed with the `--fix` flag. Example: `npx nx run nx-mcp-server:lint --fix` where "nx-mcp-server" is the project the task failed on.
 
 ---
 > Source: [nrwl/nx-console](https://github.com/nrwl/nx-console) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
