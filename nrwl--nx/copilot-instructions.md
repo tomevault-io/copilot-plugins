@@ -25,6 +25,10 @@ When working on Nx documentation, all documentation content lives in the `astro-
 - Development workflow and commands
 - Sidebar management
 
+**MANDATORY**: After editing any file in `astro-docs/src/content/`, run the `nx-docs-style-check` skill. No exceptions.
+
+**MANDATORY**: All documentation content must follow `astro-docs/STYLE_GUIDE.md`. vale only enforces its mechanical rules, so check the structural and voice rules yourself.
+
 ### Quick Reference
 
 - Documentation content: `astro-docs/src/content/docs/`
@@ -89,16 +93,6 @@ nx prepush
 If the prepush validation suite fails, please fix the issues before proceeding with your work. This ensures that all
 code adheres to the project's standards and passes all tests. DO NOT make a new commit to fix these issues. Instead,
 amend the current commit.
-
-### Testing Changes in Other Repos
-
-To test a locally built Nx package in another repository (e.g., to verify a fix end-to-end):
-
-```bash
-pnpm copy-built-package --package nx --repo ../path/to/test-repo
-```
-
-This builds the package and copies it into the target repo's `node_modules`. It works for all packages including native Rust code.
 
 ### Testing Changes
 
@@ -239,4 +233,4 @@ Fixes #ISSUE_NUMBER
 
 ---
 > Source: [nrwl/nx](https://github.com/nrwl/nx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
