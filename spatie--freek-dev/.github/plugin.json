@@ -1,0 +1,30 @@
+{
+  "name": "spatie--freek-dev",
+  "displayName": "freek.dev",
+  "description": "freek.dev",
+  "version": "1.0.0",
+  "author": "spatie",
+  "homepage": "https://github.com/spatie/freek.dev",
+  "skills": [
+    {
+      "name": "livewire-development",
+      "description": ""
+    },
+    {
+      "name": "pest-testing",
+      "description": ""
+    },
+    {
+      "name": "freek.dev",
+      "description": ""
+    },
+    {
+      "name": "freek.dev",
+      "description": ""
+    },
+    {
+      "name": "freek.dev",
+      "description": ""
+    }
+  ]
+}
