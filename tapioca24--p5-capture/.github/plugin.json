@@ -1,0 +1,14 @@
+{
+  "name": "tapioca24--p5-capture",
+  "displayName": "p5.capture",
+  "description": "p5.capture",
+  "version": "1.0.0",
+  "author": "tapioca24",
+  "homepage": "https://github.com/tapioca24/p5.capture",
+  "skills": [
+    {
+      "name": "p5.capture",
+      "description": ""
+    }
+  ]
+}
