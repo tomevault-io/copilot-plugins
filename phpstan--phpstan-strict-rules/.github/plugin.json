@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpstan-strict-rules",
+  "displayName": "phpstan-strict-rules",
+  "description": "phpstan-strict-rules",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpstan-strict-rules",
+  "skills": []
+}
