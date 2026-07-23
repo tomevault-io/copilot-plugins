@@ -1,0 +1,14 @@
+{
+  "name": "rpamis--rpamis-security",
+  "displayName": "rpamis-security",
+  "description": "rpamis-security",
+  "version": "1.0.0",
+  "author": "rpamis",
+  "homepage": "https://github.com/rpamis/rpamis-security",
+  "skills": [
+    {
+      "name": "rpamis-security",
+      "description": ""
+    }
+  ]
+}
