@@ -1,0 +1,123 @@
+{
+  "name": "OSCAR",
+  "owner": "FutureMLS-Lab",
+  "repo": "OSCAR",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/add-jit-kernel/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/add-jit-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/add-sgl-kernel/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/add-sgl-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/debug-cuda-crash/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/debug-cuda-crash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/write-sglang-test/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/write-sglang-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/ci-workflow-guide/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/ci-workflow-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/sglang-auto-benchmark/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/sglang-auto-benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/debug-distributed-hang/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/debug-distributed-hang/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/sglang-bisect-ci-regression/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/sglang-bisect-ci-regression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/.claude/skills/sglang-torch-profiler-analysis/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/.claude/skills/sglang-torch-profiler-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-performance/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-ako4all-kernel/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-ako4all-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OSCAR",
+      "path": "sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md",
+      "github_url": "https://github.com/FutureMLS-Lab/OSCAR/tree/main/sglang-research/python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/FutureMLS-Lab/OSCAR",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T23:55:22Z"
+}
