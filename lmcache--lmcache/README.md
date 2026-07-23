@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LMCache/LMCache](https://github.com/LMCache/LMCache).
+Original source: `CLAUDE.md` in [LMCache/LMCache](https://github.com/LMCache/LMCache).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [LMCache/LMCache](https://github.com/LMCache/LMC
 - [LMCache](https://github.com/LMCache/LMCache/tree/main/.claude/skills/create-pr/SKILL.md)
 - [LMCache](https://github.com/LMCache/LMCache/tree/main/.claude/skills/pre-pr-check/SKILL.md)
 
-From [LMCache/LMCache](https://github.com/LMCache/LMCache) — a repo with 10758+ stars on GitHub.
+From [LMCache/LMCache](https://github.com/LMCache/LMCache) — a repo with 10821+ stars on GitHub.
 
 ---
 
