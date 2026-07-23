@@ -1,0 +1,18 @@
+{
+  "name": "corezoid--simulator-ai-plugin",
+  "displayName": "simulator-ai-plugin",
+  "description": "simulator-ai-plugin",
+  "version": "1.0.0",
+  "author": "corezoid",
+  "homepage": "https://github.com/corezoid/simulator-ai-plugin",
+  "skills": [
+    {
+      "name": "simulator-ai-plugin",
+      "description": ""
+    },
+    {
+      "name": "simulator-ai-plugin",
+      "description": ""
+    }
+  ]
+}
