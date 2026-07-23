@@ -1,0 +1,219 @@
+{
+  "name": "etl",
+  "owner": "owid",
+  "repo": "etl",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "check-metadata-typos",
+      "path": ".claude/skills/check-metadata-typos",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/check-metadata-typos",
+      "description": ""
+    },
+    {
+      "name": "streamlit-app",
+      "path": ".claude/skills/streamlit-app",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/streamlit-app",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/etl-profiling/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/etl-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/chart-editing/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/chart-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/streamlit-app/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/streamlit-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/review-data-pr/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/review-data-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/fix-dependabot/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/fix-dependabot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/create-explorer/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/create-explorer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/create-multidim/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/create-multidim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/migrate-dataset/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/migrate-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/create-snapshot/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/create-snapshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/create-etl-steps/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/create-etl-steps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/data-updates-comms/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/data-updates-comms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/sync-grapher-schema/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/sync-grapher-schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/check-chart-preview/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/check-chart-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/migrate-explorer-csv/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/migrate-explorer-csv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/faust-metadata-audit/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/faust-metadata-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/check-metadata-typos/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/check-metadata-typos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/check-metadata-style/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/check-metadata-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/map-explorer-to-mdim/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/map-explorer-to-mdim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/vscode-extension-dev/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/vscode-extension-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/check-metadata-spacing/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/check-metadata-spacing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/report-indicator-changes/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/report-indicator-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/owid-metadata-generation/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/owid-metadata-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/migrate-explorer-grapher/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/migrate-explorer-grapher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/check-outdated-practices/skill.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/check-outdated-practices/skill.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/remapping-ghost-variables/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/remapping-ghost-variables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/review-explorer-mdim-mapping/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/review-explorer-mdim-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "etl",
+      "path": ".claude/skills/migrate-explorer-indicator-legacy/SKILL.md",
+      "github_url": "https://github.com/owid/etl/tree/main/.claude/skills/migrate-explorer-indicator-legacy/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/owid/etl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:46:40Z"
+}
