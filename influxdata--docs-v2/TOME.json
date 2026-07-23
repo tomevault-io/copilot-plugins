@@ -4,7 +4,7 @@
   "repo": "docs-v2",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -83,5 +83,5 @@
   ],
   "source_url": "https://github.com/influxdata/docs-v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T19:34:55Z"
+  "distributed_at": "2026-07-23T04:42:39Z"
 }
