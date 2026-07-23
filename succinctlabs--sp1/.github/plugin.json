@@ -1,0 +1,22 @@
+{
+  "name": "succinctlabs--sp1",
+  "displayName": "sp1",
+  "description": "sp1",
+  "version": "1.0.0",
+  "author": "succinctlabs",
+  "homepage": "https://github.com/succinctlabs/sp1",
+  "skills": [
+    {
+      "name": "sp1",
+      "description": ""
+    },
+    {
+      "name": "sp1",
+      "description": ""
+    },
+    {
+      "name": "sp1",
+      "description": ""
+    }
+  ]
+}
