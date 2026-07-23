@@ -1,53 +1,107 @@
 ## tiny-design
 
-> This repository is a `pnpm` workspace managed with Turborepo. Core packages live under `packages/`:
+> Tiny Design is a React component UI library (80+ components) published as `@tiny-design/react`. It's a pnpm monorepo managed with Turborepo.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-This repository is a `pnpm` workspace managed with Turborepo. Core packages live under `packages/`:
+## Project Overview
 
-- `packages/react`: main React component library (`src/`, component styles, demos, and Jest tests)
-- `packages/icons`, `packages/tokens`, `packages/cli`, `packages/mcp`, `packages/charts`: supporting packages
-- `apps/docs`: Vite-powered documentation site and Playwright visual tests
+Tiny Design is a React component UI library (80+ components) published as `@tiny-design/react`. It's a pnpm monorepo managed with Turborepo.
 
-Common root config lives in `turbo.json`, `eslint.config.mjs`, `.prettierrc`, and `.stylelintrc`. Changesets are stored in `.changeset/`.
+## Monorepo Layout
 
-## Build, Test, and Development Commands
-- `pnpm install`: install workspace dependencies; Node `>=22` is required.
-- `pnpm dev`: run workspace dev tasks through Turbo; primarily used for the docs app.
-- `pnpm build`: build all packages.
-- `pnpm test`: run package test suites through Turbo.
-- `pnpm test:visual`: run Playwright visual tests from `apps/docs/tests/visual`.
-- `pnpm lint`: run ESLint across workspace packages.
-- `pnpm lint:style`: run Stylelint for SCSS sources.
+```
+packages/react/    → @tiny-design/react (main component library)
+packages/tokens/   → @tiny-design/tokens (v2 design tokens and theme runtime)
+packages/icons/    → @tiny-design/icons (SVG icon components)
+apps/docs/         → documentation site (Vite + MDX)
+```
 
-For package-specific work, prefer filtering:
-`pnpm --filter @tiny-design/react test` or `pnpm --filter @tiny-design/react lint`.
+All three publishable packages use **fixed versioning** — they always share the same version number.
 
-## Coding Style & Naming Conventions
-Use TypeScript with 2-space indentation, semicolons, single quotes, and `printWidth: 100` per `.prettierrc`. Run Prettier before submitting changes.
+## Common Commands
 
-React source lives mainly in `packages/react/src`. Follow existing component patterns:
-- component folders in kebab-case, for example `packages/react/src/date-picker/`
-- public exports in each component `index.tsx` and again in `packages/react/src/index.ts`
-- SCSS class names prefixed with `ty-`
+```bash
+pnpm install              # Install dependencies
+pnpm dev                  # Start docs dev server
+pnpm build                # Build all packages (turborepo handles dependency order: tokens → react → docs)
+pnpm test                 # Run all tests
+pnpm lint                 # ESLint across all packages
+pnpm lint:style           # Stylelint for SCSS files
+```
 
-Linting uses ESLint 9 for TypeScript/React and Stylelint for SCSS.
+### Scoped Commands
 
-## Testing Guidelines
-Jest is used for unit tests; place tests in `src/__tests__/` or the package’s existing test location and name files `*.test.ts` or `*.test.tsx`. Use Playwright for docs visual regression coverage.
+```bash
+pnpm --filter @tiny-design/react test -- --testPathPattern=button   # Test a single component
+pnpm --filter @tiny-design/react test:update                        # Update snapshots
+pnpm --filter @tiny-design/react test:coverage                      # Coverage report
+```
 
-Run:
-- `pnpm test`
-- `pnpm --filter @tiny-design/react test:coverage`
-- `pnpm test:visual`
+## Component Structure
 
-## Commit & Pull Request Guidelines
-Recent history favors short Conventional Commit-style subjects such as `fix(react): ...`, `feat(button): ...`, or `chore: ...`. Keep commits focused and imperative.
+Every component in `packages/react/src/` follows this layout:
 
-PRs should include a clear summary, linked issue when applicable, and screenshots or visual diffs for UI/docs changes. Add or update tests for behavioral changes. For user-facing package changes, create a changeset with `pnpm changeset` and commit the generated file.
+```
+component-name/
+├── component-name.tsx       # Implementation (React.forwardRef, function components)
+├── types.ts                 # Props interfaces
+├── index.tsx                # Barrel export
+├── index.md                 # English docs
+├── index.zh_CN.md           # Chinese docs
+├── style/
+│   ├── _index.scss          # Styles (SCSS partial)
+│   └── index.tsx            # Style entry point
+├── demo/
+│   └── basic.tsx            # Usage examples
+└── __tests__/
+    └── component-name.test.tsx
+```
+
+When adding a new component:
+1. Create its directory under `packages/react/src/`
+2. Export it from `packages/react/src/index.ts`
+3. Add a route in `apps/docs/src/routers.tsx`
+
+## Code Conventions
+
+- **TypeScript strict mode** is enabled
+- **CSS class prefix**: `ty-` (e.g., `.ty-btn`, `.ty-modal`), customizable via `ConfigProvider`
+- **BEM-ish naming**: `ty-component`, `ty-component__element`, `ty-component_modifier`
+- **Ref forwarding**: all components use `React.forwardRef`
+- **Props pattern**: extend `BaseProps` (style, className, prefixCls) + intrinsic element props
+- **Formatting**: Prettier — single quotes, semicolons, 100 char width, 2-space indent
+- **Commits**: Conventional Commits — `feat(button): add loading state`, `fix(modal): prevent scroll`
+- **Pre-commit hook**: husky + lint-staged auto-fixes SCSS via stylelint
+
+## Testing
+
+- **Framework**: Jest + @testing-library/react + @testing-library/jest-dom
+- **Config**: `packages/react/jest.config.js` (ts-jest, jsdom environment)
+- Tests live in `__tests__/` within each component directory
+
+## Build Pipeline
+
+The react package build (`packages/react`):
+1. `tsdown` — transpiles TS → JS (ESM in `es/`, CJS in `lib/`), generates `.d.ts`
+2. `build-styles.js` — compiles component SCSS → CSS via Sass + PostCSS
+3. `inject-style-imports.js` — adds CSS imports into JS entry files
+
+## Changesets & Releases
+
+- Use `pnpm changeset` to create a changeset file in `.changeset/`
+- On merge to `master`, CI creates a "Version Packages" PR
+- Merging that PR publishes to npm and deploys the docs site
+- `@tiny-design/docs` is excluded from npm publishing
+
+## Key Dependencies
+
+- React 18.2+, TypeScript 5.4
+- Popper.js (`@popperjs/core`) for positioning (tooltips, dropdowns, popovers)
+- `react-transition-group` for animations
+- `classnames` for conditional class construction
+- Node.js >= 22, pnpm 10.x
 
 ---
 > Source: [wangdicoder/tiny-design](https://github.com/wangdicoder/tiny-design) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
