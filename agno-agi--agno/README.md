@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agno-agi/agno](https://github.com/agno-agi/agno).
+Original source: `CLAUDE.md` in [agno-agi/agno](https://github.com/agno-agi/agno).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -24,7 +24,7 @@ Original source: `AGENTS.md` in [agno-agi/agno](https://github.com/agno-agi/agno
 - [agno](https://github.com/agno-agi/agno/tree/main/cookbook/02_agents/16_skills/sample_skills/git-workflow/SKILL.md)
 - [agno](https://github.com/agno-agi/agno/tree/main/cookbook/frameworks/antigravity/example_agent/skills/haiku/SKILL.md)
 
-From [agno-agi/agno](https://github.com/agno-agi/agno) — a repo with 41317+ stars on GitHub.
+From [agno-agi/agno](https://github.com/agno-agi/agno) — a repo with 41366+ stars on GitHub.
 
 ---
 
