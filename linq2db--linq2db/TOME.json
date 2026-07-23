@@ -1,0 +1,165 @@
+{
+  "name": "linq2db",
+  "owner": "linq2db",
+  "repo": "linq2db",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "test-providers",
+      "path": ".claude/skills/test-providers",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/test-providers",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/test/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/chores/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/chores/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/kb-ask/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/kb-ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/kb-build/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/kb-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/kb-issues/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/kb-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/kb-status/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/kb-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/kb-refresh/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/kb-refresh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/update-slnx/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/update-slnx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/find-issues/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/find-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/create-issue/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/create-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/audit-claude/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/audit-claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/version-bump/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/version-bump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/verify-review/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/verify-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/api-baselines/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/api-baselines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/test-providers/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/test-providers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/session-reflect/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/session-reflect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "linq2db",
+      "path": ".claude/skills/merge-duplicates/SKILL.md",
+      "github_url": "https://github.com/linq2db/linq2db/tree/main/.claude/skills/merge-duplicates/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/linq2db/linq2db",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:45:03Z"
+}
