@@ -1,146 +1,271 @@
 ## predict-raven
 
-> > **同步规则：** 如果仓库同时存在 `CLAUDE.md` 与 `AGENTS.md`，两者内容必须保持同步。只保留其中一个也可以，但不要长期处于"双文件内容不一致"的状态。
+> > This file defines the default collaboration style for Claude in any project.
 
-# 通用协作约定（团队模板）
+# claude.md
 
-> **同步规则：** 如果仓库同时存在 `CLAUDE.md` 与 `AGENTS.md`，两者内容必须保持同步。只保留其中一个也可以，但不要长期处于"双文件内容不一致"的状态。
-
-英文版见 [`docs/en/CLAUDE.md`](docs/en/CLAUDE.md)。
-
-最后更新：2026-04-26
-
-## 0. 适用范围
-
-- 这是一份跨项目可复用的团队协作基线，适用于多数软件、自动化、数据和前端项目。
-- 项目专属内容集中追加到本文件末尾"## 项目执行要点"节，或单独写入 `project-rules.md`，应是"可执行约束 + 日期"，不要写背景介绍。
-- 若规则冲突，优先级默认如下：
-  - 用户本次明确要求
-  - 项目补充规则（本文件末尾"项目执行要点"）
-  - 本通用模板
-
-## 1. 语言与文档
-
-- 代码注释统一使用英文。
-- 面向人阅读的 Markdown 默认中文，并维护英文副本（`*.en.md` 或 `docs/en/`）。
-- 中文文件保留主文件名，英文文件使用 `*.en.md`。
-- 如中英文内容存在不一致，以中文为准，英文必须尽快对齐中文。
-- 新增或修改人类可读文档时，中文与英文应同步更新。
-- 若某次迭代只能先更新单语版本，必须明确标记"待同步翻译"，并在交付前补齐。
-
-## 2. 终端交互与进度可见性
-
-- 所有关键流程必须在可见终端输出阶段信息。
-- 长任务必须持续输出进度心跳，建议包含：当前阶段、已耗时、预计剩余时间或超时信息。
-- 允许使用后台任务或 sub-agent 静默执行重活，但主会话必须定期向用户汇报可见进度。
-- 终端输出优先彩色、分级（`INFO/WARN/ERR/OK`）。
-- 错误输出必须可执行，并优先归档到 `run-error/<timestamp>-<reason>/`，至少包含：失败阶段、核心上下文、原因摘要、下一步命令或修复动作。
-- 若任务产生日志、报告或归档目录，结束时必须打印关键路径。
-
-## 3. 沟通风格与人类 Review 入口
-
-- 默认使用"正常产品经理能理解"的表达，不要用黑话、空话或术语堆砌来糊弄。
-- 必要的专业术语首次出现时顺手解释清楚它是什么、会影响什么。
-- 每次正式回复或中间进度汇报时，**优先先给"人类 review 入口"**：1-5 个最值得人工核对的具体文件/路由/命令/段落，而不是抽象总结。
-- 在指出 review 入口后，紧接着解释：这边具体做了什么、改完后的效果如何。
-- 讲方案时优先回答这四件事：现在的问题是什么 / 会影响什么 / 准备怎么处理 / 需要用户决定什么。
-- 如果必须讨论模型、推理、基础设施、部署或执行细节，先给人话结论，再补技术细节。
-- 避免只报名词不报结论；"框架、闭环、抓手、赋能、链路、埋点"这类词不能替代答案本身。
-
-## 4. 协作与分工基线
-
-- 默认协作方式：主会话先拆任务，先决定"当前最应该由主会话亲自推进的阻塞项"，再把适合并行的部分分配给 sub-agents。
-- 主会话负责统一目标、处理依赖、整合结果、对外沟通与最终验收。
-- 除非任务非常小、必须串行，或涉及高风险权限操作，否则不要把全部重活都堆在主会话里。
-- 默认由 agent 自主做低价值决策，并持续尝试、持续测试，直到问题真正通过；不要把明显可以自行判断的选择反复抛回给用户。
-- 遇到阻塞时，先主动区分问题属于代码、环境、外部服务、权限边界，还是自己判断过于保守，再决定下一步。
-- 只有在涉及外部权限、不可逆风险、成本/安全/生产影响，或产品目标本身不明确时，才停下来请求用户拍板。
-- 默认要定期保存当前进度，不要等到整项任务结束才统一落盘；关键保存点应记录明确时间戳。
-- 如果距离上一次已保存或已推送的有效进度超过 `12h`，应优先整理当前可用更新并保存，再继续长任务。
-
-## 5. Sub-agents 使用规范
-
-- 只有当任务存在明显可并行的子问题时才拆分（实现 vs 测试、跨模块独立改动、代码改动 vs 资料核对）。
-- 小任务、强耦合任务、需要连续上下文判断的任务不要拆。
-- 涉及高风险操作时不要先拆后说（生产数据变更、权限调整、删除性操作、资金操作、对外发布），默认由主会话统一控盘。
-- 拆分前，主会话定义每个 sub-agent 的目标 / ownership / 输入输出 / 成功标准。
-- 可以并行的前提：依赖少、接口清楚、改动面可隔离；如果前置任务结果会改变后续设计，先串行。
-- 并行执行前，主会话约定共享约束：数据结构、命名、接口契约、目录位置、哪些公共文件允许改。
-- sub-agent 默认只在自己 ownership 范围内决策；跨边界改动必须先上报，不能"顺手能修"就扩散。
-- sub-agent 汇报必须是"可合并结果"：做了什么、影响了哪些文件或逻辑、当前状态、阻塞点、是否影响其他并行任务。
-- 两个 sub-agent 对同一文件、接口、产品行为有冲突时，由主会话裁决；不能让 sub-agent 直接覆盖对方结论。
-- 必须由主会话接管：子任务互相阻塞 / 需统一改公共抽象 / 根因偏离原拆分假设 / 跨模块架构取舍。
-- 必须暂停问用户：需求目标不明确 / 不可逆操作 / 改变用户指定的行为 / 新增外部依赖或权限 / 明显的成本/安全/生产风险。
-- 主会话负责最终整合，不把"把结果拼起来"继续下放：统一行为、消除冲突、验证最终结果满足最初目标。
-- 任务结束时沉淀最小可追溯记录：谁负责了什么、采纳了哪些结论、放弃了哪些方案、还有什么残余风险。
-
-## 6. 执行安全与状态一致性
-
-- 任何高风险执行都应有 `preflight` / `dry-run` / `plan-only` / `preview` 检查阶段；检查阶段不是终点，是正式执行前的必经步骤。
-- 每次关键执行打印当前 `execution mode`（`inspect / dry-run / live / migration / release`）+ 决策来源（人工/脚本/AI）。
-- 高风险路径默认 `fail-fast`；禁止在关键校验失败后静默降级或悄悄 fallback。
-- 当内部限额、外部阈值、权限缺失或环境条件会让操作注定失败时，必须明确预警，并同时给出内部限制与外部要求。
-- 完整分析、验证或依赖未就绪时，不要执行不可逆动作。
-- 单一状态源；涉及环境/账户/钱包/数据集/工作目录或状态文件时，必须打印当前实际使用的值。
-- 检测到环境混用、账号混用、多状态文件混用风险，必须告警并给出修复建议。
-- 必须使用 fallback 时明确标注，不得伪装成实时真值。
-- 用户可见的关键改动，不能只看命令返回成功；必须验证真实行为是否符合预期。
-
-## 7. 可追溯归档
-
-- 所有关键运行都应产出可追溯归档：preflight、输入参数、推荐结果、执行结果、错误信息、摘要报告。
-- 失败时尽量保留中间产物（checkpoint、temp、provider output、日志片段）供断点续跑或复盘。
-- 运行结束后必须输出归档目录与关键文件路径。
-- 需要向用户解释或沉淀的内容（流程图、FAQ、关键机制说明、反思）放入 `docs/diagrams/`。
-- `docs/` 文档同样执行双语规则：中文主文件 `*.md` + 英文副本 `docs/en/` 或 `*.en.md`。
-- 工作日志和反思建议放在独立目录中，不要长期堆积在 `CLAUDE.md` / `AGENTS.md` 本体里。
-
-## 8. 部署与发布校验
-
-- 对外部署、发布或切换环境时，不能只看到 CLI 返回成功、URL 或日志绿灯就宣布完成；必须做真实验收。
-- 每次公开部署后，主会话至少应完成：
-  - 打开真实部署结果或目标服务
-  - 截图或保留可见证据
-  - 把线上结果和本地目标版本或用户指定参考做对比
-  - 核对目标 API、关键数据路径或核心用户流程是否正常
-- 如果首页或目标视图已经是完整风格页，必须同时检查 layout/shell 是否还包着 legacy 外壳。
-- 没做过线上或真实环境验收前，不要对用户说"已经和本地一致"。
+> This file defines the default collaboration style for Claude in any project.
+>
+> Its purpose is simple:
+> - keep the main conversation clear and easy to follow
+> - improve execution efficiency
+> - use sub-agents for parallel work when helpful
+> - let the main agent focus on understanding, coordinating, and integrating
 
 ---
 
-## 项目执行要点（predict-raven 专属）
+## 1. Core Principle
 
-> ⚠️ **这是一个真钱实盘交易项目**。每次跑 `pulse:live` 都会在 Polymarket 上下真实订单，**不可逆**。
+The main agent should not try to do everything inside one crowded conversation.
 
-### 30 秒必读
+Instead:
 
-- **默认实盘下单**：`pnpm daily:pulse` / `pnpm pulse:live` 直接打真单。需要"只看不下单"必须显式加 `--recommend-only` 或在 prompt 里明说"不要下单"。
-- **默认钱包**：`.env.pizza`（活跃账户）—— **这是默认值，不是写死**。新部署或新 agent 接手到不同主钱包时，可以把 `.env.pizza` 替换成自己的 env 文件，并同步更新 `skills/daily-pulse/agents/openai.yaml` 里那行 `use .env.pizza when no env is specified`。临时切换钱包用 `ENV_FILE=.env.<name>`。preflight 会打印当前钱包地址 + collateral 余额，对不上立刻 abort。
-- **风控硬上限**（无法绕过，executor 服务层强制裁剪）：单笔 ≤ 15% bankroll / 总敞口 ≤ 80% / 单事件 ≤ 30% / 最多 22 仓 / 最小 $5。
-- **现有持仓默认 hold**：pulse-direct 的 Position Review 模块不会乱平仓，每个 hold 决策都会带理由；`reduce` / `close` 必须有反向证据。
-- **claude --print 偶尔 0 字节挂 5+ 分钟**——不是失败。Pulse 渲染内部 timeout 是 30 分钟，等它出来。
+- the **main agent** handles communication, planning, prioritization, and final integration
+- **sub-agents** handle scoped execution tasks in parallel when possible
+- the overall system should optimize for **clarity, speed, and recoverability**
 
-### 关键路径速查
+This is not about adding process for its own sake.  
+It is about making collaboration smoother and reducing wasted time.
 
-| 内容 | 文件 |
-| --- | --- |
-| **每次接手必看** — 当前状态 + 待办（wrap-up 时更新） | [`docs/agent-handoff.md`](docs/agent-handoff.md) |
-| **第一次接手才看**（仅一次） | [`docs/agent-onboarding.md`](docs/agent-onboarding.md) |
-| 风控完整规则 | [`docs/risk-controls.md`](docs/risk-controls.md) |
-| V2 cutover runbook（2026-04-28 11:00 UTC 切换日） | [`docs/internal/plan/2026-04-28-v2-cutover-runbook.md`](docs/internal/plan/2026-04-28-v2-cutover-runbook.md) |
-| 命令速查 / 部署形态 / 依赖矩阵 | [`docs/diagrams/dev-reference.md`](docs/diagrams/dev-reference.md) |
-| 资金与账号配置（4 字段） | README "资金与账号配置" 节 |
-| 实盘运行总结归档 | `runtime-artifacts/pulse-live/<ts>-<runId>/run-summary.md` |
-| Pulse AI 推理报告 | `runtime-artifacts/reports/pulse/YYYY/MM/DD/pulse-*.md` |
+---
 
-### Wrap-up 时必做
+## 2. What the Main Agent Should Do
 
-- 更新 [`docs/agent-handoff.md`](docs/agent-handoff.md)：勾掉刚完成的 P0/P1，添加新发现的 TODO，更新"上次会话留下的上下文"节，刷新 `最后更新` 行
-- 用户说"记一下" / "save this" / "update handoff" 时立刻更新，不要等 wrap-up
-- handoff 文档保持精简：actionable 而不是流水账；细节进 git log 或 `docs/internal/review/`
+The main agent is responsible for:
 
-> **当前 P0 / P1 / P2 待办均已迁到 [`docs/agent-handoff.md`](docs/agent-handoff.md)**——这个本节不再维护任务列表，避免双源不一致。
+- understanding the real goal
+- breaking work into smaller tasks
+- deciding what can be delegated
+- keeping the user-facing conversation clean and readable
+- combining results into one coherent outcome
+- escalating only when human input is truly needed
+
+The main agent should stay focused on **judgment and coordination**, not get buried in low-value execution details.
+
+---
+
+## 3. What Sub-Agents Should Do
+
+Sub-agents are used to improve throughput and reduce clutter in the main conversation.
+
+Good uses for sub-agents include:
+
+- research
+- drafting
+- data collection
+- testing
+- comparisons
+- structured exploration
+- parallel execution of independent tasks
+
+Sub-agents should be given:
+
+- a clear task
+- a clear expected output
+- clear constraints
+- enough context to work independently
+
+Sub-agents should not make broad product or business decisions unless explicitly asked.
+
+---
+
+## 4. Default Collaboration Pattern
+
+Use this default pattern:
+
+1. Understand the request
+2. Break the work into parts
+3. Delegate parallelizable parts to sub-agents
+4. Keep the main conversation focused on progress and conclusions
+5. Integrate results into one final answer or deliverable
+
+When work can be parallelized safely, do not force everything into a sequential flow.
+
+---
+
+## 5. Keep the Main Conversation Clean
+
+The main conversation should remain easy for a human to read.
+
+That means:
+
+- do not overload it with low-level execution logs
+- do not dump every intermediate thought into the main thread
+- do not let side work distract from the actual decision path
+- surface only what is useful for review, decision, or confirmation
+
+The goal is not to hide work.  
+The goal is to present work in a way that preserves clarity.
+
+---
+
+## 6. Communication Style
+
+Default communication should be:
+
+- clear
+- direct
+- practical
+- understandable to non-technical teammates
+
+Avoid unnecessary jargon.  
+If a technical term is needed, explain it briefly the first time.
+
+When giving updates or results:
+
+- start with the most important takeaway
+- point to the main things worth reviewing
+- explain what changed
+- explain why it matters
+
+Do not use abstract language as a substitute for an answer.
+
+---
+
+## 7. When to Decide Without Asking
+
+The agent should make small, low-risk decisions on its own.
+
+Do **not** ask the user about every minor choice if the answer can be reasonably inferred.
+
+Ask the user only when:
+
+- the goal is genuinely unclear
+- external permission is required
+- there is meaningful security, financial, or irreversible risk
+- there is a real tradeoff that the user should own
+
+Good collaboration means reducing unnecessary back-and-forth.
+
+---
+
+## 8. Parallel Work Rules
+
+Use sub-agents when the work is:
+
+- independent
+- repeatable
+- time-consuming
+- easier to evaluate in separated parts
+
+Do not use sub-agents when the work is:
+
+- trivial
+- tightly sequential
+- highly sensitive
+- dependent on one shared decision path
+
+Parallelization is a tool, not a ritual.  
+Use it when it improves speed and clarity.
+
+---
+
+## 9. Output and Progress Expectations
+
+Important work should leave behind usable progress.
+
+Whenever possible:
+
+- save meaningful checkpoints
+- preserve intermediate results that may be useful later
+- keep outputs organized and easy to review
+- make it easy to resume work after interruption or failure
+
+Progress should not live only in transient conversation context.
+
+---
+
+## 10. Error Handling
+
+When something goes wrong, first classify the problem:
+
+- task definition issue
+- code issue
+- environment issue
+- permissions issue
+- external service issue
+- unclear requirement
+
+Then respond accordingly:
+
+- retry if reasonable
+- adjust the approach if needed
+- explain the blocker clearly
+- involve the user only when necessary
+
+Do not default to escalating too early.
+
+---
+
+## 11. Review-First Mindset
+
+For any substantial task, help the human reviewer by pointing them to the most useful review points first.
+
+Whenever possible, highlight:
+
+- the most important files, sections, or outputs
+- the key decisions made
+- the main changes
+- the practical impact
+
+Humans should not have to search through noise to find what matters.
+
+---
+
+## 12. Lightweight Default for Any Project
+
+This file is intentionally general.
+
+It is meant to work across:
+
+- product work
+- research work
+- content work
+- operations work
+- technical projects
+- mixed human + agent collaboration
+
+The exact tools may change, but the core model stays the same:
+
+- keep the main thread clear
+- delegate scoped work
+- parallelize when useful
+- integrate carefully
+- reduce unnecessary human interruption
+
+---
+
+## 13. Simple Sub-Agent Template
+
+Use this structure when assigning work to a sub-agent:
+
+### Task
+A short description of the job.
+
+### Context
+What the sub-agent needs to know.
+
+### Expected Output
+What should be returned.
+
+### Constraints
+Any boundaries, limits, or rules.
+
+### Notes
+Anything the main agent should watch for when integrating the result.
+
+---
+
+## 14. Final Standard
+
+A good Claude workflow should feel like this:
+
+- the main conversation stays calm and readable
+- the system moves quickly
+- side work happens without creating chaos
+- the user is only pulled in when truly necessary
+- final outputs are easier to trust, review, and reuse
 
 ---
 > Source: [Alchemist-X/predict-raven](https://github.com/Alchemist-X/predict-raven) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
