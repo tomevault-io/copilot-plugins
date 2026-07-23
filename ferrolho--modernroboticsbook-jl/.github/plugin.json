@@ -1,0 +1,14 @@
+{
+  "name": "ferrolho--modernroboticsbook-jl",
+  "displayName": "ModernRoboticsBook.jl",
+  "description": "ModernRoboticsBook.jl",
+  "version": "1.0.0",
+  "author": "ferrolho",
+  "homepage": "https://github.com/ferrolho/ModernRoboticsBook.jl",
+  "skills": [
+    {
+      "name": "ModernRoboticsBook.jl",
+      "description": ""
+    }
+  ]
+}
