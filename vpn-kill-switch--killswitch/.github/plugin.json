@@ -1,0 +1,9 @@
+{
+  "name": "vpn-kill-switch--killswitch",
+  "displayName": "killswitch",
+  "description": "killswitch",
+  "version": "1.0.0",
+  "author": "vpn-kill-switch",
+  "homepage": "https://github.com/vpn-kill-switch/killswitch",
+  "skills": []
+}
