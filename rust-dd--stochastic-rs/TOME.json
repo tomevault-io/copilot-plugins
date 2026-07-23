@@ -1,0 +1,123 @@
+{
+  "name": "stochastic-rs",
+  "owner": "rust-dd",
+  "repo": "stochastic-rs",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stats-estimator",
+      "path": ".claude/skills/stats-estimator",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/stats-estimator",
+      "description": ""
+    },
+    {
+      "name": "new-module",
+      "path": ".claude/skills/new-module",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/new-module",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/dev-rules/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/dev-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/new-module/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/new-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/docs-writing/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/docs-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/bench-writing/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/bench-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/python-bindings/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/python-bindings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/stats-estimator/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/stats-estimator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/add-gpu-sampler/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/add-gpu-sampler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/release-checklist/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/release-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/calibration-pattern/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/calibration-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/adding-python-binding/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/adding-python-binding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stochastic-rs",
+      "path": ".claude/skills/feature-flag-management/SKILL.md",
+      "github_url": "https://github.com/rust-dd/stochastic-rs/tree/main/.claude/skills/feature-flag-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rust-dd/stochastic-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:36:58Z"
+}
