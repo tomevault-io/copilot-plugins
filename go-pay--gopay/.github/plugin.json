@@ -1,0 +1,14 @@
+{
+  "name": "go-pay--gopay",
+  "displayName": "gopay",
+  "description": "gopay",
+  "version": "1.0.0",
+  "author": "go-pay",
+  "homepage": "https://github.com/go-pay/gopay",
+  "skills": [
+    {
+      "name": "gopay",
+      "description": ""
+    }
+  ]
+}
