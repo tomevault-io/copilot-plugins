@@ -4,7 +4,7 @@
   "repo": "aa-sdk",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/alchemyplatform/aa-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:10:54Z"
+  "distributed_at": "2026-07-23T08:53:31Z"
 }
