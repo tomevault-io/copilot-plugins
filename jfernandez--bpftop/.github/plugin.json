@@ -1,0 +1,14 @@
+{
+  "name": "jfernandez--bpftop",
+  "displayName": "bpftop",
+  "description": "bpftop",
+  "version": "1.0.0",
+  "author": "jfernandez",
+  "homepage": "https://github.com/jfernandez/bpftop",
+  "skills": [
+    {
+      "name": "bpftop",
+      "description": ""
+    }
+  ]
+}
