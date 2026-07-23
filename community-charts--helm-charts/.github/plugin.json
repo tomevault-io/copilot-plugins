@@ -1,0 +1,14 @@
+{
+  "name": "community-charts--helm-charts",
+  "displayName": "helm-charts",
+  "description": "helm-charts",
+  "version": "1.0.0",
+  "author": "community-charts",
+  "homepage": "https://github.com/community-charts/helm-charts",
+  "skills": [
+    {
+      "name": "helm-charts",
+      "description": ""
+    }
+  ]
+}
