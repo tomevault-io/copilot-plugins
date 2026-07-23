@@ -1,0 +1,14 @@
+{
+  "name": "mondaycom--mcp",
+  "displayName": "mcp",
+  "description": "mcp",
+  "version": "1.0.0",
+  "author": "mondaycom",
+  "homepage": "https://github.com/mondaycom/mcp",
+  "skills": [
+    {
+      "name": "mcp",
+      "description": ""
+    }
+  ]
+}
