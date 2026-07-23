@@ -1,0 +1,75 @@
+{
+  "name": "opensanctions",
+  "owner": "opensanctions",
+  "repo": "opensanctions",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opensanctions",
+      "path": ".claude/skills/crawler-pep/SKILL.md",
+      "github_url": "https://github.com/opensanctions/opensanctions/tree/main/.claude/skills/crawler-pep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensanctions",
+      "path": ".claude/skills/debug-crawler/SKILL.md",
+      "github_url": "https://github.com/opensanctions/opensanctions/tree/main/.claude/skills/debug-crawler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensanctions",
+      "path": ".claude/skills/typechecker-fixes/SKILL.md",
+      "github_url": "https://github.com/opensanctions/opensanctions/tree/main/.claude/skills/typechecker-fixes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensanctions",
+      "path": ".claude/skills/crawler-sanctions/SKILL.md",
+      "github_url": "https://github.com/opensanctions/opensanctions/tree/main/.claude/skills/crawler-sanctions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opensanctions",
+      "path": ".claude/skills/name-framework-migration-first-step/SKILL.md",
+      "github_url": "https://github.com/opensanctions/opensanctions/tree/main/.claude/skills/name-framework-migration-first-step/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/opensanctions/opensanctions",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:44:34Z"
+}
