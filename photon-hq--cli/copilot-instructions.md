@@ -1,55 +1,114 @@
 ## cli
 
-> You're updating this CLI in response to upstream API changes in `@photon-ai/dashboard-api`. The API type contract arrives as a version bump of that dependency (in `package.json`/`bun.lock`). Your job: make `bun run check` pass.
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-# Agent Guide for @photon-ai/cli
 
-## Mission
-You're updating this CLI in response to upstream API changes in `@photon-ai/dashboard-api`. The API type contract arrives as a version bump of that dependency (in `package.json`/`bun.lock`). Your job: make `bun run check` pass.
+Default to using Bun instead of Node.js.
 
-## Hard Rules (CI will fail if violated)
-1. Use Bun exclusively — never Node, npm, pnpm, yarn
-2. Never hand-edit API types — they come from the `@photon-ai/dashboard-api` dependency; update them by bumping its version
-3. Never add forbidden dependencies: axios, chalk, zod, jest, vitest, ts-node, ws, express, dotenv, ioredis, pg, better-sqlite3
-4. Every command must use `getApi()` from `~/lib/api.ts` + Eden treaty pattern — never raw `fetch()`
-5. Destructure Eden responses as `{ data, error, status }` — check error before using data
-6. Handle 401 by throwing `SessionExpiredError` (caught centrally in `handleTopLevelError`)
-7. Never delete or rewrite snapshot files without justification in PR body under "## Snapshot changes"
-8. One PR = one upstream version bump — don't bundle refactors
-9. Never modify files in `.github/workflows/` or `scripts/agent-flow/`
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Use `bunx <package> <command>` instead of `npx <package> <command>`
+- Bun automatically loads .env, so don't use dotenv.
 
-## Soft Rules (reviewer will flag)
-- Match the style in `src/commands/projects.ts`: same option ordering (--api-host, -t/--token, --json), same error handling
-- New DTOs go in `src/lib/types.ts`, cast at the API boundary
-- Prefer adding fields to existing DTOs over creating parallel types
-- All user-facing output uses `c.dim()`, `c.success()`, `c.error()` from `~/lib/output.ts`
-- Comments only when intent isn't obvious from the code
+## APIs
 
-## Anti-patterns (we've seen AI do these — don't)
-- Splitting the `Project` DTO into one type per command
-- Adding try/catch around every `getApi()` call (handled centrally in `src/index.ts#handleTopLevelError`)
-- Using `console.log(JSON.stringify(...))` instead of the output helpers
-- Replacing `picocolors` with `chalk`
-- Using `node:fs` instead of `Bun.file`
-- Adding `dotenv` (Bun auto-loads .env)
-- Importing from `@elysiajs/eden` directly instead of using `getApi()`
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-## Workflow
-1. Read `UPSTREAM_DIFF.md` (committed at the root of your branch)
-2. Run `bun install && bun run check`. Note what breaks.
-3. Update DTOs in `src/lib/types.ts` if the API surface changed
-4. Update command files in `src/commands/` to match new routes
-5. Update or add tests in `tests/` to cover changes
-6. Run `bun run check` until green
-7. If you can't make it green within 20 iterations, create `AGENT_NOTES.md` explaining where you got stuck
+## Testing
 
-## Tooling
-- Package manager: `bun` only
-- Test runner: `bun test`
-- Type check: `tsc --noEmit`
-- Build: `bun run build`
-- Aggregate: `bun run check` (runs typecheck + test + build)
+Use `bun test` to run tests.
+
+```ts#index.test.ts
+import { test, expect } from "bun:test";
+
+test("hello world", () => {
+  expect(1).toBe(1);
+});
+```
+
+## Frontend
+
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+// import .css files directly and it works
+import './index.css';
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
 
 ---
 > Source: [photon-hq/cli](https://github.com/photon-hq/cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
