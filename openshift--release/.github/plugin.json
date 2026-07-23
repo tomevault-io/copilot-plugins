@@ -1,0 +1,54 @@
+{
+  "name": "openshift--release",
+  "displayName": "release",
+  "description": "release",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/release",
+  "skills": [
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
