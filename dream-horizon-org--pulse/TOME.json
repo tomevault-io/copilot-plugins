@@ -1,0 +1,147 @@
+{
+  "name": "pulse",
+  "owner": "dream-horizon-org",
+  "repo": "pulse",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pulse",
+      "path": ".agents/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/fatal-five/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/fatal-five/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/web-sdk-ship/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/web-sdk-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/add-ui-screen/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/add-ui-screen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/deploy-service/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/deploy-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/pulse-prd-review/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/pulse-prd-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/add-api-endpoint/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/add-api-endpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/pulse-prd-author/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/pulse-prd-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/add-ai-sub-agent/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/add-ai-sub-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/add-ui-component/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/add-ui-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/add-alert-metric/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/add-alert-metric/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/web-sdk-instrument/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/web-sdk-instrument/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/web-sdk-e2e-matrix/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/web-sdk-e2e-matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/clickhouse-migration/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/clickhouse-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/integrate-pulse-web-sdk/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/integrate-pulse-web-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/web-otel-spec-audit-orchestrator/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/web-otel-spec-audit-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pulse",
+      "path": ".agents/skills/web-otel-spec-implementation-audit/SKILL.md",
+      "github_url": "https://github.com/dream-horizon-org/pulse/tree/main/.agents/skills/web-otel-spec-implementation-audit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dream-horizon-org/pulse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:56:28Z"
+}
