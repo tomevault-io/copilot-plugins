@@ -1,0 +1,69 @@
+{
+  "name": "rank_llm",
+  "owner": "castorini",
+  "repo": "rank_llm",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rank_llm",
+      "path": ".claude/skills/rank-llm-eval/SKILL.md",
+      "github_url": "https://github.com/castorini/rank_llm/tree/main/.claude/skills/rank-llm-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rank_llm",
+      "path": ".claude/skills/rank-llm-verify/SKILL.md",
+      "github_url": "https://github.com/castorini/rank_llm/tree/main/.claude/skills/rank-llm-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rank_llm",
+      "path": ".claude/skills/rank-llm-install/SKILL.md",
+      "github_url": "https://github.com/castorini/rank_llm/tree/main/.claude/skills/rank-llm-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rank_llm",
+      "path": ".claude/skills/rank-llm-quickstart/SKILL.md",
+      "github_url": "https://github.com/castorini/rank_llm/tree/main/.claude/skills/rank-llm-quickstart/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/castorini/rank_llm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:54:01Z"
+}
