@@ -1,0 +1,63 @@
+{
+  "name": "sceneview",
+  "owner": "SceneView",
+  "repo": "sceneview",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sceneview",
+      "path": "agents/sceneview/SKILL.md",
+      "github_url": "https://github.com/SceneView/sceneview/tree/main/agents/sceneview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sceneview",
+      "path": "agents/sceneview-web/SKILL.md",
+      "github_url": "https://github.com/SceneView/sceneview/tree/main/agents/sceneview-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sceneview",
+      "path": "agents/sceneview-ios/SKILL.md",
+      "github_url": "https://github.com/SceneView/sceneview/tree/main/agents/sceneview-ios/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SceneView/sceneview",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:21:35Z"
+}
