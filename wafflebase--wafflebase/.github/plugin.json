@@ -1,0 +1,14 @@
+{
+  "name": "wafflebase--wafflebase",
+  "displayName": "wafflebase",
+  "description": "wafflebase",
+  "version": "1.0.0",
+  "author": "wafflebase",
+  "homepage": "https://github.com/wafflebase/wafflebase",
+  "skills": [
+    {
+      "name": "wafflebase",
+      "description": ""
+    }
+  ]
+}
