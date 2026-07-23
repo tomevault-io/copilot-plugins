@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DataRecce/recce](https://github.com/DataRecce/recce).
+Original source: `CLAUDE.md` in [DataRecce/recce](https://github.com/DataRecce/recce).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -22,7 +22,7 @@ Original source: `AGENTS.md` in [DataRecce/recce](https://github.com/DataRecce/r
 - [recce](https://github.com/DataRecce/recce/tree/main/.claude/skills/linear-deep-dive/SKILL.md)
 - [recce](https://github.com/DataRecce/recce/tree/main/.claude/skills/address-dependabot/skill.md)
 
-From [DataRecce/recce](https://github.com/DataRecce/recce) — a repo with 464+ stars on GitHub.
+From [DataRecce/recce](https://github.com/DataRecce/recce) — a repo with 465+ stars on GitHub.
 
 ---
 
