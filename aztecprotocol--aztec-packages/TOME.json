@@ -1,0 +1,213 @@
+{
+  "name": "aztec-packages",
+  "owner": "AztecProtocol",
+  "repo": "aztec-packages",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/fix/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/cycle/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/ci-logs/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/ci-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/backport/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/backport/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/release-docs/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/release-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/merge-trains/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/merge-trains/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/aztec-wallet/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/aztec-wallet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/chonk-inputs/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/chonk-inputs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/network-logs/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/network-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/noir-sync-update/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/noir-sync-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/adding-benchmarks/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/adding-benchmarks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/merge-train-infra/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/merge-train-infra/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/acir-formal-proofs/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/acir-formal-proofs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/updating-changelog/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/updating-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/release-network-docs/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/release-network-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "barretenberg/.claude/skills/sumcheck/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/barretenberg/.claude/skills/sumcheck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": ".claude/skills/update-doc-references/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/.claude/skills/update-doc-references/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "barretenberg/.claude/skills/remote-bench/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/barretenberg/.claude/skills/remote-bench/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "barretenberg/.claude/skills/profile-chonk/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/barretenberg/.claude/skills/profile-chonk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "barretenberg/.claude/skills/benchmark-chonk/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/barretenberg/.claude/skills/benchmark-chonk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "barretenberg/.claude/skills/stdlib-point-at-infinity/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/barretenberg/.claude/skills/stdlib-point-at-infinity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "yarn-project/.claude/skills/fix-pr/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/yarn-project/.claude/skills/fix-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "yarn-project/.claude/skills/debug-e2e/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/yarn-project/.claude/skills/debug-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "yarn-project/.claude/skills/rebase-pr/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/yarn-project/.claude/skills/rebase-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "yarn-project/.claude/skills/read-gist/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/yarn-project/.claude/skills/read-gist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "yarn-project/.claude/skills/readme-writer/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/yarn-project/.claude/skills/readme-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "yarn-project/.claude/skills/worktree-spawn/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/yarn-project/.claude/skills/worktree-spawn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aztec-packages",
+      "path": "yarn-project/.claude/skills/unit-test-implementation/SKILL.md",
+      "github_url": "https://github.com/AztecProtocol/aztec-packages/tree/main/yarn-project/.claude/skills/unit-test-implementation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AztecProtocol/aztec-packages",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:47:21Z"
+}
