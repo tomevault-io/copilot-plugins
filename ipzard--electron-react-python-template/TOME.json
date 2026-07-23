@@ -1,0 +1,75 @@
+{
+  "name": "electron-react-python-template",
+  "owner": "iPzard",
+  "repo": "electron-react-python-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "electron-react-python-template",
+      "path": ".claude/skills/dev-start/SKILL.md",
+      "github_url": "https://github.com/iPzard/electron-react-python-template/tree/main/.claude/skills/dev-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electron-react-python-template",
+      "path": ".claude/skills/clean-rebuild/SKILL.md",
+      "github_url": "https://github.com/iPzard/electron-react-python-template/tree/main/.claude/skills/clean-rebuild/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electron-react-python-template",
+      "path": ".claude/skills/audit-claude-md/SKILL.md",
+      "github_url": "https://github.com/iPzard/electron-react-python-template/tree/main/.claude/skills/audit-claude-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electron-react-python-template",
+      "path": ".claude/skills/add-flask-route/SKILL.md",
+      "github_url": "https://github.com/iPzard/electron-react-python-template/tree/main/.claude/skills/add-flask-route/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "electron-react-python-template",
+      "path": ".claude/skills/add-react-component/SKILL.md",
+      "github_url": "https://github.com/iPzard/electron-react-python-template/tree/main/.claude/skills/add-react-component/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iPzard/electron-react-python-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T23:46:48Z"
+}
