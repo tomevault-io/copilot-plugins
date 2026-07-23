@@ -1,143 +1,178 @@
 ## mixpanel-android
 
-> This file provides focused instructions for AI agents working on the core Mixpanel SDK components.
+> This file provides specific guidance for working with core SDK components in the `com.mixpanel.android.mpmetrics` package.
 
-# AGENTS.md - Core SDK Components
+# CLAUDE.md - Mixpanel Core Components
 
-This file provides focused instructions for AI agents working on the core Mixpanel SDK components.
+This file provides specific guidance for working with core SDK components in the `com.mixpanel.android.mpmetrics` package.
 
 ## Component Overview
 
-This directory contains the heart of the Mixpanel Android SDK:
-- **MixpanelAPI.java** - Public API facade
-- **AnalyticsMessages.java** - Message queue and background processing
-- **MPDbAdapter.java** - SQLite persistence layer
-- **PersistentIdentity.java** - User identity management
-- **HttpService.java** - Network communication
+This package contains the heart of the Mixpanel Android SDK:
+- **MixpanelAPI** - Public entry point (the ONLY public class)
+- **AnalyticsMessages** - Message queue and worker thread management
+- **MPDbAdapter** - SQLite persistence layer
+- **PersistentIdentity** - Identity and super properties management
+- **HttpService** - Network communication layer
 
-## Critical Rules for This Directory
+## Critical Patterns for Core Components
 
-1. **MixpanelAPI Changes**
-   - This is the ONLY public class - maintain backwards compatibility
-   - Every public method must be thread-safe
-   - Add JavaDoc with examples for any new methods
-   - Never throw exceptions - catch and log
+### 1. Visibility Rules
+```java
+// WRONG - Making internal classes public
+public class NewHelper {  // NO!
 
-2. **AnalyticsMessages Pattern**
-   ```java
-   // Always add new message types following this pattern
-   private static final int NEW_MESSAGE_TYPE = X;
-   
-   public static final class NewDescription {
-       private final String data;
-       private final String token;
-       // Immutable - only constructor and getters
-   }
-   ```
+// CORRECT - Package-private by default
+class NewHelper {  // YES!
+```
 
-3. **Database Operations**
-   ```java
-   // Always follow this pattern in MPDbAdapter
-   Cursor cursor = null;
-   try {
-       cursor = db.query(...);
-       // Process cursor
-   } finally {
-       if (cursor != null) cursor.close();
-   }
-   ```
+### 2. Thread Safety Requirements
+All classes in this package MUST be thread-safe:
+```java
+// ALWAYS use dedicated lock objects
+private final Object mLock = new Object();
 
-4. **Thread Boundaries**
-   - Public API methods: Main thread
-   - Message processing: Worker thread (HandlerThread)
-   - Database operations: Worker thread only
-   - Network requests: Spawned from worker thread
+// NEVER use 'this' for synchronization
+synchronized (mLock) {  // CORRECT
+    // critical section
+}
+```
 
-## Common Tasks
+### 3. Never Crash the Host App
+```java
+// EVERY public method must be defensive
+public void track(String event, JSONObject properties) {
+    try {
+        if (hasOptedOut()) {
+            return;
+        }
+        if (event == null) {
+            MPLog.e(LOGTAG, "Event cannot be null");
+            return;
+        }
+        // implementation
+    } catch (Exception e) {
+        MPLog.e(LOGTAG, "Failed to track event", e);
+    }
+}
+```
 
-### Adding a New Public API Method
+### 4. Message Passing Pattern
+When modifying AnalyticsMessages or worker thread behavior:
+```java
+// Use Handler messages, not direct method calls
+Message msg = Message.obtain();
+msg.what = ENQUEUE_EVENTS;
+msg.obj = new AnalyticsMessageDescription(token, event);
+mWorker.runMessage(msg);
+```
 
-1. Add to MixpanelAPI.java with overloads:
-   ```java
-   public void newMethod(String param) {
-       newMethod(param, null);
-   }
-   
-   public void newMethod(String param, JSONObject properties) {
-       if (!hasOptedOut()) {
-           try {
-               // Validate
-               if (param == null) {
-                   MPLog.e(LOGTAG, "Invalid param");
-                   return;
-               }
-               // Queue to worker
-               Message msg = Message.obtain();
-               msg.what = NEW_METHOD_MESSAGE;
-               msg.obj = new MethodDescription(param, properties, mToken);
-               mMessages.enqueueMessage(msg);
-           } catch (Exception e) {
-               MPLog.e(LOGTAG, "Failed", e);
-           }
-       }
-   }
-   ```
+### 5. Database Operations
+When working with MPDbAdapter:
+```java
+Cursor cursor = null;
+try {
+    cursor = db.query(...);
+    // use cursor
+} finally {
+    if (cursor != null) {
+        cursor.close();
+    }
+}
+```
 
-2. Add handler in AnalyticsMessages
-3. Add test in androidTest/
+## Component-Specific Guidelines
 
-### Modifying Database Schema
+### MixpanelAPI
+- This is the ONLY public class - guard its API carefully
+- Every public method needs null checks and opt-out checks
+- Changes here affect ALL SDK users
+- Maintain backward compatibility
 
-1. Increment DATABASE_VERSION in MPDbAdapter
-2. Add migration in onUpgrade:
-   ```java
-   if (oldVersion < NEW_VERSION) {
-       // Add column or create table
-       // NEVER drop existing tables/data
-   }
-   ```
-3. Update Table enum if new table
-4. Test upgrade path from previous version
+### AnalyticsMessages
+- Single HandlerThread for all background work
+- Never block the main thread
+- Batch operations for efficiency
+- Handle offline gracefully
 
-### Adding Configuration Option
+### MPDbAdapter
+- Direct SQLite usage (no ORM)
+- Always use transactions for bulk operations
+- Clean up old data automatically
+- Handle database upgrades carefully
 
-1. Add to MPConfig.java:
-   ```java
-   private final boolean mNewOption;
-   
-   // In constructor
-   mNewOption = metaData.getBoolean(
-       "com.mixpanel.android.MPConfig.NewOption", 
-       DEFAULT_VALUE
-   );
-   ```
+### PersistentIdentity
+- Thread-safe SharedPreferences access
+- Lazy loading of values
+- Cache for performance
+- Never lose user identity
 
-2. Add to MixpanelOptions.Builder
-3. Document in AndroidManifest example
+### HttpService
+- Configurable timeouts
+- Automatic retry with backoff
+- GZIP compression
+- Never expose raw responses
 
 ## Testing Requirements
 
-For ANY change in this directory:
-
-```bash
-# Minimum test run
-./gradlew :analytics:connectedAndroidTest --tests "com.mixpanel.android.mpmetrics.*"
-
-# Specific component tests
-./gradlew :analytics:connectedAndroidTest --tests "*MixpanelBasicTest"
-./gradlew :analytics:connectedAndroidTest --tests "*MPDbAdapterTest"
-./gradlew :analytics:connectedAndroidTest --tests "*AnalyticsMessagesTest"
+All changes to core components require instrumented tests:
+```java
+@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class ComponentTest {
+    private BlockingQueue<String> mMessages;
+    
+    @Before
+    public void setUp() {
+        mMessages = new LinkedBlockingQueue<>();
+    }
+    
+    @Test
+    public void testAsyncOperation() throws InterruptedException {
+        // Trigger async operation
+        api.track("test");
+        
+        // Wait for completion
+        String result = mMessages.poll(5, TimeUnit.SECONDS);
+        assertNotNull(result);
+    }
+}
 ```
 
-## Do NOT Modify Without Approval
+## Common Pitfalls
 
-- DATABASE_VERSION (requires migration testing)
-- Public API method signatures (breaks compatibility)
-- Message type constants (affects message processing)
-- Table names or schemas (requires migration)
+### DON'T
+- Create new public classes
+- Throw exceptions from public methods
+- Use Activity context (memory leaks)
+- Access database on main thread
+- Create new threads (use HandlerThread)
 
-Remember: This is the core of a widely-used SDK. Every change here affects thousands of apps.
+### DO
+- Keep classes package-private
+- Catch and log all exceptions
+- Use application context
+- Batch database operations
+- Use message passing for async work
+
+## Making Changes
+
+1. **Before modifying**, understand the component's role in the system
+2. **Maintain thread safety** - these are core components
+3. **Test on real devices** - emulators hide timing issues
+4. **Consider backward compatibility** - SDK is widely used
+5. **Update tests** - every change needs test coverage
+
+## Performance Considerations
+
+- Event batching happens every 60 seconds
+- Database cleanup runs periodically
+- HTTP requests timeout after 10 seconds
+- SharedPreferences cached in memory
+- Minimize synchronization scope
+
+Remember: These core components are the foundation of the SDK. Changes here have the highest impact and risk. Be extra careful with thread safety, error handling, and backward compatibility.
 
 ---
 > Source: [mixpanel/mixpanel-android](https://github.com/mixpanel/mixpanel-android) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
