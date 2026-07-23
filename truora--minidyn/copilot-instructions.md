@@ -1,50 +1,31 @@
 ## minidyn
 
-> Minidyn is an in-memory Amazon DynamoDB testing library written in Go (`github.com/truora/minidyn`).
+> Before making changes, read [AGENTS.md](AGENTS.md) and [`.agents/rules/workflow.mdc`](.agents/rules/workflow.mdc). Those files are the canonical project instructions; this file is a Claude Code entry point.
 
-# Minidyn — Agent Guidelines
+# Minidyn — Claude Code
 
-Minidyn is an in-memory Amazon DynamoDB testing library written in Go (`github.com/truora/minidyn`).
-
-## Canonical configuration
-
-All agent configuration lives in **`.agents/`** (editor-agnostic). Editor-specific entry points symlink or reference this directory:
-
-| Editor | Entry point |
-|--------|-------------|
-| Any | `AGENTS.md` (this file) |
-| Cursor | `.cursor/` → `.agents/` |
-| Claude Code | `CLAUDE.md`, `.claude/` → `.agents/` |
-| GitHub Copilot | `.github/copilot-instructions.md` |
-
-| Path | Purpose |
-|------|---------|
-| `.agents/rules/workflow.mdc` | Mandatory workflow: TDD, verification, project structure |
-| `.agents/skills/` | Task-specific skills (TDD, commits, E2E parity, releases) |
-| `.agents/agents/qa-engineer.md` | QA sub-agent: tests, lint, coverage gate |
-
-**Read `.agents/rules/workflow.mdc` first** — it defines the implementation flow, debugging rules, and when to invoke skills and sub-agents.
+Before making changes, read [AGENTS.md](AGENTS.md) and [`.agents/rules/workflow.mdc`](.agents/rules/workflow.mdc). Those files are the canonical project instructions; this file is a Claude Code entry point.
 
 ## Skills
 
-Discover skills progressively — only read a skill when it is directly relevant:
+Project skills live in `.agents/skills/` (symlinked under `.claude/skills/`). Read a skill only when the task matches its description:
 
 - `defining-minidyn-tdd` — TDD workflow for features, bugs, refactors
 - `writing-minidyn-e2e-parity-tests` — DynamoDB Local vs minidyn parity tests
 - `writing-minidyn-commits` — commit message format
-- `releasing` — cut a release (Keep a Changelog, tags, draft GitHub release)
+- `releasing` — cut a release
 
-## Verification
+## Sub-agents
 
-After implementation, invoke the **qa-engineer** sub-agent (see `.agents/agents/qa-engineer.md`) before treating work as merge-ready.
+- **qa-engineer** — run after implementation to verify tests, lint, and coverage (see `.agents/agents/qa-engineer.md`)
 
-## Key constraints
+## Workflow reminders
 
-- Go 1.26; no external services required for unit tests
-- **Never** modify `e2e/` tests to make them pass — they are parity references only
-- `server/requests.go` is generated — run `go run ./tools/generate_requests` when input shapes change
-- Every package must contain a `doc.go` file
+1. Clarify use cases, then write a failing test before implementation code.
+2. Never modify `e2e/` tests to make them pass — they are parity references only.
+3. Run qa-engineer verification before treating work as merge-ready.
+4. Regenerate `server/requests.go` with `go run ./tools/generate_requests` when DynamoDB input shapes change.
 
 ---
 > Source: [truora/minidyn](https://github.com/truora/minidyn) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
