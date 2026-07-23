@@ -1,0 +1,171 @@
+{
+  "name": "specs.md",
+  "owner": "fabriqaai",
+  "repo": "specs.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "src/flows/fire/agents/builder/skills/code-review",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/builder/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "design-doc-generate",
+      "path": "src/flows/fire/agents/planner/skills/design-doc-generate",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/planner/skills/design-doc-generate",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "intent-capture",
+      "path": "src/flows/fire/agents/planner/skills/intent-capture",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/planner/skills/intent-capture",
+      "description": ""
+    },
+    {
+      "name": "route",
+      "path": "src/flows/fire/agents/orchestrator/skills/route",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/orchestrator/skills/route",
+      "description": ""
+    },
+    {
+      "name": "walkthrough-generate",
+      "path": "src/flows/fire/agents/builder/skills/walkthrough-generate",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/builder/skills/walkthrough-generate",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/builder/skills/run-plan/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/builder/skills/run-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/builder/skills/run-status/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/builder/skills/run-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/orchestrator/skills/route/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/orchestrator/skills/route/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/builder/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/builder/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/orchestrator/skills/status/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/orchestrator/skills/status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/builder/skills/run-execute/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/builder/skills/run-execute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/planner/skills/intent-capture/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/planner/skills/intent-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/ideation/agents/orchestrator/skills/flame/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/ideation/agents/orchestrator/skills/flame/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/ideation/agents/orchestrator/skills/forge/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/ideation/agents/orchestrator/skills/forge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/ideation/agents/orchestrator/skills/spark/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/ideation/agents/orchestrator/skills/spark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/orchestrator/skills/project-init/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/orchestrator/skills/project-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/planner/skills/design-doc-generate/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/planner/skills/design-doc-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/planner/skills/work-item-decompose/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/planner/skills/work-item-decompose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "specs.md",
+      "path": "src/flows/fire/agents/builder/skills/walkthrough-generate/SKILL.md",
+      "github_url": "https://github.com/fabriqaai/specs.md/tree/main/src/flows/fire/agents/builder/skills/walkthrough-generate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fabriqaai/specs.md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:32:34Z"
+}
