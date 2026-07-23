@@ -1,191 +1,110 @@
 ## swc4j
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file guides coding agents working in this repository. Keep changes minimal, consistent, and testable.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file guides coding agents working in this repository. Keep changes minimal, consistent, and testable.
 
 ## Project Overview
+- `swc4j` bridges SWC (Rust) to Java through JNI.
+- Main architecture: Java API -> JNI (`Swc4jNative`) -> Rust core.
+- TypeScript-to-JVM bytecode compiler lives under `src/main/java/com/caoccao/javet/swc4j/compiler`.
+- Bytecode compiler support is currently JDK 17 only (`JdkVersion.JDK_17`).
 
-swc4j (SWC for Java) is an ultra-fast JavaScript and TypeScript compilation and bundling tool on JVM. It bridges the SWC (Speedy Web Compiler) Rust library with Java via JNI (Java Native Interface), providing parsing, transformation, transpilation, and sanitization capabilities for JavaScript/TypeScript code.
+## Build, Test, and Verification
 
-## Build System
+### Gradle (primary for Java work)
+- Build: `./gradlew build`
+- Clean: `./gradlew clean`
+- Unit tests: `./gradlew test`
+- Performance tests: `./gradlew performanceTest`
+- Single test class: `./gradlew test --tests "com.caoccao.javet.swc4j.TestSwc4j"`
+- Single test method: `./gradlew test --tests "com.caoccao.javet.swc4j.TestSwc4j.testGetVersion"`
+- Javadoc: `./gradlew javadoc`
+- JNI headers: `./gradlew buildJNIHeaders`
 
-**Primary Build Tool**: Gradle with Kotlin DSL
+### Rust (only when requested or relevant)
+- Rust code is under `rust/`.
+- Build: `cargo build` / `cargo build --release`
+- Test: `cargo test`
+- Format: `cargo fmt`
 
-### Common Build Commands
+## Source of Truth for Compiler Changes
 
-```bash
-# Build the Java project
-./gradlew build
+### Where to implement bytecode features
+- Entry compiler: `src/main/java/com/caoccao/javet/swc4j/compiler/ByteCodeCompiler17.java`
+- Processor wiring: `src/main/java/com/caoccao/javet/swc4j/compiler/ByteCodeCompiler.java`
+- AST processors: `src/main/java/com/caoccao/javet/swc4j/compiler/jdk17/ast/**`
+- Type inference/mapping: `src/main/java/com/caoccao/javet/swc4j/compiler/jdk17/TypeResolver.java`
+- ASM utilities: `src/main/java/com/caoccao/javet/swc4j/compiler/asm/**`
 
-# Run tests (excludes performance tests)
-./gradlew test
+### JDK reference requirement
+- When generating/changing bytecode semantics, reference JDK 17 compiler sources in `../jdk` (for example `Gen.java`, `Items.java`) to match opcode patterns and stack behavior.
 
-# Run performance tests
-./gradlew performanceTest
+### Typical feature-completion checklist (compiler)
+1. Add dispatch handling in statement/expression processors.
+2. Implement generation in specialized processor(s).
+3. Update type inference in `TypeResolver` if expression/statement result types are affected.
+4. Add/expand tests (happy path + edge/error cases).
+5. Update docs/plans (especially `docs/plans/todo.md`) and remove completed TODO items.
 
-# Clean build artifacts
-./gradlew clean
+## Coding Conventions
 
-# Build JNI headers (generates C headers from Java native methods)
-./gradlew buildJNIHeaders
+### General
+- Preserve Apache 2.0 license headers.
+- Follow existing file structure: package -> imports -> Javadoc -> class.
+- Keep methods focused and aligned with surrounding processor style.
+- Avoid unrelated refactors.
 
-# Generate JAR with sources and javadoc
-./gradlew jar sourcesJar javadocJar
+### Java
+- Project compiles with Java 17 (`build.gradle.kts`).
+- Use existing style in each package (including pattern-matching `instanceof` where already used).
+- Do not use fully qualified names in code; import types instead.
+- Use AssertJ and JUnit 5 patterns already in this repo.
+- Keep exception messages explicit and actionable.
+- For compiler errors, prefer `Swc4jByteCodeCompilerException` with AST/source context.
 
-# Generate POM file for Maven publishing
-./gradlew generatePomFileForGeneratePomPublication
-```
+### Imports
+- Match the local file’s convention.
+- In compiler packages, wildcard imports for dense AST type sets are common and acceptable.
 
-### Running Single Tests
+### ASM / Bytecode
+- Do not add external bytecode libraries.
+- If new low-level helpers are needed, place them under `src/main/java/com/caoccao/javet/swc4j/compiler/asm`.
 
-```bash
-# Run a specific test class
-./gradlew test --tests "com.caoccao.javet.swc4j.TestSwc4j"
+## JNI / Codegen Safety
+- Do not manually edit generated JNI blocks.
+- Generated Rust sections are delimited by markers like `/* StructName Begin */` / `/* StructName End */`.
+- Prefer generator workflows/tests for regeneration.
 
-# Run a specific test method
-./gradlew test --tests "com.caoccao.javet.swc4j.TestSwc4j.testGetVersion"
-```
+## Testing Conventions
+- Tests live under `src/test/java/**`.
+- Compiler tests usually:
+  - extend `BaseTestCompileSuite`
+  - use `@ParameterizedTest` + `@EnumSource(JdkVersion.class)`
+  - assert with AssertJ
+- Follow existing assertion style, including grouped assertions with `List.of()`, `Map.of()`, and `SimpleMap.of()` when it improves readability.
+- For pattern reference, inspect tests under:
+  - `src/test/java/com/caoccao/javet/swc4j/compiler/ast/stmt/trystmt`
+- Temporary or exploratory tests can be added under:
+  - `src/test/java/com/caoccao/javet/temp`
 
-## Rust Native Library
+## Documentation and Planning
+- Relevant docs:
+  - `docs/README.md`
+  - `docs/typescript_to_jvm_bytecode.md`
+  - `docs/plans/todo.md`
+- If a planned feature is fully implemented, remove its section from `docs/plans/todo.md`.
+- Do not create new documentation files unless requested.
 
-The native Rust code is located in `rust/` directory and uses Cargo for building:
-
-```bash
-cd rust
-cargo build                    # Debug build
-cargo build --release          # Release build
-cargo test                     # Run Rust tests
-```
-
-The Rust library uses `deno_ast` v0.50.0 for the core SWC functionality and exposes JNI bindings to Java.
-
-## Architecture
-
-### High-Level Structure
-
-swc4j follows a **JNI bridge architecture** with three main layers:
-
-1. **Java API Layer** (`src/main/java/`): Public API exposed to users
-2. **JNI Bridge Layer** (`Swc4jNative.java` + `rust/src/lib.rs`): Connects Java to Rust
-3. **Rust Core Layer** (`rust/src/`): Implements SWC functionality using `deno_ast`
-
-### Key Components
-
-#### 1. Core Entry Points (Java)
-- `Swc4j.java`: Main API class with three core operations:
-  - `parse()` - Parse JS/TS code into AST
-  - `transform()` - Transform/minify code with various options
-  - `transpile()` - Transpile TS/JSX to JS
-- `Swc4jNative.java`: JNI native method declarations
-
-#### 2. JNI Bridge (Rust)
-- `rust/src/lib.rs`: JNI entry points that delegate to core implementations
-  - `Java_com_caoccao_javet_swc4j_Swc4jNative_coreParse`
-  - `Java_com_caoccao_javet_swc4j_Swc4jNative_coreTransform`
-  - `Java_com_caoccao_javet_swc4j_Swc4jNative_coreTranspile`
-- `rust/src/jni_utils.rs`: JNI conversion utilities
-- `rust/src/core.rs`: Core SWC operations implementation
-
-#### 3. AST System
-The AST (Abstract Syntax Tree) implementation follows SWC's structure:
-- `ast/`: Java representations of AST nodes
-  - `ast/clazz/`: Class-related nodes (functions, classes, methods)
-  - `ast/expr/`: Expression nodes (binary, unary, call expressions)
-  - `ast/expr/lit/`: Literal nodes (strings, numbers, booleans)
-  - `ast/stmt/`: Statement nodes (if, return, var declarations)
-  - `ast/program/`: Program/module nodes
-  - `ast/enums/`: AST type enumerations
-- Each AST node extends from base interfaces and can be visited/modified
-
-#### 4. Sanitizer System
-The sanitizer (`com.caoccao.javet.sanitizer`) provides security features:
-- `checkers/`: Different checker implementations for code validation
-  - `JavetSanitizerStatementListChecker` - Validates statement lists
-  - `JavetSanitizerModuleChecker` - Validates modules
-- `matchers/`: Pattern matchers for restrictions
-  - `JavetSanitizerBuiltInObjectMatcher` - Protects built-in objects
-  - `JavetSanitizerIdentifierMatcher` - Restricts identifiers
-- `visitors/`: AST visitors for applying security rules
-- `codegen/`: Code generation utilities (e.g., freezing identifiers)
-
-#### 5. Jni2Rust Code Generation
-- `src/test/java/com/caoccao/javet/swc4j/jni2rust/`: Code generation utilities
-- **Purpose**: Automatically generates Rust JNI glue code from annotated Java classes
-- **How it works**:
-  - Java classes/methods are annotated with `@Jni2RustClass` and `@Jni2RustMethod`
-  - `Jni2Rust.java` reads annotations and generates corresponding Rust structs and JNI call wrappers
-  - Generated code is inserted between `/* StructName Begin */` and `/* StructName End */` markers in Rust files
-- **Run codegen**: Execute `TestCodeGen` test class to regenerate Rust JNI bindings
-
-### Data Flow
-
-```
-User Code
-   ↓
-Swc4j.parse/transform/transpile (Java)
-   ↓
-Swc4jNative.coreParse/coreTransform/coreTranspile (JNI)
-   ↓
-lib.rs → core.rs (Rust)
-   ↓
-deno_ast (SWC library)
-   ↓
-Return Output (Swc4jParseOutput/TransformOutput/TranspileOutput)
-```
-
-## Multi-Platform Native Libraries
-
-swc4j ships platform-specific native libraries for:
-- **Android**: arm, arm64, x86, x86_64
-- **Linux**: arm64, x86_64
-- **macOS**: arm64, x86_64
-- **Windows**: arm64, x86_64
-
-The `Swc4jLibLoader` class automatically loads the correct native library for the current platform at runtime.
-
-## Options System
-
-Each core operation has a corresponding options class:
-- `Swc4jParseOptions`: Configure parsing (media type, syntax, capture AST/comments/tokens)
-- `Swc4jTransformOptions`: Configure transformation (target ES version, minification)
-- `Swc4jTranspileOptions`: Configure transpilation (specifier, source maps)
-
-Options are converted from Java to Rust via JNI and passed to the SWC library.
-
-## Plugin System
-
-swc4j supports AST visitor plugins:
-- Java-side: Implement `ISwc4jAstVisitor` interface
-- Test implementations in `src/test/java/com/caoccao/javet/swc4j/plugins/`
-- Plugins can transform AST nodes during parse/transform operations
-
-## Testing
-
-Tests are organized by feature:
-- `src/test/java/com/caoccao/javet/swc4j/`: Core API tests
-- `src/test/java/com/caoccao/javet/swc4j/ast/`: AST tests
-- `src/test/java/com/caoccao/javet/sanitizer/`: Sanitizer tests
-- `src/test/java/com/caoccao/javet/swc4j/tutorials/`: Tutorial examples
-- Performance tests are tagged with `@Tag("performance")` and excluded from default test run
-
-## Version Management
-
-Version is defined in `build.gradle.kts` under `Config.Versions.SWC4J`. To change version:
-1. Update `Config.Versions.SWC4J` in `build.gradle.kts`
-2. Update `version` in `rust/Cargo.toml`
-3. Use TypeScript script: `deno run -A scripts/deno/change_swc4j_version.ts <new-version>`
-
-## Code Style
-
-- Java target: Java 17
-- Rust edition: 2024
-- Java classes use comprehensive Javadoc
-- Rust code uses standard rustfmt formatting
-- No `import static`
+## Working Safely
+- Keep changes scoped to the request.
+- Ignore `rust/` for Java-only compiler tasks unless explicitly asked.
+- Before finishing Java/compiler tasks, run:
+  - `./gradlew test`
+  - `./gradlew javadoc`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/caoccao) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [caoccao/swc4j](https://github.com/caoccao/swc4j) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
