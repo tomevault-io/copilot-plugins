@@ -1,0 +1,14 @@
+{
+  "name": "rpetit3--fastq-dl",
+  "displayName": "fastq-dl",
+  "description": "fastq-dl",
+  "version": "1.0.0",
+  "author": "rpetit3",
+  "homepage": "https://github.com/rpetit3/fastq-dl",
+  "skills": [
+    {
+      "name": "fastq-dl",
+      "description": ""
+    }
+  ]
+}
