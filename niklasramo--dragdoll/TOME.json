@@ -4,7 +4,7 @@
   "repo": "dragdoll",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/niklasramo/dragdoll",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T19:04:21Z"
+  "distributed_at": "2026-07-23T22:47:06Z"
 }
