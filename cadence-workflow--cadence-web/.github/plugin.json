@@ -1,0 +1,14 @@
+{
+  "name": "cadence-workflow--cadence-web",
+  "displayName": "cadence-web",
+  "description": "cadence-web",
+  "version": "1.0.0",
+  "author": "cadence-workflow",
+  "homepage": "https://github.com/cadence-workflow/cadence-web",
+  "skills": [
+    {
+      "name": "cadence-web",
+      "description": ""
+    }
+  ]
+}
