@@ -1,0 +1,14 @@
+{
+  "name": "shefing--payload-tools",
+  "displayName": "payload-tools",
+  "description": "payload-tools",
+  "version": "1.0.0",
+  "author": "shefing",
+  "homepage": "https://github.com/shefing/payload-tools",
+  "skills": [
+    {
+      "name": "payload-tools",
+      "description": ""
+    }
+  ]
+}
