@@ -1,6 +1,6 @@
 # yofardev_ai
 
-> Source: [YofarDev/yofardev_ai](https://github.com/YofarDev/yofardev_ai) — distributed by [TomeVault](https://tomevault.io)
+> Source: [YofarDev/yofardev_ai](https://github.com/YofarDev/yofardev_ai). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
