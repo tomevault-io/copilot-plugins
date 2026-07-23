@@ -4,7 +4,7 @@
   "repo": "MemOS",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/MemTensor/MemOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:38:50Z"
+  "distributed_at": "2026-07-23T08:16:54Z"
 }
