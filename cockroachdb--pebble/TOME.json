@@ -1,0 +1,69 @@
+{
+  "name": "pebble",
+  "owner": "cockroachdb",
+  "repo": "pebble",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/cockroachdb/pebble/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "pebble",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/pebble/tree/main/.claude/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pebble",
+      "path": ".claude/skills/bug-catcher/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/pebble/tree/main/.claude/skills/bug-catcher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pebble",
+      "path": ".claude/skills/doc-catcher/SKILL.md",
+      "github_url": "https://github.com/cockroachdb/pebble/tree/main/.claude/skills/doc-catcher/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cockroachdb/pebble",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T23:37:51Z"
+}
