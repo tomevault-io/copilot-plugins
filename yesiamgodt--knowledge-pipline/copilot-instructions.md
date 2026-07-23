@@ -1,103 +1,48 @@
 ## knowledge-pipline
 
-> 多模态知识管道技能 — 摄入文档(PDF/图片/视频/Office)到持久化知识维基，支持知识融合、跨源矛盾检测、多源聚合查询、知识图谱构建。当用户提到摄入文档、构建知识库、查询维基、检查一致性、构建知识图谱、文档分析、多模态理解、数据管道等需求时触发此技能。即使用户没有明确说 pipeline 或 knowledge-pipline，只要涉及将文档转化为结构化知识、跨文档分析对比、或知识图谱可视化，都应触发此技能。
+> 这个维基完全由 Claude Code 维护。不需要 API 密钥或 Python 脚本 — 只需在 Claude Code 中打开此仓库并与它对话即可。
 
+# LLM Pipeline Agent — 架构和工作流说明
 
-# Knowledge Pipeline — 多模态知识管道
-
-将任意格式文档摄入为持久化结构化知识维基，支持知识融合、跨源矛盾检测、多源聚合查询。
-
-## 核心能力
-
-| 能力 | 说明 |
-|------|------|
-| **多模态摄入** | PDF、图片、视频、Word、Excel、PPT、HTML、Markdown |
-| **知识融合** | 新文档摄入时自动与已有实体/概念页合并，而非覆盖 |
-| **主动矛盾检测** | 摄入后自动对比新旧 claims，报告跨源冲突 |
-| **跨源聚合查询** | 查询时展示多源视角、共识与分歧 |
-| **知识图谱** | 自动构建交互式 vis.js 可视化图谱 |
+这个维基完全由 Claude Code 维护。不需要 API 密钥或 Python 脚本 — 只需在 Claude Code 中打开此仓库并与它对话即可。
 
 ---
 
-## 斜杠命令
+## LLM 配置检查（关键 - 第一步）
 
-| 命令 | 说明 |
-|------|------|
-| `/pipeline-ingest <文件路径>` | 摄入文档到知识维基 |
-| `/pipeline-query <问题>` | 多源聚合查询 |
-| `/pipeline-lint` | 检查孤立页面、断链、矛盾 |
-| `/pipeline-graph` | 构建交互式知识图谱 |
-| `/pipeline-config` | 配置 LLM API |
+**在执行任何管道命令之前，你必须检查 LLM 是否已配置：**
 
----
+1. 检查 `.llm_config.json` 是否存在：
+   - **如果存在**：读取并验证它包含 `base_url`、`model`、`api_key`
+   - **如果不存在**：继续下面的配置提示
 
-## 维基目录
+2. 同时检查 `.claude_settings.json` 是否存在（可选，用于 Python 工具）：
+   - 如果 Python 工具命令需要但找不到 Python，同样需要配置
 
-数据统一存放在技能安装目录（SKILL_DIR）下。按优先级自动检测：
-1. `~/.agents/skills/knowledge-pipline`
-2. `~/.claude/skills/knowledge-pipline`
+### 配置提示
 
-取第一个存在的目录作为 SKILL_DIR（Windows 上 `~` 展开为 `C:\Users\{用户名}`）。
+当用户在没有配置的情况下运行 `/pipeline-ingest`、`/pipeline-query`、`/pipeline-graph`、`/pipeline-ppt`（任何依赖 LLM 的命令）时：
 
-```
-SKILL_DIR/
-├── SKILL.md              # 本文件
-├── tools/                # Python 管道脚本
-│   ├── pipeline_ingest.py
-│   ├── pipeline_query.py
-│   ├── pipeline_lint.py
-│   ├── pipeline_graph.py
-│   ├── pipeline_config.py
-│   └── build_graph.py
-├── core/                 # 核心模块
-│   ├── llm_config.py     # LLM API 配置管理
-│   ├── retrieval.py      # BM25 检索引擎
-│   ├── wikilink.py       # Wikilink 解析器
-│   └── export.py         # 导出功能
-├── backend/              # 文件处理器
-│   └── processors/       # PDF/图片/视频/Office 处理器
-├── .claude/
-│   └── commands/         # 斜杠命令定义
-│       ├── pipeline-ingest.md
-│       ├── pipeline-query.md
-│       ├── pipeline-lint.md
-│       ├── pipeline-graph.md
-│       └── pipeline-config.md
-├── wiki/                 # 知识维基（自动创建）
-│   ├── index.md
-│   ├── log.md
-│   ├── overview.md
-│   ├── claims.json
-│   ├── sources/
-│   ├── entities/
-│   ├── concepts/
-│   └── syntheses/
-├── graph/                # 知识图谱输出
-│   ├── graph.json
-│   └── graph.html
-└── raw/                  # 可选：源文档存放
-```
+1. **显示清晰的消息：**
+   ```
+   ⚠️ LLM 未配置。要使用维基命令，您需要配置您的 LLM API。
+   ```
 
----
+2. **询问用户是否需要运行配置：**
+   - **问题**：“是否需要运行 `/pipeline-config` 进行配置？”
+   - **选项**：「是，运行配置」、「否，稍后再说」
 
-## LLM 配置（首次使用前必须完成）
+3. **如果用户选择「是」：**
+   - 立即执行 `/pipeline-config` 命令
+   - 配置完成后，询问用户是否继续执行原始命令
 
-运行任何管道命令前，先检查 `.llm_config.json` 是否存在。如果未配置，执行配置向导。
+4. **如果用户选择「否」：**
+   - 提示用户稍后可以随时运行 `/pipeline-config` 进行配置
+   - 停止执行当前命令
 
-### 配置文件路径
+### 配置文件格式
 
-按优先级查找：
-1. 技能目录下的 `.llm_config.json`
-2. 当前工作目录下的 `.llm_config.json`
-3. `LLM_CONFIG_JSON` 环境变量指定的路径
-
-### 配置向导
-
-```bash
-python tools/pipeline_config.py
-```
-
-或手动创建 `.llm_config.json`：
+`.llm_config.json`:
 ```json
 {
   "base_url": "https://api.openai.com/v1",
@@ -106,223 +51,259 @@ python tools/pipeline_config.py
 }
 ```
 
-常见提供商：
+### 快速参考：常见提供商
 
-| 提供商 | base_url | 模型示例 |
-|--------|----------|----------|
-| OpenAI | `https://api.openai.com/v1` | gpt-4o-mini |
-| DeepSeek | `https://api.deepseek.com/v1` | deepseek-chat |
-| 火山引擎 | `https://ark.cn-beijing.volces.com/api/coding/v3` | doubao-seed-2-0-pro-260215 |
-| Ollama | `http://localhost:11434/v1` | llama3.2 |
-
----
-
-## 文件路径解析规则
-
-当用户指定文件路径时：
-
-1. **绝对路径**（如 `D:\docs\report.pdf`）→ 直接使用
-2. **以 `raw/` 开头** → 相对于技能目录的 `raw/`
-3. **其他相对路径** → 相对于当前工作目录（CWD）
+| 提供商 | 基础 URL | 模型示例 |
+|--------|----------|---------------|
+| OpenAI | https://api.openai.com/v1 | gpt-4o-mini |
+| DeepSeek | https://api.deepseek.com/v1 | deepseek-chat |
+| Together AI | https://api.together.xyz/v1 | meta-llama/Llama-3-8b-chat-hf |
+| Ollama (本地) | http://localhost:11434/v1 | llama3.2 |
 
 ---
 
-## 命令：摄入文档
+## 管道配置
 
-**触发**：用户说“摄入”、“ingest”、“导入文档”、“分析这个文件”等，或使用 `/pipeline-ingest`
+触发方式：*"重新配置 LLM"* 或 `/pipeline-config`
 
-### 用法
-```
-/pipeline-ingest raw/report.pdf
-/pipeline-ingest D:\docs\meeting-notes.docx
-摄入 ./my-image.jpg
-```
+**功能**: 重新配置 LLM API 信息，支持以下提供商：
 
-### 执行方式
+1. **OpenAI** - 默认选项 (https://api.openai.com/v1)
+2. **自定义 OpenAI 兼容端点** - 如 DeepSeek、Together AI、Anthropic 等
+3. **Ollama** - 本地模型服务 (http://localhost:11434/v1)
 
-**始终优先使用 Python 脚本**：
-```bash
-python <skill-dir>/tools/pipeline_ingest.py <文件路径>
-```
-
-**PDF 策略**（通过环境变量控制）：
-- `PIPELINE_PDF_STRATEGY=balanced`（默认）：文本 + 多图智能理解
-- `PIPELINE_PDF_STRATEGY=accurate`：偏准确率（扫描件）
-- `PIPELINE_PDF_STRATEGY=fast`：纯文本提取
-
-**图片处理**：优先用 Claude 多模态视觉直接理解；失败时降级到 Python OCR
-
-**视频处理**：OpenCV 关键帧提取 → 多模态 LLM 理解 → 音频转写（如有 ffmpeg）
-
-### 知识融合（核心差异化能力）
-
-摄入时，如果目标实体/概念页面已存在：
-- **不会覆盖**，而是用 LLM 合并新旧内容
-- 保留已有信息，追加新源信息
-- 矛盾处两者都保留，标注 `⚠️ 矛盾`
-- 自动更新 frontmatter 的 `sources` 列表
-
-### 主动矛盾检测
-
-摄入完成后自动执行：
-- 将新 claims 与 `claims.json` 中所有已有 claims 对比
-- 输出跨源矛盾报告和跨源佐证
-- 自动记录到 `wiki/log.md`
-
-### 完整流程
-1. 处理源文件（多模态）
-2. 读取 wiki/index.md 和 overview.md 获取上下文
-3. 写入 wiki/sources/<slug>.md
-4. **知识融合：合并或创建**实体/概念页面
-5. 更新 index.md 和 overview.md
-6. 保存 key claims 到 claims.json
-7. **主动矛盾检测**：对比新旧 claims
-8. 追加 log.md
-
-如果 Python 脚本失败，回退到 Claude 内置能力手动执行上述步骤。
+**配置流程**:
+1. 显示当前配置状态（如果已配置）
+2. 使用 AskUserQuestion 收集新的配置信息
+3. 验证配置的正确性
+4. 保存到 `.llm_config.json`
+5. 更新环境变量以立即生效
+6. 验证新配置是否正常工作
 
 ---
 
-## 命令：查询维基
+## 斜杠命令 (Claude Code)
 
-**触发**：用户提问关于已摄入内容的问题、“query”、“查询”等，或使用 `/pipeline-query`
+| 命令 | 用法 |
+|---|---|
+| `/pipeline-config` | `重新配置 LLM API` |
+| `/pipeline-ingest` | `摄入 raw/my-article.md` |
+| `/pipeline-query` | `query: 主要主题是什么？` |
+| `/pipeline-lint` | `检查维基` |
+| `/pipeline-graph` | `构建知识图谱` |
+| `/pipeline-ppt` | `生成 Live PPT 演示文稿` |
 
-### 用法
-```
-/pipeline-query transformer 模型的主要创新是什么？
-/pipeline-query 所有来源中提到的安全风险
-查询 "AI 对就业的影响"
-```
+或者直接用自然语言描述你的需求：
+- *"摄入这个文件：raw/papers/attention-is-all-you-need.md"*
+- *"维基里关于 transformer 模型的内容是什么？"*
+- *"检查维基中的孤立页面和矛盾之处"*
+- *"构建图谱并告诉我与 RAG 相关的内容"*
+- *"帮我做一个安全分析的 PPT"*
 
-### 执行方式
-```bash
-python <skill-dir>/tools/pipeline_query.py "问题内容"
-python <skill-dir>/tools/pipeline_query.py "问题" --auto-save
-```
-
-### 跨源聚合（核心差异化能力）
-
-查询结果包含：
-- **多源视角**：每个源对同一问题的不同观点
-- **共识与分歧**：
-  - ✅ 多源共识：多个源一致同意的观点
-  - ⚠️ 观点分歧：各源存在不同看法
-  - ❓ 单源独有：仅在一个源中出现的论点
-- **[[wikilink]]** 引用到具体页面
-
-### 步骤
-1. BM25 检索 + 关键词匹配找到相关页面
-2. 加载 claims.json 构建跨源视角上下文
-3. LLM 综合答案（含多源视角和共识分歧分析）
-4. 询问用户是否保存到 wiki/syntheses/
+Claude Code 会自动读取此文件并按照下面的工作流执行。
 
 ---
 
-## 命令：检查维基
+## 目录结构
 
-**触发**：用户说“lint”、“检查”、“审计维基”等，或使用 `/pipeline-lint`
-
-### 用法
 ```
-/pipeline-lint
-检查维基
-lint
+raw/          # 不可变的源文档 — 不要修改这些
+wiki/         # Claude 完全拥有这一层
+  index.md    # 所有页面的目录 — 每次摄入时更新
+  log.md      # 仅追加的时间顺序记录
+  overview.md # 跨所有源的活体综合内容
+  sources/    # 每个源文档一个摘要页面
+  entities/   # 人物、公司、项目、产品
+  concepts/   # 思想、框架、方法、理论
+  syntheses/  # 保存的查询答案
+graph/        # 自动生成的图谱数据
+tools/        # 可选的独立 Python 脚本（需要 LLM API 密钥）
 ```
-
-### 执行方式
-```bash
-python <skill-dir>/tools/pipeline_lint.py
-```
-
-### 检查项
-- **孤立页面**：无入链 [[wikilinks]]
-- **断链**：指向不存在页面的 [[WikiLink]]
-- **矛盾**：跨页面声明冲突（含 claims.json 交叉验证）
-- **过时摘要**：新源摄入后未更新的页面
-- **缺失实体**：3+ 页面提及但无专属页面的实体
-- **数据空白**：建议补充的新源
-
-输出报告后询问是否保存到 wiki/lint-report.md。
-
----
-
-## 命令：构建知识图谱
-
-**触发**：用户说“build graph”、“构建图谱”、“知识图谱”等，或使用 `/pipeline-graph`
-
-### 用法
-```
-/pipeline-graph
-构建知识图谱
-build graph
-```
-
-### 执行方式
-```bash
-python <skill-dir>/tools/build_graph.py --open
-```
-
-### 输出
-- `graph/graph.json`：节点 + 边 + 社区数据
-- `graph/graph.html`：自包含 vis.js 交互式可视化
-
-### 备选方案
-如果 Python 不可用，手动：
-1. Grep 提取所有 [[wikilinks]]
-2. 构建节点/边列表
-3. 生成 graph.json + graph.html
-
----
-
-## 命令：配置 LLM
-
-**触发**：用户说"配置"、"config"、"设置 API"等，或使用 `/pipeline-config`
-
-### 执行方式
-```bash
-python <skill-dir>/tools/pipeline_config.py
-```
-
-或通过交互式问答收集 base_url、model、api_key 后写入 `.llm_config.json`。
 
 ---
 
 ## 页面格式
 
-每个维基页面使用 YAML frontmatter：
+每个维基页面都使用以下 frontmatter：
 
 ```yaml
 ---
-title: "页面标题"
+title: "Page Title"
 type: source | entity | concept | synthesis
 tags: []
-sources: []
+sources: []       # list of source slugs that inform this page
 last_updated: YYYY-MM-DD
 ---
 ```
 
-使用 `[[PageName]]` wikilinks 链接其他页面。
-
-### 命名规范
-- Source slug: `kebab-case.md`
-- Entity 页面: `TitleCase.md`（如 `OpenAI.md`、`华为云.md`）
-- Concept 页面: `TitleCase.md`（如 `RAG.md`、`知识融合.md`）
+Use `[[PageName]]` wikilinks to link to other wiki pages.
 
 ---
 
-## 设计理念
+## 摄入工作流
 
-**持久化知识积累** vs RAG 查询时推导：
+触发方式：*"摄入 <文件>"* 或 `/pipeline-ingest`
 
-| 特性 | 传统 RAG | Knowledge Pipeline |
-|------|----------|-------------------|
-| 知识存储 | 向量数据库（无结构） | 结构化维基页面 |
-| 新文档摄入 | 追加嵌入 | **知识融合**（合并已有页面） |
-| 矛盾处理 | 无感知 | **主动检测并报告** |
-| 查询 | 相似性检索 | **多源聚合 + 共识分歧分析** |
-| 可解释性 | 黑盒 | Wikilinks + 引用溯源 |
-| 可视化 | 无 | 交互式知识图谱 |
+**前置条件**：运行 LLM 配置检查（见上文）。如果未配置，请先完成配置。
+
+步骤（按顺序）：
+1. **处理源文件**（支持多种格式）：
+   - **文本文件** (.md, .txt): 直接读取
+   - **PDF 文档** (.pdf): 使用 pypdf 提取文本
+   - **Word 文档** (.docx): 使用 python-docx 提取文本和表格
+   - **Excel 表格** (.xlsx): 使用 openpyxl 提取工作表为表格
+   - **PowerPoint** (.pptx): 提取幻灯片内容
+   - **HTML 文件** (.html, .htm): 使用 BeautifulSoup/Trafilatura 提取主要内容
+   - **图片** (.jpg, .png, .webp): **首先使用 Read 工具**（Claude Code 内置多模态视觉 — 直接理解图片内容）。只有当 Read 工具失败时才降级到 Python OCR。
+
+   **图片处理（重要 — 始终按此顺序执行）**：
+   1. 使用 **Read 工具** 读取图片文件路径 — Claude Code 可以原生"看到"并描述图片
+   2. 阅读图片描述并转录所有可见文字
+   3. 注意关键视觉元素：人物、地点、物体、UI 布局、文档、图表等
+   4. 只有当 Read 工具失败时，才回退到 `FileProcessor` / PaddleOCR
+
+   **Python 处理器回退方案**：
+   ```python
+   from backend.processors import FileProcessor
+   
+   processor = FileProcessor()
+   result = processor.process(file_path)
+   content = result.content  # 提取的文本
+   metadata = result.metadata  # 文件信息
+   tables = result.tables  # 提取的表格（如果有）
+   ```
+
+2. 读取 `wiki/index.md` 和 `wiki/overview.md` 获取当前维基上下文
+3. 编写 `wiki/sources/<slug>.md` — 使用下面的源页面格式
+4. 更新 `wiki/index.md` — 在 Sources 部分添加条目
+5. 更新 `wiki/overview.md` — 如有需要，修订综合内容
+6. 更新/创建关键人物、公司、项目提及的实体页面
+7. 更新/创建关键思想和框架的概念页面
+8. 标记与现有维基内容的任何矛盾
+9. 追加到 `wiki/log.md`：`## [YYYY-MM-DD] ingest | <标题>`
+
+### 源页面格式
+
+```markdown
+---
+title: "Source Title"
+type: source
+tags: []
+date: YYYY-MM-DD
+source_file: raw/...
+---
+
+## Summary
+2–4 sentence summary.
+
+## Key Claims
+- Claim 1
+- Claim 2
+
+## Key Quotes
+> "Quote here" — context
+
+## Connections
+- [[EntityName]] — how they relate
+- [[ConceptName]] — how it connects
+
+## Contradictions
+- Contradicts [[OtherPage]] on: ...
+```
+
+---
+
+## 查询工作流
+
+触发方式：*"query: <问题>"* 或 `/pipeline-query`
+
+**前置条件**：运行 LLM 配置检查（见上文）。如果未配置，请先完成配置。
+
+步骤：
+1. 读取 `wiki/index.md` 识别相关页面
+2. 使用 Read 工具读取这些页面
+3. 使用 `[[页面名称]]` wikilinks 作为内联引用综合答案
+4. 询问用户是否要将答案保存为 `wiki/syntheses/<slug>.md`
+
+---
+
+## 检查工作流
+
+触发方式：*"检查维基"* 或 `/pipeline-lint`
+
+使用 Grep 和 Read 工具检查：
+- **孤立页面** — 没有其他页面的入站 `[[链接]]` 的维基页面
+- **损坏的链接** — 指向不存在页面的 `[[WikiLinks]]`
+- **矛盾之处** — 跨页面的冲突声明
+- **过时的摘要** — 在新源之后未更新的页面
+- **缺失的实体页面** — 在 3+ 页面中提及但没有自己页面的实体
+- **数据空白** — 维基无法回答的问题；建议新源
+
+输出检查报告并询问用户是否要将其保存到 `wiki/lint-report.md`。
+
+---
+
+## 图谱工作流
+
+触发方式：*"构建知识图谱"* 或 `/pipeline-graph`
+
+**前置条件**：运行 LLM 配置检查（见上文）。如果未配置，请先完成配置。
+
+当用户要求构建图谱时，运行 `tools/build_graph.py`，它会：
+- 第一遍：解析所有 `[[wikilinks]]` → 确定性的 `EXTRACTED` 边
+- 第二遍：推断隐含关系 → 带置信度分数的 `INFERRED` 边
+- 运行 Louvain 社区检测
+- 输出 `graph/graph.json` + `graph/graph.html`
+
+**IMPORTANT**: 使用配置的 Python 路径来运行：
+1. 首先检查 `.claude_settings.json` 中的 `python_path` 配置
+2. 如果没有配置，提示用户运行 `/pipeline-config` 配置 Python 路径
+3. 如果配置了但无法运行，使用 Claude Code 手动构建图谱：
+   - 读取所有维基页面
+   - 识别所有 `[[wikilinks]]`
+   - 构建节点和边列表
+   - 直接生成 `graph/graph.json` 和 `graph/graph.html`
+
+---
+
+## 命名规范
+
+- 源 slug：与源文件名匹配的 `kebab-case`
+- 实体页面：`TitleCase.md`（例如 `OpenAI.md`、`SamAltman.md`）
+- 概念页面：`TitleCase.md`（例如 `ReinforcementLearning.md`、`RAG.md`）
+- 源页面：`kebab-case.md`
+
+## 索引格式
+
+```markdown
+# Wiki Index
+
+## Overview
+- [概览](overview.md) — 活体综合内容
+
+## Sources
+- [源标题](sources/slug.md) — 单行摘要
+
+## Entities
+- [实体名称](entities/EntityName.md) — 单行描述
+
+## Concepts
+- [概念名称](concepts/ConceptName.md) — 单行描述
+
+## Syntheses
+- [分析标题](syntheses/slug.md) — 它回答的问题
+```
+
+## 日志格式
+
+每个条目以 `## [YYYY-MM-DD] <操作> | <标题>` 开头，以便用 grep 解析：
+
+```
+grep "^## \[" wiki/log.md | tail -10
+```
+
+操作：`ingest`、`query`、`lint`、`graph`
 
 ---
 > Source: [YesIamGodt/knowledge-pipline](https://github.com/YesIamGodt/knowledge-pipline) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
