@@ -4,7 +4,7 @@
   "repo": "skill-based-architecture",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/WoJiSama/skill-based-architecture",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T14:23:24Z"
+  "distributed_at": "2026-07-23T11:13:58Z"
 }
