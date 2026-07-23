@@ -1,0 +1,9 @@
+{
+  "name": "composer--packagist",
+  "displayName": "packagist",
+  "description": "packagist",
+  "version": "1.0.0",
+  "author": "composer",
+  "homepage": "https://github.com/composer/packagist",
+  "skills": []
+}
