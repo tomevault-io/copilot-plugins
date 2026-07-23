@@ -1,0 +1,14 @@
+{
+  "name": "kengz--slm-lab",
+  "displayName": "SLM-Lab",
+  "description": "SLM-Lab",
+  "version": "1.0.0",
+  "author": "kengz",
+  "homepage": "https://github.com/kengz/SLM-Lab",
+  "skills": [
+    {
+      "name": "SLM-Lab",
+      "description": ""
+    }
+  ]
+}
