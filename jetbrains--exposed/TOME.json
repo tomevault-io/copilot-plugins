@@ -1,0 +1,57 @@
+{
+  "name": "Exposed",
+  "owner": "JetBrains",
+  "repo": "Exposed",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Exposed",
+      "path": ".claude/skills/fix-bug/SKILL.md",
+      "github_url": "https://github.com/JetBrains/Exposed/tree/main/.claude/skills/fix-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Exposed",
+      "path": ".claude/skills/migrate-to-1.0/SKILL.md",
+      "github_url": "https://github.com/JetBrains/Exposed/tree/main/.claude/skills/migrate-to-1.0/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JetBrains/Exposed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T11:47:07Z"
+}
