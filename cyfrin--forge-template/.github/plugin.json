@@ -1,0 +1,14 @@
+{
+  "name": "cyfrin--forge-template",
+  "displayName": "forge-template",
+  "description": "forge-template",
+  "version": "1.0.0",
+  "author": "Cyfrin",
+  "homepage": "https://github.com/Cyfrin/forge-template",
+  "skills": [
+    {
+      "name": "forge-template",
+      "description": ""
+    }
+  ]
+}
