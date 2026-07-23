@@ -1,0 +1,81 @@
+{
+  "name": "eddoapp",
+  "owner": "walterra",
+  "repo": "eddoapp",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "eddo-todo",
+      "path": "packages/chat-agent/skills/eddo-todo",
+      "github_url": "https://github.com/walterra/eddoapp/tree/main/packages/chat-agent/skills/eddo-todo",
+      "description": ""
+    },
+    {
+      "name": "eddo-work",
+      "path": "packages/chat-agent/skills/eddo-work",
+      "github_url": "https://github.com/walterra/eddoapp/tree/main/packages/chat-agent/skills/eddo-work",
+      "description": ""
+    },
+    {
+      "name": "searxng-search",
+      "path": "packages/chat-agent/skills/searxng-search",
+      "github_url": "https://github.com/walterra/eddoapp/tree/main/packages/chat-agent/skills/searxng-search",
+      "description": ""
+    },
+    {
+      "name": "eddoapp",
+      "path": "packages/chat-agent/skills/eddo-todo/SKILL.md",
+      "github_url": "https://github.com/walterra/eddoapp/tree/main/packages/chat-agent/skills/eddo-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eddoapp",
+      "path": "packages/chat-agent/skills/eddo-work/SKILL.md",
+      "github_url": "https://github.com/walterra/eddoapp/tree/main/packages/chat-agent/skills/eddo-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eddoapp",
+      "path": "packages/chat-agent/skills/searxng-search/SKILL.md",
+      "github_url": "https://github.com/walterra/eddoapp/tree/main/packages/chat-agent/skills/searxng-search/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/walterra/eddoapp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T01:35:23Z"
+}
