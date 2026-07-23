@@ -1,0 +1,81 @@
+{
+  "name": "action_policy",
+  "owner": "palkan",
+  "repo": "action_policy",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "action_policy",
+      "path": "tutorial/.claude/skills/tutorial-quickstart/SKILL.md",
+      "github_url": "https://github.com/palkan/action_policy/tree/main/tutorial/.claude/skills/tutorial-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "action_policy",
+      "path": "tutorial/.claude/skills/rails-lesson-recipes/SKILL.md",
+      "github_url": "https://github.com/palkan/action_policy/tree/main/tutorial/.claude/skills/rails-lesson-recipes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "action_policy",
+      "path": "tutorial/.claude/skills/rails-file-management/SKILL.md",
+      "github_url": "https://github.com/palkan/action_policy/tree/main/tutorial/.claude/skills/rails-file-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "action_policy",
+      "path": "tutorial/.claude/skills/tutorial-lesson-config/SKILL.md",
+      "github_url": "https://github.com/palkan/action_policy/tree/main/tutorial/.claude/skills/tutorial-lesson-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "action_policy",
+      "path": "tutorial/.claude/skills/tutorial-content-structure/SKILL.md",
+      "github_url": "https://github.com/palkan/action_policy/tree/main/tutorial/.claude/skills/tutorial-content-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "action_policy",
+      "path": "tutorial/.claude/skills/rails-wasm-author-constraints/SKILL.md",
+      "github_url": "https://github.com/palkan/action_policy/tree/main/tutorial/.claude/skills/rails-wasm-author-constraints/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/palkan/action_policy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:43:15Z"
+}
