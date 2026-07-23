@@ -1,0 +1,9 @@
+{
+  "name": "jamf--jamfsync",
+  "displayName": "JamfSync",
+  "description": "JamfSync",
+  "version": "1.0.0",
+  "author": "jamf",
+  "homepage": "https://github.com/jamf/JamfSync",
+  "skills": []
+}
