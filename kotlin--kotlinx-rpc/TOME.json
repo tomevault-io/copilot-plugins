@@ -1,0 +1,153 @@
+{
+  "name": "kotlinx-rpc",
+  "owner": "Kotlin",
+  "repo": "kotlinx-rpc",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/update-doc/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/update-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/update-shim/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/update-shim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/use-teamcity/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/use-teamcity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/use-youtrack/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/use-youtrack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/gradle_expert/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/gradle_expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/commit-changes/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/commit-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/use-develocity/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/use-develocity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/file-youtrack-issue/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/file-youtrack-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/running_gradle_tests/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/running_gradle_tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/running_gradle_builds/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/running_gradle_builds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/run-local-verifications/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/run-local-verifications/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/searching_dependency_sources/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/searching_dependency_sources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/researching_gradle_internals/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/researching_gradle_internals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/managing_gradle_dependencies/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/managing_gradle_dependencies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/introspecting_gradle_projects/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/introspecting_gradle_projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/interacting_with_project_runtime/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/interacting_with_project_runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kotlinx-rpc",
+      "path": ".claude/skills/verify-compiler-plugin-compatibility/SKILL.md",
+      "github_url": "https://github.com/Kotlin/kotlinx-rpc/tree/main/.claude/skills/verify-compiler-plugin-compatibility/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Kotlin/kotlinx-rpc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:35:58Z"
+}
