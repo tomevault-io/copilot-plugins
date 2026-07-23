@@ -1,0 +1,63 @@
+{
+  "name": "VisCy",
+  "owner": "mehta-lab",
+  "repo": "VisCy",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "VisCy",
+      "path": ".claude/skills/prepare-dataset/SKILL.md",
+      "github_url": "https://github.com/mehta-lab/VisCy/tree/main/.claude/skills/prepare-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VisCy",
+      "path": ".claude/skills/airtable-register/SKILL.md",
+      "github_url": "https://github.com/mehta-lab/VisCy/tree/main/.claude/skills/airtable-register/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VisCy",
+      "path": ".claude/skills/airtable-build-collection/SKILL.md",
+      "github_url": "https://github.com/mehta-lab/VisCy/tree/main/.claude/skills/airtable-build-collection/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mehta-lab/VisCy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:49:14Z"
+}
