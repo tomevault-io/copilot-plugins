@@ -1,0 +1,75 @@
+{
+  "name": "resident",
+  "owner": "inanimate-tech",
+  "repo": "resident",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "resident",
+      "path": "tools/agent-plugin/skills/push-app/SKILL.md",
+      "github_url": "https://github.com/inanimate-tech/resident/tree/main/tools/agent-plugin/skills/push-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "resident",
+      "path": "tools/agent-plugin/skills/create-app/SKILL.md",
+      "github_url": "https://github.com/inanimate-tech/resident/tree/main/tools/agent-plugin/skills/create-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "resident",
+      "path": "tools/agent-plugin/skills/validate-app/SKILL.md",
+      "github_url": "https://github.com/inanimate-tech/resident/tree/main/tools/agent-plugin/skills/validate-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "resident",
+      "path": "tools/agent-plugin/skills/hello-resident/SKILL.md",
+      "github_url": "https://github.com/inanimate-tech/resident/tree/main/tools/agent-plugin/skills/hello-resident/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "resident",
+      "path": "tools/agent-plugin/skills/write-device-skill/SKILL.md",
+      "github_url": "https://github.com/inanimate-tech/resident/tree/main/tools/agent-plugin/skills/write-device-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/inanimate-tech/resident",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T11:05:33Z"
+}
