@@ -1,0 +1,26 @@
+{
+  "name": "securego--gosec",
+  "displayName": "gosec",
+  "description": "gosec",
+  "version": "1.0.0",
+  "author": "securego",
+  "homepage": "https://github.com/securego/gosec",
+  "skills": [
+    {
+      "name": "gosec",
+      "description": ""
+    },
+    {
+      "name": "gosec",
+      "description": ""
+    },
+    {
+      "name": "gosec",
+      "description": ""
+    },
+    {
+      "name": "gosec",
+      "description": ""
+    }
+  ]
+}
