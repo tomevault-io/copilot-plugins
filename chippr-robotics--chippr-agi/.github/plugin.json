@@ -1,0 +1,22 @@
+{
+  "name": "chippr-robotics--chippr-agi",
+  "displayName": "chippr-agi",
+  "description": "chippr-agi",
+  "version": "1.0.0",
+  "author": "chippr-robotics",
+  "homepage": "https://github.com/chippr-robotics/chippr-agi",
+  "skills": [
+    {
+      "name": "chippr-agi",
+      "description": ""
+    },
+    {
+      "name": "chippr-agi",
+      "description": ""
+    },
+    {
+      "name": "chippr-agi",
+      "description": ""
+    }
+  ]
+}
