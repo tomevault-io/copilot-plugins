@@ -1,0 +1,81 @@
+{
+  "name": "pwndoc",
+  "owner": "pwndoc",
+  "repo": "pwndoc",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "test-frontend-unit",
+      "path": ".claude/skills/test-frontend-unit",
+      "github_url": "https://github.com/pwndoc/pwndoc/tree/main/.claude/skills/test-frontend-unit",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "path": ".claude/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/pwndoc/pwndoc/tree/main/.claude/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "path": ".claude/skills/test-specialist/SKILL.md",
+      "github_url": "https://github.com/pwndoc/pwndoc/tree/main/.claude/skills/test-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "path": ".claude/skills/test-frontend-e2e/SKILL.md",
+      "github_url": "https://github.com/pwndoc/pwndoc/tree/main/.claude/skills/test-frontend-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "path": ".claude/skills/test-frontend-unit/SKILL.md",
+      "github_url": "https://github.com/pwndoc/pwndoc/tree/main/.claude/skills/test-frontend-unit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pwndoc",
+      "path": ".claude/skills/update-documentation/SKILL.md",
+      "github_url": "https://github.com/pwndoc/pwndoc/tree/main/.claude/skills/update-documentation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pwndoc/pwndoc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:54:54Z"
+}
