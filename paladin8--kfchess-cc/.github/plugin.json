@@ -1,0 +1,14 @@
+{
+  "name": "paladin8--kfchess-cc",
+  "displayName": "kfchess-cc",
+  "description": "kfchess-cc",
+  "version": "1.0.0",
+  "author": "paladin8",
+  "homepage": "https://github.com/paladin8/kfchess-cc",
+  "skills": [
+    {
+      "name": "kfchess-cc",
+      "description": ""
+    }
+  ]
+}
