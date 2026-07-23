@@ -1,0 +1,249 @@
+{
+  "name": "cc-best",
+  "owner": "xiaobei930",
+  "repo": "cc-best",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api",
+      "path": "skills/api",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/api",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "path": "skills/architecture",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/architecture",
+      "description": ""
+    },
+    {
+      "name": "backend",
+      "path": "skills/backend",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/backend",
+      "description": ""
+    },
+    {
+      "name": "compact",
+      "path": "skills/compact",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/compact",
+      "description": ""
+    },
+    {
+      "name": "database",
+      "path": "skills/database",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/database",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "path": "skills/devops",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/devops",
+      "description": ""
+    },
+    {
+      "name": "exploration",
+      "path": "skills/exploration",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/exploration",
+      "description": ""
+    },
+    {
+      "name": "frontend",
+      "path": "skills/frontend",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/frontend",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": "skills/git",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/git",
+      "description": ""
+    },
+    {
+      "name": "native",
+      "path": "skills/native",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/native",
+      "description": ""
+    },
+    {
+      "name": "quality",
+      "path": "skills/quality",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/quality",
+      "description": ""
+    },
+    {
+      "name": "second-opinion",
+      "path": "skills/second-opinion",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/second-opinion",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "skills/security",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/security",
+      "description": ""
+    },
+    {
+      "name": "session",
+      "path": "skills/session",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/session",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "skills/testing",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/api/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/git/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/debug/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/model/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/devops/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/devops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/native/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/compact/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/backend/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/session/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/quality/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/testing/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/learning/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/database/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/database/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/frontend/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/security/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/exploration/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/exploration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/architecture/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/search-first/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/search-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cc-best",
+      "path": "skills/second-opinion/SKILL.md",
+      "github_url": "https://github.com/xiaobei930/cc-best/tree/main/skills/second-opinion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xiaobei930/cc-best",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T10:37:54Z"
+}
