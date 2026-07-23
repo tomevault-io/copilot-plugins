@@ -7,11 +7,11 @@ An orchestration runtime for multi-agent AI systems. Declare agents, tools, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [OrlojHQ/orloj](https://github.com/OrlojHQ/orloj).
+Original source: `CLAUDE.md` in [OrlojHQ/orloj](https://github.com/OrlojHQ/orloj).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
