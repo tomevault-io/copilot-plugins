@@ -1,0 +1,147 @@
+{
+  "name": "claude-agents-coordination",
+  "owner": "ilyasibrahim",
+  "repo": "claude-agents-coordination",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-checklist",
+      "path": "claude-project/skills/frontend/accessibility-checklist",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/frontend/accessibility-checklist",
+      "description": ""
+    },
+    {
+      "name": "agent-coordination",
+      "path": "claude-user/skills/agent-coordination",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-user/skills/agent-coordination",
+      "description": ""
+    },
+    {
+      "name": "dashboard-patterns",
+      "path": "claude-project/skills/frontend/dashboard-patterns",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/frontend/dashboard-patterns",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "claude-user/skills/design",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-user/skills/design",
+      "description": ""
+    },
+    {
+      "name": "mlops-best-practices",
+      "path": "claude-project/skills/machine-learning/mlops-best-practices",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/machine-learning/mlops-best-practices",
+      "description": ""
+    },
+    {
+      "name": "model-evaluation-framework",
+      "path": "claude-project/skills/machine-learning/model-evaluation-framework",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/machine-learning/model-evaluation-framework",
+      "description": ""
+    },
+    {
+      "name": "ux-writing",
+      "path": "claude-user/skills/ux-writing",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-user/skills/ux-writing",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-user/skills/design/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-user/skills/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-user/skills/ux-writing/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-user/skills/ux-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-user/skills/agent-coordination/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-user/skills/agent-coordination/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-project/skills/frontend/dashboard-patterns/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/frontend/dashboard-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-project/skills/data-engineering/etl-patterns/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/data-engineering/etl-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-project/skills/frontend/accessibility-checklist/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/frontend/accessibility-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-project/skills/machine-learning/lrl-nlp-techniques/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/machine-learning/lrl-nlp-techniques/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-project/skills/machine-learning/mlops-best-practices/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/machine-learning/mlops-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-project/skills/data-engineering/data-quality-standards/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/data-engineering/data-quality-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-agents-coordination",
+      "path": "claude-project/skills/machine-learning/model-evaluation-framework/SKILL.md",
+      "github_url": "https://github.com/ilyasibrahim/claude-agents-coordination/tree/main/claude-project/skills/machine-learning/model-evaluation-framework/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ilyasibrahim/claude-agents-coordination",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:33:07Z"
+}
