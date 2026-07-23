@@ -1,0 +1,81 @@
+{
+  "name": "tis",
+  "owner": "datavane",
+  "repo": "tis",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "openspec-apply-change",
+      "path": ".claude/skills/openspec-apply-change",
+      "github_url": "https://github.com/datavane/tis/tree/main/.claude/skills/openspec-apply-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-continue-change",
+      "path": ".claude/skills/openspec-continue-change",
+      "github_url": "https://github.com/datavane/tis/tree/main/.claude/skills/openspec-continue-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-new-change",
+      "path": ".claude/skills/openspec-new-change",
+      "github_url": "https://github.com/datavane/tis/tree/main/.claude/skills/openspec-new-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-onboard",
+      "path": ".claude/skills/openspec-onboard",
+      "github_url": "https://github.com/datavane/tis/tree/main/.claude/skills/openspec-onboard",
+      "description": ""
+    },
+    {
+      "name": "tis",
+      "path": ".claude/skills/gen-plugin-doc/SKILL.md",
+      "github_url": "https://github.com/datavane/tis/tree/main/.claude/skills/gen-plugin-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tis",
+      "path": "tis-openclaw-plugin/src/main/resources/conf/SKILL.md",
+      "github_url": "https://github.com/datavane/tis/tree/main/tis-openclaw-plugin/src/main/resources/conf/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/datavane/tis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:33:04Z"
+}
