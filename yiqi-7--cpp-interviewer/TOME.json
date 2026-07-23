@@ -1,0 +1,57 @@
+{
+  "name": "Cpp-Interviewer",
+  "owner": "yiqi-7",
+  "repo": "Cpp-Interviewer",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Cpp-Interviewer",
+      "path": "skills/coach/SKILL.md",
+      "github_url": "https://github.com/yiqi-7/Cpp-Interviewer/tree/main/skills/coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Cpp-Interviewer",
+      "path": "skills/interview/SKILL.md",
+      "github_url": "https://github.com/yiqi-7/Cpp-Interviewer/tree/main/skills/interview/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yiqi-7/Cpp-Interviewer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T11:46:22Z"
+}
