@@ -4,7 +4,7 @@
   "repo": "dd-sdk-ios",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/DataDog/dd-sdk-ios",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T10:24:30Z"
+  "distributed_at": "2026-07-23T08:45:24Z"
 }
