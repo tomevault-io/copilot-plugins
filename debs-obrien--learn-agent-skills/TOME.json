@@ -1,0 +1,63 @@
+{
+  "name": "learn-agent-skills",
+  "owner": "debs-obrien",
+  "repo": "learn-agent-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "readme-wizard",
+      "path": ".agents/skills/readme-wizard",
+      "github_url": "https://github.com/debs-obrien/learn-agent-skills/tree/main/.agents/skills/readme-wizard",
+      "description": ""
+    },
+    {
+      "name": "learn-agent-skills",
+      "path": ".agents/skills/good-morning/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/learn-agent-skills/tree/main/.agents/skills/good-morning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "learn-agent-skills",
+      "path": ".agents/skills/readme-wizard/SKILL.md",
+      "github_url": "https://github.com/debs-obrien/learn-agent-skills/tree/main/.agents/skills/readme-wizard/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/debs-obrien/learn-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:10:54Z"
+}
