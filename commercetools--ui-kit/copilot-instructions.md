@@ -1,47 +1,45 @@
 ## ui-kit
 
-> Shared Slate.js utilities, HTML serialization/deserialization, and toolbar UI
+> Read `AGENTS.md` for full project context — it is the primary reference for this
 
-# @commercetools-uikit/rich-text-utils
+# Claude Code Configuration
 
-## Purpose
+Read `AGENTS.md` for full project context — it is the primary reference for this
+repository's architecture, commands, constraints, and conventions.
 
-Shared Slate.js utilities, HTML serialization/deserialization, and toolbar UI
-components used by `rich-text-input` and `localized-rich-text-input`.
+## MCP Servers
 
-## Key Context
+See `.mcp.json` for configured servers:
 
-- **HTML module**: Serializes Slate descendants → HTML and deserializes HTML →
-  Slate descendants. Uses `dompurify` for XSS sanitization during serialization
-  and `escape-html` for output safety.
-- **Slate helpers** (`slate-helpers.tsx`): Mark/block toggle functions,
-  `withLinks()` plugin for link detection, `Element`/`Leaf` render components.
-- **RichTextBody**: The toolbar UI component with a text styles dropdown
-  (paragraph, headings h1–h5, quote, preformatted), bold/italic/underline
-  buttons, a "more styles" dropdown (strikethrough, superscript, subscript),
-  and ordered/unordered list buttons. Uses `downshift` for dropdown menus.
-- **HiddenInput**: Accessibility component for focus management.
-- Has its own generated icons (via SVGR) for toolbar buttons — the
-  `generate-icons` root command processes this package too.
-- Tag → Slate type mapping defined in `tags.ts`.
+- **commercetools-docs** — commercetools API docs, GraphQL schemas, OpenAPI
+  specs
+- **context7** — third-party library documentation
+- **playwright** — visual UI verification
+- **sequential-thinking** — structured multi-step reasoning
 
-## How To Work Here
+## Hooks
 
-Same as root instructions. Scoped test:
-`pnpm test --testPathPattern=packages/components/inputs/rich-text-utils`.
+See `.claude/settings.json` for configured hooks:
 
-If you modify HTML serialization, test the round-trip: HTML → Slate → HTML in
-both `rich-text-input` and `localized-rich-text-input`.
+- PostToolUse (Edit/MultiEdit/Write): auto-format with Prettier
 
-## Gotchas
+## Skills
 
-- Changes to `tags.ts` or `html/` serialization affect all rich text consumers.
-  Test thoroughly — data corruption is possible if serialization is wrong.
-- This package has its own SVG icons in `src/rich-text-body/icons/svg/` that are code-genned
-  separately from the main icons package. Run `pnpm generate-icons` to
-  regenerate after SVG changes.
-- Extends Slate's TypeScript types via module augmentation (custom `CustomTypes`).
+Skills live in `.agents/skills/` and are symlinked into `.claude/skills/`.
+Update with `npx skills update` — check `git diff` afterward for lost repo-specific content.
+
+Shared skills installed via `skills add commercetools/agent-skills/skills/<name>`:
+
+- `/repo-healthcheck-node` — verify repo setup
+- `/remember` — persistent memory across sessions
+- `/repo-maintenance-node` — formatting, dead code, dependency validation
+- `/jira-create-epic-from-plan` — create Jira epic from markdown plan
+- `/jira-implement-task` — implement a Jira ticket end-to-end
+- `/renovate-review` — review Renovate dependency PRs
+- `/renovate-migrate` — migrate code for Renovate breaking changes
+- `/pr-review-navigator` — PR file dependency diagrams and review order
+- `/security-auditor` — security audit with OWASP mapping
 
 ---
 > Source: [commercetools/ui-kit](https://github.com/commercetools/ui-kit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
