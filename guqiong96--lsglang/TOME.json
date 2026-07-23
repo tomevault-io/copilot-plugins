@@ -4,7 +4,7 @@
   "repo": "Lsglang",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -155,5 +155,5 @@
   ],
   "source_url": "https://github.com/guqiong96/Lsglang",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:13:21Z"
+  "distributed_at": "2026-07-23T21:41:53Z"
 }
