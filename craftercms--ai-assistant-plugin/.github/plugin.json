@@ -1,0 +1,14 @@
+{
+  "name": "craftercms--ai-assistant-plugin",
+  "displayName": "ai-assistant-plugin",
+  "description": "ai-assistant-plugin",
+  "version": "1.0.0",
+  "author": "craftercms",
+  "homepage": "https://github.com/craftercms/ai-assistant-plugin",
+  "skills": [
+    {
+      "name": "crafterq-studio-plugin",
+      "description": ""
+    }
+  ]
+}
