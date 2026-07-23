@@ -1,17 +1,15 @@
 # dotnetpy
 
-> Source: [rkttu/dotnetpy](https://github.com/rkttu/dotnetpy) — distributed by [TomeVault](https://tomevault.io)
-
-Lightweight and AOT-compatible Python Interop Library
+> Source: [rkttu/dotnetpy](https://github.com/rkttu/dotnetpy). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rkttu/dotnetpy](https://github.com/rkttu/dotnetpy).
+Original source: `CLAUDE.md` in [rkttu/dotnetpy](https://github.com/rkttu/dotnetpy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
