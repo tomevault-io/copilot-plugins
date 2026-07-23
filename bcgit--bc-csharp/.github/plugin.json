@@ -1,0 +1,14 @@
+{
+  "name": "bcgit--bc-csharp",
+  "displayName": "bc-csharp",
+  "description": "bc-csharp",
+  "version": "1.0.0",
+  "author": "bcgit",
+  "homepage": "https://github.com/bcgit/bc-csharp",
+  "skills": [
+    {
+      "name": "bc-csharp",
+      "description": ""
+    }
+  ]
+}
