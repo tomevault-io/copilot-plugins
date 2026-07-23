@@ -1,39 +1,107 @@
 ## jsonresume-org
 
-> This repository is a Turborepo-driven Next.js monorepo focused purely on technical excellence—no community morale docs or Code of Conduct. Always build features with performance, maintainability, and developer experience in mind. When adding AI capabilities, standardize on Vercel AI SDK v5 (`ai` + `@ai-sdk/openai`) with streaming responses and tool calling.
+> - **Org/Repo:** `jsonresume/jsonresume.org` — ALWAYS use `owner: "jsonresume"`
 
-# Repository Guidelines
+# Claude Repository Instructions
 
-## Project Philosophy & Scope
+## Project
 
-This repository is a Turborepo-driven Next.js monorepo focused purely on technical excellence—no community morale docs or Code of Conduct. Always build features with performance, maintainability, and developer experience in mind. When adding AI capabilities, standardize on Vercel AI SDK v5 (`ai` + `@ai-sdk/openai`) with streaming responses and tool calling.
+- **Org/Repo:** `jsonresume/jsonresume.org` — ALWAYS use `owner: "jsonresume"`
+- **Stack:** Next.js monorepo (Turborepo + pnpm), Vercel deployment, Supabase DB (`registry`)
+- **AI SDK:** Use Vercel AI SDK (`ai@^6` + `@ai-sdk/openai@^3`), never vendor SDKs directly
+- **Post-consolidation:** This monorepo now absorbs the former standalone repos. The old `resume-schema`, `resume-cli`, `rust-json-resume` repos are **archived** — never link them as live (tracking: #275).
 
-## Structure & Shared Modules
+## Packages (publishable)
 
-Core apps live in `apps/`: the `registry` resume platform and the `homepage2` marketing site. Edge routes reside at `app/api`. Shared UI, linting rules, and utilities come from `packages/` (notably `packages/ui` and the `jsonresume-theme-*` packages). Supabase migrations and config live in `supabase/`, reference docs in `docs/`, helper scripts in `scripts/`, and sample resume data in `resume.yaml`. Keep feature logic, hooks, components, and `*.test.*` files co-located under the relevant app or package.
+- `packages/schema` (`@jsonresume/schema`) — THE JSON Resume spec. Consumed internally via `workspace:*`.
+- `packages/cli` (`resume-cli`) — Node 18+, Ajv (draft-07, `strict:false` + `ajv-formats`) validation.
+- `packages/core-rust` (`json-resume-serde`) — Cargo crate, NOT a pnpm package; excluded from JS tooling.
+- `packages/resume-core` (`@jsonresume/core`) — shared theme components. UI: `packages/ui` (`@repo/ui`).
 
-## Build, Test & Tooling
+## Code Standards
 
-- `pnpm install` — install workspace deps (run from repo root).
-- `pnpm turbo dev` / `pnpm turbo dev --filter=registry` — start all or targeted apps.
-- `pnpm build` — execute all build pipelines before merging.
-- `pnpm lint` and `pnpm format` — enforce shared ESLint + Prettier rules.
-- `pnpm turbo test` or `pnpm --filter registry test -- --run` — run Vitest suites.
-- `pnpm test:e2e` — execute Playwright flows; boot registry locally first.
-- Supabase CLI (`supabase link`, `supabase db push`) manages the `registry` database schema.
+- **Max 200 lines** per production file (tests/config: 500 max)
+- No `console.log` — use Pino structured logger (`LOG_LEVEL` env var)
+- No `any` types. No skipped tests on main branch
+- Run `pnpm build` locally before pushing — catches 90% of deployment issues
+- Never remove features — create issues for human review if something is broken beyond repair
 
-## Coding Style & Architecture
+## Git Workflow
 
-Rely on Prettier (2-space indent, single quotes) and `@repo/eslint-config-custom`—avoid manual formatting tweaks. Prefer TypeScript, exporting shared types and avoiding `any`. Use `PascalCase` components, `useCamelCase` hooks, and `camelCase` utilities. Enforce line limits: ≤200 for production code, ≤500 for tests/stories/config. Apply single-responsibility structure by extracting hooks, utilities, and subcomponents, and ensure themes avoid runtime `fs` usage to remain serverless-compatible.
+- **ALWAYS local git:** `git add → git commit → git push` — NEVER use GitHub API for file changes
+- If push fails: `git pull --rebase origin master` then retry
+- Commit format: `type(scope): description` (feat/fix/refactor/test/docs/chore/perf)
+- Run commands from repo root
 
-## Testing Expectations
+## Architecture Patterns
 
-Colocate deterministic Vitest specs (`*.test.(ts|js)`) with the code they cover, focusing on utilities, parsers, calculations, and API handlers over simple UI. Maintain snapshots intentionally and document any temporary gaps. Use the Playwright MCP server to exercise critical flows (login, resume publishing, exports) across desktop and mobile breakpoints. No coverage targets—test what matters and confirm all suites pass before pushing.
+- **Circular imports:** When file and directory share a name, use explicit path: `'./Component/index.js'`
+- **Logger exports:** Triple export pattern (CommonJS default + ES6 default + named)
+- **Themes:** Must use ES6 imports (no `fs.readFileSync`), must render ALL JSON Resume sections, must load Google Fonts via CDN, must use `@jsonresume/core` components, must use `ServerStyleSheet` for styled-components SSR
+- **Theme registration:** Add to `apps/registry/lib/formatters/template/themeConfig.js`
+- **Theme SSR gotcha:** if a theme 400s with `Cannot read properties of undefined (reading 'withConfig')` under the registry's webpack build (but works in plain Node), its styled-components definitions live in a `.js` module — move them into a `.jsx` file (fixed desert-modern; tokyo-modernist was fixed earlier by inlining styles into Resume.jsx). Verify with a production build, not `next dev`.
+- **Bulk live-testing themes:** run `next start` with `GITHUB_TOKEN=$(gh auth token)` — unauthenticated GitHub lookups rate-limit after ~50 requests and surface as bogus `INVALID_USERNAME` 400s.
+- Search codebase before creating new utils — check `apps/registry/app/utils/`, `apps/registry/lib/`, `packages/`
 
-## Commits & PR Workflow
+## CI/CD
 
-Use Conventional Commits (`type(scope): summary`), as in `fix(navigation): update docs links`. Perform local git commits—never rely on GitHub API file updates. PRs must outline changes, link issues, list executed commands (`pnpm lint`, `pnpm turbo test`, `pnpm build`, `pnpm test:e2e` when relevant), and attach screenshots for UI updates. Keep environment samples (`apps/registry/.env.example`) in sync, ensure CI is green, and request review only after validating builds and tests.
+- **`ci.yml`** runs on `push(master)` + `pull_request` + `merge_group`; fork PRs supported.
+- **Required checks:** `Lint + Typecheck`, `build`, `test` (e2e), `unit-test`, `dev-script`.
+- Unit tests: `pnpm --filter registry test -- --run` (bypass turbo for selective tests)
+- E2E: `pnpm turbo test:e2e` (Playwright) — covers registry + homepage2 + docs
+- turbo.json must have task entries for any `pnpm turbo <task>` command
+- All env vars used must be declared in turbo.json `globalEnv`
+- **LINT GOTCHA:** `eslint-config-next` is PINNED to `^15` in `@repo/eslint-config-custom` via `require.resolve`. v16 ships an ESLint-9 flat-config ARRAY that crashes ESLint 8 with a circular-structure error — and turbo's remote cache can MASK the failure. Never bump it to 16 without migrating to flat config; verify lint changes with `turbo lint --force`.
+
+## Releases (Changesets)
+
+- See `docs/RELEASING.md`. Add a changeset with your PR: `pnpm changeset`.
+- Merge to `master` → workflow opens/updates a **"Version Packages"** PR → merge it → auto-publish to npm.
+- Manual dispatch: `gh workflow run release-packages.yml`. npm maintenance: `gh workflow run npm-maintenance.yml`.
+
+## Security & Deps
+
+- Security patches: `pnpm.overrides` in root `package.json` (~79 entries live there now).
+- Dependabot runs weekly, grouped.
+- `.prettierignore` excludes `packages/cli`, `packages/core-rust`, package READMEs, and generated/CSS files — keep them out of prettier runs.
+
+## Issue & Community Management
+
+- Track all work via GitHub issues. Label: critical/bug/enhancement/refactor/testing
+- `CONTRIBUTING.md`, `docs/RELEASING.md`, and issue forms exist — point contributors there.
+- Schema is now in-repo (`packages/schema`) — handle schema issues HERE, not an external repo.
+- Be skeptical of external user issues — verify before implementing
+- Never deprecate themes/features without maintainer approval
+- **Comments policy:** terse, no emoji; sign agent-authored comments `— AI` on its own line.
+- Discord webhook: only post when explicitly asked
+
+## Schema Gotcha
+
+- `schema.json` has `additionalProperties: true` — unknown fields are VALID. Invalid-case test fixtures must use **type violations**, not unknown keys.
+
+## Key Paths
+
+- Theme screenshots: `apps/homepage2/public/img/themes/`
+- Screenshot generator: `apps/registry/scripts/generate-theme-screenshots-auto.js`
+- Retry utility: `apps/registry/lib/retry.js`
+- Theme ideas: `packages/themes/ideas.md`
+- Theme dev guide: `docs/AGENT_THEME_DEVELOPMENT.md`
+
+## Theme Development Workflow
+
+1. Start dev server: `cd apps/registry && pnpm dev`
+2. Build complete theme with all sections
+3. Screenshot with Playwright, review, iterate until polished
+4. Test at `http://localhost:3000/thomasdavis?theme={slug}`
+5. Each theme MUST have a visually distinct layout from existing themes
+
+## Principles
+
+- Bias toward action. Ship incrementally. User experience first.
+- Prioritize bugs/features over maintenance/refactoring
+- Never over-engineer. Minimum complexity for current task.
+- Update this file with important learnings for future sessions.
 
 ---
 > Source: [jsonresume/jsonresume.org](https://github.com/jsonresume/jsonresume.org) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
