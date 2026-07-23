@@ -1,0 +1,14 @@
+{
+  "name": "nebulastream--nautilus",
+  "displayName": "nautilus",
+  "description": "nautilus",
+  "version": "1.0.0",
+  "author": "nebulastream",
+  "homepage": "https://github.com/nebulastream/nautilus",
+  "skills": [
+    {
+      "name": "nautilus",
+      "description": ""
+    }
+  ]
+}
