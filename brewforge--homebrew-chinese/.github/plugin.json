@@ -1,0 +1,14 @@
+{
+  "name": "brewforge--homebrew-chinese",
+  "displayName": "homebrew-chinese",
+  "description": "homebrew-chinese",
+  "version": "1.0.0",
+  "author": "Brewforge",
+  "homepage": "https://github.com/Brewforge/homebrew-chinese",
+  "skills": [
+    {
+      "name": "homebrew-chinese",
+      "description": ""
+    }
+  ]
+}
