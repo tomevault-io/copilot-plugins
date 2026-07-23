@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--geoip2-php",
+  "displayName": "GeoIP2-php",
+  "description": "GeoIP2-php",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/GeoIP2-php",
+  "skills": []
+}
