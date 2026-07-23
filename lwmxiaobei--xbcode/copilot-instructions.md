@@ -1,14 +1,14 @@
 ## xbcode
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-A TypeScript CLI agent (similar to Codex) built with OpenAI SDK + Ink (React for CLI). It implements an agent loop with tool use, streaming output, and a terminal UI.
+A TypeScript CLI agent (similar to Claude Code) built with OpenAI SDK + Ink (React for CLI). It implements an agent loop with tool use, streaming output, and a terminal UI.
 
 ## Commands
 
@@ -52,4 +52,4 @@ Configure in `.env` at project root:
 
 ---
 > Source: [lwmxiaobei/xbcode](https://github.com/lwmxiaobei/xbcode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
