@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [evilmartians/lefthook](https://github.com/evilmartians/lefthook).
+Original source: `CLAUDE.md` in [evilmartians/lefthook](https://github.com/evilmartians/lefthook).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [evilmartians/lefthook](https://github.com/evilmartians/lefthook) — a repo with 8537+ stars on GitHub.
+From [evilmartians/lefthook](https://github.com/evilmartians/lefthook) — a repo with 8545+ stars on GitHub.
 
 ---
 
