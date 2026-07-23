@@ -1,0 +1,9 @@
+{
+  "name": "rsscloud--rsscloud-server",
+  "displayName": "rsscloud-server",
+  "description": "rsscloud-server",
+  "version": "1.0.0",
+  "author": "rsscloud",
+  "homepage": "https://github.com/rsscloud/rsscloud-server",
+  "skills": []
+}
