@@ -1,0 +1,18 @@
+{
+  "name": "filamentphp--demo",
+  "displayName": "demo",
+  "description": "demo",
+  "version": "1.0.0",
+  "author": "filamentphp",
+  "homepage": "https://github.com/filamentphp/demo",
+  "skills": [
+    {
+      "name": "demo",
+      "description": ""
+    },
+    {
+      "name": "demo",
+      "description": ""
+    }
+  ]
+}
