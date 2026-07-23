@@ -1,0 +1,57 @@
+{
+  "name": "vanityssh-go",
+  "owner": "danielewood",
+  "repo": "vanityssh-go",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ralph",
+      "path": ".claude/skills/ralph",
+      "github_url": "https://github.com/danielewood/vanityssh-go/tree/main/.claude/skills/ralph",
+      "description": ""
+    },
+    {
+      "name": "vanityssh-go",
+      "path": ".claude/skills/ralph/SKILL.md",
+      "github_url": "https://github.com/danielewood/vanityssh-go/tree/main/.claude/skills/ralph/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/danielewood/vanityssh-go",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T06:21:16Z"
+}
