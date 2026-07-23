@@ -4,7 +4,7 @@
   "repo": "ui-kit",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -107,5 +107,5 @@
   ],
   "source_url": "https://github.com/commercetools/ui-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T19:46:16Z"
+  "distributed_at": "2026-07-23T09:07:39Z"
 }
