@@ -1,0 +1,9 @@
+{
+  "name": "dynatrace--dynatrace-configuration-as-code-samples",
+  "displayName": "dynatrace-configuration-as-code-samples",
+  "description": "dynatrace-configuration-as-code-samples",
+  "version": "1.0.0",
+  "author": "Dynatrace",
+  "homepage": "https://github.com/Dynatrace/dynatrace-configuration-as-code-samples",
+  "skills": []
+}
