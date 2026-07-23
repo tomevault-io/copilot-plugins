@@ -1,0 +1,22 @@
+{
+  "name": "jamiebrynes7--obsidian-todoist-plugin",
+  "displayName": "obsidian-todoist-plugin",
+  "description": "obsidian-todoist-plugin",
+  "version": "1.0.0",
+  "author": "jamiebrynes7",
+  "homepage": "https://github.com/jamiebrynes7/obsidian-todoist-plugin",
+  "skills": [
+    {
+      "name": "write-git-commit",
+      "description": ""
+    },
+    {
+      "name": "obsidian-todoist-plugin",
+      "description": ""
+    },
+    {
+      "name": "obsidian-todoist-plugin",
+      "description": ""
+    }
+  ]
+}
