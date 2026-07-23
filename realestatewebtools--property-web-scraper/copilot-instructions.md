@@ -1,0 +1,164 @@
+## property-web-scraper
+
+> Project context for Claude Code sessions.
+
+# CLAUDE.md
+
+Project context for Claude Code sessions.
+
+## What this project is
+
+PropertyWebScraper is a real estate listing extraction engine. Given a property
+listing URL (or pre-rendered HTML), it returns structured data: title, price,
+coordinates, images, and 70+ fields. It has two implementations:
+
+- **Rails engine** (`app/`, `lib/`) — the original Ruby gem, uses Nokogiri
+- **Astro app** (`astro-app/`) — a TypeScript SSR rewrite, uses Cheerio
+
+Both share the same scraper mapping JSON files in `config/scraper_mappings/`.
+
+## Project layout
+
+```
+property_web_scraper/
+├── app/                    # Rails engine (legacy, not actively developed)
+├── astro-app/              # Astro 5 SSR rewrite (active development)
+│   ├── src/lib/extractor/  # Core extraction pipeline
+│   ├── src/lib/services/   # URL validation, auth, rate limiting, haul store
+│   ├── src/pages/          # Astro pages and API endpoints
+│   ├── test/fixtures/      # HTML fixtures + manifest.ts
+│   ├── test/lib/           # Vitest unit tests
+│   ├── scripts/            # CLI utilities (see docs/operations/scripts.md)
+│   └── docs/               # Maintenance guides
+├── chrome-extensions/       # Chrome extensions
+│   ├── property-scraper/   # Public extension (haul-based extraction)
+│   └── mcp-bridge/         # Dev extension (WebSocket bridge to MCP server)
+├── config/scraper_mappings/ # JSON mapping files (shared by both)
+├── .claude/skills/         # Claude Code skills (add-scraper, fix-scraper, etc.)
+├── spec-archive/           # Archived Rails RSpec tests (not run in CI)
+├── DESIGN.md               # Architecture and API reference
+└── CHANGELOG.md            # Version history
+```
+
+## Key concepts
+
+### Extraction pipeline (astro-app)
+
+The extraction engine in `astro-app/src/lib/extractor/html-extractor.ts` processes
+fields in a strict order. Each section overwrites prior values for the same key:
+
+1. `defaultValues` — static strings
+2. `images` — image URL arrays
+3. `features` — feature string arrays
+4. `intFields` — `parseInt(text, 10) || 0`
+5. `floatFields` — `parseFloat(text) || 0`
+6. `textFields` — `text.trim()`
+7. `booleanFields` — evaluator function (true/false)
+
+### Scraper mappings
+
+JSON files in `config/scraper_mappings/<name>.json` define CSS selectors, regex
+patterns, and post-processing rules for each website. These are parsed with JSON5
+(comments allowed).
+
+### Test fixtures
+
+HTML fixtures in `astro-app/test/fixtures/` with expected values in `manifest.ts`.
+The `scraper-validation.test.ts` runs each fixture through the pipeline and
+checks output against the manifest.
+
+## Common tasks
+
+### Run tests (astro-app)
+
+```bash
+cd astro-app && npx vitest run
+```
+
+### Add a new scraper
+
+Use the `/add-scraper` skill or follow the manual workflow:
+
+1. Capture HTML fixture: `cd astro-app && npm run capture-fixture -- <url>`
+2. Create mapping: `config/scraper_mappings/<name>.json`
+3. Add hostname to `url-validator.ts` (LOCAL_HOST_MAP) and `capture-fixture.ts` (HOSTNAME_MAP)
+4. Add manifest entry: `astro-app/test/fixtures/manifest.ts`
+5. Run tests: `cd astro-app && npx vitest run`
+
+### Test haul endpoints
+
+> **Warning:** The local dev server writes to the real Firebase project. Use local dev
+> only with `FIRESTORE_COLLECTION_PREFIX=pws_localdev_` (the default in `.env`) so
+> your test data goes to separate Firestore collections from production (`pws_demo_`).
+> Never change the local prefix to match production.
+
+```bash
+# Create a haul
+curl -X POST http://localhost:4321/ext/v1/hauls
+
+# Add a scrape to a haul (use a real listing URL — it writes to pws_localdev_ collections)
+curl -X POST http://localhost:4321/ext/v1/hauls/<id>/scrapes \
+  -H 'Content-Type: application/json' \
+  -d '{"url":"https://www.rightmove.co.uk/properties/168908774","html":"<html>...</html>"}'
+
+# Get haul summary
+curl http://localhost:4321/ext/v1/hauls/<id>
+```
+
+### Fix a broken scraper
+
+See `docs/scrapers/scraper-maintenance-guide.md` for the full diagnosis workflow.
+
+### Capture a fixture via MCP bridge
+
+With the **mcp-bridge** extension (`chrome-extensions/mcp-bridge/`) loaded and
+the MCP server running (`npx tsx astro-app/mcp-server.ts`), use the
+`capture_page` MCP tool to grab rendered HTML from the browser's active tab.
+Call `extension_status` first to confirm the extension is connected.
+
+### Capture a test fixture
+
+```bash
+cd astro-app
+npm run capture-fixture -- <url>                              # fetch from URL
+npm run capture-fixture -- --file page.html --url <url>       # from local file
+npm run capture-fixture -- --help                             # all options
+```
+
+### Clean up test / junk data
+
+```bash
+cd astro-app
+node scripts/cleanup-test-data.mjs           # preview test listings/hauls
+node scripts/cleanup-test-data.mjs --confirm # delete them
+node scripts/cleanup-empty-hauls.mjs         # preview hauls with 0 listings
+node scripts/cleanup-empty-hauls.mjs --confirm
+node scripts/cleanup-low-quality-listings.mjs            # preview grade F listings
+node scripts/cleanup-low-quality-listings.mjs --grade F,C --confirm  # delete them
+node scripts/cleanup-env-data.mjs            # preview dev/test-tagged docs
+npx tsx scripts/deduplicate-listings.ts      # preview duplicate listings
+```
+
+See `docs/operations/scripts.md` for all scripts with full usage details.
+
+### Quality checks
+
+```bash
+cd astro-app
+bash scripts/smoke-test.sh                   # verify server is up
+npx tsx scripts/contract-test.ts             # live extraction against real sites
+npx tsx scripts/stale-check.ts --save        # save quality baseline
+npx tsx scripts/stale-check.ts               # check for regressions
+```
+
+## Code style and conventions
+
+- Astro app uses TypeScript with ES modules (`"type": "module"`)
+- Imports use `.js` extensions (TypeScript with ESM)
+- Tests use Vitest
+- Mapping files are JSON (parsed with JSON5)
+- Commit messages: imperative mood, concise first line
+
+---
+> Source: [RealEstateWebTools/property_web_scraper](https://github.com/RealEstateWebTools/property_web_scraper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
