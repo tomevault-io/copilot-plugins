@@ -1,42 +1,43 @@
 ## merchant-center-application-kit
 
-> See root `AGENTS.md` for monorepo-wide context.
+> Read `AGENTS.md` for full project context — it is the primary reference for this
 
-# Custom View Template Starter (TypeScript)
+# Claude Code Configuration
 
-See root `AGENTS.md` for monorepo-wide context.
+Read `AGENTS.md` for full project context — it is the primary reference for this
+repository's architecture, commands, constraints, and conventions.
 
-## Purpose
+## MCP Servers
 
-TypeScript starter template for Merchant Center Custom Views, used both as living documentation and as the source directory that `create-mc-app` copies to scaffold new projects.
+See `.mcp.json` for configured servers:
 
-## Key Context
+- **commercetools-developer** — commercetools API docs, GraphQL schemas, OpenAPI
+  specs
+- **context7** — third-party library documentation
+- **playwright** — visual UI verification
+- **sequential-thinking** — structured multi-step reasoning
 
-- This is a fully functional Custom View -- it includes routes, components, hooks, i18n, type definitions, and config files.
-- `create-mc-app --application-type custom-view` clones this directory verbatim (minus `CHANGELOG.md`) into the user's new project. Every file, config, and directory name matters.
-- Dependencies use `workspace:*` protocol in the monorepo, which pnpm's publish pipeline replaces with pinned versions in the published tarball.
-- Has additional directories not in the JS starter: `@types/`, `@types-extensions/`, `schemas/`, and a `tsconfig.json`.
-- Typechecked from the monorepo root via `pnpm typecheck:starter:custom-views`.
+## Hooks
 
-## How To Work Here
+See `.claude/settings.json` for configured hooks:
 
-This template has its own scripts that mirror a standalone app:
+- Post-write: auto-format with Prettier
 
-```sh
-pnpm --filter @commercetools-applications/merchant-center-custom-view-template-starter-typescript run start
-pnpm --filter @commercetools-applications/merchant-center-custom-view-template-starter-typescript run test
-pnpm --filter @commercetools-applications/merchant-center-custom-view-template-starter-typescript run build
-pnpm --filter @commercetools-applications/merchant-center-custom-view-template-starter-typescript run typecheck
-```
+## Skills
 
-The monorepo root also exposes convenience scripts: `pnpm template-custom-view-starter-typescript:start`, `pnpm template-custom-view-starter-typescript:build`.
+Skills live in `.agents/skills/` and are symlinked into `.claude/skills/`.
+Update with `npx skills update` — check `git diff` afterward for lost repo-specific content.
 
-## Gotchas
+Shared skills installed via `skills add commercetools/agent-skills/skills/<name>`:
 
-- Every file in this directory becomes part of the scaffolded output. Adding internal-only files (e.g. workspace tooling config, monorepo-specific scripts) will leak into end-user projects.
-- The TypeScript starter must stay in sync with `starter` (JS) -- feature changes should be mirrored in both Custom View templates.
-- This package is `private: true` and not published to npm directly. It is distributed via `create-mc-app`'s git-clone mechanism.
+- `/repo-healthcheck-node` — verify repo setup
+- `/remember` — persistent memory across sessions
+- `/repo-maintenance-node` — formatting, dead code, dependency validation
+- `/renovate-review` — review Renovate dependency PRs
+- `/renovate-migrate` — migrate code for Renovate breaking changes
+- `/pr-review-navigator` — PR file dependency diagrams and review order
+- `/security-auditor` — security audit with OWASP mapping
 
 ---
 > Source: [commercetools/merchant-center-application-kit](https://github.com/commercetools/merchant-center-application-kit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
