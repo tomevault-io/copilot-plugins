@@ -1,57 +1,87 @@
 ## realsenseid
 
-> Android sample app (Java, **not** Kotlin) demonstrating RealSenseID face authentication hardware (F45x/F50x devices). Communicates with the device over USB CDC using a pre-built native SDK shipped as `app/libs/RealSenseID_release.aar`. The AAR exposes JNI bindings (`RealSenseIDSwigJNI`) — source is not in this repo.
+> A bug in this code can brick production devices. Extra caution required.
 
-# AGENTS.md — RealSenseID Android Sample App
+# Components/RealSenseID/Host/src/FwUpdate/ — bricking risk
 
-## Project Overview
+A bug in this code can brick production devices. Extra caution required.
 
-Android sample app (Java, **not** Kotlin) demonstrating RealSenseID face authentication hardware (F45x/F50x devices). Communicates with the device over USB CDC using a pre-built native SDK shipped as `app/libs/RealSenseID_release.aar`. The AAR exposes JNI bindings (`RealSenseIDSwigJNI`) — source is not in this repo.
+## File map
 
-## Architecture
+| File | Role |
+|------|------|
+| `FwUpdaterApi.cc` | Entry point; dispatches to F45x or F50x impl via `FwUpdater(DeviceType)` |
+| `F45x/FwUpdaterF45x.cc` | `UpdateModules`, `ExtractFwInformation`, `IsSkuCompatible` for F450 |
+| `F45x/FwUpdateEngineF45x.cc` | Partition burn logic: `BurnModules` → `BurnModule` (SCRAP/OPDW swap) |
+| `F45x/FwUpdaterCommF45x.cc` | Raw serial I/O; `WriteCmd`, `WriteBinary`, `WaitForStr` |
+| `F45x/Utilities.cc` | UFIF parsing: `ParseUfifToModules`, `ParseUfifToOtpEncryption` |
+| `F45x/Cmds.cc` | Serial command strings: `dlinit`, `dl`, `dlact`, `dlinfo`, `dlspd`, etc. |
+| `F50x/FwUpdaterF50x.cc` | Same API surface for F460/F500 |
+| `F50x/FwUpdateEngineF50x.cc` | File-based burn logic; enforces BOOT module must be last |
+| `F50x/FwUpdaterCommF50x.cc` | Raw serial I/O (identical structure to F45x comm) |
+| `F50x/Utilities.cc` | UFIF parsing for F50x; stricter size bounds and entry count checks |
+| `Common/Common.cc` | `CalculateCRC` (CRC-32 table), `LoadFileToBuffer` |
 
-- **Single-Activity** (`MainActivity`) with **Jetpack Navigation** (4 fragments: Preview, Users, Firmware, Settings) defined in `res/navigation/mobile_navigation.xml`.
-- **`SDKWrapper`** (singleton enum at `util/SDKWrapper.java`) is the central USB/device bridge. All device communication flows through it: `getSerialConfig()` → `getAuthenticator()` / `getDeviceController()`. It manages USB CDC connections with retry logic, permission handling, and connection listeners.
-- **`RealSenseIdSharedViewModel`** (`ui/shared/`) is the activity-scoped ViewModel sharing device state (type, USB connection, settings like security level, dump mode, algo flow) across all fragments.
-- **Host vs Device mode**: Enrollment and authentication have parallel implementations — `HostEnrollmentHelper` / `DeviceEnrollmentHelper` and `HostAuthenticationHelper` / `DeviceAuthenticationHelper` in `util/enroll/` and `util/auth/`. Host mode stores faceprints in a local **Room** database (`db/AppDatabase.java`, entity `User`). Device mode delegates storage to the hardware.
-- **Callback interfaces** in `callbacks/` (`AuthenticationCallback`, `EnrollmentCallback`, `RealSenseIdPreviewCallback`) decouple UI from SDK operations.
-- **Preview pipeline**: `BaseRealSenseIdPreviewFragment` manages the native `Preview` object lifecycle via `PreviewHelper` (UVC stream from device). `PreviewFragment` extends it with enroll/auth UI.
+## F450 vs F460/F500 update paths
 
-## Build & Dependencies
+**F450 (`FwUpdateEngineF45x`)** — partition-based (SCRAP/OPDW swap):
+1. `BurnModules`: sends `dlspd` to negotiate baud rate, calls `ModulesFromDevice` (`dlver`), `CleanObsoleteModules` (`dlsize sz=0`), `InitNewModules` (`dlnew`), then `BurnSelectModules`.
+2. `BurnModule`: sends `dlinit` with session flag on first module; after each module (non-last) sends `dlact` and waits for `"validation ok"`; final module's `dlact session reboot` triggers reboot.
+3. Partial-update logic: skips blocks whose CRC already matches device (`GetBlockUpdateList` reads `dlinfo` response); resumes partial updates only when module state is `active-updating`. Any other state forces all blocks.
+4. Post-burn CRC re-check via a second `dlinfo`; throws `std::runtime_error("Update failed")` on any mismatch.
+5. On error: dumps session to `fw-update.log`, resets `_comm`, rethrows — no automatic rollback.
 
-- **Gradle Kotlin DSL** with version catalog at `gradle/libs.versions.toml`. AGP 9.1.0, Java 17, minSdk 26, targetSdk 29, compileSdk 36.
-- **Firmware download**: `app/build.gradle.kts` contains a `downloadFirmwareFiles` task that pulls firmware binaries from GitHub Releases into `app/src/main/res/raw/`. Requires `GITHUB_TOKEN` in environment or `local.properties`. Firmware URLs/SHA-256 are declared in `firmware.properties` at project root.
-- **Key libraries**: OpenCV (`org.opencv:opencv`), Google ML Kit Face Detection, Room, OkHttp, Timber (logging), PermissionX, Gson.
-- **AAR dependency**: `implementation(fileTree("libs", include: ["*.aar"]))` — the SDK AAR must be placed in `app/libs/`.
-- Build command: `./gradlew assembleDebug` (firmware files auto-download during preBuild).
+**F460/F500 (`FwUpdateEngineF50x`)** — file-based:
+1. `BurnModules`: sends `dlclean` before burn to reclaim space; no `CleanObsoleteModules`/`InitNewModules` step.
+2. `BurnModule`: no session concept; each module uses `dlinit <filename> sz=<size>` (filename includes version, e.g. `SBC.7.1.2.0.SBIN`).
+3. `dl` command includes the filename: `dl <filename> <blockNo>` (F45x sends only block number).
+4. BOOT module must be last — `BurnModules` throws if it isn't. BOOT module contains `BOOT.INI` config, not firmware binary.
+5. After all modules, sends `PacketManager::Commands::reset` to reboot.
+6. Same post-burn CRC re-check; same `fw-update.log` dump on failure.
 
-## Conventions & Patterns
+## UISP_PACK_VER / UFIF header checks
 
-- **All source is Java** — do not introduce Kotlin source files.
-- **Timber for logging** — never use `Log.d/e/i`; always `Timber.d/e/i`. Debug tree planted in `MainApplication`.
-- **Threading**: SDK operations run on background `ExecutorService` threads. UI updates posted via `Handler(Looper.getMainLooper())` or `LiveData.postValue()`. The `SDKWrapper.Lock` object guards connection state.
-- **Copyright header**: Every source file starts with `// Copyright (C) 2018-2025 RealSense, Inc.` + `// SPDX-License-Identifier: Apache-2.0`.
-- **View Binding** is used (not Data Binding or synthetics). Access views via `binding.fieldName`.
+`ParseUfifToModules` (both F45x and F50x) throws `std::runtime_error` immediately in these cases:
+- UFIF magic sig `!= 0x46484655` or major version byte mismatch
+- F50x only: `entryN` outside `[1, 32]`; module size outside `[1024, 32MB]` (BOOT: `[8, 2048]`)
+- Digest header major version mismatch (`hdr.ver >> 16 != DIGEST_HEADER_VERSION >> 16`, where `DIGEST_HEADER_VERSION = 0x00000004`)
+- F45x: `hdr.id` not null-terminated within 7 bytes
+- CRC32 of module data doesn't match `entry.crc32`
+- Module name not in the `AllowedModules` set
 
-## Key Files
+None of these are soft failures — all propagate as `std::runtime_error` caught in `UpdateModules`, which returns `Status::Error`. There is no separate UISP_PACK_VER field checked at runtime on the host side; the version lives in `UfifFile.ver` and only its major byte is compared.
 
-| Path                                                              | Purpose                                                               |
-| ----------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `app/build.gradle.kts`                                            | Build config, firmware download logic, dependency declarations        |
-| `firmware.properties`                                             | Firmware binary URLs, filenames, and SHA-256 checksums                |
-| `app/libs/RealSenseID_release.aar`                                | Pre-built native SDK (JNI) — treat as opaque binary                   |
-| `app/src/main/java/.../util/SDKWrapper.java`                      | Central device connection manager (singleton enum)                    |
-| `app/src/main/java/.../ui/shared/RealSenseIdSharedViewModel.java` | Shared state across fragments                                         |
-| `app/src/main/java/.../ui/preview/PreviewFragment.java`           | Main face auth/enroll UI (~1000 lines)                                |
-| `app/src/main/java/.../db/AppDatabase.java`                       | Room database for host-mode faceprint storage                         |
-| `app/src/main/java/.../util/UsbDevicesReceiver.java`              | USB attach/detach broadcast receiver, device type detection (VID/PID) |
+## SKU / locked-unit handling
 
-## Common Tasks
+`IsSkuCompatible` must be called by the caller before `UpdateModules` — `UpdateModules` does not call it internally.
 
-- **Add a new device config setting**: Add `MutableLiveData` field to `RealSenseIdSharedViewModel`, wire it in `SettingsFragment`/`SettingsViewModel`, read it in `PreviewFragment`.
-- **Update firmware version**: Edit `firmware.properties` with new URL, raw_name, and SHA-256.
-- **Modify enrollment/auth flow**: Check whether change applies to Host mode, Device mode, or both — they are separate helper classes under `util/enroll/` and `util/auth/`.
+- **F450**: reads `UfifFile.otpEncryptVersion` from the .bin file (via `ParseUfifToOtpEncryption`). Queries the device via `QueryOtpVersion`; falls back to serial-number regex if the device FW is too old to support that command. Mismatch returns `false` (no exception). If SN query also fails, returns `true` (assumes compatible).
+- **F460/F500**: same field in the UFIF header. Device SKU determined by querying `bspver` and checking for the string `"(secure)"` between the two delimiter lines. Mismatch returns `false`.
+
+The UFIF `otpEncryptVersion` field is the sole host-side indicator of locked vs unlocked. Dummy signatures in `icatch/tools/` are for unlocked units — these pass the same code path.
+
+## Signature validation
+
+There is no cryptographic signature verification in this host-side code. The `DigestHeader` struct (F45x `Utilities.cc`) contains ECDSA fields (`Qx`, `Qy`, `signature[64]`), but they are read only to extract `hdr.id` (module name) and `hdr.binVer` (version string). Actual signature verification happens on the device after each block is received — the device reports `dl ret=<N>` where `N != 0` signals rejection. `ParseDlBlockResult` treats non-zero return as failure and throws.
+
+## Failure modes and edge cases
+
+- **128 KB read buffer overflow**: `FwUpdaterCommF45x`/`FwUpdaterCommF50x` both use a fixed 128 KB ring buffer. If the device sends more than 128 KB during a session, `_read_index` wraps (with an `assert(false)`) — this will corrupt the session silently in release builds.
+- **F50x `WaitForStr` skips first character**: matches `&wait_str[1]` (ignoring the leading `\n` in command strings). F45x does not do this. Do not copy F50x `WaitForStr` logic to F45x without understanding this.
+- **Interrupted update resume**: F45x resumes per-block only when the module state is `active-updating`. F50x has no resume — always re-burns the full module if any block is dirty.
+- **`dlinit` error window**: after sending `dlinit`, the code sleeps 50 ms then checks for `"err "` in the buffer. If the device responds slowly, the check passes and the burn begins on a bad state.
+- **No rollback on partial burn**: if the process dies mid-update (host crash, USB disconnect), the device is left in `active-updating` state. On next run, F45x will resume; F50x will re-burn from scratch after `dlclean`.
+
+## Rules
+
+- Never call `UpdateModules` without first calling `IsSkuCompatible` and checking its result.
+- Never skip or weaken signature validation steps (validation is device-side; a `dl ret != 0` must propagate as an error).
+- Test with both locked and unlocked units. Locked = CSS-signed FW required; unlocked = dummy signatures from `icatch/tools/`.
+- F450 and F460/F500 paths diverge in command protocol, module naming, session model, and BOOT handling — a fix for one does not automatically apply to the other.
+- When changing `UISP_PACK_VER`, update all three locations: `F450.def.tmpl`, `icatch/CMakeLists.txt`, and this host code (UFIF header parsing in `Utilities.cc`).
+- A device paired with a secure host must be explicitly unpaired before reverting to unsecure mode.
+- Describe the test matrix in your PR: which device variants were tested, locked vs unlocked, and what failure/recovery scenarios were exercised.
 
 ---
 > Source: [realsenseai/RealSenseID](https://github.com/realsenseai/RealSenseID) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
