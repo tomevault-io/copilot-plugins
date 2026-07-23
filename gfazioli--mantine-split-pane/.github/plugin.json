@@ -1,0 +1,14 @@
+{
+  "name": "gfazioli--mantine-split-pane",
+  "displayName": "mantine-split-pane",
+  "description": "mantine-split-pane",
+  "version": "1.0.0",
+  "author": "gfazioli",
+  "homepage": "https://github.com/gfazioli/mantine-split-pane",
+  "skills": [
+    {
+      "name": "mantine-split-pane",
+      "description": ""
+    }
+  ]
+}
