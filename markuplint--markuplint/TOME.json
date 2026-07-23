@@ -1,0 +1,183 @@
+{
+  "name": "markuplint",
+  "owner": "markuplint",
+  "repo": "markuplint",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "product-manager",
+      "path": ".claude/skills/product-manager",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/product-manager",
+      "description": ""
+    },
+    {
+      "name": "qa-engineer",
+      "path": ".claude/skills/qa-engineer",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/qa-engineer",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "skills/migrate4-5/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/skills/migrate4-5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "skills/markuplint/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/skills/markuplint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "skills/markuplint-setup/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/skills/markuplint-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/sponsors/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/sponsors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/worktree/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/bench-xref/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/bench-xref/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "packages/@markuplint/i18n/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/packages/@markuplint/i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/qa-engineer/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/qa-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/bench-setup/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/bench-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "packages/@markuplint/types/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/packages/@markuplint/types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "skills/markuplint-configure/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/skills/markuplint-configure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/bench-triage/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/bench-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "packages/@markuplint/ml-spec/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/packages/@markuplint/ml-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "packages/@markuplint/html-spec/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/packages/@markuplint/html-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/product-manager/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/product-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "packages/@markuplint/vue-parser/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/packages/@markuplint/vue-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/bench-rule-enable/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/bench-rule-enable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/framework-parsers/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/framework-parsers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": ".claude/skills/bench-virtual-rule/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/.claude/skills/bench-virtual-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "packages/@markuplint/astro-parser/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/packages/@markuplint/astro-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markuplint",
+      "path": "packages/@markuplint/svelte-parser/SKILL.md",
+      "github_url": "https://github.com/markuplint/markuplint/tree/main/packages/@markuplint/svelte-parser/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/markuplint/markuplint",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:44:10Z"
+}
