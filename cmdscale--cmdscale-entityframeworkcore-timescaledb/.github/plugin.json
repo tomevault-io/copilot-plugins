@@ -1,0 +1,22 @@
+{
+  "name": "cmdscale--cmdscale-entityframeworkcore-timescaledb",
+  "displayName": "CmdScale.EntityFrameworkCore.TimescaleDB",
+  "description": "CmdScale.EntityFrameworkCore.TimescaleDB",
+  "version": "1.0.0",
+  "author": "cmdscale",
+  "homepage": "https://github.com/cmdscale/CmdScale.EntityFrameworkCore.TimescaleDB",
+  "skills": [
+    {
+      "name": "CmdScale.EntityFrameworkCore.TimescaleDB",
+      "description": ""
+    },
+    {
+      "name": "CmdScale.EntityFrameworkCore.TimescaleDB",
+      "description": ""
+    },
+    {
+      "name": "CmdScale.EntityFrameworkCore.TimescaleDB",
+      "description": ""
+    }
+  ]
+}
