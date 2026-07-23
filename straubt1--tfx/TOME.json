@@ -1,0 +1,63 @@
+{
+  "name": "tfx",
+  "owner": "straubt1",
+  "repo": "tfx",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tfx",
+      "path": ".claude/skills/vhs-tape/SKILL.md",
+      "github_url": "https://github.com/straubt1/tfx/tree/main/.claude/skills/vhs-tape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tfx",
+      "path": ".claude/skills/reflection/SKILL.md",
+      "github_url": "https://github.com/straubt1/tfx/tree/main/.claude/skills/reflection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tfx",
+      "path": ".claude/skills/new-data-function/SKILL.md",
+      "github_url": "https://github.com/straubt1/tfx/tree/main/.claude/skills/new-data-function/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/straubt1/tfx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:40:13Z"
+}
