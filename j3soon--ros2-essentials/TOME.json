@@ -4,7 +4,7 @@
   "repo": "ros2-essentials",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/j3soon/ros2-essentials",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T04:04:55Z"
+  "distributed_at": "2026-07-23T03:03:03Z"
 }
