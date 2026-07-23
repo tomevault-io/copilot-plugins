@@ -4,7 +4,7 @@
   "repo": "hermes-vault",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/asimons81/hermes-vault",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T22:45:05Z"
+  "distributed_at": "2026-07-23T21:44:28Z"
 }
