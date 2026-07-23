@@ -1,0 +1,14 @@
+{
+  "name": "tsiemens--acb",
+  "displayName": "acb",
+  "description": "acb",
+  "version": "1.0.0",
+  "author": "tsiemens",
+  "homepage": "https://github.com/tsiemens/acb",
+  "skills": [
+    {
+      "name": "acb",
+      "description": ""
+    }
+  ]
+}
