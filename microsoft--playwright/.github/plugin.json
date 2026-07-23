@@ -1,0 +1,30 @@
+{
+  "name": "microsoft--playwright",
+  "displayName": "playwright",
+  "description": "playwright",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/playwright",
+  "skills": [
+    {
+      "name": "playwright-dev",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    }
+  ]
+}
