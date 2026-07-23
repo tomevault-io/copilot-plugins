@@ -1,0 +1,14 @@
+{
+  "name": "trustwallet--wallet-core",
+  "displayName": "wallet-core",
+  "description": "wallet-core",
+  "version": "1.0.0",
+  "author": "trustwallet",
+  "homepage": "https://github.com/trustwallet/wallet-core",
+  "skills": [
+    {
+      "name": "wallet-core",
+      "description": ""
+    }
+  ]
+}
