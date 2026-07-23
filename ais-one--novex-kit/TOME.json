@@ -1,0 +1,51 @@
+{
+  "name": "novex-kit",
+  "owner": "ais-one",
+  "repo": "novex-kit",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "novex-kit",
+      "path": ".github/skills/api-docs-generator/SKILL.md",
+      "github_url": "https://github.com/ais-one/novex-kit/tree/main/.github/skills/api-docs-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ais-one/novex-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T03:37:02Z"
+}
