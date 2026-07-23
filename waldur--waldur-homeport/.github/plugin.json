@@ -1,0 +1,18 @@
+{
+  "name": "waldur--waldur-homeport",
+  "displayName": "waldur-homeport",
+  "description": "waldur-homeport",
+  "version": "1.0.0",
+  "author": "waldur",
+  "homepage": "https://github.com/waldur/waldur-homeport",
+  "skills": [
+    {
+      "name": "ui-consistency",
+      "description": ""
+    },
+    {
+      "name": "waldur-homeport",
+      "description": ""
+    }
+  ]
+}
