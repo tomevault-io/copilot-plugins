@@ -4,7 +4,7 @@
   "repo": "agentic-stack",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -101,5 +101,5 @@
   ],
   "source_url": "https://github.com/codejunkie99/agentic-stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:44:09Z"
+  "distributed_at": "2026-07-23T13:43:22Z"
 }
