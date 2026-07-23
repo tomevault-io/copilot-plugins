@@ -1,0 +1,9 @@
+{
+  "name": "zscaler--terraform-provider-zia",
+  "displayName": "terraform-provider-zia",
+  "description": "terraform-provider-zia",
+  "version": "1.0.0",
+  "author": "zscaler",
+  "homepage": "https://github.com/zscaler/terraform-provider-zia",
+  "skills": []
+}
