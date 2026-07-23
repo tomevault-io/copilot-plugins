@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [songzhuozhu/obsidian-llm-wiki](https://github.com/songzhuozhu/obsidian-llm-wiki).
+Original source: `CLAUDE.md` in [songzhuozhu/obsidian-llm-wiki](https://github.com/songzhuozhu/obsidian-llm-wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -48,7 +48,7 @@ Original source: `AGENTS.md` in [songzhuozhu/obsidian-llm-wiki](https://github.c
 - [obsidian-llm-wiki](https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.codex-en/skills/obsidian-markdown/SKILL.md)
 - [obsidian-llm-wiki](https://github.com/songzhuozhu/obsidian-llm-wiki/tree/main/.claude-en/skills/obsidian-markdown/SKILL.md)
 
-From [songzhuozhu/obsidian-llm-wiki](https://github.com/songzhuozhu/obsidian-llm-wiki) — a repo with 115+ stars on GitHub.
+From [songzhuozhu/obsidian-llm-wiki](https://github.com/songzhuozhu/obsidian-llm-wiki) — a repo with 116+ stars on GitHub.
 
 ---
 
