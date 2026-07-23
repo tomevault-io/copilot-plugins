@@ -1,0 +1,9 @@
+{
+  "name": "rstudio--r-builds",
+  "displayName": "r-builds",
+  "description": "r-builds",
+  "version": "1.0.0",
+  "author": "rstudio",
+  "homepage": "https://github.com/rstudio/r-builds",
+  "skills": []
+}
