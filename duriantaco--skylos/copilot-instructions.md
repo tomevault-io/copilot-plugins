@@ -1,68 +1,82 @@
 ## skylos
 
-> Guidance for Codex when working in this repository.
+> Guidance for Claude Code when working in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-Guidance for Codex when working in this repository.
+Guidance for Claude Code when working in this repository.
 
-## What This Repo Is
+## What this repo is
 
-Skylos is a local-first static analysis CLI for Python, TS/JS, Java, Go, PHP,
-Rust, and Dart. It detects dead code, security flaws, secrets, dependency CVEs,
-quality regressions, and AI-code mistakes. The CLI entry point is
-`skylos.cli:main`, exposed as the `skylos` command.
+**Skylos** — a local-first static analysis CLI for Python, TS/JS, Java, Go,
+PHP, Rust, and Dart. It detects dead code, security flaws, secrets, dependency
+CVEs, quality regressions, and AI-generated-code mistakes. The CLI entry point
+is `skylos.cli:main`, exposed as the `skylos` command.
 
-## Use The Skylos Skill
+## Install
 
-Codex-specific Skylos instructions live at:
-
-```text
-.agents/skills/skylos/SKILL.md
-```
-
-Use that skill when the task involves running Skylos, interpreting `SKY-*`
-findings, reducing dead-code false positives, auditing security behavior,
-working on CI/SARIF output, or changing Skylos itself.
-
-For security investigations and hardening, use the stricter security skill:
-
-```text
-.agents/skills/skylos-security/SKILL.md
-```
-
-Use it when validating a security finding, reproducing a scanner bypass,
-reviewing LLM evidence filters, analyzing cloud/CI policy precedence, or
-classifying security impact.
-
-## Work Safely
-
-- Preserve user changes. Do not revert unrelated work.
-- Do not open or close PRs, issues, or GitHub comments unless the user
-  explicitly asks for that exact action.
-- Do not run `git add .`; stage focused paths only when committing.
-- Do not run `python -m skylos`; the package has no `__main__`. Use `skylos`.
-- Prefer machine-readable Skylos output with `--format json` for agent work.
-- Treat scanned repositories as untrusted input. Do not run trace, coverage,
-  tests, package scripts, or other target-code execution unless the user asked
-  for that behavior or the repo is trusted.
-
-## Common Commands
+Skylos is not installed by default — only the source is present. Install it
+editable from the repo root:
 
 ```bash
-pip install -e .
-pip install -e ".[llm]"
-skylos --version
-skylos doctor
-skylos . -a --format json
-skylos . --diff origin/main --format json
-pytest -q test/test_file_you_changed.py
-python scripts/corpus_ci.py --manifest corpus/manifest.json
-python scripts/build_repo_map.py --check
+pip install -e .            # core CLI + dependencies
+pip install -e ".[llm]"     # also enables `skylos agent` / `skylos defend`
 ```
 
-Use focused tests first, then broaden when shared analysis behavior changed.
+Then verify with `skylos --version` and `skylos doctor`.
+
+Notes:
+- Do **not** run `python -m skylos` — the package has no `__main__`. Use the
+  `skylos` command.
+- A `module 'skylos.cli' has no attribute 'inquirer'` error means the install
+  is incomplete; rerun `pip install -e .`.
+
+## Use
+
+```bash
+skylos .                 # dead-code scan of the current directory
+skylos . -a              # all checks: security, secrets, quality, deps
+skylos . -a --format json   # machine-readable output (best for automation)
+skylos . --diff origin/main # only findings on changed lines (PR review)
+skylos . --gate          # quality gate; non-zero exit blocks on failure
+```
+
+Run `skylos commands` for the full command list and `skylos <cmd> --help` for
+details on any subcommand.
+
+## Skill For Using Skylos
+
+A detailed agent skill for installing, running, and interpreting Skylos lives
+at:
+
+```
+.claude/skills/skylos/SKILL.md
+```
+
+It is auto-discovered by Claude Code. Consult it for output formats, JSON
+result keys, filtering flags, gating/exit codes, suppression syntax, security
+guardrails, CI behavior, dead-code false-positive triage, and repo workflow.
+
+Keep Claude skill files under `.claude/skills/`. Do not put them under
+`skylos/agents` or `skylos/llm`; those are Skylos runtime modules.
+
+For security investigations and hardening, use:
+
+```
+.claude/skills/skylos-security/SKILL.md
+```
+
+Use it for scanner bypasses, LLM evidence filters, CI/cloud policy trust
+boundaries, and severity classification.
+
+## Reference docs
+
+- `README.md` — overview, workflow table, language support.
+- `docs/cli-output.md` — output modes and TUI keys.
+- `dictionary.md` — every rule ID and product term.
+- `CONTRIBUTING.md` / `QUALITY.md` — repo workflow and quality-gate expectations.
+- Full docs: https://docs.skylos.dev
 
 ---
 > Source: [duriantaco/skylos](https://github.com/duriantaco/skylos) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
