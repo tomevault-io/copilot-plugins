@@ -1,0 +1,14 @@
+{
+  "name": "facebookincubator--axiom",
+  "displayName": "axiom",
+  "description": "axiom",
+  "version": "1.0.0",
+  "author": "facebookincubator",
+  "homepage": "https://github.com/facebookincubator/axiom",
+  "skills": [
+    {
+      "name": "axiom",
+      "description": ""
+    }
+  ]
+}
