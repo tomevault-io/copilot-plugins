@@ -1,0 +1,14 @@
+{
+  "name": "logos-storage--logos-storage-nim",
+  "displayName": "logos-storage-nim",
+  "description": "logos-storage-nim",
+  "version": "1.0.0",
+  "author": "logos-storage",
+  "homepage": "https://github.com/logos-storage/logos-storage-nim",
+  "skills": [
+    {
+      "name": "logos-storage-nim",
+      "description": ""
+    }
+  ]
+}
