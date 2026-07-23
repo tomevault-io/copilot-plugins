@@ -1,0 +1,14 @@
+{
+  "name": "binsync--declib",
+  "displayName": "declib",
+  "description": "declib",
+  "version": "1.0.0",
+  "author": "binsync",
+  "homepage": "https://github.com/binsync/declib",
+  "skills": [
+    {
+      "name": "declib",
+      "description": ""
+    }
+  ]
+}
