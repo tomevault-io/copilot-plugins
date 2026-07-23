@@ -1,0 +1,129 @@
+{
+  "name": "waveterm",
+  "owner": "wavetermdev",
+  "repo": "waveterm",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-config",
+      "path": ".kilocode/skills/add-config",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/add-config",
+      "description": ""
+    },
+    {
+      "name": "add-rpc",
+      "path": ".kilocode/skills/add-rpc",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/add-rpc",
+      "description": ""
+    },
+    {
+      "name": "context-menu",
+      "path": ".kilocode/skills/context-menu",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/context-menu",
+      "description": ""
+    },
+    {
+      "name": "create-view",
+      "path": ".kilocode/skills/create-view",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/create-view",
+      "description": ""
+    },
+    {
+      "name": "electron-api",
+      "path": ".kilocode/skills/electron-api",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/electron-api",
+      "description": ""
+    },
+    {
+      "name": "wps-events",
+      "path": ".kilocode/skills/wps-events",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/wps-events",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/add-rpc/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/add-rpc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/waveenv/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/waveenv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/add-wshcmd/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/add-wshcmd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/add-config/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/add-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/wps-events/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/wps-events/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/create-view/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/create-view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/electron-api/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/electron-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "waveterm",
+      "path": ".kilocode/skills/context-menu/SKILL.md",
+      "github_url": "https://github.com/wavetermdev/waveterm/tree/main/.kilocode/skills/context-menu/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wavetermdev/waveterm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T01:36:14Z"
+}
