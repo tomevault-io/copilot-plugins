@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--rdsai-cli",
+  "displayName": "rdsai-cli",
+  "description": "rdsai-cli",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/rdsai-cli",
+  "skills": []
+}
