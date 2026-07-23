@@ -2,9 +2,9 @@
   "name": "socialify",
   "owner": "wei",
   "repo": "socialify",
-  "description": "AI instruction files for socialify by wei",
+  "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,27 @@
       "path": ".github/skills/frontend-design",
       "github_url": "https://github.com/wei/socialify/tree/main/.github/skills/frontend-design",
       "description": ""
+    },
+    {
+      "name": "socialify",
+      "path": ".github/skills/add-icon/SKILL.md",
+      "github_url": "https://github.com/wei/socialify/tree/main/.github/skills/add-icon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socialify",
+      "path": ".github/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/wei/socialify/tree/main/.github/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socialify",
+      "path": ".github/skills/upgrade-simple-icons/SKILL.md",
+      "github_url": "https://github.com/wei/socialify/tree/main/.github/skills/upgrade-simple-icons/SKILL.md",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/wei",
+  "source_url": "https://github.com/wei/socialify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:04:22Z"
+  "distributed_at": "2026-07-23T23:35:42Z"
 }
