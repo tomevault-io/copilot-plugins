@@ -1,0 +1,9 @@
+{
+  "name": "cyrusbehr--tensorrt-cpp-api",
+  "displayName": "tensorrt-cpp-api",
+  "description": "tensorrt-cpp-api",
+  "version": "1.0.0",
+  "author": "cyrusbehr",
+  "homepage": "https://github.com/cyrusbehr/tensorrt-cpp-api",
+  "skills": []
+}
