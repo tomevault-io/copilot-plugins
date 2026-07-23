@@ -1,0 +1,9 @@
+{
+  "name": "opensuse--sdbootutil",
+  "displayName": "sdbootutil",
+  "description": "sdbootutil",
+  "version": "1.0.0",
+  "author": "openSUSE",
+  "homepage": "https://github.com/openSUSE/sdbootutil",
+  "skills": []
+}
