@@ -1,7 +1,7 @@
 {
   "name": "rkttu--dotnetpy",
   "displayName": "dotnetpy",
-  "description": "Lightweight and AOT-compatible Python Interop Library",
+  "description": "dotnetpy",
   "version": "1.0.0",
   "author": "rkttu",
   "homepage": "https://github.com/rkttu/dotnetpy",
