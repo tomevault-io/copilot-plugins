@@ -1,0 +1,14 @@
+{
+  "name": "openshift--managed-upgrade-operator",
+  "displayName": "managed-upgrade-operator",
+  "description": "managed-upgrade-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/managed-upgrade-operator",
+  "skills": [
+    {
+      "name": "managed-upgrade-operator",
+      "description": ""
+    }
+  ]
+}
