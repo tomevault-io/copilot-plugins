@@ -4,7 +4,7 @@
   "repo": "minidyn",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -65,5 +65,5 @@
   ],
   "source_url": "https://github.com/truora/minidyn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T03:02:37Z"
+  "distributed_at": "2026-07-23T02:51:03Z"
 }
