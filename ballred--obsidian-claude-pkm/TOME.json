@@ -1,0 +1,147 @@
+{
+  "name": "obsidian-claude-pkm",
+  "owner": "ballred",
+  "repo": "obsidian-claude-pkm",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "monthly",
+      "path": "vault-template/.claude/skills/monthly",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/monthly",
+      "description": ""
+    },
+    {
+      "name": "push",
+      "path": "vault-template/.claude/skills/push",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/push",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "vault-template/.claude/skills/review",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/review",
+      "description": ""
+    },
+    {
+      "name": "weekly",
+      "path": "vault-template/.claude/skills/weekly",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/weekly",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/push/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/daily/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/daily/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/adopt/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/adopt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/weekly/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/weekly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/search/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/upgrade/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/monthly/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/monthly/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/project/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/check-links/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/check-links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/goal-tracking/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/goal-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "obsidian-claude-pkm",
+      "path": "vault-template/.claude/skills/obsidian-vault-ops/SKILL.md",
+      "github_url": "https://github.com/ballred/obsidian-claude-pkm/tree/main/vault-template/.claude/skills/obsidian-vault-ops/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ballred/obsidian-claude-pkm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:31:20Z"
+}
