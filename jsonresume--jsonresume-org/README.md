@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jsonresume/jsonresume.org](https://github.com/jsonresume/jsonresume.org).
+Original source: `CLAUDE.md` in [jsonresume/jsonresume.org](https://github.com/jsonresume/jsonresume.org).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [jsonresume/jsonresume.org](https://github.com/j
 
 - [jsonresume.org](https://github.com/jsonresume/jsonresume.org/tree/main/packages/job-search/skills/jsonresume-hunt/SKILL.md)
 
-From [jsonresume/jsonresume.org](https://github.com/jsonresume/jsonresume.org) — a repo with 278+ stars on GitHub.
+From [jsonresume/jsonresume.org](https://github.com/jsonresume/jsonresume.org) — a repo with 280+ stars on GitHub.
 
 ---
 
