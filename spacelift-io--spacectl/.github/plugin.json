@@ -1,0 +1,14 @@
+{
+  "name": "spacelift-io--spacectl",
+  "displayName": "spacectl",
+  "description": "spacectl",
+  "version": "1.0.0",
+  "author": "spacelift-io",
+  "homepage": "https://github.com/spacelift-io/spacectl",
+  "skills": [
+    {
+      "name": "spacectl",
+      "description": ""
+    }
+  ]
+}
