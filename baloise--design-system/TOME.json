@@ -1,0 +1,75 @@
+{
+  "name": "design-system",
+  "owner": "baloise",
+  "repo": "design-system",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "design-system",
+      "path": ".claude/skills/ds-create-token/SKILL.md",
+      "github_url": "https://github.com/baloise/design-system/tree/main/.claude/skills/ds-create-token/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system",
+      "path": ".claude/skills/ds-test-component/SKILL.md",
+      "github_url": "https://github.com/baloise/design-system/tree/main/.claude/skills/ds-test-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system",
+      "path": ".claude/skills/ds-lint-component/SKILL.md",
+      "github_url": "https://github.com/baloise/design-system/tree/main/.claude/skills/ds-lint-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system",
+      "path": ".claude/skills/ds-create-component/SKILL.md",
+      "github_url": "https://github.com/baloise/design-system/tree/main/.claude/skills/ds-create-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-system",
+      "path": ".claude/skills/ds-document-component/SKILL.md",
+      "github_url": "https://github.com/baloise/design-system/tree/main/.claude/skills/ds-document-component/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/baloise/design-system",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T09:16:25Z"
+}
