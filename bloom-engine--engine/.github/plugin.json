@@ -1,0 +1,14 @@
+{
+  "name": "bloom-engine--engine",
+  "displayName": "engine",
+  "description": "engine",
+  "version": "1.0.0",
+  "author": "Bloom-Engine",
+  "homepage": "https://github.com/Bloom-Engine/engine",
+  "skills": [
+    {
+      "name": "engine",
+      "description": ""
+    }
+  ]
+}
