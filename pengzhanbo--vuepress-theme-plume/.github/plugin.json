@@ -1,0 +1,26 @@
+{
+  "name": "pengzhanbo--vuepress-theme-plume",
+  "displayName": "vuepress-theme-plume",
+  "description": "vuepress-theme-plume",
+  "version": "1.0.0",
+  "author": "pengzhanbo",
+  "homepage": "https://github.com/pengzhanbo/vuepress-theme-plume",
+  "skills": [
+    {
+      "name": "vuepress-plume-config",
+      "description": ""
+    },
+    {
+      "name": "vuepress-plume-markdown",
+      "description": ""
+    },
+    {
+      "name": "vuepress-theme-plume",
+      "description": ""
+    },
+    {
+      "name": "vuepress-theme-plume",
+      "description": ""
+    }
+  ]
+}
