@@ -1,0 +1,81 @@
+{
+  "name": "deno",
+  "owner": "denoland",
+  "repo": "deno",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deno",
+      "path": ".claude/skills/fmt/SKILL.md",
+      "github_url": "https://github.com/denoland/deno/tree/main/.claude/skills/fmt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deno",
+      "path": ".claude/skills/lint-js/SKILL.md",
+      "github_url": "https://github.com/denoland/deno/tree/main/.claude/skills/lint-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deno",
+      "path": ".claude/skills/lint-all/SKILL.md",
+      "github_url": "https://github.com/denoland/deno/tree/main/.claude/skills/lint-all/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deno",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/denoland/deno/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deno",
+      "path": ".claude/skills/node-compat/SKILL.md",
+      "github_url": "https://github.com/denoland/deno/tree/main/.claude/skills/node-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deno",
+      "path": ".claude/skills/issue-triage/SKILL.md",
+      "github_url": "https://github.com/denoland/deno/tree/main/.claude/skills/issue-triage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/denoland/deno",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T05:29:42Z"
+}
