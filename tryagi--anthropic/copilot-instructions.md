@@ -1,14 +1,14 @@
 ## anthropic
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-C# SDK for the [Anthropic](https://anthropic.com/) Codex API, auto-generated from the official Anthropic OpenAPI specification using [AutoSDK](https://github.com/HavenDV/AutoSDK). Published as NuGet package `tryAGI.Anthropic`. This is not an official Anthropic SDK.
+C# SDK for the [Anthropic](https://anthropic.com/) Claude API, auto-generated from the official Anthropic OpenAPI specification using [AutoSDK](https://github.com/HavenDV/AutoSDK). Published as NuGet package `tryAGI.Anthropic`. This is not an official Anthropic SDK.
 
 Features beyond basic API access include a source generator for defining tools natively through C# interfaces, streaming support, and Microsoft.Extensions.AI integration.
 
@@ -35,7 +35,6 @@ cd src/libs/Anthropic && ./generate.sh
 The SDK code in `src/libs/Anthropic/Generated/` is **entirely auto-generated** -- do not manually edit files there.
 
 1. `src/libs/Anthropic/openapi.yaml` -- the Anthropic OpenAPI spec (fetched from the official TypeScript SDK's `.stats.yml`)
-2. `src/helpers/FixOpenApiSpec/` -- converts OpenAPI 3.1 to 3.0 format for compatibility
 3. `src/libs/Anthropic/generate.sh` -- orchestrates: download spec URL from `.stats.yml`, fetch spec, fix spec, run AutoSDK CLI, output to `Generated/`
 4. CI auto-updates the spec and creates PRs if changes are detected
 
@@ -45,10 +44,14 @@ The SDK code in `src/libs/Anthropic/Generated/` is **entirely auto-generated** -
 |---------|---------|
 | `src/libs/Anthropic/` | Main SDK library (`AnthropicClient`) |
 | `src/tests/Anthropic.IntegrationTests/` | Integration tests against real Anthropic API |
-| `src/helpers/FixOpenApiSpec/` | OpenAPI spec fixer tool |
-| `src/helpers/GenerateDocs/` | Documentation generator from integration tests |
-| `src/helpers/TrimmingHelper/` | NativeAOT/trimming compatibility validator |
 
+### Documentation Generation
+
+Tests in `src/tests/Anthropic.IntegrationTests/Examples` are the single source of truth for both test coverage and documentation:
+- Each file has a JSDoc header (`order`, `title`, `slug`) consumed by `autosdk docs sync .`
+- Comments prefixed with `////` become prose paragraphs in generated docs
+- CI workflow (`.github/workflows/mkdocs.yml`) auto-generates `docs/examples/` and populates `EXAMPLES:START/END` markers in README.md, docs/index.md, and mkdocs.yml
+- Config: `autosdk.docs.json` points to `src/tests/Anthropic.IntegrationTests/Examples`
 ### Hand-Written Extensions
 
 This SDK has significant hand-written code alongside the generated code:
@@ -71,8 +74,8 @@ This SDK has significant hand-written code alongside the generated code:
 - **Signing:** Strong-named assemblies via `src/key.snk`
 - **Versioning:** Semantic versioning from git tags (`v` prefix) via MinVer
 - **Analysis:** All .NET analyzers enabled, AOT/trimming compatibility enforced
-- **Testing:** MSTest + FluentAssertions
-- **Dependencies:** CSharpToJsonSchema (tool definitions), Microsoft.Extensions.AI.Abstractions, System.Net.ServerSentEvents
+- **Testing:** MSTest + AwesomeAssertions
+- **Dependencies:** CSharpToJsonSchema (tool definitions), Microsoft.Extensions.AI.Abstractions
 
 ### Key Conventions
 
@@ -80,7 +83,7 @@ This SDK has significant hand-written code alongside the generated code:
 - The namespace is `Anthropic`
 - Tools are defined via C# interfaces decorated with `[GenerateJsonSchema]` from the CSharpToJsonSchema package
 - Supports Microsoft.Extensions.AI `IChatClient` abstraction
-- Streaming uses `System.Net.ServerSentEvents`
+- Streaming uses `System.Net.ServerSentEvents` (in-box in net10.0)
 
 ### CI/CD
 
@@ -90,4 +93,4 @@ This SDK has significant hand-written code alongside the generated code:
 
 ---
 > Source: [tryAGI/Anthropic](https://github.com/tryAGI/Anthropic) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
