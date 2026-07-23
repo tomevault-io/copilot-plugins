@@ -1,0 +1,9 @@
+{
+  "name": "obi1kenobi--cargo-semver-checks-action",
+  "displayName": "cargo-semver-checks-action",
+  "description": "cargo-semver-checks-action",
+  "version": "1.0.0",
+  "author": "obi1kenobi",
+  "homepage": "https://github.com/obi1kenobi/cargo-semver-checks-action",
+  "skills": []
+}
