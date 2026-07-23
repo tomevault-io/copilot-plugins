@@ -1,0 +1,75 @@
+{
+  "name": "paceflow",
+  "owner": "paceaitian",
+  "repo": "paceflow",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "paceflow",
+      "path": "internal/skills/audit/SKILL.md",
+      "github_url": "https://github.com/paceaitian/paceflow/tree/main/internal/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "paceflow",
+      "path": "plugin/skills/pace-bridge/SKILL.md",
+      "github_url": "https://github.com/paceaitian/paceflow/tree/main/plugin/skills/pace-bridge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "paceflow",
+      "path": "plugin/skills/pace-workflow/SKILL.md",
+      "github_url": "https://github.com/paceaitian/paceflow/tree/main/plugin/skills/pace-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "paceflow",
+      "path": "plugin/skills/pace-knowledge/SKILL.md",
+      "github_url": "https://github.com/paceaitian/paceflow/tree/main/plugin/skills/pace-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "paceflow",
+      "path": "plugin/skills/artifact-management/SKILL.md",
+      "github_url": "https://github.com/paceaitian/paceflow/tree/main/plugin/skills/artifact-management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/paceaitian/paceflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T11:03:39Z"
+}
