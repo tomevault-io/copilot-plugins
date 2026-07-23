@@ -1,0 +1,18 @@
+{
+  "name": "vkh-cr--festapp",
+  "displayName": "festapp",
+  "description": "festapp",
+  "version": "1.0.0",
+  "author": "vkh-cr",
+  "homepage": "https://github.com/vkh-cr/festapp",
+  "skills": [
+    {
+      "name": "project-workflows",
+      "description": ""
+    },
+    {
+      "name": "festapp",
+      "description": ""
+    }
+  ]
+}
