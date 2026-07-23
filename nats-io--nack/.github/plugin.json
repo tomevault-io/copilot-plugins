@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nack",
+  "displayName": "nack",
+  "description": "nack",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nack",
+  "skills": []
+}
