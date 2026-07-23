@@ -1,0 +1,9 @@
+{
+  "name": "pydata--xarray",
+  "displayName": "xarray",
+  "description": "xarray",
+  "version": "1.0.0",
+  "author": "pydata",
+  "homepage": "https://github.com/pydata/xarray",
+  "skills": []
+}
