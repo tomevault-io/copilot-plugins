@@ -1,0 +1,57 @@
+{
+  "name": "pawwork",
+  "owner": "Astro-Han",
+  "repo": "pawwork",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pawwork",
+      "path": "packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
+      "github_url": "https://github.com/Astro-Han/pawwork/tree/main/packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pawwork",
+      "path": "packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
+      "github_url": "https://github.com/Astro-Han/pawwork/tree/main/packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Astro-Han/pawwork",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T00:08:30Z"
+}
