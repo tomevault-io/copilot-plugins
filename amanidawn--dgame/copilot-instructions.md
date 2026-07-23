@@ -1,11 +1,11 @@
 ## dgame
 
-> 这个文件为 Codex 提供指导，用于处理此代码库中的代码。
+> 这个文件为 Claude Code (claude.ai/code) 提供指导，用于处理此代码库中的代码。
 
-# AGENTS.md
+# CLAUDE.md
 
 请使用中文写提案和回答。
-这个文件为 Codex 提供指导，用于处理此代码库中的代码。
+这个文件为 Claude Code (claude.ai/code) 提供指导，用于处理此代码库中的代码。
 
 主启动场景位于 `GameUnity/Assets/Scenes/GameStart/GameStart.unity`。
 
@@ -18,9 +18,9 @@
 | 等级 | 判断标准 | 知识查询策略 |
 |------|----------|--------------|
 | **L1 简单** | typo、注释、日志文案、单行变量改名；前提是不涉及框架 API、UI 节点前缀、事件定义、资源路径、Luban 配置 | 可跳过 skill，直接处理 |
-| **L2 调用** | 调用已知 API、单模块局部修改 | 使用 `$dgame-dev` 查询对应主题 |
-| **L3 功能** | 新功能、跨文件修改、新增 UI / 资源 / 事件 / 模块逻辑 | 使用 `$dgame-dev` 查询全量相关主题；涉及配置先用 `luban-dev` |
-| **L4 架构** | 模块设计、系统重构、多模块协作、架构决策 | 使用 `$dgame-dev` 并按需并行查询多个 reference；配置链路同时使用 `luban-dev` |
+| **L2 调用** | 调用已知 API、单模块局部修改 | 使用 `dgame-dev` skill 查询对应主题 |
+| **L3 功能** | 新功能、跨文件修改、新增 UI / 资源 / 事件 / 模块逻辑 | 使用 `dgame-dev` 查询全量相关主题；涉及配置先用 `luban-dev` |
+| **L4 架构** | 模块设计、系统重构、多模块协作、架构决策 | 使用 `dgame-dev` 并按需并行查询多个 reference；配置链路同时使用 `luban-dev` |
 
 不确定时上调一级。凡涉及 DGame API 名称、程序集边界、资源地址、UI 节点前缀、事件接口、热更流程、Luban 表结构，都不要按 L1 处理。
 
@@ -50,20 +50,20 @@
 
 1. 用 `rg` 搜索实际签名和调用点。
 2. 优先信任当前源码。
-3. 在回复中标注冲突点；如果任务本身是维护 skill，直接修正 `.codex/skills/dgame-dev/references/` 对应文档。
+3. 在回复中标注冲突点；如果任务本身是维护 skill，直接修正 `.claude/skills/dgame-dev/references/` 对应文档。
 
 ---
 
 ## DGame 开发指导
 
-处理 DGame 代码时优先使用 `$dgame-dev`。该 skill 的结构参考 TEngine 项目的 `tengine-dev`，但内容必须以 DGame 当前源码、目录和 API 为准。
+处理 DGame 代码时优先使用 `dgame-dev` skill。它参考 TEngine 的 `tengine-dev` 组织方式，但内容按 DGame 当前项目结构、API 和封装编写。
 
-**知识源**：`.codex/skills/dgame-dev/references/`
+**知识源**：`.claude/skills/dgame-dev/references/`
 
 ### 使用方式
 
 ```
-使用 $dgame-dev 在 DGame 仓库中实现或修改功能。
+使用 skill = "dgame-dev"
 描述需要查询的技术问题或功能点
 ```
 
@@ -212,4 +212,4 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ---
 > Source: [AmaniDawn/DGame](https://github.com/AmaniDawn/DGame) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
