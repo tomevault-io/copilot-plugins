@@ -1,16 +1,15 @@
 # AI instruction files for knowledge-pipline
 
-> Sourced from [YesIamGodt/knowledge-pipline](https://github.com/YesIamGodt/knowledge-pipline) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [YesIamGodt/knowledge-pipline](https://github.com/YesIamGodt/knowledge-pipline), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [YesIamGodt/knowledge-pipline](https://github.com/YesIamGodt/knowledge-pipline).
+Original source: `AGENTS.md` in [YesIamGodt/knowledge-pipline](https://github.com/YesIamGodt/knowledge-pipline).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -20,6 +19,6 @@ From [YesIamGodt/knowledge-pipline](https://github.com/YesIamGodt/knowledge-pipl
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
