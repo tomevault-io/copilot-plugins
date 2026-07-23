@@ -1,0 +1,38 @@
+{
+  "name": "medusajs--medusa",
+  "displayName": "medusa",
+  "description": "medusa",
+  "version": "1.0.0",
+  "author": "medusajs",
+  "homepage": "https://github.com/medusajs/medusa",
+  "skills": [
+    {
+      "name": "writing-docs",
+      "description": ""
+    },
+    {
+      "name": "writing-tsdocs",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "description": ""
+    },
+    {
+      "name": "medusa",
+      "description": ""
+    }
+  ]
+}
