@@ -4,7 +4,7 @@
   "repo": "Yoopta-Editor",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -95,5 +95,5 @@
   ],
   "source_url": "https://github.com/yoopta-editor/Yoopta-Editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T02:48:43Z"
+  "distributed_at": "2026-07-23T02:36:28Z"
 }
