@@ -35,7 +35,7 @@ The agent's job is not to improvise one-off answers. The job is to maintain the 
 - Agents may create, update, rename, and cross-link pages here.
 - When answering questions, read and synthesize from this layer first.
 
-### 3. `AGENTS.md`
+### 3. `CLAUDE.md`
 
 - Defines structural conventions, page rules, workflow steps, and quality standards.
 - If practice reveals a better workflow, evolve this file only with user agreement.
@@ -383,4 +383,4 @@ Each log body should briefly record:
 
 ---
 > Source: [songzhuozhu/obsidian-llm-wiki](https://github.com/songzhuozhu/obsidian-llm-wiki) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
