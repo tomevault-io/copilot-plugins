@@ -1,0 +1,75 @@
+{
+  "name": "property_web_scraper",
+  "owner": "RealEstateWebTools",
+  "repo": "property_web_scraper",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "property_web_scraper",
+      "path": ".claude/skills/extract/SKILL.md",
+      "github_url": "https://github.com/RealEstateWebTools/property_web_scraper/tree/main/.claude/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "property_web_scraper",
+      "path": ".claude/skills/add-scraper/SKILL.md",
+      "github_url": "https://github.com/RealEstateWebTools/property_web_scraper/tree/main/.claude/skills/add-scraper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "property_web_scraper",
+      "path": ".claude/skills/fix-scraper/SKILL.md",
+      "github_url": "https://github.com/RealEstateWebTools/property_web_scraper/tree/main/.claude/skills/fix-scraper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "property_web_scraper",
+      "path": ".claude/skills/scraper-status/SKILL.md",
+      "github_url": "https://github.com/RealEstateWebTools/property_web_scraper/tree/main/.claude/skills/scraper-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "property_web_scraper",
+      "path": ".claude/skills/diagnose-extraction/SKILL.md",
+      "github_url": "https://github.com/RealEstateWebTools/property_web_scraper/tree/main/.claude/skills/diagnose-extraction/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RealEstateWebTools/property_web_scraper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:25:14Z"
+}
