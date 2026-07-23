@@ -1,0 +1,9 @@
+{
+  "name": "ebi-metagenomics--emg-viral-pipeline",
+  "displayName": "emg-viral-pipeline",
+  "description": "emg-viral-pipeline",
+  "version": "1.0.0",
+  "author": "EBI-Metagenomics",
+  "homepage": "https://github.com/EBI-Metagenomics/emg-viral-pipeline",
+  "skills": []
+}
