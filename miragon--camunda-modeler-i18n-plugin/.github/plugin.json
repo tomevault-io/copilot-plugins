@@ -1,0 +1,14 @@
+{
+  "name": "miragon--camunda-modeler-i18n-plugin",
+  "displayName": "camunda-modeler-i18n-plugin",
+  "description": "camunda-modeler-i18n-plugin",
+  "version": "1.0.0",
+  "author": "Miragon",
+  "homepage": "https://github.com/Miragon/camunda-modeler-i18n-plugin",
+  "skills": [
+    {
+      "name": "camunda-modeler-i18n-plugin",
+      "description": ""
+    }
+  ]
+}
