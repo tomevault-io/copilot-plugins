@@ -175,5 +175,5 @@ If `uv` is NOT available, ask the user before proceeding:
 Only fall back to pip/other tools if the user explicitly prefers them.
 
 ---
-> Source: [ConstantineB6/comfy-pilot](https://github.com/ConstantineB6/comfy-pilot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+> Source: [ConstantineB6/Comfy-Pilot](https://github.com/ConstantineB6/Comfy-Pilot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
