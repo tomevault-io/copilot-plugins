@@ -1,0 +1,9 @@
+{
+  "name": "onflow--flow-core-contracts",
+  "displayName": "flow-core-contracts",
+  "description": "flow-core-contracts",
+  "version": "1.0.0",
+  "author": "onflow",
+  "homepage": "https://github.com/onflow/flow-core-contracts",
+  "skills": []
+}
