@@ -1,0 +1,14 @@
+{
+  "name": "esm7--obsidian-map-view",
+  "displayName": "obsidian-map-view",
+  "description": "obsidian-map-view",
+  "version": "1.0.0",
+  "author": "esm7",
+  "homepage": "https://github.com/esm7/obsidian-map-view",
+  "skills": [
+    {
+      "name": "obsidian-map-view",
+      "description": ""
+    }
+  ]
+}
