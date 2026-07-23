@@ -1,0 +1,14 @@
+{
+  "name": "artusjs--spec",
+  "displayName": "spec",
+  "description": "spec",
+  "version": "1.0.0",
+  "author": "artusjs",
+  "homepage": "https://github.com/artusjs/spec",
+  "skills": [
+    {
+      "name": "spec",
+      "description": ""
+    }
+  ]
+}
