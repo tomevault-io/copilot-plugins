@@ -1,0 +1,177 @@
+{
+  "name": "KIRA",
+  "owner": "krafton-ai",
+  "repo": "KIRA",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/docx/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/docx/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/scratch-pad/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/scratch-pad/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/speak-natural/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/speak-natural/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/channel-setup/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/channel-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/playwright-use/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/playwright-use/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/it-role-expert/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/it-role-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KiraClaw/defaults/skills/html-presentation/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KiraClaw/defaults/skills/html-presentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/slack-memory-store/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/slack-memory-store/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/slack-memory-cleanup/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/slack-memory-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/slack-memory-retrieval/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/slack-memory-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/email-action-extractor/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/email-action-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/confluence-deep-reader/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/confluence-deep-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/web-navigation-strategies/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/web-navigation-strategies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "KIRA",
+      "path": "KIRA-Slack/.claude/skills/slack-proactive-intervention-patterns/SKILL.md",
+      "github_url": "https://github.com/krafton-ai/KIRA/tree/main/KIRA-Slack/.claude/skills/slack-proactive-intervention-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/krafton-ai/KIRA",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T13:50:20Z"
+}
