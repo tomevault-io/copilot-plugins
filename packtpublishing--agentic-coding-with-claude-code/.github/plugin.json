@@ -1,0 +1,14 @@
+{
+  "name": "packtpublishing--agentic-coding-with-claude-code",
+  "displayName": "Agentic-Coding-with-Claude-Code",
+  "description": "Agentic-Coding-with-Claude-Code",
+  "version": "1.0.0",
+  "author": "PacktPublishing",
+  "homepage": "https://github.com/PacktPublishing/Agentic-Coding-with-Claude-Code",
+  "skills": [
+    {
+      "name": "Agentic-Coding-with-Claude-Code",
+      "description": ""
+    }
+  ]
+}
