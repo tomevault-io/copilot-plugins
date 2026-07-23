@@ -1,0 +1,14 @@
+{
+  "name": "berlindb--core",
+  "displayName": "core",
+  "description": "core",
+  "version": "1.0.0",
+  "author": "berlindb",
+  "homepage": "https://github.com/berlindb/core",
+  "skills": [
+    {
+      "name": "core",
+      "description": ""
+    }
+  ]
+}
