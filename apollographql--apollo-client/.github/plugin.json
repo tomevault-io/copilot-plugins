@@ -1,0 +1,14 @@
+{
+  "name": "apollographql--apollo-client",
+  "displayName": "apollo-client",
+  "description": "apollo-client",
+  "version": "1.0.0",
+  "author": "apollographql",
+  "homepage": "https://github.com/apollographql/apollo-client",
+  "skills": [
+    {
+      "name": "apollo-client",
+      "description": ""
+    }
+  ]
+}
