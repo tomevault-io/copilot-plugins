@@ -1,0 +1,9 @@
+{
+  "name": "yandex-cloud--nodejs-sdk",
+  "displayName": "nodejs-sdk",
+  "description": "nodejs-sdk",
+  "version": "1.0.0",
+  "author": "yandex-cloud",
+  "homepage": "https://github.com/yandex-cloud/nodejs-sdk",
+  "skills": []
+}
