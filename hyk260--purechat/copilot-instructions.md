@@ -1,10 +1,10 @@
 ## purechat
 
-> > 面向使用 Codex/通用 LLM 作为协作者时的约定与工作流。本项目为前端多包工作区（pnpm workspace，Vite + Vue3 + TS）。请严格遵循本文档，确保自动化修改可直接运行且符合项目规范。
+> > 面向使用 Claude/通用 LLM 作为协作者时的约定与工作流。本项目为前端多包工作区（pnpm workspace，Vite + Vue3 + TS）。请严格遵循本文档，确保自动化修改可直接运行且符合项目规范。
 
-### Codex 协作指南（AI 开发助手说明）
+### CLAUDE 协作指南（AI 开发助手说明）
 
-> 面向使用 Codex/通用 LLM 作为协作者时的约定与工作流。本项目为前端多包工作区（pnpm workspace，Vite + Vue3 + TS）。请严格遵循本文档，确保自动化修改可直接运行且符合项目规范。
+> 面向使用 Claude/通用 LLM 作为协作者时的约定与工作流。本项目为前端多包工作区（pnpm workspace，Vite + Vue3 + TS）。请严格遵循本文档，确保自动化修改可直接运行且符合项目规范。
 
 ---
 
@@ -104,4 +104,4 @@ pnpm lint
 
 ---
 > Source: [Hyk260/PureChat](https://github.com/Hyk260/PureChat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
