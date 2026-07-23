@@ -1,0 +1,537 @@
+{
+  "name": "socket-mcp",
+  "owner": "SocketDev",
+  "repo": "socket-mcp",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/prose/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-prose/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/updating/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/updating/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-updating/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-updating/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/setup-repo/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/setup-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-setup-repo/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-setup-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/cleaning-ci/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/cleaning-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-cleaning-ci/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-cleaning-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/greening-ci/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/greening-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-greening-ci/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-greening-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/handing-off/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/handing-off/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-handing-off/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-handing-off/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/auditing-gha/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/auditing-gha/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-auditing-gha/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-auditing-gha/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/tidying-files/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/tidying-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-tidying-files/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-tidying-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/scanning-vulns/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/scanning-vulns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-scanning-vulns/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-scanning-vulns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/guarding-paths/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/guarding-paths/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-guarding-paths/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-guarding-paths/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/reviewing-code/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/reviewing-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-reviewing-code/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-reviewing-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/updating-daily/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/updating-daily/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-updating-daily/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-updating-daily/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/trimming-bundle/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/trimming-bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-trimming-bundle/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-trimming-bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/running-test262/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/running-test262/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-running-test262/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-running-test262/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/cascading-fleet/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/cascading-fleet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-cascading-fleet/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-cascading-fleet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/threat-modeling/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/threat-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-threat-modeling/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-threat-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/looping-quality/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/looping-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-looping-quality/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-looping-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/scanning-quality/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/scanning-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-scanning-quality/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-scanning-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/updating-pricing/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/updating-pricing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-updating-pricing/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-updating-pricing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/patching-findings/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/patching-findings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-patching-findings/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-patching-findings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/squashing-history/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/squashing-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-squashing-history/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-squashing-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/updating-coverage/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/updating-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-updating-coverage/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-updating-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/updating-lockstep/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/updating-lockstep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-updating-lockstep/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-updating-lockstep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/scanning-security/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/scanning-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-scanning-security/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-scanning-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/tidying-worktrees/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/tidying-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-tidying-worktrees/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-tidying-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/updating-security/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/updating-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-updating-security/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-updating-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/managing-worktrees/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/managing-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-managing-worktrees/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-managing-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/refreshing-history/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/refreshing-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-refreshing-history/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-refreshing-history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/updating-hooks-dry/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/updating-hooks-dry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-updating-hooks-dry/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-updating-hooks-dry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/locking-down-claude/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/locking-down-claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-locking-down-claude/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-locking-down-claude/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/researching-recency/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/researching-recency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-researching-recency/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-researching-recency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/migrating-rule-packs/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/migrating-rule-packs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-migrating-rule-packs/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-migrating-rule-packs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/regenerating-patches/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/regenerating-patches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-regenerating-patches/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-regenerating-patches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/auditing-api-surface/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/auditing-api-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-auditing-api-surface/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-auditing-api-surface/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/codifying-disciplines/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/codifying-disciplines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-codifying-disciplines/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-codifying-disciplines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/driving-cursor-bugbot/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/driving-cursor-bugbot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-driving-cursor-bugbot/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-driving-cursor-bugbot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/optimizing-submodules/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/optimizing-submodules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-optimizing-submodules/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-optimizing-submodules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/plugging-promise-race/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/plugging-promise-race/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-plugging-promise-race/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-plugging-promise-race/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/reordering-release-bump/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/reordering-release-bump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-reordering-release-bump/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-reordering-release-bump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/tidying-rolldown-bundles/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/tidying-rolldown-bundles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-tidying-rolldown-bundles/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-tidying-rolldown-bundles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".claude/skills/fleet/rendering-chromium-to-png/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.claude/skills/fleet/rendering-chromium-to-png/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "socket-mcp",
+      "path": ".agents/skills/fleet-rendering-chromium-to-png/SKILL.md",
+      "github_url": "https://github.com/SocketDev/socket-mcp/tree/main/.agents/skills/fleet-rendering-chromium-to-png/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SocketDev/socket-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T08:46:09Z"
+}
