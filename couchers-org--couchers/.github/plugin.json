@@ -1,0 +1,14 @@
+{
+  "name": "couchers-org--couchers",
+  "displayName": "couchers",
+  "description": "couchers",
+  "version": "1.0.0",
+  "author": "Couchers-org",
+  "homepage": "https://github.com/Couchers-org/couchers",
+  "skills": [
+    {
+      "name": "couchers",
+      "description": ""
+    }
+  ]
+}
