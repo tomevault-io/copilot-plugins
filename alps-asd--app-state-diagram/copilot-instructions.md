@@ -1,34 +1,119 @@
 ## app-state-diagram
 
-> - Root is a pnpm workspace (`pnpm-workspace.yaml`, `tsconfig.base.json`) targeting Node 20+. Shared dev docs live in `dev-docs/`; published docs and static assets are under `docs/`, `public/`, and `_site/`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-- Root is a pnpm workspace (`pnpm-workspace.yaml`, `tsconfig.base.json`) targeting Node 20+. Shared dev docs live in `dev-docs/`; published docs and static assets are under `docs/`, `public/`, and `_site/`.
-- Core packages sit in `packages/`: `cli/` (TypeScript CLI that parses/validates ALPS and generates diagrams) and `mcp/` (Model Context Protocol server that wraps the CLI). Each has `src/`, `dist/`, and its own Jest/TS config.
-- Example ALPS profiles for manual/integration checks are in `tests/fake/`. Avoid editing generated `dist/` outputs directly—rebuild instead.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- Install deps: `pnpm install` (uses pnpm 9.x). Clean all build outputs: `pnpm -r clean`.
-- Build all packages: `pnpm -r build`; package-specific: `pnpm --filter @alps-asd/cli build` or `pnpm --filter @alps-asd/mcp build`.
-- Run tests: `pnpm -r test`; coverage: `pnpm -r test:coverage`. For focused work, filter: `pnpm --filter @alps-asd/cli test`.
-- MCP dev watch: `pnpm --filter @alps-asd/mcp dev` (TypeScript watch). CLI watch uses `asd -w` against an ALPS file once built.
+## Project Overview
 
-## Coding Style & Naming Conventions
-- TypeScript-first, ES modules where configured (`mcp`), CommonJS in the CLI entry. Prefer 2-space indentation, single quotes, and semicolons as in existing sources.
-- Tests use `*.test.ts` colocated with code. Keep CLI surface stable (`src/asd.ts`), and centralize shared parsing/validation logic in dedicated modules (e.g., `parser/`, `validator/`, `generator/`).
-- Treat `dist/` as generated; adjust source under `src/` and let `tsc` output artifacts.
+app-state-diagram is a TypeScript monorepo that generates visual state diagrams and documentation from ALPS (Application-Level Profile Semantics) profiles. It reads XML or JSON profile files and creates interactive diagrams showing application state transitions.
 
-## Testing Guidelines
-- Jest with `ts-jest` powers unit tests. Add new specs near the implementation and mirror existing naming (`something.test.ts`).
-- Use sample ALPS fixtures in `tests/fake/` or add new ones when covering edge cases.
-- Aim for coverage parity with surrounding code; include validation and generator paths when altering CLI behavior.
+## Essential Commands
 
-## Commit & Pull Request Guidelines
-- Commit messages follow short, imperative summaries similar to `git log` (e.g., “Improve watch mode initialization”). Group related changes per commit when practical.
-- PRs should include: a concise description of the change, links to related issues, test evidence (`pnpm -r test` or equivalents), and notes on documentation or generated output updates. Provide screenshots or sample outputs when UI/docs behavior changes.
+```bash
+# Install dependencies
+pnpm install
+
+# Build all packages (required before running CLI)
+pnpm build
+
+# Run all tests
+pnpm test
+
+# Run a single test file
+npx jest packages/app-state-diagram/src/generator/dot-generator.test.ts
+
+# Run tests for a specific package
+pnpm --filter @alps-asd/app-state-diagram test
+pnpm --filter @alps-asd/mcp test
+
+# Run CLI locally after build
+node packages/app-state-diagram/dist/asd.js <profile.json|profile.xml>
+```
+
+### CLI Usage
+
+```bash
+asd profile.json                    # Generate HTML
+asd profile.json -f svg             # Generate SVG
+asd profile.json -f mermaid         # Generate Mermaid classDiagram
+asd profile.json -f dot             # Generate DOT
+asd profile.json --validate         # Validate only
+asd -w profile.json                 # Watch mode with Chrome live reload
+asd merge <base.json> <partial.json> # Merge ALPS documents
+```
+
+## Architecture
+
+### Monorepo Structure (pnpm workspaces)
+
+```
+packages/
+├── app-state-diagram/  # @alps-asd/app-state-diagram - Main CLI tool
+├── mcp/                # @alps-asd/mcp - MCP Server for AI integration
+└── crawler/            # @alps-asd/crawler (private) - Website crawler for ALPS extraction
+```
+
+MCP server depends on the CLI package via `"@alps-asd/app-state-diagram": "workspace:*"` and imports its parser/validator/generator through subpath exports.
+
+### Data Flow Pipeline
+
+```
+Input (JSON/XML)
+  → parseAlpsAuto()           # Auto-detect format, parse to AlpsDocument
+  → FileResolver.resolve()    # Fetch external href references (file/HTTP)
+  → AlpsMerger.merge()        # Optional: combine partial profiles
+  → Generator                 # One of:
+      ├── generateDot()       # Graphviz DOT
+      ├── generateMermaid()   # Mermaid classDiagram
+      ├── dotToSvg()          # SVG via WASM (@viz-js/viz) or local `dot` command
+      └── generateHtml()      # Interactive HTML with embedded Viz.js
+```
+
+### DOT Generation Algorithm (`dot-generator.ts`)
+
+State transitions are derived from the ALPS descriptor tree:
+
+1. **Transitions**: Descriptors with both `type` (safe/unsafe/idempotent) and `rt` (return type)
+2. **States**: Descriptors whose `id` appears as an `rt` target
+3. **Edges**: Source state → target state, determined by parent-child nesting of descriptors
+4. **Colors**: safe=#00A86B (green), unsafe=#FF4136 (red), idempotent=#D4A000 (gold)
+
+The HTML generator duplicates DOT generation logic in embedded JavaScript for browser-side label switching (id ↔ title).
+
+### SVG Generation
+
+Prefers local `dot` command (better multibyte support), falls back to WASM-based @viz-js/viz.
+
+### Validation Codes
+
+- **Errors (E001-E011)**: Missing id/href, missing rt, invalid type, broken references, duplicate ids
+- **Warnings (W001-W004)**: Missing title, naming conventions (go*/do* prefixes), orphan descriptors
+- **Suggestions (S001-S003)**: Documentation improvements
+
+### Build Configuration
+
+- TypeScript target: ES2020, module: CommonJS
+- Each package has `tsconfig.json` extending `tsconfig.base.json`
+- Output to `dist/` directory
+
+### CI
+
+- GitHub Actions on `2.x` branch
+- Node.js 20 & 22 matrix
+- Tests + coverage (Codecov) + demo output generation + DOT validation with Graphviz
+
+## Descriptor Types
+
+| Type | Color | Naming Convention |
+|------|-------|-------------------|
+| semantic | White | - |
+| safe | #00A86B | `goXxx` |
+| unsafe | #FF4136 | `doXxx` |
+| idempotent | #D4A000 | `doXxx` |
 
 ---
 > Source: [alps-asd/app-state-diagram](https://github.com/alps-asd/app-state-diagram) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
