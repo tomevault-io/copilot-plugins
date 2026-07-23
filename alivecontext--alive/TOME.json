@@ -4,7 +4,7 @@
   "repo": "alive",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -257,5 +257,5 @@
   ],
   "source_url": "https://github.com/alivecontext/alive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:45:02Z"
+  "distributed_at": "2026-07-23T13:44:12Z"
 }
