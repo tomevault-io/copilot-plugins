@@ -1,0 +1,153 @@
+{
+  "name": "khunquant",
+  "owner": "cryptoquantumwave",
+  "repo": "khunquant",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/dca/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/dca/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/pnl/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/pnl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/alerts/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/alerts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/github/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/trading/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/trading/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/weather/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/hardware/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/hardware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/snapshots/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/snapshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/portfolios/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/portfolios/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/rebalancing/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/rebalancing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/market-data/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/market-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/delta-neutral/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/delta-neutral/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/secrets-encrypt/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/secrets-encrypt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/market-analysis/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/market-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "khunquant",
+      "path": "workspace/skills/funding-rate-analysis/SKILL.md",
+      "github_url": "https://github.com/cryptoquantumwave/khunquant/tree/main/workspace/skills/funding-rate-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cryptoquantumwave/khunquant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T09:09:18Z"
+}
