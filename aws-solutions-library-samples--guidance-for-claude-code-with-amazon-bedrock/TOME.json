@@ -1,0 +1,75 @@
+{
+  "name": "guidance-for-claude-code-with-amazon-bedrock",
+  "owner": "aws-solutions-library-samples",
+  "repo": "guidance-for-claude-code-with-amazon-bedrock",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": "assets/claude-code-plugins/plugins/frontend-design/skills/frontend-design",
+      "github_url": "https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/tree/main/assets/claude-code-plugins/plugins/frontend-design/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "guidance-for-claude-code-with-amazon-bedrock",
+      "path": "assets/claude-code-plugins/plugins/sagemaker/skills/async-inference/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/tree/main/assets/claude-code-plugins/plugins/sagemaker/skills/async-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guidance-for-claude-code-with-amazon-bedrock",
+      "path": "assets/claude-code-plugins/plugins/ml-training/skills/grpo-finetuning/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/tree/main/assets/claude-code-plugins/plugins/ml-training/skills/grpo-finetuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guidance-for-claude-code-with-amazon-bedrock",
+      "path": "assets/claude-code-plugins/plugins/frontend-design/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/tree/main/assets/claude-code-plugins/plugins/frontend-design/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "guidance-for-claude-code-with-amazon-bedrock",
+      "path": "assets/claude-code-plugins/plugins/bedrock/skills/tool-use-structured-output/SKILL.md",
+      "github_url": "https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/tree/main/assets/claude-code-plugins/plugins/bedrock/skills/tool-use-structured-output/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:50:55Z"
+}
