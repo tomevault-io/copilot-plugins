@@ -4,7 +4,7 @@
   "repo": "react-router",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -59,5 +59,5 @@
   ],
   "source_url": "https://github.com/remix-run/react-router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T06:21:18Z"
+  "distributed_at": "2026-07-23T07:55:44Z"
 }
