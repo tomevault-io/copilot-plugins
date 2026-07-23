@@ -1,30 +1,34 @@
 ## client
 
-> - This repo uses React Compiler. Assume React Compiler patterns are enabled when editing React code, and avoid adding `useMemo`/`useCallback` by default unless they are clearly needed for correctness or compatibility with existing code.
+> - No `Co-Authored-By` in commits. Ever.
 
-# Repo Notes
+## Rules
+- No `Co-Authored-By` in commits. Ever.
+- Never interact with the Electron app or iOS simulator (screenshots, driving UI, debug ports) without asking first. The user drives and takes screenshots.
+- Use `--no-ext-diff` with `git diff` (and `git show`/`git log -p`) so external diff tools don't hijack output.
+- "Was working before" = base branch, not previous commit. Base branch is almost always `nojima/HOTPOT-next-670-clean-2` (not `master`). Always run `gh pr view --json baseRefName` to confirm before any `git diff` or `git log` comparison.
+- Never use `npm`. Always `yarn`.
+- Never silently drop features/behavior — ask first, present options.
+- In tests/stories, use `testuser` / `testuser-mac` as placeholder usernames — never real usernames like `chrisnojima`.
+- No DOM elements (`<div>`, `<span>`, etc.) in plain `.tsx` files — use `Kb.*`. Guard desktop-only DOM with `Styles.isMobile`.
+- Temp files go in `/tmp/`.
+- Remove unused code when editing: styles, imports, vars, params, dead helpers.
+- Comments: no refactoring notes; only add when context isn't obvious from code.
+- Exact versions in `package.json` (no `^`/`~`).
+- Keep `react`, `react-dom`, `react-native`, `@react-native/*` in sync with Expo SDK.
+- When updating deps: edit `package.json` → `yarn` → `yarn ios:pod:install`.
+- When updating `electron`: run `shared/desktop/extract-electron-shasums.sh <version>`.
+- Never patch `react-native` itself (patch-package or node_modules edits): we use prebuilt RN core and don't compile its source, so native-side patches never take effect. Work around RN core bugs in app code.
 
-- This repo uses React Compiler. Assume React Compiler patterns are enabled when editing React code, and avoid adding `useMemo`/`useCallback` by default unless they are clearly needed for correctness or compatibility with existing code.
-- Functions returned from `React.useEffectEvent(...)` are special stable event functions, not normal callback dependencies. Do not include them in dependency arrays; instead, depend on the real reactive values around the effect/callback.
-- Do not read or write `ref.current` during render. Access refs only from effects, event handlers, or other post-render code; if render needs to know whether async data is current, store a request key/version in state or derive it from props/state.
-- Treat React mount/unmount effects as Strict-Mode-safe. Do not assume a component only mounts once; route-driven async startup and cleanup logic must be idempotent and must not leave refs or guards stuck false after a dev remount.
-- Do not add `mountedRef`/`isMountedRef` guards just to suppress local React state updates after unmount; those updates are already a no-op in modern React. Only use a guard when you need to reject stale async results or protect a real side effect, and prefer request/version guards when they express the intent more directly.
-- If a mount guard is truly needed, set the ref to `true` inside the effect body and set it to `false` in cleanup. Never rely on `useRef(true)` alone across the component lifetime, because Strict Mode remounts can leave the guard stuck `false` and silently drop async results.
-- When a component reads multiple adjacent values from the same store hook, prefer a consolidated selector with `C.useShallow(...)` instead of multiple separate subscriptions.
-- Keep types accurate. Do not use casts or misleading annotations to mask a real type mismatch just to get around an issue; fix the type or fix the implementation.
-- When importing `@/constants/types` as `T`, check whether the file uses `T.*` as values, not just types. If you add calls like `T.RPCGen.*`, `T.Chat.*`, `T.Teams.*`, or any other runtime `T.*` access, do not keep `import type * as T ...`; switch it to a value import.
-- Do not add new exported functions, types, or constants unless they are required outside the file. Prefer file-local helpers for one-off implementation details and tests.
-- Under `shared/`, non-test TypeScript source files should use the `.tsx` extension.
-- Do not edit lockfiles by hand. They are generated artifacts. If you cannot regenerate one locally, leave it unchanged.
-- Never disable lints to address lint failures. Fix the underlying issue instead.
-- Components must not mutate Zustand stores directly with `useXState.setState`, `getState()`-based writes, or similar ad hoc store mutation. If a component needs to affect store state, route it through a store dispatch action or move the state out of the store.
-- For server-owned state such as badges, Gregor-driven UI state, and other engine-fed state, prefer reflecting the latest server state instead of masking problems with optimistic local mutations. Do not add local state writes that make the UI look correct while drifting from what the server has actually told us.
-- When a Zustand store already uses `resetState: Z.defaultReset`, prefer calling `dispatch.resetState()` for full resets instead of manually reassigning each initial field in another dispatch action.
-- During refactors, do not delete existing guards, conditionals, or platform/test-specific behavior unless you have proven they are dead and the user asked for that behavior change. Port checks like `androidIsTestDevice` forward into the new code path instead of silently dropping them.
-- When addressing PR or review feedback, including bot or lint-style suggestions, do not apply it mechanically. Verify that the reported issue is real in this codebase and that the proposed fix is consistent with repo rules and improves correctness, behavior, or maintainability before making changes.
-- When a repo plan starts with a test or regression-coverage chunk, do that chunk before implementation chunks. Do not skip the first coverage phase; if local toolchain constraints prevent adding or running the planned tests, stop and tell the user before moving on.
-- When working from a repo plan or checklist such as `PLAN.md`, update the checklist in the same change and mark implemented items done before you finish.
+## Working Directory
+Repo root is `client/`. TS source lives in `shared/`. Always use absolute paths for file ops. For Bash: always `cd shared/` first.
+
+## Superpowers
+- Plans created by superpowers skills go into `plans/` at the repo root.
+
+## Validation
+After TS changes (from `shared/`): `yarn lint` then `yarn tsc`. When debugging visually, skip until fix is confirmed. Never delete the ESLint cache.
 
 ---
 > Source: [keybase/client](https://github.com/keybase/client) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
