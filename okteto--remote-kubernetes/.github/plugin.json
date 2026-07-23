@@ -1,0 +1,9 @@
+{
+  "name": "okteto--remote-kubernetes",
+  "displayName": "remote-kubernetes",
+  "description": "remote-kubernetes",
+  "version": "1.0.0",
+  "author": "okteto",
+  "homepage": "https://github.com/okteto/remote-kubernetes",
+  "skills": []
+}
