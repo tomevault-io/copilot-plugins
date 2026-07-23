@@ -1,0 +1,22 @@
+{
+  "name": "lambdatest--kane-cli",
+  "displayName": "kane-cli",
+  "description": "kane-cli",
+  "version": "1.0.0",
+  "author": "LambdaTest",
+  "homepage": "https://github.com/LambdaTest/kane-cli",
+  "skills": [
+    {
+      "name": "kane-cli",
+      "description": ""
+    },
+    {
+      "name": "kane-cli",
+      "description": ""
+    },
+    {
+      "name": "kane-cli",
+      "description": ""
+    }
+  ]
+}
