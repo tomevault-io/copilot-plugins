@@ -1,0 +1,147 @@
+{
+  "name": "OS_design-directory",
+  "owner": "opensesh",
+  "repo": "OS_design-directory",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/bos-code-quality/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/bos-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/create-post-copy/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/create-post-copy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/brand-guidelines/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/brand-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/plugins/plugin-dev/skills/mcp-integration/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/plugins/plugin-dev/skills/mcp-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/plugins/plugin-dev/skills/plugin-settings/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/plugins/plugin-dev/skills/plugin-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/plugins/plugin-dev/skills/hook-development/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/plugins/plugin-dev/skills/hook-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/plugins/plugin-dev/skills/skill-development/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/plugins/plugin-dev/skills/skill-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/plugins/plugin-dev/skills/agent-development/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/plugins/plugin-dev/skills/agent-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OS_design-directory",
+      "path": ".claude/plugins/plugin-dev/skills/command-development/SKILL.md",
+      "github_url": "https://github.com/opensesh/OS_design-directory/tree/main/.claude/plugins/plugin-dev/skills/command-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/opensesh/OS_design-directory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:40:23Z"
+}
