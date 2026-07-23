@@ -1,0 +1,563 @@
+## ai-dba-workbench
+
+> > Standing instructions for Claude Code on this project.
+
+# Claude Standing Instructions
+
+> Standing instructions for Claude Code on this project.
+
+## Primary Agent Role
+
+**The primary agent acts primarily as a coordinator and manager.**
+By default, productive work flows through specialized sub-agents;
+the primary agent only handles a narrow set of trivial changes
+directly (see "Trivial-Edit Carve-Out" below). This split keeps
+the primary's context clean for coordination while avoiding the
+overhead of dispatching a sub-agent for one-line fixes.
+
+The primary agent's responsibilities are:
+
+- Understanding user requirements and breaking them into tasks.
+
+- Selecting appropriate sub-agents for each task.
+
+- Delegating implementation work to sub-agents.
+
+- Coordinating between multiple sub-agents when tasks span domains.
+
+- Synthesizing sub-agent results for the user.
+
+- Running verification commands (e.g., `make test-all`) after sub-agents
+  complete their work.
+
+- Handling trivial direct edits that meet every condition in the
+  carve-out below.
+
+### Trivial-Edit Carve-Out
+
+The primary agent MAY edit files directly only when ALL of the
+following are true:
+
+- The change touches a single file.
+
+- The change is no more than 20 lines (added + removed combined).
+
+- Identifying the change took at most two tool calls (typically one
+  Read or Grep, plus one Edit).
+
+- The change does not touch security-sensitive code: anything
+  under `server/src/internal/auth/`, code that hashes passwords,
+  manipulates tokens, performs RBAC checks, parses untrusted
+  input, or constructs SQL.
+
+- The change does not require updating a sub-agent knowledge-base
+  file alongside it (the sub-agent owns its KB, so delegate when
+  KB changes are needed).
+
+- The change does not introduce or modify a public API or exported
+  identifier.
+
+Typical qualifying cases: typo or comment fix, single-line bug
+fix at a known call-site, whitespace cleanup, adding or removing
+a single import.
+
+If any condition fails, delegate. When in doubt, delegate; the
+sub-agent overhead is small compared to the cost of the primary
+agent rationalising past this rule.
+
+#### Named Exception: Release Version Bumps
+
+Bumping the project version in preparation for a release is
+explicitly a primary-agent task, even though it usually touches
+several files (version strings in `package.json`, Go constants,
+mkdocs config, etc.) and the changelog. It is mechanical,
+high-frequency, and typically performed in a fresh conversation
+anyway, so sub-agent overhead is pure cost with no quality
+benefit. The primary agent may make these edits directly,
+including the corresponding `docs/changelog.md` entry that
+records the version bump itself; deeper changelog content for the
+release should still flow through **documentation-writer**.
+
+The primary agent must NEVER:
+
+- Make multi-file changes directly, even when each individual
+  file change is small.
+
+- Edit production code in `collector/`, `server/`, `alerter/`, or
+  `client/` that exceeds the carve-out above.
+
+- Perform any task that a sub-agent could handle and that does
+  not clearly fit the carve-out.
+
+When uncertain which sub-agent to use, delegate to the built-in
+**Explore** agent type for research and navigation tasks.
+
+## Project Structure
+
+The pgEdge AI DBA Workbench consists of four sub-projects:
+
+- `/collector` - Data collector (Go).
+
+- `/server` - MCP server (Go).
+
+- `/alerter` - Alert monitoring service (Go).
+
+- `/client` - Web client application (React/TypeScript).
+
+Each sub-project follows this base structure:
+
+- `/src` - Source code.
+
+- `/tests` - Unit and integration tests (unless language convention places
+  tests alongside source files).
+
+- `/docs/<subproject>` - Documentation in markdown format with lowercase
+  filenames.
+
+## Key Files
+
+Reference these files for project context:
+
+- `docs/changelog.md` - Notable changes by release.
+
+- `mkdocs.yml` - Documentation site navigation.
+
+- `Makefile` - Build and test commands.
+
+## Sub-Agents
+
+Specialized sub-agents in `/.claude/agents/` handle the bulk of
+implementation work. The primary agent delegates by default and
+only edits directly within the Trivial-Edit Carve-Out above.
+
+### Delegation Mapping
+
+Anything outside the Trivial-Edit Carve-Out must be delegated.
+Use this mapping to select the correct sub-agent:
+
+| Task Type                      | Sub-Agent                     |
+|--------------------------------|-------------------------------|
+| Go code (any change)           | **golang-expert**             |
+| Go tests and test strategy     | **golang-expert**             |
+| Go code review                 | **golang-expert**             |
+| MCP protocol and tools         | **golang-expert**             |
+| React/TypeScript code          | **react-expert**              |
+| React tests and test strategy  | **react-expert**              |
+| React code review              | **react-expert**              |
+| Documentation changes          | **documentation-writer**      |
+| PostgreSQL questions           | **postgres-expert**           |
+| Spock/replication questions    | **postgres-expert**           |
+| Security review                | **security-auditor**          |
+| General exploration/research   | **Explore** (built-in agent)  |
+
+Sub-agents have full access to the codebase and can both advise and write
+code directly. The primary agent's role is to coordinate their work and
+present results to the user.
+
+### Available Sub-Agents
+
+**Implementation Agents** (can write code):
+
+- **golang-expert** - Go development: features, bugs, architecture,
+  review. Also handles MCP protocol implementation, test strategy,
+  and code review for all Go code.
+
+- **react-expert** - React/MUI development: components, features, bugs.
+  Also handles test strategy and code review for React code.
+
+- **documentation-writer** - Documentation following project style guide.
+
+**Advisory Agents** (research and recommend):
+
+- **postgres-expert** - PostgreSQL administration, tuning,
+  troubleshooting. Also covers Spock replication topics.
+
+- **security-auditor** - Security review, vulnerability detection, OWASP.
+
+Implementation agents follow the conventions documented in CLAUDE.md
+and their own knowledge bases. Use the built-in **Explore** agent for
+codebase navigation and general research tasks.
+
+Each sub-agent has a knowledge base in `/.claude/<agent-name>/` containing
+domain-specific patterns and project conventions.
+
+When a task changes code documented in a knowledge base file, the
+sub-agent must update the affected KB file in the same change.
+The primary agent should verify that relevant KB entries remain
+accurate after each task completes. KB files that
+become stale or inaccurate are worse than having no KB file at all;
+delete or correct any entry that no longer matches the code.
+
+## Plans and Specs
+
+Store all plans in the `.claude/plans/` directory. Store all design
+specs in the `.claude/specs/` directory. Use descriptive filenames
+that reflect the task or feature being planned.
+
+## Development Worktrees
+
+All development work is performed in a dedicated git worktree by
+default. The worktree keeps the main checkout clean and isolates
+concurrent tasks from one another; this prevents in-flight changes
+from one task contaminating another.
+
+The default applies to every task unless the developer explicitly
+requests that the work happen in the main checkout or otherwise
+overrides the default. The primary agent should confirm any such
+override before proceeding.
+
+When dispatching sub-agents that perform implementation work, invoke
+them with worktree isolation where the Agent tool supports it; for
+example, pass `isolation: "worktree"` so each sub-agent operates in
+its own isolated tree. Advisory and research sub-agents that do not
+modify files do not require worktree isolation.
+
+## Pull Request Workflow
+
+Before pushing any PR branch, Claude must check whether the branch is
+behind `main` and rebase onto the latest `main` if it is. This rule
+applies both when opening a new pull request and when pushing further
+commits to an existing one; the goal is to keep the PR history linear,
+ensure CI runs against the current `main`, and avoid merge-conflict
+surprises at review time.
+
+The required pre-push procedure is as follows:
+
+- Fetch the latest `main` from the remote with `git fetch origin main`.
+
+- Compare the PR branch against `origin/main` to determine whether the
+  branch is behind; for example, inspect `git rev-list --left-right
+  --count origin/main...HEAD`.
+
+- If the branch is behind, rebase it onto the latest `main` with
+  `git rebase origin/main` before pushing.
+
+- Resolve any conflicts that arise during the rebase rather than
+  aborting the rebase or force-overwriting the conflicting files; only
+  ask the developer for guidance when the conflicts cannot be resolved
+  cleanly.
+
+- After a successful rebase, push the rebased branch with
+  `git push --force-with-lease`; never use a plain `git push --force`,
+  because `--force-with-lease` refuses to overwrite remote work that
+  Claude has not seen.
+
+- Never force-push to `main` itself, regardless of circumstance; the
+  force-push allowance applies only to the PR branch.
+
+## Task Workflow
+
+The primary agent follows this workflow for all tasks:
+
+1. **Understand** - Clarify requirements with the user if needed.
+
+2. **Plan** - Break the task into sub-tasks and identify required sub-agents.
+
+3. **Delegate** - Dispatch each sub-task to the appropriate sub-agent.
+   For multi-domain tasks, coordinate multiple sub-agents in sequence or
+   parallel as appropriate.
+
+4. **Verify** - After sub-agents complete their work, run `make test-all`
+   to ensure all tests pass. Confirm every sub-agent delivering code has
+   also delivered tests that meet the 90% coverage floor described in
+   the Tests section; reject output that does not.
+
+5. **Review** - For security-sensitive changes (auth, input handling,
+   queries), delegate to **security-auditor** for review.
+
+6. **Document** - For user-facing changes, delegate to
+   **documentation-writer** to update `docs/changelog.md`.
+
+7. **Report** - Synthesize sub-agent results and present a summary to
+   the user.
+
+**Remember:** The primary agent delegates by default. The only
+exception is the Trivial-Edit Carve-Out documented under "Primary
+Agent Role"; anything outside that carve-out must come from a
+sub-agent.
+
+## Documentation
+
+### General Guidelines
+
+- Place a `README.md` in each sub-project directory with a high-level
+  overview and getting started information.
+
+- Create an `index.md` as the entry point for each sub-project's docs;
+  link to this file from the sub-project README.
+
+- Link the top-level `README.md` to each sub-project README.
+
+- Wrap all markdown files at 79 characters or less.
+
+- Place `LICENSE.md` in both `/docs` and the repository root.
+
+### Writing Style
+
+- Use active voice.
+
+- Write grammatically correct sentences between 7 and 20 words.
+
+- Use semicolons to link related ideas or manage long sentences.
+
+- Use articles (a, an, the) appropriately.
+
+- Avoid ambiguous pronoun references; only use "it" when the referent is
+  in the same sentence.
+
+### Document Structure
+
+- Use one first-level heading per file with multiple second-level headings.
+
+- Limit third and fourth-level headings to prominent content only.
+
+- Include an introductory sentence or paragraph after each heading.
+
+- For Features or Overview sections, use the format: "The MCP Server
+  includes the following features:" followed by a bulleted list.
+
+### Lists
+
+- Leave a blank line before the first item in any list or sub-list.
+
+- Write each bullet as a complete sentence with articles.
+
+- Do not bold bullet items.
+
+- Use numbered lists only for sequential steps.
+
+### Code Snippets
+
+- Precede code with an explanatory sentence: "In the following example,
+  the `command_name` command uses..."
+
+- Use backticks for inline code: `SELECT * FROM table;`
+
+- Use fenced code blocks with language tags for multi-line code:
+
+  ```sql
+  SELECT * FROM code;
+  ```
+
+- Format `stdio`, `stdin`, `stdout`, and `stderr` in backticks.
+
+- Capitalise SQL keywords; use lowercase for variables.
+
+### Links and References
+
+- Link files outside `/docs` to their GitHub location.
+
+- Include third-party installation/documentation links in Prerequisites.
+
+- Link to the GitHub repo when referencing cloning or project work.
+
+- Do not link to github.io.
+
+### README.md Files
+
+At the top of each README:
+
+- GitHub Action badges for repository actions.
+
+- Test deployment links (if applicable).
+
+- Table of Contents mirroring the `mkdocs.yml` nav section.
+
+- Link to online docs at docs.pgedge.com.
+
+README body content:
+
+- Getting started steps.
+
+- Prerequisites with commands and third-party links.
+
+- Build/install commands and minimal configuration notes.
+
+- Deployment section linking to Installation, Configuration, and Usage
+  pages in `/docs`.
+
+At the end of each README:
+
+- Issues link: "To report an issue with the software, visit:"
+
+- Developer link: "We welcome your project contributions; for more
+  information, see docs/developer-guide/contributing.md."
+
+- Online docs link: "For more information, visit
+  [docs.pgedge.com](https://docs.pgedge.com)"
+
+- License (final line): "This project is licensed under the
+  [PostgreSQL License](LICENSE.md)."
+
+### Additional Documentation Requirements
+
+- Match all sample output to actual output.
+
+- Document all command-line options.
+
+- Include well-commented examples for all configuration options.
+
+- Keep documentation synchronized with code for CLI options, configuration,
+  and environment variables.
+
+- Update `changelog.md` with notable changes since the last release.
+
+## Tests
+
+- Provide unit and integration tests for each sub-project.
+
+- Execute tests with `go test` or `npm test` as appropriate.
+
+- Write automated tests for all functions and features; use mocking where
+  needed.
+
+- Run all tests after any changes; check for errors and warnings that may
+  be hidden by output redirection or truncation.
+
+- Clean up temporary test files on completion; retain log files for
+  debugging.
+
+- Modify existing tests only when the tested functionality changes or to
+  fix bugs.
+
+- Include linting in standard test suites using locally installable tools.
+
+- Enable coverage checking in standard test suites.
+
+- All new and modified code must reach at least 90% line coverage;
+  this is a hard, non-negotiable floor and not an aspirational target.
+
+- The 90% floor applies to every change, no matter how small; when
+  you modify a file or package whose current coverage is below 90%,
+  raise the touched unit to 90% as part of the same change.
+
+- Measure Go coverage per sub-project with `cd <subproject> && make
+  coverage`, which runs `go test -coverprofile=coverage.out ./...`;
+  inspect the numeric result with `go tool cover -func=coverage.out`.
+
+- Measure client coverage with `cd client && make coverage`, which
+  runs `npm run test:coverage` (Vitest with `@vitest/coverage-v8`);
+  the text reporter prints per-file line coverage.
+
+- Run `make test-all` from the repository root to execute the full
+  suite across all sub-projects before completing a task.
+
+- A task is not complete until new and modified code meets the 90%
+  coverage floor, verified by the coverage tooling above; do not
+  mark work done on the basis of passing tests alone.
+
+- Run `gofmt` on all Go files.
+
+- Ensure `make test` runs all test suites.
+
+- Do not skip database tests when testing changes.
+
+- **After any code change, always run `gofmt` (for Go) and all relevant
+  linters before considering the task complete.** A task is not finished
+  until formatting and linting pass with no errors or warnings.
+
+- Run `make test-all` in the top-level directory before completing a task.
+
+## API Specification
+
+- Keep the OpenAPI specification in
+  `server/src/internal/api/openapi.go` synchronized with
+  the server code at all times.
+
+- When adding, modifying, or removing an HTTP endpoint, update the
+  corresponding path entry and schemas in `BuildOpenAPISpec`.
+
+- Update the endpoint summary table in
+  `docs/admin-guide/api/reference.md` to match the current API
+  surface.
+
+- Regenerate the static OpenAPI file after any specification change:
+  `cd server && make openapi`.
+
+- Run the OpenAPI tests after any specification change:
+  `cd server/src && go test ./internal/api/ -run OpenAPI -v`.
+
+- The interactive API browser at `docs/admin-guide/api/reference.md`
+  renders from the static file `docs/admin-guide/api/openapi.json`;
+  verify that new endpoints appear correctly in the ReDoc output.
+
+## Security
+
+- Maintain isolation between user sessions.
+
+- Restrict database connections to their owning users or tokens.
+
+- Protect against injection attacks at client and server; the exception is
+  MCP tools that execute arbitrary SQL queries.
+
+- Follow industry best practices for defensive secure coding.
+
+- Review all changes for security implications; report potential issues.
+
+## Browser Automation (playwright-cli)
+
+The project has `playwright-cli` installed as a Claude Code skill at
+`.claude/skills/playwright-cli/SKILL.md`. Use this tool for browser
+testing, form filling, screenshots, and web interaction.
+
+- `playwright-cli` is a standalone CLI tool; it is NOT the Playwright
+  MCP server or the npm `playwright` package.
+
+- Do not attempt to install Playwright via `npx playwright install`,
+  `npm install playwright`, or `npx @anthropic-ai/playwright-mcp`.
+
+- Do not use `npx playwright` commands; use `playwright-cli` directly.
+
+- Run commands via `Bash(playwright-cli:*)` tool calls (for example,
+  `playwright-cli open`, `playwright-cli click e5`).
+
+- Use the `--headed` flag on `playwright-cli open` when the user
+  wants to see the browser window.
+
+- After each command, a snapshot YAML file is written to
+  `.playwright-cli/` (gitignored). Read the snapshot to find element
+  refs (for example, `e31`, `e37`) for subsequent interactions.
+
+- Refs change after navigation and interaction; take a fresh
+  `playwright-cli snapshot` if refs become stale.
+
+- The skill file at `.claude/skills/playwright-cli/SKILL.md` contains
+  the full command reference.
+
+- After completing UI changes, use `playwright-cli` to validate the
+  changes visually in a browser session. This supplements unit and
+  integration tests by catching rendering, interaction, and
+  navigation issues that automated tests may miss.
+
+## Code Style
+
+- Use four spaces for indentation.
+
+- Write readable, extensible, and appropriately modularised code.
+
+- Minimise code duplication; refactor as needed.
+
+- Follow language-specific best practices.
+
+- Remove unused code.
+
+- Use `COMMENT ON` to describe objects in database migrations.
+
+- Include this copyright notice at the top of every source file (not
+  configuration files); adjust comment style for the language:
+
+  ```
+  /*-------------------------------------------------------------------------
+   *
+   * pgEdge AI DBA Workbench
+   *
+   * Copyright (c) 2025 - 2026, pgEdge, Inc.
+   * This software is released under The PostgreSQL License
+   *
+   *-------------------------------------------------------------------------
+   */
+  ```
+
+---
+> Source: [pgEdge/ai-dba-workbench](https://github.com/pgEdge/ai-dba-workbench) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
