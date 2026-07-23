@@ -1,0 +1,9 @@
+{
+  "name": "runtimeverification--evm-semantics",
+  "displayName": "evm-semantics",
+  "description": "evm-semantics",
+  "version": "1.0.0",
+  "author": "runtimeverification",
+  "homepage": "https://github.com/runtimeverification/evm-semantics",
+  "skills": []
+}
