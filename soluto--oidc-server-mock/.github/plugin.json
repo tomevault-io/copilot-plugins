@@ -1,0 +1,9 @@
+{
+  "name": "soluto--oidc-server-mock",
+  "displayName": "oidc-server-mock",
+  "description": "oidc-server-mock",
+  "version": "1.0.0",
+  "author": "Soluto",
+  "homepage": "https://github.com/Soluto/oidc-server-mock",
+  "skills": []
+}
