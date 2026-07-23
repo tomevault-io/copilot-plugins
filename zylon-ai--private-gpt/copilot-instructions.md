@@ -1,34 +1,24 @@
 ## private-gpt
 
-> This file is for Codex and other OpenAI-style coding agents working in `./ui`.
+> See @README.md, @docs/SOURCE_OF_TRUTH.md, @docs/PRD.md, and @docs/STYLE_GUIDE.md before editing `index.html`.
 
-# Codex Instructions
+# Claude Code Instructions
 
-This file is for Codex and other OpenAI-style coding agents working in `./ui`.
-
-## Read First
-
-Read these files in order before changing behavior, UI, or API wiring:
-
-1. `README.md`
-2. `docs/SOURCE_OF_TRUTH.md`
-3. `docs/PRD.md`
-4. `docs/STYLE_GUIDE.md`
-5. `index.html`
+See @README.md, @docs/SOURCE_OF_TRUTH.md, @docs/PRD.md, and @docs/STYLE_GUIDE.md before editing `index.html`.
 
 ## Scope
 
-- Keep the app as a simple static demo.
-- Keep `index.html` as the only runtime implementation file unless the user explicitly asks for a different structure.
-- Treat `docs/SOURCE_OF_TRUTH.md` as the canonical pointer to API contract paths and documentation ownership.
+- Keep the app static and easy to inspect.
+- Keep `index.html` as the only runtime implementation file unless explicitly told otherwise.
+- Treat `docs/SOURCE_OF_TRUTH.md` as the canonical pointer to API contract paths and document ownership.
 - Update the relevant docs in `docs/` whenever behavior, visuals, persistence, security posture, or API request/response handling changes.
 
-## Codex-Specific Notes
+## Claude-Specific Notes
 
-- Follow the validation steps documented in `README.md` and `docs/SOURCE_OF_TRUTH.md`.
+- Use the shared docs above as the source of truth instead of duplicating product or design rules here.
 - If implementation and docs disagree, fix the disagreement in the same change.
-- When finishing work, summarize what changed, what validation ran, and any known limitations.
+- Validate `index.html` changes with the documented script and manually test changed flows when needed.
 
 ---
 > Source: [zylon-ai/private-gpt](https://github.com/zylon-ai/private-gpt) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
