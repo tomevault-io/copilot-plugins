@@ -1,0 +1,9 @@
+{
+  "name": "apatsufas--homebridge-tapo-p100",
+  "displayName": "homebridge-tapo-p100",
+  "description": "homebridge-tapo-p100",
+  "version": "1.0.0",
+  "author": "apatsufas",
+  "homepage": "https://github.com/apatsufas/homebridge-tapo-p100",
+  "skills": []
+}
