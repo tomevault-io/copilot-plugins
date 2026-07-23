@@ -1,0 +1,81 @@
+{
+  "name": "fire-flow",
+  "owner": "ThierryN",
+  "repo": "fire-flow",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fire-flow",
+      "path": "skills-library/toolbox/SKILL.md",
+      "github_url": "https://github.com/ThierryN/fire-flow/tree/main/skills-library/toolbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fire-flow",
+      "path": "skills-library/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/ThierryN/fire-flow/tree/main/skills-library/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fire-flow",
+      "path": "skills-library/parallel-debug/SKILL.md",
+      "github_url": "https://github.com/ThierryN/fire-flow/tree/main/skills-library/parallel-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fire-flow",
+      "path": "skills-library/system-context/SKILL.md",
+      "github_url": "https://github.com/ThierryN/fire-flow/tree/main/skills-library/system-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fire-flow",
+      "path": "skills-library/excalidraw-diagrams/SKILL.md",
+      "github_url": "https://github.com/ThierryN/fire-flow/tree/main/skills-library/excalidraw-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "fire-flow",
+      "path": "skills-library/document-processing/pdf-forms-integration/SKILL.md",
+      "github_url": "https://github.com/ThierryN/fire-flow/tree/main/skills-library/document-processing/pdf-forms-integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ThierryN/fire-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T15:49:59Z"
+}
