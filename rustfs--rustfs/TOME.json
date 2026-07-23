@@ -4,7 +4,7 @@
   "repo": "rustfs",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -83,5 +83,5 @@
   ],
   "source_url": "https://github.com/rustfs/rustfs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T10:03:45Z"
+  "distributed_at": "2026-07-23T08:20:52Z"
 }
