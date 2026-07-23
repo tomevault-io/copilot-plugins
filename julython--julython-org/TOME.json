@@ -1,0 +1,57 @@
+{
+  "name": "julython.org",
+  "owner": "julython",
+  "repo": "julython.org",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "julython.org",
+      "path": ".pi/skills/planning/SKILL.md",
+      "github_url": "https://github.com/julython/julython.org/tree/main/.pi/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "julython.org",
+      "path": ".claude/skills/implement-issue/SKILL.md",
+      "github_url": "https://github.com/julython/julython.org/tree/main/.claude/skills/implement-issue/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/julython/julython.org",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T11:38:59Z"
+}
