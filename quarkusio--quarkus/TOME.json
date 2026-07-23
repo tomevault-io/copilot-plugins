@@ -4,7 +4,7 @@
   "repo": "quarkus",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -101,5 +101,5 @@
   ],
   "source_url": "https://github.com/quarkusio/quarkus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:21:09Z"
+  "distributed_at": "2026-07-23T05:23:27Z"
 }
