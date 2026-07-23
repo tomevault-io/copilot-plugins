@@ -1,0 +1,14 @@
+{
+  "name": "forcedotcom--salesforcemobilesdk-reactnative",
+  "displayName": "SalesforceMobileSDK-ReactNative",
+  "description": "SalesforceMobileSDK-ReactNative",
+  "version": "1.0.0",
+  "author": "forcedotcom",
+  "homepage": "https://github.com/forcedotcom/SalesforceMobileSDK-ReactNative",
+  "skills": [
+    {
+      "name": "SalesforceMobileSDK-ReactNative",
+      "description": ""
+    }
+  ]
+}
