@@ -1,0 +1,207 @@
+{
+  "name": "claude-swift-engineering",
+  "owner": "johnrogers",
+  "repo": "claude-swift-engineering",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "swift-style",
+      "path": "plugins/swift-engineering/skills/swift-style",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swift-style",
+      "description": ""
+    },
+    {
+      "name": "composable-architecture",
+      "path": "plugins/swift-engineering/skills/composable-architecture",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/composable-architecture",
+      "description": ""
+    },
+    {
+      "name": "foundation-models",
+      "path": "plugins/swift-engineering/skills/foundation-models",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/foundation-models",
+      "description": ""
+    },
+    {
+      "name": "generating-swift-package-docs",
+      "path": "plugins/swift-engineering/skills/generating-swift-package-docs",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/generating-swift-package-docs",
+      "description": ""
+    },
+    {
+      "name": "grdb",
+      "path": "plugins/swift-engineering/skills/grdb",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/grdb",
+      "description": ""
+    },
+    {
+      "name": "ios-26-platform",
+      "path": "plugins/swift-engineering/skills/ios-26-platform",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/ios-26-platform",
+      "description": ""
+    },
+    {
+      "name": "ios-hig",
+      "path": "plugins/swift-engineering/skills/ios-hig",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/ios-hig",
+      "description": ""
+    },
+    {
+      "name": "modern-swift",
+      "path": "plugins/swift-engineering/skills/modern-swift",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/modern-swift",
+      "description": ""
+    },
+    {
+      "name": "storekit",
+      "path": "plugins/swift-engineering/skills/storekit",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/storekit",
+      "description": ""
+    },
+    {
+      "name": "swift-testing",
+      "path": "plugins/swift-engineering/skills/swift-testing",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swift-testing",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/grdb/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/grdb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/haptics/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/haptics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/ios-hig/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/ios-hig/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/storekit/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/storekit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/swift-style/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swift-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/sqlite-data/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/sqlite-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/localization/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/modern-swift/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/modern-swift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/swift-testing/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swift-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/ios-26-platform/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/ios-26-platform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/swiftui-advanced/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swiftui-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/swiftui-patterns/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swiftui-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/swift-networking/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swift-networking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/foundation-models/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/foundation-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/swift-diagnostics/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/swift-diagnostics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/composable-architecture/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/composable-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-swift-engineering",
+      "path": "plugins/swift-engineering/skills/generating-swift-package-docs/SKILL.md",
+      "github_url": "https://github.com/johnrogers/claude-swift-engineering/tree/main/plugins/swift-engineering/skills/generating-swift-package-docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/johnrogers/claude-swift-engineering",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T17:32:19Z"
+}
