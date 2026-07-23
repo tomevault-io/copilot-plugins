@@ -1,0 +1,14 @@
+{
+  "name": "mlg87--pr-reviewer-slack-notify-action",
+  "displayName": "pr-reviewer-slack-notify-action",
+  "description": "pr-reviewer-slack-notify-action",
+  "version": "1.0.0",
+  "author": "mlg87",
+  "homepage": "https://github.com/mlg87/pr-reviewer-slack-notify-action",
+  "skills": [
+    {
+      "name": "pr-reviewer-slack-notify-action",
+      "description": ""
+    }
+  ]
+}
