@@ -1,0 +1,93 @@
+{
+  "name": "plutonium-core",
+  "owner": "radioactive-labs",
+  "repo": "plutonium-core",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "plutonium",
+      "path": ".claude/skills/plutonium",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium",
+      "description": ""
+    },
+    {
+      "name": "plutonium-assets",
+      "path": ".claude/skills/plutonium-assets",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium-assets",
+      "description": ""
+    },
+    {
+      "name": "plutonium-definition",
+      "path": ".claude/skills/plutonium-definition",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium-definition",
+      "description": ""
+    },
+    {
+      "name": "plutonium-installation",
+      "path": ".claude/skills/plutonium-installation",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium-installation",
+      "description": ""
+    },
+    {
+      "name": "plutonium-invites",
+      "path": ".claude/skills/plutonium-invites",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium-invites",
+      "description": ""
+    },
+    {
+      "name": "plutonium-model",
+      "path": ".claude/skills/plutonium-model",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium-model",
+      "description": ""
+    },
+    {
+      "name": "plutonium-policy",
+      "path": ".claude/skills/plutonium-policy",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium-policy",
+      "description": ""
+    },
+    {
+      "name": "plutonium-portal",
+      "path": ".claude/skills/plutonium-portal",
+      "github_url": "https://github.com/radioactive-labs/plutonium-core/tree/main/.claude/skills/plutonium-portal",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/radioactive-labs/plutonium-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T07:39:19Z"
+}
