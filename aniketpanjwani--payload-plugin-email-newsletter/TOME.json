@@ -1,0 +1,75 @@
+{
+  "name": "payload-plugin-email-newsletter",
+  "owner": "aniketpanjwani",
+  "repo": "payload-plugin-email-newsletter",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "broadcast-api",
+      "path": ".claude/skills/broadcast-api",
+      "github_url": "https://github.com/aniketpanjwani/payload-plugin-email-newsletter/tree/main/.claude/skills/broadcast-api",
+      "description": ""
+    },
+    {
+      "name": "payload-v3-endpoints",
+      "path": ".claude/skills/payload-v3-endpoints",
+      "github_url": "https://github.com/aniketpanjwani/payload-plugin-email-newsletter/tree/main/.claude/skills/payload-v3-endpoints",
+      "description": ""
+    },
+    {
+      "name": "payload-plugin-email-newsletter",
+      "path": ".claude/skills/broadcast-api/SKILL.md",
+      "github_url": "https://github.com/aniketpanjwani/payload-plugin-email-newsletter/tree/main/.claude/skills/broadcast-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload-plugin-email-newsletter",
+      "path": ".claude/skills/payload-v3-endpoints/SKILL.md",
+      "github_url": "https://github.com/aniketpanjwani/payload-plugin-email-newsletter/tree/main/.claude/skills/payload-v3-endpoints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "payload-plugin-email-newsletter",
+      "path": ".claude/skills/payload-plugin-release/SKILL.md",
+      "github_url": "https://github.com/aniketpanjwani/payload-plugin-email-newsletter/tree/main/.claude/skills/payload-plugin-release/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aniketpanjwani/payload-plugin-email-newsletter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:51:31Z"
+}
