@@ -1,0 +1,255 @@
+{
+  "name": ".dotfiles",
+  "owner": "citypaul",
+  "repo": ".dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "expectations",
+      "path": "claude/.claude/skills/expectations",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/expectations",
+      "description": ""
+    },
+    {
+      "name": "front-end-testing",
+      "path": "claude/.claude/skills/front-end-testing",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/front-end-testing",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "path": "claude/.claude/skills/mutation-testing",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "refactoring",
+      "path": "claude/.claude/skills/refactoring",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/refactoring",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": "claude/.claude/skills/tdd",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/tdd",
+      "description": ""
+    },
+    {
+      "name": "test-design-reviewer",
+      "path": "claude/.claude/skills/test-design-reviewer",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/test-design-reviewer",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "claude/.claude/skills/testing",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "typescript-strict",
+      "path": "claude/.claude/skills/typescript-strict",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/typescript-strict",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "path": "claude/.claude/skills/domain-driven-design",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "cli-design",
+      "path": "claude/.claude/skills/cli-design",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/cli-design",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/teach-me/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/teach-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/planning/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/diagrams/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/find-gaps/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/find-gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/cli-design/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/cli-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/api-design/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/api-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/storyboard/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/storyboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/functional/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/functional/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/refactoring/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/ci-debugging/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/ci-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/expectations/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/expectations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/twelve-factor/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/twelve-factor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/story-splitting/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/story-splitting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/mutation-testing/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/mutation-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/folder-structure/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/folder-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/front-end-testing/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/front-end-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/typescript-strict/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/typescript-strict/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/domain-driven-design/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/domain-driven-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/test-design-reviewer/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/test-design-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/hexagonal-architecture/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/hexagonal-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/characterisation-tests/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/characterisation-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": ".dotfiles",
+      "path": "claude/.claude/skills/production-parity-skill-builder/SKILL.md",
+      "github_url": "https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills/production-parity-skill-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/citypaul/.dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T21:31:32Z"
+}
