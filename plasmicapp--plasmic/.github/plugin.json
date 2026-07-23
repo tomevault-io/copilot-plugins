@@ -1,0 +1,14 @@
+{
+  "name": "plasmicapp--plasmic",
+  "displayName": "plasmic",
+  "description": "plasmic",
+  "version": "1.0.0",
+  "author": "plasmicapp",
+  "homepage": "https://github.com/plasmicapp/plasmic",
+  "skills": [
+    {
+      "name": "plasmic",
+      "description": ""
+    }
+  ]
+}
