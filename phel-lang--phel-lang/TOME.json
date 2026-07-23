@@ -4,7 +4,7 @@
   "repo": "phel-lang",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -137,5 +137,5 @@
   ],
   "source_url": "https://github.com/phel-lang/phel-lang",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T00:56:26Z"
+  "distributed_at": "2026-07-23T17:41:47Z"
 }
