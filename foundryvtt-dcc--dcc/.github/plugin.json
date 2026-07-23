@@ -1,0 +1,14 @@
+{
+  "name": "foundryvtt-dcc--dcc",
+  "displayName": "dcc",
+  "description": "dcc",
+  "version": "1.0.0",
+  "author": "foundryvtt-dcc",
+  "homepage": "https://github.com/foundryvtt-dcc/dcc",
+  "skills": [
+    {
+      "name": "dcc",
+      "description": ""
+    }
+  ]
+}
