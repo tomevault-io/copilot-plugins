@@ -1,0 +1,14 @@
+{
+  "name": "lipas-liikuntapaikat--lipas",
+  "displayName": "lipas",
+  "description": "lipas",
+  "version": "1.0.0",
+  "author": "lipas-liikuntapaikat",
+  "homepage": "https://github.com/lipas-liikuntapaikat/lipas",
+  "skills": [
+    {
+      "name": "lipas",
+      "description": ""
+    }
+  ]
+}
