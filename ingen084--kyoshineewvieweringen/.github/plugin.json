@@ -1,0 +1,18 @@
+{
+  "name": "ingen084--kyoshineewvieweringen",
+  "displayName": "KyoshinEewViewerIngen",
+  "description": "KyoshinEewViewerIngen",
+  "version": "1.0.0",
+  "author": "ingen084",
+  "homepage": "https://github.com/ingen084/KyoshinEewViewerIngen",
+  "skills": [
+    {
+      "name": "creating-claude-code-skills",
+      "description": ""
+    },
+    {
+      "name": "KyoshinEewViewerIngen",
+      "description": ""
+    }
+  ]
+}
