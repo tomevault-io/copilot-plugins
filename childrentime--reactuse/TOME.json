@@ -1,0 +1,171 @@
+{
+  "name": "reactuse",
+  "owner": "childrentime",
+  "repo": "reactuse",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reactuse",
+      "path": ".claude/skills/medium-push/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/.claude/skills/medium-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": ".claude/skills/ping-indexnow/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/.claude/skills/ping-indexnow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": ".claude/skills/publish-hashnode/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/.claude/skills/publish-hashnode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/audit/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/polish/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/harden/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/delight/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/animate/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/distill/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/extract/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/critique/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reactuse",
+      "path": "packages/website-astro/.agents/skills/teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/childrentime/reactuse/tree/main/packages/website-astro/.agents/skills/teach-impeccable/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/childrentime/reactuse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:27:27Z"
+}
