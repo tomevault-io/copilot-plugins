@@ -4,7 +4,7 @@
   "repo": "fundamental-ngx",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -125,5 +125,5 @@
   ],
   "source_url": "https://github.com/SAP/fundamental-ngx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T08:27:54Z"
+  "distributed_at": "2026-07-23T05:50:57Z"
 }
