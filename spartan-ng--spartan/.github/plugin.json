@@ -1,0 +1,14 @@
+{
+  "name": "spartan-ng--spartan",
+  "displayName": "spartan",
+  "description": "spartan",
+  "version": "1.0.0",
+  "author": "spartan-ng",
+  "homepage": "https://github.com/spartan-ng/spartan",
+  "skills": [
+    {
+      "name": "spartan",
+      "description": ""
+    }
+  ]
+}
