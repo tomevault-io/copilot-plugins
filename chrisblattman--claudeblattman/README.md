@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman).
+Original source: `CLAUDE.md` in [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -28,7 +28,7 @@ Original source: `AGENTS.md` in [chrisblattman/claudeblattman](https://github.co
 - [claudeblattman](https://github.com/chrisblattman/claudeblattman/tree/main/plugins/starter-kit/skills/kit-hello/SKILL.md)
 - [claudeblattman](https://github.com/chrisblattman/claudeblattman/tree/main/plugins/starter-kit/skills/review-plan/SKILL.md)
 
-From [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman) — a repo with 429+ stars on GitHub.
+From [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman) — a repo with 431+ stars on GitHub.
 
 ---
 
