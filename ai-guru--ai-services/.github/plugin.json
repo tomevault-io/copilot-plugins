@@ -1,0 +1,14 @@
+{
+  "name": "ai-guru--ai-services",
+  "displayName": "ai_services",
+  "description": "ai_services",
+  "version": "1.0.0",
+  "author": "AI-Guru",
+  "homepage": "https://github.com/AI-Guru/ai_services",
+  "skills": [
+    {
+      "name": "ai_services",
+      "description": ""
+    }
+  ]
+}
