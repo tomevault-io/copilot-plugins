@@ -1,22 +1,25 @@
 # react-native-codeditor
 
-> Tome by [burdiuz](https://github.com/burdiuz/react-native-codeditor) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [burdiuz](https://github.com/burdiuz/react-native-codeditor), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [burdiuz/react-native-codeditor](https://github.com/burdiuz/react-native-codeditor).
+Original source: `CLAUDE.md` in [burdiuz/react-native-codeditor](https://github.com/burdiuz/react-native-codeditor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [burdiuz/react-native-codeditor](https://github.com/burdiuz/react-native-codeditor) — a repo with 32+ stars on GitHub.
+## Bundled Skills (1)
+
+- [react-native-codeditor](https://github.com/burdiuz/react-native-codeditor/tree/main/SKILL.md)
+
+From [burdiuz/react-native-codeditor](https://github.com/burdiuz/react-native-codeditor) — a repo with 34+ stars on GitHub.
 
 ---
 
