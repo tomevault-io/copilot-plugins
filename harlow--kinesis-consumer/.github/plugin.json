@@ -1,0 +1,9 @@
+{
+  "name": "harlow--kinesis-consumer",
+  "displayName": "kinesis-consumer",
+  "description": "kinesis-consumer",
+  "version": "1.0.0",
+  "author": "harlow",
+  "homepage": "https://github.com/harlow/kinesis-consumer",
+  "skills": []
+}
