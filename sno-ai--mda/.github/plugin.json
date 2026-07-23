@@ -1,0 +1,14 @@
+{
+  "name": "sno-ai--mda",
+  "displayName": "mda",
+  "description": "mda",
+  "version": "1.0.0",
+  "author": "sno-ai",
+  "homepage": "https://github.com/sno-ai/mda",
+  "skills": [
+    {
+      "name": "mda",
+      "description": ""
+    }
+  ]
+}
