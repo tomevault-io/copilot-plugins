@@ -1,0 +1,9 @@
+{
+  "name": "flannel-io--flannel",
+  "displayName": "flannel",
+  "description": "flannel",
+  "version": "1.0.0",
+  "author": "flannel-io",
+  "homepage": "https://github.com/flannel-io/flannel",
+  "skills": []
+}
