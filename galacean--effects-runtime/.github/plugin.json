@@ -1,0 +1,14 @@
+{
+  "name": "galacean--effects-runtime",
+  "displayName": "effects-runtime",
+  "description": "effects-runtime",
+  "version": "1.0.0",
+  "author": "galacean",
+  "homepage": "https://github.com/galacean/effects-runtime",
+  "skills": [
+    {
+      "name": "effects-runtime",
+      "description": ""
+    }
+  ]
+}
