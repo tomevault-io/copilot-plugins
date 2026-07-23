@@ -1,0 +1,53 @@
+## leetcode-py
+
+> - **Enter**: Prefix with "D:" for read-only analysis mode
+
+# LeetCode Repository Rules
+
+## Discussion Mode
+
+- **Enter**: Prefix with "D:" for read-only analysis mode
+- **Exit**: Use "XD:" to resume normal operations
+- In discussion mode: NO code updates, only analysis/suggestions
+
+## Code Standards
+
+- Use snake_case for Python methods
+- Include type hints: `list[str]`, `dict[str, int]`, `Type | None`
+- Follow linting rules (black, isort, ruff, mypy)
+- **NO noise docstrings**: Avoid docstrings that merely restate the function name (e.g., `"""Test CLI help command."""` for `test_cli_help()`). Only add docstrings when they provide meaningful context beyond what the code itself conveys
+
+## Testing
+
+- Test specific: `bake p-test -p problem_name`
+- Test all: `bake test`
+- Beautiful logging with loguru
+
+### Multiple Solution Classes Pattern
+
+When implementing multiple approaches (e.g., Solution, SolutionMath), use parametrized testing:
+
+```python
+@pytest.mark.parametrize("solution_class", [Solution, SolutionMath])
+@pytest.mark.parametrize("input_params, expected", test_cases)
+def test_method(self, solution_class, input_params, expected):
+    result = run_helper(solution_class, *input_params)
+    assert_helper(result, expected)
+```
+
+This pattern tests all solution approaches with the same test cases, ensuring consistency across implementations.
+
+## File Structure
+
+Each problem has:
+
+- `README.md` - Problem description
+- `solution.py` - Implementation with TODO placeholder
+- `test_solution.py` - Parametrized pytest tests
+- `helpers.py` - Test helper functions
+- `playground.ipynb` - Interactive Jupyter notebook
+- `__init__.py` - Empty package file
+
+---
+> Source: [wislertt/leetcode-py](https://github.com/wislertt/leetcode-py) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
