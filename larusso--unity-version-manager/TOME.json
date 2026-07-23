@@ -1,0 +1,321 @@
+{
+  "name": "unity-version-manager",
+  "owner": "Larusso",
+  "repo": "unity-version-manager",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/uvm-info/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/uvm-info/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/cargo-release/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/cargo-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/cargo-release/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/cargo-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/cargo-release/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/cargo-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/cargo-release/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/cargo-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/uvm-test-install/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/uvm-test-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".codex/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.codex/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".claude/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.claude/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".cursor/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.cursor/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "unity-version-manager",
+      "path": ".gemini/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/Larusso/unity-version-manager/tree/main/.gemini/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Larusso/unity-version-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:54:06Z"
+}
