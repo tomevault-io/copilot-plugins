@@ -4,7 +4,7 @@
   "repo": "workers-sdk",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/cloudflare/workers-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T10:31:45Z"
+  "distributed_at": "2026-07-23T06:05:00Z"
 }
