@@ -1,0 +1,261 @@
+{
+  "name": "flutter_rust_bridge",
+  "owner": "fzyzcjy",
+  "repo": "flutter_rust_bridge",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frb-code-generation",
+      "path": ".claude/skills/frb-code-generation",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-code-generation",
+      "description": ""
+    },
+    {
+      "name": "frb-debugging",
+      "path": ".claude/skills/frb-debugging",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-debugging",
+      "description": ""
+    },
+    {
+      "name": "frb-develop-feature",
+      "path": ".claude/skills/frb-develop-feature",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-develop-feature",
+      "description": ""
+    },
+    {
+      "name": "frb-fix-ci",
+      "path": ".claude/skills/frb-fix-ci",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "frb-lint",
+      "path": ".claude/skills/frb-lint",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-lint",
+      "description": ""
+    },
+    {
+      "name": "frb-prepare-pr",
+      "path": ".claude/skills/frb-prepare-pr",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-prepare-pr",
+      "description": ""
+    },
+    {
+      "name": "frb-test",
+      "path": ".claude/skills/frb-test",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-test",
+      "description": ""
+    },
+    {
+      "name": "frb-cargokit",
+      "path": ".claude/skills/frb-cargokit",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-cargokit",
+      "description": ""
+    },
+    {
+      "name": "frb-write-changelog",
+      "path": ".claude/skills/frb-write-changelog",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-write-changelog",
+      "description": ""
+    },
+    {
+      "name": "frb-add-contributor",
+      "path": ".claude/skills/frb-add-contributor",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-add-contributor",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-test/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-lint/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-fix-ci/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-docker/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-docker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-dev-env/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-dev-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-cargokit/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-cargokit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-ci-filter/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-ci-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-debugging/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-pr-review/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-prepare-pr/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-prepare-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-fix-codecov/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-fix-codecov/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-fix-main-ci/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-fix-main-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-manual-test/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-manual-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-cargokit-dev/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-cargokit-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-feature-flag/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-feature-flag/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-tart-prepare/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-tart-prepare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-upgrade-flutter/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-upgrade-flutter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-develop-feature/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-develop-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-write-changelog/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-write-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-add-contributor/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-add-contributor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-publish-release/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-publish-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-code-generation/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-code-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-issue-to-green-pr/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-issue-to-green-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-fix-merge-conflict/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-fix-merge-conflict/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-vmware-windows-prepare/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-vmware-windows-prepare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter_rust_bridge",
+      "path": ".claude/skills/frb-android-emulator-prepare/SKILL.md",
+      "github_url": "https://github.com/fzyzcjy/flutter_rust_bridge/tree/main/.claude/skills/frb-android-emulator-prepare/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fzyzcjy/flutter_rust_bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:38:54Z"
+}
