@@ -1,55 +1,29 @@
 ## busola
 
-> This file provides backend-specific guidance for agents working in `backend/`. For project-wide instructions see the root [`AGENTS.md`](../AGENTS.md).
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Backend Agent Instructions
+# CLAUDE.md
 
-This file provides backend-specific guidance for agents working in `backend/`. For project-wide instructions see the root [`AGENTS.md`](../AGENTS.md).
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Architecture
+@AGENTS.md
 
-### Backend Proxy
+## Skills
 
-`index.js` sets up the Express middleware chain: `express.raw()` (body parsing) → (optional gzip) → (dev-only CORS) → pino logger → slow request logger → routes. The `/proxy` route handles external HTTPS proxying with rate limiting. Kubernetes API requests are handled separately by the `/backend` route via `kubernetes/handler.js`. Special routes include `/backend/ai-chat/` (streaming AI companion), `/backend/modules` (community modules), and `/backend/kubeconfig`.
+Agent skills for this repository are maintained in `.agents/skills/`. Each skill is a directory containing a `SKILL.md` file. When asked to perform a task that matches a skill name, read the corresponding `SKILL.md` and follow its instructions.
 
-### Config and Feature Flags
+Available skills:
 
-`config.js` merges feature flags from three YAML sources. The intended order (highest priority last) is:
+- `.agents/skills/create-compliant-pr/` — Create a PR that passes all busola CI checks
+- `.agents/skills/cve-check/` — Assess a single CVE against busola's code — identifies the affected Dockerfile and recommends risk-accept or fix
+- `.agents/skills/review-pr/` — Review a pull request's changes against a GitHub issue's requirements and acceptance criteria
+- `.agents/skills/pr-description/` — Generate a PR description from the project template
+- `.agents/skills/ui-text/` — Audit and fix user-visible text in `public/i18n/en.yaml` against Kyma content guidelines (`/ui-text` for full-file cleanup, `/ui-text review` for PR review)
+- `.agents/skills/review-code/` — Review current branch changes against a GitHub issue's requirements and acceptance criteria
+- `.agents/skills/analyze-pr-tests` — Analyze Cypress integration test failures on a given PR
 
-1. `settings/defaultConfig.yaml` (base defaults)
-2. `config/config.yaml` (when the file exists — in production mounted from a Kubernetes ConfigMap)
-3. `environments/{ENVIRONMENT}/config.yaml` (when `ENVIRONMENT` env var is set; should win over all)
-
-Note: the current code applies env config before config.yaml (steps 2 and 3 are swapped), which is a known bug.
-
-Feature flags are consumed in the backend by accessing the loaded config directly:
-
-```js
-const config = require('./config.js');
-const gzipEnabled = config.features?.GZIP?.isEnabled;
-```
-
-Backend-only flags (cannot be overridden via the cluster ConfigMap): `GZIP` (response compression), `ALLOW_PRIVATE_IPS` (disables SSRF protection for private IPs — only for trusted dev environments), `KYMA_COMPANION` (configures the Kyma Companion API location).
-
-There is also a separate `public/defaultConfig.yaml` that configures frontend storage defaults (e.g. `sessionStorage` vs `localStorage`). This is distinct from the backend config and is patched by the Dockerfile via `yq`.
-
-## Testing Conventions
-
-- Backend tests: `**/*.test.js` next to the source file (Vitest, Node environment).
-
-```bash
-npm test   # run from the backend/ directory
-```
-
-## Key Files
-
-| File                          | Purpose                                            |
-| ----------------------------- | -------------------------------------------------- |
-| `index.js`                    | Express app and middleware chain                   |
-| `config.js`                   | Feature flag / config loader (3-source YAML merge) |
-| `kubernetes/handler.js`       | Kubernetes API handler                             |
-| `settings/defaultConfig.yaml` | Base feature flag definitions                      |
+> **Note:** To expose these as native Claude Code slash commands (e.g. `/create-compliant-pr`), place a markdown file per skill in `.claude/commands/` (e.g. `.claude/commands/create-compliant-pr.md`).
 
 ---
 > Source: [kyma-project/busola](https://github.com/kyma-project/busola) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
