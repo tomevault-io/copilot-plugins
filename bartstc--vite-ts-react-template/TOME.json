@@ -1,0 +1,195 @@
+{
+  "name": "vite-ts-react-template",
+  "owner": "bartstc",
+  "repo": "vite-ts-react-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-md-refactor",
+      "path": ".agents/skills/agent-md-refactor",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/agent-md-refactor",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": ".agents/skills/brainstorming",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "commit-work",
+      "path": ".agents/skills/commit-work",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/commit-work",
+      "description": ""
+    },
+    {
+      "name": "dependency-updater",
+      "path": ".agents/skills/dependency-updater",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/dependency-updater",
+      "description": ""
+    },
+    {
+      "name": "explaining-code",
+      "path": ".agents/skills/explaining-code",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/explaining-code",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".agents/skills/frontend-design",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "playwright-page-objects",
+      "path": ".agents/skills/playwright-page-objects",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/playwright-page-objects",
+      "description": ""
+    },
+    {
+      "name": "qa-test-planner",
+      "path": ".agents/skills/qa-test-planner",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/qa-test-planner",
+      "description": ""
+    },
+    {
+      "name": "react-useeffect",
+      "path": ".agents/skills/react-useeffect",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/react-useeffect",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".agents/skills/test-driven-development",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/commit-work/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/commit-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/writing-spec/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/writing-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/qa-test-planner/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/qa-test-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/building-blocks/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/building-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/react-useeffect/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/react-useeffect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/explaining-code/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/explaining-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/agent-md-refactor/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/agent-md-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/dependency-updater/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/dependency-updater/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/test-building-blocks/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/test-building-blocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/playwright-page-objects/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/playwright-page-objects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/github-actions-templates/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/github-actions-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vite-ts-react-template",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/bartstc/vite-ts-react-template/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bartstc/vite-ts-react-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T23:31:24Z"
+}
