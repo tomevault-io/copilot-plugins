@@ -1,14 +1,14 @@
 ## ollama
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-This is a fully generated C# SDK for the Ollama API, built using OpenAPI specifications. The core library targets multiple frameworks (netstandard2.0, net4.6.2, net8.0, net9.0) and emphasizes modern .NET features including nullability, trimming, and NativeAOT support.
+This is a fully generated C# SDK for the Ollama API, built using OpenAPI specifications. The core library targets `net10.0` and emphasizes modern .NET features including nullability, trimming, and NativeAOT support.
 
 ## Build and Test Commands
 
@@ -103,8 +103,20 @@ See `src/tests/Ollama.IntegrationTests/WeatherTools.cs` for complete example.
 
 ## Helper Projects
 
-- `src/helpers/GenerateDocs/` - Documentation generation utility
-- `src/helpers/TrimmingHelper/` - Tests trimming/NativeAOT compatibility
+### Project Layout
+
+| Project | Purpose |
+|---------|---------|
+| `src/libs/Ollama/` | Main SDK library (`OllamaClient`) |
+| `src/tests/Ollama.IntegrationTests/` | Integration tests (Testcontainers in CI, local server in debug) |
+
+### Documentation Generation
+
+Tests in `src/tests/Ollama.IntegrationTests/Examples` are the single source of truth for both test coverage and documentation:
+- Each file has a JSDoc header (`order`, `title`, `slug`) consumed by `autosdk docs sync .`
+- Comments prefixed with `////` become prose paragraphs in generated docs
+- CI workflow (`.github/workflows/mkdocs.yml`) auto-generates `docs/examples/` and populates `EXAMPLES:START/END` markers in README.md, docs/index.md, and mkdocs.yml
+- Config: `autosdk.docs.json` points to `src/tests/Ollama.IntegrationTests/Examples`
 
 ## Key Files
 
@@ -127,4 +139,4 @@ Test dependencies:
 
 ---
 > Source: [tryAGI/Ollama](https://github.com/tryAGI/Ollama) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
