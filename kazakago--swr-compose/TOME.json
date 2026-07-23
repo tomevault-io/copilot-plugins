@@ -1,0 +1,75 @@
+{
+  "name": "swr-compose",
+  "owner": "KazaKago",
+  "repo": "swr-compose",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "swr-compose",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/KazaKago/swr-compose/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swr-compose",
+      "path": ".claude/skills/merge-pr/SKILL.md",
+      "github_url": "https://github.com/KazaKago/swr-compose/tree/main/.claude/skills/merge-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swr-compose",
+      "path": ".claude/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/KazaKago/swr-compose/tree/main/.claude/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swr-compose",
+      "path": ".claude/skills/export-prompt/SKILL.md",
+      "github_url": "https://github.com/KazaKago/swr-compose/tree/main/.claude/skills/export-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "swr-compose",
+      "path": ".claude/skills/commit-push-pr/SKILL.md",
+      "github_url": "https://github.com/KazaKago/swr-compose/tree/main/.claude/skills/commit-push-pr/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KazaKago/swr-compose",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T02:33:28Z"
+}
