@@ -1,359 +1,116 @@
 ## flitter
 
-> This file mirrors `CLAUDE.md` so Codex-style agents can read the same repository guidance.
+> ├── types.ts                 # 공용 타입 정의
 
-# AGENTS.md
+# Chart _data 폴더 가이드
 
-This file mirrors `CLAUDE.md` so Codex-style agents can read the same repository guidance.
-
-## Project Overview
-
-Flitter is a JavaScript rendering engine and framework inspired by Flutter, designed for creating high-performance graphics and user interfaces in web applications. It provides a declarative API with support for both SVG and Canvas rendering.
-
-## Architecture
-
-### Core Concepts
-- **Rendering Engine**: Manages the render object tree with dual renderer support (SVG/Canvas)
-- **Widget System**: Flutter-like widgets (StatefulWidget, StatelessWidget, RenderObjectWidget)
-- **Layout System**: Constraint-based box model layout
-- **Animation Framework**: Built-in animation controllers, curves, and tweens
-
-### Monorepo Structure
-```
-packages/
-├── flitter/          # Core rendering engine
-├── flitter-react/    # React integration
-├── flitter-svelte/   # Svelte integration
-├── chart/            # Chart library (shadcn-style, CLI-installable)
-├── docs/             # Documentation site (Astro)
-├── story/            # Storybook components
-└── test/             # Test suite
-shared/
-├── chart-presets/    # Generated chart presets (synced from templates, do NOT edit directly)
-└── ...               # Other shared diagram components
-dev/
-├── chart-storybook/  # Chart visual review (Storybook at localhost:6007)
-└── shared/chart.ts   # Re-exports chart-presets
-todo/
-└── todo.md           # Chart work guide and feedback checklist
-```
-
-## Chart Library
-
-### Overview
-
-The chart library (`packages/chart/`) is a **shadcn-style** chart system built on top of Flitter. Users install charts via a CLI that copies template source code into their project — not as a compiled dependency. This means templates must be self-contained, readable, and editable by end users.
-
-### Two Style Directions
-
-Every chart ships with two visual styles:
-- **Ag** — mimics AG Charts (structural, restrained, opacity-driven hover)
-- **Toast** — mimics TOAST UI Chart (lifted, contrasted, outline-driven hover)
-
-### Architecture Layers
+## 폴더 구조
 
 ```
-1. Headless Engine    packages/chart/src/headless/<chart>/
-   Pure logic: scales, layout, data transforms. No visuals.
-
-2. Templates          packages/chart/registry/templates/
-   Source of truth for styled charts. This is what the CLI copies.
-
-3. Presets (generated) shared/chart-presets/
-   Auto-synced from templates. NEVER edit directly.
-
-4. Storybook          dev/chart-storybook/
-   Visual review surface. Consumes presets via dev/shared/chart.ts.
+_data/
+├── types.ts                 # 공용 타입 정의
+├── index.ts                 # 모든 차트 pages를 합쳐서 export
+├── api/                     # 차트별 API 레퍼런스 데이터
+│   ├── common.ts            # 공통 config (colors, font, title, legend, axis, grid, etc.)
+│   ├── index.ts
+│   └── {chart-name}.ts      # 차트별 dataFormat, config, customParts, context
+├── gallery/                 # 갤러리 시스템
+│   ├── entries/             # 차트×스타일 React 컴포넌트 (auto-generated)
+│   ├── thumbnails/          # SVG 썸네일 (auto-generated)
+│   ├── entries.generated.ts # 자동 생성 엔트리 목록
+│   ├── types.ts
+│   └── index.ts
+├── bar-chart/
+│   └── index.tsx            # overview 페이지 데이터
+├── line-chart/
+│   └── index.tsx
+└── ...
 ```
 
-### Template Structure
+## 타입 구조 (Discriminated Union)
 
-```
-registry/templates/
-├── charts/<chart-name>/
-│   ├── base/              # Chart-specific shared logic (both styles use this)
-│   ├── styles/ag/         # AG style: config + parts
-│   ├── styles/toast/      # Toast style: config + parts
-│   ├── index.ts           # Chart entry point
-│   └── plugin.ts          # CLI plugin metadata
-├── shared/
-│   ├── bar-like/          # Shared base for bar-shaped charts
-│   ├── line-like/         # Shared base for line-shaped charts
-│   └── point-like/        # Shared base for point-shaped charts
-└── styles/
-    ├── ag/                # AG global style parts (legend, title, tooltip, cartesian axes)
-    └── toast/             # Toast global style parts (legend, title, tooltip, cartesian axes)
+`ChartPageData = OverviewPageData | GalleryIndexPageData | GalleryDetailPageData | ApiPageData`
+
+`pageType` 필드로 구분됩니다.
+
+### 공통 (ChartPageBase)
+
+```ts
+{ slug: string[], title: string, description: string }
 ```
 
-### Headless Engines (23 total)
+### OverviewPageData (`pageType: "overview"`)
 
-Not every Storybook chart has its own headless engine. Some reuse another:
-- `AreaChart` and `StackedAreaChart` use `line-chart` headless
-- `StackedBarChart` uses `bar-chart` headless
+차트의 랜딩 페이지.
 
-### Preset Sync Workflow
-
-After editing files under `packages/chart/registry/templates/`, sync to regenerate `shared/chart-presets/`:
-
-```bash
-pnpm --dir shared/chart-presets run sync -- --chart <chart-name>           # specific chart
-pnpm --dir shared/chart-presets run sync -- --chart <name> --style <style> # specific style
-pnpm --dir shared/chart-presets run sync -- --changed                      # git-changed only
-pnpm --dir shared/chart-presets run sync                                   # full sync
-```
-
-## Development Commands
-
-```bash
-# Build core library
-npm run flitter:build
-
-# Documentation
-npm run docs:start      # Start dev server
-npm run docs:build      # Build site
-
-# Storybook
-npm run story:start     # Start Storybook
-npm run story:build     # Build Storybook
-
-# Testing
-npm run test:dev        # Run tests in dev mode
-npm run test:playwright # Run integration tests
-```
-
-## Code Patterns
-
-### Widget Creation
-Widgets are exported as factory functions:
-```typescript
-export default function Container(props: ContainerProps): Widget {
-  return new _Container(props);
+```ts
+{
+  pageType: "overview",
+  quickStartCode?: string,
 }
 ```
 
-### Render Object Widgets
-```typescript
-class MyRenderWidget extends SingleChildRenderObjectWidget {
-  createRenderObject(): RenderObject {
-    return new MyRenderObject();
-  }
+### GalleryIndexPageData (`pageType: "gallery-index"`)
+
+갤러리 목록 페이지.
+
+### GalleryDetailPageData (`pageType: "gallery-detail"`)
+
+갤러리 개별 차트 상세 (Component, files, installCommand).
+
+### ApiPageData (`pageType: "api"`)
+
+차트별 API 레퍼런스.
+
+```ts
+{
+  pageType: "api",
+  parent?: string,
+  dataFormat?: { typeName, typeDefinition, description },
+  agConfig?: { sections: ConfigSection[] },
+  toastConfig?: { sections: ConfigSection[] },
+  customParts?: CustomElement[],
+  context?: { typeName, properties: ContextProperty[] },
+  overrideExample?: string,
 }
 ```
 
-### State Management
-```typescript
-class MyWidget extends StatefulWidget {
-  createState(): State<MyWidget> {
-    return new MyWidgetState();
-  }
-}
+## 새 차트 추가 방법
+
+### 1. 폴더 생성 — `_data/{chart-name}/index.ts`
+
+```ts
+import type { ChartModule } from "../types";
+
+export const pages: ChartModule = [
+  {
+    slug: ["{chart-name}"],
+    title: "{Chart Name}",
+    description: "한 줄 설명",
+    pageType: "overview",
+  },
+];
 ```
 
-## Key Development Areas
+### 2. `_data/index.ts`에 import 추가
 
-- **Widget Development**: `packages/flitter/src/component/`
-- **Render Objects**: `packages/flitter/src/renderobject/`
-- **Animation System**: `packages/flitter/src/animation/`
-- **Tests**: `packages/test/tests/`
-- **Documentation**: `packages/docs/src/content/`
-
-## Testing & Quality
-
-- Write integration tests in `packages/test/tests/`
-- Add Storybook stories for visual components
-- Performance benchmarks tracked in `packages/test/performance-history/`
-- Use TypeScript strict mode
-
-## Localization
-
-The project supports 14 languages using Lunaria. Documentation is localized in respective language folders under `packages/docs/src/content/`.
-
-## Important Documentation Guidelines
-
-### State Management in Flitter
-
-Flitter uses Flutter-style state management, NOT React hooks. When writing documentation:
-
-**NEVER use React patterns:**
-```typescript
-// ❌ WRONG - React hooks
-const [isExpanded, setIsExpanded] = useState(false);
-let isHovered = false;
+```ts
+import { pages as myChart } from "./{chart-name}";
+// chartPages 배열에 ...myChart 추가
 ```
 
-**ALWAYS use Flitter/Flutter patterns:**
-```typescript
-// ✅ CORRECT - StatefulWidget
-class MyWidget extends StatefulWidget {
-  createState() {
-    return new MyWidgetState();
-  }
-}
+### 3. `docs/src/lib/navigation.ts`에 네비게이션 추가
 
-class MyWidgetState extends State<MyWidget> {
-  isExpanded = false;  // State variables as class properties
-  isHovered = false;
-  
-  build(context: BuildContext): Widget {
-    return GestureDetector({
-      onClick: () => {
-        this.setState(() => {
-          this.isExpanded = !this.isExpanded;
-        });
-      },
-      child: Container({ /* ... */ })
-    });
-  }
-}
-
-// Export as factory function
-export default classToFunction(MyWidget);
+```ts
+{ title: "{Chart Name}", href: "/chart/{chart-name}" },
 ```
 
-### Event Handling
+## 규칙
 
-Use GestureDetector for handling user interactions:
-```typescript
-GestureDetector({
-  onClick: () => { /* handle click */ },
-  onMouseEnter: () => { /* handle hover */ },
-  onMouseLeave: () => { /* handle hover end */ },
-  child: /* your widget */
-})
-```
-
-## Widget Documentation Structure
-
-When documenting widgets, follow this standard structure:
-
-### MDX Front Matter
-```yaml
----
-nav_group: "Widgets"
-nav_group_order: 3
-nav_title: WidgetName
-title: "WidgetName"
-description: "Brief description of the widget's purpose"
----
-```
-
-### Documentation Sections
-1. **Overview**: Brief description and Flutter documentation link
-2. **When to use it?**: 5-6 bullet points about use cases
-3. **Basic Usage**: Complete working example with StatefulWidget
-4. **Props**: Detailed property descriptions with types and examples
-5. **Practical Examples**: Multiple examples showing different use cases
-6. **Important Notes**: Key considerations and limitations
-7. **Related Widgets**: Links to similar or complementary widgets
-
-## Import/Export Patterns
-
-### Widget Exports
-All widgets must be exported as factory functions:
-```typescript
-// ❌ WRONG
-export class Container extends StatelessWidget { }
-
-// ✅ CORRECT
-class _Container extends StatelessWidget { }
-export default function Container(props: ContainerProps): Widget {
-  return new _Container(props);
-}
-// or
-export default classToFunction(_Container);
-```
-
-### Type Imports
-Import types from the centralized type module:
-```typescript
-import {
-  type EdgeInsets,
-  type Alignment,
-  Constraints,
-  Rect,
-} from "../type";
-```
-
-## Common Mistakes to Avoid
-
-### State Management
-- ❌ Never mutate state outside setState()
-- ❌ Never use React hooks (useState, useEffect, etc.)
-- ❌ Never use let/const for state variables outside class
-- ✅ Always use class properties for state in StatefulWidget
-- ✅ Always wrap state updates in setState()
-
-### Widget Creation
-- ❌ Never export widget classes directly
-- ❌ Never forget the factory function wrapper
-- ✅ Always use classToFunction() or manual factory function
-
-### Event Handling
-- ❌ Never use onClick/onChange directly on widgets
-- ✅ Always use GestureDetector for user interactions
-- ✅ Use proper event names: onClick (not onTap in GestureDetector)
-
-## Widget Lifecycle
-
-### StatefulWidget Lifecycle
-```typescript
-class MyWidgetState extends State<MyWidget> {
-  // Called once when state object is created
-  initState(): void {
-    super.initState();
-    // Initialize animations, controllers, etc.
-  }
-
-  // Called when widget configuration changes
-  didUpdateWidget(oldWidget: MyWidget): void {
-    super.didUpdateWidget(oldWidget);
-    // Update state based on new widget properties
-  }
-
-  // Called when state object is removed
-  dispose(): void {
-    // Dispose controllers, animations, listeners
-    super.dispose();
-  }
-
-  // Called whenever setState() is called
-  build(context: BuildContext): Widget {
-    return Container({ /* ... */ });
-  }
-}
-```
-
-## Type Definitions
-
-### Widget Props Pattern
-```typescript
-type WidgetNameProps = {
-  // Required properties
-  child: Widget;
-  
-  // Optional properties with defaults
-  padding?: EdgeInsets;
-  alignment?: Alignment;
-  
-  // Nullable properties
-  width?: number;
-  height?: number;
-  
-  // Callbacks
-  onTap?: () => void;
-  
-  // Always include key for widget reconciliation
-  key?: any;
-};
-```
-
-### Common Type Imports
-```typescript
-import type { BuildContext } from "../element";
-import type { Widget } from "../widget";
-import type { RenderObject } from "../renderobject";
-```
+- 각 차트 폴더는 `export const pages: ChartModule`을 반드시 export
+- slug[0]은 차트 폴더 이름과 일치 (예: `["bar-chart"]`)
+- gallery entries와 thumbnails는 자동 생성됨
 
 ---
 > Source: [meursyphus/flitter](https://github.com/meursyphus/flitter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
