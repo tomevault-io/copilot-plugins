@@ -4,7 +4,7 @@
   "repo": "atsf4g-co",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -83,5 +83,5 @@
   ],
   "source_url": "https://github.com/atframework/atsf4g-co",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:06:31Z"
+  "distributed_at": "2026-07-23T02:47:24Z"
 }
