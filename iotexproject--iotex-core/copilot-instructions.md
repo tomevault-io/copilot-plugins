@@ -1,135 +1,94 @@
 ## iotex-core
 
-> Guidance for AI coding agents (and humans) working in this repository.
+> Module-specific guidance for the rewarding protocol. Read [/AGENTS.md](../../../AGENTS.md) first for repo-wide rules.
 
-# AGENTS.md
+# CLAUDE.md — action/protocol/rewarding
 
-Guidance for AI coding agents (and humans) working in this repository.
+Module-specific guidance for the rewarding protocol. Read [/AGENTS.md](../../../AGENTS.md) first for repo-wide rules.
 
-This file is the single source of truth at the project level; `CLAUDE.md`
-points here. Sub-packages may have their own `CLAUDE.md` for module-specific
-constraints. For build/test setup, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+## What this package does
 
----
+Block and epoch rewards, foundation bonus, exempt list, and the claim flow.
+All state lives in a single isolated namespace, `state.RewardingNamespace`,
+keyed by short prefixes:
 
-## Project context
-
-iotex-core is the reference Go implementation of the IoTeX Layer-1 blockchain.
-The code runs on production mainnet and testnet. Any change that affects state
-transitions, receipts, or consensus is, by default, **breaking**. Treat the
-codebase as production infrastructure, not application code.
-
----
-
-## Hard rules (red lines)
-
-These apply repo-wide. Crossing them has caused, or would cause, on-chain
-incidents. Do not cross without a maintainer's explicit sign-off in the PR.
-
-### 1. Behavior changes must be gated on a new hardfork height
-
-- Hardfork heights are defined in `blockchain/genesis/genesis.go` and fan out
-  through `FeatureCtx` in `action/protocol/context.go`.
-- An existing hardfork height that is non-zero on mainnet is **immutable**.
-  Never edit, reorder, or delete one. New behavior goes behind a new fork.
-- New feature gates must be checked at every code path that runs the feature.
-  Tests must cover both pre-fork and post-fork branches.
-
-### 2. Determinism — on-chain code is pure with respect to host state
-
-- On-chain time comes from `ctx.BlockCtx.BlockTimeStamp`. Do not call
-  `time.Now()` in `action/protocol/`, `state/`, or `consensus/` execution paths.
-- Do not iterate Go maps in code that produces state or receipts. Sort keys.
-- Do not introduce randomness, file I/O, network calls, or any other source of
-  host-dependent input into action handling or state transitions.
-
-### 3. On-chain schemas are append-only after mainnet deployment
-
-- State and receipt protobuf schemas (e.g. `*.proto` files under
-  `action/protocol/*/pb/`) are immutable once shipped. Never reorder, renumber,
-  or delete fields. Add new fields at the next available number; retire fields
-  by marking them `reserved`.
-- The same rule applies to Go structs serialized to the chain: do not reorder
-  or remove fields without a hardfork-gated migration.
-
-### 4. Deprecated fields stay; never remove them
-
-- Fields marked `// deprecated` (in genesis, state structs, or proto messages)
-  remain in place for node startup and historical replay compatibility. Mark,
-  do not delete.
-
-### 5. Protocol execution order = registration order
-
-- Protocols are registered into `action/protocol/registry.go`. `All()` returns
-  them in registration order, and handlers run in that order. Do not rely on
-  any other ordering, and do not reorder existing registrations without a
-  hardfork plan.
-
----
-
-## Conventions
-
-Long-standing project practice. Follow unless you have a concrete reason not to.
-
-- **Writing CLAUDE.md / AGENTS.md.** Never cite specific line numbers
-  (e.g. `foo.go:123`). Code shifts and line refs rot; refer to files by
-  name and to code by function, type, or constant name. If a fact truly
-  needs line-level precision, put it as a comment at the source instead
-  — edits there will surface the comment for update.
-- **Hardfork naming.** New hardforks are named after places (Hawaii, Iceland,
-  Tsunami, Yap, ...). See `blockchain/genesis/genesis.go` for the running list.
-- **Hardfork tests.** When a fork gates a behavior, test both `height = fork - 1`
-  and `height = fork`.
-- **State versioning across forks.** Prefer a new type or namespace (e.g.
-  `FooV2`, `FooV3`) over mutating an existing on-chain struct.
-- **Protobuf `big.Int` encoding.** `big.Int` fields in `.proto` schemas are
-  encoded as base-10 decimal strings. Parse with `new(big.Int).SetString(s, 10)`
-  and check the `ok` return; ignoring it silently produces a nil value.
-- **Linter and formatting.** Respect `.golangci.yml`. Run `make fmt` before
-  committing.
-
----
-
-## Workflow
-
-- Before opening a PR, run:
-  ```
-  make fmt
-  make lint
-  make test
-  ```
-  Do not bypass with `--no-verify` or by skipping lints.
-- Commits follow conventional-commit style with a package scope:
-  `feat(staking): …`, `fix(consensus): …`, `refactor(state): …`,
-  `test(blockchain): …`. Link the relevant issue.
-- One concern per PR. If a refactor and a fix belong together, the refactor
-  goes first as its own commit.
-
----
-
-## When to ask before acting
-
-Confirm with a maintainer in the issue or PR before:
-
-- choosing a hardfork height,
-- modifying anything under `consensus/`,
-- altering action serialization or receipt-log emission paths.
-
----
-
-## Where to look next
-
-| You are working on... | Read first |
+| Key | Purpose |
 |---|---|
-| Staking / candidates / buckets | `action/protocol/staking/CLAUDE.md` |
-| Block / epoch rewards | `action/protocol/rewarding/CLAUDE.md` |
-| Block production / validation | `blockchain/CLAUDE.md` |
-| Account / state factory / MPT | `state/CLAUDE.md` |
-| RollDPoS / endorsements | `consensus/CLAUDE.md` |
-| Dev setup, local tests | [CONTRIBUTING.md](./CONTRIBUTING.md) |
-| Past architectural decisions | `docs/adr/` *(planned; tracked in #4832)* |
-| Domain terms | `docs/glossary.md` *(planned; tracked in #4832)* |
+| `"adm"` | admin config (reward amounts, delegate counts, bonus period) |
+| `"fnd"` | fund balance (`totalBalance`, `unclaimedBalance`) |
+| `"adm" \|\| addr` | per-address unclaimed reward balance |
+| `"xpt"` | exempt-from-epoch-reward addresses |
+| `BlockRewardHistoryKeyPrefix \|\| height` | sentinel: "this height already rewarded" |
+| `EpochRewardHistoryKeyPrefix \|\| epoch` | sentinel: "this epoch already rewarded" |
+
+Entry points: `protocol.go`, `fund.go`, `reward.go`, `admin.go`,
+`rewardingpb/rewarding.proto`.
+
+---
+
+## Module red lines
+
+### Reward amounts change only at hardfork heights
+
+`CreatePreStates()` (`protocol.go`) swaps reward amounts at named
+heights: **Aleutian** (epoch reward), **Dardanelles** and **Wake** (block
+reward), **Kamchatka** (foundation-bonus period). Always go through
+`SetReward()`; do not mutate amounts elsewhere.
+
+### Idempotency guards via sentinel history keys
+
+- `assertNoRewardYet(prefix, index)` checks for the history sentinel
+  before granting. A second grant for the same height/epoch **returns an
+  error** (`"reward history already exists on index N"`); do not silence
+  or retry it.
+- The history record is intentionally empty — the **key's existence** is the
+  signal. Do not "fix" this by adding a payload.
+- See `reward.go`.
+
+### Fund accounting — `unclaimedBalance ≤ totalBalance`, always
+
+- `Deposit` increases both balances.
+- `GrantReward` decreases `unclaimedBalance` only; the granted amount moves
+  to the recipient's per-address account.
+- `Claim` decreases `totalBalance` and pays out from the per-address account.
+- Integer division in `splitEpochReward()` truncates; the remainder stays in
+  `unclaimedBalance` and is never auto-redistributed. Do not assume exact
+  conservation at epoch boundaries.
+
+### Greenland v1 → v2 state migration is one-shot
+
+- Runs once at `GreenlandBlockHeight` (`migrateValueGreenland`). State not
+  migrated by then is lost.
+- Do not write new keys to the v1 path. Do not retroactively touch the
+  migration code.
+
+### Cross-protocol coupling: staking is required for slashing
+
+- Unproductive-delegate slashing (`slashUqd`) calls into the staking
+  protocol to slash self-stake buckets. If staking is missing or in a bad
+  state, the epoch grant fails. Do not silence these errors.
+
+---
+
+## Sentinels and gotchas
+
+- **Votes == 0 means "no reward."** Candidates with zero votes are excluded
+  from both foundation bonus and epoch reward (`reward.go`). This
+  is not a flag, just a consequence of the weighted split — don't add a
+  separate "exempt" check thinking it's missing.
+- **No minimum claim amount.** A 1-rau claim is valid and executes
+  immediately. Plan accordingly if reward amounts ever shrink.
+- **Block/epoch grants are system actions**, generated automatically
+  post-block, not user-initiated. The user-initiated action is only
+  `ClaimFromRewardingFund`.
+
+---
+
+## Where to look (non-obvious mappings only)
+
+- Block/epoch grant logic + unproductive-delegate slashing: `reward.go`.
+- Fork-gated reward swap: `protocol.go`.
 
 ---
 > Source: [iotexproject/iotex-core](https://github.com/iotexproject/iotex-core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
