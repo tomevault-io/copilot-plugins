@@ -1,0 +1,30 @@
+{
+  "name": "nvidia-nemo--nemo",
+  "displayName": "NeMo",
+  "description": "NeMo",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/NeMo",
+  "skills": [
+    {
+      "name": "NeMo",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "description": ""
+    },
+    {
+      "name": "NeMo",
+      "description": ""
+    }
+  ]
+}
