@@ -1,0 +1,14 @@
+{
+  "name": "erupts--erupt",
+  "displayName": "erupt",
+  "description": "erupt",
+  "version": "1.0.0",
+  "author": "erupts",
+  "homepage": "https://github.com/erupts/erupt",
+  "skills": [
+    {
+      "name": "erupt",
+      "description": ""
+    }
+  ]
+}
