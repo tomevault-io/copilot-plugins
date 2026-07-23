@@ -1,0 +1,165 @@
+{
+  "name": "react",
+  "owner": "facebook",
+  "repo": "react",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "extract-errors",
+      "path": ".claude/skills/extract-errors",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/extract-errors",
+      "description": ""
+    },
+    {
+      "name": "feature-flags",
+      "path": ".claude/skills/feature-flags",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/feature-flags",
+      "description": ""
+    },
+    {
+      "name": "fix",
+      "path": ".claude/skills/fix",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/fix",
+      "description": ""
+    },
+    {
+      "name": "flow",
+      "path": ".claude/skills/flow",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/flow",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": ".claude/skills/test",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/test",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "path": ".claude/skills/verify",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/verify",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/fix/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/flow/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/test/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/flags/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/flags/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/verify/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/feature-flags/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/feature-flags/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/extract-errors/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/.claude/skills/extract-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "compiler/.claude/skills/plan-update/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/compiler/.claude/skills/plan-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "compiler/.claude/skills/compiler-port/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/compiler/.claude/skills/compiler-port/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "compiler/.claude/skills/compiler-verify/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/compiler/.claude/skills/compiler-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "compiler/.claude/skills/compiler-commit/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/compiler/.claude/skills/compiler-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "compiler/.claude/skills/compiler-review/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/compiler/.claude/skills/compiler-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "compiler/.claude/skills/rust-port-status/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/compiler/.claude/skills/rust-port-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "compiler/.claude/skills/compiler-orchestrator/SKILL.md",
+      "github_url": "https://github.com/facebook/react/tree/main/compiler/.claude/skills/compiler-orchestrator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/facebook/react",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T04:37:11Z"
+}
