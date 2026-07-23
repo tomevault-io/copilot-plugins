@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aio-libs/aiohttp](https://github.com/aio-libs/aiohttp).
+Original source: `CLAUDE.md` in [aio-libs/aiohttp](https://github.com/aio-libs/aiohttp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [aio-libs/aiohttp](https://github.com/aio-libs/a
 
 - [aiohttp](https://github.com/aio-libs/aiohttp/tree/main/.claude/skills/backport-failed/SKILL.md)
 
-From [aio-libs/aiohttp](https://github.com/aio-libs/aiohttp) — a repo with 16502+ stars on GitHub.
+From [aio-libs/aiohttp](https://github.com/aio-libs/aiohttp) — a repo with 16504+ stars on GitHub.
 
 ---
 
