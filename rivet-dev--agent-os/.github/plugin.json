@@ -1,0 +1,18 @@
+{
+  "name": "rivet-dev--agent-os",
+  "displayName": "agent-os",
+  "description": "agent-os",
+  "version": "1.0.0",
+  "author": "rivet-dev",
+  "homepage": "https://github.com/rivet-dev/agent-os",
+  "skills": [
+    {
+      "name": "agent-os",
+      "description": ""
+    },
+    {
+      "name": "agent-os",
+      "description": ""
+    }
+  ]
+}
