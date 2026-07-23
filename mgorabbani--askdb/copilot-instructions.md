@@ -1,16 +1,32 @@
 ## askdb
 
-> be sure to use latest version of any library or framework you are using
+> | Server entry | `server/src/index.ts` |
 
-be sure to use latest version of any library or framework you are using
-also their own installer
-eg. pnpm create next-app@latest my-app --yes
-also use pnpm
+@AGENTS.md
 
-chat in concise way, don't give me code or write code in md file unless i ask
+## Key Paths
 
-we will add a feature, where after we fetch all the tables/collections then we map all tables with a short description on what this table is about and important fields + foreign keys. we do this once as making things agent ready. so that next time agents ask it gets the idea without querying every time. basicalyl we cache important staffs like how agent skills works. you can suggest me better once u see it.we can write few md files like how openclaw does and have a memory system too so it remembers common patterns, queries that user does automatically and use it next time
+| What | Where |
+|------|-------|
+| Server entry | `server/src/index.ts` |
+| DB schema | `packages/shared/src/db/schema.ts` |
+| Sync scheduler | `packages/shared/src/adapters/mongodb/scheduler.ts` |
+| Sync logic | `packages/shared/src/adapters/sync.ts` |
+| DB adapters | `packages/shared/src/adapters/{mongodb,postgresql}/` |
+| Dashboard pages | `ui/src/pages/dashboard/` |
+| MCP tools | `packages/mcp-server/src/index.ts` |
+
+## Tech Stack
+
+Express, React, TypeScript, Drizzle ORM (SQLite), Better Auth, Docker API
+
+## Rules
+
+- SQLite via Drizzle — no migrations framework, schema changes are additive with safe defaults
+- Connection strings and passwords are AES-256-GCM encrypted
+- Sandbox containers are managed via Docker socket proxy
+- All AI queries go through MCP — never expose raw DB access
 
 ---
 > Source: [mgorabbani/askdb](https://github.com/mgorabbani/askdb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
