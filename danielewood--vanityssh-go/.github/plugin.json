@@ -1,0 +1,18 @@
+{
+  "name": "danielewood--vanityssh-go",
+  "displayName": "vanityssh-go",
+  "description": "vanityssh-go",
+  "version": "1.0.0",
+  "author": "danielewood",
+  "homepage": "https://github.com/danielewood/vanityssh-go",
+  "skills": [
+    {
+      "name": "ralph",
+      "description": ""
+    },
+    {
+      "name": "vanityssh-go",
+      "description": ""
+    }
+  ]
+}
