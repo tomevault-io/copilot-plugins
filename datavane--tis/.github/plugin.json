@@ -1,0 +1,34 @@
+{
+  "name": "datavane--tis",
+  "displayName": "tis",
+  "description": "tis",
+  "version": "1.0.0",
+  "author": "datavane",
+  "homepage": "https://github.com/datavane/tis",
+  "skills": [
+    {
+      "name": "openspec-apply-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-continue-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-new-change",
+      "description": ""
+    },
+    {
+      "name": "openspec-onboard",
+      "description": ""
+    },
+    {
+      "name": "tis",
+      "description": ""
+    },
+    {
+      "name": "tis",
+      "description": ""
+    }
+  ]
+}
