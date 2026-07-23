@@ -1,9 +1,9 @@
 {
-  "name": "comfy-pilot",
+  "name": "Comfy-Pilot",
   "owner": "ConstantineB6",
-  "repo": "comfy-pilot",
-  "description": "MCP server + embedded terminal that lets Claude Code see and edit your ComfyUI workflows",
-  "type": "config",
+  "repo": "Comfy-Pilot",
+  "description": "",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "source_url": "https://github.com/ConstantineB6/comfy-pilot",
+  "skills": [
+    {
+      "name": "Comfy-Pilot",
+      "path": ".claude/skills/comfy-nodes/SKILL.md",
+      "github_url": "https://github.com/ConstantineB6/Comfy-Pilot/tree/main/.claude/skills/comfy-nodes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ConstantineB6/Comfy-Pilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T13:39:49Z"
+  "distributed_at": "2026-07-23T06:25:21Z"
 }
