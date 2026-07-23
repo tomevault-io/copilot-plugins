@@ -1,0 +1,63 @@
+{
+  "name": "pyclaudir",
+  "owner": "Rustam-Z",
+  "repo": "pyclaudir",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pyclaudir",
+      "path": "skills/render-style/SKILL.md",
+      "github_url": "https://github.com/Rustam-Z/pyclaudir/tree/main/skills/render-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyclaudir",
+      "path": "skills/self-reflection/SKILL.md",
+      "github_url": "https://github.com/Rustam-Z/pyclaudir/tree/main/skills/self-reflection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pyclaudir",
+      "path": "skills/reminder-format/SKILL.md",
+      "github_url": "https://github.com/Rustam-Z/pyclaudir/tree/main/skills/reminder-format/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Rustam-Z/pyclaudir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-23T21:42:40Z"
+}
