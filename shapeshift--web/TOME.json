@@ -4,7 +4,7 @@
   "repo": "web",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/shapeshift/web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T16:43:47Z"
+  "distributed_at": "2026-07-23T04:49:31Z"
 }
