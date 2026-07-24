@@ -1,0 +1,14 @@
+{
+  "name": "hiero-ledger--solo",
+  "displayName": "solo",
+  "description": "solo",
+  "version": "1.0.0",
+  "author": "hiero-ledger",
+  "homepage": "https://github.com/hiero-ledger/solo",
+  "skills": [
+    {
+      "name": "solo",
+      "description": ""
+    }
+  ]
+}
