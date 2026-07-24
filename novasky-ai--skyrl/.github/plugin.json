@@ -1,0 +1,14 @@
+{
+  "name": "novasky-ai--skyrl",
+  "displayName": "SkyRL",
+  "description": "SkyRL",
+  "version": "1.0.0",
+  "author": "NovaSky-AI",
+  "homepage": "https://github.com/NovaSky-AI/SkyRL",
+  "skills": [
+    {
+      "name": "SkyRL",
+      "description": ""
+    }
+  ]
+}
