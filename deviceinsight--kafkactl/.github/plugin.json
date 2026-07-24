@@ -1,0 +1,14 @@
+{
+  "name": "deviceinsight--kafkactl",
+  "displayName": "kafkactl",
+  "description": "kafkactl",
+  "version": "1.0.0",
+  "author": "deviceinsight",
+  "homepage": "https://github.com/deviceinsight/kafkactl",
+  "skills": [
+    {
+      "name": "kafkactl",
+      "description": ""
+    }
+  ]
+}
