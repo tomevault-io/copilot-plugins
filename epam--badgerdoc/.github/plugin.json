@@ -1,0 +1,14 @@
+{
+  "name": "epam--badgerdoc",
+  "displayName": "badgerdoc",
+  "description": "badgerdoc",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/badgerdoc",
+  "skills": [
+    {
+      "name": "badgerdoc",
+      "description": ""
+    }
+  ]
+}
