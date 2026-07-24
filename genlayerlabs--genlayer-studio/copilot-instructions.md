@@ -1,40 +1,121 @@
 ## genlayer-studio
 
-> - `backend/`: Python services for consensus, rollup, and RPC endpoints; FastAPI bootstraps in `asgi.py` and `uvicorn_config.py`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-- `backend/`: Python services for consensus, rollup, and RPC endpoints; FastAPI bootstraps in `asgi.py` and `uvicorn_config.py`.
-- `frontend/`: Vite + Vue 3 client with TypeScript sources in `src/`, assets in `public/`, and Vitest specs under `test/`.
-- `tests/`: Pytest suites split by scope (`unit/`, `integration/`, `e2e/`, `load/`) with fixtures and factories in `common/`.
-- `hardhat/`: Solidity scripts used when simulating L1/L2 interactions through the Hardhat profile.
-- `docker/`, `docker-compose*.yml`, and `scripts/`: container orchestrators and developer utilities used in CI pipelines.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- `cp .env.example .env && docker compose up`: launches the full stack; add `-d` for background runs.
-- `docker compose up jsonrpc webrequest ollama database-migration postgres`: backend services only, ideal when pairing with a hot-reload frontend.
-- `cd frontend && npm install && npm run dev`: start the Vue dev server on port 5173.
-- `cd frontend && npm run build`: perform type-checking and emit production assets in `dist/`.
-- `pytest`: execute Python suites; layer filters with `-k` or `-m` to target specific modules.
+## Commands
 
-## Coding Style & Naming Conventions
-- Target Python 3.12, use 4-space indentation, and rely on Black via pre-commit for formatting consistency.
-- Vue/TypeScript code follows the ESLint + Prettier toolchain; prefer PascalCase components, camelCase stores and utilities, and kebab-case Vue file names.
-- Align filenames with their behavior (`validators/llm_validator.py`, `frontend/src/modules/network/useNetworkStore.ts`) and mirror that pattern in tests.
+### Frontend Development
+```bash
+cd frontend/
+npm run dev          # Start development server (port 5173)
+npm run build        # Production build
+npm run test         # Run unit tests with Vitest
+npm run test:e2e     # End-to-end tests with Mocha/Selenium
+npm run lint         # ESLint with auto-fix
+npm run format       # Prettier formatting
+```
 
-## Testing Guidelines
-- Place new backend tests in the closest scope folder and name them `test_<feature>.py` so Pytest auto-discovers them.
-- Frontend unit tests live in `frontend/test/unit`; run `npm run test` during development and `npm run coverage` for V8 reports.
-- End-to-end coverage relies on Mocha + Selenium; run `npm run test:e2e` against a `npm run preview` instance before opening PRs.
-- Share fixtures or sample payloads through `tests/common` to keep validator and RPC scenarios deterministic.
+### Backend & Full Stack
+```bash
+genlayer up          # Start all services via Docker Compose
+genlayer init        # Initialize project database
+genlayer down        # Stop all services
+docker compose up    # Alternative: start services directly
+docker compose down -v  # Stop and clear data
+```
 
-## Commit & Pull Request Guidelines
-- Write Conventional Commits (`feat:`, `fix:`, `refactor:`); the commit-msg hook validates the prefix and scope.
-- Install hooks with `pre-commit install`, then run `pre-commit run --all-files` before pushing to catch formatting and lint issues early.
-- Open PRs from topic branches, link the related GitHub issue, and fill the PR template, including screenshots for UI adjustments and manual test notes.
-- Ensure CI checks succeed, respond to reviewer feedback promptly, and prefer squash merges to keep history tidy.
+### Testing
+```bash
+# DB/SQLAlchemy tests (dockerized, self-contained - primary backend tests)
+docker compose -f tests/db-sqlalchemy/docker-compose.yml --project-directory . run --build --rm tests
+
+# Backend unit tests (requires local venv with deps installed)
+# python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+.venv/bin/pytest tests/unit/ -v --tb=short --ignore=tests/unit/test_rpc_endpoint_manager.py
+
+# Integration tests (requires venv + running containers via docker compose up)
+.venv/bin/gltest --contracts-dir . tests/integration/ -svv
+
+# Frontend tests
+cd frontend && npm run test      # Unit tests (Vitest)
+cd frontend && npm run test:e2e  # E2E tests (Mocha/Selenium)
+```
+
+### Database Operations
+```bash
+# Run from backend container
+docker exec -it genlayer-studio-backend-1 bash
+alembic upgrade head  # Apply migrations
+alembic revision --autogenerate -m "description"  # Create migration
+```
+
+## Architecture
+
+GenLayer Studio is a blockchain development sandbox for "Intelligent Contracts" - smart contracts that can interact with LLMs. It uses a microservices architecture with Docker Compose orchestration.
+
+### Service Architecture
+- **Frontend** (Vue 3 + TypeScript): SPA on port 8080, uses Pinia stores, TanStack Query, Socket.io for real-time updates
+- **Backend** (Python Flask): JSON-RPC API on port 4000, handles consensus, contract execution
+- **Database**: PostgreSQL with SQLAlchemy ORM, Alembic migrations
+- **WebDriver**: Selenium service for contract execution sandboxing
+- **GenVM**: Custom Python VM for executing intelligent contracts with LLM capabilities
+
+### Key Directories
+- `frontend/src/stores/`: Pinia state management (simulator, contracts, accounts)
+- `frontend/src/components/Simulator/`: Contract execution UI components
+- `backend/consensus/`: Custom PoS consensus with LLM validators
+- `backend/node/genvm/`: GenLayer Virtual Machine implementation
+- `backend/protocol_rpc/`: JSON-RPC endpoint handlers
+- `backend/validators/`: LLM provider integrations (OpenAI, Anthropic, etc.)
+- `examples/contracts/`: Sample intelligent contracts
+
+### Contract Development
+Intelligent contracts are Python classes inheriting from `gl.Contract`:
+- Use `@gl.public.view` for read-only methods
+- Use `@gl.public.write` for state-changing methods
+- Use `@gl.public.llm_query` for non-deterministic LLM queries
+- Contracts can make web requests and interact with multiple LLM providers
+
+### Consensus System
+- Uses multiple LLM providers as validators in a custom consensus mechanism
+- Supports deterministic execution (all validators agree) and non-deterministic (majority vote)
+- Validator rotation using VRF (Verifiable Random Function)
+- Configurable validator sets in `backend/node/base/leader_election.py`
+
+### Frontend State Management
+- **SimulatorStore**: Main store for contract execution and state
+- **ContractsStore**: Manages deployed contracts and their code
+- **AccountsStore**: Handles user accounts and balances
+- All stores persist to localStorage via pinia-plugin-persistedstate
+
+### API Communication
+- Primary: JSON-RPC over HTTP (port 4000)
+- Real-time: Socket.io for consensus updates
+- Frontend uses TanStack Query for caching and state synchronization
+- API client: `frontend/src/services/api.ts`
+
+### Environment Configuration
+Key environment variables (see `.env.example`):
+- `POSTGRES_*`: Database connection
+- `PROVIDERS_*`: LLM provider API keys
+- `DEFAULT_VALIDATORS_COUNT`: Consensus participants
+
+### Testing Approach
+- Backend: pytest with fixtures in `tests/common/`
+- Frontend: Vitest for unit tests, Mocha/Selenium for E2E
+- Integration tests use Docker Compose test profiles
+- Contract tests in `tests/integration/test_contracts/`
+
+### Code Style
+- Python: Black formatter, type hints required
+- TypeScript: ESLint + Prettier, strict mode enabled
+- Pre-commit hooks enforce formatting (see `.pre-commit-config.yaml`)
+- Vue: Composition API with `<script setup>` syntax
 
 ---
 > Source: [genlayerlabs/genlayer-studio](https://github.com/genlayerlabs/genlayer-studio) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
