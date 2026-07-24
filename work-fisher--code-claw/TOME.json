@@ -1,0 +1,117 @@
+{
+  "name": "code-claw",
+  "owner": "Work-Fisher",
+  "repo": "code-claw",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/verification-agent/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/verification-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/hook-governance-layer/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/hook-governance-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/tool-runtime-pipeline/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/tool-runtime-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/mcp-integration-plane/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/mcp-integration-plane/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/prompt-cache-economics/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/prompt-cache-economics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/context-hygiene-system/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/context-hygiene-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/blast-radius-permission/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/blast-radius-permission/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/skill-workflow-packaging/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/skill-workflow-packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/multi-agent-orchestration/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/multi-agent-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/agent-lifecycle-management/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/agent-lifecycle-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/prompt-assembly-architecture/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/prompt-assembly-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-claw",
+      "path": "shareable-codex-skills/behavior-institutionalization/SKILL.md",
+      "github_url": "https://github.com/Work-Fisher/code-claw/tree/main/shareable-codex-skills/behavior-institutionalization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Work-Fisher/code-claw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:28:07Z"
+}
