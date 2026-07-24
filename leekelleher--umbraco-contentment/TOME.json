@@ -1,0 +1,51 @@
+{
+  "name": "umbraco-contentment",
+  "owner": "leekelleher",
+  "repo": "umbraco-contentment",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "umbraco-contentment",
+      "path": ".claude/skills/contentment-release-draft/SKILL.md",
+      "github_url": "https://github.com/leekelleher/umbraco-contentment/tree/main/.claude/skills/contentment-release-draft/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/leekelleher/umbraco-contentment",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:59:57Z"
+}
