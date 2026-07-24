@@ -1,0 +1,9 @@
+{
+  "name": "hyperspike--argocd-cluster-register",
+  "displayName": "argocd-cluster-register",
+  "description": "argocd-cluster-register",
+  "version": "1.0.0",
+  "author": "hyperspike",
+  "homepage": "https://github.com/hyperspike/argocd-cluster-register",
+  "skills": []
+}
