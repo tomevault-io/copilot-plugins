@@ -1,0 +1,18 @@
+{
+  "name": "duolingo--pre-commit-hooks",
+  "displayName": "pre-commit-hooks",
+  "description": "pre-commit-hooks",
+  "version": "1.0.0",
+  "author": "duolingo",
+  "homepage": "https://github.com/duolingo/pre-commit-hooks",
+  "skills": [
+    {
+      "name": "pre-commit-hooks",
+      "description": ""
+    },
+    {
+      "name": "pre-commit-hooks",
+      "description": ""
+    }
+  ]
+}
