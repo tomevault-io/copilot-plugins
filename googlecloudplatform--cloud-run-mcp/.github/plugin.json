@@ -1,0 +1,14 @@
+{
+  "name": "googlecloudplatform--cloud-run-mcp",
+  "displayName": "cloud-run-mcp",
+  "description": "cloud-run-mcp",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/cloud-run-mcp",
+  "skills": [
+    {
+      "name": "cloud-run-mcp",
+      "description": ""
+    }
+  ]
+}
