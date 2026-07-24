@@ -4,7 +4,7 @@
   "repo": "lazycodex",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -175,9 +175,21 @@
       "path": "plugins/omo/components/comment-checker/skills/comment-checker/SKILL.md",
       "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/comment-checker/skills/comment-checker/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/ast-grep/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ast-grep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lazycodex",
+      "path": "plugins/omo/skills/frontend/SKILL.md",
+      "github_url": "https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/frontend/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/code-yeongyu/lazycodex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T22:40:07Z"
+  "distributed_at": "2026-07-24T22:37:15Z"
 }
