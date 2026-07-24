@@ -1,0 +1,9 @@
+{
+  "name": "meta-pytorch--tlparse",
+  "displayName": "tlparse",
+  "description": "tlparse",
+  "version": "1.0.0",
+  "author": "meta-pytorch",
+  "homepage": "https://github.com/meta-pytorch/tlparse",
+  "skills": []
+}
