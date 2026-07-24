@@ -1,0 +1,14 @@
+{
+  "name": "volobuilds--create-volo-app",
+  "displayName": "create-volo-app",
+  "description": "create-volo-app",
+  "version": "1.0.0",
+  "author": "VoloBuilds",
+  "homepage": "https://github.com/VoloBuilds/create-volo-app",
+  "skills": [
+    {
+      "name": "create-volo-app",
+      "description": ""
+    }
+  ]
+}
