@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [module-federation/core](https://github.com/module-federation/core).
+Original source: `CLAUDE.md` in [module-federation/core](https://github.com/module-federation/core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -22,7 +22,7 @@ Original source: `AGENTS.md` in [module-federation/core](https://github.com/modu
 - [core](https://github.com/module-federation/core/tree/main/.codex/skills/changeset-pr/SKILL.md)
 - [core](https://github.com/module-federation/core/tree/main/.codex/skills/gh-pr-metadata/SKILL.md)
 
-From [module-federation/core](https://github.com/module-federation/core) — a repo with 2592+ stars on GitHub.
+From [module-federation/core](https://github.com/module-federation/core) — a repo with 2595+ stars on GitHub.
 
 ---
 
