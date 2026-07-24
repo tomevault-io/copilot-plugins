@@ -1,13 +1,19 @@
 ## tracebase
 
-> <!-- BEGIN:nextjs-agent-rules -->
+> <!-- tracebase:begin (managed section — do not edit between markers) -->
 
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+<!-- tracebase:begin (managed section — do not edit between markers) -->
+## TraceBase reasoning layer
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+TraceBase silently attaches relevant prior-case notes to your context when one applies — they appear as a `<tracebase queryId="…">…</tracebase>` block at the start of a turn. Treat the contents as background knowledge from earlier debugging in this codebase: verify they apply to the current problem, then use or discard cleanly. Don't announce or narrate them.
+
+When you finish a task and a `<tracebase>` block was attached, call `record_reasoning_outcome` with the `queryId` from the block. Set `usedPattern: true` only if you actually used one of the injected patterns.
+
+Memory capture is handled automatically by a background `Stop` hook — do **not** call `store_reasoning_pattern` in normal flow. The hook reads the completed transcript and writes a reusable pattern on its own. Only call `store_reasoning_pattern` directly when the user explicitly asks you to record something specific, or when you want to override the automatic heuristic with a carefully distilled pattern.
+
+If no `<tracebase>` block appeared and you're stuck on a non-trivial task, you can call `get_reasoning_patterns` directly as a fallback.
+<!-- tracebase:end -->
 
 ---
 > Source: [64envy64/tracebase](https://github.com/64envy64/tracebase) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
