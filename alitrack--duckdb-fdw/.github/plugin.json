@@ -1,0 +1,9 @@
+{
+  "name": "alitrack--duckdb-fdw",
+  "displayName": "duckdb_fdw",
+  "description": "duckdb_fdw",
+  "version": "1.0.0",
+  "author": "alitrack",
+  "homepage": "https://github.com/alitrack/duckdb_fdw",
+  "skills": []
+}
