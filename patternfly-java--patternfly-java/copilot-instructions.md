@@ -1,0 +1,125 @@
+## patternfly-java
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+PatternFly Java is a pure Java implementation of [PatternFly](https://www.patternfly.org/) web UI components. No JavaScript dependencies (except charts). Built on Elemento's builder API, compatible with both GWT and J2CL compilation targets. Published under `org.patternfly` on Maven Central.
+
+## Build Commands
+
+| Command | Purpose |
+|---------|---------|
+| `mvn clean verify` | Full build (tests, javadoc — no formatting/linting) |
+| `mvn verify -Dquickly` | Quick build (skip tests, javadoc) |
+| `mvn process-sources -P format,showcase` | Auto-format sources (editorconfig, imports, license headers) |
+| `mvn test -P check,showcase` | Validate sources (enforcer, checkstyle, editorconfig, imports, license, snippet validation) |
+| `./format.sh` | Shortcut for `mvn process-sources -P format,showcase` |
+| `./check.sh` | Shortcut for `mvn test -P check,showcase` |
+| `mvn test -Dtest=ModifierTest` | Run a single test class |
+| `mvn test -Dtest=ModifierTest#testModifiers` | Run a single test method |
+| `mvn j2cl:watch -P showcase` | Watch J2CL compilation for showcase dev |
+| `cd showcase && pnpm run watch` | Watch CSS/HTML and serve showcase locally |
+| `mvn clean package -P showcase,prod` | Build production showcase |
+| `cd showcase && pnpm run audit:fix` | Auto-ignore new audit advisories and dismiss Dependabot alerts |
+
+Uses Maven Wrapper (`mvnw`). Requires Java 21+ and Maven 3.9.9+.
+
+## Module Structure
+
+- **build-config** - Build configuration (checkstyle, license headers)
+- **code-parent** - Parent POM for code modules
+- **core** - Core classes, handlers, styles, utilities (`org.patternfly.core`, `org.patternfly.style`, `org.patternfly.handler`)
+- **components** - All UI components (`org.patternfly.component.*`) — 50+ component packages
+- **layouts** - Page layouts (Page, Sidebar, etc.)
+- **icons** - IconSets (FontAwesome, PatternFly, Red Hat icons)
+- **tokens** - PatternFly design tokens as enum constants
+- **charts** - Chart web components wrapper — standalone NPM package (`@patternfly-java/charts`), built and published independently with pnpm, not part of the Maven build lifecycle
+- **extensions/codeeditor**, **extensions/finder** - Extensions
+- **gwt**, **j2cl** - Compilation target support
+- **snippet-tests** - Build-time validation of inline JavaDoc code snippets (activated via `-P check` profile, not deployed)
+- **showcase** - Interactive demo website (activated via `-P showcase` profile)
+
+## Architecture & Patterns
+
+**Fluent Builder API**: All components use method chaining with static factory methods:
+```java
+Button button = button("Click me").danger().disabled(false).onClick((e, c) -> {});
+```
+
+**Static Factory Methods**: Components are created via lowercase factory methods named after the component (e.g., `button()`, `card()`, `cardBody()`).
+
+**Component Composition**: Components compose sub-components via `add<SubComponent>()` methods:
+```java
+card().addHeader(cardHeader()).addBody(cardBody()).addFooter(cardFooter());
+```
+
+**Modifier Interfaces**: Shared behavior through interfaces in `Modifiers.*` (e.g., `Disabled`, `Plain`, `Primary`, `Compact`). Modifier methods toggle CSS classes and return `this`.
+
+**Event Handlers**: Follow `on<Event>()` naming with `(event, component)` lambda signature. Handler interfaces are in `org.patternfly.handler`.
+
+**CSS Classes**: Applied via helpers from `org.patternfly.style.Classes`:
+```java
+element().css(component(button, Classes.text));
+element().css(modifier("danger"));
+```
+
+## Source File Conventions
+
+**Section Comments**: Code is organized with section markers:
+```java
+// ------------------------------------------------------ factory
+// ------------------------------------------------------ instance
+// ------------------------------------------------------ add
+// ------------------------------------------------------ builder
+// ------------------------------------------------------ aria
+// ------------------------------------------------------ events
+// ------------------------------------------------------ api
+// ------------------------------------------------------ internal
+```
+
+**Naming Conventions**:
+- Factory methods: component name (`button()`, `card()`)
+- Add methods: `add<Component>()`
+- Modifier methods: property name (`flat()`, `plain()`)
+- Event handlers: `on<Event>()`
+- ARIA methods: `aria<Attribute>()`
+
+**Demo/Snippet Code**: Located in `src/demo/java/` per module, used in JavaDoc via `--snippet-path`.
+
+## Formatting & Code Quality
+
+- 4 spaces indent, 128 char max line length, LF line endings, UTF-8
+- **Final newline required** (`insert_final_newline = true`)
+- Import order enforced: `java.` → `javax.` → `jakarta.` → `org.` → `io.` → `com.`, then static imports
+- Checkstyle: WildFly rules
+- License headers: Apache 2.0 (enforced by build)
+- All checks run on `mvn clean verify`
+
+## Skills
+
+Project-scoped skills in `.claude/skills/`:
+
+| Skill | Purpose |
+|-------|---------|
+| `/pf-compare <component>` | Compare a PatternFly component against its Java implementation to identify coverage gaps and DOM/CSS differences |
+| `/pf-align <component>` | Implement action items from a `/pf-compare` report to align the Java implementation with PatternFly |
+| `/pf-dev-env [start\|stop\|status]` | Start, stop, or check the local development environment (J2CL watch + Vite dev server) |
+| `/pf-lint <component>` | Verify that a component follows project conventions for documentation, code structure, naming, and formatting |
+| `/pf-status [component]` | Show unified status dashboard across lint, compare, and update dimensions for all or one component |
+| `/pf-update [version]` | Analyze a PatternFly release to find changes relevant to PFJ and generate a prioritized work plan |
+
+## Key Dependencies
+
+- **Elemento** (2.4.11) - Base builder API and DOM utilities
+- **Elemental2** (1.3.2) - Typed DOM API bindings
+- **GWT** (2.13.0) - GWT compilation support
+- **JUnit Jupiter** (6.0.3) - Test framework
+
+---
+> Source: [patternfly-java/patternfly-java](https://github.com/patternfly-java/patternfly-java) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
