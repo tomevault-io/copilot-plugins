@@ -1,0 +1,14 @@
+{
+  "name": "upstash--redis-js",
+  "displayName": "redis-js",
+  "description": "redis-js",
+  "version": "1.0.0",
+  "author": "upstash",
+  "homepage": "https://github.com/upstash/redis-js",
+  "skills": [
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
