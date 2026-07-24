@@ -1,8 +1,6 @@
 # AI instruction files for alphaclaw
 
-> Sourced from [chrysb/alphaclaw](https://github.com/chrysb/alphaclaw) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-The ultimate setup harness for OpenClaw. Deploy in minutes. Stay running for months. No CLI required.
+> Sourced from [chrysb/alphaclaw](https://github.com/chrysb/alphaclaw), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,11 @@ Original source: `AGENTS.md` in [chrysb/alphaclaw](https://github.com/chrysb/alp
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [chrysb/alphaclaw](https://github.com/chrysb/alphaclaw) — a repo with 1184+ stars on GitHub.
+## Bundled Skills (1)
+
+- [alphaclaw](https://github.com/chrysb/alphaclaw/tree/main/.cursor/skills/release-publish/SKILL.md)
+
+From [chrysb/alphaclaw](https://github.com/chrysb/alphaclaw) — a repo with 0+ stars on GitHub.
 
 ---
 
