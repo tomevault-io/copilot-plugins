@@ -1,0 +1,14 @@
+{
+  "name": "claudate--project-multilevel-index",
+  "displayName": "project-multilevel-index",
+  "description": "project-multilevel-index",
+  "version": "1.0.0",
+  "author": "Claudate",
+  "homepage": "https://github.com/Claudate/project-multilevel-index",
+  "skills": [
+    {
+      "name": "project-multilevel-index",
+      "description": ""
+    }
+  ]
+}
