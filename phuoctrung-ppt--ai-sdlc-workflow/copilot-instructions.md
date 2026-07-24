@@ -1,32 +1,69 @@
-## 005-code-quality
+## 006-agentic-workflow
 
-> Logging, error envelopes, testing coverage, performance conventions
+> Planner-Worker-Judge workflow discipline, handoff packets, evidence-based completion
 
 
-# Code Quality
+# Agentic Workflow Guardrails
 
-Details: `AGENTS.md` §5 (code quality) and §12 (forbidden patterns).
+Canonical workflow: `AGENTS.md`. Project standards are configured in `.cursor/config/workflow-policy.json` and always include `AGENTS.md`.
 
-## Logging
+## Execution Order
 
-- No `console.log` in production; Winston in API/worker; `console.error` only in frontend catch blocks
-- Structured JSON: `{ timestamp, level, correlationId, service, message, metadata }`
-- `LoggerInterceptor` assigns `correlation-id` per request
+1. Classify the change mechanically with `.cursor/config/protected-paths.json`; do not rely on agent self-report.
+2. Plan with `architect-planner` for protected module-spanning/high-risk work.
+4. Implement with the narrowest matching worker agent.
+5. Verify locally with checks proportional to risk.
+6. For protected changes, persist `docs/reviews/*` via `judge-agent` or `/workflow-eval` before completion.
 
-## Errors
 
-- Custom `HttpException` filters; envelope: `{ data, meta, error }`
-- Status codes: 200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500
+## Protected Change Classifier
 
-## Testing
+Protected status is shared by plans, judge review, stop hooks, and `/workflow-eval`:
 
-- Coverage: 70% API services, 50% frontend; `*.spec.ts`, `*.e2e-spec.ts`, `*.test.ts`
-- Mock external APIs (OpenAI, SendGrid, MinIO, Stripe); MSW for frontend
+- Path globs and keywords live in `.cursor/config/protected-paths.json`.
+- Multi-file threshold also lives in `.cursor/config/protected-paths.json`.
+- Fail closed only for protected changes. Fail open for standard changes to avoid team-wide lockouts from broken hooks.
+- `/workflow-eval` always writes a durable review artifact whenever it runs.
 
-## Performance
+## Hook Enforcement
 
-- `next/image` + `next/font` (Inter); colors from `config-tailwind`; `lucide-react` only
-- Cursor pagination for large lists; offset only for small admin lists
+- `preToolUse` enforces worker path scopes from `.cursor/config/worker-scopes.json`.
+- `afterFileEdit` records edited files for stop-hook classification.
+- `stop` blocks protected changes without current plan/review artifacts.
+- Stop blocking has a retry cap; after the cap, the hook writes a human escalation artifact instead of looping forever.
+- Manual review override must be explicit and logged with `.cursor/hooks/review-override.sh --skip-review "reason"`.
+
+If scope enforcement blocks a worker, request scope expansion from the orchestrator with the path, reason, and updated acceptance criteria.
+
+## Handoff Packet Required
+
+Every worker task should start from a handoff packet containing:
+
+- Objective
+- In-scope paths
+- Out-of-scope paths
+- Required skills and selected reference files
+- Acceptance criteria
+- Required verification commands
+- Risks or constraints from `AGENTS.md`
+
+If any field is missing, infer only low-risk details from the codebase. Ask the orchestrator before expanding scope.
+
+## Completion Evidence
+
+Do not claim completion from intent or a file edit alone. Completion requires evidence:
+
+- Modified files match the acceptance criteria.
+- Relevant lint/type/test/build commands were run, or skipped with a concrete reason.
+- Domain-specific checks such as security, privacy, data, AI, billing, infrastructure, or compliance were applied when relevant.
+- Docs/ADRs were updated when behavior, architecture, or workflow changed.
+
+## Context Control
+
+- Read `SKILL.md` files only for selected skills.
+- Load reference files one at a time only when needed.
+- Do not bulk-read entire `references/` folders.
+- Write durable decisions to `docs/plans/`, `docs/adr/`, or `docs/reviews/`.
 
 ---
 > Source: [phuoctrung-ppt/ai-sdlc-workflow](https://github.com/phuoctrung-ppt/ai-sdlc-workflow) — distributed by [TomeVault](https://tomevault.io).
