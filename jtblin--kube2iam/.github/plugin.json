@@ -1,0 +1,14 @@
+{
+  "name": "jtblin--kube2iam",
+  "displayName": "kube2iam",
+  "description": "kube2iam",
+  "version": "1.0.0",
+  "author": "jtblin",
+  "homepage": "https://github.com/jtblin/kube2iam",
+  "skills": [
+    {
+      "name": "kube2iam",
+      "description": ""
+    }
+  ]
+}
