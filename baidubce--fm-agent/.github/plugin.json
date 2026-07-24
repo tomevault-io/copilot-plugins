@@ -1,0 +1,26 @@
+{
+  "name": "baidubce--fm-agent",
+  "displayName": "FM-Agent",
+  "description": "FM-Agent",
+  "version": "1.0.0",
+  "author": "baidubce",
+  "homepage": "https://github.com/baidubce/FM-Agent",
+  "skills": [
+    {
+      "name": "FM-Agent",
+      "description": ""
+    },
+    {
+      "name": "FM-Agent",
+      "description": ""
+    },
+    {
+      "name": "FM-Agent",
+      "description": ""
+    },
+    {
+      "name": "FM-Agent",
+      "description": ""
+    }
+  ]
+}
