@@ -1,0 +1,18 @@
+{
+  "name": "heavy3-ai--code-audit",
+  "displayName": "code-audit",
+  "description": "code-audit",
+  "version": "1.0.0",
+  "author": "heavy3-ai",
+  "homepage": "https://github.com/heavy3-ai/code-audit",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    },
+    {
+      "name": "code-audit",
+      "description": ""
+    }
+  ]
+}
