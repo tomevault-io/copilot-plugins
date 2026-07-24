@@ -1,0 +1,9 @@
+{
+  "name": "bitcoin-abc--bitcoin-abc",
+  "displayName": "bitcoin-abc",
+  "description": "bitcoin-abc",
+  "version": "1.0.0",
+  "author": "Bitcoin-ABC",
+  "homepage": "https://github.com/Bitcoin-ABC/bitcoin-abc",
+  "skills": []
+}
