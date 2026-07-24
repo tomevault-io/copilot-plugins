@@ -1,0 +1,57 @@
+{
+  "name": "node-google-spreadsheet",
+  "owner": "theoephraim",
+  "repo": "node-google-spreadsheet",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "work-on",
+      "path": ".claude/skills/work-on",
+      "github_url": "https://github.com/theoephraim/node-google-spreadsheet/tree/main/.claude/skills/work-on",
+      "description": ""
+    },
+    {
+      "name": "node-google-spreadsheet",
+      "path": ".claude/skills/work-on/SKILL.md",
+      "github_url": "https://github.com/theoephraim/node-google-spreadsheet/tree/main/.claude/skills/work-on/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/theoephraim/node-google-spreadsheet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:50:37Z"
+}
