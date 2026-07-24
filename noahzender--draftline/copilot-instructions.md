@@ -1,34 +1,36 @@
-## obsidian-typescript
+## open-source-safety
 
-> Safe Obsidian API, lifecycle, command, and mobile patterns
+> Prevent secrets, private data, and internal information from entering this public repository
 
 
-# Obsidian TypeScript
+# Open-source safety
 
-- Use strict TypeScript and browser-compatible dependencies. Node.js/Electron requires an explicit desktop-only decision.
-- Use `this.app`, not global `app` or `window.app`.
-- Register events, DOM events, intervals, and editor extensions with the plugin's cleanup helpers.
-- Keep command IDs stable and unique. Do not set default hotkeys.
-- Choose `callback`, `checkCallback`, `editorCallback`, or `editorCheckCallback` according to availability.
-- Build user-derived UI with DOM/Obsidian helpers; never interpolate it into `innerHTML`, `outerHTML`, or `insertAdjacentHTML`.
+Treat every tracked file, commit, issue, log, fixture, screenshot, and generated artifact as publicly visible.
 
-Use the narrow safe mutation API:
+## Never add
 
-```ts
-const file = this.app.vault.getFileByPath(normalizePath(userPath));
-if (!file) {
-	throw new Error('The requested note does not exist.');
-}
-await this.app.vault.process(file, (content) => update(content));
-await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
-	frontmatter.status = 'done';
-});
-```
+- Secrets: API keys, tokens, passwords, cookies, private keys, connection strings, or signed URLs.
+- Secret-bearing files such as `.env*` (except sanitized templates), credentials files, key stores, private certificates, or cloud/SSH configs.
+- Customer, employee, or user data; private communications; support content; meeting notes; analytics exports; or proprietary documents.
+- Internal hostnames, private repository links, non-public architecture details, account IDs, or local paths that expose a person's username.
 
-- Use Editor APIs for the active note, `Vault.process` for background note updates, and `processFrontMatter` for frontmatter.
-- Prefer Vault APIs over Adapter APIs.
-- Look up known paths directly; do not search `getFiles()` for a path.
-- Keep `onload` light and debounce expensive file-event work.
+## Required behavior
+
+- Externalize runtime secrets through a secrets manager or deployment-injected environment variables. Prefer short-lived, least-privilege credentials.
+- Use obvious placeholders such as `YOUR_API_KEY` and synthetic example data.
+- Keep `.env.example` and other templates limited to placeholders or demonstrably non-sensitive defaults.
+- Do not copy content from private services (including Slack, Granola, Notion, Linear, CRM, support, or analytics tools) into the repo unless the user confirms that exact content is approved for publication.
+- Treat logs, test fixtures, database dumps, screenshots, recordings, archives, binaries, source maps, and generated files as potential leak sources.
+- Before committing or publishing, inspect staged, unstaged, untracked, generated, and binary files, and verify risky file types are ignored.
+- Use layered automated secret scanning: locally before commit, in CI for pull requests, and repository-host push protection. Do not rely on `.gitignore` or manual review alone.
+- If content previously lived in a private repository, scan the full Git history before publication.
+- Never bypass a scanner unless the match is verified as a false positive and the bypass contains no sensitive value.
+- Do not print discovered secrets in chat, command arguments, shell history, logs, diffs, or error messages. Refer to the file and redact the value.
+- If a value might be sensitive, stop and ask before adding it.
+
+## If exposure is found
+
+Treat a committed secret as compromised: stop publication, alert the user without repeating the value, and revoke or rotate it immediately. Then remove it from the current tree and assess history cleanup. Rewriting history does not make an exposed credential safe and must be coordinated because forks, clones, pull requests, and caches may retain copies.
 
 ---
 > Source: [noahzender/draftline](https://github.com/noahzender/draftline) — distributed by [TomeVault](https://tomevault.io).
