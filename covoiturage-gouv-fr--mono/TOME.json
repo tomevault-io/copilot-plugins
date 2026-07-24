@@ -1,0 +1,111 @@
+{
+  "name": "mono",
+  "owner": "covoiturage-gouv-fr",
+  "repo": "mono",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "check-doc",
+      "path": ".claude/skills/check-doc",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-doc",
+      "description": ""
+    },
+    {
+      "name": "check-perf",
+      "path": ".claude/skills/check-perf",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-perf",
+      "description": ""
+    },
+    {
+      "name": "check-qa",
+      "path": ".claude/skills/check-qa",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-qa",
+      "description": ""
+    },
+    {
+      "name": "check-security",
+      "path": ".claude/skills/check-security",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-security",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "path": ".claude/skills/api/SKILL.md",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "path": ".claude/skills/pr-prep/SKILL.md",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/pr-prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "path": ".claude/skills/frontend/SKILL.md",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "path": ".claude/skills/check-qa/SKILL.md",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "path": ".claude/skills/check-doc/SKILL.md",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "path": ".claude/skills/check-perf/SKILL.md",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "path": ".claude/skills/check-security/SKILL.md",
+      "github_url": "https://github.com/covoiturage-gouv-fr/mono/tree/main/.claude/skills/check-security/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/covoiturage-gouv-fr/mono",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:33:42Z"
+}
