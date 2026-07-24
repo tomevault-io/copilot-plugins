@@ -1,440 +1,111 @@
 ## solana-skills
 
-> Find the bugs your tests miss. Define what your Solana program must guarantee in a .qedspec; QEDGen validates it, generates tests and proofs, and scaffolds agent-fill Rust code. Trigger when the user asks for "qedgen", "qedspec", "verify my code", "prove correctness", formal verification, property testing, generated Kani/proptest/Lean artifacts, or Solana program correctness.
+> Guidance for Claude Code when working in this repository. This file is loaded into **every** session — keep it lean. Deep material lives in `references/` and `docs/design/`; this file orients and points.
 
+# CLAUDE.md
 
-# QEDGen
+Guidance for Claude Code when working in this repository. This file is loaded into **every** session — keep it lean. Deep material lives in `references/` and `docs/design/`; this file orients and points.
 
-## Trigger And Mission
+## What this is
 
-Use this skill when the user wants to verify Solana program behavior, write or review a `.qedspec`, generate verification artifacts, onboard an existing Anchor program, or keep generated artifacts in sync.
+QEDGen is a Claude Code skill for spec-driven verification of Solana programs. The `.qedspec` is the single source of truth: `qedgen check` validates it (lint + proptest + Lean), `qedgen codegen` generates downstream artifacts (Rust scaffold, Kani/proptest harnesses, Lean proofs, CI), and `#[qed(verified)]` stamps verified code. Leanstral and Aristotle fill hard proof sub-goals when escalated.
 
-**Preflight (once):** if `qedgen --help` fails, the CLI binary isn't set up yet — run `bash install.sh` from this skill's directory. It downloads the platform binary and links it onto your `PATH` (safe to re-run). Everything below assumes `qedgen` resolves.
+**Core loop:** intent → write `.qedspec` → `qedgen check` → iterate → `qedgen codegen --all` → fill `todo!()` → `qedgen verify`.
 
-Mission:
-- Read the source before writing the spec.
-- Treat `.qedspec` as the single source of truth.
-- Use `qedgen check` to validate the spec.
-- Use `qedgen codegen` to scaffold generated artifacts.
-- Fill generated Rust handler TODOs as an agent task, then build and test.
-- Use `qedgen verify` and drift gates to keep proofs and code synchronized.
+The UX is **agent-first**: the user interacts with the SKILL (`SKILL.md`) and agents; the `qedgen` CLI is glue between agents and artifacts, not a user-facing tool. Full CLI reference: [`references/cli.md`](references/cli.md).
 
-Do not present generated Rust as complete business logic. Anchor, Quasar, and Pinocchio output is an implementation scaffold. Handler files can intentionally contain `todo!()` (or documented breadcrumbs) for transfers, events, CPI wiring, and non-mechanical effects until the agent fills them.
+## How to think about this codebase
 
-## First Contact (Brownfield)
+**Escalation ladders — mechanize first, escalate only after you've tried.**
 
-If the user invokes you on an **existing** Solana program with no real `.qedspec` (or only a skeleton), do **not** route them straight into spec-writing. Spec-writing from a cold start is unmotivated work. Instead, route them through `/qedgen-auditor` first; the auditor surfaces real findings in their code, and *then* the spec captures those findings as permanent regression guards. The pitch:
+- *Proofs:* (1) mechanical → codegen template (`lean_gen_mir.rs`); (2) tractable → write the Lean directly in-session (most real proof bodies: case analysis, Mathlib lemma selection, per-handler structural proofs); (3) hard → Leanstral (`qedgen fill-sorry`); (4) last resort → Aristotle (`qedgen aristotle submit`).
+- *Code/tests:* (1) mechanical → codegen template (`codegen_mir` + `codegen_shared::mechanize_effect`); (2) tractable → fill `todo!()` in-session (events, transfers, CPI wiring, complex effect RHS); (3) last resort → refine the spec (under-specification is the real bug).
 
-> "I see this is an existing Solana program. Before we write a spec, let me hand off to `/qedgen-auditor` to find what's already broken. We'll lock those findings in as a spec so they don't come back."
+**Design principles:**
+- A DSL feature that *structurally eliminates* a proof obligation beats a new proof template or a shelled-out sorry.
+- Codegen mechanizes only deterministic translation. Supported direct CPIs with transaction signers, Anchor/Quasar lifecycle account creation, and Anchor builder-shape CPIs with assemblable PDA signer seeds are complete; transfer sugar, events, unsupported calls, Pinocchio PDA creation, and every other PDA-signed CPI stay agent-filled `todo!()`. The per-target contract lives in `docs/framework-support.md`.
+- When a template can't close a case, emit `sorry` with a comment — never bury it in tactics that might spuriously close.
+- Don't pre-shell to Leanstral/Aristotle for what a local LLM can do. Escalation is for *after* you've tried, not when you expect to need to.
+- The typed MIR (`mir.rs`) exists for bug-class elimination, not LoC: matches over the closed `Stmt` enum are exhaustive by discipline (no `_` arms — see the enum doc in `mir.rs`), so a new statement kind is a compile error at every `Stmt` consumer (Lean codegen, Rust scaffold, and the Kani/proptest effect lowering via `rust_codegen_util::stmt_effect_triple`), not silent drift. Conditional `effect { match … }` bodies lower to `Stmt::Branch` (Phase 5): Rust renders a `match`; both the flat and ADT Lean transitions apply exactly one arm with per-arm bound guards (ADT via `emit_adt_branch`). Caveat: the ADT abort/overflow emitters (`adt_effect_map` / `adt_bound_conds`) treat `Stmt::Branch` as a no-op, so ADT abort/overflow obligations ignore branch-arm effects (honest today only because those bodies are `by sorry`). Measure intrinsics by bugs eliminated, not lines saved.
+- The closed-enum discipline applies to small enums too: never tally or gate on an enum with open-coded `.filter(|x| x.variant == …)` chains — count through an exhaustive `match` (e.g. `SeverityCounts::of`) so a new variant is a compile error at every accounting site, not a silently dropped case (#260/#270: `Severity::Error` vanished from the check summary and exit code for ten releases this way).
 
-### Brownfield indicators (agent-side detection)
-
-Walk the filesystem (Read / Glob via the harness's tools; no new CLI needed per `[[feedback_agent_lsp_substrate]]`). The repo is brownfield-onboarding when **any** of:
-
-- `Cargo.toml` exists at the root or under `programs/` / `program/`, with Rust source under `src/` or `programs/*/src/`, **and** no `*.qedspec` file anywhere in the tree.
-- A `*.qedspec` exists at the root but contains no `state { }` block (template-only skeleton). Skeleton specs are a near-universal "I tried, got stuck" signal.
-- An Anchor IDL (`target/idl/*.json`) exists but no committed `.qedspec`.
-
-### What to issue
-
-When detected, recommend the cross-skill switch in your harness's idiom (Claude Code TUI: suggest `/qedgen-auditor`; Codex / Cursor / etc.: name the skill the user should invoke next). Do not programmatic-spawn the auditor — per `[[feedback_audit_as_subagent]]`, the auditor is a harness-native subagent that the user enters explicitly. Your job here ends at the **recommendation** and a one-line summary of what they'll get.
-
-The user re-enters `/qedgen` after the audit produces `.qed/findings/`; the audit-side handoff section in `skills/qedgen-auditor/SKILL.md` and the `references/finding_to_spec.md` mapping table drive the conversion from findings to spec constructs.
-
-### Greenfield path stays unchanged
-
-If the repo has no `Cargo.toml` (or none of the brownfield indicators fire), proceed to the standard validate → scaffold → fill → verify flow. The brownfield branch only intercepts first-contact when there's already-deployed code to audit.
-
-## How To Run QEDGen
-
-Prefer the installed skill wrapper when available:
+## Build and test
 
 ```bash
-QEDGEN="$HOME/.agents/skills/qedgen/tools/qedgen"
+cargo build --release && cp target/release/qedgen bin/qedgen   # always copy to bin/
+cargo test                                                      # Rust unit + snapshot tests
+cd lean_solana && lake build                                    # Lean support library
 ```
 
-From a repo checkout, the local binary also works:
+Snapshot suites (`tests/{mir,kani,codegen,proptest}_snapshot.rs`) gate every fixture against checked-in references; the shared harness lives in `tests/common/mod.rs` and rebuilds `qedgen` before driving it (no stale-binary footgun). Regenerate with `UPDATE_SNAPSHOTS=1 cargo test --test <suite>`. Snapshots prove output stability, not correctness: the executable artifact gate (`tests/generated_artifact_gate.rs`, `-- --ignored`, own CI job) regenerates every bundled Anchor example, compiles all generated Rust artifacts, runs the generated unit tests and proptests, and type-checks the Kani harness via `crates/kani-compile-stub` (#294). Full command + flag reference: [`references/cli.md`](references/cli.md).
 
-```bash
-cargo run -p qedgen-solana-skills -- <command>
-```
+## Dogfooding → toolchain backlog (dev-mode loop)
 
-Every write path expects a git repo. If the command errors outside a repo, run `git init` or move into the project root.
+When you use QEDGen on a real target from this repo (verifying an audit program, a codegen bring-up, a spec at scale), close the loop as the **last step**: run the **`toolchain-scout`** agent (`.claude/agents/toolchain-scout.md`) on the session. It mines the run for friction — codegen bugs, missing modes/DSL constructs, DX papercuts, reusable techniques — and files evidence-backed, deduplicated entries to [`docs/toolchain-backlog.md`](docs/toolchain-backlog.md) plus one sanitized GitHub issue each. The scout **proposes**; the main loop fixes codegen bugs in source (never works around them) with a regression test. This lives here **only** — it is dev/maintainer tooling and must NOT go in `SKILL.md`, which ships to end users verifying their own programs.
 
-Common commands:
+## Crate map
 
-```bash
-$QEDGEN check --spec program.qedspec
-$QEDGEN codegen --spec program.qedspec --all
-$QEDGEN verify --spec program.qedspec
-$QEDGEN reconcile --spec program.qedspec --code programs/ --proofs formal_verification/
-```
+**`crates/qedgen-hash-core/`** — canonical spec/body hashing (`sha256_hex16`, `canonical_token_string`, `extract_handler_block`, `normalize_spec_block`, `spec_context_digest`, `scan_balanced_block`) shared by the CLI and the proc macro — agreement by construction, no hand-kept mirrors. `tests/stamp_crosscheck.rs` hard-asserts checked-in `#[qed(verified, hash = …)]` stamps.
 
-Release and repo-maintenance gates:
+**`crates/qedgen-macros/`** — `#[qed]` proc macro: compile-time drift detection (`lib.rs` entry, `verified.rs` content-hash + `compile_error!`); hashing delegated to `qedgen-hash-core`.
 
-```bash
-bash scripts/check-version-consistency.sh
-bash scripts/check-readme-drift.sh
-$QEDGEN check --regen-drift
-```
+**`crates/qedgen/src/`** — CLI, parsers, codegens. Directory modules by pipeline stage (post-v2.35 reorg; root re-exports in `main.rs` keep `crate::<module>` paths stable):
+- `main.rs` / `cli.rs` / `run.rs` / `run_helpers.rs` — CLI surface (split out of `main.rs` in v2.36): `main.rs` (binary entry + the `crate::<module>` re-export hub), `cli.rs` (clap arg defs for every subcommand: init, setup, check, codegen, verify, reconcile, generate, fill-sorry, aristotle, spec, asm2lean, consolidate, probe, adapt, interface, readiness, check-upgrade, …), `run.rs` (`command_name_of` + the `dispatch` match), `run_helpers.rs` (dispatch-support glue). `stamp` (v2.44) emits `#[qed(verified)]` attributes gated on recorded implementation-verified evidence; `adapt` and `spec --idl` are soft-deprecated (scaffold → probe elicitation, attribute → stamp)
+- `spec/` — `.qedspec` front-end: `chumsky_parser` / `chumsky_adapter` (→ typed AST), `ast`, `validate`, `quantifier`, `spec_hash`, `import_resolver`, `idl` / `idl2spec`
+- `mir/` (`mod.rs` = the IR) — typed Solana-native IR; `lower(parsed) -> Mir` is the canonical entry, consumed by all four codegens; `cpi_substitute`
+- `codegen/` — all backends: `lean_gen_mir` (Lean 4; flat `structure State` default, `mir.adt_state` for inductive, `mir.is_assembly` → sBPF `render_sbpf`), `kani_mir` / `kani_impl` / `proptest_gen_mir` (Kani BMC + proptest), `codegen_mir` (Rust for Anchor / Quasar / Pinocchio), `codegen_shared` (`FrameworkSurface`, `generate_guards`, Pinocchio scaffold, per-target SPL/System CPI dispatch `try_emit_cpi`), `rust_codegen_util`, `lean_sidecars` (pinned-interface imports + `<Iface>.lean` axiom modules), `asm2lean` (sBPF `.s` → Lean), `crucible_gen`, `interface_gen`, `unit_test`, `integration_test`, `banner`, `fingerprint`
+- `check/` (`mod.rs`) — lint, coverage matrix, drift detection
+- `obligations/` (`mod.rs` = types + recorder + manifest IO, `inventory.rs` = expected-inventory + reconcile) — the backend-obligation manifest (#332): every requested obligation ends `emitted` / `unsupported(reason)` / `failed` per backend, recorded at the emission sites inside the three model codegens (never by scanning output) and reconciled against the spec-derived inventory so a silent skip surfaces as `failed`. Persisted to `.qed/obligations.json` by codegen; recomputed in memory by `check --coverage` (backend-coverage section) and `verify --strict` (gate)
+- `probe/` (`mod.rs` = the enumerator) — audit data layer: `pinocchio_probe`, `shank_probe`, `crucible_probe` / `crucible_brownfield`, `arithmetic_symbol_probe`, `lifecycle_probe`, `paired_validator_probe`, `probe_repro`, spec elicitation (`hypothesize` = evidence-anchored invariant hypotheses, `elicit` = structured answers + clause lowering), scaffold-to-spec interview (`cluster`, `handler_intent`, `prompts`, `ratify`)
+- `adapt/` — brownfield ingest: `anchor_adapt` / `anchor_check` / `anchor_extractor` / `anchor_project` / `anchor_resolver`, `native_extractor`, `pinocchio_extractor` / `pinocchio_profile` / `pinocchio_to_spec`
+- `verify/` (`mod.rs` = the orchestrator) — `miri_verify`, `sbpf_verify`, `verify_{counterexample,kani_parse,proptest_parse,probe_repros}`, `drift`, `regen_drift`, `upstream_check`, `ratchet`, `evidence` (persisted `.qed/verify-evidence.json` — the `stamp` gate's input)
+- `dispatch/` — external LLM dispatch: `api` (Mistral), `aristotle`
+- `project/` (`mod.rs` = scaffolding) — `init`, `deps`, `qed_lock`, `qed_manifest`, `consolidate`, `reconcile`, `fill`, `proofs_bootstrap`, `feedback`
 
-Read `references/cli.md` for the full CLI surface and flags.
+**`lean_solana/`** — Solana axiom library (`QEDGen.Solana.{Account,Cpi,State,Valid}`); sBPF semantics + binary-proof engines come from the `qedsvm` package (`require qedsvm`, `SVM.SBPF.*`, pinned tag).
 
-## Flow: Validate -> Scaffold -> Fill -> Verify
+Codegen/MIR architecture rationale (cross-cutting transforms, CPI composition, divergence) lives in [`docs/design/`](docs/design/).
 
-Step 1. Understand the program.
+## Key concepts
 
-Read the Rust source, tests, account model, authorities, PDAs, token flows, arithmetic, and lifecycle. For a returning QEDGen project, read the `.qedspec` next to the code. Do not treat `Spec.lean` as source; it is generated.
+First-class verification features — one-line orientation; full mechanics in [`references/qedspec-dsl.md`](references/qedspec-dsl.md):
 
-Step 2. Validate the spec.
+- **CPI ensures-as-axiom** — `call Iface.handler(...)` emits a per-call-site theorem. Tier-1/2 callees (declare `ensures` + `upstream { binary_hash }` pin) discharge via `exact Iface.handler.ensures_axiom_<i>`; Tier-0 (no ensures) keep `by sorry` + fire the `cpi_no_callee_ensures` lint. (`lean_gen_mir::render_cpi_theorems`, `cpi_substitute`)
+- **First-class interfaces** — `interface` participates across Lean / Kani / verify. Bundled SPL + System + Metaplex stdlib in `crates/qedgen/data/interfaces/`; `verify --check-upstream` promotes pin mismatches to CRIT.
+- **State-aware contracts** — callee `ensures` over abstract `state.X`; callers map via per-call-site `state_binders {}`; verified-callee composition imports `.qed/proofs/<Iface>.lean`.
+- **`pragma state_repr = adt`** — explicit opt-in to inductive multi-variant `State` (default is flat `structure State` + `status`). Single source: `ParsedSpec::state_repr_is_adt()` → `Mir::adt_state`. `cross-program-vault` is the sole bundled ADT example.
+- **Impl-targeted Kani (`--kani-impl`)** — `kani_impl.rs` exercises the real Anchor handler against a symbolic `Accounts` context; auto-triggers on `modifies ⊋ effect.lhs` or unbounded `ref_impl` arithmetic. Anchor only. Brownfield shapes: `--kani-impl-brownfield` (state-struct harness, #162) and `--kani-impl-context` (real `try_accounts` + instruction fn over symbolic `AccountInfo`s — instruction-level authorization gates, #169; `pragma context_struct`).
 
-```bash
-$QEDGEN check --spec program.qedspec --coverage
-$QEDGEN check --spec program.qedspec --json
-```
+## Verification scope
 
-Fix lint, coverage, import, lifecycle, arithmetic, and CPI-shape findings in the `.qedspec` first. The spec should describe the intended behavior before codegen or proof work begins.
+- **Verify:** authorization (signers/constraints), conservation (token totals), state machines (lifecycle/one-shot), arithmetic safety (overflow/underflow), CPI correctness (program/accounts/discriminator).
+- **Trust (axioms):** SPL Token, Solana runtime (PDA derivation, ownership), CPI mechanics, Anchor framework.
 
-Step 3. Scaffold generated artifacts.
-
-```bash
-$QEDGEN codegen --spec program.qedspec --target anchor --all
-```
-
-Use `--target quasar` for Quasar or `--target pinocchio` for Pinocchio (`#![no_std]` + `entrypoint!` dispatch, zeropod zero-copy state, `&AccountInfo` account structs with `.handler()` methods, checked effects, SPL Token CPIs). All three targets emit a full program scaffold; generic (non-SPL) and PDA-signed CPIs are not yet wired for Pinocchio.
-
-Step 4. Fill generated Rust.
-
-Open generated handler files that contain `todo!()`. Fill business logic using the guard calls, state structs, and spec effects as the contract. Then run the framework build and tests until compile-clean:
-
-```bash
-cargo check --manifest-path programs/Cargo.toml
-cargo test --manifest-path programs/Cargo.toml
-```
-
-**No `--fill` flag.** The agent reads the generated files, greps for `todo!()`, looks up the matching handler / accounts / effect in the `.qedspec`, and edits each body in place. The old `qedgen codegen --fill` / `--fill-tests` flags emitted structured prompts to stdout for the agent to consume — useful before agents had file tools, ceremony now. They're soft-deprecated in v2.18 (print a warning, still run) and will be removed in v3.0. Same direct-edit pattern applies to integration tests and Crucible action bodies.
-
-Step 5. Verify generated backends.
-
-```bash
-$QEDGEN verify --spec program.qedspec --proptest
-$QEDGEN verify --spec program.qedspec --kani
-$QEDGEN verify --spec program.qedspec --kani-impl   # v2.26 — calls user's real Anchor handler (opt-in)
-$QEDGEN verify --spec program.qedspec --lean
-$QEDGEN verify --spec program.qedspec --crucible 300   # coverage-guided fuzz (5 min)
-$QEDGEN verify --spec program.qedspec --check-upstream # v2.26 — pin-mismatch is CRIT (use --upstream-stale-ok offline)
-$QEDGEN verify --spec program.qedspec --recursive       # v2.27 — DFS-walk transitive proof packages; lake build per layer
-$QEDGEN verify --spec program.qedspec --require-verified # v2.27 — exits non-zero on any Tier-1+ import without a bundled proof package (default-off)
-```
-
-v2.26 split the Kani layer into two harness shapes: `--kani` runs the
-v2.25 ensures-preservation harness against the spec-translated transition
-fn (catches spec-internal inconsistency); `--kani-impl` runs the new
-impl-targeted harness against the user's *real* Anchor handler against
-a symbolic `Accounts` context (catches impl-violates-spec). The impl
-harness is opt-in via the flag, and auto-triggers when any handler has
-`modifies ⊋ effect.lhs` (the LP-shape signal) or any `ref_impl` carries
-potentially-overflowing arithmetic over bounded-numeric params (the
-`ref_impl_unbounded_arith` lint shape).
-
-The Crucible fuzz path is a separate engine: it drives the deployed `.so`
-with mutated typed-action sequences and crashes from real execution. Run
-`$QEDGEN probe --spec program.qedspec --fuzz 300` to get the JSON
-findings list directly, or `--crucible 300` on verify to fold them into
-the BackendReport. First-time setup needs `crucible` on PATH (see
-`references/cli.md`) plus a built harness from `codegen --crucible`.
-
-After `codegen --crucible`, the generated `fuzz/<prog>/src/main.rs`
-contains one `todo!("agent-fill: accounts::X { ... } from spec accounts
-block")` site per handler. Fill these directly — no `--fill` flag.
-The agent reads the spec's `accounts` block for the handler, cross-
-references the program's Anchor `Context<X>` struct (or the IDL JSON
-the user drops at `idls/<prog>.json`), and constructs the literal in
-place. Then run `cargo build --features invariant_test` in the harness
-dir and iterate on any compile errors. The IDL is auto-discovered from
-`target/idl/<prog>.json` when present; drop it there before the build.
-
-Failing harnesses surface with spec-named values (the binder name from the spec, not `var_3`):
-
-```
-[FAIL] kani       (4567 ms)
-       counterexample: probe_overflow_transfer
-         assertion failed: post == pre.checked_add(amount).unwrap_or(0)
-         at tests/kani.rs:42:5
-           pre    = 18446744073709551615ul
-           amount = 1ul
-           post   = 0ul
-```
-
-Use the named values to propose the next spec edit (tightening a `requires`, adding an `aborts_if`, marking an effect `+=!`/`+=?`), then re-run `qedgen verify`.
-
-Run only the backends relevant to artifacts present in the project. For generated examples in this repo, also run:
-
-```bash
-$QEDGEN check --regen-drift
-```
-
-## Brownfield Onboarding
-
-For an existing Anchor program:
-
-```bash
-$QEDGEN adapt --program programs/my_program --out program.qedspec
-```
-
-Then fill TODOs in the `.qedspec`, validate it, and cross-check against the live program:
-
-```bash
-$QEDGEN check --spec program.qedspec --anchor-project programs/my_program
-```
-
-After the spec covers each handler, stamp source drift attributes:
-
-```bash
-$QEDGEN adapt --program programs/my_program --spec program.qedspec
-```
-
-Paste the emitted `#[qed(verified, ...)]` attributes above the matching handler functions. Future handler-body, accounts-constraint, or spec edits should fail the build until the attributes are intentionally refreshed.
-
-If handler dispatch is non-standard, use explicit overrides:
-
-```bash
-$QEDGEN adapt --program programs/my_program --handler deposit=processor::deposit
-```
-
-For IDL-only onboarding:
-
-```bash
-$QEDGEN spec --idl target/idl/my_program.json
-```
-
-IDL scaffolds are shape-only. They need source review before they can express semantic guarantees.
-
-## Codegen Ownership
-
-Generated and always safe to regenerate:
-
-| Path | Owner | Notes |
-|---|---|---|
-| `Cargo.toml` | QEDGen | Framework dependencies and macro dependency |
-| `src/state.rs` | QEDGen | Account/state structs and lifecycle status |
-| `src/events.rs` | QEDGen | Event structs |
-| `src/errors.rs` | QEDGen | Error enum plus operational variants |
-| `src/guards.rs` | QEDGen | Requires, aborts, lifecycle, PDA, and token-authority checks |
-| `src/math.rs` | QEDGen | Emitted only when helper arithmetic is needed |
-| `src/instructions/mod.rs` | QEDGen | Module declarations and Quasar re-exports |
-| `tests/kani.rs` | QEDGen | Kani harnesses |
-| `tests/proptest.rs` | QEDGen | Property-test harnesses |
-| `src/tests.rs` | QEDGen | Unit tests when requested |
-| `src/integration_tests.rs` | QEDGen | Integration-test scaffold when requested |
-| `formal_verification/Spec.lean` | QEDGen | Lean model generated from `.qedspec` |
-
-User-owned after first scaffold:
-
-| Path | Owner | Notes |
-|---|---|---|
-| `src/lib.rs` | User or agent | Crate shell can gain custom imports/modules |
-| `src/instructions/<handler>.rs` | User or agent | Business logic and generated TODOs live here |
-| `formal_verification/Proofs.lean` | User or agent | Durable Lean proofs |
-| Existing project tests | User or agent | Do not replace with generated tests |
-
-Generated support code should compile around intentional handler TODOs. If support code fails to compile, fix the generator or generated support. If handler business logic is missing, fill the handler.
-
-## Proof Handoff
-
-Use proof engineering only when tests and bounded model checking are insufficient.
-
-Use proptest for:
-- Fast counterexamples during spec iteration.
-- Randomized state transitions.
-- Cheap regression checks.
-
-Use Kani for:
-- Access control.
-- Arithmetic safety.
-- Conservation and isolation invariants.
-- Bounded state-machine properties.
-
-Use Lean for:
-- DeFi math that needs symbolic reasoning beyond bounded search.
-- Wide arithmetic solvency arguments.
-- Inductive sBPF bytecode proofs.
-- Proof obligations where Kani/proptest cannot give enough confidence.
-
-Use Leanstral for routine sorry filling and Aristotle for harder long-running proof search. Read `references/proof-patterns.md` before proof repair and `references/sbpf.md` for sBPF.
-
-Always run `lake build` after editing Lean and run `qedgen check` after proofs compile so orphan or missing obligations are reported.
-
-For a verification summary, run `qedgen check --spec <s> --explain --json` and render the report yourself from the structured payload (`summary` counts + per-`properties` status/intent/suggestion). The bare `--explain` Markdown is a human fallback; the agent owns the narrative.
-
-## Invariants vs Properties
-
-Two related but distinct constructs in `.qedspec`:
-
-- **`property` / `preserved_by`** — a predicate over `state` that some named set of handlers must preserve. Use when the predicate is the headline correctness claim for those handlers (`pool_solvency preserved_by all`, `votes_bounded preserved_by [create_vault, propose, ...]`). Generates per-handler proptest/Kani harnesses and Lean preservation theorems. v2.23: properties whose bodies reference `old(...)` lower to a binary predicate `fn p(pre: &State, post: &State) -> bool`, and the preservation harness captures pre-state before the handler call so the obligation is real. The `vacuous_property_lowering` lint surfaces any property whose lowered Rust collapses to a structural tautology (`s.x cmp s.x`) when the source AST carries `old(...)` — a regression guard on the structural fix.
-- **`invariant` + handler-side `invariant Name` / `establishes Name`** — a named predicate referenced from inside handler blocks. Use when the same predicate is asserted by multiple handlers and the handler-side claim is what you want the spec to highlight. The handler clause is the join: `invariant Foo` means *preserves* (assume Foo pre-state, assert post), `establishes Foo` means *establishes* (no pre-assume, assert post only — useful for init / one-shot transitions).
-
-```fsharp
-invariant root_set :
-  state.root != ZERO_ROOT
-
-handler init : State.Active -> State.Active {
-  establishes root_set
-  effect { root := <derived_pda> }
-}
-
-handler update : State.Active -> State.Active {
-  invariant root_set       // preserves: assumes root_set pre, asserts post
-  requires state.root != ZERO_ROOT
-  effect { root := <new_root> }
-}
-```
-
-Both forms generate Rust-side BMC + proptest harnesses when the body has a `rust_expr` and at least one handler links to it. Description-only invariants (`invariant name "..."`) are documentation only — no Rust harness emits.
-
-Pick `property` when the handler list is short and the property name reads naturally as the claim ("conservation"). Pick `invariant` when the predicate is reused as a *thing* across many handlers, especially when some establish it and others preserve it.
-
-## Cross-program patterns
-
-When a handler's signing authority lives on an account owned by **another** program (a config PDA, an admin-key registry, a vault belonging to a stdlib like SPL), three lowering paths work depending on what you need:
-
-**1. Dotted `auth <acct>.<field>` (v2.29.1+, preferred for cross-program auth).** The cleanest sugar when the signing identity is read directly off an imported account:
-
-```fsharp
-handler emergency_close : State.Active -> State.Active {
-  auth admin_config.admin           // ← reads from imported AdminConfig.State
-  accounts {
-    admin         : signer
-    admin_config  : type AdminConfig.State
-    ...
-  }
-  ...
-}
-```
-
-The adapter desugars this to `requires admin_config.admin == admin.pubkey else Unauthorized` against the handler's lone signer. Handlers with 0 or >1 signers can't use the sugar — write the explicit `requires` form instead (see option 3). Bundled regression: `examples/rust/cross-program-vault/`.
-
-**2. Persist on init, gate on later handlers.** When the signing identity should be captured into local state at create time:
-
-```fsharp
-effect { admin := admin_account.pubkey }                          // on init
-requires state.admin == signer.pubkey else Unauthorized           // on later handlers
-```
-
-**3. Inline `requires` field comparison.** The general form. Works for any field-read shape including multi-signer handlers where dotted `auth` can't pick a signer:
-
-```fsharp
-requires foreign_config.admin == chosen_signer.pubkey else Unauthorized
-```
-
-Full grammar + lowering details: see `references/qedspec-dsl.md#accountpubkey-accessor` and the "Cross-program authority" callout under `### Handler clauses`.
-
-Cross-program *spec* composition (importing another program's qedspec or interface stub for CPI ensures) lives in `references/qedspec-imports.md` — that's about the call contract, not field reads.
-
-When you need the **data shape** of another program's account (not its CPI surface), v2.29's `import Foreign from "dep_key"` against a foreign qedspec that declares `type` blocks materializes those types as a local Rust mirror at `src/imported/<ns>.rs`, lets the handler bind accounts via `acct : type Foreign.State`, and resolves field reads (`foreign_acct.admin`) through the mirror. See [`references/qedspec-dsl.md#importing-another-programs-spec`](./references/qedspec-dsl.md#importing-another-programs-spec) for the full walkthrough (Anchor target only in v2.29; Lean ∀-quantification of imported fields deferred to v2.29.1).
-
-## When the spec hits a wall: fail fast, file an issue
-
-**Hard rule for spec-authoring agents:** if **any of these** emits an error you don't have a documented path past, **stop and file an issue at <https://github.com/qedgen/solana-skills/issues>**:
-
-- `qedgen check` lint or hard error (spec doesn't validate)
-- `qedgen codegen` hard error
-- **`cargo check` / `cargo build` on the generated Rust crate** (Anchor / Quasar / Pinocchio scaffold doesn't compile)
-- **`cargo kani` / `cargo test --release` on the generated Kani harness** (proof fails to elaborate, not just fails to verify)
-- **`cargo test` on the generated proptest harness** (proptest doesn't compile or panics outside the property body)
-- **`lake build` on the generated Lean `Spec.lean` / `Proofs.lean`** (proof file doesn't elaborate — missing import, unknown identifier, type mismatch in the generated theorem statement)
-
-In every case, the failure is a **codegen bug**, not a spec bug — the user wrote a valid spec and the generator emitted broken output. Hand-editing the generated file (guards.rs, state.rs, lib.rs's Accounts structs, Spec.lean, kani.rs, proptest.rs, the imported/ mirror) is the worst possible response: the next `qedgen codegen` regenerates over your edit and the fix evaporates.
-
-Do *not* invent any of these workarounds:
-
-- Phantom state fields to satisfy `auth` or to make `requires` reference resolve
-- Manual `transfers` blocks to silence `missing_cpi_for_token_context`
-- Hand-edited generated files (anything under `programs/src/` other than `instructions/<name>.rs` handler bodies, or anything in `formal_verification/` that qedgen wrote)
-- Parser-tricking renames (`admin_` instead of `admin` to dodge a keyword collision, etc.)
-- Spec-side type changes that "happen to make codegen work" but no longer describe the program
-- Removing the failing handler / property / requires from the spec to make the build green
-
-The fail-fast script:
-
-1. **Surface the error verbatim** *to the user, in your reply* — not yet to GitHub. The exact lint name (`unsupported_quantifier_shape`, `no_access_control`, `missing_cpi_for_token_context`, etc.) or the exact compiler / Kani / Lake error message, plus the spec fragment and (for codegen-output failures) the generated line that tripped it.
-2. **Check `docs/limitations.md`** — many shapes already have documented status (deferred, workaround, won't-fix). If your shape is listed and the documented workaround doesn't lie about the spec, follow it.
-3. **Construct a sanitized minimal reproducer.** Before drafting any issue body, REWRITE the failing fragment as a *generic* repro. The bug is in qedgen's handling of a shape, not in the user's specific business logic — the issue only needs the shape. **Get explicit user approval before sending any reproducer to GitHub** (next step).
-
-   **MUST scrub:**
-   - Real pubkeys / addresses (use `"11111111111111111111111111111111"` placeholder or omit `program_id` from the reproducer entirely)
-   - Token mint addresses, oracle keys, treasury / multisig pubkeys
-   - Named accounts, fields, handlers, and error variants that hint at protocol identity (anything that ties the spec to a specific product name, brand, or recognizable on-chain protocol) — rename to generic shapes (`admin`, `vault`, `pool`, `Foo`, `Bar`, `Action`)
-   - Constants encoding deal-specific numbers (fee bps, tier thresholds, hardcoded ratios) — replace with `0` / `1` / a generic literal
-   - Account schema fields that aren't load-bearing for the bug — drop them entirely; keep only the fields the failing construct touches
-   - Comments that reveal product names, customer names, internal team handles, deadlines, audit findings, or competitive context
-   - File paths under `programs/` / `formal_verification/` — strip directory prefixes; refer to files by their generated role (`guards.rs`, `state.rs`, the handler scaffold for `<handler_name>`)
-   - The repo path in any stack trace (sed out `/Users/<name>/code/<project>/`)
-
-   **MAY include:**
-   - The exact lint name / compiler error name / lake elaboration message (these are qedgen-side identifiers, not user data)
-   - The generic spec shape (`type State | A of {…} | B of {…}` with anonymized field names) that triggers the failing path
-   - The generated-file role (`guards.rs`'s emitted check for the handler) — without the real handler name
-
-4. **Ask the user before filing.** Once you have a sanitized reproducer, show it to the user and ask: "Is this safe to file at github.com/qedgen/solana-skills/issues? It will be public." Default answer is no — many specs describe pre-launch or closed-source programs whose architecture leaking is real harm. If the user declines OR doesn't respond, do NOT file. Hand them the sanitized reproducer to file themselves when they're ready.
-
-5. **If the user authorizes**, file the issue:
-   ```bash
-   gh issue create \
-     --title "qedgen: <generic one-line summary, no product names>" \
-     --body "$(cat <<EOF
-   ## Sanitized spec fragment
-
-   \`\`\`fsharp
-   <minimal generic reproducer — 10-20 lines, no real pubkeys / business logic / product names>
-   \`\`\`
-
-   ## Shape this is meant to cover
-
-   <one paragraph: the GENERIC pattern that's tripping qedgen, not what the user is building>
-
-   ## What qedgen / cargo / kani / lake says
-
-   \`\`\`
-   <verbatim error output — strip user-paths / personal info, keep qedgen-side identifiers>
-   \`\`\`
-
-   ## Generated file role (if a codegen-output failure)
-
-   <which generated file (guards.rs / state.rs / Spec.lean / kani.rs / etc.) the codegen-emitted line lives in, plus the offending lines AFTER scrubbing>
-
-   ## Workarounds considered and rejected
-
-   <list anti-patterns considered + why each lies about the spec shape>
-   EOF
-   )"
-   ```
-
-6. **Then pause and tell the user.** Don't auto-apply a workaround "for now." Auto-workarounds — in the spec OR in the generated output — are how `phantom_admin: Pubkey` ends up in production state forever (the friction-report's #6 was exactly this shape) and how generated Anchor crates accumulate hand-edited drift that regen overwrites.
-
-The exception: if the user explicitly tells you to ship a workaround (with phrasing like "just inline it for now" / "phantom field is fine" / "we'll fix it later" / "hand-edit the guard for this PR"), apply the workaround AND leave a `// FIXME(qedgen-issue: <url>):` comment pointing at the issue. The marker makes the regression auditable later. For hand-edits to generated files, ALSO note in the issue body that the edit will be overwritten on the next `qedgen codegen` — the user needs to know.
-
-The exception does NOT cover filing issues: even when the user authorizes a workaround, the issue body must still be sanitized per step 3. The workaround marker is private (lives in their repo); the issue is public.
+See `examples/rust/escrow/formal_verification/VERIFICATION_SCOPE.md`.
 
 ## References
 
-Load references on demand. Do not bulk-load all files.
+- [`references/cli.md`](references/cli.md) — every CLI command + flag
+- [`references/qedspec-dsl.md`](references/qedspec-dsl.md) — full `.qedspec` DSL
+- [`references/proof-patterns.md`](references/proof-patterns.md) — Lean tactic rules + common errors/fixes
+- [`references/sbpf.md`](references/sbpf.md) — sBPF workflow, `wp_exec`/`wp_step`, memory disjointness, simp-performance rules
+- [`references/support-library.md`](references/support-library.md) — `QEDGen.Solana` API
+- [`docs/design/`](docs/design/) — codegen / MIR architecture
+- [`docs/framework-support.md`](docs/framework-support.md) — per-framework capability matrix (Anchor / Quasar / Pinocchio / native / sBPF), gate-verified
+- [`docs/RELEASING.md`](docs/RELEASING.md) — **pre-release checklist (run before any tag)**
+- `SKILL.md` — the user-facing proof/verification workflow
+- `.claude/rules/lean-proofs.md` — Lean gotchas, auto-loaded when editing `.lean` files
 
-| Reference | Use When |
-|---|---|
-| `references/cli.md` | Full command and flag details |
-| `references/qedspec-dsl.md` | DSL syntax and modeling patterns |
-| `references/qedspec-imports.md` | `import`, `qed.toml`, `qed.lock`, `--frozen`, upstream checks |
-| `references/qedspec-anchor.md` | Anchor adapter and brownfield coverage checks |
-| `references/adversarial-probes.md` | Agent-walked attack-surface checklist |
-| `references/proof-patterns.md` | Lean proof tactics and repair patterns |
-| `references/support-library.md` | Lean support library types and lemmas |
-| `references/sbpf.md` | sBPF assembly verification |
-| `references/kani-examples.md` | Longer Kani harness examples moved out of the skill |
-| `references/brownfield-testing.md` | Existing-test strategy for brownfield projects |
-| `references/skill-operations.md` | Git hygiene, learning capture, environment, and error handling |
-| `references/release-history.md` | Version-feature history moved out of the skill |
+## Environment
+
+- `MISTRAL_API_KEY` — `fill-sorry` / `generate` (Lean sorry-filling only)
+- `ARISTOTLE_API_KEY` — `aristotle` commands (hard sub-goals; https://aristotle.harmonic.fun)
+- `QEDGEN_VALIDATION_WORKSPACE` — override validation workspace (default: platform cache dir)
+
+Spec writing, validation, and codegen need no API keys or Lean toolchain. First Lean build is expensive (15–45 min for Mathlib) — run `qedgen setup` first. If `lake build` reports "could not resolve 'HEAD' to a commit", remove `.lake/packages/mathlib` and run `lake update`.
+
+Generated Rust is rustfmt-formatted at the single write seam (`codegen_shared::write_generated_file` → `format_rust_source`; new emitters must route through it, gated by `tests/generated_rustfmt_gate.rs`). rustfmt is a soft dependency: absent → unformatted output + one warning. rustfmt is NOT token-neutral (trailing commas, `!((…))` paren removal), so `#[qed(verified, hash=…)]` body hashes are computed AFTER formatting (`scaffold.rs`); tests match generated Rust whitespace-insensitively (`compact` helpers). Static Rust templates live in `crates/qedgen/templates/*.rs` (`include_str!`), kept fmt-clean by the same gate.
 
 ---
 > Source: [QEDGen/solana-skills](https://github.com/QEDGen/solana-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
