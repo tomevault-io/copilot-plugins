@@ -4,7 +4,7 @@
   "repo": "patchestry",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/lifting-bits/patchestry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T06:50:54Z"
+  "distributed_at": "2026-07-24T05:42:42Z"
 }
