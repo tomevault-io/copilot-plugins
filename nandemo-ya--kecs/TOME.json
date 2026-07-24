@@ -1,0 +1,81 @@
+{
+  "name": "kecs",
+  "owner": "nandemo-ya",
+  "repo": "kecs",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ecs-api-reference",
+      "path": ".claude/skills/ecs-api-reference",
+      "github_url": "https://github.com/nandemo-ya/kecs/tree/main/.claude/skills/ecs-api-reference",
+      "description": ""
+    },
+    {
+      "name": "ecs-cli-reference",
+      "path": ".claude/skills/ecs-cli-reference",
+      "github_url": "https://github.com/nandemo-ya/kecs/tree/main/.claude/skills/ecs-cli-reference",
+      "description": ""
+    },
+    {
+      "name": "localstack-services",
+      "path": ".claude/skills/localstack-services",
+      "github_url": "https://github.com/nandemo-ya/kecs/tree/main/.claude/skills/localstack-services",
+      "description": ""
+    },
+    {
+      "name": "kecs",
+      "path": ".claude/skills/ecs-api-reference/SKILL.md",
+      "github_url": "https://github.com/nandemo-ya/kecs/tree/main/.claude/skills/ecs-api-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kecs",
+      "path": ".claude/skills/ecs-cli-reference/SKILL.md",
+      "github_url": "https://github.com/nandemo-ya/kecs/tree/main/.claude/skills/ecs-cli-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kecs",
+      "path": ".claude/skills/localstack-services/SKILL.md",
+      "github_url": "https://github.com/nandemo-ya/kecs/tree/main/.claude/skills/localstack-services/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nandemo-ya/kecs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T01:33:46Z"
+}
