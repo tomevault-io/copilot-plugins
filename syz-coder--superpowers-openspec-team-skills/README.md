@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SYZ-Coder/superpowers-openspec-team-skills](https://github.com/SYZ-Coder/superpowers-openspec-team-skills).
+Original source: `CLAUDE.md` in [SYZ-Coder/superpowers-openspec-team-skills](https://github.com/SYZ-Coder/superpowers-openspec-team-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -33,7 +33,7 @@ Original source: `AGENTS.md` in [SYZ-Coder/superpowers-openspec-team-skills](htt
 - [superpowers-openspec-team-skills](https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/codex/bundles/superpowers-openspec-superpowers/skills/superpowers-openspec-superpowers-workflow/SKILL.md)
 - [superpowers-openspec-team-skills](https://github.com/SYZ-Coder/superpowers-openspec-team-skills/tree/main/dist/opencode/bundles/superpowers-openspec-superpowers/skills/superpowers-openspec-superpowers-workflow/SKILL.md)
 
-From [SYZ-Coder/superpowers-openspec-team-skills](https://github.com/SYZ-Coder/superpowers-openspec-team-skills) — a repo with 180+ stars on GitHub.
+From [SYZ-Coder/superpowers-openspec-team-skills](https://github.com/SYZ-Coder/superpowers-openspec-team-skills) — a repo with 181+ stars on GitHub.
 
 ---
 
