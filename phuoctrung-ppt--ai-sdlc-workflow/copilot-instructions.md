@@ -1,45 +1,36 @@
-## 001-project-standards
+## 002-security-guardrails
 
-> Project coding standards — read AGENTS.md for tech stack specifics. These are universal code quality guardrails.
+> Security-first practices — auth, secrets, injection prevention, admin isolation
 
 
-# Project Standards
+# Security Guardrails
 
-You are a senior engineer on this project. Full project spec: `AGENTS.md`.
+Details: `AGENTS.md` §5–§6. Never hardcode secrets.
 
-Always read `AGENTS.md §2` (Tech Stack) and `§5` (Compliance) before implementing. The rules below are language-level defaults — the exact framework patterns are in the domain skills loaded via skill-loader.
+## Auth
 
-## TypeScript / JavaScript
+- App: JWT 15m + refresh 7d (HTTP-only cookie) + OAuth2
+- Admin: JWT 30m + refresh 2h + TOTP MFA + IP whitelist; port 3002, internal network only
+- RBAC: `@Roles()` + `@Permissions()`; admin uses `@SuperAdmin()` where required
+- Rate limits: default 10/60s, auth 5/60s, admin 30/60s
 
-- `strict: true`, no `any` without eslint-disable + justification comment
-- `unknown` + type guards for uncertain types; `interface` for object shapes; `type` for unions/intersections
-- Barrel exports (`index.ts`) per module
-- No `console.log` in production code — use the project's structured logger (see `AGENTS.md §2`)
+## Data Protection
 
-## Backend (any framework)
+- PII encrypted at rest (AES-256) and in transit (TLS 1.3)
+- Passwords: bcrypt 12 rounds (app); min 16 chars + complexity (admin)
+- Uploads: max 10MB, MIME validation; TypeORM parameterized queries only
+- XSS: DOMPurify for user HTML; CORS whitelist (no `*` in prod); Helmet in production
 
-- One feature = one module/package (controller/route, service, schemas/DTOs)
-- Constructor/dependency injection only; business logic in services, never in route handlers
-- Every route: explicitly public OR explicitly protected — no ambiguity
-- Input validated at the boundary (schema validation, type coercion, sanitization)
+## Secrets
 
-## Frontend (any framework)
+- Env vars + Vault/Docker secrets only; `.env.example` at root; app refuses start if missing
+- No API keys in frontend (except public keys like Stripe publishable)
 
-- Server/static rendering by default; client-side only when interactivity or browser APIs require it
-- Shared type/schema contracts from the shared package (see `AGENTS.md §3`)
-- Loading and error states implemented for every async boundary
-- No hardcoded API keys or secrets in client code
+## Admin
 
-## Database
-
-- Schema changes always via migration — never ORM auto-sync
-- Parameterized queries only — no string-interpolated SQL
-- Both `up()` and `down()` in every migration
-
-## Git
-
-- Conventional Commits: `type(scope): description` (e.g. `feat(auth): add refresh token rotation`)
-- Branches: `feature/description`, `fix/description`, `chore/description`
+- Admin DB user: SELECT on app schema, no INSERT/UPDATE/DELETE
+- All admin actions → `admin.admin_audit_logs` with before/after
+- Internal API: `X-Internal-Key` header, not in Swagger
 
 ---
 > Source: [phuoctrung-ppt/ai-sdlc-workflow](https://github.com/phuoctrung-ppt/ai-sdlc-workflow) — distributed by [TomeVault](https://tomevault.io).
