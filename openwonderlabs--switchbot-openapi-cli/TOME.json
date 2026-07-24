@@ -1,0 +1,63 @@
+{
+  "name": "switchbot-openapi-cli",
+  "owner": "OpenWonderLabs",
+  "repo": "switchbot-openapi-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "switchbot-openapi-cli",
+      "path": "packages/codex-plugin/skills/switchbot/SKILL.md",
+      "github_url": "https://github.com/OpenWonderLabs/switchbot-openapi-cli/tree/main/packages/codex-plugin/skills/switchbot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchbot-openapi-cli",
+      "path": "packages/codex-plugin/plugins/switchbot/skills/switchbot/SKILL.md",
+      "github_url": "https://github.com/OpenWonderLabs/switchbot-openapi-cli/tree/main/packages/codex-plugin/plugins/switchbot/skills/switchbot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchbot-openapi-cli",
+      "path": "packages/claude-code-plugin/plugins/switchbot/skills/switchbot/SKILL.md",
+      "github_url": "https://github.com/OpenWonderLabs/switchbot-openapi-cli/tree/main/packages/claude-code-plugin/plugins/switchbot/skills/switchbot/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenWonderLabs/switchbot-openapi-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:42:35Z"
+}
