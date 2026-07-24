@@ -1,0 +1,9 @@
+{
+  "name": "nix-community--crate2nix",
+  "displayName": "crate2nix",
+  "description": "crate2nix",
+  "version": "1.0.0",
+  "author": "nix-community",
+  "homepage": "https://github.com/nix-community/crate2nix",
+  "skills": []
+}
