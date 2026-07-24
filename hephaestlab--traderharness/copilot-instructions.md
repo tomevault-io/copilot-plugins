@@ -1,23 +1,20 @@
-## frontend
+## project-conventions
 
-> Streamlit / 像素办公室前端的风格与交互约定
+> 工程约定（环境、命名、交付节奏）
 
 
-# 前端约定
+# 工程约定
 
-详细设计方向见 skill：`.claude/skills/frontend-design-direction/SKILL.md`。
+## 环境
+- OS：Windows + PowerShell。Python 解释器统一用 `.venv\Scripts\python.exe`（不要假设 `python` 在 PATH）。
+- 项目根：`D:\finharness`。包名：`traderharness`。
+- 数据集：`~/.finharness/dataset/`（daily / 5min / announcements / news_cls / dividends / fundamentals）。
 
-## 风格
-- 暖色调像素 RPG 风（2D 俯视/四分之三视角的像素办公室，Agent 是可交互的像素角色）。
-- **不要用 emoji 当图标**（AI 味太重、丑），用正规图标库。
-- 像素资产统一规格、统一视角；新资产要和已有资产保持一致性（以基础角色/物体作输入再生成关联资产）。
+## 命名
+项目名存在 `FinHarness` / `TraderHarness` 混用，包名是 `traderharness`。新增对外文案统一前先和作者确认，别再制造第三种叫法。
 
-## 交互 / 打通
-- CLI 与 Streamlit 通过进程内事件队列（LiveFeed）打通，回测过程可**实时直播**；不要退回到靠文件轮询传消息。
-- 启动回测后应能自动进入直播；回测记录点击进详情，可看结果、回放、导出轨迹、按交易点看 K 线买卖点。
-
-## 验证
-改完前端用 Playwright 自己截图自测，确认无 bug、风格符合后再说"完成"。
+## 交付节奏
+先把**功能正确性 + 回测质量**做扎实，**产品包装（README / PyPI / CI / UI 美化）放最后**。不要在核心没验证前去抛光外壳。
 
 ---
 > Source: [HephaestLab/TraderHarness](https://github.com/HephaestLab/TraderHarness) — distributed by [TomeVault](https://tomevault.io).
