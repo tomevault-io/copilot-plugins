@@ -1,0 +1,14 @@
+{
+  "name": "axinom--mosaic-media-template",
+  "displayName": "mosaic-media-template",
+  "description": "mosaic-media-template",
+  "version": "1.0.0",
+  "author": "Axinom",
+  "homepage": "https://github.com/Axinom/mosaic-media-template",
+  "skills": [
+    {
+      "name": "mosaic-media-template",
+      "description": ""
+    }
+  ]
+}
