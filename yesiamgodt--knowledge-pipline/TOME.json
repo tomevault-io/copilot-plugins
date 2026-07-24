@@ -3,8 +3,8 @@
   "owner": "YesIamGodt",
   "repo": "knowledge-pipline",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "knowledge-pipline",
+      "path": "ppt_live/SKILL.md",
+      "github_url": "https://github.com/YesIamGodt/knowledge-pipline/tree/main/ppt_live/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "knowledge-pipline",
+      "path": "packages/create-data-pipeline/skill/SKILL.md",
+      "github_url": "https://github.com/YesIamGodt/knowledge-pipline/tree/main/packages/create-data-pipeline/skill/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/YesIamGodt/knowledge-pipline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T12:40:00Z"
+  "distributed_at": "2026-07-24T18:40:46Z"
 }
