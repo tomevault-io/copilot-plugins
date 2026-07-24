@@ -1,0 +1,14 @@
+{
+  "name": "openshift--certman-operator",
+  "displayName": "certman-operator",
+  "description": "certman-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/certman-operator",
+  "skills": [
+    {
+      "name": "certman-operator",
+      "description": ""
+    }
+  ]
+}
