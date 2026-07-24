@@ -1,0 +1,14 @@
+{
+  "name": "sketchup--sketchup-extension-vscode-project",
+  "displayName": "sketchup-extension-vscode-project",
+  "description": "sketchup-extension-vscode-project",
+  "version": "1.0.0",
+  "author": "SketchUp",
+  "homepage": "https://github.com/SketchUp/sketchup-extension-vscode-project",
+  "skills": [
+    {
+      "name": "sketchup-extension-vscode-project",
+      "description": ""
+    }
+  ]
+}
