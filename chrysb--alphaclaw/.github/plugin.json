@@ -1,9 +1,14 @@
 {
   "name": "chrysb--alphaclaw",
   "displayName": "alphaclaw",
-  "description": "The ultimate setup harness for OpenClaw. Deploy in minutes. Stay running for months. No CLI required.",
+  "description": "alphaclaw",
   "version": "1.0.0",
   "author": "chrysb",
   "homepage": "https://github.com/chrysb/alphaclaw",
-  "skills": []
+  "skills": [
+    {
+      "name": "alphaclaw",
+      "description": ""
+    }
+  ]
 }
