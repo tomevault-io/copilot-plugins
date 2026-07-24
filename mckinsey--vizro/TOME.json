@@ -1,0 +1,93 @@
+{
+  "name": "vizro",
+  "owner": "mckinsey",
+  "repo": "vizro",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dashboard-build",
+      "path": "vizro-e2e-flow/skills/dashboard-build",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/dashboard-build",
+      "description": ""
+    },
+    {
+      "name": "dashboard-design",
+      "path": "vizro-e2e-flow/skills/dashboard-design",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "path": "vizro-e2e-flow/skills/dashboard-build/SKILL.md",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/dashboard-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "path": "vizro-e2e-flow/skills/dashboard-design/SKILL.md",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/dashboard-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "path": "vizro-e2e-flow/skills/writing-vizro-yaml/SKILL.md",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/writing-vizro-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "path": "vizro-e2e-flow/skills/wiring-vizro-actions/SKILL.md",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/wiring-vizro-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "path": "vizro-e2e-flow/skills/selecting-vizro-charts/SKILL.md",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/selecting-vizro-charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "path": "vizro-e2e-flow/skills/designing-vizro-layouts/SKILL.md",
+      "github_url": "https://github.com/mckinsey/vizro/tree/main/vizro-e2e-flow/skills/designing-vizro-layouts/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mckinsey/vizro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T01:32:50Z"
+}
