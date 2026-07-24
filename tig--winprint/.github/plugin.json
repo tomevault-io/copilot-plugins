@@ -1,0 +1,14 @@
+{
+  "name": "tig--winprint",
+  "displayName": "winprint",
+  "description": "winprint",
+  "version": "1.0.0",
+  "author": "tig",
+  "homepage": "https://github.com/tig/winprint",
+  "skills": [
+    {
+      "name": "winprint",
+      "description": ""
+    }
+  ]
+}
