@@ -1,0 +1,14 @@
+{
+  "name": "azure--terraform-azurerm-avm-res-web-site",
+  "displayName": "terraform-azurerm-avm-res-web-site",
+  "description": "terraform-azurerm-avm-res-web-site",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-res-web-site",
+  "skills": [
+    {
+      "name": "terraform-azurerm-avm-res-web-site",
+      "description": ""
+    }
+  ]
+}
