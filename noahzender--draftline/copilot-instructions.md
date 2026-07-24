@@ -1,0 +1,23 @@
+## obsidian-manifest-release
+
+> Manifest, version map, package, and release workflow consistency
+
+
+# Obsidian manifest and release
+
+- A released plugin ID is immutable.
+- `id` uses lowercase letters/hyphens, does not contain `obsidian`, and does not end with `plugin`.
+- The development folder name equals the manifest ID.
+- The display name must not contain `Obsidian` or `Plugin`.
+- Keep `manifest.json` and `package.json` versions identical.
+- Map every release version to its exact `minAppVersion` in `versions.json`.
+- Keep `isDesktopOnly: false` unless source or dependencies require Node.js/Electron.
+- Keep `minAppVersion` no lower than the newest Obsidian API used.
+- Release tags exactly equal the manifest version without a leading `v`.
+- Release only `main.js`, `manifest.json`, and optional `styles.css`.
+
+Before changing release metadata, follow `docs/releasing.md` and verify current upstream requirements.
+
+---
+> Source: [noahzender/draftline](https://github.com/noahzender/draftline) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
