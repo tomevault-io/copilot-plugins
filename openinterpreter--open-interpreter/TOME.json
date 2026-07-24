@@ -1,0 +1,165 @@
+{
+  "name": "open-interpreter",
+  "owner": "OpenInterpreter",
+  "repo": "open-interpreter",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/test-tui/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/test-tui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/codex-bug/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/codex-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/babysit-pr/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/babysit-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/remote-tests/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/remote-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/codex-pr-body/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/codex-pr-body/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/code-review-testing/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/code-review-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/code-review-context/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/code-review-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/code-review-change-size/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/code-review-change-size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/code-review-breaking-changes/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/code-review-breaking-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": "codex-rs/skills/src/assets/samples/imagegen/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/codex-rs/skills/src/assets/samples/imagegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": "codex-rs/skills/src/assets/samples/qa-testing/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/codex-rs/skills/src/assets/samples/qa-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": "codex-rs/skills/src/assets/samples/openai-docs/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/codex-rs/skills/src/assets/samples/openai-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": "codex-rs/skills/src/assets/samples/skill-creator/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/codex-rs/skills/src/assets/samples/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": "codex-rs/skills/src/assets/samples/plugin-creator/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/codex-rs/skills/src/assets/samples/plugin-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": "codex-rs/skills/src/assets/samples/skill-installer/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/codex-rs/skills/src/assets/samples/skill-installer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/path-types/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/path-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/update-v8-version/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/update-v8-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/codex-issue-digest/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/codex-issue-digest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-interpreter",
+      "path": ".codex/skills/pushing-ci-changes/SKILL.md",
+      "github_url": "https://github.com/OpenInterpreter/open-interpreter/tree/main/.codex/skills/pushing-ci-changes/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenInterpreter/open-interpreter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T20:31:08Z"
+}
