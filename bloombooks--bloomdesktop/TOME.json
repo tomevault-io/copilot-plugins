@@ -4,7 +4,7 @@
   "repo": "BloomDesktop",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -95,5 +95,5 @@
   ],
   "source_url": "https://github.com/BloomBooks/BloomDesktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T22:52:44Z"
+  "distributed_at": "2026-07-24T22:33:10Z"
 }
