@@ -1,0 +1,9 @@
+{
+  "name": "quay--container-security-operator",
+  "displayName": "container-security-operator",
+  "description": "container-security-operator",
+  "version": "1.0.0",
+  "author": "quay",
+  "homepage": "https://github.com/quay/container-security-operator",
+  "skills": []
+}
