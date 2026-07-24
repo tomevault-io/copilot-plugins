@@ -1,0 +1,14 @@
+{
+  "name": "bcgit--bc-java",
+  "displayName": "bc-java",
+  "description": "bc-java",
+  "version": "1.0.0",
+  "author": "bcgit",
+  "homepage": "https://github.com/bcgit/bc-java",
+  "skills": [
+    {
+      "name": "bc-java",
+      "description": ""
+    }
+  ]
+}
