@@ -1,35 +1,32 @@
-## 004-multi-tenancy-pattern
+## 005-code-quality
 
-> Soft multi-tenancy — tenant_id rules, TenantContextGuard, application-level isolation
+> Logging, error envelopes, testing coverage, performance conventions
 
 
-# Soft Multi-Tenancy (MVP)
+# Code Quality
 
-> ⚠️ **EXAMPLE DOMAIN (AI hiring/recruiting) — NOT this project's rules.**
-> This file is a portable **example** of a soft multi-tenancy pattern. Its specifics
-> (`jobs`, `applications`, `interview_recordings`, CVs, HR/candidate roles) do **not**
-> describe the current project. **Agents: ignore the domain specifics below until this
-> file is replaced** with the real tenancy model for `<PROJECT>` (see `AGENTS.md §4`).
-> Delete or rewrite on port.
+Details: `AGENTS.md` §5 (code quality) and §12 (forbidden patterns).
 
-Details: `AGENTS.md` §4. Application-level isolation, no RLS in MVP.
+## Logging
 
-## tenant_id Rules
+- No `console.log` in production; Winston in API/worker; `console.error` only in frontend catch blocks
+- Structured JSON: `{ timestamp, level, correlationId, service, message, metadata }`
+- `LoggerInterceptor` assigns `correlation-id` per request
 
-- **Has tenant_id:** `users` (nullable), `jobs`, `applications`, `interview_recordings`, `audit_logs`
-- **No tenant_id:** `cvs`, `cv_versions`, `skills`, `consents` (global/candidate-owned)
-- Candidates: `tenant_id` NULL; HR: `tenant_id` NOT NULL; Admin users: NULL
+## Errors
 
-## Application Isolation
+- Custom `HttpException` filters; envelope: `{ data, meta, error }`
+- Status codes: 200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500
 
-- `TenantContextGuard` + `@TenantId()` on tenant-scoped queries
-- HR queries MUST filter `tenant_id`; no cross-tenant access on app API
-- Admin service: cross-tenant read-only for analytics
+## Testing
 
-## Tenant Lifecycle
+- Coverage: 70% API services, 50% frontend; `*.spec.ts`, `*.e2e-spec.ts`, `*.test.ts`
+- Mock external APIs (OpenAI, SendGrid, MinIO, Stripe); MSW for frontend
 
-- Auto-create tenant on HR register: `plan=free`, `max_users=5`, `max_jobs=3`, `max_ai_credits=100`
-- Reject if `tenant.status != 'active'`; soft limits → `403` with upgrade prompt
+## Performance
+
+- `next/image` + `next/font` (Inter); colors from `config-tailwind`; `lucide-react` only
+- Cursor pagination for large lists; offset only for small admin lists
 
 ---
 > Source: [phuoctrung-ppt/ai-sdlc-workflow](https://github.com/phuoctrung-ppt/ai-sdlc-workflow) — distributed by [TomeVault](https://tomevault.io).
