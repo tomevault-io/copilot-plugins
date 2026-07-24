@@ -1,0 +1,9 @@
+{
+  "name": "data-lake-visualizer--vscode-parquet-visualizer",
+  "displayName": "vscode-parquet-visualizer",
+  "description": "vscode-parquet-visualizer",
+  "version": "1.0.0",
+  "author": "Data-Lake-Visualizer",
+  "homepage": "https://github.com/Data-Lake-Visualizer/vscode-parquet-visualizer",
+  "skills": []
+}
