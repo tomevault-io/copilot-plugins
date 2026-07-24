@@ -1,0 +1,83 @@
+## dash0-operator
+
+> This file contains the Claude development guidelines for the dash0-operator repository.
+
+# CLAUDE.md
+
+This file contains the Claude development guidelines for the dash0-operator repository.
+
+## Planning and Execution
+
+- You start making a plan without making any further code changes.
+- You ask clarifying questions about the task.
+- You then confirm the plan, and once confirmed, you start executing on it.
+
+## Code Organization
+
+The `api` directory contains the Go code from which the custom resource definitions for the Dash0 operator
+(Dash0OperatorConfiguration, Dash0Monitoring) are generated.
+The `config` directory contains the Kustomize sources, which are generated from the Go code in `api`. The Kustomize
+sources are not used, except as an intermediate stage for the Helm chart.
+The `helm-chart/dash0-operator` directory contains the operator's Helm chart.
+The `images` directory contains source code for auxiliary images, like the custom OpenTelemetry collector image and the
+instrumentation image.
+The `internal` repository contains the Go code for the main operator manager image (also referred to as
+operator-controller). This is where most of the operator's logic resides.
+The directory `internal/collectors/otelcolresources` contains the files daemonset.config.yaml.template and
+internal/collectors/otelcolresources/deployment.config.yaml.template, which are the templates for the OpenTelemetry
+collectors the operator manages.
+The directory `test/util` contains additional Go code only used in unit tests.
+The directory `test/e2e` contains the end-to-end test suite.
+The directory `test-resources` contains a collection of scripts for running semi-manual tests scenarios.
+
+## Code Comments
+
+When making changes, never add comments regarding the state before your changes - code comments are not a place for
+history lessons.
+The motiviation for a specific change can be part of the commit comment (if you have been asked to commit).
+Add godoc comments for public functions.
+Adding implementation comments in function bodies should be used very sparingly: If the code is understandable without a
+comment, prefer to not add implementation comments at all.
+You may use implementation comments to explain non-obvious aspects, but keep it as short as possible.
+
+## Formatting
+
+Use the current year in the license header comment when adding new files.
+Do not update the copyright year when editing files.
+Use lines of 120 characters when formatting files with line breaks.
+Use 120 characters per line when formatting comments in Go code.
+
+## Make Commands
+
+Build, lint and test tasks in this repository are performed via the Makefile in the root of the repository.
+
+- make build: build the Go code
+- make lint: run all static code analysis checks (Go, Helm, shell scripts).
+- make test: run all unit tests (Go, Helm chart unit tests)
+    - To only run the Go unit tests, run `make go-unit-tests`.
+    - To only run the Helm chart unit tests, run `make helm-unit-tests`.
+- make images: build all container images used by the operator.
+
+## Common Workflows
+
+### Linting
+
+After changing Go code, run `make golangci-lint`.
+After changing the Helm chart, run `make helm-chart-lint`.
+After changing or creating bash scripts, run `make shellcheck-lint` to verify they have no issues.
+
+### Changing the Kubernetes Custom Resource Definitions
+
+Start by making changes to the Go code in `api/operator`.
+Then run `make manifests generate` to update the Kustomize source files in `config/crd`.
+The resulting changes in the directory `config/crd` need to be carried over to the respective files in
+`helm-chart/dash0-operator/templates/operator`, which are the Helm chart templates.
+
+CRD specs must be fully typed with structured Go types (enums, nested objects, required/optional markers, and
+kubebuilder validation annotations). Do not use opaque string fields to hold structured data. Validate the Go types
+against the canonical OpenAPI spec in `https://github.com/dash0hq/dash0hq/dash0/tree/main/modules/openapi-types/internal/spec/` to ensure they match the Dash0 API
+object schemas.
+
+---
+> Source: [dash0hq/dash0-operator](https://github.com/dash0hq/dash0-operator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
