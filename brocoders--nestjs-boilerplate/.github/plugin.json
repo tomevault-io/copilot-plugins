@@ -1,0 +1,14 @@
+{
+  "name": "brocoders--nestjs-boilerplate",
+  "displayName": "nestjs-boilerplate",
+  "description": "nestjs-boilerplate",
+  "version": "1.0.0",
+  "author": "brocoders",
+  "homepage": "https://github.com/brocoders/nestjs-boilerplate",
+  "skills": [
+    {
+      "name": "nestjs-boilerplate",
+      "description": ""
+    }
+  ]
+}
