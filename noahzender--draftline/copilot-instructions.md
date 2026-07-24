@@ -1,25 +1,24 @@
-## obsidian-project
+## obsidian-styles
 
-> Core safety and quality constraints for this Obsidian community plugin
+> Theme-compatible styling for Obsidian plugin interfaces
 
 
-# Obsidian project
+# Obsidian styles
 
-- Build for the Community Plugins directory and preserve desktop/mobile compatibility.
-- Develop and manually test only in a dedicated disposable vault, never a primary or valuable vault.
-- Default to local/offline behavior. Treat vault content, filenames, settings, and paths as private.
-- Do not add client-side telemetry, self-updates, remote code, or undisclosed network/outside-vault access.
-- Keep `src/main.ts` limited to lifecycle and registration; put feature logic in focused modules.
-- Do not track `main.js`, source maps, `data.json`, `node_modules`, or vault contents.
+- Scope classes under a plugin-specific root to avoid collisions.
+- Use Obsidian CSS variables for colors, typography, spacing, borders, and interactive states.
+- Put presentation in CSS classes; do not set hardcoded inline styles from TypeScript.
+- Support light, dark, and high-contrast themes without assuming fixed background colors.
+- Avoid broad element selectors that affect Obsidian or other plugins.
 
-Before calling work complete:
+```css
+.draftline-warning {
+	color: var(--text-normal);
+	background: var(--background-modifier-error);
+}
+```
 
-1. Run build and lint.
-2. Run tests; report a missing test script.
-3. Check lifecycle cleanup, privacy/network impact, and mobile compatibility.
-4. Keep dedicated-vault desktop/mobile smoke tests visibly pending unless actually completed.
-
-Use `AGENTS.md`, `docs/development.md`, and `docs/releasing.md` for the full procedures.
+Test changed UI in desktop and mobile layouts with light and dark themes.
 
 ---
 > Source: [noahzender/draftline](https://github.com/noahzender/draftline) — distributed by [TomeVault](https://tomevault.io).
