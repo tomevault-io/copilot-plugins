@@ -20,7 +20,7 @@ tools/test runs all these tests after each other. This is also the script CI bot
 
 ## AOT tests
 
-AOT tests run on x64 and arm64 Linux. `tools/rt --aot` runs runtime tests in AOT mode without requiring a per-file annotation.
+AOT compilation must be explicitly enabled per test file by adding `//= aot` as the first line. Tests without this annotation are skipped in `tools/rt --aot` runs. AOT tests run on x64 and arm64 Linux.
 
 To compile a file in AOT mode and run the resulting binary:
 
@@ -54,4 +54,4 @@ Run "cargo fmt" on your Rust changes.
 
 ---
 > Source: [dinfuehr/dora](https://github.com/dinfuehr/dora) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
