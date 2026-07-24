@@ -1,0 +1,14 @@
+{
+  "name": "bcanfield--mediamtx-connect",
+  "displayName": "mediamtx-connect",
+  "description": "mediamtx-connect",
+  "version": "1.0.0",
+  "author": "bcanfield",
+  "homepage": "https://github.com/bcanfield/mediamtx-connect",
+  "skills": [
+    {
+      "name": "mediamtx-connect",
+      "description": ""
+    }
+  ]
+}
