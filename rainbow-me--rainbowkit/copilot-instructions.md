@@ -1,10 +1,10 @@
 ## rainbowkit
 
-> This file provides guidance to Codex (openai.com/codex) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (openai.com/codex) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Monorepo Structure
 
@@ -113,17 +113,16 @@ pnpm changeset  # Creates markdown file in .changeset/
 ### Git Workflow Tools
 Use the following tools for git operations:
 - **Graphite (`gt`)** - Preferred tool for all git interactions:
-  - **Creating commits**: `gt create -m "commit message"`
+  - **Creating commits**: `gt create @username/precise-branch-name -m "commit message"`
+    - **Stylize gt branch names like the following**: `@username/fix-feature` or `@username/upgrade-package-v10`
   - **Modifying existing commits**: `gt modify`
     - **Prefer this over adding new commits unless explicitly asked**
     - **Need to stage changes with git add or use --all to stage all changes**
-    - **Always resubmit after running gt modify** using `gt submit --stack`
   - **Creating branches**: `gt branch create <branch-name>`
   - **Tracking branches**: `gt track` - Always track branches if they aren't already tracked
   - **Moving branches in stack**: `gt move --onto <target-branch>` - Use when repositioning commits/branches
   - **Submitting/updating pull requests**: `gt submit --stack`
   - **Checking out PRs**: `gt checkout <pr-number>`
-  - **Resubmitting after changes**: Always run `gt submit --stack` after making changes or commits
   - **Always ask before committing changes or manipulating/resubmitting branches or opening PRs**
   - **Always use gt modify by default when asked to make a commit**
 - **GitHub CLI (`gh`)** - For viewing CI/CD status:
@@ -159,6 +158,15 @@ Link CLI globally for testing:
 pnpm link:cli  # Makes `create-rainbowkit` available system-wide
 ```
 
+## Local Environment
+
+- **Node.js**: v24+ required. If using nvm, source it and select v24 before running any commands in this repo:
+  ```bash
+  export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh"
+  nvm use 24
+  ```
+- **pnpm**: managed via Corepack. Activate the lockfile-pinned version once: `corepack enable pnpm`.
+
 ## Additional Notes
 
 - Uses Biome for formatting/linting (replaces ESLint + Prettier)
@@ -166,17 +174,6 @@ pnpm link:cli  # Makes `create-rainbowkit` available system-wide
 - Built on wagmi v2 and viem 2.x
 - Node.js >= 24 required
 
-## Cursor Cloud specific instructions
-
-- **Node.js**: Installed via nvm (v24). Source nvm before running any commands: `export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh"`.
-- **pnpm**: Enabled via `corepack enable pnpm`. The lockfile pins pnpm 10.33.3.
-- **`pnpm install`** runs `prepare` scripts that build the three library packages (`rainbowkit`, `rainbow-button`, `rainbowkit-siwe-next-auth`). A separate `pnpm build` is needed only for the `site`, `example`, and other example apps.
-- **Dev servers**: `pnpm dev:example` starts library watch-mode + the example Next.js app on port 3000. `pnpm dev:site` starts library watch-mode + the docs site on port 3001. `pnpm dev` runs both.
-- **Environment variables**: `RAINBOW_PROVIDER_API_KEY` and `WALLETCONNECT_PROJECT_ID` are optional; the example app and tests work without them (enhanced provider is disabled and WalletConnect falls back to a placeholder).
-- **No external services**: No databases, Docker, or external APIs are required. This is a pure frontend/library monorepo.
-- **Lint/test/build commands**: See the "Development Commands" section above. All commands are run from the repo root.
-- **Pre-commit hooks**: Husky runs `pnpm lint` on pre-commit and commitlint on commit-msg. Commit messages must follow conventional commit format (see `commitlint.config.js`).
-
 ---
 > Source: [rainbow-me/rainbowkit](https://github.com/rainbow-me/rainbowkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
