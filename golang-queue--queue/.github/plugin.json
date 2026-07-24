@@ -1,0 +1,9 @@
+{
+  "name": "golang-queue--queue",
+  "displayName": "queue",
+  "description": "queue",
+  "version": "1.0.0",
+  "author": "golang-queue",
+  "homepage": "https://github.com/golang-queue/queue",
+  "skills": []
+}
