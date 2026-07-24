@@ -1,0 +1,30 @@
+{
+  "name": "temporalio--ui",
+  "displayName": "ui",
+  "description": "ui",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/ui",
+  "skills": [
+    {
+      "name": "auth-testing",
+      "description": ""
+    },
+    {
+      "name": "ui",
+      "description": ""
+    },
+    {
+      "name": "ui",
+      "description": ""
+    },
+    {
+      "name": "ui",
+      "description": ""
+    },
+    {
+      "name": "ui",
+      "description": ""
+    }
+  ]
+}
