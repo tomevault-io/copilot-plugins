@@ -1,0 +1,141 @@
+{
+  "name": "tileserver-rs",
+  "owner": "vinayakkulkarni",
+  "repo": "tileserver-rs",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/ai-seo/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/ai-seo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/page-cro/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/page-cro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/seo-audit/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/seo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/copy-editing/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/copy-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/social-content/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/social-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/launch-strategy/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/launch-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/marketing-ideas/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/marketing-ideas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/content-strategy/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/content-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/analytics-tracking/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/analytics-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/free-tool-strategy/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/free-tool-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/vue-best-practices/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/vue-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/nuxt-best-practices/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/nuxt-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/marketing-psychology/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/marketing-psychology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/nuxt-seo-best-practices/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/nuxt-seo-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tileserver-rs",
+      "path": ".claude/skills/product-marketing-context/SKILL.md",
+      "github_url": "https://github.com/vinayakkulkarni/tileserver-rs/tree/main/.claude/skills/product-marketing-context/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vinayakkulkarni/tileserver-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T08:00:34Z"
+}
