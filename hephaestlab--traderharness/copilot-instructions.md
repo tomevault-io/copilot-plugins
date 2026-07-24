@@ -1,24 +1,23 @@
-## data-and-validation
+## frontend
 
-> 数据真实性与验证标准（TDD + 真实端到端回测，禁止假数据）
+> Streamlit / 像素办公室前端的风格与交互约定
 
 
-# 数据与验证
+# 前端约定
 
-## 禁止虚假 / 模拟数据
-- 测试与验证一律使用**真实全市场数据**（`~/.finharness/dataset/` 5 年全量）。
-- 确需 mock/缩样，**先说明并获批**，不得默认偷换成小样本或造数。
+详细设计方向见 skill：`.claude/skills/frontend-design-direction/SKILL.md`。
 
-## TDD：先测后写
-- 新功能 / 修 bug：**先写测试，再实现**，跑红→实现→跑绿。
-- 命令：`.venv\Scripts\python.exe -m pytest tests/ --no-header -q`
+## 风格
+- 暖色调像素 RPG 风（2D 俯视/四分之三视角的像素办公室，Agent 是可交互的像素角色）。
+- **不要用 emoji 当图标**（AI 味太重、丑），用正规图标库。
+- 像素资产统一规格、统一视角；新资产要和已有资产保持一致性（以基础角色/物体作输入再生成关联资产）。
 
-## 端到端真实回测验证
-单测通过 ≠ 完成。改完核心逻辑后必须真跑回测验证：
-- 用 CLI 跑真实 LLM 回测（**日 / 数日 / 1 月**多颗粒度）。
-- 读 trace / action log，核对 toolcall 的输入输出是否正确。
-- 检查每日三阶段推送（盘前晨报 / 开盘窗 / 尾盘窗）是否符合预期。
-- 复盘 Agent 每天到底在干什么，而不是只看"测试通过"。
+## 交互 / 打通
+- CLI 与 Streamlit 通过进程内事件队列（LiveFeed）打通，回测过程可**实时直播**；不要退回到靠文件轮询传消息。
+- 启动回测后应能自动进入直播；回测记录点击进详情，可看结果、回放、导出轨迹、按交易点看 K 线买卖点。
+
+## 验证
+改完前端用 Playwright 自己截图自测，确认无 bug、风格符合后再说"完成"。
 
 ---
 > Source: [HephaestLab/TraderHarness](https://github.com/HephaestLab/TraderHarness) — distributed by [TomeVault](https://tomevault.io).
