@@ -1,0 +1,9 @@
+{
+  "name": "acinq--eclair",
+  "displayName": "eclair",
+  "description": "eclair",
+  "version": "1.0.0",
+  "author": "ACINQ",
+  "homepage": "https://github.com/ACINQ/eclair",
+  "skills": []
+}
