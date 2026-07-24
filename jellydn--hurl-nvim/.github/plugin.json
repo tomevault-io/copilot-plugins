@@ -1,0 +1,9 @@
+{
+  "name": "jellydn--hurl-nvim",
+  "displayName": "hurl.nvim",
+  "description": "hurl.nvim",
+  "version": "1.0.0",
+  "author": "jellydn",
+  "homepage": "https://github.com/jellydn/hurl.nvim",
+  "skills": []
+}
