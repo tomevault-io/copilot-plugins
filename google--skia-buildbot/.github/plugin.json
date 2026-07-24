@@ -1,0 +1,22 @@
+{
+  "name": "google--skia-buildbot",
+  "displayName": "skia-buildbot",
+  "description": "skia-buildbot",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/skia-buildbot",
+  "skills": [
+    {
+      "name": "skia-buildbot",
+      "description": ""
+    },
+    {
+      "name": "skia-buildbot",
+      "description": ""
+    },
+    {
+      "name": "skia-buildbot",
+      "description": ""
+    }
+  ]
+}
