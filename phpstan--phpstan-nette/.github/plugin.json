@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpstan-nette",
+  "displayName": "phpstan-nette",
+  "description": "phpstan-nette",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpstan-nette",
+  "skills": []
+}
