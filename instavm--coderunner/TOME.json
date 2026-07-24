@@ -1,0 +1,69 @@
+{
+  "name": "coderunner",
+  "owner": "instavm",
+  "repo": "coderunner",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "image-crop-rotate",
+      "path": "skills/public/image-crop-rotate",
+      "github_url": "https://github.com/instavm/coderunner/tree/main/skills/public/image-crop-rotate",
+      "description": ""
+    },
+    {
+      "name": "pdf-text-replace",
+      "path": "skills/public/pdf-text-replace",
+      "github_url": "https://github.com/instavm/coderunner/tree/main/skills/public/pdf-text-replace",
+      "description": ""
+    },
+    {
+      "name": "coderunner",
+      "path": "skills/public/pdf-text-replace/SKILL.md",
+      "github_url": "https://github.com/instavm/coderunner/tree/main/skills/public/pdf-text-replace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coderunner",
+      "path": "skills/public/image-crop-rotate/SKILL.md",
+      "github_url": "https://github.com/instavm/coderunner/tree/main/skills/public/image-crop-rotate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/instavm/coderunner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:35:49Z"
+}
