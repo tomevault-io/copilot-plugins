@@ -1,0 +1,14 @@
+{
+  "name": "vercel--examples",
+  "displayName": "examples",
+  "description": "examples",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/examples",
+  "skills": [
+    {
+      "name": "examples",
+      "description": ""
+    }
+  ]
+}
