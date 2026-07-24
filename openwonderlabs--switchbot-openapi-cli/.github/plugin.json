@@ -1,0 +1,22 @@
+{
+  "name": "openwonderlabs--switchbot-openapi-cli",
+  "displayName": "switchbot-openapi-cli",
+  "description": "switchbot-openapi-cli",
+  "version": "1.0.0",
+  "author": "OpenWonderLabs",
+  "homepage": "https://github.com/OpenWonderLabs/switchbot-openapi-cli",
+  "skills": [
+    {
+      "name": "switchbot-openapi-cli",
+      "description": ""
+    },
+    {
+      "name": "switchbot-openapi-cli",
+      "description": ""
+    },
+    {
+      "name": "switchbot-openapi-cli",
+      "description": ""
+    }
+  ]
+}
