@@ -1,0 +1,46 @@
+{
+  "name": "zulip--zulip",
+  "displayName": "zulip",
+  "description": "zulip",
+  "version": "1.0.0",
+  "author": "zulip",
+  "homepage": "https://github.com/zulip/zulip",
+  "skills": [
+    {
+      "name": "debug-node-coverage",
+      "description": ""
+    },
+    {
+      "name": "fetch-zulip-messages",
+      "description": ""
+    },
+    {
+      "name": "fix-backend-coverage",
+      "description": ""
+    },
+    {
+      "name": "visual-test",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "description": ""
+    }
+  ]
+}
