@@ -1,0 +1,14 @@
+{
+  "name": "dgunning--edgartools",
+  "displayName": "edgartools",
+  "description": "edgartools",
+  "version": "1.0.0",
+  "author": "dgunning",
+  "homepage": "https://github.com/dgunning/edgartools",
+  "skills": [
+    {
+      "name": "edgartools",
+      "description": ""
+    }
+  ]
+}
