@@ -1,0 +1,14 @@
+{
+  "name": "hadrysm--nextjs-boilerplate",
+  "displayName": "nextjs-boilerplate",
+  "description": "nextjs-boilerplate",
+  "version": "1.0.0",
+  "author": "hadrysm",
+  "homepage": "https://github.com/hadrysm/nextjs-boilerplate",
+  "skills": [
+    {
+      "name": "nextjs-boilerplate",
+      "description": ""
+    }
+  ]
+}
