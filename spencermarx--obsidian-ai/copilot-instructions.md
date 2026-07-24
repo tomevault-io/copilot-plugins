@@ -1,55 +1,92 @@
 ## obsidian-ai
 
-> These instructions are for AI assistants performing code reviews in this project.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Open Code Review - Agent Instructions
+# CLAUDE.md
 
-These instructions are for AI assistants performing code reviews in this project.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Quick Start
+## Project Overview
 
-When asked to perform a code review:
+**Agentic Copilot** is an Obsidian plugin that bridges agentic CLI tools (Claude Code, Opencode, Gemini CLI) into Obsidian as a workspace copilot. It provides a chat panel, vault-aware context, slash commands, and file edit diffs with confirmation workflows. Desktop only (requires Node.js `child_process`).
 
-1. **Read** `SKILL.md` for the Tech Lead role and responsibilities
-2. **Follow** `references/workflow.md` for the 8-phase review process
-3. **Use** reviewer personas from `references/reviewers/` for multi-perspective analysis
-4. **Store** session artifacts in `.ocr/sessions/{timestamp}-{branch}/`
+## Build & Development Commands
 
-## Available Commands
+```bash
+npm run dev        # Watch mode (esbuild)
+npm run build      # TypeScript check + production esbuild bundle
+npm run lint       # ESLint (flat config, type-checked)
+npm run lint:fix   # Auto-fix fixable issues
+npm run version    # Bump version in manifest.json & versions.json
+```
 
-| Command | Description |
-|---------|-------------|
-| `/ocr-review` | Start a full code review session |
-| `/ocr-map` | Generate a Code Review Map for large changesets |
-| `/ocr-doctor` | Check OCR installation and dependencies |
-| `/ocr-reviewers` | List available reviewer personas |
-| `/ocr-history` | Show past review sessions |
-| `/ocr-show` | Display a specific past review |
-| `/ocr-post` | Post review to GitHub PR |
+No test framework is configured.
 
-## Review Workflow Summary
+**Local development:** Symlink the repo into `<vault>/.obsidian/plugins/agentic-copilot`, run `npm run dev`, and reload Obsidian (`Cmd+R`).
 
-1. **Context Discovery** - Understand codebase structure and standards
-2. **Change Context** - Analyze the specific changes being reviewed
-3. **Tech Lead Analysis** - Initial assessment and reviewer team selection
-4. **Parallel Reviews** - Each reviewer analyzes from their perspective
-5. **Discourse** - Reviewers discuss and debate findings
-6. **Synthesis** - Aggregate findings into actionable feedback
-7. **Presentation** - Generate final review output
+**Release:** Tag a bare version (e.g., `1.0.1`) and push. GitHub Actions builds and creates a release with `main.js`, `manifest.json`, `styles.css`.
 
-## Key Files
+## Architecture
 
-- `SKILL.md` - Core skill definition and Tech Lead role
-- `references/workflow.md` - Complete 8-phase review workflow
-- `references/map-workflow.md` - 6-phase Code Review Map workflow
-- `references/session-files.md` - **Authoritative session file manifest**
-- `references/session-state.md` - State management and progress tracking
-- `references/final-template.md` - Final review template and synthesis guide
-- `references/map-template.md` - Code Review Map output template
-- `references/discourse.md` - Multi-agent discourse rules
-- `references/reviewers/` - Reviewer persona definitions
-- `references/map-personas/` - Map agent persona definitions
+The plugin follows a layered architecture:
+
+**Entry point** (`src/main.ts`): Extends Obsidian's `Plugin` class. Registers the chat view, settings tab, ribbon icon, and all commands. Orchestrates agent detection, adapter resolution, and session lifecycle.
+
+**Adapter layer** (`src/adapters/`): Pluggable interface (`AgentAdapter`) for different CLI tools. Each adapter knows how to detect its binary, build spawn args, and parse its output format. Implementations:
+- `claude-code.ts` — Parses `--output-format stream-json` structured output with content block tracking
+- `opencode.ts` — Parses plain text / JSON lines from `-p` headless mode
+- `generic-cli.ts` — Fallback for custom CLI tools; reads all stdout as plain text
+- `detector.ts` — Scans system PATH for known binaries, returns prioritized list
+
+**Session layer** (`src/session/`): `SessionManager` spawns child processes via `child_process.spawn()`, pipes stdout through the adapter's parser, and emits events (`message`, `status`, `error`, `complete`). `MessageQueue` buffers streaming text deltas into complete messages, flushing on role/thinking-state transitions.
+
+**View layer** (`src/views/`): `ChatView` is an Obsidian `ItemView` sidebar panel with real-time streaming rendering, slash command autocomplete (`/`), file mention autocomplete (`@`), edit diff rendering with Accept/Reject buttons, and multi-session support. `ChatRenderer` converts agent messages to DOM using Obsidian's `MarkdownRenderer`. `OnboardingView` shows setup instructions when no CLI tools are detected.
+
+**Utilities** (`src/utils/`): `vault-context.ts` gathers active file path/content, text selection, and cursor position. `platform.ts` handles cross-platform shell detection and PATH expansion (prepends `~/.local/bin`, `~/.cargo/bin`, `/opt/homebrew/bin`, etc. to work around Obsidian's minimal GUI-launched PATH).
+
+## Key Design Decisions
+
+- **No TTY emulation**: Uses piped stdio with structured output modes (stream-json) instead of `node-pty` to avoid native compilation requirements.
+- **Session persistence**: CLI session IDs are passed to agents for multi-turn conversation and resumption.
+- **Multi-session**: Each chat panel leaf owns an independent session with its own process.
+- **Edit approval workflow**: Configurable approve vs auto-accept mode for file edits surfaced by the agent.
+
+## Key Interfaces
+
+`AgentAdapter` (`src/adapters/types.ts`): Core interface all adapters implement — `detect()`, `buildSpawnArgs()`, `parseOutputStream()`, `getSlashCommands()`.
+
+`AgentMessage` (`src/adapters/types.ts`): Unified message type with `role`, `content`, `isThinking`, `toolUse`, `fileEdit`, `cliSessionId`, `timestamp`.
+
+`AgenticCopilotSettings` (`src/constants.ts`): Plugin settings — `selectedAgent`, `customBinaryPath`, `workingDirectory`, `maxSessions`, `editApprovalMode`, context toggles.
+
+## Build Configuration
+
+- **esbuild** bundles `src/main.ts` → `main.js` (ESNext modules, ES2018 target)
+- `obsidian` is marked external (provided by the host app)
+- TypeScript strict mode enabled, isolated modules
+- Output: `main.js`, `manifest.json`, `styles.css` are the release artifacts
+
+<!-- OCR:START -->
+# Open Code Review Instructions
+
+These instructions are for AI assistants handling code review in this project.
+
+Always open `.ocr/skills/SKILL.md` when the request:
+- Asks for code review, PR review, or feedback on changes
+- Mentions "review my code" or similar phrases
+- Wants multi-perspective analysis of code quality
+- Asks to map, organize, or navigate a large changeset
+
+Use `.ocr/skills/SKILL.md` to learn:
+- How to run the 8-phase review workflow
+- How to generate a Code Review Map for large changesets
+- Available reviewer personas and their focus areas
+- Session management and output format
+
+Keep this managed block so 'ocr init' can refresh the instructions.
+
+<!-- OCR:END -->
 
 ---
 > Source: [spencermarx/obsidian-ai](https://github.com/spencermarx/obsidian-ai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
