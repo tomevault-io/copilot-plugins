@@ -181,22 +181,67 @@
 
 ---
 
-## 通用规则（两种模式都必须遵守）
+## 通용规则（两种模式都必须遵守）
 
 - **诚实原则**：绝不捏造论文、引用、实验结果或数据集统计
 - **LaTeX 规则**：Publication 阶段使用项目根目录的 LaTeX 文件，不要另建论文目录
 - **产出归档**：所有输出文件保持在项目内，路径记录到 artifactPaths
-- **Skill 优先**：如有匹配的 project skill，先读 `.agents/skills/<skill-id>/SKILL.md` 再执行
+- **Skill 优先**：如有匹配的 project skill，先读 `.claude/skills/<skill-id>/SKILL.md` 再执行
+- **Session 上下文**：如果 `.pipeline/.session-context.md` 存在且不超过 5 分钟，启动时先读取它
+- **先问后做**：执行任何实质性操作前，用 `AskUserQuestion` 展示计划，等待确认后再行动
 
 ## Skill 使用方式
 
-Skills 位于 `.agents/skills/` 目录下。执行任务前：
+Skills 位于 `.claude/skills/` 目录下。执行任务前：
 1. 查看任务的 `suggestedSkills` 字段
-2. 读对应的 `.agents/skills/<skill-id>/SKILL.md`
+2. 读对应的 `.claude/skills/<skill-id>/SKILL.md`
 3. 按 SKILL.md 中的指引执行
 
 如果没有匹配的 skill，使用你的通用能力完成任务。
 
 ---
+
+## 斜杠命令（Slash Commands）
+
+以下命令在 Claude Code 中可用（`.claude/commands/`）：
+
+| 命令 | 说明 |
+|------|------|
+| `/research-plan` | 审视全局进展，制定/更新研究计划 |
+| `/survey-blitz` | 全自动文献调研（dispatch Codex 搜索） |
+| `/idea-forge` | 生成并评估创新点（dispatch Codex） |
+| `/experiment-loop` | 驱动实验循环：设计→实现→运行→分析 |
+| `/paper-sprint` | 全自动论文写作冲刺（按节 dispatch） |
+| `/review-gate` | 以同行评审视角审查论文质量 |
+| `/delegate` | 将当前任务委派给 Codex executor（核心 dispatch 命令） |
+
+---
+
+## Agent 路由规则（Orchestrator 专用）
+
+Orchestrator 根据当前阶段决定委派策略：
+
+```
+currentStage=survey      → /survey-blitz（Codex 搜文献）
+currentStage=ideation    → /idea-forge（Codex 生成+评估，你做决策）
+currentStage=experiment  → /experiment-loop（Codex 实现+运行，你评审）
+currentStage=publication → /paper-sprint → /review-gate
+currentStage=promotion   → /codex:rescue 写推广材料
+```
+
+## 委派给 Codex（Orchestrator 核心能力）
+
+使用 `/delegate` 命令委派任务。流程：
+
+1. 读取 `project_truth.md`、`agent_handoff.md`、`decision_log.md`
+2. 将上下文拼入任务描述
+3. 调用 `/codex:rescue [带上下文的完整任务描述]`
+4. 收到结果后评审：accept / revise（`--resume`）/ reject（记录 decision_log）
+
+**耗时任务**（实验、大量文件）加 `--background`，用 `/codex:status` 查进度。
+
+**Persona 文件**位于 `.claude/agents/`，可在任务描述中引用对应角色的职责约束。
+
+---
 > Source: [LigphiDonk/Oh-my--paper](https://github.com/LigphiDonk/Oh-my--paper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
