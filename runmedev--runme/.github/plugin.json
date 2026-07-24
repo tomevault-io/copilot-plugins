@@ -1,0 +1,14 @@
+{
+  "name": "runmedev--runme",
+  "displayName": "runme",
+  "description": "runme",
+  "version": "1.0.0",
+  "author": "runmedev",
+  "homepage": "https://github.com/runmedev/runme",
+  "skills": [
+    {
+      "name": "runme",
+      "description": ""
+    }
+  ]
+}
