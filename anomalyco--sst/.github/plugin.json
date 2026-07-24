@@ -1,0 +1,14 @@
+{
+  "name": "anomalyco--sst",
+  "displayName": "sst",
+  "description": "sst",
+  "version": "1.0.0",
+  "author": "anomalyco",
+  "homepage": "https://github.com/anomalyco/sst",
+  "skills": [
+    {
+      "name": "sst",
+      "description": ""
+    }
+  ]
+}
