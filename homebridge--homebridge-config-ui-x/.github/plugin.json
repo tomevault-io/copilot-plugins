@@ -1,0 +1,9 @@
+{
+  "name": "homebridge--homebridge-config-ui-x",
+  "displayName": "homebridge-config-ui-x",
+  "description": "homebridge-config-ui-x",
+  "version": "1.0.0",
+  "author": "homebridge",
+  "homepage": "https://github.com/homebridge/homebridge-config-ui-x",
+  "skills": []
+}
