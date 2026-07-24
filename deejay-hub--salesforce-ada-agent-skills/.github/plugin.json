@@ -1,0 +1,9 @@
+{
+  "name": "deejay-hub--salesforce-ada-agent-skills",
+  "displayName": "salesforce-ada-agent-skills",
+  "description": "Salesforce agent skills to learn and make decisions ",
+  "version": "1.0.0",
+  "author": "deejay-hub",
+  "homepage": "https://github.com/deejay-hub/salesforce-ada-agent-skills",
+  "skills": []
+}
