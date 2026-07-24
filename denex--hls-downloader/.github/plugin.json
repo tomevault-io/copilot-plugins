@@ -1,0 +1,9 @@
+{
+  "name": "denex--hls-downloader",
+  "displayName": "hls-downloader",
+  "description": "hls-downloader",
+  "version": "1.0.0",
+  "author": "denex",
+  "homepage": "https://github.com/denex/hls-downloader",
+  "skills": []
+}
