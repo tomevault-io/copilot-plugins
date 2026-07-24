@@ -4,7 +4,7 @@
   "repo": "laravel-expressive",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -143,5 +143,5 @@
   ],
   "source_url": "https://github.com/WendellAdriel/laravel-expressive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T19:58:09Z"
+  "distributed_at": "2026-07-24T05:12:26Z"
 }
