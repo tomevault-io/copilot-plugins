@@ -1,0 +1,26 @@
+{
+  "name": "redhat-performance--benchmark-runner",
+  "displayName": "benchmark-runner",
+  "description": "benchmark-runner",
+  "version": "1.0.0",
+  "author": "redhat-performance",
+  "homepage": "https://github.com/redhat-performance/benchmark-runner",
+  "skills": [
+    {
+      "name": "benchmark-runner",
+      "description": ""
+    },
+    {
+      "name": "benchmark-runner",
+      "description": ""
+    },
+    {
+      "name": "benchmark-runner",
+      "description": ""
+    },
+    {
+      "name": "benchmark-runner",
+      "description": ""
+    }
+  ]
+}
