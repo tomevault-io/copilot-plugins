@@ -1,0 +1,34 @@
+{
+  "name": "fhoffa--geotab-vibe-guide",
+  "displayName": "geotab-vibe-guide",
+  "description": "geotab-vibe-guide",
+  "version": "1.0.0",
+  "author": "fhoffa",
+  "homepage": "https://github.com/fhoffa/geotab-vibe-guide",
+  "skills": [
+    {
+      "name": "agentic-n8n",
+      "description": ""
+    },
+    {
+      "name": "geotab",
+      "description": ""
+    },
+    {
+      "name": "geotab-custom-mcp",
+      "description": ""
+    },
+    {
+      "name": "geotab-vibe-guide",
+      "description": ""
+    },
+    {
+      "name": "geotab-vibe-guide",
+      "description": ""
+    },
+    {
+      "name": "geotab-vibe-guide",
+      "description": ""
+    }
+  ]
+}
