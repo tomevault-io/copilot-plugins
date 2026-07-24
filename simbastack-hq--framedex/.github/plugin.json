@@ -1,0 +1,14 @@
+{
+  "name": "simbastack-hq--framedex",
+  "displayName": "framedex",
+  "description": "framedex",
+  "version": "1.0.0",
+  "author": "Simbastack-hq",
+  "homepage": "https://github.com/Simbastack-hq/framedex",
+  "skills": [
+    {
+      "name": "framedex",
+      "description": ""
+    }
+  ]
+}
