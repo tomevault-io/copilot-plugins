@@ -1,0 +1,129 @@
+## red
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+### Build and Run
+```bash
+# Build the project
+cargo build
+
+# Build release version
+cargo build --release
+
+# Run the editor
+cargo run -- <file>
+
+# Install locally
+cargo install --path .
+```
+
+### Testing
+```bash
+# Run all tests
+cargo test
+
+# Run a specific test
+cargo test test_name
+
+# Run tests with output
+cargo test -- --nocapture
+```
+
+### Development
+```bash
+# Check code without building
+cargo check
+
+# Format code (if rustfmt is configured)
+cargo fmt
+
+# Run linter (if clippy is configured)
+cargo clippy
+```
+
+## Architecture
+
+Red is a modal text editor built in Rust, inspired by Vim. The codebase follows an event-driven architecture with async programming using tokio.
+
+### Core Components
+
+- **Editor State Machine**: The editor operates in different modes (Normal, Insert, Visual, Command). Mode transitions are handled in `src/editor.rs`.
+
+- **Buffer Management**: Text is stored using the Ropey rope data structure for efficient manipulation. See `src/buffer.rs`.
+
+- **Language Server Protocol**: LSP client implementation in `src/lsp/` provides IDE features. The client runs asynchronously and communicates with language servers.
+
+- **Plugin System**: Husk plugins run in Red's embedded runtime. `.hk` plugins are loaded from the configured plugin paths, bundled defaults live in `plugins/`, and plugin settings live in `config.toml`.
+
+- **UI Components**: Terminal UI built with crossterm. Reusable components in `src/ui/` include file picker, completion widget, and generic picker.
+
+### Key Design Patterns
+
+- **Async Event Loop**: Main loop in `src/main.rs` handles keyboard events, LSP messages, and plugin callbacks asynchronously.
+
+- **Command Pattern**: All editor actions are commands that can be bound to keys. See `src/command.rs`.
+
+- **Theme System**: VSCode themes are supported via JSON files in `~/.config/red/themes/`.
+
+- **Unicode Support**: Comprehensive multi-byte character handling with three coordinate systems (bytes, characters, display columns). See `src/unicode_utils.rs` and `docs/unicode-handling.md`.
+
+- **Window Management**: Support for split windows (horizontal/vertical) with independent viewports. Window layout uses a tree structure for flexible splitting. See `src/window.rs`.
+
+### Configuration
+
+User configuration is read from `~/.config/red/config.toml`. Key bindings, theme selection, and plugin settings are configured here.
+
+### Plugin Development
+
+Plugins are Husk files that export an `activate` function and call the
+built-in `red` host module:
+
+```rust
+pub fn activate() {
+    red::add_command("HelloWorld", hello_world);
+}
+
+fn hello_world() {
+    red::execute("Print", "Hello from Husk!");
+}
+```
+
+The `red` host module provides access to editor APIs for command
+registration, event callbacks, logging, and supported editor actions. See
+`docs/PLUGIN_SYSTEM.md` and the bundled `.hk` files in `plugins/` for the
+current API.
+
+### Window Management
+
+Window splits are supported through both commands and keybindings:
+
+**Commands:**
+- `:split` or `:sp` - Split window horizontally
+- `:vsplit` or `:vs` - Split window vertically
+- `:close` - Close current window
+
+**Keybindings (when enabled in config.toml):**
+- `Ctrl-w s` - Split horizontally
+- `Ctrl-w v` - Split vertically
+- `Ctrl-w w` - Next window
+- `Ctrl-w W` - Previous window
+- `Ctrl-w c` - Close window
+
+### Debugging
+
+- Logs are written to the file specified in `config.toml` (default: `/tmp/red.log`)
+- Debug commands available in normal mode:
+  - `db` - Dump buffer state
+  - `di` - Dump LSP diagnostics
+  - `dc` - Dump LSP capabilities
+  - `dh` - Dump command history
+
+---
+> Source: [codersauce/red](https://github.com/codersauce/red) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
