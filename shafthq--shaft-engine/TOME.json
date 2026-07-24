@@ -4,7 +4,7 @@
   "repo": "SHAFT_ENGINE",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/ShaftHQ/SHAFT_ENGINE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T17:58:52Z"
+  "distributed_at": "2026-07-24T05:37:58Z"
 }
