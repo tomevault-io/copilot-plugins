@@ -1,0 +1,14 @@
+{
+  "name": "sachaos--todoist",
+  "displayName": "todoist",
+  "description": "todoist",
+  "version": "1.0.0",
+  "author": "sachaos",
+  "homepage": "https://github.com/sachaos/todoist",
+  "skills": [
+    {
+      "name": "todoist",
+      "description": ""
+    }
+  ]
+}
