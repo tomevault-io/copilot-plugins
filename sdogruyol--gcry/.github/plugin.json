@@ -1,0 +1,9 @@
+{
+  "name": "sdogruyol--gcry",
+  "displayName": "gcry",
+  "description": "Crystal\u2019s GC, written in Crystal.",
+  "version": "1.0.0",
+  "author": "sdogruyol",
+  "homepage": "https://github.com/sdogruyol/gcry",
+  "skills": []
+}
