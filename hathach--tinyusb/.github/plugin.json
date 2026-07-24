@@ -1,0 +1,18 @@
+{
+  "name": "hathach--tinyusb",
+  "displayName": "tinyusb",
+  "description": "tinyusb",
+  "version": "1.0.0",
+  "author": "hathach",
+  "homepage": "https://github.com/hathach/tinyusb",
+  "skills": [
+    {
+      "name": "tinyusb",
+      "description": ""
+    },
+    {
+      "name": "tinyusb",
+      "description": ""
+    }
+  ]
+}
