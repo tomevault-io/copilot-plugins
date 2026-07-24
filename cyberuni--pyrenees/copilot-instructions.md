@@ -1,148 +1,172 @@
-## storybook-stories
+## tailwindcss
 
-> How to generate Storybook stories
+> This rule provides guidelines and best practices for using Tailwind CSS in our project. Follow these conventions to maintain consistent styling across the codebase.
 
-# Writing Storybook Stories
+# Tailwind CSS Guidelines
 
-This document outlines the standards and best practices for creating Storybook stories in our project.
+This rule provides guidelines and best practices for using Tailwind CSS in our project. Follow these conventions to maintain consistent styling across the codebase.
 
-## Basic Story Structure
+## Configuration
 
-1. Use the new Component Story Format (CSF) with TypeScript:
-   ```typescript
-   import type { Meta, StoryObj } from '@storybook/react'
+The main Tailwind configuration is in [tailwind.css](mdc:libraries/design/src/tailwind.css). This file defines our:
 
-   const meta: Meta<typeof YourComponent> {
-		 title: 'components/YourComponent',
-		 tags: ['version:1.0.0'],
-     component: YourComponent,
-     // Add parameters if needed
-   } satisfies Meta
-
-   export default meta
-
-   type Story = StoryObj<typeof meta>
-
-   export const BasicUsage: Story = {
-     // Story implementation
-   }
-   ```
-
-## Story Organization
-
-1. Story files should:
-   - Be placed next to the component file
-   - Use the `.stories.tsx` extension
-   - Follow the naming pattern: `component-name.stories.tsx` or `component-name.some-props.stories.tsx`
-
-2. Story naming conventions:
-   - Default/primary story should be named `BasicUsage`
-   - Additional stories should be named descriptively: `WithError`, `Loading`, etc.
-   - Use Add additional description to the story:
-   ```ts
-	 import { defineDocsParam } from '@repobuddy/storybook'
-
-	 export const SomeStory: Story = {
-		parameters: defineDocsParam({
-			description: {
-				story: 'Additional message goes here'
-			}
-		})
-	 }
-	 ```
-
-
-## Story Implementation Patterns
-
-
-1. For simple stories, use the args pattern:
-   ```typescript
-   export const Default: Story = {
-     args: {
-       prop1: 'value1',
-       prop2: 'value2',
-     }
-   }
-   ```
-
-2. For complex stories, use the render function:
-   ```typescript
-   export const Complex: Story = {
-     render: () => (
-       <YourComponent>
-         <ChildComponent />
-       </YourComponent>
-     )
-   }
-   ```
-
-## Testing and Documentation
-
-1. Stories serve as visual tests and documentation
-2. Include edge cases and error states
-3. Document component props and usage in the story file
-4. Use story parameters to add documentation:
-   ```ts
-	 import { defineDocsParam } from '@repobuddy/storybook'
-
-	 export const SomeStory: Story = {
-		parameters: defineDocsParam({
-			description: {
-				story: 'Additional message goes here'
-			}
-		})
-	 }
-   ```
-5. Use the `play` function to interact and validate the behavior.
-
-## Example
-
-```typescript
-import type { Meta, StoryObj } from '@storybook/react'
-import { CopyButton } from './copy-button.tsx'
-
-const meta = {
-  title: 'components/CopyButton/isDisabled',
-  component: Button,
-  tags: ['autodocs'],
-  parameters: {
-    layout: 'centered',
-  },
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} satisfies Meta<typeof Button>
-
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const Enabled: Story = {
-	name: 'isDisabled: false',
-  args: {
-    label: 'Copy Button',
-		isDisabled: false
-  },
-}
-
-export const Disabled: Story = {
-	name: 'isDisabled: true',
-  args: {
-    label: 'Copy Button',
-		isDisabled: true
-  },
-}
-```
+- Custom colors
+- Extended theme values
+- Content paths
+- Custom prefix
 
 ## Best Practices
 
-1. Keep stories simple and focused
-2. Test all component variations
-3. Include interactive examples where relevant
-4. Use TypeScript for type safety
-5. Follow the project's component guidelines
+1. **Use prefix**
+   Our Tailwind classes are prefixed (e.g. `pds:red-100`). Check [tailwind.css](mdc:libraries/design/src/tailwind.css) for the prefix used.
 
-Remember to follow these guidelines when creating new Storybook stories.
+2. **Use Semantic Class Names**
+   - Prefer semantic class names in corresponding context.
+   - Example: `className="heading-text-sm"` instead of `className:"text-100"`
+
+3. **Class Order**
+   Follow this order for classes:
+   ```tsx
+   className="
+     layout-classes    // flex, grid, container
+     sizing-classes   // w-, h-, max-w-
+     spacing-classes  // p-, m-, gap-
+     border-classes   // border-, rounded-
+     background      // bg-, gradient-
+     typography      // text-, font-
+     states          // hover:, focus:, active:
+     misc            // cursor-, select-, etc.
+   "
+   ```
+
+4. **Responsive Design**
+   - Use Tailwind's responsive prefixes: `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
+   - Desktop-first approach: base styles are for desktop (defaults to `1920px` width), add responsive classes for other screens sizes
+
+   ```tsx
+   className="pds:w-full pds:md:w-1/2 pds:lg:w-1/3"
+   ```
+
+5. **Dark Mode**
+   - Use the `dark:` prefix for dark mode styles
+   - Example: `className="pds:bg-white pds:dark:bg-steel-gray-800"`
+
+6. **Handle variants**
+   - Use `class-variance-authority` to handle variants
+
+```tsx
+// Good
+import { cva } from 'class-variance-authority'
+
+const variants = cva([
+	'pds:rounded',
+	'pds:px-4 pds:py-2'
+], {
+	variants: {
+		appearance: {
+			primary: 'pds:bg-blue-500 pds:hover:bg-blue-600',
+			secondary: 'pds:bg-gray-500 pds:hover:bg-gray-600'
+		}
+	},
+	defaultVariants: {
+		appearance: 'primary'
+	}
+})
+
+export function Button({ appearance = 'primary', children }) {
+	return (
+	<button className={variants({ apperance })}>
+		{children}
+	</button>
+)
+}
+```
+
+7. **Handle tailwind merge**
+   When custom `className` is being merged with internal class names,
+	 and it is applied to basic Html element or 3rd party component,
+	 use the customized `twMerge` function to resolve any conflicts.
+	 For example:
+
+```tsx
+// Good
+import { cva } from 'class-variance-authority'
+import { twMerge } from '../utils/tw_merge.ts'
+
+const variants = cva([
+	'pds:rounded',
+	'pds:px-4 pds:py-2'
+], {
+	variants: {
+		appearance: {
+			primary: 'pds:bg-blue-500 pds:hover:bg-blue-600',
+			secondary: 'pds:bg-gray-500 pds:hover:bg-gray-600'
+		}
+	},
+	defaultVariants: {
+		appearance: 'primary'
+	}
+})
+
+export function Button({ appearance = 'primary', children }) {
+	return (
+	<button className={twMerge(variants({ apperance }))}>
+		{children}
+	</button>
+)
+}
+```
+
+## Common Patterns
+
+### Layout
+```tsx
+// Centered container
+<div className="pds:container pds:mx-auto pds:px-4">
+
+// Card layout
+<div className="pds:rounded-lg pds:shadow-md pds:bg-white pds:p-6">
+
+// Grid layout
+<div className="pds:grid pds:grid-cols-1 pds:md:grid-cols-2 pds:lg:grid-cols-3 pds:gap-4">
+```
+
+### Forms
+```tsx
+// Input field
+<input className="pds:w-full pds:px-3 pds:py-2 pds:border pds:rounded-md pds:focus:ring-2 pds:focus:ring-blue-500 pds:focus:border-blue-500">
+
+// Label
+<label className="pds:block pds:text-sm pds:font-medium pds:text-gray-700">
+```
+
+### Interactive Elements
+```tsx
+// Primary button
+<button className="pds:px-4 pds:py-2 pds:bg-blue-500 pds:hover:bg-blue-600 pds:text-white pds:vounded-md">
+
+// Secondary button
+<button className="pds:px-4 pds:py-2 pds:bg-gray-200 pds:hover:bg-gray-300 pds:text-gray-800 pds:rounded-md">
+```
+
+## Resources
+
+- [Tailwind CSS Documentation](mdc:https:/tailwindcss.com/docs)
+- [Tailwind CSS Cheat Sheet](mdc:https:/nerdcave.com/tailwind-cheat-sheet)
+- [Tailwind UI Components](mdc:https:/tailwindui.com)
+
+## Troubleshooting
+
+1. **Classes not applying:**
+   - Check content paths in [tailwind.css](mdc:libraries/design/src/tailwind.css)
+   - Verify class names are correct
+   - Clear PostCSS cache
+
+2. **Custom classes not working:**
+   - Verify configuration in [tailwind.css](mdc:libraries/design/src/tailwind.css)
+   - Check for typos in class names
+   - Ensure proper plugin installation
+
 When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
 
 ---
