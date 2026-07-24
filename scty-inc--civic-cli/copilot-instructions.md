@@ -1,169 +1,89 @@
 ## civic-cli
 
-> Generates side-by-side analysis:
+> civic-cli-tools — policy research CLI. Gemini + 8 data sources.
 
-# AGENTS.md
+# CLAUDE.md
 
-Four-phase pipeline, 8 research tools, compare mode, JSON output, and atomic signals for web-pulse.
+civic-cli-tools — policy research CLI. Gemini + 8 data sources.
 
-```
-research (available tools, parallel) → write → review → report.md
-                           ↓                       → stdout (JSON)
-                     [compare mode]
-                           ↓
-              research A ↘
-              research B → (parallel, ≤4) → compare → report.md
+## Commands
 
-research (available tools, parallel) → signals envelope → stdout (JSON)
-```
-
-Signals mode reuses the normal research phase and skips only the writer/reviewer steps.
-Inputs are either a preset name from `topics.toml` or an ad-hoc `--topic` plus the usual `--scope`, `--compare`, `--questions`, `--limit`, `--since`, and `--verbose` flags.
-For Pulse, `pulse-policy-weekly` now runs with `scope = "policy"` so the feed favors concrete policy movement from Congress, Federal Register, Regulations.gov, courts, and state legislation.
-
-## 1. Researcher
-
-Tools by scope:
-
-| Scope | Tools |
-|-------|-------|
-| federal | web, academic, census, congress, federal_register, regulations, court |
-| state:XX | web, academic, census, state_legislation |
-| all | all 8 |
-| news | web only |
-| policy | congress, federal_register, regulations, court, state_legislation |
-
-Behavior:
-- MUST use ALL available tools (enforced via prompt; prompt is built dynamically from actual available tools so Gemini never sees or attempts unavailable ones)
-- Tools gated by optional API keys are omitted from Gemini's tool list when the key is missing
-- ToolRegistry only executes tools that are available for the requested scope; undeclared/out-of-scope tool calls are rejected
-- Parallel tool execution via ThreadPoolExecutor
-- Tool adapters return `ToolResult(findings, errors)`; only successful findings are added to `ResearchResults`
-- Findings are deduplicated by URL within `ResearchResults.add()` — bill sources (CONGRESS, STATE_LEG, LEGISCAN) are exempt since the same URL can carry distinct status events
-- `--since YYYY-MM-DD` filters results at the adapter level for: web_search, congress_search, federal_register_search, regulations_search, court_search
-- Returns `ResearchOutput` with findings + metadata
-- Tracks tool usage for --sources audit
-- Max iterations configurable via `CIVIC_MAX_ITERATIONS` (default: 15)
-
-Output: `ResearchOutput(text, results, scope_label)`
-
-## 2. Writer
-
-Structures into policy brief:
-- Executive summary
-- Background
-- Key findings
-- Policy options
-- Recommendations
-- Sources
-- Appendix (optional)
-
-## 3. Reviewer
-
-Checks clarity, evidence, balance, structure.
-Returns polished version.
-
-## 4. Comparator (--compare mode)
-
-Generates side-by-side analysis:
-- Comparison matrix
-- Jurisdiction-specific findings
-- Key differences
-- Common ground
-- Cross-jurisdictional recommendations
-
-## Data Structures
-
-```python
-@dataclass
-class Finding:
-    title: str
-    snippet: str
-    url: str
-    date: str         # YYYY-MM-DD or YYYY
-    source_type: str  # WEB, ACADEMIC, CONGRESS, REGULATIONS, etc
-    citations: int    # for academic papers
-
-    def to_dict() -> dict  # for JSON output
-
-@dataclass
-class ToolResult:
-    findings: list[Finding]
-    errors: list[str]
-
-@dataclass
-class ResearchResults:
-    findings: list[Finding]
-    tool_usage: dict[str, int]
-    # _seen_urls deduplicates by URL on add(); bill sources exempt
-
-    def confidence_score() -> (level, explanation)
-    def to_dict() -> dict      # for JSON output
-    def to_appendix() -> str   # for output
+```bash
+uv sync                          # install
+uv run civic "topic"             # all sources
+uv run civic "topic" -s federal  # federal only
+uv run civic "topic" -s state:CA # state only
+uv run civic "topic" -s policy   # policy-primary sources only
+uv run civic "topic" -v          # verbose
+uv run civic "topic" -f json     # JSON output (for agents)
+uv run civic "topic" --limit 10  # per-tool results cap (default 25)
+uv run civic "topic" --since 2026-01-01  # filter results to items on/after date
+uv run civic "topic" --no-review # skip reviewer pass (faster)
+uv run civic -                   # read topic from stdin
+uv run civic run <preset>        # run named preset (markdown brief)
+uv run civic signals --direct --topic "X" -s federal # source fan-out; no Gemini
+uv run civic signals <preset>    # model-selected signals for interactive use
+uv run civic topics              # list presets
+uv run civic doctor              # validate required/optional API keys
+uv run civic get <url>           # fetch URL content (raw | JSON envelope)
+uv run civic cache stats         # cache size + entries
+uv run civic cache clear         # purge cached responses
 ```
 
-## Confidence Scoring
+Honors `NO_COLOR` and auto-disables Rich formatting when stdout is not a TTY.
+
+`civic signals --direct` is the automation seam: it invokes each available
+adapter for the selected scope once, in parallel, and emits atomic JSON without
+Gemini or writes. Hound owns workflow state, approvals, and canonical changes.
+Signals mode without `--direct` retains model-selected research for interactive
+use. Both paths preserve movement metadata and movement-aware bill IDs.
+
+## Files
 
 ```
-Score = (diversity × 0.4) + (recency × 0.3) + (citations × 0.3)
-
-●●●●● HIGH   — 5+ source types, recent, cited
-●●●○○ MEDIUM — 3-4 sources, some dated
-●○○○○ LOW    — 1-2 sources, old data
+src/
+├── cli.py              # entry, scope parsing, --format json, run/signals/doctor/get subcommands
+├── _agent_cli.py       # minimal doctor helpers shared by the CLI
+├── agents.py           # gemini, multi-tool loop, parallel execution
+├── scopes.py           # shared scope parsing + labeling helpers
+├── prompts.py          # system prompts
+├── output.py           # markdown + JSON output (synthesis mode)
+├── output_signals.py   # per-finding atomic JSON (for web-pulse and similar consumers; schema v1)
+└── tools/
+    ├── base.py            # BaseTool, ToolResult helpers, retry, caching, set_results_limit
+    ├── models.py          # Finding, ToolResult, ResearchResults
+    ├── declarations.py    # Gemini function specs
+    ├── registry.py        # tool name → execution + ToolResult formatting
+    └── implementations.py # 8 tool implementations
 ```
 
 ## Tools
 
-Per-tool result cap defaults to `RESULTS_LIMIT = 25` (set in `src/tools/base.py`).
-Override at runtime with `--limit N` on `civic <topic>`, `civic run <preset>`, or
-`civic signals <preset>`; this calls `set_results_limit()` before research kicks off.
-Census is still capped to up to 5 rows by the adapter.
+| Tool | API | Key |
+|------|-----|-----|
+| web_search | Exa | EXA_API_KEY |
+| academic_search | Semantic Scholar | — |
+| census_search | US Census | CENSUS_API_KEY (optional) |
+| congress_search | Congress.gov | CONGRESS_GOV_API_KEY |
+| federal_register_search | Federal Register | — |
+| regulations_search | Regulations.gov | REGULATIONS_GOV_API_KEY |
+| court_search | CourtListener | — |
+| state_legislation_search | OpenStates + LegiScan fallback | OPENSTATES_API_KEY or LEGISCAN_API_KEY (single-state fallback) |
 
-| Tool | API | Key | Results |
-|------|-----|-----|---------|
-| web_search | Exa | `EXA_API_KEY` required when scope includes web search | RESULTS_LIMIT |
-| academic_search | Semantic Scholar | None | RESULTS_LIMIT |
-| census_search | US Census | `CENSUS_API_KEY` optional (better limits) | up to 5 |
-| congress_search | Congress.gov | `CONGRESS_GOV_API_KEY` optional; enables source | RESULTS_LIMIT |
-| federal_register_search | Federal Register | None | RESULTS_LIMIT |
-| regulations_search | Regulations.gov | `REGULATIONS_GOV_API_KEY` optional; enables source | RESULTS_LIMIT |
-| court_search | CourtListener | None | RESULTS_LIMIT |
-| state_legislation_search | OpenStates + LegiScan fallback | `OPENSTATES_API_KEY` optional; `LEGISCAN_API_KEY` enables single-state fallback | RESULTS_LIMIT |
+## Scope
 
-## Infrastructure
+- `federal` → web, academic, census, congress, federal_register, regulations, court
+- `state:XX` → web, academic, census, state_legislation
+- `news` → web only
+- `policy` → congress, federal_register, regulations, court, state_legislation
+- `all` → all 8 tools
 
-- **Retry**: tool HTTP fetches retry 3 times with exponential backoff on timeouts, connection errors, and 429/5xx; Gemini generation retries are controlled separately via `CIVIC_MAX_RETRIES` (default: 4, 429 only)
-- **Cache**: SQLite at `~/.cache/civic/cache.db`, 24h TTL, keyed on URL + params (API key params stripped before hashing so cache survives key rotation)
-- **Parallel execution**: ThreadPoolExecutor; up to 8 concurrent tool calls per research iteration, up to 4 concurrent scopes in compare mode
-- **Input validation**: Empty queries return `ToolResult(errors=[...])` and do not hit upstream APIs
+Tools gated by optional API keys are omitted from Gemini's tool list when the key is missing; the rest of the run still proceeds. ToolRegistry only executes tools that are currently available for the requested scope, so out-of-scope tool calls are rejected instead of leaking broader research into policy-only runs. LegiScan is only exposed for single-state scopes and is used as a situational fallback for state legislation search.
 
-## Prompts
+## Model
 
-`src/prompts.py`:
-- `build_researcher_prompt(tool_declarations)` — dynamically builds RESEARCHER from `RESEARCHER_HEADER` + available tool list + `RESEARCHER_FOOTER`
-- `WRITER` — brief structure
-- `REVIEWER` — quality checks (skipped when `--no-review`)
-- `COMPARATOR` — comparison analysis
-
-## Agent Integration
-
-For programmatic use by other agents:
-
-```bash
-uv run civic doctor                            # preflight: validate required + optional API keys
-uv run civic "topic" -s federal -f json        # run brief pipeline, JSON to stdout
-uv run civic "topic" -f json --limit 50        # widen per-tool results
-echo "topic" | uv run civic - -f json          # read topic from stdin
-uv run civic signals pulse-policy-weekly       # atomic per-finding JSON for web-pulse
-uv run civic get <url> -f json                 # fetch arbitrary URL as JSON envelope
-```
-
-`civic -f json` returns structured JSON with findings, confidence, and tool usage.
-`civic signals ...` returns a stable signals envelope (`schema_version = 1`) for downstream ingestion.
-Bill-like signals now carry movement metadata (`status`, `signal_kind`, `pending`) and use movement-aware IDs so later actions on the same bill can surface as distinct signals.
-Exit code 0 on success, 1 on error, 130 on interrupt.
-Rich formatting auto-disables when stdout is not a TTY or when `NO_COLOR` is set.
+`gemini-3.1-flash-lite-preview` in `src/agents.py:MODEL` (configurable via `CIVIC_MODEL` env var)
 
 ---
 > Source: [SCTY-Inc/civic-cli](https://github.com/SCTY-Inc/civic-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
