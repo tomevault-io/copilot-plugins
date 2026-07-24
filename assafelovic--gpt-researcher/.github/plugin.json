@@ -1,0 +1,22 @@
+{
+  "name": "assafelovic--gpt-researcher",
+  "displayName": "gpt-researcher",
+  "description": "gpt-researcher",
+  "version": "1.0.0",
+  "author": "assafelovic",
+  "homepage": "https://github.com/assafelovic/gpt-researcher",
+  "skills": [
+    {
+      "name": ".claude",
+      "description": ""
+    },
+    {
+      "name": "gpt-researcher",
+      "description": ""
+    },
+    {
+      "name": "gpt-researcher",
+      "description": ""
+    }
+  ]
+}
