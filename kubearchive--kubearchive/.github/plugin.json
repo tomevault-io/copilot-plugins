@@ -1,0 +1,14 @@
+{
+  "name": "kubearchive--kubearchive",
+  "displayName": "kubearchive",
+  "description": "kubearchive",
+  "version": "1.0.0",
+  "author": "kubearchive",
+  "homepage": "https://github.com/kubearchive/kubearchive",
+  "skills": [
+    {
+      "name": "kubearchive",
+      "description": ""
+    }
+  ]
+}
