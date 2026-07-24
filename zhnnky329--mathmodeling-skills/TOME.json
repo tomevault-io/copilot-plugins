@@ -4,7 +4,7 @@
   "repo": "MathModeling-skills",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -353,5 +353,5 @@
   ],
   "source_url": "https://github.com/zhnnky329/MathModeling-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T19:49:29Z"
+  "distributed_at": "2026-07-24T02:52:47Z"
 }
