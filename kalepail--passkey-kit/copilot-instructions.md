@@ -1,0 +1,77 @@
+## passkey-kit
+
+> Guidance for working in this repo. These rules describe the **shipped v1 stack** —
+
+# Passkey Kit — workspace rules for AI assistants & contributors
+
+Guidance for working in this repo. These rules describe the **shipped v1 stack** —
+when they and the code disagree, the code wins; fix the rule.
+
+## Repository topology
+
+- `src/` — the `passkey-kit` SDK (published to npm). Ships compiled `dist/` (ESM +
+  `.d.ts`), NOT raw TypeScript. Three entry points: `.` (client), `./storage`,
+  `./server` (server-only; holds secrets).
+- `packages/passkey-kit-sdk/`, `packages/sac-sdk/` — GENERATED contract bindings.
+  Do not hand-edit; regenerate via `pnpm bindings:regen` and prove with
+  `pnpm verify:bindings`. See `docs/releasing.md`.
+- `contracts/` — Rust Soroban contracts (`soroban-sdk 27`, `wasm32v1-none`):
+  `smart-wallet`, `smart-wallet-interface` (the single source of spec types),
+  `sample-policy`, `example-contract`.
+- `relayer-proxy/` — Cloudflare Worker for keyless, fee-sponsored submission.
+- `demo/` — Svelte 5 + Vite demo (isolated: `pnpm --ignore-workspace install`).
+
+This repo is a **pnpm workspace** (`packages/**`); use `pnpm` for Node tasks.
+
+## Toolchain baselines
+
+| Domain | Version |
+|--------|---------|
+| Node.js | 22+ |
+| TypeScript | 5.9, `strict`, `moduleResolution: NodeNext` (explicit `.js` import extensions) |
+| `@stellar/stellar-sdk` | peer dependency `>=16.0.0` |
+| Rust (contracts) | pinned in `contracts/rust-toolchain.toml` |
+| `soroban-sdk` | 27.0.0 (`wasm32v1-none`) |
+| Tests | Vitest, co-located `src/*.test.ts` (no config file) |
+
+## Hard rules
+
+- **Never commit secrets.** The browser holds zero secrets: submission goes
+  through the keyless `relayer-proxy` worker (mints one OZ Relayer key per IP);
+  signer discovery hits Mercury's keyless hosted passkey-indexer **directly** (no
+  token, no proxy). Never hard-code or `VITE_`-prefix a secret; read any server
+  secret via shell substitution only.
+- **Never hand-edit generated bindings** in `packages/*/src`. Fix the contract,
+  rebuild, re-pin the canonical WASM hash in `docs/deployments-*.md`, regenerate.
+- **The deterministic derivation tuple is load-bearing** (`salt = sha256(keyId)`,
+  the canonical `"kalepail"` deployer, network passphrase). Changing it makes
+  every existing wallet unreachable. See `docs/deployments-testnet-2026-07-11.md`.
+- **Keep tests + build green** before committing: `pnpm test`, `pnpm build`
+  (`build:bindings` → `tsc` → `verify-esm`), `pnpm verify:bindings`.
+- **Docs must match source.** No aspirational documentation — verify every method
+  table, sample, and error code against `src/` and the contract interface.
+
+## Key facts (current, not aspirational)
+
+- Signing takes a typed `Signer` (`PasskeySigner` / `Ed25519Signer` /
+  `PolicySigner`) — not a `{ keyId | keypair | policy }` options object.
+- Submission methods return a discriminated `TransactionResult` and never throw;
+  everything else throws a typed `PasskeyKitError`.
+- Contract errors are renumbered `100–129` (legacy `1–9` still decode).
+- Signer expiration is a UNIX timestamp (seconds); `SignerLimits::Some(empty)`
+  is fail-closed.
+
+## Coding principles
+
+- Prefer named exports; typed public surfaces; `async/await`; base64url via the
+  `src/base64url.ts` shim.
+- After cross-package changes run `pnpm build` at the repo root.
+
+## Where to look
+
+`README.md` (API + caveats), `CHANGELOG.md`, `docs/migration-v1.md`,
+`docs/releasing.md`, and each subproject's own `README.md`.
+
+---
+> Source: [kalepail/passkey-kit](https://github.com/kalepail/passkey-kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
