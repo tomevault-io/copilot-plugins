@@ -1,0 +1,46 @@
+## chatgpt-telegram-bot-telegraf
+
+> This is a ChatGPT Telegram Bot built with Telegraf framework. The bot processes text, voice, and photo messages using OpenAI's ChatGPT, with optional Perplexity AI integration and Pinecone for long-term memory.
+
+This is a ChatGPT Telegram Bot built with Telegraf framework. The bot processes text, voice, and photo messages using OpenAI's ChatGPT, with optional Perplexity AI integration and Pinecone for long-term memory.
+
+Project Structure:
+- /src/: Core application code
+  - Main bot logic
+  - Message handlers
+  - OpenAI integration
+  - Database operations
+- /__tests__/: Test files for core functionality
+- /__mocks__/: Mock files for testing
+- /settings/: Configuration files and settings
+- /scripts/: Utility scripts
+- /.github/: GitHub workflows and configurations
+- /temp/: Temporary files directory
+
+Key Files:
+- package.json: Node.js project configuration
+- docker-compose.yml: Docker configuration
+- .env: Environment variables (from .env.example template)
+- tsconfig.json: TypeScript configuration
+
+Available Commands:
+- npm start: Start the bot
+- npm test: Run tests
+- npm run set-premium: Add premium user
+- npm run remove-premium: Remove premium user
+- npm run list-premium: List premium users
+- npm run help: Show available commands
+
+For detailed setup instructions, deployment options, and configuration details, refer to README.md.
+
+Technologies:
+- Language: TypeScript with strict types
+- Framework: Telegraf
+- Database: PostgreSQL
+- Optional: Pinecone for vector storage
+- Testing: Jest
+- Deployment: Docker, Heroku, Render, Railway support 
+
+---
+> Source: [kirill-markin/chatgpt-telegram-bot-telegraf](https://github.com/kirill-markin/chatgpt-telegram-bot-telegraf) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
