@@ -1,0 +1,14 @@
+{
+  "name": "wangnov--gpt-image-2-skill",
+  "displayName": "gpt-image-2-skill",
+  "description": "gpt-image-2-skill",
+  "version": "1.0.0",
+  "author": "Wangnov",
+  "homepage": "https://github.com/Wangnov/gpt-image-2-skill",
+  "skills": [
+    {
+      "name": "gpt-image-2-skill",
+      "description": ""
+    }
+  ]
+}
