@@ -1,0 +1,14 @@
+{
+  "name": "expo--orbit",
+  "displayName": "orbit",
+  "description": "orbit",
+  "version": "1.0.0",
+  "author": "expo",
+  "homepage": "https://github.com/expo/orbit",
+  "skills": [
+    {
+      "name": "orbit",
+      "description": ""
+    }
+  ]
+}
