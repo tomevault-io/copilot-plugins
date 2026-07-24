@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--geoip2-java",
+  "displayName": "GeoIP2-java",
+  "description": "GeoIP2-java",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/GeoIP2-java",
+  "skills": []
+}
