@@ -1,0 +1,9 @@
+{
+  "name": "owasp--docksec",
+  "displayName": "DockSec",
+  "description": "DockSec",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/DockSec",
+  "skills": []
+}
