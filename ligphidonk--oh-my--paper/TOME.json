@@ -4,7 +4,7 @@
   "repo": "Oh-my--paper",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -455,5 +455,5 @@
   ],
   "source_url": "https://github.com/LigphiDonk/Oh-my--paper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T05:58:41Z"
+  "distributed_at": "2026-07-24T02:30:51Z"
 }
