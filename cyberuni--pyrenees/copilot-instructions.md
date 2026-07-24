@@ -1,139 +1,148 @@
-## react-guidelines
+## storybook-stories
 
-> This document outlines the best practices and patterns for React development in our project.
+> How to generate Storybook stories
 
-# React Development Guidelines
+# Writing Storybook Stories
 
-This document outlines the best practices and patterns for React development in our project.
+This document outlines the standards and best practices for creating Storybook stories in our project.
 
-## Basig Styling
+## Basic Story Structure
 
-1. Use simple string values for className props:
+1. Use the new Component Story Format (CSF) with TypeScript:
    ```typescript
-   // ✅ Good example
-   export const Default: StoryObj = {
-     render: () => (
-       <YourComponent className="flex gap-4" />
-     )
-   }
-
-   // ❌ Bad example - avoid curly braces for simple strings
-   export const Default: StoryObj = {
-     render: () => (
-       <YourComponent className={"flex gap-4"} />
-     )
-   }
-   ```
-
-## Component Structure
-
-1. Use functional components with TypeScript
-2. Use function statement whenever possible
-3. Follow the following file structure:
-   ```ts
-   // ✅ Good example
-   interface Props {
-     // Props interface
-   }
-
-   export function Component({ prop1, prop2 }: Props) {
-     // Component implementation
-     return <div>...</div>
-   }
-   ```
-
-## State Management
-
-1. Use React hooks for local state:
-   ```typescript
-   // ✅ Good example
-   const [state, setState] = useState<StateType>(initialState)
-   ```
-
-2. For global state:
-   - Use React Context for simple state sharing
-   - Consider Redux or Zustand for complex state management
-
-## Performance Optimization
-
-1. Use `memo` for expensive components:
-   ```typescript
-   // ✅ Good example
-	 import { memo } from 'react'
-
-   export const ExpensiveComponent = memo(({ prop }) => {
-     // Component implementation
-   })
-   ```
-
-2. Use useMemo and useCallback appropriately:
-   ```typescript
-   // ✅ Good example
-   const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
-   const memoizedCallback = useCallback(() => {
-     doSomething(a, b)
-   }, [a, b])
-   ```
-
-## Testing
-
-1. Write tests for all components as Storybook stories:
-2. Create stories for all components:
-   ```typescript
-   // ✅ Good example
    import type { Meta, StoryObj } from '@storybook/react'
 
-   const meta: Meta<typeof Component> = {
-     title: 'components/Component',
-     component: Component,
-   }
+   const meta: Meta<typeof YourComponent> {
+		 title: 'components/YourComponent',
+		 tags: ['version:1.0.0'],
+     component: YourComponent,
+     // Add parameters if needed
+   } satisfies Meta
 
    export default meta
-   type Story = StoryObj<typeof Component>
 
+   type Story = StoryObj<typeof meta>
+
+   export const BasicUsage: Story = {
+     // Story implementation
+   }
+   ```
+
+## Story Organization
+
+1. Story files should:
+   - Be placed next to the component file
+   - Use the `.stories.tsx` extension
+   - Follow the naming pattern: `component-name.stories.tsx` or `component-name.some-props.stories.tsx`
+
+2. Story naming conventions:
+   - Default/primary story should be named `BasicUsage`
+   - Additional stories should be named descriptively: `WithError`, `Loading`, etc.
+   - Use Add additional description to the story:
+   ```ts
+	 import { defineDocsParam } from '@repobuddy/storybook'
+
+	 export const SomeStory: Story = {
+		parameters: defineDocsParam({
+			description: {
+				story: 'Additional message goes here'
+			}
+		})
+	 }
+	 ```
+
+
+## Story Implementation Patterns
+
+
+1. For simple stories, use the args pattern:
+   ```typescript
    export const Default: Story = {
      args: {
-       // Component props
-     },
+       prop1: 'value1',
+       prop2: 'value2',
+     }
    }
    ```
 
-## Error Handling
-
-1. Use Error Boundaries for component-level error handling:
+2. For complex stories, use the render function:
    ```typescript
-   // ✅ Good example
-   class ErrorBoundary extends React.Component {
-     state = { hasError: false }
-
-     static getDerivedStateFromError(error) {
-       return { hasError: true }
-     }
-
-     render() {
-       if (this.state.hasError) {
-         return <h1>Something went wrong.</h1>
-       }
-       return this.props.children
-     }
+   export const Complex: Story = {
+     render: () => (
+       <YourComponent>
+         <ChildComponent />
+       </YourComponent>
+     )
    }
    ```
 
-## Accessibility
+## Testing and Documentation
 
-1. Use semantic HTML elements
-2. Include proper ARIA attributes
-3. Ensure keyboard navigation works
-4. Maintain proper heading hierarchy
+1. Stories serve as visual tests and documentation
+2. Include edge cases and error states
+3. Document component props and usage in the story file
+4. Use story parameters to add documentation:
+   ```ts
+	 import { defineDocsParam } from '@repobuddy/storybook'
 
-## Code Organization
+	 export const SomeStory: Story = {
+		parameters: defineDocsParam({
+			description: {
+				story: 'Additional message goes here'
+			}
+		})
+	 }
+   ```
+5. Use the `play` function to interact and validate the behavior.
 
-1. Keep components small and focused
-2. Do not use barrel exports (index.ts) for component directories
-3. Group related components in feature folders
-4. Keep business logic in custom hooks
+## Example
 
-Remember to follow these guidelines when developing React components.
+```typescript
+import type { Meta, StoryObj } from '@storybook/react'
+import { CopyButton } from './copy-button.tsx'
+
+const meta = {
+  title: 'components/CopyButton/isDisabled',
+  component: Button,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    backgroundColor: { control: 'color' },
+  },
+} satisfies Meta<typeof Button>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Enabled: Story = {
+	name: 'isDisabled: false',
+  args: {
+    label: 'Copy Button',
+		isDisabled: false
+  },
+}
+
+export const Disabled: Story = {
+	name: 'isDisabled: true',
+  args: {
+    label: 'Copy Button',
+		isDisabled: true
+  },
+}
+```
+
+## Best Practices
+
+1. Keep stories simple and focused
+2. Test all component variations
+3. Include interactive examples where relevant
+4. Use TypeScript for type safety
+5. Follow the project's component guidelines
+
+Remember to follow these guidelines when creating new Storybook stories.
 When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
 
 ---
