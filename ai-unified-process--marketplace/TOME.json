@@ -1,0 +1,99 @@
+{
+  "name": "marketplace",
+  "owner": "AI-Unified-Process",
+  "repo": "marketplace",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "marketplace",
+      "path": "aiup-core/skills/requirements/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-core/skills/requirements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-core/skills/entity-model/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-core/skills/entity-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-core/skills/use-case-spec/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-core/skills/use-case-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-core/skills/use-case-diagram/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-core/skills/use-case-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-vaadin-jooq/skills/implement/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-vaadin-jooq/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-vaadin-jooq/skills/karibu-test/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-vaadin-jooq/skills/karibu-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-vaadin-jooq/skills/playwright-test/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-vaadin-jooq/skills/playwright-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-vaadin-jooq/skills/browserless-test/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-vaadin-jooq/skills/browserless-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marketplace",
+      "path": "aiup-vaadin-jooq/skills/flyway-migration/SKILL.md",
+      "github_url": "https://github.com/AI-Unified-Process/marketplace/tree/main/aiup-vaadin-jooq/skills/flyway-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AI-Unified-Process/marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:14:14Z"
+}
