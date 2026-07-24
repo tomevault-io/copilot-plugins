@@ -1,0 +1,9 @@
+{
+  "name": "aspectumapp--osm2geojson",
+  "displayName": "osm2geojson",
+  "description": "osm2geojson",
+  "version": "1.0.0",
+  "author": "aspectumapp",
+  "homepage": "https://github.com/aspectumapp/osm2geojson",
+  "skills": []
+}
