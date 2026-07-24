@@ -1,0 +1,249 @@
+{
+  "name": "settings-opencode",
+  "owner": "fmflurry",
+  "repo": "settings-opencode",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "settings-opencode",
+      "path": "skills/flurryx/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/flurryx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/caveman/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/compress/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/compress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/treetopia/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/treetopia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/caveman-commit/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/caveman-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/caveman-review/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/caveman-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/socratic-design/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/socratic-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/transloco/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/transloco/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/angular-accessibility/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/angular-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/dotnet-clean-architecture/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/dotnet-clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/angular-clean-architecture/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/angular-clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/dotnet-clean-architecture/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/dotnet-clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/angular-clean-architecture/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/angular-clean-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/transloco/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/transloco/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/dotnet-cop/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/dotnet-cop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": "skills/angular-cop/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/skills/angular-cop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/flurryx/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/flurryx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/compress/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/compress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/treetopia/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/treetopia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/dotnet-cop/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/dotnet-cop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/angular-cop/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/angular-cop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/caveman-commit/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/caveman-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/caveman-review/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/caveman-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/socratic-design/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/socratic-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/coding-standards/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/coding-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/strategic-compact/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/strategic-compact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "settings-opencode",
+      "path": ".claude/skills/angular-accessibility/SKILL.md",
+      "github_url": "https://github.com/fmflurry/settings-opencode/tree/main/.claude/skills/angular-accessibility/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fmflurry/settings-opencode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:45:12Z"
+}
