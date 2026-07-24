@@ -4,7 +4,7 @@
   "repo": "evoke",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cheeseburgertony/evoke",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T21:01:06Z"
+  "distributed_at": "2026-07-24T06:45:33Z"
 }
