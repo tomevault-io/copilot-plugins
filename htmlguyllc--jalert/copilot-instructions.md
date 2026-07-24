@@ -1,0 +1,94 @@
+## jalert
+
+> jAlert is a jQuery plugin for creating modals, popups, lightboxes, and alerts. It's built with ES6+ and transpiled to ES5 for maximum browser compatibility.
+
+# Cursor Rules for jAlert jQuery Plugin
+
+## Project Overview
+jAlert is a jQuery plugin for creating modals, popups, lightboxes, and alerts. It's built with ES6+ and transpiled to ES5 for maximum browser compatibility.
+
+
+## Chat responses
+Start each of your responses with: Yes, sir.
+
+## Build & Test Commands
+- Build: `npm run build` - only need to run this when changes are made to jAlert.js or jAlert.css
+- Test: `npm test`
+- E2E Tests: `npm run test:e2e`
+- Unit Tests: `npm run test:unit`
+- All Tests: `npm run test:all`
+
+## Required Checks for Every Change
+
+### 1. Testing Requirements
+- Update tests if they are impacted by changes
+- Add tests for any new logic or functionality
+- Ensure all new features have proper test coverage
+
+### 2. Documentation Requirements
+- Update index.html to maintain documentation about features/options
+- Document every setting and its default value with the version where it was first introduced
+- Document discovered gotchas that would impact users
+- Update README.md for any development or release flow changes
+
+### 3. Release Process
+- Rebuild the project before any release
+- Rerun `test:all` and fix any issues
+- Add the new version to the changelog with any user-facing changes
+- Modify README.md as needed to reflect the latest - at a minimum, the npm button
+- Update index.html to reflect any changes to the options/features and the latest version content if it exists.
+- Bump the version in package.json
+- Commit
+- Push
+- Create tag
+- Create release on Github
+- NPM Publish
+
+### 4. Compatibility & Quality
+- Maintain backwards compatibility with older versions
+- Ensure feature parody across versions
+
+### 5. Accessibility & Mobile
+- Consider accessibility in all changes (ARIA attributes, keyboard navigation)
+- Ensure mobile-friendliness and responsive design
+- Test touch interactions and mobile layouts
+
+### 6. Code Quality
+- Follow best practices and DRY principles
+- Make code extendable and extensible
+- Use consistent coding standards
+- Avoid hacks, arbitrary protections, and arbitrary values
+- Be concise and simple. Find the easiest path to a solution that will perform well
+- Optimize for performance when possible as long as the impact to maintainability isn't too high
+
+### 7. User Experience
+- Provide all options for user control
+- Ensure users don't feel trapped or limited by the plugin
+- Give users full flexibility to customize behavior
+
+## Key Files
+- Main JS: dist/jAlert.min.js
+- Main CSS: dist/jAlert.min.css
+- Source: src/jAlert.js, src/jAlert.css
+- Tests: tests/unit/, tests/e2e/, tests/visual/
+- Comprehensive demo: demo.html - used by tests
+
+## Dependencies
+- jQuery >= 3.7.0 (peer dependency)
+- Node >= 14.0.0
+- NPM >= 6.0.0
+
+## Browser Support
+Minimum browser versions that should fully support this plugin:
+- Chrome: 30+
+- Firefox: 28+
+- Safari: 7+
+- Edge: 12+
+- Opera: 17+
+- Internet Explorer: 11 (with jQuery polyfills, but MutationObserver support is limited)
+Note:
+- IE10 and below are not fully supported due to missing ES5 features and MutationObserver.
+
+---
+> Source: [HTMLGuyLLC/jAlert](https://github.com/HTMLGuyLLC/jAlert) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
