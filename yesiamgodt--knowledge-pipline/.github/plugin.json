@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "YesIamGodt",
   "homepage": "https://github.com/YesIamGodt/knowledge-pipline",
-  "skills": []
+  "skills": [
+    {
+      "name": "knowledge-pipline",
+      "description": ""
+    },
+    {
+      "name": "knowledge-pipline",
+      "description": ""
+    }
+  ]
 }
