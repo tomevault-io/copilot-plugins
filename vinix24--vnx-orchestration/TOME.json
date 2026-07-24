@@ -1,0 +1,303 @@
+{
+  "name": "vnx-orchestration",
+  "owner": "Vinix24",
+  "repo": "vnx-orchestration",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/planner/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/debugger/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/reviewer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/architect/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/vnx-manager/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/vnx-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/data-analyst/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/data-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/api-developer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/api-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/test-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/test-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/excel-reporter/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/excel-reporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/t0-orchestrator/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/t0-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/supabase-expert/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/supabase-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/planner/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/python-optimizer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/python-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/debugger/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/reviewer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/quality-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/quality-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/database-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/database-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/architect/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/backend-developer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/backend-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/security-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/security-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/frontend-developer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/frontend-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/vnx-manager/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/vnx-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/performance-profiler/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/performance-profiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/data-analyst/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/data-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/monitoring-specialist/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/monitoring-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "skills/intelligence-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/skills/intelligence-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/api-developer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/api-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/test-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/test-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/excel-reporter/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/excel-reporter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/control-centre/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/control-centre/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/t0-orchestrator/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/t0-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/supabase-expert/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/supabase-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/python-optimizer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/python-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/quality-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/quality-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/database-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/database-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/backend-developer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/backend-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/security-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/security-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/frontend-developer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/frontend-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/featureplan-kickoff/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/featureplan-kickoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/performance-profiler/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/performance-profiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/monitoring-specialist/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/monitoring-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": ".claude/skills/intelligence-engineer/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/.claude/skills/intelligence-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vnx-orchestration",
+      "path": "agents/orchestrator/.claude/skills/orchestrate/SKILL.md",
+      "github_url": "https://github.com/Vinix24/vnx-orchestration/tree/main/agents/orchestrator/.claude/skills/orchestrate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Vinix24/vnx-orchestration",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T20:33:35Z"
+}
