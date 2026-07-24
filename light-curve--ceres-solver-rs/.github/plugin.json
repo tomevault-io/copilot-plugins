@@ -1,0 +1,9 @@
+{
+  "name": "light-curve--ceres-solver-rs",
+  "displayName": "ceres-solver-rs",
+  "description": "ceres-solver-rs",
+  "version": "1.0.0",
+  "author": "light-curve",
+  "homepage": "https://github.com/light-curve/ceres-solver-rs",
+  "skills": []
+}
