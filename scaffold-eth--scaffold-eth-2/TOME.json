@@ -4,7 +4,7 @@
   "repo": "scaffold-eth-2",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/scaffold-eth/scaffold-eth-2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T03:17:27Z"
+  "distributed_at": "2026-07-24T02:42:29Z"
 }
