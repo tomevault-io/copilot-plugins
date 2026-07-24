@@ -1,0 +1,398 @@
+{
+  "name": "proffesor-for-testing--sentinel-api-testing",
+  "displayName": "sentinel-api-testing",
+  "description": "sentinel-api-testing",
+  "version": "1.0.0",
+  "author": "proffesor-for-testing",
+  "homepage": "https://github.com/proffesor-for-testing/sentinel-api-testing",
+  "skills": [
+    {
+      "name": "accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "agentic-quality-engineering",
+      "description": ""
+    },
+    {
+      "name": "api-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "bug-reporting-excellence",
+      "description": ""
+    },
+    {
+      "name": "chaos-engineering-resilience",
+      "description": ""
+    },
+    {
+      "name": "code-review-quality",
+      "description": ""
+    },
+    {
+      "name": "compatibility-testing",
+      "description": ""
+    },
+    {
+      "name": "compliance-testing",
+      "description": ""
+    },
+    {
+      "name": "consultancy-practices",
+      "description": ""
+    },
+    {
+      "name": "context-driven-testing",
+      "description": ""
+    },
+    {
+      "name": "contract-testing",
+      "description": ""
+    },
+    {
+      "name": "database-testing",
+      "description": ""
+    },
+    {
+      "name": "exploratory-testing-advanced",
+      "description": ""
+    },
+    {
+      "name": "holistic-testing-pact",
+      "description": ""
+    },
+    {
+      "name": "localization-testing",
+      "description": ""
+    },
+    {
+      "name": "mobile-testing",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "performance-testing",
+      "description": ""
+    },
+    {
+      "name": "quality-metrics",
+      "description": ""
+    },
+    {
+      "name": "refactoring-patterns",
+      "description": ""
+    },
+    {
+      "name": "regression-testing",
+      "description": ""
+    },
+    {
+      "name": "risk-based-testing",
+      "description": ""
+    },
+    {
+      "name": "shift-left-testing",
+      "description": ""
+    },
+    {
+      "name": "shift-right-testing",
+      "description": ""
+    },
+    {
+      "name": "six-thinking-hats",
+      "description": ""
+    },
+    {
+      "name": "tdd-london-chicago",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "description": ""
+    },
+    {
+      "name": "test-automation-strategy",
+      "description": ""
+    },
+    {
+      "name": "test-data-management",
+      "description": ""
+    },
+    {
+      "name": "test-design-techniques",
+      "description": ""
+    },
+    {
+      "name": "test-environment-management",
+      "description": ""
+    },
+    {
+      "name": "test-reporting-analytics",
+      "description": ""
+    },
+    {
+      "name": "testability-scoring",
+      "description": ""
+    },
+    {
+      "name": "visual-testing-advanced",
+      "description": ""
+    },
+    {
+      "name": "xp-practices",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    },
+    {
+      "name": "sentinel-api-testing",
+      "description": ""
+    }
+  ]
+}
