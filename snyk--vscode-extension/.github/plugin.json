@@ -1,0 +1,9 @@
+{
+  "name": "snyk--vscode-extension",
+  "displayName": "vscode-extension",
+  "description": "vscode-extension",
+  "version": "1.0.0",
+  "author": "snyk",
+  "homepage": "https://github.com/snyk/vscode-extension",
+  "skills": []
+}
