@@ -1,0 +1,14 @@
+{
+  "name": "supermemoryai--supermemory",
+  "displayName": "supermemory",
+  "description": "supermemory",
+  "version": "1.0.0",
+  "author": "supermemoryai",
+  "homepage": "https://github.com/supermemoryai/supermemory",
+  "skills": [
+    {
+      "name": "supermemory",
+      "description": ""
+    }
+  ]
+}
