@@ -1,0 +1,9 @@
+{
+  "name": "netwrck--stable-diffusion-server",
+  "displayName": "stable-diffusion-server",
+  "description": "stable-diffusion-server",
+  "version": "1.0.0",
+  "author": "Netwrck",
+  "homepage": "https://github.com/Netwrck/stable-diffusion-server",
+  "skills": []
+}
