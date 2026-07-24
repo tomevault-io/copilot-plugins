@@ -1,0 +1,14 @@
+{
+  "name": "jasonraimondi--ts-oauth2-server",
+  "displayName": "ts-oauth2-server",
+  "description": "ts-oauth2-server",
+  "version": "1.0.0",
+  "author": "jasonraimondi",
+  "homepage": "https://github.com/jasonraimondi/ts-oauth2-server",
+  "skills": [
+    {
+      "name": "ts-oauth2-server",
+      "description": ""
+    }
+  ]
+}
