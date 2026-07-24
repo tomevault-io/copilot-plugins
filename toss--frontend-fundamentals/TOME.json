@@ -3,8 +3,8 @@
   "owner": "toss",
   "repo": "frontend-fundamentals",
   "description": "Essential principles for frontend development",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "frontend-fundamentals",
+      "path": "frontend-fundamentals-plugin/skills/coupling/SKILL.md",
+      "github_url": "https://github.com/toss/frontend-fundamentals/tree/main/frontend-fundamentals-plugin/skills/coupling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frontend-fundamentals",
+      "path": "frontend-fundamentals-plugin/skills/cohesion/SKILL.md",
+      "github_url": "https://github.com/toss/frontend-fundamentals/tree/main/frontend-fundamentals-plugin/skills/cohesion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frontend-fundamentals",
+      "path": "frontend-fundamentals-plugin/skills/readability/SKILL.md",
+      "github_url": "https://github.com/toss/frontend-fundamentals/tree/main/frontend-fundamentals-plugin/skills/readability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "frontend-fundamentals",
+      "path": "frontend-fundamentals-plugin/skills/predictability/SKILL.md",
+      "github_url": "https://github.com/toss/frontend-fundamentals/tree/main/frontend-fundamentals-plugin/skills/predictability/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/toss/frontend-fundamentals",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:43:04Z"
+  "distributed_at": "2026-07-24T04:40:06Z"
 }
