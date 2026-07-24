@@ -1,0 +1,93 @@
+{
+  "name": "mui-file-input",
+  "owner": "viclafouch",
+  "repo": "mui-file-input",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mui-file-input",
+      "path": ".agents/skills/deep-dive/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.agents/skills/deep-dive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mui-file-input",
+      "path": ".claude/skills/deep-dive/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.claude/skills/deep-dive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mui-file-input",
+      "path": ".agents/skills/update-deps/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.agents/skills/update-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mui-file-input",
+      "path": ".claude/skills/update-deps/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.claude/skills/update-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mui-file-input",
+      "path": ".agents/skills/react-useeffect/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.agents/skills/react-useeffect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mui-file-input",
+      "path": ".claude/skills/react-useeffect/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.claude/skills/react-useeffect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mui-file-input",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mui-file-input",
+      "path": ".claude/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/viclafouch/mui-file-input/tree/main/.claude/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/viclafouch/mui-file-input",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:27:06Z"
+}
