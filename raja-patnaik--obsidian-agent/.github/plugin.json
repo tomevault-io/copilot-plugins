@@ -1,0 +1,14 @@
+{
+  "name": "raja-patnaik--obsidian-agent",
+  "displayName": "obsidian-agent",
+  "description": "obsidian-agent",
+  "version": "1.0.0",
+  "author": "raja-patnaik",
+  "homepage": "https://github.com/raja-patnaik/obsidian-agent",
+  "skills": [
+    {
+      "name": "obsidian-agent",
+      "description": ""
+    }
+  ]
+}
