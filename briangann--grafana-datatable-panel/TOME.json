@@ -4,7 +4,7 @@
   "repo": "grafana-datatable-panel",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/briangann/grafana-datatable-panel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T21:51:30Z"
+  "distributed_at": "2026-07-24T10:36:11Z"
 }
