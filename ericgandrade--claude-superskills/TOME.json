@@ -4,7 +4,7 @@
   "repo": "claude-superskills",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ericgandrade/claude-superskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T21:31:57Z"
+  "distributed_at": "2026-07-24T12:31:16Z"
 }
