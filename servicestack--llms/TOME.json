@@ -1,0 +1,57 @@
+{
+  "name": "llms",
+  "owner": "ServiceStack",
+  "repo": "llms",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "llms",
+      "path": "llms/extensions/skills/ui/skills/create-plan/SKILL.md",
+      "github_url": "https://github.com/ServiceStack/llms/tree/main/llms/extensions/skills/ui/skills/create-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "llms",
+      "path": "llms/extensions/skills/ui/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/ServiceStack/llms/tree/main/llms/extensions/skills/ui/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ServiceStack/llms",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T22:48:56Z"
+}
