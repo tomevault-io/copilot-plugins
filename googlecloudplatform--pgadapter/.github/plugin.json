@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--pgadapter",
+  "displayName": "pgadapter",
+  "description": "pgadapter",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/pgadapter",
+  "skills": []
+}
