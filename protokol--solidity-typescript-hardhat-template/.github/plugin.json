@@ -1,0 +1,18 @@
+{
+  "name": "protokol--solidity-typescript-hardhat-template",
+  "displayName": "solidity-typescript-hardhat-template",
+  "description": "solidity-typescript-hardhat-template",
+  "version": "1.0.0",
+  "author": "protokol",
+  "homepage": "https://github.com/protokol/solidity-typescript-hardhat-template",
+  "skills": [
+    {
+      "name": "solidity-typescript-hardhat-template",
+      "description": ""
+    },
+    {
+      "name": "solidity-typescript-hardhat-template",
+      "description": ""
+    }
+  ]
+}
