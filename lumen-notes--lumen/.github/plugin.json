@@ -1,0 +1,14 @@
+{
+  "name": "lumen-notes--lumen",
+  "displayName": "lumen",
+  "description": "lumen",
+  "version": "1.0.0",
+  "author": "lumen-notes",
+  "homepage": "https://github.com/lumen-notes/lumen",
+  "skills": [
+    {
+      "name": "lumen",
+      "description": ""
+    }
+  ]
+}
