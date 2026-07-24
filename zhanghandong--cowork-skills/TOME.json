@@ -1,0 +1,123 @@
+{
+  "name": "cowork-skills",
+  "owner": "ZhangHanDong",
+  "repo": "cowork-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cowork-skills",
+      "path": "skills/code-review/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "skills/cowork-guide/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/skills/cowork-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "skills/memory-skills/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/skills/memory-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "skills/github-search/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/skills/github-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "skills/cowork-router/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/skills/cowork-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "skills/github-generate/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/skills/github-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": ".claude/skills/cowork-guide/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/.claude/skills/cowork-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "cli/builtin-skills/code-review/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/cli/builtin-skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "cli/builtin-skills/cowork-guide/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/cli/builtin-skills/cowork-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "cli/builtin-skills/memory-skills/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/cli/builtin-skills/memory-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "cli/builtin-skills/github-search/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/cli/builtin-skills/github-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "cli/builtin-skills/cowork-router/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/cli/builtin-skills/cowork-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cowork-skills",
+      "path": "cli/builtin-skills/github-generate/SKILL.md",
+      "github_url": "https://github.com/ZhangHanDong/cowork-skills/tree/main/cli/builtin-skills/github-generate/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ZhangHanDong/cowork-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:01:58Z"
+}
