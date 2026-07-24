@@ -2,7 +2,7 @@
 
 > Short, high-signal guidance for working in the `allora-chain` repo. Keep context small and only load extra docs when needed.
 
-# AGENTS.md
+# CLAUDE.md
 
 Short, high-signal guidance for working in the `allora-chain` repo. Keep context small and only load extra docs when needed.
 
@@ -26,6 +26,7 @@ Short, high-signal guidance for working in the `allora-chain` repo. Keep context
 - Proto/state layout changes: add module migration + tests; bump `ConsensusVersion` and wire upgrades if needed.
 - New module/store keys: update app wiring for store upgrades.
 - Generated files (`*.pb.go`, `*.pulsar.go`): never edit by hand; run codegen.
+- See `CONTRIBUTING.md` for more details on migrations, protos, upgrades, and complex changes.
 
 ## Minimal Context Strategy
 Start in the module you touch: `x/<module>/keeper`, `x/<module>/types`, `x/<module>/module`.
@@ -53,7 +54,7 @@ Read extra references only when needed:
 Before the first commit in any session, run these checks. If any fail, **stop and inform the user** before doing any work — but ask whether they still want you to proceed with non-committing tasks (e.g. code changes, exploration, reviews) while they resolve the issue.
 
 ### Git Remote Protocol
-**Never change the git remote URL.** The remote must stay as it is unless otherwise requested. Do not switch HTTPS/SSH, do not run `git remote set-url`, and do not run `gh auth setup-git`, unless explicitly stated, requested and only execute if approved by the user.
+**Never change the git remote URL.** The remote must stay as it is unless otherwise requested. Do not switch HTTPS/SSH, do not run `git remote set-url`, and do not run `gh auth setup-git`, unless explicitly stated, requested and only execute if approved by the user. 
 
 ## AUTOCLI
 Do not use FlagOptions on params unless really necessary. Follow existing style.
@@ -73,4 +74,4 @@ Refer to other code by its symbol (function/type name) — that lives in the rep
 
 ---
 > Source: [allora-network/allora-chain](https://github.com/allora-network/allora-chain) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
