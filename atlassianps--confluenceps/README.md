@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [AtlassianPS/ConfluencePS](https://github.com/AtlassianPS/ConfluencePS).
+Original source: `CLAUDE.md` in [AtlassianPS/ConfluencePS](https://github.com/AtlassianPS/ConfluencePS).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [AtlassianPS/ConfluencePS](https://github.com/AtlassianPS/ConfluencePS) — a repo with 162+ stars on GitHub.
