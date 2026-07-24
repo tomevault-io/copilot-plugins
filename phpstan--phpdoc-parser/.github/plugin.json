@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpdoc-parser",
+  "displayName": "phpdoc-parser",
+  "description": "phpdoc-parser",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpdoc-parser",
+  "skills": []
+}
