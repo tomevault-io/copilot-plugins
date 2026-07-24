@@ -2,7 +2,7 @@
 
 > > **Read this file first.** It is the navigation map for every AI agent working in this repository.
 
-# AGENTS.md — @cardor/agent-harness-kit
+# CLAUDE.md — @cardor/agent-harness-kit
 
 > **Read this file first.** It is the navigation map for every AI agent working in this repository.
 
@@ -16,7 +16,11 @@
 bash health.sh
 ```
 
+Runs, in order: **lint** (`eslint src/`, non-mutating), **build**, **test**. Any non-zero step fails the gate.
+
 If it exits non-zero, stop and report the issue. Do not proceed with codebase changes until health is green.
+
+> The lint step uses `npm run lint:check`, never `npm run lint` — the latter is `eslint . --fix` and would rewrite sources during a check. health.sh must observe, never mutate, because the reviewer runs it to verify a builder's work.
 
 ## Harness data (source of truth)
 
@@ -52,6 +56,7 @@ docs.search          query                                  → search ./docs fo
    - Assess user intent: only run health.sh if changes are needed
    - tasks.get('in_progress') → resume if something is in progress
    - tasks.get('pending') → pick lowest id
+   - No pending tasks? → ask user, infer fields, call tasks.add, then tasks.claim
 
 2. WORK  (lead → explorer → consultant → builder → reviewer)
    - Each agent calls actions.start(taskId, agentName) → actionId
@@ -79,9 +84,9 @@ docs.search          query                                  → search ./docs fo
 ```
 Always:         .harness/current.md (or MCP tasks.get)
 If implementing: ./docs/
-If orchestrating: Agent definition files in your provider's agents directory
+If orchestrating: Agent definition files in .claude/agents/
 ```
 
 ---
 > Source: [enmanuelmag/agent-harness-kit](https://github.com/enmanuelmag/agent-harness-kit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
