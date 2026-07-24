@@ -1,0 +1,9 @@
+{
+  "name": "prestodb--presto-go-client",
+  "displayName": "presto-go-client",
+  "description": "presto-go-client",
+  "version": "1.0.0",
+  "author": "prestodb",
+  "homepage": "https://github.com/prestodb/presto-go-client",
+  "skills": []
+}
