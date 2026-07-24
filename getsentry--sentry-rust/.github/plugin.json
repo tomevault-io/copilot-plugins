@@ -1,0 +1,14 @@
+{
+  "name": "getsentry--sentry-rust",
+  "displayName": "sentry-rust",
+  "description": "sentry-rust",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-rust",
+  "skills": [
+    {
+      "name": "sentry-rust",
+      "description": ""
+    }
+  ]
+}
