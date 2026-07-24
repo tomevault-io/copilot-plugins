@@ -1,0 +1,14 @@
+{
+  "name": "tutkli--jikan-ts",
+  "displayName": "jikan-ts",
+  "description": "jikan-ts",
+  "version": "1.0.0",
+  "author": "tutkli",
+  "homepage": "https://github.com/tutkli/jikan-ts",
+  "skills": [
+    {
+      "name": "jikan-ts",
+      "description": ""
+    }
+  ]
+}
