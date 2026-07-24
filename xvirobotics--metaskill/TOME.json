@@ -1,0 +1,105 @@
+{
+  "name": "metaskill",
+  "owner": "xvirobotics",
+  "repo": "metaskill",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "metaskill",
+      "path": "skill/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "skill/flows/skill.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/skill/flows/skill.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/ios-app/.claude/skills/run-simulator/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/ios-app/.claude/skills/run-simulator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/ios-app/.claude/skills/build-and-test/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/ios-app/.claude/skills/build-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/fullstack-web/.claude/skills/api-test/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/fullstack-web/.claude/skills/api-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/data-science/.claude/skills/run-pipeline/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/data-science/.claude/skills/run-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/data-science/.claude/skills/evaluate-model/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/data-science/.claude/skills/evaluate-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/fullstack-web/.claude/skills/deploy-preview/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/fullstack-web/.claude/skills/deploy-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/fullstack-web/.claude/skills/build-and-test/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/fullstack-web/.claude/skills/build-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "metaskill",
+      "path": "examples/data-science/.claude/skills/generate-report/SKILL.md",
+      "github_url": "https://github.com/xvirobotics/metaskill/tree/main/examples/data-science/.claude/skills/generate-report/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xvirobotics/metaskill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:42:37Z"
+}
