@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [martin-majlis/Wikipedia-API](https://github.com/martin-majlis/Wikipedia-API).
+Original source: `CLAUDE.md` in [martin-majlis/Wikipedia-API](https://github.com/martin-majlis/Wikipedia-API).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [martin-majlis/Wikipedia-API](https://github.com
 
 - [Wikipedia-API](https://github.com/martin-majlis/Wikipedia-API/tree/main/.claude/skills/wikipedia-api-release/SKILL.md)
 
-From [martin-majlis/Wikipedia-API](https://github.com/martin-majlis/Wikipedia-API) — a repo with 746+ stars on GitHub.
+From [martin-majlis/Wikipedia-API](https://github.com/martin-majlis/Wikipedia-API) — a repo with 745+ stars on GitHub.
 
 ---
 
