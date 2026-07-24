@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex).
+Original source: `CLAUDE.md` in [code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (23)
+## Bundled Skills (25)
 
 - [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lsp/SKILL.md)
 - [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/rules/SKILL.md)
@@ -40,6 +40,8 @@ Original source: `AGENTS.md` in [code-yeongyu/lazycodex](https://github.com/code
 - [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/ulw-loop/skills/ulw-loop/SKILL.md)
 - [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/ultrawork/skills/ulw-plan/SKILL.md)
 - [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/comment-checker/skills/comment-checker/SKILL.md)
+- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ast-grep/SKILL.md)
+- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/frontend/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex)
 
