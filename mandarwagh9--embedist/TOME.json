@@ -2,9 +2,9 @@
   "name": "embedist",
   "owner": "mandarwagh9",
   "repo": "embedist",
-  "description": "AI-Native Embedded Development Environment",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mandarwagh9/embedist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:16:14Z"
+  "distributed_at": "2026-07-24T00:34:51Z"
 }
