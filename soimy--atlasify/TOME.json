@@ -1,0 +1,339 @@
+{
+  "name": "atlasify",
+  "owner": "soimy",
+  "repo": "atlasify",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/bash-linux/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/bash-linux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/clean-code/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/clean-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/app-builder/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/app-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/plan-writing/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/plan-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/api-patterns/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/api-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/nestjs-expert/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/nestjs-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/mobile-design/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/mobile-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/docker-expert/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/docker-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/prisma-expert/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/prisma-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/react-patterns/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/react-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/parallel-agents/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/database-design/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/database-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/testing-patterns/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/testing-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/geo-fundamentals/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/geo-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/behavioral-modes/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/behavioral-modes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/seo-fundamentals/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/seo-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/tailwind-patterns/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/tailwind-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/typescript-expert/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/typescript-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/server-management/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/server-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/i18n-localization/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/i18n-localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/lint-and-validate/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/lint-and-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/powershell-windows/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/powershell-windows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/nodejs-best-practices/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/nodejs-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/vulnerability-scanner/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/vulnerability-scanner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/nextjs-best-practices/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/nextjs-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/deployment-procedures/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/deployment-procedures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/performance-profiling/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/performance-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/code-review-checklist/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/code-review-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/app-builder/templates/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/app-builder/templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/vr-ar/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/vr-ar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/documentation-templates/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/documentation-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/game-art/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/game-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/3d-games/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/3d-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/pc-games/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/pc-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/2d-games/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/2d-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/web-games/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/web-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/game-audio/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/game-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/game-design/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/game-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/multiplayer/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/multiplayer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atlasify",
+      "path": ".agent/skills/game-development/mobile-games/SKILL.md",
+      "github_url": "https://github.com/soimy/atlasify/tree/main/.agent/skills/game-development/mobile-games/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/soimy/atlasify",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:39:14Z"
+}
