@@ -1,0 +1,14 @@
+{
+  "name": "hopps-app--hopps",
+  "displayName": "hopps",
+  "description": "hopps",
+  "version": "1.0.0",
+  "author": "hopps-app",
+  "homepage": "https://github.com/hopps-app/hopps",
+  "skills": [
+    {
+      "name": "hopps",
+      "description": ""
+    }
+  ]
+}
