@@ -1,0 +1,93 @@
+{
+  "name": "webstatus.dev",
+  "owner": "GoogleChrome",
+  "repo": "webstatus.dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-e2e/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-workers/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-workers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-backend/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-frontend/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-ingestion/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-maintenance/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-pr-creation/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-pr-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "webstatus.dev",
+      "path": ".agent/skills/webstatus-search-grammar/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/webstatus.dev/tree/main/.agent/skills/webstatus-search-grammar/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GoogleChrome/webstatus.dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:45:12Z"
+}
