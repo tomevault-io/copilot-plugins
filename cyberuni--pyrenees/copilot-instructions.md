@@ -1,48 +1,23 @@
-## installing-packages
+## master
 
-> How to installing packages
+> This rule always applies. It provides an overview of all Cursor rules in this project, describing their purpose and linking to each rule file. Use this rule as a starting point to understand the available rules and when to apply them.
 
-# Installing Packages
+# Master Cursor Rule Index
 
-This rule explains how to properly install new dependencies (packages) in this project, including workspace and local package management, and best practices.
+This rule always applies. It provides an overview of all Cursor rules in this project, describing their purpose and linking to each rule file. Use this rule as a starting point to understand the available rules and when to apply them.
 
-## Step-by-step Instructions
+## Rule List
 
-1. **Determine the correct workspace**: Make sure you are in the correct package directory (e.g., `libraries/design`, `apps/web`, etc.) before running any install command.
-2. **Use the correct package manager**: This project uses [pnpm](mdc:https:/pnpm.io).
-3. **Install a new dependency**:
-   - For a regular dependency: `pnpm add <package-name>`
-   - For a dev dependency: `pnpm add -D <package-name>`
-   - For a specific version: `pnpm add <package-name>@<version>`
-4. **For monorepos (workspaces)**:
-   - To add a dependency to the root: `pnpm add -w <package-name>`
-5. **Commit changes**: After installing, commit the updated `package.json` and `pnpm-lock.yaml` files.
-6. **Avoid unnecessary global installs**: Prefer local installs unless a tool must be available globally.
+### [commit-messages.mdc](mdc:commit-messages.mdc)
+**Purpose:** Explains how to write commit messages using the Conventional Commits format, as enforced by commitlint. Includes step-by-step instructions, examples, and special handling for certain folders.
 
-## Guidelines
+### [cursor-rules.mdc](mdc:cursor-rules.mdc)
+**Purpose:** Describes how to create, name, and structure Cursor rules in this project. Includes directory conventions, file naming, and required content structure for rules.
 
-- Always check if the package already exists in the workspace before installing.
-- Prefer the latest stable version unless a specific version is required.
-- For peer dependencies, follow the instructions in the package documentation.
-- If you encounter issues, check the package manager's documentation or consult the team.
+### [installing-packages.mdc](mdc:installing-packages.mdc)
+**Purpose:** Provides instructions and best practices for installing new dependencies using pnpm, including workspace management and commit guidelines.
 
-## Example
-
-```sh
-# Install a regular dependency in the current package
-pnpm add lodash
-
-# Install a dev dependency in the currend package
-pnpm add -D typescript --workspace=design
-
-# Install a specific version
-pnpm add react@19.1.0
-
-# Install a dependency in the root
-pnpm add -w typescript
-```
-
-When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
+When you use any rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
 
 ---
 > Source: [cyberuni/pyrenees](https://github.com/cyberuni/pyrenees) — distributed by [TomeVault](https://tomevault.io).
