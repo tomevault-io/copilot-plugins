@@ -1,0 +1,14 @@
+{
+  "name": "redis--redis-rb",
+  "displayName": "redis-rb",
+  "description": "redis-rb",
+  "version": "1.0.0",
+  "author": "redis",
+  "homepage": "https://github.com/redis/redis-rb",
+  "skills": [
+    {
+      "name": "redis-rb",
+      "description": ""
+    }
+  ]
+}
