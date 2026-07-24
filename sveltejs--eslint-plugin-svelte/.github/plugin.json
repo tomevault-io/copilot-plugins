@@ -1,0 +1,14 @@
+{
+  "name": "sveltejs--eslint-plugin-svelte",
+  "displayName": "eslint-plugin-svelte",
+  "description": "eslint-plugin-svelte",
+  "version": "1.0.0",
+  "author": "sveltejs",
+  "homepage": "https://github.com/sveltejs/eslint-plugin-svelte",
+  "skills": [
+    {
+      "name": "eslint-plugin-svelte",
+      "description": ""
+    }
+  ]
+}
