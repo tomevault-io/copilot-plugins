@@ -1,0 +1,201 @@
+## big-mood-detector
+
+> This guide helps AI agents understand and work with the Big Mood Detector codebase effectively.
+
+# AI Agent Guide - Big Mood Detector
+
+This guide helps AI agents understand and work with the Big Mood Detector codebase effectively.
+
+## Mission
+
+Build and maintain a clinical-grade bipolar mood prediction system that analyzes Apple Health data using validated ML models to provide actionable insights for mental health management.
+
+## Key Commands
+
+```bash
+# Setup environment
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev,ml,monitoring]"
+
+# Run application
+python src/big_mood_detector/main.py process data/health_auto_export/
+python src/big_mood_detector/main.py predict data/health_auto_export/ --report
+python src/big_mood_detector/main.py serve
+
+# Development workflow
+make test        # Run all tests
+make quality     # Lint + type check + test
+make dev         # Start development server
+```
+
+## Architecture Overview
+
+The system follows Clean Architecture with clear boundaries:
+
+```
+Interfaces (CLI/API) → Application (Use Cases) → Domain (Business Logic) ← Infrastructure (ML/DB)
+```
+
+**Key principles:**
+- Domain layer has NO external dependencies
+- All data flows through use cases
+- ML models are abstracted behind interfaces
+- Repository pattern for data access
+
+## Where to Make Changes
+
+### Adding New Features
+1. Start in `domain/` - define entities and business rules
+2. Create use case in `application/use_cases/`
+3. Implement infrastructure in `infrastructure/`
+4. Add interface in `interfaces/cli/` or `interfaces/api/`
+5. Write tests first (TDD approach)
+
+### Modifying ML Models
+- Model interfaces: `domain/services/mood_predictor.py`
+- Implementations: `infrastructure/ml_models/`
+- Weights: `model_weights/` (do not commit large files)
+- Fine-tuning: `infrastructure/fine_tuning/`
+
+### Data Processing
+- Parsers: `infrastructure/parsers/json/` and `xml/`
+- Feature extraction: `domain/services/feature_extraction_service.py`
+- Aggregators: `domain/services/*_aggregator.py`
+
+## Critical Files
+
+**DO NOT MODIFY without understanding impact:**
+- `domain/value_objects/clinical_thresholds.py` - DSM-5 validated thresholds
+- `infrastructure/ml_models/xgboost_models.py` - Model loading logic
+- `infrastructure/parsers/xml/streaming_parser.py` - Memory-efficient parsing
+- `core/config.py` - Environment and path configuration
+
+**Key configuration:**
+- Sleep window merging: 3.75 hours (domain constant)
+- Activity sequences: 1440 minutes/day
+- Model paths: Configured in settings
+- Clinical thresholds: Based on research papers
+
+## Testing Requirements
+
+**Before committing:**
+1. All tests must pass: `make test`
+2. Coverage must stay >90%: `make coverage`
+3. Type checking clean: `make type-check`
+4. No linting errors: `make lint`
+
+**Test categories:**
+- `pytest -m unit` - Fast domain tests
+- `pytest -m integration` - DB and parser tests
+- `pytest -m ml` - Model validation tests
+- `pytest -m clinical` - Clinical threshold tests
+
+## Performance Guidelines
+
+**Memory usage:**
+- XML parser uses <100MB for any file size
+- Feature extraction: ~1KB per day per user
+- Model inference: <100ms per prediction
+
+**Processing targets:**
+- XML parsing: >40k records/second
+- Feature extraction: <1s per year of data
+- API response: <200ms average
+
+## Clinical Accuracy
+
+**Key metrics from research:**
+- Depression detection: AUC 0.80
+- Mania detection: AUC 0.98
+- Hypomania detection: AUC 0.95
+
+**Critical features:**
+- Circadian phase (top predictor)
+- Sleep duration and efficiency
+- Activity patterns (1440-min sequences)
+- Heart rate variability
+
+## Common Tasks
+
+### Process New Data Format
+1. Add parser to `infrastructure/parsers/`
+2. Register in `ParserFactory`
+3. Map to domain entities
+4. Add tests with sample data
+
+### Add Clinical Feature
+1. Define in `domain/services/feature_extraction_service.py`
+2. Implement calculation logic
+3. Add to feature vector
+4. Update model if needed
+5. Validate against clinical literature
+
+### Improve Performance
+1. Profile with `cProfile` first
+2. Check for N+1 queries
+3. Use batch processing
+4. Consider caching (Redis)
+5. Optimize hot paths only
+
+## Debugging Tips
+
+```bash
+# Enable debug logging
+export LOG_LEVEL=DEBUG
+
+# Profile memory usage
+mprof run python src/big_mood_detector/main.py process large_file.xml
+mprof plot
+
+# Check SQL queries
+export SQLALCHEMY_ECHO=true
+
+# Trace execution
+python -m trace -t src/big_mood_detector/main.py process data/
+```
+
+## Context Budget
+
+When working on this codebase, prioritize loading:
+1. Domain layer files (small, pure Python)
+2. Relevant use case
+3. Specific infrastructure needed
+4. Tests for the area you're modifying
+
+Avoid loading:
+- All infrastructure at once
+- Reference repos (unless needed)
+- Large test fixtures
+- Generated documentation
+
+## Current Status
+
+**✅ Production Ready:**
+- Core data processing pipeline
+- XGBoost + PAT ensemble models
+- CLI with 6 commands
+- FastAPI server
+- Docker deployment
+- 695 passing tests
+
+**🚧 In Progress:**
+- Web UI (Next.js)
+- Real-time monitoring
+- Federated learning
+
+## Getting Help
+
+- Check tests for usage examples
+- Read docstrings (comprehensive)
+- Look at similar features
+- Check research papers in `docs/literature/`
+- Review closed PRs for patterns
+
+---
+
+Remember: **Clinical accuracy > Feature complexity > Performa
+
+---
+> Source: [Clarity-Digital-Twin/big-mood-detector](https://github.com/Clarity-Digital-Twin/big-mood-detector) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
