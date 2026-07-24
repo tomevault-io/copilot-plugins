@@ -1,81 +1,54 @@
 ## litestream
 
-> Litestream is a disaster recovery tool for SQLite that runs as a background process, monitors the WAL, converts changes to immutable LTX files, and replicates them to cloud storage. It uses `modernc.org/sqlite` (pure Go, no CGO required).
+> Claude-specific optimizations for Litestream. See [AGENTS.md](AGENTS.md) for project documentation.
 
-# AGENTS.md - Litestream AI Agent Guide
+# CLAUDE.md - Claude Code Configuration
 
-Litestream is a disaster recovery tool for SQLite that runs as a background process, monitors the WAL, converts changes to immutable LTX files, and replicates them to cloud storage. It uses `modernc.org/sqlite` (pure Go, no CGO required).
+Claude-specific optimizations for Litestream. See [AGENTS.md](AGENTS.md) for project documentation.
 
-## Before You Start
+## Critical Coding Rules
 
-1. Read [AI_PR_GUIDE.md](AI_PR_GUIDE.md) for contribution requirements
-2. Check [CONTRIBUTING.md](CONTRIBUTING.md) for what we accept (bug fixes welcome, features need discussion)
-3. Review recent PRs for current patterns
+- **Always return errors, never log and continue.** The only exception is DEBUG logging for best-effort operations that don't affect correctness. This is the #1 cause of PR review feedback. See [docs/PATTERNS.md](docs/PATTERNS.md#error-handling) for the full decision framework.
 
-## Critical Rules
+## Context Window
 
-- **Lock page at 1GB**: SQLite reserves page at 0x40000000. Always skip it. See [docs/SQLITE_INTERNALS.md](docs/SQLITE_INTERNALS.md)
-- **LTX files are immutable**: Never modify after creation. See [docs/LTX_FORMAT.md](docs/LTX_FORMAT.md)
-- **Single replica per database**: Each DB replicates to exactly one destination
-- **Use `litestream ltx`**: Not `litestream wal` (deprecated)
-- **Use `litestream reset`**: Clears corrupted local LTX state for a database. See `cmd/litestream/reset.go`
-- **`auto-recover` config**: Replica option that automatically resets local state on LTX errors. Disabled by default. See `replica.go`
-- **Retention enabled by default**: `Store.RetentionEnabled` is `true` by default. Disable only when cloud lifecycle policies handle cleanup. See `store.go`
-- **IPC socket disabled by default**: Control socket is off by default. Enable with `socket.enabled: true` in config. See `server.go`
-- **`$PID` config expansion**: Config files support `$PID` to expand to the current process ID, plus standard `$ENV_VAR` expansion. See `cmd/litestream/main.go`
-- **`litestream ltx -level`**: Use `-level 0`–`9` or `-level all` to inspect specific compaction levels. See `cmd/litestream/ltx.go`
-- **Return errors, don't log them**: Always return errors to callers. Never `log.Printf(err)` and continue — this silently hides failures in a disaster recovery tool. Only use DEBUG log for best-effort operations where failure doesn't affect correctness and a valid fallback exists (e.g., reading SHM mxFrame optimization hint). See [docs/PATTERNS.md](docs/PATTERNS.md#error-handling)
+With Claude's large context window, load documentation as needed:
 
-## Layer Boundaries
+- Start with [AGENTS.md](AGENTS.md) for overview and checklist
+- Load [docs/PATTERNS.md](docs/PATTERNS.md) when writing code
+- Load [docs/SQLITE_INTERNALS.md](docs/SQLITE_INTERNALS.md) for WAL/page work
+- Load [docs/PROVIDER_COMPATIBILITY.md](docs/PROVIDER_COMPATIBILITY.md) for storage backend configs
 
-| Layer | File | Responsibility |
-|-------|------|----------------|
-| DB | `db.go` | Database state, restoration, WAL monitoring, library API (`SyncStatus`, `SyncAndWait`, `EnsureExists`) |
-| Replica | `replica.go` | Replication mechanics only |
-| Storage | `**/replica_client.go` | Backend implementations (includes `ReplicaClientV3` for v0.3.x restore) |
-| IPC | `server.go` | Unix socket control API (register/unregister, /txid, pprof) |
-| Leasing | `leaser.go`, `s3/leaser.go` | Distributed lease acquisition via conditional writes |
+## Claude-Specific Resources
 
-Database state logic belongs in DB layer, not Replica layer.
+### Specialized Agents (.claude/agents/)
 
-## Quick Reference
+- `sqlite-expert.md` - SQLite WAL and page management
+- `replica-client-developer.md` - Storage backend implementation
+- `ltx-compaction-specialist.md` - LTX format and compaction
+- `test-engineer.md` - Testing strategies
+- `performance-optimizer.md` - Performance optimization
 
-**Build:**
+### Commands (.claude/commands/)
+
+- `/analyze-ltx` - Analyze LTX file structure
+- `/debug-ipc` - Debug IPC Unix socket issues
+- `/debug-wal` - Debug WAL replication issues
+- `/test-compaction` - Test compaction scenarios
+- `/trace-replication` - Trace replication flow
+- `/validate-replica` - Validate replica client
+- `/add-storage-backend` - Create new storage backend
+- `/fix-common-issues` - Diagnose common problems
+- `/run-comprehensive-tests` - Execute full test suite
+
+## Quick Commands
 
 ```bash
 go build -o bin/litestream ./cmd/litestream
 go test -race -v ./...
-```
-
-**Code quality:**
-
-```bash
 pre-commit run --all-files
 ```
 
-## Documentation
-
-| Document | When to Read |
-|----------|--------------|
-| [docs/PATTERNS.md](docs/PATTERNS.md) | Code patterns and anti-patterns |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Deep component details |
-| [docs/SQLITE_INTERNALS.md](docs/SQLITE_INTERNALS.md) | WAL format, lock page |
-| [docs/LTX_FORMAT.md](docs/LTX_FORMAT.md) | Replication format |
-| [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) | Test strategies |
-| [docs/REPLICA_CLIENT_GUIDE.md](docs/REPLICA_CLIENT_GUIDE.md) | Adding storage backends |
-| [docs/PROVIDER_COMPATIBILITY.md](docs/PROVIDER_COMPATIBILITY.md) | Provider-specific S3/cloud configs |
-
-## Checklist
-
-Before submitting changes:
-
-- [ ] Read relevant docs above
-- [ ] Follow patterns in [docs/PATTERNS.md](docs/PATTERNS.md)
-- [ ] Test with race detector (`go test -race`)
-- [ ] Run `pre-commit run --all-files`
-- [ ] For page iteration: test with >1GB databases
-- [ ] Show investigation evidence in PR (see [AI_PR_GUIDE.md](AI_PR_GUIDE.md))
-
 ---
 > Source: [benbjohnson/litestream](https://github.com/benbjohnson/litestream) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
