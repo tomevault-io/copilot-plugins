@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--geoip2-python",
+  "displayName": "GeoIP2-python",
+  "description": "GeoIP2-python",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/GeoIP2-python",
+  "skills": []
+}
