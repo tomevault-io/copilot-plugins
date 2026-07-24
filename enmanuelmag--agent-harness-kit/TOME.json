@@ -3,8 +3,8 @@
   "owner": "enmanuelmag",
   "repo": "agent-harness-kit",
   "description": "A provider-agnostic scaffolding kit for running structured multi-agent workflows in your codebase.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agent-harness-kit",
+      "path": "src/core/materializer/skills/ahk-ask/SKILL.md",
+      "github_url": "https://github.com/enmanuelmag/agent-harness-kit/tree/main/src/core/materializer/skills/ahk-ask/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-harness-kit",
+      "path": "src/core/materializer/skills/ahk-triage/SKILL.md",
+      "github_url": "https://github.com/enmanuelmag/agent-harness-kit/tree/main/src/core/materializer/skills/ahk-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-harness-kit",
+      "path": "src/core/materializer/skills/ahk-consultant/SKILL.md",
+      "github_url": "https://github.com/enmanuelmag/agent-harness-kit/tree/main/src/core/materializer/skills/ahk-consultant/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/enmanuelmag/agent-harness-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T06:53:49Z"
+  "distributed_at": "2026-07-24T18:31:50Z"
 }
