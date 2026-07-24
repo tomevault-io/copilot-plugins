@@ -1,0 +1,9 @@
+{
+  "name": "matelang--go-ethereum-aws-kms-tx-signer",
+  "displayName": "go-ethereum-aws-kms-tx-signer",
+  "description": "go-ethereum-aws-kms-tx-signer",
+  "version": "1.0.0",
+  "author": "matelang",
+  "homepage": "https://github.com/matelang/go-ethereum-aws-kms-tx-signer",
+  "skills": []
+}
