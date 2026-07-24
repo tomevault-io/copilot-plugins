@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--llm-wiki-agent",
+  "displayName": "llm-wiki-agent",
+  "description": "llm-wiki-agent",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/llm-wiki-agent",
+  "skills": []
+}
