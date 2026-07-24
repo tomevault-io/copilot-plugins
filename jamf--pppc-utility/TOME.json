@@ -1,0 +1,129 @@
+{
+  "name": "PPPC-Utility",
+  "owner": "jamf",
+  "repo": "PPPC-Utility",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-git-remote/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-git-remote/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-git-commit/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-git-feature/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-git-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-git-validate/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-git-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PPPC-Utility",
+      "path": ".claude/skills/speckit-git-initialize/SKILL.md",
+      "github_url": "https://github.com/jamf/PPPC-Utility/tree/main/.claude/skills/speckit-git-initialize/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jamf/PPPC-Utility",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:58:02Z"
+}
