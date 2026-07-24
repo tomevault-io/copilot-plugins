@@ -1,0 +1,93 @@
+{
+  "name": "go-ontology",
+  "owner": "geneontology",
+  "repo": "go-ontology",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/mapping/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/research/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/reaction/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/reaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/design-pattern/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/design-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/term-obsoletion/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/term-obsoletion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/chemical-entity/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/chemical-entity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/taxon-constraint/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/taxon-constraint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "go-ontology",
+      "path": ".claude/skills/external-term-lookup/SKILL.md",
+      "github_url": "https://github.com/geneontology/go-ontology/tree/main/.claude/skills/external-term-lookup/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/geneontology/go-ontology",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:16:14Z"
+}
