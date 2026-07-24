@@ -1,0 +1,38 @@
+{
+  "name": "antonbabenko--deliberation",
+  "displayName": "deliberation",
+  "description": "Ask Codex, Gemini, Grok, and 400+ OpenRouter models (Qwen, Kimi, DeepSeek) for second opinions or arbiter-mediated consensus. One MCP server for Claude Code, Codex, Cursor, Kiro, OpenCode. Measures wh",
+  "version": "1.0.0",
+  "author": "antonbabenko",
+  "homepage": "https://github.com/antonbabenko/deliberation",
+  "skills": [
+    {
+      "name": "deliberation",
+      "description": ""
+    },
+    {
+      "name": "deliberation",
+      "description": ""
+    },
+    {
+      "name": "deliberation",
+      "description": ""
+    },
+    {
+      "name": "deliberation",
+      "description": ""
+    },
+    {
+      "name": "deliberation",
+      "description": ""
+    },
+    {
+      "name": "deliberation",
+      "description": ""
+    },
+    {
+      "name": "deliberation",
+      "description": ""
+    }
+  ]
+}
