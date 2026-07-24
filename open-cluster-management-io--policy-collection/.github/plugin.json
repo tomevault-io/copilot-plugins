@@ -1,0 +1,9 @@
+{
+  "name": "open-cluster-management-io--policy-collection",
+  "displayName": "policy-collection",
+  "description": "policy-collection",
+  "version": "1.0.0",
+  "author": "open-cluster-management-io",
+  "homepage": "https://github.com/open-cluster-management-io/policy-collection",
+  "skills": []
+}
