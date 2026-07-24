@@ -1,0 +1,14 @@
+{
+  "name": "lightsparkdev--js-sdk",
+  "displayName": "js-sdk",
+  "description": "js-sdk",
+  "version": "1.0.0",
+  "author": "lightsparkdev",
+  "homepage": "https://github.com/lightsparkdev/js-sdk",
+  "skills": [
+    {
+      "name": "js-sdk",
+      "description": ""
+    }
+  ]
+}
