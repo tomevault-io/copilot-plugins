@@ -1,0 +1,14 @@
+{
+  "name": "codersauce--red",
+  "displayName": "red",
+  "description": "red",
+  "version": "1.0.0",
+  "author": "codersauce",
+  "homepage": "https://github.com/codersauce/red",
+  "skills": [
+    {
+      "name": "red",
+      "description": ""
+    }
+  ]
+}
