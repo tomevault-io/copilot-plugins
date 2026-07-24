@@ -1,0 +1,117 @@
+{
+  "name": "kubit",
+  "owner": "aniftyco",
+  "repo": "kubit",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kubit-designing-api",
+      "path": ".claude/skills/kubit-designing-api",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-designing-api",
+      "description": ""
+    },
+    {
+      "name": "kubit-eliciting-spec",
+      "path": ".claude/skills/kubit-eliciting-spec",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-eliciting-spec",
+      "description": ""
+    },
+    {
+      "name": "kubit-expanding-skeleton",
+      "path": ".claude/skills/kubit-expanding-skeleton",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-expanding-skeleton",
+      "description": ""
+    },
+    {
+      "name": "kubit-proposing-change",
+      "path": ".claude/skills/kubit-proposing-change",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-proposing-change",
+      "description": ""
+    },
+    {
+      "name": "kubit-researching-prior-art",
+      "path": ".claude/skills/kubit-researching-prior-art",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-researching-prior-art",
+      "description": ""
+    },
+    {
+      "name": "kubit-validating-design",
+      "path": ".claude/skills/kubit-validating-design",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-validating-design",
+      "description": ""
+    },
+    {
+      "name": "kubit",
+      "path": ".claude/skills/kubit-designing-api/SKILL.md",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-designing-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubit",
+      "path": ".claude/skills/kubit-eliciting-spec/SKILL.md",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-eliciting-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubit",
+      "path": ".claude/skills/kubit-proposing-change/SKILL.md",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-proposing-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubit",
+      "path": ".claude/skills/kubit-validating-design/SKILL.md",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-validating-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubit",
+      "path": ".claude/skills/kubit-expanding-skeleton/SKILL.md",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-expanding-skeleton/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kubit",
+      "path": ".claude/skills/kubit-researching-prior-art/SKILL.md",
+      "github_url": "https://github.com/aniftyco/kubit/tree/main/.claude/skills/kubit-researching-prior-art/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aniftyco/kubit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:32:45Z"
+}
