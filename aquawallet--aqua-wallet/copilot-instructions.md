@@ -1,180 +1,104 @@
 ## aqua-wallet
 
-> **Note:** Always run flutter commands from the `flutter/` submodule folder.
+> You are an expert in Flutter, Dart, Riverpod, Freezed, Flutter Hooks, and Isar.
 
-# AGENTS.md - AI Agent Guidelines for AQUA Wallet
+You are an expert in Flutter, Dart, Riverpod, Freezed, Flutter Hooks, and Isar.
 
-## Build Commands
+Key Principles
 
-**Note:** Always run flutter commands from the `flutter/` submodule folder.
+- Write concise, technical Dart code with accurate examples.
+- Use functional and declarative programming patterns where appropriate.
+- Prefer composition over inheritance.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported widget, subwidgets, helpers, static content, types.
+- Do not pass Ref to service classes - inject concrete dependencies instead.
 
-```bash
-# Setup (run after pulling from upstream)
-make setup
+Dart/Flutter
 
-# Install dependencies
-flutter pub get
-# OR
-make install
+- Use const constructors for immutable widgets.
+- Leverage Freezed for immutable state classes and unions.
+- Use arrow syntax for simple functions and methods.
+- Prefer expression bodies for one-line getters and setters.
+- Use trailing commas for better formatting and diffs.
 
-# Run code generation (Freezed, Isar, JSON serializable, Riverpod)
-dart run build_runner build --delete-conflicting-outputs
-# OR
-make freeze
+Error Handling and Validation
 
-# Generate FFI bindings
-dart run ffigen --ignore-source-errors
+- Handle empty states within the displaying screen.
+- Use AsyncValue for proper error handling and loading states.
 
-# Generate assets (icons, splash screen)
-dart run flutter_launcher_icons
-dart run flutter_native_splash:create
-```
+Riverpod-Specific Guidelines
 
-## Test Commands
+- Do not use Riverpod code generation.
+- Prefer using ChangeNotifier, StateNotifier and AsyncNotifier.
+- Avoid using StateProvider, FutureProvider, and StreamProvider.
+- Always use Freezed sealed unions for state unless the state type is primitive.
+- Use ref.invalidate() for manually triggering provider updates.
+- Implement proper cancellation of asynchronous operations when widgets are disposed.
+- Avoid exposing methods that return values in Riverpod notifiers. Keep the notifier's state as private as possible.
 
-```bash
-# Run all unit tests with coverage
-make run-unit-tests
+Service Class Guidelines
 
-# Run a single test file
-flutter test test/features/send/providers/new/send_asset_input_provider_test.dart
+- Do not pass Ref to service classes - inject concrete dependencies instead.
+- Services should be independent of state management implementation.
+- Use dependency injection through constructors.
+- Keep services focused on a single responsibility.
+- Handle cleanup in the provider, not the service.
 
-# Run tests matching a pattern
-flutter test --name="sendAsset"
+Performance Optimization
 
-# Run integration tests
-make run-integration-tests
+- Use const widgets where possible to optimize rebuilds.
+- Implement list view optimizations (e.g., ListView.builder) using value keys and pagination.
+- Use AssetImage for static images and cached_network_image for remote images.
+- Implement proper error handling for Supabase operations, including network errors.
 
-# Run all tests (unit + integration)
-make test-all
-```
+Key Conventions
 
-## Lint Commands
+1. Use GoRouter for navigation and deep linking.
+2. Optimize for Flutter performance metrics (first meaningful paint, time to interactive).
+3. Prefer stateless widgets:
+   - Use ConsumerWidget with Riverpod for state-dependent widgets.
+   - Use HookConsumerWidget when combining Riverpod and Flutter Hooks.
 
-```bash
-# Analyze code
-flutter analyze
+UI and Styling
 
-# Format code
-dart format lib/ test/
+- Use Flutter's built-in widgets and create custom widgets.
+- Implement responsive design using LayoutBuilder or MediaQuery.
+- Use themes for consistent styling across the app.
+- Use Theme.of(context).textTheme.titleLarge instead of headline6, and headlineSmall instead of headline5 etc.
 
-# Check for unused localizations
-make unused-localizations
-```
+Model and Database Conventions
 
-## Code Style Guidelines
+- Use Isar for local database.
+- Include createdAt, updatedAt, and isDeleted fields in database tables.
+- Use @JsonSerializable(fieldRename: FieldRename.snake) for models.
+- Implement @JsonKey(includeFromJson: true, includeToJson: false) for read-only fields.
 
-### General Principles
-- Write concise, technical Dart code with accurate examples
-- Use functional and declarative programming patterns
-- Prefer composition over inheritance
-- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`)
-- Structure files: exported widget, subwidgets, helpers, static content, types
+Widgets and UI Components
 
-### Dart/Flutter
-- Use `const` constructors for immutable widgets
-- Leverage Freezed for immutable state classes and unions
-- Use arrow syntax for simple functions and methods
-- Prefer expression bodies for one-line getters and setters
-- Use trailing commas for better formatting and diffs
-- Use `log` instead of `print` for debugging
+- Create small, private widget classes instead of methods like Widget \_build....
+- Implement RefreshIndicator for pull-to-refresh functionality.
+- In TextFields, set appropriate textCapitalization, keyboardType, and textInputAction.
+- Always include an errorBuilder when using Image.network.
+- Use private StatelessWidget or ConsumerWidget classes instead of widget-building functions to leverage Flutter's caching capabilities.
 
-### Imports
-- Use barrel files (e.g., `features/shared/shared.dart`) for clean imports
-- Group imports: Dart SDK, Flutter, third-party, local (aqua), ui_components
-- Use `package:aqua/` prefix for all local imports
+Miscellaneous
 
-### Types & Naming
-- Use Freezed sealed unions for state unless the state type is primitive
-- Use `@JsonSerializable(fieldRename: FieldRename.snake)` for models
-- Use `@JsonKey(includeFromJson: true, includeToJson: false)` for read-only fields
-- Use `@JsonValue(int)` for enums that go to the database
-- Include `createdAt`, `updatedAt`, and `isDeleted` fields in database tables
+- Use log instead of print for debugging.
+- Use Flutter Hooks / Riverpod Hooks where appropriate.
+- Use @JsonValue(int) for enums that go to the database.
 
-### Error Handling
-- Use `AsyncValue` for proper error handling and loading states
-- Handle empty states within the displaying screen
-- Implement proper cancellation of asynchronous operations when widgets are disposed
+Tests
 
-### Riverpod Guidelines
-- Prefer using `ChangeNotifier`, `StateNotifier`, and `AsyncNotifier`
-- Avoid using `StateProvider`, `FutureProvider`, and `StreamProvider`
-- Use `ref.invalidate()` for manually triggering provider updates
-- Do not expose methods that return values in Riverpod notifiers
-- Keep notifier's state as private as possible
-- Do not pass `Ref` to service classes - inject concrete dependencies instead
+- Use Mocktail for mocking dependencies.
+- Use the existing mocks in test/mocks, and if needed, create new mocks in the test/mocks directory for reuse.
 
-### Service Classes
-- Services should be independent of state management implementation
-- Use dependency injection through constructors
-- Keep services focused on a single responsibility
-- Handle cleanup in the provider, not the service
+Documentation
 
-### Widgets & UI
-- Use `ConsumerWidget` with Riverpod for state-dependent widgets
-- Use `HookConsumerWidget` when combining Riverpod and Flutter Hooks
-- Create small, private widget classes instead of methods like `Widget _build...`
-- Use private `StatelessWidget` or `ConsumerWidget` classes instead of widget-building functions
-- Use `Theme.of(context).textTheme.titleLarge` instead of deprecated `headline6`
-- Implement `RefreshIndicator` for pull-to-refresh functionality
-- Always include an `errorBuilder` when using `Image.network`
+- Document complex logic and non-obvious code decisions.
+- Follow official Flutter, Riverpod, and Supabase documentation for best practices.
 
-### Performance
-- Use const widgets where possible to optimize rebuilds
-- Implement list view optimizations using value keys and pagination
-- Use `AssetImage` for static images and `cached_network_image` for remote images
-
-### Testing
-- Use Mocktail for mocking dependencies
-- Use existing mocks in `test/mocks/`, create new mocks there for reuse
-- Use `createContainer()` helper from `test/helpers.dart` for provider testing
-
-### Database (Isar)
-- Use Isar for local database
-- Include `createdAt`, `updatedAt`, and `isDeleted` fields in all tables
-
-### Navigation
-- Use GoRouter for navigation and deep linking
-
-## Project Structure
-
-```
-lib/
-  common/          # Shared utilities, extensions
-  config/          # Configuration, router
-  data/            # Data providers, repositories
-  features/        # Feature modules (home, wallet, send, receive, etc.)
-  l10n/            # Localization
-  services/        # App-level services
-  utils/           # Utility functions
-  ffi/             # FFI generated bindings (excluded from linting)
-  gen/             # Generated code (excluded from linting)
-test/
-  mocks/           # Mock classes for testing
-  fixtures/        # Test fixtures
-  features/        # Feature-specific tests
-  helpers.dart     # Test utilities
-```
-
-## Excluded from Analysis
-
-- `lib/ffi/**`
-- `lib/gen/**`
-- `**/*.g.dart`
-- `**/*.freezed.dart`
-- `flutter/**`
-- `packages/**/`
-
-## Environment Setup
-
-1. Run `make shell` to enter Nix development environment
-2. Copy `.env.example` to `.env` and fill in values
-3. Run `make setup` to install dependencies and binaries
-
-## Flutter/Dart Versions
-
-Check `pubspec.yaml` for current SDK and Flutter version requirements.
+Refer to Flutter, Riverpod, and Isar documentation for Widgets, State Management, and Local Database best practices.
 
 ---
 > Source: [AquaWallet/aqua-wallet](https://github.com/AquaWallet/aqua-wallet) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
