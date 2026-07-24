@@ -1,0 +1,285 @@
+{
+  "name": "my-claude-code-settings",
+  "owner": "minorun365",
+  "repo": "my-claude-code-settings",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "check-tavily-credits",
+      "path": "claude/skills/check-tavily-credits",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/check-tavily-credits",
+      "description": ""
+    },
+    {
+      "name": "kb-frontend",
+      "path": "claude/skills/kb-frontend",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-frontend",
+      "description": ""
+    },
+    {
+      "name": "kb-kimi",
+      "path": "claude/skills/kb-kimi",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-kimi",
+      "description": ""
+    },
+    {
+      "name": "kb-line",
+      "path": "claude/skills/kb-line",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-line",
+      "description": ""
+    },
+    {
+      "name": "kb-marp",
+      "path": "claude/skills/kb-marp",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-marp",
+      "description": ""
+    },
+    {
+      "name": "kb-strands-agentcore",
+      "path": "claude/skills/kb-strands-agentcore",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-strands-agentcore",
+      "description": ""
+    },
+    {
+      "name": "kb-troubleshooting",
+      "path": "claude/skills/kb-troubleshooting",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "sync-docs",
+      "path": "claude/skills/sync-docs",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-docs",
+      "description": ""
+    },
+    {
+      "name": "sync-knowledge",
+      "path": "claude/skills/sync-knowledge",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-knowledge",
+      "description": ""
+    },
+    {
+      "name": "sync-codex-settings",
+      "path": "claude/skills/sync-codex-settings",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-codex-settings",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-marp/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-marp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-line/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-line/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-kimi/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-kimi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/diagram/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/sync-docs/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-frontend/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/commit-push/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/commit-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-web-audio/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-web-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-bidi-agent/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-bidi-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/export-slides/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/export-slides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/sync-dotfiles/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-dotfiles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-ts-llm-app/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-ts-llm-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-amplify-cdk/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-amplify-cdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/clean-branches/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/clean-branches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/sync-knowledge/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-google-cloud/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-google-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-aws-diagrams/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-aws-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-frontend-sse/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-frontend-sse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-agentcore-cdk/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-agentcore-cdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-cloud-storage/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-cloud-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/sync-codex-settings/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-codex-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-strands-agentcore/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-strands-agentcore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/check-tavily-credits/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/check-tavily-credits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-agentcore-identity/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-agentcore-identity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/connect-claude-on-ec2/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/connect-claude-on-ec2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-frontend-amplify-ui/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-frontend-amplify-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-google-workspace-mcp/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-google-workspace-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/sync-claude-code-settings/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/sync-claude-code-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "my-claude-code-settings",
+      "path": "claude/skills/kb-agentcore-observability/SKILL.md",
+      "github_url": "https://github.com/minorun365/my-claude-code-settings/tree/main/claude/skills/kb-agentcore-observability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/minorun365/my-claude-code-settings",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:33:58Z"
+}
