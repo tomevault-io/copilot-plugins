@@ -1,105 +1,100 @@
 ## smartsql
 
-> index.ts      # Main VitePress config (imports en/zh locales)
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md — SmartSql Wiki
+# CLAUDE.md
 
-## Build & Run Commands
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+SmartSql is a .NET ORM library inspired by MyBatis. It uses XML to manage SQL statements, supports read/write splitting, caching (memory & Redis), dynamic repository proxies, bulk inserts, AOP transactions, and diagnostics. Version is managed in `build/version.props`.
+
+Core library targets `netstandard2.0` (C# 7.3). Test projects target `net8.0`. All projects use the FluentAssertions library for assertions.
+
+## Build & Test Commands
 
 ```bash
-# Install dependencies
-pnpm install
+# Build the entire solution
+dotnet build SmartSql.sln
 
-# Development server
-pnpm dev
+# Run all unit tests (SQLite in-memory, no external dependencies)
+dotnet test src/SmartSql.Test.Unit/SmartSql.Test.Unit.csproj
 
-# Build static site
-pnpm build
+# Run a specific unit test by name
+dotnet test src/SmartSql.Test.Unit/SmartSql.Test.Unit.csproj --filter "FullyQualifiedName~SmartSql.Test.Unit.Tests.CacheTest"
 
-# Preview production build
-pnpm preview
+# Run integration tests (requires Docker for Testcontainers: MySQL 8.0 + Redis 7)
+dotnet test src/SmartSql.Test.Integration/SmartSql.Test.Integration.csproj
 
-# Fix Mermaid diagram syntax issues
-pnpm fix:mermaid
+# Pack NuGet packages (Release)
+dotnet pack -c Release -o ./nuget
 ```
 
-## Project Structure
+Tests use xUnit. There are two test projects:
+- **`SmartSql.Test.Unit`** — Pure unit tests using SQLite in-memory (`UseDataSource(DbProvider.SQLITE, "Data Source=:memory:")`). No external services needed.
+- **`SmartSql.Test.Integration`** — Integration tests using Testcontainers (MySQL 8.0 + Redis 7). Requires Docker. The `SmartSqlFixture` (xUnit `IAsyncLifetime`) starts containers, initializes the database from `DB/init-mysql-db.sql`, and registers repositories.
 
-```
-wiki/
-  .vitepress/
-    config/
-      index.ts      # Main VitePress config (imports en/zh locales)
-      en.ts          # English locale config (nav, sidebar, footer)
-      zh.ts          # Chinese locale config
-      mermaid.ts     # Mermaid theme variables (reference)
-    theme/
-      index.ts       # Custom theme with vitepress-mermaid-renderer
-      custom.css     # Dark-mode styling, brand colors, layout
-  public/
-    logo.svg         # Site favicon
-  scripts/
-    fix-mermaid.mjs  # Automated Mermaid syntax validator/fixer
-  guide/             # Getting Started documentation
-  architecture/      # Architecture deep-dives
-  extensions/        # Extension packages documentation
-  api/               # API reference
-  building/          # Build, CI, publishing guides
-  onboarding/        # Audience-tailored onboarding guides
-  zh/                # Chinese translations (mirrors EN structure)
-  index.md           # Home page (VitePress home layout)
-```
+Both test projects reference **`SmartSql.Test`** which contains shared entities, DTOs, and repository interfaces used across tests.
 
-## Content Conventions
+## Architecture
 
-### Mermaid Diagrams
-- **Dark-mode colors required**: node fills `#2d333b`, borders `#6d5dfc`, text `#e6edf3`
-- Subgraph backgrounds: `#161b22`, borders `#30363d`
-- Lines: `#8b949e`
-- Use `autonumber` in all `sequenceDiagram` blocks
-- Do NOT use `<br/>` — use `<br>` (self-closing breaks Vue compiler)
-- Every diagram must have a `<!-- Sources: file_path:line -->` comment
+### Key Abstractions
 
-### Citations
-- Format: `[file_path:line_number](https://github.com/dotnetcore/SmartSql/blob/master/file_path#Lline_number)`
+- **`ISqlMapper`** / **`SqlMapper`** (`src/SmartSql/SqlMapper.cs`) — The main entry point. Provides sync/async methods: `Execute`, `ExecuteScalar<T>`, `Query<T>`, `QuerySingle<T>`, `GetDataTable`, `GetDataSet`. Wraps `IDbSession` with automatic session lifecycle management.
 
-### Frontmatter
-Every page must have:
-```yaml
----
-title: Page Title
-description: One-line description for SEO
----
-```
+- **`SmartSqlBuilder`** (`src/SmartSql/SmartSqlBuilder.cs`) — Fluent builder that constructs the entire runtime. Chain methods: `UseXmlConfig()`, `UseDataSource()`, `UseCache()`, `RegisterEntity()`, `AddTypeHandler()`, `AddFilter()`, `AddMiddleware()`, etc. Registers the built instance into `SmartSqlContainer`.
 
-### Chinese Translations
-- All English pages must have Chinese counterparts in `zh/` directory
-- Chinese sidebar paths prefixed with `/zh/`
+- **`SmartSqlConfig`** (`src/SmartSql/Configuration/SmartSqlConfig.cs`) — Central configuration holding Database, SqlMaps, Pipeline, CacheManager, TypeHandlerFactory, Filters, IdGenerators, and all resolved settings.
 
-## Documentation Sections
+- **`ExecutionContext`** — Carries `SmartSqlConfig`, `IDbSession`, `AbstractRequestContext`, and `ResultContext` through the pipeline.
 
-- `guide/` — Getting Started: Introduction, Quick Start, Configuration, XML SQL Maps, Changelog
-- `architecture/` — Architecture: Overview, Middleware Pipeline, XML Tags, DataSource, Caching, Deserialization, Diagnostics
-- `extensions/` — Extensions: 12 extension packages documentation
-- `api/` — API Reference: Core Interfaces, Configuration API, Middleware API
-- `building/` — Building: Build & CI, Contributing, Publishing
-- `onboarding/` — Onboarding: Contributor, Staff Engineer, Executive, Product Manager guides
+### Middleware Pipeline
 
-## Boundaries
+All SQL execution flows through a linked-list middleware pipeline (`IMiddleware`). Default order (by `IOrdered.Order`):
 
-- Do NOT delete generated wiki pages without explicit instruction
-- Do NOT modify theme files (`custom.css`, `theme/index.ts`) without testing `pnpm build`
-- Do NOT change sidebar structure in `en.ts`/`zh.ts` without updating both locales
-- Always run `pnpm fix:mermaid` after adding or editing Mermaid diagrams
-- Run `pnpm build` to verify the site compiles before committing
+1. **InitializerMiddleware** — Resolves the Statement from config, sets up the request context
+2. **PrepareStatementMiddleware** — Builds the SQL string from Statement tags
+3. **CachingMiddleware** — (when cache enabled) Checks/populates cache
+4. **TransactionMiddleware** — Manages DB transactions
+5. **DataSourceFilterMiddleware** — Selects read vs write data source
+6. **CommandExecuterMiddleware** — Executes the DbCommand
+7. **ResultHandlerMiddleware** — Deserializes results via `IDataReaderDeserializer`
 
-## Tech Stack
+The pipeline is built by `PipelineBuilder` which sorts middlewares by `Order` and chains them via `Next` pointers.
 
-- **VitePress** ^1.6.4 — Static site generator
-- **vitepress-mermaid-renderer** ^1.1.23 — Mermaid diagram rendering with zoom
-- **pnpm** — Package manager
-- **TypeScript** — Config files
+### XML SQL Management
+
+SQL statements are defined in XML files (SmartSqlMap). Each XML file maps to a `SqlMap` (identified by `Scope`) containing `Statement` elements. Statements use dynamic tags from `src/SmartSql/Configuration/Tags/` for conditional SQL construction (e.g., `IsNotEmpty`, `IsEqual`, `Switch`, `Where`, `Set`, `For`, `Include`, `Env`).
+
+### Extension Projects
+
+| Project | Purpose |
+|---------|---------|
+| `SmartSql.DyRepository` | Dynamic proxy repository generation via IL emit. Interface methods auto-map to SQL statements by naming convention. |
+| `SmartSql.DIExtension` | ASP.NET Core DI integration (`services.AddSmartSql()`) |
+| `SmartSql.Options` | Options-pattern config builder (for `appsettings.json`) |
+| `SmartSql.Cache.Redis` | Redis cache provider |
+| `SmartSql.Cache.Sync` | Cache synchronization |
+| `SmartSql.TypeHandler` | JSON and other custom type handlers |
+| `SmartSql.TypeHandler.PostgreSql` | PostgreSQL-specific type handlers |
+| `SmartSql.AOP` | AOP transaction support (`[Transaction]` attribute) |
+| `SmartSql.Extensions` | General extensions |
+| `SmartSql.ScriptTag` | Script tag support for dynamic SQL |
+| `SmartSql.Bulk.*` | Bulk insert providers (SqlServer, MsSqlServer, MySql, MySqlConnector, PostgreSql) |
+| `SmartSql.InvokeSync` + Kafka/RabbitMQ | Data synchronization via message queues |
+| `SmartSql.Oracle` | Oracle DB provider support |
+| `SmartSql.DataConnector` | Data connector service |
+
+### Deserialization Chain
+
+DataReader deserializers are tried in order via `DeserializerFactory`:
+`MultipleResultDeserializer` → `ValueTupleDeserializer` → `ValueTypeDeserializer` → `DynamicDeserializer` → `EntityDeserializer` → custom deserializers
+
+### Diagnostics
+
+`src/SmartSql/Diagnostics/` emits `DiagnosticSource` events for command execution, session lifecycle, and errors — enabling integration with APM tools like SkyWalking.
 
 ---
 > Source: [dotnetcore/SmartSql](https://github.com/dotnetcore/SmartSql) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
