@@ -1,10 +1,10 @@
 ## claude-code-statusline
 
-> > **Sync:** Any changes to this file must also be applied to `AGENTS.md` and `GEMINI.md`.
+> > **Sync:** Any changes to this file must also be applied to `CLAUDE.md` and `AGENTS.md`.
 
 # claude-code-statusline
 
-> **Sync:** Any changes to this file must also be applied to `AGENTS.md` and `GEMINI.md`.
+> **Sync:** Any changes to this file must also be applied to `CLAUDE.md` and `AGENTS.md`.
 
 A single-file Node.js statusline for Claude Code, plus three optional companion hooks that keep `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` in sync and surface git state at session start.
 
@@ -47,4 +47,4 @@ MIT — see `LICENSE`.
 
 ---
 > Source: [ilia-pluzhnikov/claude-code-statusline](https://github.com/ilia-pluzhnikov/claude-code-statusline) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
