@@ -1,0 +1,63 @@
+{
+  "name": "claude-code-buddy",
+  "owner": "PCIRCLE-AI",
+  "repo": "claude-code-buddy",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-code-buddy",
+      "path": "skills/memesh/SKILL.md",
+      "github_url": "https://github.com/PCIRCLE-AI/claude-code-buddy/tree/main/skills/memesh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-buddy",
+      "path": "skills/memesh-review/SKILL.md",
+      "github_url": "https://github.com/PCIRCLE-AI/claude-code-buddy/tree/main/skills/memesh-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-buddy",
+      "path": "skills/agentic-orchestration/SKILL.md",
+      "github_url": "https://github.com/PCIRCLE-AI/claude-code-buddy/tree/main/skills/agentic-orchestration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PCIRCLE-AI/claude-code-buddy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:41:01Z"
+}
