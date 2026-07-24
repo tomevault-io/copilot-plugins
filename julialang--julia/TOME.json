@@ -1,0 +1,87 @@
+{
+  "name": "julia",
+  "owner": "JuliaLang",
+  "repo": "julia",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "julia",
+      "path": "doc/src/devdocs/agents/skills/doctests/SKILL.md",
+      "github_url": "https://github.com/JuliaLang/julia/tree/main/doc/src/devdocs/agents/skills/doctests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "julia",
+      "path": "doc/src/devdocs/agents/skills/compiler-jl/SKILL.md",
+      "github_url": "https://github.com/JuliaLang/julia/tree/main/doc/src/devdocs/agents/skills/compiler-jl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "julia",
+      "path": "doc/src/devdocs/agents/skills/test-changes/SKILL.md",
+      "github_url": "https://github.com/JuliaLang/julia/tree/main/doc/src/devdocs/agents/skills/test-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "julia",
+      "path": "doc/src/devdocs/agents/skills/external-deps/SKILL.md",
+      "github_url": "https://github.com/JuliaLang/julia/tree/main/doc/src/devdocs/agents/skills/external-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "julia",
+      "path": "doc/src/devdocs/agents/skills/buildkite-logs/SKILL.md",
+      "github_url": "https://github.com/JuliaLang/julia/tree/main/doc/src/devdocs/agents/skills/buildkite-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "julia",
+      "path": "doc/src/devdocs/agents/skills/c-static-analysis/SKILL.md",
+      "github_url": "https://github.com/JuliaLang/julia/tree/main/doc/src/devdocs/agents/skills/c-static-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "julia",
+      "path": "doc/src/devdocs/agents/skills/julia-syntax-lowering/SKILL.md",
+      "github_url": "https://github.com/JuliaLang/julia/tree/main/doc/src/devdocs/agents/skills/julia-syntax-lowering/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/JuliaLang/julia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T22:50:30Z"
+}
