@@ -1,0 +1,9 @@
+{
+  "name": "quay--mirror-registry",
+  "displayName": "mirror-registry",
+  "description": "mirror-registry",
+  "version": "1.0.0",
+  "author": "quay",
+  "homepage": "https://github.com/quay/mirror-registry",
+  "skills": []
+}
