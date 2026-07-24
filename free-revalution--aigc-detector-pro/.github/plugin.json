@@ -1,0 +1,14 @@
+{
+  "name": "free-revalution--aigc-detector-pro",
+  "displayName": "AIGC-Detector-Pro",
+  "description": "AIGC-Detector-Pro",
+  "version": "1.0.0",
+  "author": "free-revalution",
+  "homepage": "https://github.com/free-revalution/AIGC-Detector-Pro",
+  "skills": [
+    {
+      "name": "AIGC-Detector-Pro",
+      "description": ""
+    }
+  ]
+}
