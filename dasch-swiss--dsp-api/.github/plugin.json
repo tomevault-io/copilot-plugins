@@ -1,0 +1,14 @@
+{
+  "name": "dasch-swiss--dsp-api",
+  "displayName": "dsp-api",
+  "description": "dsp-api",
+  "version": "1.0.0",
+  "author": "dasch-swiss",
+  "homepage": "https://github.com/dasch-swiss/dsp-api",
+  "skills": [
+    {
+      "name": "dsp-api",
+      "description": ""
+    }
+  ]
+}
