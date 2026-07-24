@@ -1,57 +1,108 @@
 ## harmony-claude-code
 
-> 位於 `~/.claude/agents/`：
+> 这是一个项目级 CLAUDE.md 文件的示例。请将其放置在项目根目录下。
 
-# Agent 協調
+# 项目示例 CLAUDE.md
 
-## 可用 Agents
+这是一个项目级 CLAUDE.md 文件的示例。请将其放置在项目根目录下。
 
-位於 `~/.claude/agents/`：
+## 项目概览
 
-| Agent | 用途 | 何時使用 |
-|-------|------|----------|
-| planner | 實作規劃 | 複雜功能、重構 |
-| architect | 系統設計 | 架構決策 |
-| tdd-guide | 測試驅動開發 | 新功能、Bug 修復 |
-| code-reviewer | 程式碼審查 | 撰寫程式碼後 |
-| security-reviewer | 安全性分析 | 提交前 |
-| build-error-resolver | 修復建置錯誤 | 建置失敗時 |
-| e2e-runner | E2E 測試 | 關鍵使用者流程 |
-| refactor-cleaner | 無用程式碼清理 | 程式碼維護 |
-| doc-updater | 文件 | 更新文件 |
+[简要描述您的项目 - 功能、技术栈]
 
-## 立即使用 Agent
+## 核心规则
 
-不需要使用者提示：
-1. 複雜功能請求 - 使用 **planner** Agent
-2. 剛撰寫/修改程式碼 - 使用 **code-reviewer** Agent
-3. Bug 修復或新功能 - 使用 **tdd-guide** Agent
-4. 架構決策 - 使用 **architect** Agent
+### 1. 代码组织
 
-## 平行任務執行
+- 倾向于使用多个小文件，而非少数大文件
+- 高内聚，低耦合
+- 通常为 200-400 行，单文件最大不超过 800 行
+- 按功能/领域（Feature/Domain）组织，而非按类型组织
 
-對獨立操作總是使用平行 Task 執行：
+### 2. 代码风格
 
-```markdown
-# 好：平行執行
-平行啟動 3 個 agents：
-1. Agent 1：auth.ts 的安全性分析
-2. Agent 2：快取系統的效能審查
-3. Agent 3：utils.ts 的型別檢查
+- 代码、注释或文档中不得使用表情符号（Emoji）
+- 始终坚持不可变性（Immutability） - 严禁直接修改对象或数组
+- 生产代码中严禁使用 `console.log`
+- 使用 try/catch 进行妥善的错误处理
+- 使用 Zod 或类似工具进行输入验证
 
-# 不好：不必要的循序
-先 agent 1，然後 agent 2，然後 agent 3
+### 3. 测试
+
+- 测试驱动开发（TDD）：先写测试
+- 最低 80% 的覆盖率
+- 为工具函数编写单元测试
+- 为 API 编写集成测试
+- 为核心流程编写端到端（E2E）测试
+
+### 4. 安全
+
+- 严禁硬编码秘钥（Secrets）
+- 敏感数据使用环境变量
+- 验证所有用户输入
+- 仅使用参数化查询（Parameterized queries）
+- 启用跨站请求伪造（CSRF）防护
+
+## 文件结构
+
+```
+src/
+|-- app/              # Next.js 应用路由
+|-- components/       # 可复用的 UI 组件
+|-- hooks/            # 自定义 React hooks
+|-- lib/              # 工具库
+|-- types/            # TypeScript 定义
 ```
 
-## 多觀點分析
+## 关键模式
 
-對於複雜問題，使用分角色子 agents：
-- 事實審查者
-- 資深工程師
-- 安全專家
-- 一致性審查者
-- 冗餘檢查者
+### API 响应格式
+
+```typescript
+interface ApiResponse<T> {
+  success: boolean
+  data?: T
+  error?: string
+}
+```
+
+### 错误处理
+
+```typescript
+try {
+  const result = await operation()
+  return { success: true, data: result }
+} catch (error) {
+  console.error('操作失败:', error)
+  return { success: false, error: '用户友好提示信息' }
+}
+```
+
+## 环境变量
+
+```bash
+# 必填
+DATABASE_URL=
+API_KEY=
+
+# 选填
+DEBUG=false
+```
+
+## 可用命令
+
+- `/tdd` - 测试驱动开发（TDD）工作流
+- `/plan` - 创建实现方案
+- `/code-review` - 代码质量评审
+- `/build-fix` - 修复构建错误
+
+## Git 工作流
+
+- 约定式提交（Conventional commits）：`feat:`, `fix:`, `refactor:`, `docs:`, `test:`
+- 严禁直接提交到 main 分支
+- 合并请求（PRs）必须经过评审
+- 所有测试必须通过后方可合并
 
 ---
 > Source: [codelably/harmony-claude-code](https://github.com/codelably/harmony-claude-code) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
