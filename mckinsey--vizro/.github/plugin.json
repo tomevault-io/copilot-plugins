@@ -1,0 +1,42 @@
+{
+  "name": "mckinsey--vizro",
+  "displayName": "vizro",
+  "description": "vizro",
+  "version": "1.0.0",
+  "author": "mckinsey",
+  "homepage": "https://github.com/mckinsey/vizro",
+  "skills": [
+    {
+      "name": "dashboard-build",
+      "description": ""
+    },
+    {
+      "name": "dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "description": ""
+    },
+    {
+      "name": "vizro",
+      "description": ""
+    }
+  ]
+}
