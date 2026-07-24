@@ -1,0 +1,22 @@
+{
+  "name": "grafana--pyroscope-dotnet",
+  "displayName": "pyroscope-dotnet",
+  "description": "pyroscope-dotnet",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/pyroscope-dotnet",
+  "skills": [
+    {
+      "name": "pyroscope-dotnet",
+      "description": ""
+    },
+    {
+      "name": "pyroscope-dotnet",
+      "description": ""
+    },
+    {
+      "name": "pyroscope-dotnet",
+      "description": ""
+    }
+  ]
+}
