@@ -4,7 +4,7 @@
   "repo": "stwo",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/starkware-libs/stwo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T19:33:38Z"
+  "distributed_at": "2026-07-24T03:28:18Z"
 }
