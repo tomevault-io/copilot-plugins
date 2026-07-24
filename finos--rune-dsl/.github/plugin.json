@@ -1,0 +1,14 @@
+{
+  "name": "finos--rune-dsl",
+  "displayName": "rune-dsl",
+  "description": "rune-dsl",
+  "version": "1.0.0",
+  "author": "finos",
+  "homepage": "https://github.com/finos/rune-dsl",
+  "skills": [
+    {
+      "name": "rune-dsl",
+      "description": ""
+    }
+  ]
+}
