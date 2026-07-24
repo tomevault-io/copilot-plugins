@@ -1,24 +1,34 @@
-## obsidian-styles
+## obsidian-typescript
 
-> Theme-compatible styling for Obsidian plugin interfaces
+> Safe Obsidian API, lifecycle, command, and mobile patterns
 
 
-# Obsidian styles
+# Obsidian TypeScript
 
-- Scope classes under a plugin-specific root to avoid collisions.
-- Use Obsidian CSS variables for colors, typography, spacing, borders, and interactive states.
-- Put presentation in CSS classes; do not set hardcoded inline styles from TypeScript.
-- Support light, dark, and high-contrast themes without assuming fixed background colors.
-- Avoid broad element selectors that affect Obsidian or other plugins.
+- Use strict TypeScript and browser-compatible dependencies. Node.js/Electron requires an explicit desktop-only decision.
+- Use `this.app`, not global `app` or `window.app`.
+- Register events, DOM events, intervals, and editor extensions with the plugin's cleanup helpers.
+- Keep command IDs stable and unique. Do not set default hotkeys.
+- Choose `callback`, `checkCallback`, `editorCallback`, or `editorCheckCallback` according to availability.
+- Build user-derived UI with DOM/Obsidian helpers; never interpolate it into `innerHTML`, `outerHTML`, or `insertAdjacentHTML`.
 
-```css
-.draftline-warning {
-	color: var(--text-normal);
-	background: var(--background-modifier-error);
+Use the narrow safe mutation API:
+
+```ts
+const file = this.app.vault.getFileByPath(normalizePath(userPath));
+if (!file) {
+	throw new Error('The requested note does not exist.');
 }
+await this.app.vault.process(file, (content) => update(content));
+await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
+	frontmatter.status = 'done';
+});
 ```
 
-Test changed UI in desktop and mobile layouts with light and dark themes.
+- Use Editor APIs for the active note, `Vault.process` for background note updates, and `processFrontMatter` for frontmatter.
+- Prefer Vault APIs over Adapter APIs.
+- Look up known paths directly; do not search `getFiles()` for a path.
+- Keep `onload` light and debounce expensive file-event work.
 
 ---
 > Source: [noahzender/draftline](https://github.com/noahzender/draftline) — distributed by [TomeVault](https://tomevault.io).
