@@ -2,9 +2,9 @@
   "name": "FluidFlow",
   "owner": "ersinkoc",
   "repo": "FluidFlow",
-  "description": "Sketch to App",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ersinkoc/FluidFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T21:57:20Z"
+  "distributed_at": "2026-07-24T12:28:15Z"
 }
