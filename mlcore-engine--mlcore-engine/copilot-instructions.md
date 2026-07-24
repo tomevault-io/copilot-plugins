@@ -1,0 +1,135 @@
+## mlcore-engine
+
+> 尽量保持原来的代码风格和尽量少改动原来逻辑代码
+
+# 编码标准  
+- 使用小驼峰命名法
+
+# 代码生成规则
+尽量保持原来的代码风格和尽量少改动原来逻辑代码
+
+## 项目结构概览
+
+本项目是一个前后端分离的应用:
+- 根目录是Golang后端项目
+- [web](mdc:web)目录下是React前端项目
+
+## ID命名规范
+为解决ID命名混乱问题，统一采用以下规范:
+
+### 前端(TypeScript/JavaScript)
+- 统一使用小驼峰命名法(camelCase)
+- 所有ID字段命名为: `userId`, `projectId` 等
+- 主要定义在[web/src/api/projectAPI.ts](mdc:web/src/api/projectAPI.ts)
+
+### 后端(Golang)
+- 结构体字段：使用PascalCase，如`UserID`, `ProjectID`
+- JSON标签：使用camelCase，如`json:"userId"`
+- 路由参数：使用camelCase，如`:userId`, `:projectId`
+- 主要实现在[controller/project_manage.go](mdc:controller/project_manage.go)
+
+### API交互
+- 请求/响应JSON字段：统一使用camelCase
+- URL路径参数：统一使用camelCase
+
+## 关键文件
+
+- 前端API定义: [web/src/api/projectAPI.ts](mdc:web/src/api/projectAPI.ts)
+- 前端上下文管理: [web/src/context/ProjectContext.tsx](mdc:web/src/context/ProjectContext.tsx)
+- 前端项目管理页面: [web/src/pages/Project/ProjectManage.js](mdc:web/src/pages/Project/ProjectManage.js)
+- 后端控制器: [controller/project_manage.go](mdc:controller/project_manage.go)
+- 后端路由配置: [router/api_router.go](mdc:router/api_router.go)
+
+
+# 新模块开发规范
+
+## 项目结构
+
+- 后端 (Golang): 项目根目录
+  - [model](mdc:model) - 数据模型定义
+  - [controller](mdc:controller) - API控制器
+  - [router](mdc:router) - 路由配置
+  
+- 前端 (React): [web](mdc:web) 目录
+  - [web/src/api](mdc:web/src/api) - API调用定义
+  - [web/src/context](mdc:web/src/context) - 上下文管理
+  - [web/src/pages](mdc:web/src/pages) - 页面组件
+  - [web/src/components](mdc:web/src/components) - 可复用组件
+
+## 开发流程
+
+1. 后端模型定义 → 控制器实现 → 路由配置 → 接口测试
+2. 前端API定义 → Context实现 → 页面组件 → 导航整合
+
+## 命名规范
+
+### 后端命名
+- 结构体字段：使用PascalCase，如`UserID`, `ProjectID`
+- JSON标签：使用camelCase，如`json:"userId"`
+- 路由参数：使用camelCase，如`:userId`, `:projectId`
+
+### 前端命名
+- 变量和属性：使用camelCase，如`userId`, `projectId`
+- 组件名称：使用PascalCase，如`ProjectList`
+- API方法：使用camelCase，如`getProjects()`, `addProjectMember()`
+
+## 关键文件参考
+
+- API基础设施: [web/src/helpers/api.ts](mdc:web/src/helpers/api.ts)
+- 项目API示例: [web/src/api/projectAPI.ts](mdc:web/src/api/projectAPI.ts)
+- 上下文示例: [web/src/context/ProjectContext.tsx](mdc:web/src/context/ProjectContext.tsx)
+- 页面示例: [web/src/pages/Project/ProjectManage.js](mdc:web/src/pages/Project/ProjectManage.js)
+- 模型示例: [model/project.go](mdc:model/project.go)
+- 控制器示例: [controller/project_manage.go](mdc:controller/project_manage.go)
+
+
+
+# ID命名规范指南
+
+## 项目ID命名标准
+
+为解决ID命名混乱问题，本项目采用以下统一规范：
+
+### 前端(TypeScript/JavaScript)
+- 统一使用小驼峰命名法(camelCase)
+- 主键统一命名为`id`
+- 外键使用`entityId`格式，如`userId`、`projectId`
+- 所有ID在前端使用`string`类型
+- 参考实现：[web/src/api/projectAPI.ts](mdc:web/src/api/projectAPI.ts)和[web/src/context/ProjectContext.tsx](mdc:web/src/context/ProjectContext.tsx)
+
+### 后端(Golang)
+- 结构体字段：使用PascalCase，如`ID`、`UserID`
+- JSON标签：使用camelCase，如`json:"id"`、`json:"userId"`
+- 路由参数：使用camelCase，如`:userId`、`:projectId`
+- 参考实现：[controller/project_manage.go](mdc:controller/project_manage.go)
+
+### API交互规则
+- 前端API函数接收string类型参数，内部处理类型转换
+- 后端控制器处理多种ID格式（数字ID或用户名）
+- 数据返回格式统一使用camelCase，不使用大写ID形式
+- 参考：[web/src/pages/Project/ProjectManage.js](mdc:web/src/pages/Project/ProjectManage.js)
+
+## 实施检查清单
+- [ ] API函数参数统一使用string类型
+- [ ] 组件props使用统一的camelCase命名
+- [ ] ID转换逻辑集中在API层
+- [ ] 后端响应数据使用统一JSON格式
+
+
+## Bug排查原则
+
+### 根本原因分析优先
+- **不使用容错方式掩盖问题**：严禁使用`||`、`?.`、`try-catch`等容错机制来绕过而非解决问题
+- **必须找到根本原因**：在修复bug前，必须明确问题的准确来源和发生原因
+- **问题分析记录**：记录问题排查过程，包括关键调试信息和发现的根本原因
+- **系统性修复**：修复应针对根本原因，而非仅解决表面现象
+
+### 最佳实践
+- 使用`console.log`输出完整对象结构而非假设的属性
+- 跟踪数据流从API到UI的完整路径
+- 检查类型定义与实际数据结构是否匹配
+- 核实前后端数据契约的一致性
+
+---
+> Source: [MLcore-Engine/MLcore-Engine](https://github.com/MLcore-Engine/MLcore-Engine) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
