@@ -1,0 +1,14 @@
+{
+  "name": "originprotocol--origin-dollar",
+  "displayName": "origin-dollar",
+  "description": "origin-dollar",
+  "version": "1.0.0",
+  "author": "OriginProtocol",
+  "homepage": "https://github.com/OriginProtocol/origin-dollar",
+  "skills": [
+    {
+      "name": "origin-dollar",
+      "description": ""
+    }
+  ]
+}
