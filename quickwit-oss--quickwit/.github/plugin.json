@@ -1,0 +1,46 @@
+{
+  "name": "quickwit-oss--quickwit",
+  "displayName": "quickwit",
+  "description": "quickwit",
+  "version": "1.0.0",
+  "author": "quickwit-oss",
+  "homepage": "https://github.com/quickwit-oss/quickwit",
+  "skills": [
+    {
+      "name": "fix-clippy",
+      "description": ""
+    },
+    {
+      "name": "fmt",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "description": ""
+    }
+  ]
+}
