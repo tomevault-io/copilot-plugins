@@ -4,7 +4,7 @@
   "repo": "poker-planning",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/spokvulcan/poker-planning",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T06:06:59Z"
+  "distributed_at": "2026-07-24T05:00:28Z"
 }
