@@ -1,0 +1,105 @@
+{
+  "name": "uk.react.dev",
+  "owner": "reactjs",
+  "repo": "uk.react.dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/write/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/docs-voice/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/docs-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/review-docs/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/review-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/react-expert/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/react-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/docs-sandpack/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/docs-sandpack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/docs-components/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/docs-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/docs-writer-blog/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/docs-writer-blog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/docs-writer-learn/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/docs-writer-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/docs-rsc-sandpack/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/docs-rsc-sandpack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uk.react.dev",
+      "path": ".claude/skills/docs-writer-reference/SKILL.md",
+      "github_url": "https://github.com/reactjs/uk.react.dev/tree/main/.claude/skills/docs-writer-reference/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/reactjs/uk.react.dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:59:39Z"
+}
