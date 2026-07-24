@@ -1,0 +1,14 @@
+{
+  "name": "drasi-project--drasi-core",
+  "displayName": "drasi-core",
+  "description": "drasi-core",
+  "version": "1.0.0",
+  "author": "drasi-project",
+  "homepage": "https://github.com/drasi-project/drasi-core",
+  "skills": [
+    {
+      "name": "drasi-core",
+      "description": ""
+    }
+  ]
+}
