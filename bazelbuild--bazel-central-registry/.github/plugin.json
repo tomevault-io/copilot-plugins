@@ -1,0 +1,22 @@
+{
+  "name": "bazelbuild--bazel-central-registry",
+  "displayName": "bazel-central-registry",
+  "description": "bazel-central-registry",
+  "version": "1.0.0",
+  "author": "bazelbuild",
+  "homepage": "https://github.com/bazelbuild/bazel-central-registry",
+  "skills": [
+    {
+      "name": "bazel-central-registry",
+      "description": ""
+    },
+    {
+      "name": "bazel-central-registry",
+      "description": ""
+    },
+    {
+      "name": "bazel-central-registry",
+      "description": ""
+    }
+  ]
+}
