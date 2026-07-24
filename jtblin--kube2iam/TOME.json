@@ -1,0 +1,51 @@
+{
+  "name": "kube2iam",
+  "owner": "jtblin",
+  "repo": "kube2iam",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kube2iam",
+      "path": ".agents/skills/kube2iam_triage/SKILL.md",
+      "github_url": "https://github.com/jtblin/kube2iam/tree/main/.agents/skills/kube2iam_triage/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jtblin/kube2iam",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T08:19:38Z"
+}
