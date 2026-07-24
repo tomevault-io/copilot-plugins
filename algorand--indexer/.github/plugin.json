@@ -1,0 +1,9 @@
+{
+  "name": "algorand--indexer",
+  "displayName": "indexer",
+  "description": "indexer",
+  "version": "1.0.0",
+  "author": "algorand",
+  "homepage": "https://github.com/algorand/indexer",
+  "skills": []
+}
