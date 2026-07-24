@@ -1,0 +1,9 @@
+{
+  "name": "kubevirt--kubevirt-tekton-tasks",
+  "displayName": "kubevirt-tekton-tasks",
+  "description": "kubevirt-tekton-tasks",
+  "version": "1.0.0",
+  "author": "kubevirt",
+  "homepage": "https://github.com/kubevirt/kubevirt-tekton-tasks",
+  "skills": []
+}
