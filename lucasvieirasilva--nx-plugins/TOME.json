@@ -1,0 +1,63 @@
+{
+  "name": "nx-plugins",
+  "owner": "lucasvieirasilva",
+  "repo": "nx-plugins",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nx-plugins",
+      "path": ".claude/skills/sonarcloud-review/SKILL.md",
+      "github_url": "https://github.com/lucasvieirasilva/nx-plugins/tree/main/.claude/skills/sonarcloud-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx-plugins",
+      "path": ".claude/skills/github-pr-description/SKILL.md",
+      "github_url": "https://github.com/lucasvieirasilva/nx-plugins/tree/main/.claude/skills/github-pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nx-plugins",
+      "path": ".claude/skills/conventional-commit-message/SKILL.md",
+      "github_url": "https://github.com/lucasvieirasilva/nx-plugins/tree/main/.claude/skills/conventional-commit-message/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lucasvieirasilva/nx-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:57:19Z"
+}
