@@ -1,0 +1,167 @@
+## jkp-data
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This repo generates the Global Factor Data: 406 stock characteristics and their associated factor portfolios, based on "Is there a Replication Crisis in Finance?" by Jensen, Kelly, and Pedersen (Journal of Finance, 2023). It downloads data from WRDS (Wharton Research Data Services), computes characteristics from CRSP and Compustat sources, and constructs factor portfolios.
+
+## Build & Run Commands
+
+For complete setup and contribution instructions, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+```bash
+# Install dependencies
+uv sync
+
+# Run linting
+uv run ruff check src/jkp/data/ tests/
+uv run ruff format --check src/jkp/data/ tests/
+
+# Run type checking (informational, not blocking in CI)
+uv run pyright src/jkp/data/
+
+# Run all unit tests
+uv run pytest tests/unit/
+
+# Run a specific test file or class
+uv run pytest tests/unit/test_expressions.py
+uv run pytest tests/unit/test_expressions.py::TestSumSas
+
+# Run tests with coverage
+uv run pytest
+
+# Run the full pipeline (requires WRDS credentials and ~450 GB RAM)
+jkp build data/                     # stock returns and firm characteristics
+jkp portfolio data/                 # factor returns (run after jkp build)
+
+# WRDS connection management
+jkp connect                         # test connection
+jkp connect --reset                 # reset stored credentials
+
+```
+
+## Architecture
+
+The pipeline has two entry points that run sequentially:
+
+**`src/jkp/data/main.py`** produces stock returns and firm characteristics:
+1. Download raw data from WRDS (CRSP, Compustat)
+2. Prepare and merge data sources (augmented monthly stock file, market cap/trading info)
+3. Classify stocks by industry (Fama-French 49) and size (NYSE quintile cutoffs)
+4. Compute characteristics from accounting and market data
+5. Calculate rolling daily metrics (volatility, beta, skewness) across 21d/126d/252d/1260d windows
+6. Save outputs as parquet files to `data/processed/`
+
+**`src/jkp/data/portfolio.py`** constructs factor portfolios from the characteristics output by `main.py`, using ECDF ranking and value-weighting by market cap.
+
+### Key source files
+
+- `src/jkp/data/main.py` — Pipeline orchestration; calls functions from `aux_functions` in sequence
+- `src/jkp/data/aux_functions.py` — Core library: all characteristic calculations, data transformations, and I/O utilities
+- `src/jkp/data/portfolio.py` — Standalone factor portfolio construction script
+- `src/jkp/data/wrds_credentials.py` — WRDS credential resolution (env vars, system keyring, and the libpq `~/.pgpass` file)
+
+### Data flow
+
+Raw WRDS data → `data/raw/` → intermediate processing in `data/interim/` → final outputs in `data/processed/` (subdirectories: `characteristics/`, `portfolios/`, `return_data/`, `accounting_data/`, `other_output/`).
+
+Static reference data (`data/cluster_labels.csv`, `data/country_classification.xlsx`, `data/factor_details.xlsx`) is checked into the repo and used by the pipeline.
+
+## Code Conventions
+
+- **Polars, not Pandas.** The codebase uses Polars with lazy evaluation throughout. Always use `import polars as pl` and Polars APIs.
+- **`pl.col()`, not bare `col()`.** Use `pl.col(...)` in new code. Existing code uses `from polars import col` with bare `col(...)`, but the standard Polars convention is the namespaced form.
+- **Ruff:** Used for linting and formatting — abide by all rules specified in `pyproject.toml`
+- **Python target:** See `requires-python` and `target-version` in `pyproject.toml`
+
+## Development Guidelines
+
+**Modularity & structure:**
+- New pipeline functions should be added to `aux_functions.py` and called from `main.py`
+- Use the `@measure_time` decorator on pipeline-level functions
+- Use `collect_and_write()` for the lazy→eager→parquet workflow
+- Pipeline functions in `aux_functions.py` that touch the filesystem must accept `paths: DataPaths` as their first parameter and use it for all path construction (e.g. `paths.interim_dir / "foo.parquet"`, `paths.raw_tables_dir / ...`). Never use `os.chdir`, `os.system`, or bare relative path strings. DuckDB SQL strings should interpolate `Path.as_posix()` rather than rely on cwd.
+
+**Docstring format** (the codebase uses a consistent three-part format):
+```
+Description:
+    What the function does.
+Steps:
+    1) ...
+Output:
+    What is written/returned.
+```
+
+**Polars patterns:**
+- Use `pl.scan_parquet()` (lazy) for reading, not `pl.read_parquet()` unless full data is needed eagerly
+- Return Polars expressions from helper functions (like `safe_div`)
+- Use `safe_div()` for any division — never raw `/`
+- **Do not use `sum_sas` or `sub_sas` in new code.** These are legacy functions that replicate SAS null semantics (treat null as 0 when any input is non-null). They exist for backward compatibility in existing characteristic calculations. New code should use standard Polars null propagation, or explicit `pl.coalesce()` when null-as-zero behavior is needed.
+- Prefer Polars over DuckDB/Ibis for new code. Existing code uses DuckDB via Ibis for some complex SQL aggregations, but new work should use Polars expressions and lazy evaluation where possible.
+
+**Type hints:**
+- Add type annotations to new functions (parameters and return types), even though older code in `aux_functions.py` lacks them
+
+**Testing:**
+- New functions should have corresponding unit tests in `tests/unit/`; see [tests/README.md](tests/README.md) for detailed patterns, conventions, fixture usage, and numerical tolerance guidance
+
+**DRY / reuse:**
+- Check `aux_functions.py` for existing helpers before writing new ones (especially `safe_div`, `fl_none`, `bo_false`)
+- Don't duplicate characteristic calculations that already exist
+
+## Testing
+
+See [tests/README.md](tests/README.md) for full guidance on writing tests, numerical tolerances, markers, common patterns, and CI integration.
+
+Key conventions to know:
+- Tests live in `tests/unit/` with shared fixtures in `tests/conftest.py`
+- Available test markers: `unit`, `integration`, `methodology`, `regression`, `expensive`, `wrds`
+- Key fixtures: `tolerance` (pre-calibrated `ToleranceSpec` levels), `assert_series_equal` (NaN-aware series comparison), `make_dataframe` (test DataFrame factory), `temp_data_dir` (temp directory with pipeline subdirectories), `test_paths` (`DataPaths` instance rooted at `temp_data_dir`; use this for any test of a pipeline function that takes `paths: DataPaths`)
+
+## Data Changelog
+
+`CHANGELOG_DATA.md` is the **data changelog**. It records only *meaningful changes to the underlying dataset*: methodology changes, new/removed characteristics or columns, and bug fixes that change the values written to `data/processed/`. This is what most data users read. Entries are dated by merge date (`## DD-MM-YYYY` headers, newest first) and reference the PR number.
+
+When making a change, add a `CHANGELOG_DATA.md` entry only if it changes the values, columns, or methodology of anything written to `data/processed/`. Pure code/infra/tests/docs changes that don't affect the data output do not belong here.
+
+## Development Workflow
+
+For standard contribution steps (branching, running tests, linting, and opening a PR), see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Additional Claude Code-specific steps when making changes:
+
+1. **Find or open an issue** — Search existing GitHub issues (`gh issue list`) for a matching issue. If none exists, create one using the predefined issue templates in `.github/ISSUE_TEMPLATE/` (`gh issue create`) describing the problem or feature before starting work.
+
+2. **Create a branch** — Branch from `main` with a descriptive name:
+   ```bash
+   git checkout -b <topic>  # e.g. fix-beta-calculation, add-momentum-char
+   ```
+   For parallel work, create a git worktree instead:
+   ```bash
+   git worktree add ../jkp-data-<topic> -b <topic>
+   ```
+
+3. **Implement the change** — Follow the conventions in this file (Code Conventions, Development Guidelines).
+
+4. **Verify before opening a PR:**
+   - All existing tests pass: `uv run pytest tests/unit/`
+   - New functions have corresponding unit tests (use the test-scaffolder agent if needed)
+   - Code passes lint and format checks: `uv run ruff check src/jkp/data/ tests/ && uv run ruff format --check src/jkp/data/ tests/`
+   - Changed code follows project conventions: run `/review-code`
+
+5. **Open a pull request** — Reference the issue in the PR description. The PR template will guide you through the required sections.
+
+6. **Request review from Copilot** — Use GitHub's Copilot reviewer on the PR.
+
+7. **Review Copilot suggestions with Claude Code** — Have Claude Code review Copilot's feedback and implement suggestions where appropriate.
+
+8. **Request human review** — Assign a human reviewer: prefer `theisij` for fundamental codebase changes; prefer `capellini` for infrastructure-related changes.
+
+---
+> Source: [bkelly-lab/jkp-data](https://github.com/bkelly-lab/jkp-data) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
