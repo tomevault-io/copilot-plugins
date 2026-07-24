@@ -1,0 +1,14 @@
+{
+  "name": "pydantic--logfire",
+  "displayName": "logfire",
+  "description": "logfire",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/logfire",
+  "skills": [
+    {
+      "name": "logfire",
+      "description": ""
+    }
+  ]
+}
