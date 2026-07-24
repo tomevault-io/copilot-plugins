@@ -4,7 +4,7 @@
   "repo": "smartsheet-python-sdk",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/smartsheet/smartsheet-python-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T20:54:22Z"
+  "distributed_at": "2026-07-24T03:00:29Z"
 }
