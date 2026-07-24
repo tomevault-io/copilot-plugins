@@ -1,14 +1,11 @@
 ## electric
 
-> The durable runtime for long-lived agents.
+> See [AGENTS.md](./AGENTS.md) for project conventions, architecture, and coding guidelines.
 
+# Claude Code Guidelines
 
-<script setup>
-import OgAgents from '../src/components/og/OgAgents.vue'
-</script>
-
-<OgAgents />
+See [AGENTS.md](./AGENTS.md) for project conventions, architecture, and coding guidelines.
 
 ---
 > Source: [electric-sql/electric](https://github.com/electric-sql/electric) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
