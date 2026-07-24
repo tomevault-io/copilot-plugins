@@ -1,0 +1,18 @@
+{
+  "name": "xrplevm--node",
+  "displayName": "node",
+  "description": "node",
+  "version": "1.0.0",
+  "author": "xrplevm",
+  "homepage": "https://github.com/xrplevm/node",
+  "skills": [
+    {
+      "name": "node",
+      "description": ""
+    },
+    {
+      "name": "node",
+      "description": ""
+    }
+  ]
+}
