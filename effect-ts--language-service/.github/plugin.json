@@ -1,0 +1,9 @@
+{
+  "name": "effect-ts--language-service",
+  "displayName": "language-service",
+  "description": "language-service",
+  "version": "1.0.0",
+  "author": "Effect-TS",
+  "homepage": "https://github.com/Effect-TS/language-service",
+  "skills": []
+}
