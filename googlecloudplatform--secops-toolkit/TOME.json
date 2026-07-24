@@ -1,0 +1,99 @@
+{
+  "name": "secops-toolkit",
+  "owner": "GoogleCloudPlatform",
+  "repo": "secops-toolkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_init/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_format/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_extract/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_validate/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_recommend/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_recommend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_migrate_rule/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_migrate_rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_generate_log/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_generate_log/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_author_notes/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_author_notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "secops-toolkit",
+      "path": "blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_generate_rule/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/secops-toolkit/tree/main/blueprints/secops-ai-migration-helper/.agents/skills/migration_helper_generate_rule/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GoogleCloudPlatform/secops-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:47:26Z"
+}
