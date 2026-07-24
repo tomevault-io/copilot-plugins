@@ -1,0 +1,14 @@
+{
+  "name": "codegen-sh--graph-sitter",
+  "displayName": "graph-sitter",
+  "description": "graph-sitter",
+  "version": "1.0.0",
+  "author": "codegen-sh",
+  "homepage": "https://github.com/codegen-sh/graph-sitter",
+  "skills": [
+    {
+      "name": "graph-sitter",
+      "description": ""
+    }
+  ]
+}
