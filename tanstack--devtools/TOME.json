@@ -3,7 +3,7 @@
   "owner": "TanStack",
   "repo": "devtools",
   "description": "\ud83e\udd16 Framework-agnostic devtools panel for handling TanStack libraries devtools and your custom devtool plugins",
-  "type": "config",
+  "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,8 +37,57 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "devtools",
+      "path": "packages/devtools/skills/devtools-production/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/devtools/skills/devtools-production/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "packages/devtools/skills/devtools-marketplace/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/devtools/skills/devtools-marketplace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "packages/devtools/skills/devtools-plugin-panel/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/devtools/skills/devtools-plugin-panel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "packages/devtools-vite/skills/devtools-vite-plugin/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/devtools-vite/skills/devtools-vite-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "packages/event-bus-client/skills/devtools-event-client/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/event-bus-client/skills/devtools-event-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "packages/event-bus-client/skills/devtools-bidirectional/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/event-bus-client/skills/devtools-bidirectional/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "packages/event-bus-client/skills/devtools-instrumentation/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/event-bus-client/skills/devtools-instrumentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "packages/devtools-utils/skills/devtools-framework-adapters/SKILL.md",
+      "github_url": "https://github.com/TanStack/devtools/tree/main/packages/devtools-utils/skills/devtools-framework-adapters/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/TanStack/devtools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T23:08:01Z"
+  "distributed_at": "2026-07-24T09:34:05Z"
 }
