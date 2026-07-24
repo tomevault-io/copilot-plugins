@@ -1,529 +1,153 @@
 ## wikipedia-api
 
-> validates that `ATTRIBUTES_MAPPING` in `_base_wikipedia_page.py` is
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-Guide for AI agents (and developers) on how to install, build, and test the Wikipedia-API project.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Before You Start
+## Project Overview
 
-**📖 CRITICAL: Always read the design and API documentation first**
+Wikipedia-API is a Python wrapper for the MediaWiki API. It provides both synchronous (`Wikipedia`) and asynchronous (`AsyncWikipedia`) clients. Published on PyPI as `wikipedia-api`. Requires Python 3.10+.
 
-Before making any changes, read these two documents to understand the
-architecture, class hierarchy, and public API:
-
-- **`DESIGN.rst`** — internal architecture, class hierarchy, request
-  lifecycle, dispatch helpers, and a step-by-step guide for adding new
-  API calls.
-- **`API.rst`** — public API reference: every method, property, and
-  attribute available on `Wikipedia`, `AsyncWikipedia`, `WikipediaPage`,
-  `AsyncWikipediaPage`, `WikipediaPageSection`, and the CLI.
-
-Skipping this step risks duplicating existing logic, violating
-established conventions, or breaking the sync/async symmetry.
-
-## Sync / Async Symmetry
-
-**🚨 CRITICAL: The sync and async APIs MUST stay in perfect symmetry.**
-
-`WikipediaPage` and `AsyncWikipediaPage` are parallel classes.
-Every public attribute or method on one **must** have the same kind of
-interface on the other:
-
-| If `WikipediaPage` has …     | then `AsyncWikipediaPage` MUST have …                                            |
-| ---------------------------- | -------------------------------------------------------------------------------- |
-| `@property foo`              | awaitable property `await page.foo` (explicit `@property` returning a coroutine) |
-| plain method `foo()`         | coroutine method `await page.foo()`                                              |
-| plain `@property` (no fetch) | plain `@property` (no fetch)                                                     |
-
-**Never** convert a property to a method (or vice versa) in one class
-without making the matching change in the other. Violations break
-the documented API contract and confuse callers who switch between
-the two clients.
-
-Examples of correct symmetry currently in place:
-
-- `page.summary`, `page.text`, `page.langlinks`, `page.links`,
-  `page.backlinks`, `page.categories`, `page.categorymembers` —
-  `@property` in sync; explicit `@property` returning a coroutine in async.
-- `page.pageid`, `page.fullurl`, `page.displaytitle`, and all other
-  info attributes — same pattern: `@property` in sync, awaitable
-  `@property` in async.
-- `page.exists()` — plain method in sync; coroutine method
-  `await page.exists()` in async (both use call syntax `()`).
-- `page.sections`, `page.title`, `page.ns`, `page.language`,
-  `page.variant` — plain `@property` in both (no awaiting needed).
-
-## Typing Standards
-
-**🧠 Prefer explicit type annotations and minimize `Any`.**
-
-When writing or updating Python code in this repository:
-
-- Use inline type annotations directly on variables, attributes, parameters,
-  and return values (e.g. `value: dict[str, int] = {}`), instead of legacy
-  `# type:` comments.
-- Avoid `Any` whenever a more specific type can be expressed.
-- Use `Any` only when it is absolutely necessary (for example, dynamic external
-  payloads or framework boundaries where precise typing is not practical).
-- If `Any` is required, keep its scope as small as possible and prefer typed
-  wrappers/conversions at the boundary.
-- Validate typing-related changes by running `make run-pre-commit` before
-  submitting.
-
-## Docstring Standards
-
-**📝 Write descriptive docstrings with consistent structure.**
-
-All functions, methods, classes, and modules must have descriptive docstrings that follow this structure:
-
-### Required Docstring Format
-
-```python
-def example_function(param1: str, param2: int) -> bool:
-    """One-line summary of the function's purpose.
-
-    Detailed description of the function's behavior, including important
-    implementation details, usage patterns, or context.
-
-    Args:
-        param1: Description of the first parameter, including expected format
-            and constraints.
-        param2: Description of the second parameter, including valid ranges
-            or special values.
-
-    Returns:
-        Description of the return value, including its type and meaning.
-        Include possible return values and their significance.
-
-    Raises:
-        ExceptionType: Description of when this exception is raised,
-            including the conditions that trigger it.
-        AnotherException: Description of when this exception occurs.
-
-    Invariants:
-        - Any conditions that remain true before and after execution
-        - State guarantees that the function maintains
-        - Thread safety considerations if applicable
-    """
-```
-
-### Docstring Requirements
-
-1. **One-line summary**: Must be a complete sentence ending with a period
-   that concisely describes what the function does.
-
-2. **Detailed description**: Expand on the summary with implementation details,
-   usage examples, or important context.
-
-3. **Parameters section (`Args`)**: Document all parameters with:
-   - Parameter name (matching the function signature)
-   - Description including expected format, constraints, and valid values
-   - Use proper indentation and formatting
-
-4. **Return values section (`Returns`)**: Document the return value with:
-   - Type information (if not obvious from type hints)
-   - Meaning and significance of different return values
-   - Special cases or conditions
-
-5. **Exceptions section (`Raises`)**: Document all exceptions that can be raised:
-   - Exception type name
-   - Conditions that trigger the exception
-   - Any recovery strategies or expected handling
-
-6. **Invariants section (`Invariants`)**: Document any guarantees:
-   - Pre/post-conditions that remain true
-   - State guarantees and thread safety
-   - Side effects and their implications
-
-### Special Cases
-
-- **Properties**: Use the same format but replace `Args` with appropriate sections
-- **Methods**: Include `self` parameter documentation if relevant
-- **Classes**: Include overall purpose, usage examples, and important attributes
-- **Modules**: Describe the module's purpose and main exports
-
-### Examples
-
-```python
-def page_exists(self) -> bool:
-    """Check if the Wikipedia page exists on the server.
-
-    Performs a lightweight check to determine if the page exists without
-    fetching the full page content. This is useful for validation before
-    attempting expensive operations.
-
-    Returns:
-        True if the page exists and is accessible, False if the page
-        does not exist or cannot be accessed.
-
-    Raises:
-        requests.exceptions.ConnectionError: If the network connection fails.
-        requests.exceptions.Timeout: If the request times out.
-
-    Invariants:
-        - Does not modify the page's internal state
-        - Safe to call multiple times without side effects
-        - Thread-safe for concurrent access
-    """
-```
-
-All docstrings must be checked during code review and should pass the
-pre-commit hooks without warnings.
-
-## Prerequisites
-
-- **Python 3.10+** (supported: 3.10, 3.11, 3.12, 3.13, 3.14)
-- **uv** (Python package manager and installer)
-- **Make**
-
-## Install
-
-Install all dependencies (runtime, dev, docs, build):
+## Commands
 
 ```bash
+# Install all dependencies (uses uv package manager)
 make requirements-all
-```
 
-Or install individual dependency groups:
+# Run all tests (unit + CLI verification)
+make run-tests
 
-- **Runtime dependencies:** `make requirements` (installs core dependencies)
-- **Dev dependencies:** `make requirements-dev` (installs ruff, coverage, ty, pre-commit, tox, etc.)
-- **Doc dependencies:** `make requirements-doc` (installs sphinx)
-- **Build dependencies:** `make requirements-build` (installs rst2html, setuptools, wheel)
+# Run only unit tests
+make run-tests-unit
 
-Note: uv automatically creates and manages a virtual environment in `.venv/`.
+# Run a single test file / class / method
+uv run pytest tests/wikipedia_test.py
+uv run pytest tests/wikipedia_test.py::TestWikipedia
+uv run pytest tests/wikipedia_test.py::TestWikipedia::test_method
 
-## Build
+# Run tests with coverage (must stay above 90%)
+make run-coverage
 
-Build the source distribution package:
+# Run all pre-commit hooks
+make run-pre-commit
 
-```bash
+# Type checking only
+make run-type-check
+
+# Linting and formatting check (ruff)
+make run-ruff
+
+# CLI snapshot tests
+make run-test-cli-verify    # verify against recorded snapshots
+make run-test-cli-record    # re-record snapshots after intentional CLI changes
+
+# Validate ATTRIBUTES_MAPPING is in sync with page properties
+make run-validate-attributes-mappping
+
+# Full pre-release validation
+make pre-release-check
+
+# Build package
 make build-package
 ```
 
-Generate PyPI HTML documentation preview:
+## Architecture
 
-```bash
-make pypi-html
+The codebase separates two concerns via mixins and multiple inheritance:
+
+1. **HTTP Transport** (`wikipediaapi/_http_client/`) - sync/async HTTP with retry logic via tenacity + httpx
+2. **API Logic** (`wikipediaapi/_resources/`) - MediaWiki parameter building and response parsing
+
+Concrete clients compose one of each:
+```
+Wikipedia(WikipediaResource, SyncHTTPClient)
+AsyncWikipedia(AsyncWikipediaResource, AsyncHTTPClient)
 ```
 
-Generate Sphinx HTML documentation:
+### Key layers
 
-```bash
-make html
-```
+- `_http_client/` - `BaseHTTPClient` (shared config/retry) -> `SyncHTTPClient` / `AsyncHTTPClient`
+- `_resources/` - `BaseWikipediaResource` (param builders `_*_params`, response parsers `_build_*`, dispatch helpers) -> `WikipediaResource` / `AsyncWikipediaResource`
+- `_wikipedia/` - `Wikipedia` (sync concrete client) / `AsyncWikipedia` (async concrete client)
+- `_page/` - `BaseWikipediaPage` -> `WikipediaPage` (sync, lazy properties) / `AsyncWikipediaPage` (awaitable properties) / `WikipediaPageSection`
+- `_image/` - `BaseWikipediaImage` -> `WikipediaImage` (sync) / `AsyncWikipediaImage` (async)
+- `_types/` - Frozen dataclasses (Coordinate, GeoPoint, SearchResults, etc.)
+- `_params/` - Query parameter dataclasses with `to_api()` and `cache_key()` methods
+- `_enums/` - Strongly-typed enums for API parameters (Namespace, SearchSort, etc.)
+- `exceptions/` - Exception hierarchy (WikiConnectionError, WikiHttpError, WikiRateLimitError, etc.)
+- `cli.py` - Click-based CLI tool
 
-## Test
+### Dispatch helpers
 
-### Run Tests
+Four patterns in `BaseWikipediaResource`, each with sync and async variants:
+- `_dispatch_prop` - single-page prop query (extracts, info, langlinks, categories)
+- `_dispatch_prop_paginated` - paginated prop query (links, coordinates, images)
+- `_dispatch_list` - paginated list query requiring a page (backlinks, categorymembers)
+- `_dispatch_standalone_list` - paginated list query without a page
 
-```bash
-make run-tests
-```
+**Warning**: `geosearch`, `random`, and `search` deliberately use a single `_get` call (not `_dispatch_standalone_list`) to avoid infinite loops.
 
-This command runs both the unit tests and CLI verification tests.
+### Page lazy loading
 
-- The unit tests are executed via `uv run pytest tests/`. All test files are in the `tests/` directory and follow the `*_test.py` naming pattern.
-- The CLI verification tests are run using `./tests/cli/test_cli.sh verify`.
+Pages created via `wiki.page(title)` make no network call at construction. Properties (summary, text, links, etc.) fetch on first access and cache the result. `ATTRIBUTES_MAPPING` in `_page/_base_wikipedia_page.py` maps property names to API calls.
 
-### CLI Tests
+`coordinates` and `images` use per-parameter caching via `page._param_cache[name][cache_key]` with a `NOT_CACHED` sentinel.
 
-You can run the CLI tests independently.
+## Critical Invariants
 
-- **Verify CLI:** `make run-test-cli-verify`
-  - This runs the CLI tests to verify that the output matches the recorded snapshots. It uses `./tests/cli/test_cli.sh verify`.
+### Sync/async symmetry is mandatory
 
-- **Record CLI Snapshots:** `make run-test-cli-record`
-  - This command updates the CLI test snapshots with the current output. Use this when you have intentionally changed the CLI's output. It runs `./tests/cli/test_cli.sh record`.
+Every public attribute/method on `WikipediaPage` must have a matching interface on `AsyncWikipediaPage`:
+- Sync `@property` -> Async `@property` returning a coroutine (`await page.foo`)
+- Sync method -> Async coroutine method
+- Non-fetching `@property` -> Same in both
 
-### Run Tests with Coverage
+Both sync and async methods share the same `_*_params` and `_build_*` implementations.
 
-```bash
-make run-coverage
-```
+### After every change checklist
 
-Produces a coverage report and `coverage.xml` for the `wikipediaapi` package using pytest and pytest-cov.
+1. Update `API.rst` and `DESIGN.rst` if architecture/API changed
+2. Update `index.rst` and `README.rst` (must stay in sync) if user-facing behavior changed
+3. Update `example_sync.py` and `example_async.py`
+4. Update CLI (`cli.py`, `tests/cli/test_cli.sh`, `tests/cli_test.py`, `CLI.rst`)
+5. Update `tests/test_sync_async_symmetry.py` property lists for new page attributes
+6. Run `make run-validate-attributes-mappping` for page property changes
+7. Run `make run-pre-commit` and `make run-coverage`
+8. Add a bullet to the `Unreleased` section in `CHANGES.rst` describing the change and linking the PR
 
-### Code Coverage Requirements
+### Testing rules
 
-**🎯 CRITICAL: Always maintain code coverage above 90%**
+- All HTTP tests must use `tests/mock_data.py` - never make real HTTP requests in unit tests
+- Test files follow `*_test.py` naming pattern
+- `asyncio_mode = "auto"` is configured for pytest-asyncio
+- Code coverage must stay above 90% (core modules 95%+)
 
-Before submitting any changes, ensure that:
+### Code style
 
-1. **Run coverage check**: `make run-coverage`
-2. **Verify coverage**: All modules must have ≥90% coverage
-3. **CLI module special attention**: The `wikipediaapi/cli.py` module must maintain ≥90% coverage
-4. **If coverage drops**: Add appropriate tests to bring coverage back above 90%
-5. **Coverage report**: Check the output for any modules below 90% and address them
+- Max line length: 100 characters (enforced by ruff)
+- Explicit type annotations preferred; minimize use of `Any`
+- Use `uv run` to execute scripts (not `.venv/bin/python`)
 
-Current coverage targets:
+## Adding a New API Call
 
-- **Overall project**: ≥90%
-- **CLI module**: ≥90% (currently 96%)
-- **Core modules**: ≥95%
+Follow the step-by-step guide in `DESIGN.rst` ("Adding a New API Call" section). The process:
 
-The coverage report will show:
+1. Choose the right dispatcher based on response structure
+2. Add cache slot to `BaseWikipediaPage.__init__`
+3. Add `_*_params` method to `BaseWikipediaResource`
+4. Add `_build_*` response parser to `BaseWikipediaResource`
+5. Add sync method to `WikipediaResource`
+6. Add async method to `AsyncWikipediaResource`
+7. Add lazy `@property` to `WikipediaPage`
+8. Add awaitable `@property` to `AsyncWikipediaPage`
+9. Add tests with mock data
 
-```
-Name                                     Stmts   Miss  Cover   Missing
-wikipediaapi/cli.py                        289     11    96%   28, 38, 60-61, 367-376, 730
-```
+## Adding a New Submodule
 
-If any module shows coverage below 90%, you must:
-
-1. Identify the missing lines in the `Missing` column
-2. Write tests to cover the uncovered code paths
-3. Re-run coverage until all modules meet the 90% threshold
-
-### HTTP Request Testing Requirements
-
-**🌐 CRITICAL: All tests making HTTP requests must use `tests/mock_data.py`**
-
-When writing or updating tests that make HTTP requests to Wikipedia's API:
-
-1. **Always use `tests/mock_data.py`**: All HTTP request-based tests must import and use mock fixtures from `tests/mock_data.py`
-2. **Never make real HTTP requests in unit tests**: Tests should be deterministic and fast, not dependent on network connectivity
-3. **Use existing mock fixtures**: Import functions like `create_mock_wikipedia()`, `create_mock_page()`, and predefined API responses
-4. **Add new mock data when needed**: If testing new API endpoints, add appropriate mock responses to `tests/mock_data.py`
-5. **Keep mock data consistent**: Ensure mock responses match the actual Wikipedia API structure and format
-
-Examples of tests that must use `mock_data.py`:
-
-- All `*test.py` files that test API methods (`page.summary()`, `page.text()`, `wiki.search()`, etc.)
-- Integration tests for `Wikipedia`, `AsyncWikipedia`, `WikipediaPage`, `AsyncWikipediaPage`
-- CLI tests that verify API command output
-- Error handling tests for network-related failures
-
-Tests that don't need `mock_data.py`:
-
-- Pure unit tests for enums, converters, parameter validation
-- Type checking and validation logic tests
-- Internal algorithm tests that don't touch external APIs
-
-### VCR Integration Testing Requirements
-
-**📼 CRITICAL: All new public APIs must include VCR integration tests**
-
-When adding new public API methods or modifying existing ones that make HTTP requests:
-
-1. **Always add VCR tests**: Create integration tests in the `tests/vcr_*_test.py` files
-2. **Record real API responses**: Use `--record-mode=once` to record actual Wikipedia API responses
-3. **Test both sync and async**: Ensure both synchronous and asynchronous APIs have VCR coverage
-4. **Cover all parameter combinations**: Test different parameter values, enum options, and edge cases
-5. **Use appropriate test files**:
-   - `tests/vcr_wiki_client_sync_test.py` / `tests/vcr_wiki_client_async_test.py` for `Wikipedia`/`AsyncWikipedia` methods
-   - `tests/vcr_page_sync_test.py` / `tests/vcr_page_async_test.py` for `WikipediaPage`/`AsyncWikipediaPage` methods
-   - `tests/vcr_pages_dict_sync_test.py` / `tests/vcr_pages_dict_async_test.py` for `PagesDict`/`AsyncPagesDict` methods
-
-**VCR Test Workflow:**
-
-```bash
-# Record new API responses (run once when adding tests)
-uv run pytest tests/vcr_wiki_client_sync_test.py::TestClassName::test_method --record-mode=once
-
-# Run integration tests using recorded cassettes
-make run-tests-integration
-
-# Run specific VCR test files
-uv run pytest tests/vcr_page_sync_test.py tests/vcr_page_async_test.py --record-mode=none -v
-```
-
-**VCR Test Requirements:**
-
-- **Real API validation**: Tests must use actual Wikipedia API responses (not mocked data)
-- **Complete parameter coverage**: Test all enum values, optional parameters, and edge cases
-- **Both sync/async variants**: Maintain perfect symmetry between sync and async tests
-- **Deterministic results**: Tests should be fast and reliable using recorded cassettes
-- **Proper cassette naming**: Use descriptive test method names for clear cassette identification
-
-**Examples of APIs requiring VCR tests:**
-
-- New `wiki.search()` parameters or options
-- New `wiki.geosearch()` functionality
-- New `page.coordinates()` properties
-- Any new method that makes HTTP requests to Wikipedia's API
-- Modified parameter handling in existing HTTP-based methods
-
-VCR integration tests complement unit tests by ensuring the library works correctly against real Wikipedia API responses while maintaining test speed and reliability.
-
-### Code Quality Requirements
-
-**🔧 CRITICAL: All pre-commit hooks must pass**
-
-Before submitting any changes, ensure that:
-
-1. **Run pre-commit checks**: `make run-pre-commit`
-2. **All hooks must pass**: No failures allowed
-3. **Fix any issues**: Address linting, formatting, type checking, and other violations
-4. **Re-run until clean**: Continue fixing and re-running until all checks pass
-5. **Check project configuration**: Verify line length limits and linter settings in `pyproject.toml` match project requirements
-
-The pre-commit hooks include:
-
-- **ruff**: Linting and import sorting (replaces flake8 + isort)
-- **ruff-format**: Code formatting (replaces black, max 100 characters per line)
-- **ty**: Type checking
-- **pyupgrade**: Python syntax upgrades
-- **trailing whitespace**: Whitespace cleanup
-- **YAML validation**: YAML file checks
-
-Common issues to fix:
-
-- Remove unused imports (F401)
-- Fix line length violations (E501: max 100 characters)
-- Resolve type checking errors
-- Fix undefined variables (F821)
-- Avoid lambda assignments (E731)
-- Fix redefinition errors (F811)
-
-**Project Configuration**: Check `pyproject.toml` for:
-
-- `tool.ruff.line-length = 100`
-- Linter configurations in `[tool.ruff.*]` sections
-
-### Run Tests Across Python Versions (tox)
-
-```bash
-make run-tox
-```
-
-Runs the test suite against Python 3.10–3.14 via tox.
-
-## Lint & Type Checking
-
-### Run All Pre-commit Hooks
-
-```bash
-make run-pre-commit
-```
-
-This runs ruff (lint + format), ty, pyupgrade, and other checks (trailing whitespace, YAML validation, etc.).
-
-### Run Individual Checks
-
-- **Type checking:** `uv run ty check wikipediaapi/`
-- **Linting & formatting:** `make run-ruff` (runs `ruff check` and `ruff format --check`)
-
-## After Every Change
-
-**✅ CRITICAL: Keep all documentation, examples, and tests in sync**
-
-After completing any change, go through this checklist before committing:
-
-### 1. Update documentation files
-
-Ensure each of the following files accurately reflects the change:
-
-- **`API.rst`** — add or update entries for any new or modified
-  methods, properties, or attributes.
-- **`DESIGN.rst`** — update the class hierarchy, file layout, diagrams,
-  or step-by-step guide if the architecture changed.
-- **`index.rst`** — update usage examples or feature descriptions if
-  user-facing behaviour changed (note: `README.rst` is identical in
-  content and must be kept in sync with `index.rst`).
-- **`README.rst`** — mirror any changes made to `index.rst`.
-
-### 2. Update example files
-
-- **`example_sync.py`** — add or update usage of any new or changed
-  synchronous API (`Wikipedia`, `WikipediaPage`).
-- **`example_async.py`** — add or update usage of any new or changed
-  asynchronous API (`AsyncWikipedia`, `AsyncWikipediaPage`).
-
-Both files serve as living documentation and must exercise every
-publicly available method and attribute.
-
-### 3. Update the CLI tool
-
-Whenever the public API of `Wikipedia` or `AsyncWikipedia` changes
-(new methods, renamed parameters, changed return types), the
-command-line interface and its tests **must** be updated in lockstep:
-
-- **`wikipediaapi/cli.py`** — add or update CLI commands and their
-  helper functions to expose the new or changed API functionality.
-- **`tests/cli/test_cli.sh`** — add new test entries to the `TESTS`
-  array for every new command, then run `make run-test-cli-record` to
-  generate the expected output fixtures.
-- **`tests/cli_test.py`** — add or update unit tests for the CLI
-  helper functions (e.g. `get_*`, `format_*`).
-- **`CLI.rst`** — document new commands, options, and examples.
-
-### 4. Update tests
-
-- Add or update unit tests in `tests/` for every new or modified code
-  path.
-- For synchronous code: `tests/wikipedia_page_test.py` and related
-  files.
-- For asynchronous code: `tests/async_wikipedia_page_test.py` and
-  related files.
-- **Add VCR integration tests**: For any new public API methods that make HTTP requests, add corresponding tests in the appropriate `tests/vcr_*_test.py` files. Record real API responses using `--record-mode=once` and ensure both sync and async variants are covered.
-- **Keep `tests/test_sync_async_symmetry.py` up to date**: When adding new
-  properties or methods to either `WikipediaPage` or `AsyncWikipediaPage`,
-  update the `TestSyncAsyncPropertySymmetry` class to include the new
-  attributes in the appropriate property lists (`construction_props`,
-  `awaitable_props`, `collection_props`, etc.). The test automatically
-  discovers all public attributes using `dir()` and will alert you to
-  any missing properties that need to be added to the test lists. This ensures sync/async
-  symmetry is maintained for all API features.
-- Run the full suite and coverage check (see [Test](#test) below)
-  before committing.
-- **Run `make run-validate-attributes-mappping`** whenever you add or
-  modify a property, method, or attribute on `WikipediaPage`,
-  `AsyncWikipediaPage`, `Wikipedia`, or `AsyncWikipedia`. This
-  validates that `ATTRIBUTES_MAPPING` in `_base_wikipedia_page.py` is
-  in sync with the actual page properties. If the script fails, add
-  the missing entries to `ATTRIBUTES_MAPPING` (use an empty list `[]`
-  for properties that use `_param_cache` instead of `_called`).
-
-## Pre-release Check
-
-Run the full validation suite (pre-commit, type check, ruff, coverage, pypi-html, tox, example):
-
-```bash
-make pre-release-check
-```
-
-## Script Execution and Debugging
-
-**📝 CRITICAL: Always store script output to log files for analysis**
-
-When running scripts, especially for debugging or validation purposes:
-
-1. **Always use `uv run`**: Use `uv run python script.py` instead of `.venv/bin/python script.py`
-2. **Always redirect output to a timestamped log file**: Use `2>&1 | tee script_$(date +%Y%m%d_%H%M%S).log` to capture both stdout and stderr
-3. **Read and analyze the log file**: Use `read_file` tool to examine the complete output instead of multiple command executions
-4. **Avoid repeated command executions**: Don't use multiple `grep`, `head`, `tail` commands on the same script run - read the log once and analyze it
-5. **Include timestamps for debugging**: Add timestamps to script output when investigating timing issues
-6. **Use structured logging**: Format output in a consistent way for easy parsing
-
-Example:
-
-```bash
-# Good practice - single execution, complete capture with timestamp
-uv run python script.py 2>&1 | tee script_$(date +%Y%m%d_%H%M%S).log
-
-# Then analyze the complete output
-# (use read_file tool to examine the timestamped log file)
-
-# Bad practice - multiple executions
-.venv/bin/python script.py | grep "error"
-.venv/bin/python script.py | tail -10
-.venv/bin/python script.py | head -20
-```
-
-This approach ensures consistent analysis and avoids wasting time with repeated command executions.
-
-## Project Structure
-
-- `wikipediaapi/` — Main package (single `__init__.py` module)
-- `tests/` — Unit tests (`*test.py` files, `mock_data.py` for test fixtures)
-- `pyproject.toml` — Package metadata, dependencies, and build configuration
-- `Makefile` — All build, test, and release commands
-- `tox.ini` — Multi-Python test configuration
-- `.pre-commit-config.yaml` — Pre-commit hook definitions
+Follow the step-by-step guide in `ADDING_SUBMODULES.md`.
 
 ---
 > Source: [martin-majlis/Wikipedia-API](https://github.com/martin-majlis/Wikipedia-API) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
