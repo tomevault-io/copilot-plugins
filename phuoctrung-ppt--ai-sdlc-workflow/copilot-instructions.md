@@ -1,38 +1,35 @@
-## 003-ai-ethics-compliance
+## 004-multi-tenancy-pattern
 
-> EU AI Act, GDPR, human-in-the-loop, XAI, consent for biometric data
+> Soft multi-tenancy — tenant_id rules, TenantContextGuard, application-level isolation
 
 
-# AI Ethics & Compliance
+# Soft Multi-Tenancy (MVP)
 
 > ⚠️ **EXAMPLE DOMAIN (AI hiring/recruiting) — NOT this project's rules.**
-> This file is a portable **example** of how to encode AI-ethics compliance. Its specifics
-> (hire/reject, CV/biometric consent, bias/HR) do **not** describe the current project.
-> **Agents: ignore the domain specifics below until this file is replaced** with real
-> compliance rules for `<PROJECT>` (see `AGENTS.md §6`). Delete or rewrite on port.
+> This file is a portable **example** of a soft multi-tenancy pattern. Its specifics
+> (`jobs`, `applications`, `interview_recordings`, CVs, HR/candidate roles) do **not**
+> describe the current project. **Agents: ignore the domain specifics below until this
+> file is replaced** with the real tenancy model for `<PROJECT>` (see `AGENTS.md §4`).
+> Delete or rewrite on port.
 
-Details: `AGENTS.md` §6.
+Details: `AGENTS.md` §4. Application-level isolation, no RLS in MVP.
 
-## Human-in-the-Loop (mandatory)
+## tenant_id Rules
 
-- AI cannot auto-reject or auto-hire; HR approval required for Rejected/Hired
-- Reject/hire endpoints need `?confirm=true`; without it → `202` + `pending_human_review`
-- Override reason required when HR disagrees with AI; 48h SLA or escalation
+- **Has tenant_id:** `users` (nullable), `jobs`, `applications`, `interview_recordings`, `audit_logs`
+- **No tenant_id:** `cvs`, `cv_versions`, `skills`, `consents` (global/candidate-owned)
+- Candidates: `tenant_id` NULL; HR: `tenant_id` NOT NULL; Admin users: NULL
 
-## Explainable AI
+## Application Isolation
 
-Every AI decision returns `explanation`: `confidence`, `factors[]`, `counterfactuals[]`, model card link.
+- `TenantContextGuard` + `@TenantId()` on tenant-scoped queries
+- HR queries MUST filter `tenant_id`; no cross-tenant access on app API
+- Admin service: cross-tenant read-only for analytics
 
-## Consent & Biometric
+## Tenant Lifecycle
 
-- Consent screen before CV upload; separate explicit consent for video/voice
-- Check `consents.granted=true` for `biometric` before processing; else `403 ConsentRequired`
-- Auto-delete raw video after transcription; never store facial/voice embeddings
-
-## Bias & Audit
-
-- Run `BiasDetectionService.check()` before match scores; flag `bias_alert` if disparate impact
-- Log every AI decision to `audit_logs` with `ai_model_version`, `ai_confidence`; 7yr retention for hiring
+- Auto-create tenant on HR register: `plan=free`, `max_users=5`, `max_jobs=3`, `max_ai_credits=100`
+- Reject if `tenant.status != 'active'`; soft limits → `403` with upgrade prompt
 
 ---
 > Source: [phuoctrung-ppt/ai-sdlc-workflow](https://github.com/phuoctrung-ppt/ai-sdlc-workflow) — distributed by [TomeVault](https://tomevault.io).
