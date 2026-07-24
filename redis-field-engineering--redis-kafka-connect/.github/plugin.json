@@ -1,0 +1,9 @@
+{
+  "name": "redis-field-engineering--redis-kafka-connect",
+  "displayName": "redis-kafka-connect",
+  "description": "redis-kafka-connect",
+  "version": "1.0.0",
+  "author": "redis-field-engineering",
+  "homepage": "https://github.com/redis-field-engineering/redis-kafka-connect",
+  "skills": []
+}
