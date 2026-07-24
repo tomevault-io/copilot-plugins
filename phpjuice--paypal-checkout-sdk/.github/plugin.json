@@ -1,0 +1,9 @@
+{
+  "name": "phpjuice--paypal-checkout-sdk",
+  "displayName": "paypal-checkout-sdk",
+  "description": "paypal-checkout-sdk",
+  "version": "1.0.0",
+  "author": "phpjuice",
+  "homepage": "https://github.com/phpjuice/paypal-checkout-sdk",
+  "skills": []
+}
