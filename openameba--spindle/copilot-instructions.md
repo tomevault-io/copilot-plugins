@@ -1,11 +1,11 @@
 ## spindle
 
-> - Use the `dev-setup` command (.cursor/commands/dev-setup.md) to set up the development environment
+> - Use the `dev-setup` command (@.claude/commands/dev-setup.md) to set up the development environment
 
 # Spindle Agents Guide
 
 ## Development Setup
-- Use the `dev-setup` command (.cursor/commands/dev-setup.md) to set up the development environment
+- Use the `dev-setup` command (@.claude/commands/dev-setup.md) to set up the development environment
 
 ## Code Quality Guidelines
 - Write clean, readable, and maintainable code
@@ -27,14 +27,13 @@
 - Keep titles under 50 characters; may exceed if scope is long
 
 ## Issue Creation
-- Use the `create-issue` command (.cursor/commands/create-issue.md) to ensure proper formatting and tracking when using Cursor
+- Use the `create-issue` command (@.claude/commands/create-issue.md) to ensure proper formatting and tracking
 
 ## Code Review
-- Use the `review-changes` command (.cursor/commands/review-changes.md) to review code changes based on Spindle guidelines
+- Use the `review-changes` command (@.claude/commands/review-changes.md) to review code changes based on Spindle guidelines
 - Review guidelines are defined in `.github/copilot-instructions.md`
 
 ## Pull Request Creation
-- Use the `create-changeset` command (.cursor/commands/create-changeset.md) to create a changeset before pushing or creating a PR
 - Write the PR summary in Japanese, providing a concise overview of the changes
 
 ## Dependency Updates
@@ -44,13 +43,13 @@
 
 ### Storybook
 - When updating Storybook, use the official migration command: `npx storybook@{VERSION} upgrade`
-- Use the `fix-storybook-errors` command (.cursor/commands/fix-storybook-errors.md) to verify that all pages display without errors
+- Use the `fix-storybook-errors` command (@.claude/commands/fix-storybook-errors.md) to verify that all pages display without errors
 
 ## Note
 
 ### File Reference Notation
-This guide uses relative path notation (e.g., `.cursor/commands/...`) for command references. This differs from CLAUDE.md which uses `@` prefix notation for Claude-specific syntax (e.g., `@.claude/commands/...`). Both notations are intentional based on each tool's requirements.
+This guide uses `@` prefix notation (e.g., `@.claude/commands/...`) for Claude-specific command references. This differs from AGENTS.md which uses relative path notation (e.g., `.cursor/commands/...`). Both notations are intentional based on each tool's requirements.
 
 ---
 > Source: [openameba/spindle](https://github.com/openameba/spindle) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
