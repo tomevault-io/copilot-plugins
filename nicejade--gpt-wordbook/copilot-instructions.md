@@ -1,138 +1,74 @@
 ## gpt-wordbook
 
-> **智析单词书** is a static documentation website built with Astro + Starlight, serving as an AI-powered English vocabulary learning platform. It contains **8000+ core English words** with deep analysis including definitions, etymology, cultural context, and memory techniques.
+> Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-# 智析单词书 - AI-Powered Deep English Vocabular
 
-## Project Overview
+# CLAUDE.md
 
-**智析单词书** is a static documentation website built with Astro + Starlight, serving as an AI-powered English vocabulary learning platform. It contains **8000+ core English words** with deep analysis including definitions, etymology, cultural context, and memory techniques.
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-**Primary Purpose**: Provide a high-performance, SEO-friendly, static site for English learners to systematically build vocabulary knowledge through AI-generated content.
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## Tech Stack
+## 1. Think Before Coding
 
-- **Framework**: [Astro](https://astro.build/) v5.1 - Static site generator
-- **Theme**: [Starlight](https://starlight.astro.build/) - Official Astro documentation theme
-- **Interactive Components**: [Svelte](https://svelte.dev/) - Lightweight reactive framework
-- **Styling**: [TailwindCSS](https://tailwindcss.com/) - Utility-first CSS
-- **Content Format**: MDX (Markdown + JSX)
-- **Package Manager**: pnpm (preferred), npm, or yarn
-- **Node Version**: >= 16.0.0
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-## Project Structure
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
 ```
-gpt-wordbook/
-├── public/                  # Static assets (favicon, images)
-├── src/
-│   ├── assets/              # Project resources
-│   ├── configs/             # Configuration files
-│   ├── content/
-│   │   ├── docs/            # MDX/MD content files
-│   │   │   ├── index.mdx    # Homepage
-│   │   │   ├── about.mdx    # About page
-│   │   │   └── words/       # Word entries (8000+ MDX files)
-│   │   └── config.ts        # Content collection schema
-│   └── env.d.ts             # TypeScript definitions
-├── scripts/
-│   └── gptwords.json        # Source vocabulary data
-├── astro.config.mjs         # Astro configuration
-├── generate-sidebar.js      # Sidebar generation script
-├── tailwind.config.mjs      # Tailwind configuration
-├── tsconfig.json            # TypeScript configuration
-└── package.json             # Dependencies
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
 ```
 
-## Development Workflow
-
-### Setup & Running
-
-```bash
-# Install dependencies
-pnpm install
-
-# Start dev server (runs on http://localhost:6969)
-pnpm start
-
-# Build for production (outputs to dist/)
-pnpm build
-
-# Preview production build
-pnpm preview
-```
-
-### Key Commands
-
-- `pnpm start` - Start development server
-- `pnpm build` - Build static site
-- `pnpm preview` - Preview production build locally
-
-## TypeScript Best Practices
-
-1. **Type Safety**: Always define explicit types for function parameters and return values
-2. **Strict Mode**: Project uses strict TypeScript configuration
-3. **Type Imports**: Use `import type` for type-only imports to optimize bundle size
-4. **No Any**: Avoid `any` type; use `unknown` or proper types
-5. **Const Assertions**: Use `as const` for literal types when appropriate
-
-## Content Management
-
-### Word Entry Format
-
-Word entries are located in `src/content/docs/words/` as MDX files. Each file follows a consistent structure with:
-- Word definition and pronunciation
-- Etymology and word roots
-- Example sentences
-- Memory techniques
-- Related words
-
-### Adding New Content
-
-1. Create MDX file in appropriate directory under `src/content/docs/`
-2. Follow existing file naming conventions (lowercase, hyphen-separated)
-3. Ensure frontmatter metadata is complete
-4. Run `node generate-sidebar.js` if sidebar structure needs updating
-
-## Important Conventions
-
-1. **Component Style**: Use functional components with TypeScript
-2. **File Naming**: 
-   - Components: PascalCase (e.g., `WordCard.astro`)
-   - Utilities: camelCase (e.g., `formatWord.ts`)
-   - Content: kebab-case (e.g., `word-entry.mdx`)
-3. **Imports**: Group and order imports (types, external deps, internal modules)
-4. **Astro Components**: Prefer `.astro` for static content, `.svelte` for interactivity
-
-## Code Quality
-
-- **Linting**: Code formatting is handled by Prettier (see `.prettierrc`)
-- **Before Committing**: Ensure code builds successfully with `pnpm build`
-- **Testing Changes**: Always test in dev mode and preview production build
-- **Comments**: All code comments MUST be written in English for consistency and international collaboration
-
-## Additional Resources
-
-When working on specific tasks, consult these files for detailed context:
-- `astro.config.mjs` - Full Astro and Starlight configuration
-- `src/content/config.ts` - Content collection schemas
-- `generate-sidebar.js` - Sidebar generation logic
-- `package.json` - Available scripts and dependencies
-
-## Deployment
-
-This is a static site designed for deployment to:
-- Cloudflare Pages (recommended)
-- Vercel
-- GitHub Pages
-- Netlify
-
-Build output in `dist/` directory is production-ready static files.
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
 ---
 
-**Note**: This guide provides universal context for AI agents. For task-specific instructions, agents should read relevant configuration files or ask for clarification rather than making assumptions.
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
 ---
 > Source: [nicejade/gpt-wordbook](https://github.com/nicejade/gpt-wordbook) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
