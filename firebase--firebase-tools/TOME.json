@@ -1,0 +1,57 @@
+{
+  "name": "firebase-tools",
+  "owner": "firebase",
+  "repo": "firebase-tools",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "firebase-tools",
+      "path": ".agent/skills/update-pubsub-emulator/SKILL.md",
+      "github_url": "https://github.com/firebase/firebase-tools/tree/main/.agent/skills/update-pubsub-emulator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firebase-tools",
+      "path": ".agent/skills/resolve-docker-vulnerabilities/SKILL.md",
+      "github_url": "https://github.com/firebase/firebase-tools/tree/main/.agent/skills/resolve-docker-vulnerabilities/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/firebase/firebase-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T08:21:34Z"
+}
