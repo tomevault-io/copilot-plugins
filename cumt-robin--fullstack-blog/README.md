@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cumt-robin/fullstack-blog](https://github.com/cumt-robin/fullstack-blog).
+Original source: `CLAUDE.md` in [cumt-robin/fullstack-blog](https://github.com/cumt-robin/fullstack-blog).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [cumt-robin/fullstack-blog](https://github.com/c
 
 - [fullstack-blog](https://github.com/cumt-robin/fullstack-blog/tree/main/skills/changeset-cz-push/SKILL.md)
 
-From [cumt-robin/fullstack-blog](https://github.com/cumt-robin/fullstack-blog) — a repo with 210+ stars on GitHub.
+From [cumt-robin/fullstack-blog](https://github.com/cumt-robin/fullstack-blog) — a repo with 211+ stars on GitHub.
 
 ---
 
