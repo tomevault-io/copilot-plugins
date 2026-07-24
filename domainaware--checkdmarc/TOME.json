@@ -4,7 +4,7 @@
   "repo": "checkdmarc",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/domainaware/checkdmarc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T04:56:55Z"
+  "distributed_at": "2026-07-24T23:26:28Z"
 }
