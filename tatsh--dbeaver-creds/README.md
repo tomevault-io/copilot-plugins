@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Tatsh/dbeaver-creds](https://github.com/Tatsh/dbeaver-creds).
+Original source: `CLAUDE.md` in [Tatsh/dbeaver-creds](https://github.com/Tatsh/dbeaver-creds).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
