@@ -1,0 +1,461 @@
+## bunnylol-rs
+
+> Copyright (c) Meta Platforms, Inc. and affiliates.
+
+<!--
+Copyright (c) Meta Platforms, Inc. and affiliates.
+
+This source code is licensed under the MIT license found in the
+LICENSE file in the root directory of this source tree.
+-->
+
+# CLAUDE.md - Developer Guide for AI Assistants
+
+This guide provides context about the bunnylol.rs repository structure and patterns to help work efficiently on this codebase.
+
+## Project Overview
+
+**bunnylol.rs** is a smart bookmark server written in Rust that lets you create URL shortcuts accessible from your browser's search bar. It's a modern Rust implementation of [bunny1](https://github.com/ccheever/bunny1).
+
+**Tech Stack:**
+- **Language:** Rust (2024 edition)
+- **Web Framework:** Rocket 0.5 (async)
+- **Frontend:** Leptos 0.6 (SSR for bindings page)
+- **CLI:** clap 4.5 with subcommands
+- **Deployment:** Native services (systemd/launchd/Windows Service) or Docker (compose v2)
+
+**Key Features:**
+- Smart URL routing with command patterns (e.g., `gh username/repo` → GitHub)
+- Multiple aliases per command (e.g., `ig`/`instagram`, `tw`/`twitter`)
+- Subcommand support (e.g., `meta pay`, `ig reels`)
+- Default Google search fallback
+- Web portal to view all command bindings
+- Unified CLI with command execution and server management
+
+## Repository Structure
+
+```
+bunnylol.rs/
+├── src/
+│   ├── main.rs                          # CLI entry point and dispatcher
+│   ├── lib.rs                           # Library exports
+│   ├── config/                          # Configuration (server, aliases, history)
+│   │   ├── mod.rs                       # Config schema, loading, and serialization
+│   │   ├── user_bindings.rs             # [user_bindings] schema and resolution
+│   │   └── alias_migration.rs           # Legacy [aliases] migration
+│   ├── server/
+│   │   ├── mod.rs                       # Rocket server setup and routing
+│   │   ├── routes.rs                    # HTTP route handlers
+│   │   └── web.rs                       # Web response helpers
+│   ├── commands/
+│   │   ├── mod.rs                       # Module exports
+│   │   ├── github.rs                    # Example: gh command
+│   │   ├── instagram.rs                 # Example: ig command with subcommands
+│   │   ├── meta.rs                      # Example: meta command with subcommands
+│   │   └── [30+ other command files]
+│   ├── utils/
+│   │   ├── bunnylol_command.rs          # Core trait & registry
+│   │   └── url_encoding.rs              # URL building helpers
+│   ├── components/
+│   │   └── bindings_page.rs             # Leptos UI for /bindings
+│   └── service_installer/               # Cross-platform service installation
+│       ├── mod.rs
+│       ├── installer.rs                 # Install/uninstall services
+│       ├── manager.rs                   # Service management (start/stop/logs)
+│       └── error.rs                     # Error types
+├── Cargo.toml
+├── docker-compose.yml
+├── Dockerfile
+├── README.md
+└── CLAUDE.md (this file)
+```
+
+## Architecture Patterns
+
+### 1. BunnylolCommand Trait
+
+All commands implement the `BunnylolCommand` trait defined in `src/utils/bunnylol_command.rs`:
+
+```rust
+pub trait BunnylolCommand {
+    const BINDINGS: &'static [&'static str];  // Command aliases
+    fn process_args(args: &str) -> String;     // Returns URL
+    fn get_info() -> BunnylolCommandInfo;      // For documentation
+}
+```
+
+### 2. Command Registration
+
+Commands are registered in two places:
+
+1. **`src/commands/mod.rs`** - Module exports:
+   ```rust
+   pub use self::github::GitHubCommand;
+   pub use self::instagram::InstagramCommand;
+   // ... etc
+   ```
+
+2. **`src/utils/bunnylol_command.rs`** - In `BunnylolCommandRegistry`:
+   - `process_command()` method (~line 74-108): Routes commands to handlers
+   - `get_all_commands()` method (~line 112-148): Lists all commands for /bindings page
+
+### 3. URL Building Helpers
+
+Located in `src/utils/url_encoding.rs`:
+- `build_search_url(base, param, query)` - Constructs search URLs with encoded params
+- `build_path_url(base, path)` - Appends path to base URL
+
+## User-Defined Bindings (`[user_bindings]`)
+
+Users can add personal shortcuts **without recompiling** via the
+`[user_bindings]` table in `~/.config/bunnylol/config.toml`. Every entry uses
+the inline-table form — short-string form (`cal = "..."`) is rejected by the
+parser:
+
+```toml
+[user_bindings]
+# URL binding: maps a name to a URL. {} is a placeholder for URL-encoded args.
+cal  = { url = "https://calendar.google.com/calendar/u/1/r" }
+jira = { url = "https://corp.atlassian.net/browse/{}", description = "Jira ticket" }
+
+# Command binding: rewrites to another bunnylol command.
+work = { command = "gh mycompany/repo", description = "Work repo" }
+
+# Override a built-in (off by default).
+gh   = { command = "gh myorg/myrepo", override = true }
+```
+
+**Two variants of `UserBinding` (defined in `src/config/user_bindings.rs`):**
+- `Url { url, description?, override? }` — `{}` template substitution; arg-less
+  static URLs ignore extra args after the binding name.
+- `Command { command, description?, override? }` — rewrites the input verbatim
+  and dispatches into the registry **exactly once**. No `{}` substitution.
+  Extra args are dropped. Never recurses into another `[user_bindings]` entry.
+
+**Resolution order in `BunnylolCommandRegistry::process_command`:**
+1. Prefix handlers (`$TICKER`, `r/sub`)
+2. User bindings with `override = true`
+3. Built-in registered commands
+4. User bindings without `override`
+5. Default search fallback
+
+**Conflict policy:** built-ins win by default. A user binding may opt in to
+shadowing a built-in via `override = true`. Silently-shadowed bindings
+(name collides with a built-in, `override = false`) are reported as warnings
+at startup via `report_custom_bindings_status` (in `src/main.rs`) and hidden
+from the `/bindings` web page.
+
+**Hot reload:** the server reloads `config.toml` when its modified time
+changes (via `ConfigReloader` in `src/config/mod.rs`, added by PR #48). User
+bindings are picked up automatically. No restart needed.
+
+### Legacy `[aliases]` (deprecated)
+
+`[aliases]` predates `[user_bindings]` and remains parseable. On load, entries
+are migrated into `[user_bindings]` as `Command` variants and the on-disk
+`[aliases]` section is removed. Comments outside `[aliases]` are preserved;
+comments inside `[aliases]` may be removed.
+A deprecation/migration warning is emitted when migration happens.
+
+If a name appears in both tables, `[user_bindings]` wins.
+
+### Implementation files
+
+- `src/config/mod.rs` — `BunnylolConfig`, `ConfigReloader`, config loading,
+  serialization, and default path handling
+- `src/config/user_bindings.rs` — `UserBinding` enum, `ResolvedBinding`,
+  `resolve_user_binding`, `validate_user_bindings_conflicts`, URL template
+  resolution, and user binding TOML formatting
+- `src/config/alias_migration.rs` — section-level migration from legacy
+  `[aliases]` into `[user_bindings]`
+- `src/bunnylol_command_registry.rs` — `process_command` (5-tier),
+  `process_command_no_user_bindings` (recursion guard for `Command` bindings),
+  `dispatch_resolved`, `builtin_binding_names`, `validate_user_bindings`
+- `src/main.rs` — `report_custom_bindings_status` (startup log, override hint,
+  aliases deprecation log), `print_user_bindings_table` (URL/CMD kinds)
+- `src/server/web.rs` — `collect_user_bindings` (handles both variants),
+  "User Bindings" section in `LandingPage`
+
+## How to Add New Commands
+
+### Adding a Brand New Command
+
+1. **Create command file** in `src/commands/your_command.rs`:
+   ```rust
+   use crate::utils::bunnylol_command::{BunnylolCommand, BunnylolCommandInfo};
+
+   pub struct YourCommand;
+
+   impl BunnylolCommand for YourCommand {
+       const BINDINGS: &'static [&'static str] = &["alias1", "alias2"];
+
+       fn process_args(args: &str) -> String {
+           let query = Self::get_command_args(args);
+           // Return URL based on query
+           "https://example.com".to_string()
+       }
+
+       fn get_info() -> BunnylolCommandInfo {
+           BunnylolCommandInfo::new(
+               Self::BINDINGS,
+               "Description here",
+               "alias1 example",
+           )
+       }
+   }
+
+   #[cfg(test)]
+   mod tests {
+       use super::*;
+
+       #[test]
+       fn test_your_command() {
+           assert_eq!(YourCommand::process_args("alias1"), "https://example.com");
+       }
+   }
+   ```
+
+2. **Export in `src/commands/mod.rs`**:
+   ```rust
+   pub mod your_command;
+   pub use self::your_command::YourCommand;
+   ```
+
+3. **Register in `src/bunnylol_command_registry.rs`** - Add to the `register_commands!` macro:
+   ```rust
+   register_commands! {
+       crate::commands::BindingsCommand,
+       // ... other commands ...
+       crate::commands::YourCommand,  // ADD YOUR COMMAND HERE
+   }
+   ```
+
+   **IMPORTANT:** The `register_commands!` macro automatically generates both:
+   - `initialize_command_lookup()` - Maps aliases to handlers
+   - `get_all_commands_impl()` - Lists all commands for /bindings page
+
+   You only need to add your command once to the macro, and it will be registered everywhere.
+
+### Adding Subcommands to Existing Commands
+
+**Much simpler!** Just edit the existing command file:
+
+1. **Update the `process_args` method** with a match statement:
+   ```rust
+   fn process_args(args: &str) -> String {
+       let query = Self::get_command_args(args);
+       match query {
+           "subcommand1" => "https://example.com/sub1".to_string(),
+           "sub2" | "alias2" => "https://example.com/sub2".to_string(),  // Multiple aliases
+           _ => "https://example.com".to_string(),  // Default
+       }
+   }
+   ```
+
+2. **Add tests** for the new subcommands
+
+3. **Update doc comment** at top of file
+
+**No registration needed** - the command is already hooked up!
+
+**Example:** See `src/commands/instagram.rs` for `reels`, `messages`, `msg`, `chat` subcommands, or `src/commands/meta.rs` for `pay`, `accounts`, `ai` subcommands.
+
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+cargo test
+
+# Run tests for specific command
+cargo test instagram
+cargo test meta
+
+# Run with output
+cargo test -- --nocapture
+```
+
+### Test Patterns
+
+All commands include unit tests in `#[cfg(test)]` modules:
+- Test base command (no args)
+- Test each alias
+- Test subcommands
+- Test search/dynamic behavior
+- Test edge cases
+
+**Example test:**
+```rust
+#[test]
+fn test_instagram_command_reels() {
+    assert_eq!(
+        InstagramCommand::process_args("ig reels"),
+        "https://www.instagram.com/reels/"
+    );
+}
+```
+
+## Building and Running
+
+```bash
+# Development
+cargo run -- serve            # Starts server on localhost:8000
+cargo run -- gh facebook/react # Execute a command
+cargo build                   # Build without running
+cargo check                   # Fast syntax check
+
+# Docker
+docker compose up -d          # Run on port 8000
+BUNNYLOL_PORT=9000 docker compose up  # Custom port
+
+# Testing
+cargo test                    # Run all tests
+cargo test --test ''          # (Don't use - this errors)
+
+# Service Installation (cross-platform: Linux/macOS/Windows)
+cargo install --path .
+sudo bunnylol install-server --system  # System-level service
+bunnylol install-server                # User-level service
+sudo bunnylol server status --system   # Check status
+```
+
+## Key Implementation Details
+
+### Command Resolution Flow
+
+1. User types: `http://localhost:8000/?cmd=ig reels`
+2. Rocket routes to main handler
+3. `BunnylolCommandRegistry::process_command()` extracts command: `"ig"`
+4. Registry matches `"ig"` to `InstagramCommand`
+5. `InstagramCommand::process_args("ig reels")` is called
+6. `get_command_args()` strips `"ig"` prefix → `"reels"`
+7. Command returns `"https://www.instagram.com/reels/"`
+8. Server sends 302 redirect
+
+### Multiple Alias Pattern
+
+```rust
+const BINDINGS: &'static [&'static str] = &["alias1", "alias2"];
+```
+
+The `matches_command()` trait method automatically checks all bindings.
+
+### Subcommand Pattern with Match
+
+```rust
+match query {
+    "sub1" => "url1",
+    "sub2" | "sub2_alias" => "url2",  // Multiple aliases for one subcommand
+    "" => "default_url",               // No args
+    _ => {                             // Fallback (search, etc.)
+        // Handle dynamic args
+    }
+}
+```
+
+### Special Patterns
+
+- **Prefix commands:** Dollar sign (`$AAPL`) handled specially in `process_prefix_commands()`
+- **Default search:** Any unmatched command falls through to Google search
+- **Profile syntax:** `@username` pattern (see Twitter, Instagram, Threads commands)
+- **Subreddit syntax:** `r/subreddit` pattern (see Reddit command)
+
+## Common Tasks Reference
+
+### View all available commands
+Navigate to `http://localhost:8000/?cmd=bindings` (or use aliases: `commands`, `list`)
+
+### Add a simple redirect
+Edit existing command or create new one with static URL return
+
+### Add search functionality
+Use `build_search_url()` helper from `url_encoding.rs`
+
+### Add profile lookup
+Parse args for `@` prefix (see `instagram.rs`, `twitter.rs`, `threads.rs`)
+
+### Support special syntax
+Add parsing logic in `process_args()` (see `reddit.rs` for `r/` pattern)
+
+## Tips for Efficient Development
+
+1. **Use the Explore agent** when you need to understand existing patterns or find similar commands
+2. **Read existing commands** for patterns before creating new ones (Instagram, Meta, YouTube are good examples)
+3. **Always add tests** - the project has comprehensive test coverage
+4. **Follow the existing patterns** - consistency is valued over creativity here
+5. **Don't modify registration** when adding subcommands to existing commands
+6. **Use parallel tool calls** when reading multiple command files for context
+7. **Check `url_encoding.rs`** before writing custom URL builders
+
+## Release Process
+
+Use `scripts/release.sh` for releases. Do not hand-roll release commits, tags,
+crates.io publishes, or GitHub releases. See `docs/release.md` for the full
+release workflow.
+
+## Commit Message Style
+
+Use short conventional prefixes for commits:
+
+- `feat:` for new user-facing features or tooling capabilities
+- `fix:` for bug fixes
+- `chore:` for dependency updates, releases, maintenance, and build/tooling upkeep
+- `docs:` for documentation-only changes
+- `test:` for test-only changes
+- `refactor:` for behavior-preserving code restructuring
+- `release:` for release version bump commits
+
+Examples:
+
+- `feat: add release automation`
+- `fix: handle invalid user binding configs`
+- `chore: update Cargo dependencies`
+- `release: v0.1.3`
+
+## Recent Changes
+
+- 2025-12-30: **Major refactor** - Merged binaries, added cross-platform service installation
+  - Unified `bunnylol-server` and `bunnylol-cli` into single `bunnylol` binary
+  - Server now runs with `bunnylol serve` subcommand
+  - Added cross-platform service installation (systemd/launchd/Windows Service)
+  - New service management commands: `install-server`, `server start/stop/status/logs`, etc.
+  - Moved server code to `src/server/` module
+  - Added `ServerConfig` to centralize server configuration
+- 2025-12-29: Added `meta pay`, `ig reels`, `ig messages/msg/chat` subcommands
+- See git log for full history: `git log --oneline`
+
+## Troubleshooting
+
+**Tests failing?**
+- Check URL formatting (trailing slashes, query params)
+- Verify match arm order (specific before general)
+- Ensure test name doesn't conflict with existing tests
+
+**Command not working?**
+- Verify registration in `process_command()` match statement
+- Check command is exported in `mod.rs`
+- Ensure BINDINGS array is correct
+- Test with `cargo test your_command`
+
+**Build errors?**
+- Run `cargo check` for fast feedback
+- Check imports at top of file
+- Verify trait implementation is complete
+
+## Reference Commands
+
+**Best examples to study:**
+- `src/commands/instagram.rs` - Profile lookup, search, subcommands
+- `src/commands/meta.rs` - Multiple subcommands, special binding behavior
+- `src/commands/youtube.rs` - Complex subcommand routing
+- `src/commands/github.rs` - Path parsing for usernames/repos
+- `src/commands/reddit.rs` - Subreddit syntax parsing
+
+---
+
+*This guide is intended for AI assistants working on this codebase. Last updated: 2025-12-30*
+
+---
+> Source: [facebook/bunnylol.rs](https://github.com/facebook/bunnylol.rs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
