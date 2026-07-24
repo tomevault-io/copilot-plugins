@@ -1,0 +1,63 @@
+{
+  "name": "deliberate-lab",
+  "owner": "PAIR-code",
+  "repo": "deliberate-lab",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deliberate-lab",
+      "path": ".gemini/skills/eval-pr/SKILL.md",
+      "github_url": "https://github.com/PAIR-code/deliberate-lab/tree/main/.gemini/skills/eval-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deliberate-lab",
+      "path": ".gemini/skills/sync-fork/SKILL.md",
+      "github_url": "https://github.com/PAIR-code/deliberate-lab/tree/main/.gemini/skills/sync-fork/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deliberate-lab",
+      "path": ".gemini/skills/read-github/SKILL.md",
+      "github_url": "https://github.com/PAIR-code/deliberate-lab/tree/main/.gemini/skills/read-github/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PAIR-code/deliberate-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:50:31Z"
+}
