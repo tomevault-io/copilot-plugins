@@ -1,0 +1,14 @@
+{
+  "name": "pytorch--tutorials",
+  "displayName": "tutorials",
+  "description": "tutorials",
+  "version": "1.0.0",
+  "author": "pytorch",
+  "homepage": "https://github.com/pytorch/tutorials",
+  "skills": [
+    {
+      "name": "tutorials",
+      "description": ""
+    }
+  ]
+}
