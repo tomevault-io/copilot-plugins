@@ -1,0 +1,189 @@
+{
+  "name": "xng-breadcrumb",
+  "owner": "udayvunnam",
+  "repo": "xng-breadcrumb",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "xng-breadcrumb",
+      "path": ".gemini/skills/nx-import/skill.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.gemini/skills/nx-import/skill.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".gemini/skills/monitor-ci/skill.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.gemini/skills/monitor-ci/skill.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".gemini/skills/nx-plugins/skill.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.gemini/skills/nx-plugins/skill.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".opencode/skills/nx-import/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.opencode/skills/nx-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".gemini/skills/nx-generate/skill.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.gemini/skills/nx-generate/skill.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".opencode/skills/monitor-ci/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.opencode/skills/monitor-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".gemini/skills/nx-workspace/skill.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.gemini/skills/nx-workspace/skill.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".agents/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.agents/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".agents/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.agents/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".gemini/skills/nx-run-tasks/skill.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.gemini/skills/nx-run-tasks/skill.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".opencode/skills/nx-plugins/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.opencode/skills/nx-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".opencode/skills/nx-generate/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.opencode/skills/nx-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".opencode/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.opencode/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".opencode/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.opencode/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".agents/skills/link-workspace-packages/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.agents/skills/link-workspace-packages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".gemini/skills/link-workspace-packages/skill.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.gemini/skills/link-workspace-packages/skill.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".opencode/skills/link-workspace-packages/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.opencode/skills/link-workspace-packages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".github/skills/nx-import/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.github/skills/nx-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".github/skills/monitor-ci/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.github/skills/monitor-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".github/skills/nx-plugins/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.github/skills/nx-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".github/skills/nx-generate/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.github/skills/nx-generate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".github/skills/nx-workspace/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.github/skills/nx-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".github/skills/nx-run-tasks/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.github/skills/nx-run-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xng-breadcrumb",
+      "path": ".github/skills/link-workspace-packages/SKILL.md",
+      "github_url": "https://github.com/udayvunnam/xng-breadcrumb/tree/main/.github/skills/link-workspace-packages/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/udayvunnam/xng-breadcrumb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:34:44Z"
+}
