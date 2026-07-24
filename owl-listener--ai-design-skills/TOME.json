@@ -1,0 +1,819 @@
+{
+  "name": "ai-design-skills",
+  "owner": "Owl-Listener",
+  "repo": "ai-design-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-design-skills",
+      "path": "skills/evaluation/failure-taxonomy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/evaluation/failure-taxonomy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/evaluation/task-success-metrics/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/evaluation/task-success-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/evaluation/comparative-evaluation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/evaluation/comparative-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/evaluation/output-quality-rubrics/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/evaluation/output-quality-rubrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/evaluation/heuristic-evaluation-ai/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/evaluation/heuristic-evaluation-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/prompt-architecture/template-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture/template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/evaluation/longitudinal-measurement/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/evaluation/longitudinal-measurement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/evaluation/user-satisfaction-signals/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/evaluation/user-satisfaction-signals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/system-behavior-shaping/domain-voice/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/system-behavior-shaping/domain-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/prompt-architecture/prompt-versioning/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture/prompt-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/prompt-architecture/few-shot-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture/few-shot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/model-interaction-design/generative-ui/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/model-interaction-design/generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/prompt-architecture/context-engineering/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture/context-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/model-interaction-design/feedback-loops/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/model-interaction-design/feedback-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/guardrail-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/guardrail-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/harm-anticipation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/harm-anticipation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/trust-calibration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/trust-calibration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/system-behavior-shaping/tone-calibration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/system-behavior-shaping/tone-calibration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/escalation-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/escalation-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/system-behavior-shaping/emotional-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/system-behavior-shaping/emotional-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/system-behavior-shaping/error-personality/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/system-behavior-shaping/error-personality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/consent-and-agency/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/consent-and-agency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/evaluation/skills/failure-taxonomy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/evaluation/skills/failure-taxonomy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/value-specification/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/value-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/design-agent-orchestration/state-management/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration/state-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/prompt-architecture/chain-of-thought-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture/chain-of-thought-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/system-behavior-shaping/cultural-adaptation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/system-behavior-shaping/cultural-adaptation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/design-agent-orchestration/failure-recovery/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration/failure-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/prompt-architecture/system-prompt-structure/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture/system-prompt-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/design-agent-orchestration/handoff-protocols/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration/handoff-protocols/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/transparency-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/transparency-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/ai-alignment-reasoning/bias-detection-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/ai-alignment-reasoning/bias-detection-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/design-agent-orchestration/agent-role-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration/agent-role-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/system-behavior-shaping/persona-architecture/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/system-behavior-shaping/persona-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/design-agent-orchestration/human-in-the-loop/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration/human-in-the-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/prompt-architecture/constraint-specification/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture/constraint-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/evaluation/skills/failure-taxonomy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/evaluation/skills/failure-taxonomy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/design-agent-orchestration/task-decomposition/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration/task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/evaluation/skills/task-success-metrics/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/evaluation/skills/task-success-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/model-interaction-design/mixed-initiative-flow/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/model-interaction-design/mixed-initiative-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/system-behavior-shaping/behavioral-consistency/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/system-behavior-shaping/behavioral-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/model-interaction-design/conversation-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/model-interaction-design/conversation-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/model-interaction-design/context-window-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/model-interaction-design/context-window-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/model-interaction-design/progressive-disclosure/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/model-interaction-design/progressive-disclosure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/evaluation/skills/comparative-evaluation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/evaluation/skills/comparative-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/evaluation/skills/output-quality-rubrics/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/evaluation/skills/output-quality-rubrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/design-agent-orchestration/observability-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration/observability-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/evaluation/skills/task-success-metrics/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/evaluation/skills/task-success-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/evaluation/skills/heuristic-evaluation-ai/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/evaluation/skills/heuristic-evaluation-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "skills/model-interaction-design/multimodal-orchestration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/model-interaction-design/multimodal-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/prompt-architecture/skills/template-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/prompt-architecture/skills/template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/evaluation/skills/longitudinal-measurement/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/evaluation/skills/longitudinal-measurement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/evaluation/skills/comparative-evaluation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/evaluation/skills/comparative-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/evaluation/skills/output-quality-rubrics/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/evaluation/skills/output-quality-rubrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/evaluation/skills/user-satisfaction-signals/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/evaluation/skills/user-satisfaction-signals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/system-behavior-shaping/skills/domain-voice/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/system-behavior-shaping/skills/domain-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/prompt-architecture/skills/prompt-versioning/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/prompt-architecture/skills/prompt-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/prompt-architecture/skills/few-shot-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/prompt-architecture/skills/few-shot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/evaluation/skills/heuristic-evaluation-ai/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/evaluation/skills/heuristic-evaluation-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/prompt-architecture/skills/template-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/prompt-architecture/skills/template-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/model-interaction-design/skills/generative-ui/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/model-interaction-design/skills/generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/evaluation/skills/longitudinal-measurement/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/evaluation/skills/longitudinal-measurement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/prompt-architecture/skills/context-engineering/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/prompt-architecture/skills/context-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/model-interaction-design/skills/feedback-loops/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/model-interaction-design/skills/feedback-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/evaluation/skills/user-satisfaction-signals/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/evaluation/skills/user-satisfaction-signals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/guardrail-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/guardrail-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/system-behavior-shaping/skills/domain-voice/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/system-behavior-shaping/skills/domain-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/harm-anticipation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/harm-anticipation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/trust-calibration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/trust-calibration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/prompt-architecture/skills/prompt-versioning/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/prompt-architecture/skills/prompt-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/system-behavior-shaping/skills/tone-calibration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/system-behavior-shaping/skills/tone-calibration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/escalation-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/escalation-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/prompt-architecture/skills/few-shot-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/prompt-architecture/skills/few-shot-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/system-behavior-shaping/skills/emotional-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/system-behavior-shaping/skills/emotional-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/system-behavior-shaping/skills/error-personality/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/system-behavior-shaping/skills/error-personality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/model-interaction-design/skills/generative-ui/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/model-interaction-design/skills/generative-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/consent-and-agency/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/consent-and-agency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/prompt-architecture/skills/context-engineering/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/prompt-architecture/skills/context-engineering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/model-interaction-design/skills/feedback-loops/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/model-interaction-design/skills/feedback-loops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/value-specification/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/value-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/guardrail-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/guardrail-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/harm-anticipation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/harm-anticipation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/trust-calibration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/trust-calibration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/design-agent-orchestration/skills/state-management/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/design-agent-orchestration/skills/state-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/prompt-architecture/skills/chain-of-thought-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/prompt-architecture/skills/chain-of-thought-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/system-behavior-shaping/skills/tone-calibration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/system-behavior-shaping/skills/tone-calibration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/escalation-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/escalation-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/system-behavior-shaping/skills/cultural-adaptation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/system-behavior-shaping/skills/cultural-adaptation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/design-agent-orchestration/skills/failure-recovery/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/design-agent-orchestration/skills/failure-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/system-behavior-shaping/skills/emotional-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/system-behavior-shaping/skills/emotional-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/prompt-architecture/skills/system-prompt-structure/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/prompt-architecture/skills/system-prompt-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/system-behavior-shaping/skills/error-personality/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/system-behavior-shaping/skills/error-personality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/design-agent-orchestration/skills/handoff-protocols/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/design-agent-orchestration/skills/handoff-protocols/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/consent-and-agency/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/consent-and-agency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/transparency-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/transparency-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/ai-alignment-reasoning/skills/bias-detection-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/ai-alignment-reasoning/skills/bias-detection-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/design-agent-orchestration/skills/agent-role-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/design-agent-orchestration/skills/agent-role-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/system-behavior-shaping/skills/persona-architecture/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/system-behavior-shaping/skills/persona-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/design-agent-orchestration/skills/human-in-the-loop/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/design-agent-orchestration/skills/human-in-the-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/prompt-architecture/skills/constraint-specification/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/prompt-architecture/skills/constraint-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/value-specification/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/value-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/design-agent-orchestration/skills/task-decomposition/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/design-agent-orchestration/skills/task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/design-agent-orchestration/skills/state-management/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/design-agent-orchestration/skills/state-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/model-interaction-design/skills/mixed-initiative-flow/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/model-interaction-design/skills/mixed-initiative-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/prompt-architecture/skills/chain-of-thought-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/prompt-architecture/skills/chain-of-thought-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/system-behavior-shaping/skills/behavioral-consistency/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/system-behavior-shaping/skills/behavioral-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/model-interaction-design/skills/conversation-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/model-interaction-design/skills/conversation-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/system-behavior-shaping/skills/cultural-adaptation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/system-behavior-shaping/skills/cultural-adaptation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/design-agent-orchestration/skills/failure-recovery/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/design-agent-orchestration/skills/failure-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/model-interaction-design/skills/context-window-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/model-interaction-design/skills/context-window-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/prompt-architecture/skills/system-prompt-structure/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/prompt-architecture/skills/system-prompt-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/design-agent-orchestration/skills/handoff-protocols/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/design-agent-orchestration/skills/handoff-protocols/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/model-interaction-design/skills/progressive-disclosure/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/model-interaction-design/skills/progressive-disclosure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/transparency-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/transparency-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/ai-alignment-reasoning/skills/bias-detection-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/ai-alignment-reasoning/skills/bias-detection-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/design-agent-orchestration/skills/agent-role-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/design-agent-orchestration/skills/agent-role-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/design-agent-orchestration/skills/observability-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/design-agent-orchestration/skills/observability-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/system-behavior-shaping/skills/persona-architecture/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/system-behavior-shaping/skills/persona-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/design-agent-orchestration/skills/human-in-the-loop/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/design-agent-orchestration/skills/human-in-the-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/prompt-architecture/skills/constraint-specification/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/prompt-architecture/skills/constraint-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/design-agent-orchestration/skills/task-decomposition/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/design-agent-orchestration/skills/task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "claude-plugin/model-interaction-design/skills/multimodal-orchestration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/claude-plugin/model-interaction-design/skills/multimodal-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/model-interaction-design/skills/mixed-initiative-flow/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/model-interaction-design/skills/mixed-initiative-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/system-behavior-shaping/skills/behavioral-consistency/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/system-behavior-shaping/skills/behavioral-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/model-interaction-design/skills/conversation-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/model-interaction-design/skills/conversation-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/model-interaction-design/skills/context-window-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/model-interaction-design/skills/context-window-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/model-interaction-design/skills/progressive-disclosure/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/model-interaction-design/skills/progressive-disclosure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/design-agent-orchestration/skills/observability-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/design-agent-orchestration/skills/observability-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-design-skills",
+      "path": "gemini-extension/model-interaction-design/skills/multimodal-orchestration/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/ai-design-skills/tree/main/gemini-extension/model-interaction-design/skills/multimodal-orchestration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Owl-Listener/ai-design-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:43:29Z"
+}
