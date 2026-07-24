@@ -1,0 +1,93 @@
+{
+  "name": "aiq",
+  "owner": "NVIDIA-AI-Blueprints",
+  "repo": "aiq",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aiq",
+      "path": "skills/aiq-deploy/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/skills/aiq-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiq",
+      "path": "skills/aiq-research/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/skills/aiq-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiq",
+      "path": ".agents/skills/aiq-add-tool/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/.agents/skills/aiq-add-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiq",
+      "path": ".agents/skills/aiq-prepare-pr/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/.agents/skills/aiq-prepare-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiq",
+      "path": ".agents/skills/aiq-release-qa/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/.agents/skills/aiq-release-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiq",
+      "path": ".agents/skills/aiq-add-data-source/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/.agents/skills/aiq-add-data-source/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiq",
+      "path": "src/aiq_agent/agents/deep_researcher/skills/synthesis/long-form-report-writer/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/src/aiq_agent/agents/deep_researcher/skills/synthesis/long-form-report-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aiq",
+      "path": "src/aiq_agent/agents/deep_researcher/skills/synthesis/prediction-report-writer/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-Blueprints/aiq/tree/main/src/aiq_agent/agents/deep_researcher/skills/synthesis/prediction-report-writer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA-AI-Blueprints/aiq",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T20:35:26Z"
+}
