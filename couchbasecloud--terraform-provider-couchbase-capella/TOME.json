@@ -4,7 +4,7 @@
   "repo": "terraform-provider-couchbase-capella",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -101,5 +101,5 @@
   ],
   "source_url": "https://github.com/couchbasecloud/terraform-provider-couchbase-capella",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T23:44:41Z"
+  "distributed_at": "2026-07-24T07:57:58Z"
 }
