@@ -1,25 +1,35 @@
-## bedrock
+## project-bedrock
 
-> bedrock -- project memory contract, always active
+> This project uses **bedrock** as a small project cockpit for AI-agent work.
 
+# bedrock
 
-This project uses **bedrock** for persistent memory.
-All knowledge lives in `./bedrock/`.
+This project uses **bedrock** as a small project cockpit for AI-agent work.
+All project context lives in `./bedrock/`.
 
 ## On session start
 
 1. Read `./bedrock/STATUS.md`
-2. If `onboarding: pending`, read `AGENTS.md` and follow the First-Time Onboarding instructions
-3. If `onboarding: complete`, read `./bedrock/Memory/MEMORY.md` for project context
+2. If `onboarding: pending` — read `AGENTS.md` and follow First-Time Onboarding
+3. If `onboarding: complete` — read `./bedrock/Memory/PROJECT.md`
+4. Read `./bedrock/Work/NOW.md`
+5. Load only the relevant Memory branches for the current task
+
+## Project cockpit
+
+- `Memory/` = what the project knows
+- `Work/` = what matters now
+- `Views/` = generated human inspection views
+
+Legacy folders such as `History/`, `Evidence/`, `Outputs/`, or `Sessions/`
+may still exist for compatibility.
 
 ## After meaningful work
 
-- Run `/memory-update` — sync, update branches, log any decisions, summarize what changed
-
-## When the context window is getting long
-
-- Run `/compact-context` — saves memory, then resets the context window
+1. Update stable project knowledge in `./bedrock/Memory/`
+2. Update current priorities and open loops in `./bedrock/Work/`
+3. Run `bedrock sync --project .`
 
 ---
 > Source: [robotaitai/project-bedrock](https://github.com/robotaitai/project-bedrock) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
