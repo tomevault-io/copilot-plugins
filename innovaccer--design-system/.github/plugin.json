@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "innovaccer",
   "homepage": "https://github.com/innovaccer/design-system",
-  "skills": []
+  "skills": [
+    {
+      "name": "design-system",
+      "description": ""
+    }
+  ]
 }
