@@ -1,0 +1,22 @@
+{
+  "name": "entronad--graphic",
+  "displayName": "graphic",
+  "description": "graphic",
+  "version": "1.0.0",
+  "author": "entronad",
+  "homepage": "https://github.com/entronad/graphic",
+  "skills": [
+    {
+      "name": "flutter-chart",
+      "description": ""
+    },
+    {
+      "name": "graphic",
+      "description": ""
+    },
+    {
+      "name": "graphic",
+      "description": ""
+    }
+  ]
+}
