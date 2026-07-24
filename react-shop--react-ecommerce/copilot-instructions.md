@@ -1,0 +1,105 @@
+## react-ecommerce
+
+> Monorepo white-label ecommerce boilerplate. Stack:
+
+# React Ecommerce Boilerplate — Cursor Rules
+
+## Project Overview
+
+Monorepo white-label ecommerce boilerplate. Stack:
+- **Monorepo**: Turborepo + pnpm workspaces
+- **Frontend**: Next.js 15+ (App Router), Tailwind v4 (CSS-first), React 19
+- **Backend**: NestJS + Prisma 7 + REST (no GraphQL — resolvers are dead code)
+- **Database**: PostgreSQL
+- **SDK**: `@react-shop/sdk` — Axios client + React Query hooks
+- **Design System**: `@react-shop/design-system` — Tailwind v4, tailwind-variants
+
+## Architecture
+
+```
+apps/
+  web/          → Customer-facing ecommerce (Next.js, port 3000)
+  admin/        → Admin dashboard (Next.js, deferred)
+  server/       → REST API (NestJS + Prisma, port 5001)
+  storybook/    → Component dev (Storybook)
+
+packages/
+  design-system/ → Tailwind v4 component library
+  sdk/           → Axios client + React Query hooks
+  eslint-config-custom/ → Shared ESLint flat config (v9)
+  tsconfig/      → Shared TypeScript config
+```
+
+## Key Technologies
+
+### Backend (NestJS + Prisma)
+- Database: PostgreSQL with Prisma 7 ORM
+- API: REST controllers (`@Controller`, `@Get`, `@Post`, etc.) — NOT GraphQL
+- Auth: JWT (access + refresh tokens) via Passport.js
+- Modules: auth, user, product, category, cart, order, review, store
+
+### SDK Package (`@react-shop/sdk`)
+- Provides: `SdkProvider` (wraps QueryClient + ApiProvider)
+- Services in `packages/sdk/src/services/<domain>/`
+  - `queries/`: React Query `useQuery` hooks
+  - `mutations/`: React Query `useMutation` hooks
+- Uses Axios client with automatic token refresh
+- Import: `import { useProducts, useLogin } from '@react-shop/sdk'`
+
+### Design System (`@react-shop/design-system`)
+- Styling: Tailwind v4 CSS-first (NOT PandaCSS)
+- Tokens: defined in `packages/design-system/src/styles/global.css` in `@theme` block
+- Components: `Atoms/` → `Molecules/` → `Organisms/` → `Layout/` hierarchy
+- Utility: `cn()` exported from `@react-shop/design-system` (clsx + tailwind-merge v3)
+- Import: `import { Button, Card, cn } from '@react-shop/design-system'`
+
+## Development Workflow
+
+### Starting Development
+```bash
+pnpm install
+pnpm dev  # Starts web + server
+```
+
+### Database Migrations
+```bash
+cd apps/server
+pnpm prisma migrate dev --name migration_name
+pnpm prisma generate
+pnpm prisma db seed
+```
+
+### Adding New Components to Design System
+- Create component in `packages/design-system/src/components/`
+- Use Tailwind v4 classes + `tailwind-variants` for variants
+- Export from `packages/design-system/src/index.tsx`
+
+### Adding New Services to SDK
+- Create folder in `packages/sdk/src/services/<domain>/`
+- Add `queries/` with React Query `useQuery` hooks
+- Add `mutations/` with React Query `useMutation` hooks
+- Use `useApiClient()` hook to access Axios instance
+- Export from service `index.ts` and main `services/index.ts`
+
+### Backend Development
+- Create modules in `apps/server/src/`
+- Use `@Controller` + `@Get`/`@Post`/`@Put`/`@Delete` for REST (not `@Resolver`)
+- DTOs use `class-validator` decorators
+- Access DB via injected `PrismaService`
+
+## Commit Conventions
+- Conventional commits: `<type>[scope]: description`
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `revert`
+- Subject line: 72 chars max
+- Never commit directly to `main` — use PRs
+
+## Code Standards
+- No unnecessary comments — write self-documenting code
+- No `any` types — use proper TypeScript types
+- Fail-fast: handle errors early, return immediately, avoid deep nesting
+- No `console.log` in committed code
+- No commented-out code
+
+---
+> Source: [react-shop/react-ecommerce](https://github.com/react-shop/react-ecommerce) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
