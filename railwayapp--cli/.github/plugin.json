@@ -1,0 +1,14 @@
+{
+  "name": "railwayapp--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "railwayapp",
+  "homepage": "https://github.com/railwayapp/cli",
+  "skills": [
+    {
+      "name": "cli",
+      "description": ""
+    }
+  ]
+}
