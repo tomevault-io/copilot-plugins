@@ -1,0 +1,81 @@
+{
+  "name": "tycho",
+  "owner": "propeller-heads",
+  "repo": "tycho",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tycho",
+      "path": ".claude/skills/plan/SKILL.md",
+      "github_url": "https://github.com/propeller-heads/tycho/tree/main/.claude/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tycho",
+      "path": ".claude/skills/run-ci/SKILL.md",
+      "github_url": "https://github.com/propeller-heads/tycho/tree/main/.claude/skills/run-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tycho",
+      "path": ".claude/skills/sync-docs/SKILL.md",
+      "github_url": "https://github.com/propeller-heads/tycho/tree/main/.claude/skills/sync-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tycho",
+      "path": ".claude/skills/migrate-pr/SKILL.md",
+      "github_url": "https://github.com/propeller-heads/tycho/tree/main/.claude/skills/migrate-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tycho",
+      "path": ".claude/skills/gas-compare/SKILL.md",
+      "github_url": "https://github.com/propeller-heads/tycho/tree/main/.claude/skills/gas-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tycho",
+      "path": ".claude/skills/update-gas-test-metadata/SKILL.md",
+      "github_url": "https://github.com/propeller-heads/tycho/tree/main/.claude/skills/update-gas-test-metadata/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/propeller-heads/tycho",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T02:48:48Z"
+}
