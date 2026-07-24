@@ -4,7 +4,7 @@
   "repo": "Opensource-Contribution-Leaderboard",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RocketChat/Opensource-Contribution-Leaderboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T14:34:09Z"
+  "distributed_at": "2026-07-24T12:48:59Z"
 }
