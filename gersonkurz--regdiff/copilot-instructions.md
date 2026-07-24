@@ -1,82 +1,57 @@
 ## regdiff
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> `go-regdiff` is a command-line tool written in Go for managing and comparing Windows Registry files (.REG) and the live Windows Registry. It is a version 5.0 rewrite of the original C# `regdiff` tool, providing cross-platform support for .REG file operations while maintaining native Windows registry access for live operations.
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# GEMINI.md - Project Context for `go-regdiff`
 
 ## Project Overview
+`go-regdiff` is a command-line tool written in Go for managing and comparing Windows Registry files (.REG) and the live Windows Registry. It is a version 5.0 rewrite of the original C# `regdiff` tool, providing cross-platform support for .REG file operations while maintaining native Windows registry access for live operations.
 
-go-regdiff is a Go CLI tool for comparing, diffing, and merging Windows Registry files (.REG) and live registry hives. It's a complete rewrite of the original C#/.NET regdiff utility, providing cross-platform .REG file processing with native Windows registry access on Windows.
-
-## Build Commands
-
-This project uses `just` (command runner) for automation:
-
-```bash
-just build              # Build for current platform
-just build-all          # Build all 6 platform targets
-just build-windows      # Build Windows (amd64 + arm64)
-just build-linux        # Build Linux (amd64 + arm64)
-just build-darwin       # Build macOS (amd64 + arm64)
-just release            # Create release packages
-```
-
-Individual platform targets: `build-windows-amd64`, `build-windows-arm64`, `build-linux-amd64`, `build-linux-arm64`, `build-darwin-amd64`, `build-darwin-arm64`
-
-## Testing and Code Quality
-
-```bash
-just test               # Run all tests
-just test-verbose       # Run tests with verbose output
-just fmt                # Format code with gofmt
-just fmt-check          # Check formatting
-just vet                # Run go vet
-just check              # Run all checks (fmt, vet, test)
-```
-
-Run a single test:
-```bash
-go test -v -run TestDiff ./diff/
-```
+### Key Features
+- **Comparison & Diffing:** Compare two .REG files, a .REG file against the live registry, or two registry keys.
+- **Merging:** Create merged .REG files from multiple sources.
+- **Exporting:** Export live registry keys directly to .REG files (ANSI or Unicode).
+- **Writing:** Apply .REG files or diffs directly to the live Windows Registry (Windows only).
+- **Variable Substitution:** Support for `$$VAR$$` syntax in .REG files with parameter files (.INI) or environment variables.
+- **Key Aliasing:** Compare keys that have been renamed or relocated.
 
 ## Architecture
+- **`cmd/regdiff/`**: CLI entry point (`main.go`). Handles CLI argument parsing (supporting both `/FLAG` and `-flag` styles) and orchestrates operations.
+- **`diff/`**: Core comparison engine.
+    - `regdiff.go`: `RegDiff` orchestrator for tree traversal and mismatch identification.
+    - `params.go`: Handles `$$VAR$$` substitution and parameter file parsing.
+    - `mismatch.go`: Defines mismatch categories (MissingKey, DataMismatch, etc.).
+- **`internal/registry/`**: Registry abstraction layer.
+    - `registry.go`: Live registry reading (Windows-only, `//go:build windows`).
+    - `writer.go`: Low-level registry writing using syscalls (Windows-only).
+    - `ops.go`: Higher-level registry operations like `LoadLiveRegistry` and `WriteToRegistry`.
+    - `stub.go`: No-op stubs for non-Windows platforms (`//go:build !windows`).
+- **External Dependency:** `github.com/gersonkurz/go-regis3`. This library handles all .REG file parsing, `KeyEntry`/`ValueEntry` structures, and .REG writing. It is typically referenced via a local `replace` in `go.mod`.
 
-### Core Packages
+## Building and Running
+The project uses `just` as a command runner.
 
-- **cmd/regdiff/main.go** - CLI entry point handling argument parsing (supports `/FLAG` and `-flag`), file loading via go-regis3, and orchestration of diff/merge/registry operations
+### Key Commands
+- **Build:** `just build` (current platform) or `just build-all` (cross-platform).
+- **Test:** `just test` (runs Go unit tests) or `go test ./...`.
+- **Check:** `just check` (runs fmt, vet, and tests).
+- **Format:** `just fmt` (runs `gofmt -w .`).
 
-- **diff/** - Core comparison engine:
-  - `regdiff.go` - `RegDiff` struct with `CompareRecursive()`, `CreateDiffKeyEntry()`, `CreateMergeKeyEntry()` for tree traversal and output generation
-  - `mismatch.go` - `Mismatch` and `MismatchCategory` types for categorizing differences
-  - `params.go` - Parameter substitution (`$$VAR$$` syntax) from INI/XML files
+## Development Conventions
+- **Standard Go Style:** Follows standard Go structure; `gofmt` is enforced.
+- **Case Insensitivity:** Registry keys and values are treated case-insensitively, matching Windows behavior.
+- **Cross-Platform Safety:** Core logic in `diff/` is platform-independent. Registry-specific code is isolated using build tags.
+- **Testing:** Tests reside in `diff/` (e.g., `diff_test.go`). Run with `just test`.
+- **CLI Style:** Supports Windows-style `/FLAG` and POSIX-style `-flag`.
 
-- **internal/registry/** - Windows registry integration (platform-specific with build tags):
-  - `registry.go` - `ParseRegistry()` reads live registry into KeyEntry trees
-  - `ops.go` - `LoadLiveRegistry()`, `WriteToRegistry()`, hive mapping
-  - `writer.go` - Low-level registry writing with syscalls
-  - `stub.go` - Non-Windows stubs returning `ErrNotSupported`
-
-### External Dependency
-
-**go-regis3** (`github.com/gersonkurz/go-regis3`) - Handles .REG file parsing, KeyEntry/ValueEntry structures, and value type handling. Referenced via local replace directive in go.mod.
-
-### Platform-Specific Code
-
-Uses Go build tags for Windows-specific registry operations:
-- `//go:build windows` for registry reading/writing
-- `//go:build !windows` for cross-platform stubs
-
-This allows .REG file processing on any OS while registry operations require Windows.
-
-## Key Behaviors
-
-- Case-insensitive key/value matching (consistent with Windows registry)
-- Supports ANSI (REGEDIT4) and Unicode (Windows Registry Editor Version 5.00) formats
-- Parameter substitution uses `$$VAR$$` syntax with INI/XML/environment variable support
-- Aliasing allows comparing differently-named registry paths
+## Key Files & Documentation
+- `cmd/regdiff/main.go`: Main orchestration logic.
+- `AGENTS.md`: Detailed repository guidelines and coding standards.
+- `CLAUDE.md`: Quick reference for build/test commands and architecture.
+- `docs/manual.md`: Comprehensive user manual for CLI usage.
+- `docs/overview.md`: Technical overview of data flow and package responsibilities.
+- `justfile`: Automation scripts.
 
 ---
 > Source: [gersonkurz/regdiff](https://github.com/gersonkurz/regdiff) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
