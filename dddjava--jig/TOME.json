@@ -4,7 +4,7 @@
   "repo": "jig",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/dddjava",
+  "source_url": "https://github.com/dddjava/jig",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T15:53:55Z"
+  "distributed_at": "2026-07-24T04:03:20Z"
 }
