@@ -1,0 +1,9 @@
+{
+  "name": "gothinkster--golang-gin-realworld-example-app",
+  "displayName": "golang-gin-realworld-example-app",
+  "description": "golang-gin-realworld-example-app",
+  "version": "1.0.0",
+  "author": "gothinkster",
+  "homepage": "https://github.com/gothinkster/golang-gin-realworld-example-app",
+  "skills": []
+}
