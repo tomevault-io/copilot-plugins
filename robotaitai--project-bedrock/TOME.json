@@ -3,8 +3,8 @@
   "owner": "robotaitai",
   "repo": "project-bedrock",
   "description": "Every session starts with context, every decision leaves a trail, and every session leaves the project smarter.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,117 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills-cursor/shell/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills-cursor/shell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/clean-web-import/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/clean-web-import/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/history-backfill/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/history-backfill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/evidence-handling/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/evidence-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/memory-management/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/memory-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/memory-compaction/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/memory-compaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills-cursor/create-rule/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills-cursor/create-rule/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/ontology-inference/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/ontology-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/decision-recording/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/decision-recording/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/session-management/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/session-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills-cursor/create-skill/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills-cursor/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills-cursor/create-subagent/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills-cursor/create-subagent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/branch-note-convention/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/branch-note-convention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/project-memory-writing/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/project-memory-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills-cursor/migrate-to-skills/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills-cursor/migrate-to-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/project-ontology-bootstrap/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/project-ontology-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills/obsidian-compatible-writing/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills/obsidian-compatible-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "project-bedrock",
+      "path": "assets/skills-cursor/update-cursor-settings/SKILL.md",
+      "github_url": "https://github.com/robotaitai/project-bedrock/tree/main/assets/skills-cursor/update-cursor-settings/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/robotaitai/project-bedrock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T13:14:40Z"
+  "distributed_at": "2026-07-24T18:32:41Z"
 }
