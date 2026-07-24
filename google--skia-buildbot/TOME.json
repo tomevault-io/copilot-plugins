@@ -1,0 +1,63 @@
+{
+  "name": "skia-buildbot",
+  "owner": "google",
+  "repo": "skia-buildbot",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skia-buildbot",
+      "path": ".agents/skills/perf-spanner-migrations/SKILL.md",
+      "github_url": "https://github.com/google/skia-buildbot/tree/main/.agents/skills/perf-spanner-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skia-buildbot",
+      "path": ".agents/skills/pinpoint-webui-guidelines/SKILL.md",
+      "github_url": "https://github.com/google/skia-buildbot/tree/main/.agents/skills/pinpoint-webui-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skia-buildbot",
+      "path": ".agents/skills/pinpoint-webui-contributor/SKILL.md",
+      "github_url": "https://github.com/google/skia-buildbot/tree/main/.agents/skills/pinpoint-webui-contributor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google/skia-buildbot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:49:21Z"
+}
