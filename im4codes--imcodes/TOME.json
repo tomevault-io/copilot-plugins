@@ -4,7 +4,7 @@
   "repo": "imcodes",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/im4codes",
+  "source_url": "https://github.com/im4codes/imcodes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T21:51:09Z"
+  "distributed_at": "2026-07-24T08:27:17Z"
 }
