@@ -1,0 +1,14 @@
+{
+  "name": "dashrobotco--robot-components",
+  "displayName": "robot-components",
+  "description": "robot-components",
+  "version": "1.0.0",
+  "author": "dashrobotco",
+  "homepage": "https://github.com/dashrobotco/robot-components",
+  "skills": [
+    {
+      "name": "robot-components",
+      "description": ""
+    }
+  ]
+}
