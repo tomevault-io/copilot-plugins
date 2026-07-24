@@ -1,0 +1,93 @@
+{
+  "name": "mikoto",
+  "owner": "mikotoIO",
+  "repo": "mikoto",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "typescript-react",
+      "path": ".claude/skills/typescript-react",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/typescript-react",
+      "description": ""
+    },
+    {
+      "name": "mikoto",
+      "path": ".claude/skills/rust/SKILL.md",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/rust/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mikoto",
+      "path": ".claude/skills/learn/SKILL.md",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mikoto",
+      "path": ".claude/skills/rebase/SKILL.md",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/rebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mikoto",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mikoto",
+      "path": ".claude/skills/chakra-ui/SKILL.md",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/chakra-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mikoto",
+      "path": ".claude/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mikoto",
+      "path": ".claude/skills/typescript-react/SKILL.md",
+      "github_url": "https://github.com/mikotoIO/mikoto/tree/main/.claude/skills/typescript-react/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mikotoIO/mikoto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:45:54Z"
+}
