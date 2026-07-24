@@ -1,0 +1,14 @@
+{
+  "name": "edgafner--gbrowser",
+  "displayName": "GBrowser",
+  "description": "GBrowser",
+  "version": "1.0.0",
+  "author": "edgafner",
+  "homepage": "https://github.com/edgafner/GBrowser",
+  "skills": [
+    {
+      "name": "GBrowser",
+      "description": ""
+    }
+  ]
+}
