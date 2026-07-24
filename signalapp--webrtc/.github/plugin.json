@@ -1,0 +1,22 @@
+{
+  "name": "signalapp--webrtc",
+  "displayName": "webrtc",
+  "description": "webrtc",
+  "version": "1.0.0",
+  "author": "signalapp",
+  "homepage": "https://github.com/signalapp/webrtc",
+  "skills": [
+    {
+      "name": "webrtc",
+      "description": ""
+    },
+    {
+      "name": "webrtc",
+      "description": ""
+    },
+    {
+      "name": "webrtc",
+      "description": ""
+    }
+  ]
+}
