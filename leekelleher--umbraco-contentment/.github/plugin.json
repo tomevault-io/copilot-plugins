@@ -1,0 +1,14 @@
+{
+  "name": "leekelleher--umbraco-contentment",
+  "displayName": "umbraco-contentment",
+  "description": "umbraco-contentment",
+  "version": "1.0.0",
+  "author": "leekelleher",
+  "homepage": "https://github.com/leekelleher/umbraco-contentment",
+  "skills": [
+    {
+      "name": "umbraco-contentment",
+      "description": ""
+    }
+  ]
+}
