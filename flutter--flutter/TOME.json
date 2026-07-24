@@ -1,0 +1,111 @@
+{
+  "name": "flutter",
+  "owner": "flutter",
+  "repo": "flutter",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rebuilding-flutter-tool",
+      "path": ".agents/skills/rebuilding-flutter-tool",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/rebuilding-flutter-tool",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".agents/agents/reidbaker-agent/skills/code-review",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/agents/reidbaker-agent/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/find-release/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/find-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/upgrade-browser/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/upgrade-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/updating-android-sdk/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/updating-android-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/analyze-github-flake/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/analyze-github-flake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/dart-log-failure-parser/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/dart-log-failure-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/rebuilding-flutter-tool/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/rebuilding-flutter-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/skills/flutter-pr-checks-finder/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/skills/flutter-pr-checks-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/agents/reidbaker-agent/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/agents/reidbaker-agent/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".agents/agents/reidbaker-agent/skills/natural-writing/SKILL.md",
+      "github_url": "https://github.com/flutter/flutter/tree/main/.agents/agents/reidbaker-agent/skills/natural-writing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/flutter/flutter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:34:53Z"
+}
