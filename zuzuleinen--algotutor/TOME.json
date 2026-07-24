@@ -4,7 +4,7 @@
   "repo": "algotutor",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zuzuleinen/algotutor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T19:15:14Z"
+  "distributed_at": "2026-07-24T10:05:40Z"
 }
