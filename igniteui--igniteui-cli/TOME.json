@@ -1,0 +1,147 @@
+{
+  "name": "igniteui-cli",
+  "owner": "IgniteUI",
+  "repo": "igniteui-cli",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "igniteui-cli",
+      "path": "packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-grids/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-grids/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-theming/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-theming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-grids/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-grids/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-theming/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-theming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-components/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-components/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-components/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-customize-theme/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-customize-theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-optimize-bundle-size/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-optimize-bundle-size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-choose-components/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-choose-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-generate-from-image-design/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/igx-templates/igx-ts/projects/ai-config/files/skills/igniteui-angular-generate-from-image-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-optimize-bundle-size/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-optimize-bundle-size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-generate-from-image-design/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/blazor/igb/projects/ai-config/files/skills/igniteui-blazor-generate-from-image-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-generate-from-image-design/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/react/igr-ts/projects/ai-config/files/skills/igniteui-react-generate-from-image-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-integrate-with-framework/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-integrate-with-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-customize-component-theme/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-customize-component-theme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "igniteui-cli",
+      "path": "packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-generate-from-image-design/SKILL.md",
+      "github_url": "https://github.com/IgniteUI/igniteui-cli/tree/main/packages/cli/templates/webcomponents/igc-ts/projects/ai-config/files/skills/igniteui-wc-generate-from-image-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/IgniteUI/igniteui-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:07:41Z"
+}
