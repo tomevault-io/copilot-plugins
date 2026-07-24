@@ -1,0 +1,9 @@
+{
+  "name": "elixir-nebulex--nebulex-redis-adapter",
+  "displayName": "nebulex_redis_adapter",
+  "description": "nebulex_redis_adapter",
+  "version": "1.0.0",
+  "author": "elixir-nebulex",
+  "homepage": "https://github.com/elixir-nebulex/nebulex_redis_adapter",
+  "skills": []
+}
