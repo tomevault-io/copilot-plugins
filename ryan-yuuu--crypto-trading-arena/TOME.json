@@ -1,0 +1,75 @@
+{
+  "name": "crypto-trading-arena",
+  "owner": "ryan-yuuu",
+  "repo": "crypto-trading-arena",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "crypto-trading-arena",
+      "path": ".agents/skills/uv/SKILL.md",
+      "github_url": "https://github.com/ryan-yuuu/crypto-trading-arena/tree/main/.agents/skills/uv/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crypto-trading-arena",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/ryan-yuuu/crypto-trading-arena/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crypto-trading-arena",
+      "path": ".agents/skills/pytest-coverage/SKILL.md",
+      "github_url": "https://github.com/ryan-yuuu/crypto-trading-arena/tree/main/.agents/skills/pytest-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crypto-trading-arena",
+      "path": ".agents/skills/diataxis-docs-writer/SKILL.md",
+      "github_url": "https://github.com/ryan-yuuu/crypto-trading-arena/tree/main/.agents/skills/diataxis-docs-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crypto-trading-arena",
+      "path": ".agents/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/ryan-yuuu/crypto-trading-arena/tree/main/.agents/skills/test-driven-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ryan-yuuu/crypto-trading-arena",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T22:41:02Z"
+}
