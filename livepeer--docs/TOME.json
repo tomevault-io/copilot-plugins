@@ -1,0 +1,105 @@
+{
+  "name": "docs",
+  "owner": "livepeer",
+  "repo": "docs",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/cross-agent-packager/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/cross-agent-packager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/rubric-static-review/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/rubric-static-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/repo-audit-orchestrator/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/repo-audit-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/cleanup-quarantine-manager/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/cleanup-quarantine-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/component-layout-governance/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/component-layout-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/docs-quality-and-freshness-audit/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/docs-quality-and-freshness-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/script-footprint-and-usage-audit/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/script-footprint-and-usage-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/generated-mdx-banners-governance/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/generated-mdx-banners-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/style-and-language-homogenizer-en-gb/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/style-and-language-homogenizer-en-gb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "ai-tools/ai-skills/docs-coverage-and-route-integrity-audit/SKILL.md",
+      "github_url": "https://github.com/livepeer/docs/tree/main/ai-tools/ai-skills/docs-coverage-and-route-integrity-audit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/livepeer/docs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:38:24Z"
+}
