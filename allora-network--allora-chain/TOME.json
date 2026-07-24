@@ -4,7 +4,7 @@
   "repo": "allora-chain",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/allora-network/allora-chain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T04:36:19Z"
+  "distributed_at": "2026-07-24T20:58:14Z"
 }
