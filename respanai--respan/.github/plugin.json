@@ -1,0 +1,14 @@
+{
+  "name": "respanai--respan",
+  "displayName": "respan",
+  "description": "respan",
+  "version": "1.0.0",
+  "author": "respanai",
+  "homepage": "https://github.com/respanai/respan",
+  "skills": [
+    {
+      "name": "respan",
+      "description": ""
+    }
+  ]
+}
