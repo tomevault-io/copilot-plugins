@@ -1,0 +1,14 @@
+{
+  "name": "scottcjn--rustchain",
+  "displayName": "Rustchain",
+  "description": "Rustchain",
+  "version": "1.0.0",
+  "author": "Scottcjn",
+  "homepage": "https://github.com/Scottcjn/Rustchain",
+  "skills": [
+    {
+      "name": "Rustchain",
+      "description": ""
+    }
+  ]
+}
