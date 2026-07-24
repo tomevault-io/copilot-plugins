@@ -1,0 +1,9 @@
+{
+  "name": "google--play-services-plugins",
+  "displayName": "play-services-plugins",
+  "description": "play-services-plugins",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/play-services-plugins",
+  "skills": []
+}
