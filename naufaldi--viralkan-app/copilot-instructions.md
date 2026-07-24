@@ -497,4 +497,4 @@ Production deployment uses Docker + Traefik reverse proxy with automatic Let's E
 
 ---
 > Source: [naufaldi/viralkan-app](https://github.com/naufaldi/viralkan-app) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
