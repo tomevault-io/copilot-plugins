@@ -1,0 +1,99 @@
+{
+  "name": "zulip",
+  "owner": "zulip",
+  "repo": "zulip",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "debug-node-coverage",
+      "path": ".claude/skills/debug-node-coverage",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/debug-node-coverage",
+      "description": ""
+    },
+    {
+      "name": "fetch-zulip-messages",
+      "path": ".claude/skills/fetch-zulip-messages",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/fetch-zulip-messages",
+      "description": ""
+    },
+    {
+      "name": "fix-backend-coverage",
+      "path": ".claude/skills/fix-backend-coverage",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/fix-backend-coverage",
+      "description": ""
+    },
+    {
+      "name": "visual-test",
+      "path": ".claude/skills/visual-test",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/visual-test",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "path": ".claude/skills/visual-test/SKILL.md",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/visual-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "path": ".claude/skills/write-changelog/SKILL.md",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/write-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "path": ".claude/skills/debug-node-coverage/SKILL.md",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/debug-node-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "path": ".claude/skills/fix-backend-coverage/SKILL.md",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/fix-backend-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zulip",
+      "path": ".claude/skills/fetch-zulip-messages/SKILL.md",
+      "github_url": "https://github.com/zulip/zulip/tree/main/.claude/skills/fetch-zulip-messages/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zulip/zulip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:36:34Z"
+}
