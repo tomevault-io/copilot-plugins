@@ -1,0 +1,9 @@
+{
+  "name": "homebrew--homebrew-core",
+  "displayName": "homebrew-core",
+  "description": "homebrew-core",
+  "version": "1.0.0",
+  "author": "Homebrew",
+  "homepage": "https://github.com/Homebrew/homebrew-core",
+  "skills": []
+}
