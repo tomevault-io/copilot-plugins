@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [qiniu/qshell](https://github.com/qiniu/qshell).
+Original source: `CLAUDE.md` in [qiniu/qshell](https://github.com/qiniu/qshell).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -22,7 +22,7 @@ Original source: `AGENTS.md` in [qiniu/qshell](https://github.com/qiniu/qshell).
 - [qshell](https://github.com/qiniu/qshell/tree/main/.agents/skills/ci-analyze/SKILL.md)
 - [qshell](https://github.com/qiniu/qshell/tree/main/.agents/skills/git-commit/SKILL.md)
 
-From [qiniu/qshell](https://github.com/qiniu/qshell) — a repo with 1022+ stars on GitHub.
+From [qiniu/qshell](https://github.com/qiniu/qshell) — a repo with 1023+ stars on GitHub.
 
 ---
 
