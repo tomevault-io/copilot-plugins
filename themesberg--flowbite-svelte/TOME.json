@@ -4,7 +4,7 @@
   "repo": "flowbite-svelte",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/themesberg/flowbite-svelte",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T12:18:43Z"
+  "distributed_at": "2026-07-24T12:46:02Z"
 }
