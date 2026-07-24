@@ -2,9 +2,9 @@
   "name": "PhotonCamera",
   "owner": "bjzhou",
   "repo": "PhotonCamera",
-  "description": "Open-source Android camera application focused on static photography",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bjzhou/PhotonCamera",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T06:35:53Z"
+  "distributed_at": "2026-07-24T19:11:38Z"
 }
