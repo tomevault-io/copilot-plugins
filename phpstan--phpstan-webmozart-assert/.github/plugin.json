@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpstan-webmozart-assert",
+  "displayName": "phpstan-webmozart-assert",
+  "description": "phpstan-webmozart-assert",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpstan-webmozart-assert",
+  "skills": []
+}
