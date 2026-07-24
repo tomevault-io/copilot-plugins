@@ -1,0 +1,9 @@
+{
+  "name": "timheuer--alexa-skills-dotnet",
+  "displayName": "alexa-skills-dotnet",
+  "description": "alexa-skills-dotnet",
+  "version": "1.0.0",
+  "author": "timheuer",
+  "homepage": "https://github.com/timheuer/alexa-skills-dotnet",
+  "skills": []
+}
