@@ -1,0 +1,9 @@
+{
+  "name": "siamaksade--openshift-cicd-demo",
+  "displayName": "openshift-cicd-demo",
+  "description": "openshift-cicd-demo",
+  "version": "1.0.0",
+  "author": "siamaksade",
+  "homepage": "https://github.com/siamaksade/openshift-cicd-demo",
+  "skills": []
+}
