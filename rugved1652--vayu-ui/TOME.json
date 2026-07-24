@@ -1,0 +1,141 @@
+{
+  "name": "vayu-ui",
+  "owner": "Rugved1652",
+  "repo": "vayu-ui",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vayu-ui",
+      "path": "skills/mcp-usage/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/skills/mcp-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "skills/design-system/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "skills/document-code/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/skills/document-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": ".agent/skills/fumadocs/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/.agent/skills/fumadocs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "skills/folder-structure/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/skills/folder-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "src/skills/folder-structure/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/src/skills/folder-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "skills/api-call-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/skills/api-call-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "skills/react-hook-form-zod-validation/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/skills/react-hook-form-zod-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "packages/cli/src/templates/skills/mcp-usage/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/packages/cli/src/templates/skills/mcp-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "packages/cli/src/templates/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/packages/cli/src/templates/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "packages/cli/src/templates/skills/design-system/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/packages/cli/src/templates/skills/design-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "packages/cli/src/templates/skills/document-code/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/packages/cli/src/templates/skills/document-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "packages/cli/src/templates/skills/folder-structure/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/packages/cli/src/templates/skills/folder-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "packages/cli/src/templates/skills/api-call-tanstack-query/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/packages/cli/src/templates/skills/api-call-tanstack-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vayu-ui",
+      "path": "packages/cli/src/templates/skills/react-hook-form-zod-validation/SKILL.md",
+      "github_url": "https://github.com/Rugved1652/vayu-ui/tree/main/packages/cli/src/templates/skills/react-hook-form-zod-validation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Rugved1652/vayu-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T02:34:16Z"
+}
