@@ -1,0 +1,16 @@
+## obsidian-ics
+
+> When working on an issue and currently on the master branch, always create a new feature branch first.
+
+# Branch Management Rule
+When working on an issue and currently on the master branch, always create a new feature branch first.
+
+Use the format: `git checkout -b issue-{issue-number}` or `git checkout -b feature-{description}`
+
+Since we use github, also publish the branch to `origin` (github)
+
+This helps maintain a clean master branch and enables proper pull request workflows.
+
+---
+> Source: [open-horizon-labs/obsidian-ics](https://github.com/open-horizon-labs/obsidian-ics) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
