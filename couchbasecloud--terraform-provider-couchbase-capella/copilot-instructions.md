@@ -35,4 +35,4 @@ fix any errors.
 
 ---
 > Source: [couchbasecloud/terraform-provider-couchbase-capella](https://github.com/couchbasecloud/terraform-provider-couchbase-capella) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
