@@ -1,0 +1,9 @@
+{
+  "name": "zephyrproject-rtos--openthread",
+  "displayName": "openthread",
+  "description": "openthread",
+  "version": "1.0.0",
+  "author": "zephyrproject-rtos",
+  "homepage": "https://github.com/zephyrproject-rtos/openthread",
+  "skills": []
+}
