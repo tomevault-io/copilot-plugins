@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "enmanuelmag",
   "homepage": "https://github.com/enmanuelmag/agent-harness-kit",
-  "skills": []
+  "skills": [
+    {
+      "name": "agent-harness-kit",
+      "description": ""
+    },
+    {
+      "name": "agent-harness-kit",
+      "description": ""
+    },
+    {
+      "name": "agent-harness-kit",
+      "description": ""
+    }
+  ]
 }
