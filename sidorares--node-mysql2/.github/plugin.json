@@ -1,0 +1,14 @@
+{
+  "name": "sidorares--node-mysql2",
+  "displayName": "node-mysql2",
+  "description": "node-mysql2",
+  "version": "1.0.0",
+  "author": "sidorares",
+  "homepage": "https://github.com/sidorares/node-mysql2",
+  "skills": [
+    {
+      "name": "node-mysql2",
+      "description": ""
+    }
+  ]
+}
