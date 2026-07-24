@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [autogluon/tabarena](https://github.com/autogluon/tabarena).
+Original source: `CLAUDE.md` in [autogluon/tabarena](https://github.com/autogluon/tabarena).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [autogluon/tabarena](https://github.com/autogluo
 
 - [tabarena](https://github.com/autogluon/tabarena/tree/main/.claude/skills/add-model/SKILL.md)
 
-From [autogluon/tabarena](https://github.com/autogluon/tabarena) — a repo with 273+ stars on GitHub.
+From [autogluon/tabarena](https://github.com/autogluon/tabarena) — a repo with 274+ stars on GitHub.
 
 ---
 
