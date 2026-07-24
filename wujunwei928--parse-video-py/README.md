@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wujunwei928/parse-video-py](https://github.com/wujunwei928/parse-video-py).
+Original source: `CLAUDE.md` in [wujunwei928/parse-video-py](https://github.com/wujunwei928/parse-video-py).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,7 +19,7 @@ Original source: `AGENTS.md` in [wujunwei928/parse-video-py](https://github.com/
 
 - [parse-video-py](https://github.com/wujunwei928/parse-video-py/tree/main/.claude/skills/analyze-video-url/SKILL.md)
 
-From [wujunwei928/parse-video-py](https://github.com/wujunwei928/parse-video-py) — a repo with 659+ stars on GitHub.
+From [wujunwei928/parse-video-py](https://github.com/wujunwei928/parse-video-py) — a repo with 660+ stars on GitHub.
 
 ---
 
