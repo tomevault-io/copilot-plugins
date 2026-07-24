@@ -1,23 +1,21 @@
 # scrapai-cli
 
-> Source: [discourselab/scrapai-cli](https://github.com/discourselab/scrapai-cli) — distributed by [TomeVault](https://tomevault.io)
-
-AI-powered web scraping CLI. Describe what you want, get a   production-ready Scrapy spider. Write once, reuse forever.
+> Source: [discourselab/scrapai-cli](https://github.com/discourselab/scrapai-cli). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [discourselab/scrapai-cli](https://github.com/discourselab/scrapai-cli).
+Original source: `GEMINI.md` in [discourselab/scrapai-cli](https://github.com/discourselab/scrapai-cli).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [discourselab/scrapai-cli](https://github.com/discourselab/scrapai-cli) — a repo with 107+ stars on GitHub.
+From [discourselab/scrapai-cli](https://github.com/discourselab/scrapai-cli) — a repo with 113+ stars on GitHub.
 
 ---
 
