@@ -1,0 +1,14 @@
+{
+  "name": "dealfluence--adeu",
+  "displayName": "adeu",
+  "description": "adeu",
+  "version": "1.0.0",
+  "author": "dealfluence",
+  "homepage": "https://github.com/dealfluence/adeu",
+  "skills": [
+    {
+      "name": "adeu-redlining",
+      "description": ""
+    }
+  ]
+}
