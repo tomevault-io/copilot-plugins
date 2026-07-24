@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--artifact-registry-maven-tools",
+  "displayName": "artifact-registry-maven-tools",
+  "description": "artifact-registry-maven-tools",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/artifact-registry-maven-tools",
+  "skills": []
+}
