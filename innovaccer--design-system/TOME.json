@@ -3,8 +3,8 @@
   "owner": "innovaccer",
   "repo": "design-system",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "design-system",
+      "path": ".claude/skills/a11y/SKILL.md",
+      "github_url": "https://github.com/innovaccer/design-system/tree/main/.claude/skills/a11y/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/innovaccer/design-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T23:46:08Z"
+  "distributed_at": "2026-07-24T18:37:05Z"
 }
