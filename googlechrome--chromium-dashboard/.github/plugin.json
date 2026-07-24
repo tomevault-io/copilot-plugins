@@ -1,0 +1,30 @@
+{
+  "name": "googlechrome--chromium-dashboard",
+  "displayName": "chromium-dashboard",
+  "description": "chromium-dashboard",
+  "version": "1.0.0",
+  "author": "GoogleChrome",
+  "homepage": "https://github.com/GoogleChrome/chromium-dashboard",
+  "skills": [
+    {
+      "name": "chromium-dashboard",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "description": ""
+    }
+  ]
+}
