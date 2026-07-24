@@ -4,7 +4,7 @@
   "repo": "pynguin",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/se2p/pynguin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T12:04:03Z"
+  "distributed_at": "2026-07-24T08:31:47Z"
 }
