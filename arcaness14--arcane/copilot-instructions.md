@@ -1,26 +1,26 @@
-## arcane
+## ss14-resources
 
 > <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
 <!-- SPDX-License-Identifier: LicenseRef-OpenSpace-AgentPrompts-Restricted -->
 
-# Gemini Repo Instructions
+---
+description: Prototype, localization, and resource rules for SS14 content data.
+globs:
+  - Resources/**/*.yml
+  - Resources/**/*.ftl
+  - Resources/**/*.json
+alwaysApply: false
+---
 
-Follow [AGENTS.md](AGENTS.md) as the primary repository instruction file for this SS14 fork.
+Read these skills before editing matching files:
 
-Before editing:
-
-- Read `.agents/rules/`
-- Read every relevant skill under `.agents/skills/`
-- Prefer the nearest subtree `AGENTS.md` when one exists for the touched files
-
-Core expectations:
-
-- Keep components data-only and behavior in systems.
-- Use `On... -> Try... -> Can... -> Do...` for gameplay actions.
-- Prefer `Entity<T?>`, `ProtoId<T>`, `EntProtoId`, and localized strings.
-- Avoid `RobustToolbox/` edits unless engine work is explicitly required.
-- Use prediction and localization as first-pass design constraints, not cleanup.
+- @.agents/skills/ss14-naming-conventions/SKILL.md
+- @.agents/skills/ss14-upstream-maintenance/SKILL.md
+- @.agents/skills/ss14-ecs-prototypes/SKILL.md
+- @.agents/skills/ss14-localization-strings/SKILL.md
+- @.agents/skills/ss14-prototypes-locale/SKILL.md
+- @.agents/skills/ss14-graphics-generic-visualizer-appearance/SKILL.md
 
 ---
 > Source: [ArcaneSS14/arcane](https://github.com/ArcaneSS14/arcane) — distributed by [TomeVault](https://tomevault.io).
