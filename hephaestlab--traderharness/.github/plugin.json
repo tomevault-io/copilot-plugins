@@ -1,0 +1,9 @@
+{
+  "name": "hephaestlab--traderharness",
+  "displayName": "TraderHarness",
+  "description": "\u9762\u5411 LLM \u4ea4\u6613 Agent \u7684\u6297\u6c61\u67d3\u56de\u6d4b\u4e0e\u8bc4\u6d4b\u73af\u5883\uff1a\u771f\u5b9eA\u80a1\u6570\u636e\u3001\u65f6\u70b9\u63a9\u7801\u3001\u6307\u7eb9\u56de\u653e\uff0c\u6bcf\u6b21\u8fd0\u884c\u540c\u6b65\u5408\u6210\u8f68\u8ff9\u8bad\u7ec3\u6570\u636e\uff5cContamination-resistant A-share backtesting, replay & trajectory export for LLM trading agents",
+  "version": "1.0.0",
+  "author": "HephaestLab",
+  "homepage": "https://github.com/HephaestLab/TraderHarness",
+  "skills": []
+}
