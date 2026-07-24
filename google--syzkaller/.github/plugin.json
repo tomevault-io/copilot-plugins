@@ -1,0 +1,9 @@
+{
+  "name": "google--syzkaller",
+  "displayName": "syzkaller",
+  "description": "syzkaller",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/syzkaller",
+  "skills": []
+}
