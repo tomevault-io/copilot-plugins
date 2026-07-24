@@ -1,0 +1,9 @@
+{
+  "name": "tencentcloudbase--cloudbase-ai-toolkit",
+  "displayName": "CloudBase-AI-Toolkit",
+  "description": "Backend for AI coding agents on CloudBase \u2014 database, auth, functions via Plugin, Skills & MCP.",
+  "version": "1.0.0",
+  "author": "TencentCloudBase",
+  "homepage": "https://github.com/TencentCloudBase/CloudBase-AI-Toolkit",
+  "skills": []
+}
