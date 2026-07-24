@@ -1,0 +1,9 @@
+{
+  "name": "openshift--sippy",
+  "displayName": "sippy",
+  "description": "sippy",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/sippy",
+  "skills": []
+}
