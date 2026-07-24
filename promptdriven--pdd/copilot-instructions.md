@@ -1,47 +1,34 @@
 ## pdd
 
-> - `package.json`: VS Code extension manifest (language id `prompt`) with PDD CLI integration commands.
+> This repository contains the public PDD CLI. Keep changes focused on the open-source package and avoid adding private deployment or credential-backed workflow details.
 
-# Repository Guidelines
+# Claude Code Notes
 
-## Project Structure & Module Organization
-- `package.json`: VS Code extension manifest (language id `prompt`) with PDD CLI integration commands.
-- `language-configuration.json`: Brackets, comments, and editor behaviors for `.prompt` files.
-- `syntaxes/prompt.tmLanguage.json`: TextMate grammar for `.prompt` files.
-- `prompts/prompt.tmLanguage_json.prompt`: Source asset/example used for grammar work.
-- `src/extension.ts`: Main extension entry point with command registration for PDD CLI features.
-- `src/pddInstaller.ts`: Smart PDD CLI installation and detection system with uv-first logic.
-- Docs: `README.md`, `CHANGELOG.md`, `LICENSE.md`, `vsc-extension-quickstart.md`.
+This repository contains the public PDD CLI. Keep changes focused on the open-source package and avoid adding private deployment or credential-backed workflow details.
 
-## Build, Test, and Development Commands
-- Run locally: open in VS Code and use "Run Extension" (F5) to launch an Extension Development Host.
-- Package: `npm install -g @vscode/vsce` then `vsce package` to create a `.vsix`.
-- Publish (maintainers): `vsce publish` with the configured `publisher` in `package.json`.
-- Lint/format: none configured; see Style section before adding tools.
-- Test PDD CLI integration: use the "PDD: Install CLI" command in the Extension Development Host.
-- Debug installation: check VS Code Developer Console for detailed logging from pddInstaller.ts.
+## Commands
+- Install dependencies: `pip install -e ".[dev]"` or `pip install -e .`
+- Run all tests: `pytest -vv tests/`
+- Run one test file: `pytest -vv tests/test_module_name.py`
+- Test with coverage: `make coverage`
+- Generate module: `make generate MODULE=module_name`
+- Fix module: `make fix MODULE=module_name`
+- Crash fix: `make crash MODULE=module_name`
+- Regression tests: `make regression`
+- Lint check: `make lint` or `pylint pdd/<module>.py`
 
-## Coding Style & Naming Conventions
-- JSON: 2-space indentation, UTF-8, no trailing commas.
-- TypeScript: Standard TypeScript conventions, async/await for promises, clear function names.
-- Filenames: lowercase, hyphenated where needed (e.g., `my-asset.json`).
-- Grammar: keep scope names consistent; place grammars under `syntaxes/` and configs at repo root.
-- Language id and extension remain `prompt` / `.prompt` unless a breaking change is planned.
+## Model Selection
+- `llm_model.csv` has an `interactive_only` column. Rows marked `True` (e.g. `github_copilot/*`, `chatgpt/*`, `lm_studio/*`, `ollama/*`) require interactive human auth (device-flow OAuth or a ChatGPT subscription / `codex login` token) or a running local server and hang in non-interactive contexts (Cloud Run, CI, library import). `_select_model_candidates` skips them in the automatic candidate cascade by default; set `PDD_ALLOW_INTERACTIVE=1` from a terminal to opt in. An explicitly configured `PDD_MODEL_DEFAULT` is always honored.
 
-## Testing Guidelines
-- Manual checks: open a `.prompt` file in the Extension Development Host and use “Developer: Inspect Editor Tokens and Scopes”.
-- Scenarios: verify keywords, strings, comments, and edge cases render as expected.
-- Optional tooling (future): `vscode-tmgrammar-test` for snapshot-based grammar tests. Keep sample files under `test-fixtures/` if added.
-
-## Commit & Pull Request Guidelines
-- Commits: present-tense, imperative (“Add…”, “Fix…”). Use short scope prefixes when helpful (e.g., `grammar:`, `docs:`, `chore:`). Keep subjects ≤72 chars.
-- PRs: include summary, motivation, before/after screenshots or GIFs for highlighting changes, and link related issues.
-- Changelog: update `CHANGELOG.md` for user-visible changes; bump version in `package.json` when publishing.
-
-## Security & Configuration Tips
-- Keep `engines.vscode` accurate; test against that VS Code version.
-- No runtime code here; validate JSON with a linter or VS Code JSON schema hints before committing.
+## Code Style
+- Python 3.12+, four-space indentation, and PEP 8 conventions.
+- Use type hints for public functions.
+- Keep imports grouped as standard library, third-party, then local.
+- Functions should have docstrings when behavior or side effects are not obvious.
+- Add tests for user-visible behavior and shared helper changes.
+- Pydantic v2 is used for structured validation.
+- The CLI is implemented with Click.
 
 ---
 > Source: [promptdriven/pdd](https://github.com/promptdriven/pdd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
