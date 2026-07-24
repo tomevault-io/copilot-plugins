@@ -1,0 +1,18 @@
+{
+  "name": "subsquid--squid-sdk",
+  "displayName": "squid-sdk",
+  "description": "squid-sdk",
+  "version": "1.0.0",
+  "author": "subsquid",
+  "homepage": "https://github.com/subsquid/squid-sdk",
+  "skills": [
+    {
+      "name": "squid-sdk",
+      "description": ""
+    },
+    {
+      "name": "squid-sdk",
+      "description": ""
+    }
+  ]
+}
