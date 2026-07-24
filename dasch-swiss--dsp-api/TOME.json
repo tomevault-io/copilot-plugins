@@ -1,0 +1,51 @@
+{
+  "name": "dsp-api",
+  "owner": "dasch-swiss",
+  "repo": "dsp-api",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dsp-api",
+      "path": ".claude/skills/fix-markdownlint/SKILL.md",
+      "github_url": "https://github.com/dasch-swiss/dsp-api/tree/main/.claude/skills/fix-markdownlint/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dasch-swiss/dsp-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T03:06:39Z"
+}
