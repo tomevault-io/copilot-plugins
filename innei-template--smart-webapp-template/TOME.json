@@ -4,7 +4,7 @@
   "repo": "smart-webapp-template",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/innei-template",
+  "source_url": "https://github.com/innei-template/smart-webapp-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T04:59:26Z"
+  "distributed_at": "2026-07-24T19:32:28Z"
 }
