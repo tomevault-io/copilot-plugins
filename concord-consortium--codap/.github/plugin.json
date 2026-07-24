@@ -1,0 +1,22 @@
+{
+  "name": "concord-consortium--codap",
+  "displayName": "codap",
+  "description": "codap",
+  "version": "1.0.0",
+  "author": "concord-consortium",
+  "homepage": "https://github.com/concord-consortium/codap",
+  "skills": [
+    {
+      "name": "codap-v3-build",
+      "description": ""
+    },
+    {
+      "name": "codap",
+      "description": ""
+    },
+    {
+      "name": "codap",
+      "description": ""
+    }
+  ]
+}
