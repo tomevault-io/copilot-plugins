@@ -1,0 +1,183 @@
+{
+  "name": "Corvus.JsonSchema",
+  "owner": "corvus-dotnet",
+  "repo": "Corvus.JsonSchema",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reviewing-skills",
+      "path": ".github/skills/reviewing-skills",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/reviewing-skills",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-yaml/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-yaml/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-codegen/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-codegen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/reviewing-skills/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/reviewing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-analyzers/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-analyzers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-ecma-regex/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-ecma-regex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-benchmarks/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-benchmarks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-docs-website/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-docs-website/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-v4-migration/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-v4-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/ref-struct-delegates/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/ref-struct-delegates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-numeric-types/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-numeric-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-build-and-test/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-build-and-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-bowtie-testing/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-bowtie-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-query-languages/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-query-languages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-mutable-documents/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-mutable-documents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-buffer-and-pooling/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-buffer-and-pooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-standalone-evaluator/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-standalone-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-keywords-and-validation/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-keywords-and-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-test-suite-regeneration/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-test-suite-regeneration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-low-alloc-data-structures/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-low-alloc-data-structures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-xplat-dynamic-compilation/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-xplat-dynamic-compilation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-ctj-handler-implementation/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-ctj-handler-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Corvus.JsonSchema",
+      "path": ".github/skills/corvus-parsed-documents-and-memory/SKILL.md",
+      "github_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema/tree/main/.github/skills/corvus-parsed-documents-and-memory/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/corvus-dotnet/Corvus.JsonSchema",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T02:47:34Z"
+}
