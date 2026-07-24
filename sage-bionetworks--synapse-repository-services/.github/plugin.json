@@ -1,0 +1,9 @@
+{
+  "name": "sage-bionetworks--synapse-repository-services",
+  "displayName": "Synapse-Repository-Services",
+  "description": "Synapse-Repository-Services",
+  "version": "1.0.0",
+  "author": "Sage-Bionetworks",
+  "homepage": "https://github.com/Sage-Bionetworks/Synapse-Repository-Services",
+  "skills": []
+}
