@@ -1,0 +1,18 @@
+{
+  "name": "instavm--open-skills",
+  "displayName": "open-skills",
+  "description": "open-skills",
+  "version": "1.0.0",
+  "author": "instavm",
+  "homepage": "https://github.com/instavm/open-skills",
+  "skills": [
+    {
+      "name": "open-skills",
+      "description": ""
+    },
+    {
+      "name": "open-skills",
+      "description": ""
+    }
+  ]
+}
