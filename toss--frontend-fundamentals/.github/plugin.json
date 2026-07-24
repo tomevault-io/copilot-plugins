@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "author": "toss",
   "homepage": "https://github.com/toss/frontend-fundamentals",
-  "skills": []
+  "skills": [
+    {
+      "name": "frontend-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "frontend-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "frontend-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "frontend-fundamentals",
+      "description": ""
+    }
+  ]
 }
