@@ -1,0 +1,54 @@
+{
+  "name": "nvidia--dgx-spark-playbooks",
+  "displayName": "dgx-spark-playbooks",
+  "description": "dgx-spark-playbooks",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/dgx-spark-playbooks",
+  "skills": [
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "description": ""
+    }
+  ]
+}
