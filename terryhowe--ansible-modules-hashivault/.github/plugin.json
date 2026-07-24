@@ -1,0 +1,9 @@
+{
+  "name": "terryhowe--ansible-modules-hashivault",
+  "displayName": "ansible-modules-hashivault",
+  "description": "ansible-modules-hashivault",
+  "version": "1.0.0",
+  "author": "TerryHowe",
+  "homepage": "https://github.com/TerryHowe/ansible-modules-hashivault",
+  "skills": []
+}
