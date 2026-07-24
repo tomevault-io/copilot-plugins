@@ -1,0 +1,14 @@
+{
+  "name": "rocky-linux--rockylinux-org",
+  "displayName": "rockylinux.org",
+  "description": "rockylinux.org",
+  "version": "1.0.0",
+  "author": "rocky-linux",
+  "homepage": "https://github.com/rocky-linux/rockylinux.org",
+  "skills": [
+    {
+      "name": "rockylinux.org",
+      "description": ""
+    }
+  ]
+}
