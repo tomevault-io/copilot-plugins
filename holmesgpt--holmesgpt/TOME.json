@@ -1,0 +1,87 @@
+{
+  "name": "holmesgpt",
+  "owner": "HolmesGPT",
+  "repo": "holmesgpt",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "holmesgpt",
+      "path": ".claude/skills/create-eval/SKILL.md",
+      "github_url": "https://github.com/HolmesGPT/holmesgpt/tree/main/.claude/skills/create-eval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holmesgpt",
+      "path": "tests/llm/fixtures/test_ask_holmes/96_no_matching_skill/service-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/HolmesGPT/holmesgpt/tree/main/tests/llm/fixtures/test_ask_holmes/96_no_matching_skill/service-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holmesgpt",
+      "path": "tests/llm/fixtures/test_ask_holmes/94_skill_transparency/database-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/HolmesGPT/holmesgpt/tree/main/tests/llm/fixtures/test_ask_holmes/94_skill_transparency/database-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holmesgpt",
+      "path": "tests/llm/fixtures/test_ask_holmes/104b_postgres_missing_index_pgstat/postgres-performance/SKILL.md",
+      "github_url": "https://github.com/HolmesGPT/holmesgpt/tree/main/tests/llm/fixtures/test_ask_holmes/104b_postgres_missing_index_pgstat/postgres-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holmesgpt",
+      "path": "tests/llm/fixtures/test_ask_holmes/95_skill_memory_leak_detection/python-memory-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/HolmesGPT/holmesgpt/tree/main/tests/llm/fixtures/test_ask_holmes/95_skill_memory_leak_detection/python-memory-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holmesgpt",
+      "path": "tests/llm/fixtures/test_ask_holmes/90_skill_basic_selection/application-gateway-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/HolmesGPT/holmesgpt/tree/main/tests/llm/fixtures/test_ask_holmes/90_skill_basic_selection/application-gateway-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "holmesgpt",
+      "path": "tests/llm/fixtures/test_ask_holmes/89_skill_missing_cloudwatch/lambda-performance-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/HolmesGPT/holmesgpt/tree/main/tests/llm/fixtures/test_ask_holmes/89_skill_missing_cloudwatch/lambda-performance-troubleshooting/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HolmesGPT/holmesgpt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:29:08Z"
+}
