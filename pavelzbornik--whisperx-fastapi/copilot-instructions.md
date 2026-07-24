@@ -1,0 +1,65 @@
+## whisperx-fastapi
+
+> Database and ML infrastructure — concrete implementations of domain interfaces.
+
+# app/infrastructure
+
+Database and ML infrastructure — concrete implementations of domain interfaces.
+
+## Database Layer
+
+### ORM Models (`database/models.py`)
+
+SQLAlchemy ORM models only. No business logic, no state-transition methods. Column names
+may differ from domain entity fields — mappers handle the translation.
+
+### Mappers (`database/mappers/task_mapper.py`)
+
+Two functions — always use them, never read ORM fields directly in services:
+
+- `to_domain(orm_task) -> Task` — converts `TaskORM` → `Task` domain entity
+- `to_orm(domain_task) -> TaskORM` — converts `Task` → `TaskORM` for persistence
+
+### Connection & Sessions (`database/connection.py`)
+
+Two engines and two session factories — one for each execution context:
+
+| Name | Engine | Use |
+| --- | --- | --- |
+| `async_engine` / `AsyncSessionLocal` | asyncpg / aiosqlite | FastAPI request handlers (async) |
+| `sync_engine` / `SyncSessionLocal` | psycopg2 / sqlite3 | Background task threads (sync) |
+
+### Repository (`database/repositories/sqlalchemy_task_repository.py`)
+
+Two concrete `ITaskRepository` implementations split by session type:
+
+- `AsyncSQLAlchemyTaskRepository` — request-scoped; received via DI (Container factory).
+- `SyncSQLAlchemyTaskRepository` — background tasks; call `SyncSessionLocal()` directly
+  and pass the session to the constructor.
+
+Both re-raise infrastructure errors as `DatabaseOperationError`.
+
+### Unit of Work (`database/unit_of_work.py`)
+
+Use `SQLAlchemyUnitOfWork` as a context manager for atomic multi-step operations:
+
+```python
+with SQLAlchemyUnitOfWork(session) as uow:
+    uow.tasks.create(task)
+    uow.commit()   # explicit commit required — no auto-commit
+```
+
+If an exception is raised inside the block, the UoW rolls back automatically.
+
+## ML Layer (`ml/`)
+
+WhisperX implementations of the four domain service Protocols
+(`ITranscriptionService`, `IAlignmentService`, `IDiarizationService`,
+`ISpeakerAssignmentService`). Registered as **Singletons** in the DI Container so
+models are loaded once at startup and reused across requests.
+
+Use `# type: ignore` freely for whisperx and torch APIs — they lack complete type stubs.
+
+---
+> Source: [pavelzbornik/whisperX-FastAPI](https://github.com/pavelzbornik/whisperX-FastAPI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
