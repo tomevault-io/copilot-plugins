@@ -1,0 +1,26 @@
+{
+  "name": "instavm--coderunner",
+  "displayName": "coderunner",
+  "description": "coderunner",
+  "version": "1.0.0",
+  "author": "instavm",
+  "homepage": "https://github.com/instavm/coderunner",
+  "skills": [
+    {
+      "name": "image-crop-rotate",
+      "description": ""
+    },
+    {
+      "name": "pdf-text-replace",
+      "description": ""
+    },
+    {
+      "name": "coderunner",
+      "description": ""
+    },
+    {
+      "name": "coderunner",
+      "description": ""
+    }
+  ]
+}
