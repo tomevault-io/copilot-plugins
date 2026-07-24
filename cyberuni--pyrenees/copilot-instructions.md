@@ -1,61 +1,139 @@
-## project-structure
+## react-guidelines
 
-> This rule describes the standard project structure and file organization conventions for this monorepo. Follow these guidelines when adding new code, packages, or configuration files.
+> This document outlines the best practices and patterns for React development in our project.
 
-# Project Structure & File Organization Guidelines
+# React Development Guidelines
 
-This rule describes the standard project structure and file organization conventions for this monorepo. Follow these guidelines when adding new code, packages, or configuration files.
+This document outlines the best practices and patterns for React development in our project.
 
-## Top-level Directory Overview
+## Basig Styling
 
-- `/apps/` — Folder that contains one or more application projects (e.g., web apps, storybook, etc.)
-- `/libraries/` — Folder tha contains one or more shared libraries and modules (e.g., design system, types)
-- `/tools/` — Project-specific tools, scripts, or configuration helpers
-- `/react/` — React-specific projects
-- `/.cursor/` — Cursor rules and configuration
-- `/.github/` — GitHub workflows and automation
-- `/.vscode/` — VSCode workspace settings and recommendations
-- `/node_modules/` — Installed dependencies (auto-generated)
-- `pnpm-workspace.yaml` — pnpm workspace configuration
-- `package.json` — Root package manifest
-- `pnpm-lock.yaml` — pnpm lock file
-- `tsconfig.json` — Root TypeScript configuration
-- Other dotfiles — Project-wide configuration (e.g., `.editorconfig`, `.gitignore`)
+1. Use simple string values for className props:
+   ```typescript
+   // ✅ Good example
+   export const Default: StoryObj = {
+     render: () => (
+       <YourComponent className="flex gap-4" />
+     )
+   }
 
-## Guidelines
+   // ❌ Bad example - avoid curly braces for simple strings
+   export const Default: StoryObj = {
+     render: () => (
+       <YourComponent className={"flex gap-4"} />
+     )
+   }
+   ```
 
-1. **Place new apps in `/apps/`**
-2. **Place shared library code in `/libraries/`**
-4. **Place project-specific tools in `/tools/`**
-5. **Use snake_case for directory and file names**
-6. **File names can contain additional sub-context, such as tests, context, and TypeScript types. They are added to the file name seperating by `.`. For example: `data-grid.spec.tsx`, `data-grid.ctx.ts`, `data-grid.theme.ts`, `data-grid.types.ts`.**
-7. **Place test and Storybook file next to the source file, not in different folders**
-8. **Keep configuration files at the root unless project-specific**
-9.  **Do not place code or packages in the root directory**
-10. **Update this rule if the structure changes**
+## Component Structure
 
-## Example Structure
+1. Use functional components with TypeScript
+2. Use function statement whenever possible
+3. Follow the following file structure:
+   ```ts
+   // ✅ Good example
+   interface Props {
+     // Props interface
+   }
 
-```text
-/ (repo root)
-├── apps/
-│   └── storybook/
-├── libraries/
-│   ├── design/
-│   └── types/
-├── tools/
-│   └── tsconfig/
-├── react/
-│   └── pyrenees/
-├── .cursor/
-│   └── rules/
-├── .github/
-├── .vscode/
-├── package.json
-├── pnpm-workspace.yaml
-└── ...
-```
+   export function Component({ prop1, prop2 }: Props) {
+     // Component implementation
+     return <div>...</div>
+   }
+   ```
 
+## State Management
+
+1. Use React hooks for local state:
+   ```typescript
+   // ✅ Good example
+   const [state, setState] = useState<StateType>(initialState)
+   ```
+
+2. For global state:
+   - Use React Context for simple state sharing
+   - Consider Redux or Zustand for complex state management
+
+## Performance Optimization
+
+1. Use `memo` for expensive components:
+   ```typescript
+   // ✅ Good example
+	 import { memo } from 'react'
+
+   export const ExpensiveComponent = memo(({ prop }) => {
+     // Component implementation
+   })
+   ```
+
+2. Use useMemo and useCallback appropriately:
+   ```typescript
+   // ✅ Good example
+   const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+   const memoizedCallback = useCallback(() => {
+     doSomething(a, b)
+   }, [a, b])
+   ```
+
+## Testing
+
+1. Write tests for all components as Storybook stories:
+2. Create stories for all components:
+   ```typescript
+   // ✅ Good example
+   import type { Meta, StoryObj } from '@storybook/react'
+
+   const meta: Meta<typeof Component> = {
+     title: 'components/Component',
+     component: Component,
+   }
+
+   export default meta
+   type Story = StoryObj<typeof Component>
+
+   export const Default: Story = {
+     args: {
+       // Component props
+     },
+   }
+   ```
+
+## Error Handling
+
+1. Use Error Boundaries for component-level error handling:
+   ```typescript
+   // ✅ Good example
+   class ErrorBoundary extends React.Component {
+     state = { hasError: false }
+
+     static getDerivedStateFromError(error) {
+       return { hasError: true }
+     }
+
+     render() {
+       if (this.state.hasError) {
+         return <h1>Something went wrong.</h1>
+       }
+       return this.props.children
+     }
+   }
+   ```
+
+## Accessibility
+
+1. Use semantic HTML elements
+2. Include proper ARIA attributes
+3. Ensure keyboard navigation works
+4. Maintain proper heading hierarchy
+
+## Code Organization
+
+1. Keep components small and focused
+2. Do not use barrel exports (index.ts) for component directories
+3. Group related components in feature folders
+4. Keep business logic in custom hooks
+
+Remember to follow these guidelines when developing React components.
 When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
 
 ---
