@@ -1,0 +1,9 @@
+{
+  "name": "cloudnativedataplane--cndp",
+  "displayName": "cndp",
+  "description": "cndp",
+  "version": "1.0.0",
+  "author": "CloudNativeDataPlane",
+  "homepage": "https://github.com/CloudNativeDataPlane/cndp",
+  "skills": []
+}
