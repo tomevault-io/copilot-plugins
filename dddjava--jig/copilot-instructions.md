@@ -1,62 +1,113 @@
 ## jig
 
-> JIGは、Javaのバイトコード（classファイル）を解析して、ソフトウェアの設計情報を可視化するためのツールです。ドメイン駆動設計（DDD）の概念を取り入れ、三層＋ドメインモデルのアーキテクチャで実装されたコードから、業務ルールや機能一覧、パッケージ関連図などを生成します。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# JIG プロジェクト概要
+# CLAUDE.md
 
-JIGは、Javaのバイトコード（classファイル）を解析して、ソフトウェアの設計情報を可視化するためのツールです。ドメイン駆動設計（DDD）の概念を取り入れ、三層＋ドメインモデルのアーキテクチャで実装されたコードから、業務ルールや機能一覧、パッケージ関連図などを生成します。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## プロジェクト構成
+## 概要
 
-プロジェクトは以下の3つの主要モジュールで構成されています。
+JIG はバイトコード（classファイル）からコードの設計を可視化するツール。パッケージ図・クラス図・HTML一覧などを生成する。Java 21 以降が必要（解析対象は Java 8 以上）。
 
-- `jig-core`: 解析ロジックとドキュメント生成の本体。Maven Centralに公開されるコアライブラリ。
-- `jig-cli`: `jig-core` をコマンドラインから実行するためのSpring Bootアプリケーション。
-- `jig-gradle-plugin`: GradleプロジェクトにJIGを組み込むためのプラグイン。
+## コマンド
 
-## 技術スタック
+### ビルド・テスト
 
-| カテゴリ | 技術 |
-| :--- | :--- |
-| 言語 | Java 21+ (解析対象はJava 8以降) |
+```bash
+# フルテスト（Java + JS）
+npm run test:full
+
+# Java テストのみ
+./gradlew test
+
+# JS テストのみ（*.js のみ変更した場合）
+npm run test
+
+# 特定サブプロジェクトのテスト
+./gradlew :jig-core:test
+./gradlew :jig-cli:test
+
+# 単一テストクラスの実行
+./gradlew :jig-core:test --tests "org.dddjava.jig.JigExecutorTest"
+
+# 単一テストメソッドの実行
+./gradlew :jig-core:test --tests "org.dddjava.jig.JigExecutorTest.methodName"
+
+# 単一 JS テストファイル
+node --test jig-core/src/test/js/insight.test.js
+
+# CSS lint
+npm run lint:css
+```
+
+### テスト実行ポリシー
+
+- `*.js` ファイルのみ変更 → `npm run test`
+- それ以外（または混在） → `npm run test:full`
+- CSS のみの変更、または `docs` コミットに該当する変更のみテスト省略可
+
+### ブラウザでの見た目確認（Playwright）
+
+HTML/Mermaid図の見た目確認手順は `jig-core/src/test/playwright/README.md` を参照。JIGは自分自身を解析対象にでき、`java -jar jig-cli/build/libs/jig-cli.jar` をリポジトリルートで実行すると `./build/jig/` にサンプルドキュメント一式が生成される。
+
+## アーキテクチャ
+
+### モジュール構成
+
+- `jig-core/` — コアライブラリ（Maven Central 公開）。解析ロジックとドキュメント生成の本体
+- `jig-cli/` — Spring Boot 実行可能 JAR。`jig-core` を CLI から実行する
+- `jig-gradle-plugin/` — Gradle プラグイン（Gradle Plugin Portal 公開）
+
+### jig-core パッケージ構造
+
+DDDスタイルのレイヤード構成:
+
+```
+org.dddjava.jig/
+├── domain/model/
+│   ├── data/          # 生データ（types, packages, members 等）
+│   ├── documents/     # ドキュメント定義（JigDocument enum を含む）
+│   ├── information/   # 分析済み情報（applications, types 等）
+│   ├── knowledge/     # 知識モデル（insight, usecases, module, smell 等）
+│   └── sources/       # ソース読み取り（filesystem, javasources, mybatis 等）
+├── annotation/        # アノテーション定義
+├── application/       # JigService 等のアプリケーションサービス
+├── adapter/           # 出力アダプター（datajs, json 等）
+└── infrastructure/    # インフラ実装（asm, javaparser, configuration 等）
+```
+
+メインエントリポイント: `JigExecutor.java`
+
+### 技術スタック
+
+| 用途 | 技術 |
+|------|------|
 | バイトコード解析 | ASM |
-| ソース解析 | JavaParser |
-| Excel出力 | Apache POI |
-| MyBatis解析 | MyBatis |
-| CLI基盤 | Spring Boot |
-| テスト (Java) | JUnit Jupiter 5, Mockito |
-| テスト (JS) | Node.js (built-in test runner), jsdom |
+| Java ソース解析 | JavaParser |
+| MyBatis SQL 解析 | MyBatis |
+| HTML 出力 | 静的テンプレート + JSON データ + クライアントサイド JS |
+| 図の描画 | Mermaid（クライアントサイドで描画） |
+| CLI 設定・起動 | Spring Boot |
+| テスト | JUnit Jupiter 6 + Mockito |
+| JS テスト | Node.js 組み込み test runner + jsdom |
 
-## アーキテクチャ (jig-core)
+### 出力ドキュメント
 
-`jig-core` はDDDスタイルのレイヤードアーキテクチャを採用しています。
+`JigDocument.java` に enum として定義。アクティブなもの:
+- `Glossary` — 用語集
+- `PackageRelation` — パッケージ関連
+- `DomainModel` — ドメインモデル
+- `Usecase` — ユースケース
+- `InboundInterface` — 入力インタフェース
+- `OutboundInterface` — 出力インタフェース
+- `Insight` — インサイト
+- `ListOutput` — 一覧出力（HTML）
+- `LibraryDependency` — ライブラリ依存情報
 
-- `org.dddjava.jig.domain.model`: ドメイン層。解析データ（data）、ドキュメント定義（documents）、分析済み情報（information）、知識モデル（knowledge）、ソース読み取り（sources）を含む。
-- `org.dddjava.jig.application`: アプリケーション層。`JigService` など。
-- `org.dddjava.jig.adapter`: アダプター層。HTML, Graphviz, Mermaid, Excel (POI), JSON などの出力。
-- `org.dddjava.jig.infrastructure`: インフラストラクチャ層。ASM, JavaParser, MyBatis などの具体的な実装。
+## コミットルール
 
-メインエントリポイントは `org.dddjava.jig.JigExecutor` です。
-
-## ビルドとテスト
-
-プロジェクトのビルドとテストには Gradle と Node.js (JSテスト用) を使用します。
-
-### 主要なコマンド
-
-- **フルテスト (Java + JS)**: `npm run test:full`
-- **Javaテストのみ**: `./gradlew test`
-- **JSテストのみ**: `npm run test`
-- **特定サブプロジェクトのテスト**: `./gradlew :jig-core:test`
-- **ビルド**: `./gradlew build`
-
-JSテストは生成されたHTMLドキュメントの検証などに使用されており、`jig-core/src/test/js/` に配置されています。
-
-## 開発コンベンション
-
-### コミットメッセージ
-
-Conventional Commits 形式を用い、**日本語**で記述します。
+Conventional Commits 形式で **日本語** で記述する。
 
 ```
 <type>[optional scope]: <説明>
@@ -64,18 +115,24 @@ Conventional Commits 形式を用い、**日本語**で記述します。
 <変更内容の要約>
 ```
 
-- `type`: `feat`, `fix`, `refactor`, `docs`, `test`, `other`
-- フッター（`--trailer`）:
-    - `JIG-DOCUMENT: <documentName>` (例: `ListOutput`)
-    - `AGENT: <agentName>` (例: `Gemini`)
+本文（body）には変更内容の要約を記述する。
 
-### ドキュメント定義
+使用可能な type: `feat`, `fix`, `refactor`, `docs`, `test`, `other`
 
-生成されるドキュメントの種類は `org.dddjava.jig.domain.model.documents.documentformat.JigDocument` で定義されています。新しいドキュメントを追加する場合は、このenumへの追加と、対応するテンプレートファイルの作成が必要です。
+フッターは該当する場合のみ `--trailer` オプションで付与する。該当しないフッターは付けない（空値のトレーラーを作らない）。
 
-アクティブなドキュメント（一部抜粋）: `ListOutput`, `PackageRelation`, `DomainModel`, `UsecaseModel`, `InboundInterface`, `OutboundInterface`, `Insight`, `Glossary`
+- 変更対象の JigDocument が特定できる場合のみ: `--trailer "JIG-DOCUMENT: <documentName>"`（例: `Insight`）
+- 自動エージェントがコミットする場合のみ: `--trailer "AGENT: <agentName>"`（例: `Claude`）
+- issue を解消する場合のみ: `--trailer "Closes: #<番号>"`（`gh issue close` で直接クローズしない。close専用の別コミット・空コミットも作らない）
+
+```bash
+# 該当するフッターだけ付与する
+git commit -m "feat: ..." --trailer "JIG-DOCUMENT: Insight" --trailer "AGENT: Claude"
+git commit -m "fix: ..." --trailer "AGENT: Claude" --trailer "Closes: #1134"
+```
+
+テンプレートファイル `templates/<name>.html` と `JigDocument` の enum 名の対応は `JigDocument.java` を参照。
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dddjava)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/dddjava)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [dddjava/jig](https://github.com/dddjava/jig) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
