@@ -4,7 +4,7 @@
   "repo": "Simba",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/Ahoo-Wang/Simba",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T04:03:44Z"
+  "distributed_at": "2026-07-24T00:05:03Z"
 }
