@@ -1,0 +1,14 @@
+{
+  "name": "esphome--device-builder",
+  "displayName": "device-builder",
+  "description": "device-builder",
+  "version": "1.0.0",
+  "author": "esphome",
+  "homepage": "https://github.com/esphome/device-builder",
+  "skills": [
+    {
+      "name": "device-builder",
+      "description": ""
+    }
+  ]
+}
