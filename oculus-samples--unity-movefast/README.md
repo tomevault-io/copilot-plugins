@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [oculus-samples/Unity-MoveFast](https://github.com/oculus-samples/Unity-MoveFast).
+Original source: `GEMINI.md` in [oculus-samples/Unity-MoveFast](https://github.com/oculus-samples/Unity-MoveFast).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [oculus-samples/Unity-MoveFast](https://github.com/oculus-samples/Unity-MoveFast) — a repo with 114+ stars on GitHub.
