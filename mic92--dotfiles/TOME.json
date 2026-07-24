@@ -1,0 +1,99 @@
+{
+  "name": "dotfiles",
+  "owner": "Mic92",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "pkgs/macprof/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/pkgs/macprof/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "pkgs/crabfit-cli/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/pkgs/crabfit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "machines/eve/modules/opencrow/skills/todo/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/machines/eve/modules/opencrow/skills/todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "machines/eve/modules/opencrow/skills/http/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/machines/eve/modules/opencrow/skills/http/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "machines/eve/modules/opencrow/skills/email/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/machines/eve/modules/opencrow/skills/email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "machines/eve/modules/opencrow/skills/gitea/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/machines/eve/modules/opencrow/skills/gitea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "machines/eve/modules/opencrow/skills/slack/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/machines/eve/modules/opencrow/skills/slack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "machines/eve/modules/opencrow/skills/github/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/machines/eve/modules/opencrow/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "machines/eve/modules/opencrow/skills/paperless/SKILL.md",
+      "github_url": "https://github.com/Mic92/dotfiles/tree/main/machines/eve/modules/opencrow/skills/paperless/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Mic92/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:08:32Z"
+}
