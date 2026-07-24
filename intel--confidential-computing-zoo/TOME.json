@@ -1,0 +1,111 @@
+{
+  "name": "confidential-computing-zoo",
+  "owner": "intel",
+  "repo": "confidential-computing-zoo",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/openclaw-cc/cc_tdx_skills/get_td_quote/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/openclaw-cc/cc_tdx_skills/get_td_quote/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/openclaw-cc/cc_tdx_skills/get_td_eventlog/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/openclaw-cc/cc_tdx_skills/get_td_eventlog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/openclaw-cc/cc_tdx_skills/check_td_runtime/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/openclaw-cc/cc_tdx_skills/check_td_runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/.github/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/.github/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/.github/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/.github/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/core/.github/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/core/.github/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/core/.github/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/core/.github/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/.github/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/.github/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/.github/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/.github/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/core/.github/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/core/.github/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "confidential-computing-zoo",
+      "path": "cczoo/agent-cc/core/.github/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/intel/confidential-computing-zoo/tree/main/cczoo/agent-cc/core/.github/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/intel/confidential-computing-zoo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T22:38:12Z"
+}
