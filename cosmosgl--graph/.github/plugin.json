@@ -1,0 +1,18 @@
+{
+  "name": "cosmosgl--graph",
+  "displayName": "graph",
+  "description": "graph",
+  "version": "1.0.0",
+  "author": "cosmosgl",
+  "homepage": "https://github.com/cosmosgl/graph",
+  "skills": [
+    {
+      "name": "graph",
+      "description": ""
+    },
+    {
+      "name": "graph",
+      "description": ""
+    }
+  ]
+}
