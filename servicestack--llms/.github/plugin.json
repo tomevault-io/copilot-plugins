@@ -1,0 +1,18 @@
+{
+  "name": "servicestack--llms",
+  "displayName": "llms",
+  "description": "llms",
+  "version": "1.0.0",
+  "author": "ServiceStack",
+  "homepage": "https://github.com/ServiceStack/llms",
+  "skills": [
+    {
+      "name": "llms",
+      "description": ""
+    },
+    {
+      "name": "llms",
+      "description": ""
+    }
+  ]
+}
