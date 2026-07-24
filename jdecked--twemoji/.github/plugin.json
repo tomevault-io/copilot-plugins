@@ -1,0 +1,14 @@
+{
+  "name": "jdecked--twemoji",
+  "displayName": "twemoji",
+  "description": "twemoji",
+  "version": "1.0.0",
+  "author": "jdecked",
+  "homepage": "https://github.com/jdecked/twemoji",
+  "skills": [
+    {
+      "name": "twemoji",
+      "description": ""
+    }
+  ]
+}
