@@ -2,22 +2,20 @@
 
 > Sourced from [jhd3197/ServerKit](https://github.com/jhd3197/ServerKit), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
-ServerKit is a lightweight, modern server control panel for managing web applications, databases, and services on your VPS or dedicated server. Built with Python/Flask backend and React frontend.
-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jhd3197/ServerKit](https://github.com/jhd3197/ServerKit).
+Original source: `GEMINI.md` in [jhd3197/ServerKit](https://github.com/jhd3197/ServerKit).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jhd3197/ServerKit](https://github.com/jhd3197/ServerKit) — a repo with 650+ stars on GitHub.
+From [jhd3197/ServerKit](https://github.com/jhd3197/ServerKit) — a repo with 655+ stars on GitHub.
 
 ---
 
