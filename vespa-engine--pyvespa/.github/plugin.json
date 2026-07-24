@@ -1,0 +1,9 @@
+{
+  "name": "vespa-engine--pyvespa",
+  "displayName": "pyvespa",
+  "description": "pyvespa",
+  "version": "1.0.0",
+  "author": "vespa-engine",
+  "homepage": "https://github.com/vespa-engine/pyvespa",
+  "skills": []
+}
