@@ -1,0 +1,111 @@
+{
+  "name": "UniClaude",
+  "owner": "TheArcForge",
+  "repo": "UniClaude",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/data-modeling/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/data-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/unity-reviewer/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/unity-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/unity-workflow/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/unity-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/unity-architect/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/unity-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/prefab-workflow/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/prefab-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/scene-authoring/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/scene-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/component-design/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/component-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/unity-performance/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/unity-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/animation-workflow/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/animation-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/scene-architecture/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/scene-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "UniClaude",
+      "path": "Sidecar~/skills/prefab-architecture/SKILL.md",
+      "github_url": "https://github.com/TheArcForge/UniClaude/tree/main/Sidecar~/skills/prefab-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TheArcForge/UniClaude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T22:34:44Z"
+}
