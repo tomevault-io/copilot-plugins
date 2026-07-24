@@ -1,0 +1,621 @@
+{
+  "name": "designer-skills",
+  "owner": "Owl-Listener",
+  "repo": "designer-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/layout-grid/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/layout-grid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/color-system/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/color-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/handoff-spec/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/handoff-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/team-workflow/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/team-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/spacing-system/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/spacing-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/design-brief/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/design-brief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/visual-hierarchy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/visual-hierarchy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/typography-scale/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/typography-scale/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/design-critique/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/design-critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/experience-map/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/experience-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/dark-mode-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/dark-mode-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/icon-system/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/icon-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/readable-measure/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/readable-measure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/law-of-proximity/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/law-of-proximity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "designer-toolkit/skills/ux-writing/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/designer-toolkit/skills/ux-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "designer-toolkit/skills/case-study/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/designer-toolkit/skills/case-study/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/responsive-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/responsive-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/business-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/business-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/design-token/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/design-token/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/empathy-map/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/empathy-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/journey-map/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/journey-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/design-debt-audit/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/design-debt-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/search-ux/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/search-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/data-visualization/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/data-visualization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/content-strategy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/content-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/motion-system/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/motion-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/fitts-law/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/fitts-law/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/illustration-style/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/illustration-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/hicks-law/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/hicks-law/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/user-persona/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/user-persona/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/survey-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/survey-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/design-sprint-plan/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/design-sprint-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/service-blueprint/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/service-blueprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/theming-system/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/theming-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/von-restorff-effect/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/von-restorff-effect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/aesthetic-usability/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/aesthetic-usability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/design-principles/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/design-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/north-star-vision/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/north-star-vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/component-spec/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/component-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/design-qa-checklist/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/design-qa-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "visual-critique/skills/critique-color/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/visual-critique/skills/critique-color/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/form-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/form-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ui-design/skills/law-of-common-region/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ui-design/skills/law-of-common-region/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/metrics-definition/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/metrics-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/millers-law/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/millers-law/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/pattern-library/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/pattern-library/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/jobs-to-be-done/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/jobs-to-be-done/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/state-machine/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/state-machine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/design-review-process/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/design-review-process/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/competitive-analysis/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/competitive-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/naming-convention/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/naming-convention/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/interview-script/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/interview-script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/affinity-diagram/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/affinity-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/diary-study-plan/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/diary-study-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "designer-toolkit/skills/design-rationale/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/designer-toolkit/skills/design-rationale/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/loading-states/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/loading-states/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/opportunity-framework/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/opportunity-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/test-scenario/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/test-scenario/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/stakeholder-alignment/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/stakeholder-alignment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/design-impact-reporting/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/design-impact-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "designer-toolkit/skills/presentation-deck/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/designer-toolkit/skills/presentation-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/localization-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/localization-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/wireframe-spec/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/wireframe-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/accessibility-audit/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/accessibility-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/card-sort-analysis/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/card-sort-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "designer-toolkit/skills/design-negotiation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/designer-toolkit/skills/design-negotiation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/research-repository/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/research-repository/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/a-b-test-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/a-b-test-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/click-test-plan/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/click-test-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-ops/skills/version-control-strategy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-ops/skills/version-control-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/gesture-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/gesture-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "designer-toolkit/skills/design-token-audit/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/designer-toolkit/skills/design-token-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "visual-critique/skills/critique-affordance/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/visual-critique/skills/critique-affordance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "visual-critique/skills/critique-typography/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/visual-critique/skills/critique-typography/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/usability-test-plan/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/usability-test-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-research/skills/summarize-interview/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-research/skills/summarize-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/onboarding-design/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/onboarding-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/feedback-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/feedback-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "ux-strategy/skills/information-architecture/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/ux-strategy/skills/information-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/error-handling-ux/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/error-handling-ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "visual-critique/skills/critique-composition/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/visual-critique/skills/critique-composition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/doherty-threshold/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/doherty-threshold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/documentation-template/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/documentation-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/user-flow-diagram/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/user-flow-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/navigation-patterns/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/navigation-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/prototype-strategy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/prototype-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "design-systems/skills/design-system-governance/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/design-systems/skills/design-system-governance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "designer-toolkit/skills/design-system-adoption/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/designer-toolkit/skills/design-system-adoption/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/animation-principles/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/animation-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/interfaces-that-feel/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/interfaces-that-feel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/heuristic-evaluation/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/heuristic-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "interaction-design/skills/micro-interaction-spec/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/interaction-design/skills/micro-interaction-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "visual-critique/skills/critique-visual-hierarchy/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/visual-critique/skills/critique-visual-hierarchy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "visual-critique/skills/critique-brand-consistency/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/visual-critique/skills/critique-brand-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "prototyping-testing/skills/accessibility-test-plan/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/prototyping-testing/skills/accessibility-test-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": "visual-critique/skills/critique-information-density/SKILL.md",
+      "github_url": "https://github.com/Owl-Listener/designer-skills/tree/main/visual-critique/skills/critique-information-density/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Owl-Listener/designer-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:41:14Z"
+}
