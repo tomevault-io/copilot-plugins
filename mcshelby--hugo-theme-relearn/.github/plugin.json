@@ -1,0 +1,14 @@
+{
+  "name": "mcshelby--hugo-theme-relearn",
+  "displayName": "hugo-theme-relearn",
+  "description": "hugo-theme-relearn",
+  "version": "1.0.0",
+  "author": "McShelby",
+  "homepage": "https://github.com/McShelby/hugo-theme-relearn",
+  "skills": [
+    {
+      "name": "hugo-theme-relearn",
+      "description": ""
+    }
+  ]
+}
