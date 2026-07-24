@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openshift/rosa](https://github.com/openshift/rosa).
+Original source: `CLAUDE.md` in [openshift/rosa](https://github.com/openshift/rosa).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -22,7 +22,7 @@ Original source: `AGENTS.md` in [openshift/rosa](https://github.com/openshift/ro
 - [rosa](https://github.com/openshift/rosa/tree/main/.claude/skills/rosa-verification-gates/SKILL.md)
 - [rosa](https://github.com/openshift/rosa/tree/main/.claude/skills/rosa-docs-and-structure-tests/SKILL.md)
 
-From [openshift/rosa](https://github.com/openshift/rosa) — a repo with 104+ stars on GitHub.
+From [openshift/rosa](https://github.com/openshift/rosa) — a repo with 103+ stars on GitHub.
 
 ---
 
