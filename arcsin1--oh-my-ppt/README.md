@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arcsin1/oh-my-ppt](https://github.com/arcsin1/oh-my-ppt).
+Original source: `CLAUDE.md` in [arcsin1/oh-my-ppt](https://github.com/arcsin1/oh-my-ppt).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -22,7 +22,7 @@ Original source: `AGENTS.md` in [arcsin1/oh-my-ppt](https://github.com/arcsin1/o
 - [oh-my-ppt](https://github.com/arcsin1/oh-my-ppt/tree/main/resources/skills/oh-my-ppt-data-anim/SKILL.md)
 - [oh-my-ppt](https://github.com/arcsin1/oh-my-ppt/tree/main/resources/skills/oh-my-ppt-source-reading/SKILL.md)
 
-From [arcsin1/oh-my-ppt](https://github.com/arcsin1/oh-my-ppt) — a repo with 1771+ stars on GitHub.
+From [arcsin1/oh-my-ppt](https://github.com/arcsin1/oh-my-ppt) — a repo with 1779+ stars on GitHub.
 
 ---
 
