@@ -1,0 +1,9 @@
+{
+  "name": "xonsh--xontrib-template",
+  "displayName": "xontrib-template",
+  "description": "xontrib-template",
+  "version": "1.0.0",
+  "author": "xonsh",
+  "homepage": "https://github.com/xonsh/xontrib-template",
+  "skills": []
+}
