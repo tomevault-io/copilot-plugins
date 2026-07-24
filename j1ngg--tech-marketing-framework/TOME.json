@@ -3,8 +3,8 @@
   "owner": "j1ngg",
   "repo": "tech-marketing-framework",
   "description": "Developer tools marketing framework for Claude Code and Codex. Repeatable skills for content generation, messaging workshops, and autonomous skill optimization.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,183 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/ads/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/ads/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/ads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/blog/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/blog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/blog/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/blog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/image/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/email/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/image/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/image/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/email/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/sales-deck/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/sales-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/sales-deck/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/sales-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/ads-auditor/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/ads-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/autoresearch/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/autoresearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/social-posts/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/social-posts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/social-posts/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/social-posts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/autoresearch/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/autoresearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/skill-builder/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/skill-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/skill-builder/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/skill-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/launch-roundup/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/launch-roundup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/asset-reviewer/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/asset-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/launch-roundup/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/launch-roundup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/how-they-market/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/how-they-market/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/editorial-calendar/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/editorial-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/producthunt-launch/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/producthunt-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/editorial-calendar/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/editorial-calendar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/producthunt-launch/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/producthunt-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/viral-launch-playbook/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/viral-launch-playbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".claude/skills/messaging-positioning/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.claude/skills/messaging-positioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/messaging-positioning/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/messaging-positioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tech-marketing-framework",
+      "path": ".agents/skills/viral-launch-playbook/SKILL.md",
+      "github_url": "https://github.com/j1ngg/tech-marketing-framework/tree/main/.agents/skills/viral-launch-playbook/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/j1ngg/tech-marketing-framework",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T01:00:53Z"
+  "distributed_at": "2026-07-24T04:52:30Z"
 }
