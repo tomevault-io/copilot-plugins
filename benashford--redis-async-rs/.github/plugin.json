@@ -1,0 +1,9 @@
+{
+  "name": "benashford--redis-async-rs",
+  "displayName": "redis-async-rs",
+  "description": "redis-async-rs",
+  "version": "1.0.0",
+  "author": "benashford",
+  "homepage": "https://github.com/benashford/redis-async-rs",
+  "skills": []
+}
