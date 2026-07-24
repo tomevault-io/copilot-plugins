@@ -1,0 +1,93 @@
+{
+  "name": "jkp-data",
+  "owner": "bkelly-lab",
+  "repo": "jkp-data",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/approve-pr/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/approve-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/check-docs/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/check-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/review-code/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/review-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/verify-review/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/verify-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/triage-copilot/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/triage-copilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/review-workflow/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/review-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jkp-data",
+      "path": ".claude/skills/draft-pr-comment/SKILL.md",
+      "github_url": "https://github.com/bkelly-lab/jkp-data/tree/main/.claude/skills/draft-pr-comment/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bkelly-lab/jkp-data",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:58:41Z"
+}
