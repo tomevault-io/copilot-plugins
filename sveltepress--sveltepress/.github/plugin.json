@@ -1,0 +1,22 @@
+{
+  "name": "sveltepress--sveltepress",
+  "displayName": "sveltepress",
+  "description": "sveltepress",
+  "version": "1.0.0",
+  "author": "SveltePress",
+  "homepage": "https://github.com/SveltePress/sveltepress",
+  "skills": [
+    {
+      "name": "sveltepress",
+      "description": ""
+    },
+    {
+      "name": "sveltepress",
+      "description": ""
+    },
+    {
+      "name": "sveltepress",
+      "description": ""
+    }
+  ]
+}
