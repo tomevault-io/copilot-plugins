@@ -1,0 +1,9 @@
+{
+  "name": "homebridge-plugins--homebridge-ewelink",
+  "displayName": "homebridge-ewelink",
+  "description": "homebridge-ewelink",
+  "version": "1.0.0",
+  "author": "homebridge-plugins",
+  "homepage": "https://github.com/homebridge-plugins/homebridge-ewelink",
+  "skills": []
+}
