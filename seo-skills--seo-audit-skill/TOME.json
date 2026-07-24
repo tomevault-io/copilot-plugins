@@ -4,7 +4,7 @@
   "repo": "seo-audit-skill",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,21 @@
       "path": "skill",
       "github_url": "https://github.com/seo-skills/seo-audit-skill/tree/main/skill",
       "description": ""
+    },
+    {
+      "name": "seo-audit-skill",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/seo-skills/seo-audit-skill/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "seo-audit-skill",
+      "path": "skill/SKILL.md",
+      "github_url": "https://github.com/seo-skills/seo-audit-skill/tree/main/skill/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/seo-skills/seo-audit-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-15T14:31:26Z"
+  "distributed_at": "2026-07-24T04:56:33Z"
 }
