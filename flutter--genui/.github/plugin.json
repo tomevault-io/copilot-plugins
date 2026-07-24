@@ -1,0 +1,26 @@
+{
+  "name": "flutter--genui",
+  "displayName": "genui",
+  "description": "genui",
+  "version": "1.0.0",
+  "author": "flutter",
+  "homepage": "https://github.com/flutter/genui",
+  "skills": [
+    {
+      "name": "genui-helper",
+      "description": ""
+    },
+    {
+      "name": "genui",
+      "description": ""
+    },
+    {
+      "name": "genui",
+      "description": ""
+    },
+    {
+      "name": "genui",
+      "description": ""
+    }
+  ]
+}
