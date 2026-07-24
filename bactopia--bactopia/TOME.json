@@ -1,0 +1,111 @@
+{
+  "name": "bactopia",
+  "owner": "bactopia",
+  "repo": "bactopia",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/add-module/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/add-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/review-tests/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/review-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/merge-schemas/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/merge-schemas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/update-module/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/update-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/project-status/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/project-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/update-catalog/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/update-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/add-subworkflow/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/add-subworkflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/review-citations/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/review-citations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/review-groovydoc/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/review-groovydoc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bactopia",
+      "path": ".claude/skills/add-bactopia-tool/SKILL.md",
+      "github_url": "https://github.com/bactopia/bactopia/tree/main/.claude/skills/add-bactopia-tool/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bactopia/bactopia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:13:13Z"
+}
