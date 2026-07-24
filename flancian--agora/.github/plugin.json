@@ -1,0 +1,14 @@
+{
+  "name": "flancian--agora",
+  "displayName": "agora",
+  "description": "agora",
+  "version": "1.0.0",
+  "author": "flancian",
+  "homepage": "https://github.com/flancian/agora",
+  "skills": [
+    {
+      "name": "agora",
+      "description": ""
+    }
+  ]
+}
