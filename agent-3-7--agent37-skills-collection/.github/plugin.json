@@ -1,0 +1,14 @@
+{
+  "name": "agent-3-7--agent37-skills-collection",
+  "displayName": "agent37-skills-collection",
+  "description": "agent37-skills-collection",
+  "version": "1.0.0",
+  "author": "Agent-3-7",
+  "homepage": "https://github.com/Agent-3-7/agent37-skills-collection",
+  "skills": [
+    {
+      "name": "agent37-skills-collection",
+      "description": ""
+    }
+  ]
+}
