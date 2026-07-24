@@ -1,0 +1,267 @@
+{
+  "name": "claude-pipeline",
+  "owner": "aaddrick",
+  "repo": "claude-pipeline",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adapting-claude-pipeline",
+      "path": ".claude/skills/adapting-claude-pipeline",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/adapting-claude-pipeline",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": ".claude/skills/brainstorming",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "bulletproof-frontend",
+      "path": ".claude/skills/bulletproof-frontend",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/bulletproof-frontend",
+      "description": ""
+    },
+    {
+      "name": "handle-issues",
+      "path": ".claude/skills/handle-issues",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/handle-issues",
+      "description": ""
+    },
+    {
+      "name": "implement-issue",
+      "path": ".claude/skills/implement-issue",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/implement-issue",
+      "description": ""
+    },
+    {
+      "name": "improvement-loop",
+      "path": ".claude/skills/improvement-loop",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/improvement-loop",
+      "description": ""
+    },
+    {
+      "name": "investigating-codebase-for-user-stories",
+      "path": ".claude/skills/investigating-codebase-for-user-stories",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/investigating-codebase-for-user-stories",
+      "description": ""
+    },
+    {
+      "name": "process-pr",
+      "path": ".claude/skills/process-pr",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/process-pr",
+      "description": ""
+    },
+    {
+      "name": "review-ui",
+      "path": ".claude/skills/review-ui",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/review-ui",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "path": ".claude/skills/subagent-driven-development",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": ".claude/skills/systematic-debugging",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": ".claude/skills/using-git-worktrees",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-skills",
+      "path": ".claude/skills/using-skills",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/using-skills",
+      "description": ""
+    },
+    {
+      "name": "write-docblocks",
+      "path": ".claude/skills/write-docblocks",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/write-docblocks",
+      "description": ""
+    },
+    {
+      "name": "writing-agents",
+      "path": ".claude/skills/writing-agents",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/writing-agents",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": ".claude/skills/writing-plans",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/review-ui/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/review-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/process-pr/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/process-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/using-skills/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/using-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/handle-issues/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/handle-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/writing-agents/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/writing-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/write-docblocks/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/write-docblocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/implement-issue/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/implement-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/improvement-loop/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/improvement-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/bulletproof-frontend/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/bulletproof-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/ui-design-fundamentals/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/ui-design-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/adapting-claude-pipeline/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/adapting-claude-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-pipeline",
+      "path": ".claude/skills/investigating-codebase-for-user-stories/SKILL.md",
+      "github_url": "https://github.com/aaddrick/claude-pipeline/tree/main/.claude/skills/investigating-codebase-for-user-stories/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aaddrick/claude-pipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:31:00Z"
+}
