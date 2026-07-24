@@ -1,0 +1,14 @@
+{
+  "name": "gessnerfl--fake-smtp-server",
+  "displayName": "fake-smtp-server",
+  "description": "fake-smtp-server",
+  "version": "1.0.0",
+  "author": "gessnerfl",
+  "homepage": "https://github.com/gessnerfl/fake-smtp-server",
+  "skills": [
+    {
+      "name": "fake-smtp-server",
+      "description": ""
+    }
+  ]
+}
