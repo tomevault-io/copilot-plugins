@@ -1,0 +1,14 @@
+{
+  "name": "eclipse-vertx--vertx-sql-client",
+  "displayName": "vertx-sql-client",
+  "description": "vertx-sql-client",
+  "version": "1.0.0",
+  "author": "eclipse-vertx",
+  "homepage": "https://github.com/eclipse-vertx/vertx-sql-client",
+  "skills": [
+    {
+      "name": "vertx-sql-client",
+      "description": ""
+    }
+  ]
+}
