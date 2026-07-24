@@ -4,7 +4,7 @@
   "repo": "idea-php-symfony2-plugin",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/Haehnchen/idea-php-symfony2-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T04:21:59Z"
+  "distributed_at": "2026-07-24T00:09:21Z"
 }
