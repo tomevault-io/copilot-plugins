@@ -1,0 +1,14 @@
+{
+  "name": "questdb--c-questdb-client",
+  "displayName": "c-questdb-client",
+  "description": "c-questdb-client",
+  "version": "1.0.0",
+  "author": "questdb",
+  "homepage": "https://github.com/questdb/c-questdb-client",
+  "skills": [
+    {
+      "name": "c-questdb-client",
+      "description": ""
+    }
+  ]
+}
