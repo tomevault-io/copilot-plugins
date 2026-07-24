@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "nicejade",
   "homepage": "https://github.com/nicejade/gpt-wordbook",
-  "skills": []
+  "skills": [
+    {
+      "name": "gpt-wordbook",
+      "description": ""
+    }
+  ]
 }
