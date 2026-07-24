@@ -1,0 +1,9 @@
+{
+  "name": "filmil--vivado-docker",
+  "displayName": "vivado-docker",
+  "description": "vivado-docker",
+  "version": "1.0.0",
+  "author": "filmil",
+  "homepage": "https://github.com/filmil/vivado-docker",
+  "skills": []
+}
