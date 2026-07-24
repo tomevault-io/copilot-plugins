@@ -1,0 +1,33 @@
+## clai
+
+> You're working on a project called "clai".
+
+# AGENTS.md
+
+You're working on a project called "clai".
+
+## Always read:
+
+- ./main.go - This contains usage which gives a functional overview
+- ./go.mod - This shows which libraries are used, do not add additional third party libraries
+- ./architecture - This is a directory with many files explaining the architecture of sub-features. Read the document regarding the feature you wish to know more about.
+
+## Way of work:
+
+- Always write tests first, implementation second
+- When fixing a bug, validate the issue with a test, then fix the test
+- Keep vendor-specific logic in the vendor package (`internal/vendors/<name>/`). Never add vendor-specific workarounds to generic/shared code like `internal/text/generic/` — the generic layer must remain vendor-agnostic.
+
+## Validation:
+
+Before you're done, ensure that these pass:
+
+- go test ./... -race -cover -timeout=10s
+- go run honnef.co/go/tools/cmd/staticcheck@latest ./...
+- go run mvdan.cc/gofumpt@latest -w .
+
+ALWAYS TEST WITH TIMEOUT. Otherwise you may deadlock debugging efforts.
+
+---
+> Source: [baalimago/clai](https://github.com/baalimago/clai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
