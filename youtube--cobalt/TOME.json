@@ -1,0 +1,57 @@
+{
+  "name": "cobalt",
+  "owner": "youtube",
+  "repo": "cobalt",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cobalt",
+      "path": "third_party/jni_zero/skills/jni-zero/SKILL.md",
+      "github_url": "https://github.com/youtube/cobalt/tree/main/third_party/jni_zero/skills/jni-zero/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cobalt",
+      "path": ".agent/skills/cobalt-new-checkout/SKILL.md",
+      "github_url": "https://github.com/youtube/cobalt/tree/main/.agent/skills/cobalt-new-checkout/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/youtube/cobalt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:57:05Z"
+}
