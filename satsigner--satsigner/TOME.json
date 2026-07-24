@@ -1,0 +1,87 @@
+{
+  "name": "satsigner",
+  "owner": "satsigner",
+  "repo": "satsigner",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "upgrading-expo",
+      "path": ".agents/skills/upgrading-expo",
+      "github_url": "https://github.com/satsigner/satsigner/tree/main/.agents/skills/upgrading-expo",
+      "description": ""
+    },
+    {
+      "name": "satsigner",
+      "path": ".claude/skills/upgrading-expo/SKILL.md",
+      "github_url": "https://github.com/satsigner/satsigner/tree/main/.claude/skills/upgrading-expo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "satsigner",
+      "path": ".claude/skills/expo-deployment/SKILL.md",
+      "github_url": "https://github.com/satsigner/satsigner/tree/main/.claude/skills/expo-deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "satsigner",
+      "path": ".claude/skills/native-data-fetching/SKILL.md",
+      "github_url": "https://github.com/satsigner/satsigner/tree/main/.claude/skills/native-data-fetching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "satsigner",
+      "path": ".claude/skills/vercel-react-native-skills/SKILL.md",
+      "github_url": "https://github.com/satsigner/satsigner/tree/main/.claude/skills/vercel-react-native-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "satsigner",
+      "path": ".claude/skills/react-native-best-practices/SKILL.md",
+      "github_url": "https://github.com/satsigner/satsigner/tree/main/.claude/skills/react-native-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "satsigner",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/satsigner/satsigner/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/satsigner/satsigner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:31:25Z"
+}
