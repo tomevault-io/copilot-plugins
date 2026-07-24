@@ -29,4 +29,4 @@ Use this when you need to find specific information that might span multiple com
 
 ---
 > Source: [themesberg/flowbite-svelte](https://github.com/themesberg/flowbite-svelte) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
