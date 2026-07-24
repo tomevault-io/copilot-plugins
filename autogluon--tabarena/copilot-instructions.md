@@ -1,131 +1,32 @@
 ## tabarena
 
-> Guidance for coding agents working in `packages/tabflow_slurm/`. Human-facing docs: [`README.md`](README.md).
+> The primary agent guide for this repo is [`AGENTS.md`](./AGENTS.md). **Read it first** — everything in it applies here.
 
-# AGENTS.md — tabflow_slurm
+# CLAUDE.md
 
-Guidance for coding agents working in `packages/tabflow_slurm/`. Human-facing docs: [`README.md`](README.md).
-Repo-wide guidance: [`../../AGENTS.md`](../../AGENTS.md).
+The primary agent guide for this repo is [`AGENTS.md`](./AGENTS.md). **Read it first** — everything in it applies here.
 
-## What this is
+This file only documents Claude-specific extensions.
 
-A package that generates and launches **SLURM** array jobs for TabArena benchmarks. The user
-composes a `TabArenaBenchmarkPlan`, calls `setup_jobs()`, and gets `sbatch` command(s); each array
-task fits one `(task, fold, repeat, config)` item at a time and caches the result. It is
-self-contained and only depends on `tabarena`.
+## Claude-Specific Tooling
 
-> It **is** a package (`pyproject.toml`, `tabflow_slurm/__init__.py`) and a uv-workspace member,
-> installed editable from `packages/tabflow_slurm/`.
+### Skills (`.claude/skills/`)
 
-## Layout
+- **`add-model`** — Use whenever the user asks to add/integrate/wrap a new tabular ML model. It encodes the full change: a per-model folder (`model.py` wrapper, `hpo.py` search space, `info.py` registry entry) plus edits to `models/__init__.py`, `models/utils.py`, and the `pyproject.toml` extra — and points to reference implementations for each model class (foundation, torch, sklearn-like). It also decides the model's untimed environment `warmup` (classmethod convention in `models/warmup.py`), asking the user when the library's warm-up/pre-compile entry point is unknown and reporting warm-up's limitation (main process + disk-backed caches only; parallel-fold Ray workers stay cold). The model is auto-discovered from its `info.py` and fit-tested automatically by `tests/tabarena/models/test_all_models.py` (no per-model test file); only add a `smoke_configs.py` override if its toy fit needs faster hyperparameters.
+- **`benchmark-model`** — Use whenever a maintainer wants to *run* an already-integrated model on the benchmark cluster (e.g. "benchmark TabM", "run Nori on the cluster", "make a setup/eval script for DenseLight"). It scaffolds a single `tmp_scripts/run_<model>.py` with `setup` and `eval` subcommands that share one `benchmark_name` + `PathSetup` (so they can't drift), auto-filling GPU/CPU, eval `subsets`, the pip-extra install reminder, foundation-model prefetch by introspecting the model's registry `info.py` + `supported_problem_types()`, and — mandatory for every GPU model — `fake_memory_for_estimates` set to the partition's VRAM in GB (asking the user when the VRAM isn't inferable from context) so AutoGluon caps parallel bagging folds by VRAM instead of node RAM. Sits in the lifecycle between `add-model` (integrate) and `upload-method` (publish).
+- **`upload-method`** — Use whenever a maintainer points at a benchmark run's output dir and wants to process / upload / register a method's results (e.g. "upload this method", "host/publish `<model>`'s results", "register `<model>` in the leaderboard"). By default Claude runs the whole flow itself after stating the plan (`scripts/run_process_method.py` inspect → `--process`; `scripts/run_upload_results.py` dry-run → `--no-dry-run`, background + monitors, r2 verified after upload) and lands the edits: the model's `info.py` `MethodMetadata` (suite / date / `cache_type` / `cache_kwargs` / verified, plus inspect-diff fixes) and the arena-collection registration in `contexts/<arena>/methods.py`. A command sheet is only handed off when the env can't run a step (no `tabarena[benchmark]` venv / no R2 creds). Mirrors AGENTS.md → "Processing & uploading method artifacts (maintainers)".
+- **`update-leaderboard`** — Use whenever a maintainer wants to regenerate the website artifacts and refresh a leaderboard Space with the latest results (e.g. "update the leaderboard", "regenerate the artifacts and refresh `leaderboard-testing`", "push the new results to the leaderboard"). Takes the **path to the leaderboard Space repo** (`data/` + `main.py` + its own `.venv`) as its key input. It (1) pre-checks that newly added models classify correctly in `website/website_format.py` (Foundation Model / Tree-based / … not `❓ Other`) before generating, (2) runs `scripts/run_generate_website_artifacts.py` (background + monitor; the trailing ray SIGTERM traces are harmless), (3) refreshes the Space's `data/` via delete-then-copy to avoid the stale-unzipped-`.png` gotcha, (4) bumps the version history in the Space's `website_texts.py` (new dated entry + current-version line, verified/unverified from the model's `info.py`), and (5) optionally serves the Space locally (its own `.venv`, `127.0.0.1:7860`). Last stage after `upload-method`; the maintainer commits/pushes (Git LFS + Xet).
 
-```
-tabflow_slurm/                      ← this folder (docs, examples, history, pyproject)
-├── README.md, AGENTS.md, BENCHMARK_LOG.md
-├── pyproject.toml                  ← declares the `tabflow_slurm` package; deps: tabarena
-├── experiments/                    ← runnable run_*.py scripts (setup + eval subcommands)
-└── tabflow_slurm/                  ← the package
-    ├── __init__.py                 ← re-exports the public API
-    ├── run_tabarena_experiment.py  ← runner: fits ONE item on a node (bundled script)
-    ├── submit_template.sh          ← sbatch array script (parses job JSON via jq, calls runner)
-    ├── slurm_utils.py              ← setup_slurm_job(): per-node Ray init (caches via JobBatch.cache_config)
-    └── setup/                      ← the building blocks
-        ├── plan.py                 ← TabArenaBenchmarkPlan (ENTRY POINT), ModelJob, SingleModel
-        ├── benchmark.py            ← TabArenaBenchmarkSetup (INTERNAL per-run engine)
-        ├── paths.py                ← PathSetup, get_run_script_path/get_submit_script_path
-        ├── resources.py            ← ResourcesSetup + v0.1/BeyondArena presets
-        └── scheduler.py            ← SchedulerSetup → SlurmSetup → GCPSlurmSetup (batching + sbatch)
-```
+When the user describes work that matches a skill's trigger criteria, invoke the skill via the Skill tool instead of recreating the steps manually.
 
-## The public-API boundary
+## Working Style in This Repo
 
-- **Entry point:** `TabArenaBenchmarkPlan` (in `setup/plan.py`). Everything users touch is
-  re-exported from the top-level `tabflow_slurm` package and from `tabflow_slurm.setup`. When adding
-  a public symbol, update **both** `__init__.py` `__all__` lists.
-- **Internal:** `TabArenaBenchmarkSetup` (`setup/benchmark.py`) is the per-run engine. The plan
-  builds/drives it (one per group). Don't push users toward it directly.
-
-## Mental model of `setup_jobs()`
-
-1. `plan.setup_jobs()` → `_prefetch_model_weights()` (head node) → `build_setups()`.
-2. `build_setups()` → `_group_jobs()`: each `ModelJob`'s `resources`/`scheduler`/`experiment` dict
-   overrides are applied to the base building blocks via `dataclasses.replace`; its `tasks` (a
-   `TaskSubset`) is merged onto the plan's `task_subset` (job wins per field). Jobs are **merged**
-   when their `(resources, scheduler, task_subset, experiment-with-models-zeroed, ignore_cache)`
-   signature matches (compared by value). One `TabArenaBenchmarkSetup` per group.
-3. Each setup's `get_jobs_to_run()`: ensure dirs → `experiment_bundle.build_experiments()`
-   (attaches each experiment's `ModelConstraints`) → `context.build_jobs(experiments,
-   task_subset=...)` (scopes the context's collection by the `TaskSubset`, then enumerates
-   experiments × splits; constraint-violating pairs are dropped during enumeration) → scope the
-   context's collection to the jobs' tasks and `materialize()` (downloads only those) → Ray cache
-   check (core `job_cache_exists_batch` over plain coordinate tuples) → persist the surviving sweep
-   as a `JobBatch` artifact (experiments.yaml + task_metadata.csv + jobs.json) →
-   `scheduler.bundle_items()`.
-4. `scheduler.get_run_commands()` writes the job JSON (splitting at `max_array_size`) and returns the
-   `sbatch` command(s). The plan prints one consolidated summary.
-
-Then: `sbatch … submit_template.sh <job.json>` → array task picks `jobs[SLURM_ARRAY_TASK_ID]` → runs
-`run_tabarena_experiment.py` per item → `setup_slurm_job()` + `JobBatch.load()` +
-`ExperimentBatchRunner.run_jobs()` (the exact same execution path as a local benchmark run).
-
-## Conventions
-
-- Building blocks are **frozen-ish dataclasses**; per-job customization is via override **dicts** on
-  `ModelJob` (validated against the dataclass fields — unknown keys raise). Add new knobs as
-  dataclass fields, not ad-hoc params.
-- **Bundled scripts** (`run_tabarena_experiment.py`, `submit_template.sh`) live at the *package
-  root* and are resolved via `get_run_script_path()` / `get_submit_script_path()` (relative to the
-  install). `pyproject.toml` ships `*.sh` as package data — keep that if you add/rename shell files.
-- The **job JSON** is the contract between Python and `submit_template.sh`: `{"defaults": {...},
-  "jobs": [{"items": [{experiment, dataset, fold, repeat}]}]}`. If you change `defaults` keys, update
-  the `jq` reads in `submit_template.sh` too. Items are self-describing coordinates: the runner
-  resolves `experiment` by name and `dataset` against the shipped `JobBatch` artifact
-  (`defaults.job_batch_dir`).
-- `benchmark_name` vs `parallel_safe_benchmark_name`: the former is shared (output + log dirs); the
-  latter (one per group, `<benchmark_name>_<group>`) namespaces the per-run `JobBatch` dir / job JSON
-  so parallel runs don't clobber each other.
-
-## Gotchas
-
-- **The Ray cache check pickles plain `(method, task_id_str, fold, repeat)` tuples** to workers
-  (never live experiments) and runs tabarena core's writer-aligned `job_cache_exists_batch` — don't
-  re-derive the cache key/normalization in this package.
-- **Caches are configured via `CacheConfig` on the context**, not `PathSetup`. The setup embeds
-  `context.cache_config` in the `JobBatch`; the head node applies it before materializing tasks and
-  each worker applies it (in `run_experiment`) before fitting — so point `CacheConfig.openml` at
-  shared storage and the head node + workers resolve the same OpenML cache.
-- **Ray on a shared filesystem:** `setup_slurm_job(setup_ray_for_slurm_shared_resources_environment=
-  True)` gives each job a unique temp dir + plasma sizing; required when fold-fitting isn't
-  sequential-local, else workers collide semi-randomly.
-- **Time budget** for `--time` = `ResourcesSetup.time_limit_per_config × configs_per_job +
-  time_limit_overhead` (hours). `configs_per_job` is the worst-case bundle size from
-  `bundle_items()`.
-- **`fake_memory_for_estimates`** intentionally lies to a model's memory estimator; it does not
-  change the SLURM `--mem`. Set it to the GPU's VRAM in GB for every GPU model — AutoGluon budgets
-  parallel bagging folds against the reported memory limit (node RAM by default) and never accounts
-  VRAM, so without it co-scheduled folds can OOM the GPU. Also usable VRAM-vs-RAM for TFMs.
-
-## Editing tasks
-
-- Changing how jobs are launched/batched → `setup/scheduler.py` (add a `SchedulerSetup` subclass for
-  a non-SLURM scheduler; the plan/engine are scheduler-agnostic).
-- Changing what runs on a node → `run_tabarena_experiment.py` (Python) and/or `submit_template.sh`
-  (bundle iteration); these two move together.
-- New hardware preset → a `ResourcesSetup` subclass in `setup/resources.py`.
-- The model **selection / config counts / preprocessing / constraints** come from `tabarena`'s
-  `TabArenaExperimentBundle`, and the tasks from an **arena context** (`TabArenaContext` /
-  `BeyondArenaContext`) scoped by a `TaskSubset`, **not** here — this package only schedules. The
-  scope filters are defined once on `tabarena`'s `TaskSubset` (the source of truth for
-  `subset_tasks` / `build_jobs`); don't re-declare them in this package.
-
-## Tests & lint
-
-Tests live in the repo's top-level `tests/` dir, under `tests/tabflow_slurm/`; run them with
-`pytest tests/tabflow_slurm` (or a bare `pytest` from the repo root for the whole suite). Run
-`ruff check .` / `ruff format .` from the repo root (config `../../ruff.toml`;
-`from __future__ import annotations` is required). After touching this package, also smoke-test a setup script's
-`setup_jobs()` (it runs Ray + materialization locally).
+- **Always run `ruff check --fix`** on touched files before reporting a task complete. The `from __future__ import annotations` requirement (isort `required-imports`) is the most common CI failure on new files. CI now enforces `ruff check .` + `ruff format --check .`, and a pinned `.pre-commit-config.yaml` is available (`pre-commit install`) — see AGENTS.md "Lint & Format".
+- **Tests live in the top-level `tests/`, grouped by package** — when adding a test for `packages/tabarena/src/tabarena/<area>/foo.py`, mirror the path under `tests/tabarena/<area>/test_foo.py`. (`tests/bencheval/` and `tests/tabflow_slurm/` hold the other two packages; `tests/integration/` is for cross-package tests.)
+- **Model-fit tests are deselected by default and consolidated** — `tests/tabarena/models/test_all_models.py` fits every registered model (marked `models`, skipped by the default `pytest`). Run one with `pytest -m models -k <Model>`; they need `tabarena[benchmark]`, are slow, and skip GPU-only models without CUDA. There is no per-model test file. For non-model changes, the default `pytest` already skips them.
+- **Optional model deps**: when adding code that imports an optional library (e.g., `tabpfn`, `tabicl`, `xrfm`), keep the import inside the wrapper's `_fit` / class body, never at module top-level — top-level imports break installs without that extra.
+- **Docstrings describe current behavior, not refactor history.** When you rename, move, or remove code, write docstrings/comments about what the code *is* now — don't leave `Formerly X`, `used to live in Y`, `previously did Z`, or `now delegates here` narratives, or dead references to deleted classes/modules. Rename/removal history belongs in git and the PR, not the source. Keep a historical note only when it's genuinely important to understanding the current code (e.g. a non-obvious backwards-compat shim). (`previously` / `used to live` are fine when they explain *current* behavior and reference code that still exists.)
 
 ---
 > Source: [autogluon/tabarena](https://github.com/autogluon/tabarena) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
