@@ -2,9 +2,9 @@
   "name": "scrapai-cli",
   "owner": "discourselab",
   "repo": "scrapai-cli",
-  "description": "AI-powered web scraping CLI. Describe what you want, get a   production-ready Scrapy spider. Write once, reuse forever.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/discourselab/scrapai-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T15:27:53Z"
+  "distributed_at": "2026-07-24T23:31:00Z"
 }
