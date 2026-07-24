@@ -1,35 +1,16 @@
 ## scrapai-cli
 
-> **For complete documentation, refer to: `CLAUDE.md`**
+> **If the user asks questions about ScrapAI, projects, database, queue, spiders, crawling, or any related topics:**
 
-# ScrapAI CLI - Agent Rules (Cursor / Windsurf / Other Agents)
 
-**For complete documentation, refer to: `CLAUDE.md`**
+# ScrapAI Agent Rules (Google Gemini)
 
-This file previously contained duplicate instructions. All agent guidance has been consolidated into CLAUDE.md to ensure consistency across all AI assistants (Claude Code, Cursor, Windsurf, Gemini, etc.).
+**If the user asks questions about ScrapAI, projects, database, queue, spiders, crawling, or any related topics:**
 
-## Quick Reference
+→ **Read `/CLAUDE.md` for complete documentation and instructions.**
 
-Project-based Scrapy spider management for large-scale web scraping with database-first approach.
-
-**Core Principles:**
-- ✅ Process ONE website at a time (sequential only, never parallel)
-- ✅ Follow 4-phase workflow: Analysis → Rules → Import → Test
-- ✅ Complete ALL steps before marking status
-- ✅ Run commands directly: `./scrapai <command>` (venv activation is automatic)
-- ✅ Run ONE command at a time (no chaining)
-
-**See CLAUDE.md for:**
-- Complete workflow documentation (4 phases)
-- Command execution rules
-- Content focus guidelines
-- Queue system usage
-- CLI command reference
-- Extractor configuration (trafilatura, newspaper, playwright)
-- Playwright wait settings (for JS-delayed content)
-- Status marking requirements
-- Common pitfalls and solutions
+All agent guidance has been consolidated into CLAUDE.md to ensure consistency across all AI assistants.
 
 ---
 > Source: [discourselab/scrapai-cli](https://github.com/discourselab/scrapai-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
