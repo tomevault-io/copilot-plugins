@@ -1,0 +1,9 @@
+{
+  "name": "icerain-cmd--humanities-superpowers",
+  "displayName": "humanities-superpowers",
+  "description": "Structured research skills and quality gates for humanities scholars using AI agents.",
+  "version": "1.0.0",
+  "author": "icerain-cmd",
+  "homepage": "https://github.com/icerain-cmd/humanities-superpowers",
+  "skills": []
+}
