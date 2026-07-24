@@ -1,6 +1,6 @@
 # rocm-ninodes
 
-> Source: [iGavroche/rocm-ninodes](https://github.com/iGavroche/rocm-ninodes) — distributed by [TomeVault](https://tomevault.io)
+> Source: [iGavroche/rocm-ninodes](https://github.com/iGavroche/rocm-ninodes). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
