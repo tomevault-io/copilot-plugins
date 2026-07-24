@@ -1,10 +1,10 @@
 ## zmediumtomarkdown
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project
 
@@ -81,4 +81,4 @@ Entry point flow: `bin/ZMediumToMarkdown` → `CLI.main` (option parsing, cookie
 
 ---
 > Source: [ZhgChgLi/ZMediumToMarkdown](https://github.com/ZhgChgLi/ZMediumToMarkdown) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
