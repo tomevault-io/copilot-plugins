@@ -1,0 +1,105 @@
+{
+  "name": "intercept",
+  "owner": "adam-s",
+  "repo": "intercept",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "intercept",
+      "path": ".claude/skills/app/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/ci-check/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/ci-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/ec2-deploy/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/ec2-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/debug-logs/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/debug-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/visual-dev/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/visual-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/api-discovery/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/api-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/dashboard-builder/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/dashboard-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/instruction-tuning/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/instruction-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/systematic-testing/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/systematic-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "intercept",
+      "path": ".claude/skills/instruction-dashboard-tuning/SKILL.md",
+      "github_url": "https://github.com/adam-s/intercept/tree/main/.claude/skills/instruction-dashboard-tuning/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adam-s/intercept",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T02:34:59Z"
+}
