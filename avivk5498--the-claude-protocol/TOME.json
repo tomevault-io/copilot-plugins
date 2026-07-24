@@ -1,0 +1,81 @@
+{
+  "name": "The-Claude-Protocol",
+  "owner": "AvivK5498",
+  "repo": "The-Claude-Protocol",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "The-Claude-Protocol",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/AvivK5498/The-Claude-Protocol/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "The-Claude-Protocol",
+      "path": "skills/subagents-discipline/SKILL.md",
+      "github_url": "https://github.com/AvivK5498/The-Claude-Protocol/tree/main/skills/subagents-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "The-Claude-Protocol",
+      "path": "skills/create-beads-orchestration/SKILL.md",
+      "github_url": "https://github.com/AvivK5498/The-Claude-Protocol/tree/main/skills/create-beads-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "The-Claude-Protocol",
+      "path": "templates/skills/react-best-practices/SKILL.md",
+      "github_url": "https://github.com/AvivK5498/The-Claude-Protocol/tree/main/templates/skills/react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "The-Claude-Protocol",
+      "path": "templates/skills/subagents-discipline/SKILL.md",
+      "github_url": "https://github.com/AvivK5498/The-Claude-Protocol/tree/main/templates/skills/subagents-discipline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "The-Claude-Protocol",
+      "path": ".claude/skills/create-beads-orchestration/SKILL.md",
+      "github_url": "https://github.com/AvivK5498/The-Claude-Protocol/tree/main/.claude/skills/create-beads-orchestration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AvivK5498/The-Claude-Protocol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T02:37:28Z"
+}
