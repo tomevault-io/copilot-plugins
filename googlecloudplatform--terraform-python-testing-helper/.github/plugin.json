@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--terraform-python-testing-helper",
+  "displayName": "terraform-python-testing-helper",
+  "description": "terraform-python-testing-helper",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/terraform-python-testing-helper",
+  "skills": []
+}
