@@ -1,0 +1,58 @@
+## chrome-auto-image-blocker
+
+> This repository contains a Chrome extension designed to block images on webpages with a simple click. The extension helps reduce distractions and improve page load times by controlling when images are displayed.
+
+# Chrome Image Blocker
+
+## Repository Overview
+This repository contains a Chrome extension designed to block images on webpages with a simple click. The extension helps reduce distractions and improve page load times by controlling when images are displayed.
+
+## Purpose
+The main purpose of this extension is to:
+- Block or show images with a single click on the extension icon
+- Provide a quick visual indicator of the current state (images allowed or blocked)
+- Improve browsing experience by reducing visual distractions
+- Increase page load speed by preventing image loading
+
+## Repository Structure
+- `manifest.json`: Chrome extension configuration file
+- `background.js`: Core service worker implementation of the extension
+- `assets/`: Icons and resources for the extension
+  - `icons/`: Icons for the extension UI
+    - `connect.png`: Icon for the connected state (images allowed)
+    - `disconnect.png`: Icon for the disconnected state (images blocked)
+  - `screenshots/`: Example screenshots showing the extension in action
+    - Contains examples from YouTube and Instagram
+  - `promo-image/`: Marketing images for the Chrome Web Store
+- `scripts/`: Utility scripts for development and deployment
+  - `package.sh`: Script to package the extension into a ZIP file for Chrome Web Store submission
+- `icon.png`: Extension icon displayed in Chrome toolbar
+- `LICENSE`: MIT license file
+- `README.md`: Documentation and installation instructions
+
+## Key Features
+- One-click toggle to enable/disable images instantly
+- Visual indicator of current state through icon changes
+- Simple, lightweight interface
+- No setup required
+
+## Installation
+1. Clone the repository
+2. Load as unpacked extension in Chrome's developer mode
+3. Or install from the Chrome Web Store (if published)
+
+## Packaging for Chrome Web Store
+To package the extension for submission to the Chrome Web Store:
+1. Run the packaging script: `./scripts/package.sh`
+2. The script will create a `dist/extension.zip` file containing all necessary files
+3. Upload this ZIP file to the Chrome Web Store Developer Dashboard
+
+## Development Guidelines
+- Maintain the simple, clean UI design
+- Keep performance impact minimal
+- Follow Chrome extension best practices
+- Test thoroughly on various websites
+
+---
+> Source: [kirill-markin/chrome-auto-image-blocker](https://github.com/kirill-markin/chrome-auto-image-blocker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
