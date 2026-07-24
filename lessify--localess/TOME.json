@@ -1,0 +1,177 @@
+{
+  "name": "localess",
+  "owner": "Lessify",
+  "repo": "localess",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/angular-developer/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/angular-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/angular-developer/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/angular-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-firestore/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-firestore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-firestore/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-firestore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-auth-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-auth-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-auth-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-auth-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/developing-genkit-js/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/developing-genkit-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/developing-genkit-js/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/developing-genkit-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-crashlytics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-crashlytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-crashlytics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-crashlytics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-data-connect/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-data-connect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-data-connect/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-data-connect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-hosting-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-hosting-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-hosting-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-hosting-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-ai-logic-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-ai-logic-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-ai-logic-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-ai-logic-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-app-hosting-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-app-hosting-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-app-hosting-basics/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-app-hosting-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".agents/skills/firebase-security-rules-auditor/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.agents/skills/firebase-security-rules-auditor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "localess",
+      "path": ".claude/skills/firebase-security-rules-auditor/SKILL.md",
+      "github_url": "https://github.com/Lessify/localess/tree/main/.claude/skills/firebase-security-rules-auditor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Lessify/localess",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T02:54:25Z"
+}
