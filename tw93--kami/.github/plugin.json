@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "tw93",
   "homepage": "https://github.com/tw93/Kami",
-  "skills": []
+  "skills": [
+    {
+      "name": "Kami",
+      "description": ""
+    }
+  ]
 }
