@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--langchainjs-quickstart-demo",
+  "displayName": "langchainjs-quickstart-demo",
+  "description": "langchainjs-quickstart-demo",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/langchainjs-quickstart-demo",
+  "skills": []
+}
