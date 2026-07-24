@@ -1,0 +1,9 @@
+{
+  "name": "zigcc--zig-msgpack",
+  "displayName": "zig-msgpack",
+  "description": "zig-msgpack",
+  "version": "1.0.0",
+  "author": "zigcc",
+  "homepage": "https://github.com/zigcc/zig-msgpack",
+  "skills": []
+}
