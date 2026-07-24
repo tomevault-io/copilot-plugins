@@ -1,0 +1,87 @@
+{
+  "name": "bestofjs",
+  "owner": "bestofjs",
+  "repo": "bestofjs",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bestofjs",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/bestofjs/bestofjs/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bestofjs",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/bestofjs/bestofjs/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bestofjs",
+      "path": ".agents/skills/write-a-prd/SKILL.md",
+      "github_url": "https://github.com/bestofjs/bestofjs/tree/main/.agents/skills/write-a-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bestofjs",
+      "path": ".agents/skills/prd-to-issues/SKILL.md",
+      "github_url": "https://github.com/bestofjs/bestofjs/tree/main/.agents/skills/prd-to-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bestofjs",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/bestofjs/bestofjs/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bestofjs",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/bestofjs/bestofjs/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bestofjs",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/bestofjs/bestofjs/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bestofjs/bestofjs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:05:59Z"
+}
