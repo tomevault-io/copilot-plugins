@@ -1,0 +1,81 @@
+{
+  "name": "mcp-security",
+  "owner": "google",
+  "repo": "mcp-security",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "setup-gemini-cli",
+      "path": "extensions/google-secops/skills/setup-gemini-cli",
+      "github_url": "https://github.com/google/mcp-security/tree/main/extensions/google-secops/skills/setup-gemini-cli",
+      "description": ""
+    },
+    {
+      "name": "mcp-security",
+      "path": "extensions/google-secops/skills/hunt/SKILL.md",
+      "github_url": "https://github.com/google/mcp-security/tree/main/extensions/google-secops/skills/hunt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mcp-security",
+      "path": "extensions/google-secops/skills/triage/SKILL.md",
+      "github_url": "https://github.com/google/mcp-security/tree/main/extensions/google-secops/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mcp-security",
+      "path": "extensions/google-secops/skills/investigate/SKILL.md",
+      "github_url": "https://github.com/google/mcp-security/tree/main/extensions/google-secops/skills/investigate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mcp-security",
+      "path": "extensions/google-secops/skills/setup-gemini-cli/SKILL.md",
+      "github_url": "https://github.com/google/mcp-security/tree/main/extensions/google-secops/skills/setup-gemini-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mcp-security",
+      "path": "extensions/google-secops/skills/setup-antigravity/SKILL.md",
+      "github_url": "https://github.com/google/mcp-security/tree/main/extensions/google-secops/skills/setup-antigravity/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google/mcp-security",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:40:05Z"
+}
