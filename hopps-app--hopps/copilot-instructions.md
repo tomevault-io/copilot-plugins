@@ -1,0 +1,443 @@
+## hopps
+
+> Hopps ist eine cloud-basierte Open-Source Buchhaltungssoftware mit KI für gemeinnützige Organisationen (Vereine). Das Projekt wird von der Deutschen Stiftung für Engagement und Ehrenamt gefördert und vom Open Project e.V. Pfaffenhofen an der Ilm entwickelt.
+
+# Hopps - Cloud-basierte Open-Source Buchhaltungssoftware mit KI
+
+## Projektübersicht
+
+Hopps ist eine cloud-basierte Open-Source Buchhaltungssoftware mit KI für gemeinnützige Organisationen (Vereine). Das Projekt wird von der Deutschen Stiftung für Engagement und Ehrenamt gefördert und vom Open Project e.V. Pfaffenhofen an der Ilm entwickelt.
+
+**Architektur:** Monorepo mit Microservices-Architektur
+
+## Projektstruktur
+
+```
+/backend          - Java Microservices (Quarkus)
+/frontend         - Frontend-Anwendungen (SPA + Mobile)
+  /spa            - React Web-Anwendung
+  /mobile         - React Native Mobile App
+  /api-client     - Shared TypeScript API Client
+  /keycloak-theme - Custom Keycloak Theme
+/infrastructure   - Docker Compose & Deployment
+/charts           - Helm Charts für Kubernetes
+/architecture     - Architekturdokumentation
+/formatter        - Java Code-Formatter-Konfiguration
+```
+
+## Backend
+
+### Tech Stack
+- **Framework:** Quarkus 3.37.2
+- **Sprache:** Java 21
+- **Build:** Maven
+- **Datenbank:** PostgreSQL 16 mit Flyway Migrations
+- **ORM:** Hibernate mit Panache
+- **Auth:** Keycloak (OAuth2/OIDC), Quarkus OIDC + Keycloak Admin Client
+- **Storage:** AWS S3 (LocalStack lokal)
+- **Realtime:** Quarkus WebSockets Next (Live-Benachrichtigungen bei Dokumentänderungen)
+- **AI/ML:** LangChain4j mit OpenAI, Azure Document AI
+
+### Microservices
+
+#### app.hopps.org (Port 8101)
+**Haupt-Service für Organisation und Member Management**
+
+**Domain Models** (Feature-Slices unter `app/hopps/{feature}/domain`):
+- `Organization` + `Address` - Hauptentität für Vereine (Name, Slug, Typ, Adresse, Website)
+- `Member` - Benutzer mit Verknüpfung zu mehreren Organisationen
+- `Bommel` - Hierarchische Baumstruktur für Organisationseinheiten (Abteilungen/Teams)
+- `Category` - Kategorisierungssystem für Transaktionen
+- `Transaction` - Finanztransaktionen mit Dokumentreferenzen
+- `Document` + `TradeParty`, `DocumentTag` - hochgeladene Belege inkl. Analyse-/Extraktionsstatus
+- `BankAccount`, `BankImport`, `BankTransaction`, `BankCsvSchema`, `BankCsvColumnMapping`, `BankTransactionMatch` - Bank-CSV-Import und Abgleich mit Transaktionen (`bankimport`-Slice)
+- `Tag` (shared)
+
+**API Endpoints** (class-level `@Path`):
+- `/organization`, `/organizations` - Organisation CRUD, Registrierungsworkflow, Bommel-Zuordnung
+- `/bommel` - Baumstruktur-Management mit rekursiven Operationen
+- `/member` - Member-Verwaltung
+- `/category` - Kategorie-Verwaltung
+- `/transactions` - Transaktionsdatensätze
+- `/documents` - Dokumenten-Upload und Abruf
+- `/statistics` - Auswertungen/Kennzahlen
+- `/bankaccounts`, `/imports`, `/bank-transactions`, `/bank-schemas` - Bank-Import-Feature
+- `/health` - Health-Check
+- `/ws/documents` - WebSocket für Live-Updates zu Dokumentanalysen
+
+**Features:**
+- Keycloak User Provisioning
+- S3 Dokumentenspeicherung
+- Bank-CSV-Import mit konfigurierbaren Schemata und Transaktions-Matching
+- WebSocket-Live-Benachrichtigungen
+
+#### app.hopps.az-document-ai (Port 8100, root-path `/api/az-document-ai`)
+Dokumentenanalyse mit Azure Document Intelligence (OCR, Datenextraktion)
+
+#### app.hopps.zugferd (Port 8103)
+ZUGFeRD-Rechnungsverarbeitung (XML aus PDFs extrahieren)
+
+### Datenbank Setup
+- **Flyway Migrations:** `/src/main/resources/db/migration`
+- **Testdaten:** `/src/main/resources/db/testdata` (dev mode)
+- **Multi-Database:** Separate DBs für org, keycloak
+- **Schema Version:** aktuell V1.0.19 (Nummerierung mit Lücke: V1.0.0–V1.0.2, dann V1.0.13–V1.0.19)
+
+## Frontend
+
+### SPA (Single Page Application)
+
+**Tech Stack:**
+- **Framework:** React 19.1
+- **Build:** Vite 7
+- **Sprache:** TypeScript 5.5
+- **Routing:** React Router v7.5
+- **State:** Zustand 5.0
+- **API:** @tanstack/react-query 5.90
+- **UI:** Radix UI + TailwindCSS 3.4
+- **Forms:** React Hook Form 7.66 + Zod 4
+- **Grid:** AG Grid 32.3
+- **Charts:** Recharts 2.15
+- **i18n:** i18next 23.16 + react-i18next 15
+- **Auth:** Keycloak-js 24.0
+
+**Features:**
+- Drag-and-drop File Upload (react-dropzone)
+- PDF Viewing (pdfjs-dist)
+- Tree Visualisierung (react-d3-tree, @minoru/react-dnd-treeview)
+- Emoji Support (emoji-mart)
+
+**Struktur:**
+```
+src/
+├── AppRoutes.tsx              - Zentrale Routen-Definition (von App.tsx eingebunden)
+├── i18n.ts                    - i18next-Konfiguration
+├── components/
+│   ├── ui/                    - Wiederverwendbare UI-Komponenten (shadcn/ui-inspiriert)
+│   ├── views/                 - Seiten-Level Komponenten
+│   ├── BommelTreeView/        - Organisations-Baumvisualisierung
+│   ├── Categories/            - Kategorie-Management
+│   ├── Forms/                 - Formular-Komponenten
+│   ├── BankAccounts/, Receipts/, Transactions/, InvoicesTable/, SettingsPage/, ...
+│   └── AgGrid/, common/, sidebar-navigation/
+├── services/                  - ApiService, OrganisationTreeService, Theme/Language/Connectivity/Emoji, auth/
+├── store/                     - Zustand Stores
+├── hooks/                     - Custom React Hooks
+├── context/, providers/       - React Context & Provider
+├── guards/                    - Route Guards (AuthGuard)
+├── layouts/                   - Layout-Komponenten
+├── lib/, utils/, @types/, assets/, styles/, test/
+└── locales/                   - i18n Übersetzungen (de.json, en.json, uk.json)
+```
+
+**Hauptrouten** (siehe `src/AppRoutes.tsx`):
+- `/` - Landing Page
+- `/register` - Organisationsregistrierung
+- `/dashboard/*` - Haupt-Dashboard (protected)
+- `/structure` - Organisationsstruktur-Management (protected)
+- `/receipts`, `/receipts/new`, `/receipts/:id` - Belege (protected)
+- `/transactions` - Transaktionsübersicht (protected)
+- `/bank-accounts`, `/bank-accounts/:id`, `/bank-accounts/:id/import`, `/bank-schemas` - Bank-Import (protected)
+- `/admin/categories`, `/admin/ngo-details` - Admin (protected)
+- `/settings/*` - Einstellungen (protected)
+- `/profile` - Benutzereinstellungen (protected)
+
+### Mobile App
+
+**Tech Stack:**
+- **Framework:** React Native 0.81.5 via Expo 54, React 19.1
+- **Router:** Expo Router 6
+- **UI:** NativeWind 4.1 (TailwindCSS für React Native)
+- **Icons:** Lucide React Native
+- **HTTP:** Axios mit Auth Refresh (axios-auth-refresh)
+
+**Plattformen:** iOS, Android, Web (via Expo)
+
+### API Client (@hopps/api-client)
+- Auto-generiert aus OpenAPI Specs mit NSwag
+- Type-safe API Calls
+- Token Refresh Handling
+- Verwendet von SPA und Mobile
+- **Lokale Referenz:** SPA und Mobile verwenden `workspace:*` um direkt auf den lokalen API Client zuzugreifen
+
+#### API Client Workflow
+
+**WICHTIG:** Der API Client ist die EINZIGE erlaubte Methode, um Backend-Endpoints aus dem Frontend aufzurufen. Direkte fetch/axios Calls zum Backend sind NICHT erlaubt.
+
+**Workflow bei Backend-Änderungen:**
+
+1. **Swagger-Dokumentation im Backend hinzufügen**
+
+   Jeder Endpoint im org-Service MUSS präzise dokumentiert werden mit:
+   - `@Operation(summary = "...", description = "...")` - Beschreibung des Endpoints
+   - `@APIResponse(responseCode = "...", description = "...", content = ...)` - Alle möglichen Responses
+   - `@Parameter(description = "...")` - Beschreibung der Parameter
+   - `@Schema` - Schema-Definitionen für Request/Response Bodies
+
+   **Beispiel:**
+   ```java
+   @GET
+   @Path("/{id}")
+   @Operation(summary = "Fetch a bommel by its id", description = "Returns a single bommel entity")
+   @APIResponse(responseCode = "200", description = "Bommel found",
+       content = @Content(mediaType = MediaType.APPLICATION_JSON,
+       schema = @Schema(implementation = Bommel.class)))
+   @APIResponse(responseCode = "401", description = "User not logged in")
+   @APIResponse(responseCode = "403", description = "User not authorized")
+   @APIResponse(responseCode = "404", description = "Bommel not found")
+   public Bommel getBommel(@PathParam("id") @Parameter(description = "The bommel ID") Long id) {
+       // ...
+   }
+   ```
+
+2. **Backend bauen um OpenAPI-Spec zu generieren**
+   ```bash
+   cd backend/app.hopps.org
+   ./mvnw compile quarkus:dev
+   # oder
+   ./mvnw package
+   ```
+   Dies generiert die OpenAPI-Spec unter `target/openapi/openapi.json`
+
+3. **API Client regenerieren und bauen**
+   ```bash
+   cd frontend/api-client
+   pnpm run generate-local
+   pnpm run build
+   ```
+   Dies generiert TypeScript-Typen und Client-Methoden aus der lokalen OpenAPI-Spec und kompiliert sie zu JavaScript im `dist` Ordner. **WICHTIG:** Der Build-Schritt ist zwingend erforderlich, da SPA und Mobile die kompilierten JavaScript-Dateien aus `dist/` importieren.
+
+4. **Neue Methoden im Frontend verwenden**
+
+   Die generierten Methoden stehen sofort in SPA und Mobile zur Verfügung:
+   ```typescript
+   import { Client, Bommel } from '@hopps/api-client';
+
+   const client = new Client(baseUrl, httpClient);
+   const bommel = await client.bommelGET(bommelId);
+   ```
+
+**Verfügbare Scripts:**
+- `pnpm run generate` - Generiert API Client von der Remote Dev-API (https://api.dev.hopps.cloud)
+- `pnpm run generate-local` - Generiert API Client von der lokalen OpenAPI-Spec
+- `pnpm run build` - Kompiliert den TypeScript API Client
+
+**Dateistruktur:**
+```
+frontend/api-client/
+├── src/
+│   ├── services/
+│   │   └── OrgService.ts      # Auto-generiert von NSwag
+│   ├── ApiService.ts          # Service-Wrapper
+│   ├── AuthenticatedHttpClient.ts  # HTTP Client mit Auth
+│   └── index.ts               # Exports
+├── org-service.nswag          # NSwag Config (Remote)
+└── org-service-local.nswag    # NSwag Config (Lokal)
+```
+
+## Build & Deployment
+
+### Build Tools
+- **Backend:** Maven mit Quarkus Plugin
+- **Frontend:** pnpm Workspace, Vite (SPA), Expo CLI (Mobile)
+
+### Docker (Lokale Entwicklung)
+**Services (`infrastructure/hopps-app/docker-compose.yaml`):**
+- `org` - Organization Service (Host **8101** → 8080, Image `ghcr.io/hopps-app/hopps/org`)
+- `az-document-ai` - Document Analysis (8100)
+- `postgres` - PostgreSQL 16 (`postgres:16-alpine`, 5432)
+- `keycloak` - offizielles Keycloak (`quay.io/keycloak/keycloak:26.4.7`, 8092)
+- `localstack` - AWS S3 Mock (4566)
+
+Hinweis: Der `zugferd`-Service ist nicht Teil dieses Compose-Files. Weitere Compose-Setups: `docker-compose-infra-only.yaml`, `docker-compose.authentik.yaml`.
+
+**Benötigte Umgebungsvariablen:**
+```bash
+HOPPS_AZURE_DOCUMENT_AI_ENDPOINT
+HOPPS_AZURE_DOCUMENT_AI_KEY
+QUARKUS_LANGCHAIN4J_OPENAI_API_KEY
+```
+
+### Authentik als Identity Provider lokal testen
+
+Der Login läuft über **Keycloak** (via Quarkus Keycloak Dev Services), und Keycloak brokert per OIDC zu **Authentik**. Um die "Log in with Authentik"-Schaltfläche im Custom-Theme (`frontend/keycloak-theme`) end-to-end zu testen, müssen drei Dinge zusammenpassen: das Theme-Image, die Realm-Konfiguration und die laufende Authentik-Instanz.
+
+> **Hinweis:** Die hier beschriebene Verdrahtung (`devservices.image-name`, `loginTheme` im Realm, der `authentik`-IdP-Eintrag, das Custom-`Login.tsx`) ist ggf. noch **nicht committet**. Falls diese Konfiguration im Repo fehlt, muss sie zuerst wie unten beschrieben angelegt werden.
+
+**Wie es verdrahtet ist:**
+- Keycloak wird **nicht** aus docker-compose gestartet, sondern von **Quarkus Keycloak Dev Services** (`%dev`), auf **Port 8554** (`quarkus.keycloak.devservices.port`), Realm **`quarkus`** (importiert aus `backend/app.hopps.org/src/main/resources/quarkus-realm.json`).
+- Damit das Custom-Login-Theme in Dev Services erscheint, nutzt Quarkus ein eigenes Keycloak-Image statt des Standard-Images:
+  `%dev.quarkus.keycloak.devservices.image-name=hopps-keycloak-theme:local`.
+  Dieses Image existiert **nur lokal** (kein Registry-Pull) — es muss vorher gebaut werden, sonst schlägt der Dev-Start mit Image-Pull-Fehler fehl (es gibt **kein** Fallback auf das Standard-Keycloak).
+- Das Realm braucht `"loginTheme": "hopps-login-theme"` (sonst Standard-Login) und den `identityProviders`-Eintrag mit `alias: authentik`.
+- Authentik läuft aus der eigenen Datei `infrastructure/hopps-app/docker-compose.authentik.yaml` (Services `authentik-server`/`-worker`/`-postgres`/`-redis`) auf **Port 9000**. Admin: `akadmin` / `akadmin` (`AUTHENTIK_BOOTSTRAP_PASSWORD`).
+
+**Ablauf zum Testen:**
+1. **Theme-Image bauen** (nach jeder Theme-Änderung neu):
+   ```bash
+   cd frontend/keycloak-theme
+   pnpm install --ignore-workspace --ignore-scripts   # standalone: NICHT Teil des frontend-Workspaces
+   docker build -t hopps-keycloak-theme:local .
+   ```
+2. **Dev Services auf das Theme-Image zeigen lassen** — folgende Zeile in `backend/app.hopps.org/src/main/resources/application.properties` eintragen (falls noch nicht vorhanden):
+   ```properties
+   %dev.quarkus.keycloak.devservices.image-name=hopps-keycloak-theme:local
+   ```
+   Zusätzlich im Realm `quarkus-realm.json` `"loginTheme": "hopps-login-theme"` setzen und den `authentik`-IdP-Eintrag (`identityProviders`) anlegen.
+3. **Authentik hochfahren** (eigene Compose-Datei, lässt die Haupt-`docker-compose.yaml` unberührt):
+   ```bash
+   cd infrastructure/hopps-app
+   docker compose -f docker-compose.authentik.yaml up -d
+   ```
+   Dann in Authentik (http://localhost:9000, `akadmin`/`akadmin`) einen **OIDC-Provider + Application** für Keycloak anlegen und als Redirect-URI **`http://localhost:8554/realms/quarkus/broker/authentik/endpoint`** hinterlegen. `clientId`/`clientSecret` von dort in den `authentik`-Eintrag in `quarkus-realm.json` übernehmen.
+4. **Backend im Dev-Mode starten** (zieht das lokale Theme-Image in den Dev-Services-Keycloak):
+   ```bash
+   cd backend/app.hopps.org
+   ./mvnw quarkus:dev
+   ```
+5. **Login testen:** SPA auf `http://localhost:5173/` starten und einloggen — oder direkt die Keycloak-Login-Seite über einen gültigen Client öffnen:
+   ```
+   http://localhost:8554/realms/quarkus/protocol/openid-connect/auth?client_id=quarkus-app&redirect_uri=http://localhost:5173/&response_type=code&scope=openid
+   ```
+   Der "Authentik"-Button muss erscheinen; Klick → Redirect zu Authentik → zurück über `.../broker/authentik/endpoint` → zurück zur SPA.
+
+**Wichtige Fallstricke (URL-Hosts sind bewusst unterschiedlich):**
+- `authorizationUrl` nutzt einen **browser-erreichbaren** Host (`authentik.local:9000` bzw. `localhost:9000`) — muss vom **Browser** auflösbar sein.
+- `tokenUrl`/`userInfoUrl`/`issuer` nutzen `host.docker.internal:9000` — muss aus dem **Keycloak-Container** erreichbar sein.
+- Der Authentik-`issuer` muss **exakt** (inkl. abschließendem `/`) mit dem Wert unter `.well-known/openid-configuration` übereinstimmen.
+- Der Principal wird aus dem `email`-Claim gemappt (`quarkus.oidc.token.principal-claim=email`) — Authentik muss eine (verifizierte) `email` ausliefern.
+- **Nur `%dev`:** Der `image-name`-Override und der ganze Authentik-Broker-Flow betreffen ausschließlich den Dev-Mode. In JUnit-Tests spielt das Login-Theme keine Rolle (Tests holen Tokens direkt, rendern nie die Login-Seite).
+
+### CI/CD (GitHub Actions)
+- **Backend Workflow (`backend.yml`):** Matrix Build für 3 Services (org, az-document-ai, zugferd), Docker Push zu GHCR
+- **Frontend Workflow (`frontend.yml`):** Lint, Test, Build, Docker Push; separater `api-client.yml` und `keycloak.yml`
+- **Auto-Deployment:** zu dev environment bei main branch
+- **Container Registry:** ghcr.io/hopps-app/hopps
+- **Weitere Workflows:** SonarQube-, Dependency-Track-Analyse, `helm-release.yaml`, `claude-code-review.yml`
+
+### Kubernetes/Helm
+**Chart:** `/charts/hopps` (Version 0.2.7)
+**Dependencies:** KeycloakX (codecentric, v7.0.1), PostgreSQL (bitnami, v16.4.5)
+
+## Testing
+
+### Backend
+- **Framework:** JUnit 5, REST Assured, Mockito
+- **Mocking:** WireMock für HTTP
+- **Test Data:** Instancio 5.4.0
+- **Contract Testing:** Pact
+- **Coverage:** Jacoco → SonarCloud
+- **Struktur:** Unit Tests + Integration Tests (IT suffix)
+
+### Frontend
+- **SPA:** Vitest 3.2, React Testing Library
+- **Mobile:** Jest mit jest-expo
+- **Contract Testing:** Pact Foundation
+- **Command:** `pnpm run validate` (lint + test)
+
+### Pact Contract Testing
+- Consumer-Tests: `frontend/api-client/src/pact/` (z.B. `InvoicesService.pact.test.ts`); Backend nutzt zusätzlich `au.com.dius.pact.consumer` (pact-jvm)
+- Generierte Pacts landen in einem `pacts/`-Verzeichnis (nicht im Repo eingecheckt)
+- Stub Server für lokale Entwicklung: `pnpm run stubs` in `frontend/spa` (pact-stub-server auf Port 8090)
+
+## Wichtige Konventionen
+
+### Backend Code-Organisation (Vertical Slice — umgesetzt)
+Der org-Service ist nach Feature-Slices organisiert (`organization`, `member`, `bommel`, `category`,
+`transaction`, `document`, `bankimport`, `statistics`) plus ein `shared`-Paket. Typische Slice-Struktur:
+```
+src/main/java/app/hopps/{feature}/
+├── api/           - REST Endpoints (@Path); DTOs liegen unter api/dto/
+├── domain/        - Entities, Domain Models
+├── repository/    - Panache Repositories
+├── service/       - Business Logic (nicht in jedem Slice vorhanden)
+└── model/         - Input-/Value-Typen (z.B. BommelInput, OrganizationInput)
+```
+Hinweise: DTOs liegen unter `api/dto/` (nicht als Top-Level-`dto/`). `service/` existiert nur in
+größeren Slices (organization, document, bankimport, statistics). `shared/` enthält u.a.
+`bootstrap`, `infrastructure/storage`, `security`, `validation`.
+
+### API-Entwicklung
+- OpenAPI/Swagger verfügbar unter `/q/swagger-ui`
+- Specs unter `target/openapi/openapi.json`
+- REST Assured für API-Tests
+- Keycloak-Integration für Auth
+
+### Frontend-Entwicklung
+- Komponenten in `components/ui/` folgen shadcn/ui Patterns
+- State Management mit Zustand
+- API Calls via React Query
+- i18n für alle User-facing Strings
+- Route Guards für geschützte Routen
+
+## Dokumentation
+- **Main README:** Projekt-Übersicht, Setup
+- **Service READMEs:** Spezifische Setup-Anleitungen
+- **Architektur:** `/architecture/architecture.drawio`
+- **Frontend:** `frontend/FRONTEND_REFACTORING_PLAN.md`
+
+## Wichtige Hinweise für AI-Assistenten
+
+### Bei Backend-Änderungen:
+1. Folge dem etablierten Vertical Slice Architecture Pattern (siehe "Backend Code-Organisation")
+2. Verwende konsistente Package-Benennung (`api/` statt `endpoint/`)
+3. Vermeide Code-Duplikation - extrahiere zu common package
+4. DTOs als Records (nicht Classes)
+5. Alle DB-Änderungen als Flyway Migrations
+6. Tests in entsprechender Struktur anlegen
+
+### Bei Frontend-Änderungen:
+1. Neue UI-Komponenten in `components/ui/`
+2. Verwende TypeScript strict mode
+3. **Alle Strings via i18next** - siehe Internationalisierung weiter unten
+4. State Management mit Zustand
+5. Forms mit React Hook Form + Zod Validation
+6. Teste mit Vitest + React Testing Library
+
+### Internationalisierung (i18n):
+**WICHTIG:** Hopps ist eine mehrsprachige Anwendung mit primärer Unterstützung für Deutsch und Englisch.
+
+**Strikte Regeln:**
+1. **Keine Hart-kodierten Texte:** NIEMALS direkte Texte im Code hinterlegen, die vom Benutzer gesehen werden können
+2. **Immer i18next verwenden:** Alle User-facing Strings MÜSSEN über `t('translation.key')` geladen werden
+3. **Mindestens zwei Sprachen:** Jeder neue Text benötigt SOWOHL deutsche ALS AUCH englische Übersetzung (Ukrainisch/`uk.json` nach Möglichkeit ebenfalls pflegen)
+4. **Konsistente Keys:** Verwende aussagekräftige, hierarchische Translation Keys (z.B. `organization.settings.structure`)
+
+**Übersetzungs-Dateien** (flache JSON-Dateien, konfiguriert in `src/i18n.ts`, Default `en`):
+- Deutsch: `/frontend/spa/src/locales/de.json`
+- Englisch: `/frontend/spa/src/locales/en.json`
+- Ukrainisch: `/frontend/spa/src/locales/uk.json`
+
+**Beispiel - FALSCH:**
+```tsx
+<Button>Speichern</Button>
+<h3>Organisationsstruktur:</h3>
+```
+
+**Beispiel - RICHTIG:**
+```tsx
+const { t } = useTranslation();
+<Button>{t('common.save')}</Button>
+<h3>{t('organization.settings.structure')}:</h3>
+```
+
+**Bei neuen Features:**
+1. Erstelle Translation Keys in beiden Sprachdateien
+2. Verwende `useTranslation()` Hook in Komponenten
+3. Gruppiere Keys logisch (z.B. alle `organization.*` zusammen)
+4. Dokumentiere Kontext bei mehrdeutigen Begriffen
+
+### Bei API-Änderungen:
+**WICHTIG:** Folge dem API Client Workflow (siehe "API Client Workflow" oben)
+
+1. **Swagger-Annotationen hinzufügen:** Jeder Endpoint MUSS mit `@Operation`, `@APIResponse`, `@Parameter` dokumentiert werden
+2. **Backend bauen:** `./mvnw compile` oder `./mvnw package` um OpenAPI-Spec zu generieren
+3. **API Client regenerieren:** `cd frontend/api-client && pnpm run generate-local`
+4. **Neue Methoden verwenden:** Importiere die generierten Typen und Methoden aus `@hopps/api-client`
+5. **NIEMALS:** Direkte fetch/axios Calls zum Backend - immer den API Client verwenden
+6. Pact Tests für Consumer/Provider aktualisieren
+7. Keycloak Roles beachten
+
+---
+> Source: [hopps-app/hopps](https://github.com/hopps-app/hopps) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
