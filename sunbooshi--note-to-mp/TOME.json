@@ -4,7 +4,7 @@
   "repo": "note-to-mp",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sunbooshi/note-to-mp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T13:39:30Z"
+  "distributed_at": "2026-07-24T08:45:14Z"
 }
