@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MarsWang42/OrbitOS](https://github.com/MarsWang42/OrbitOS).
+Original source: `CLAUDE.md` in [MarsWang42/OrbitOS](https://github.com/MarsWang42/OrbitOS).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -42,7 +42,7 @@ Original source: `AGENTS.md` in [MarsWang42/OrbitOS](https://github.com/MarsWang
 - [OrbitOS](https://github.com/MarsWang42/OrbitOS/tree/main/CN/.agents/skills/obsidian-markdown/SKILL.md)
 - [OrbitOS](https://github.com/MarsWang42/OrbitOS/tree/main/EN/.agents/skills/obsidian-markdown/SKILL.md)
 
-From [MarsWang42/OrbitOS](https://github.com/MarsWang42/OrbitOS) — a repo with 930+ stars on GitHub.
+From [MarsWang42/OrbitOS](https://github.com/MarsWang42/OrbitOS) — a repo with 933+ stars on GitHub.
 
 ---
 
