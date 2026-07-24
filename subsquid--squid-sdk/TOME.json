@@ -1,0 +1,57 @@
+{
+  "name": "squid-sdk",
+  "owner": "subsquid",
+  "repo": "squid-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "squid-sdk",
+      "path": ".agents/skills/squid-sdk-release/SKILL.md",
+      "github_url": "https://github.com/subsquid/squid-sdk/tree/main/.agents/skills/squid-sdk-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "squid-sdk",
+      "path": ".agents/skills/rushstack-best-practices/SKILL.md",
+      "github_url": "https://github.com/subsquid/squid-sdk/tree/main/.agents/skills/rushstack-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/subsquid/squid-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:46:49Z"
+}
