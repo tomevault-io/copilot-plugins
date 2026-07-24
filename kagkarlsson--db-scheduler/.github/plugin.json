@@ -1,0 +1,14 @@
+{
+  "name": "kagkarlsson--db-scheduler",
+  "displayName": "db-scheduler",
+  "description": "db-scheduler",
+  "version": "1.0.0",
+  "author": "kagkarlsson",
+  "homepage": "https://github.com/kagkarlsson/db-scheduler",
+  "skills": [
+    {
+      "name": "db-scheduler",
+      "description": ""
+    }
+  ]
+}
