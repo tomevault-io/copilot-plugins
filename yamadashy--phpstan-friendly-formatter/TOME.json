@@ -1,0 +1,57 @@
+{
+  "name": "phpstan-friendly-formatter",
+  "owner": "yamadashy",
+  "repo": "phpstan-friendly-formatter",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "phpstan-friendly-formatter",
+      "path": ".agents/skills/agent-memory/SKILL.md",
+      "github_url": "https://github.com/yamadashy/phpstan-friendly-formatter/tree/main/.agents/skills/agent-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "phpstan-friendly-formatter",
+      "path": ".agents/skills/repomix-explorer/SKILL.md",
+      "github_url": "https://github.com/yamadashy/phpstan-friendly-formatter/tree/main/.agents/skills/repomix-explorer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yamadashy/phpstan-friendly-formatter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:54:29Z"
+}
