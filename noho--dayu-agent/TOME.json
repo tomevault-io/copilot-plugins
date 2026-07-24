@@ -2,9 +2,9 @@
   "name": "dayu-agent",
   "owner": "noho",
   "repo": "dayu-agent",
-  "description": "\u5927\u611aAgent",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/noho/dayu-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T19:48:36Z"
+  "distributed_at": "2026-07-24T08:25:49Z"
 }
