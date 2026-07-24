@@ -1,0 +1,54 @@
+{
+  "name": "covoiturage-gouv-fr--mono",
+  "displayName": "mono",
+  "description": "mono",
+  "version": "1.0.0",
+  "author": "covoiturage-gouv-fr",
+  "homepage": "https://github.com/covoiturage-gouv-fr/mono",
+  "skills": [
+    {
+      "name": "check-doc",
+      "description": ""
+    },
+    {
+      "name": "check-perf",
+      "description": ""
+    },
+    {
+      "name": "check-qa",
+      "description": ""
+    },
+    {
+      "name": "check-security",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "description": ""
+    }
+  ]
+}
