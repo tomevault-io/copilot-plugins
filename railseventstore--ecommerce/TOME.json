@@ -1,0 +1,93 @@
+{
+  "name": "ecommerce",
+  "owner": "RailsEventStore",
+  "repo": "ecommerce",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/domain/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/domain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/new-app/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/new-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/read-model/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/read-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/controller/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/upgrade-res/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/upgrade-res/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/new-feature/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/new-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce",
+      "path": ".claude/skills/upgrade-rails/SKILL.md",
+      "github_url": "https://github.com/RailsEventStore/ecommerce/tree/main/.claude/skills/upgrade-rails/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RailsEventStore/ecommerce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:05:10Z"
+}
