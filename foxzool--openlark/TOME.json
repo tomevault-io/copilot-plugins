@@ -67,9 +67,15 @@
       "path": ".agents/skills/openlark-validation-style/SKILL.md",
       "github_url": "https://github.com/foxzool/openlark/tree/main/.agents/skills/openlark-validation-style/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "openlark",
+      "path": ".agents/skills/openlark-api-field-verify/SKILL.md",
+      "github_url": "https://github.com/foxzool/openlark/tree/main/.agents/skills/openlark-api-field-verify/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/foxzool/openlark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T20:41:53Z"
+  "distributed_at": "2026-07-24T23:48:12Z"
 }
