@@ -1,0 +1,261 @@
+{
+  "name": "atmos",
+  "owner": "cloudposse",
+  "repo": "atmos",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atmos",
+      "path": ".claude/skills/docs/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/pull-request/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/pull-request/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-packer/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-packer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-stores/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-stores/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-stacks/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-stacks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-config/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-ansible/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-ansible/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-schemas/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-schemas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-git-remote/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-git-remote/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-git-commit/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-helmfile/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-helmfile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-git-feature/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-git-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-workflows/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-terraform/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-terraform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-vendoring/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-vendoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-toolchain/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-toolchain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-git-validate/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-git-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-validation/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-components/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": ".claude/skills/speckit-git-initialize/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/.claude/skills/speckit-git-initialize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-devcontainer/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-devcontainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-aws-security/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-aws-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-introspection/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-introspection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-yaml-functions/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-yaml-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-design-patterns/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-design-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "agent-skills/skills/atmos-custom-commands/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/agent-skills/skills/atmos-custom-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atmos",
+      "path": "pkg/ai/skills/marketplace/testdata/valid-skill/SKILL.md",
+      "github_url": "https://github.com/cloudposse/atmos/tree/main/pkg/ai/skills/marketplace/testdata/valid-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cloudposse/atmos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:32:21Z"
+}
