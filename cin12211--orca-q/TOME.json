@@ -4,7 +4,7 @@
   "repo": "orca-q",
   "description": "The open source | Next Generation database editor",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -187,9 +187,207 @@
       "path": ".agent/skills/vite-expert",
       "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/vite-expert",
       "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/git-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/git-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/css-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/css-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/vite-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/vite-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/testing-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/testing-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/research-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/research-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/database-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/database-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/postgres-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/postgres-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/rest-api-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/rest-api-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/typescript-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/typescript-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/playwright-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/playwright-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/refactoring-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/refactoring-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/documentation-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/documentation-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".agent/skills/accessibility-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/accessibility-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".codex/skills/graphify/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.codex/skills/graphify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/refactor/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/graphify/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/graphify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/git-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/git-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/css-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/css-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/vite-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/vite-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/settings-flow/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/settings-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/testing-orcaq/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/testing-orcaq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/testing-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/testing-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/research-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/research-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/database-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/database-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/postgres-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/postgres-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/rest-api-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/rest-api-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/primary-sidebar/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/primary-sidebar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/typescript-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/typescript-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/playwright-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/playwright-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/refactoring-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/refactoring-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/karpathy-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/documentation-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/documentation-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orca-q",
+      "path": ".claude/skills/accessibility-expert/SKILL.md",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.claude/skills/accessibility-expert/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/cin12211/orca-q",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:31:04Z"
+  "distributed_at": "2026-07-24T22:31:42Z"
 }
