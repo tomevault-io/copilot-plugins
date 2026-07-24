@@ -1,0 +1,99 @@
+{
+  "name": "quickwit",
+  "owner": "quickwit-oss",
+  "repo": "quickwit",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fix-clippy",
+      "path": ".claude/skills/fix-clippy",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/fix-clippy",
+      "description": ""
+    },
+    {
+      "name": "fmt",
+      "path": ".claude/skills/fmt",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/fmt",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "path": ".claude/skills/fmt/SKILL.md",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/fmt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "path": ".claude/skills/sesh-mode/SKILL.md",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/sesh-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "path": ".claude/skills/simple-pr/SKILL.md",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/simple-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "path": ".claude/skills/fix-clippy/SKILL.md",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/fix-clippy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "path": ".claude/skills/bump-tantivy/SKILL.md",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/bump-tantivy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "path": ".claude/skills/update-lambda/SKILL.md",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/update-lambda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "quickwit",
+      "path": ".claude/skills/rationalize-deps/SKILL.md",
+      "github_url": "https://github.com/quickwit-oss/quickwit/tree/main/.claude/skills/rationalize-deps/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/quickwit-oss/quickwit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:36:03Z"
+}
