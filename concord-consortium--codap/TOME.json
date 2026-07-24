@@ -1,0 +1,63 @@
+{
+  "name": "codap",
+  "owner": "concord-consortium",
+  "repo": "codap",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codap-v3-build",
+      "path": ".claude/skills/codap-v3-build",
+      "github_url": "https://github.com/concord-consortium/codap/tree/main/.claude/skills/codap-v3-build",
+      "description": ""
+    },
+    {
+      "name": "codap",
+      "path": ".claude/skills/codap-v3-build/SKILL.md",
+      "github_url": "https://github.com/concord-consortium/codap/tree/main/.claude/skills/codap-v3-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "codap",
+      "path": ".claude/skills/codap-resources/SKILL.md",
+      "github_url": "https://github.com/concord-consortium/codap/tree/main/.claude/skills/codap-resources/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/concord-consortium/codap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T01:36:17Z"
+}
