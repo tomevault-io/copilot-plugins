@@ -1,0 +1,111 @@
+{
+  "name": "michelangelo",
+  "owner": "michelangelo-ai",
+  "repo": "michelangelo",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "michelangelo",
+      "path": ".claude/skills/update-docs/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/.claude/skills/update-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": ".claude/skills/pr-template/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/.claude/skills/pr-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": ".claude/skills/go/effective-go/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/.claude/skills/go/effective-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": "docs/.claude/skills/doc-review-team/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/docs/.claude/skills/doc-review-team/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": ".claude/skills/python/google-style-guide/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/.claude/skills/python/google-style-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": "javascript/.claude/skills/documenting-code/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/javascript/.claude/skills/documenting-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": "javascript/.claude/skills/testing-standards/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/javascript/.claude/skills/testing-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": "javascript/.claude/skills/typescript-cookbook/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/javascript/.claude/skills/typescript-cookbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": "javascript/.claude/skills/ui-coding-principles/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/javascript/.claude/skills/ui-coding-principles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": "javascript/.claude/skills/file-directory-structure/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/javascript/.claude/skills/file-directory-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "michelangelo",
+      "path": "javascript/.claude/skills/react-component-development/SKILL.md",
+      "github_url": "https://github.com/michelangelo-ai/michelangelo/tree/main/javascript/.claude/skills/react-component-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/michelangelo-ai/michelangelo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:15:14Z"
+}
