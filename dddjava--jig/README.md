@@ -1,24 +1,24 @@
-# jig — distributed by TomeVault
+# jig
 
-> Originally from [dddjava/jig](https://github.com/dddjava/jig). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [dddjava/jig](https://github.com/dddjava/jig). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [dddjava/jig](https://github.com/dddjava/jig).
+Original source: `CLAUDE.md` in [dddjava/jig](https://github.com/dddjava/jig).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/dddjava#quality)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/dddjava/jig](https://github.com/dddjava/jig)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/dddjava) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
