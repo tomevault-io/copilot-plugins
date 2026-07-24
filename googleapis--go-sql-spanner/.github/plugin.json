@@ -1,0 +1,9 @@
+{
+  "name": "googleapis--go-sql-spanner",
+  "displayName": "go-sql-spanner",
+  "description": "go-sql-spanner",
+  "version": "1.0.0",
+  "author": "googleapis",
+  "homepage": "https://github.com/googleapis/go-sql-spanner",
+  "skills": []
+}
