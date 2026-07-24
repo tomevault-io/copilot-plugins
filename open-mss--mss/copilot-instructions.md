@@ -1,20 +1,22 @@
 ## mss
 
-> pixi shell          # activate dev environment (dev + docs features)
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# MSS (Mission Support System)
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Setup
 
 ```
-pixi shell          # activate dev environment (dev + docs features)
+pixi shell -e dev          # activate dev environment (dev + docs features)
 ```
 
 Python constraint: **< 3.12** (pinned in pixi.toml).
 
 ## Commands
 
-```
+```bash
 pixi run -e dev lint            # flake8 over tracked .py files
 pixi run -e dev lint-imports    # architectural import contracts (setup.cfg)
 pixi run -e dev codespell       # spelling
@@ -47,6 +49,8 @@ Single package `mslib` with four main subpackages:
 
 CLI entrypoints (pixi env): `msui`, `mscolab`, `mswms`, `msidp`, `mssautoplot`, `mss`.
 
+Tests mirror the package structure under `tests/` with subdirectories `_test_mscolab/`, `_test_msui/`, `_test_mswms/`, `_test_plugins/`, `_test_utils/`.
+
 ## Testing notes
 
 - `conftest.py` auto-generates test config dirs in a temp directory and loads `mswms_settings` / `mscolab_settings` modules dynamically. Tests read from `tests.constants`.
@@ -65,4 +69,4 @@ CLI entrypoints (pixi env): `msui`, `mscolab`, `mswms`, `msidp`, `mssautoplot`, 
 
 ---
 > Source: [Open-MSS/MSS](https://github.com/Open-MSS/MSS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
