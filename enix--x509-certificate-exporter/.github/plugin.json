@@ -1,0 +1,9 @@
+{
+  "name": "enix--x509-certificate-exporter",
+  "displayName": "x509-certificate-exporter",
+  "description": "x509-certificate-exporter",
+  "version": "1.0.0",
+  "author": "enix",
+  "homepage": "https://github.com/enix/x509-certificate-exporter",
+  "skills": []
+}
