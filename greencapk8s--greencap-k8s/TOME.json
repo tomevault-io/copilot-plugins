@@ -1,0 +1,207 @@
+{
+  "name": "greencap-k8s",
+  "owner": "greencapk8s",
+  "repo": "greencap-k8s",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/teach/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/triage/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/to-prd/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/to-prd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/diagnose/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/zoom-out/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/zoom-out/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/to-issues/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/to-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/prototype/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/greencap-run/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/greencap-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/edit-article/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/edit-article/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/write-a-skill/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/write-a-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/greencap-stop/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/greencap-stop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/writing-shape/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/writing-shape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/writing-beats/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/writing-beats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/obsidian-vault/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/obsidian-vault/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/setup-pre-commit/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/setup-pre-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/writing-fragments/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/writing-fragments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/scaffold-exercises/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/scaffold-exercises/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/migrate-to-shoehorn/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/migrate-to-shoehorn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/setup-matt-pocock-skills/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/setup-matt-pocock-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/git-guardrails-claude-code/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/git-guardrails-claude-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "greencap-k8s",
+      "path": ".claude/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/greencapk8s/greencap-k8s/tree/main/.claude/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/greencapk8s/greencap-k8s",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T00:03:02Z"
+}
