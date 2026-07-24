@@ -1,0 +1,75 @@
+{
+  "name": "chromium-dashboard",
+  "owner": "GoogleChrome",
+  "repo": "chromium-dashboard",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chromium-dashboard",
+      "path": ".agents/skills/chromestatus-backend/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/chromium-dashboard/tree/main/.agents/skills/chromestatus-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "path": ".agents/skills/chromestatus-frontend/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/chromium-dashboard/tree/main/.agents/skills/chromestatus-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "path": ".agents/skills/chromestatus-adding-a-field/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/chromium-dashboard/tree/main/.agents/skills/chromestatus-adding-a-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "path": ".agents/skills/chromestatus-ci-verification/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/chromium-dashboard/tree/main/.agents/skills/chromestatus-ci-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "chromium-dashboard",
+      "path": ".agents/skills/chromestatus-playwright-testing/SKILL.md",
+      "github_url": "https://github.com/GoogleChrome/chromium-dashboard/tree/main/.agents/skills/chromestatus-playwright-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GoogleChrome/chromium-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:43:33Z"
+}
