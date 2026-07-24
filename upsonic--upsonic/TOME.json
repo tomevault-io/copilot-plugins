@@ -1,0 +1,147 @@
+{
+  "name": "Upsonic",
+  "owner": "Upsonic",
+  "repo": "Upsonic",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/skills/builtins/code-review/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/skills/builtins/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/skills/builtins/data-analysis/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/skills/builtins/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/skills/builtins/summarization/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/skills/builtins/summarization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "prebuilt_autonomous_agents/applied_scientist/skills/progress/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/prebuilt_autonomous_agents/applied_scientist/skills/progress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "prebuilt_autonomous_agents/applied_scientist/skills/evaluate/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/prebuilt_autonomous_agents/applied_scientist/skills/evaluate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "prebuilt_autonomous_agents/applied_scientist/skills/research/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/prebuilt_autonomous_agents/applied_scientist/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "prebuilt_autonomous_agents/applied_scientist/skills/benchmark/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/prebuilt_autonomous_agents/applied_scientist/skills/benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "prebuilt_autonomous_agents/applied_scientist/skills/implement/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/prebuilt_autonomous_agents/applied_scientist/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/prebuilt/applied_scientist/template/skills/progress/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/prebuilt/applied_scientist/template/skills/progress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/prebuilt/applied_scientist/template/skills/evaluate/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/prebuilt/applied_scientist/template/skills/evaluate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/prebuilt/applied_scientist/template/skills/research/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/prebuilt/applied_scientist/template/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/prebuilt/applied_scientist/template/skills/benchmark/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/prebuilt/applied_scientist/template/skills/benchmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/prebuilt/applied_scientist/template/skills/implement/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/prebuilt/applied_scientist/template/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "prebuilt_autonomous_agents/applied_scientist/skills/analyze_current/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/prebuilt_autonomous_agents/applied_scientist/skills/analyze_current/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/prebuilt/applied_scientist/template/skills/analyze_current/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/prebuilt/applied_scientist/template/skills/analyze_current/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "prebuilt_autonomous_agents/applied_scientist/skills/experiment_management/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/prebuilt_autonomous_agents/applied_scientist/skills/experiment_management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Upsonic",
+      "path": "src/upsonic/prebuilt/applied_scientist/template/skills/experiment_management/SKILL.md",
+      "github_url": "https://github.com/Upsonic/Upsonic/tree/main/src/upsonic/prebuilt/applied_scientist/template/skills/experiment_management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Upsonic/Upsonic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:03:32Z"
+}
