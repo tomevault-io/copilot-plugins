@@ -1,0 +1,57 @@
+{
+  "name": "Havit.Blazor",
+  "owner": "havit",
+  "repo": "Havit.Blazor",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Havit.Blazor",
+      "path": ".github/skills/agentic-workflows/SKILL.md",
+      "github_url": "https://github.com/havit/Havit.Blazor/tree/main/.github/skills/agentic-workflows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Havit.Blazor",
+      "path": ".github/skills/agentic-workflow-designer/SKILL.md",
+      "github_url": "https://github.com/havit/Havit.Blazor/tree/main/.github/skills/agentic-workflow-designer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/havit/Havit.Blazor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:51:24Z"
+}
