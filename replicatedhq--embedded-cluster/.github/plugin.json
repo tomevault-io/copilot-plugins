@@ -1,0 +1,9 @@
+{
+  "name": "replicatedhq--embedded-cluster",
+  "displayName": "embedded-cluster",
+  "description": "embedded-cluster",
+  "version": "1.0.0",
+  "author": "replicatedhq",
+  "homepage": "https://github.com/replicatedhq/embedded-cluster",
+  "skills": []
+}
