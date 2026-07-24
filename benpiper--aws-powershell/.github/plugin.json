@@ -1,0 +1,9 @@
+{
+  "name": "benpiper--aws-powershell",
+  "displayName": "aws-powershell",
+  "description": "aws-powershell",
+  "version": "1.0.0",
+  "author": "benpiper",
+  "homepage": "https://github.com/benpiper/aws-powershell",
+  "skills": []
+}
