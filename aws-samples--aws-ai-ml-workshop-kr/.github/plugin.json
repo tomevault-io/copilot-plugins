@@ -1,0 +1,42 @@
+{
+  "name": "aws-samples--aws-ai-ml-workshop-kr",
+  "displayName": "aws-ai-ml-workshop-kr",
+  "description": "aws-ai-ml-workshop-kr",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/aws-ai-ml-workshop-kr",
+  "skills": [
+    {
+      "name": "readme-generator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "system-prompt-writer",
+      "description": ""
+    },
+    {
+      "name": "tool-creator",
+      "description": ""
+    },
+    {
+      "name": "aws-ai-ml-workshop-kr",
+      "description": ""
+    },
+    {
+      "name": "aws-ai-ml-workshop-kr",
+      "description": ""
+    },
+    {
+      "name": "aws-ai-ml-workshop-kr",
+      "description": ""
+    },
+    {
+      "name": "aws-ai-ml-workshop-kr",
+      "description": ""
+    }
+  ]
+}
