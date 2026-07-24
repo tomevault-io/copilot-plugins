@@ -1,0 +1,22 @@
+{
+  "name": "crewaiinc--crewai",
+  "displayName": "crewAI",
+  "description": "crewAI",
+  "version": "1.0.0",
+  "author": "crewAIInc",
+  "homepage": "https://github.com/crewAIInc/crewAI",
+  "skills": [
+    {
+      "name": "crewAI",
+      "description": ""
+    },
+    {
+      "name": "crewAI",
+      "description": ""
+    },
+    {
+      "name": "crewAI",
+      "description": ""
+    }
+  ]
+}
