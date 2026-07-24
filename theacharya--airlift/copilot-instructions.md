@@ -1,0 +1,415 @@
+## airlift
+
+> Airlift is a Python command-line tool for uploading CSV/JSON data with attachments to Airtable. The project uses a modular architecture with clear separation of concerns across data processing, API integration, and file handling components.
+
+# Airlift Development Rules and Guidelines
+
+## Project Context
+
+Airlift is a Python command-line tool for uploading CSV/JSON data with attachments to Airtable. The project uses a modular architecture with clear separation of concerns across data processing, API integration, and file handling components.
+
+## Quick Reference Commands
+
+### Building and Testing
+```bash
+# Build the project using the ephemeral build system (recommended)
+./scripts/local-test-build.sh
+
+# Test the built binary
+./test-build/airlift --help
+
+# Clean build environment
+./scripts/local-test-build.sh --clean
+
+# Build with dependency updates
+./scripts/local-test-build.sh --update-deps
+
+# Run comprehensive tests (no API tokens required)
+./scripts/local-test-build.sh --comprehensive-test
+
+# Dev CLI (after --comprehensive-test or full build)
+.build/venv/bin/airlift --help
+
+# Prefer the binary for release parity
+./test-build/airlift --help
+```
+
+### Dependency Management
+```bash
+# Regenerate poetry.lock (use ephemeral Python 3.14.5 in .build/)
+./scripts/local-test-build.sh --lock-only
+
+# Update one package at a time (recommended)
+./scripts/local-test-build.sh --lock-only --update <package>
+./scripts/local-test-build.sh --comprehensive-test
+
+# Lock + full build for a package
+./scripts/local-test-build.sh --update <package>
+
+# Bump all packages within ^ ranges (use sparingly)
+./scripts/local-test-build.sh --update-deps
+
+# Show outdated packages
+./scripts/local-test-build.sh --show-outdated
+```
+
+After editing `pyproject.toml`, use the build script—not bare `poetry lock` on system Python.
+
+## Code Organization
+
+### Module Structure
+- Keep each module focused on a single responsibility
+- Use clear, descriptive module names that reflect their purpose
+- Maintain consistent import patterns across modules
+- Avoid circular dependencies between modules
+
+### File Naming Conventions
+- Use snake_case for all Python files and functions
+- Use descriptive names that clearly indicate functionality
+- Follow the existing naming pattern: `airlift_*.py` for core modules
+
+## Coding Standards
+
+### Python Style
+- Follow PEP 8 style guidelines strictly
+- Use type hints for all function parameters and return values
+- Implement comprehensive docstrings for public functions and classes
+- Use logging instead of print statements for all output
+- Keep line length under 88 characters (Black formatter standard)
+
+### Error Handling
+- Use custom exception classes from `utils_exceptions.py`
+- Implement proper exception chaining with `raise ... from`
+- Provide meaningful error messages to end users
+- Log detailed error information for debugging
+- Handle both critical and non-critical errors appropriately
+
+### Data Processing
+- Validate input data before processing
+- Use UTF-8 encoding for all file operations
+- Handle missing or malformed data gracefully
+- Implement proper data type conversion and validation
+
+## API Integration Patterns
+
+### Airtable API
+- Use the `new_client` class for all Airtable operations
+- Implement proper authentication with Bearer tokens
+- Handle API rate limits and errors gracefully
+- Use structured JSON payloads for data uploads
+- Validate responses and handle error codes appropriately
+- Use pyairtable 3.x APIs for field creation and schema management
+- Use batch operations for delete (10 records per API call)
+
+### Dropbox API
+- Use the `dropbox_client` class for file operations
+- Implement OAuth2 flow for authentication with explicit scopes
+- Handle refresh token management properly
+- Create organized folder structures for uploads
+- Generate proper sharing URLs for attachments
+- Use Dropbox SDK 12.x for latest API features and security
+
+## CLI Development
+
+### Argument Parsing
+- Use the existing `cli_args.py` structure for argument definitions
+- Group related arguments logically (general, dropbox, column, validation, database options)
+- Provide clear help text for all options
+- Implement proper validation for required arguments in `_validate_required_args()`
+- Use appropriate data types for argument values
+
+### CLI Arguments Structure
+```python
+schema: ArgSchema = {
+    "POSITIONAL": { ... },
+    "general_options": { ... },
+    "dropbox options": { ... },
+    "column_options": { ... },
+    "custom application options": { ... },
+    "validation_options": { ... },
+    "database_options": { ... },  # --delete-all-database-entries, --empty-dropbox-folder
+}
+```
+
+### User Experience
+- Provide clear progress indicators for long operations (tqdm)
+- Use consistent logging levels (INFO, WARNING, ERROR, DEBUG)
+- Implement verbose mode for detailed debugging output
+- Handle user interruptions gracefully (Ctrl+C)
+- Show helpful error messages for missing required arguments
+
+## Performance Considerations
+
+### Concurrency
+- Use ThreadPoolExecutor for parallel upload operations
+- Implement configurable worker thread counts (default: 5)
+- Avoid blocking operations in worker threads
+- Use proper queue management for data distribution
+
+### Memory Management
+- Process data in chunks for large files
+- Avoid loading entire datasets into memory
+- Use generators where appropriate for data iteration
+- Implement proper cleanup of resources
+
+## Testing Guidelines
+
+### Test Structure
+```
+tests/
+├── __init__.py                      # Test suite module
+├── input_command.py                 # Args configuration and environment variables
+├── test_upload.py                   # Upload tests (requires API tokens)
+├── test_delete_database_entries.py  # Delete tests (requires API tokens)
+├── test_empty_dropbox_folder.py     # Dropbox folder tests (requires Dropbox tokens)
+├── test_comprehensive.py            # Comprehensive tests (no API tokens required)
+├── README.md                        # Test documentation
+└── assets/                          # Test data files
+```
+
+### Unit Testing
+- Write tests for all public functions and classes
+- Mock external API calls to avoid network dependencies
+- Test both success and error conditions
+- Use descriptive test names that explain the scenario
+- Add tests for new CLI arguments in `test_comprehensive.py`
+
+### Integration Testing
+- Test end-to-end workflows with sample data
+- Verify proper error handling and recovery
+- Test with different file formats and sizes
+- Validate API integration points
+
+### Running Tests
+```bash
+# Comprehensive tests (no API tokens required)
+./scripts/local-test-build.sh --comprehensive-test
+
+# Or directly with pytest
+pytest tests/test_comprehensive.py -v
+
+# Integration tests (requires API tokens)
+pytest tests/test_upload.py -v -s
+pytest tests/test_delete_database_entries.py -v -s
+pytest tests/test_empty_dropbox_folder.py -v -s
+```
+
+## Security Best Practices
+
+### Authentication
+- Never hardcode credentials in source code
+- Use secure token storage mechanisms
+- Implement proper OAuth2 flows for external services with explicit scopes
+- Validate all user inputs and file paths
+
+### Data Handling
+- Sanitize all user inputs and file paths
+- Use secure file upload mechanisms
+- Implement proper error message sanitization
+- Handle sensitive data appropriately
+
+## Documentation Standards
+
+### Code Documentation
+- Write comprehensive docstrings for all public functions
+- Include parameter types, return types, and examples
+- Document any complex algorithms or business logic
+- Keep documentation up to date with code changes
+
+### User Documentation
+- Maintain clear README with usage examples
+- Document all command-line options and their effects
+- Provide troubleshooting guides for common issues
+- Keep changelog updated with all releases
+
+## Dependencies and Packaging
+
+### Dependency Management
+- Use Poetry **2.4.1** via `./scripts/local-test-build.sh` (installed in `.build/python/`)
+- Prefer **one package at a time**: `--lock-only --update <package>` then `--comprehensive-test`
+- Keep `poetry.lock` in sync via the build script after `pyproject.toml` changes
+- Do **not** force `pydantic-core` ahead of `pydantic`; do **not** upgrade `stone` past dropbox's cap
+- Maintain Dropbox SDK 12.x for API compatibility and security
+
+### Core Dependencies (`pyproject.toml`)
+| Package | Constraint | Description |
+|---------|------------|-------------|
+| `python` | `>=3.10,<3.15` | Local builds: **3.14.5** |
+| `pyairtable` | ^3.3.0 | Airtable API client (3.x) |
+| `dropbox` | ^12.0.2 | Dropbox API; limits `stone` version |
+| `requests` | ^2.32.4 | HTTP client |
+| `tqdm` | ^4.66.4 | Progress bars |
+| `pydantic` | ^2.13.0 | Required for Python 3.14 builds |
+| `icecream` | ^2.1.3 | Debug logging |
+| `pytest` | ^9.0.0 | Tests (bundled in binary) |
+
+### Dependency update constraints (do not force)
+| Package | Why |
+|---------|-----|
+| `pydantic-core` | Pinned by `pydantic`; do not bump core alone |
+| `stone` | Dropbox requires `stone >=2,<3.3.3` |
+
+### Build and Distribution
+- Maintain cross-platform compatibility
+- Use PyInstaller for binary distribution
+- Implement proper versioning with semantic versioning
+- Test builds on all target platforms
+
+## Ephemeral Build System
+
+### Local Test Build Script
+
+The project includes a comprehensive ephemeral build system (`scripts/local-test-build.sh`) that must be used for all development and testing:
+
+#### Build System Requirements
+- **ALWAYS** use `./scripts/local-test-build.sh` for builds, locks, and tests
+- **Never** install Python, Poetry, or project deps system-wide for Airlift work
+- Standalone **CPython 3.14.5** downloaded into `.build/python/` (python-build-standalone)
+- Host tools only: `curl` and `tar` (download/extract)
+- Keep PyInstaller out of `pyproject.toml` (installed in Poetry venv at build time)
+- **`--clean`** removes `.build/`, `test-build/`, and `.pytest_cache/`
+
+#### Build Process Standards
+- Download/extract standalone Python 3.14.5 to `.build/python/`
+- Bootstrap setuptools **82.0.1** and Poetry **2.4.1** in `.build/python/`
+- Install poetry-plugin-export **1.10.0**
+- `poetry install` into `.build/venv/`
+- PyInstaller build → `test-build/airlift`
+
+#### Directory Structure Compliance
+```
+Airlift/
+├── .build/                    # Ephemeral environment (gitignored)
+│   ├── python/               # Standalone CPython + pip + Poetry
+│   ├── downloads/            # Python tarball cache
+│   ├── venv/                 # Poetry project virtualenv
+│   ├── cache/                # Poetry cache
+│   ├── pip-cache/
+│   ├── poetry-config/
+│   └── poetry-home/
+├── test-build/               # PyInstaller output (gitignored)
+├── scripts/local-test-build.sh
+└── tests/ ...
+```
+
+#### Build Script Usage
+```bash
+./scripts/local-test-build.sh --clean
+./scripts/local-test-build.sh --lock-only
+./scripts/local-test-build.sh --lock-only --update <package>
+./scripts/local-test-build.sh --comprehensive-test
+./scripts/local-test-build.sh
+./test-build/airlift --help
+```
+
+#### CI/CD Integration Standards
+- **Local first**: prove green on 3.14.5 via `local-test-build.sh` before changing workflows
+- **`build.yml` / `release_github.yml`**: Python 3.14, Poetry 2.4.1, setuptools 82.0.1, plugin-export 1.10.0
+- All Poetry-based workflows match `build.yml` / `release_github.yml` pins
+- Commit `poetry.lock` for reproducible CI (currently gitignored)
+- PyInstaller installed separately (not in `pyproject.toml`)
+
+## GitHub Actions Workflows
+
+### Workflow Files
+| Workflow | Trigger | Description |
+|----------|---------|-------------|
+| `unit_tests.yml` | Push/PR to master/dev | Comprehensive tests (no API tokens) |
+| `airtable_image_upload_test.yml` | Weekly/Manual | Upload integration test |
+| `airtable_delete_database_entries_test.yml` | Weekly/Manual | Delete entries + Empty Dropbox folder tests |
+| `build.yml` | Push/PR | Build verification |
+| `release_github.yml` | Release | Binary distribution |
+
+## Error Handling Patterns
+
+### Exception Hierarchy
+- Use `CriticalError` for fatal application errors
+- Use `AirtableError` for Airtable-specific issues
+- Use `TypeConversionError` for data type issues
+- Implement proper exception chaining
+
+### Logging Strategy
+- Use structured logging with appropriate levels
+- Include context information in log messages
+- Implement file-based logging for debugging
+- Use consistent log message formatting
+
+## Code Review Guidelines
+
+### Review Checklist
+- Verify proper error handling implementation
+- Check for security vulnerabilities
+- Ensure proper logging and debugging support
+- Validate performance implications
+- Confirm documentation updates
+- Verify build script compatibility
+- Add tests for new features
+
+### Quality Standards
+- Maintain high test coverage for new features
+- Ensure backward compatibility when possible
+- Follow established naming conventions
+- Implement proper type hints throughout
+- Test builds using the ephemeral build system
+- Keep workflow env pins in sync with `scripts/local-test-build.sh` when toolchain changes
+
+## Maintenance and Support
+
+### Version Management
+- Use semantic versioning for releases
+- Maintain backward compatibility when possible
+- Document breaking changes clearly
+- Keep dependencies updated and secure
+- Monitor Dropbox SDK releases for security updates and new features
+
+### Monitoring and Debugging
+- Implement comprehensive logging for troubleshooting
+- Provide clear error messages for users
+- Maintain debugging capabilities in production builds
+
+## Integration Guidelines
+
+### External Services
+- Implement proper retry logic for API calls
+- Handle service outages gracefully
+- Use appropriate timeouts for network operations
+- Implement proper authentication flows
+
+### User Experience
+- Provide clear feedback for all operations
+- Implement progress tracking for long operations (tqdm)
+- Use intuitive error messages
+- Support both interactive and non-interactive modes
+
+## Python 3.14 Migration Workflow
+
+1. Update `python` in `pyproject.toml` if needed
+2. Update pins in `scripts/local-test-build.sh`
+3. `./scripts/local-test-build.sh --clean`
+4. `./scripts/local-test-build.sh --lock-only`
+5. `./scripts/local-test-build.sh --comprehensive-test`
+6. `./scripts/local-test-build.sh` → test `./test-build/airlift`
+7. Update GitHub Actions **last**
+
+If install fails on 3.14, bump `pydantic` to `^2.13.0` or newer first.
+
+## Adding New Features Checklist
+
+When adding new CLI features:
+1. Add argument definition in `cli_args.py` schema
+2. Handle the argument in `cli.py`
+3. Add validation in `_validate_required_args()` if required
+4. Implement the feature in appropriate module
+5. Add tests in `test_comprehensive.py`
+6. Update `AGENT.MD` and `.cursorrules` (keep in sync)
+7. Update `README.md` if user-facing
+8. Run comprehensive tests: `./scripts/local-test-build.sh --comprehensive-test`
+9. Build and test binary: `./scripts/local-test-build.sh`
+
+---
+
+This cursorrule file should be kept in sync with the AGENT.MD file to ensure consistent development practices and maintain high code quality standards across the Airlift project.
+
+---
+> Source: [TheAcharya/Airlift](https://github.com/TheAcharya/Airlift) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
