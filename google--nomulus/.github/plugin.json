@@ -1,0 +1,18 @@
+{
+  "name": "google--nomulus",
+  "displayName": "nomulus",
+  "description": "nomulus",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/nomulus",
+  "skills": [
+    {
+      "name": "nomulus",
+      "description": ""
+    },
+    {
+      "name": "nomulus",
+      "description": ""
+    }
+  ]
+}
