@@ -1,0 +1,22 @@
+{
+  "name": "microsoft--playwright-java",
+  "displayName": "playwright-java",
+  "description": "playwright-java",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/playwright-java",
+  "skills": [
+    {
+      "name": "playwright-roll",
+      "description": ""
+    },
+    {
+      "name": "playwright-java",
+      "description": ""
+    },
+    {
+      "name": "playwright-java",
+      "description": ""
+    }
+  ]
+}
