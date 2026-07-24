@@ -1,0 +1,57 @@
+{
+  "name": "TizenTubeCobalt",
+  "owner": "reisxd",
+  "repo": "TizenTubeCobalt",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TizenTubeCobalt",
+      "path": "cobalt/tools/binary_size/SKILL.md",
+      "github_url": "https://github.com/reisxd/TizenTubeCobalt/tree/main/cobalt/tools/binary_size/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "TizenTubeCobalt",
+      "path": ".agent/skills/cobalt-new-checkout/SKILL.md",
+      "github_url": "https://github.com/reisxd/TizenTubeCobalt/tree/main/.agent/skills/cobalt-new-checkout/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/reisxd/TizenTubeCobalt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:42:24Z"
+}
