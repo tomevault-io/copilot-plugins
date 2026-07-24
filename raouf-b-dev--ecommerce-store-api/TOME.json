@@ -4,7 +4,7 @@
   "repo": "ecommerce-store-api",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -113,5 +113,5 @@
   ],
   "source_url": "https://github.com/raouf-b-dev/ecommerce-store-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T12:10:52Z"
+  "distributed_at": "2026-07-24T05:26:21Z"
 }
