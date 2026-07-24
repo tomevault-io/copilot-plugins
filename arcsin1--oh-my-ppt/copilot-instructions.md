@@ -1,28 +1,39 @@
 ## oh-my-ppt
 
-> > 不要跑 `npm run lint`。
+> Oh My PPT — 本地优先的 AI 幻灯片生成与编辑工具。Electron + React + TypeScript。
 
-# Agent.md
-
-> 不要跑 `npm run lint`。
-> 不要跑 `npm run build`。
+# CLAUDE.md
 
 ## Project
 
-Electron 桌面应用，主进程 (`src/main/`) + 渲染进程 (`src/renderer/`) + 共享类型 (`src/shared/`)。
+Oh My PPT — 本地优先的 AI 幻灯片生成与编辑工具。Electron + React + TypeScript。
+
+## Commands
+
+```bash
+pnpm dev          # 开发
+pnpm build        # 不要跑构建
+pnpm run typecheck:node # 跑 node 类型检查
+pnpm run typecheck:web # 跑 renderer 类型检查
+pnpm typecheck    # 跑类型检查  
+pnpm lint         # 不要跑ESLint
+pnpm format       # 不要跑Prettier
+```
+
+> 不要跑 `npm run lint` / `npm run build`。
 
 ## Code Style
 
-- `singleQuote`, `no semi`, `printWidth: 100`, `trailingComma: none`
-- 路径别名: `@shared/*`, `@renderer/*`
+- Prettier: `singleQuote`, `no semi`, `printWidth: 100`, `trailingComma: none`
+- 路径别名: `@shared/*` → `src/shared/*`, `@renderer/*` → `src/renderer/src/*`
 
 ## Execution Rules
 
-- 先定位变更属于生成、编辑、导入、导出还是运行时；不要只修单一路径
-- 公共规则改动要同时确认生成与编辑链路是否覆盖，尤其是整页编辑、deck 编辑、selector 编辑
-- 改运行时资源时，同步确认 session asset 兼容/刷新机制
-- 修 bug 时优先补定向回归测试，覆盖当前问题和相邻入口
-- 验证优先跑最小相关测试；不要跑 `npm run lint` 或 `npm run build`
+- 先判断问题落在哪条链路：生成、编辑、导入、导出或运行时；不要只修当前可见入口
+- 公共规则变更要确认生成和编辑都覆盖，包括整页编辑、deck 编辑、selector 编辑
+- 改 runtime asset 时，同步检查 session asset 兼容/刷新机制
+- 修 bug 优先补最小定向回归测试，必要时覆盖相邻入口
+- 验证时跑最相关的最小测试集；不要跑 `npm run lint` 或 `npm run build`
 
 ## Testing
 
@@ -30,7 +41,6 @@ Electron 桌面应用，主进程 (`src/main/`) + 渲染进程 (`src/renderer/`)
 - 跑测试：`pnpm test`，跑单个文件：`pnpm test -- tests/unit/xxx/foo.test.ts`
 - 修 bug 或加功能时，必须补对应测试到 `tests/unit/`；测试不通过就继续修代码直到通过
 - 注意：样式ui改动不需要写测试
-
 
 ##  React 组件编写规范
 
@@ -106,4 +116,4 @@ function ProductCard({ id }) {
 
 ---
 > Source: [arcsin1/oh-my-ppt](https://github.com/arcsin1/oh-my-ppt) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
