@@ -4,7 +4,7 @@
   "repo": "InterviewForge",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/K1XE/InterviewForge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T06:53:22Z"
+  "distributed_at": "2026-07-24T05:43:23Z"
 }
