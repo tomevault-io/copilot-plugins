@@ -1,0 +1,63 @@
+{
+  "name": "nix-config",
+  "owner": "joshsymonds",
+  "repo": "nix-config",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nix-config",
+      "path": "home-manager/claude-code/skills/nix-patterns/SKILL.md",
+      "github_url": "https://github.com/joshsymonds/nix-config/tree/main/home-manager/claude-code/skills/nix-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/claude-code/skills/home-assistant/SKILL.md",
+      "github_url": "https://github.com/joshsymonds/nix-config/tree/main/home-manager/claude-code/skills/home-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nix-config",
+      "path": "home-manager/claude-code/host-skills/debugging-linux-games/SKILL.md",
+      "github_url": "https://github.com/joshsymonds/nix-config/tree/main/home-manager/claude-code/host-skills/debugging-linux-games/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joshsymonds/nix-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T02:45:57Z"
+}
