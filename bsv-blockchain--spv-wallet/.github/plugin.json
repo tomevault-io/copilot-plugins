@@ -1,0 +1,9 @@
+{
+  "name": "bsv-blockchain--spv-wallet",
+  "displayName": "spv-wallet",
+  "description": "spv-wallet",
+  "version": "1.0.0",
+  "author": "bsv-blockchain",
+  "homepage": "https://github.com/bsv-blockchain/spv-wallet",
+  "skills": []
+}
