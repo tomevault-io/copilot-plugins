@@ -3,8 +3,8 @@
   "owner": "LeadGrowGTM",
   "repo": "research-process-builder",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "research-process-builder",
+      "path": ".claude/skills/trigger-setup/SKILL.md",
+      "github_url": "https://github.com/LeadGrowGTM/research-process-builder/tree/main/.claude/skills/trigger-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-process-builder",
+      "path": ".claude/skills/trigger-config/SKILL.md",
+      "github_url": "https://github.com/LeadGrowGTM/research-process-builder/tree/main/.claude/skills/trigger-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-process-builder",
+      "path": ".claude/skills/trigger-agents/SKILL.md",
+      "github_url": "https://github.com/LeadGrowGTM/research-process-builder/tree/main/.claude/skills/trigger-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-process-builder",
+      "path": ".claude/skills/trigger-realtime/SKILL.md",
+      "github_url": "https://github.com/LeadGrowGTM/research-process-builder/tree/main/.claude/skills/trigger-realtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-process-builder",
+      "path": ".claude/skills/graduate-to-trigger/SKILL.md",
+      "github_url": "https://github.com/LeadGrowGTM/research-process-builder/tree/main/.claude/skills/graduate-to-trigger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "research-process-builder",
+      "path": ".claude/skills/trigger-cost-savings/SKILL.md",
+      "github_url": "https://github.com/LeadGrowGTM/research-process-builder/tree/main/.claude/skills/trigger-cost-savings/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/LeadGrowGTM/research-process-builder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T08:39:52Z"
+  "distributed_at": "2026-07-24T07:55:21Z"
 }
