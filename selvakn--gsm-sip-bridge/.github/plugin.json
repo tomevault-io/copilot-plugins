@@ -1,0 +1,9 @@
+{
+  "name": "selvakn--gsm-sip-bridge",
+  "displayName": "gsm-sip-bridge",
+  "description": "GSM to SIP (Voip) bridge, to route calls from Quectel EC modules to a SIP server",
+  "version": "1.0.0",
+  "author": "selvakn",
+  "homepage": "https://github.com/selvakn/gsm-sip-bridge",
+  "skills": []
+}
