@@ -4,7 +4,7 @@
   "repo": "slc",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexewerlof/slc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T06:31:52Z"
+  "distributed_at": "2026-07-24T15:07:25Z"
 }
