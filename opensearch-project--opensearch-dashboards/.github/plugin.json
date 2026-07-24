@@ -1,0 +1,26 @@
+{
+  "name": "opensearch-project--opensearch-dashboards",
+  "displayName": "OpenSearch-Dashboards",
+  "description": "OpenSearch-Dashboards",
+  "version": "1.0.0",
+  "author": "opensearch-project",
+  "homepage": "https://github.com/opensearch-project/OpenSearch-Dashboards",
+  "skills": [
+    {
+      "name": "OpenSearch-Dashboards",
+      "description": ""
+    },
+    {
+      "name": "OpenSearch-Dashboards",
+      "description": ""
+    },
+    {
+      "name": "OpenSearch-Dashboards",
+      "description": ""
+    },
+    {
+      "name": "OpenSearch-Dashboards",
+      "description": ""
+    }
+  ]
+}
