@@ -1,0 +1,14 @@
+{
+  "name": "intel--perfspect",
+  "displayName": "PerfSpect",
+  "description": "PerfSpect",
+  "version": "1.0.0",
+  "author": "intel",
+  "homepage": "https://github.com/intel/PerfSpect",
+  "skills": [
+    {
+      "name": "PerfSpect",
+      "description": ""
+    }
+  ]
+}
