@@ -1,0 +1,9 @@
+{
+  "name": "kiranism--cvtailor",
+  "displayName": "cvtailor",
+  "description": "CVTailor: free, open-source AI resume builder. Import a PDF, tailor it to the job with AI, and export an ATS-friendly resume. Built with Next.js 15.",
+  "version": "1.0.0",
+  "author": "Kiranism",
+  "homepage": "https://github.com/Kiranism/cvtailor",
+  "skills": []
+}
