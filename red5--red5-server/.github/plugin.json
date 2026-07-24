@@ -1,0 +1,9 @@
+{
+  "name": "red5--red5-server",
+  "displayName": "red5-server",
+  "description": "red5-server",
+  "version": "1.0.0",
+  "author": "Red5",
+  "homepage": "https://github.com/Red5/red5-server",
+  "skills": []
+}
