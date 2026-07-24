@@ -4,7 +4,7 @@
   "repo": "ai-second-brain-skills",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/NulightJens/ai-second-brain-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:30:11Z"
+  "distributed_at": "2026-07-24T05:46:50Z"
 }
