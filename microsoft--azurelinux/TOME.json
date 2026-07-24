@@ -1,0 +1,123 @@
+{
+  "name": "azurelinux",
+  "owner": "microsoft",
+  "repo": "azurelinux",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-mock/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-mock/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-metrics/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-aks-health/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-aks-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-koji-triage/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-koji-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-kql-queries/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-kql-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-fix-overlay/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-fix-overlay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-mass-triage/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-mass-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-add-component/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-add-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-build-component/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-build-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-review-component/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-review-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-remove-component/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-remove-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-update-component/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-update-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "azurelinux",
+      "path": ".github/skills/skill-deployment-context/SKILL.md",
+      "github_url": "https://github.com/microsoft/azurelinux/tree/main/.github/skills/skill-deployment-context/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/azurelinux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:38:42Z"
+}
