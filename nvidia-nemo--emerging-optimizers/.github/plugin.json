@@ -1,0 +1,14 @@
+{
+  "name": "nvidia-nemo--emerging-optimizers",
+  "displayName": "Emerging-Optimizers",
+  "description": "Emerging-Optimizers",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Emerging-Optimizers",
+  "skills": [
+    {
+      "name": "Emerging-Optimizers",
+      "description": ""
+    }
+  ]
+}
