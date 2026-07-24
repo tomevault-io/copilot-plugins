@@ -1,0 +1,58 @@
+{
+  "name": "mlflow--mlflow",
+  "displayName": "mlflow",
+  "description": "mlflow",
+  "version": "1.0.0",
+  "author": "mlflow",
+  "homepage": "https://github.com/mlflow/mlflow",
+  "skills": [
+    {
+      "name": "add-review-comment",
+      "description": ""
+    },
+    {
+      "name": "analyze-ci",
+      "description": ""
+    },
+    {
+      "name": "copilot",
+      "description": ""
+    },
+    {
+      "name": "fetch-diff",
+      "description": ""
+    },
+    {
+      "name": "fetch-unresolved-comments",
+      "description": ""
+    },
+    {
+      "name": "mlflow",
+      "description": ""
+    },
+    {
+      "name": "mlflow",
+      "description": ""
+    },
+    {
+      "name": "mlflow",
+      "description": ""
+    },
+    {
+      "name": "mlflow",
+      "description": ""
+    },
+    {
+      "name": "mlflow",
+      "description": ""
+    },
+    {
+      "name": "mlflow",
+      "description": ""
+    },
+    {
+      "name": "mlflow",
+      "description": ""
+    }
+  ]
+}
