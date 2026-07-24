@@ -1,36 +1,38 @@
-## 002-security-guardrails
+## 003-ai-ethics-compliance
 
-> Security-first practices — auth, secrets, injection prevention, admin isolation
+> EU AI Act, GDPR, human-in-the-loop, XAI, consent for biometric data
 
 
-# Security Guardrails
+# AI Ethics & Compliance
 
-Details: `AGENTS.md` §5–§6. Never hardcode secrets.
+> ⚠️ **EXAMPLE DOMAIN (AI hiring/recruiting) — NOT this project's rules.**
+> This file is a portable **example** of how to encode AI-ethics compliance. Its specifics
+> (hire/reject, CV/biometric consent, bias/HR) do **not** describe the current project.
+> **Agents: ignore the domain specifics below until this file is replaced** with real
+> compliance rules for `<PROJECT>` (see `AGENTS.md §6`). Delete or rewrite on port.
 
-## Auth
+Details: `AGENTS.md` §6.
 
-- App: JWT 15m + refresh 7d (HTTP-only cookie) + OAuth2
-- Admin: JWT 30m + refresh 2h + TOTP MFA + IP whitelist; port 3002, internal network only
-- RBAC: `@Roles()` + `@Permissions()`; admin uses `@SuperAdmin()` where required
-- Rate limits: default 10/60s, auth 5/60s, admin 30/60s
+## Human-in-the-Loop (mandatory)
 
-## Data Protection
+- AI cannot auto-reject or auto-hire; HR approval required for Rejected/Hired
+- Reject/hire endpoints need `?confirm=true`; without it → `202` + `pending_human_review`
+- Override reason required when HR disagrees with AI; 48h SLA or escalation
 
-- PII encrypted at rest (AES-256) and in transit (TLS 1.3)
-- Passwords: bcrypt 12 rounds (app); min 16 chars + complexity (admin)
-- Uploads: max 10MB, MIME validation; TypeORM parameterized queries only
-- XSS: DOMPurify for user HTML; CORS whitelist (no `*` in prod); Helmet in production
+## Explainable AI
 
-## Secrets
+Every AI decision returns `explanation`: `confidence`, `factors[]`, `counterfactuals[]`, model card link.
 
-- Env vars + Vault/Docker secrets only; `.env.example` at root; app refuses start if missing
-- No API keys in frontend (except public keys like Stripe publishable)
+## Consent & Biometric
 
-## Admin
+- Consent screen before CV upload; separate explicit consent for video/voice
+- Check `consents.granted=true` for `biometric` before processing; else `403 ConsentRequired`
+- Auto-delete raw video after transcription; never store facial/voice embeddings
 
-- Admin DB user: SELECT on app schema, no INSERT/UPDATE/DELETE
-- All admin actions → `admin.admin_audit_logs` with before/after
-- Internal API: `X-Internal-Key` header, not in Swagger
+## Bias & Audit
+
+- Run `BiasDetectionService.check()` before match scores; flag `bias_alert` if disparate impact
+- Log every AI decision to `audit_logs` with `ai_model_version`, `ai_confidence`; 7yr retention for hiring
 
 ---
 > Source: [phuoctrung-ppt/ai-sdlc-workflow](https://github.com/phuoctrung-ppt/ai-sdlc-workflow) — distributed by [TomeVault](https://tomevault.io).
