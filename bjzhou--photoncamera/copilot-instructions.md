@@ -1,45 +1,11 @@
 ## photoncamera
 
-> 这是一个 Android 相机 App，模拟现代数码无反相机的操作手感
+> 3. 禁止使用git进行任何破坏性变更，包括但不限于git checkout/git restore/git rm
 
-# Camera App
-
-这是一个 Android 相机 App，模拟现代数码无反相机的操作手感
-
-## 技术框架
-
-* UI: Jetpack Compose
-* 使用 Camera2 API, 不做向下兼容
-* minSdk 30
-
-## 调试编译
-
-编译命令需允许沙箱外执行, 使用全局gradle home不要指定项目.gradle-home
-
-* 完整编译
-
-    ```
-    ./gradlew assembleDefaultDebug
-    ```
-
-* 通过性验证（kotlin端）
-
-    ```
-    ./gradlew compileDefaultDebugKotlin
-    ```
-
-* 通过性验证（native端）
-
-    ```
-    ./gradlew buildCMakeDebug
-    ```
-
-## 注意
-
-* 添加新功能/新逻辑时，优先选择在新方法/函数/文件中新增，而不是在现有代码中新增，避免单个方法/文件过长
-* 文字内容不要硬编码，需考虑多语言支持
-* 排查问题时需要借助日志辅助排查
+1. 查阅 AGENTS.md
+2. 多文件修改必须编译后再交付
+3. 禁止使用git进行任何破坏性变更，包括但不限于git checkout/git restore/git rm
 
 ---
 > Source: [bjzhou/PhotonCamera](https://github.com/bjzhou/PhotonCamera) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
