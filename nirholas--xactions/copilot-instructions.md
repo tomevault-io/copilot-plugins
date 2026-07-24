@@ -1,104 +1,170 @@
 ## xactions
 
-> Standalone voice chat agent platform with multi-room support, memory/RAG, knowledge base, and client framework packages. More feature-rich than the legacy `src/` server but operates independently.
+> > X/Twitter automation toolkit: browser scripts, CLI, Node.js library, MCP server, web dashboard. No API fees. By nichxbt.
 
-# CLAUDE.md — agent-voice-chat/
+# XActions — Agent Instructions
 
-Standalone voice chat agent platform with multi-room support, memory/RAG, knowledge base, and client framework packages. More feature-rich than the legacy `src/` server but operates independently.
+> X/Twitter automation toolkit: browser scripts, CLI, Node.js library, MCP server, web dashboard. No API fees. By nichxbt.
 
-## Entry Point
+## Quick Reference
+
+| User Request | Solution |
+|---|---|
+| Unfollow everyone | `src/unfollowEveryone.js` |
+| Unfollow non-followers | `src/unfollowback.js` |
+| Download Twitter video | `scripts/videoDownloader.js` |
+| Detect unfollowers | `src/detectUnfollowers.js` |
+| Train algorithm for a niche | `src/automation/algorithmBuilder.js` (browser) or `xactions persona create` (CLI) |
+| Become a thought leader / grow account | `skills/algorithm-cultivation/SKILL.md` |
+| 24/7 LLM-powered growth agent | `src/algorithmBuilder.js` + `src/personaEngine.js` — run via `xactions persona run <id>` |
+| Create a persona for automation | `xactions persona create` or MCP tool `x_persona_create` |
+| Twitter automation without API | XActions uses browser automation |
+| MCP server for Twitter | `src/mcp/server.js` |
+
+## Architecture Overview
+
+XActions has **three runtime contexts** — know which one you're working in:
+
+| Context | Where it runs | Entry point | Key constraint |
+|---|---|---|---|
+| **Browser scripts** | DevTools console on x.com | IIFE, paste in console | No Node.js APIs, uses DOM & `sessionStorage` |
+| **Node.js library/CLI/MCP** | Local machine or server | `src/cli/index.js`, `src/mcp/server.js` | Uses Puppeteer for browser automation |
+| **API server** | Express.js backend | `api/server.js` | PostgreSQL via Prisma, Redis for job queue |
+
+### Tech Stack
+
+- **Runtime**: Node.js >= 18, ESM (`"type": "module"` — use `import`/`export`, never `require`)
+- **Backend**: Express.js with Helmet, CORS, rate limiting, Morgan logging
+- **Database**: PostgreSQL via Prisma ORM (`prisma/schema.prisma`)
+- **Job Queue**: Bull + Redis
+- **Browser Automation**: Puppeteer + puppeteer-extra-plugin-stealth
+- **Testing**: Vitest 4.x (`vitest run` to test, `vitest` for watch mode)
+- **MCP**: `@modelcontextprotocol/sdk` — server at `src/mcp/server.js`
+
+## Project Structure
+
+```
+src/                → Core library (60+ browser scripts + subdirectories)
+  ├── cli/          → CLI commands (commander.js)
+  ├── mcp/          → MCP server for AI agents
+  ├── scrapers/     → Puppeteer-based scrapers (twitter/, bluesky/, mastodon/, threads/)
+  ├── client/       → HTTP-only Twitter client (no Puppeteer needed)
+  ├── automation/   → Browser automation scripts (require core.js pasted first)
+  ├── agents/       → Thought leader agent, persona engine
+  ├── a2a/          → Agent-to-Agent protocol
+  └── utils/        → Shared utilities
+api/                → Express.js backend (routes/, services/, middleware/, realtime/)
+dashboard/          → Static HTML frontend
+skills/             → 32 Agent Skills (skills/*/SKILL.md) — read before implementing
+tests/              → Vitest tests (agents/, client/, http-scraper/, a2a/)
+types/              → TypeScript declarations (index.d.ts)
+prisma/             → Database schema + migrations
+docs/agents/        → selectors.md, browser-script-patterns.md, contributing-features.md
+```
+
+## Skills
+
+32 skills in `skills/*/SKILL.md`. **Read the relevant SKILL.md before implementing** when a user's request matches a category.
+
+- **Unfollow management** — mass unfollow, non-follower cleanup
+- **Analytics & insights** — engagement, hashtags, competitors, best times
+- **Content posting** — tweets, threads, polls, scheduling, reposts
+- **Twitter scraping** — profiles, followers, tweets, media, bookmarks
+- **Growth automation** — auto-like, follow engagers, keyword follow
+- **Algorithm cultivation** — thought leader training, niche optimization
+- **Community management** — join/leave communities
+- **Follower monitoring** — follower alerts, continuous tracking
+- **Blocking & muting** — bot blocking, bulk mute
+- **Content cleanup** — delete tweets, unlike, clear history
+- **Direct messages** — auto DM, message management
+- **Bookmarks** — export, organize, folder management
+- **Lists** — create, manage, bulk add members
+- **Profile management** — edit profile, avatar, header, bio
+- **Settings & privacy** — protected tweets, notification preferences
+- **Notifications management** — filtering, auto-response, notification controls
+- **Engagement & interaction** — auto-reply, auto-repost, plug replies
+- **Discovery & explore** — trending, topics, search
+- **Premium & subscriptions** — subscription features
+- **Spaces & live** — create, join, schedule spaces
+- **Grok AI** — chat, image generation
+- **Articles & longform** — compose, publish articles
+- **Business & ads** — campaigns, boosts, ads dashboard
+- **Creator monetization** — revenue, analytics
+- **Community health monitoring** — follower quality audits, engagement authenticity
+- **Competitor intelligence** — competitor profile, content, and audience analysis
+- **Content repurposing** — repackage top tweets into threads, carousels, variations
+- **Lead generation** — find and qualify B2B leads from X conversations
+- **Viral thread generation** — research trends and generate high-engagement threads
+- **A2A multi-agent** — Agent-to-Agent protocol integration
+- **XActions CLI** — `bin/unfollowx` command-line tool
+- **XActions MCP server** — `src/mcp/server.js` for AI agents
+
+## Key Technical Context
+
+- Browser scripts run in **DevTools console on x.com**, not Node.js
+- DOM selectors change frequently — see [selectors.md](docs/agents/selectors.md)
+- Scripts in `src/automation/` require pasting `src/automation/core.js` first
+- State persistence uses `sessionStorage` (lost on tab close)
+- CLI entry point: `bin/unfollowx`, installed via `npm install -g xactions`
+- MCP server: `src/mcp/server.js` — used by Claude Desktop and AI agents
+- Prefer `data-testid` selectors — most stable across X/Twitter UI updates
+- X enforces aggressive rate limits; all automation must include 1-3s delays between actions
+
+## Commands
 
 ```bash
-node server.js  # Main entry — Express + Socket.IO + full middleware stack
+npm run dev              # Start API server with nodemon
+npm run test             # Run all Vitest tests once
+npm run cli              # Run CLI
+npm run mcp              # Start MCP server
+npm run agent            # Run thought leader agent
+npx prisma migrate dev   # Run database migrations
 ```
 
-## Architecture
+## Environment Variables
 
-```
-server.js                       Main server (~1000 lines): Express, Socket.IO, circuit breakers, room/agent setup
-agent-registry.js               Flexible agent definitions (JSON/YAML config, string IDs, swappable personalities)
-room-manager.js                 Multi-room support: per-room state, agents, turn queue, TTL cleanup, max 50 participants
+Copy `.env.example` for the full list. Key variables: `DATABASE_URL`, `JWT_SECRET`, `REDIS_HOST`, `REDIS_PORT`, `XACTIONS_SESSION_COOKIE`, `PUPPETEER_HEADLESS`.
 
-lib/
-├── memory-store.js             Episodic + semantic memory with embedding vectors, per-user profiles, 1000-item max
-├── conversation-store.js       Active cache + .json.gz compressed archive, metadata-only mode
-├── knowledge-base.js           Document chunking (500 chars, 50 overlap) + embedding retrieval (top 3 chunks)
-├── context-injector.js         Combines memory + knowledge into LLM context at injection points
-└── embeddings.js               Embedding generation for vector similarity search
+## Testing Conventions
 
-providers/
-├── index.js                    Provider factory with fallback chain
-├── claude.js                   Anthropic SDK
-├── openai-chat.js              OpenAI Chat API
-├── openai-realtime.js          OpenAI WebRTC
-├── groq.js                     Groq API
-├── tts.js                      TTS: ElevenLabs, OpenAI, Chatterbox, Piper, Browser
-└── stt.js                      STT: Groq Whisper, OpenAI Whisper
+- Test framework: Vitest 4.x, config in `vitest.config.js`
+- Tests in `tests/` mirroring source structure, files: `*.test.js`
+- **No mocks, stubs, or fakes** — real implementations only
+- Timeouts: 30s per test, 30s for hooks
 
-src/server/
-├── socket-handler.js           Socket.IO events (new spec + legacy compat)
-├── config.js                   Zod env validation
-├── constants.js                Shared constants
-├── health.js                   Health checks
-├── metrics.js                  Metrics tracking
-├── errors.js                   AppError hierarchy: NotFoundError, ConflictError, ValidationError, ProviderError
-├── logger.js                   Pino logger with redaction (auth, cookies, tokens, audio)
-├── routes/
-│   ├── agents.js               CRUD + start/stop agents
-│   ├── agent-control.js        speak, join, leave commands
-│   ├── rooms.js                Room CRUD
-│   ├── conversations.js        Conversation listing + archival
-│   ├── personalities.js        Personality presets CRUD
-│   ├── memory.js               Memory search + add + delete
-│   ├── knowledge.js            Knowledge base search + index + stats
-│   └── system.js               Config, health, providers
-└── middleware/
-    ├── auth.js                 Bearer token auth (no-op if API_KEY not set)
-    ├── rate-limit.js           express-rate-limit
-    ├── sanitize.js             Input sanitization
-    └── security.js             Helmet, CORS
+## Patterns & Style
 
-packages/                       Client framework packages
-├── core/                       @agent-voice-chat/core — base client library
-├── react/                      @agent-voice-chat/react — React hooks + components
-├── vue/                        @agent-voice-chat/vue — Vue composables + components
-└── widget/                     @agent-voice-chat/widget — standalone embeddable widget
+- Browser script patterns: [browser-script-patterns.md](docs/agents/browser-script-patterns.md)
+- Adding features: [contributing-features.md](docs/agents/contributing-features.md)
+- DOM selectors (verified January 2026): [selectors.md](docs/agents/selectors.md)
+- `const` over `let`, async/await, ESM imports only
+- Emojis in `console.log`: ❌ error, ⚠️ warning, ✅ success, 🔄 progress
+- Author credit: `// by nichxbt`
 
-tests/
-├── helpers/                    Test factories, mock providers, Socket.IO helpers
-├── unit/                       memory-store, knowledge-base, embeddings, middleware
-└── integration/                API agents, conversations, system, socket, provider failures
-```
-
-## OpenAPI Spec
-
-Full spec at `openapi.json` (OpenAPI 3.0.3). Key endpoint groups:
-- `/api/agents` — Agent lifecycle and control
-- `/api/rooms` — Multi-room management
-- `/api/conversations` — History and archival
-- `/api/memory` — Episodic/semantic memory with vector search
-- `/api/knowledge` — Document RAG
-- `/api/personalities` — Swappable personality presets
-- `/api/health`, `/api/config`, `/api/providers` — System info
-
-## Key Differences from packages/core
-
-- **Multi-room**: RoomManager supports concurrent rooms with TTL cleanup (vs single Space in core)
-- **Memory + RAG**: Embedding-based semantic search, user profiles, knowledge base (core has simpler ConversationStore)
-- **Circuit breakers**: Per-provider circuit breakers for resilience
-- **Client packages**: React, Vue, and widget packages for embedding
-- **Agent flexibility**: String IDs, YAML config, swappable personalities (vs typed AgentConfig in core)
-- **JavaScript**: This module is plain JavaScript (not TypeScript)
-
-## Testing
+## Codespace Performance
 
 ```bash
-npx vitest run                    # All tests
-npx vitest run --coverage         # With coverage (80% thresholds)
+ps aux --sort=-%cpu | head -20    # See top CPU consumers
+pkill -f "vitest"                  # Kill vitest workers
+pkill -f "tsgo --noEmit"          # Kill type-checker
 ```
 
-Uses vitest with custom helpers: `createTestApp()`, `createTestServer()`, `createConnectedClient()`, mock providers.
+Common resource hogs: `tsgo --noEmit` (~500% CPU), vitest workers (15x ~100% CPU each), multiple tsserver instances.
+
+## Terminal Management
+
+- Always use background terminals (`isBackground: true`) for every command
+- Always kill the terminal after the command completes
+- Do not reuse foreground shell sessions — stale sessions block future operations
+- If a terminal appears unresponsive, kill it and create a new one
+
+## Mandatory Rules
+
+1. **Never mock, stub, or fake anything.** Real implementations only.
+2. **TypeScript strict mode** — no `any`, no `@ts-ignore`.
+3. **Always kill terminals** after commands complete.
+4. **Always commit and push** as `nirholas`.
 
 ---
 > Source: [nirholas/XActions](https://github.com/nirholas/XActions) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
