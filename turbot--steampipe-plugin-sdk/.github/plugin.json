@@ -1,0 +1,9 @@
+{
+  "name": "turbot--steampipe-plugin-sdk",
+  "displayName": "steampipe-plugin-sdk",
+  "description": "steampipe-plugin-sdk",
+  "version": "1.0.0",
+  "author": "turbot",
+  "homepage": "https://github.com/turbot/steampipe-plugin-sdk",
+  "skills": []
+}
