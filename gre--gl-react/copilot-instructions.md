@@ -1,0 +1,67 @@
+## gl-react
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+gl-react is a universal React library for writing and composing WebGL shaders. It uses TypeScript for type checking and is structured as a pnpm workspaces monorepo.
+
+## Commands
+
+**Must use pnpm** (other package managers are blocked by a preinstall check).
+
+```bash
+pnpm install                      # Install dependencies
+pnpm build                        # Babel-compile all packages to lib/ + generate .d.ts
+pnpm typecheck                    # Run TypeScript type checking (tsc --noEmit)
+pnpm watch                        # Watch mode for development
+pnpm test                         # Run Jest tests (packages/tests)
+pnpm test-rewrite-snapshots       # Regenerate test snapshots
+pnpm prettier                     # Format source files
+pnpm cookbook                     # Start modern cookbook dev server (Vite)
+pnpm changeset                    # Record a changeset for release notes
+```
+
+Tests run via `packages/tests/test.sh`, which executes Jest on each `__tests__/*.js` file individually. On CI (Linux), tests require `xvfb-run` for headless OpenGL.
+
+## Releases
+
+Releases are managed by [changesets](https://github.com/changesets/changesets). Every user-facing change to a publishable package should include a changeset (`pnpm changeset`). On push to master, the Release workflow (`.github/workflows/publish.yml`) opens/updates a "Version Packages" PR; merging that PR publishes to npm via trusted publishing (OIDC — the npm-side config is bound to the `publish.yml` filename, do not rename it). Internal workspace deps use the `workspace:^` protocol, replaced with real versions at publish time.
+
+## Monorepo Package Structure
+
+- **`packages/gl-react/`** — Core library. Defines `Node`, `Bus`, `Shaders`, `GLSL`, `createSurface`, `Visitor`, uniforms, and the rendering pipeline. All other packages depend on this.
+- **`packages/gl-react-dom/`** — WebGL implementation for React DOM (browser).
+- **`packages/gl-react-native/`** — React Native standalone implementation.
+- **`packages/gl-react-expo/`** — React Native via Expo GLView.
+- **`packages/gl-react-headless/`** — Node.js implementation using headless-gl.
+- **`packages/gl-react-image/`** — `GLImage` component implementing `resizeMode` (cover/contain/free/stretch) in OpenGL.
+- **`packages/gl-react-blur/`** — multi-pass gaussian `Blur`/`BlurV` effects (variable blur via map texture).
+- **`packages/tests/`** — Shared Jest test suite using `gl-react-headless` + `react-test-renderer`.
+- **`packages/cookbook/`** — Modern examples (Vite + TypeScript + Tailwind).
+
+## Architecture
+
+**Build pipeline:** Babel compiles `src/` (`.ts`/`.tsx`) → `lib/` for each `gl-react*` package. `tsc --emitDeclarationOnly` generates `.d.ts` type declarations alongside compiled output.
+
+**Rendering model:** Two-phase: `redraw()` marks nodes dirty, `flush()` performs actual GL draws. Async flushing at 60fps by default; synchronous mode available via `sync` prop on Surface.
+
+**Surface/Node tree:** `createSurface` is a factory that produces platform-specific Surface components (used by gl-react-dom, gl-react-native, etc.). Each `Node` component manages one framebuffer. The root Node draws directly to the Surface canvas. Nodes communicate via React context (`SurfaceContext`).
+
+**Shader composition:** `Node` components can be nested — a child Node's output texture becomes a uniform input to its parent. `Bus` enables sharing a computation across multiple consumers without re-rendering.
+
+**Texture loading:** Extensible via `webgltexture-loader` packages. Platform implementations register their own loaders (e.g., `webgltexture-loader-dom` for browser image/video/canvas).
+
+## Code Conventions
+
+- Source uses **TypeScript** (`.ts`/`.tsx` files) across all packages.
+- Prettier config: semicolons, double quotes, trailing commas (es5), 80 char width.
+- Node 18+ required (see `.prototools`).
+
+---
+> Source: [gre/gl-react](https://github.com/gre/gl-react) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
