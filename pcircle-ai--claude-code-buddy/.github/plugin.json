@@ -1,0 +1,22 @@
+{
+  "name": "pcircle-ai--claude-code-buddy",
+  "displayName": "claude-code-buddy",
+  "description": "claude-code-buddy",
+  "version": "1.0.0",
+  "author": "PCIRCLE-AI",
+  "homepage": "https://github.com/PCIRCLE-AI/claude-code-buddy",
+  "skills": [
+    {
+      "name": "claude-code-buddy",
+      "description": ""
+    },
+    {
+      "name": "claude-code-buddy",
+      "description": ""
+    },
+    {
+      "name": "claude-code-buddy",
+      "description": ""
+    }
+  ]
+}
