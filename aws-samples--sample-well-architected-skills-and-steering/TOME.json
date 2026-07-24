@@ -4,7 +4,7 @@
   "repo": "sample-well-architected-skills-and-steering",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -59,5 +59,5 @@
   ],
   "source_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T14:05:07Z"
+  "distributed_at": "2026-07-24T02:49:41Z"
 }
