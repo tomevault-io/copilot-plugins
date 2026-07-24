@@ -3,8 +3,8 @@
   "owner": "sofn",
   "repo": "ArchSmith",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ArchSmith",
+      "path": "skills/archforge-project-standard/SKILL.md",
+      "github_url": "https://github.com/sofn/ArchSmith/tree/main/skills/archforge-project-standard/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/sofn/ArchSmith",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T16:17:42Z"
+  "distributed_at": "2026-07-24T16:50:18Z"
 }
