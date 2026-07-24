@@ -1,23 +1,23 @@
 # AI instruction files for orca-q
 
-> Sourced from [cin12211/orca-q](https://github.com/cin12211/orca-q) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [cin12211/orca-q](https://github.com/cin12211/orca-q), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 The open source | Next Generation database editor
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cin12211/orca-q](https://github.com/cin12211/orca-q).
+Original source: `CLAUDE.md` in [cin12211/orca-q](https://github.com/cin12211/orca-q).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (25)
+## Bundled Skills (58)
 
 - [mongodb-expert](https://github.com/cin12211/orca-q/tree/main/.agent/skills/mongodb-expert)
 - [accessibility-expert](https://github.com/cin12211/orca-q/tree/main/.agent/skills/accessibility-expert)
@@ -44,6 +44,39 @@ Original source: `AGENTS.md` in [cin12211/orca-q](https://github.com/cin12211/or
 - [typescript-type](https://github.com/cin12211/orca-q/tree/main/.agent/skills/typescript-type)
 - [ui-ux-pro-max](https://github.com/cin12211/orca-q/tree/main/.agent/skills/ui-ux-pro-max)
 - [vite-expert](https://github.com/cin12211/orca-q/tree/main/.agent/skills/vite-expert)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/git-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/css-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/vite-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/testing-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/research-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/database-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/postgres-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/rest-api-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/typescript-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/playwright-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/refactoring-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/documentation-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.agent/skills/accessibility-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.codex/skills/graphify/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/refactor/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/graphify/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/git-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/css-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/vite-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/settings-flow/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/testing-orcaq/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/testing-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/research-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/database-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/postgres-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/rest-api-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/primary-sidebar/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/typescript-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/playwright-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/refactoring-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/karpathy-guidelines/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/documentation-expert/SKILL.md)
+- [orca-q](https://github.com/cin12211/orca-q/tree/main/.claude/skills/accessibility-expert/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/cin12211/orca-q](https://github.com/cin12211/orca-q)
 
