@@ -1,0 +1,14 @@
+{
+  "name": "startrail-org--pixelrag",
+  "displayName": "PixelRAG",
+  "description": "PixelRAG",
+  "version": "1.0.0",
+  "author": "StarTrail-org",
+  "homepage": "https://github.com/StarTrail-org/PixelRAG",
+  "skills": [
+    {
+      "name": "PixelRAG",
+      "description": ""
+    }
+  ]
+}
