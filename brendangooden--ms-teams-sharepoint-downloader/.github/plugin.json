@@ -1,0 +1,14 @@
+{
+  "name": "brendangooden--ms-teams-sharepoint-downloader",
+  "displayName": "ms-teams-sharepoint-downloader",
+  "description": "ms-teams-sharepoint-downloader",
+  "version": "1.0.0",
+  "author": "brendangooden",
+  "homepage": "https://github.com/brendangooden/ms-teams-sharepoint-downloader",
+  "skills": [
+    {
+      "name": "ms-teams-sharepoint-downloader",
+      "description": ""
+    }
+  ]
+}
