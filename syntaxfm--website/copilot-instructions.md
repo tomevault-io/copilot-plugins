@@ -1,202 +1,209 @@
 ## website
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file contains custom instructions for GitHub Copilot. These instructions are based on the `.cursorrules` file and provide guidelines for Svelte 5, SvelteKit, and TypeScript development.
 
-# CLAUDE.md
+# GitHub Copilot Instructions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file contains custom instructions for GitHub Copilot. These instructions are based on the `.cursorrules` file and provide guidelines for Svelte 5, SvelteKit, and TypeScript development.
 
-## Development Commands
+You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
 
-### Core Commands
-- `pnpm dev` - Start development server with preheat script
-- `pnpm build` - Build production application (runs svelte build + file copying)
-- `pnpm check` - Run TypeScript type checking
-- `pnpm lint` - Run prettier + eslint + stylelint
-- `pnpm test` - Run Playwright tests
-- `pnpm test:unit` - Run Vitest unit tests
+Key Principles
 
-### Database Commands
-- `pnpm db:studio` - Open Prisma Studio GUI
-- `pnpm db:generate` - Generate Prisma client
-- `pnpm db:push` - Push schema changes to database
-- `pnpm db:seed` - Seed database with test data
-- `pnpm i-changed-the-schema` - Shortcut for push + generate after schema changes
+- Write concise, technical code with accurate Svelte 5 and SvelteKit examples.
+- Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.
+- Prioritize performance optimization and minimal JavaScript for optimal user experience.
+- Use descriptive variable names and follow Svelte and SvelteKit conventions.
+- Organize files using SvelteKit's file-based routing system.
 
-### Testing Commands
-- `pnpm test:ui` - Run Playwright tests with UI
-- `pnpm check:watch` - Run TypeScript check in watch mode
+Code Style and Structure
 
-## Project Architecture
+- Write concise, technical TypeScript or JavaScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid unnecessary classes except for state machines.
+- Prefer iteration and modularization over code duplication.
+- Structure files: types, component logic, markup, styles.
+- Follow Svelte's official documentation for setup and configuration: https://svelte.dev/docs/svelte/overview
 
-### Technology Stack
-- **Frontend**: SvelteKit with Svelte 5, TypeScript
-- **Backend**: Node.js with SvelteKit server-side rendering
-- **Database**: MySQL with Prisma ORM (PlanetScale)
-- **Caching**: Redis (Upstash)
-- **Deployment**: Vercel with Node.js 22.x runtime
-- **Monitoring**: Sentry for error tracking
+Naming Conventions
 
-### Key Directory Structure
-```
-src/
-├── routes/
-│   ├── (site)/        # Main website layout
-│   ├── (blank)/       # Clean layout for embeds
-│   └── api/           # API endpoints
-├── lib/               # Reusable components
-├── server/            # Server-side logic and utilities
-├── state/             # Svelte stores for client state
-├── styles/            # CSS architecture with themes
-├── actions/           # Svelte actions
-└── utilities/         # Shared utilities
-```
+- Use PascalCase for component files (e.g., `components/AuthForm.svelte`).
+- Use PascalCase for component names in imports and usage.
+- Use snake_case for variables, functions, and props.
+- Use UPPER_CASE for true constants but not general const vars
 
-### Database Schema
-The application manages podcast content with these key models:
-- **Show**: Episodes with metadata, transcripts, AI-generated content
-- **User**: GitHub OAuth authentication with role-based access
-- **Guest**: Guest profiles with social links and appearances
-- **Transcript**: Full transcription with utterances and speaker identification
-- **Video**: YouTube integration with playlists
-- **UserSubmission**: User-generated content submissions
+TypeScript Usage
 
-### Content Management
-- Show notes are stored as markdown files in the `/shows/` directory
-- AI-generated content (summaries, tweets, show notes) using OpenAI/Anthropic
-- Automated transcription via Deepgram
-- Multi-layer caching with Redis for performance
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use string literals instead and const objects if needed.
+- Enable strict mode in TypeScript for better type safety.
 
-## Code Style and Conventions
+Svelte Runes
 
-### Naming Conventions
-- **Components**: PascalCase for `.svelte` files (e.g., `ShowCard.svelte`)
-- **Variables/Functions**: snake_case for variables, functions, and props
-- **Constants**: UPPER_CASE for true constants only
-- **Types**: PascalCase for TypeScript interfaces
-
-### Svelte 5 Patterns
-- Use `$state` for reactive state declarations
-- Use `$derived` for computed values
-- Use `$effect` for side effects and lifecycle
-- Use `$props` for component props with destructuring
-- Use `$bindable` for two-way bindable props
-- Use classes for complex state management (state machines)
-
-### CSS Architecture
-- CSS variables defined in `src/styles/variables.css`
-- Use `bg` and `fg` convention for background/foreground colors
-- Custom media queries for responsive design:
-  ```css
-  @custom-media --below-med (width < 700px);
-  @custom-media --above-med (width > 700px);
+- `$state`: Declare reactive state
+  ```typescript
+  let count = $state(0);
+  ```
+- `$derived`: Compute derived values
+  ```typescript
+  let doubled = $derived(count * 2);
+  ```
+- `$effect`: Manage side effects and lifecycle
+  ```typescript
+  $effect(() => {
+  	console.log(`Count is now ${count}`);
+  });
+  ```
+- `$props`: Declare component props
+  ```typescript
+  let { optionalProp = 42, requiredProp } = $props();
+  ```
+- `$bindable`: Create two-way bindable props
+  ```typescript
+  let { bindableProp = $bindable() } = $props();
+  ```
+- `$inspect`: Debug reactive state (development only)
+  ```typescript
+  $inspect(count);
   ```
 
-### File Organization
-- **Components**: Group related components in `/src/lib/`
-- **Routes**: Use SvelteKit's file-based routing with layout groups
-- **State**: Svelte stores in `/src/state/` for global state
-- **Server**: All server-side logic in `/src/server/`
+UI and Styling
 
-## Key Features
+- Use css vars defined in `src/variables.css` for css vars.
+- Prefer css vars for any property where they exist. Colors specifically cannot be defined without css vars.
+- Use Svelte's built-in transition and animation features.
+- Use `bg` and `fg` convention for background and color properties respecitvely.
 
-### Audio Player
-- Advanced web audio player with offline support
-- Media Session API integration
-- Position saving and resume functionality
-- Service worker for offline playback
+SvelteKit Project Structure
 
-### Search System
-- Client-side search using FlexSearch
-- Web workers for non-blocking search
-- Fuzzy search across shows, guests, and transcripts
+- Use the recommended SvelteKit project structure:
+  ```
+  - src/
+    - lib/
+    - routes/
+  	- assets/
+  	- server/
+  	- actions/
+    - app.html
+  - static/
+  - svelte.config.js
+  - vite.config.js
+  ```
 
-### Admin Dashboard
-- Role-based access control
-- Content management for shows and guests
-- AI content generation tools
-- Transcript management
+Component Development
 
-### Performance Optimization
-- Redis caching for database queries
-- IndexedDB for offline data storage
-- Aggressive caching strategies
-- Service worker for offline functionality
+- Create .svelte files for Svelte components.
+- Use .svelte.ts files for state.
+- Implement proper component composition and reusability.
+- Use Svelte's props for data passing.
+- Leverage Svelte's reactive declarations for local state management.
 
-## Development Workflow
+State Management
 
-### Adding New Features
-1. Create components in `/src/lib/` for reusable UI
-2. Add routes in `/src/routes/` following the layout structure
-3. Use Prisma for database operations via `/src/server/prisma-client.ts`
-4. Implement caching for database queries using the cache utilities
-5. Add proper TypeScript types and error handling
+- Use classes for complex state management (state machines):
 
-### Database Changes
-1. Modify `/prisma/schema.prisma`
-2. Run `pnpm i-changed-the-schema` to apply changes
-3. Update seed data if needed in `/prisma/seed.ts`
+  ```typescript
+  // counter.svelte.ts
+  class Counter {
+  	count = $state(0);
+  	incrementor = $state(1);
 
-### Testing
-- Use Playwright for integration tests
-- Use Vitest for unit tests
-- Run linting before commits
-- Test across different screen sizes and devices
+  	increment() {
+  		this.count += this.incrementor;
+  	}
 
-### Deployment
-- Application deploys to Vercel automatically
-- Environment variables managed through Vercel dashboard
-- Database hosted on PlanetScale
-- Redis cache on Upstash
+  	resetCount() {
+  		this.count = 0;
+  	}
 
-## Common Patterns
-
-### State Management
-```typescript
-// For complex state, use classes
-class PlayerState {
-  currentShow = $state<Show | null>(null);
-  isPlaying = $state(false);
-  
-  play() {
-    this.isPlaying = true;
+  	resetIncrementor() {
+  		this.incrementor = 1;
+  	}
   }
-}
 
-export const playerState = new PlayerState();
-```
+  export const counter = new Counter();
+  ```
 
-### Database Queries
-```typescript
-// Use the cached prisma client
-import { prisma } from '$server/prisma-client';
+- Use in components:
 
-// Cache database queries
-const shows = await prisma.show.findMany({
-  where: { show_type: 'TASTY' },
-  orderBy: { number: 'desc' }
-});
-```
+  ```svelte
+  <script lang="ts">
+  	import { counter } from './counter.svelte.ts';
+  </script>
 
-### Component Structure
-```svelte
-<script lang="ts">
-  import { playerState } from '$state/player.svelte';
-  
-  let { show } = $props<{ show: Show }>();
-  let isPlaying = $derived(playerState.currentShow?.id === show.id);
-</script>
-
-<div class="show-card">
-  <h3>{show.title}</h3>
-  <button onclick={() => playerState.play(show)}>
-    {isPlaying ? 'Pause' : 'Play'}
+  <button on:click={() => counter.increment()}>
+  	Count: {counter.count}
   </button>
-</div>
-```
+  ```
 
-Remember to follow the existing code conventions and patterns when adding new features or modifying existing code.
+Routing and Pages
+
+- Utilize SvelteKit's file-based routing system in the src/routes/ directory.
+- Implement dynamic routes using [slug] syntax.
+- Use load functions for server-side data fetching and pre-rendering.
+- Implement proper error handling with +error.svelte pages.
+
+Server-Side Rendering (SSR) and Static Site Generation (SSG)
+
+- Leverage SvelteKit's SSR capabilities for dynamic content.
+- Implement SSG for static pages using prerender option.
+- Use the adapter-auto for automatic deployment configuration.
+
+Performance Optimization
+
+- Leverage Svelte's compile-time optimizations.
+- Use `{#key}` blocks to force re-rendering of components when needed.
+- Implement code splitting using dynamic imports for large applications.
+- Profile and monitor performance using browser developer tools.
+- Minimize use of client-side JavaScript; leverage SvelteKit's SSR and SSG.
+- Use modern html elements and features wherever possible.
+- Implement proper lazy loading for images and other assets.
+
+Data Fetching and API Routes
+
+- Use load functions for server-side data fetching.
+- Implement proper error handling for data fetching operations.
+- Create API routes in the src/routes/api/ directory.
+- Implement proper request handling and response formatting in API routes.
+- Use SvelteKit's hooks for global API middleware.
+- Data comes from Prisma via a Planetscale Mysql database.
+
+SEO and Meta Tags
+
+- Use Svelte:head component for adding meta information.
+- Implement canonical URLs for proper SEO.
+- Create reusable SEO components for consistent meta tag management.
+
+Forms and Actions
+
+- Utilize SvelteKit's form actions for server-side form handling.
+- Implement proper client-side form validation using Svelte's reactive declarations.
+- Use progressive enhancement for JavaScript-optional form submissions.
+
+Accessibility
+
+- Ensure proper semantic HTML structure in Svelte components.
+- Implement ARIA attributes where necessary.
+- Ensure keyboard navigation support for interactive elements.
+- Use Svelte's bind:this for managing focus programmatically.
+
+Key Conventions
+
+1. Embrace Svelte's simplicity and avoid over-engineering solutions.
+2. Use SvelteKit for full-stack applications with SSR and API routes.
+3. Prioritize Web Vitals (LCP, FID, CLS) for performance optimization.
+4. Use environment variables for configuration management.
+5. Follow Svelte's best practices for component composition and state management.
+6. Ensure cross-browser compatibility by testing on multiple platforms.
+7. Keep your Svelte and SvelteKit versions up to date.
+
+Documentation
+
+- Svelte Documentation: https://svelte.dev/docs/svelte/overview
+- SvelteKit Documentation: https://svelte.dev/docs/kit/introduction
+- Prisma Documentation: https://www.prisma.io/docs
+
+Refer to Svelte, SvelteKit, and Prisma documentation for detailed information on components, database queries, and best practices.
 
 ---
 > Source: [syntaxfm/website](https://github.com/syntaxfm/website) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
