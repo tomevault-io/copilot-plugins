@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cheeseburgertony/evoke](https://github.com/cheeseburgertony/evoke).
+Original source: `CLAUDE.md` in [cheeseburgertony/evoke](https://github.com/cheeseburgertony/evoke).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cheeseburgertony/evoke](https://github.com/cheeseburgertony/evoke) — a repo with 165+ stars on GitHub.
+From [cheeseburgertony/evoke](https://github.com/cheeseburgertony/evoke) — a repo with 166+ stars on GitHub.
 
 ---
 
