@@ -2,9 +2,9 @@
   "name": "claude-code-sub-agent-collective",
   "owner": "vanzan01",
   "repo": "claude-code-sub-agent-collective",
-  "description": "  \ud83e\udde0 Context Engineering Research - Not just another agent collection, but using research and context engineering to function as a collective. Hub-and-spoke coordination through Claude   Code.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vanzan01/claude-code-sub-agent-collective",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T16:59:43Z"
+  "distributed_at": "2026-07-24T22:23:15Z"
 }
