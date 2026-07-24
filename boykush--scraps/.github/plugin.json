@@ -1,0 +1,26 @@
+{
+  "name": "boykush--scraps",
+  "displayName": "scraps",
+  "description": "scraps",
+  "version": "1.0.0",
+  "author": "boykush",
+  "homepage": "https://github.com/boykush/scraps",
+  "skills": [
+    {
+      "name": "web-to-scrap",
+      "description": ""
+    },
+    {
+      "name": "scraps",
+      "description": ""
+    },
+    {
+      "name": "scraps",
+      "description": ""
+    },
+    {
+      "name": "scraps",
+      "description": ""
+    }
+  ]
+}
