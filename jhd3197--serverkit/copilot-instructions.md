@@ -1,36 +1,65 @@
 ## serverkit
 
-> Establish strict permissions for any AI agent interacting with the repo.
+> Provide project intent and behavioral expectations for Antigravity and Google models.
 
-# Agents Permissions
+# Project Intent
 
 ## Purpose
-Establish strict permissions for any AI agent interacting with the repo.
+Provide project intent and behavioral expectations for Antigravity and Google models.
 
 ## Scope
-Safety and authorization only. No style or philosophy.
+Model neutral guidance. No permissions. No Claude specific instructions.
 
-## Allowed Read and Write Paths
-- `src/` (all files and subdirectories)
-- `index.html`
-- `package.json`
-- `vite.config.js`
-- `template.json`
-- `how_it_works.md`
+## One Paragraph Project Summary
+This is a modern React dashboard application boilerplate built with Vite, featuring routing, charts, and a sidebar layout for building data-driven web interfaces.
 
-## Explicitly Forbidden Actions
-- No file deletion
-- No renaming public APIs
-- No dependency upgrades
-- No folder restructuring
-- No shell execution unless explicitly requested
-- Minimal diffs only
-- JSON schemas are contracts
-- Refactors require explicit approval
+## What the Project is For
+To serve as a starting template for building React dashboard applications, providing essential setup for development, building, and deployment with components for navigation, data visualization, and user management.
+
+## Stability Guarantees
+- Uses stable versions of React, Vite, and related libraries
+- Follows standard project structures for dashboards
+- Includes routing and layout components
+
+## Data Contracts and Invariants
+- Components expect standard React props
+- File structure adheres to src/ with App.jsx, main.jsx, components/, layouts/, pages/
+- Uses react-router-dom for routing
+- Charts use Recharts library
+- Icons from Lucide React
+
+## Compatibility Expectations
+- Compatible with modern browsers and Node.js 16+
+- Follows web standards
+
+## Risk Tolerance Level
+Low to medium - prefer proven libraries and avoid experimental features.
+
+## What Changes are Considered Safe
+- Adding new components, layouts, or pages
+- Updating documentation
+- Minor style adjustments
+- Bug fixes in existing code
+- Adding new routes
+
+## What Changes Require Explicit Approval
+- Major architectural changes
+- Upgrading major dependencies
+- Restructuring folders
+- Introducing new charting libraries
+- Removing existing routes or components
+
+## Non Goals
+- Not intended for server-side rendering
+- Not a full-stack solution
+- Avoids complex state management libraries by default
+
+## Important Notes
+Antigravity will also analyze README.md and other markdown documentation. This file clarifies intent, sets boundaries, and avoids duplicating documentation.
 
 ## Outcome
-All agents know exactly what they can and cannot do before touching code.
+Antigravity builds a correct mental model of the project before acting.
 
 ---
 > Source: [jhd3197/ServerKit](https://github.com/jhd3197/ServerKit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
