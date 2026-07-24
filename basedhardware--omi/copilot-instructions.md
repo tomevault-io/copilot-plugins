@@ -1,22 +1,26 @@
 ## omi
 
-> All fetches go through `hooks/useAuthToken.ts`. No direct `getIdToken()`, manual auth headers, or client-side Firestore reads.
+> <!-- Official guidance for writing these files:
 
-# Web Admin Dashboard — Developer Guide
+# Omi — Agent Instructions
+<!-- Official guidance for writing these files:
+     CLAUDE.md: https://docs.anthropic.com/en/docs/claude-code/memory
+     AGENTS.md: https://developers.openai.com/codex/guides/agents-md
+     Format spec: https://agents.md -->
 
-## Networking
+**Treat `AGENTS.md` as this repository's instruction file.** Every rule for every agent
+(Claude Code, Codex, and any other) lives there. This file exists only because some tools
+look for `CLAUDE.md` by name — it is the one such pointer in the repo.
 
-All fetches go through `hooks/useAuthToken.ts`. No direct `getIdToken()`, manual auth headers, or client-side Firestore reads.
+- Start with the root [`AGENTS.md`](./AGENTS.md): cross-component rules plus an index.
+- When working inside a directory, also read the **nearest `AGENTS.md` at or above it** —
+  `backend/`, `app/`, `desktop/macos/`, `.github/`, `web/admin/`, `omi/firmware/`.
+  Those carry the detail the root file deliberately omits.
+- Add or change rules in the relevant `AGENTS.md`. **Never add instructions here** — this
+  file stays a pointer so there is only ever one source of truth to maintain.
 
-- **SWR reads**: `useAuthToken()` + `authenticatedFetcher`
-- **Mutations**: `useAuthFetch()` → `fetchWithAuth(url, init)`
-- **Server routes**: `verifyAdmin(request)` from `lib/auth.ts` on every route
-- **Parallel fetches**: `Promise.allSettled` (not `Promise.all`), return `partial: true` on partial failure, 502 on total failure
-- **SWR config**: `components/swr-provider.tsx` — exponential backoff, skip retry on 401/403
-- **SWR keys**: `token ? [url, token] : null` — null prevents fetch until auth ready
-- **UI on partial**: amber warning. **UI on error**: clear stale data, show N/A — never display old data with error flag
-- **Banned**: custom fetchers, `useEffect` token management, direct `fetch()` with manual auth, `Promise.all` for parallel upstream calls, serving zero metrics on upstream failure
+@AGENTS.md
 
 ---
 > Source: [BasedHardware/omi](https://github.com/BasedHardware/omi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
