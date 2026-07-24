@@ -4,7 +4,7 @@
   "repo": "extplorer",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/soerennb/extplorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T20:44:28Z"
+  "distributed_at": "2026-07-24T14:31:28Z"
 }
