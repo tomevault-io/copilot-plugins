@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [owainlewis/blueprint](https://github.com/owainlewis/blueprint).
+Original source: `CLAUDE.md` in [owainlewis/blueprint](https://github.com/owainlewis/blueprint).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [owainlewis/blueprint](https://github.com/owainl
 - [blueprint](https://github.com/owainlewis/blueprint/tree/main/skills/review/SKILL.md)
 - [blueprint](https://github.com/owainlewis/blueprint/tree/main/skills/task-to-pr/SKILL.md)
 
-From [owainlewis/blueprint](https://github.com/owainlewis/blueprint) — a repo with 238+ stars on GitHub.
+From [owainlewis/blueprint](https://github.com/owainlewis/blueprint) — a repo with 240+ stars on GitHub.
 
 ---
 
