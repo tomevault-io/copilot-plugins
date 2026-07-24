@@ -4,7 +4,7 @@
   "repo": "zzf",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zzfn/zzf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T21:53:48Z"
+  "distributed_at": "2026-07-24T14:45:58Z"
 }
