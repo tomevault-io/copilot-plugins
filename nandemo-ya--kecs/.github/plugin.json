@@ -1,0 +1,34 @@
+{
+  "name": "nandemo-ya--kecs",
+  "displayName": "kecs",
+  "description": "kecs",
+  "version": "1.0.0",
+  "author": "nandemo-ya",
+  "homepage": "https://github.com/nandemo-ya/kecs",
+  "skills": [
+    {
+      "name": "ecs-api-reference",
+      "description": ""
+    },
+    {
+      "name": "ecs-cli-reference",
+      "description": ""
+    },
+    {
+      "name": "localstack-services",
+      "description": ""
+    },
+    {
+      "name": "kecs",
+      "description": ""
+    },
+    {
+      "name": "kecs",
+      "description": ""
+    },
+    {
+      "name": "kecs",
+      "description": ""
+    }
+  ]
+}
