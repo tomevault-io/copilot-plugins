@@ -4,7 +4,7 @@
   "repo": "civic-cli",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SCTY-Inc/civic-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T19:38:38Z"
+  "distributed_at": "2026-07-24T03:37:56Z"
 }
