@@ -1,0 +1,231 @@
+{
+  "name": "web3-ethereum-defi",
+  "owner": "tradingstrategy-ai",
+  "repo": "web3-ethereum-defi",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-vault-abi-methods",
+      "path": ".claude/skills/add-vault-abi-methods",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-vault-abi-methods",
+      "description": ""
+    },
+    {
+      "name": "add-vault-note",
+      "path": ".claude/skills/add-vault-note",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-vault-note",
+      "description": ""
+    },
+    {
+      "name": "add-vault-protocol",
+      "path": ".claude/skills/add-vault-protocol",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-vault-protocol",
+      "description": ""
+    },
+    {
+      "name": "check-vault-onchain",
+      "path": ".claude/skills/check-vault-onchain",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/check-vault-onchain",
+      "description": ""
+    },
+    {
+      "name": "extract-project-logo",
+      "path": ".claude/skills/extract-project-logo",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/extract-project-logo",
+      "description": ""
+    },
+    {
+      "name": "extract-test-set",
+      "path": ".claude/skills/extract-test-set",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/extract-test-set",
+      "description": ""
+    },
+    {
+      "name": "extract-vault-protocol-logo",
+      "path": ".claude/skills/extract-vault-protocol-logo",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/extract-vault-protocol-logo",
+      "description": ""
+    },
+    {
+      "name": "fix-sphinx-docs",
+      "path": ".claude/skills/fix-sphinx-docs",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/fix-sphinx-docs",
+      "description": ""
+    },
+    {
+      "name": "get-block-number",
+      "path": ".claude/skills/get-block-number",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/get-block-number",
+      "description": ""
+    },
+    {
+      "name": "identify-vault-protocol",
+      "path": ".claude/skills/identify-vault-protocol",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/identify-vault-protocol",
+      "description": ""
+    },
+    {
+      "name": "make-release",
+      "path": ".claude/skills/make-release",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/make-release",
+      "description": ""
+    },
+    {
+      "name": "more-vaults",
+      "path": ".claude/skills/more-vaults",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/more-vaults",
+      "description": ""
+    },
+    {
+      "name": "post-process-logo",
+      "path": ".claude/skills/post-process-logo",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/post-process-logo",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/more-vaults/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/more-vaults/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/add-curator/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-curator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/make-release/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/make-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/add-stablecoin/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-stablecoin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/add-vault-note/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-vault-note/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/fix-sphinx-docs/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/fix-sphinx-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/extract-test-set/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/extract-test-set/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/get-block-number/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/get-block-number/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/check-stablecoins/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/check-stablecoins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/maintain-curators/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/maintain-curators/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/find-new-curators/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/find-new-curators/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/post-process-logo/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/post-process-logo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/add-vault-protocol/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-vault-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/check-vault-onchain/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/check-vault-onchain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/extract-project-logo/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/extract-project-logo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/add-vault-abi-methods/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/add-vault-abi-methods/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/identify-vault-protocol/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/identify-vault-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web3-ethereum-defi",
+      "path": ".claude/skills/extract-vault-protocol-logo/SKILL.md",
+      "github_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi/tree/main/.claude/skills/extract-vault-protocol-logo/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tradingstrategy-ai/web3-ethereum-defi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:36:56Z"
+}
