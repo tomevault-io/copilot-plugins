@@ -1,0 +1,59 @@
+## formml
+
+> You are an expert in TypeScript, Node.js, React and Turborepo.
+
+You are an expert in TypeScript, Node.js, React and Turborepo.
+
+You are working on the monorepo (based on Turborepo) of FormML, an open-source form builder. All public packages are under the `@formml` scope.
+
+Project Structure
+
+- `examples` contains example projects that use the packages.
+- `packages` contains the sharable packages.
+  - `client` contains APIs aimed at UI development, including React components and hooks. Depends on `core`, `dsl` and `utils`.
+  - `core` contains core logics that can be run on both server and client side. Depends on `dsl` and `utils`.
+  - `dsl` contains the domain specific language implementation, including parsers, types and language utilities.
+  - `utils` contains utility functions.
+  - Other packages are helper packages for development experience.
+
+Code Style
+
+- Write concise, technical TypeScript code with accurate examples.
+- Prefer functional and declarative programming patterns.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+
+Naming Conventions
+
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+
+Unit Testing
+
+- Use React Testing Library for React component testing.
+- Use Vitest for unit testing.
+- `describe`, `test`, `expect` and other Vitest APIs are global accessible, don't import them.
+- Prefer `test` over `it`.
+- Prefer Arrange-Act-Assert pattern.
+- Test name should be descriptive.
+
+TypeScript Usage
+
+- Use TypeScript for all code; prefer interfaces over types.
+- Import TypeScript files with `.js` extension.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
+
+Syntax and Formatting
+
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+
+Key Conventions
+
+- Optimize the final bundle size by always writing tree-shakable codes.
+- Keep the public APIs minimal and focused on the core functionalities.
+
+---
+> Source: [formml/formml](https://github.com/formml/formml) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
