@@ -1,0 +1,30 @@
+{
+  "name": "aq-medai--medmemorybench",
+  "displayName": "MedMemoryBench",
+  "description": "MedMemoryBench",
+  "version": "1.0.0",
+  "author": "AQ-MedAI",
+  "homepage": "https://github.com/AQ-MedAI/MedMemoryBench",
+  "skills": [
+    {
+      "name": "MedMemoryBench",
+      "description": ""
+    },
+    {
+      "name": "MedMemoryBench",
+      "description": ""
+    },
+    {
+      "name": "MedMemoryBench",
+      "description": ""
+    },
+    {
+      "name": "MedMemoryBench",
+      "description": ""
+    },
+    {
+      "name": "MedMemoryBench",
+      "description": ""
+    }
+  ]
+}
