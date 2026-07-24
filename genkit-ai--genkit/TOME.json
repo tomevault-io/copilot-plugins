@@ -1,0 +1,93 @@
+{
+  "name": "genkit",
+  "owner": "genkit-ai",
+  "repo": "genkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "genkit",
+      "path": "skills/developing-genkit-tooling/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/skills/developing-genkit-tooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genkit",
+      "path": "js/plugins/middleware/examples/skills/coding/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/js/plugins/middleware/examples/skills/coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genkit",
+      "path": "go/samples/basic-middleware/skills/skills/eli5/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/go/samples/basic-middleware/skills/skills/eli5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genkit",
+      "path": "go/samples/basic-middleware/skills/skills/haiku/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/go/samples/basic-middleware/skills/skills/haiku/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genkit",
+      "path": "go/samples/basic-middleware/skills/skills/pirate/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/go/samples/basic-middleware/skills/skills/pirate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genkit",
+      "path": "py/samples/middleware-coding-agent/skills/test-writer/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/py/samples/middleware-coding-agent/skills/test-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genkit",
+      "path": "go/samples/basic-middleware/skills/skills/shakespeare/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/go/samples/basic-middleware/skills/skills/shakespeare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "genkit",
+      "path": "py/samples/middleware-coding-agent/skills/python-expert/SKILL.md",
+      "github_url": "https://github.com/genkit-ai/genkit/tree/main/py/samples/middleware-coding-agent/skills/python-expert/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/genkit-ai/genkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:40:18Z"
+}
