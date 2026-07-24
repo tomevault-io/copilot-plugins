@@ -1,0 +1,87 @@
+{
+  "name": "pigweed",
+  "owner": "pigweed-project",
+  "repo": "pigweed",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/docs/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/bluetooth/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/bluetooth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/code_review/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/code_review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/pw_kernel_testing/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/pw_kernel_testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/run_presubmit_checks/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/run_presubmit_checks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/use_pw_toolchain_tools/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/use_pw_toolchain_tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pigweed",
+      "path": ".agents/skills/pw_rpc_creating_services/SKILL.md",
+      "github_url": "https://github.com/pigweed-project/pigweed/tree/main/.agents/skills/pw_rpc_creating_services/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pigweed-project/pigweed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:44:22Z"
+}
