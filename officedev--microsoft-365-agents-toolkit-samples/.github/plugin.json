@@ -1,0 +1,14 @@
+{
+  "name": "officedev--microsoft-365-agents-toolkit-samples",
+  "displayName": "microsoft-365-agents-toolkit-samples",
+  "description": "microsoft-365-agents-toolkit-samples",
+  "version": "1.0.0",
+  "author": "OfficeDev",
+  "homepage": "https://github.com/OfficeDev/microsoft-365-agents-toolkit-samples",
+  "skills": [
+    {
+      "name": "microsoft-365-agents-toolkit-samples",
+      "description": ""
+    }
+  ]
+}
