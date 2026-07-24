@@ -1,0 +1,171 @@
+{
+  "name": "lean-zip",
+  "owner": "kim-em",
+  "repo": "lean-zip",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/proven-bounds/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/proven-bounds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/summarize-flow/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/summarize-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/pr-repair-flow/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/pr-repair-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-array-list/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-array-list/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-uint-bitvec/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-uint-bitvec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/acquiring-skills/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/acquiring-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-simp-tactics/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-simp-tactics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/agent-pr-recovery/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/agent-pr-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/agent-worker-flow/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/agent-worker-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-zstd-patterns/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-zstd-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-fuel-induction/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-fuel-induction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-dependent-types/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-dependent-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-roundtrip-proofs/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-roundtrip-proofs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-zstd-spec-pattern/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-zstd-spec-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/proof-review-checklist/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/proof-review-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/error-wording-catalogue/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/error-wording-catalogue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/checksum-ladder-template/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/checksum-ladder-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/inventory-reconciliation/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/inventory-reconciliation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-parsing-completeness/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-parsing-completeness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/lean-content-preservation/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/lean-content-preservation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-zip",
+      "path": ".claude/skills/malformed-fixture-builder/SKILL.md",
+      "github_url": "https://github.com/kim-em/lean-zip/tree/main/.claude/skills/malformed-fixture-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kim-em/lean-zip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T05:10:27Z"
+}
