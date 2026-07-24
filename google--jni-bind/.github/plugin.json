@@ -1,0 +1,9 @@
+{
+  "name": "google--jni-bind",
+  "displayName": "jni-bind",
+  "description": "jni-bind",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/jni-bind",
+  "skills": []
+}
