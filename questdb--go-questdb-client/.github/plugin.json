@@ -1,0 +1,14 @@
+{
+  "name": "questdb--go-questdb-client",
+  "displayName": "go-questdb-client",
+  "description": "go-questdb-client",
+  "version": "1.0.0",
+  "author": "questdb",
+  "homepage": "https://github.com/questdb/go-questdb-client",
+  "skills": [
+    {
+      "name": "go-questdb-client",
+      "description": ""
+    }
+  ]
+}
