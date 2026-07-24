@@ -1,0 +1,14 @@
+{
+  "name": "loft-sh--vcluster",
+  "displayName": "vcluster",
+  "description": "vcluster",
+  "version": "1.0.0",
+  "author": "loft-sh",
+  "homepage": "https://github.com/loft-sh/vcluster",
+  "skills": [
+    {
+      "name": "vcluster",
+      "description": ""
+    }
+  ]
+}
