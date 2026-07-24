@@ -1,0 +1,26 @@
+## htmxflask
+
+> - Always use clean_invisible_chars on all files before check in everytime
+
+# Cursor Rules for HTMX Flask Examples
+
+## Code Quality Rules
+
+- Always use clean_invisible_chars on all files before check in everytime
+- Follow the Development Guiding Light principles
+- Use standard HTML (not HTML5-specific elements)
+- Keep examples focused on HTMX functionality
+- Maintain minimal external dependencies
+- Write clear, educational code with proper comments
+- Update docs/CHANGELOG.md when adding features or fixing bugs
+
+## Git Commit Rules
+
+- Before making any git commit, you must:
+  1. Bump the version number using `make version-update`
+  2. Update documentation (README.md, docs/CHANGELOG.md, etc.) to reflect changes
+  3. Ensure all changes are properly documented and versioned
+
+---
+> Source: [cscortes/htmxflask](https://github.com/cscortes/htmxflask) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
