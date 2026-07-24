@@ -1,0 +1,111 @@
+{
+  "name": "dgx-spark-playbooks",
+  "owner": "NVIDIA",
+  "repo": "dgx-spark-playbooks",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-ai-skills/assets/skills/vllm-setup/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-ai-skills/assets/skills/vllm-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-ai-skills/assets/skills/dgx-diagnose/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-ai-skills/assets/skills/dgx-diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-ai-skills/assets/skills/sglang-setup/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-ai-skills/assets/skills/sglang-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-ai-skills/assets/skills/mig-configure/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-ai-skills/assets/skills/mig-configure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-healthcare-agent/assets/skills/fhir-basics/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-healthcare-agent/assets/skills/fhir-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-healthcare-agent/assets/skills/case-summary/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-healthcare-agent/assets/skills/case-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-healthcare-agent/assets/skills/molecular-viz/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-healthcare-agent/assets/skills/molecular-viz/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-healthcare-agent/assets/skills/cohort-compare/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-healthcare-agent/assets/skills/cohort-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-healthcare-agent/assets/skills/analysis-methods/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-healthcare-agent/assets/skills/analysis-methods/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-healthcare-agent/assets/skills/clinical-knowledge/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-healthcare-agent/assets/skills/clinical-knowledge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dgx-spark-playbooks",
+      "path": "nvidia/station-healthcare-agent/assets/skills/clinical-delegation/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/station-healthcare-agent/assets/skills/clinical-delegation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/dgx-spark-playbooks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T18:48:34Z"
+}
