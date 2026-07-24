@@ -1,0 +1,18 @@
+{
+  "name": "theoephraim--node-google-spreadsheet",
+  "displayName": "node-google-spreadsheet",
+  "description": "node-google-spreadsheet",
+  "version": "1.0.0",
+  "author": "theoephraim",
+  "homepage": "https://github.com/theoephraim/node-google-spreadsheet",
+  "skills": [
+    {
+      "name": "work-on",
+      "description": ""
+    },
+    {
+      "name": "node-google-spreadsheet",
+      "description": ""
+    }
+  ]
+}
