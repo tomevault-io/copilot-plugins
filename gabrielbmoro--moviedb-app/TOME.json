@@ -1,0 +1,75 @@
+{
+  "name": "MovieDB-App",
+  "owner": "gabrielbmoro",
+  "repo": "MovieDB-App",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MovieDB-App",
+      "path": "ai/skills/open-pr/SKILL.md",
+      "github_url": "https://github.com/gabrielbmoro/MovieDB-App/tree/main/ai/skills/open-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MovieDB-App",
+      "path": "ai/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/gabrielbmoro/MovieDB-App/tree/main/ai/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MovieDB-App",
+      "path": "ai/skills/update-architecture/SKILL.md",
+      "github_url": "https://github.com/gabrielbmoro/MovieDB-App/tree/main/ai/skills/update-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MovieDB-App",
+      "path": "ai/skills/generate-unit-tests/SKILL.md",
+      "github_url": "https://github.com/gabrielbmoro/MovieDB-App/tree/main/ai/skills/generate-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MovieDB-App",
+      "path": "ai/skills/update-tech-stack-readme/SKILL.md",
+      "github_url": "https://github.com/gabrielbmoro/MovieDB-App/tree/main/ai/skills/update-tech-stack-readme/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gabrielbmoro/MovieDB-App",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T22:51:30Z"
+}
