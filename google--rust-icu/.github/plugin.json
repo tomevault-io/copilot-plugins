@@ -1,0 +1,9 @@
+{
+  "name": "google--rust-icu",
+  "displayName": "rust_icu",
+  "description": "rust_icu",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/rust_icu",
+  "skills": []
+}
