@@ -442,4 +442,4 @@ livewire(ListUsers::class)
 
 ---
 > Source: [tudorr89/info-firme](https://github.com/tudorr89/info-firme) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
