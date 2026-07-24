@@ -1,0 +1,54 @@
+## obsidian-another-quick-switcher
+
+> - テスト: `bun run test`
+
+# CLAUDE
+
+## コマンド
+
+- テスト: `bun run test`
+- リント: `bun run lint`
+- 型チェック: `bun run typecheck`
+- ビルド: `bun run build`
+
+## 開発手順
+
+1. 既存コードを確認し、計画する
+2. 計画の承認を得たら、実装する
+3. 一通りファイルを変更したら `bun run pre:push` を実行する
+    - 失敗したら2に戻って修正する
+4. ユーザーに動作確認を依頼する
+5. 4がOKなら、READMEを更新する
+6. コミットする
+
+## 開発で重視するポイント
+
+- **パフォーマンスを重視する**
+    - Vaultには数万ノートがある前提
+    - 計算量が増える場合は対応前後でどれくらい速度が変わるか数値を提示する
+- **デグレリスクのある対応をする場合にテストがない場合は『最小限の』ユニットテストを追加する**
+
+## コミットメッセージ
+
+Conventional Commits 形式で英語で書く。
+
+### フォーマット
+
+```
+<type>(<scope>): <description>
+```
+
+- `type`: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`, `build`, `ci`, `test`
+  - 破壊的変更がある場合は `feat!` のように `!` を付ける
+- `scope`: `hooks/commit-msg` の定義を参照
+- `description`: ユーザー視点で何が変わったかを簡潔に書く
+
+### description の書き方
+
+- ユーザーにとって何が変わるかを書く (実装詳細ではなく体験の変化)
+- 「〜を追加」「〜を修正」「〜に変更」のように結果を述べる
+- 内部的なリファクタリングの場合のみ実装視点で書いてよい
+
+---
+> Source: [tadashi-aikawa/obsidian-another-quick-switcher](https://github.com/tadashi-aikawa/obsidian-another-quick-switcher) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
