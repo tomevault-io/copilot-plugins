@@ -1,0 +1,471 @@
+{
+  "name": "Antigravity-Everywhere",
+  "owner": "Truthan49",
+  "repo": "Antigravity-Everywhere",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-do/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-do/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-ship/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-help/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-help/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-next/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-fast/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-fast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-note/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-note/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-debug/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-stats/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-stats/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-quick/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-quick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-health/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-health/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-update/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-review/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-thread/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-thread/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-cleanup/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-manager/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-progress/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-progress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-ui-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-ui-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-settings/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-add-todo/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-add-todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-audit-uat/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-audit-uat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-ui-review/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-ui-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-pr-branch/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-pr-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-add-tests/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-add-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-add-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-add-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-forensics/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-forensics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-plant-seed/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-plant-seed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-pause-work/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-pause-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-autonomous/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-autonomous/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-plan-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-plan-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-workstreams/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-workstreams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-set-profile/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-set-profile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-resume-work/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-resume-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-check-todos/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-check-todos/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-verify-work/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-verify-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-new-project/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-new-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-add-backlog/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-add-backlog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-join-discord/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-join-discord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-remove-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-remove-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-insert-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-insert-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-profile-user/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-profile-user/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-map-codebase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-map-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-new-milestone/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-new-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-new-workspace/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-new-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-discuss-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-discuss-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-execute-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-execute-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-research-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-research-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-session-report/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-session-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-validate-phase/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-validate-phase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-review-backlog/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-review-backlog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-reapply-patches/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-reapply-patches/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-list-workspaces/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-list-workspaces/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-audit-milestone/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-audit-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-remove-workspace/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-remove-workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-milestone-summary/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-milestone-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/writing-skills/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/writing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-complete-milestone/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-complete-milestone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/executing-plans/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/executing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-plan-milestone-gaps/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-plan-milestone-gaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/using-superpowers/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/using-superpowers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/gsd/.agent/skills/gsd-list-phase-assumptions/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/gsd/.agent/skills/gsd-list-phase-assumptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/using-git-worktrees/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/using-git-worktrees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/requesting-code-review/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/requesting-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/test-driven-development/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/test-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/dispatching-parallel-agents/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/dispatching-parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/subagent-driven-development/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/subagent-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/finishing-a-development-branch/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/finishing-a-development-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Antigravity-Everywhere",
+      "path": "src/assets/templates/superpowers/skills/skills/verification-before-completion/SKILL.md",
+      "github_url": "https://github.com/Truthan49/Antigravity-Everywhere/tree/main/src/assets/templates/superpowers/skills/skills/verification-before-completion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Truthan49/Antigravity-Everywhere",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:50:18Z"
+}
