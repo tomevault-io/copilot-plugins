@@ -1,0 +1,14 @@
+{
+  "name": "snowflakedb--snowpark-python",
+  "displayName": "snowpark-python",
+  "description": "snowpark-python",
+  "version": "1.0.0",
+  "author": "snowflakedb",
+  "homepage": "https://github.com/snowflakedb/snowpark-python",
+  "skills": [
+    {
+      "name": "snowpark-python",
+      "description": ""
+    }
+  ]
+}
