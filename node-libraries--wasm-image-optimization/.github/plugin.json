@@ -1,0 +1,9 @@
+{
+  "name": "node-libraries--wasm-image-optimization",
+  "displayName": "wasm-image-optimization",
+  "description": "wasm-image-optimization",
+  "version": "1.0.0",
+  "author": "node-libraries",
+  "homepage": "https://github.com/node-libraries/wasm-image-optimization",
+  "skills": []
+}
