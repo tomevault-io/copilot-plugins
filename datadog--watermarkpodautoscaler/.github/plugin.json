@@ -1,0 +1,9 @@
+{
+  "name": "datadog--watermarkpodautoscaler",
+  "displayName": "watermarkpodautoscaler",
+  "description": "watermarkpodautoscaler",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/watermarkpodautoscaler",
+  "skills": []
+}
