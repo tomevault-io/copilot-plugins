@@ -1,0 +1,22 @@
+{
+  "name": "getsentry--sentry-java",
+  "displayName": "sentry-java",
+  "description": "sentry-java",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-java",
+  "skills": [
+    {
+      "name": "sentry-java",
+      "description": ""
+    },
+    {
+      "name": "sentry-java",
+      "description": ""
+    },
+    {
+      "name": "sentry-java",
+      "description": ""
+    }
+  ]
+}
