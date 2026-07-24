@@ -1,0 +1,267 @@
+## satsigner
+
+> Strings should be localized. Add translation in en.json. Use the translation like: t('common.cancel')
+
+[MOBILE RULES]
+
+[i18n]
+Strings should be localized. Add translation in en.json. Use the translation like: t('common.cancel')
+Strings in i18n files should only be 1 level deep at most. Then use dots to separate like: "address": { "details.balance.confirmed": "Confirmed", "details.balance.title": "Balance" }
+
+[Navigation]
+We use expo-router. Follow expo-router best practices.
+Use useLocalSearchParams with type annotation for type the params like: useLocalSearchParams<AccountSearchParams>(). Navigation searchParams types should be under mobile/types/navigation/searchParams
+
+[State Management]
+We use zustand for state management. Stores are under the store folder. Stores that need to persist, we use mmkvStorage (use createJSONStorage and persist functions from zustand)
+We type our State and Actions separately like: type AuthState = {}; type AuthAction = {}
+We recommend using derived types from state when typing actions like: setFirstTime: (firstTime: AuthState['firstTime']) => void
+Use immer to mutate nested state in objects/arrays and a simple set for trivial state mutations.
+Zustand should only be responsible to store and mutate state and not run external functions or business logic
+
+Do not use function selectors in Zustand stores like: useStore(function (state) { return state.something })
+Instead use direct selectors: useStore((state) => state.something)
+
+Use useShallow with array selectors, not object destructuring:
+✅ Correct: const [state1, action1] = useStore(useShallow((state) => [state.state1, state.action1]))
+❌ Wrong: const { state1, action1 } = useStore(useShallow((state) => ({ state1: state.state1, action1: state.action1 })))
+
+Use useShallow when selecting multiple pieces of state from the same store
+For single state selection, use direct selector: const something = useStore((state) => state.something)
+
+Example of multiple actions from the same store:
+
+```typescript
+const [action1, action2, action3] = useStore(
+  useShallow((state) => [state.action1, state.action2, state.action3])
+)
+```
+
+[React useEffect Guidelines]
+Before using useEffect, read: [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+
+Common cases where useEffect is NOT needed:
+
+- Transforming data for rendering (use variables or useMemo instead)
+- Handling user events (use event handlers instead)
+- Resetting state when props change (use key prop or calculate during render)
+- Updating state based on props/state changes (calculate during render)
+
+Only use useEffect for:
+
+- Synchronizing with external systems (APIs, DOM, third-party libraries)
+- Cleanup that must happen when component unmounts
+
+Prefer deriving state without useEffect when possible.
+
+const name = `${firstName} ${lastName}`
+
+For heavy computation, use useMemo:
+const derivedValue = useMemo(() => calculateValue(deps), [deps])
+
+See docs/pages/develop/store.mdx for more state management best practices
+
+[Components]
+Components and layouts are prefixed with "SS"
+Follow the component anatomy & best practices described in docs/pages/develop/components.mdx
+Don't add spaces between component/react native tags
+Prioritize using already created layouts and components. Layouts components are under layouts folder and components under components folder
+Do not add complex logic directly in JSX templates
+Extract logic into separate functions or use useCallback for event handlers
+Keep JSX clean and readable
+Move business logic outside of render functions
+
+[Pages]
+Inside the app folder is where our pages are.
+Organize the code inside the page - this is very important - first declare hooks, then use zustand stores, then useState and useMemo/useCallback then useEffects/useFocusEffect/function declarations - finally the jsx
+Avoid creating unnecessary state with useState and overuse useEffect
+
+[Styling]
+Prefer using StyleSheet.create from react-native for complex styles, placing the styles at the bottom of the page component
+Use inline styles only for simple overrides of component defaults (e.g., style={{ flex: 1 }})
+1-2 styles may be ok inline, but only if they are not repeated multiple times in the same page component
+Do not use hex colors in JSX - use colors stored in variables defined in apps/mobile/styles/colors
+
+[Utils & Helper Functions]
+Do not create extra files in utils/ if the functions are only being used by 1 page component
+Do not create duplicated helper functions - first check if there is an existing utility function that does the wanted logic
+Avoid adding a helper function which is used only once and used inside another helper function
+Do not duplicate logic used to convert between network types (our app, BDK, Bitcoinjs-lib, bip32 lib) - use existing conversion logic
+Do not duplicate logic used to parse or create descriptors - use existing functions for that
+Do not introduce new dependencies if existing ones already do the job
+Avoid adding interface and types for arguments if they are used only in helper functions - declare argument types directly in function signature
+
+[Dependencies]
+Should not add new dependencies if not needed (such as, we already using an existing lib with the same functionality)
+New dependencies should be added to the list of dependencies in our documentation
+
+[Storage]
+Use storage/encrypted to store things in keychain securely
+
+[API]
+We put api logic inside api folder
+Pages code should call these functions and local state (with useState)/zustand should handle the state
+
+[Constants]
+Add/update constants inside the constants folder
+
+[Function Usage]
+Use function keyword for function declarations and standalone functions
+Use arrow functions for:
+
+- Event handlers in JSX (onPress, onClick, etc.)
+- Callback functions passed to hooks (useCallback, useMemo, etc.)
+- Inline functions in component props
+- Array methods (map, filter, reduce, etc.)
+- useEffect callbacks and cleanup functions
+- Simple event handlers that don't need memoization
+
+[Export Style]
+For components: Place export default at the bottom of the file, after all function declarations and component definitions
+For pages: Usually export default at the top for better readability
+
+✅ Correct for components:
+
+```typescript
+function MyComponent() {
+  return <div>Hello</div>
+}
+
+export default MyComponent
+```
+
+✅ Correct for pages:
+
+```typescript
+export default function MyPage() {
+  return <div>Hello</div>
+}
+```
+
+❌ Wrong for components:
+
+```typescript
+export default function MyComponent() {
+  return <div>Hello</div>
+}
+```
+
+[Code Formatting]
+Keep code clean and well-formatted:
+
+- Remove unnecessary empty lines in JSX and component files
+- Remove useless comments like `{/* Camera Modal */}` or obvious comments
+- Use consistent spacing and indentation
+- Avoid trailing empty lines at the end of files
+
+[TypeScript Types]
+Avoid using `any` type at all costs. Use proper TypeScript types:
+
+- For React Native styles, use `StyleProp<ViewStyle>` instead of `any`
+- For component props, define proper interfaces or types
+- Use type imports: `import { type Block } from '...'`
+- Prefer types over interfaces when possible
+
+[Console Statements]
+Remove all console statements from production code:
+
+- Avoid `console.log`, `console.error`, `console.warn`, etc.
+- Use proper error handling with toast.error instead of console.error
+- Remove debug console statements before committing
+- Use proper logging mechanisms if debugging is needed
+
+[Variable Naming]
+Use clear, descriptive variable names:
+
+- Avoid underscore prefixes like `_variable` unless absolutely necessary
+- Use meaningful names that describe the variable's purpose
+- Don't prefix unused variables with underscores - either use them or remove them
+- Follow camelCase convention for variables and functions
+
+[Component Architecture]
+Keep components clean and focused:
+
+- Avoid using stores directly in components - pass data via props instead
+- Components should receive data through props, not fetch it from stores
+- Use stores only in pages/hooks, not in reusable components
+- Keep components pure and testable by avoiding external dependencies
+
+[useCallback Guidelines]
+Only use useCallback when:
+
+- The function is passed as a prop to a memoized component (React.memo)
+- The function is used as a dependency in other hooks (useEffect, useMemo)
+- The function has expensive computations that benefit from memoization
+
+Do NOT use useCallback for:
+
+- Simple state setters: const handleToggle = () => setState(!state)
+- Basic event handlers that don't have dependencies
+- Functions that are only used once in the component
+- Functions that don't have any dependencies or have stable dependencies
+
+[String Concatenation]
+Always use template literals instead of string concatenation:
+✅ Correct: `Hello ${name}, you have ${count} items`
+❌ Wrong: 'Hello ' + name + ', you have ' + count + ' items'
+
+This applies to:
+
+- JSX props and attributes
+- Dynamic text content
+- URL construction
+- Any string building operations
+
+[Error Handling]
+Use try-catch ONLY for operations outside our control:
+✅ Correct: Network requests, clipboard operations, camera access, file I/O, NFC, external APIs
+❌ Wrong: User input validation, account creation, data processing (validate inputs instead)
+
+If error is not used, omit the parameter: catch { }
+If error is used, name it appropriately: catch (error) { }
+Never use underscore prefix like catch (\_error) { }
+Never leave unused error variables
+
+Always show user feedback with toast.error in catch blocks.
+Do not cast the error like: error as Error.
+Also, do not:
+❌ Wrong: catch (error) { toast.error('Operation failed') }
+❌ Wrong: catch (error) { /_ silent handling _/ }
+❌ Wrong: catch { /_ no user feedback _/ }
+
+For user input and business logic: Validate inputs properly:
+✅ Correct: if (!isValidInput(input)) { toast.error('Invalid input'); return }
+
+[Translation System]
+The translation system uses a generateJson function that converts flat keys with dots into nested objects.
+CRITICAL: Avoid having a key that is both a string value AND has child properties.
+
+❌ WRONG - Creates conflicts:
+
+```json
+{
+  "settings.network.server.host": "Host",
+  "settings.network.server.host.placeholder.electrum": "192.168.0.144"
+}
+```
+
+✅ CORRECT - Use descriptive suffixes:
+
+```json
+{
+  "settings.network.server.hostLabel": "Host",
+  "settings.network.server.host.placeholder.electrum": "192.168.0.144"
+}
+```
+
+Common suffixes: Label, Title, Text, Name
+This prevents the nesting function from trying to make a key both a string and an object.
+
+[Before commiting]
+Remove console.logs
+Run the linter and formatter: pnpm run fix
+Run type checking: cd apps/mobile && pnpm typecheck
+
+---
+> Source: [satsigner/satsigner](https://github.com/satsigner/satsigner) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
