@@ -1,0 +1,26 @@
+{
+  "name": "langroid--langroid",
+  "displayName": "langroid",
+  "description": "langroid",
+  "version": "1.0.0",
+  "author": "langroid",
+  "homepage": "https://github.com/langroid/langroid",
+  "skills": [
+    {
+      "name": "add-pattern",
+      "description": ""
+    },
+    {
+      "name": "patterns",
+      "description": ""
+    },
+    {
+      "name": "langroid",
+      "description": ""
+    },
+    {
+      "name": "langroid",
+      "description": ""
+    }
+  ]
+}
