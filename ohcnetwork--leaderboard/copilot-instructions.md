@@ -1,1347 +1,457 @@
 ## leaderboard
 
-> This document provides specialized workflows for different types of tasks in the leaderboard system. Each agent represents a specific role with its own workflow, considerations, and best practices.
-
-# Leaderboard Project - Specialized Agent Workflows
-
-This document provides specialized workflows for different types of tasks in the leaderboard system. Each agent represents a specific role with its own workflow, considerations, and best practices.
-
----
-
-## Agent: Plugin Developer
-
-**Purpose**: Create and test new data source plugins for the leaderboard system.
-
-### Workflow
-
-1. **Scaffold Plugin Project**
-
-   ```bash
-   pnpm create-leaderboard-plugin <path>
-   # Example: pnpm create-leaderboard-plugin ../leaderboard-github-plugin
-   ```
-
-   The CLI will prompt for:
-   - Plugin name (e.g., 'github', 'slack', 'jira')
-   - Plugin description
-   - Author name
-
-   This generates a complete project structure with:
-   - `package.json` with correct dependencies
-   - `tsconfig.json` with proper configuration
-   - `vitest.config.ts` for testing
-   - `src/index.ts` with plugin template
-   - `src/__tests__/plugin.test.ts` with test examples
-   - `README.md` with documentation
-
-2. **Implement Setup Method**
-
-   Define activity types in the `setup()` method:
-
-   ```typescript
-   import { activityDefinitionQueries } from "@ohcnetwork/leaderboard-api";
-
-   async setup(ctx: PluginContext): Promise<void> {
-     // Define all activity types your plugin will track
-     await activityDefinitionQueries.upsert(ctx.db, {
-       slug: "pr_opened",
-       name: "Pull Request Opened",
-       description: "Opened a pull request",
-       points: 5,
-       meta: { icon: "git-pull-request" },
-     });
-
-     await activityDefinitionQueries.upsert(ctx.db, {
-       slug: "pr_merged",
-       name: "Pull Request Merged",
-       description: "Had a pull request merged",
-       points: 10,
-       meta: { icon: "git-merge" },
-     });
-   }
-   ```
-
-3. **Implement Scrape Method**
-
-   Fetch and store activities:
-
-   ```typescript
-   import { activityQueries, contributorQueries } from "@ohcnetwork/leaderboard-api";
-
-   async scrape(ctx: PluginContext): Promise<void> {
-     const { apiToken, organization } = ctx.config;
-
-     // Fetch data from external API
-     const prs = await fetchPullRequests(apiToken, organization);
-
-     for (const pr of prs) {
-       // Ensure contributor exists
-       await contributorQueries.upsert(ctx.db, {
-         username: pr.author.login,
-         name: pr.author.name,
-         role: "contributor", // or determine from your logic
-         avatar_url: pr.author.avatar_url,
-       });
-
-       // Store activity
-       await activityQueries.create(ctx.db, {
-         slug: `pr-${pr.id}`,
-         contributor: pr.author.login,
-         activity_definition: pr.merged ? "pr_merged" : "pr_opened",
-         title: pr.title,
-         occurred_at: pr.created_at,
-         link: pr.html_url,
-         points: pr.merged ? 10 : 5,
-         meta: {
-           repository: pr.repository,
-           additions: pr.additions,
-           deletions: pr.deletions,
-         },
-       });
-     }
-
-     ctx.logger.info(`Processed ${prs.length} pull requests`);
-   }
-   ```
-
-4. **Implement Aggregate Method (Optional)**
-
-   Compute plugin-specific aggregates after the main leaderboard aggregation:
-
-   ```typescript
-   import { activityQueries, contributorQueries, contributorAggregateQueries } from "@ohcnetwork/leaderboard-api";
-
-   async aggregate(ctx: PluginContext): Promise<void> {
-     const contributors = await contributorQueries.getAll(ctx.db);
-
-     for (const contributor of contributors) {
-       const activities = await activityQueries.getByContributor(ctx.db, contributor.username);
-       const mergedPRs = activities.filter(a => a.activity_definition === "pr_merged");
-
-       await contributorAggregateQueries.upsert(ctx.db, {
-         aggregate: "pr_merged_count",
-         contributor: contributor.username,
-         value: { type: "number", value: mergedPRs.length, format: "integer" },
-         meta: { calculated_at: new Date().toISOString() },
-       });
-     }
-
-     ctx.logger.info("PR merge count aggregates computed");
-   }
-   ```
-
-   > The `aggregate()` method runs after the main leaderboard aggregation, so standard aggregates like `total_activity_points` and `activity_count` are already available.
-
-5. **Use Query Builders**
-
-   Always use provided query builders from the API package:
-   - `contributorQueries`: create, upsert, getByUsername, getAll, etc.
-   - `activityQueries`: create, getByContributor, getByDateRange, etc.
-   - `activityDefinitionQueries`: upsert, getBySlug, getAll, etc.
-
-6. **Write Tests**
-
-   Create comprehensive tests in `src/__tests__/plugin.test.ts`:
-
-   ```typescript
-   import { describe, it, expect, beforeEach, afterEach } from "vitest";
-   import {
-     createDatabase,
-     initializeSchema,
-   } from "@ohcnetwork/leaderboard-api";
-   import plugin from "../index";
-
-   describe("My Plugin", () => {
-     let db: Database;
-
-     beforeEach(async () => {
-       db = createDatabase(":memory:");
-       await initializeSchema(db);
-     });
-
-     afterEach(async () => {
-       await db.close();
-     });
-
-     it("should define activity types in setup", async () => {
-       const ctx = {
-         db,
-         config: {},
-         orgConfig: {
-           /* mock org config */
-         },
-         logger: createLogger(false),
-       };
-
-       await plugin.setup(ctx);
-
-       const definitions = await activityDefinitionQueries.getAll(db);
-       expect(definitions.length).toBeGreaterThan(0);
-     });
-
-     // More tests...
-   });
-   ```
-
-7. **Export as ES Module**
-
-   Ensure your plugin exports correctly:
-
-   ```typescript
-   import type { Plugin } from "@ohcnetwork/leaderboard-api";
-
-   export default {
-     name: "my-plugin",
-     version: "1.0.0",
-     setup,
-     scrape,
-   } satisfies Plugin;
-   ```
-
-8. **Test with Plugin Runner**
-
-   Build and test your plugin:
-
-   ```bash
-   pnpm build
-   pnpm test
-
-   # Test with actual plugin runner
-   cd /path/to/leaderboard-monorepo
-   # Update config.yaml to point to your plugin
-   pnpm build:data
-   ```
-
-9. **Deploy and Configure**
-   - Build your plugin: `pnpm build`
-   - Deploy `dist/index.js` to a accessible URL (GitHub raw, CDN, etc.)
-   - Configure in data repository's `config.yaml`:
-     ```yaml
-     leaderboard:
-       plugins:
-         my-plugin:
-           name: My Plugin
-           source: https://example.com/plugins/my-plugin/manifest.js
-           config:
-             apiToken: ${{ env.MY_API_TOKEN }}
-             organization: my-org
-     ```
-
-### Key Files
-
-- [`docs/plugins/creating-plugins.mdx`](docs/plugins/creating-plugins.mdx) - Complete plugin development guide
-- [`packages/plugin-dummy/src/index.ts`](packages/plugin-dummy/src/index.ts) - Reference implementation
-- [`packages/api/src/types.ts`](packages/api/src/types.ts) - Plugin interface and types
-- [`packages/api/src/queries.ts`](packages/api/src/queries.ts) - Available query builders
-
-### Tips
-
-- Keep plugins focused on one data source
-- Use bulk operations for better performance
-- Log progress for debugging
-- Handle API rate limits gracefully
-- Cache responses when appropriate
-- Use environment variables for secrets
-- Test with realistic data volumes
-
----
-
-## Agent: Data Repository Manager
-
-**Purpose**: Set up and manage data repositories for organizations using the leaderboard system.
-
-### Workflow
-
-1. **Initialize Data Repository**
-
-   ```bash
-   pnpm create-data-repo <path>
-   # Example: pnpm create-data-repo ../my-org-leaderboard-data
-   ```
-
-   Interactive prompts will collect:
-   - Organization name, description, URL, logo
-   - Social media links (GitHub, Slack, LinkedIn, YouTube, email)
-   - SEO metadata (title, description, images, site URL)
-   - Data source repository URL
-   - Optional custom theme CSS URL
-   - Roles (with option for defaults: core, contributor)
-
-2. **Review Generated Structure**
-
-   ```
-   my-org-leaderboard-data/
-   ├── config.yaml           # Organization configuration
-   ├── README.md            # Repository documentation
-   ├── .gitignore           # Git ignore rules
-   ├── contributors/        # Contributor profiles (empty)
-   └── activities/          # Activity records (empty)
-   ```
-
-3. **Configure Plugins**
-
-   Edit `config.yaml` to uncomment and configure plugins:
-
-   ```yaml
-   leaderboard:
-     plugins:
-       github:
-         name: GitHub Plugin
-         source: https://raw.githubusercontent.com/org/plugin/main/manifest.js
-         config:
-           githubToken: ${{ env.GITHUB_TOKEN }}
-           githubOrg: my-org
-           repositories:
-             - repo1
-             - repo2
-
-       slack:
-         name: Slack Plugin
-         source: https://raw.githubusercontent.com/org/plugin/main/manifest.js
-         config:
-           slackApiToken: ${{ env.SLACK_API_TOKEN }}
-           slackChannel: ${{ env.SLACK_CHANNEL }}
-   ```
-
-4. **Set Environment Variables**
-
-   ```bash
-   export GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
-   export SLACK_API_TOKEN=xoxb-xxxxxxxxxxxxx
-   export LEADERBOARD_DATA_DIR=/path/to/my-org-leaderboard-data
-   ```
-
-5. **Add Contributor Profiles (Optional)**
-
-   Manually create contributor Markdown files if needed:
-
-   ```bash
-   cd contributors
-   cat > alice.md << 'EOF'
-   ---
-   username: alice
-   name: Alice Smith
-   role: core
-   title: Senior Engineer
-   avatar_url: https://github.com/alice.png
-   social_profiles:
-     github: https://github.com/alice
-     linkedin: https://linkedin.com/in/alice-smith
-   joining_date: 2020-01-15
-   ---
-
-   Alice is a senior engineer specializing in backend systems.
-   EOF
-   ```
-
-6. **Run Data Collection**
-
-   ```bash
-   cd /path/to/leaderboard-monorepo
-   pnpm build:data
-   ```
-
-   This will:
-   - Import existing contributors and activities
-   - Run plugin setup methods
-   - Scrape new activities from configured sources
-   - Compute aggregates
-   - Evaluate badge rules
-   - Export updated data back to files
-
-7. **Commit and Push**
-
-   ```bash
-   cd /path/to/my-org-leaderboard-data
-   git add contributors/ activities/ aggregates/ badges/
-   git commit -m "Update leaderboard data"
-   git push
-   ```
-
-8. **Configure Aggregates (Optional)**
-
-   Create `aggregates/definitions.json` for custom metrics:
-
-   ```json
-   {
-     "definitions": [
-       {
-         "slug": "custom_metric",
-         "name": "Custom Metric",
-         "description": "A custom metric",
-         "type": "contributor",
-         "query": "SELECT COUNT(*) FROM activity WHERE contributor = :username"
-       }
-     ]
-   }
-   ```
-
-9. **Configure Badges (Optional)**
-
-   Create `badges/definitions.json` for achievements:
-
-   ```json
-   {
-     "badges": [
-       {
-         "slug": "early_bird",
-         "name": "Early Bird",
-         "description": "Joined in the first year",
-         "icon": "star",
-         "rule": {
-           "type": "count",
-           "min": 1,
-           "filter": {
-             "joining_date_before": "2021-01-01"
-           }
-         }
-       }
-     ]
-   }
-   ```
-
-### Key Files
-
-- [`docs/getting-started/index.mdx`](docs/getting-started/index.mdx) - Setup guide
-- [`docs/data-management.mdx`](docs/data-management.mdx) - Data management patterns
-- [`docs/getting-started/configuration.mdx`](docs/getting-started/configuration.mdx) - Config reference
-- [`apps/leaderboard-web/config.example.yaml`](apps/leaderboard-web/config.example.yaml) - Example configuration
-
-### Tips
-
-- Use environment variables for all secrets
-- Keep data repository separate from code repository
-- Commit contributor and activity files to git
-- Run scraping on a schedule (cron job, GitHub Actions)
-- Review generated data before committing
-- Use custom themes for branding
-- Document your organization's specific setup
-
----
-
-## Agent: Query Optimizer
-
-**Purpose**: Optimize database queries and aggregations for performance.
-
-### Workflow
-
-1. **Identify Slow Queries**
-
-   Enable debug logging to see query execution:
-
-   ```bash
-   DEBUG=true pnpm build:data
-   ```
-
-   Look for log messages showing query duration.
-
-2. **Use Query Builders First**
-
-   Start with provided query builders from [`packages/api/src/queries.ts`](packages/api/src/queries.ts):
-
-   ```typescript
-   import {
-     contributorQueries,
-     activityQueries,
-   } from "@ohcnetwork/leaderboard-api";
-
-   // Optimized queries with proper indexes
-   const activities = await activityQueries.getByContributor(db, "alice");
-   const recentActivities = await activityQueries.getByDateRange(
-     db,
-     new Date("2024-01-01"),
-     new Date("2024-12-31"),
-   );
-   ```
-
-3. **Write Custom SQL for Complex Queries**
-
-   For complex aggregations not covered by query builders:
-
-   ```typescript
-   const result = await db.execute(
-     `
-     SELECT 
-       c.username,
-       c.name,
-       COUNT(a.id) as activity_count,
-       SUM(ad.points) as total_points,
-       MAX(a.occurred_at) as last_activity
-     FROM contributor c
-     LEFT JOIN activity a ON c.username = a.contributor
-     LEFT JOIN activity_definition ad ON a.activity_definition = ad.slug
-     WHERE c.role = ?
-       AND a.occurred_at >= ?
-     GROUP BY c.username, c.name
-     ORDER BY total_points DESC
-     LIMIT 100
-   `,
-     ["core", "2024-01-01"],
-   );
-   ```
-
-4. **Add Indexes for Performance**
-
-   If modifying schema, add indexes for frequently queried columns:
-
-   ```sql
-   CREATE INDEX IF NOT EXISTS idx_activity_contributor
-     ON activity(contributor);
-
-   CREATE INDEX IF NOT EXISTS idx_activity_occurred_at
-     ON activity(occurred_at);
-
-   CREATE INDEX IF NOT EXISTS idx_activity_definition
-     ON activity(activity_definition);
-   ```
-
-5. **Test with Realistic Data**
-
-   Generate large datasets for testing:
-
-   ```bash
-   pnpm setup:dev --contributors 100 --days 365
-   ```
-
-   Measure query performance:
-
-   ```typescript
-   const start = Date.now();
-   const result = await expensiveQuery(db);
-   console.log(`Query took ${Date.now() - start}ms`);
-   ```
-
-6. **Add Tests**
-
-   Add performance tests in [`packages/api/src/__tests__/queries.test.ts`](packages/api/src/__tests__/queries.test.ts):
-
-   ```typescript
-   it("should query large datasets efficiently", async () => {
-     // Insert 10k activities
-     for (let i = 0; i < 10000; i++) {
-       await activityQueries.create(db, {
-         /* ... */
-       });
-     }
-
-     const start = Date.now();
-     const result = await activityQueries.getByContributor(db, "alice");
-     const duration = Date.now() - start;
-
-     expect(duration).toBeLessThan(100); // Should complete in <100ms
-   });
-   ```
-
-### Considerations
-
-- **Database**: SQLite (LibSQL) - optimized for reads
-- **Workload**: Read-heavy at build time, not runtime
-- **Optimize for**: Static site generation speed
-- **Indexes**: Critical for large datasets
-- **Batch Operations**: Use `db.batch()` for bulk inserts
-- **Memory**: Consider memory usage with large result sets
-
-### Key Files
-
-- [`packages/api/src/queries.ts`](packages/api/src/queries.ts) - Query builders
-- [`packages/api/src/schema.ts`](packages/api/src/schema.ts) - Database schema
-- [`packages/api/src/__tests__/queries.test.ts`](packages/api/src/__tests__/queries.test.ts) - Query tests
-
-### Tips
-
-- Use `EXPLAIN QUERY PLAN` to understand query execution
-- Limit result sets with proper WHERE clauses
-- Use pagination for large lists
-- Cache computed results when appropriate
-- Profile with realistic data volumes
-- Consider denormalization for complex aggregations
-
----
-
-## Agent: Badge System Developer
-
-**Purpose**: Create and modify badge rules and achievements.
-
-### Workflow
-
-1. **Define Badge in Definitions**
-
-   Create or edit `badges/definitions.json` in your data repository:
-
-   ```json
-   {
-     "badges": [
-       {
-         "slug": "prolific_contributor",
-         "name": "Prolific Contributor",
-         "description": "Completed 100+ activities",
-         "icon": "trophy",
-         "rule": {
-           "type": "count",
-           "min": 100
-         }
-       },
-       {
-         "slug": "point_master",
-         "name": "Point Master",
-         "description": "Earned 1000+ points",
-         "icon": "star",
-         "rule": {
-           "type": "total_points",
-           "min": 1000
-         }
-       },
-       {
-         "slug": "streak_champion",
-         "name": "Streak Champion",
-         "description": "30-day activity streak",
-         "icon": "flame",
-         "rule": {
-           "type": "streak",
-           "min": 30
-         }
-       }
-     ]
-   }
-   ```
-
-2. **Understand Rule Types**
-
-   **Count Rule**: Number of activities matching filters
-
-   ```json
-   {
-     "slug": "pr_expert",
-     "name": "PR Expert",
-     "rule": {
-       "type": "count",
-       "min": 50,
-       "filter": {
-         "activity_definitions": ["pr_merged", "pr_opened"],
-         "role": "core",
-         "date_from": "2024-01-01",
-         "date_to": "2024-12-31"
-       }
-     }
-   }
-   ```
-
-   **Total Points Rule**: Sum of points from matching activities
-
-   ```json
-   {
-     "slug": "top_scorer",
-     "name": "Top Scorer",
-     "rule": {
-       "type": "total_points",
-       "min": 500,
-       "filter": {
-         "date_from": "2024-01-01"
-       }
-     }
-   }
-   ```
-
-   **Streak Rule**: Consecutive days with activity
-
-   ```json
-   {
-     "slug": "daily_contributor",
-     "name": "Daily Contributor",
-     "rule": {
-       "type": "streak",
-       "min": 7,
-       "filter": {
-         "activity_definitions": ["*"], // All activities
-         "date_from": "2024-01-01"
-       }
-     }
-   }
-   ```
-
-   **Per-Activity-Definition Streak**: Streak for specific activity types
-
-   ```json
-   {
-     "slug": "pr_streak",
-     "name": "PR Streak",
-     "rule": {
-       "type": "streak",
-       "min": 5,
-       "filter": {
-         "activity_definitions": ["pr_merged"] // Only merged PRs
-       }
-     }
-   }
-   ```
-
-   **Multiple Activity Definition Streak**: Combined streak
-
-   ```json
-   {
-     "slug": "code_review_streak",
-     "name": "Code Review Streak",
-     "rule": {
-       "type": "streak",
-       "min": 10,
-       "filter": {
-         "activity_definitions": ["pr_reviewed", "pr_commented"]
-       }
-     }
-   }
-   ```
-
-   **Regex Pattern Matching**: Match activity definitions with regex
-
-   ```json
-   {
-     "slug": "github_all_star",
-     "name": "GitHub All Star",
-     "rule": {
-       "type": "count",
-       "min": 100,
-       "filter": {
-         "activity_definitions": ["^github_.*"] // All GitHub activities
-       }
-     }
-   }
-   ```
-
-3. **Configure Filters**
-
-   Available filters:
-   - `activity_definitions`: Array of activity slugs or regex patterns (`["*"]` for all)
-   - `role`: Filter by contributor role
-   - `date_from`: ISO date string (YYYY-MM-DD)
-   - `date_to`: ISO date string (YYYY-MM-DD)
-
-4. **Test Badge Evaluation**
-
-   Run badge evaluation:
-
-   ```bash
-   pnpm build:data  # Includes badge evaluation
-   ```
-
-   Check results in `badges/contributors/{username}.json`:
-
-   ```json
-   {
-     "username": "alice",
-     "badges": [
-       {
-         "slug": "prolific_contributor",
-         "earned_at": "2024-03-15T10:30:00Z",
-         "value": 150
-       }
-     ]
-   }
-   ```
-
-5. **Debug Badge Rules**
-
-   Enable debug logging:
-
-   ```bash
-   DEBUG=true pnpm build:data
-   ```
-
-   Review logs for badge evaluation details.
-
-### Rule Types Reference
-
-| Type           | Description                    | Value Meaning        |
-| -------------- | ------------------------------ | -------------------- |
-| `count`        | Number of matching activities  | Activity count       |
-| `total_points` | Sum of points from activities  | Total points         |
-| `streak`       | Consecutive days with activity | Streak length (days) |
-
-### Key Files
-
-- [`docs/badges.mdx`](docs/badges.mdx) - Badge system documentation
-- [`packages/plugin-runner/src/rules/evaluator.ts`](packages/plugin-runner/src/rules/evaluator.ts) - Badge evaluation logic
-- [`packages/plugin-runner/src/rules/__tests__/evaluator.test.ts`](packages/plugin-runner/src/rules/__tests__/evaluator.test.ts) - Badge tests
-
-### Tips
-
-- Start with simple rules, add complexity as needed
-- Test with various contributor profiles
-- Use date filters for time-bound badges
-- Combine multiple activity definitions for versatile badges
-- Use regex patterns for flexible matching
-- Document badge meanings clearly
-- Consider badge hierarchy (bronze/silver/gold variants)
-
----
-
-## Agent: UI Developer
-
-**Purpose**: Modify and enhance the Next.js frontend application.
-
-### Workflow
-
-1. **Understand Constraints**
-   - **Static Export Only**: No server-side runtime features
-   - **SSG at Build Time**: All data loaded during `next build`
-   - **No API Routes**: Cannot use Next.js API routes
-   - **Unoptimized Images**: Image optimization disabled
-   - **Data from Database**: All data from LibSQL at build time
-
-2. **Page Structure**
-
-   All pages in [`apps/leaderboard-web/app/`](apps/leaderboard-web/app/):
-
-   ```typescript
-   // app/leaderboard/page.tsx
-   import { getAllContributors } from "@/lib/data/loader";
-
-   export default async function LeaderboardPage() {
-     // Data loaded at build time (SSG)
-     const contributors = await getAllContributors();
-
-     return (
-       <div>
-         {contributors.map(c => (
-           <ContributorCard key={c.username} contributor={c} />
-         ))}
-       </div>
-     );
-   }
-   ```
-
-3. **Data Loading**
-
-   Use data loaders from [`apps/leaderboard-web/lib/data/loader.ts`](apps/leaderboard-web/lib/data/loader.ts):
-
-   ```typescript
-   import {
-     getAllContributors,
-     getContributorByUsername,
-     getActivitiesByContributor,
-     getActivityDefinitions,
-     getAggregates,
-   } from "@/lib/data/loader";
-   ```
-
-4. **Components**
-
-   Use shadcn/ui components from [`apps/leaderboard-web/components/ui/`](apps/leaderboard-web/components/ui/):
-
-   ```typescript
-   import { Button } from "@/components/ui/button";
-   import {
-     Card,
-     CardHeader,
-     CardTitle,
-     CardContent,
-   } from "@/components/ui/card";
-   import { Badge } from "@/components/ui/badge";
-   ```
-
-5. **Styling**
-
-   Use Tailwind CSS classes:
-
-   ```tsx
-   <div className="container mx-auto px-4 py-8">
-     <h1 className="text-4xl font-bold mb-6">Leaderboard</h1>
-     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-       {/* Content */}
-     </div>
-   </div>
-   ```
-
-6. **Theme Customization**
-
-   Users can override styles via `data/theme.css`:
-
-   ```css
-   :root {
-     --primary: 220 90% 56%;
-     --primary-foreground: 0 0% 100%;
-     /* ... other CSS variables */
-   }
-   ```
-
-7. **Dynamic Routes**
-
-   Generate static paths at build time:
-
-   ```typescript
-   // app/[username]/page.tsx
-   import { getAllContributors, getContributorByUsername } from "@/lib/data/loader";
-
-   export async function generateStaticParams() {
-     const contributors = await getAllContributors();
-     return contributors.map(c => ({
-       username: c.username,
-     }));
-   }
-
-   export default async function ContributorPage({
-     params,
-   }: {
-     params: { username: string };
-   }) {
-     const contributor = await getContributorByUsername(params.username);
-     return <div>{/* Profile content */}</div>;
-   }
-   ```
-
-8. **Documentation Pages**
-
-   Documentation uses Fumadocs, defined in MDX files in [`docs/`](docs/).
-
-### Constraints Summary
-
-- ✅ Server Components (for SSG)
-- ✅ Client Components (with 'use client')
-- ✅ Static generation (generateStaticParams)
-- ✅ Tailwind CSS
-- ❌ Server-side runtime (no SSR)
-- ❌ API routes
-- ❌ Image optimization
-- ❌ Dynamic data at runtime
-
-### Key Files
-
-- [`apps/leaderboard-web/app/`](apps/leaderboard-web/app/) - Pages and layouts
-- [`apps/leaderboard-web/components/`](apps/leaderboard-web/components/) - React components
-- [`apps/leaderboard-web/lib/data/loader.ts`](apps/leaderboard-web/lib/data/loader.ts) - Data loading
-- [`apps/leaderboard-web/lib/config/`](apps/leaderboard-web/lib/config/) - Configuration
-- [`apps/leaderboard-web/next.config.ts`](apps/leaderboard-web/next.config.ts) - Next.js config
-
-### Tips
-
-- All data must be available at build time
-- Use client components sparingly (only for interactivity)
-- Optimize bundle size (tree shaking, code splitting)
-- Test static export: `pnpm build && pnpm start`
-- Preview locally before deploying
-- Use semantic HTML for accessibility
-- Test responsive design at various breakpoints
-
----
-
-## Agent: Test Writer
-
-**Purpose**: Write comprehensive tests for the leaderboard system.
-
-### Standards
-
-- **Framework**: Vitest with TypeScript
+> This is a flexible, plugin-based leaderboard system for tracking and visualizing contributor activities across multiple data sources. The system follows a build-time data aggregation pattern with static site generation.
+
+# Leaderboard Project - AI Assistant Rules
+
+## Project Overview
+
+This is a flexible, plugin-based leaderboard system for tracking and visualizing contributor activities across multiple data sources. The system follows a build-time data aggregation pattern with static site generation.
+
+### Architecture
+- **Pattern**: Plugin-based with static site generation
+- **Data Flow**: Data Sources → Plugin Runner → LibSQL Database → Next.js Build → Static Site
+- **Deployment**: Static export to CDN (Netlify, Vercel, GitHub Pages, etc.)
+
+### Technology Stack
+- **Language**: TypeScript (strict mode)
+- **Runtime**: Node.js v20+
+- **Package Manager**: pnpm v10+ (monorepo with workspaces)
+- **Frontend**: Next.js 14+ (static export only)
+- **Database**: LibSQL (SQLite-compatible)
+- **Documentation**: Fumadocs (MDX)
+- **UI Components**: shadcn/ui + Tailwind CSS
+- **Testing**: Vitest
+- **Module System**: ESNext (ESM with `.js` extensions required)
+
+## Monorepo Structure
+
+```
+leaderboard/
+├── apps/
+│   └── leaderboard-web/          # Next.js static site
+├── packages/
+│   ├── api/                      # @ohcnetwork/leaderboard-api
+│   ├── plugin-runner/            # @leaderboard/plugin-runner
+│   ├── plugin-dummy/             # @leaderboard/plugin-dummy
+│   ├── create-plugin/            # create-leaderboard-plugin
+│   └── create-data-repo/         # create-leaderboard-data-repo
+├── docs/                         # Documentation (MDX)
+├── scripts/                      # Development scripts
+└── data/                         # Development data repository
+```
+
+### Key Packages
+
+1. **@ohcnetwork/leaderboard-api**
+   - Database utilities and abstractions
+   - Plugin type definitions and interfaces
+   - Query builders (contributorQueries, activityQueries, etc.)
+   - Shared types and schemas
+
+2. **@leaderboard/plugin-runner**
+   - CLI tool for orchestrating data collection
+   - Plugin loading and execution
+   - Import/export functionality
+   - Aggregation and badge evaluation
+
+3. **create-leaderboard-plugin**
+   - CLI for scaffolding new plugins
+   - Generates template with tests and docs
+
+4. **create-leaderboard-data-repo**
+   - CLI for initializing data repositories
+   - Interactive setup for organization config
+   - Generates proper directory structure
+
+5. **leaderboard-web**
+   - Next.js application (static export)
+   - Server-side generation at build time
+   - Reads from LibSQL database
+
+## Coding Conventions
+
+### TypeScript
+- **Strict Mode**: Always enabled
+- **Module System**: ESNext with ESM
+- **Type Safety**: Avoid `any` unless absolutely necessary; use `unknown` instead
+- **Interfaces vs Types**: Use `interface` for object shapes, `type` for unions/intersections
+
+### Naming Conventions
+- **Files/Directories**: kebab-case (`activity-loader.ts`, `badge-rules/`)
+- **Functions/Variables**: camelCase (`getUserActivities`, `totalPoints`)
+- **Types/Interfaces/Classes**: PascalCase (`ActivityDefinition`, `PluginContext`)
+- **Constants**: SCREAMING_SNAKE_CASE for true constants (`MAX_RETRIES`)
+- **Private Members**: Prefix with `_` (`_internalCache`)
+
+### File Organization
+- **Source Code**: `src/` directory
+- **Tests**: `src/__tests__/` directory
+- **Test Files**: `{module-name}.test.ts`
+- **Types**: Co-locate with implementation or in `types.ts`
+- **Exports**: Use named exports (avoid default exports except for plugins and Next.js pages)
+
+### Database Patterns
+- **Query Builders**: Always use provided query builders from `@ohcnetwork/leaderboard-api`
+  ```typescript
+  // ✅ Good
+  import { contributorQueries } from "@ohcnetwork/leaderboard-api";
+  const user = await contributorQueries.getByUsername(db, "alice");
+  
+  // ❌ Bad (use only when query builders don't cover the use case)
+  await db.execute("SELECT * FROM contributor WHERE username = ?", ["alice"]);
+  ```
+- **Transactions**: Use `db.batch()` for multiple related operations
+- **Parameterization**: Always use parameterized queries (never string concatenation)
+
+### Error Handling
+- **Async Functions**: Always use try-catch or .catch()
+- **Logging**: Use structured logger provided in context
+  ```typescript
+  try {
+    await riskyOperation();
+  } catch (error) {
+    logger.error("Operation failed", error, { context: "additional-info" });
+    throw error; // Re-throw if caller should handle
+  }
+  ```
+- **User-Facing Errors**: Provide clear, actionable error messages
+
+## Key Terminology
+
+### Core Concepts
+- **Plugin**: JavaScript/TypeScript module that fetches data from external sources (GitHub, Slack, etc.)
+- **Contributor**: User with a profile stored as Markdown file with YAML frontmatter
+- **Activity**: Single tracked event or contribution (PR, issue, comment, etc.)
+- **Activity Definition**: Type of activity defined by plugins (e.g., "pr_merged", "issue_opened")
+- **Data Repository**: Separate git repository containing config.yaml, contributors/, activities/
+- **Aggregate**: Computed metric (total_activities, activity_count, longest_streak, etc.)
+- **Badge**: Achievement or reward earned based on rule evaluation
+- **Rule**: Badge eligibility criteria (streak, count, total_points)
+
+### Data Storage
+- **Contributors**: Markdown files with YAML frontmatter
+  - Location: `contributors/{username}.md`
+  - Human-editable profiles with rich bio content
+  
+- **Activities**: JSONL (JSON Lines) files, one per contributor
+  - Location: `activities/{username}.jsonl`
+  - Efficient for large datasets, easy per-user updates
+  
+- **Activity Definitions**: Database only (not exported to files)
+  - Managed by plugins during setup phase
+  - Avoids sync issues between files and database
+  
+- **Config**: YAML file with organization info, roles, plugins
+  - Location: `config.yaml` (root of data repository)
+  - Supports environment variable substitution: `${{ env.VAR_NAME }}`
+
+- **Aggregates**: JSON files with computed metrics
+  - Global: `aggregates/global.json`
+  - Per contributor: `aggregates/contributors/{username}.json`
+  - Definitions: `aggregates/definitions.json`
+
+- **Badges**: JSON files with earned badges
+  - Per contributor: `badges/contributors/{username}.json`
+  - Definitions: `badges/definitions.json`
+
+## Important Patterns
+
+### Plugin Context
+Every plugin receives a context object with:
+```typescript
+interface PluginContext {
+  db: Database;              // Database instance
+  config: PluginConfig;      // Plugin-specific config from config.yaml
+  orgConfig: OrgConfig;      // Organization config
+  logger: Logger;            // Structured logger
+}
+```
+
+### Plugin Structure
+```typescript
+import type { Plugin } from "@ohcnetwork/leaderboard-api";
+
+export default {
+  name: "my-plugin",
+  version: "1.0.0",
+  
+  async setup(ctx: PluginContext): Promise<void> {
+    // Define activity definitions (runs once per plugin)
+    await activityDefinitionQueries.upsert(db, {
+      slug: "my_activity",
+      name: "My Activity",
+      description: "Description",
+      points: 10,
+    });
+  },
+  
+  async scrape(ctx: PluginContext): Promise<void> {
+    // Fetch and store activities (runs every build)
+    const activities = await fetchFromAPI(ctx.config.apiKey);
+    
+    for (const activity of activities) {
+      await activityQueries.create(db, {
+        slug: activity.id,
+        contributor: activity.username,
+        activity_definition: "my_activity",
+        occurred_at: activity.timestamp,
+        // ... other fields
+      });
+    }
+  },
+} satisfies Plugin;
+```
+
+### Importers/Exporters
+- **Paired Functions**: Each importer has a corresponding exporter
+- **Import**: Read files → Write to database
+- **Export**: Read database → Write to files
+- **Idempotent**: Safe to run multiple times
+- **Logging**: Log counts and progress
+
+### Aggregation
+- Runs after scraping, before export
+- Computes metrics defined in `aggregates/definitions.json`
+- Uses SQL for efficiency
+- Results cached in database and exported to JSON
+
+### Badge Evaluation
+- Runs after aggregation
+- Evaluates rules defined in `badges/definitions.json`
+- Three rule types: `count`, `total_points`, `streak`
+- Supports filters: role, activity_definition, date ranges
+- Results exported per contributor
+
+## Testing Requirements
+
+### Framework & Setup
+- **Testing Framework**: Vitest
 - **Location**: `src/__tests__/` directories
 - **Naming**: `{module-name}.test.ts`
-- **Coverage**: Happy path and edge cases
-- **Isolation**: Use in-memory database
-- **Cleanup**: Always clean up resources
+- **Database**: Use in-memory SQLite (`:memory:`) for isolation
+- **Cleanup**: Always close database and remove test files in `afterEach`
 
-### Test Pattern
-
+### Test Structure
 ```typescript
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { createDatabase, initializeSchema } from "@ohcnetwork/leaderboard-api";
 import type { Database } from "@ohcnetwork/leaderboard-api";
-import { createLogger } from "../logger";
 
 describe("Feature Name", () => {
   let db: Database;
-  const logger = createLogger(false); // Disable logging in tests
-
+  
   beforeEach(async () => {
-    // Setup: Create fresh database
     db = createDatabase(":memory:");
     await initializeSchema(db);
-
-    // Additional setup (seed data, etc.)
+    // Additional setup
   });
-
+  
   afterEach(async () => {
-    // Cleanup: Close database
     await db.close();
-
-    // Remove test files if created
-    // await rm(testDir, { recursive: true, force: true });
+    // Cleanup test files if created
   });
-
+  
   it("should handle happy path", async () => {
-    // Arrange: Set up test data
-    const input = { username: "alice", name: "Alice" };
-
-    // Act: Execute the function
+    // Arrange
+    const input = { /* test data */ };
+    
+    // Act
     const result = await functionUnderTest(db, input);
-
-    // Assert: Verify results
+    
+    // Assert
     expect(result).toBeDefined();
-    expect(result.username).toBe("alice");
+    expect(result.someField).toBe(expectedValue);
   });
-
-  it("should handle empty input", async () => {
-    const result = await functionUnderTest(db, []);
-    expect(result).toHaveLength(0);
-  });
-
-  it("should handle errors gracefully", async () => {
-    await expect(functionUnderTest(db, null)).rejects.toThrow("Invalid input");
-  });
-
-  it("should validate constraints", async () => {
-    // Test database constraints, validations, etc.
+  
+  it("should handle edge cases", async () => {
+    // Test error conditions, empty data, etc.
   });
 });
 ```
 
-### Test Categories
-
-**Unit Tests**: Test individual functions in isolation
-
-```typescript
-describe("contributorQueries.getByUsername", () => {
-  it("should return contributor by username", async () => {
-    await contributorQueries.create(db, { username: "alice" /* ... */ });
-    const result = await contributorQueries.getByUsername(db, "alice");
-    expect(result).not.toBeNull();
-  });
-
-  it("should return null for non-existent username", async () => {
-    const result = await contributorQueries.getByUsername(db, "nonexistent");
-    expect(result).toBeNull();
-  });
-});
-```
-
-**Integration Tests**: Test multiple components together
-
-```typescript
-describe("Plugin Integration", () => {
-  it("should import, scrape, and export data", async () => {
-    // Import existing data
-    await importContributors(db, dataDir, logger);
-
-    // Run plugin
-    await plugin.setup(ctx);
-    await plugin.scrape(ctx);
-
-    // Export data
-    await exportActivities(db, dataDir, logger);
-
-    // Verify exported files
-    const exported = await readdir(join(dataDir, "activities"));
-    expect(exported.length).toBeGreaterThan(0);
-  });
-});
-```
-
-**Edge Cases**: Test boundary conditions
-
-```typescript
-describe("Edge Cases", () => {
-  it("should handle very long usernames", async () => {
-    const longUsername = "a".repeat(255);
-    await contributorQueries.create(db, { username: longUsername });
-    const result = await contributorQueries.getByUsername(db, longUsername);
-    expect(result?.username).toBe(longUsername);
-  });
-
-  it("should handle special characters in slugs", async () => {
-    // Test with special characters
-  });
-
-  it("should handle large datasets efficiently", async () => {
-    // Insert 10k records and verify performance
-  });
-});
-```
-
-### Mocking External APIs
-
-```typescript
-import { vi } from "vitest";
-
-describe("Plugin with API calls", () => {
-  it("should fetch data from API", async () => {
-    // Mock fetch
-    const mockFetch = vi.fn().mockResolvedValue({
-      json: () => Promise.resolve([{ id: 1, title: "Test" }]),
-    });
-
-    global.fetch = mockFetch;
-
-    await plugin.scrape(ctx);
-
-    expect(mockFetch).toHaveBeenCalledWith(
-      expect.stringContaining("api.example.com"),
-    );
-  });
-});
-```
-
-### File System Tests
-
-```typescript
-import { mkdir, writeFile, rm } from "fs/promises";
-import { join } from "path";
-
-describe("File Operations", () => {
-  const testDir = "./test-data-temp";
-
-  beforeEach(async () => {
-    await mkdir(testDir, { recursive: true });
-  });
-
-  afterEach(async () => {
-    await rm(testDir, { recursive: true, force: true });
-  });
-
-  it("should read and parse markdown files", async () => {
-    await writeFile(
-      join(testDir, "test.md"),
-      "---\nusername: alice\n---\nContent",
-      "utf-8",
-    );
-
-    const result = await importFromMarkdown(testDir);
-    expect(result).toHaveLength(1);
-  });
-});
-```
-
-### Running Tests
-
-```bash
-# Run all tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run specific test file
-pnpm test path/to/test.test.ts
-
-# Generate coverage report
-pnpm test:coverage
-```
-
-### Tips
-
-- Test one thing per test case
-- Use descriptive test names
-- Arrange-Act-Assert pattern
-- Mock external dependencies
-- Test error conditions
-- Clean up all resources
-- Use in-memory database for speed
+### Coverage Requirements
+- Write tests for all new features
+- Include happy path and error cases
+- Test edge cases (empty data, null values, etc.)
+- Mock external API calls
 - Verify database state after operations
 
----
+## Do's ✅
 
-## Agent: Documentation Writer
+1. **Use Query Builders**: Leverage provided query helpers from `@ohcnetwork/leaderboard-api`
+2. **Write Tests**: Include unit tests for all new functionality
+3. **Add Documentation**: JSDoc comments for public APIs, README updates for significant changes
+4. **Type Everything**: Use strict TypeScript types, avoid `any`
+5. **Handle Errors**: Proper try-catch blocks with meaningful error messages
+6. **Log Appropriately**: Use structured logging (debug, info, warn, error)
+7. **Keep Plugins Simple**: One plugin per data source, focused responsibility
+8. **Use Environment Variables**: For sensitive configuration (API tokens, secrets)
+9. **Validate Input**: Check user input and external data
+10. **Follow ESM**: Use `.js` extensions in imports
 
-**Purpose**: Create and maintain documentation for the leaderboard system.
+## Don'ts ❌
 
-### Documentation Locations
+1. **Don't Modify Schema**: Core database schema changes require discussion and migration plan
+2. **Don't Use `any`**: Use `unknown` or proper types instead
+3. **Don't Skip Error Handling**: Always handle async function errors
+4. **Don't Commit Secrets**: No API tokens, passwords, or sensitive data in git
+5. **Don't Create Circular Dependencies**: Keep package dependencies acyclic
+6. **Don't Use Server-Side Features**: Next.js must support static export (no SSR, no API routes)
+7. **Don't Forget Extensions**: ESM requires `.js` extensions in local imports
+8. **Don't Block**: Use async/await, avoid synchronous I/O in hot paths
+9. **Don't Mutate**: Prefer immutable patterns, especially with React state
+10. **Don't Over-Engineer**: Keep solutions simple and maintainable
 
-1. **System Documentation**: [`docs/`](docs/) directory
-   - Written in MDX (Markdown + JSX)
-   - Powered by Fumadocs
-   - Deployed with the web app
+## Build Commands Reference
 
-2. **Package Documentation**: README files in each package
-   - [`packages/api/README.md`](packages/api/README.md)
-   - [`packages/plugin-runner/README.md`](packages/plugin-runner/README.md)
-   - etc.
+```bash
+# Development
+pnpm install                # Install all dependencies
+pnpm build:packages         # Build all packages
+pnpm build:data             # Run plugin runner to collect data
+pnpm build:web              # Build Next.js static site
+pnpm build                  # Build everything (packages + data + web)
+pnpm dev                    # Start Next.js dev server
 
-3. **API Documentation**: JSDoc comments in source code
-   - Inline documentation for functions, types, interfaces
-   - Picked up by TypeScript language server
+# Data Management
+pnpm setup:dev              # Generate dummy data for development
+pnpm clean:dev              # Remove development data directory
+pnpm reset:dev              # Clean and regenerate development data
+pnpm data:import            # Import existing data from files to database
+pnpm data:scrape            # Run plugins to scrape new data
+pnpm data:export            # Export database to files
 
-### MDX Documentation Style
+# Testing
+pnpm test                   # Run all tests
+pnpm test:watch             # Run tests in watch mode
+pnpm test:coverage          # Generate coverage report
 
-```mdx
----
-title: Feature Name
-description: Brief description of the feature
----
-
-# Feature Name
-
-Brief introduction paragraph explaining what this feature does and why it's useful.
-
-## Overview
-
-High-level explanation of the feature.
-
-## Quick Start
-
-\`\`\`bash
-
-# Quick example to get started
-
-pnpm install
-pnpm build
-\`\`\`
-
-## Detailed Guide
-
-### Step 1: Setup
-
-Detailed instructions...
-
-### Step 2: Configuration
-
-More details...
-
-## Examples
-
-### Example 1: Basic Usage
-
-\`\`\`typescript
-import { feature } from "@package/name";
-
-const result = await feature.doSomething();
-\`\`\`
-
-### Example 2: Advanced Usage
-
-\`\`\`typescript
-// More complex example
-\`\`\`
-
-## API Reference
-
-### `functionName(param: Type): ReturnType`
-
-Description of what the function does.
-
-**Parameters:**
-
-- `param` - Description of parameter
-
-**Returns:**
-
-- Description of return value
-
-**Example:**
-\`\`\`typescript
-const result = functionName("value");
-\`\`\`
-
-## Architecture
-
-\`\`\`mermaid
-graph LR
-A[Input] --> B[Process]
-B --> C[Output]
-\`\`\`
-
-## Best Practices
-
-- Do this
-- Don't do that
-- Consider this
-
-## Troubleshooting
-
-### Problem: Error message
-
-**Solution:** How to fix it.
-
-## Related
-
-- [Related Doc 1](/docs/related)
-- [Related Doc 2](/docs/other)
+# Utilities
+pnpm clean                  # Clean all build artifacts
+pnpm create-leaderboard-plugin <path>      # Scaffold new plugin
+pnpm create-data-repo <path>               # Initialize data repository
 ```
 
-### Mermaid Diagrams
+## Environment Variables
 
-Use Mermaid for visualizing architecture and flows:
+```bash
+# Required
+WORKSPACE_ROOT              # Monorepo root (usually set by build system)
+LEADERBOARD_DATA_DIR        # Path to data repository (default: ./data)
 
-```mermaid
-graph TB
-    DataSource[Data Source] --> Plugin[Plugin]
-    Plugin --> Database[(Database)]
-    Database --> NextJS[Next.js]
-    NextJS --> StaticSite[Static Site]
+# Optional
+LIBSQL_DB_URL               # Database URL (default: file in data dir)
+DEBUG                       # Enable debug logging
+
+# Plugin-specific (examples)
+GITHUB_TOKEN                # GitHub API token
+SLACK_API_TOKEN             # Slack API token
 ```
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant CLI
-    participant Plugin
-    participant Database
+## Plugin Development Workflow
 
-    User->>CLI: Run scrape command
-    CLI->>Plugin: Load plugin
-    Plugin->>Database: Setup activity definitions
-    Plugin->>Database: Scrape and store activities
-    CLI->>Database: Export to files
+1. Run `pnpm create-leaderboard-plugin <path>` to scaffold
+2. Implement `setup()` to define activity definitions
+3. Implement `scrape()` to fetch and store activities
+4. Use query builders from API package
+5. Write tests in `src/__tests__/plugin.test.ts`
+6. Export as default ES module
+7. Build and test with plugin-runner
+8. Deploy plugin manifest.js to accessible URL
+9. Configure in data repository's `config.yaml`
+
+## Data Repository Setup Workflow
+
+1. Run `pnpm create-data-repo <path>` to initialize
+2. Answer interactive prompts for organization info
+3. Edit generated `config.yaml` to add plugin configurations
+4. Set environment variables for plugin API tokens
+5. Run `pnpm build:data` to populate activities
+6. Commit contributors and activities to git
+7. Deploy leaderboard web app pointing to data repository
+
+## Common Patterns
+
+### Loading Configuration
+```typescript
+import { loadConfig } from "@leaderboard/plugin-runner/config";
+const config = await loadConfig(dataDir);
 ```
 
-### JSDoc Style
+### Creating Contributor
+```typescript
+import { contributorQueries } from "@ohcnetwork/leaderboard-api";
 
-````typescript
-/**
- * Fetch all contributors from the database
- *
- * @param db - Database instance
- * @param filter - Optional filter criteria
- * @returns Array of contributors
- *
- * @example
- * ```typescript
- * const contributors = await getAllContributors(db);
- * const coreMembers = await getAllContributors(db, { role: "core" });
- * ```
- */
-export async function getAllContributors(
-  db: Database,
-  filter?: ContributorFilter,
-): Promise<Contributor[]> {
-  // Implementation
+await contributorQueries.upsert(db, {
+  username: "alice",
+  name: "Alice Smith",
+  role: "core",
+  avatar_url: "https://example.com/avatar.jpg",
+  bio: "Software engineer",
+  // ... other fields
+});
+```
+
+### Creating Activity
+```typescript
+import { activityQueries } from "@ohcnetwork/leaderboard-api";
+
+await activityQueries.create(db, {
+  slug: "alice-pr-123",
+  contributor: "alice",
+  activity_definition: "pr_merged",
+  title: "Fix bug in auth",
+  occurred_at: new Date().toISOString(),
+  points: 10,
+  link: "https://github.com/org/repo/pull/123",
+  // ... other fields
+});
+```
+
+### Fetching Data in Next.js
+```typescript
+// At build time only (SSG)
+import { getAllContributors } from "@/lib/data/loader";
+
+export default async function Page() {
+  const contributors = await getAllContributors();
+  return (
+    <div>
+      {contributors.map(c => (
+        <div key={c.username}>{c.name}</div>
+      ))}
+    </div>
+  );
 }
-````
+```
 
-### Documentation Checklist
+## Next.js Constraints
 
-- [ ] Clear title and description
-- [ ] Quick start example
-- [ ] Step-by-step instructions
-- [ ] Code examples that work
-- [ ] Architecture diagrams where helpful
-- [ ] API reference for public functions
-- [ ] Links to related documentation
-- [ ] Troubleshooting section
-- [ ] Examples are up-to-date with codebase
-- [ ] No broken links
-- [ ] Proper formatting and structure
+- **Static Export Only**: No server-side runtime features
+- **SSG Required**: All pages must be statically generated at build time
+- **No API Routes**: Cannot use Next.js API routes
+- **No Server Components (runtime)**: Components can use SSG, but no runtime server features
+- **Unoptimized Images**: Image optimization disabled for static export
+- **Data Loading**: All data must be available at build time from LibSQL
 
-### Tips
+## Documentation Standards
 
-- Write for different audiences (beginners, advanced users)
-- Include working code examples
-- Use diagrams to explain complex concepts
-- Keep examples up-to-date
-- Link to relevant source files
-- Test code examples before publishing
-- Use consistent terminology
-- Include troubleshooting for common issues
+- **Location**: `docs/` for system docs, package READMEs for package-specific
+- **Format**: MDX for documentation site, Markdown for READMEs
+- **Code Examples**: Include working examples, keep them up-to-date
+- **Diagrams**: Use Mermaid for architecture and flow diagrams
+- **Links**: Use relative links to reference code files
+- **Style**: Clear, concise, with step-by-step instructions
 
----
+## When in Doubt
 
-## General Tips for All Agents
-
-1. **Read First**: Review existing code and documentation before starting
-2. **Follow Conventions**: Adhere to established patterns in the codebase
-3. **Test Thoroughly**: Write and run tests for all changes
-4. **Document Changes**: Update documentation when making significant changes
-5. **Use Type Safety**: Leverage TypeScript's type system
-6. **Handle Errors**: Always handle errors gracefully with proper logging
-7. **Ask Questions**: When in doubt, ask for clarification
-8. **Review Changes**: Double-check your work before considering it complete
-9. **Keep It Simple**: Prefer simple solutions over complex ones
-10. **Be Consistent**: Match the style and patterns of surrounding code
+1. Check existing implementations in `packages/plugin-dummy/` for plugin patterns
+2. Review tests for expected behavior and patterns
+3. Consult documentation in `docs/` directory
+4. Follow TypeScript type definitions for API contracts
+5. Ask for clarification on architectural decisions before making changes
 
 ---
 > Source: [ohcnetwork/leaderboard](https://github.com/ohcnetwork/leaderboard) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
