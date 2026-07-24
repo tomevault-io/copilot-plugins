@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Nimbalyst/nimbalyst](https://github.com/Nimbalyst/nimbalyst).
+Original source: `CLAUDE.md` in [Nimbalyst/nimbalyst](https://github.com/Nimbalyst/nimbalyst).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -25,7 +25,7 @@ Original source: `AGENTS.md` in [Nimbalyst/nimbalyst](https://github.com/Nimbaly
 - [nimbalyst](https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/feedback/claude-plugin/skills/feedback-intake/SKILL.md)
 - [nimbalyst](https://github.com/Nimbalyst/nimbalyst/tree/main/packages/extensions/extension-dev-kit/claude-plugin/skills/extension-development/SKILL.md)
 
-From [Nimbalyst/nimbalyst](https://github.com/Nimbalyst/nimbalyst) — a repo with 1290+ stars on GitHub.
+From [Nimbalyst/nimbalyst](https://github.com/Nimbalyst/nimbalyst) — a repo with 1306+ stars on GitHub.
 
 ---
 
