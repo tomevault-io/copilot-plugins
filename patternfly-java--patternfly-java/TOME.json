@@ -1,0 +1,75 @@
+{
+  "name": "patternfly-java",
+  "owner": "patternfly-java",
+  "repo": "patternfly-java",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "patternfly-java",
+      "path": ".claude/skills/pf-lint/SKILL.md",
+      "github_url": "https://github.com/patternfly-java/patternfly-java/tree/main/.claude/skills/pf-lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "patternfly-java",
+      "path": ".claude/skills/pf-align/SKILL.md",
+      "github_url": "https://github.com/patternfly-java/patternfly-java/tree/main/.claude/skills/pf-align/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "patternfly-java",
+      "path": ".claude/skills/pf-status/SKILL.md",
+      "github_url": "https://github.com/patternfly-java/patternfly-java/tree/main/.claude/skills/pf-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "patternfly-java",
+      "path": ".claude/skills/pf-update/SKILL.md",
+      "github_url": "https://github.com/patternfly-java/patternfly-java/tree/main/.claude/skills/pf-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "patternfly-java",
+      "path": ".claude/skills/pf-compare/SKILL.md",
+      "github_url": "https://github.com/patternfly-java/patternfly-java/tree/main/.claude/skills/pf-compare/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/patternfly-java/patternfly-java",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T07:59:40Z"
+}
