@@ -1,0 +1,14 @@
+{
+  "name": "jnmetacode--ai-shortfilm-prompts",
+  "displayName": "ai-shortfilm-prompts",
+  "description": "ai-shortfilm-prompts",
+  "version": "1.0.0",
+  "author": "jnMetaCode",
+  "homepage": "https://github.com/jnMetaCode/ai-shortfilm-prompts",
+  "skills": [
+    {
+      "name": "ai-shortfilm-prompts",
+      "description": ""
+    }
+  ]
+}
