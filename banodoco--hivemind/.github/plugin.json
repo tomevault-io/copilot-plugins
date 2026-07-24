@@ -1,0 +1,14 @@
+{
+  "name": "banodoco--hivemind",
+  "displayName": "hivemind",
+  "description": "hivemind",
+  "version": "1.0.0",
+  "author": "banodoco",
+  "homepage": "https://github.com/banodoco/hivemind",
+  "skills": [
+    {
+      "name": "hivemind",
+      "description": ""
+    }
+  ]
+}
