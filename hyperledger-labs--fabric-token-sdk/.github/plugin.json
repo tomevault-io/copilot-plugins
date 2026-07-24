@@ -1,0 +1,9 @@
+{
+  "name": "hyperledger-labs--fabric-token-sdk",
+  "displayName": "fabric-token-sdk",
+  "description": "fabric-token-sdk",
+  "version": "1.0.0",
+  "author": "hyperledger-labs",
+  "homepage": "https://github.com/hyperledger-labs/fabric-token-sdk",
+  "skills": []
+}
