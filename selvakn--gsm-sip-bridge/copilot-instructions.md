@@ -1,42 +1,56 @@
-## release-notes
+## specify-rules
 
-> Guidelines for writing release notes before tagging a new version
+> Project Development Guidelines
 
 
-# Release Notes Process
+# gsm-sip-bridge Development Guidelines
 
-`RELEASE_NOTES.md` is a cumulative changelog that carries historical release notes for all versions (newest first). Before creating a new git tag, a new section MUST be added at the top of the file.
+Auto-generated from all feature plans. Last updated: 2026-05-26
 
-## Format
+## Active Technologies
+- C++17 (GCC 9+) + PJSIP/PJSUA2 (SIP + media), mINI (INI parsing, header-only, MIT) (002-sip-audio-echo)
+- N/A (configuration file only, no persistent state) (002-sip-audio-echo)
+- C++17 + ALSA (`libasound2`), PJSIP (`libpjproject`), mINI (MIT, header-only INI parser), Google Test (003-gsm-sip-bridge)
+- N/A (stateless runtime) (003-gsm-sip-bridge)
+- C++17 (GCC 9+) + PJSIP/PJSUA2 (SIP + media), libasound2 (ALSA), mINI (INI parsing, header-only, MIT), Google Test (004-multi-card-support)
+- N/A (stateless runtime, config.ini read-only at startup) (004-multi-card-support)
+- C++17 (GCC 9+) + prometheus-cpp (MIT, Prometheus client for C++), PJSIP/PJSUA2, libasound2, mINI (005-observability-metrics)
+- N/A (Prometheus handles metric storage) (005-observability-metrics)
+- C++17 (GCC 9+) + cpp-httplib v0.41.0 (MIT, header-only HTTP client), SQLite3 (public domain), existing PJSIP/ALSA/prometheus-cpp stack (006-sms-discord-forward)
+- SQLite3 for SMS persistence (`sms.db`) (006-sms-discord-forward)
+- Rust stable (pinned by `rust-toolchain.toml`); same MSRV as v5.x. (010-scheduled-card-restart)
+- None. The scheduler is stateless across process restarts (per FR-015, no catch-up). All cycle state lives in memory inside `CardPool` for the duration of a cycle. (010-scheduled-card-restart)
 
-```markdown
-# Release Notes
+- C++17 (GCC 9+) + libasound2 (ALSA), libudev (USB discovery) (001-gsm-audio-echo)
 
-## vX.Y.Z
+## Project Structure
 
-- **Feature Name** -- One-sentence description of the feature and its user-facing value.
-- **Another Feature** -- Description.
-
-## vX.Y.W (previous release)
-
-- ...
+```text
+src/
+tests/
 ```
 
-## Rules
+## Commands
 
-1. Add a new `## vX.Y.Z` section at the top (below the `# Release Notes` heading) before tagging.
-2. Each bullet must start with a bold feature name followed by a concise description.
-3. Focus on user-facing changes: new capabilities, changed behavior, removed functionality.
-4. Do NOT list internal refactors, CI changes, or dependency bumps unless they affect users.
-5. For patch releases (x.y.Z), list bug fixes instead of features.
-6. NEVER remove or edit older version sections -- the file is the historical record.
-7. The publish workflow extracts the section matching the tagged version and includes it on the GitHub Release page.
+# Add commands for C++17 (GCC 9+)
 
-## Workflow
+## Code Style
 
-1. As features merge to main, add bullets under a new `## vX.Y.Z` heading at the top.
-2. Review and finalize the section before running `git tag vX.Y.Z`.
-3. Push the tag -- CI extracts the matching section and publishes the release with those notes.
+C++17 (GCC 9+): Follow standard conventions
+
+## Recent Changes
+- 010-scheduled-card-restart: Added Rust stable (pinned by `rust-toolchain.toml`); same MSRV as v5.x.
+- 006-sms-discord-forward: Added C++17 (GCC 9+) + cpp-httplib v0.41.0 (MIT, header-only HTTP client), SQLite3 (public domain), existing PJSIP/ALSA/prometheus-cpp stack
+- 005-observability-metrics: Added C++17 (GCC 9+) + prometheus-cpp (MIT, Prometheus client for C++), PJSIP/PJSUA2, libasound2, mINI
+
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
+
+<!-- SPECKIT START -->
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
+<!-- SPECKIT END -->
 
 ---
 > Source: [selvakn/gsm-sip-bridge](https://github.com/selvakn/gsm-sip-bridge) — distributed by [TomeVault](https://tomevault.io).
