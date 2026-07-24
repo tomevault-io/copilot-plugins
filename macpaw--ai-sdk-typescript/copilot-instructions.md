@@ -1,37 +1,36 @@
 ## ai-sdk-typescript
 
-> Apply these rules when integrating MacPaw AI Gateway.
+> Use this guidance when integrating MacPaw AI Gateway into this project.
 
-# @macpaw/ai-sdk — AI Gateway Instructions
+# @macpaw/ai-sdk — AI Gateway Integration
 
-Apply these rules when integrating MacPaw AI Gateway.
+Use this guidance when integrating MacPaw AI Gateway into this project.
 
-## Use the correct package surface
+## Rules
 
-- `@macpaw/ai-sdk`: `createAIGatewayProvider`, `createGatewayProvider`, `createGatewayFetch`, `createVideoClient`, errors, `GatewayProviderSettings`.
-- `@macpaw/ai-sdk/provider`: compatibility alias only.
-- `@macpaw/ai-sdk/nestjs`: NestJS module and decorators.
-- Install `@ai-sdk/openai` when using `createAIGatewayProvider` or `createGatewayProvider`.
-- Never use `createAIGatewayClient`, `@macpaw/ai-sdk/client`, `runtime`, `types`, or `testing`.
+- Use `@macpaw/ai-sdk` for `createAIGatewayProvider`, `createGatewayProvider`, `createGatewayFetch`, `createVideoClient`, errors, and `GatewayProviderSettings`.
+- Use `@macpaw/ai-sdk/nestjs` for `AIGatewayModule`, `@InjectAIGateway()`, and `AIGatewayExceptionFilter`.
+- Keep generation primitives on upstream `ai` / `@ai-sdk/*`.
+- Install `@ai-sdk/openai` when using `createAIGatewayProvider` or `createGatewayProvider`; those paths depend on the OpenAI-compatible provider package.
+- Do not use `createAIGatewayClient`, `@macpaw/ai-sdk/client`, `runtime`, `types`, or `testing`; those surfaces do not exist.
 - For UI hooks or schema helpers, follow the versioned upstream docs for the installed `ai` / `@ai-sdk/react` major version; this package does not redefine those APIs.
-
-## Choose one integration path
-
-- NestJS app: use `AIGatewayModule` and `@InjectAIGateway()`.
-- Next.js / Vercel AI SDK app: keep generation on `ai`, replace only the model provider.
-- Raw server or multipart HTTP flow: use `createGatewayFetch`.
-- Video generation: use `createVideoClient`.
-- Existing `openai` / `@ai-sdk/openai` / `@anthropic-ai/sdk` usage: treat as migration.
 
 ## Guardrails
 
-- Do not invent a token source. Ask once if unclear.
-- Do not place gateway tokens in browser-only code.
-- `env` supports only `'production'`; use `baseURL` for staging/custom hosts.
-- `createGatewayFetch` requires a resolved `baseURL`; prefer `resolveGatewayBaseURL()` when you want the default production host.
-- Remove legacy imports and dependencies only after confirming all usages are migrated.
+- Do not invent a token source. If server-side token retrieval is unclear, ask one concise question.
+- Do not put real gateway tokens in browser-only code.
+- Use `env: 'production'` only for the default MacPaw host. Use `baseURL` for staging or custom hosts.
+- `createGatewayFetch` requires a resolved `baseURL`; do not pass only `env`. Prefer `resolveGatewayBaseURL()` when you want the default production host.
+- Remove old provider dependencies only after verifying there are no remaining usages.
 
-## Canonical snippets
+## Preferred paths
+
+- NestJS: register `AIGatewayModule.forRoot()` / `forRootAsync()`, inject `GatewayProviderSettings` via `@InjectAIGateway()`, build the provider inside services.
+- Next.js / Vercel AI SDK: keep `generateText`, `streamText`, hooks, and other Vercel APIs on `ai`; swap only the model provider to `createAIGatewayProvider`.
+- Raw server HTTP or multipart: use `createGatewayFetch`.
+- Video generation (create job, poll, fetch content): use `createVideoClient`.
+
+## Minimal examples
 
 ```ts
 const gateway = createAIGatewayProvider({
@@ -55,15 +54,20 @@ const videos = createVideoClient({
 const job = await videos.create({ model: 'veo-2', prompt: 'A sunset over the ocean' });
 ```
 
-## Error handling and verification
+## Error handling
 
-- Use `isAIGatewayError(error)` with `ErrorCode`.
-- Prefer `AIGatewayExceptionFilter` in NestJS.
-- Read available scripts from `package.json` before running checks.
+- Prefer `isAIGatewayError(error)` and switch on `ErrorCode`.
+- For NestJS, prefer `AIGatewayExceptionFilter`.
+- Billing states are `InsufficientCredits` / `SubscriptionExpired`.
+
+## Verification
+
+- Read `package.json` scripts first.
 - Run the relevant subset of `typecheck`, `lint`, `test`, and `build`.
-- Report the chosen path, changed files, token source, checks run, and remaining manual steps.
+- Add one focused smoke path when integrating.
+- Report: chosen integration path, files changed, token source, verification run, and any manual env steps left.
 - If env variables were added or required, name them explicitly, e.g. `AI_GATEWAY_TOKEN` and `AI_GATEWAY_BASE_URL`.
 
 ---
 > Source: [MacPaw/ai-sdk-typescript](https://github.com/MacPaw/ai-sdk-typescript) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
