@@ -3,8 +3,8 @@
   "owner": "Kototoro-app",
   "repo": "Kototoro",
   "description": "Manga, Novel, and Video reader for Android",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,117 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/haze/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/haze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".claude/skills/ui/haze/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.claude/skills/ui/haze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/haze-faq/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/haze-faq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/haze-blur/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/haze-blur/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".claude/skills/ui/haze-faq/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.claude/skills/ui/haze-faq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".claude/skills/ui/haze-blur/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.claude/skills/ui/haze-blur/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/haze-patterns/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/haze-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".claude/skills/ui/haze-patterns/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.claude/skills/ui/haze-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/haze-migration/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/haze-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".claude/skills/ui/haze-migration/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.claude/skills/ui/haze-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/haze-performance/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/haze-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".claude/skills/ui/haze-performance/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.claude/skills/ui/haze-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/haze-custom-effects/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/haze-custom-effects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".claude/skills/ui/haze-custom-effects/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.claude/skills/ui/haze-custom-effects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/ui/kototoro-haze-sheet-artifacts/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/ui/kototoro-haze-sheet-artifacts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/performance/kototoro-browse-source-scroll/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/performance/kototoro-browse-source-scroll/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/performance/kototoro-main-loading-stability/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/performance/kototoro-main-loading-stability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Kototoro",
+      "path": ".codex/skills/performance/kototoro-details-return-stability/SKILL.md",
+      "github_url": "https://github.com/Kototoro-app/Kototoro/tree/main/.codex/skills/performance/kototoro-details-return-stability/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Kototoro-app/Kototoro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T06:14:44Z"
+  "distributed_at": "2026-07-24T04:51:24Z"
 }
