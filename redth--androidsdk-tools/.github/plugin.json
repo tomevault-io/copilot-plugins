@@ -1,0 +1,18 @@
+{
+  "name": "redth--androidsdk-tools",
+  "displayName": "AndroidSdk.Tools",
+  "description": "AndroidSdk.Tools",
+  "version": "1.0.0",
+  "author": "Redth",
+  "homepage": "https://github.com/Redth/AndroidSdk.Tools",
+  "skills": [
+    {
+      "name": "android-cli",
+      "description": ""
+    },
+    {
+      "name": "AndroidSdk.Tools",
+      "description": ""
+    }
+  ]
+}
