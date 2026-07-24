@@ -1,0 +1,57 @@
+{
+  "name": "prism",
+  "owner": "prism-php",
+  "repo": "prism",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "developing-with-prism",
+      "path": "resources/boost/skills/developing-with-prism",
+      "github_url": "https://github.com/prism-php/prism/tree/main/resources/boost/skills/developing-with-prism",
+      "description": ""
+    },
+    {
+      "name": "prism",
+      "path": "resources/boost/skills/developing-with-prism/SKILL.md",
+      "github_url": "https://github.com/prism-php/prism/tree/main/resources/boost/skills/developing-with-prism/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/prism-php/prism",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T09:33:12Z"
+}
