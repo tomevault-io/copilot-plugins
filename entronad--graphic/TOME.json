@@ -1,0 +1,63 @@
+{
+  "name": "graphic",
+  "owner": "entronad",
+  "repo": "graphic",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flutter-chart",
+      "path": "skills/flutter-chart",
+      "github_url": "https://github.com/entronad/graphic/tree/main/skills/flutter-chart",
+      "description": ""
+    },
+    {
+      "name": "graphic",
+      "path": "skills/flutter-chart/SKILL.md",
+      "github_url": "https://github.com/entronad/graphic/tree/main/skills/flutter-chart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "graphic",
+      "path": ".agents/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/entronad/graphic/tree/main/.agents/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/entronad/graphic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-24T04:45:09Z"
+}
