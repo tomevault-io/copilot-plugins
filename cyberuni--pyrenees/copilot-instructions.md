@@ -1,171 +1,54 @@
-## tailwindcss
+## updating-packages
 
-> This rule provides guidelines and best practices for using Tailwind CSS in our project. Follow these conventions to maintain consistent styling across the codebase.
+> How to update packages
 
-# Tailwind CSS Guidelines
+# Updating Packages in the Monorepo
 
-This rule provides guidelines and best practices for using Tailwind CSS in our project. Follow these conventions to maintain consistent styling across the codebase.
+This rule explains how to update dependencies in a pnpm-based monorepo, including workspace management, best practices, and commit guidelines.
 
-## Configuration
+## Step-by-step Instructions
 
-The main Tailwind configuration is in [tailwind.css](mdc:libraries/design/src/tailwind.css). This file defines our:
+1. **Check for outdated packages**:
+   - In the root: `pnpm outdated`
+   - In a specific package: `pnpm outdated --filter <package-name>`
+2. **Update a dependency in a specific package**:
+   - `pnpm up <package-name>[@version] --filter <workspace>`
+   - Example: `pnpm up lodash --filter ./libraries/design`
+3. **Update all dependencies in a specific package**:
+   - `pnpm up --latest --filter <workspace>`
+4. **Update a dependency across all workspaces**:
+   - `pnpm up <package-name> -r`
+5. **Update all dependencies in the monorepo**:
+   - `pnpm up --latest -r`
+6. **Update the lock file**:
+   - After updating, run `pnpm install` at the root to ensure the lock file is up to date.
+7. **Commit your changes**:
+   - Commit the updated `package.json` and `pnpm-lock.yaml` files.
+   - Follow the commit message guidelines in [commit-messages.mdc](mdc:commit-messages.mdc).
+8. **Create a PR if required**:
+   - If updating dependencies for security or maintenance, describe the reason and any breaking changes in the PR.
 
-- Custom colors
-- Extended theme values
-- Content paths
-- Custom prefix
+## Guidelines
+- Always check for breaking changes in the updated packages.
+- Prefer updating to the latest stable version unless a specific version is required.
+- Coordinate with the team when updating shared dependencies.
+- Reference [installing-packages.mdc](mdc:installing-packages.mdc) for related instructions.
 
-## Best Practices
+## Example
 
-1. **Use prefix**
-   Our Tailwind classes are prefixed (e.g. `pds:red-100`). Check [tailwind.css](mdc:libraries/design/src/tailwind.css) for the prefix used.
+```sh
+# Check for outdated packages in the root
+pnpm outdated
 
-2. **Use Semantic Class Names**
-   - Prefer semantic class names in corresponding context.
-   - Example: `className="heading-text-sm"` instead of `className:"text-100"`
+# Update a single package everywhere
+pnpm up lodash -r
 
-3. **Class Order**
-   Follow this order for classes:
-   ```tsx
-   className="
-     layout-classes    // flex, grid, container
-     sizing-classes   // w-, h-, max-w-
-     spacing-classes  // p-, m-, gap-
-     border-classes   // border-, rounded-
-     background      // bg-, gradient-
-     typography      // text-, font-
-     states          // hover:, focus:, active:
-     misc            // cursor-, select-, etc.
-   "
-   ```
+# Update all dependencies in a workspace
+pnpm up --latest --filter ./apps/web
 
-4. **Responsive Design**
-   - Use Tailwind's responsive prefixes: `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
-   - Desktop-first approach: base styles are for desktop (defaults to `1920px` width), add responsive classes for other screens sizes
-
-   ```tsx
-   className="pds:w-full pds:md:w-1/2 pds:lg:w-1/3"
-   ```
-
-5. **Dark Mode**
-   - Use the `dark:` prefix for dark mode styles
-   - Example: `className="pds:bg-white pds:dark:bg-steel-gray-800"`
-
-6. **Handle variants**
-   - Use `class-variance-authority` to handle variants
-
-```tsx
-// Good
-import { cva } from 'class-variance-authority'
-
-const variants = cva([
-	'pds:rounded',
-	'pds:px-4 pds:py-2'
-], {
-	variants: {
-		appearance: {
-			primary: 'pds:bg-blue-500 pds:hover:bg-blue-600',
-			secondary: 'pds:bg-gray-500 pds:hover:bg-gray-600'
-		}
-	},
-	defaultVariants: {
-		appearance: 'primary'
-	}
-})
-
-export function Button({ appearance = 'primary', children }) {
-	return (
-	<button className={variants({ apperance })}>
-		{children}
-	</button>
-)
-}
+# Update everything in the monorepo
+pnpm up --latest -r
 ```
-
-7. **Handle tailwind merge**
-   When custom `className` is being merged with internal class names,
-	 and it is applied to basic Html element or 3rd party component,
-	 use the customized `twMerge` function to resolve any conflicts.
-	 For example:
-
-```tsx
-// Good
-import { cva } from 'class-variance-authority'
-import { twMerge } from '../utils/tw_merge.ts'
-
-const variants = cva([
-	'pds:rounded',
-	'pds:px-4 pds:py-2'
-], {
-	variants: {
-		appearance: {
-			primary: 'pds:bg-blue-500 pds:hover:bg-blue-600',
-			secondary: 'pds:bg-gray-500 pds:hover:bg-gray-600'
-		}
-	},
-	defaultVariants: {
-		appearance: 'primary'
-	}
-})
-
-export function Button({ appearance = 'primary', children }) {
-	return (
-	<button className={twMerge(variants({ apperance }))}>
-		{children}
-	</button>
-)
-}
-```
-
-## Common Patterns
-
-### Layout
-```tsx
-// Centered container
-<div className="pds:container pds:mx-auto pds:px-4">
-
-// Card layout
-<div className="pds:rounded-lg pds:shadow-md pds:bg-white pds:p-6">
-
-// Grid layout
-<div className="pds:grid pds:grid-cols-1 pds:md:grid-cols-2 pds:lg:grid-cols-3 pds:gap-4">
-```
-
-### Forms
-```tsx
-// Input field
-<input className="pds:w-full pds:px-3 pds:py-2 pds:border pds:rounded-md pds:focus:ring-2 pds:focus:ring-blue-500 pds:focus:border-blue-500">
-
-// Label
-<label className="pds:block pds:text-sm pds:font-medium pds:text-gray-700">
-```
-
-### Interactive Elements
-```tsx
-// Primary button
-<button className="pds:px-4 pds:py-2 pds:bg-blue-500 pds:hover:bg-blue-600 pds:text-white pds:vounded-md">
-
-// Secondary button
-<button className="pds:px-4 pds:py-2 pds:bg-gray-200 pds:hover:bg-gray-300 pds:text-gray-800 pds:rounded-md">
-```
-
-## Resources
-
-- [Tailwind CSS Documentation](mdc:https:/tailwindcss.com/docs)
-- [Tailwind CSS Cheat Sheet](mdc:https:/nerdcave.com/tailwind-cheat-sheet)
-- [Tailwind UI Components](mdc:https:/tailwindui.com)
-
-## Troubleshooting
-
-1. **Classes not applying:**
-   - Check content paths in [tailwind.css](mdc:libraries/design/src/tailwind.css)
-   - Verify class names are correct
-   - Clear PostCSS cache
-
-2. **Custom classes not working:**
-   - Verify configuration in [tailwind.css](mdc:libraries/design/src/tailwind.css)
-   - Check for typos in class names
-   - Ensure proper plugin installation
 
 When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
 
