@@ -1,0 +1,9 @@
+{
+  "name": "caian-org--ansible-stow",
+  "displayName": "ansible-stow",
+  "description": "ansible-stow",
+  "version": "1.0.0",
+  "author": "caian-org",
+  "homepage": "https://github.com/caian-org/ansible-stow",
+  "skills": []
+}
