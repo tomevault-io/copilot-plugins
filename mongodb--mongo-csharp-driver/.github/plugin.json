@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongo-csharp-driver",
+  "displayName": "mongo-csharp-driver",
+  "description": "mongo-csharp-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-csharp-driver",
+  "skills": []
+}
