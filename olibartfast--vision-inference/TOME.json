@@ -4,7 +4,7 @@
   "repo": "vision-inference",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/olibartfast/vision-inference",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T19:09:31Z"
+  "distributed_at": "2026-07-24T00:25:33Z"
 }
