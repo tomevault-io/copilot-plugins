@@ -1,0 +1,9 @@
+{
+  "name": "mlflow-oidc--mlflow-oidc-auth",
+  "displayName": "mlflow-oidc-auth",
+  "description": "mlflow-oidc-auth",
+  "version": "1.0.0",
+  "author": "mlflow-oidc",
+  "homepage": "https://github.com/mlflow-oidc/mlflow-oidc-auth",
+  "skills": []
+}
