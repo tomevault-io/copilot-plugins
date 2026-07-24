@@ -4,7 +4,7 @@
   "repo": "elsa-core",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -245,5 +245,5 @@
   ],
   "source_url": "https://github.com/elsa-workflows/elsa-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T05:52:05Z"
+  "distributed_at": "2026-07-24T04:54:53Z"
 }
