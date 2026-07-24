@@ -1,22 +1,25 @@
 # Kami
 
-> Tome by [tw93](https://github.com/tw93/Kami) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [tw93](https://github.com/tw93/Kami), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [tw93/Kami](https://github.com/tw93/Kami).
+Original source: `CLAUDE.md` in [tw93/Kami](https://github.com/tw93/Kami).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [tw93/Kami](https://github.com/tw93/Kami) — a repo with 8787+ stars on GitHub.
+## Bundled Skills (1)
+
+- [Kami](https://github.com/tw93/Kami/tree/main/plugins/kami/skills/kami/SKILL.md)
+
+From [tw93/Kami](https://github.com/tw93/Kami) — a repo with 10049+ stars on GitHub.
 
 ---
 
