@@ -1,0 +1,9 @@
+{
+  "name": "open-policy-agent--opa",
+  "displayName": "opa",
+  "description": "opa",
+  "version": "1.0.0",
+  "author": "open-policy-agent",
+  "homepage": "https://github.com/open-policy-agent/opa",
+  "skills": []
+}
