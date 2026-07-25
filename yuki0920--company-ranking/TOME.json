@@ -4,7 +4,7 @@
   "repo": "company-ranking",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -125,5 +125,5 @@
   ],
   "source_url": "https://github.com/yuki0920/company-ranking",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T23:10:28Z"
+  "distributed_at": "2026-07-25T15:17:44Z"
 }
