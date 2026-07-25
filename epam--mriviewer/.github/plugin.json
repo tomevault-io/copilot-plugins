@@ -1,0 +1,18 @@
+{
+  "name": "epam--mriviewer",
+  "displayName": "mriviewer",
+  "description": "mriviewer",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/mriviewer",
+  "skills": [
+    {
+      "name": "mriviewer",
+      "description": ""
+    },
+    {
+      "name": "mriviewer",
+      "description": ""
+    }
+  ]
+}
