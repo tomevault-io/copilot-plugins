@@ -4,7 +4,7 @@
   "repo": "aesh",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aeshell/aesh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T00:39:18Z"
+  "distributed_at": "2026-07-25T23:18:04Z"
 }
