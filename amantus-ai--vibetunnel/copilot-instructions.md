@@ -1,16 +1,66 @@
 ## vibetunnel
 
-> When I am operating within this project, I must adhere to the following instructions:
+> Execute Gemini CLI with the context from docs/gemini.md for large codebase analysis.
 
-# Gemini Operational Instructions
+# /gemini
 
-When I am operating within this project, I must adhere to the following instructions:
+Execute Gemini CLI with the context from docs/gemini.md for large codebase analysis.
 
-1.  **Read `claude.md`:** Before performing any task, I must first read the `claude.md` file located in the current working directory.
-2.  **Contextual Awareness:** If the current working directory is a subfolder, I must read all `claude.md` files found in the current folder and all of its parent directories up to the project root. This ensures I have the full context, from the general project-level instructions to the specific subdirectory instructions.
+## Usage
 
-I will use the `read_many_files` tool to gather this information efficiently.
+```
+/gemini {prompt}
+```
+
+## Description
+
+This command reads the `docs/gemini.md` file which contains best practices for using the Gemini CLI with large codebases, then executes the appropriate gemini command based on your prompt.
+
+## Examples
+
+### Analyze a single file
+```
+/gemini @web/src/server/server.ts Explain this file's purpose and structure
+```
+
+### Check feature implementation
+```
+/gemini @web/src/ Has dark mode been implemented in this codebase?
+```
+
+### Analyze entire project
+```
+/gemini @./ Give me an overview of this entire project
+```
+
+### Verify security measures
+```
+/gemini @web/src/ @web/src/api/ Are SQL injection protections implemented?
+```
+
+## Implementation
+
+When you use this command, I will:
+1. Check if Gemini CLI is installed and accessible
+2. Read the contents of `docs/gemini.md` to understand Gemini CLI usage patterns (provide helpful error if missing)
+3. Analyze your prompt to determine the appropriate Gemini command structure
+4. Execute the gemini command with the proper flags and file inclusions
+5. Return the results to help with your codebase analysis
+
+## Error Handling
+
+- If Gemini CLI is not installed, provide installation instructions
+- If `docs/gemini.md` is missing, use built-in knowledge of Gemini CLI best practices
+- Handle command execution errors gracefully with helpful messages
+
+## Note
+
+The Gemini CLI is particularly useful when:
+- Analyzing entire codebases or large directories
+- Context window limits are a concern
+- You need to verify implementation of specific features across many files
+- Working with files totaling more than 100KB
 
 ---
 > Source: [amantus-ai/vibetunnel](https://github.com/amantus-ai/vibetunnel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
