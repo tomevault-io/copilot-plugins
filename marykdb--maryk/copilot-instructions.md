@@ -1,0 +1,25 @@
+## maryk
+
+> Read the README.md file for a general introduction.
+
+Welcome agent!
+
+Read the README.md file for a general introduction.
+
+The project contains multiple modules with each a README and a docs/documentation folder. 
+
+Do not commit agent-generated plans, specifications, or execution artifacts. Keep them outside the repository; `docs/superpowers/` is ignored.
+
+When implementing fixes, you don't need to run the full test suite but only the one related to the 
+module you are working on. If you only did changes in common code it is sufficient to only run the `jvmTest` task
+through gradle. You don't need to do a full build as the tests already builds the relevant code.
+
+Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
+
+When writing code:
+- Always use imports and not fully qualified names
+- Always try to write common code and not platform specific code where possible. 
+
+---
+> Source: [marykdb/maryk](https://github.com/marykdb/maryk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
