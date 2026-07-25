@@ -1,0 +1,22 @@
+{
+  "name": "kiali--kiali-operator",
+  "displayName": "kiali-operator",
+  "description": "kiali-operator",
+  "version": "1.0.0",
+  "author": "kiali",
+  "homepage": "https://github.com/kiali/kiali-operator",
+  "skills": [
+    {
+      "name": "kiali-operator",
+      "description": ""
+    },
+    {
+      "name": "kiali-operator",
+      "description": ""
+    },
+    {
+      "name": "kiali-operator",
+      "description": ""
+    }
+  ]
+}
