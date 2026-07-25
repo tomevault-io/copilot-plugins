@@ -1,0 +1,9 @@
+{
+  "name": "dynatrace-oss--dynatrace-github-action",
+  "displayName": "dynatrace-github-action",
+  "description": "dynatrace-github-action",
+  "version": "1.0.0",
+  "author": "dynatrace-oss",
+  "homepage": "https://github.com/dynatrace-oss/dynatrace-github-action",
+  "skills": []
+}
