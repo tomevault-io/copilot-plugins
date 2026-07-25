@@ -4,7 +4,7 @@
   "repo": "agentset",
   "description": "The open-source RAG platform: built-in citations, deep research, 22+ file formats, partitions, MCP server, and more.",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -107,5 +107,5 @@
   ],
   "source_url": "https://github.com/agentset-ai/agentset",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T14:31:14Z"
+  "distributed_at": "2026-07-25T08:30:43Z"
 }
