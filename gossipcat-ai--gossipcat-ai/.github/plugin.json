@@ -1,0 +1,14 @@
+{
+  "name": "gossipcat-ai--gossipcat-ai",
+  "displayName": "gossipcat-ai",
+  "description": "gossipcat-ai",
+  "version": "1.0.0",
+  "author": "gossipcat-ai",
+  "homepage": "https://github.com/gossipcat-ai/gossipcat-ai",
+  "skills": [
+    {
+      "name": "gossipcat-ai",
+      "description": ""
+    }
+  ]
+}
