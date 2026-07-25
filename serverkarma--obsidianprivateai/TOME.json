@@ -2,9 +2,9 @@
   "name": "ObsidianPrivateAI",
   "owner": "ServerKarma",
   "repo": "ObsidianPrivateAI",
-  "description": "Effortlessly chat with your Obsidian notes using a privacy first LLM. Private by design, your notes never leave the device and use local processing only.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ServerKarma/ObsidianPrivateAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T21:30:39Z"
+  "distributed_at": "2026-07-25T00:58:21Z"
 }
