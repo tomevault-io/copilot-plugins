@@ -1,0 +1,9 @@
+{
+  "name": "jitsi--jitsi-videobridge",
+  "displayName": "jitsi-videobridge",
+  "description": "jitsi-videobridge",
+  "version": "1.0.0",
+  "author": "jitsi",
+  "homepage": "https://github.com/jitsi/jitsi-videobridge",
+  "skills": []
+}
