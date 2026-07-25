@@ -1,11 +1,11 @@
 # bananahub-skill
 
-> Tome by [bananahub-ai](https://github.com/bananahub-ai/bananahub-skill) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [bananahub-ai](https://github.com/bananahub-ai/bananahub-skill), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [bananahub-ai/bananahub-skill](https://github.com/bananahub-ai/bananahub-skill).
+Original source: `GEMINI.md` in [bananahub-ai/bananahub-skill](https://github.com/bananahub-ai/bananahub-skill).
 
 ## Also available for
 
@@ -13,7 +13,6 @@ Original source: `` in [bananahub-ai/bananahub-skill](https://github.com/bananah
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/bananahub-ai/bananahub-skill](https://github.com/bananahub-ai/bananahub-skill)
