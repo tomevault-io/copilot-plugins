@@ -1,0 +1,18 @@
+{
+  "name": "lynxai-team--agent-smith",
+  "displayName": "agent-smith",
+  "description": "agent-smith",
+  "version": "1.0.0",
+  "author": "lynxai-team",
+  "homepage": "https://github.com/lynxai-team/agent-smith",
+  "skills": [
+    {
+      "name": "agent-smith",
+      "description": ""
+    },
+    {
+      "name": "agent-smith",
+      "description": ""
+    }
+  ]
+}
