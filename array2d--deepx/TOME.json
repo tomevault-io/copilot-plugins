@@ -4,7 +4,7 @@
   "repo": "deepx",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/array2d/deepx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T19:17:45Z"
+  "distributed_at": "2026-07-25T00:55:12Z"
 }
