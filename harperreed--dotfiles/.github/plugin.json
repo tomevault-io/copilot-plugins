@@ -1,0 +1,14 @@
+{
+  "name": "harperreed--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles",
+  "version": "1.0.0",
+  "author": "harperreed",
+  "homepage": "https://github.com/harperreed/dotfiles",
+  "skills": [
+    {
+      "name": "dotfiles",
+      "description": ""
+    }
+  ]
+}
