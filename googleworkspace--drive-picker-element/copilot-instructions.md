@@ -1,33 +1,20 @@
 ## drive-picker-element
 
-> This repository contains the source code for the Google Drive Picker web component and its framework specific wrappers.
+> This codebase is part of the Google Workspace GitHub organization, https://github.com/googleworkspace.
 
-# Google Drive Picker Elements and Components
+# Overview
 
-## Overview
+This codebase is part of the Google Workspace GitHub organization, https://github.com/googleworkspace.
 
-This repository contains the source code for the Google Drive Picker web component and its framework specific wrappers.
+## Style Guide
 
-## Project Structure
+Use open source best practices for code style and formatting with a preference for Google's style guides.
 
-- `packages/drive-picker-element`: The core web component written in TypeScript.
+## Tools
 
-Additional framework specific wrappers are available in the `packages` directory with samples in the `examples` directory.
-
-## Development
-
-The project uses `pnpm` for package management and `turbo` for monorepo management.
-
-- `pnpm install`: Install dependencies.
-- `pnpm build`: Build all packages.
-- `pnpm dev`: Start the development server.
-- `pnpm format`: Format the code.
-- `pnpm lint`: Lint the code.
-- `pnpm check`: Check the code.
-- `pnpm test`: Run tests.
-
-- Always run `pnpm format lint check test build` after making changes.
+- Verify against Google Workspace documentation with the `workspace-developer` MCP server tools.
+- Use `gh` for GitHub interactions.
 
 ---
 > Source: [googleworkspace/drive-picker-element](https://github.com/googleworkspace/drive-picker-element) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
