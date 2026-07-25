@@ -1,7 +1,7 @@
 {
   "name": "gabimoncha--cursor-rules-cli",
   "displayName": "cursor-rules-cli",
-  "description": "A CLI for boostrapping Cursor AI rules in your project",
+  "description": "cursor-rules-cli",
   "version": "1.0.0",
   "author": "gabimoncha",
   "homepage": "https://github.com/gabimoncha/cursor-rules-cli",
