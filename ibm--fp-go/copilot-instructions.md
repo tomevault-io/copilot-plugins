@@ -1,0 +1,338 @@
+## fp-go
+
+> This document provides guidelines for AI agents working on the fp-go/v2 project.
+
+# Agent Guidelines for fp-go/v2
+
+This document provides guidelines for AI agents working on the fp-go/v2 project.
+
+## Table of Contents
+
+- [Documentation Standards](#documentation-standards)
+  - [Go Doc Comments](#go-doc-comments)
+  - [File Headers](#file-headers)
+- [Testing Standards](#testing-standards)
+  - [Test Structure](#test-structure)
+  - [Test Coverage](#test-coverage)
+  - [Example Test Pattern](#example-test-pattern)
+- [Code Style](#code-style)
+  - [Functional Patterns](#functional-patterns)
+  - [Error Handling](#error-handling)
+- [Checklist for New Code](#checklist-for-new-code)
+
+## Documentation Standards
+
+### Go Doc Comments
+
+1. **Use Standard Go Doc Format**
+   - Do NOT use markdown-style links like `[text](url)`
+   - Do NOT use markdown-style headers like `# Section` or `## Subsection`
+   - Use simple type references: `ReaderResult`, `Validate[I, A]`, `validation.Success`
+   - Go's documentation system will automatically create links
+   - Use plain text with blank lines to separate sections
+
+2. **Structure**
+   ```go
+   // FunctionName does something useful.
+   //
+   // Longer description explaining the purpose and behavior.
+   //
+   // Type Parameters:
+   //   - T: Description of type parameter
+   //
+   // Parameters:
+   //   - param: Description of parameter
+   //
+   // Returns:
+   //   - ReturnType: Description of return value
+   //
+   // See Also:
+   //   - RelatedFunction: Brief description
+   func FunctionName[T any](param T) ReturnType {
+   ```
+
+3. **Code Examples**
+   - Do NOT include code examples in function documentation strings
+   - Instead, create `ExampleXXX` functions following Go's example function conventions
+   - Example functions should be placed in `*_test.go` files
+   - Use the naming pattern `Example<FunctionName>` or `Example<FunctionName>_<scenario>`
+   - Example functions must include `// Output:` comments to be recognized by `go test`
+   - Example function code should follow these guidelines:
+     - Use idiomatic Go patterns
+     - Prefer `result.Eitherize1(strconv.Atoi)` over manual error handling
+     - Prefer `strconv.Itoa` over `func(x int) string { return fmt.Sprintf("%d", x) }`
+     - Prefer direct function references such as `strconv.Itoa` over redundant wrappers like `func(x int) string { return strconv.Itoa(x) }`
+     - Prefer reusable combinators over ad-hoc closures when an equivalent helper exists
+     - Prefer `F.Flow2(option.Predicate(N.MoreThan(0)), option.Map(N.Mul(2)))` over `func(x int) Option[int] { if x > 0 { return Some(x * 2) }; return None[int]() }` in non-idiomatic option examples
+     - Prefer `S.Format[T]("...")` over `func(x T) string { return fmt.Sprintf("...", x) }`, matching the type parameter to the formatted value
+     - Show realistic, runnable examples
+   - Example:
+     ```go
+     // ExampleFunctionName demonstrates basic usage.
+     func ExampleFunctionName() {
+         result := FunctionName(42)
+         fmt.Println(result)
+         // Output: 42
+     }
+     ```
+
+4. **Pipe and Flow in Example Functions**
+
+   In the non-idiomatic `option` (and similar) packages, operators have the shape
+   `func(T) U`, so `F.Pipe1` works and is preferred over direct nesting:
+
+   ```go
+   // Preferred
+   result := F.Pipe1(Some(42), Map(strconv.Itoa))
+
+   // Avoid
+   result := Map(strconv.Itoa)(Some(42))
+   ```
+
+   In the **idiomatic** option package, operators have the shape `func(A, bool) (B, bool)`
+   (an `Operator[A, B]`). These take two arguments, so `F.Pipe1` cannot be used.
+   Instead, build the pipeline with `F.FlowN` and apply it to the initial tuple via
+   Go's multi-return spreading:
+
+   ```go
+   // Preferred — Flow composes Operators; the tuple (S, bool) is spread into the call
+   result, ok := F.Flow3(
+       Bind(setX, func(s State) (int, bool) { return Some(10) }),
+       Bind(setY, func(s State) (int, bool) { return Some(20) }),
+       Map(computeSum),
+   )(Do(State{}))
+
+   // Avoid — F.Pipe3 requires a single first argument; Do returns (S, bool) — two values
+   result := F.Pipe3(Do(State{}), Bind(...), Bind(...), Map(...))
+   ```
+
+5. **Default / fallback values in Example Functions**
+
+   Use `lazy.Of(value)` instead of an inline zero-returning closure wherever a
+   `func() T` is needed for a default:
+
+   ```go
+   // Preferred
+   GetOrElse(lazy.Of(0))(opt)
+
+   // Avoid
+   GetOrElse(func() int { return 0 })(opt)
+   ```
+
+6. **Array Initialization in Example Functions**
+
+   In example functions, prefer `A.From` over array literal syntax to avoid
+   duplicating type parameters:
+
+   ```go
+   // Preferred — type is inferred from elements
+   options := A.From(
+       Some(1),
+       None[int](),
+       Some(3),
+   )
+
+   // Avoid — duplicates the type parameter
+   options := []Option[int]{
+       Some(1),
+       None[int](),
+       Some(3),
+   }
+   ```
+
+   This applies to all monadic types: `Option[T]`, `Either[E, A]`, `Result[A]`, `Validation[E, A]`.
+
+   **Note**: In test code within packages that would create circular dependencies with
+   the `array` package (e.g., `option` package tests), continue using array literal syntax.
+   Only example functions should use `A.From`.
+
+### File Headers
+
+Always include the Apache 2.0 license header:
+
+```go
+// Copyright (c) 2023 - 2025 IBM Corp.
+// All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+```
+
+## Testing Standards
+
+### Test Structure
+
+1. **Organize Tests by Category**
+   ```go
+   func TestFunctionName_Success(t *testing.T) {
+       t.Run("specific success case", func(t *testing.T) {
+           // test code
+       })
+   }
+   
+   func TestFunctionName_Failure(t *testing.T) {
+       t.Run("specific failure case", func(t *testing.T) {
+           // test code
+       })
+   }
+   
+   func TestFunctionName_EdgeCases(t *testing.T) {
+       // edge case tests
+   }
+   
+   func TestFunctionName_Integration(t *testing.T) {
+       // integration tests
+   }
+   ```
+
+2. **Use Direct Assertions**
+   - Prefer: `assert.Equal(t, validation.Success(expected), actual)`
+   - Avoid: Verbose `either.MonadFold` patterns unless necessary
+   - Exception: When you need to verify pointer is not nil or extract specific fields
+
+3. **Use Idiomatic Patterns**
+   - Use `result.Eitherize1` for converting `(T, error)` functions
+   - Use `result.Of` for success values
+   - Use `result.Left` for error values
+
+4. **Folding Either/Result Values in Tests**
+   - Use `F.Pipe1(result, Fold(onLeft, onRight))` — avoid the `_ = Fold(...)(result)` discard pattern
+   - Use `slices.Collect[T]` instead of a manual `for n := range seq { collected = append(...) }` loop
+   - Use `t.Fatal` in the unexpected branch to combine the `IsLeft`/`IsRight` check with value extraction:
+     ```go
+     // Good: single fold combines assertion and extraction
+     collected := F.Pipe1(result, Fold(
+         func(e error) []int { t.Fatal(e); return nil },
+         slices.Collect[int],
+     ))
+
+     // Avoid: separate IsRight check + manual loop
+     assert.True(t, IsRight(result))
+     var collected []int
+     _ = MonadFold(result,
+         func(e error) []int { return nil },
+         func(seq iter.Seq[int]) []int {
+             for n := range seq { collected = append(collected, n) }
+             return collected
+         },
+     )
+     ```
+   - Use `F.Identity[error]` as the Left branch when extracting an error value:
+     ```go
+     err := F.Pipe1(result, Fold(
+         F.Identity[error],
+         func(_ iter.Seq[int]) error { t.Fatal("expected Left but got Right"); return nil },
+     ))
+     ```
+   - Extract repeated fold patterns as local helper closures within the test function:
+     ```go
+     collectInts := func(r Result[iter.Seq[int]]) []int {
+         return F.Pipe1(r, Fold(
+             func(e error) []int { t.Fatal(e); return nil },
+             slices.Collect[int],
+         ))
+     }
+     ```
+
+5. **Other Test Style Details**
+   - Use `for i := range 10` instead of `for i := 0; i < 10; i++`
+   - Chain curried calls directly: `TraverseSeq(parse)(input)` — no need for an intermediate `traverseFn` variable
+   - Use direct slice literals (`[]string{"a", "b"}`) for plain types in tests
+   - For monadic types in tests, use array literals if importing `array` would create a circular dependency
+
+### Test Coverage
+
+Include tests for:
+- **Success cases**: Normal operation with various input types
+- **Failure cases**: Error handling and error preservation
+- **Edge cases**: Nil, empty, zero values, boundary conditions
+- **Integration**: Composition with other functions
+- **Type safety**: Verify type parameters work correctly
+- **Benchmarks**: Performance-critical paths
+
+### Example Test Pattern
+
+```go
+func TestFromReaderResult_Success(t *testing.T) {
+    t.Run("converts successful ReaderResult", func(t *testing.T) {
+        // Arrange
+        parseIntRR := result.Eitherize1(strconv.Atoi)
+        validator := FromReaderResult[string, int](parseIntRR)
+        
+        // Act
+        result := validator("42")(nil)
+        
+        // Assert
+        assert.Equal(t, validation.Success(42), result)
+    })
+}
+```
+
+## Code Style
+
+### Functional Patterns
+
+1. **Prefer Composition**
+   ```go
+   validator := F.Pipe1(
+       FromReaderResult[string, int](parseIntRR),
+       Chain(validatePositive),
+   )
+   ```
+
+2. **Use Type-Safe Helpers**
+   - `result.Eitherize1` for `func(T) (R, error)`
+   - `result.Of` for wrapping success values
+   - `result.Left` for wrapping errors
+
+3. **Avoid Verbose Patterns**
+   - Don't manually handle `(value, error)` tuples when helpers exist
+   - Don't use `either.MonadFold` in tests unless necessary
+
+4. **Use Void Type for Unit Values**
+   - Use `function.Void` (or `F.Void`) instead of `struct{}`
+   - Use `function.VOID` (or `F.VOID`) instead of `struct{}{}`
+   - Example: `Empty[F.Void, F.Void, any](lazy.Of(pair.MakePair(F.VOID, F.VOID)))`
+
+### Error Handling
+
+1. **In Production Code**
+   - Use `validation.Success` for successful validations
+   - Use `validation.FailureWithMessage` for simple failures
+   - Use `validation.FailureWithError` to preserve error causes
+
+2. **In Tests**
+   - Verify error messages and causes
+   - Check error context is preserved
+   - Test error accumulation when applicable
+
+## Checklist for New Code
+
+- [ ] Apache 2.0 license header included
+- [ ] Go doc comments use standard format (no markdown links)
+- [ ] No code examples in function documentation strings
+- [ ] Example functions created for all public functions (following `ExampleXXX` naming)
+- [ ] Example functions are idiomatic and concise
+- [ ] Example functions use `F.Pipe1`/`F.FlowN` for sequencing (see §4 above)
+- [ ] Default values in example functions use `lazy.Of(value)`, not `func() T { return value }`
+- [ ] Array initializations in example functions use `A.From` for monadic types (see §6 above)
+- [ ] Example functions include `// Output:` comments
+- [ ] Tests cover success, failure, edge cases, and integration
+- [ ] Tests use direct assertions where possible
+- [ ] Benchmarks included for performance-critical code
+- [ ] All tests pass
+- [ ] Code uses functional composition patterns
+- [ ] Error handling preserves context and causes
+
+---
+> Source: [IBM/fp-go](https://github.com/IBM/fp-go) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
