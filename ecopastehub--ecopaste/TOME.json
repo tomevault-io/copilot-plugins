@@ -1,0 +1,399 @@
+{
+  "name": "EcoPaste",
+  "owner": "EcoPasteHub",
+  "repo": "EcoPaste",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-start/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-channel/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-continue/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-continue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-channel/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-channel/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-channel/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-continue/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-continue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-channel/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-finish-work/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-finish-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-finish-work/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-finish-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-spec-bootstrap/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-spec-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".kiro/skills/trellis-session-insight/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.kiro/skills/trellis-session-insight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-spec-bootstrap/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-spec-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-spec-bootstrap/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-spec-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-spec-bootstrap/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-spec-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".agents/skills/trellis-session-insight/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.agents/skills/trellis-session-insight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".claude/skills/trellis-session-insight/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.claude/skills/trellis-session-insight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".cursor/skills/trellis-session-insight/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.cursor/skills/trellis-session-insight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-spec-bootstrap/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-spec-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".opencode/skills/trellis-session-insight/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.opencode/skills/trellis-session-insight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-channel/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-spec-bootstrap/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-spec-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "EcoPaste",
+      "path": ".github/skills/trellis-session-insight/SKILL.md",
+      "github_url": "https://github.com/EcoPasteHub/EcoPaste/tree/main/.github/skills/trellis-session-insight/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/EcoPasteHub/EcoPaste",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:44:58Z"
+}
