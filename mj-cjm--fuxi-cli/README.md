@@ -1,23 +1,21 @@
 # fuxi-cli
 
-> Source: [MJ-CJM/fuxi-cli](https://github.com/MJ-CJM/fuxi-cli) — distributed by [TomeVault](https://tomevault.io)
-
-开源 AI 命令行工具，将多模型 AI 智能体、智能工作流和规格驱动开发带入您的终端。（An open-source AI command-line tool that brings multi-model AI agents, intelligent workflows, and spec-driven development directly into your terminal.）
+> Source: [MJ-CJM/fuxi-cli](https://github.com/MJ-CJM/fuxi-cli). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MJ-CJM/fuxi-cli](https://github.com/MJ-CJM/fuxi-cli).
+Original source: `GEMINI.md` in [MJ-CJM/fuxi-cli](https://github.com/MJ-CJM/fuxi-cli).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/MJ-CJM/fuxi-cli](https://github.com/MJ-CJM/fuxi-cli)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/MJ-CJM/fuxi-cli](https://github.com/MJ-CJM/fuxi-cli)
 
 ---
 
