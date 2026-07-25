@@ -1,0 +1,14 @@
+{
+  "name": "shopify--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "Shopify",
+  "homepage": "https://github.com/Shopify/cli",
+  "skills": [
+    {
+      "name": "cli",
+      "description": ""
+    }
+  ]
+}
