@@ -1,0 +1,9 @@
+{
+  "name": "apache--camel-quarkus",
+  "displayName": "camel-quarkus",
+  "description": "camel-quarkus",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/camel-quarkus",
+  "skills": []
+}
