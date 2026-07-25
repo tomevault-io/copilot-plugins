@@ -1,0 +1,14 @@
+{
+  "name": "atomgit-atomcode--atomcode",
+  "displayName": "atomcode",
+  "description": "atomcode",
+  "version": "1.0.0",
+  "author": "atomgit-atomcode",
+  "homepage": "https://github.com/atomgit-atomcode/atomcode",
+  "skills": [
+    {
+      "name": "atomcode",
+      "description": ""
+    }
+  ]
+}
