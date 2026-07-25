@@ -1,0 +1,22 @@
+{
+  "name": "jsenv--core",
+  "displayName": "core",
+  "description": "core",
+  "version": "1.0.0",
+  "author": "jsenv",
+  "homepage": "https://github.com/jsenv/core",
+  "skills": [
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    }
+  ]
+}
