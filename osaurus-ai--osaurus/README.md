@@ -1,23 +1,21 @@
 # osaurus
 
-> Tome by [osaurus-ai](https://github.com/osaurus-ai/osaurus) — distributed by [TomeVault](https://tomevault.io)
-
-Own your AI. The native macOS harness for AI agents -- any model, persistent memory, autonomous execution, cryptographic identity. Built in Swift. Fully offline. Open source.
+> Tome by [osaurus-ai](https://github.com/osaurus-ai/osaurus), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus).
+Original source: `AGENTS.md` in [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus) — a repo with 5184+ stars on GitHub.
+From [osaurus-ai/osaurus](https://github.com/osaurus-ai/osaurus) — a repo with 7270+ stars on GitHub.
 
 ---
 
