@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "nubenetes",
   "homepage": "https://github.com/nubenetes/awesome-kubernetes",
-  "skills": []
+  "skills": [
+    {
+      "name": "awesome-kubernetes",
+      "description": ""
+    }
+  ]
 }
