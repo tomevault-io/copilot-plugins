@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [edmundmiller/dotfiles](https://github.com/edmundmiller/dotfiles).
+Original source: `CLAUDE.md` in [edmundmiller/dotfiles](https://github.com/edmundmiller/dotfiles).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (53)
+## Bundled Skills (65)
 
 - [ast-grep](https://github.com/edmundmiller/dotfiles/tree/main/config/agents/skills/ast-grep)
 - [code-search](https://github.com/edmundmiller/dotfiles/tree/main/config/agents/skills/code-search)
@@ -70,6 +70,18 @@ Original source: `AGENTS.md` in [edmundmiller/dotfiles](https://github.com/edmun
 - [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/packages/pi-packages/pi-context-repo/skills/searching-memory/SKILL.md)
 - [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/packages/pi-packages/pi-context-repo/skills/initializing-memory/SKILL.md)
 - [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/packages/pi-packages/pi-context-repo/skills/defragmenting-memory/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/autonomous-agent-loop/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/home-assistant-best-practices/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/stack-maintenance/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/nix-darwin-reference/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/packages/pi-packages/omp-skillopt-sleep/skills/skillopt-sleep/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/fork-bead-threads/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/skills/conditional/hunk/hunk-review/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/nix-package-patching/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/skillopt-sleep-learned/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/github-fine-grained-pat/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/dotfiles-agent-workflow/SKILL.md)
+- [dotfiles](https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/writing-agent-friendly-clis/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/edmundmiller/dotfiles](https://github.com/edmundmiller/dotfiles)
 
