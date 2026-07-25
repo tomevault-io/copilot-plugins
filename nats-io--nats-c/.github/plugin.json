@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nats-c",
+  "displayName": "nats.c",
+  "description": "nats.c",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nats.c",
+  "skills": []
+}
