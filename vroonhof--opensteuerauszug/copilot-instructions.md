@@ -1,79 +1,25 @@
-## make-rules
+## opensteuerauszug
 
-> Cursor Rules Location
+> Refer to [AGENTS.md](AGENTS.md) in the root directory for full details on project architecture, environment setup, coding guidelines, and linting/formatting standards. All AI assistants must adhere strictly to the guidelines defined there.
 
-# Cursor Rules Location
+# CLAUDE.md
 
-Rules for placing and organizing Cursor rule files in the repository.
+## Agent Guidelines
+Refer to [AGENTS.md](AGENTS.md) in the root directory for full details on project architecture, environment setup, coding guidelines, and linting/formatting standards. All AI assistants must adhere strictly to the guidelines defined there.
 
-<rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
-filters:
-  # Match any .mdc files
-  - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+## Build and Environment Commands
+- **Install for Development**: `pip install -e ".[dev]"`
+- **Install PDF417 Decoder**: `pip install git+https://github.com/vroonhof/pdf417decoder.git#subdirectory=python`
 
-actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+## Testing Commands
+- **Run all tests**: `.venv/bin/pytest tests/`
+- **Run single test**: `.venv/bin/pytest tests/path/to/test_file.py -k test_name`
 
-  - type: suggest
-    message: |
-      When creating Cursor rules:
-
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
-
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
-
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
-
-examples:
-  - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
-
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
-
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+## Linting and Formatting
+- **Format Code (Black)**: `.venv/bin/black src/ tests/ scripts/`
+- **Lint Code (Flake8)**: `.venv/bin/flake8 .`
+- **Check Code (Ruff)**: `.venv/bin/ruff check src/ tests/`
 
 ---
 > Source: [vroonhof/opensteuerauszug](https://github.com/vroonhof/opensteuerauszug) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
