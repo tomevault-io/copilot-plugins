@@ -1,28 +1,106 @@
 ## terraform-provider-pulsar
 
-> Provider logic lives in `pulsar/`, where every Terraform resource keeps its schema, CRUD helpers, and matching `_test.go` files (acceptance tests sit beside the resource they validate). Shared Pulsar clients and auth helpers live in `pkg/admin` and `pkg/authentication`. CLI entrypoints and provider wiring live in `main.go` and `pulsar/provider.go`. Supporting assets include `docs/` (registry docs), `examples/` (ready-to-run HCL), `templates/` (doc generation), and `hack/` (utility scripts such as `pulsar-docker.sh`). Keep new files in the closest existing module to simplify doc generation and release automation.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-Provider logic lives in `pulsar/`, where every Terraform resource keeps its schema, CRUD helpers, and matching `_test.go` files (acceptance tests sit beside the resource they validate). Shared Pulsar clients and auth helpers live in `pkg/admin` and `pkg/authentication`. CLI entrypoints and provider wiring live in `main.go` and `pulsar/provider.go`. Supporting assets include `docs/` (registry docs), `examples/` (ready-to-run HCL), `templates/` (doc generation), and `hack/` (utility scripts such as `pulsar-docker.sh`). Keep new files in the closest existing module to simplify doc generation and release automation.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- `make build`: compiles `terraform-provider-pulsar` for the current platform after ensuring Go formatting.
-- `make build-dev`: builds, then stages the binary under `~/.terraform.d/plugins/registry.terraform.io/streamnative/pulsar/<version>/<os_arch>` for local Terraform runs.
-- `make test`: runs `go test ./...` with formatting checks.
-- `make testacc` / `make testacc-no-topic-policies`: executes acceptance tests with `TF_ACC=1`, optionally disabling topic-policy features via `PULSAR_TEST_CONFIG`.
-- `make run-pulsar-in-docker`: spins up a compatible Pulsar stack for local acceptance runs; `make remove-pulsar-from-docker` tears it down.
+## Build & Development Commands
 
-## Coding Style & Naming Conventions
-Code must stay `gofmt`-clean; `scripts/gofmtcheck.sh` enforces this and make targets run it automatically. Use idiomatic Go (tabs for indentation, CamelCase exported symbols) and keep resource helpers in files named `resource_pulsar_<noun>.go`. Prefer `goimports` ordering and run `make lint` (golangci-lint plus `tfproviderlint`) before submitting. Schema attributes follow Terraform snake_case conventions; keep provider docs synchronized by updating `templates/` and regenerating docs when schemas change.
+```bash
+make build           # Compile terraform-provider-pulsar binary
+make build-dev       # Build and install to ~/.terraform.d/plugins for local testing
+make test            # Run unit tests with go test ./...
+make testacc         # Run acceptance tests (requires running Pulsar cluster, TF_ACC=1)
+make lint            # Run golangci-lint and tfproviderlint
+make fmt             # Format code with gofmt
+make tools           # Install required linting tools
+```
 
-## Testing Guidelines
-Unit tests belong near the code under `pulsar/` and should use `Test<Resource>_<Behavior>` naming. Acceptance tests follow Terraform patterns (`TestAccPulsar<Resource>_<Scenario>`) and require a running Pulsar cluster plus `TF_ACC=1`. Use `make run-pulsar-in-docker` to bootstrap a local cluster; export tokens via env vars instead of hardcoding. Capture any new fixtures under `pulsar/testdata` and keep them minimal.
+### Running a Single Test
+```bash
+go test -v -run TestAccPulsarNamespace_basic ./pulsar/
+```
 
-## Commit & Pull Request Guidelines
-Recent history favors informative prefixes with optional scopes, e.g., `Feature: standalone topic permission grant (#162)` or `Docs: make doc generation compatible...`. Follow that style: a concise imperative summary, optional category, and a trailing issue/PR reference. Each PR should describe motivation, include reproduction or testing notes (`make test`, `make testacc`), and link to the relevant GitHub issue. Add screenshots only when UI artifacts (docs, diagrams) change. Confirm lint/test status before requesting review and mention any configuration steps contributors must perform.
+### Local Pulsar for Testing
+```bash
+make run-pulsar-in-docker          # Start Pulsar in Docker for acceptance tests
+make remove-pulsar-from-docker     # Stop and remove the container
+```
+
+For clusters without topic-level policies:
+```bash
+make run-pulsar-in-docker-no-topic-policies
+make testacc-no-topic-policies
+```
+
+## Architecture
+
+This is a Terraform provider for Apache Pulsar using the HashiCorp terraform-plugin-sdk/v2.
+
+### Key Components
+
+- **`main.go`**: Entry point, serves the provider via `plugin.Serve`
+- **`pulsar/provider.go`**: Provider schema and configuration; creates `PulsarClientBundle` with both v2 and v3 API clients
+- **`pulsar/resource_pulsar_*.go`**: Individual resource implementations (CRUD operations)
+- **`pkg/admin/`**: Pulsar admin client wrapper with OAuth2 and token authentication support
+- **`pkg/authentication/`**: Authentication type definitions
+
+### Provider Resources
+
+| Resource | File |
+|----------|------|
+| pulsar_cluster | `resource_pulsar_cluster.go` |
+| pulsar_tenant | `resource_pulsar_tenant.go` |
+| pulsar_namespace | `resource_pulsar_namespace.go` |
+| pulsar_topic | `resource_pulsar_topic.go` |
+| pulsar_schema | `resource_pulsar_schema.go` |
+| pulsar_source | `resource_pulsar_source.go` |
+| pulsar_sink | `resource_pulsar_sink.go` |
+| pulsar_function | `resource_pulsar_function.go` |
+| pulsar_subscription | `resource_pulsar_subscription.go` |
+| pulsar_permission_grant | `resource_pulsar_permission_grant.go` |
+| pulsar_package | `resource_pulsar_package.go` |
+
+### Client Structure
+
+The provider maintains two Pulsar admin clients (`PulsarClientBundle`):
+- `Client`: Default API version (v2) for most operations
+- `V3Client`: API v3 for features requiring newer API
+
+Both clients are created during provider configuration and passed to resources via the schema's meta interface.
+
+### Test Patterns
+
+- Unit tests: `*_unit_test.go` files
+- Acceptance tests: `*_test.go` files with `TestAcc` prefix, require `TF_ACC=1`
+- Tests use the `TestAccPulsar<Resource>_<Scenario>` naming convention
+
+## Code Style
+
+- Run `make fmtcheck` before commits (enforced by make targets)
+- Resource files follow `resource_pulsar_<noun>.go` naming
+- Schema attributes use Terraform snake_case conventions
+- Use `goimports` for import ordering
+
+## Environment Variables
+
+Provider configuration can use these environment variables:
+- `WEB_SERVICE_URL` / `PUSLAR_WEB_SERVICE_URL`: Pulsar web service URL
+- `PULSAR_TOKEN` / `PULSAR_AUTH_TOKEN`: Authentication token
+- `PULSAR_API_VERSION`: API version (default: 0 for auto)
+- `PULSAR_TLS_*`: TLS configuration paths
+- `PULSAR_KEY_FILE` / `PULSAR_KEY_FILE_PATH`: OAuth2 private key file
+
+## Documentation Generation
+
+```bash
+go generate ./...   # Regenerates docs using tfplugindocs
+```
+
+Documentation templates are in `templates/`, generated docs go to `docs/`.
 
 ---
 > Source: [streamnative/terraform-provider-pulsar](https://github.com/streamnative/terraform-provider-pulsar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
