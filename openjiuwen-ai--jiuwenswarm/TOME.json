@@ -1,0 +1,165 @@
+{
+  "name": "jiuwenswarm",
+  "owner": "openJiuwen-ai",
+  "repo": "jiuwenswarm",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jiuwenswarm",
+      "path": "tests/ui_e2e/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/tests/ui_e2e/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/skvm-jit/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/skvm-jit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/llm-wiki/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/llm-wiki/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/doc-update/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/doc-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/akg-agents/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/akg-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/skvm-general/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/skvm-general/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/extensions/symphony/skills/symphony-assistant/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/extensions/symphony/skills/symphony-assistant/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/swarmskill-creator/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/swarmskill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/delayed-restart-app/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/delayed-restart-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/advanced-daily-report/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/advanced-daily-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/openJiuwen-DeepSearch/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/openJiuwen-DeepSearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/deepep-to-cam-converter/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/deepep-to-cam-converter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/financial-document-parser/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/financial-document-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/skill-gen-4-enterprise-doc/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/skill-gen-4-enterprise-doc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/ascend-moe-optimizer-auto-trace/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/ascend-moe-optimizer-auto-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/cross-channel-history-retrieval/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/cross-channel-history-retrieval/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/ascend-moe-optimizer-trace-analyzer/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/ascend-moe-optimizer-trace-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/gitcode-api/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/gitcode-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/skill-omni-creation/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/skill-omni-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jiuwenswarm",
+      "path": "jiuwenswarm/resources/agent/workspace/skills/project-maintainer/SKILL.md",
+      "github_url": "https://github.com/openJiuwen-ai/jiuwenswarm/tree/main/jiuwenswarm/resources/agent/workspace/skills/project-maintainer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openJiuwen-ai/jiuwenswarm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:43:09Z"
+}
