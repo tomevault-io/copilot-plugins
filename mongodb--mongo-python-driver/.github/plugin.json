@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongo-python-driver",
+  "displayName": "mongo-python-driver",
+  "description": "mongo-python-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-python-driver",
+  "skills": []
+}
