@@ -1,0 +1,14 @@
+{
+  "name": "rocketchat--rocket-chat-electron",
+  "displayName": "Rocket.Chat.Electron",
+  "description": "Rocket.Chat.Electron",
+  "version": "1.0.0",
+  "author": "RocketChat",
+  "homepage": "https://github.com/RocketChat/Rocket.Chat.Electron",
+  "skills": [
+    {
+      "name": "Rocket.Chat.Electron",
+      "description": ""
+    }
+  ]
+}
