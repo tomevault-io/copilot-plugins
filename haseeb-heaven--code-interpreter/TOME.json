@@ -1,0 +1,141 @@
+{
+  "name": "code-interpreter",
+  "owner": "haseeb-heaven",
+  "repo": "code-interpreter",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/ci/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/agent-tui/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/agent-tui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/tui-tester/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/tui-tester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/pr-creator/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/pr-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/code-reviewer/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/docs-changelog/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/docs-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/string-reviewer/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/string-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/async-pr-review/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/async-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/behavioral-evals/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/behavioral-evals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/review-duplication/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/review-duplication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/pr-address-comments/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/pr-address-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": ".openagent/skills/github-issue-creator/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/.openagent/skills/github-issue-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": "packages/sdk/test-data/skills/pirate-skill/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/packages/sdk/test-data/skills/pirate-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": "packages/core/src/skills/builtin/skill-creator/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/packages/core/src/skills/builtin/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": "packages/core/src/skills/builtin/antigravity-support/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/packages/core/src/skills/builtin/antigravity-support/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "code-interpreter",
+      "path": "packages/cli/src/commands/extensions/examples/skills/skills/greeter/SKILL.md",
+      "github_url": "https://github.com/haseeb-heaven/code-interpreter/tree/main/packages/cli/src/commands/extensions/examples/skills/skills/greeter/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/haseeb-heaven/code-interpreter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:40:22Z"
+}
