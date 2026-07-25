@@ -1,38 +1,60 @@
-## project-structure
+## slack-dom-extraction
 
-> This is a Chrome Manifest V3 browser extension for exporting Slack messages to markdown files.
+> Slack frequently changes DOM structure, so use **multiple fallback selectors**:
 
 
-# Slack Export Extension - Project Structure
+# Slack DOM Extraction Patterns
 
-This is a Chrome Manifest V3 browser extension for exporting Slack messages to markdown files.
+## Selector Strategy
 
-## Core Architecture
+Slack frequently changes DOM structure, so use **multiple fallback selectors**:
 
-- **Entry Point**: [manifest.json](mdc:manifest.json) - Defines extension configuration, permissions, and component relationships
-- **Service Worker**: [src/background.js](mdc:src/background.js) - Handles extension icon clicks and file downloads
-- **Content Script**: [src/content.js](mdc:src/content.js) - DOM interaction and message extraction from Slack pages
-- **Configuration**: [src/config.js](mdc:src/config.js) - Settings management using Chrome storage API
-- **Utilities**: [src/utils.js](mdc:src/utils.js) - Shared helper functions for formatting and notifications
+**Message containers** (try in order):
 
-## User Interface
+- `[role="message"]` - Standard accessibility role
+- `[data-qa="message_container"]` - Slack's test attributes
+- `.c-message_kit__gutter` - CSS class patterns
+- `.c-virtual_list__item` - Virtual scrolling containers
 
-- **Options Page**: [options.html](mdc:options.html) + [options.js](mdc:options.js) - Settings configuration interface
-- **Icons**: Located in `icons/` directory (16x16, 48x48, 128x128 px)
+**Message content**:
 
-## Key Flow
+- `[data-qa="message_content"]`
+- `.c-message__body`
+- `.p-rich_text_section`
 
-1. User clicks extension icon → background.js receives click
-2. Background script sends message to content script
-3. Content script extracts visible messages from Slack DOM
-4. Messages converted to markdown format
-5. File downloaded via Chrome downloads API
+**Sender names**:
 
-## Dependencies
+- `[data-qa="message_sender"]`
+- `.c-message__sender`
+- `button[data-qa*="user"]`
 
-- **Chrome APIs**: storage.sync, downloads, tabs, runtime
-- **Permissions**: activeTab, storage, downloads, host_permissions for *.slack.com
-- **No external libraries** - vanilla JavaScript only
+**Timestamps**:
+
+- `time[datetime]` - Preferred (ISO format)
+- `[data-qa="message_time"]`
+- `.c-timestamp`
+
+## Extraction Best Practices
+
+1. **Filter meaningful content**: Only export messages with actual text content
+2. **Sort by timestamp**: Messages may not be in DOM order
+3. **Handle missing elements**: Not all messages have all fields (system messages, etc.)
+4. **Preserve formatting**: Extract code blocks with triple backticks
+5. **Thread support**: Look for nested thread containers
+
+## Content Processing
+
+- **Clean whitespace**: Remove extra spaces and normalize line breaks
+- **Escape markdown**: Prevent user content from breaking markdown syntax
+- **Handle links**: Convert `<a>` tags to `[text](url)` format
+- **Code blocks**: Wrap `<pre>`, `<code>` content in markdown code blocks
+
+## Robustness
+
+- **Multiple attempts**: Try different selectors if first fails
+- **Graceful degradation**: Extract what's possible, don't fail entirely
+- **Console logging**: Log selector success/failure for debugging
+- **Fallback text**: Use `element.textContent` if specific selectors fail
 
 ---
 > Source: [dcurlewis/slacksnap](https://github.com/dcurlewis/slacksnap) — distributed by [TomeVault](https://tomevault.io).
