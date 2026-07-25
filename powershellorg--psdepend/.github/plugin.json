@@ -1,0 +1,9 @@
+{
+  "name": "powershellorg--psdepend",
+  "displayName": "PSDepend",
+  "description": "PSDepend",
+  "version": "1.0.0",
+  "author": "PowerShellOrg",
+  "homepage": "https://github.com/PowerShellOrg/PSDepend",
+  "skills": []
+}
