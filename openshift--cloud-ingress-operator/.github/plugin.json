@@ -1,0 +1,14 @@
+{
+  "name": "openshift--cloud-ingress-operator",
+  "displayName": "cloud-ingress-operator",
+  "description": "cloud-ingress-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cloud-ingress-operator",
+  "skills": [
+    {
+      "name": "cloud-ingress-operator",
+      "description": ""
+    }
+  ]
+}
