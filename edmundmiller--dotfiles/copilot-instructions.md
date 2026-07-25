@@ -1,32 +1,17 @@
 ## dotfiles
 
-> These tests are a living spec for `pi-command-policy-bridge`.
+> <!-- OPENWIKI:START -->
 
-# Pi Command Policy Bridge Tests
+<!-- OPENWIKI:START -->
 
-These tests are a living spec for `pi-command-policy-bridge`.
+## OpenWiki
 
-We are trying to dogfood this package in our own Pi workflow: the tests should
-prove that the package blocks commands we do not want agents to run, while still
-allowing the safe paths we expect agents to use.
+This repository uses OpenWiki for recurring code documentation. Start with `openwiki/quickstart.md`, then follow its links to architecture, workflows, domain concepts, operations, integrations, testing guidance, and source maps.
 
-Treat each regression test like an antibody in an organism, or a T cell: when we
-hit a bug in the permission gate, capture it here so the same failure cannot
-silently come back later.
+The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do not hand-edit generated OpenWiki pages unless explicitly asked; prefer updating source code/docs and letting OpenWiki regenerate.
 
-## What Belongs Here
-
-- Bugs we have already hit in real agent runs.
-- Commands that must be denied, such as direct nix rebuilds or `git commit --no-verify`.
-- Commands that must stay allowed, such as the blessed wrapper command `hey re`.
-- Edge cases around command extraction from extension tools, not just direct
-  `bash` tool invocations.
-
-## Maintenance Rule
-
-When changing the package or `config/pi/pi-permission-system.jsonc`, update
-these tests as executable documentation of the intended behavior.
+<!-- OPENWIKI:END -->
 
 ---
 > Source: [edmundmiller/dotfiles](https://github.com/edmundmiller/dotfiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
