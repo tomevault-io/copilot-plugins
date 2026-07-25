@@ -1,0 +1,9 @@
+{
+  "name": "sqlfluff--sqlfluff",
+  "displayName": "sqlfluff",
+  "description": "sqlfluff",
+  "version": "1.0.0",
+  "author": "sqlfluff",
+  "homepage": "https://github.com/sqlfluff/sqlfluff",
+  "skills": []
+}
