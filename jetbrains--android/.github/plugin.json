@@ -1,0 +1,14 @@
+{
+  "name": "jetbrains--android",
+  "displayName": "android",
+  "description": "android",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/android",
+  "skills": [
+    {
+      "name": "android",
+      "description": ""
+    }
+  ]
+}
