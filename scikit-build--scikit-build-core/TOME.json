@@ -1,0 +1,51 @@
+{
+  "name": "scikit-build-core",
+  "owner": "scikit-build",
+  "repo": "scikit-build-core",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "scikit-build-core",
+      "path": ".agents/skills/test-downstream/SKILL.md",
+      "github_url": "https://github.com/scikit-build/scikit-build-core/tree/main/.agents/skills/test-downstream/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/scikit-build/scikit-build-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T10:37:36Z"
+}
