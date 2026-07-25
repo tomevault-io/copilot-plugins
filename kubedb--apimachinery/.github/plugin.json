@@ -1,0 +1,9 @@
+{
+  "name": "kubedb--apimachinery",
+  "displayName": "apimachinery",
+  "description": "apimachinery",
+  "version": "1.0.0",
+  "author": "kubedb",
+  "homepage": "https://github.com/kubedb/apimachinery",
+  "skills": []
+}
