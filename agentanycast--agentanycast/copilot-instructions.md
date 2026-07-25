@@ -1,57 +1,102 @@
 ## agentanycast
 
-> AgentAnycast is a decentralized P2P runtime for the A2A (Agent-to-Agent) protocol.
+> Protobuf/gRPC interface definitions for AgentAnycast. Single source of truth for all data models and RPC interfaces across the Go daemon, relay, Python SDK, and TypeScript SDK.
 
-# AgentAnycast
+# AgentAnycast Proto
 
-AgentAnycast is a decentralized P2P runtime for the A2A (Agent-to-Agent) protocol.
+Protobuf/gRPC interface definitions for AgentAnycast. Single source of truth for all data models and RPC interfaces across the Go daemon, relay, Python SDK, and TypeScript SDK.
 
 ## Architecture
-- Sidecar model: Go daemon (libp2p) handles P2P networking, Python/TypeScript SDKs communicate via gRPC over Unix socket
-- Security: Noise_XX end-to-end encryption, Ed25519 keys, DID:key identity
-- NAT traversal: AutoNAT + DCUtR + Circuit Relay v2
-- Discovery: DHT (Kademlia) + Relay skill registry
 
-## Quick Usage
+- All proto files under `agentanycast/v1/` in package `agentanycast.v1`
+- Buf v2 for linting, breaking change detection, and code generation
+- Generated stubs output to `gen/` (gitignored); downstream repos vendor their own copies
+- Three codegen targets: Go, Python, TypeScript
 
-Python:
-```python
-from agentanycast import Node, AgentCard, Skill
+## Directory Structure
 
-card = AgentCard(name="MyAgent", skills=[Skill(id="echo", description="Echo")])
-async with Node(card=card) as node:
-    @node.on_task
-    async def handle(task):
-        await task.complete(artifacts=[{"parts": [{"text": "Hello!"}]}])
-    await node.serve_forever()
+```
+agentanycast/
+  v1/
+    common.proto           # PeerInfo, NodeInfo, ConnectionType, NATType
+    a2a_models.proto       # Task, Message, Part, Artifact, A2AEnvelope (11 types)
+    agent_card.proto       # AgentCard, Skill
+    node_service.proto     # 16 RPCs: node/peer mgmt, task client/server, streaming, discovery
+    streaming.proto        # StreamStart, StreamChunk, StreamEnd
+    registry_service.proto # RegisterSkills, UnregisterSkills, DiscoverBySkill, Heartbeat
+gen/
+  go/                      # Generated Go stubs (gitignored)
+  python/                  # Generated Python stubs (gitignored)
+  ts/                      # Generated TypeScript stubs (gitignored)
+buf.yaml                   # Buf v2 config: lint rules, breaking change config
+buf.gen.yaml               # Code generation config: Go, Python, TypeScript plugins
 ```
 
-TypeScript:
-```typescript
-import { Node } from "agentanycast";
-const node = new Node({ card: { name: "MyAgent", skills: [{ id: "echo", description: "Echo" }] } });
-await node.start();
-node.onTask(async (task) => { await task.complete([{ parts: [{ text: "Hello!" }] }]); });
-await node.serveForever();
+## Common Patterns
+
+### Adding a new field
+
+```protobuf
+message Task {
+  string id = 1;
+  TaskStatus status = 2;
+  // Add new fields with the next available number
+  string new_field = 15;  // Never reuse or skip numbers
+}
 ```
 
-## Three addressing modes
-- `peer_id="12D3KooW..."` — direct P2P
-- `skill="translate"` — anycast routing by capability
-- `url="https://..."` — HTTP bridge to standard A2A agents
+### Adding a new RPC
 
-## Framework adapters
-- CrewAI: `from agentanycast.adapters.crewai import serve_crew`
-- LangGraph: `from agentanycast.adapters.langgraph import serve_graph`
-- MCP: `from agentanycast.mcp import mcpToolToSkill, skillToMcpTool`
+```protobuf
+service NodeService {
+  // Existing RPCs...
 
-## Repos
-- agentanycast-python: Python SDK (pip install agentanycast)
-- agentanycast-ts: TypeScript SDK (npm install agentanycast)
-- agentanycast-node: Go daemon
-- agentanycast-relay: Relay server
-- agentanycast-proto: Protobuf definitions
+  // Add new RPC
+  rpc NewMethod(NewMethodRequest) returns (NewMethodResponse) {}
+}
+
+message NewMethodRequest {
+  string param = 1;
+}
+
+message NewMethodResponse {
+  string result = 1;
+}
+```
+
+### Adding a new envelope type
+
+```protobuf
+enum EnvelopeType {
+  // Existing types...
+  NEW_TYPE = 12;  // Use next available number
+}
+
+message A2AEnvelope {
+  oneof payload {
+    // Existing payloads...
+    NewTypePayload new_type = 13;
+  }
+}
+```
+
+## Key Rules
+
+- **Never remove or rename fields** — only additive changes allowed
+- **Never reuse field numbers** — even if the old field is deprecated
+- **Buf lint**: STANDARD rules enforced (field naming, package consistency, etc.)
+- **Buf breaking**: FILE-level detection against `main` branch
+- **Package**: always `agentanycast.v1`
+- **Naming**: snake_case for fields, PascalCase for messages/enums, UPPER_SNAKE for enum values
+
+## Build & Validate
+
+```bash
+buf lint                                    # Lint all proto files
+buf breaking --against '.git#branch=main'   # Check backward compatibility
+buf generate                                # Generate Go + Python + TS stubs
+```
 
 ---
 > Source: [AgentAnycast/agentanycast](https://github.com/AgentAnycast/agentanycast) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
