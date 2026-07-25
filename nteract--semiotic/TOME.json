@@ -3,8 +3,8 @@
   "owner": "nteract",
   "repo": "semiotic",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "semiotic",
+      "path": "agent-skill/semiotic-charts/SKILL.md",
+      "github_url": "https://github.com/nteract/semiotic/tree/main/agent-skill/semiotic-charts/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/nteract/semiotic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T12:45:27Z"
+  "distributed_at": "2026-07-25T02:48:14Z"
 }
