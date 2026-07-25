@@ -1,0 +1,9 @@
+{
+  "name": "stripe--stripe-ios",
+  "displayName": "stripe-ios",
+  "description": "stripe-ios",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/stripe-ios",
+  "skills": []
+}
