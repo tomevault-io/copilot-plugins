@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--extension-installer",
+  "displayName": "extension-installer",
+  "description": "extension-installer",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/extension-installer",
+  "skills": []
+}
