@@ -1,0 +1,129 @@
+{
+  "name": "open-seo",
+  "owner": "every-app",
+  "repo": "open-seo",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/seo-coach/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/seo-coach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/link-prospecting/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/link-prospecting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/keyword-research/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/keyword-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/seo-project-setup/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/seo-project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/keyword-clustering/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/keyword-clustering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/competitor-analysis/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/competitor-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/competitive-landscape/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/competitive-landscape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".claude/skills/openseo-release-notes/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.claude/skills/openseo-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".claude/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.claude/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/papercuts/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/papercuts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/merge-ready/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/merge-ready/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/openseo-release-notes/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/openseo-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-seo",
+      "path": ".agents/skills/maintain-greptile-rules/SKILL.md",
+      "github_url": "https://github.com/every-app/open-seo/tree/main/.agents/skills/maintain-greptile-rules/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/every-app/open-seo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:37:02Z"
+}
