@@ -1,0 +1,9 @@
+{
+  "name": "neondatabase--create-branch-action",
+  "displayName": "create-branch-action",
+  "description": "create-branch-action",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/create-branch-action",
+  "skills": []
+}
