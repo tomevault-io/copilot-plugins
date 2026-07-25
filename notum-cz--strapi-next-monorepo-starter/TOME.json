@@ -3,8 +3,8 @@
   "owner": "notum-cz",
   "repo": "strapi-next-monorepo-starter",
   "description": "This is a ready-to-go starter template for Strapi projects. It combines the power of Strapi, NextJS, Shadcn/ui libraries with Turborepo setup and kickstarts your project development.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,153 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "add-locale",
+      "path": ".agents/skills/add-locale",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.agents/skills/add-locale",
+      "description": ""
+    },
+    {
+      "name": "create-content-component",
+      "path": ".agents/skills/create-content-component",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.agents/skills/create-content-component",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/make-pr/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/make-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/start-work/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/start-work/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/add-locale/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/add-locale/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/write-tests/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/write-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/remove-sentry/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/remove-sentry/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/copy-component/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/copy-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/find-component/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/find-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/add-content-type/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/add-content-type/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/remove-cdn-purge/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/remove-cdn-purge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/add-ui-component/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/add-ui-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/next-best-practices/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/next-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/strapi-schema-check/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/strapi-schema-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/remove-azure-monitor/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/remove-azure-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/validate-branch-refs/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/validate-branch-refs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/consolidate-patterns/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/consolidate-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/create-content-component/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/create-content-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/remove-cache-revalidation/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/remove-cache-revalidation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/resolve-review-suggestions/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/resolve-review-suggestions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/notum-cz/strapi-next-monorepo-starter/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/notum-cz/strapi-next-monorepo-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:19:51Z"
+  "distributed_at": "2026-07-25T08:31:27Z"
 }
