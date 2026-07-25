@@ -1,0 +1,9 @@
+{
+  "name": "apache--superset",
+  "displayName": "superset",
+  "description": "superset",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/superset",
+  "skills": []
+}
