@@ -1,65 +1,92 @@
 ## agent-plugins
 
-> This repository contains Agent Plugins for AWS that equip AI coding agents with the skills to help architects, deploy, and operate on AWS. Plugins include `deploy-on-aws` (recommendations, cost estimates, and Infrastructure as Code generation) and `amazon-location-service` (maps, geocoding, routing, and geospatial features).
+> Part of [MCP Server Setup](../mcp-setup.md). See [General MCP Configuration](../mcp-setup.md#general-mcp-configuration) for the base JSON config.
 
-# GitHub Copilot Custom Instructions for Agent Plugins for AWS
+# MCP Setup: Gemini
 
-## Project Overview
+Part of [MCP Server Setup](../mcp-setup.md). See [General MCP Configuration](../mcp-setup.md#general-mcp-configuration) for the base JSON config.
 
-This repository contains Agent Plugins for AWS that equip AI coding agents with the skills to help architects, deploy, and operate on AWS. Plugins include `deploy-on-aws` (recommendations, cost estimates, and Infrastructure as Code generation) and `amazon-location-service` (maps, geocoding, routing, and geospatial features).
+---
 
-## Technology Stack
+## Gemini
 
-- **Language**: Primarily TypeScript/JavaScript
-- **Framework**: Claude Code plugins
-- **Cloud Platform**: AWS
-- **Infrastructure as Code**: CDK and CloudFormation
-- **Tools**: MCP Servers (awsknowledge, awspricing, aws-iac-mcp)
+**Check if the MCP server is configured:**
+Look for the `aurora-dsql` MCP server:
 
-## Code Organization
+Gemini CLI command:
 
-- `/plugins` - Plugin implementations
-- `/schemas` - Data schemas and type definitions
-- `/tools` - Utility tools and helpers
-- `/.github` - GitHub workflows and configuration
-- Root files: Configuration for linting (markdownlint, semgrep), security (gitleaks), and formatting (dprint)
+```bash
+gemini mcp list
+```
 
-## Development Practices
+### Setup Instructions:
 
-1. **Code Quality**: Uses pre-commit hooks, semgrep for security analysis, and gitleaks for secret detection
-2. **Documentation**: Comprehensive guides including DEVELOPMENT_GUIDE.md, CONTRIBUTING.md, TROUBLESHOOTING.md
-3. **Testing**: Follow existing test patterns in the codebase
-4. **Formatting**: Use dprint for code formatting consistency
-5. **Commit Signoff**: Web commit signoff required (git commit -S flag)
+#### Choosing the Right Scope
 
-## Plugin Development Guidelines
+Gemini offers 2 scopes: project (default) and user. _**What scope does the user prefer?**_
 
-- Follow the workflow pattern: Analyze → Recommend → Estimate → Generate → Deploy
-- MCP Servers provide: AWS documentation, pricing data, and IaC best practices
-- Skill triggers should be intuitive natural language phrases users would say
-- Always include cost estimation and confirmation steps before deployment
-- Generate infrastructure code with explanations and best practices
+1. **Project-Scoped** servers are only accessible from the project's root directory and added to
+   the project configuration: `.gemini/settings.json`. Useful for project-specific tools that should
+   stay within the codebase.
+2. **User-Scoped** servers are accessible from all projects you work on with the Gemini CLI and
+   added to global configuration: `~/.gemini/settings.json`
 
-## Important Reminders for Copilot
+#### Default Installation - Gemini CLI Command
 
-1. **AWS Best Practices**: Recommend services aligned with AWS Well-Architected Framework
-2. **Cost Awareness**: Always estimate and display costs to users
-3. **User Confirmation**: Never deploy without explicit user confirmation
-4. **Multi-Agent Support**: Currently supports Claude Code; consider extensibility
-5. **Security**: Follow AWS security best practices and principle of least privilege
-6. **Documentation**: Provide clear explanations for architectural recommendations
+Using the Gemini CLI.
 
-## Key Files to Reference
+```bash
+gemini mcp add \
+  --scope $SCOPE \
+  --env FASTMCP_LOG_LEVEL="ERROR" \
+  aurora-dsql \
+  uvx "awslabs.aurora-dsql-mcp-server@latest" \
+  -- \
+  --cluster_endpoint "[dsql-cluster-id].dsql.[region].on.aws" \
+  --region "[dsql cluster region, eg. us-east-1]" \
+  --database_user "[your-username]"
+```
 
-- `README.md` - Project overview and installation instructions
-- `DEVELOPMENT_GUIDE.md` - How to create new plugins
-- `CONTRIBUTING.md` - Contribution guidelines
-- `TROUBLESHOOTING.md` - Common issues and solutions
+#### Alternative: Directly edit/update the JSON Configurations
 
-## License
+You can also directly configure the MCP adding the [provided MCP json configuration](../mcp-setup.md#general-mcp-configuration)
+to `.gemini/settings.json` (project scope) or `~/.gemini/settings.json`
 
-Apache-2.0 License - Ensure all contributions comply with this license
+```
+{
+  ...other fields...
+   "mcpServers": {
+   }
+}
+```
+
+#### Troubleshooting and Optional Arguments
+
+**Does the user want to allow writes?**
+Add the additional argument flag.
+
+```bash
+--allow-writes
+```
+
+**Are there multiple AWS credentials configured in the application or environment?**
+Add environment variables for AWS Profile and Region for the DSQL cluster to the command.
+
+```bash
+--env AWS_PROFILE="[dsql profile, eg. default]" \
+--env AWS_REGION="[dsql cluster region, eg. us-east-1]" \
+```
+
+### Verification
+
+Restart Gemini CLI.
+
+```bash
+gemini mcp list
+```
+
+Should see `aurora-dsql` with a `Connected` status.
 
 ---
 > Source: [awslabs/agent-plugins](https://github.com/awslabs/agent-plugins) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
