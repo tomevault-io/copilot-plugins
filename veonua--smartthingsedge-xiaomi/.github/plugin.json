@@ -1,0 +1,30 @@
+{
+  "name": "veonua--smartthingsedge-xiaomi",
+  "displayName": "SmartThingsEdge-Xiaomi",
+  "description": "SmartThingsEdge-Xiaomi",
+  "version": "1.0.0",
+  "author": "veonua",
+  "homepage": "https://github.com/veonua/SmartThingsEdge-Xiaomi",
+  "skills": [
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "description": ""
+    }
+  ]
+}
