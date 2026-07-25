@@ -2,9 +2,9 @@
   "name": "syda",
   "owner": "syda-ai",
   "repo": "syda",
-  "description": "Synthetic data generation with llms",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/syda-ai/syda",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T02:17:02Z"
+  "distributed_at": "2026-07-25T19:14:13Z"
 }
