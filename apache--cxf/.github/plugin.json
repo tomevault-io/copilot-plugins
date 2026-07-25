@@ -1,0 +1,9 @@
+{
+  "name": "apache--cxf",
+  "displayName": "cxf",
+  "description": "cxf",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/cxf",
+  "skills": []
+}
