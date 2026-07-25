@@ -1,0 +1,69 @@
+{
+  "name": "agent-manager",
+  "owner": "wso2",
+  "repo": "agent-manager",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-manager",
+      "path": ".claude/skills/add-evaluator/SKILL.md",
+      "github_url": "https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-evaluator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-manager",
+      "path": ".claude/skills/add-api-resource/SKILL.md",
+      "github_url": "https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-api-resource/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-manager",
+      "path": ".claude/skills/add-service-unit-test/SKILL.md",
+      "github_url": "https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-service-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-manager",
+      "path": ".claude/skills/add-console-api-feature/SKILL.md",
+      "github_url": "https://github.com/wso2/agent-manager/tree/main/.claude/skills/add-console-api-feature/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wso2/agent-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:47:03Z"
+}
