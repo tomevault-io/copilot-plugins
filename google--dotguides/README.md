@@ -1,6 +1,6 @@
 # AI instruction files for dotguides
 
-> Sourced from [google/dotguides](https://github.com/google/dotguides) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [google/dotguides](https://github.com/google/dotguides), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [google/dotguides](https://github.com/google/dot
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/google/dotguides](https://github.com/google/dotguides)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/google/dotguides](https://github.com/google/dotguides)
 
 ---
 
