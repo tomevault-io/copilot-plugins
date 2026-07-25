@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "itwanger",
   "homepage": "https://github.com/itwanger/paicoding",
-  "skills": []
+  "skills": [
+    {
+      "name": "paicoding",
+      "description": ""
+    }
+  ]
 }
