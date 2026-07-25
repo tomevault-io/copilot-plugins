@@ -3,8 +3,8 @@
   "owner": "itwanger",
   "repo": "paicoding",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "paicoding",
+      "path": "paicoding-miniapp/skills/article-search/SKILL.md",
+      "github_url": "https://github.com/itwanger/paicoding/tree/main/paicoding-miniapp/skills/article-search/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/itwanger/paicoding",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T19:40:42Z"
+  "distributed_at": "2026-07-25T06:34:41Z"
 }
