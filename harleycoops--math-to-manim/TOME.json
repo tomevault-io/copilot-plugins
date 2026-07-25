@@ -3,8 +3,8 @@
   "owner": "HarleyCoops",
   "repo": "Math-To-Manim",
   "description": "Create Epic Math and Physics Animations & Study Notes From Text and Images.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Math-To-Manim",
+      "path": "legacy/Math-To-Manim/.claude/plugins/math-to-manim/skills/math-to-manim/SKILL.md",
+      "github_url": "https://github.com/HarleyCoops/Math-To-Manim/tree/main/legacy/Math-To-Manim/.claude/plugins/math-to-manim/skills/math-to-manim/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Math-To-Manim",
+      "path": "archive/hermes/hermes/skills/hermes-learns-manim/SKILL.md",
+      "github_url": "https://github.com/HarleyCoops/Math-To-Manim/tree/main/archive/hermes/hermes/skills/hermes-learns-manim/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/HarleyCoops/Math-To-Manim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:12:33Z"
+  "distributed_at": "2026-07-25T14:33:53Z"
 }
