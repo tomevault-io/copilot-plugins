@@ -1,0 +1,14 @@
+{
+  "name": "flutter--demos",
+  "displayName": "demos",
+  "description": "demos",
+  "version": "1.0.0",
+  "author": "flutter",
+  "homepage": "https://github.com/flutter/demos",
+  "skills": [
+    {
+      "name": "demos",
+      "description": ""
+    }
+  ]
+}
