@@ -1,7 +1,7 @@
 {
   "name": "sgeraldes--hidock-next",
   "displayName": "hidock-next",
-  "description": "HiDock Next: Local control for your HiDock device. Manage recordings, access advanced AI transcription (Gemini, OpenAI), and build your private knowledge base. An open-source alternative to HiNotes.",
+  "description": "hidock-next",
   "version": "1.0.0",
   "author": "sgeraldes",
   "homepage": "https://github.com/sgeraldes/hidock-next",
