@@ -1,0 +1,51 @@
+{
+  "name": "inference_builder",
+  "owner": "NVIDIA-AI-IOT",
+  "repo": "inference_builder",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "inference_builder",
+      "path": "skills/inference-builder/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-AI-IOT/inference_builder/tree/main/skills/inference-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA-AI-IOT/inference_builder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:46:42Z"
+}
