@@ -4,7 +4,7 @@
   "repo": "lean-ctx",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/yvgude/lean-ctx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T19:46:46Z"
+  "distributed_at": "2026-07-25T19:47:18Z"
 }
