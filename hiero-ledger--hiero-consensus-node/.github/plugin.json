@@ -1,0 +1,14 @@
+{
+  "name": "hiero-ledger--hiero-consensus-node",
+  "displayName": "hiero-consensus-node",
+  "description": "hiero-consensus-node",
+  "version": "1.0.0",
+  "author": "hiero-ledger",
+  "homepage": "https://github.com/hiero-ledger/hiero-consensus-node",
+  "skills": [
+    {
+      "name": "hiero-consensus-node",
+      "description": ""
+    }
+  ]
+}
