@@ -1,0 +1,9 @@
+{
+  "name": "apache--camel-spring-boot",
+  "displayName": "camel-spring-boot",
+  "description": "camel-spring-boot",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/camel-spring-boot",
+  "skills": []
+}
