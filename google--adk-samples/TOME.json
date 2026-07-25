@@ -1,0 +1,171 @@
+{
+  "name": "adk-samples",
+  "owner": "google",
+  "repo": "adk-samples",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adk-samples",
+      "path": "python/agents/agent-skills-tutorial/app/skills/blog-writer/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/agent-skills-tutorial/app/skills/blog-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/kol-discovery/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/kol-discovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/daily-briefing/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/daily-briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/deep-exploration/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/deep-exploration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/agent-skills-tutorial/app/skills/content-research-writer/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/agent-skills-tutorial/app/skills/content-research-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/sentiment-analysis/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/sentiment-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/debate-synthesizer/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/debate-synthesizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/product-launch-audit/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/product-launch-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/abcd-framework-audit/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/abcd-framework-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/multi-video-synthesis/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/multi-video-synthesis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/poi-discovery-briefing/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/poi-discovery-briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/visualization-reporting/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/visualization-reporting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/creative-insight-analyzer/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/creative-insight-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/youtube-analyst/youtube_analyst/skills/industry-landscape-briefing/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/youtube-analyst/youtube_analyst/skills/industry-landscape-briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": "python/agents/travel-planner-google-maps-mcp/travel_planner_agent/skills/travel-concierge/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/python/agents/travel-planner-google-maps-mcp/travel_planner_agent/skills/travel-concierge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": ".agents/skills/generate-manifest/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/.agents/skills/generate-manifest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": ".agents/skills/prepare-python-recipe/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/.agents/skills/prepare-python-recipe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": ".agents/skills/align-recipe-pyproject/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/.agents/skills/align-recipe-pyproject/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": ".agents/skills/scaffold-python-recipe/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/.agents/skills/scaffold-python-recipe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": ".agents/skills/generate-python-runnability-test/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/.agents/skills/generate-python-runnability-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "adk-samples",
+      "path": ".agents/skills/extract-python-environment-variables/SKILL.md",
+      "github_url": "https://github.com/google/adk-samples/tree/main/.agents/skills/extract-python-environment-variables/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google/adk-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T18:31:42Z"
+}
