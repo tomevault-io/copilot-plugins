@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-modbus",
+  "displayName": "ioBroker.modbus",
+  "description": "ioBroker.modbus",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.modbus",
+  "skills": []
+}
