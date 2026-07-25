@@ -1,0 +1,44 @@
+{
+  "name": "zco",
+  "owner": "funnywwh",
+  "repo": "zco",
+  "description": "zig \u534f\u7a0b\uff0c\u5e26\u65f6\u95f4\u7247\uff0c\u4f18\u5148\u7ea7",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/funnywwh/zco",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T17:34:29Z"
+}
