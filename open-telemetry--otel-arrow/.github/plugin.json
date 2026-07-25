@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--otel-arrow",
+  "displayName": "otel-arrow",
+  "description": "otel-arrow",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/otel-arrow",
+  "skills": []
+}
