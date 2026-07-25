@@ -1,0 +1,311 @@
+## deneb
+
+> This file provides quick-reference guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides quick-reference guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+> **For detailed information**, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) - the comprehensive development guide.
+
+## Project Overview
+
+Deneb is a custom Power BI visual that enables declarative visualization using Vega and Vega-Lite languages. It's an npm workspaces monorepo using Turbo for orchestration and a custom Webpack 5 build system.
+
+**Key Technologies:** React 19, Vega 6.2, Vega-Lite 6.4, Monaco Editor, Fluent UI, Zustand, TypeScript 5.6, Webpack 5, Power BI Visuals API 5.11
+
+## Common Commands
+
+### Development
+
+```bash
+npm run dev                          # Start all package watchers + webpack dev server (https://localhost:8080)
+npm run webpack:build                # One-off dev build without server
+```
+
+### Testing & Linting
+
+```bash
+npm run test                         # Run all tests across packages (Vitest)
+npm run test:watch                   # Watch mode for tests
+npm run eslint                       # Lint all packages + root
+npm run prettier-check               # Check code formatting
+npm run prettier-format              # Auto-format code
+```
+
+### Production Packaging
+
+```bash
+npm run package                      # Certified build for AppSource (validates config first)
+npm run package-standalone           # Developer build with external URIs enabled
+npm run package-alpha                # Alpha channel build
+npm run package-beta                 # Beta channel build
+npm run webpack:analyze              # Generate bundle size analysis (webpack.statistics.html)
+```
+
+### Utilities
+
+```bash
+npm run validate-config-for-commit   # Validate .env flags for certification (critical before packaging)
+npm run clean                        # Clean all build artifacts
+npm run sync-packages                # Sync package versions across monorepo
+```
+
+### First-Time Setup
+
+```bash
+npm install       # Install dependencies
+npm run dev       # Start development (clears .tmp/, builds packages, primes assets, starts server)
+```
+
+> **Details**: See [First-time setup](doc/DEVELOPMENT.md#first-time-setup) in DEVELOPMENT.md
+
+## High-Level Architecture
+
+### Monorepo Structure
+
+**Root Package (`@deneb-viz/deneb`):** Main Power BI custom visual
+
+- Entry: [src/index.ts](src/index.ts) exports `Deneb` class implementing `IVisual`
+- Visual GUID: `deneb7E15AEF80B9E4D4F8E12924291ECE89A`
+- Integrates all workspace packages into final `.pbiviz` bundle
+
+**Workspace Packages (`packages/`):**
+
+- **app-core** - Core UI application (React components, Monaco editor, state management)
+- **vega-runtime** - Vega/Vega-Lite runtime integration, spec processing, and compilation
+- **vega-react** - React hooks and context for Vega embedding (useVegaEmbed, VegaViewProvider)
+- **powerbi-compat** - Power BI API compatibility layer (**SINGLETON** - see below)
+- **data-core** - Dataset field management and value processing; includes the support field processing engine (types, plan builder, row builder, default provider)
+- **json-processing** - JSON spec processing and field tracking
+- **configuration** - Configuration and feature flags
+- **template-usermeta** - Template metadata handling
+- **utils** - Shared utilities (logging, crypto, etc.)
+- **eslint-config**, **typescript-config** - Shared tooling configs
+
+**Apps (`apps/`):**
+
+- **web-client-sample** - Vite-based web integration sample
+
+**Documented Solutions (`docs/solutions/`):** Past problems diagnosed and solved, organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when debugging or implementing in documented areas.
+
+### app-core Layering
+
+`@deneb-viz/app-core` follows a strict layered model: `app/ → features/ → components/ → lib/ → state/context/i18n/catalog`. Cross-feature imports and upward imports are rejected by `eslint-plugin-boundaries` (configured in [packages/app-core/eslint.config.js](packages/app-core/eslint.config.js)) and gated by a vitest canary at [packages/app-core/src/**tests**/architecture-boundaries.test.ts](packages/app-core/src/__tests__/architecture-boundaries.test.ts). Full details — including the per-layer dependency matrix and a decision guide for where new code goes — live in [packages/app-core/ARCHITECTURE.md](packages/app-core/ARCHITECTURE.md).
+
+### Critical: Singleton Package Pattern
+
+`@deneb-viz/powerbi-compat` MUST remain a singleton to maintain shared runtime state:
+
+- Packages consuming it declare it as `peerDependency` (not `dependency`)
+- Mark as `external` in tsup configs to prevent bundling
+- Root visual provides the single runtime instance
+- Uses TypeScript compiler (tsc) instead of tsup to inline const enums from `powerbi-visuals-api`
+
+**When adding dependencies on `@deneb-viz/powerbi-compat`:**
+
+1. Add to `peerDependencies` in consuming package's package.json
+2. Add to `external` array in consuming package's tsup.config.ts
+3. Never bundle it - let the root visual provide the singleton instance
+
+### Compilation Architecture
+
+The spec compilation flow in `@deneb-viz/vega-runtime` and `@deneb-viz/app-core`:
+
+```
+User Spec (JSONC) → parseSpec() → Signal migration (pbiContainer→denebContainer)
+    ↓
+Parsed spec → patchVegaSpec/patchVegaLiteSpec → Config patching
+    ↓
+Compiled template (reusable) → patchSpecWithData() → Final spec with dataset
+    ↓
+buildEmbedOptions() → useVegaEmbed() → vegaEmbed() → Vega View
+```
+
+**Key modules:**
+
+- `vega-runtime/spec-processing` - Parsing, patching, validation
+- `vega-runtime/compilation` - Orchestrates spec compilation
+- `vega-react/hooks` - useVegaEmbed, useVegaView for React integration
+- `app-core/state/compilation` - Zustand slice for compilation state
+
+**Legacy signal migration:** Specs using `pbiContainerWidth`/`pbiContainerHeight` are automatically migrated to `denebContainer.width`/`denebContainer.height` with deprecation warnings.
+
+### Data Flow
+
+```
+Power BI DataView → update() → Categorical data extraction → Dataset mapping
+    ↓
+supportFieldConfiguration → buildProcessingPlan() → per-row buildDataRow()
+    (flags resolved once; platform values injected via SupportFieldValueProvider)
+    ↓
+Dataset passed to Vega view (via compilation API)
+    ↓
+Vega signals → Visual state (Zustand) → Power BI host (selections/cross-filters)
+    ↓
+React UI (Fluent UI components) + Vega canvas rendering
+```
+
+### State Management
+
+**Visual State ([src/state/state.ts](src/state/state.ts)):** Zustand-based with slices
+
+- `dataset` - Data and field state
+- `host` - Power BI host integration
+- `interactivity` - Selection/filtering state
+- `interface` - UI state
+- `settings` - Visual settings/properties
+- `updates` - Visual update tracking
+
+**App-Core State:** Separate store in `@deneb-viz/app-core` for reusable components
+
+### Support Field Configuration
+
+Per-field configuration of which support fields (`__highlight__`, `__format__`, `__formatted__`) are generated during dataset mapping.
+
+- **Storage:** `supportFieldConfiguration` object within the `stateManagement` property (alongside viewport dimensions), synced via the project slice in `@deneb-viz/app-core`
+- **Processing plan pattern:** `buildProcessingPlan()` resolves all flags once before the row loop; `buildDataRow()` executes the plan per row — avoids repeated flag evaluation at scale
+- **Platform abstraction:** `SupportFieldValueProvider` (in `@deneb-viz/data-core`) is injected at the call site; allows platform-specific implementations (e.g. Power BI format strings) without coupling `data-core` to the host
+- **Legacy migration:** On first load of a pre-2.0 spec, legacy defaults are stamped into `stateManagement` so existing specs continue to behave as before
+- **UI:** Dataset accordion item in the Settings pane (`@deneb-viz/app-core`)
+- **Full API docs:** [`packages/data-core/doc/support-fields.md`](packages/data-core/doc/support-fields.md)
+
+### Build System Architecture
+
+**Webpack 5 Custom Toolchain:**
+
+- [webpack.common.config.js](webpack.common.config.js) - Shared base config
+- [webpack.dev.config.js](webpack.dev.config.js) - Dev mode (optimized for speed)
+- [webpack.prod.config.js](webpack.prod.config.js) - Production (optimized for certification)
+
+**Key Points:**
+
+- TypeScript inlines const enums at compile time (no runtime dependency on powerbi-visuals-api)
+- Dev: No source maps, incremental compilation, certification fix disabled → **~22s initial, ~1-2s rebuilds**
+- Production: No source maps (not included in .pbiviz), certification fix enabled, type checking
+- Turbo orchestrates package builds with dependency awareness
+
+> **Details**: See [Webpack Architecture](docs/DEVELOPMENT.md#4-webpack-architecture) and [WEBPACK-OPTIMIZATIONS.md](docs/WEBPACK-OPTIMIZATIONS.md)
+
+### Power BI Visual Integration
+
+**Constructor ([src/index.ts](src/index.ts)):**
+
+- Binds VisualHostServices singleton
+- Initializes InteractivityManager
+- Sets up Zustand stores
+- Configures i18n with host locale
+- Binds Vega extensibility services
+
+**Update Method:**
+
+- Handles dataView changes (categorical data processing)
+- Manages dataset mapping and field tracking
+- Triggers Vega view updates
+- Handles cross-filtering and interactivity
+
+**Visual Host Services:**
+
+- Centralized access to Power BI host capabilities
+- Selection, tooltip, theme integration, locale/formatting
+
+## Feature Flags & Environment Configuration
+
+**Feature Flags**: JSON-based in [config/features.json](config/features.json), imported via `FEATURES` from `config/index.ts`
+
+**Environment Variables** (.env - local only, NOT committed):
+
+- `LOG_LEVEL` - 0 (None) to 51 (Timing)
+- `ALLOW_EXTERNAL_URI` - false (certified) / true (standalone only)
+- `ZUSTAND_DEV_TOOLS`, `PBIVIZ_DEV_MODE`, `PBIVIZ_DEV_OVERLAY` - dev toggles
+
+**CRITICAL:** Run `npm run validate-config-for-commit` before packaging to ensure certification-safe values.
+
+> **Details**: See [Feature Flags](doc/DEVELOPMENT.md#6-feature-flags) and [Logging](doc/DEVELOPMENT.md#7-logging--diagnostics) in DEVELOPMENT.md
+
+## Packaging Modes
+
+| Mode       | Command                      | certificationFix | External URIs |
+| ---------- | ---------------------------- | ---------------- | ------------- |
+| Certified  | `npm run package`            | ✓                | ✗             |
+| Alpha      | `npm run package-alpha`      | ✓                | ✗             |
+| Beta       | `npm run package-beta`       | ✓                | ✗             |
+| Standalone | `npm run package-standalone` | ✗                | ✓             |
+
+> **Details**: See [Production Packaging](doc/DEVELOPMENT.md#8-production-packaging) in DEVELOPMENT.md
+
+## Development Workflow
+
+**Branching model (read first):**
+
+- **`next`** is the active integration branch. Base feature branches off it (`git checkout next && git pull && git checkout -b <type>/<short-name>`) and target it with PRs (`gh pr create --base next`).
+- **`main`** mirrors the version currently published on AppSource and is reserved for production hotfixes. Do **not** branch off `main`, do **not** rebase feature branches against `main`, and do **not** open feature PRs against `main` — `main` is typically far behind `next` and will produce a massive replay or huge unintended diff.
+- For re-signing or rewriting commits on a feature branch, target the actual fork point (e.g. `HEAD~N` for the last N commits on the branch), not `main`.
+- Hotfixes that ship from `main` are forward-merged into `next`. A release cut promotes `next` → `main`.
+
+**Quick Start:**
+
+1. `npm run dev` → clears `.tmp/`, builds packages, primes assets, starts watchers + dev server (~22s first build per session)
+2. Open Power BI pointing to `https://localhost:8080/assets/visual.js`
+3. Edit code → webpack auto-rebuilds (~1-2s) → page reloads
+
+**Package Build Order**: Config → Utils/Data-core/PowerBI-compat → Vega-runtime/JSON-processing → Vega-react → App-core → Root visual
+
+> **Details**: See [Local Development Workflow](doc/DEVELOPMENT.md#2-local-development-workflow) in DEVELOPMENT.md
+
+## Important Constraints
+
+**Bundle Size:** ~2MB max - use `npm run webpack:analyze` to inspect
+
+**TypeScript Const Enums:** `powerbi-visuals-api` enums are inlined at compile time (no runtime dependency)
+
+- Root visual: ts-loader with `transpileOnly=false` in production
+- `@deneb-viz/powerbi-compat`: uses tsc (not tsup) to preserve inlining
+
+**Certification:** Validate with `npm run validate-config-for-commit` before packaging
+
+- `ALLOW_EXTERNAL_URI=false`, `LOG_LEVEL=0`, all dev toggles off
+
+**Persisted visual state (`stateManagement`):** Stores viewport dimensions and `supportFieldConfiguration` — the per-field flags controlling which support fields are generated. This property is part of the visual's persistent JSON and grows as new per-spec configuration is added.
+
+Prefer readable and self-documenting code over elegant solutions even if it increases verbosity.
+
+## Troubleshooting
+
+Common issues:
+
+- **Constructor not firing** → Check `_DEBUG` suffix in webpack.common.config.js
+- **Slow rebuilds (>5s)** → Ensure `certificationFix: false` in dev mode
+- **Visual doesn't load** → Restart `npm run dev` (it clears `.tmp/`, rebuilds packages, and re-primes on every start)
+- **Type errors unnoticed** → Run `npm run webpack:package` or `npx tsc --noEmit`
+
+## Known Workarounds
+
+### Vega-Embed Actions Bug
+
+vega-embed has a bug where `actions: false` doesn't prevent the `.has-actions` class from being applied, causing unwanted padding. The workaround requires spreading `actions: false` directly at the `vegaEmbed()` call site in `vega-react/src/hooks/use-vega-embed.ts`:
+
+```typescript
+vegaEmbed(ref.current, spec, { ...options, actions: false });
+```
+
+This is combined with CSS safety in `app-core/visual-viewer/components/vega-embed-styles.ts` (the `VEGA_EMBED_ROOT_STYLE` slot consumed by `vega-embed.tsx`):
+
+```typescript
+'& .vega-actions': { display: 'none !important' },
+paddingRight: '0 !important'
+```
+
+Both layers are necessary - upstream configuration alone doesn't work due to vega-embed's internal option processing.
+
+> **Full troubleshooting guide**: [DEVELOPMENT.md#10-troubleshooting--known-issues](doc/DEVELOPMENT.md#10-troubleshooting--known-issues)
+
+## Additional Resources
+
+- **Main Documentation:** https://deneb-viz.github.io/
+- **Development Guide:** [doc/DEVELOPMENT.md](doc/DEVELOPMENT.md) (comprehensive webpack migration notes, troubleshooting)
+- **Repository:** https://github.com/deneb-viz/deneb
+
+---
+> Source: [deneb-viz/deneb](https://github.com/deneb-viz/deneb) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
