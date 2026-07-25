@@ -1,0 +1,135 @@
+{
+  "name": "opentradex",
+  "owner": "deonmenezes",
+  "repo": "opentradex",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/buy/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/buy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/risk/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/risk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/sell/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/sell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/scan/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/trade/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/trade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/panic/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/panic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "claude-plugin/skills/check-risk/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/claude-plugin/skills/check-risk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "claude-plugin/skills/scan-markets/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/claude-plugin/skills/scan-markets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/dashboard/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/dashboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "opentradex-trade/skills/positions/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/opentradex-trade/skills/positions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "claude-plugin/skills/panic-flatten/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/claude-plugin/skills/panic-flatten/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "claude-plugin/skills/show-positions/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/claude-plugin/skills/show-positions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "claude-plugin/skills/gateway-status/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/claude-plugin/skills/gateway-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentradex",
+      "path": "claude-plugin/skills/ask-opentradex/SKILL.md",
+      "github_url": "https://github.com/deonmenezes/opentradex/tree/main/claude-plugin/skills/ask-opentradex/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deonmenezes/opentradex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T02:32:42Z"
+}
