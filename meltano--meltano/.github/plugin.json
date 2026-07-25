@@ -1,0 +1,9 @@
+{
+  "name": "meltano--meltano",
+  "displayName": "meltano",
+  "description": "meltano",
+  "version": "1.0.0",
+  "author": "meltano",
+  "homepage": "https://github.com/meltano/meltano",
+  "skills": []
+}
