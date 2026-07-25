@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-java",
+  "displayName": "opentelemetry-java",
+  "description": "opentelemetry-java",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-java",
+  "skills": []
+}
