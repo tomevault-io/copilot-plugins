@@ -1,0 +1,14 @@
+{
+  "name": "firebase--firebase-ios-sdk",
+  "displayName": "firebase-ios-sdk",
+  "description": "firebase-ios-sdk",
+  "version": "1.0.0",
+  "author": "firebase",
+  "homepage": "https://github.com/firebase/firebase-ios-sdk",
+  "skills": [
+    {
+      "name": "firebase-ios-sdk",
+      "description": ""
+    }
+  ]
+}
