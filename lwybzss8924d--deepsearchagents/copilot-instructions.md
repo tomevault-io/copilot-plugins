@@ -1,118 +1,50 @@
-## project-overview
+## deepsearchagents
 
-> DeepSearchAgent is an intelligent agent system that combines the ReAct (Reasoning + Acting) framework and the CodeAct concept (executable code agents) to enable deep web search and reasoning capabilities.
+> This document provides context to Gemini for working with the DeepSearchAgents project.
 
-# DeepSearchAgent Project
+# Gemini Workspace Context
 
-DeepSearchAgent is an intelligent agent system that combines the ReAct (Reasoning + Acting) framework and the CodeAct concept (executable code agents) to enable deep web search and reasoning capabilities.
+This document provides context to Gemini for working with the DeepSearchAgents project.
 
-## Project Structure
+## Project Overview
+
+DeepSearchAgent is an intelligent agent system that combines the ReAct (Reasoning + Acting) framework and the CodeAct concept (executable code agents) to enable deep web search and reasoning capabilities. Built on Hugging Face's `smolagents` framework, it provides multi-step reasoning for complex queries through various interfaces.
+
+## Version: v0.3.3-dev.250729.web-integration
+
+This version introduces a complete web frontend, a simplified WebSocket API, and updated development workflows.
+
+### Key Changes:
+
+*   **Web Frontend:** A new Next.js-based web frontend provides a rich user interface for interacting with the agents.
+*   **Web API v2:** A simplified WebSocket-based API (`/api/v2/ws/...`) replaces the previous, more complex event-driven system. It uses a direct message pass-through architecture from the agent to the frontend.
+*   **Component-Based UI:** The frontend uses a component-based architecture, where different UI components (chat, code editor, terminal) are rendered based on metadata in the WebSocket messages.
+*   **New Development Commands:**
+    *   `make webui`: Starts the Next.js frontend development server.
+    *   `make dev`: Starts both the backend and frontend development servers concurrently.
+    *   `make kill-dev`: Stops all development services.
+*   **Updated Dependencies:** The project now uses `uv` for dependency management and has updated several key libraries, including `smolagents`, `litellm`, and `fastapi`.
+
+### Development Workflow:
+
+1.  **Installation:**
+    *   Use `uv pip install -e ".[dev,test,cli]"` to install all necessary dependencies.
+2.  **Configuration:**
+    *   Copy `config.template.toml` to `config.toml` for application settings.
+    *   Copy `.env.example` to `.env` for API keys.
+3.  **Running the Application:**
+    *   `make dev` to run the full-stack application.
+    *   The backend will be available at `http://localhost:8000`.
+    *   The frontend will be available at `http://localhost:3000`.
+
+### High-Level Architecture:
 
 ```
-src/agents/
-├── agent.py                # ReAct agent implementation
-├── cli.py                  # Command-line interface
-├── codact_agent.py         # CodeAct agent implementation
-├── config_loader.py        # Configuration loading utilities
-├── main.py                 # FastAPI web service
-├── prompt_templates/       # Modular prompt template system
-│   ├── codact_prompts.py   # CodeAct agent prompts
-│   └── react_prompts.py    # ReAct agent prompts
-├── streaming_agents.py     # Streaming agent implementations
-├── streaming_models.py     # Streaming model wrappers
-├── core/                   # Core implementation classes
-│   └── chunk/              # Text chunking components
-│       └── segmenter.py    # Jina AI Segmenter implementation
-└── tools/                  # Tool implementations
-    ├── chunk.py            # Text chunking tool
-    ├── embed.py            # Text embedding tool
-    ├── final_answer.py     # Final answer generation tool
-    ├── readurl.py          # URL content reading tool
-    ├── rerank.py           # Content reranking tool
-    ├── search.py           # Web search tool
-    └── wolfram.py          # Wolfram Alpha computational tool
+Frontend (Next.js) <--> WebSocket API (v2) <--> DSAgentMessageProcessor <--> Agent (CodeAct/ReAct)
 ```
 
-## Version
-Current version: 0.2.4.dev (as specified in [pyproject.toml](mdc:pyproject.toml))
-
-## Core Components
-
-### Agent Implementations
-- **[src/agents/main.py](mdc:src/agents/main.py)**: Main FastAPI service entry point
-- **[src/agents/cli.py](mdc:src/agents/cli.py)**: Command-line interface with improved logging
-- **[config.toml](mdc:config.toml)**: Configuration file with enhanced logging options
-- **[requirements.txt](mdc:requirements.txt)**: Project dependencies
-- **[src/agents/agent.py](mdc:src/agents/agent.py)**: Base agent implementation (ReAct paradigm)
-- **[src/agents/codact_agent.py](mdc:src/agents/codact_agent.py)**: CodeAct agent implementation
-- **[streaming_agents.py](mdc:src/agents/streaming_agents.py)**: Streaming-enabled versions of both agents (not recommended)
-- **[streaming_models.py](mdc:src/agents/streaming_models.py)**: Model wrappers supporting streaming output
-
-### Text Processing Components
-- **[src/agents/core/chunk/segmenter.py](mdc:src/agents/core/chunk/segmenter.py)**: Intelligent text segmentation using Jina AI Segment API
-- **[src/agents/tools/chunk.py](mdc:src/agents/tools/chunk.py)**: Tool interface for the new segmenter
-- **[src/agents/tools/final_answer.py](mdc:src/agents/tools/final_answer.py)**: Enhanced final answer generation with multiple output formats
-
-## Key Components
-
-1. **Core Agents**: Two agent paradigms implemented:
-   - ReAct (Reasoning + Acting): Tool-calling agent using structured JSON instructions
-   - CodeAct: Code execution agent generating Python code to perform actions
-
-2. **Tools Collection**: Various tools for deep web search and content processing:
-   - **Search tools**: Web search, content retrieval, chunking
-   - **Processing tools**: Embedding, reranking, computational tools
-   - **Final Answer tools**: Answer synthesis and formatting
-
-3. **Multiple Interfaces**:
-   - CLI mode (`src/agents/cli.py`)
-   - FastAPI service (`src/agents/main.py`)
-
-4. **Configuration**:
-   - [config.toml](mdc:config.toml): Main configuration file
-   - [config_loader.py](mdc:src/agents/config_loader.py): Configuration loading utilities
-   - [prompt_templates/](mdc:src/agents/prompt_templates): Modular prompt template system
-   - API keys and sensitive data in `.env` (not committed to the repository)
-
-## Key Features in v0.2.4.dev
-
-1. **Text Chunking Enhancements**:
-   - Intelligent text segmentation via Jina AI Segment API
-   - Improved error handling and asynchronous processing
-   - Backward compatibility with previous chunking system
-
-2. **Prompt Template System Refactoring**:
-   - Modular structure for better organization
-   - Enhanced template merging logic
-   - Updated tool descriptions
-
-3. **Final Answer Generation Improvements**:
-   - Multiple output format support
-   - Intelligent JSON processing
-   - Unified result formatting
-   - Better source link extraction
-
-4. **CLI and Logging Optimizations**:
-   - Simplified LiteLLM logs output
-   - Strict filtering for redundant logs
-   - Fixed tool naming consistency
-   - More granular log filtering options
-
-5. **Streaming Capability** (⚠️ Not Recommended):
-   - Current implementation has stability issues
-   - Set `enable_streaming: false` in config.toml
-   - Will be improved in future releases
-
-6. **Periodic Planning**:
-   - Strategic reassessment at configurable intervals
-   - Helps maintain focus and adjust search strategy
-
-7. **Stability Improvements**:
-   - Enhanced error handling and retry mechanisms
-   - Improved asynchronous processing support
-   - Unified agent state management
-   - Centralized logging configuration
+The `DSAgentMessageProcessor` transforms agent events into metadata-rich messages that the frontend uses to route content to the appropriate UI components.
 
 ---
 > Source: [lwyBZss8924d/DeepSearchAgents](https://github.com/lwyBZss8924d/DeepSearchAgents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
