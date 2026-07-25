@@ -2,7 +2,7 @@
   "name": "cursor-rules-cli",
   "owner": "gabimoncha",
   "repo": "cursor-rules-cli",
-  "description": "A CLI for boostrapping Cursor AI rules in your project",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gabimoncha/cursor-rules-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T11:14:49Z"
+  "distributed_at": "2026-07-25T15:47:08Z"
 }
