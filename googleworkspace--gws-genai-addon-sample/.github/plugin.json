@@ -1,0 +1,9 @@
+{
+  "name": "googleworkspace--gws-genai-addon-sample",
+  "displayName": "gws-genai-addon-sample",
+  "description": "gws-genai-addon-sample",
+  "version": "1.0.0",
+  "author": "googleworkspace",
+  "homepage": "https://github.com/googleworkspace/gws-genai-addon-sample",
+  "skills": []
+}
