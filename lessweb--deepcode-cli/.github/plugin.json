@@ -1,0 +1,22 @@
+{
+  "name": "lessweb--deepcode-cli",
+  "displayName": "deepcode-cli",
+  "description": "deepcode-cli",
+  "version": "1.0.0",
+  "author": "lessweb",
+  "homepage": "https://github.com/lessweb/deepcode-cli",
+  "skills": [
+    {
+      "name": "deepcode-cli",
+      "description": ""
+    },
+    {
+      "name": "deepcode-cli",
+      "description": ""
+    },
+    {
+      "name": "deepcode-cli",
+      "description": ""
+    }
+  ]
+}
