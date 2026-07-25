@@ -1,0 +1,81 @@
+{
+  "name": "ray",
+  "owner": "ray-project",
+  "repo": "ray",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ray",
+      "path": ".claude/skills/lint/SKILL.md",
+      "github_url": "https://github.com/ray-project/ray/tree/main/.claude/skills/lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ray",
+      "path": ".claude/skills/rebuild/SKILL.md",
+      "github_url": "https://github.com/ray-project/ray/tree/main/.claude/skills/rebuild/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ray",
+      "path": ".claude/skills/ray-dependencies/SKILL.md",
+      "github_url": "https://github.com/ray-project/ray/tree/main/.claude/skills/ray-dependencies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ray",
+      "path": ".claude/skills/fetch-buildkite-logs/SKILL.md",
+      "github_url": "https://github.com/ray-project/ray/tree/main/.claude/skills/fetch-buildkite-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ray",
+      "path": "doc/.claude/skills/rst-to-myst/SKILL.md",
+      "github_url": "https://github.com/ray-project/ray/tree/main/doc/.claude/skills/rst-to-myst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ray",
+      "path": "doc/.claude/skills/sphinx-fix/SKILL.md",
+      "github_url": "https://github.com/ray-project/ray/tree/main/doc/.claude/skills/sphinx-fix/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ray-project/ray",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:41:33Z"
+}
