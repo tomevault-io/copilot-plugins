@@ -1,8 +1,6 @@
 # ai-swiss-workflows
 
-> Source: [cbardyn/ai-swiss-workflows](https://github.com/cbardyn/ai-swiss-workflows) — distributed by [TomeVault](https://tomevault.io)
-
-Create powerful AI workflows that actually work. No toy interfaces, no vendor lock-in.
+> Source: [cbardyn/ai-swiss-workflows](https://github.com/cbardyn/ai-swiss-workflows). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
