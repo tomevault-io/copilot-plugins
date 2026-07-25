@@ -4,7 +4,7 @@
   "repo": "n100tickers",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jmccarrell/n100tickers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T15:02:47Z"
+  "distributed_at": "2026-07-25T01:06:15Z"
 }
