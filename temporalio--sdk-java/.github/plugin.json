@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--sdk-java",
+  "displayName": "sdk-java",
+  "description": "sdk-java",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/sdk-java",
+  "skills": []
+}
