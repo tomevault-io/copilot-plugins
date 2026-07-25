@@ -2,9 +2,9 @@
   "name": "conduit",
   "owner": "conduit-cli",
   "repo": "conduit",
-  "description": "\ud83d\udda5\ufe0f Run a Team of AI Agents. In Your Terminal.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/conduit-cli/conduit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T04:09:46Z"
+  "distributed_at": "2026-07-25T05:26:11Z"
 }
