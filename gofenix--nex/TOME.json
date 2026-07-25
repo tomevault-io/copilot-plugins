@@ -2,9 +2,9 @@
   "name": "nex",
   "owner": "gofenix",
   "repo": "nex",
-  "description": "Nex \u2013 A minimalist web framework for indie hackers and startups",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gofenix/nex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T17:03:35Z"
+  "distributed_at": "2026-07-25T00:44:21Z"
 }
