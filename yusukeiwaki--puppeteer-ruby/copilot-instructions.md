@@ -1,178 +1,265 @@
 ## puppeteer-ruby
 
-> - Read `CLAUDE.md` and `CLAUDE/` first; they define the CDP architecture, porting workflow, testing strategy, and concurrency plan.
+> > **IMPORTANT: Spec Migration Tracking**
 
-# Repository Guidelines
+# Puppeteer-Ruby Development Guide
 
-## Start Here (Project-Specific Guidance)
+> **IMPORTANT: Spec Migration Tracking**
+>
+> Test porting from Node.js Puppeteer to Ruby RSpec is tracked in **[CLAUDE/spec_migration_plans.md](./CLAUDE/spec_migration_plans.md)**.
+>
+> - Before porting tests: Check the migration plan for priorities and status
+> - After porting tests: Update the migration plan to reflect progress
+> - This file must be kept up-to-date with all spec migration work
 
-- Read `CLAUDE.md` and `CLAUDE/` first; they define the CDP architecture, porting workflow, testing strategy, and concurrency plan.
-- This repository is a CDP-based Ruby port of Puppeteer, **focused on Chrome/Chromium only**.
-- CI covers Ruby 3.2, 3.3, 3.4 with latest Chrome.
+This document provides essential guidance for AI agents working on the puppeteer-ruby codebase.
 
-### Technical Details
+## Project Overview
 
-- **Ruby version**: Minimum is 3.2+
-- **Concurrency**: Uses `socketry/async` (version 2.35.1+) for Fiber-based concurrency. See `CLAUDE/concurrency.md` for details.
+puppeteer-ruby is a Ruby port of [Puppeteer](https://pptr.dev/), the Node.js browser automation library. It uses the Chrome DevTools Protocol (CDP) to automate Chrome/Chromium browsers.
 
-## Project Structure & Module Organization
+### Core Principles
 
-- `lib/puppeteer/`: core implementation (entry points: `puppeteer.rb`, `browser.rb`, `page.rb`, `frame.rb`, `element_handle.rb`, `connection.rb`, `cdp_session.rb`).
-- `spec/integration/`: browser-driven specs; fixtures in `spec/assets/`.
-- `spec/puppeteer/`: unit tests that do not require a browser.
-- `docs/api_coverage.md`: API implementation status.
+1. **CDP Protocol Focus**: All browser automation is done via CDP
+2. **Chrome Specialization**: Focused on Chrome/Chromium automation
+3. **API Compatibility**: Follow Puppeteer's API design closely, but use Ruby idioms
 
-## Build, Test, and Development Commands
+## Quick Reference
 
-- Run all tests: `bundle exec rspec`
-- Run a single file: `bundle exec rspec spec/integration/page_spec.rb`
-- Debug (non-headless): `DEBUG=1 bundle exec rspec spec/integration/page_spec.rb`
-- Lint: `bundle exec rubocop` (auto-fix: `bundle exec rubocop -a`)
+### Running Tests
 
-### Useful Environment Variables
+```bash
+# Run all tests
+bundle exec rspec
 
-- `PUPPETEER_EXECUTABLE_PATH_RSPEC`: custom Chrome path
-- `PUPPETEER_CHANNEL_RSPEC`: Chrome channel (for example `chrome-dev`)
-- `PUPPETEER_NO_SANDBOX_RSPEC`: add `--no-sandbox` flag
+# Run specific test file
+bundle exec rspec spec/integration/page_spec.rb
 
-## Coding Style & Naming Conventions
+# Run in debug mode (non-headless)
+DEBUG=1 bundle exec rspec spec/integration/page_spec.rb
+```
 
-- Follow `.rubocop.yml`; prefer explicit keyword arguments for public APIs.
-- Public APIs mirror Puppeteer naming but use Ruby `snake_case`.
-- Custom errors inherit from `Puppeteer::Error`.
-- Use `Puppeteer::AsyncUtils` for async operations; see `CLAUDE/concurrency.md` for patterns.
+> **Note for Codex CLI**: When executing RSpec from Codex CLI, always use `rbenv exec`:
+> ```bash
+> rbenv exec bundle exec rspec spec/integration/click_spec.rb
+> ```
 
-## Type Annotations (rbs-inline)
+### Key Environment Variables
 
-- Add `# rbs_inline: enabled` at the top of the file (after `# frozen_string_literal: true` if present).
-- Use doc-style `# @rbs` annotations for parameters and return types.
-- Always include descriptions with `--` (example: `# @rbs url: String -- Target URL`).
-- Use `A?` for nullable types and `A | B | nil` for unions that include nil.
-- Avoid `@rbs!` blocks (RubyMine doesn't recognize them).
-- Avoid `**options` in public APIs; RubyMine shows it as `untyped`. Prefer explicit keyword args.
+| Variable | Description |
+|----------|-------------|
+| `PUPPETEER_EXECUTABLE_PATH_RSPEC` | Custom browser executable path |
+| `PUPPETEER_CHANNEL_RSPEC` | Chrome channel (e.g., `chrome`, `chrome-beta`) |
+| `DEBUG` | Set to `1` for debug output |
+| `PUPPETEER_NO_SANDBOX_RSPEC` | Add `--no-sandbox` flag (for containers) |
 
-**Generate signatures:**
-- `bundle exec rake rbs` (writes to `sig/`, which is gitignored)
-- `bundle exec steep check` (after generating RBS)
+### Code Quality
 
-**Manually maintained signatures (tracked):**
-- `sig/_external.rbs` for external dependency stubs.
-- `sig/_supplementary.rbs` for types rbs-inline cannot infer (e.g., `extend self`, singleton helpers).
+```bash
+# Run RuboCop
+bundle exec rubocop
 
-**Example:**
+# Auto-fix RuboCop issues
+bundle exec rubocop -a
+
+# Run Steep type check
+bundle exec steep check
+```
+
+## Architecture
+
+The codebase follows a straightforward architecture:
+
+```
+lib/puppeteer/
+├── puppeteer.rb          # Main entry point (Puppeteer.launch, Puppeteer.connect)
+├── browser.rb            # Browser instance management
+├── browser_context.rb    # Incognito/default context
+├── page.rb               # Page API (main user-facing class)
+├── frame.rb              # Frame handling
+├── element_handle.rb     # DOM element operations
+├── js_handle.rb          # JavaScript object handles
+├── connection.rb         # WebSocket connection to browser
+├── cdp_session.rb        # CDP session management
+├── keyboard.rb           # Keyboard input simulation
+├── mouse.rb              # Mouse input simulation
+└── ...
+```
+
+### Key Components
+
+- **Connection**: Manages WebSocket connection to the browser's DevTools
+- **CDPSession**: Sends CDP commands and receives events
+- **FrameManager**: Tracks frames and their execution contexts
+- **NetworkManager**: Handles request interception and network events
+- **LifecycleWatcher**: Waits for navigation events (load, DOMContentLoaded, etc.)
+
+## Code Standards
+
+### Ruby Version & Style
+
+- Minimum Ruby version: 3.2
+- Follow RuboCop rules defined in `.rubocop.yml`
+- Use explicit keyword arguments for public APIs
+
+### API Naming Conventions
+
+JavaScript Puppeteer methods use camelCase, Ruby methods use snake_case:
+
+| Puppeteer (JS) | puppeteer-ruby |
+|----------------|----------------|
+| `page.waitForSelector()` | `page.wait_for_selector` |
+| `page.setContent()` | `page.content=` or `page.set_content` |
+| `element.boundingBox()` | `element.bounding_box` |
+| `browser.newPage()` | `browser.new_page` |
+
+### Error Classes
+
+All custom errors inherit from `Puppeteer::Error`:
+
 ```ruby
-# frozen_string_literal: true
-# rbs_inline: enabled
+module Puppeteer
+  class Error < StandardError; end
+  class TimeoutError < Error; end
+  class FrameNotFoundError < Error; end
+  # etc.
+end
+```
 
-class Example
-  attr_reader :name #: String
+## Testing Strategy
 
-  # @rbs name: String -- The name to set
-  # @rbs return: void -- No return value
-  def initialize(name)
-    @name = name
+### Test Types
+
+- **Unit tests**: `spec/puppeteer/` - Test individual classes without browser
+- **Integration tests**: `spec/integration/` - Test with real browser
+
+### Integration Test Setup
+
+Integration tests use RSpec metadata:
+
+```ruby
+RSpec.describe 'Page', type: :puppeteer do
+  it 'navigates to a page' do
+    page.goto('https://example.com')
+    expect(page.title).to eq('Example Domain')
   end
 end
 ```
 
-## Testing Guidelines
+The `type: :puppeteer` metadata automatically:
+- Launches Chrome before each test
+- Provides `page` helper method
+- Closes browser after test
 
-- Integration tests are `spec/integration/` with `type: :puppeteer` helpers.
-- Use `sinatra: true` for tests that need a local server.
-- Use `match_golden` for screenshot comparisons where applicable.
+## Porting from Puppeteer
 
-## Agent Notes (Porting/Review)
+When implementing new features, reference the TypeScript Puppeteer source:
 
-### Source Code Porting
+1. Find the corresponding TypeScript file in [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
+2. Understand the CDP calls being made
+3. Implement in Ruby following existing patterns
+4. Port the relevant tests
+5. Update `docs/api_coverage.md`
 
-- When porting from upstream, use `packages/puppeteer-core/src/cdp/` as the primary source.
-- Mirror upstream behavior, error messages, and option handling as closely as possible.
-- Enable required CDP domains before relying on their events (see `CLAUDE/cdp_protocol.md`).
+### CDP Command Pattern
 
-### Test Porting Guidelines
+```ruby
+# TypeScript Puppeteer
+await this._client.send('Page.navigate', { url });
 
-When porting tests from upstream `test/src/*.spec.ts` to `spec/integration/*_spec.rb`:
+# Ruby equivalent
+@client.send_message('Page.navigate', url: url)
+```
 
-**Structure & Order**
-- Keep `it` blocks in the **exact same order** as upstream
-- Use the **same test names** (translated to Ruby style, e.g., `'should type into a textarea'`)
-- Do NOT add extra `context`/`describe` wrappers unless upstream has them
-- Do NOT add Ruby-specific tests in the middle; add them at the end if needed
+## Concurrency Model
 
-**Ruby-Specific Tests → `*_ext_spec.rb`**
-- When porting, separate Ruby-only features into `*_ext_spec.rb` files (e.g., `keyboard_ext_spec.rb`)
-- Ruby-specific features include: block DSL (`page.keyboard { ... }`), `press('Shift') { press('Key') }` syntax
-- Keep upstream-equivalent tests in the main spec file for easy comparison
-- Example: `keyboard_spec.rb` (upstream port) + `keyboard_ext_spec.rb` (Ruby extensions)
+### Current State (socketry/async)
 
-**Test State Setup**
-- Use `with_test_state` block instead of `include_context 'with test state'`
-- Access test helpers via block arguments: `page:`, `server:`, `https_server:`, `browser:`, `browser_context:`
-- Example:
-  ```ruby
-  it 'should click button' do
-    with_test_state do |page:, server:, **|
-      page.goto("#{server.prefix}/input/button.html")
-      page.click('button')
-      expect(page.evaluate('() => globalThis.result')).to eq('Clicked')
-    end
+puppeteer-ruby uses Fiber-based concurrency with `socketry/async` (version 2.35.1+):
+
+- `Async::Promise` - For async operations that complete later
+- `Async` blocks - For running operations in Fiber context
+- `Puppeteer::AsyncUtils.await_promise_all` - For waiting on multiple promises
+- `Puppeteer::AsyncUtils.await_promise_race` - For waiting on any of multiple promises
+- `Puppeteer::ReactorRunner` - Dedicated Async reactor thread for sync API wrapping
+- Standard `Hash` with `Mutex` - For thread-safe callbacks and sessions
+
+### Key Components
+
+| Component | Purpose |
+|-----------|---------|
+| `Async::Promise` | Promise that can be resolved/rejected later |
+| `AsyncUtils.await_promise_all` | Wait for multiple async operations |
+| `AsyncUtils.await_promise_race` | Wait for first of multiple operations |
+| `AsyncUtils.async_timeout` | Timeout wrapper for async operations |
+| `ReactorRunner` | Bridges sync API calls into Async reactor |
+
+### Async Method Pattern
+
+```ruby
+class Page
+  # Synchronous version (blocks until complete)
+  def wait_for_selector(selector, timeout: nil)
+    # ...
   end
-  ```
 
-**Asset Files**
-- `spec/assets/` files must be **identical** to upstream `test/assets/`
-- Fetch assets directly: `wget https://raw.githubusercontent.com/puppeteer/puppeteer/main/test/assets/xxx`
-- Do NOT hand-edit asset files; if upstream changes, re-fetch
+  # Async version (returns Async task)
+  define_async_method :async_wait_for_selector
+end
+```
 
-**Code Translation**
-- `page.evaluate(() => expr)` → `page.evaluate('() => expr')` (string form)
-- `page.$('selector')` → `page.query_selector('selector')`
-- `page.$$('selector')` → `page.query_selector_all('selector')`
-- `page.$eval()` → `page.eval_on_selector()`
-- `await expect(...)` assertions → RSpec `expect(...).to eq(...)`
-- `toThrow`/`rejects.toThrow` → `raise_error` matcher
-- Platform checks: `os.platform() !== 'darwin'` → `skip(...) unless Puppeteer.env.darwin?`
+## Development Workflow
 
-**JavaScript Object Comparisons**
-- When comparing JS objects, use `eval_on_selector` or `evaluate` returning a hash
-- Compare with Ruby hash: `expect(result).to eq({ 'key' => 'value' })`
-- Note: JS object keys become string keys in Ruby hashes
+### Handling Bug Reports
 
-**Upstream Test Location**
-- Tests: `https://github.com/puppeteer/puppeteer/tree/main/test/src`
-- Assets: `https://github.com/puppeteer/puppeteer/tree/main/test/assets`
+When investigating a bug reported by a user (e.g., GitHub issue):
 
-See `CLAUDE/porting_puppeteer.md` for detailed examples.
-- Update `docs/api_coverage.md` when new APIs are added.
-- `CHANGELOG.md` is being retired; do not update it for new changes.
-- Porting plan (CDP + async):
-  - Aim for Node.js Puppeteer fidelity, but use `socketry/async` (like puppeteer-bidi) instead of JS async/await.
-  - Use puppeteer-bidi as the Ruby porting reference: follow its approach and patterns.
-  - For `Puppeteer::Page`, mirror upstream `api/Page.ts` and `cdp/Page.ts`, similar to how puppeteer-bidi uses `api/Page.ts` + `bidi/Page.ts`.
-  - Follow puppeteer-bidi's `Page` patterns: wrap `:request` handlers to enqueue interception actions (WeakMap to keep `on/off` mapping), serialize interception with `Async::Semaphore`, and keep `Page` mostly as a thin delegator to `Frame`.
-  - Mirror upstream timeout/deferred behavior with `Async::Promise` + `AsyncUtils.async_timeout` (timeout 0 = infinite) and keep error messages aligned (e.g., file chooser/network idle).
-  - Screenshot parity: apply default option behavior and clip rounding (`normalize/round`), and convert clip coordinates when `captureBeyondViewport` is false (visualViewport offsets).
-  - Serialize screenshot operations (bidi uses `browserContext.waitForScreenshotOperations`); keep `ScreenshotTaskQueue`/guards to avoid overlapping captures.
-  - `evaluate_on_new_document`: build IIFE expressions and serialize args the same way as puppeteer-bidi's `build_evaluation_expression`/`serialize_arg_for_preload`.
-  - `wait_for_network_idle`: track inflight requests and reset idle timers on changes (mirrors Page.ts inflight counter logic).
-  - `wait_for_file_chooser`: resolve all pending waiters and keep timeout error messaging aligned (`Waiting for \`FileChooser\` failed: <ms> exceeded`).
-  - RxJS Observable flows are replaced with manual EventEmitter listeners + `Async::Promise` (no `fromEmitterEvent`/`merge`/`timeout`), so compose waits explicitly (e.g., `wait_for_navigation`, `set_content`).
-  - Use `AsyncUtils` (Barrier-based Promise.all/race + `async_timeout`) instead of RxJS `combineLatest`/`firstValueFrom`/`timeout`.
-  - `WaitTask`/`TaskManager` mirror Puppeteer's polling waits; no AbortSignal, use Async tasks + cancellation.
-  - **AbortSignal is NOT supported**: Do NOT port `signal` parameters from upstream Puppeteer. Ruby's concurrency model doesn't align with JavaScript's AbortController pattern.
-  - `ReactorRunner` runs a dedicated Async reactor thread and proxies sync calls into it (wrap/unwrap).
-  - Use `Core::EventEmitter` + symbols instead of RxJS event streams; clean up listeners explicitly.
-  - Disposable patterns: `Core::Disposable::DisposableStack`/`DisposableMixin` stand in for JS DisposableStack/AsyncDisposableStack.
+1. **First, reproduce the issue** - Write a minimal reproduction script or RSpec test that demonstrates the bug
+2. **Verify the reproduction** - Run the test and confirm it fails as described in the report
+3. **Then investigate** - Only after reproduction is confirmed, analyze the root cause
+4. **Implement the fix** - Make the necessary code changes
+5. **Verify the fix** - Run the reproduction test again and confirm it now passes
 
-## Security & Configuration Tips
+This workflow ensures:
+- The bug is real and reproducible
+- The fix actually addresses the reported issue
+- A regression test exists for the future
 
-- Do not commit credentials or secrets.
-- Be cautious with network-fetched/generated files; review diffs carefully.
+### Before Submitting Changes
 
-## Release & CI
+1. Run tests: `bundle exec rspec`
+2. Run RuboCop: `bundle exec rubocop`
+3. Run type check: `bundle exec steep check`
+4. Update `docs/api_coverage.md` if adding new API methods
 
-- Release/tagging workflow follows the current project practice (no new rules).
+### Pull Request Guidelines
+
+- **Language**: All Pull Requests must be written in English (title, description, and commit messages)
+- **`gh` command**: Available for exploring GitHub issues, codes, or creating pull requests
+- **PR Title**: Use a clear, concise title describing the change
+- **PR Description**: Include a summary of changes and testing done
+
+### Version Updates
+
+When updating the version, **both files must be updated**:
+- `lib/puppeteer/version.rb` - The canonical version constant
+- `docs/api_coverage.md` - The version displayed in documentation
+
+GitHub Actions automatically publishes to RubyGems when a version tag is pushed. Tag format is the version number without `v` prefix (e.g., `0.50.0.alpha3`, not `v0.50.0.alpha3`).
+
+## Detailed Documentation
+
+For in-depth information on specific topics, see the [CLAUDE/](./CLAUDE/) directory:
+
+- [README.md](./CLAUDE/README.md) - Documentation index
+- [architecture.md](./CLAUDE/architecture.md) - Detailed architecture overview
+- [testing.md](./CLAUDE/testing.md) - Testing strategies and patterns
+- [cdp_protocol.md](./CLAUDE/cdp_protocol.md) - CDP protocol details
+- [concurrency.md](./CLAUDE/concurrency.md) - Concurrency patterns
+- [porting_puppeteer.md](./CLAUDE/porting_puppeteer.md) - Guide for porting from TypeScript
+- [rbs_type_checking.md](./CLAUDE/rbs_type_checking.md) - RBS type annotations and Steep type checking
+- [spec_migration_plans.md](./CLAUDE/spec_migration_plans.md) - Test migration tracking and progress
 
 ---
 > Source: [YusukeIwaki/puppeteer-ruby](https://github.com/YusukeIwaki/puppeteer-ruby) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
