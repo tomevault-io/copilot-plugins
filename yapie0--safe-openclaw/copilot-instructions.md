@@ -1,91 +1,84 @@
 ## safe-openclaw
 
-> - Repo: https://github.com/Yapie0/safe-openclaw (fork of openclaw/openclaw)
+> This document outlines the validation rules implemented in the `validateSchema` function. The purpose of this validator is to check for constraints that are not easily expressed in the JSON schema itself, such as conditional requirements and reference integrity.
 
-# safe-openclaw — Project Guidelines
+# A2UI Protocol Message Validation Logic
 
-- Repo: https://github.com/Yapie0/safe-openclaw (fork of openclaw/openclaw)
-- Upstream: https://github.com/openclaw/openclaw
+This document outlines the validation rules implemented in the `validateSchema` function. The purpose of this validator is to check for constraints that are not easily expressed in the JSON schema itself, such as conditional requirements and reference integrity.
 
-## What is safe-openclaw
+An A2UI message is a JSON object that can have a `surfaceId` and one of the following properties, defining the message type: `beginRendering`, `surfaceUpdate`, `dataModelUpdate`, or `deleteSurface`.
 
-Security-hardened fork of openclaw. Key additions:
+## Common Properties
 
-- Mandatory password auth gate (`src/gateway/safe-setup-handler.ts`)
-- SHA-256 password hashing + AES-256-GCM API token encryption
-- Secret redaction in outbound messages
-- Localhost-only sensitive endpoints
-- Password strength enforcement
-- Auto-restart on password change
+- **`surfaceId`**: An optional string that identifies the UI surface the message applies to.
 
-See `README.en.md` for full security patches documentation.
+## `BeginRendering` Message Rules
 
-## Key files (safe-openclaw additions)
+- **Required**: Must have a `root` property, which is the ID of the root component to render.
 
-- `src/gateway/safe-setup-handler.ts` — auth gate, login/setup/reset pages, session management
-- `src/gateway/safe-password-policy.ts` — password strength validation
-- `src/gateway/safe-session.ts` — HMAC session tokens
-- `src/cli/program/register.set-password.ts` — CLI set-password command
-- `README.en.md` — security patches documentation
-- `.github/workflows/safe-openclaw-npm-release.yml` — npm publish CI (triggers on `v*` tags)
+## `SurfaceUpdate` Message Rules
 
-## User preferences
+### 1. Component ID Integrity
 
-- Default gateway startup command: `openclaw gateway run`
-- Backup restart command: `openclaw gateway stop && openclaw gateway run`
-- Default gateway port: 18789
-- Git authors: Yapie0 and Claude only (no other authors in commits)
-- Node version: use `source ~/.nvm/nvm.sh && nvm use 22` when Node 22 is needed
-- npm account: yapie (uses passkey auth, publish via CI or `--auth-type=web`)
+- **Uniqueness**: All component `id`s within the `components` array must be unique.
+- **Reference Validity**: Any property that references a component ID (e.g., `child`, `children`, `entryPointChild`, `contentChild`) must point to an ID that actually exists in the `components` array.
 
-## Project Structure (openclaw core)
+### 2. Component-Specific Property Rules
 
-- Source: `src/` (CLI in `src/cli`, commands in `src/commands`, infra in `src/infra`, gateway in `src/gateway`)
-- Tests: colocated `*.test.ts`
-- Built output: `dist/`
-- Plugins/extensions: `extensions/*`
-- Config location: `~/.openclaw/openclaw.json`
+For each component in the `components` array, the following rules apply:
 
-## Build, Test, and Development
+- **General**:
+  - A component must have an `id` and a `componentProperties` object.
+  - The `componentProperties` object must contain exactly one key, which defines the component's type (e.g., "Heading", "Text").
 
-- Runtime: Node **22+**
-- Install deps: `pnpm install`
-- Build: `pnpm build`
-- TypeScript checks: `pnpm tsgo`
-- Lint/format: `pnpm check`
-- Format fix: `pnpm format:fix`
-- Tests: `pnpm test` (vitest)
-- Run CLI in dev: `pnpm openclaw ...` or `pnpm dev`
-- UI build: `pnpm ui:build`
+- **Heading**:
+  - **Required**: Must have a `text` property.
+- **Text**:
+  - **Required**: Must have a `text` property.
+- **Image**:
+  - **Required**: Must have a `url` property.
+- **Video**:
+  - **Required**: Must have a `url` property.
+- **AudioPlayer**:
+  - **Required**: Must have a `url` property.
+- **TextField**:
+  - **Required**: Must have a `label` property.
+- **DateTimeInput**:
+  - **Required**: Must have a `value` property.
+- **MultipleChoice**:
+  - **Required**: Must have a `selections` property.
+- **Slider**:
+  - **Required**: Must have a `value` property.
+- **Container Components** (`Row`, `Column`, `List`):
+  - **Required**: Must have a `children` property.
+  - The `children` object must contain _either_ `explicitList` _or_ `template`, but not both.
+- **Card**:
+  - **Required**: Must have a `child` property.
+- **Tabs**:
+  - **Required**: Must have a `tabItems` property, which must be an array.
+  - Each item in `tabItems` must have a `title` and a `child`.
+- **Modal**:
+  - **Required**: Must have both `entryPointChild` and `contentChild` properties.
+- **Button**:
+  - **Required**: Must have `label` and `action` properties.
+- **CheckBox**:
+  - **Required**: Must have `label` and `value` properties.
+- **Divider**:
+  - No required properties.
 
-## Coding Style
+## `DataModelUpdate` Message Rules
 
-- Language: TypeScript (ESM). Strict typing; avoid `any`.
-- Formatting/linting: Oxlint + Oxfmt; run `pnpm check` before commits.
-- Never add `@ts-nocheck`; fix root causes.
-- Add brief comments for tricky logic.
-- Keep files under ~500 LOC when feasible.
-- Naming: **OpenClaw** for product headings; `openclaw` for CLI/package/paths.
+- **Required**: A `DataModelUpdate` message must have a `contents` property.
+- The `path` property is optional.
+- If `path` is not present, the `contents` object will replace the entire data model.
+- If `path` is present, the `contents` will be set at that location in the data model.
+- No other properties besides `path` and `contents` are allowed.
 
-## Commit Guidelines
+## `DeleteSurface` Message Rules
 
-- Concise, action-oriented messages (e.g., `feat(safe-openclaw): add reset password UI`).
-- Group related changes; avoid bundling unrelated refactors.
-- Never commit secrets or real credentials.
-
-## npm Release
-
-- CI workflow triggers on `v*` tag push.
-- Requires `NPM_TOKEN` secret in GitHub repo settings (granular access token).
-- Verify: `npm view safe-openclaw version --userconfig "$(mktemp)"`
-
-## Environment Notes
-
-- Local Node may default to old version; always use nvm: `source ~/.nvm/nvm.sh && nvm use 22`
-- Proxy set in environment (`http_proxy`); use `--noproxy localhost` for local curl.
-- SSH remote: `git@github-yapie:Yapie0/safe-openclaw.git`
-- Pre-commit hooks may error due to Node version mismatch (non-blocking).
+- **Required**: Must have a `delete` property set to `true`.
+- No other properties are allowed.
 
 ---
 > Source: [Yapie0/safe-openclaw](https://github.com/Yapie0/safe-openclaw) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
