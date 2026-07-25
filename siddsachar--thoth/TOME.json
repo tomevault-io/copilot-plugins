@@ -1,0 +1,279 @@
+{
+  "name": "Thoth",
+  "owner": "siddsachar",
+  "repo": "Thoth",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Thoth",
+      "path": "tool_guides/x_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/x_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/mcp_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/mcp_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/math_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/math_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/wiki_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/wiki_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/shell_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/shell_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/email_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/email_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/chart_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/chart_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/video_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/video_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/humanizer/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/vision_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/vision_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/weather_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/weather_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/tracker_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/tracker_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/browser_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/browser_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/brain_dump/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/brain_dump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/updater_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/updater_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/designer_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/designer_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/calendar_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/calendar_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/telegram_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/telegram_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/developer_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/developer_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/data_analyst/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/data_analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/web_navigator/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/web_navigator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/filesystem_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/filesystem_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/meeting_notes/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/meeting_notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/deep_research/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/deep_research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/design_creator/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/design_creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/knowledge_base/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/knowledge_base/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/daily_briefing/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/daily_briefing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/task_automation/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/task_automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/self_reflection/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/self_reflection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/proactive_agent/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/proactive_agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/developer_review/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/developer_review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/developer_coding/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/developer_coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/developer_pr_prep/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/developer_pr_prep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/row_bot_status_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/row_bot_status_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/claude_code_delegation/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/claude_code_delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "bundled_skills/developer_custom_tools/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/bundled_skills/developer_custom_tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/custom_tool_builder_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/custom_tool_builder_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/goal_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/goal_guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Thoth",
+      "path": "tool_guides/agents_guide/SKILL.md",
+      "github_url": "https://github.com/siddsachar/Thoth/tree/main/tool_guides/agents_guide/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/siddsachar/Thoth",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:32:44Z"
+}
