@@ -1,0 +1,9 @@
+{
+  "name": "fsouza--fake-gcs-server",
+  "displayName": "fake-gcs-server",
+  "description": "fake-gcs-server",
+  "version": "1.0.0",
+  "author": "fsouza",
+  "homepage": "https://github.com/fsouza/fake-gcs-server",
+  "skills": []
+}
