@@ -2,9 +2,9 @@
   "name": "DeepSearchAgents",
   "owner": "lwyBZss8924d",
   "repo": "DeepSearchAgents",
-  "description": "DeepSearch Code-Actions Agent (DSCA). Build \ud83d\ude4c with \ud83e\udd17 smolagents",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lwyBZss8924d/DeepSearchAgents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T04:35:59Z"
+  "distributed_at": "2026-07-25T11:24:35Z"
 }
