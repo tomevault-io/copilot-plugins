@@ -5,5 +5,102 @@
   "version": "1.0.0",
   "author": "notum-cz",
   "homepage": "https://github.com/notum-cz/strapi-next-monorepo-starter",
-  "skills": []
+  "skills": [
+    {
+      "name": "add-locale",
+      "description": ""
+    },
+    {
+      "name": "create-content-component",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    },
+    {
+      "name": "strapi-next-monorepo-starter",
+      "description": ""
+    }
+  ]
 }
