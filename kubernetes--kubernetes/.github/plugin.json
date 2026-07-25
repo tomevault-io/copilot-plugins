@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes--kubernetes",
+  "displayName": "kubernetes",
+  "description": "kubernetes",
+  "version": "1.0.0",
+  "author": "kubernetes",
+  "homepage": "https://github.com/kubernetes/kubernetes",
+  "skills": []
+}
