@@ -1,0 +1,9 @@
+{
+  "name": "homebridge-plugins--homebridge-ecovacs",
+  "displayName": "homebridge-ecovacs",
+  "description": "homebridge-ecovacs",
+  "version": "1.0.0",
+  "author": "homebridge-plugins",
+  "homepage": "https://github.com/homebridge-plugins/homebridge-ecovacs",
+  "skills": []
+}
