@@ -3,8 +3,8 @@
   "owner": "tsinghua-fib-lab",
   "repo": "AutoSOTA",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,195 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-reward/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-reward/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-reward/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-reward/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-dataset/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-dataset/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/upgrade-deps/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/upgrade-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-workflow/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-workflow/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-reward/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-reward/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-dataset/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-dataset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-unit-tests/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-unit-tests/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-workflow/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-archon-model/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/add-archon-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-archon-model/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/add-archon-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-unit-tests/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/translate-doc-zh/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/translate-doc-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/debug-distributed/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/debug-distributed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/debug-distributed/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/debug-distributed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-archon-model/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/add-archon-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/commit-conventions/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.claude/skills/commit-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/commit-conventions/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.agents/skills/commit-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/debug-distributed/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/debug-distributed/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/commit-conventions/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-2403-AReal-DTA/best_code/.opencode/skills/commit-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-6263-SkillTrojan/best_code/skill-creator/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-6263-SkillTrojan/best_code/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-6263-SkillTrojan/best_code/skills/ehr_sql/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-6263-SkillTrojan/best_code/skills/ehr_sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-6321-TSL/best_code/.claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-6321-TSL/best_code/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-6321-TSL/best_code/.claude/skills/align-docs/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-6321-TSL/best_code/.claude/skills/align-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-6263-SkillTrojan/best_code/skills/enhanced-ehr-sql/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-6263-SkillTrojan/best_code/skills/enhanced-ehr-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AutoSOTA",
+      "path": "ICML-2026/paper-6263-SkillTrojan/best_code/skills/backdoored-ehr-sql/SKILL.md",
+      "github_url": "https://github.com/tsinghua-fib-lab/AutoSOTA/tree/main/ICML-2026/paper-6263-SkillTrojan/best_code/skills/backdoored-ehr-sql/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tsinghua-fib-lab/AutoSOTA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T17:00:35Z"
+  "distributed_at": "2026-07-25T18:35:47Z"
 }
