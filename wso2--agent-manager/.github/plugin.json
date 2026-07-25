@@ -1,0 +1,26 @@
+{
+  "name": "wso2--agent-manager",
+  "displayName": "agent-manager",
+  "description": "agent-manager",
+  "version": "1.0.0",
+  "author": "wso2",
+  "homepage": "https://github.com/wso2/agent-manager",
+  "skills": [
+    {
+      "name": "agent-manager",
+      "description": ""
+    },
+    {
+      "name": "agent-manager",
+      "description": ""
+    },
+    {
+      "name": "agent-manager",
+      "description": ""
+    },
+    {
+      "name": "agent-manager",
+      "description": ""
+    }
+  ]
+}
