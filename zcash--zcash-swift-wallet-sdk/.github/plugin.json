@@ -1,0 +1,14 @@
+{
+  "name": "zcash--zcash-swift-wallet-sdk",
+  "displayName": "zcash-swift-wallet-sdk",
+  "description": "zcash-swift-wallet-sdk",
+  "version": "1.0.0",
+  "author": "zcash",
+  "homepage": "https://github.com/zcash/zcash-swift-wallet-sdk",
+  "skills": [
+    {
+      "name": "zcash-swift-wallet-sdk",
+      "description": ""
+    }
+  ]
+}
