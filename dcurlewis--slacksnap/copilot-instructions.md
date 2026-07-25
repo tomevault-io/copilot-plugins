@@ -1,57 +1,66 @@
-## chrome-extension
+## configuration-management
 
-> - Use **service worker** instead of background pages: [src/background.js](mdc:src/background.js)
+> **Configuration flow**: [src/config.js](mdc:src/config.js) ↔ Chrome Storage ↔ [options.html](mdc:options.html)
 
 
-# Chrome Extension Development Patterns
+# Configuration Management
 
-## Manifest V3 Requirements
+## Settings Architecture
 
-- Use **service worker** instead of background pages: [src/background.js](mdc:src/background.js)
-- **Host permissions** defined separately from permissions in [manifest.json](mdc:manifest.json)
-- **Content scripts** must be declared in manifest, loaded on *.slack.com domains
+**Configuration flow**: [src/config.js](mdc:src/config.js) ↔ Chrome Storage ↔ [options.html](mdc:options.html)
 
-## Communication Patterns
+## Default Configuration
 
-**Background ↔ Content Script**:
+Always define defaults in [src/config.js](mdc:src/config.js):
 
 ```javascript
-// Background sends to content
-chrome.tabs.sendMessage(tabId, { action: 'EXPORT_MESSAGES' });
-
-// Content responds
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // Handle message, call sendResponse({ success: true })
-  return true; // Important: indicates async response
-});
+const DEFAULT_CONFIG = {
+  downloadDirectory: "slack-exports",
+  fileNameFormat: "YYYYMMDD-HHmm-{channel}.md",
+  includeTimestamps: true,
+  includeThreadReplies: true
+};
 ```
 
-**Content ↔ Background**:
+## Storage Patterns
+
+**Reading config**:
 
 ```javascript
-// Content sends to background
-chrome.runtime.sendMessage({ action: 'DOWNLOAD_FILE', data: {...} });
+const config = await chrome.storage.sync.get(DEFAULT_CONFIG);
+// Result automatically merges with defaults for missing keys
 ```
 
-## Storage API Usage
+**Saving config**:
 
-- Use `chrome.storage.sync` for user preferences (syncs across devices)
-- Always provide fallback values: `await chrome.storage.sync.get(DEFAULT_CONFIG)`
-- Handle storage errors gracefully
+```javascript
+await chrome.storage.sync.set(newConfig);
+```
 
-## Download API Pattern
+## Options Page Integration
 
-- Create Blob with content type
-- Use `URL.createObjectURL()` for blob URLs
-- Always clean up: `URL.revokeObjectURL(url)` after download
-- Use `saveAs: false` for automatic downloads
+- **Load on page ready**: Populate form fields from stored config
+- **Save on form submit**: Validate and store form data
+- **Reset functionality**: Restore defaults and save
+- **User feedback**: Show status messages for save/error states
 
-## Error Handling
+## Filename Template System
 
-- Wrap all Chrome API calls in try-catch
-- Log errors to console with descriptive messages
-- Show user-friendly notifications for failures
-- Return error responses in message handlers
+Template format: `"YYYYMMDD-HHmm-{channel}.md"`
+
+**Replacement tokens**:
+
+- `YYYY`, `MM`, `DD`, `HH`, `mm` - Date/time components
+- `{channel}` - Sanitized channel name
+
+**Implementation**: See `generateFilename()` in [src/utils.js](mdc:src/utils.js)
+
+## Validation
+
+- **Sanitize filenames**: Remove invalid filesystem characters
+- **Validate directories**: Ensure directory names are valid
+- **Fallback values**: Always provide sensible defaults
+- **Error handling**: Graceful failure with user notification
 
 ---
 > Source: [dcurlewis/slacksnap](https://github.com/dcurlewis/slacksnap) — distributed by [TomeVault](https://tomevault.io).
