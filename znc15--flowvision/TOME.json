@@ -4,7 +4,7 @@
   "repo": "FlowVision",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/znc15/FlowVision",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T07:42:11Z"
+  "distributed_at": "2026-07-25T05:34:17Z"
 }
