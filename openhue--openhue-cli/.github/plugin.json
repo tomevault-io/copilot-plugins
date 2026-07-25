@@ -1,0 +1,9 @@
+{
+  "name": "openhue--openhue-cli",
+  "displayName": "openhue-cli",
+  "description": "openhue-cli",
+  "version": "1.0.0",
+  "author": "openhue",
+  "homepage": "https://github.com/openhue/openhue-cli",
+  "skills": []
+}
