@@ -1,56 +1,75 @@
 ## werift-webrtc
 
-> Instructions for coding agents working in `examples/turn-loopback`.
+> ユーザーとの対話には日本語を用いてください
 
-# AGENTS.md
+# Claude Code プログラミングガイド
 
-## Purpose
+ユーザーとの対話には日本語を用いてください
 
-Instructions for coding agents working in `examples/turn-loopback`.
+MCPツールとしてclaude codeを用いてください
 
-## Scope
+プロジェクトパス: `/home/shin/code/werift-webrtc`
 
-* Applies to the Vite React client, the TypeScript signaling server, the local Chrome E2E harness, and package-local docs.
-* This example demonstrates HTTPS signaling plus TURN over TLS on the same public port.
-* The Docker image also bundles a separate HTTP/ACME process on `8080` plus an entrypoint that prepares certificate files before starting the werift server on `8443`.
-* The werift server peer creates the offer and DataChannel; the browser client answers with relay-only ICE.
+## プログラミングのワークフロー
 
-## Do
+次の2つのステップを遵守してください。ステップ1の承認を得ずにステップ2を実行しないでください
 
-1. Keep signaling and TLS socket multiplexing in `server/main.ts`.
-2. Keep the browser SPA in `src/` and preserve a simple one-screen flow for manual echo verification.
-3. Keep the server peer free of TURN client settings and `iceTransportPolicy: "relay"`.
-4. Keep plain HTTP challenge serving and HTTP → HTTPS redirect in the Docker-bundled sidecar process, not in `server/main.ts`.
-5. Update `README.md` when scripts, environment variables, run steps, or Docker usage change.
+1. **計画フェーズ (Plan)**
 
-## Don't
+   - プロジェクト構造の把握と変更内容の設計
+   - 既存コードの分析と修正アプローチの検討
+   - 計画フェーズ完了後、実装フェーズに移る前にユーザーの確認を必ず得る
+   - この段階では:
+     - ✅ プロジェクト探索（ファイル確認、アーキテクチャ理解）
+     - ✅ 実装戦略の提案（変更範囲とアプローチの明確化）
+     - ✅ 潜在的な技術的負債や課題の特定
+     - ❌ 実際のコード実装は行わない
+   - 
 
-* Do not add extra signaling round-trips beyond the documented `POST /session` and `PUT /session`.
-* Do not move TURN socket handling details into the client.
-* Do not rely on broad catch-and-ignore error handling around session cleanup or signaling.
+2. **実装フェーズ (Act)**
+   - ユーザーに承認された計画に基づいてコード実装
+   - 主要なマイルストーンごとの進捗報告と必要に応じた方向修正
+   - 実装中に発見された新たな課題の報告と対応策の提案
 
-## Commands
+## 技術的注意事項
 
-| Task              | Command                 |
-| ----------------- | ----------------------- |
-| run signaling app | `npm run server`        |
-| run SPA dev app   | `npm run client`        |
-| build SPA         | `npm run build`         |
-| build Docker image | `npm run docker:build`  |
-| run Chrome E2E    | `npm run chrome-e2e`    |
-| type-check        | `npm run type`          |
+- **bashによるコマンド実行**:
 
-## Validation
+  - コマンド実行時は標準エラー出力をファイルにリダイレクトする
+    - 例
+      -  `command 2> error.log`
+    - "Shell command failed"エラーが発生した場合は標準エラー出力のリダイレクトができていない
 
-* Example changes: run `npm run type` and `npm run build`.
-* Browser-hosting or client flow changes: also run `npm run chrome-e2e`.
-* If the server or TURN wiring changes, also run `cd ../../packages/ice-server && npm test`.
+## コーディングスタイルガイドライン
 
-## Maintenance
+### 関数設計
 
-* Keep this guide aligned with `package.json`, `README.md`, `chrome-e2e`, and the run steps.
-* When adding stable files or environment variables, document them here and in the README together.
+- **オブジェクト引数パターン**:
+  - プリミティブ型の引数が3つ以上ある場合は必ずオブジェクト引数を使用
+  - 例: `function update(id, name, age)` → `function update({ id, name, age })`
+
+### 型定義
+
+- **型の分離と再利用**:
+  - 複数の場所で使用される型は独立して定義
+  - 単一の関数でのみ使用される型はインラインで定義可
+- **命名規則**:
+  - 型名は具体的で目的を明確に表現する
+  - 一貫した命名パターンを使用
+
+### エラーハンドリング
+
+- **例外処理の原則**:
+  - 例外処理を適切に実装し、エラーメッセージは明確に
+    - 単に例外をキャッチしてエラーメッセージを出すだけの無意味な例外処理はしない
+
+### コメント
+
+- **コードコメント**:
+  - 複雑なビジネスロジックや非直感的な実装には必ず説明コメントを追加
+    - 過度な量のコメントは逆に視認性の悪化を呼ぶので控える
+    - 既存コードを改修する際に無意味なコードコメントの追加を避ける
 
 ---
 > Source: [shinyoshiaki/werift-webrtc](https://github.com/shinyoshiaki/werift-webrtc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
