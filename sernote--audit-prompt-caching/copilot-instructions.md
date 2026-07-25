@@ -1,82 +1,98 @@
 ## audit-prompt-caching
 
-> This repository maintains the portable `audit-prompt-caching` Codex/agent skill. The skill audits LLM prompt and prefix caching behavior, provider cache telemetry, prompt-prefix stability, cache ROI, and self-hosted KV/cache routing issues.
+> Last reviewed: 2026-04-24.
 
-# Repository Guidelines
+# Gemini Prefix Cache Reference
 
-## Project Purpose
+## Documentation Freshness
 
-This repository maintains the portable `audit-prompt-caching` Codex/agent skill. The skill audits LLM prompt and prefix caching behavior, provider cache telemetry, prompt-prefix stability, cache ROI, and self-hosted KV/cache routing issues.
+Last reviewed: 2026-04-24.
 
-## Layout
+Verify before exact claims:
+- supported models for implicit and explicit caching
+- minimum token counts by API surface/model
+- TTL defaults and limits
+- storage pricing for explicit caches
+- usage metadata fields
+- Vertex AI vs Gemini API differences
+- whether implicit caching has a cost-saving guarantee for the selected model/API surface
 
-- `audit-prompt-caching/SKILL.md`: main skill instructions and trigger surface.
-- `audit-prompt-caching/references/`: provider and scenario references loaded selectively by the skill.
-- `audit-prompt-caching/scripts/`: dependency-free Python audit helpers.
-- `audit-prompt-caching/evals/`: behavioral and trigger eval prompts.
-- `tests/test_prompt_cache_scripts.py`: unittest coverage for bundled scripts and package checks.
-- `docs/superpowers/plans/`: implementation plans for multi-step changes.
+Official sources:
+- Gemini context caching: https://ai.google.dev/gemini-api/docs/caching
+- Gemini API docs: https://ai.google.dev/gemini-api/docs
+- Vertex AI context caching: https://cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview
+- Pricing: https://ai.google.dev/gemini-api/docs/pricing
 
-## Development Rules
+## Stable Mechanics
 
-- Keep scripts dependency-free and Python stdlib-only unless the user explicitly approves otherwise.
-- Use `apply_patch` for manual edits.
-- Preserve provider-specific behavior in references; avoid broad rewrites unless the task asks for them.
-- For multi-step work, create a plan in `docs/superpowers/plans/YYYY-MM-DD-<feature>.md` before implementation.
-- Use TDD for script behavior changes: add or update a failing test, verify RED, implement minimal code, verify GREEN.
-- Do not claim completion without fresh verification output.
+Gemini has two relevant caching modes:
 
-## Verification Commands
+- **Implicit caching**: automatic for qualifying Gemini models, with no guaranteed savings unless the provider reports a hit.
+- **Explicit context caching**: create and reuse a cache object with a TTL and a more predictable cost-saving surface.
 
-Run the script test suite:
+Use explicit caching when the application repeatedly uses a large stable context and needs deterministic cache reuse. Use implicit caching as an optimization, not a guarantee. Cached content is still part of the effective prompt prefix; put large shared content early.
 
-```bash
-python3 -m unittest tests/test_prompt_cache_scripts.py
+## Provider Checks
+
+### Implicit Cache Expectations
+
+Do not assume 100% hit rate for identical-looking prompts. Check docs and usage metadata, then measure real traffic. If implicit caching does not hit, first verify prompt length, shared-prefix placement, request cadence, model support, and whether the beginning of the prompt is truly stable.
+
+### Explicit Cache Lifecycle
+
+When using explicit caches, verify:
+- cache object creation
+- TTL
+- cache name/ID reuse
+- cleanup of stale cache objects
+- storage pricing
+- whether cached content is treated as a prefix to the prompt
+
+### Gemini API Vs Vertex AI
+
+Thresholds, regions, pricing, and supported models can differ. Identify the exact surface before recommending changes.
+
+### Large Stable Documents
+
+If the same document/context is sent repeatedly, prefer explicit context caching after verifying it is supported for the model and region.
+
+## Diagnostics
+
+Usage field names vary by SDK/API surface. Check current docs.
+
+Typical checks:
+
+```python
+usage = response.usage_metadata
+cached = getattr(usage, "cached_content_token_count", None)
+prompt = getattr(usage, "prompt_token_count", None)
 ```
 
-Validate the skill package:
+SDK naming can differ. Also check camelCase forms such as `cachedContentTokenCount` if the SDK returns dict-like metadata.
 
-```bash
-python3 audit-prompt-caching/scripts/validate_skill_package.py audit-prompt-caching
-python3 audit-prompt-caching/scripts/run_trigger_eval.py audit-prompt-caching
-```
+For OpenAI-compatible routes, check whether `usage.prompt_tokens_details.cached_tokens` is exposed.
 
-Check Python syntax:
+If `cached` is zero for repeated large contexts:
+- request is below current minimum token count for the model/API surface
+- shared content is not at the beginning
+- requests are too far apart for implicit reuse
+- explicit cache name/ID is not reused
+- cache TTL expired or cache object was deleted
+- API surface or region differs from the one that created the cache
 
-```bash
-python3 - <<'PY'
-from pathlib import Path
-for path in [*Path('audit-prompt-caching/scripts').glob('*.py'), *Path('tests').glob('*.py')]:
-    compile(path.read_text(), str(path), 'exec')
-    print(f'ok {path}')
-PY
-```
+## Monitoring
 
-Check whitespace and remove generated bytecode:
+Track:
+- cached token count
+- prompt token count
+- cache object ID/name
+- TTL and expiration
+- storage cost for explicit caches
+- cache hit behavior by model and region
+- request cadence for implicit caching
 
-```bash
-git diff --check
-find . -name __pycache__ -type d -prune -exec rm -rf {} +
-find . \( -name __pycache__ -o -name '*.pyc' \) -print
-```
-
-## Review Focus
-
-When reviewing changes, prioritize:
-
-- prompt prefix stability regressions
-- incorrect provider usage-field math
-- provider reference links that no longer resolve locally
-- scripts that silently miss common deployment/config files
-- JSON output that contradicts process exit status
-- tests that lock in provider-specific assumptions without documenting them
-
-## Git Notes
-
-- The main branch is `main`.
-- Use `codex/` as the default feature branch prefix.
-- Do not commit generated `__pycache__` or `.pyc` files.
+Alert on zero cached tokens for repeated large contexts, and on stale explicit caches that keep incurring storage cost.
 
 ---
 > Source: [sernote/audit-prompt-caching](https://github.com/sernote/audit-prompt-caching) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
