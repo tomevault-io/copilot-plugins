@@ -1,0 +1,99 @@
+{
+  "name": "dotfiles",
+  "owner": "kornicameister",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/ddd/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/ddd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/bdd/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/bdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/awsume/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/awsume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/python/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/find-docs/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/find-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/git-worktree/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/git-worktree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/powertools-logger/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/powertools-logger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "claude/skills/conventional-commits/SKILL.md",
+      "github_url": "https://github.com/kornicameister/dotfiles/tree/main/claude/skills/conventional-commits/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kornicameister/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:39:16Z"
+}
