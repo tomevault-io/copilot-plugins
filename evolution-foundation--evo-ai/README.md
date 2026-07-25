@@ -1,8 +1,6 @@
 # evo-ai
 
-> Source: [evolution-foundation/evo-ai](https://github.com/evolution-foundation/evo-ai) — distributed by [TomeVault](https://tomevault.io)
-
-Evo AI is an open-source platform for creating and managing AI agents, enabling integration with different AI models and services.
+> Source: [evolution-foundation/evo-ai](https://github.com/evolution-foundation/evo-ai). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [evolution-foundation/evo-ai](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/evolution-foundation/evo-ai](https://github.com/evolution-foundation/evo-ai)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/evolution-foundation/evo-ai](https://github.com/evolution-foundation/evo-ai)
 
 ---
 
