@@ -1,0 +1,14 @@
+{
+  "name": "fallow-rs--fallow-skills",
+  "displayName": "fallow-skills",
+  "description": "fallow-skills",
+  "version": "1.0.0",
+  "author": "fallow-rs",
+  "homepage": "https://github.com/fallow-rs/fallow-skills",
+  "skills": [
+    {
+      "name": "fallow-skills",
+      "description": ""
+    }
+  ]
+}
