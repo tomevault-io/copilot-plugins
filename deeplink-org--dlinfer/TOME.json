@@ -1,0 +1,99 @@
+{
+  "name": "dlinfer",
+  "owner": "DeepLink-org",
+  "repo": "dlinfer",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/en/precision-align/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/en/precision-align/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/en/support-new-model/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/en/support-new-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/zh_cn/precision-align/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/zh_cn/precision-align/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/zh_cn/support-new-model/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/zh_cn/support-new-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/en/graph-mode-internals/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/en/graph-mode-internals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/zh_cn/graph-mode-internals/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/zh_cn/graph-mode-internals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/precision-align/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/precision-align/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/support-new-model/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/support-new-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dlinfer",
+      "path": ".claude/skills/graph-mode-internals/SKILL.md",
+      "github_url": "https://github.com/DeepLink-org/dlinfer/tree/main/.claude/skills/graph-mode-internals/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DeepLink-org/dlinfer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:35:30Z"
+}
