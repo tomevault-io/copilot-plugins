@@ -1,0 +1,9 @@
+{
+  "name": "msgpack--msgpack-java",
+  "displayName": "msgpack-java",
+  "description": "msgpack-java",
+  "version": "1.0.0",
+  "author": "msgpack",
+  "homepage": "https://github.com/msgpack/msgpack-java",
+  "skills": []
+}
