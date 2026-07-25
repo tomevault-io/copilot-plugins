@@ -1,0 +1,14 @@
+{
+  "name": "devonfw--ideasy",
+  "displayName": "IDEasy",
+  "description": "IDEasy",
+  "version": "1.0.0",
+  "author": "devonfw",
+  "homepage": "https://github.com/devonfw/IDEasy",
+  "skills": [
+    {
+      "name": "IDEasy",
+      "description": ""
+    }
+  ]
+}
