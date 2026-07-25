@@ -1,0 +1,207 @@
+{
+  "name": "www",
+  "owner": "microlinkhq",
+  "repo": "www",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "www",
+      "path": ".agents/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/audit/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/polish/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/harden/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/harden/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/onboard/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/delight/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/animate/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/distill/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/arrange/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/arrange/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/typeset/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/typeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/extract/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/critique/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/overdrive/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/overdrive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/normalize/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".cursor/skills/customer-story/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.cursor/skills/customer-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".cursor/skills/guide-authoring/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.cursor/skills/guide-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/teach-impeccable/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/teach-impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".agents/skills/generate-changelog/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.agents/skills/generate-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".cursor/skills/alternative-landing/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.cursor/skills/alternative-landing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".cursor/skills/use-case-landing/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.cursor/skills/use-case-landing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "www",
+      "path": ".claude/skills/verify/SKILL.md",
+      "github_url": "https://github.com/microlinkhq/www/tree/main/.claude/skills/verify/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microlinkhq/www",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:30:49Z"
+}
