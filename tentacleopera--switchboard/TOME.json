@@ -3,8 +3,8 @@
   "owner": "TentacleOpera",
   "repo": "switchboard",
   "description": "Switchboard plugin for VS Code, enables subscription-based AI agent teams",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,159 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/tuning/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/archive/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/accuracy/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/accuracy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/linear-api/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/linear-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/notion-api/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/notion-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/get-tickets/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/get-tickets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/clickup-api/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/clickup-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/web-research/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/web-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/improve-plan/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/improve-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/deep-planning/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/deep-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/clickup-fetch/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/clickup-fetch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".agents/skills/query_archive/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.agents/skills/query_archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/query-archive/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/query-archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/clickup-attach/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/clickup-attach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".agents/skills/advise_research/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.agents/skills/advise_research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/advise-research/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/advise-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/generate-diagram/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/generate-diagram/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".agents/skills/kanban_operations/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.agents/skills/kanban_operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/kanban-operations/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/kanban-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/query-kanban-plans/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/query-kanban-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/complexity-scoring/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/complexity-scoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/clickup-modify-task/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/clickup-modify-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/clickup-create-task/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/clickup-create-task/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/constitution-builder/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/constitution-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "switchboard",
+      "path": ".claude/skills/clickup-create-subpage/SKILL.md",
+      "github_url": "https://github.com/TentacleOpera/switchboard/tree/main/.claude/skills/clickup-create-subpage/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/TentacleOpera/switchboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T08:06:11Z"
+  "distributed_at": "2026-07-25T06:31:11Z"
 }
