@@ -1,20 +1,16 @@
 ## canvas-editor-plugin
 
-> This is a **monorepo** for canvas-editor plugins. It uses:
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md - Agentic Coding Guidelines
+# CLAUDE.md
 
-## Project Overview
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This is a **monorepo** for canvas-editor plugins. It uses:
-- **Package Manager**: pnpm (with workspaces)
-- **Monorepo Tool**: Lerna
-- **Language**: TypeScript
-- **Build Tool**: Vite (with @rollup/plugin-typescript)
-- **Linting**: ESLint with @typescript-eslint
-- **Formatting**: Prettier
+## Repository Overview
 
-## Build / Lint / Test Commands
+This is a monorepo for canvas-editor plugins, managed with Lerna and pnpm workspaces. Each plugin is a separate package under `packages/`.
+
+## Common Commands
 
 ```bash
 # Install dependencies
@@ -22,162 +18,120 @@ pnpm install
 
 # Build all packages
 pnpm build
+# or: lerna run build
 
 # Build single package
 cd packages/<name> && pnpm build
 
-# Development mode (all packages)
+# Development mode (runs all packages in dev mode)
 pnpm dev
 
-# Type checking (all packages)
+# Type checking
 pnpm type:check
 
-# Lint all packages
+# Linting
 pnpm lint
 
-# Lint auto-fix
-pnpm lint -- --fix
-
-# Test all packages
-pnpm test
-
-# Clean node_modules
+# Clean all node_modules
 pnpm clean
 
-# Clean dist folders
+# Clean all dist folders
 pnpm clean:dist
-```
-
-### Running Single Package Commands
-
-Each package is independent. To work on a single package:
-
-```bash
-cd packages/barcode1d  # or any package
-pnpm dev       # Start dev server
-pnpm build     # Build the package
-pnpm type:check # TypeScript check
-```
-
-## Code Style Guidelines
-
-### TypeScript Configuration
-- **Target**: ESNext
-- **Module**: ESNext (type: "module")
-- **Strict mode**: Enabled
-- **Unused locals/parameters**: Error
-- **Implicit returns**: Error
-
-### Formatting (Prettier)
-- **Semicolons**: Never
-- **Quotes**: Single
-- **Print width**: 80
-- **Trailing commas**: None
-- **Arrow parens**: Avoid
-- **End of line**: LF
-
-### ESLint Rules
-- Semicolons: Never (warning)
-- Quotes: Single (warning)
-- Console: Allowed
-- Explicit any: Allowed
-- Non-null assertions: Allowed
-- Empty interfaces: Allowed
-- `@ts-comment`: Allowed
-
-### Naming Conventions
-- **Files**: camelCase (e.g., `importDocx.ts`, `exportDocx.ts`)
-- **Functions**: camelCase
-- **Constants**: UPPER_SNAKE_CASE for true constants
-- **Enums**: PascalCase for name, UPPER for values or camelCase strings
-- **Types/Interfaces**: PascalCase
-- **Plugin functions**: camelCase ending with "Plugin" (e.g., `barcodePlugin`, `docxPlugin`)
-
-### Import Style
-```typescript
-// Use single quotes
-import { Editor, ElementType } from '@hufe921/canvas-editor'
-import Editor from '@hufe921/canvas-editor'
-import exportDocx from './exportDocx'
-
-// Use @rollup/plugin-typescript for building
-// External deps are marked in vite.config.ts rollupOptions.external
-```
-
-### Code Patterns
-
-#### Plugin Structure
-```typescript
-import { Editor } from '@hufe921/canvas-editor'
-
-declare module '@hufe921/canvas-editor' {
-  interface Command {
-    executeMyCommand(): void
-  }
-}
-
-export default function myPlugin(editor: Editor) {
-  const command = editor.command
-  command.executeMyCommand = () => {
-    // implementation
-  }
-}
-```
-
-#### Comments
-- Use `// ` for inline comments (with Chinese allowed in existing code)
-- Keep comments concise
-
-## Git Hooks
-
-- **pre-commit**: Runs `npm run lint`
-- **commit-msg**: Validates commit message format
-
-## Commit Message Format
-
-Format: `<type>(<scope>): <subject>`
-
-**Types:** feat, fix, docs, dx, style, refactor, perf, test, workflow, build, ci, chore, types, wip, release, improve
-
-**Examples:**
-```
-feat: add new plugin for diagrams
-fix: correct barcode rendering offset
-refactor(barcode1d): simplify svg conversion
-```
-
-**Revert:**
-```
-revert: feat: add diagram plugin
 ```
 
 ## Package Structure
 
-Each package follows this structure:
+Each plugin in `packages/` follows this structure:
+
 ```
 packages/<name>/
+├── package.json              # Package config with name @hufe921/canvas-editor-plugin-<name>
+├── vite.config.ts            # Vite config for building (lib mode)
+├── tsconfig.json             # Extends ../../tsconfig.json
 ├── src/
-│   ├── main.ts              # Entry point
+│   ├── main.ts               # Dev/test entry point
 │   └── <name>/
-│       ├── index.ts         # Main plugin
-│       ├── interface/       # TypeScript interfaces
-│       ├── enum/            # Enums
-│       ├── constant/        # Constants
-│       └── style/           # CSS/styles
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
+│       ├── index.ts          # Main plugin export (default function)
+│       ├── index.css         # Plugin styles
+│       ├── interface/        # TypeScript interfaces
+│       └── ...
+└── dist/                     # Build output
 ```
 
-## VS Code Settings
+## Plugin Architecture
 
-Recommended settings (in `.vscode/settings.json`):
-- Format on save: Enabled
-- Default formatter: esbenp.prettier-vscode
-- Fix ESLint on save: Enabled
-- TypeScript SDK: node_modules/typescript/lib
+A typical plugin follows this pattern:
+
+```typescript
+import { Editor, EDITOR_COMPONENT, EditorComponent } from '@hufe921/canvas-editor'
+import './index.css'
+
+declare module '@hufe921/canvas-editor' {
+  interface Command {
+    executePluginName(options?: IPluginOption): void
+  }
+}
+
+class PluginClass {
+  constructor(options?: IPluginOption) {
+    // Create dialog/UI
+  }
+
+  private createDialog() {
+    // Must set attribute for editor integration:
+    element.setAttribute(EDITOR_COMPONENT, EditorComponent.COMPONENT)
+  }
+}
+
+export default function pluginName(editor: Editor) {
+  editor.command.executePluginName = (options) => {
+    new PluginClass(options)
+  }
+}
+```
+
+Key patterns:
+- Extend `Command` interface via module declaration
+- Export default function that receives `Editor` instance
+- Add command method to `editor.command`
+- Use `EDITOR_COMPONENT` and `EditorComponent.COMPONENT` attributes on UI elements
+- CSS is injected via `vite-plugin-css-injected-by-js`
+- External dependency: `@hufe921/canvas-editor` (not bundled)
+
+## Build Configuration
+
+Each package uses Vite with lib mode:
+- Entry: `src/<name>/index.ts`
+- Output: `dist/<name>.js` and `dist/<name>.umd.cjs`
+- Types: `dist/src/<name>/index.d.ts`
+- CSS injected into JS bundle
+
+## Release Workflow
+
+```bash
+# 1. Build all packages
+pnpm build
+
+# 2. Publish (lerna handles versioning)
+pnpm release:publish    # from-git
+# or
+pnpm release:package    # from-package
+```
+
+## Git Hooks
+
+Pre-commit runs linting. Commit messages are verified via `scripts/verifyCommit.js`.
+
+## Existing Plugins Reference
+
+See `README.md` for list of all plugins and their usage examples.
+
+Key examples:
+- **diagram**: Complex dialog with iframe communication
+- **specialCharacters**: Dialog with category tabs
+- **menstrualHistory**: Custom form layout with fraction display
+- **case**: Simple command without UI (uppercase/lowercase)
 
 ---
 > Source: [Hufe921/canvas-editor-plugin](https://github.com/Hufe921/canvas-editor-plugin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
