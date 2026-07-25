@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--rabbitmq-tutorials",
+  "displayName": "rabbitmq-tutorials",
+  "description": "rabbitmq-tutorials",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://github.com/rabbitmq/rabbitmq-tutorials",
+  "skills": []
+}
