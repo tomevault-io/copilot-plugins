@@ -1,0 +1,9 @@
+{
+  "name": "apache--paimon",
+  "displayName": "paimon",
+  "description": "paimon",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/paimon",
+  "skills": []
+}
