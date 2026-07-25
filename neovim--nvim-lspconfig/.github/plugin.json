@@ -1,0 +1,9 @@
+{
+  "name": "neovim--nvim-lspconfig",
+  "displayName": "nvim-lspconfig",
+  "description": "nvim-lspconfig",
+  "version": "1.0.0",
+  "author": "neovim",
+  "homepage": "https://github.com/neovim/nvim-lspconfig",
+  "skills": []
+}
