@@ -1,0 +1,9 @@
+{
+  "name": "keitaroinc--ckan-helm",
+  "displayName": "ckan-helm",
+  "description": "ckan-helm",
+  "version": "1.0.0",
+  "author": "keitaroinc",
+  "homepage": "https://github.com/keitaroinc/ckan-helm",
+  "skills": []
+}
