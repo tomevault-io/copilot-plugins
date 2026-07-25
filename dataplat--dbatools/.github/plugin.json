@@ -1,0 +1,22 @@
+{
+  "name": "dataplat--dbatools",
+  "displayName": "dbatools",
+  "description": "dbatools",
+  "version": "1.0.0",
+  "author": "dataplat",
+  "homepage": "https://github.com/dataplat/dbatools",
+  "skills": [
+    {
+      "name": "dbatools",
+      "description": ""
+    },
+    {
+      "name": "dbatools",
+      "description": ""
+    },
+    {
+      "name": "dbatools",
+      "description": ""
+    }
+  ]
+}
