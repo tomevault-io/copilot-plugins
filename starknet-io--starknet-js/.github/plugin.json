@@ -1,0 +1,14 @@
+{
+  "name": "starknet-io--starknet-js",
+  "displayName": "starknet.js",
+  "description": "starknet.js",
+  "version": "1.0.0",
+  "author": "starknet-io",
+  "homepage": "https://github.com/starknet-io/starknet.js",
+  "skills": [
+    {
+      "name": "starknet.js",
+      "description": ""
+    }
+  ]
+}
