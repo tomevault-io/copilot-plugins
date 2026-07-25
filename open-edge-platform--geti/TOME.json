@@ -1,0 +1,117 @@
+{
+  "name": "geti",
+  "owner": "open-edge-platform",
+  "repo": "geti",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "geti",
+      "path": "skills/application/geti-ui-dev/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/application/geti-ui-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/library/geti-library-dev/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/library/geti-library-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/application/geti-backend-dev/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/application/geti-backend-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/application/geti-docs-update/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/application/geti-docs-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/application/geti-openapi-sync/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/application/geti-openapi-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/library/getitune-training-a-model/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/library/getitune-training-a-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/library/getitune-running-inference/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/library/getitune-running-inference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/library/getitune-exporting-a-model/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/library/getitune-exporting-a-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/library/getitune-discovering-models/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/library/getitune-discovering-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/library/getitune-optimizing-a-model/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/library/getitune-optimizing-a-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/library/getitune-preparing-datasets/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/library/getitune-preparing-datasets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "geti",
+      "path": "skills/application/geti-using-the-pipeline/SKILL.md",
+      "github_url": "https://github.com/open-edge-platform/geti/tree/main/skills/application/geti-using-the-pipeline/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/open-edge-platform/geti",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:47:25Z"
+}
