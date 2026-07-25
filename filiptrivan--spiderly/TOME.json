@@ -2,8 +2,8 @@
   "name": "spiderly",
   "owner": "filiptrivan",
   "repo": "spiderly",
-  "description": ".NET (C#) Web App Framework Built For AI Coding Agents",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,99 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "spiderly",
+      "path": "claude-plugins/skills/verify-ui/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/claude-plugins/skills/verify-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "claude-plugins/skills/deployment/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/claude-plugins/skills/deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": ".claude/skills/ai-agentic-design/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/.claude/skills/ai-agentic-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "claude-plugins/skills/report-gap/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/claude-plugins/skills/report-gap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "claude-plugins/skills/ef-migrations/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/claude-plugins/skills/ef-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "claude-plugins/skills/spiderly-upgrade/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/claude-plugins/skills/spiderly-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "claude-plugins/skills/add-entity/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/claude-plugins/skills/add-entity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "Angular/projects/spiderly/agent/skills/verify-ui/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/Angular/projects/spiderly/agent/skills/verify-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "Angular/projects/spiderly/agent/skills/add-entity/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/Angular/projects/spiderly/agent/skills/add-entity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "Angular/projects/spiderly/agent/skills/deployment/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/Angular/projects/spiderly/agent/skills/deployment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "Angular/projects/spiderly/agent/skills/report-gap/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/Angular/projects/spiderly/agent/skills/report-gap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "Angular/projects/spiderly/agent/skills/ef-migrations/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/Angular/projects/spiderly/agent/skills/ef-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "Angular/projects/spiderly/agent/skills/spiderly-upgrade/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/Angular/projects/spiderly/agent/skills/spiderly-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "claude-plugins/skills/api-keys/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/claude-plugins/skills/api-keys/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spiderly",
+      "path": "Angular/projects/spiderly/agent/skills/api-keys/SKILL.md",
+      "github_url": "https://github.com/filiptrivan/spiderly/tree/main/Angular/projects/spiderly/agent/skills/api-keys/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/filiptrivan/spiderly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T09:47:45Z"
+  "distributed_at": "2026-07-25T19:04:44Z"
 }
