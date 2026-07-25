@@ -1,0 +1,9 @@
+{
+  "name": "appsignal--appsignal-ruby",
+  "displayName": "appsignal-ruby",
+  "description": "appsignal-ruby",
+  "version": "1.0.0",
+  "author": "appsignal",
+  "homepage": "https://github.com/appsignal/appsignal-ruby",
+  "skills": []
+}
