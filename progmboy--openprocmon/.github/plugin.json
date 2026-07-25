@@ -1,0 +1,14 @@
+{
+  "name": "progmboy--openprocmon",
+  "displayName": "openprocmon",
+  "description": "openprocmon",
+  "version": "1.0.0",
+  "author": "progmboy",
+  "homepage": "https://github.com/progmboy/openprocmon",
+  "skills": [
+    {
+      "name": "openprocmon",
+      "description": ""
+    }
+  ]
+}
