@@ -3,8 +3,8 @@
   "owner": "8beeeaaat",
   "repo": "touchdesigner-mcp",
   "description": "MCP server for TouchDesigner",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "touchdesigner-mcp",
+      "path": ".claude/skills/prepare-release/SKILL.md",
+      "github_url": "https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/prepare-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "touchdesigner-mcp",
+      "path": ".claude/skills/release-test-audit/SKILL.md",
+      "github_url": "https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/release-test-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "touchdesigner-mcp",
+      "path": ".claude/skills/integration-test-guard/SKILL.md",
+      "github_url": "https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/integration-test-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "touchdesigner-mcp",
+      "path": ".claude/skills/touchdesigner-self-debug/SKILL.md",
+      "github_url": "https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/touchdesigner-self-debug/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/8beeeaaat/touchdesigner-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T01:24:05Z"
+  "distributed_at": "2026-07-25T16:31:35Z"
 }
