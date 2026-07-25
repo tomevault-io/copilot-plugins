@@ -1,0 +1,9 @@
+{
+  "name": "googleapis--dotnet-spanner-entity-framework",
+  "displayName": "dotnet-spanner-entity-framework",
+  "description": "dotnet-spanner-entity-framework",
+  "version": "1.0.0",
+  "author": "googleapis",
+  "homepage": "https://github.com/googleapis/dotnet-spanner-entity-framework",
+  "skills": []
+}
