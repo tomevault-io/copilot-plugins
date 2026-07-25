@@ -1,0 +1,14 @@
+{
+  "name": "haxtheweb--haxcms-php",
+  "displayName": "haxcms-php",
+  "description": "haxcms-php",
+  "version": "1.0.0",
+  "author": "haxtheweb",
+  "homepage": "https://github.com/haxtheweb/haxcms-php",
+  "skills": [
+    {
+      "name": "haxcms-php",
+      "description": ""
+    }
+  ]
+}
