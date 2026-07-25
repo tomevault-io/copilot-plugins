@@ -1,60 +1,100 @@
-## slack-dom-extraction
+## testing-debugging
 
-> Slack frequently changes DOM structure, so use **multiple fallback selectors**:
+> Testing and debugging guidance for the Slack Export extension
 
 
-# Slack DOM Extraction Patterns
+# Testing & Debugging Guide
 
-## Selector Strategy
+## Extension Installation & Testing
 
-Slack frequently changes DOM structure, so use **multiple fallback selectors**:
+**Load for development**:
 
-**Message containers** (try in order):
+1. Go to `chrome://extensions/`
+2. Enable "Developer mode"
+3. Click "Load unpacked" → select project folder
+4. Extension icon appears in toolbar
 
-- `[role="message"]` - Standard accessibility role
-- `[data-qa="message_container"]` - Slack's test attributes
-- `.c-message_kit__gutter` - CSS class patterns
-- `.c-virtual_list__item` - Virtual scrolling containers
+**Reload after changes**:
 
-**Message content**:
+- Click reload button on extension card in `chrome://extensions/`
+- Or use `Ctrl+R` on extensions page
 
-- `[data-qa="message_content"]`
-- `.c-message__body`
-- `.p-rich_text_section`
+## Testing Workflow
 
-**Sender names**:
+**Basic functionality test**:
 
-- `[data-qa="message_sender"]`
-- `.c-message__sender`
-- `button[data-qa*="user"]`
+1. Navigate to any Slack workspace (*.slack.com)
+2. Open a channel with visible messages
+3. Click extension icon
+4. Verify success notification appears
+5. Check Downloads/slack-exports/ for generated file
+6. Open file to verify markdown format
 
-**Timestamps**:
+**Edge cases to test**:
 
-- `time[datetime]` - Preferred (ISO format)
-- `[data-qa="message_time"]`
-- `.c-timestamp`
+- Empty channels (should show "No messages found")
+- Channels with only system messages
+- Messages with code blocks and links
+- Threaded conversations
+- Very long messages
+- Special characters in channel names
 
-## Extraction Best Practices
+## Debugging Tools
 
-1. **Filter meaningful content**: Only export messages with actual text content
-2. **Sort by timestamp**: Messages may not be in DOM order
-3. **Handle missing elements**: Not all messages have all fields (system messages, etc.)
-4. **Preserve formatting**: Extract code blocks with triple backticks
-5. **Thread support**: Look for nested thread containers
+**Console logging locations**:
 
-## Content Processing
+- **Background script**: Right-click extension icon → "Inspect popup" → Console
+- **Content script**: F12 on Slack page → Console
+- **Options page**: F12 on options page → Console
 
-- **Clean whitespace**: Remove extra spaces and normalize line breaks
-- **Escape markdown**: Prevent user content from breaking markdown syntax
-- **Handle links**: Convert `<a>` tags to `[text](url)` format
-- **Code blocks**: Wrap `<pre>`, `<code>` content in markdown code blocks
+**Key log messages to monitor**:
 
-## Robustness
+- "Extension icon clicked, starting export for tab: {id}"
+- "Found {N} messages using selector: {selector}"
+- "Extracted {N} valid messages"
+- "Export completed successfully" or error messages
 
-- **Multiple attempts**: Try different selectors if first fails
-- **Graceful degradation**: Extract what's possible, don't fail entirely
-- **Console logging**: Log selector success/failure for debugging
-- **Fallback text**: Use `element.textContent` if specific selectors fail
+## Common Issues & Solutions
+
+**"No messages found"**:
+
+- Check if selectors in [src/content.js](mdc:src/content.js) match current Slack DOM
+- Verify content script is injected (check console for "Slack Export content script loaded")
+- Try scrolling to load more messages
+
+**Download fails**:
+
+- Check downloads permission in `chrome://extensions/`
+- Verify Downloads folder is accessible
+- Check for filename validation errors
+
+**Extension not triggering**:
+
+- Verify activeTab permission granted
+- Check if URL matches *.slack.com pattern
+- Ensure background script is running (no errors in console)
+
+**DOM extraction failures**:
+
+- Slack updates may break selectors
+- Add new selectors to fallback arrays in [src/content.js](mdc:src/content.js)
+- Test with different Slack workspace themes (light/dark)
+
+## Performance Monitoring
+
+- Monitor export time for large message sets
+- Check memory usage during DOM parsing
+- Verify cleanup of temporary blob URLs
+- Test with virtual scrolling (messages loaded dynamically)
+
+## Version Testing
+
+Test across different environments:
+
+- Multiple Slack workspaces
+- Different Chrome versions  
+- Light and dark Slack themes
+- Different screen sizes/zoom levels
 
 ---
 > Source: [dcurlewis/slacksnap](https://github.com/dcurlewis/slacksnap) — distributed by [TomeVault](https://tomevault.io).
