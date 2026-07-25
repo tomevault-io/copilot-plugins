@@ -1,0 +1,14 @@
+{
+  "name": "circleci-public--circleci-cli",
+  "displayName": "circleci-cli",
+  "description": "circleci-cli",
+  "version": "1.0.0",
+  "author": "CircleCI-Public",
+  "homepage": "https://github.com/CircleCI-Public/circleci-cli",
+  "skills": [
+    {
+      "name": "circleci-cli",
+      "description": ""
+    }
+  ]
+}
