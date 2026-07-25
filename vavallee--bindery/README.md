@@ -5,25 +5,28 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vavallee/bindery](https://github.com/vavallee/bindery).
+Original source: `CLAUDE.md` in [vavallee/bindery](https://github.com/vavallee/bindery).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (5)
+## Bundled Skills (8)
 
 - [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/prs/SKILL.md)
 - [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/testing/SKILL.md)
 - [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/commits/SKILL.md)
 - [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/tag-release/SKILL.md)
 - [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/smoke-testing/SKILL.md)
+- [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/triage/SKILL.md)
+- [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/fix-issue/SKILL.md)
+- [bindery](https://github.com/vavallee/bindery/tree/main/.claude/skills/discord-reports/SKILL.md)
 
-From [vavallee/bindery](https://github.com/vavallee/bindery) — a repo with 340+ stars on GitHub.
+From [vavallee/bindery](https://github.com/vavallee/bindery) — a repo with 346+ stars on GitHub.
 
 ---
 
