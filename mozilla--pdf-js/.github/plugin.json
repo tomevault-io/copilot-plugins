@@ -1,0 +1,9 @@
+{
+  "name": "mozilla--pdf-js",
+  "displayName": "pdf.js",
+  "description": "pdf.js",
+  "version": "1.0.0",
+  "author": "mozilla",
+  "homepage": "https://github.com/mozilla/pdf.js",
+  "skills": []
+}
