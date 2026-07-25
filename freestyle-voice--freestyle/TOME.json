@@ -4,7 +4,7 @@
   "repo": "freestyle",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/freestyle-voice/freestyle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T20:37:53Z"
+  "distributed_at": "2026-07-25T08:41:49Z"
 }
