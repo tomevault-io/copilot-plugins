@@ -1,7 +1,7 @@
 {
   "name": "waynesutton--promptstack",
   "displayName": "promptstack",
-  "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers.",
+  "description": "promptstack",
   "version": "1.0.0",
   "author": "waynesutton",
   "homepage": "https://github.com/waynesutton/promptstack",
