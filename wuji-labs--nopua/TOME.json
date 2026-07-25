@@ -3,8 +3,8 @@
   "owner": "wuji-labs",
   "repo": "nopua",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,39 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "nopua",
+      "path": "codex/nopua/SKILL.md",
+      "github_url": "https://github.com/wuji-labs/nopua/tree/main/codex/nopua/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nopua",
+      "path": "skills/nopua/SKILL.md",
+      "github_url": "https://github.com/wuji-labs/nopua/tree/main/skills/nopua/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nopua",
+      "path": "skills/nopua-zh/SKILL.md",
+      "github_url": "https://github.com/wuji-labs/nopua/tree/main/skills/nopua-zh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nopua",
+      "path": "kiro/skills/nopua/SKILL.md",
+      "github_url": "https://github.com/wuji-labs/nopua/tree/main/kiro/skills/nopua/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nopua",
+      "path": "skills/nopua-lite/SKILL.md",
+      "github_url": "https://github.com/wuji-labs/nopua/tree/main/skills/nopua-lite/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/wuji-labs/nopua",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T01:41:33Z"
+  "distributed_at": "2026-07-25T08:40:14Z"
 }
