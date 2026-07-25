@@ -1,0 +1,207 @@
+{
+  "name": "incrementum-tauri",
+  "owner": "melpomenex",
+  "repo": "incrementum-tauri",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "incrementum-tauri",
+      "path": ".agent/skills/tauri-release/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agent/skills/tauri-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agent/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agent/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agent/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agent/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".gemini/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.gemini/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".gemini/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.gemini/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".opencode/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.opencode/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".opencode/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.opencode/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agent/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agent/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".gemini/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.gemini/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agent/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agent/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".gemini/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.gemini/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".opencode/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.opencode/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".opencode/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.opencode/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/cut-release/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/cut-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/source-command-opsx-apply/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/source-command-opsx-apply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/source-command-opsx-explore/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/source-command-opsx-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/source-command-opsx-propose/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/source-command-opsx-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/source-command-opsx-archive/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/source-command-opsx-archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "incrementum-tauri",
+      "path": ".agents/skills/android-build/SKILL.md",
+      "github_url": "https://github.com/melpomenex/incrementum-tauri/tree/main/.agents/skills/android-build/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/melpomenex/incrementum-tauri",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:45:55Z"
+}
