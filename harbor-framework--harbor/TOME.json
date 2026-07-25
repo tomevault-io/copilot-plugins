@@ -2,9 +2,9 @@
   "name": "harbor",
   "owner": "harbor-framework",
   "repo": "harbor",
-  "description": "Harbor is a framework for running agent evaluations and creating and using RL environments.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harbor-framework/harbor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T09:20:35Z"
+  "distributed_at": "2026-07-25T21:29:34Z"
 }
