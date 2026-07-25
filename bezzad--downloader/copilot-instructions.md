@@ -1,314 +1,194 @@
 ## downloader
 
-> > Read this first. It is the high-signal map of the repo. For day-to-day code-style rules and
+> Guidance for working in this repository.
 
-# Downloader — Codebase Guide
+# CLAUDE.md
 
-> Read this first. It is the high-signal map of the repo. For day-to-day code-style rules and
-> token-efficient navigation, also see the **`code-navigator`** skill in `.claude/skills/`.
+Guidance for working in this repository.
 
-## What this project is
+## Workflow & progress tracking
 
-**Downloader** (`bezzad/Downloader`) is a .NET NuGet library (currently **v5.8.0**) for fast,
-cross-platform multipart file downloads. It supports parallel chunked downloads, pause/resume,
-bandwidth throttling, progress events, custom `HttpClient`/handler injection, and Native AOT.
-Targets **.NET 8, 9, and 10**. The library has **no external runtime dependencies** and is
-`IsAotCompatible = true` (System.Text.Json source-gen, no reflection serialization).
+- **Work directly on `develop`.** Do ALL work on the `develop` branch. Never create
+  feature branches.
+- **Commit frequently** — one commit per logical step, with clear messages — and **push
+  to `develop`** so any machine can pull the latest state.
+- **Never strand work.** If work is unfinished at the end of a session, commit WIP to
+  `develop` anyway with a `wip:` message prefix so nothing is stuck on one machine.
+- **Maintain `PLAN.md` at all times** as the source of truth:
+  - When given tasks, write them into **Todo** first, then start.
+  - Move a task to **Active** and mark it `[~]` when you start it.
+  - Mark it `[x]` and move it to **Done** with a one-line note and the commit hash when
+    finished.
+  - Mark it `[!]` and move it to **Blocked/Failed** with the reason if it fails.
+  - Update **"Last updated"** and **"Now working on"** each time.
+- **Commit `PLAN.md` together with the code change it describes**, on `develop`.
+- **For large backlogs, also keep `TASKS.md` updated** as the full board.
+- **At the START of every session, read `PLAN.md` (and `TASKS.md`) and continue from
+  there.** Never rely on in-session memory surviving across machines — if it matters, it
+  must be in `PLAN.md` and committed.
 
----
+## Packaging
 
-## Repository layout
+- **Always pack the NuGet package in `Release` mode, output to `src/Downloader/bin/nupkg/`.**
+  This is the project's standard package output location.
 
-```
-src/
-  Downloader/                  # Main library (the NuGet package)
-    Exceptions/                # IncompleteDownloadException, FileExistException
-    Extensions/                # ExceptionHelper, FileHelper, UrlHelper
-    Helpers/                   # internal helpers
-  Downloader.Test/             # All tests (xUnit)
-    UnitTests/                 # Component-level tests
-    IntegrationTests/          # End-to-end tests against DummyHttpServer
-    HelperTests/               # Utility/server-endpoint tests
-  Downloader.DummyHttpServer/  # ASP.NET test server used by integration tests
-  Samples/Downloader.Sample/   # Console sample app (download.json drives URLs)
-  .editorconfig                # Authoritative code-style rules (see skill)
-```
-`.editorconfig` lives in `src/`, not the repo root.
+  ```bash
+  dotnet pack src/Downloader/Downloader.csproj -c Release -o src/Downloader/bin/nupkg/
+  ```
 
----
+  This produces `Downloader.<version>.nupkg` (and the symbols package) there. Use this path
+  for any local pack/publish step instead of a temp directory.
 
-## Key source files (`src/Downloader/`)
+## Token-efficient builds & tests (MANDATORY)
 
-| File | Role |
-|---|---|
-| `AbstractDownloadService.cs` | Base class: lifecycle, events, pause/resume/cancel, progress aggregation, `Serializer` |
-| `DownloadService.cs` | Concrete impl: `StartDownload()`, parallel/serial dispatch, auto-resume, terminal-state rule |
-| `DownloadConfiguration.cs` | All settings; `INotifyPropertyChanged`, `ICloneable` |
-| `RequestConfiguration.cs` | Per-request HTTP knobs: headers, proxy, auth, cookies, redirect, user-agent |
-| `Request.cs` | HTTP request model; URL→filename extraction |
-| `SocketClient.cs` | `HttpClient`/`SocketsHttpHandler` wrapper: header fetch, range-support probe, **redirect handling**, file-size + filename extraction |
-| `DownloadPackage.cs` | Live state snapshot: chunks, file size, status, storage handle; `TrySetCompleteState()` |
-| `Chunk.cs` | One file segment: start/end/position, retry counter, timeout |
-| `ChunkHub.cs` | Splits the file into N chunks honoring `MinimumChunkSize` |
-| `ChunkDownloader.cs` | Downloads one chunk: retry/backoff loop, pause support, `ArrayPool` reads, throttle wiring |
-| `ConcurrentStream.cs` | Thread-safe write stream with a background `Watcher` task |
-| `ConcurrentPacketBuffer.cs` | Bounded async queue of `Packet`s (back-pressure for memory cap) |
-| `ThrottledStream.cs` | Enforces per-chunk bandwidth limit |
-| `Bandwidth.cs` | Tracks instantaneous + average speed |
-| `PauseTokenSource.cs` / `PauseToken.cs` | Pause primitive over `SemaphoreSlim` |
-| `DownloadBuilder.cs` | Fluent API: `DownloadBuilder.New().WithUrl(...).Build().StartAsync()` |
-| `Extensions/ExceptionHelper.cs` | `IsMomentumError` (retry classification), `IsRedirectError`, cert validation |
-| `Extensions/UrlHelper.cs` | `EnsurePathEncoded` — normalizes attacker-influenceable URLs before `new Uri()` |
+- **`dotnet build`**: always run with `-v q --nologo`. Only re-run without `-v q` if you need
+  to inspect a specific error in detail.
+- **`dotnet test`**: always run with `-v q --nologo`. On failure, re-run ONLY the failing
+  test(s) with `--filter FullyQualifiedName~<TestName>` instead of the whole suite.
+- **Long-running commands** (`dotnet test`, `dotnet build`, `dotnet pack`, `gh run watch`):
+  run them with `run_in_background: true` and wait for the completion notification — never
+  poll in a `while … sleep` loop, and never dump their full output into context. After
+  completion, read only the tail / failure section of the output.
 
----
+<!-- rtk-instructions v2 -->
+# RTK (Rust Token Killer) - Token-Optimized Commands
 
-## Architecture overview
+## Golden Rule
 
-### Download flow
+**Always prefix commands with `rtk`**. If RTK has a dedicated filter, it uses it. If not, it passes through unchanged. This means RTK is always safe to use.
 
-```
-DownloadFileTaskAsync(url, path)
-  └── InitialDownloader()            // SocketClient, Request, ChunkHub, semaphores
-  └── StartDownload()
-        ├── GetFileSizeAsync()       // probe via SocketClient (Range: 0-0)
-        ├── IsSupportDownloadInRange()
-        ├── ProvideDownloadOnFile()
-        │     └── TryResumeFromExistingFile()   // read metadata appended to .download file
-        ├── Package.BuildStorage()   // ConcurrentStream over FileStream or MemoryStream
-        ├── ChunkHub.SetFileChunks()
-        ├── ParallelDownload() | SerialDownload()
-        │     └── DownloadChunk() × N → ChunkDownloader.Download()
-        │           └── ReadStream() → ConcurrentStream.WriteAsync()
-        └── SendDownloadCompletionSignal()
-              └── Package.TrySetCompleteState()  // truncate metadata, rename .download → final
-```
-
-### Producer–consumer for writes
-
-`ChunkDownloader` rents buffers from `ArrayPool<byte>.Shared`, wraps them in `Packet`s (buffer +
-position) and pushes to `ConcurrentPacketBuffer`. A single `LongRunning` `Watcher` task in
-`ConcurrentStream` dequeues packets, writes them to the underlying stream in order, and returns the
-buffers. `MaximumMemoryBufferBytes` bounds the queue (back-pressure).
-
-### Auto-resume (`.download` files)
-
-The library **always** downloads to a temp file with `DownloadFileExtension` (default `.download`),
-then renames on success — independent of `EnableAutoResumeDownload`.
-
-When `EnableAutoResumeDownload = true`:
-- During download (~1 s cadence) `Package` state is serialized (JSON→binary) and **appended after**
-  `TotalFileSize` inside the `.download` file.
-- On resume: bytes past `TotalFileSize` = metadata → deserialize, verify `TotalFileSize` matches the
-  server, restore `Chunks[]`. Any mismatch → discard and download fresh.
-- On completion: `SetLength(TotalFileSize)` strips metadata, then `File.Move` to the final name.
-
----
-
-## HTTP layer & redirects (`SocketClient.cs`)
-
-`SocketClient` builds the `HttpClient` (or uses `CustomHttpClientFactory` / a custom
-`HttpMessageHandler`), probes range support, and extracts file size + filename.
-
-`FetchResponseHeaders()` is the single entry point that populates `ResponseHeaders` (cached — it
-early-returns when already populated). It first tries with `Range: 0-0`, then falls back:
-- **Range rejected** (`416`, or a non-redirect error while `addRange`) → retry **without** Range
-  (issue #220: some servers 403/404/503 on Range).
-- **Redirect error** (`3xx` surfaced as `HttpRequestException` because `SocketsHttpHandler`
-  declined to auto-follow — e.g. an **https→http downgrade**, or a challenge) → read `Location`,
-  normalize via `UrlHelper.EnsurePathEncoded`, **clear `ResponseHeaders`**, and re-probe the new
-  address, bounded by `MaximumAutomaticRedirections`.
-
-### Redirect / cookie-challenge handling (important)
-
-- `AllowAutoRedirect = true` and `MaximumAutomaticRedirections = 50` by default;
-  `SocketsHttpHandler` auto-follows ordinary `301/302/303/307/308`.
-- **Same-URL "307 → self" challenges** (ArvanCloud / Cloudflare-style cookie walls) are now
-  followed too. The previous guard refused redirects whose `Location` equals the current URL; that
-  has been replaced by a bounded attempt counter (`_redirectAttempts < MaximumAutomaticRedirections`).
-- The manual fallback **clears `ResponseHeaders` before recursing** — otherwise the
-  "already populated" guard short-circuits and the redirect target is never actually fetched.
-- `RequestConfiguration.CookieContainer` now **defaults to a new `CookieContainer`** so a
-  `Set-Cookie` issued mid-redirect is captured and replayed on the retry (set it to `null` to
-  disable cookies). This is what lets a JS-free cookie wall resolve.
-- **Limits:** none of this defeats a *JavaScript* challenge (the cookie value must be computed by a
-  browser) or an **expired** signed link — those return a small HTML "expired/blocked" page with
-  `200`, which the library would store as the file. When diagnosing "won't download" URLs, always
-  inspect the real response headers/body first (`curl -I`, `-r 0-0`).
-
-`ExceptionHelper.IsRedirectStatus` recognizes `Moved(301)`, `Redirect(302)`, `RedirectMethod(303)`,
-`TemporaryRedirect(307)`, `PermanentRedirect(308)`.
-
----
-
-## Configuration quick-reference
-
-```csharp
-new DownloadConfiguration {
-    ChunkCount = 8,               // parallel segments; auto-reduced if file too small
-    ParallelDownload = true,
-    ParallelCount = 4,            // concurrent active chunks (default = ChunkCount)
-    MaximumBytesPerSecond = 2*MB, // 0 = unlimited
-    BufferBlockSize = 8192,       // read buffer per stream call (max 1MB)
-    BlockTimeout = 1000,          // ms timeout per ReadAsync call
-    HttpClientTimeout = 100_000,  // ms per HttpClient request
-    MaxTryAgainOnFailure = 5,
-    MinimumSizeOfChunking = 512,  // bytes; below this = single chunk
-    MinimumChunkSize = 0,         // 0 = no constraint
-    MaximumMemoryBufferBytes = 0, // 0 = unlimited (ConcurrentPacketBuffer cap)
-    EnableAutoResumeDownload = false,
-    DownloadFileExtension = ".download",
-    FileExistPolicy = FileExistPolicy.Delete,
-    EnableLiveStreaming = false,
-    RangeDownload = false,        // download a byte slice only
-    CheckDiskSizeBeforeDownload = true,
-    CustomHttpClientFactory = null,         // bypass ALL internal HttpClient setup
-    CustomHttpMessageHandlerFactory = null, // replace handler, keep header config
-    RequestConfiguration = {
-        AllowAutoRedirect = true,           // follows 3xx including 307/308
-        MaximumAutomaticRedirections = 50,
-        CookieContainer = new CookieContainer(), // default; null disables cookies
-        // Accept, Headers, UserAgent, Proxy, Authorization, KeepAlive, ...
-    }
-}
-```
-`CustomHttpClientFactory` wins over `CustomHttpMessageHandlerFactory` when both are set.
-
----
-
-## Status & terminal-state rules
-
-`DownloadStatus`: `None → Created → Running → Paused → Completed / Stopped / Failed`.
-
-`DownloadPackage.TrySetCompleteState()` is idempotent — once `Failed`/`Completed`, state cannot
-change. This serializes races between parallel chunk errors.
-
-**Stopped vs Failed:** status is **`Stopped`** when `IsCancelled == true` OR the exception is
-`OperationCanceledException`/`TaskCanceledException` (including exceptions thrown *during* an
-in-flight cancellation — commit `e4ed715`). Any other exception → **`Failed`**. When fixing
-cancellation bugs, check the cancellation flag, not just the exception type. (issue #225)
-
-**Retry classification** lives in `ExceptionHelper.IsMomentumError` — retry on transport faults
-(`SocketException`, `IOException`/`HttpIOException`, timeouts, `ObjectDisposedException`) and on
-transient/overload/redirect status codes (`408/428/429/503/504`, `300/301/302/303/307/308`).
-Classify by **type/status only — never `Exception.Source`** (empty under AOT/trimming — issue #226).
-
-### FileExistPolicy
-
-`IgnoreDownload=0` (skip) · `Delete=1` (overwrite, default) · `Exception=2` (throw
-`FileExistException`) · `Rename=3` (numeric suffix).
-
----
-
-## Exceptions (`Downloader/Exceptions/`)
-
-| Exception | When |
-|---|---|
-| `IncompleteDownloadException` | Chunk closed early — `Position < Length` after the read loop. Triggers retry while `MaxTryAgainOnFailure > 0`; only checked for known-length chunks. (issue #231) |
-| `FileExistException` | `FileExistPolicy.Exception` and target exists. Extends `IOException`; `.Name` = path. |
-
----
-
-## Events (raised by `AbstractDownloadService`)
-
-- `DownloadStarted` — once, after file size + storage are ready
-- `ChunkDownloadProgressChanged` — per chunk read (raw chunk bytes/speed)
-- `DownloadProgressChanged` — aggregated across chunks, raised *after* the chunk event
-- `DownloadFileCompleted` — terminal; `Error`/`Cancelled` reflect `Failed`/`Stopped`
-
-Handlers run **synchronously on the chunk download thread** — slow handlers stall the download.
-`DownloadFileTaskAsync`/`StartAsync` **do not throw** on failure/cancel; the outcome arrives via
-`DownloadFileCompleted` (and `Package.Status`). `ActiveChunks` comes from
-`ParallelSemaphore.CurrentCount`.
-
-### Unknown-size downloads (no `Content-Length`)
-
-`TotalFileSize` starts at 0. `RaiseProgressChangedEvents()` must not report 100% prematurely — it
-grows `TotalFileSize` only when received exceeds advertised, and `ProgressPercentage` stays 0 until
-completion finalizes the real size (`TotalFileSize = ReceivedBytesSize`). (issue #230, commit `e4e50c9`)
-
----
-
-## Storage abstraction
-
-`Package.BuildStorage()`:
-- `DownloadingFileName` null/whitespace → `MemoryStream`
-- otherwise → `FileStream` preallocated to `TotalFileSize`
-
-`ConcurrentStream` lazily creates the underlying stream on first write (double-checked lock). The
-`Watcher` task is `LongRunning` and returns `ArrayPool` buffers after each ordered write.
-
-**Hazard:** `ConcurrentStream.Dispose()` does **not** await the watcher or drain buffered packets —
-prefer `DisposeAsync()` to flush cleanly. The `_disposed` flag is volatile, checked under lock.
-
----
-
-## Test infrastructure
-
-`DummyHttpServer.HttpServer` is a singleton guarded by `SemaphoreSlim StartLock(1,1)`.
-`DummyFileHelper`'s static ctor calls `HttpServer.Run(0)`, so referencing it auto-starts the server
-on a dynamic port. The test project targets **net10.0** only; the library multi-targets net8/9/10.
-
-`DummyFileController` endpoints used by integration tests:
-
-| Route pattern | Purpose |
-|---|---|
-| `/dummyfile/file/size/{size}` | Plain file, no Content-Disposition |
-| `/dummyfile/file/{name}?size=...` | With filename header |
-| `/dummyfile/file/{name}/size/{size}/norange` | Advertises **no** range support |
-| `/dummyfile/file/{name}/redirect?size=...` | 308 redirect (same host) |
-| `/dummyfile/file/{name}/cookie-challenge?size=...` | **307 → self + Set-Cookie**; serves file only on the cookie-bearing retry |
-| `/dummyfile/file/size/{size}/failure/{offset}` | Throws mid-stream |
-| `/dummyfile/file/size/{size}/timeout/{offset}` | Delays mid-stream |
-| `/dummyfile/file/{name}/size/{size}/truncate/{actualSize}` | Advertises full size, delivers partial (issue #231) |
-| `/dummyfile/file/{name}/size/{size}/failrange` | 503 on every Range req; full file on no-Range fallback (issue #231) |
-| `/dummyfile/file/{name}/check-useragent?size=...` | 428 on invalid/AOT User-Agent (issue #226) |
-
-Build a URL via the matching `DummyFileHelper.Get*Url(...)` helper rather than hand-writing it.
-Chunk events fire concurrently across N parallel chunks — collect progress thread-safely and wait on
-a cancellation trigger rather than relying on event ordering (commit `3ddb9fd`).
-
-### Build & test
-
+**Important**: Even in command chains with `&&`, use `rtk`:
 ```bash
-dotnet test src/Downloader.Test/                 # auto-starts DummyHttpServer in-process
-docker-compose -p downloader up                  # run tests via compose
-dotnet publish -r linux-x64 -f net8.0 -c Release src/Downloader/   # AOT native build
+# ❌ Wrong
+git add . && git commit -m "msg" && git push
+
+# ✅ Correct
+rtk git add . && rtk git commit -m "msg" && rtk git push
 ```
 
----
+## RTK Commands by Workflow
 
-## Recurring bug patterns (lessons from history)
+### Build & Compile (80-90% savings)
+```bash
+rtk cargo build         # Cargo build output
+rtk cargo check         # Cargo check output
+rtk cargo clippy        # Clippy warnings grouped by file (80%)
+rtk tsc                 # TypeScript errors grouped by file/code (83%)
+rtk lint                # ESLint/Biome violations grouped (84%)
+rtk prettier --check    # Files needing format only (70%)
+rtk next build          # Next.js build with route metrics (87%)
+```
 
-- **Early stream close looks like success** — server disconnects don't throw; validate
-  `Chunk.Position == Chunk.Length` after the read loop. (issue #231)
-- **Unknown Content-Length** — never compute percentage off `TotalFileSize` until it's finalized;
-  guard the 0/0 case. (issue #230)
-- **Cancellation during cancellation** — exceptions during an in-flight cancel must map to
-  `Stopped`, not `Failed`; check `IsCancelled` first. (issue #225)
-- **AOT vs JIT divergence** — never branch on `Exception.Source` (empty under AOT). (issue #226)
-- **Redirect target silently lost** — clear `ResponseHeaders` before re-probing a redirect, or the
-  "already populated" guard skips the fetch. Same-URL `307` challenges need cookies to resolve.
+### Test (60-99% savings)
+```bash
+rtk cargo test          # Cargo test failures only (90%)
+rtk go test             # Go test failures only (90%)
+rtk jest                # Jest failures only (99.5%)
+rtk vitest              # Vitest failures only (99.5%)
+rtk playwright test     # Playwright failures only (94%)
+rtk pytest              # Python test failures only (90%)
+rtk rake test           # Ruby test failures only (90%)
+rtk rspec               # RSpec test failures only (60%)
+rtk test <cmd>          # Generic test wrapper - failures only
+```
 
----
+### Git (59-80% savings)
+```bash
+rtk git status          # Compact status
+rtk git log             # Compact log (works with all git flags)
+rtk git diff            # Compact diff (80%)
+rtk git show            # Compact show (80%)
+rtk git add             # Ultra-compact confirmations (59%)
+rtk git commit          # Ultra-compact confirmations (59%)
+rtk git push            # Ultra-compact confirmations
+rtk git pull            # Ultra-compact confirmations
+rtk git branch          # Compact branch list
+rtk git fetch           # Compact fetch
+rtk git stash           # Compact stash
+rtk git worktree        # Compact worktree
+```
 
-## Serializer
+Note: Git passthrough works for ALL subcommands, even those not explicitly listed.
 
-`AbstractDownloadService.Serializer` is a public `IBinarySerializer` (default
-`JsonBinarySerializer`) — swappable. Used to read/write auto-resume metadata.
+### GitHub (26-87% savings)
+```bash
+rtk gh pr view <num>    # Compact PR view (87%)
+rtk gh pr checks        # Compact PR checks (79%)
+rtk gh run list         # Compact workflow runs (82%)
+rtk gh issue list       # Compact issue list (80%)
+rtk gh api              # Compact API responses (26%)
+```
 
----
+### JavaScript/TypeScript Tooling (70-90% savings)
+```bash
+rtk pnpm list           # Compact dependency tree (70%)
+rtk pnpm outdated       # Compact outdated packages (80%)
+rtk pnpm install        # Compact install output (90%)
+rtk npm run <script>    # Compact npm script output
+rtk npx <cmd>           # Compact npx command output
+rtk prisma              # Prisma without ASCII art (88%)
+```
 
-## Patterns to be aware of
+### Files & Search (60-75% savings)
+```bash
+rtk ls <path>           # Tree format, compact (65%)
+rtk read <file>         # Code reading with filtering (60%)
+rtk grep <pattern>      # Search grouped by file (75%). Format flags (-c, -l, -L, -o, -Z) run raw.
+rtk find <pattern>      # Find grouped by directory (70%)
+```
 
-- **`ArrayPool<byte>.Shared`** — rented in `ChunkDownloader.ReadStream()` and
-  `DownloadService.TryResumeFromExistingFile()`; ownership transfers to `Packet`, returned on
-  `Packet.Dispose()`.
-- **`INotifyPropertyChanged` on `DownloadConfiguration`** — `ChunkDownloader` listens for
-  `MaximumBytesPerSecond` changes to retune the live throttle.
-- **`SingleInstanceSemaphore`** in `AbstractDownloadService` blocks concurrent `StartDownload` on
-  one service instance.
-- **AOT** — keep it reflection-free; classify exceptions by type/status, not metadata strings.
+### Analysis & Debug (70-90% savings)
+```bash
+rtk err <cmd>           # Filter errors only from any command
+rtk log <file>          # Deduplicated logs with counts
+rtk json <file>         # JSON structure without values
+rtk deps                # Dependency overview
+rtk env                 # Environment variables compact
+rtk summary <cmd>       # Smart summary of command output
+rtk diff                # Ultra-compact diffs
+```
+
+### Infrastructure (85% savings)
+```bash
+rtk docker ps           # Compact container list
+rtk docker images       # Compact image list
+rtk docker logs <c>     # Deduplicated logs
+rtk kubectl get         # Compact resource list
+rtk kubectl logs        # Deduplicated pod logs
+```
+
+### Network (65-70% savings)
+```bash
+rtk curl <url>          # Compact HTTP responses (70%)
+rtk wget <url>          # Compact download output (65%)
+```
+
+### Meta Commands
+```bash
+rtk gain                # View token savings statistics
+rtk gain --history      # View command history with savings
+rtk discover            # Analyze Claude Code sessions for missed RTK usage
+rtk proxy <cmd>         # Run command without filtering (for debugging)
+rtk init                # Add RTK instructions to CLAUDE.md
+rtk init --global       # Add RTK to ~/.claude/CLAUDE.md
+```
+
+## Token Savings Overview
+
+| Category | Commands | Typical Savings |
+|----------|----------|-----------------|
+| Tests | vitest, playwright, cargo test | 90-99% |
+| Build | next, tsc, lint, prettier | 70-87% |
+| Git | status, log, diff, add, commit | 59-80% |
+| GitHub | gh pr, gh run, gh issue | 26-87% |
+| Package Managers | pnpm, npm, npx | 70-90% |
+| Files | ls, read, grep, find | 60-75% |
+| Infrastructure | docker, kubectl | 85% |
+| Network | curl, wget | 65-70% |
+
+Overall average: **60-90% token reduction** on common development operations.
+<!-- /rtk-instructions -->
 
 ---
 > Source: [bezzad/Downloader](https://github.com/bezzad/Downloader) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
