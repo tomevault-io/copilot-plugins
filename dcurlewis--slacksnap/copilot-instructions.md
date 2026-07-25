@@ -1,74 +1,38 @@
-## markdown-export
+## project-structure
 
-> Generated markdown follows this pattern:
+> This is a Chrome Manifest V3 browser extension for exporting Slack messages to markdown files.
 
 
-# Markdown Export Formatting
+# Slack Export Extension - Project Structure
 
-## Export Structure
+This is a Chrome Manifest V3 browser extension for exporting Slack messages to markdown files.
 
-Generated markdown follows this pattern:
+## Core Architecture
 
-```markdown
-# Slack Export: {channel-name}
-*Exported: {datetime}*
+- **Entry Point**: [manifest.json](mdc:manifest.json) - Defines extension configuration, permissions, and component relationships
+- **Service Worker**: [src/background.js](mdc:src/background.js) - Handles extension icon clicks and file downloads
+- **Content Script**: [src/content.js](mdc:src/content.js) - DOM interaction and message extraction from Slack pages
+- **Configuration**: [src/config.js](mdc:src/config.js) - Settings management using Chrome storage API
+- **Utilities**: [src/utils.js](mdc:src/utils.js) - Shared helper functions for formatting and notifications
 
----
+## User Interface
 
-**Sender Name** (timestamp):
-Message content here...
+- **Options Page**: [options.html](mdc:options.html) + [options.js](mdc:options.js) - Settings configuration interface
+- **Icons**: Located in `icons/` directory (16x16, 48x48, 128x128 px)
 
-**Thread Replies:**
-  • **Reply Sender**: Reply content
-```
+## Key Flow
 
-## Content Processing
+1. User clicks extension icon → background.js receives click
+2. Background script sends message to content script
+3. Content script extracts visible messages from Slack DOM
+4. Messages converted to markdown format
+5. File downloaded via Chrome downloads API
 
-**Text cleaning** (in [src/utils.js](mdc:src/utils.js)):
+## Dependencies
 
-- Remove extra whitespace and normalize line breaks
-- Replace non-breaking spaces with regular spaces
-- Trim leading/trailing whitespace
-
-**Markdown escaping**:
-
-- Escape special characters: `* _` ~ [ ] ( ) ! # |`
-- Preserve intentional formatting
-- Handle backslashes properly
-
-## Special Content Types
-
-**Code blocks**:
-
-- Detect `<pre>`, `<code>`, `.c-mrkdwn__code` elements
-- Wrap in triple backticks: ````\n{code}\n````
-- Preserve original formatting
-
-**Links**:
-
-- Convert `<a href="url">text</a>` to `[text](url)`
-- Skip anchor links (href="#...")
-- Preserve link text if URL extraction fails
-
-**Thread replies**:
-
-- Indent with bullet points
-- Include sender name in bold
-- Maintain chronological order
-
-## Timestamp Formatting
-
-- **Input**: ISO datetime or Slack's time format
-- **Output**: Human-readable format like "10:15 AM"
-- **Fallback**: Use original string if parsing fails
-- **Configuration**: Controlled by `includeTimestamps` setting
-
-## File Generation
-
-- **Filename**: Based on template in config
-- **Content-Type**: `text/markdown`
-- **Encoding**: UTF-8
-- **Download**: Via Chrome downloads API with automatic save
+- **Chrome APIs**: storage.sync, downloads, tabs, runtime
+- **Permissions**: activeTab, storage, downloads, host_permissions for *.slack.com
+- **No external libraries** - vanilla JavaScript only
 
 ---
 > Source: [dcurlewis/slacksnap](https://github.com/dcurlewis/slacksnap) — distributed by [TomeVault](https://tomevault.io).
