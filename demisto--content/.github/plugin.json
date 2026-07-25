@@ -1,0 +1,9 @@
+{
+  "name": "demisto--content",
+  "displayName": "content",
+  "description": "content",
+  "version": "1.0.0",
+  "author": "demisto",
+  "homepage": "https://github.com/demisto/content",
+  "skills": []
+}
