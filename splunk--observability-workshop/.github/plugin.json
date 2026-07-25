@@ -1,0 +1,14 @@
+{
+  "name": "splunk--observability-workshop",
+  "displayName": "observability-workshop",
+  "description": "observability-workshop",
+  "version": "1.0.0",
+  "author": "splunk",
+  "homepage": "https://github.com/splunk/observability-workshop",
+  "skills": [
+    {
+      "name": "observability-workshop",
+      "description": ""
+    }
+  ]
+}
