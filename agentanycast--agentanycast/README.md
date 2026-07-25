@@ -1,8 +1,6 @@
 # agentanycast
 
-> Source: [AgentAnycast/agentanycast](https://github.com/AgentAnycast/agentanycast) — distributed by [TomeVault](https://tomevault.io)
-
-Connect AI agents across any network — zero config, encrypted, skill-based routing
+> Source: [AgentAnycast/agentanycast](https://github.com/AgentAnycast/agentanycast). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [AgentAnycast/agentanycast](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [AgentAnycast/agentanycast](https://github.com/AgentAnycast/agentanycast) — a repo with 81+ stars on GitHub.
+From [AgentAnycast/agentanycast](https://github.com/AgentAnycast/agentanycast) — a repo with 77+ stars on GitHub.
 
 ---
 
