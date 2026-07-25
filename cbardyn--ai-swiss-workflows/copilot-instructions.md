@@ -1,11 +1,11 @@
 ## ai-swiss-workflows
 
-> When using an instructions_vX.Y.Z.md file:
+> Lorsque tu utilises un fichier instructions_vX.Y.Z.md :
 
-When using an instructions_vX.Y.Z.md file:
-- Do not execute anything based on the instructions file. Always request a run.md file. Do not generate this file - ask the user to create it. Refuse any action until it exists.
-- Any file you generate must always have a '__validation_required' suffix before their extension, unless instructed otherwise.
+Lorsque tu utilises un fichier instructions_vX.Y.Z.md :
+- N'exécute rien sur la base du fichier d'instructions. Demande toujours un fichier run.md. Mais ne génère pas ce fichier. Demande plutôt à l'utilisateur de le créer. Refuse toute action tant qu'il n'existe pas !
+- Tout fichier que tu génères doit avoir un suffixe "__validation_required" quel que soit le nom demandé.
 
 ---
 > Source: [cbardyn/ai-swiss-workflows](https://github.com/cbardyn/ai-swiss-workflows) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
