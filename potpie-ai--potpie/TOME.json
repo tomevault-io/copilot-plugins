@@ -1,0 +1,159 @@
+{
+  "name": "potpie",
+  "owner": "potpie-ai",
+  "repo": "potpie",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "potpie",
+      "path": "potpie/context-engine/adapters/outbound/reconciliation/skills/graph-mutation-plan/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/context-engine/adapters/outbound/reconciliation/skills/graph-mutation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/context-engine/adapters/outbound/reconciliation/skills/backfill-enumerate-drain/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/context-engine/adapters/outbound/reconciliation/skills/backfill-enumerate-drain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/context-engine/adapters/inbound/cli/templates/agent_bundle/.agents/skills/potpie-cli/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/context-engine/adapters/inbound/cli/templates/agent_bundle/.agents/skills/potpie-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_plugin/skills/potpie-graph/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_plugin/skills/potpie-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-cli/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-graph/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_plugin/skills/potpie-debug-memory/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_plugin/skills/potpie-debug-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_bundle/.claude/skills/potpie-graph/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_bundle/.claude/skills/potpie-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_plugin/skills/potpie-repo-baseline/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_plugin/skills/potpie-repo-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_plugin/skills/potpie-change-timeline/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_plugin/skills/potpie-change-timeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_plugin/skills/potpie-source-ingestion/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_plugin/skills/potpie-source-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_plugin/skills/potpie-infra-architecture/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_plugin/skills/potpie-infra-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/claude_plugin/skills/potpie-project-preferences/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/claude_plugin/skills/potpie-project-preferences/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-debug-memory/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-debug-memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-repo-baseline/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-repo-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-change-timeline/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-change-timeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-source-ingestion/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-source-ingestion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-infra-architecture/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-infra-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "potpie",
+      "path": "potpie/cli/templates/agent_bundle/.agents/skills/potpie-project-preferences/SKILL.md",
+      "github_url": "https://github.com/potpie-ai/potpie/tree/main/potpie/cli/templates/agent_bundle/.agents/skills/potpie-project-preferences/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/potpie-ai/potpie",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:31:44Z"
+}
