@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design).
+Original source: `CLAUDE.md` in [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (48)
+## Bundled Skills (50)
 
 - [omd-sync](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-sync)
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-init/SKILL.md)
@@ -65,8 +65,10 @@ Original source: `AGENTS.md` in [kwakseongjae/oh-my-design](https://github.com/k
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.codex/skills/omd-lab-02-design-harness/SKILL.md)
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-lab-02-design-harness/SKILL.md)
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-lab-01-designmd-impact/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-feel/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-feel/SKILL.md)
 
-From [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design) — a repo with 365+ stars on GitHub.
+From [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design) — a repo with 385+ stars on GitHub.
 
 ---
 
