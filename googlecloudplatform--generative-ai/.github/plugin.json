@@ -1,0 +1,26 @@
+{
+  "name": "googlecloudplatform--generative-ai",
+  "displayName": "generative-ai",
+  "description": "generative-ai",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/generative-ai",
+  "skills": [
+    {
+      "name": "generative-ai",
+      "description": ""
+    },
+    {
+      "name": "generative-ai",
+      "description": ""
+    },
+    {
+      "name": "generative-ai",
+      "description": ""
+    },
+    {
+      "name": "generative-ai",
+      "description": ""
+    }
+  ]
+}
