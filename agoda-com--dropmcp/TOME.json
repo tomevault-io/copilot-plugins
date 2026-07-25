@@ -1,0 +1,87 @@
+{
+  "name": "dropmcp",
+  "owner": "agoda-com",
+  "repo": "dropmcp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dropmcp",
+      "path": "template/skills/hello-world/SKILL.md",
+      "github_url": "https://github.com/agoda-com/dropmcp/tree/main/template/skills/hello-world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dropmcp",
+      "path": "examples/skills/hello-world/SKILL.md",
+      "github_url": "https://github.com/agoda-com/dropmcp/tree/main/examples/skills/hello-world/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dropmcp",
+      "path": ".claude/skills/no-browser-datetime/SKILL.md",
+      "github_url": "https://github.com/agoda-com/dropmcp/tree/main/.claude/skills/no-browser-datetime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dropmcp",
+      "path": ".claude/skills/react-component-layout/SKILL.md",
+      "github_url": "https://github.com/agoda-com/dropmcp/tree/main/.claude/skills/react-component-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dropmcp",
+      "path": ".claude/skills/preserve-existing-tests/SKILL.md",
+      "github_url": "https://github.com/agoda-com/dropmcp/tree/main/.claude/skills/preserve-existing-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dropmcp",
+      "path": ".claude/skills/api-response-for-browser/SKILL.md",
+      "github_url": "https://github.com/agoda-com/dropmcp/tree/main/.claude/skills/api-response-for-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dropmcp",
+      "path": ".claude/skills/no-test-code-in-production/SKILL.md",
+      "github_url": "https://github.com/agoda-com/dropmcp/tree/main/.claude/skills/no-test-code-in-production/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agoda-com/dropmcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:35:02Z"
+}
