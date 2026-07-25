@@ -1,0 +1,14 @@
+{
+  "name": "novasamatech--nova-spektr",
+  "displayName": "nova-spektr",
+  "description": "nova-spektr",
+  "version": "1.0.0",
+  "author": "novasamatech",
+  "homepage": "https://github.com/novasamatech/nova-spektr",
+  "skills": [
+    {
+      "name": "nova-spektr",
+      "description": ""
+    }
+  ]
+}
