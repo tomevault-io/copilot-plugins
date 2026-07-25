@@ -1,0 +1,9 @@
+{
+  "name": "vantage-sh--ec2instances-info",
+  "displayName": "ec2instances.info",
+  "description": "ec2instances.info",
+  "version": "1.0.0",
+  "author": "vantage-sh",
+  "homepage": "https://github.com/vantage-sh/ec2instances.info",
+  "skills": []
+}
