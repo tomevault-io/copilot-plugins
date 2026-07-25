@@ -1,0 +1,9 @@
+{
+  "name": "kdeps--turo",
+  "displayName": "turo",
+  "description": "Point more. Token less. Reduce prose to its content words to cut LLM input tokens \u2014 across 20+ coding agents.",
+  "version": "1.0.0",
+  "author": "kdeps",
+  "homepage": "https://github.com/kdeps/turo",
+  "skills": []
+}
