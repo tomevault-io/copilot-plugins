@@ -1,0 +1,9 @@
+{
+  "name": "fluent--fluent-bit",
+  "displayName": "fluent-bit",
+  "description": "fluent-bit",
+  "version": "1.0.0",
+  "author": "fluent",
+  "homepage": "https://github.com/fluent/fluent-bit",
+  "skills": []
+}
