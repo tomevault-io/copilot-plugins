@@ -1,92 +1,43 @@
 ## codeburn
 
-> - NEVER commit without running locally first and confirming it works
+> - **Source:** `src/providers/gemini.ts`
 
-# CodeBurn Development Rules
+# Gemini
 
-## Verification
-- NEVER commit without running locally first and confirming it works
-- Run `npx tsx src/cli.ts report` and `npx tsx src/cli.ts today` to verify changes before any commit
-- For dashboard changes: run the interactive TUI and visually confirm rendering
-- For new features: test the happy path AND edge cases (empty data, missing config, pipe mode)
+Google Gemini CLI.
 
-## Code Quality
-- Clean, minimal code. No dead code, no commented-out blocks, no TODO placeholders
-- No emoji anywhere in the codebase
-- No em dashes. Use hyphens or rewrite the sentence
-- No AI slop: no "streamline", "leverage", "robust", "seamless" in user-facing text
-- No unnecessary abstractions. Three similar lines > premature helper function
-- No magic numbers. Extract layout offsets, column widths, thresholds, timeouts, and any value used in a calculation into a named `const` at module scope. Inline literals are only OK for universally understood constants (0, 1, 100 for percent). If a number appears in a formula like `pw - bw - 31`, the `31` must be a named constant.
+- **Source:** `src/providers/gemini.ts`
+- **Loading:** eager (`src/providers/index.ts:5`)
+- **Test:** none. Adding a fixture-based test is a known good first issue.
 
-## Accuracy
-- Every user-facing number (cost, tokens, calls) must be verified against real data
-- LiteLLM pricing model names must match exactly. No guessing model IDs
-- Date range calculations must be tested with edge cases (month boundaries, billing day > days in month)
+## Where it reads from
 
-## Style
-- TypeScript strict mode. No `any` types
-- No comments unless the WHY is non-obvious
-- Imports: node builtins first, then deps, then local (separated by blank line)
-- Single quotes, no semicolons inconsistency (follow existing: no trailing semicolons in most files)
+`~/.gemini/tmp/<project>/chats/session-*.json` and `session-*.jsonl` (`gemini.ts:218-252`).
 
-## Git
+## Storage format
 
-### Branching (strict)
-- NEVER commit directly to main. All work happens on branches
-- Branch naming: `feat/<name>`, `fix/<name>`, `chore/<name>`, `docs/<name>`
-- Merge to main ONLY after: tests pass, CLI verified, manual testing done
-- npm publish ONLY from main after merge
-- Tag releases: `git tag v0.X.0` after publish
+Either a single JSON document per session or JSONL, depending on Gemini CLI version. The parser sniffs the first non-whitespace character to decide (`gemini.ts:197-206`).
 
-### Creating a branch
-```bash
-git checkout main && git pull origin main
-git checkout -b feat/my-feature
-# work, test, iterate
-npx vitest run
-npx tsx src/cli.ts report
-# when ready:
-git checkout main && git merge feat/my-feature
-git push origin main
-```
+## Caching
 
-### Handling external PRs
-- NEVER rewrite a contributor's changes on your own branch. Always merge THEIR branch
-- Add your improvements as separate commits on top of their branch, not as replacements
-- This preserves their authorship in git history so GitHub shows them as a contributor
-```bash
-gh pr checkout <number>           # checkout PR locally
-npx vitest run                    # test their code
-npx tsx src/cli.ts report         # manual verification
-# apply patches if needed, commit on their branch
-git checkout main
-git merge <branch>                # preserves their authorship
-git push origin main
-gh pr comment <number> --body "Merged, thanks!"
-```
+None.
 
-### What gets committed
-- Source code: `src/`, `tests/`
-- Config: `package.json`, `tsconfig.json`, `tsup.config.ts`, `.gitignore`
-- Docs: `README.md`, `CHANGELOG.md`, `LICENSE`, `CLAUDE.md`
-- Assets: `assets/`
-- NEVER commit: `.env`, secrets, keys, planning docs (`docs/superpowers/`), IDE config, logs, `.DS_Store`
-- Check `git status` before every commit. Stage specific files, never `git add -A` or `git add .`
+## Deduplication
 
-### Commit rules
-- Commits from: AgentSeal <hello@agentseal.org>
-- NEVER add Co-Authored-By lines
-- NEVER include personal names or usernames in commits
-- Small, focused commits. One feature per commit
-- Test locally before every commit
+Per `sessionId` (`gemini.ts:72`). Gemini sessions are aggregated to a single call per session.
 
-### Public-facing language (commits, PRs, release notes, README)
-- Commits and release notes are public. Write like you'd publish them.
-- NEVER use words like "steal", "stealing", "copy", "rip off", "inspired by" in commit messages
-- Describe what the code does, not where ideas came from
-- If you must credit prior art, do it in code comments or docs, not commit messages
-- No snark, no filler, no self-deprecation. Treat each commit as a product statement
+## Quirks
+
+- **Cached tokens are a subset of input.** Gemini reports cached tokens included inside `promptTokenCount`. The parser subtracts them so callers see Anthropic semantics (cached are separate).
+- **Thoughts are billed at output rate** (`gemini.ts:125`).
+- Each session collapses to one `ParsedProviderCall`. If you need per-turn data, the upstream format does not support it without re-parsing the prompt history.
+
+## When fixing a bug here
+
+1. The lack of a test file is a hazard. **Add a fixture and a test before changing parsing logic** so future regressions are caught.
+2. If the bug involves a new Gemini version's schema, sniff with the same first-character heuristic; do not call `JSON.parse` on the whole file.
+3. If the bug is "Gemini sessions report less than expected", check whether the cached-token subtraction is over-correcting.
 
 ---
 > Source: [getagentseal/codeburn](https://github.com/getagentseal/codeburn) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
