@@ -2,9 +2,9 @@
   "name": "awesome-cursorrules-zh",
   "owner": "LessUp",
   "repo": "awesome-cursorrules-zh",
-  "description": "\ud83c\udde8\ud83c\uddf3 Cursor AI \u7f16\u8f91\u5668 .cursorrules \u89c4\u5219\u7cbe\u9009\u96c6\u5408 | 132+ \u89c4\u5219 \u00b7 32 \u9886\u57df \u00b7 \u53cc\u8bed\u7ad9\u70b9",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LessUp/awesome-cursorrules-zh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T19:41:57Z"
+  "distributed_at": "2026-07-25T01:11:06Z"
 }
