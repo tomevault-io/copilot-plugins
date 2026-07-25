@@ -1,0 +1,9 @@
+{
+  "name": "bluetooth-devices--govee-ble",
+  "displayName": "govee-ble",
+  "description": "govee-ble",
+  "version": "1.0.0",
+  "author": "Bluetooth-Devices",
+  "homepage": "https://github.com/Bluetooth-Devices/govee-ble",
+  "skills": []
+}
