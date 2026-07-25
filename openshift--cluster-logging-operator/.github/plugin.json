@@ -1,0 +1,14 @@
+{
+  "name": "openshift--cluster-logging-operator",
+  "displayName": "cluster-logging-operator",
+  "description": "cluster-logging-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-logging-operator",
+  "skills": [
+    {
+      "name": "cluster-logging-operator",
+      "description": ""
+    }
+  ]
+}
