@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--serverless-production-readiness-java-gcp",
+  "displayName": "serverless-production-readiness-java-gcp",
+  "description": "serverless-production-readiness-java-gcp",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/serverless-production-readiness-java-gcp",
+  "skills": []
+}
