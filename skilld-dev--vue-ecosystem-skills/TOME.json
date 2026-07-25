@@ -2,9 +2,9 @@
   "name": "vue-ecosystem-skills",
   "owner": "skilld-dev",
   "repo": "vue-ecosystem-skills",
-  "description": "AI agent skills for the bleeding edge Vue ecosystem. Built from real docs, issues, and releases.",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,45 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "vue-i18n-skilld",
-      "path": "skills/vue-i18n-skilld",
-      "github_url": "https://github.com/skilld-dev/vue-ecosystem-skills/tree/main/skills/vue-i18n-skilld",
-      "description": ""
-    },
-    {
-      "name": "tanstack-ai-vue-skilld",
-      "path": "skills/tanstack-ai-vue-skilld",
-      "github_url": "https://github.com/skilld-dev/vue-ecosystem-skills/tree/main/skills/tanstack-ai-vue-skilld",
-      "description": ""
-    },
-    {
-      "name": "vue-router-skilld",
-      "path": "skills/vue-router-skilld",
-      "github_url": "https://github.com/skilld-dev/vue-ecosystem-skills/tree/main/skills/vue-router-skilld",
-      "description": ""
-    },
-    {
-      "name": "vue-skilld",
-      "path": "skills/vue-skilld",
-      "github_url": "https://github.com/skilld-dev/vue-ecosystem-skills/tree/main/skills/vue-skilld",
-      "description": ""
-    },
-    {
-      "name": "vue-test-utils-skilld",
-      "path": "skills/vue-test-utils-skilld",
-      "github_url": "https://github.com/skilld-dev/vue-ecosystem-skills/tree/main/skills/vue-test-utils-skilld",
-      "description": ""
-    },
-    {
-      "name": "vue-data-ui-skilld",
-      "path": "skills/vue-data-ui-skilld",
-      "github_url": "https://github.com/skilld-dev/vue-ecosystem-skills/tree/main/skills/vue-data-ui-skilld",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/skilld-dev/vue-ecosystem-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T00:33:54Z"
+  "distributed_at": "2026-07-25T01:08:44Z"
 }
