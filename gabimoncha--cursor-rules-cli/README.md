@@ -1,8 +1,6 @@
 # AI instruction files for cursor-rules-cli
 
-> Sourced from [gabimoncha/cursor-rules-cli](https://github.com/gabimoncha/cursor-rules-cli) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A CLI for boostrapping Cursor AI rules in your project
+> Sourced from [gabimoncha/cursor-rules-cli](https://github.com/gabimoncha/cursor-rules-cli), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [gabimoncha/cursor-rules-cli](https://
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/gabimoncha/cursor-rules-cli](https://github.com/gabimoncha/cursor-rules-cli)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/gabimoncha/cursor-rules-cli](https://github.com/gabimoncha/cursor-rules-cli)
 
 ---
 
