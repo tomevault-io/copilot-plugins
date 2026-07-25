@@ -1,0 +1,14 @@
+{
+  "name": "linktools-toolkit--linktools",
+  "displayName": "linktools",
+  "description": "linktools",
+  "version": "1.0.0",
+  "author": "linktools-toolkit",
+  "homepage": "https://github.com/linktools-toolkit/linktools",
+  "skills": [
+    {
+      "name": "linktools",
+      "description": ""
+    }
+  ]
+}
