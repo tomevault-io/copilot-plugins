@@ -2,9 +2,9 @@
   "name": "console",
   "owner": "kubestellar",
   "repo": "console",
-  "description": "World's first fully integrated and fully Automated Kubernetes management and orchestration solution",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kubestellar/console",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T11:55:38Z"
+  "distributed_at": "2026-07-25T17:20:00Z"
 }
