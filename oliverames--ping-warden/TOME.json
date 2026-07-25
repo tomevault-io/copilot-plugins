@@ -2,9 +2,9 @@
   "name": "ping-warden",
   "owner": "oliverames",
   "repo": "ping-warden",
-  "description": "macOS menu bar app that eliminates AWDL latency spikes for cloud gaming, competitive play, and video calls. One-click AirDrop/AirPlay interference control. Signed, notarized, auto-updates.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oliverames/ping-warden",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T01:13:19Z"
+  "distributed_at": "2026-07-25T21:55:48Z"
 }
