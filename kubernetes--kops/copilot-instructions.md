@@ -1,127 +1,179 @@
 ## kops
 
-> kOps is a command-line tool for creating, destroying, upgrading, and maintaining production-grade, highly available Kubernetes clusters. It is written in Go and supports multiple cloud providers, including AWS, GCP, DigitalOcean, Hetzner, OpenStack, and Azure.
+> generates Go client/server/shape code from Smithy models.
 
-# kOps Project Overview
+# AGENTS.md
 
-kOps is a command-line tool for creating, destroying, upgrading, and maintaining production-grade, highly available Kubernetes clusters. It is written in Go and supports multiple cloud providers, including AWS, GCP, DigitalOcean, Hetzner, OpenStack, and Azure.
+## Project overview
 
-The project is well-structured, with a clear separation of concerns between the different packages. The `cmd` directory contains the main entry points for the `kops` CLI and other related commands. The `pkg` directory contains the core logic for managing clusters, and the `upup` directory contains the code for provisioning cloud infrastructure.
+smithy-go is the Go code generator and runtime for [Smithy](https://smithy.io/).
+It has two major components:
 
-The project has a comprehensive test suite, including unit tests, integration tests, and end-to-end tests. It also has a robust CI/CD pipeline that runs these tests on every pull request.
+1. **Codegen** (`codegen/`) — A Smithy build plugin written in Java that
+   generates Go client/server/shape code from Smithy models.
+2. **Runtime** (`./`, top-level Go module) — The Go packages that generated
+   code depends on at runtime.
 
-## Building and Running
+The primary downstream consumer is
+[aws-sdk-go-v2](https://github.com/aws/aws-sdk-go-v2).
 
-### Prerequisites
+## Repository layout
 
-* `make`
-
-### Building
-
-To build the `kops` binary, run the following command:
-
-```bash
-make kops
+```
+.                               # Root Go module (github.com/aws/smithy-go)
+├── auth/                       # Auth identity + scheme interfaces
+│   └── bearer/                 # Bearer token auth
+├── aws-http-auth/              # Separate module: AWS SigV4/SigV4A HTTP signing
+├── codegen/                    # Java/Gradle: Smithy code generator
+│   ├── smithy-go-codegen/      # Main codegen source (Java)
+│   └── smithy-go-codegen-test/ # Codegen integration tests
+├── container/                  # Generic container types
+├── context/                    # Context helpers
+├── document/                   # Smithy document type abstraction
+│   └── json/                   # JSON document codec
+├── encoding/                   # Wire format encoders/decoders
+│   ├── cbor/                   # CBOR (used by rpcv2Cbor)
+│   ├── httpbinding/            # HTTP binding serde helpers
+│   ├── json/                   # JSON encoder/decoder
+│   └── xml/                    # XML encoder/decoder
+├── endpoints/                  # Endpoint resolution types
+├── internal/                   # Internal utilities (singleflight, etc.)
+├── io/                         # I/O helpers
+├── logging/                    # Logging interfaces
+├── metrics/                    # Metrics interfaces
+│   └── smithyotelmetrics/      # Separate module: OpenTelemetry metrics adapter
+├── middleware/                 # Middleware stack (the core of the operation pipeline)
+├── ptr/                        # Pointer-to/from-value helpers
+├── testing/                    # Test assertion helpers for generated protocol tests
+│   └── xml/                    # XML comparison utilities
+├── time/                       # Smithy timestamp format helpers
+├── tracing/                    # Tracing interfaces
+│   └── smithyoteltracing/      # Separate module: OpenTelemetry tracing adapter
+└── transport/
+    └── http/                   # HTTP request/response types and middleware
 ```
 
-This will create the `kops` binary in the `.build/dist/<os>/<arch>` directory.
+## Building and testing
 
-To build all the binaries, including `kops`, `protokube`, `nodeup`, and `channels`, run the following command:
-
-```bash
-make all
-```
-
-### Running
-
-To run the `kops` binary, you can either run it directly from the `dist` directory or install it to your `$GOPATH/bin` directory by running the following command:
+### Runtime (Go)
 
 ```bash
-make install
+# Run unit tests
+make unit
 ```
 
-### Testing
-
-To run the unit tests, run the following command:
+### Codegen (Java)
 
 ```bash
-make test
+# Build and test codegen
+cd codegen && ./gradlew build
+
+# Publish to local Maven for downstream use
+cd codegen && ./gradlew publishToMavenLocal
 ```
 
-To run the verification scripts, run the following command:
+The codegen artifact version is fixed at `0.1.0` and is not published to
+Maven Central — you **MUST** `publishToMavenLocal`.
 
-```bash
-make verify
+## Runtime architecture
+
+### Middleware stack
+
+The operation pipeline is built on a middleware stack defined in `middleware/`.
+Steps execute in order: Initialize → Serialize → Build → Finalize →
+Deserialize. Each step is a `middleware.Step` that holds an ordered list of
+middleware. The codegen generates middleware registrations for each operation.
+
+### Encoding packages
+
+Each wire format has its own encoder/decoder under `encoding/`. These are
+low-level — they produce/consume raw tokens or values, not full Smithy shapes.
+Generated serde code calls into these packages.
+
+## Codegen: GoWriter and template system
+
+GoWriter extends Smithy's `SymbolWriter` and is the primary mechanism for
+generating Go source. It has **two distinct writing styles** that must not be
+confused.
+
+### Style 1: Positional args (`writer.write` / `writer.openBlock`)
+
+Inherited from `SymbolWriter`. Arguments are positional and referenced with
+`$`-prefixed format characters. Each `$X` consumes the next argument in order.
+
+Format characters:
+- `$L` — Literal (toString). Strings, names, anything that should be inserted
+  verbatim.
+- `$S` — String, quoted. Wraps the value in Go double-quotes.
+- `$T` — Type (Symbol). Inserts the symbol name and auto-adds its import.
+- `$P` — Pointable type (Symbol). Like `$T` but prepends `*` if the symbol is
+  marked pointable.
+- `$W` — Writable. Evaluates a `Writable` (lambda/closure) inline.
+- `$D` — Dependency. Adds a `GoDependency` import, expands to empty string.
+
+Numbered variants (`$1L`, `$2T`, etc.) allow reusing the same argument
+multiple times. The number is 1-indexed and refers to the position in the
+argument list:
+
+```java
+// $1L is used twice, $2L once — only 2 args needed
+writer.write("type $1L struct{}\nvar _ $2L = (*$1L)(nil)",
+    DEFAULT_NAME, INTERFACE_NAME);
 ```
 
-To run the full suite of CI checks, run the following command:
+`openBlock`/`closeBlock` manage indentation for braced blocks. Arguments are
+positional:
 
-```bash
-make ci
+```java
+writer.openBlock("func (c $P) $T(ctx $T) ($P, error) {", "}",
+    serviceSymbol, operationSymbol, contextSymbol, outputSymbol,
+    () -> {
+        writer.write("return nil, nil");
+    });
 ```
 
-## Development Conventions
+### Style 2: Named template args (`goTemplate` / `writeGoTemplate`)
 
-### Guidelines for Programming Assistance
+Uses `$name:X` syntax where `name` is a key in a `Map<String, Object>` and `X`
+is the format character. Arguments are passed as one or more maps. This is the
+**preferred style for new code** — it is more readable and less error-prone
+than positional args.
 
-When assisting with programming tasks, you will adhere to the following principles:
-
-* **Follow Requirements**: Carefully follow the user's requirements to the letter.
-* **Plan First**: For any non-trivial change, first describe a detailed, step-by-step plan, including the files you intend to modify and the tests you will add or update.
-* **Test Thoroughly**: Implement comprehensive tests to ensure correctness and prevent regressions.
-* **Comment Intelligently**: Add comments to explain the "why" behind complex or non-obvious code, keeping in mind that the reader may not be a Kubernetes expert.
-* **No TODOs**: Leave no `TODO` comments, placeholders, or incomplete implementations.
-* **Prioritize Correctness**: Always prioritize security, scalability, and maintainability in your implementations.
-
-### Avoiding Loops
-
-When performing complex tasks, especially those involving code modifications and verification, it's important to avoid getting into loops. A loop can occur when the agent repeatedly tries the same action without success, or when it gets stuck in a cycle of analysis, action, and failure.
-
-To avoid loops:
-*   **Analyze the problem carefully**: Before taking any action, make sure you understand the problem and have a clear plan to solve it.
-*   **Break down the problem**: Break down complex problems into smaller, more manageable steps.
-*   **Verify each step**: After each step, verify that it was successful before moving on to the next one.
-*   **Don't repeat failed actions**: If an action fails, don't just repeat it. Analyze the cause of the failure and try a different approach.
-*   **Ask for help**: If you're stuck, don't hesitate to ask for help from the user.
-
-### Code Style
-
-The project follows the standard Go code style and the official [Kubernetes coding conventions](https://www.k8s.dev/docs/guide/coding-convention/). All code should be formatted with `gofmt` and `goimports`. You can format the code by running the following commands:
-
-```bash
-make gofmt
-make goimports
+```java
+return goTemplate("""
+    func $name:L(v $cborValue:T) ($type:T, error) {
+        return $coercer:T(v)
+    }
+    """,
+    Map.of(
+        "name", getDeserializerName(shape),
+        "cborValue", SmithyGoTypes.Encoding.Cbor.Value,
+        "type", symbolProvider.toSymbol(shape),
+        "coercer", coercer
+    ));
 ```
 
-### Linting
+Rules:
+- `goTemplate(String, Map...)` is a **static** method that returns a
+  `Writable` (a `Consumer<GoWriter>` lambda). It does NOT write immediately.
+- `writeGoTemplate(String, Map...)` is an **instance** method that writes
+  immediately to the writer.
+- Maps are merged into the writer's context scope for the duration of the
+  template. Multiple maps can be passed and are applied in order.
+- The writer pre-populates common symbols in context: `fmt.Sprintf`,
+  `fmt.Errorf`, `errors.As`, `context.Context`, `time.Now`.
 
-The project uses `golangci-lint` to lint the code. You can run the linter by running the following command:
+### Composing writables
 
-```bash
-make verify-golangci-lint
-```
+- `ChainWritable` — Collects multiple `Writable`s and composes them with
+  newlines between each. Use `.compose()` (with newlines) or
+  `.compose(false)` (without).
 
-### Dependencies
+### Symbol constants
 
-The project uses Go modules to manage dependencies. To add a new dependency, add it to the `go.mod` file and then run the following command:
-
-```bash
-make gomod
-```
-
-### Commits
-
-The project follows the conventional commit message format.
-
-### Contributions
-
-Contributions are welcome! Before submitting a pull request, please open an issue to discuss your proposed changes. All pull requests must be reviewed and approved by a maintainer before they can be merged.
-
-## E2E CI Failure Troubleshooting
-
-For investigating E2E CI job failures — including locating artifacts, diagnosing root causes, and finding correlations across failing jobs — see [docs/e2e-failure-troubleshooting.md](docs/e2e-failure-troubleshooting.md).
+For symbols, use `SmithyGoDependency.*.valueSymbol("Name")` or
+`SmithyGoDependency.*.pointableSymbol("Name")`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/kubernetes)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/kubernetes)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [kubernetes/kops](https://github.com/kubernetes/kops) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
