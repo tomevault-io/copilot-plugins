@@ -1,0 +1,57 @@
+{
+  "name": "reatom",
+  "owner": "reatom",
+  "repo": "reatom",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reatom",
+      "path": "skills/reatom-jsx/SKILL.md",
+      "github_url": "https://github.com/reatom/reatom/tree/main/skills/reatom-jsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reatom",
+      "path": "skills/reatom-async/SKILL.md",
+      "github_url": "https://github.com/reatom/reatom/tree/main/skills/reatom-async/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/reatom/reatom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:52:09Z"
+}
