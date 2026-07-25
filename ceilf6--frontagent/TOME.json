@@ -3,8 +3,8 @@
   "owner": "ceilf6",
   "repo": "FrontAgent",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,105 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "FrontAgent",
+      "path": "skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": "skills/skill-lifecycle/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/skills/skill-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": "skills/frontend-reviewer/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/skills/frontend-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": "skills/requirement-interviewer/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/skills/requirement-interviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".agents/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.agents/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".agents/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.agents/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".agents/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.agents/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".agents/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.agents/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".agents/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.agents/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".agents/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.agents/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FrontAgent",
+      "path": ".claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/ceilf6/FrontAgent/tree/main/.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ceilf6/FrontAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T15:35:01Z"
+  "distributed_at": "2026-07-25T02:46:26Z"
 }
