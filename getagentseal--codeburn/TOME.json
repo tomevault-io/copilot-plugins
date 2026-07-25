@@ -2,9 +2,9 @@
   "name": "codeburn",
   "owner": "getagentseal",
   "repo": "codeburn",
-  "description": "See where your AI coding tokens go. Interactive TUI dashboard for Claude Code, Codex, and Cursor cost observability.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getagentseal/codeburn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:04:46Z"
+  "distributed_at": "2026-07-25T19:27:43Z"
 }
