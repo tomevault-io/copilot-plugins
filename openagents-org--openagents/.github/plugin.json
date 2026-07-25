@@ -1,0 +1,14 @@
+{
+  "name": "openagents-org--openagents",
+  "displayName": "openagents",
+  "description": "openagents",
+  "version": "1.0.0",
+  "author": "openagents-org",
+  "homepage": "https://github.com/openagents-org/openagents",
+  "skills": [
+    {
+      "name": "openagents",
+      "description": ""
+    }
+  ]
+}
