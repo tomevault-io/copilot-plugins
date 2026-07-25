@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-collector-contrib",
+  "displayName": "opentelemetry-collector-contrib",
+  "description": "opentelemetry-collector-contrib",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-collector-contrib",
+  "skills": []
+}
