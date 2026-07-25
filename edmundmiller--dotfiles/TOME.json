@@ -4,7 +4,7 @@
   "repo": "dotfiles",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -355,9 +355,81 @@
       "path": "packages/pi-packages/pi-context-repo/skills/defragmenting-memory/SKILL.md",
       "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/packages/pi-packages/pi-context-repo/skills/defragmenting-memory/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "skills/catalog/autonomous-agent-loop/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/autonomous-agent-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".agents/skills/home-assistant-best-practices/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/home-assistant-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "skills/catalog/stack-maintenance/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/stack-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".agents/skills/nix-darwin-reference/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/nix-darwin-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "packages/pi-packages/omp-skillopt-sleep/skills/skillopt-sleep/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/packages/pi-packages/omp-skillopt-sleep/skills/skillopt-sleep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "skills/catalog/fork-bead-threads/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/fork-bead-threads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "skills/conditional/hunk/hunk-review/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/skills/conditional/hunk/hunk-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".agents/skills/nix-package-patching/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/nix-package-patching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "skills/catalog/skillopt-sleep-learned/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/skillopt-sleep-learned/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "skills/catalog/github-fine-grained-pat/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/github-fine-grained-pat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".agents/skills/dotfiles-agent-workflow/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/.agents/skills/dotfiles-agent-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "skills/catalog/writing-agent-friendly-clis/SKILL.md",
+      "github_url": "https://github.com/edmundmiller/dotfiles/tree/main/skills/catalog/writing-agent-friendly-clis/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/edmundmiller/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T19:31:25Z"
+  "distributed_at": "2026-07-25T20:32:37Z"
 }
