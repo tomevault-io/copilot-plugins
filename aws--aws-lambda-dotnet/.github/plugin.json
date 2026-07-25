@@ -1,0 +1,14 @@
+{
+  "name": "aws--aws-lambda-dotnet",
+  "displayName": "aws-lambda-dotnet",
+  "description": "aws-lambda-dotnet",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/aws-lambda-dotnet",
+  "skills": [
+    {
+      "name": "aws-lambda-dotnet",
+      "description": ""
+    }
+  ]
+}
