@@ -1,0 +1,9 @@
+{
+  "name": "homebridge--plugin-ui-utils",
+  "displayName": "plugin-ui-utils",
+  "description": "plugin-ui-utils",
+  "version": "1.0.0",
+  "author": "homebridge",
+  "homepage": "https://github.com/homebridge/plugin-ui-utils",
+  "skills": []
+}
