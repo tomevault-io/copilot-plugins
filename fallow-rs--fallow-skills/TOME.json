@@ -1,0 +1,51 @@
+{
+  "name": "fallow-skills",
+  "owner": "fallow-rs",
+  "repo": "fallow-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fallow-skills",
+      "path": "fallow/skills/fallow-review/SKILL.md",
+      "github_url": "https://github.com/fallow-rs/fallow-skills/tree/main/fallow/skills/fallow-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fallow-rs/fallow-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T06:38:50Z"
+}
