@@ -1,0 +1,9 @@
+{
+  "name": "datakitchen--data-observability-installer",
+  "displayName": "data-observability-installer",
+  "description": "data-observability-installer",
+  "version": "1.0.0",
+  "author": "DataKitchen",
+  "homepage": "https://github.com/DataKitchen/data-observability-installer",
+  "skills": []
+}
