@@ -1,0 +1,9 @@
+{
+  "name": "openshift--console-operator",
+  "displayName": "console-operator",
+  "description": "console-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/console-operator",
+  "skills": []
+}
