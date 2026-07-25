@@ -1,0 +1,14 @@
+{
+  "name": "seleniumhq--seleniumhq-github-io",
+  "displayName": "seleniumhq.github.io",
+  "description": "seleniumhq.github.io",
+  "version": "1.0.0",
+  "author": "SeleniumHQ",
+  "homepage": "https://github.com/SeleniumHQ/seleniumhq.github.io",
+  "skills": [
+    {
+      "name": "seleniumhq.github.io",
+      "description": ""
+    }
+  ]
+}
