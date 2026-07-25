@@ -1,7 +1,7 @@
 {
   "name": "agentanycast--agentanycast",
   "displayName": "agentanycast",
-  "description": "Connect AI agents across any network \u2014 zero config, encrypted, skill-based routing",
+  "description": "agentanycast",
   "version": "1.0.0",
   "author": "AgentAnycast",
   "homepage": "https://github.com/AgentAnycast/agentanycast",
