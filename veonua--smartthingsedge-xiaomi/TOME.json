@@ -1,0 +1,75 @@
+{
+  "name": "SmartThingsEdge-Xiaomi",
+  "owner": "veonua",
+  "repo": "SmartThingsEdge-Xiaomi",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "path": ".agents/skills/stse-preferences/SKILL.md",
+      "github_url": "https://github.com/veonua/SmartThingsEdge-Xiaomi/tree/main/.agents/skills/stse-preferences/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "path": ".agents/skills/validate-changes/SKILL.md",
+      "github_url": "https://github.com/veonua/SmartThingsEdge-Xiaomi/tree/main/.agents/skills/validate-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "path": ".agents/skills/aqara-custom-clusters/SKILL.md",
+      "github_url": "https://github.com/veonua/SmartThingsEdge-Xiaomi/tree/main/.agents/skills/aqara-custom-clusters/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "path": ".agents/skills/smartthings-capabilities/SKILL.md",
+      "github_url": "https://github.com/veonua/SmartThingsEdge-Xiaomi/tree/main/.agents/skills/smartthings-capabilities/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SmartThingsEdge-Xiaomi",
+      "path": ".agents/skills/zigbee-device-onboarding/SKILL.md",
+      "github_url": "https://github.com/veonua/SmartThingsEdge-Xiaomi/tree/main/.agents/skills/zigbee-device-onboarding/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/veonua/SmartThingsEdge-Xiaomi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T02:37:38Z"
+}
