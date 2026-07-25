@@ -1,0 +1,63 @@
+{
+  "name": "ha-gasbuddy",
+  "owner": "firstof9",
+  "repo": "ha-gasbuddy",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ha-gasbuddy",
+      "path": ".agents/skills/virtual_hub/SKILL.md",
+      "github_url": "https://github.com/firstof9/ha-gasbuddy/tree/main/.agents/skills/virtual_hub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ha-gasbuddy",
+      "path": ".agents/skills/pr_workflow/SKILL.md",
+      "github_url": "https://github.com/firstof9/ha-gasbuddy/tree/main/.agents/skills/pr_workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ha-gasbuddy",
+      "path": ".agents/skills/test_integration/SKILL.md",
+      "github_url": "https://github.com/firstof9/ha-gasbuddy/tree/main/.agents/skills/test_integration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/firstof9/ha-gasbuddy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T12:42:18Z"
+}
