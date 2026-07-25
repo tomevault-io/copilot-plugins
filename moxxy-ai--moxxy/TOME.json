@@ -1,0 +1,207 @@
+{
+  "name": "moxxy",
+  "owner": "moxxy-ai",
+  "repo": "moxxy",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/open-a-pr/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/open-a-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/audit-wave/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/audit-wave/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-tool/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-tool/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-mode/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/run-the-cli/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/run-the-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/run-the-gate/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/run-the-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-plugin/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/release-flow/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/release-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-channel/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-provider/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-provider/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-an-embedder/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-an-embedder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-compactor/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-compactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-an-isolator/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-an-isolator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-changeset/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/debug-ws-bridge/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/debug-ws-bridge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/tech-debt-journal/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/tech-debt-journal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/debug-self-update/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/debug-self-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/rebase-and-resolve/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/rebase-and-resolve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/fix-a-failing-test/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/fix-a-failing-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/debug-session-logs/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/debug-session-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-an-ipc-command/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-an-ipc-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-slash-command/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-slash-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-skill-builtin/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-skill-builtin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/security-invariants/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/security-invariants/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/add-a-cache-strategy/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/add-a-cache-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/change-runner-protocol/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/change-runner-protocol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "moxxy",
+      "path": ".ai/skills/verify-desktop-packaged/SKILL.md",
+      "github_url": "https://github.com/moxxy-ai/moxxy/tree/main/.ai/skills/verify-desktop-packaged/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/moxxy-ai/moxxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T02:45:04Z"
+}
