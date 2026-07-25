@@ -1,6 +1,6 @@
 # Downloader
 
-> Tome by [bezzad](https://github.com/bezzad/Downloader) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [bezzad](https://github.com/bezzad/Downloader), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
