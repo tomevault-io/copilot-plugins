@@ -1,0 +1,29 @@
+## stopsign-github-io
+
+> You are assisting with a vanilla JavaScript idle game. Follow these strict architectural rules:
+
+You are assisting with a vanilla JavaScript idle game. Follow these strict architectural rules:
+1. NO FRAMEWORKS. Do not use React, Vue, or TypeScript.
+2. SEPARATION OF LOOPS: `engine.js` is strictly for data/math calculations per tick under `engine`. `viewUpdating.js` is strictly for DOM/visual updates under `view`. Never mix them.
+3. DATA STORAGE: Initial game state belongs in `initialize.js` under `initials`. Large static game data belongs in `gameData.js`.
+4. UI EVENTS: Click handlers and user interactions belong in `events.js` under `events`.
+5. HELPERS: Use `helpers.js` for formatting and generic functions instead of creating new duplicates.
+6. SAVING: Any new global progress variable must be persisted through the existing save/load flow.
+7. STYLE CONSISTENCY: Follow existing project style. Prefer simple loops over lambdas when appropriate.
+8. CSS POLICY: Only create a CSS class if reused multiple times; otherwise prefer inline style updates.
+9. SAVE MIGRATION ASSUMPTION: You may assume no backward save compatibility is required unless explicitly requested.
+10. UI LIFECYCLE ORDER: Create all required UI elements in `viewCreate.js`, then load/apply save data, then update UI state in `viewUpdating.js`.
+11. CACHE SAFETY: No `view.updateVal` calls before `createView.setAllCaches()` has completed.
+12. POST-INIT FIXES: Any cached-id-dependent UI fix must run in a post-init hook (for example `createView.fixUiAfterLoad`) called from `onLoad.afterLoad` after `initializeDisplay()`.
+13. NO PER-FRAME CREATION: Never create/destroy UI elements per frame; create once on load and only update values/visibility.
+14. UPDATE API RULE: Per-frame/per-scheduled UI updates must use `view.updateVal`. Avoid `innerHTML` and element creation outside `viewCreate.js`.
+15. DISPLAY RESPONSIBILITY: If display changes due to user action, do it in `events.js`. If display changes due to data/state changes, do it in `viewUpdating.js` via `view.updateVal(..., ..., "style.display")`.
+16. SMALL VISUAL CHANGES: Prefer updating style values over adding/removing classes for simple visibility/color changes.
+17. STATS TAB MAINTENANCE: Whenever a new combat stat source is added, update the Stats tab tooltip/source breakdown in `viewUpdating.js` to keep formulas transparent.
+18. SAVEFILE MANAGEMENT: Do not add any code that fixes savefiles for the newer version. Right now there are no savefiles to fix.
+19. ASSIST ME: Suggest ways to improve the code, preferring suggestions on what you just added.
+20. NO DEFENSIVE EARLY EXITS: Do not add `if (missingOrInvalid) { return; }` (or `continue`) solely to avoid errors from game-owned state or cached DOM ids. Do not add `throw new Error` or extra `console` for that either. Prefer deleting such guards and accessing the real object so mistakes show up as normal runtime failures in devtools.
+
+---
+> Source: [StopSign/stopsign.github.io](https://github.com/StopSign/stopsign.github.io) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
