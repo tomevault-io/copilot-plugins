@@ -5,5 +5,30 @@
   "version": "1.0.0",
   "author": "Djelibeybi",
   "homepage": "https://github.com/Djelibeybi/home-assistant-core",
-  "skills": []
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    }
+  ]
 }
