@@ -1,0 +1,14 @@
+{
+  "name": "polydile--dile-components",
+  "displayName": "dile-components",
+  "description": "dile-components",
+  "version": "1.0.0",
+  "author": "Polydile",
+  "homepage": "https://github.com/Polydile/dile-components",
+  "skills": [
+    {
+      "name": "dile-components",
+      "description": ""
+    }
+  ]
+}
