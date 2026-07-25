@@ -1,168 +1,64 @@
 ## console
 
-> **YOU MUST RUN THESE COMMANDS BEFORE EVERY SINGLE COMMIT:**
+> Read CLAUDE.md, AGENTS.md, and .github/copilot-instructions.md before making changes.
 
-# Copilot Instructions for KubeStellar Console
+# KubeStellar Console — Cursor Rules
 
-## MANDATORY: Build and Lint Before Every Commit
+Read CLAUDE.md, AGENTS.md, and .github/copilot-instructions.md before making changes.
 
-**YOU MUST RUN THESE COMMANDS BEFORE EVERY SINGLE COMMIT:**
+## Critical Patterns
 
-```bash
-cd web
-npm run build
-npm run lint
-```
+### Card Development
+- Every `useCached*` hook MUST destructure `isDemoData` and `isRefreshing`
+- Pass both to `useCardLoadingState()` for Demo badge + refresh animation
+- Array safety: `(data || [])` before `.map()`, `.filter()`, `.join()`
+- Use `DeduplicatedClusters()` when iterating clusters
 
-**IF BUILD FAILS → FIX IT → RUN AGAIN**
-**IF LINT FAILS → FIX IT → RUN AGAIN**
-**ONLY COMMIT AFTER BOTH PASS**
+### Styling
+- NEVER use raw hex colors — use semantic Tailwind classes (`text-foreground`, `bg-primary`)
+- Use `cn()` utility for className merging
+- Status colors: `text-green-400`, `text-yellow-400`, `text-red-400`, `text-cyan-400`
 
-DO NOT PUSH CODE THAT FAILS BUILD OR LINT. This is non-negotiable.
+### i18n
+- User-facing strings MUST use `t()` from `useTranslation()` — no raw strings
 
-## Commit Workflow
+### State Management
+- No Redux/Zustand — pure React Context + hooks
+- Server data: `useCache` / `useCached*` hooks
+- Preferences: `localStorage`
 
-1. Make code changes
-2. `cd web && npm run build` - MUST PASS
-3. `cd web && npm run lint` - MUST PASS
-4. `git add .`
-5. `git commit -m "message"`
-6. Push
+### API Endpoints
+- Go handlers in `pkg/api/` use Fiber v2
+- Netlify Functions in `web/netlify/functions/*.mts` for production parity
+- Demo mode: every endpoint checks `isDemoMode(c)` first
 
-## Project Structure
+### Testing (MANDATORY)
+- UI changes: Playwright visual tests in `web/e2e/visual/`
+- Generate baselines: `npm run test:visual:update`
+- Commit test + snapshots with code changes
 
-- Frontend: React + TypeScript in `/web/`
-- Backend: Go in root directory
-- Build: `npm run build` in web directory
-- Lint: `npm run lint` in web directory
+### No Magic Numbers
+Every numeric literal MUST be a named constant.
 
-## Code Standards
+### Secrets
+NEVER hardcode API keys — use env vars only.
 
-### TypeScript
-- Use explicit types (no `any`)
-- Functional components with hooks
-- Verify imports exist before using them
+## Pre-Commit
 
-### Before Using a Function
-- Search the codebase to verify it exists
-- Check the correct import path
-- Never call undefined functions
+**DO NOT run build or lint locally** — CI validates on PR. Commit, push, open PR with `Fixes #NNN`.
 
-## PR Requirements
-
-### MANDATORY: Link PR to Issue
-
-**The FIRST LINE of every PR body MUST be `Fixes #ISSUE_NUMBER`** where ISSUE_NUMBER is the issue you were assigned to fix. This is required so GitHub automatically closes the issue when the PR is merged.
-
-Example — if you are fixing issue #3400, the PR body must start with:
-```
-Fixes #3400
-```
-
-Do NOT omit this. Do NOT put it at the end. It MUST be the first line.
-
-- All commits must pass build and lint
-- Keep changes focused on the issue
-
----
-
-## Commit Conventions
-
-### Emoji Prefixes
-
-| Emoji | Type | When |
-|-------|------|------|
-| ✨ | Feature | New functionality |
-| 🐛 | Bug fix | Fixing broken behavior |
-| 📖 | Docs | Documentation only |
-| 📝 | Proposal | Design proposals |
-| ⚠️ | Breaking change | API or behavior changes |
-| 🌱 | Other | Tests, CI, refactoring, tooling |
-
-### DCO Sign-off (Required)
-
-All commits MUST be signed off for DCO compliance:
-
-```bash
-git commit -s -m "✨ Short descriptive message"
-```
-
-### Commit Message Format
+## Commit Format
 
 ```
-<emoji> <Short descriptive message (under 72 chars, imperative mood)>
+<emoji> <message under 72 chars>
 
-<Optional longer description>
-
-Signed-off-by: <Name> <email>
+Signed-off-by: Name <email>
 ```
 
-### Rebase Workflow
+Emoji: ✨ feature | 🐛 bug | 📖 docs | 🌱 other
 
-Before creating a PR or when main has new commits:
-
-```bash
-git fetch origin main
-git rebase origin/main
-```
-
-If conflicts occur, fix them, then `git add <files> && git rebase --continue`.
-
----
-
-## Test Writing Standards
-
-### Playwright E2E Tests (`web/e2e/`)
-
-- One assertion per concept
-- Descriptive test names: `test('card shows cached data on warm return', ...)`
-- Use `expect()` with specific matchers, not just truthy checks
-- Use `toBeVisible()`, `toHaveURL()`, `toHaveText()` over generic assertions
-- Set explicit timeouts: `{ timeout: 10000 }` not arbitrary `sleep()`
-
-### Go Tests (`pkg/`, `cmd/`)
-
-- Table-driven tests with descriptive case names
-- Use `t.Helper()` in test helpers
-- Use `require` for fatal assertions, `assert` for non-fatal
-- Test error cases, not just happy paths
-
-### Test Anti-Patterns to Avoid
-
-| Anti-Pattern | Problem | Fix |
-|-------------|---------|-----|
-| `expect(result).toBeTruthy()` | Only checks existence | Assert specific values |
-| `.catch(() => {})` in tests | Swallows errors silently | Let exceptions propagate |
-| `await page.waitForTimeout(5000)` | Flaky, slow | Use `expect(locator).toBeVisible()` |
-| No assertions in test | Test exists but verifies nothing | Add specific assertions |
-| `// @ts-ignore` in test | Hides type errors | Fix the types |
-
-### Test Script Agents Available
-
-Run specialized test suites via the Copilot agents:
-- `@perf-test` — Dashboard performance and TTFI metrics
-- `@cache-test` — Card cache compliance (IndexedDB warm return)
-- `@nav-test` — Dashboard navigation performance
-- `@ui-compliance-test` — Card loading compliance (8 criteria, 150+ cards)
-
----
-
-## Available Copilot Agents
-
-| Agent | Purpose |
-|-------|---------|
-| `@perf-test` | Dashboard performance testing and TTFI analysis |
-| `@cache-test` | Card cache compliance testing |
-| `@nav-test` | Navigation performance testing |
-| `@ui-compliance-test` | Card loading compliance testing |
-| `@ci-status` | CI pipeline monitoring and status checks |
-| `@rca` | Root cause analysis for CI/test failures |
-| `@tdd` | Test-driven development workflow |
-| `@repo-health` | GitHub repo health: PR status, issue triage |
-| `@k8s-debug` | Kubernetes debugging and troubleshooting |
-| `@create-agentic-workflow` | Design GitHub agentic workflows |
-| `@debug-agentic-workflow` | Debug agentic workflow runs |
+DCO required: `git commit -s`
 
 ---
 > Source: [kubestellar/console](https://github.com/kubestellar/console) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
