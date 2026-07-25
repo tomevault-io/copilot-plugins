@@ -1,107 +1,155 @@
 ## praxis
 
-> - Source files do not need a comment at the start.
+> The Gemini connector enables interaction with Google's Gemini CLI agent. It is implemented as a Lua agent script (`agents/gemini.lua`).
 
-# Best practices for working with the praxis code
+# Gemini CLI Connector
 
-## Code comments
+The Gemini connector enables interaction with Google's Gemini CLI agent. It is implemented as a Lua agent script (`agents/gemini.lua`).
 
-- Source files do not need a comment at the start.
-- No need to be overly verbose with comments. If the code is self-explanatory, don't add a comment.
-- Comment, rather, larger blocks where it's necessary to understand what's going on.
-- Single-line comments should be rare - and mostly used when necessary inline (i.e. same line as code, after the code).
-- Comments should be descriptive and explanatory, not just stating an obvious fact.
-- Generally, comments should be in the following format (note: newlines before & after):
+## Overview
 
-```
-<newline>
-//
-// Comment here followed by full stop.
-// Multiline is ok but wrap to 80 characters. An example is this line you can
-// see how I've wrapped it.
-//
-<newline>
-```
+Gemini CLI is Google's command-line AI assistant. Like Claude Code, it can read files, execute commands, and work with code. The connector supports Linux and Windows.
 
-## Cancellation
+## Fingerprinting
 
-- All long-running operations must be cancellable at all times. Never hold a lock or block in a way that prevents cancellation.
-- When implementing blocking loops (e.g. polling, waiting for responses), always check a cancellation flag on each iteration.
-- Use shared `Arc<AtomicBool>` cancel flags accessible outside of mutexes to avoid deadlocks between cancellation and the operation being cancelled.
-- Double-check cancellation paths in code review — if a user can't Ctrl+C or close a session and have it respond promptly, that's a bug.
+The connector looks for Gemini CLI by checking:
 
-## Architecture
+1. **PATH search** - Finding the `gemini` executable in PATH (prefers `.cmd` on Windows)
+2. **Explicit paths** - Checking known installation locations:
+   - Linux: `~/.local/bin/gemini`, `/usr/local/bin/gemini`, `/usr/bin/gemini`
+   - Windows: `%USERPROFILE%\.local\bin\gemini.cmd`, `%USERPROFILE%\AppData\Roaming\npm\gemini.cmd`, etc.
 
-- Main components are: Node, Service, Web
-- semantic_parser is a component that is eventually to be packaged separately
-- Do not re-implement the same code in different components. Favour sharing code.
-- Shared code goes in common/
-- Even within a component, favour identifying opportunities for shared code and sensible abstractions.
-- A sensible abstraction is one where it is likely that there could be an expansion over a single consumer of any subcomponent/interface.
+If found, fingerprinting succeeds and the agent appears in the node's agent list.
 
-## Logging
+## Interception
 
-- Never use `common::log_*` macros in `node/src/runtime.rs` event log forwarder task. These macros send to the event log channel, which the forwarder processes, creating an infinite recursion loop when RabbitMQ fails. Use `tracing::*` directly instead.
+Traffic is intercepted for the domain:
+- `generativelanguage.googleapis.com`
 
-## Database Migrations
+When interception is enabled, you'll see:
+- Prompts sent to the Gemini API
+- Responses including assistant messages
+- Function/tool calls and results
 
-- Any DB schema changes must include a migration in `service/src/database/mod.rs` `run_migrations()`.
-- Migrations must be idempotent (safe to run multiple times).
-- Migrations must work for both SQLite and PostgreSQL.
-- For SQLite, use `ALTER TABLE ... ADD COLUMN` and ignore errors (no `IF NOT EXISTS` support for columns).
-- For PostgreSQL, use `ALTER TABLE ... ADD COLUMN IF NOT EXISTS`.
-- The `service_config` table can store version tracking keys (e.g., `builtin_scripts_version`) to coordinate data migrations across service upgrades.
+## Authentication
 
-## Log Query Tables
+Gemini CLI requires authentication to function. During reconnaissance, Praxis validates that valid authentication is configured before including paths in the project list.
 
-- Any log-query table changes (additions, removals, or field changes) require updating the table schemas in all locations:
-  - `service/src/log_query/tables.rs` — backend column definitions and `resolve_table()`
-  - `service/src/log_query/sql.rs` — SQL config for DB-backed tables
-  - `web/frontend/src/components/log-query/KqlCodeEditor.tsx` — `TABLE_SCHEMAS` for autocomplete
-  - `web/frontend/src/components/command/LogQueryModal.tsx` — `TABLES` schema sidebar (command center)
-  - `cli/src/app/log_query/schema.rs` — `TABLES` constant for TUI schema sidebar + autocomplete
-  - `docs/src/usage/log-query.md` — documentation
-- All table lists must be in **alphabetical order** by table name.
+Authentication is considered valid if any of the following are true:
 
-## CLI
+1. **Environment variables** - One of these is set:
+   - `GEMINI_API_KEY`
+   - `GOOGLE_GENAI_USE_VERTEXAI`
+   - `GOOGLE_GENAI_USE_GCA`
 
-- The CLI (`cli/`) provides both an interactive terminal UI (default mode) and non-interactive subcommands.
-- Non-interactive commands (via `-C` or direct subcommands) must be kept in sync with the interactive UI capabilities where applicable.
-- The MCP SSE server (exposed by the service) provides tool access for AI agents. Common code in `common/src/mcp/ops.rs` is used by both the CLI and MCP.
+2. **Settings file** - The `security.auth` object is present in the relevant `settings.json`:
+   - For user homes: `~/.gemini/settings.json`
+   - For project paths: `.gemini/settings.json` in the project, or the owning user's home settings
 
-## Documentation
+Paths without valid authentication are filtered out during reconnaissance. This prevents the UI from showing user homes or projects that cannot actually be used with Gemini.
 
-- Documentation lives in `docs/` and is built with mdBook.
-- Documentation must always be kept up to date to reflect any code changes. When adding, removing, or modifying features, update the corresponding documentation in `docs/src/`.
-- Key documentation files:
-  - `docs/src/usage/cli.md` - CLI terminal UI and non-interactive commands
-  - `docs/src/usage/recon.md` - Reconnaissance features
-  - `docs/src/architecture/` - Node architecture
-  - `docs/src/connectors/` - Agent connector documentation
-- But look through entire docs/src to locate any areas that may need updates
-- Don't make changes to CLAUDE.md unless specifically instructed to
+## Reconnaissance
 
-## Pull Requests
+### Static Recon
 
-- PR descriptions must be excellent and comprehensive — they are the primary record of what changed and why.
-- Group changes by area/theme with `###` subheadings (e.g. "MCP Server", "Node Runtime", "TUI", "Web Frontend").
-- Each item should explain **what** changed and **why**, not just list files. Use bold for key items.
-- Include a test plan with a checklist of verification steps.
-- Look at ALL commits in the branch (not just the latest) to ensure nothing is missed.
-- Keep the PR title short (under 70 characters); put detail in the body.
+Static reconnaissance discovers:
 
-## Release Process
+**Configuration**
+- User settings (`~/.gemini/settings.json`)
+- Google account info (`~/.gemini/google_accounts.json`)
+- OAuth credentials (`~/.gemini/oauth_creds.json`)
+- System defaults and settings (platform-specific paths)
 
-- **Do not initiate any release steps unless explicitly asked to.**
+**Context Files**
+- Global context (`~/.gemini/GEMINI.md`)
+- Project context files (configurable via `context.fileName` in settings)
 
-1. **Version bump**: Ensure the version is updated on the `prerelease` branch. It should be a minor bump over the current `main` version (unless otherwise specified).
-2. **Documentation**: Before creating the release PR, ensure all documentation in `docs/` is updated to reflect every change included in the release. Review all commits since the last release and update relevant doc pages.
-3. **Create PR**: Create a PR from `prerelease` into `main` with a clear, well-written description summarizing all changes since the last release.
-4. **Squash merge**: Squash-merge the PR into `main`.
-5. **GitHub release**: Create a GitHub release on `main` with an excellent changelog covering all notable changes, new features, fixes, and breaking changes.
-6. **Tag and push**: Create a version tag matching the version number set on the `prerelease` branch (e.g., `v0.10.0`), push the tag, and push the release.
-7. **AUR package**: Handled automatically — a GitHub Action updates the `originsec/praxis-aur` repo on each release.
+**Sessions**
+- Session files under `~/.gemini/tmp/<project_hash>/chats/`
+- Session metadata including message count and timestamps
+
+### Semantic Recon
+
+When semantic recon is enabled, the connector also creates a session and queries the agent directly to discover internal tools and capabilities.
+
+## Session Management
+
+Sessions use the [Agent Client Protocol](https://agentclientprotocol.com/) (ACP) -- a JSON-RPC 2.0 protocol over NDJSON stdio. Praxis uses the `agent-client-protocol` crate's `ClientSideConnection` for typed, async communication.
+
+### Session Context
+
+When creating a session, you can specify:
+
+**Working Directory** - Where Gemini should operate.
+
+**YOLO Mode** - When enabled, tool permission requests are auto-approved.
+
+**Interactive Mode** - When set (TUI sessions), permission requests are forwarded to the user for approval. Non-interactive sessions (MCP, orchestrator) auto-deny permission requests.
+
+### Transacting
+
+1. `gemini --acp` is spawned as an async subprocess
+2. `ClientSideConnection` established, `InitializeRequest` handshake performed
+3. `PromptRequest` sends the prompt; the agent streams back `SessionUpdate` notifications (text chunks, tool calls, plans, tool results)
+4. Permission requests handled via the `Client` trait callback
+5. `PromptResponse` returned with `StopReason` on completion
+
+### Cancellation
+
+Sessions support mid-prompt cancellation via `CancelNotification`. The agent responds with `StopReason::Cancelled` and any partial output is preserved.
+
+## Config Editing
+
+You can view and edit Gemini's configuration files directly from the Praxis UI:
+- User settings with model and API preferences
+- Context files
+
+Changes are written back to disk and take effect on the next Gemini session.
+
+## Tool Discovery
+
+The connector supports both static and semantic recon. Static recon parses configuration files to discover settings and context files. Semantic recon creates a session and queries the agent directly to discover internal tools and capabilities.
+
+## Files and Paths
+
+**Global (Home Directory)**
+
+| File | Path | Content |
+|------|------|---------|
+| User settings | `~/.gemini/settings.json` | Main configuration |
+| Google accounts | `~/.gemini/google_accounts.json` | Account info |
+| OAuth credentials | `~/.gemini/oauth_creds.json` | Auth credentials |
+| Global context | `~/.gemini/GEMINI.md` | Global instruction file |
+| Sessions | `~/.gemini/tmp/<hash>/chats/` | Session history by project |
+
+**System (Platform-specific)**
+
+| File | Linux Path | Windows Path |
+|------|------------|--------------|
+| System defaults | `/etc/gemini-cli/system-defaults.json` | `C:\ProgramData\gemini-cli\system-defaults.json` |
+| System settings | `/etc/gemini-cli/settings.json` | `C:\ProgramData\gemini-cli\settings.json` |
+
+**Project (Working Directory)**
+
+| File | Path | Content |
+|------|------|---------|
+| Project settings | `.gemini/settings.json` | Project-specific settings |
+| Project context | `GEMINI.md` | Project instruction file (configurable) |
+
+## Troubleshooting
+
+### "Agent not fingerprinted"
+
+- Ensure Gemini CLI is installed
+- Verify the `gemini` command is in PATH
+- On Windows, check that the `.cmd` wrapper exists
+
+### "Session creation failed"
+
+- Check that Gemini CLI can run normally from terminal
+- Verify Google API credentials are configured
+- Look at node logs for detailed errors
 
 ---
 > Source: [originsec/praxis](https://github.com/originsec/praxis) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
