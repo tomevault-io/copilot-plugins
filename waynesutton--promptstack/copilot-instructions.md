@@ -1,113 +1,208 @@
-## task
+## promptstack
 
-> description: Guidelines for creating and managing task lists in markdown files to track project progress
+> This document serves as some special instructions when working with Convex.
 
----
-description: Guidelines for creating and managing task lists in markdown files to track project progress
-globs: 
-alwaysApply: false
----
-# Task List Management
+This document serves as some special instructions when working with Convex.
 
-Guidelines for creating and managing task lists in markdown files to track project progress
+## best practices
 
-## Task List Creation
+https://docs.convex.dev/understanding/best-practices/
 
-1. Create task lists in a markdown file (in the project root):
-   - Use `TASKS.md` or a descriptive name relevant to the feature (e.g., `ASSISTANT_CHAT.md`)
-   - Include a clear title and description of the feature being implemented
+# dev workflow
 
-2. Structure the file with these sections:
-   ```markdown
-   # Feature Name Implementation
-   
-   Brief description of the feature and its purpose.
-   
-   ## Completed Tasks
-   
-   - [x] Task 1 that has been completed
-   - [x] Task 2 that has been completed
-   
-   ## In Progress Tasks
-   
-   - [ ] Task 3 currently being worked on
-   - [ ] Task 4 to be completed soon
-   
-   ## Future Tasks
-   
-   - [ ] Task 5 planned for future implementation
-   - [ ] Task 6 planned for future implementation
-   
-   ## Implementation Plan
-   
-   Detailed description of how the feature will be implemented.
-   
-   ### Relevant Files
-   
-   - path/to/file1.ts - Description of purpose
-   - path/to/file2.ts - Description of purpose
-   ```
+https://docs.convex.dev/understanding/workflow
 
-## Task List Maintenance
+#typescript
+https://docs.convex.dev/understanding/best-practices/typescript
 
-1. Update the task list as you progress:
-   - Mark tasks as completed by changing `[ ]` to `[x]`
-   - Add new tasks as they are identified
-   - Move tasks between sections as appropriate
+# Schemas
 
-2. Keep "Relevant Files" section updated with:
-   - File paths that have been created or modified
-   - Brief descriptions of each file's purpose
-   - Status indicators (e.g., ✅) for completed components
+When designing the schema please see this page on built in System fields and data types available: https://docs.convex.dev/database/types
 
-3. Add implementation details:
-   - Architecture decisions
-   - Data flow descriptions
-   - Technical components needed
-   - Environment configuration
+also use Standard Schema
+https://github.com/standard-schema/standard-schema
 
-## AI Instructions
+Here are some specifics that are often mishandled:
 
-When working with task lists, the AI should:
+## validator (https://docs.convex.dev/api/modules/values#v)
 
-1. Regularly update the task list file after implementing significant components
-2. Mark completed tasks with [x] when finished
-3. Add new tasks discovered during implementation
-4. Maintain the "Relevant Files" section with accurate file paths and descriptions
-5. Document implementation details, especially for complex features
-6. When implementing tasks one by one, first check which task to implement next
-7. After implementing a task, update the file to reflect progress
+The validator builder.
 
-## Example Task Update
+This builder allows you to build validators for Convex values.
 
-When updating a task from "In Progress" to "Completed":
+Validators can be used in schema definitions and as input validators for Convex functions.
 
-```markdown
-## In Progress Tasks
+Type declaration
+Name Type
+id <TableName>(tableName: TableName) => VId<GenericId<TableName>, "required">
+null () => VNull<null, "required">
+number () => VFloat64<number, "required">
+float64 () => VFloat64<number, "required">
+bigint () => VInt64<bigint, "required">
+int64 () => VInt64<bigint, "required">
+boolean () => VBoolean<boolean, "required">
+string () => VString<string, "required">
+bytes () => VBytes<ArrayBuffer, "required">
+literal <T>(literal: T) => VLiteral<T, "required">
+array <T>(element: T) => VArray<T["type"][], T, "required">
+object <T>(fields: T) => VObject<Expand<{ [Property in string | number | symbol]?: Exclude<Infer<T[Property]>, undefined> } & { [Property in string | number | symbol]: Infer<T[Property]> }>, T, "required", { [Property in string | number | symbol]: Property | `${Property & string}.${T[Property]["fieldPaths"]}` }[keyof T] & string>
+record <Key, Value>(keys: Key, values: Value) => VRecord<Record<Infer<Key>, Value["type"]>, Key, Value, "required", string>
+union <T>(...members: T) => VUnion<T[number]["type"], T, "required", T[number]["fieldPaths"]>
+any () => VAny<any, "required", string>
+optional <T>(value: T) => VOptional<T>
 
-- [ ] Implement database schema
-- [ ] Create API endpoints for data access
+## System fields (https://docs.convex.dev/database/types#system-fields)
 
-## Completed Tasks
+Every document in Convex has two automatically-generated system fields:
 
-- [x] Set up project structure
-- [x] Configure environment variables
+\_id: The document ID of the document.
+\_creationTime: The time this document was created, in milliseconds since the Unix epoch.
+
+You do not need to add indices as these are added automatically.
+
+## Example Schema
+
+This is an example of a well crafted schema.
+
+```ts
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  users: defineTable({
+    name: v.string(),
+  }),
+
+  sessions: defineTable({
+    userId: v.id("users"),
+    sessionId: v.string(),
+  }).index("sessionId", ["sessionId"]),
+
+  threads: defineTable({
+    uuid: v.string(),
+    summary: v.optional(v.string()),
+    summarizer: v.optional(v.id("_scheduled_functions")),
+  }).index("uuid", ["uuid"]),
+
+  messages: defineTable({
+    message: v.string(),
+    threadId: v.id("threads"),
+    author: v.union(
+      v.object({
+        role: v.literal("system"),
+      }),
+      v.object({
+        role: v.literal("assistant"),
+        context: v.array(v.id("messages")),
+        model: v.optional(v.string()),
+      }),
+      v.object({
+        role: v.literal("user"),
+        userId: v.id("users"),
+      })
+    ),
+  }).index("threadId", ["threadId"]),
+});
 ```
 
-Should become:
+# Typescript
 
-```markdown
-## In Progress Tasks
+Type annotating client-side code
+When you want to pass the result of calling a function around your client codebase, you can use the generated types Doc and Id, just like on the backend:
 
-- [ ] Create API endpoints for data access
+```tsx
+import { Doc, Id } from "../convex/_generated/dataModel";
 
-## Completed Tasks
+function Channel(props: { channelId: Id<"channels"> }) {
+  // ...
+}
 
-- [x] Set up project structure
-- [x] Configure environment variables
-- [x] Implement database schema
+function MessagesView(props: { message: Doc<"messages"> }) {
+  // ...
+}
 ```
+
+You can also declare custom types inside your backend codebase which include Docs and Ids, and import them in your client-side code.
+
+You can also use WithoutSystemFields and any types inferred from validators via Infer.
+
+# Best Practices (https://docs.convex.dev/production/best-practices/)
+
+## Database
+
+### Use indexes or paginate all large database queries.
+
+Database indexes with range expressions allow you to write efficient database queries that only scan a small number of documents in the table. Pagination allows you to quickly display incremental lists of results. If your table could contain more than a few thousand documents, you should consider pagination or an index with a range expression to ensure that your queries stay fast.
+
+For more details, check out our Introduction to Indexes and Query Performance article.
+
+### Use tables to separate logical object types.
+
+Even though Convex does support nested documents, it is often better to put separate objects into separate tables and use Ids to create references between them. This will give you more flexibility when loading and querying documents.
+
+You can read more about this at Document IDs.
+
+## Use helper functions to write shared code.
+
+Write helper functions in your convex/ directory and use them within your Convex functions. Helpers can be a powerful way to share business logic, authorization code, and more.
+
+Helper functions allow sharing code while still executing the entire query or mutation in a single transaction. For actions, sharing code via helper functions instead of using ctx.runAction reduces function calls and resource usage.
+
+## Prefer queries and mutations over actions
+
+You should generally avoid using actions when the same goal can be achieved using queries or mutations. Since actions can have side effects, they can't be automatically retried nor their results cached. Actions should be used in more limited scenarios, such as calling third-party services.
+
+## The Zen of Convex (https://docs.convex.dev/zen)
+
+### Performance
+
+Double down on the sync engine
+There's a reason why a deterministic, reactive database is the beating heart of Convex: the more you center your apps around its properties, the better your projects will fare over time. Your projects will be easier to understand and refactor. Your app's performance will stay screaming fast. You won't have any consistency or state management problems.
+
+Use a query for nearly every app read
+Queries are the reactive, automatically cacheable, consistent and resilient way to propagate data to your application and its jobs. With very few exceptions, every read operation in your app should happen via a query function.
+
+Keep sync engine functions light & fast
+In general, your mutations and queries should be working with less than a few hundred records and should aim to finish in less than 100ms. It's nearly impossible to maintain a snappy, responsive app if your synchronous transactions involve a lot more work than this.
+
+Use actions sparingly and incrementally
+Actions are wonderful for batch jobs and/or integrating with outside services. They're very powerful, but they're slower, more expensive, and Convex provides a lot fewer guarantees about their behavior. So never use an action if a query or mutation will get the job done.
+
+Don't over-complicate client-side state management
+Convex builds in a ton of its own caching and consistency controls into the app's client library. Rather than reinvent the wheel, let your client-side code take advantage of these built-in performance boosts.
+
+Let Convex handle caching & consistency
+Be thoughtful about the return values of mutations
+
+### Architecture
+
+Create server-side frameworks using "just code"
+Convex's built-in primitives are pretty low level! They're just functions. What about authentication frameworks? What about object-relational mappings? Do you need to wait until Convex ships some in-built feature to get those? Nope. In general, you should solve composition and encapsulation problems in your server-side Convex code using the same methods you use for the rest of your TypeScript code bases. After all, this is why Convex is "just code!" Stack always has great examples of ways to tackle these needs.
+
+Don't misuse actions
+Actions are powerful, but it's important to be intentional in how they fit into your app's data flow.
+
+Don't invoke actions directly from your app
+In general, it's an anti-pattern to call actions from the browser. Usually, actions are running on some dependent record that should be living in a Convex table. So it's best trigger actions by invoking a mutation that both writes that dependent record and schedules the subsequent action to run in the background.
+
+Don't think 'background jobs', think 'workflow'
+When actions are involved, it's useful to write chains of effects and mutations, such as:
+
+action code → mutation → more action code → mutation.
+
+Then apps or other jobs can follow along with queries.
+
+Record progress one step at a time
+While actions could work with thousands of records and call dozens of APIs, it's normally best to do smaller batches of work and/or to perform individual transformations with outside services. Then record your progress with a mutation, of course. Using this pattern makes it easy to debug issues, resume partial jobs, and report incremental progress in your app's UI.
+
+## other technoloiges to consider
+
+https://tiptap.dev/docs/examples/basics/markdown-shortcuts
+https://tiptap.dev/docs/examples/advanced/syntax-highlighting
+syntax highlighting in code blocks
+
+https://tanstack.com/start
 
 ---
 > Source: [waynesutton/promptstack](https://github.com/waynesutton/promptstack) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
