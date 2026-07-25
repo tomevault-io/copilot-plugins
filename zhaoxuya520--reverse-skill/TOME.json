@@ -1,0 +1,363 @@
+{
+  "name": "reverse-skill",
+  "owner": "zhaoxuya520",
+  "repo": "reverse-skill",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "reverse-skill",
+      "path": "skills/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/radare2/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/radare2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/pwn-chain/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/pwn-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/js-reverse/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/js-reverse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/ida-reverse/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/ida-reverse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/apk-reverse/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/apk-reverse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/binary-diff/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/binary-diff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/pentest-tools/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/pentest-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/edr-bypass-re/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/edr-bypass-re/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/docs-generator/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/docs-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/firmware-pentest/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/firmware-pentest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/diagram-generator/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/diagram-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/browser-automation/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/browser-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/patch-diff-exploit/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/patch-diff-exploit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/supply-chain-security/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/supply-chain-security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/pentest-tools/src-hunter/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/pentest-tools/src-hunter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-stego-media/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-stego-media/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-web-runtime/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-web-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-reverse-pwn/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-reverse-pwn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-agent-cloud/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-agent-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/ctf-sandbox-orchestrator/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/ctf-sandbox-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-supply-chain/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-supply-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-crypto-mobile/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-crypto-mobile/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-windows-pivot/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-windows-pivot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-malware-config/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-malware-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-android-hooking/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-android-hooking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-firmware-layout/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-firmware-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-runtime-routing/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-runtime-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-oauth-oidc-chain/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-oauth-oidc-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-identity-windows/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-identity-windows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-websocket-runtime/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-websocket-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-file-parser-chain/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-file-parser-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-graphql-rpc-drift/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-graphql-rpc-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-container-runtime/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-container-runtime/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-k8s-control-plane/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-k8s-control-plane/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-queue-worker-drift/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-queue-worker-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-kerberos-delegation/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-kerberos-delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-ssrf-metadata-pivot/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-ssrf-metadata-pivot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-jwt-claim-confusion/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-jwt-claim-confusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-browser-persistence/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-browser-persistence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-cloud-metadata-path/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-cloud-metadata-path/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-relay-coercion-chain/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-relay-coercion-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-ad-certificate-abuse/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-ad-certificate-abuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-template-render-path/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-template-render-path/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-lsass-ticket-material/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-lsass-ticket-material/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-linux-credential-pivot/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-linux-credential-pivot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-custom-protocol-replay/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-custom-protocol-replay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-dpapi-credential-chain/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-dpapi-credential-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-kernel-container-escape/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-kernel-container-escape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-bundle-sourcemap-recovery/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-bundle-sourcemap-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-race-condition-state-drift/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-race-condition-state-drift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "CTF-Sandbox-Orchestrator/competition-request-normalization-smuggling/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/CTF-Sandbox-Orchestrator/competition-request-normalization-smuggling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "reverse-skill",
+      "path": "skills/dotnet-reverse/SKILL.md",
+      "github_url": "https://github.com/zhaoxuya520/reverse-skill/tree/main/skills/dotnet-reverse/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhaoxuya520/reverse-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T10:30:40Z"
+}
