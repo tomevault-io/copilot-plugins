@@ -4,7 +4,7 @@
   "repo": "visdom",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,87 @@
       "path": ".agents/skills/release-process/SKILL.md",
       "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/release-process/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/docs-sync/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/docs-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/auth-login/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/auth-login/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/offline-replay/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/offline-replay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/polling-parity/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/polling-parity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/update-patching/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/update-patching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/env-persistence/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/env-persistence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/callback-events/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/callback-events/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/ci-workflow-debug/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/ci-workflow-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/handler-auth-flow/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/handler-auth-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/python-client-api/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/python-client-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/environment-views/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/environment-views/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/performance-streaming/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/performance-streaming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "visdom",
+      "path": ".agents/skills/frontend-pane-lifecycle/SKILL.md",
+      "github_url": "https://github.com/fossasia/visdom/tree/main/.agents/skills/frontend-pane-lifecycle/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/fossasia/visdom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T02:33:00Z"
+  "distributed_at": "2026-07-25T08:34:30Z"
 }
