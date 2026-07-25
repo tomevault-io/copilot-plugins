@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--geoip2-dotnet",
+  "displayName": "GeoIP2-dotnet",
+  "description": "GeoIP2-dotnet",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/GeoIP2-dotnet",
+  "skills": []
+}
