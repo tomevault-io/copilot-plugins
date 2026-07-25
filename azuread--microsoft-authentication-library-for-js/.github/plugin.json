@@ -1,0 +1,9 @@
+{
+  "name": "azuread--microsoft-authentication-library-for-js",
+  "displayName": "microsoft-authentication-library-for-js",
+  "description": "microsoft-authentication-library-for-js",
+  "version": "1.0.0",
+  "author": "AzureAD",
+  "homepage": "https://github.com/AzureAD/microsoft-authentication-library-for-js",
+  "skills": []
+}
