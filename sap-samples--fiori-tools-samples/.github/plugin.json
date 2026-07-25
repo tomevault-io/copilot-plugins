@@ -1,0 +1,14 @@
+{
+  "name": "sap-samples--fiori-tools-samples",
+  "displayName": "fiori-tools-samples",
+  "description": "fiori-tools-samples",
+  "version": "1.0.0",
+  "author": "SAP-samples",
+  "homepage": "https://github.com/SAP-samples/fiori-tools-samples",
+  "skills": [
+    {
+      "name": "fiori-tools-samples",
+      "description": ""
+    }
+  ]
+}
