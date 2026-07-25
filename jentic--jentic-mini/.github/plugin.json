@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "jentic",
   "homepage": "https://github.com/jentic/jentic-mini",
-  "skills": []
+  "skills": [
+    {
+      "name": "sdd-new-spec",
+      "description": ""
+    },
+    {
+      "name": "jentic-mini",
+      "description": ""
+    }
+  ]
 }
