@@ -1,0 +1,261 @@
+{
+  "name": "ClawArena",
+  "owner": "aiming-lab",
+  "repo": "ClawArena",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/git-workflow/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/test-before-ship/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/test-before-ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/avoid-scope-creep/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/avoid-scope-creep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/source-evaluation/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/source-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/task-decomposition/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/task-decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/sql-best-practices/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/sql-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/secrets-management/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/secrets-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/secure-code-review/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/secure-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/agent-task-handoff/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/agent-task-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/codebase-navigation/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/codebase-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/prioritize-by-impact/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/prioritize-by-impact/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/debug-systematically/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/debug-systematically/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/data-validation-first/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/data-validation-first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/visualization-selection/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/visualization-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/graceful-error-recovery/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/graceful-error-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/tool-selection-strategy/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/tool-selection-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/idempotent-script-design/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/idempotent-script-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/technical-writing-clarity/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/technical-writing-clarity/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/context-window-management/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/context-window-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/structured-progress-update/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/structured-progress-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/uncertainty-acknowledgment/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/uncertainty-acknowledgment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/clarify-ambiguous-requests/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/clarify-ambiguous-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/avoid-acting-on-assumptions/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/avoid-acting-on-assumptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/professional-email-drafting/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/professional-email-drafting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/audience-aware-communication/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/audience-aware-communication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/structured-research-workflow/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/structured-research-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/async-communication-etiquette/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/async-communication-etiquette/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/avoid-hallucinating-specifics/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/avoid-hallucinating-specifics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/do-not-retry-without-diagnosis/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/do-not-retry-without-diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/auth-and-authorization-patterns/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/auth-and-authorization-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/robust-error-handling-in-scripts/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/robust-error-handling-in-scripts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/plan-before-multi-step-execution/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/plan-before-multi-step-execution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/structured-step-by-step-reasoning/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/structured-step-by-step-reasoning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/verify-before-irreversible-action/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/verify-before-irreversible-action/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/input-validation-and-sanitization/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/input-validation-and-sanitization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ClawArena",
+      "path": "ClawArena/data/clawarena/metaclaw/skills/structured-logging-and-observability/SKILL.md",
+      "github_url": "https://github.com/aiming-lab/ClawArena/tree/main/ClawArena/data/clawarena/metaclaw/skills/structured-logging-and-observability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aiming-lab/ClawArena",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:52:55Z"
+}
