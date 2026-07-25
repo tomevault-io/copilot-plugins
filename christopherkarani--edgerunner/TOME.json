@@ -4,7 +4,7 @@
   "repo": "EdgeRunner",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/christopherkarani/EdgeRunner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T21:24:04Z"
+  "distributed_at": "2026-07-25T21:37:08Z"
 }
