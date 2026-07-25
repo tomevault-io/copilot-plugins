@@ -1,0 +1,117 @@
+{
+  "name": "Neko",
+  "owner": "nekomangaorg",
+  "repo": "Neko",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Neko",
+      "path": ".agents/skills/bolt/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/bolt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/foreman/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/foreman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/steward/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/steward/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/artisan/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/artisan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/maestro/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/maestro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/catalyst/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/catalyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/distiller/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/distiller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/architect/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/inspector/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/inspector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/renovator/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/renovator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/overclock/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/overclock/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Neko",
+      "path": ".agents/skills/test pilot/SKILL.md",
+      "github_url": "https://github.com/nekomangaorg/Neko/tree/main/.agents/skills/test pilot/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nekomangaorg/Neko",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:38:16Z"
+}
