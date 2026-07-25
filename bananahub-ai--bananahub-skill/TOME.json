@@ -4,7 +4,7 @@
   "repo": "bananahub-skill",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bananahub-ai/bananahub-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T10:40:40Z"
+  "distributed_at": "2026-07-25T03:00:27Z"
 }
