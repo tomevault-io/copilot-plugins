@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "umijs",
   "homepage": "https://github.com/umijs/qiankun",
-  "skills": []
+  "skills": [
+    {
+      "name": "qiankun",
+      "description": ""
+    }
+  ]
 }
