@@ -1,0 +1,14 @@
+{
+  "name": "animo--paradym-wallet",
+  "displayName": "paradym-wallet",
+  "description": "paradym-wallet",
+  "version": "1.0.0",
+  "author": "animo",
+  "homepage": "https://github.com/animo/paradym-wallet",
+  "skills": [
+    {
+      "name": "paradym-wallet",
+      "description": ""
+    }
+  ]
+}
