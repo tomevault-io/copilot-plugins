@@ -1,0 +1,165 @@
+{
+  "name": "web-to-app",
+  "owner": "shiahonb777",
+  "repo": "web-to-app",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/i18n/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/debug/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/go-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/go-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/php-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/php-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/vue-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/vue-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/imagery/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/imagery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/explain/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/explain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/refactor/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/html-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/html-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/module-js/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/module-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/react-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/react-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/python-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/python-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/nodejs-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/nodejs-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/gallery-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/gallery-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/module-style/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/module-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/wordpress-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/wordpress-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/multi-web-app/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/multi-web-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/module-userscript/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/module-userscript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "web-to-app",
+      "path": "app/src/main/assets/skills/module-chrome-mv3/SKILL.md",
+      "github_url": "https://github.com/shiahonb777/web-to-app/tree/main/app/src/main/assets/skills/module-chrome-mv3/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shiahonb777/web-to-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:44:43Z"
+}
