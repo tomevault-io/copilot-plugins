@@ -1,0 +1,105 @@
+{
+  "name": "curvine",
+  "owner": "CurvineIO",
+  "repo": "curvine",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-csi-test/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-csi-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-create-pr/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-add-skills/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-add-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-handle-issue/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-handle-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-run-workflow/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-run-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-create-issue/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-create-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-tasks-breakdown/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-tasks-breakdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-submit-pr-review/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-submit-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-address-pr-review/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-address-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "curvine",
+      "path": ".agents/skills/cv-add-skills/assets/skill-template/SKILL.md",
+      "github_url": "https://github.com/CurvineIO/curvine/tree/main/.agents/skills/cv-add-skills/assets/skill-template/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/CurvineIO/curvine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:50:57Z"
+}
