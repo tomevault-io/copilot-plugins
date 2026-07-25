@@ -1,39 +1,32 @@
 ## aws-hpc-recipes
 
-> This repository contains 100+ infrastructure-as-code recipes for HPC on AWS. Each recipe includes CloudFormation templates, documentation, and assets.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AWS HPC Recipes
+# CLAUDE.md
 
-## Quick Reference
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This repository contains 100+ infrastructure-as-code recipes for HPC on AWS. Each recipe includes CloudFormation templates, documentation, and assets.
+## Project Overview
 
-## Repository Map
+AWS HPC Recipes: 100+ infrastructure-as-code recipes for High Performance Computing on AWS. Recipes deploy HPC infrastructure using CloudFormation templates for AWS Parallel Computing Service (PCS), ParallelCluster, Research and Engineering Studio (RES), and AWS Batch.
 
-- `recipes/` — All recipes, organized by namespace (see `docs/ARCHITECTURE.md`)
-- `scripts/` — Python utilities for recipe management and validation
-- `templates/` — Jinja2 templates for generating recipe scaffolds and docs
-- `config/` — Metadata configuration (namespaces, tags, 
-colors)
-- `docs/` — Deep documentation (start here for details)
+## Deep Documentation
 
-## Key Documentation
+Detailed rules and conventions live in `docs/`:
+- `docs/ARCHITECTURE.md` — Recipe structure, namespaces, metadata schema
+- `docs/CLOUDFORMATION.md` — Partition safety, parameter/output patterns
+- `docs/TESTING.md` — Validation pipeline, local testing
+- `docs/SECURITY.md` — Credential handling, IAM, scanning tools
+- `docs/STYLE.md` — YAML, Python, Markdown conventions
 
-| Topic | Location |
-|-------|----------|
-| Recipe structure & namespaces | `docs/ARCHITECTURE.md` |
-| CloudFormation rules & patterns | `docs/CLOUDFORMATION.md` |
-| Validation & testing | `docs/TESTING.md` |
-| Security practices | `docs/SECURITY.md` |
-| Code style conventions | `docs/STYLE.md` |
-| Development workflow | `docs/develop.md` |
-| Linting details | `docs/linting.md` |
-| Getting started | `docs/start.md` |
-
-## Essential Commands
+## Development Commands
 
 ```bash
-# Create a new recipe (interactive)
+# Setup Python environment
+python -m venv .env && source .env/bin/activate
+pip install -r requirements.txt
+
+# Create new recipe (interactive)
 python -m scripts.new_recipe
 
 # Regenerate recipes/README.md from metadata
@@ -42,7 +35,7 @@ make readme
 # Run all validation (structure, metadata, partitions, cfn-lint)
 make validate
 
-# Build and test all recipes
+# Build/test all recipes
 make build
 make test
 
@@ -50,12 +43,24 @@ make test
 HPCDK_TAG=mybranch HPCDK_S3_BUCKET=mybucket HPCDK_PROFILE=myprofile make deploy
 ```
 
-## Asset URLs
+## CloudFormation Critical Rule
 
-Templates are mirrored to S3 on merge to main:
-- HTTPS: `https://aws-hpc-recipes.s3.us-east-1.amazonaws.com/main/recipes/<namespace>/<recipe>/assets/<file>`
-- S3: `s3://aws-hpc-recipes/main/recipes/<namespace>/<recipe>/assets/<file>`
+All templates must support AWS GovCloud and China partitions:
+- Use `!Sub "arn:${AWS::Partition}:service:${AWS::Region}:..."` for ARNs (never hardcode `arn:aws:`)
+- Use `!Sub "https://console.${AWS::URLSuffix}/..."` for console URLs
+- See `docs/CLOUDFORMATION.md` for full details
+
+## Validation Tools
+
+- `scripts/validate_structure.py` — Checks recipe directory completeness
+- `scripts/validate_metadata.py` — Checks metadata.yml schema conformance
+- `scripts/validate_partitions.py` — Catches hardcoded `arn:aws:` patterns
+- `cfn-lint` — CloudFormation template linting
+
+## Pull Request Conventions
+
+Title format: `[namespace/recipe] Description`
 
 ---
 > Source: [aws-samples/aws-hpc-recipes](https://github.com/aws-samples/aws-hpc-recipes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
