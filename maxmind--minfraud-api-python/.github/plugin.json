@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--minfraud-api-python",
+  "displayName": "minfraud-api-python",
+  "description": "minfraud-api-python",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/minfraud-api-python",
+  "skills": []
+}
