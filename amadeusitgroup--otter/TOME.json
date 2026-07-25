@@ -3,8 +3,8 @@
   "owner": "AmadeusITGroup",
   "repo": "otter",
   "description": "",
-  "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,39 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/AmadeusITGroup",
+  "skills": [
+    {
+      "name": "otter",
+      "path": "tools/llm/plugins/ama-sdk/skills/sdk-plugins/SKILL.md",
+      "github_url": "https://github.com/AmadeusITGroup/otter/tree/main/tools/llm/plugins/ama-sdk/skills/sdk-plugins/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "otter",
+      "path": "tools/llm/plugins/otter/skills/otter-mcp-setup/SKILL.md",
+      "github_url": "https://github.com/AmadeusITGroup/otter/tree/main/tools/llm/plugins/otter/skills/otter-mcp-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "otter",
+      "path": "tools/llm/plugins/otter/skills/otter-new-config/SKILL.md",
+      "github_url": "https://github.com/AmadeusITGroup/otter/tree/main/tools/llm/plugins/otter/skills/otter-new-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "otter",
+      "path": "tools/llm/plugins/otter/skills/otter-schematics/SKILL.md",
+      "github_url": "https://github.com/AmadeusITGroup/otter/tree/main/tools/llm/plugins/otter/skills/otter-schematics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "otter",
+      "path": "tools/llm/plugins/otter/skills/playwright-e2e-testing/SKILL.md",
+      "github_url": "https://github.com/AmadeusITGroup/otter/tree/main/tools/llm/plugins/otter/skills/playwright-e2e-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AmadeusITGroup/otter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T02:07:53Z"
+  "distributed_at": "2026-07-25T12:30:44Z"
 }
