@@ -1,25 +1,24 @@
 # AI instruction files for Spec-Driven-Development
 
-> Sourced from [FredAntB/Spec-Driven-Development](https://github.com/FredAntB/Spec-Driven-Development) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [FredAntB/Spec-Driven-Development](https://github.com/FredAntB/Spec-Driven-Development), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [FredAntB/Spec-Driven-Development](https://github.com/FredAntB/Spec-Driven-Development).
+Original source: `.cursor/rules/*.mdc` in [FredAntB/Spec-Driven-Development](https://github.com/FredAntB/Spec-Driven-Development).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [FredAntB/Spec-Driven-Development](https://github.com/FredAntB/Spec-Driven-Development) — a repo with 91+ stars on GitHub.
+From [FredAntB/Spec-Driven-Development](https://github.com/FredAntB/Spec-Driven-Development) — a repo with 142+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
