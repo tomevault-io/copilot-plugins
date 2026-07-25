@@ -1,0 +1,26 @@
+{
+  "name": "tenstorrent--tt-studio",
+  "displayName": "tt-studio",
+  "description": "tt-studio",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-studio",
+  "skills": [
+    {
+      "name": "tt-studio",
+      "description": ""
+    },
+    {
+      "name": "tt-studio",
+      "description": ""
+    },
+    {
+      "name": "tt-studio",
+      "description": ""
+    },
+    {
+      "name": "tt-studio",
+      "description": ""
+    }
+  ]
+}
