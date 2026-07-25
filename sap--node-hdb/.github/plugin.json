@@ -1,0 +1,14 @@
+{
+  "name": "sap--node-hdb",
+  "displayName": "node-hdb",
+  "description": "node-hdb",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/node-hdb",
+  "skills": [
+    {
+      "name": "node-hdb",
+      "description": ""
+    }
+  ]
+}
