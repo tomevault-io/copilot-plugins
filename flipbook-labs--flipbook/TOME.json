@@ -4,7 +4,7 @@
   "repo": "flipbook",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,87 @@
       "path": ".agents/skills/develop-through-studioplugins/SKILL.md",
       "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/develop-through-studioplugins/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-change-control/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-change-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-domain-reference/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-domain-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-docs-and-writing/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-docs-and-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-validation-and-qa/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-validation-and-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-research-frontier/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-research-frontier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-failure-archaeology/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-failure-archaeology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-build-and-toolchain/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-build-and-toolchain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-research-methodology/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-research-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-architecture-contract/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-architecture-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-release-and-operations/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-release-and-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-diagnostics-and-tooling/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-diagnostics-and-tooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-story-controls-campaign/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-story-controls-campaign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "flipbook",
+      "path": ".agents/skills/flipbook-community-and-positioning/SKILL.md",
+      "github_url": "https://github.com/flipbook-labs/flipbook/tree/main/.agents/skills/flipbook-community-and-positioning/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/flipbook-labs/flipbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T03:05:05Z"
+  "distributed_at": "2026-07-25T14:38:44Z"
 }
