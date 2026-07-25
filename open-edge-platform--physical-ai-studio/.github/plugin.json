@@ -1,0 +1,30 @@
+{
+  "name": "open-edge-platform--physical-ai-studio",
+  "displayName": "physical-ai-studio",
+  "description": "Physical AI Studio is an end-to-end framework for training robots to perform tasks through imitation learning from human demonstrations.",
+  "version": "1.0.0",
+  "author": "open-edge-platform",
+  "homepage": "https://github.com/open-edge-platform/physical-ai-studio",
+  "skills": [
+    {
+      "name": "physical-ai-studio",
+      "description": ""
+    },
+    {
+      "name": "physical-ai-studio",
+      "description": ""
+    },
+    {
+      "name": "physical-ai-studio",
+      "description": ""
+    },
+    {
+      "name": "physical-ai-studio",
+      "description": ""
+    },
+    {
+      "name": "physical-ai-studio",
+      "description": ""
+    }
+  ]
+}
