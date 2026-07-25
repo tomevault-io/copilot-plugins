@@ -1,0 +1,9 @@
+{
+  "name": "operator-framework--operator-lifecycle-manager",
+  "displayName": "operator-lifecycle-manager",
+  "description": "operator-lifecycle-manager",
+  "version": "1.0.0",
+  "author": "operator-framework",
+  "homepage": "https://github.com/operator-framework/operator-lifecycle-manager",
+  "skills": []
+}
