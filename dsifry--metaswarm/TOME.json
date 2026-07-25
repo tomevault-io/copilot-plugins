@@ -2,9 +2,9 @@
   "name": "metaswarm",
   "owner": "dsifry",
   "repo": "metaswarm",
-  "description": "A self-improving multi-agent orchestration framework for Claude Code, Gemini CLI, and Codex CLI \u2014 18 agents, 13 skills, 15 commands, TDD enforcement, quality gates, spec-driven development",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "external-tools",
-      "path": "skills/external-tools",
-      "github_url": "https://github.com/dsifry/metaswarm/tree/main/skills/external-tools",
-      "description": ""
-    },
-    {
-      "name": "visual-review",
-      "path": "skills/visual-review",
-      "github_url": "https://github.com/dsifry/metaswarm/tree/main/skills/visual-review",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/dsifry/metaswarm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T10:31:56Z"
+  "distributed_at": "2026-07-25T01:19:02Z"
 }
