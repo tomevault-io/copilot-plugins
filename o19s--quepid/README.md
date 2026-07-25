@@ -1,0 +1,28 @@
+# quepid
+
+> Source: [o19s/quepid](https://github.com/o19s/quepid). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [o19s/quepid](https://github.com/o19s/quepid).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/o19s/quepid](https://github.com/o19s/quepid)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install o19s/quepid
+```
+Source: [github.com/o19s/quepid](https://github.com/o19s/quepid).
+
+<!-- genome:d-i-q -->
