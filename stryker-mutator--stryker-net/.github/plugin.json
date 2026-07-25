@@ -1,0 +1,14 @@
+{
+  "name": "stryker-mutator--stryker-net",
+  "displayName": "stryker-net",
+  "description": "stryker-net",
+  "version": "1.0.0",
+  "author": "stryker-mutator",
+  "homepage": "https://github.com/stryker-mutator/stryker-net",
+  "skills": [
+    {
+      "name": "stryker-net",
+      "description": ""
+    }
+  ]
+}
