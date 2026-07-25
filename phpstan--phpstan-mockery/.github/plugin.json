@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpstan-mockery",
+  "displayName": "phpstan-mockery",
+  "description": "phpstan-mockery",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpstan-mockery",
+  "skills": []
+}
