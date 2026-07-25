@@ -1,0 +1,243 @@
+{
+  "name": "anolisa",
+  "owner": "alibaba",
+  "repo": "anolisa",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/xlsx/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/ai/setup-mcp/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/ai/setup-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/devops/github/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/devops/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/humanizer/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/humanizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/ws-ckpt/src/skills/ws-ckpt/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/ws-ckpt/src/skills/ws-ckpt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/image-gen/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/image-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/aliyun/aliyun-ecs/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/aliyun/aliyun-ecs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/devops/kernel-dev/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/devops/kernel-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/cosh-guide/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/cosh-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/pdf-reader/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/pdf-reader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/ai/install-openclaw/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/ai/install-openclaw/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/anolisa-guide/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/anolisa-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/devops/sysom-diagnosis/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/devops/sysom-diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/devops/sysom-agentsight/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/devops/sysom-agentsight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/anolisa-register/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/anolisa-register/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/agent-sec-core/skills/skill-ledger/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/agent-sec-core/skills/skill-ledger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/others/clawhub-skill-mng/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/others/clawhub-skill-mng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/agent-sec-core/skills/code-scanner/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/agent-sec-core/skills/code-scanner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/security/alinux-cve-query/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/security/alinux-cve-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/system-admin/storage-resize/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/system-admin/storage-resize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/system-admin/backup-restore/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/system-admin/backup-restore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/system-admin/shell-scripting/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/system-admin/shell-scripting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/system-admin/upgrade-alinux-kernel/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/system-admin/upgrade-alinux-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/agent-sec-core/agent-sec-cli/dev-tools/backend-skill/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/agent-sec-core/agent-sec-cli/dev-tools/backend-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/copilot-shell/packages/cli/src/commands/extensions/examples/skills/skills/synonyms/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/copilot-shell/packages/cli/src/commands/extensions/examples/skills/skills/synonyms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/ai/qwenpaw-usage/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/ai/qwenpaw-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/agentsight/develop-skills/agentsight-pr-body/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/agentsight/develop-skills/agentsight-pr-body/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/agentsight/develop-skills/agentsight-code-review/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/agentsight/develop-skills/agentsight-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/agentsight/develop-skills/agentsight-auto-format/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/agentsight/develop-skills/agentsight-auto-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/skillfs/docs/skills/skillfs-mount/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/skillfs/docs/skills/skillfs-mount/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/agentsight/develop-skills/agentsight-bugfix/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/agentsight/develop-skills/agentsight-bugfix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/skillfs/crates/skillfs-fuse/tests/fixtures/test-skill/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/skillfs/crates/skillfs-fuse/tests/fixtures/test-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "anolisa",
+      "path": "src/os-skills/system-admin/ktuner/SKILL.md",
+      "github_url": "https://github.com/alibaba/anolisa/tree/main/src/os-skills/system-admin/ktuner/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alibaba/anolisa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:38:42Z"
+}
