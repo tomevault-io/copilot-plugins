@@ -1,0 +1,14 @@
+{
+  "name": "nvidia-ai-iot--inference-builder",
+  "displayName": "inference_builder",
+  "description": "inference_builder",
+  "version": "1.0.0",
+  "author": "NVIDIA-AI-IOT",
+  "homepage": "https://github.com/NVIDIA-AI-IOT/inference_builder",
+  "skills": [
+    {
+      "name": "inference_builder",
+      "description": ""
+    }
+  ]
+}
