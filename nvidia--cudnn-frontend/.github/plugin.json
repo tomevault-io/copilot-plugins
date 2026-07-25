@@ -1,0 +1,14 @@
+{
+  "name": "nvidia--cudnn-frontend",
+  "displayName": "cudnn-frontend",
+  "description": "cudnn-frontend",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cudnn-frontend",
+  "skills": [
+    {
+      "name": "cudnn-frontend",
+      "description": ""
+    }
+  ]
+}
