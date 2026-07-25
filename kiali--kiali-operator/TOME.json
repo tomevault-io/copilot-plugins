@@ -1,0 +1,63 @@
+{
+  "name": "kiali-operator",
+  "owner": "kiali",
+  "repo": "kiali-operator",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kiali-operator",
+      "path": ".cursor/code-reviewer/skills/triage/SKILL.md",
+      "github_url": "https://github.com/kiali/kiali-operator/tree/main/.cursor/code-reviewer/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kiali-operator",
+      "path": ".cursor/code-reviewer/skills/doc-update/SKILL.md",
+      "github_url": "https://github.com/kiali/kiali-operator/tree/main/.cursor/code-reviewer/skills/doc-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "kiali-operator",
+      "path": ".cursor/code-reviewer/skills/consolidation/SKILL.md",
+      "github_url": "https://github.com/kiali/kiali-operator/tree/main/.cursor/code-reviewer/skills/consolidation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kiali/kiali-operator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:43:53Z"
+}
