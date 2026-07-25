@@ -1,0 +1,9 @@
+{
+  "name": "hayorov--helm-gcs",
+  "displayName": "helm-gcs",
+  "description": "helm-gcs",
+  "version": "1.0.0",
+  "author": "hayorov",
+  "homepage": "https://github.com/hayorov/helm-gcs",
+  "skills": []
+}
