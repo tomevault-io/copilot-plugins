@@ -1,48 +1,22 @@
-## deslop-markdown
+## handoff-and-git
 
-> Run deslop pass on authored markdown prose before handoff
+> Safe verification and git handoff for Extended-VRM-Specs
 
 
-# Deslop markdown
+# Handoff and git
 
-Authority: [deslop skill](../skills/deslop/SKILL.md), [tells catalog](../skills/deslop/references/tells.md), [register guide](../skills/deslop/references/voices.md).
-
-## When to run
-
-After you **draft or materially edit prose** in a `.md` file (specs, ADRs, README narrative, issue/PR bodies saved as markdown), **before handoff or commit**:
-
-1. Read and follow **deslop** — Phase 0 (genre/register) → Phase 1 scan → Phase 2 rewrite → Phase 3 verify loop → Phase 4 register check.
-2. Apply fixes to the **changed sections** (or full doc if you rewrote most of it).
-3. Deliver a brief change log when the user asked for a deslop pass or the edit was agent-authored publishable prose.
-
-## Skip (do not deslop)
-
-| Case | Why |
-|------|-----|
-| Link-only, heading moves, anchor fixes | No prose change |
-| Typo / single-word fix in otherwise human text | Noise |
-| Mechanical tables (IDs, field lists, checkboxes, schema tables with no narrative) | Structure, not voice |
-| Normative keyword / enum / path renames only | Spec precision, not voice |
-| User explicitly asked to keep wording | Respect intent |
-| Editing `.cursor/skills/**/SKILL.md` or agent instructions | Meta; don't loop-deslop the deslop skill |
-
-## Genre defaults (Extended-VRM-Specs)
-
-| Path | Register |
-|------|----------|
-| Specs, extensions, schema docs, `decisions/**` / ADRs | Technical specification — precise claims, no puffery |
-| Root `README.md`, contributor/setup docs | Technical docs — imperative where appropriate |
-| Design notes / rationale essays | Essay / technical docs — commit to claims; no marketing voice |
-
-## Triggers
-
-User says **deslop**, **de-slop**, `/deslop`, **remove AI tells**, or **humanize** — run the full skill on the named file or selection.
-
-## Do not
-
-- Invent facts, citations, or specifics to sound human — use `[ADD: …]` placeholders per skill.
-- Replace locked IDs, schema names, field names, or version numbers with vaguer wording.
-- Trade technical precision for casual voice in specifications.
+- Before handoff, inspect `git diff` and verify only task-scoped files changed.
+- After drafting or materially editing markdown prose, run **deslop** per
+  `deslop-markdown.mdc` on changed narrative sections.
+- For new or materially restructured notes, verify Obsidian properties, controlled tags,
+  heading order, and links against `obsidian-markdown.mdc`.
+- Check specs against `specs-documentation.mdc`: normative vs example, stable names,
+  real citations, no invented decisions, Mermaid over ASCII diagrams.
+- Prefer small, reviewable doc diffs. Avoid unrelated rewrites of published specs.
+- Report checks actually run and any verification not run.
+- Never commit unless explicitly asked. Never push unless explicitly asked.
+- Do not update git config, skip hooks, force-push, hard-reset, or discard user changes.
+- Review diffs for accuracy and implementability first; style nits second.
 
 ---
 > Source: [miramocha/Extended-VRM-Specs](https://github.com/miramocha/Extended-VRM-Specs) — distributed by [TomeVault](https://tomevault.io).
