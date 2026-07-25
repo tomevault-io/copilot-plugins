@@ -1,0 +1,14 @@
+{
+  "name": "wso2--product-apim",
+  "displayName": "product-apim",
+  "description": "product-apim",
+  "version": "1.0.0",
+  "author": "wso2",
+  "homepage": "https://github.com/wso2/product-apim",
+  "skills": [
+    {
+      "name": "product-apim",
+      "description": ""
+    }
+  ]
+}
