@@ -1,0 +1,429 @@
+{
+  "name": "oracle-aidp-samples",
+  "owner": "oracle-samples",
+  "repo": "oracle-aidp-samples",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/agent-flows/code-first/skills-basic-example/skills/geo_skill/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/agent-flows/code-first/skills-basic-example/skills/geo_skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/agent-flows/code-first/skills-basic-example/skills/math/math_skill/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/agent-flows/code-first/skills-basic-example/skills/math/math_skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-git/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-alh/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-alh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-tools/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-mlops/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-mlops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-audit/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-hive/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-hive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-bundle/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-bundle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-ai-sql/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-ai-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-excel/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-excel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-sql-ddl/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-sql-ddl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-mysql/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-mysql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-volumes/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-volumes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-exacs/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-exacs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-siebel/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-siebel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-aws-s3/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-aws-s3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-federate/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-federate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-iceberg/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-iceberg/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-notebooks/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-notebooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-pipelines/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-pipelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-essbase/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-essbase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-migration/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-cluster-ops/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-cluster-ops/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-agent-flows/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-agent-flows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-snowflake/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-snowflake/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-oracle-db/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-oracle-db/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-sqlserver/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-sqlserver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-epm-cloud/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-epm-cloud/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-credentials/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-credentials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-postgresql/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-postgresql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-roles-access/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-roles-access/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-azure-adls/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-azure-adls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-peoplesoft/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-peoplesoft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-salesforce/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-salesforce/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-catalog-init/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-catalog-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-data-quality/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-data-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-data-sharing/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-data-sharing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-jdbc-custom/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-jdbc-custom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-fusion-bicc/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-fusion-bicc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-fusion-rest/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-fusion-rest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-user-settings/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-user-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-observability/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-rest-generic/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-rest-generic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-agent-highcode/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-agent-highcode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-semantic-model/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-semantic-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-models-catalog/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-models-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-analyzing-data/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-analyzing-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-workspace-admin/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-workspace-admin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-spark-debugging/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-spark-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-knowledge-bases/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-knowledge-bases/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-catalog-explore/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-catalog-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-workspace-files/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-workspace-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-object-storage/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-object-storage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-verified-queries/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-verified-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-table-management/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-table-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-profiling-tables/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-profiling-tables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-streaming-kafka/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-streaming-kafka/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-engineer-overview/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-engineer-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-engineer-bootstrap/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-engineer-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-spark-optimization/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-spark-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-ingest-file-to-table/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-engineer-agent/skills/aidp-ingest-file-to-table/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-connectors-overview/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-connectors-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "oracle-aidp-samples",
+      "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-connectors-bootstrap/SKILL.md",
+      "github_url": "https://github.com/oracle-samples/oracle-aidp-samples/tree/main/ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors/skills/aidp-connectors-bootstrap/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oracle-samples/oracle-aidp-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:41:55Z"
+}
