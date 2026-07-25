@@ -2,7 +2,7 @@
   "name": "drive-picker-element",
   "owner": "googleworkspace",
   "repo": "drive-picker-element",
-  "description": "A web component for Google Drive Picker",
+  "description": "",
   "type": "config",
   "source_format": "GEMINI.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/googleworkspace/drive-picker-element",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T13:33:10Z"
+  "distributed_at": "2026-07-25T09:31:29Z"
 }
