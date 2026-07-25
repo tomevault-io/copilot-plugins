@@ -1,0 +1,87 @@
+{
+  "name": "dodeca",
+  "owner": "bearcove",
+  "repo": "dodeca",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dodeca",
+      "path": "libs/pikru/.claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/bearcove/dodeca/tree/main/libs/pikru/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dodeca",
+      "path": "libs/pikru/.claude/skills/debugging/SKILL.md",
+      "github_url": "https://github.com/bearcove/dodeca/tree/main/libs/pikru/.claude/skills/debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dodeca",
+      "path": "libs/pikru/.claude/skills/git-commands/SKILL.md",
+      "github_url": "https://github.com/bearcove/dodeca/tree/main/libs/pikru/.claude/skills/git-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dodeca",
+      "path": "libs/pikru/.claude/skills/idiomatic-rust/SKILL.md",
+      "github_url": "https://github.com/bearcove/dodeca/tree/main/libs/pikru/.claude/skills/idiomatic-rust/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dodeca",
+      "path": "libs/pikru/.claude/skills/codebase-layout/SKILL.md",
+      "github_url": "https://github.com/bearcove/dodeca/tree/main/libs/pikru/.claude/skills/codebase-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dodeca",
+      "path": "libs/pikru/.claude/skills/code-annotations/SKILL.md",
+      "github_url": "https://github.com/bearcove/dodeca/tree/main/libs/pikru/.claude/skills/code-annotations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dodeca",
+      "path": "libs/pikru/.claude/skills/subtest-isolation/SKILL.md",
+      "github_url": "https://github.com/bearcove/dodeca/tree/main/libs/pikru/.claude/skills/subtest-isolation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bearcove/dodeca",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T02:49:45Z"
+}
