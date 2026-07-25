@@ -1,0 +1,9 @@
+{
+  "name": "pulumi--examples",
+  "displayName": "examples",
+  "description": "examples",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/examples",
+  "skills": []
+}
