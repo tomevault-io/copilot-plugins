@@ -1,0 +1,14 @@
+{
+  "name": "mollie--mollie-api-node",
+  "displayName": "mollie-api-node",
+  "description": "mollie-api-node",
+  "version": "1.0.0",
+  "author": "mollie",
+  "homepage": "https://github.com/mollie/mollie-api-node",
+  "skills": [
+    {
+      "name": "mollie-api-node",
+      "description": ""
+    }
+  ]
+}
