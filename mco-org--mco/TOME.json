@@ -1,0 +1,63 @@
+{
+  "name": "mco",
+  "owner": "mco-org",
+  "repo": "mco",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mco",
+      "path": "skills/mco-cli/SKILL.md",
+      "github_url": "https://github.com/mco-org/mco/tree/main/skills/mco-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mco",
+      "path": "docs/probes/2026-02-26/.probe_codex_home/skills/.system/skill-creator/SKILL.md",
+      "github_url": "https://github.com/mco-org/mco/tree/main/docs/probes/2026-02-26/.probe_codex_home/skills/.system/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mco",
+      "path": "docs/probes/2026-02-26/.probe_codex_home/skills/.system/skill-installer/SKILL.md",
+      "github_url": "https://github.com/mco-org/mco/tree/main/docs/probes/2026-02-26/.probe_codex_home/skills/.system/skill-installer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mco-org/mco",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:30:46Z"
+}
