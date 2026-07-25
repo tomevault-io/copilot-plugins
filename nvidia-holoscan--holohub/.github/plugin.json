@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-holoscan--holohub",
+  "displayName": "holohub",
+  "description": "holohub",
+  "version": "1.0.0",
+  "author": "nvidia-holoscan",
+  "homepage": "https://github.com/nvidia-holoscan/holohub",
+  "skills": []
+}
