@@ -1,19 +1,17 @@
 # awesome-cursorrules-zh
 
-> Source: [LessUp/awesome-cursorrules-zh](https://github.com/LessUp/awesome-cursorrules-zh) — distributed by [TomeVault](https://tomevault.io)
-
-🇨🇳 Cursor AI 编辑器 .cursorrules 规则精选集合 | 132+ 规则 · 32 领域 · 双语站点
+> Source: [LessUp/awesome-cursorrules-zh](https://github.com/LessUp/awesome-cursorrules-zh). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LessUp/awesome-cursorrules-zh](https://github.com/LessUp/awesome-cursorrules-zh).
+Original source: `.cursor/rules/*.mdc` in [LessUp/awesome-cursorrules-zh](https://github.com/LessUp/awesome-cursorrules-zh).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
