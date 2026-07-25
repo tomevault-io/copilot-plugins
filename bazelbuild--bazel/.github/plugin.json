@@ -1,0 +1,9 @@
+{
+  "name": "bazelbuild--bazel",
+  "displayName": "bazel",
+  "description": "bazel",
+  "version": "1.0.0",
+  "author": "bazelbuild",
+  "homepage": "https://github.com/bazelbuild/bazel",
+  "skills": []
+}
