@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [guanyang/antigravity-skills](https://github.com/guanyang/antigravity-skills).
+Original source: `AGENTS.md` in [guanyang/antigravity-skills](https://github.com/guanyang/antigravity-skills).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [guanyang/antigravity-skills](https://github.com/guanyang/antigravity-skills) — a repo with 935+ stars on GitHub.
+From [guanyang/antigravity-skills](https://github.com/guanyang/antigravity-skills) — a repo with 934+ stars on GitHub.
 
 ---
 
