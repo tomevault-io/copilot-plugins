@@ -1,0 +1,81 @@
+{
+  "name": "educates-training-platform",
+  "owner": "educates",
+  "repo": "educates-training-platform",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "educates-training-platform",
+      "path": ".claude/skills/educates-git-workflow/SKILL.md",
+      "github_url": "https://github.com/educates/educates-training-platform/tree/main/.claude/skills/educates-git-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "educates-training-platform",
+      "path": ".claude/skills/educates-upgrade-go/SKILL.md",
+      "github_url": "https://github.com/educates/educates-training-platform/tree/main/.claude/skills/educates-upgrade-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "educates-training-platform",
+      "path": ".claude/skills/educates-release-notes/SKILL.md",
+      "github_url": "https://github.com/educates/educates-training-platform/tree/main/.claude/skills/educates-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "educates-training-platform",
+      "path": ".claude/skills/educates-upgrade-vcluster/SKILL.md",
+      "github_url": "https://github.com/educates/educates-training-platform/tree/main/.claude/skills/educates-upgrade-vcluster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "educates-training-platform",
+      "path": ".claude/skills/educates-upgrade-kubernetes/SKILL.md",
+      "github_url": "https://github.com/educates/educates-training-platform/tree/main/.claude/skills/educates-upgrade-kubernetes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "educates-training-platform",
+      "path": ".claude/skills/educates-upgrade-theme-libraries/SKILL.md",
+      "github_url": "https://github.com/educates/educates-training-platform/tree/main/.claude/skills/educates-upgrade-theme-libraries/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/educates/educates-training-platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:55:49Z"
+}
