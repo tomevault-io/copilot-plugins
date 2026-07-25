@@ -1,0 +1,63 @@
+{
+  "name": "cua",
+  "owner": "trycua",
+  "repo": "cua",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cua",
+      "path": "skills/gui-automation/SKILL.md",
+      "github_url": "https://github.com/trycua/cua/tree/main/skills/gui-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cua",
+      "path": "libs/cua-driver/rust/Skills/cua-driver/SKILL.md",
+      "github_url": "https://github.com/trycua/cua/tree/main/libs/cua-driver/rust/Skills/cua-driver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cua",
+      "path": "libs/cua-driver/swift/Skills/cua-driver/SKILL.md",
+      "github_url": "https://github.com/trycua/cua/tree/main/libs/cua-driver/swift/Skills/cua-driver/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/trycua/cua",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:42:24Z"
+}
