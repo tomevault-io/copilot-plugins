@@ -1,0 +1,14 @@
+{
+  "name": "jsonbored--awesome-claude",
+  "displayName": "awesome-claude",
+  "description": "awesome-claude",
+  "version": "1.0.0",
+  "author": "JSONbored",
+  "homepage": "https://github.com/JSONbored/awesome-claude",
+  "skills": [
+    {
+      "name": "awesome-claude",
+      "description": ""
+    }
+  ]
+}
