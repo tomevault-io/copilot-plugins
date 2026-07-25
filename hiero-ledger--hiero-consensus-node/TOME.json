@@ -1,0 +1,51 @@
+{
+  "name": "hiero-consensus-node",
+  "owner": "hiero-ledger",
+  "repo": "hiero-consensus-node",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hiero-consensus-node",
+      "path": "platform-sdk/consensus-kb-freshness/.claude/skills/kb-freshness/SKILL.md",
+      "github_url": "https://github.com/hiero-ledger/hiero-consensus-node/tree/main/platform-sdk/consensus-kb-freshness/.claude/skills/kb-freshness/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hiero-ledger/hiero-consensus-node",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T16:30:46Z"
+}
