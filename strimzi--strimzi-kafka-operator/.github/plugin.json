@@ -1,0 +1,9 @@
+{
+  "name": "strimzi--strimzi-kafka-operator",
+  "displayName": "strimzi-kafka-operator",
+  "description": "strimzi-kafka-operator",
+  "version": "1.0.0",
+  "author": "strimzi",
+  "homepage": "https://github.com/strimzi/strimzi-kafka-operator",
+  "skills": []
+}
