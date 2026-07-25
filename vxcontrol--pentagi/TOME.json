@@ -2,9 +2,9 @@
   "name": "pentagi",
   "owner": "vxcontrol",
   "repo": "pentagi",
-  "description": "Fully autonomous AI Agents system capable of performing complex penetration testing tasks",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vxcontrol/pentagi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:57:10Z"
+  "distributed_at": "2026-07-25T01:23:39Z"
 }
