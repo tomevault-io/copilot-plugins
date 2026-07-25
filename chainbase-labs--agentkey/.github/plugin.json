@@ -1,0 +1,14 @@
+{
+  "name": "chainbase-labs--agentkey",
+  "displayName": "Agentkey",
+  "description": "Agentkey",
+  "version": "1.0.0",
+  "author": "chainbase-labs",
+  "homepage": "https://github.com/chainbase-labs/Agentkey",
+  "skills": [
+    {
+      "name": "Agentkey",
+      "description": ""
+    }
+  ]
+}
