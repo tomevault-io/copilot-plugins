@@ -1,0 +1,159 @@
+{
+  "name": "svelte-commerce",
+  "owner": "itswadesh",
+  "repo": "svelte-commerce",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/adapt/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/audit/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/shape/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/shape/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/polish/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/polish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/layout/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/bolder/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/bolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/delight/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/delight/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/animate/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/animate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/distill/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/quieter/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/quieter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/typeset/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/typeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/critique/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/critique/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/colorize/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/colorize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/optimize/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/overdrive/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/overdrive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/impeccable/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/impeccable/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/storefront-originality/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/storefront-originality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "svelte-commerce",
+      "path": ".claude/skills/website-branding-preferences/SKILL.md",
+      "github_url": "https://github.com/itswadesh/svelte-commerce/tree/main/.claude/skills/website-branding-preferences/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/itswadesh/svelte-commerce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:39:05Z"
+}
