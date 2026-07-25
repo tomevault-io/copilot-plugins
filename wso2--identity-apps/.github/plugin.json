@@ -1,0 +1,9 @@
+{
+  "name": "wso2--identity-apps",
+  "displayName": "identity-apps",
+  "description": "identity-apps",
+  "version": "1.0.0",
+  "author": "wso2",
+  "homepage": "https://github.com/wso2/identity-apps",
+  "skills": []
+}
