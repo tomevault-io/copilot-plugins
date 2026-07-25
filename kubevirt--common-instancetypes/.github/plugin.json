@@ -1,0 +1,14 @@
+{
+  "name": "kubevirt--common-instancetypes",
+  "displayName": "common-instancetypes",
+  "description": "common-instancetypes",
+  "version": "1.0.0",
+  "author": "kubevirt",
+  "homepage": "https://github.com/kubevirt/common-instancetypes",
+  "skills": [
+    {
+      "name": "common-instancetypes",
+      "description": ""
+    }
+  ]
+}
