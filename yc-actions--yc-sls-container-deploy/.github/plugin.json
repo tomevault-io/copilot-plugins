@@ -1,0 +1,9 @@
+{
+  "name": "yc-actions--yc-sls-container-deploy",
+  "displayName": "yc-sls-container-deploy",
+  "description": "yc-sls-container-deploy",
+  "version": "1.0.0",
+  "author": "yc-actions",
+  "homepage": "https://github.com/yc-actions/yc-sls-container-deploy",
+  "skills": []
+}
