@@ -1,0 +1,14 @@
+{
+  "name": "anyoptimization--pymoo",
+  "displayName": "pymoo",
+  "description": "pymoo",
+  "version": "1.0.0",
+  "author": "anyoptimization",
+  "homepage": "https://github.com/anyoptimization/pymoo",
+  "skills": [
+    {
+      "name": "pymoo",
+      "description": ""
+    }
+  ]
+}
