@@ -1,7 +1,7 @@
 {
   "name": "mangome--cybird-watching",
   "displayName": "cybird-watching",
-  "description": "\u4e00\u4e2a\u57fa\u4e8e ESP32 \u7684\u667a\u80fd\u89c2\u9e1f\u663e\u793a\u8bbe\u5907",
+  "description": "cybird-watching",
   "version": "1.0.0",
   "author": "Mangome",
   "homepage": "https://github.com/Mangome/cybird-watching",
