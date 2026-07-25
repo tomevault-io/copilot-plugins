@@ -1,23 +1,30 @@
 # touchdesigner-mcp
 
-> Source: [8beeeaaat/touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp) — distributed by [TomeVault](https://tomevault.io)
+> Source: [8beeeaaat/touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 MCP server for TouchDesigner
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [8beeeaaat/touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp).
+Original source: `CLAUDE.md` in [8beeeaaat/touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/8beeeaaat/touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp)
+## Bundled Skills (4)
+
+- [touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/prepare-release/SKILL.md)
+- [touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/release-test-audit/SKILL.md)
+- [touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/integration-test-guard/SKILL.md)
+- [touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp/tree/main/.claude/skills/touchdesigner-self-debug/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/8beeeaaat/touchdesigner-mcp](https://github.com/8beeeaaat/touchdesigner-mcp)
 
 ---
 
