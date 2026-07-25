@@ -1,0 +1,14 @@
+{
+  "name": "ohif--viewers",
+  "displayName": "Viewers",
+  "description": "Viewers",
+  "version": "1.0.0",
+  "author": "OHIF",
+  "homepage": "https://github.com/OHIF/Viewers",
+  "skills": [
+    {
+      "name": "Viewers",
+      "description": ""
+    }
+  ]
+}
