@@ -1,20 +1,18 @@
 # AI instruction files for alpaca-main
 
-> Sourced from [naveedkhan1998/alpaca-main](https://github.com/naveedkhan1998/alpaca-main) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Realtime trading data boilerplate
+> Sourced from [naveedkhan1998/alpaca-main](https://github.com/naveedkhan1998/alpaca-main), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [naveedkhan1998/alpaca-main](https://github.com/naveedkhan1998/alpaca-main).
+Original source: `GEMINI.md` in [naveedkhan1998/alpaca-main](https://github.com/naveedkhan1998/alpaca-main).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/naveedkhan1998/alpaca-main](https://github.com/naveedkhan1998/alpaca-main)
