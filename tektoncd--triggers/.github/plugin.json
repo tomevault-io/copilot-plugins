@@ -1,0 +1,9 @@
+{
+  "name": "tektoncd--triggers",
+  "displayName": "triggers",
+  "description": "triggers",
+  "version": "1.0.0",
+  "author": "tektoncd",
+  "homepage": "https://github.com/tektoncd/triggers",
+  "skills": []
+}
