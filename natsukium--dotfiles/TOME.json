@@ -1,0 +1,111 @@
+{
+  "name": "dotfiles",
+  "owner": "natsukium",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ast-grep",
+      "path": "modules/home/coding-agents/common/skills/ast-grep",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/home/coding-agents/common/skills/ast-grep",
+      "description": ""
+    },
+    {
+      "name": "gh",
+      "path": "modules/home/coding-agents/common/skills/gh",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/home/coding-agents/common/skills/gh",
+      "description": ""
+    },
+    {
+      "name": "ghq",
+      "path": "modules/home/coding-agents/common/skills/ghq",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/home/coding-agents/common/skills/ghq",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".claude/skills/po-translate/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/.claude/skills/po-translate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "modules/home/coding-agents/common/skills/gh/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/home/coding-agents/common/skills/gh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "modules/home/coding-agents/common/skills/ghq/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/home/coding-agents/common/skills/ghq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "modules/home/coding-agents/common/skills/ast-grep/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/home/coding-agents/common/skills/ast-grep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": ".claude/skills/org-literate/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/.claude/skills/org-literate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "modules/features/coding-agents/common/skills/gh/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/features/coding-agents/common/skills/gh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "modules/features/coding-agents/common/skills/ghq/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/features/coding-agents/common/skills/ghq/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "modules/features/coding-agents/common/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/natsukium/dotfiles/tree/main/modules/features/coding-agents/common/skills/git-commit/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/natsukium/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:36:33Z"
+}
