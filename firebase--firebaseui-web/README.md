@@ -1,6 +1,6 @@
 # firebaseui-web
 
-> Config by [firebase](https://github.com/firebase/firebaseui-web) — distributed by [TomeVault](https://tomevault.io/claim/firebase)
+> Tome by [firebase](https://github.com/firebase/firebaseui-web), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `GEMINI.md` in [firebase/firebaseui-web](https://github.com/fir
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/firebase](https://tomevault.io/claim/firebase)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/firebase/firebaseui-web](https://github.com/firebase/firebaseui-web)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/firebase) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-p -->
