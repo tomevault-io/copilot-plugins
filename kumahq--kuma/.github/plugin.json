@@ -1,0 +1,14 @@
+{
+  "name": "kumahq--kuma",
+  "displayName": "kuma",
+  "description": "kuma",
+  "version": "1.0.0",
+  "author": "kumahq",
+  "homepage": "https://github.com/kumahq/kuma",
+  "skills": [
+    {
+      "name": "kuma",
+      "description": ""
+    }
+  ]
+}
