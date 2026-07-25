@@ -1,0 +1,75 @@
+{
+  "name": "service",
+  "owner": "ardanlabs",
+  "repo": "service",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "service",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/ardanlabs/service/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "service",
+      "path": ".agents/skills/use-modern-go/SKILL.md",
+      "github_url": "https://github.com/ardanlabs/service/tree/main/.agents/skills/use-modern-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "service",
+      "path": ".agents/skills/branching-logic-flow/SKILL.md",
+      "github_url": "https://github.com/ardanlabs/service/tree/main/.agents/skills/branching-logic-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "service",
+      "path": ".agents/skills/business-layer-extensions/SKILL.md",
+      "github_url": "https://github.com/ardanlabs/service/tree/main/.agents/skills/business-layer-extensions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "service",
+      "path": ".agents/skills/layered-architecture-types/SKILL.md",
+      "github_url": "https://github.com/ardanlabs/service/tree/main/.agents/skills/layered-architecture-types/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ardanlabs/service",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T02:36:02Z"
+}
