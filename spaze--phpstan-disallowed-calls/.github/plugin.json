@@ -1,0 +1,9 @@
+{
+  "name": "spaze--phpstan-disallowed-calls",
+  "displayName": "phpstan-disallowed-calls",
+  "description": "phpstan-disallowed-calls",
+  "version": "1.0.0",
+  "author": "spaze",
+  "homepage": "https://github.com/spaze/phpstan-disallowed-calls",
+  "skills": []
+}
