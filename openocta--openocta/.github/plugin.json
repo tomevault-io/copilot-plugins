@@ -1,0 +1,14 @@
+{
+  "name": "openocta--openocta",
+  "displayName": "openocta",
+  "description": "openocta",
+  "version": "1.0.0",
+  "author": "openocta",
+  "homepage": "https://github.com/openocta/openocta",
+  "skills": [
+    {
+      "name": "openocta",
+      "description": ""
+    }
+  ]
+}
