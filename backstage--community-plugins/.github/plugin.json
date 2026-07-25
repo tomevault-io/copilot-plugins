@@ -1,0 +1,14 @@
+{
+  "name": "backstage--community-plugins",
+  "displayName": "community-plugins",
+  "description": "community-plugins",
+  "version": "1.0.0",
+  "author": "backstage",
+  "homepage": "https://github.com/backstage/community-plugins",
+  "skills": [
+    {
+      "name": "community-plugins",
+      "description": ""
+    }
+  ]
+}
