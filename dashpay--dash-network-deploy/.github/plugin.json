@@ -1,0 +1,9 @@
+{
+  "name": "dashpay--dash-network-deploy",
+  "displayName": "dash-network-deploy",
+  "description": "dash-network-deploy",
+  "version": "1.0.0",
+  "author": "dashpay",
+  "homepage": "https://github.com/dashpay/dash-network-deploy",
+  "skills": []
+}
