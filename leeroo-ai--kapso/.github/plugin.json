@@ -1,0 +1,14 @@
+{
+  "name": "leeroo-ai--kapso",
+  "displayName": "kapso",
+  "description": "kapso",
+  "version": "1.0.0",
+  "author": "Leeroo-AI",
+  "homepage": "https://github.com/Leeroo-AI/kapso",
+  "skills": [
+    {
+      "name": "kapso",
+      "description": ""
+    }
+  ]
+}
