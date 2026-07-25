@@ -1,0 +1,9 @@
+{
+  "name": "snowplow--snowplow-android-tracker",
+  "displayName": "snowplow-android-tracker",
+  "description": "snowplow-android-tracker",
+  "version": "1.0.0",
+  "author": "snowplow",
+  "homepage": "https://github.com/snowplow/snowplow-android-tracker",
+  "skills": []
+}
