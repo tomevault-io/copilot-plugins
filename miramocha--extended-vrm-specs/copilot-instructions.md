@@ -1,89 +1,24 @@
-## specs-documentation
+## specs-repository
 
-> How to author Extended VRM specs, ADRs, and schema docs
+> Extended-VRM-Specs repository purpose and agent boundaries
 
 
-# Specs documentation
+# Extended-VRM-Specs repository
 
-This repository holds Extended VRM specifications and related design decisions.
-Prefer clarity for implementers over essay voice.
-
-## Normative writing
-
-- Separate **requirements** from **rationale** and **examples**. Label examples as non-normative.
-- Prefer concrete field names, types, units, defaults, and version bounds over adjectives.
-- Use consistent requirement strength (MUST / SHOULD / MAY, or an equivalent house convention).
-  Do not mix soft marketing language into normative sections.
-- State compatibility explicitly: which VRM/glTF versions, packages, or tools a change targets.
-- When a requirement is undecided, write `TBD` or `[ADD: …]` — do not invent a decision.
-
-## Audience
-
-Separate **implementer / product** prose from **repo maintainer / agent** process.
-
-| Audience | Belongs in | Examples |
-|----------|------------|----------|
-| Spec readers, tool authors, consumers | `specs/`, `decisions/`, `implementations/`, `references/` | Field rules, catalog schema, vendor paths, UI policy (`common: true`) |
-| Specs maintainers and Cursor agents | `.cursor/rules/`, `.cursor/skills/`, optional `references/**/maintaining-*.md` | Regen scripts, same-PR sync habits, deslop triggers, skill workflows |
-
-- Do **not** put `.cursor/**` paths in normative specs or in family/reference notes aimed at
-  implementers. Point those notes at a `maintaining-*.md` page (or the skill) instead.
-- Do **not** move product authoring policy (how tools use catalogs, morph layers, etc.) into
-  Cursor rules — tools still need that in the vault.
-- Agent-only steps that already live in a skill (e.g. `unity-shader-catalog`) stay in the
-  skill; the maintaining page is the human-facing index when one is needed.
-
-Materials-override catalog regen: [Maintaining catalogs](../../references/catalogs/maintaining-catalogs.md)
-and skill `unity-shader-catalog`.
-
-When adding or changing a shipping **editor** host: update the capability matrix in
-[VRMXT Editor](../../implementations/vrmxt-editor.md) and the Architecture authoring
-host table. Prefer the host profile for per-host detail; keep this matrix aligned.
-
-## Structure
-
-- Format authored notes for Obsidian using `obsidian-markdown.mdc`, including YAML
-  properties and controlled tags.
-- One concern per document when practical. Link related specs instead of duplicating rules.
-- Keep headings scannable: purpose, scope, normative text, data model / schema, examples,
-  compatibility, open questions.
-- Prefer tables for fields, enums, and matrices. Prefer diagrams only when they clarify
-  relationships that prose would bury.
-- When a diagram is needed, use a fenced **Mermaid** block (` ```mermaid `). Do not use
-  ASCII art boxes, arrows, or trees for flow, sequence, state, or relationship diagrams.
-  Keep node/edge labels short and stable; prefer `flowchart`, `sequenceDiagram`,
-  `stateDiagram-v2`, or `classDiagram` over decorative layouts.
-- Preserve stable anchors and filenames once published; renames need intentional migration.
-
-## File placement
-
-- Put family-wide normative contracts that are not glTF extensions in `specs/core/`.
-- Put reusable normative schema fragments with no independent `extensionsUsed` identity
-  in `specs/fragments/`.
-- Put concrete glTF extension specs in `specs/extensions/<domain>/`. Current domains are
-  `animation`, `deformation`, `materials`, `physics`, and `vfx`.
-- Do not place a concrete extension spec directly under `specs/`.
-- Folder names are editorial taxonomy. They MUST NOT add a segment to the serialized
-  extension name: `specs/extensions/vfx/vrmxt-sprite-particle.md` defines
-  `VRMXT_sprite_particle`.
-- Add every new normative document to the registry in `README.md`.
-- Keep decisions, implementation profiles, and research in `decisions/`,
-  `implementations/`, and `references/`.
-
-## Accuracy and provenance
-
-- Do not invent citations to VRM, glTF, UniVRM, or Blender docs. Link real sections or mark
-  placeholders.
-- Distinguish Extended VRM extensions from upstream VRM/glTF behavior.
-- Record breaking changes and migration notes when changing published fields or semantics.
-- Match identifiers used in Extended-UniVRM and Extended-VRM-Addon-for-Blender when those
-  names already exist; do not invent parallel names for the same concept.
-
-## Related
-
-- Voice / AI-tell cleanup: `deslop-markdown.mdc` and the **deslop** skill.
-- Note metadata and vault conventions: `obsidian-markdown.mdc`.
-- Repo handoff: `handoff-and-git.mdc`.
+- This repo is for **specifications and design decisions** for Extended VRM — not Unity
+  package source and not the Blender add-on implementation.
+- Prefer documenting behavior, schemas, compatibility, and migration rules that UniVRM and
+  the Blender add-on can implement consistently.
+- Do not invent product scope, version history, or upstream VRM/glTF requirements.
+- Keep implementation details in the owning code repos unless the spec needs them to be
+  normative.
+- When naming concepts, reuse identifiers already established in Extended-UniVRM or
+  Extended-VRM-Addon-for-Blender when those exist.
+- Treat repository standards as **unreleased drafts** unless a note explicitly states
+  otherwise. Do not constrain draft design around a hypothetical v1, release phase, or
+  post-release compatibility. Do not defer needed draft design to a later release without
+  explicit direction. Existing `specVersion` values describe draft schema revisions, not
+  released standards.
 
 ---
 > Source: [miramocha/Extended-VRM-Specs](https://github.com/miramocha/Extended-VRM-Specs) — distributed by [TomeVault](https://tomevault.io).
