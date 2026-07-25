@@ -1,0 +1,14 @@
+{
+  "name": "curiosity-ai--tesserae",
+  "displayName": "tesserae",
+  "description": "tesserae",
+  "version": "1.0.0",
+  "author": "curiosity-ai",
+  "homepage": "https://github.com/curiosity-ai/tesserae",
+  "skills": [
+    {
+      "name": "tesserae",
+      "description": ""
+    }
+  ]
+}
