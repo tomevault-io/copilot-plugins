@@ -1,0 +1,14 @@
+{
+  "name": "tjcurnutte--memory-hive",
+  "displayName": "memory-hive",
+  "description": "memory-hive",
+  "version": "1.0.0",
+  "author": "TJCurnutte",
+  "homepage": "https://github.com/TJCurnutte/memory-hive",
+  "skills": [
+    {
+      "name": "memory-hive",
+      "description": ""
+    }
+  ]
+}
