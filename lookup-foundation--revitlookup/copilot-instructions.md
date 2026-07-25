@@ -1,11 +1,10 @@
 ## revitlookup
 
-> The canonical project guidelines live in [`/AGENTS.md`](../AGENTS.md) and the [`/docs`](../docs) folder. Read [`../AGENTS.md`](../AGENTS.md) first, then the specialized docs it links for the task at hand.
+> <!-- Canonical, tool-agnostic guidelines live in AGENTS.md. Edit AGENTS.md, not this file. -->
 
-# RevitLookup Agent Instructions
-
-The canonical project guidelines live in [`/AGENTS.md`](../AGENTS.md) and the [`/docs`](../docs) folder. Read [`../AGENTS.md`](../AGENTS.md) first, then the specialized docs it links for the task at hand.
+<!-- Canonical, tool-agnostic guidelines live in AGENTS.md. Edit AGENTS.md, not this file. -->
+@AGENTS.md
 
 ---
 > Source: [lookup-foundation/RevitLookup](https://github.com/lookup-foundation/RevitLookup) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
