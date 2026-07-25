@@ -1,22 +1,56 @@
-## handoff-and-git
+## obsidian-markdown
 
-> Safe verification and git handoff for Extended-VRM-Specs
+> Obsidian YAML properties with GitHub-compatible Markdown bodies
 
 
-# Handoff and git
+# Obsidian properties and GitHub Markdown
 
-- Before handoff, inspect `git diff` and verify only task-scoped files changed.
-- After drafting or materially editing markdown prose, run **deslop** per
-  `deslop-markdown.mdc` on changed narrative sections.
-- For new or materially restructured notes, verify Obsidian properties, controlled tags,
-  heading order, and links against `obsidian-markdown.mdc`.
-- Check specs against `specs-documentation.mdc`: normative vs example, stable names,
-  real citations, no invented decisions, Mermaid over ASCII diagrams.
-- Prefer small, reviewable doc diffs. Avoid unrelated rewrites of published specs.
-- Report checks actually run and any verification not run.
-- Never commit unless explicitly asked. Never push unless explicitly asked.
-- Do not update git config, skip hooks, force-push, hard-reset, or discard user changes.
-- Review diffs for accuracy and implementability first; style nits second.
+New documentation must work as an Obsidian vault and render correctly on GitHub.
+Obsidian-specific syntax is limited to YAML properties at the top of the file.
+
+## Required properties
+
+Start each authored documentation note with YAML properties:
+
+```yaml
+---
+title: Extended VRM Example
+aliases: []
+tags:
+  - extended-vrm
+  - spec/example
+type: specification
+status: draft
+---
+```
+
+- `title`: human-readable title; match the first `#` heading.
+- `aliases`: alternate names; use `[]` when none.
+- `tags`: include `extended-vrm` plus specific hierarchical tags.
+- `type`: `specification`, `decision`, `guide`, `reference`, or `index`.
+- `status`: `draft`, `proposed`, `accepted`, `deprecated`, or `superseded`.
+- README and generated files may omit properties when metadata would add no value.
+
+## Tags
+
+- Tags use lowercase kebab-case. Prefer stable namespaces such as `spec/*`, `format/*`,
+  `compatibility/*`, `implementation/*`, and `decision/*`. Do not invent near-duplicates.
+- Put all classification tags in YAML properties. Do not use inline `#tags`.
+
+## GitHub-compatible body
+
+- Use one H1 matching `title`, then ordered H2/H3 sections; do not skip heading levels.
+- Use kebab-case filenames. Keep stable filenames and aliases after publication.
+- Use standard relative Markdown links for repository pages:
+  `[Material spec](../../specs/extensions/materials/vrmxt-materials-override.md)`.
+- Use standard Markdown links for external URLs and `#heading-anchors` for sections.
+- Do not use Obsidian wikilinks (`[[Page]]`), embeds (`![[Asset]]`), block references,
+  Dataview queries, or other plugin-only body syntax.
+- Use fenced code blocks with language identifiers and Markdown tables with header rows.
+- Diagrams: Mermaid fenced blocks only (` ```mermaid `). No ASCII art diagrams.
+  See `specs-documentation.mdc`.
+- Do not add empty metadata or decorative emoji headings.
+- Never leave unresolved internal links in accepted specs.
 
 ---
 > Source: [miramocha/Extended-VRM-Specs](https://github.com/miramocha/Extended-VRM-Specs) — distributed by [TomeVault](https://tomevault.io).
