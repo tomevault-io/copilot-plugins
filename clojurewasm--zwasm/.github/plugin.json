@@ -1,0 +1,30 @@
+{
+  "name": "clojurewasm--zwasm",
+  "displayName": "zwasm",
+  "description": "zwasm",
+  "version": "1.0.0",
+  "author": "clojurewasm",
+  "homepage": "https://github.com/clojurewasm/zwasm",
+  "skills": [
+    {
+      "name": "zwasm",
+      "description": ""
+    },
+    {
+      "name": "zwasm",
+      "description": ""
+    },
+    {
+      "name": "zwasm",
+      "description": ""
+    },
+    {
+      "name": "zwasm",
+      "description": ""
+    },
+    {
+      "name": "zwasm",
+      "description": ""
+    }
+  ]
+}
