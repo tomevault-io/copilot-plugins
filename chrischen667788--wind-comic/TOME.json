@@ -1,0 +1,93 @@
+{
+  "name": "wind-comic",
+  "owner": "ChrisChen667788",
+  "repo": "wind-comic",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "wind-comic",
+      "path": "skills/screenwriter/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/skills/screenwriter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wind-comic",
+      "path": ".agents/skills/design-taste-frontend/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/design-taste-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wind-comic",
+      "path": ".agents/skills/high-end-visual-design/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/high-end-visual-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wind-comic",
+      "path": ".agents/skills/full-output-enforcement/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/full-output-enforcement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wind-comic",
+      "path": ".agents/skills/redesign-existing-projects/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/redesign-existing-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wind-comic",
+      "path": ".agents/skills/hyperframes/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/hyperframes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wind-comic",
+      "path": ".agents/skills/embedded-captions/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/embedded-captions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wind-comic",
+      "path": ".agents/skills/product-launch-video/SKILL.md",
+      "github_url": "https://github.com/ChrisChen667788/wind-comic/tree/main/.agents/skills/product-launch-video/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ChrisChen667788/wind-comic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:34:49Z"
+}
