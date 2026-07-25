@@ -1,0 +1,69 @@
+{
+  "name": "generative-ai",
+  "owner": "GoogleCloudPlatform",
+  "repo": "generative-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "generative-ai",
+      "path": "search/gemini-enterprise/ge-migration-agent/skills/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/generative-ai/tree/main/search/gemini-enterprise/ge-migration-agent/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "generative-ai",
+      "path": "search/gemini-enterprise/ge-demo-generator/agent_template/demo_skills/web-report/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/generative-ai/tree/main/search/gemini-enterprise/ge-demo-generator/agent_template/demo_skills/web-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "generative-ai",
+      "path": "search/gemini-enterprise/ge-demo-generator/agent_template/demo_skills/professional-document/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/generative-ai/tree/main/search/gemini-enterprise/ge-demo-generator/agent_template/demo_skills/professional-document/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "generative-ai",
+      "path": "search/gemini-enterprise/ge-demo-generator/agent_template/demo_skills/professional-presentation/SKILL.md",
+      "github_url": "https://github.com/GoogleCloudPlatform/generative-ai/tree/main/search/gemini-enterprise/ge-demo-generator/agent_template/demo_skills/professional-presentation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/GoogleCloudPlatform/generative-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:51:46Z"
+}
