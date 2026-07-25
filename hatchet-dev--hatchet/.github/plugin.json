@@ -1,0 +1,22 @@
+{
+  "name": "hatchet-dev--hatchet",
+  "displayName": "hatchet",
+  "description": "hatchet",
+  "version": "1.0.0",
+  "author": "hatchet-dev",
+  "homepage": "https://github.com/hatchet-dev/hatchet",
+  "skills": [
+    {
+      "name": "build-tui-view",
+      "description": ""
+    },
+    {
+      "name": "hatchet",
+      "description": ""
+    },
+    {
+      "name": "hatchet",
+      "description": ""
+    }
+  ]
+}
