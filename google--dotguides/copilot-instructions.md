@@ -1,27 +1,29 @@
 ## dotguides
 
-> Dotguides is a library, CLI, and MCP server for automatically discovering LLM-friendly documentation for open source packages. It is written in TypeScript but is built to discover documentation in any language.
+> This is a simple SwiftUI application for iOS, macOS, or other Apple platforms. The project is named "Dummy1" and serves as a basic template or starting point for a SwiftUI app.
 
-Dotguides is a library, CLI, and MCP server for automatically discovering LLM-friendly documentation for open source packages. It is written in TypeScript but is built to discover documentation in any language.
+# Project Overview
 
-## Repo Structure
+This is a simple SwiftUI application for iOS, macOS, or other Apple platforms. The project is named "Dummy1" and serves as a basic template or starting point for a SwiftUI app.
 
-- `src/lib`: main library code, all significant logic should be encapsulated here
-- `src/cli`: CLI code, leverages library code for logic
-- `src/mcp`: MCP server code, leverages library code for logic and started with `dotguides mcp` CLI command
+The main view, defined in `ContentView.swift`, displays a "Hello, world!" message along with a globe icon. The application entry point is in `Dummy1App.swift`.
 
-## Workflow
+## Building and Running
 
-- When starting a task, run `git status` to see if the git history is clean. If not, ask the user if they want to commit or start the task with dirty history.
-- After completing a task, formulate a git commit for your work with a sensible message following conventional commits form. Make sure to confirm with the user before committing.
+To build and run this project, you will need Xcode.
 
-## General Guidance
+1.  Open the `Dummy1.xcodeproj` file in Xcode.
+2.  Select a simulator or a connected device.
+3.  Click the "Run" button (or press Cmd+R).
 
-- Before completing a task, run `npm run test` to make sure tests are passing.
-- Add Vitest unit tests for behavior you add or change in `src/lib`, creating new test files as necessary.
-- When writing tests, prefer "table-style" tests with a `{desc, input, expect}[]` format to describe each test.
-- DO NOT DELETE TEST FILES after they pass. Tests are good, keep them around.
+## Development Conventions
+
+The code is written in Swift and follows the standard SwiftUI application structure.
+
+*   **Views:** SwiftUI views are defined in separate files (e.g., `ContentView.swift`).
+*   **App Entry Point:** The main application structure is defined in a file conforming to the `App` protocol (e.g., `Dummy1App.swift`).
+*   **Assets:** Images, colors, and other assets are managed in the `Assets.xcassets` catalog.
 
 ---
 > Source: [google/dotguides](https://github.com/google/dotguides) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
