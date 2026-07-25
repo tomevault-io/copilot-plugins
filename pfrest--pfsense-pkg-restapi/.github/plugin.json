@@ -1,0 +1,9 @@
+{
+  "name": "pfrest--pfsense-pkg-restapi",
+  "displayName": "pfSense-pkg-RESTAPI",
+  "description": "pfSense-pkg-RESTAPI",
+  "version": "1.0.0",
+  "author": "pfrest",
+  "homepage": "https://github.com/pfrest/pfSense-pkg-RESTAPI",
+  "skills": []
+}
