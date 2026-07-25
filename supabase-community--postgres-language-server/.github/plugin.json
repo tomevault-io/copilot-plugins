@@ -1,0 +1,9 @@
+{
+  "name": "supabase-community--postgres-language-server",
+  "displayName": "postgres-language-server",
+  "description": "postgres-language-server",
+  "version": "1.0.0",
+  "author": "supabase-community",
+  "homepage": "https://github.com/supabase-community/postgres-language-server",
+  "skills": []
+}
