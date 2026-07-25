@@ -5,15 +5,19 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [nubenetes/awesome-kubernetes](https://github.com/nubenetes/awesome-kubernetes).
+Original source: `CLAUDE.md` in [nubenetes/awesome-kubernetes](https://github.com/nubenetes/awesome-kubernetes).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [awesome-kubernetes](https://github.com/nubenetes/awesome-kubernetes/tree/main/.gemini/skills/awesome-kubernetes-ops/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/nubenetes/awesome-kubernetes](https://github.com/nubenetes/awesome-kubernetes)
 
