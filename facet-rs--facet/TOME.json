@@ -1,0 +1,99 @@
+{
+  "name": "facet",
+  "owner": "facet-rs",
+  "repo": "facet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "debug-with-valgrind",
+      "path": ".claude/skills/debug-with-valgrind",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/debug-with-valgrind",
+      "description": ""
+    },
+    {
+      "name": "jit-overview",
+      "path": ".claude/skills/jit-overview",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/jit-overview",
+      "description": ""
+    },
+    {
+      "name": "reproduce-reduce-regress",
+      "path": ".claude/skills/reproduce-reduce-regress",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/reproduce-reduce-regress",
+      "description": ""
+    },
+    {
+      "name": "use-facet-crates",
+      "path": ".claude/skills/use-facet-crates",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/use-facet-crates",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "path": ".claude/skills/jit-overview/SKILL.md",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/jit-overview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "path": ".claude/skills/use-facet-crates/SKILL.md",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/use-facet-crates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "path": ".claude/skills/debug-with-valgrind/SKILL.md",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/debug-with-valgrind/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "path": ".claude/skills/reproduce-reduce-regress/SKILL.md",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/.claude/skills/reproduce-reduce-regress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "path": "styx-cli/contrib/SKILL.md",
+      "github_url": "https://github.com/facet-rs/facet/tree/main/styx-cli/contrib/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/facet-rs/facet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:33:54Z"
+}
