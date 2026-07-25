@@ -1,0 +1,57 @@
+{
+  "name": "Usage4Claude",
+  "owner": "f-is-h",
+  "repo": "Usage4Claude",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Usage4Claude",
+      "path": ".agents/skills/capture-usage4claude-screenshots/SKILL.md",
+      "github_url": "https://github.com/f-is-h/Usage4Claude/tree/main/.agents/skills/capture-usage4claude-screenshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Usage4Claude",
+      "path": ".agents/skills/release/SKILL.md",
+      "github_url": "https://github.com/f-is-h/Usage4Claude/tree/main/.agents/skills/release/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/f-is-h/Usage4Claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:44:24Z"
+}
