@@ -1,0 +1,269 @@
+## steady
+
+> OpenAPI 3 mock server built with Deno. Validates SDKs against OpenAPI specs with
+
+# Steady
+
+OpenAPI 3 mock server built with Deno. Validates SDKs against OpenAPI specs with
+clear error attribution (SDK bug vs spec issue).
+
+## Commands
+
+**ALWAYS use the scripts in `scripts/` directory.
+
+```bash
+./scripts/bootstrap   # Install dependencies, setup environment
+./scripts/test        # Run all tests
+./scripts/lint        # Lint code
+./scripts/format      # Format code
+```
+
+These scripts handle all the necessary flags and environment setup
+automatically.
+
+## Project Structure
+
+```
+steady/
+├── cmd/steady.ts              # CLI entry point
+├── src/                       # Main server
+│   ├── server.ts              # HTTP server, request matching
+│   ├── validator.ts           # Request/response validation
+│   ├── errors.ts              # Error types
+│   └── logging/               # Request logging utilities
+├── packages/
+│   ├── json-pointer/          # RFC 6901 implementation
+│   │   ├── json-pointer.ts    # resolve(), set(), escape/unescape
+│   │   ├── rfc6901-validator.ts # Syntax validation
+│   │   └── resolver.ts        # Document reference resolver
+│   ├── json-schema/           # JSON Schema 2020-12
+│   │   ├── processor.ts       # Schema analysis
+│   │   ├── runtime-validator.ts # Data validation
+│   │   ├── schema-registry.ts # Document-centric schema resolution
+│   │   └── ref-resolver.ts    # $ref resolution
+│   └── openapi/               # OpenAPI 3.x parser
+│       └── parser.ts          # YAML/JSON parsing
+├── sdk-tests/                 # SDK test suites with their OpenAPI specs
+│   └── cloudflare-python/     # Cloudflare spec at openapi-spec.yml
+├── tests/edge-cases/          # Edge case tests
+└── test-fixtures/
+    └── openapi-directory/     # Git submodule: 1970 real-world specs (99.5% pass)
+```
+
+**Test specs**: Real-world specs live in `sdk-tests/` (e.g.,
+`sdk-tests/cloudflare-python/openapi-spec.yml`). When looking for a spec file,
+search the whole repo with glob, not just `test-fixtures/`.
+
+**Submodule**: Run `git submodule update --init` to fetch test fixtures.
+
+## Key Technical Details
+
+**Stack**: Deno 2.x, TypeScript strict mode, no frameworks
+
+**JSON Pointer (RFC 6901)**:
+
+- Only `~0` (tilde) and `~1` (slash) escaping - NO percent encoding
+- Percent-decoding happens at URI fragment layer (ref-resolver.ts:171)
+- Array indices must be exact: "0", "1", "10" - reject "01", "1.5", "-1"
+
+**JSON Schema**: 91.6% compliance (1151/1257 tests). Missing: `$dynamicRef`,
+`$dynamicAnchor`. Full support for `unevaluatedProperties`/`unevaluatedItems`.
+
+**$ref Resolution**: Handles URI fragment encoding. `#/$defs/User%20Name`resolves
+to key`"User
+Name"` (percent-decoded before JSON Pointer parsing).
+
+## Code Rules
+
+1. **Read before modify** - Never change code you haven't read
+2. **No type hacks** - No `as`, no `!` assertions to silence errors
+3. **No silent failures** - Never swallow errors or return fake success
+4. **Test with red-green** - Write failing test first, then fix
+5. **Fail loudly** - Invalid input = error, not silent pass
+6. **No hacky solutions** - Use standard libraries (e.g., `@std/cli` for arg
+   parsing), don't reinvent the wheel with brittle manual implementations
+7. **No chained bash commands** - When running commands (not writing scripts),
+   never use `|`, `&&`, or `||`. Run each command as a separate, distinct
+   invocation
+8. **No em-dashes** - Never use `—` (U+2014) anywhere in the codebase: comments,
+   strings, messages, or docs. Em-dashes are non-ASCII and cause ByteString
+   crashes when diagnostic messages flow into HTTP headers via `Headers.set()`.
+   Use normal punctuation instead (periods, commas, semicolons). Two sentences
+   are better than one long sentence joined by an em-dash.
+9. **Raw at the edges, structured in the logic** - Parse untyped inputs
+   (strings, JSON, HTTP bodies) once at the boundary into a domain type, and
+   pass the domain type through all internal logic. Format back to raw form only
+   at the outgoing boundary. Never thread a raw string through recursion and
+   re-parse or string-concat it inside the logic. If a primitive you need for
+   the domain type does not exist, add it to the owning package (e.g. pointer
+   manipulation belongs in `@steady/json-pointer`, schema composition in
+   `@steady/json-schema`). Never open-code a local helper that duplicates
+   something the owning package should provide, and never introduce a second
+   implementation of a primitive that already exists. Search the owning package
+   first.
+
+## Skills
+
+### /design-review
+
+Review a design/spec document by finding real-world patterns that stress it. Use
+with: `/design-review docs/diagnostics-spec.md`
+
+See `.claude/skills/design-review/SKILL.md` for full process.
+
+### /steady-dev
+
+Project context and working conventions. Read this before making changes.
+
+See `.claude/skills/steady-dev/SKILL.md` for architecture, design philosophy,
+and common task guides.
+
+### /user-experiment
+
+Simulate being a real SDK developer to find UX friction in Steady. Use with:
+`/user-experiment sink-python`
+
+See `.claude/skills/user-experiment/SKILL.md` for the full methodology.
+
+## Investigation Standards
+
+**INVESTIGATE BEFORE IMPLEMENTING**: Always research the correct behavior first.
+
+1. **Research specifications** - Check OpenAPI spec, RFCs, and official docs
+2. **Test actual behavior** - Run code to see what happens, don't assume
+3. **Verify assumptions** - If uncertain, write a test to confirm behavior
+4. **No hand-waving comments** - Don't add comments like "intentional" or
+   "future use" without verifying the behavior is correct
+5. **No ignore flags as shortcuts** - Never mark tests as `ignore: true` without
+   first verifying if the feature actually works
+
+**When behavior is undefined by spec:**
+
+- Research how PHP, Rails, Node.js, and other frameworks handle it
+- Document the actual behavior differences
+- Make an informed decision and document why
+- Consider making it configurable if behavior varies significantly
+
+**Comments must be accurate:**
+
+- Don't claim behavior is "intentional" unless you verified it's correct
+- Don't claim something is "for future use" - either use it or remove it
+- Comments should explain WHY, not paper over uncertainty
+
+## Testing Approach
+
+**RED-GREEN TESTING IS MANDATORY**: Always write a failing test BEFORE fixing
+any issue - bugs, behavioral changes, or improvements found in code review.
+
+1. Write a test that exposes the issue (should fail - RED)
+2. Run the test to confirm it fails
+3. Implement the fix
+4. Run the test to confirm it passes (GREEN)
+5. Run all tests to ensure no regressions
+
+This applies to:
+
+- Bug fixes
+- Behavioral changes (e.g., fixing RNG determinism)
+- Edge case handling improvements
+- Any change that modifies observable behavior
+
+```bash
+# Run all tests
+./scripts/test
+
+# Run specific test file
+./scripts/test packages/json-pointer/json-pointer.test.ts
+
+# Run with filter
+./scripts/test --filter "RFC 6901"
+```
+
+Tests must pass before committing. Use `./scripts/test` to verify.
+
+### Snapshot Testing
+
+Use Deno's built-in snapshot testing for asserting complex structured output.
+
+**File snapshots** (`assertSnapshot`): Store reference values in
+`__snapshots__/{test_file}.snap` next to the test file. Requires
+`Deno.TestContext` as the first argument.
+
+```ts
+import { assertSnapshot } from "@std/testing/snapshot";
+
+Deno.test("example", async (t) => {
+  await assertSnapshot(t, { hello: "world", n: 123 });
+});
+```
+
+**Inline snapshots** (`assertInlineSnapshot`): Store the expected value directly
+in the test source as a template literal string. No `TestContext` needed.
+
+```ts
+import { assertInlineSnapshot } from "@std/testing/unstable-snapshot";
+
+Deno.test("example", () => {
+  assertInlineSnapshot(
+    { hello: "world", n: 123 },
+    `
+{
+  hello: "world",
+  n: 123,
+}
+  `,
+  );
+});
+```
+
+**Updating snapshots**: Run tests with `-- --update` to regenerate snapshots
+that have changed. For inline snapshots, the test source file itself is
+rewritten in place (requires `--allow-read`, `--allow-write`, `--allow-run`).
+Pass `-- --update --no-format` to skip `deno fmt` after updating inline
+snapshots.
+
+```bash
+./scripts/test -- --update
+```
+
+**When to use which**: Prefer `assertSnapshot` (file-based) for large or
+frequently changing output. Prefer `assertInlineSnapshot` for small values where
+seeing the expected value next to the assertion is clearer. Both are already
+used in this codebase (see `tests/integration/`).
+
+## Error Messages
+
+Errors must include:
+
+- WHAT failed (specific validation/parsing error)
+- WHERE (file:line or JSON path)
+- WHY (root cause)
+- HOW to fix (actionable suggestion)
+
+## Commit Style
+
+```
+fix: Description of bug fix
+feat: New feature
+docs: Documentation only
+test: Test additions/changes
+refactor: Code restructuring
+```
+
+## Current Status
+
+Working:
+
+- HTTP server with path matching
+- JSON Schema validation (runtime-validator.ts)
+- Response generation from schemas/examples
+- RFC 6901 JSON Pointer operations
+- OpenAPI 3.x parsing
+
+Test coverage gaps:
+
+- response-generator.ts (limited tests)
+
+---
+> Source: [dgellow/steady](https://github.com/dgellow/steady) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
