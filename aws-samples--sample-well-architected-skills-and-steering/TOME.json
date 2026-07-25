@@ -3,8 +3,8 @@
   "owner": "aws-samples",
   "repo": "sample-well-architected-skills-and-steering",
   "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,27 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "sample-well-architected-skills-and-steering",
-      "path": "skills/wa-review/SKILL.md",
-      "github_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering/tree/main/skills/wa-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "sample-well-architected-skills-and-steering",
-      "path": "skills/wa-builder/SKILL.md",
-      "github_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering/tree/main/skills/wa-builder/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "sample-well-architected-skills-and-steering",
-      "path": "skills/migration-readiness/SKILL.md",
-      "github_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering/tree/main/skills/migration-readiness/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T02:49:41Z"
+  "distributed_at": "2026-07-25T19:29:58Z"
 }
