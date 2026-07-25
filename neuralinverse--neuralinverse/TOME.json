@@ -1,0 +1,297 @@
+{
+  "name": "neuralinverse",
+  "owner": "NeuralInverse",
+  "repo": "neuralinverse",
+  "description": "Code Modern. Code Legacy. Code Firmware. - open-source AI-native IDE with agentic coding, Power Mode, legacy modernization, and firmware development",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "neuralinverse",
+      "path": ".agents/skills/launch/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.agents/skills/launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/.agents/skills/launch/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/.agents/skills/launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/init/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/chronicle/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/chronicle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/create-hook/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/create-hook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/troubleshoot/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/troubleshoot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/create-skill/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/create-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/create-agent/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/create-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/create-prompt/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/create-prompt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/.agents/skills/anthropic-sdk-upgrader/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/.agents/skills/anthropic-sdk-upgrader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/.agents/skills/github-copilot-upgrader/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/.agents/skills/github-copilot-upgrader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/agent-customization/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/agent-customization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/create-instructions/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/create-instructions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/get-search-view-results/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/get-search-view-results/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/project-setup-info-local/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/project-setup-info-local/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/install-vscode-extension/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/install-vscode-extension/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": "extensions/copilot/assets/prompts/skills/project-setup-info-context7/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/extensions/copilot/assets/prompts/skills/project-setup-info-context7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/otel/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/otel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/hygiene/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/hygiene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/sessions/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/sessions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/chat-perf/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/chat-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/add-policy/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/add-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/unit-tests/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/ux-theming/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/ux-theming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/fix-errors/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/fix-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/smoke-tests/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/smoke-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/accessibility/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/ux-css-layout/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/ux-css-layout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/code-oss-logs/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/code-oss-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/azure-pipelines/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/azure-pipelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/fix-ci-failures/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/fix-ci-failures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/integration-tests/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/integration-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/memory-leak-audit/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/memory-leak-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/component-fixtures/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/component-fixtures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/auto-perf-optimize/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/auto-perf-optimize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/update-screenshots/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/update-screenshots/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/cpu-profile-analysis/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/cpu-profile-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/author-contributions/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/author-contributions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/vscode-dev-workbench/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/vscode-dev-workbench/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/heap-snapshot-analysis/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/heap-snapshot-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/tool-rename-deprecation/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/tool-rename-deprecation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neuralinverse",
+      "path": ".github/skills/chat-customizations-editor/SKILL.md",
+      "github_url": "https://github.com/NeuralInverse/neuralinverse/tree/main/.github/skills/chat-customizations-editor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NeuralInverse/neuralinverse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:32:12Z"
+}
