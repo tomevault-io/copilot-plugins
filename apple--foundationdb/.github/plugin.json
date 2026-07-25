@@ -1,0 +1,9 @@
+{
+  "name": "apple--foundationdb",
+  "displayName": "foundationdb",
+  "description": "foundationdb",
+  "version": "1.0.0",
+  "author": "apple",
+  "homepage": "https://github.com/apple/foundationdb",
+  "skills": []
+}
