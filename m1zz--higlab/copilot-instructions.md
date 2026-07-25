@@ -84,4 +84,4 @@ HIG Lab contains 50 AI Reference documents for Apple frameworks in the `ai-refer
 
 ---
 > Source: [M1zz/HIGLab](https://github.com/M1zz/HIGLab) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
