@@ -1,0 +1,69 @@
+{
+  "name": "nodatime",
+  "owner": "nodatime",
+  "repo": "nodatime",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nodatime",
+      "path": ".claude/skills/github/SKILL.md",
+      "github_url": "https://github.com/nodatime/nodatime/tree/main/.claude/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nodatime",
+      "path": ".claude/skills/gof-patterns/SKILL.md",
+      "github_url": "https://github.com/nodatime/nodatime/tree/main/.claude/skills/gof-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nodatime",
+      "path": ".claude/skills/csharp-best-practices/SKILL.md",
+      "github_url": "https://github.com/nodatime/nodatime/tree/main/.claude/skills/csharp-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nodatime",
+      "path": ".claude/skills/nodatime-test-conventions/SKILL.md",
+      "github_url": "https://github.com/nodatime/nodatime/tree/main/.claude/skills/nodatime-test-conventions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nodatime/nodatime",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:44:07Z"
+}
