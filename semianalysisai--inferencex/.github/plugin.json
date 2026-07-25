@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "SemiAnalysisAI",
   "homepage": "https://github.com/SemiAnalysisAI/InferenceX",
-  "skills": []
+  "skills": [
+    {
+      "name": "InferenceX",
+      "description": ""
+    }
+  ]
 }
