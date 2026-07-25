@@ -1,0 +1,9 @@
+{
+  "name": "jitsi--jitsi-meet-electron-sdk",
+  "displayName": "jitsi-meet-electron-sdk",
+  "description": "jitsi-meet-electron-sdk",
+  "version": "1.0.0",
+  "author": "jitsi",
+  "homepage": "https://github.com/jitsi/jitsi-meet-electron-sdk",
+  "skills": []
+}
