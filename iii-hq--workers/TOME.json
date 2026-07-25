@@ -1,0 +1,183 @@
+{
+  "name": "workers",
+  "owner": "iii-hq",
+  "repo": "workers",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "workers",
+      "path": "email/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/email/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "shell/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/shell/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "database/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/database/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "iii-directory/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/iii-directory/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "codex/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/codex/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "harness/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/harness/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "claude-code/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/claude-code/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "telegram-bot/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/telegram-bot/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "pi/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/pi/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "hermes/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/hermes/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "opencode/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/opencode/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "cron/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/cron/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "http/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/http/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "grok/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/grok/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "slack/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/slack/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": ".claude/skills/release-sync/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/.claude/skills/release-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "state/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/state/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "queue/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/queue/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "devin/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/devin/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "pubsub/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/pubsub/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "bridge/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/bridge/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "worktree/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/worktree/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "workers",
+      "path": "scrapling/skills/SKILL.md",
+      "github_url": "https://github.com/iii-hq/workers/tree/main/scrapling/skills/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iii-hq/workers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:40:38Z"
+}
