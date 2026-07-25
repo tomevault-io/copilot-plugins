@@ -1,0 +1,9 @@
+{
+  "name": "snowplow--snowplow-javascript-tracker",
+  "displayName": "snowplow-javascript-tracker",
+  "description": "snowplow-javascript-tracker",
+  "version": "1.0.0",
+  "author": "snowplow",
+  "homepage": "https://github.com/snowplow/snowplow-javascript-tracker",
+  "skills": []
+}
