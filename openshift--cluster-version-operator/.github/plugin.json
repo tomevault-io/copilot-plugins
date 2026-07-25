@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-version-operator",
+  "displayName": "cluster-version-operator",
+  "description": "cluster-version-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-version-operator",
+  "skills": []
+}
