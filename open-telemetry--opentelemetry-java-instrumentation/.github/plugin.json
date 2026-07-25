@@ -1,0 +1,14 @@
+{
+  "name": "open-telemetry--opentelemetry-java-instrumentation",
+  "displayName": "opentelemetry-java-instrumentation",
+  "description": "opentelemetry-java-instrumentation",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-java-instrumentation",
+  "skills": [
+    {
+      "name": "opentelemetry-java-instrumentation",
+      "description": ""
+    }
+  ]
+}
