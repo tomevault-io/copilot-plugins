@@ -1,0 +1,9 @@
+{
+  "name": "arpitbbhayani--the-daily-diff",
+  "displayName": "the-daily-diff",
+  "description": "The Daily Diff is a web-based curated feed that aggregates and presents daily technical papers and articles from sources like arXiv and Hacker News. It organizes articles chronologically by day, ranks",
+  "version": "1.0.0",
+  "author": "arpitbbhayani",
+  "homepage": "https://github.com/arpitbbhayani/the-daily-diff",
+  "skills": []
+}
