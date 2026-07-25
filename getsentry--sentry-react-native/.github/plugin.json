@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-react-native",
+  "displayName": "sentry-react-native",
+  "description": "sentry-react-native",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-react-native",
+  "skills": []
+}
