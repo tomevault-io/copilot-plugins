@@ -1,0 +1,14 @@
+{
+  "name": "jeka-dev--jeka",
+  "displayName": "jeka",
+  "description": "jeka",
+  "version": "1.0.0",
+  "author": "jeka-dev",
+  "homepage": "https://github.com/jeka-dev/jeka",
+  "skills": [
+    {
+      "name": "jeka",
+      "description": ""
+    }
+  ]
+}
