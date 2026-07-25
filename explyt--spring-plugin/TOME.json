@@ -1,0 +1,129 @@
+{
+  "name": "spring-plugin",
+  "owner": "explyt",
+  "repo": "spring-plugin",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/coding-guard/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/coding-guard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-ui-platform/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-ui-platform/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/github-bugs-triage/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/github-bugs-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/github-issue-manager/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/github-issue-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-scope-resolver/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-scope-resolver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-async-lifecycle/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-async-lifecycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-context-builder/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-context-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-psi-vfs-indexing/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-psi-vfs-indexing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-core-correctness/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-core-correctness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-findings-validator/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-findings-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-statistic-coverage/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-statistic-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-ui-leak-via-listeners/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-ui-leak-via-listeners/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/plugin-code-review-orchestrated/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/plugin-code-review-orchestrated/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "spring-plugin",
+      "path": ".explyt/skills/review-persistence-security-resources/SKILL.md",
+      "github_url": "https://github.com/explyt/spring-plugin/tree/main/.explyt/skills/review-persistence-security-resources/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/explyt/spring-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:44:49Z"
+}
