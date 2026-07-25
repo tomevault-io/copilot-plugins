@@ -1,0 +1,9 @@
+{
+  "name": "agent-threat-rule--agent-threat-rules",
+  "displayName": "agent-threat-rules",
+  "description": "agent-threat-rules",
+  "version": "1.0.0",
+  "author": "Agent-Threat-Rule",
+  "homepage": "https://github.com/Agent-Threat-Rule/agent-threat-rules",
+  "skills": []
+}
