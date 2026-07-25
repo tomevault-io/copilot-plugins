@@ -1,0 +1,57 @@
+{
+  "name": "azure-diagrams-skill",
+  "owner": "cmb211087",
+  "repo": "azure-diagrams-skill",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-diagrams",
+      "path": "skills/azure-diagrams",
+      "github_url": "https://github.com/cmb211087/azure-diagrams-skill/tree/main/skills/azure-diagrams",
+      "description": ""
+    },
+    {
+      "name": "azure-diagrams-skill",
+      "path": "skills/azure-diagrams/SKILL.md",
+      "github_url": "https://github.com/cmb211087/azure-diagrams-skill/tree/main/skills/azure-diagrams/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cmb211087/azure-diagrams-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:50:24Z"
+}
