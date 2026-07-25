@@ -1,6 +1,6 @@
-# dotprompt
+# AI instruction files for dotprompt
 
-> Tome by [google](https://github.com/google/dotprompt) — distributed by [TomeVault](https://tomevault.io/claim/google)
+> Sourced from [google/dotprompt](https://github.com/google/dotprompt), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `GEMINI.md` in [google/dotprompt](https://github.com/google/dot
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/google](https://tomevault.io/claim/google)
+From [google/dotprompt](https://github.com/google/dotprompt) — a repo with 551+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/google) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-s -->
