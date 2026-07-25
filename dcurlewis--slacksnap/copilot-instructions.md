@@ -1,66 +1,74 @@
-## configuration-management
+## markdown-export
 
-> **Configuration flow**: [src/config.js](mdc:src/config.js) ↔ Chrome Storage ↔ [options.html](mdc:options.html)
+> Generated markdown follows this pattern:
 
 
-# Configuration Management
+# Markdown Export Formatting
 
-## Settings Architecture
+## Export Structure
 
-**Configuration flow**: [src/config.js](mdc:src/config.js) ↔ Chrome Storage ↔ [options.html](mdc:options.html)
+Generated markdown follows this pattern:
 
-## Default Configuration
+```markdown
+# Slack Export: {channel-name}
+*Exported: {datetime}*
 
-Always define defaults in [src/config.js](mdc:src/config.js):
+---
 
-```javascript
-const DEFAULT_CONFIG = {
-  downloadDirectory: "slack-exports",
-  fileNameFormat: "YYYYMMDD-HHmm-{channel}.md",
-  includeTimestamps: true,
-  includeThreadReplies: true
-};
+**Sender Name** (timestamp):
+Message content here...
+
+**Thread Replies:**
+  • **Reply Sender**: Reply content
 ```
 
-## Storage Patterns
+## Content Processing
 
-**Reading config**:
+**Text cleaning** (in [src/utils.js](mdc:src/utils.js)):
 
-```javascript
-const config = await chrome.storage.sync.get(DEFAULT_CONFIG);
-// Result automatically merges with defaults for missing keys
-```
+- Remove extra whitespace and normalize line breaks
+- Replace non-breaking spaces with regular spaces
+- Trim leading/trailing whitespace
 
-**Saving config**:
+**Markdown escaping**:
 
-```javascript
-await chrome.storage.sync.set(newConfig);
-```
+- Escape special characters: `* _` ~ [ ] ( ) ! # |`
+- Preserve intentional formatting
+- Handle backslashes properly
 
-## Options Page Integration
+## Special Content Types
 
-- **Load on page ready**: Populate form fields from stored config
-- **Save on form submit**: Validate and store form data
-- **Reset functionality**: Restore defaults and save
-- **User feedback**: Show status messages for save/error states
+**Code blocks**:
 
-## Filename Template System
+- Detect `<pre>`, `<code>`, `.c-mrkdwn__code` elements
+- Wrap in triple backticks: ````\n{code}\n````
+- Preserve original formatting
 
-Template format: `"YYYYMMDD-HHmm-{channel}.md"`
+**Links**:
 
-**Replacement tokens**:
+- Convert `<a href="url">text</a>` to `[text](url)`
+- Skip anchor links (href="#...")
+- Preserve link text if URL extraction fails
 
-- `YYYY`, `MM`, `DD`, `HH`, `mm` - Date/time components
-- `{channel}` - Sanitized channel name
+**Thread replies**:
 
-**Implementation**: See `generateFilename()` in [src/utils.js](mdc:src/utils.js)
+- Indent with bullet points
+- Include sender name in bold
+- Maintain chronological order
 
-## Validation
+## Timestamp Formatting
 
-- **Sanitize filenames**: Remove invalid filesystem characters
-- **Validate directories**: Ensure directory names are valid
-- **Fallback values**: Always provide sensible defaults
-- **Error handling**: Graceful failure with user notification
+- **Input**: ISO datetime or Slack's time format
+- **Output**: Human-readable format like "10:15 AM"
+- **Fallback**: Use original string if parsing fails
+- **Configuration**: Controlled by `includeTimestamps` setting
+
+## File Generation
+
+- **Filename**: Based on template in config
+- **Content-Type**: `text/markdown`
+- **Encoding**: UTF-8
+- **Download**: Via Chrome downloads API with automatic save
 
 ---
 > Source: [dcurlewis/slacksnap](https://github.com/dcurlewis/slacksnap) — distributed by [TomeVault](https://tomevault.io).
