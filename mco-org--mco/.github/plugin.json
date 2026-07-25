@@ -1,0 +1,22 @@
+{
+  "name": "mco-org--mco",
+  "displayName": "mco",
+  "description": "mco",
+  "version": "1.0.0",
+  "author": "mco-org",
+  "homepage": "https://github.com/mco-org/mco",
+  "skills": [
+    {
+      "name": "mco",
+      "description": ""
+    },
+    {
+      "name": "mco",
+      "description": ""
+    },
+    {
+      "name": "mco",
+      "description": ""
+    }
+  ]
+}
