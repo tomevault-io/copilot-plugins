@@ -2,9 +2,9 @@
   "name": "opensteuerauszug",
   "owner": "vroonhof",
   "repo": "opensteuerauszug",
-  "description": "Tool to generate swiss e-steuerauszug from banking exports",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vroonhof/opensteuerauszug",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T06:04:00Z"
+  "distributed_at": "2026-07-25T01:15:14Z"
 }
