@@ -1,29 +1,32 @@
 ## filterable
 
-> Source code lives under `src/Filterable/`, centred around the abstract `Filter` base class and trait-based “concerns” under `src/Filterable/Concerns/`. Contracts and Eloquent helpers are in `src/Filterable/Contracts/` and `src/Filterable/Traits/`. The Artisan generator and stubs are in `src/Filterable/Console/`. Executable tooling scripts are stored in `bin/`, shared media in `assets/`, and tests (plus fixtures) in `tests/`, which boot an Orchestra Testbench environment. Composer already maps `Filterable\\` and the testing namespaces; place any new factories inside `database/factories` to maintain autoloading.
+> - This package centres on the abstract `Filter` class in `src/Filterable/Filter.php`, extended by application-specific filters that receive an `Illuminate\Http\Request`.
 
-# Repository Guidelines
+# Copilot Coding Guidelines
 
-## Project Structure & Module Organization
+## Domain Context
+- This package centres on the abstract `Filter` class in `src/Filterable/Filter.php`, extended by application-specific filters that receive an `Illuminate\Http\Request`.
+- Optional behaviour (validation, caching, logging, rate limiting, memory optimisation, etc.) is implemented via traits in `src/Filterable/Concerns/`; Copilot-generated code must compose with these traits instead of duplicating logic.
+- Eloquent models opt into filtering by using `Filterable\Traits\Filterable`; Artesian generator stubs live in `src/Filterable/Console/stubs/`.
 
-Source code lives under `src/Filterable/`, centred around the abstract `Filter` base class and trait-based “concerns” under `src/Filterable/Concerns/`. Contracts and Eloquent helpers are in `src/Filterable/Contracts/` and `src/Filterable/Traits/`. The Artisan generator and stubs are in `src/Filterable/Console/`. Executable tooling scripts are stored in `bin/`, shared media in `assets/`, and tests (plus fixtures) in `tests/`, which boot an Orchestra Testbench environment. Composer already maps `Filterable\\` and the testing namespaces; place any new factories inside `database/factories` to maintain autoloading.
+## Coding Rules
+- Follow PSR-12: four-space indentation, trailing commas in multi-line arrays, strict type hints, and ordered imports.
+- Prefer fluent APIs and immutable-looking helpers; expose feature toggles via `$this->enableFeature()` rather than bespoke flags.
+- When adding new filter methods, camelCase the method name to match the request key (`status` → `status()`), or map via `$filterMethodMap`.
+- Respect existing caches and logging patterns by reusing helpers (`buildCacheKey()`, `logInfo()`); do not access the logger or cache container directly.
+- Keep public APIs typed and documented; add succinct docblocks if behaviour is non-obvious (e.g. transforms, rate limits).
 
-## Build, Test, and Development Commands
+## Testing Expectations
+- Every new concern or feature flag should be covered by PHPUnit tests under `tests/`, using Orchestra Testbench.
+- Mock collaborators (cache, logger, rate limiter) with Mockery, and assert on state using `getDebugInfo()` or dedicated getters.
+- Provide happy-path, edge, and failure tests—mirror patterns from existing concern tests like `CachingTest.php` or `HandlesRateLimitingTest.php`.
 
-Run `composer install` to hydrate dependencies, then rely on the Composer scripts: `composer lint` (delegates to `bin/lint.sh` for Duster + syntax checks), `composer fix` (formats via Pint/Duster and saves a log), and `composer test` (wraps `bin/test.sh` which accepts flags such as `--filter=HandlesRateLimitingTest`, `--coverage`, `--parallel`, or `--test=tests/HandlesFilterablesTest.php`). When adding commands, keep the scripts directory executable (`chmod +x bin/*.sh`).
-
-## Coding Style & Naming Conventions
-
-Code follows PSR-12 with four-space indentation enforced by Pint/Duster. Match namespaces to paths (`Filterable\\Concerns\\OptimizesQueries`, etc.) and stick to the existing naming patterns: suffix traits with the capability (`ManagesMemory`), concrete filters with `Filter`, and console commands under `Console`. Keep feature toggles (`$features`) and options arrays cohesive—extend the existing map rather than inventing new flags. Prefer expressive method-level docblocks when behaviour is subtle (e.g. cache key generation), otherwise lean on descriptive naming.
-
-## Testing Guidelines
-
-The suite is PHPUnit-based (`phpunit.xml.dist`) and runs inside Orchestra Testbench. Follow the established pattern of placing concern-specific tests at the project root (e.g. `CachingTest.php`, `HandlesRateLimitingTest.php`) and keep reusable doubles under `tests/Fixtures/`. Use partial mocks for collaborators (cache, logger, rate limiter) and prefer data providers or inline anonymous filters for edge cases. Generate coverage with `./bin/test.sh --coverage --filter=Namespace\\Class` before shipping complex features, and assert on state via `getDebugInfo()` when relevant.
-
-## Commit & Pull Request Guidelines
-
-Commits should be short, imperative sentences (`Add smart caching heuristic`, `Tighten rate limit checks`). Keep behavioural, formatting, and tooling changes in separate commits where practical. In pull requests, outline the capability touched (e.g. “Adds new trait”, “Updates generator stub”), document any newly enabled features or config knobs, and list verification commands (`composer lint`, `composer test`, extra manual checks). Surface breaking changes or migrations explicitly and attach debug output or SQL snippets if they inform reviewers.
+## Anti-Patterns to Avoid
+- Do not re-run `apply()` on the same filter without calling `reset()`.
+- Avoid duplicating concern logic directly inside filters; extend or compose existing traits instead.
+- Do not introduce framework-specific globals (`request()`, `auth()`) inside reusable traits—inject dependencies through the constructor or method parameters.
+- Refrain from adding commands or scripts outside the `bin/` directory or Composer scripts without project-owner approval.
 
 ---
 > Source: [Thavarshan/filterable](https://github.com/Thavarshan/filterable) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
