@@ -1,48 +1,38 @@
 ## rocketride-server
 
-> **Before ANY Rocket Ride code, read ALL 6 files at `apps/vscode/docs/api/`:**
+> <!-- ROCKETRIDE:BEGIN -->
 
-# Rocket Ride Data Toolchain - AI Assistant Instructions
+<!-- ROCKETRIDE:BEGIN -->
 
-## Read ALL Documentation First
+# RocketRide: AI Pipeline Builder
 
-**Before ANY Rocket Ride code, read ALL 6 files at `apps/vscode/docs/api/`:**
+Use RocketRide when building AI pipelines, document processing, RAG systems, or data integration.
 
-1. **`ROCKETRIDE_QUICKSTART.md`** ← Start here, copy working examples
-2. `ROCKETRIDE_README.md`
-3. `ROCKETRIDE_python_API.md` or `ROCKETRIDE_typescript_API.md`
-4. `ROCKETRIDE_PIPELINE_RULES.md`
-5. `ROCKETRIDE_COMPONENT_REFERENCE.md`
-6. `ROCKETRIDE_COMMON_MISTAKES.md`
+## Documentation
 
-**If user request is ambiguous: STOP and ask. Do NOT guess.**
+Full docs: `.rocketride/docs/`
 
----
+**Read the relevant doc(s) before generating any RocketRide code.**
 
-## ✓ Before Submitting Code
+| File                              | Read when...                                                      |
+| --------------------------------- | ----------------------------------------------------------------- |
+| ROCKETRIDE_README.md              | Starting any RocketRide work: overview + mandatory setup steps   |
+| ROCKETRIDE_QUICKSTART.md          | Writing first pipeline: complete working examples (Python & TS)  |
+| ROCKETRIDE_PIPELINE_RULES.md      | Defining pipelines: structure, lane wiring, config rules         |
+| ROCKETRIDE_COMPONENT_REFERENCE.md | Choosing/configuring components: all providers and config fields |
+| ROCKETRIDE_COMMON_MISTAKES.md     | Before finalizing: known pitfalls to avoid                       |
+| ROCKETRIDE_python_API.md          | Python SDK: client methods, types, patterns                      |
+| ROCKETRIDE_typescript_API.md      | TypeScript SDK: client methods, types, patterns                  |
+| ROCKETRIDE_OBSERVABILITY.md       | Consuming runtime logs, lifecycle events, and pipeline traces     |
 
-- [ ] Read ROCKETRIDE_QUICKSTART.md and used as template
-- [ ] Read all 6 documentation files
-- [ ] Verified code follows documented patterns
-- [ ] Quoted relevant documentation in response
+## Before Writing ANY RocketRide Code
 
-**Cannot check all boxes? Don't submit code.**
-
----
-
-## Documentation Guide
-
-| Need | File |
-|------|------|
-| Working examples | ROCKETRIDE_QUICKSTART.md |
-| Setup checklist | ROCKETRIDE_README.md |
-| Client methods | ROCKETRIDE_python_API.md or ROCKETRIDE_typescript_API.md |
-| Pipeline rules | ROCKETRIDE_PIPELINE_RULES.md |
-| Components | ROCKETRIDE_COMPONENT_REFERENCE.md |
-| Troubleshooting | ROCKETRIDE_COMMON_MISTAKES.md |
-
-**Documentation at `apps/vscode/docs/api/` is the source of truth.**
+1. Read `.rocketride/docs/ROCKETRIDE_README.md` for mandatory setup requirements
+2. Read the relevant API doc (Python or TypeScript) for your language
+3. Read `.rocketride/docs/ROCKETRIDE_PIPELINE_RULES.md` + `.rocketride/docs/ROCKETRIDE_COMPONENT_REFERENCE.md`
+4. Read `.rocketride/docs/ROCKETRIDE_COMMON_MISTAKES.md` before finalizing
+<!-- ROCKETRIDE:END -->
 
 ---
 > Source: [rocketride-org/rocketride-server](https://github.com/rocketride-org/rocketride-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
