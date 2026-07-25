@@ -4,7 +4,7 @@
   "repo": "Spec-Driven-Development",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FredAntB/Spec-Driven-Development",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T18:49:53Z"
+  "distributed_at": "2026-07-25T00:57:52Z"
 }
