@@ -1,0 +1,63 @@
+{
+  "name": "solo2",
+  "owner": "solokeys",
+  "repo": "solo2",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "solo2",
+      "path": "skills/solo2-cli/SKILL.md",
+      "github_url": "https://github.com/solokeys/solo2/tree/main/skills/solo2-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "solo2",
+      "path": "skills/solo2-examples/SKILL.md",
+      "github_url": "https://github.com/solokeys/solo2/tree/main/skills/solo2-examples/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "solo2",
+      "path": "skills/flash-solo-hacker/SKILL.md",
+      "github_url": "https://github.com/solokeys/solo2/tree/main/skills/flash-solo-hacker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/solokeys/solo2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:51:57Z"
+}
