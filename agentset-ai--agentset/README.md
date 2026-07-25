@@ -7,11 +7,11 @@ The open-source RAG platform: built-in citations, deep research, 22+ file format
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agentset-ai/agentset](https://github.com/agentset-ai/agentset).
+Original source: `CLAUDE.md` in [agentset-ai/agentset](https://github.com/agentset-ai/agentset).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
