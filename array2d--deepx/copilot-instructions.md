@@ -1,17 +1,22 @@
 ## deepx
 
-> + 这是唯一的Agents.md，无递归的Agents.md
+> 由于作者是py新手，请多注释python语法和库的用法
 
-## agent 规则
-+ 这是唯一的Agents.md，无递归的Agents.md
-+ Always respond in 中文
-+ 请节省代码行数，代码行数越少，质量越高
-+ 不要在代码中提供注释，除非我明确要求
+回答要求：
+Always respond in 中文
+不要回答重复的内容（如我提问中的代码）
+由于作者是py新手，请多注释python语法和库的用法
+不要增加"假设Tensor类在这个路径下"这种一眼就被看出是AI写的注释，不要让我的代码看起来像AI生成
 
-## deepx重要设计文件列表
-
-docs/deepxIR/deepxir.md //非常重要
+项目介绍：
+此项目名为deepx的py部分
+是deepx的python部分，项目路径为/home/lipeng/code/ai/deepx/front/py
+deepx的对外暴露的设计，尽可能接近pytorch的API
+deepx_py是前端，负责搭建深度学习模型,但并不参与实际数据存储和计算
+deepx_py虽然有类似pytorch的API,但只是调用executor内的对应实现
+deepx_py依赖网络api调用后端executor的计算
+deepx_py的每个OP，都会在executor内找到对应的实现
 
 ---
 > Source: [array2d/deepx](https://github.com/array2d/deepx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
