@@ -4,7 +4,7 @@
   "repo": "MovieDB-App",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/gabrielbmoro/MovieDB-App",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T22:51:30Z"
+  "distributed_at": "2026-07-25T02:36:55Z"
 }
