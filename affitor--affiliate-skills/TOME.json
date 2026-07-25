@@ -2,9 +2,9 @@
   "name": "affiliate-skills",
   "owner": "Affitor",
   "repo": "affiliate-skills",
-  "description": "50 AI agent skills for affiliate marketing. Research trending content, write data-backed posts, generate infographics, build landing pages, deploy \u2014 full flywheel with social intelligence. Works with Claude Code, Pi, ChatGPT, Gemini, Cursor, Windsurf, any AI.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Affitor/affiliate-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T00:06:05Z"
+  "distributed_at": "2026-07-25T19:02:57Z"
 }
