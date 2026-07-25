@@ -1,0 +1,9 @@
+{
+  "name": "aws--agent-toolkit-for-aws",
+  "displayName": "agent-toolkit-for-aws",
+  "description": "agent-toolkit-for-aws",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/agent-toolkit-for-aws",
+  "skills": []
+}
