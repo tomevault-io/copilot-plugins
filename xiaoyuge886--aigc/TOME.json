@@ -1,0 +1,225 @@
+{
+  "name": "aigc",
+  "owner": "xiaoyuge886",
+  "repo": "aigc",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aigc",
+      "path": ".claude/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/whodb/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/whodb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/meta_agent/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/meta_agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/todo-master/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/todo-master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/x_agent_skill/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/x_agent_skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/echarts_chart/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/echarts_chart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/data-analysis/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/agent-sql-pro/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/agent-sql-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/minio_uploader/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/minio_uploader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/planning_first/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/planning_first/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/docs-management/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/docs-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/smart_query_analyzer/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/smart_query_analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": ".claude/skills/planning-with-files/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/.claude/skills/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "backend/.claude/debug_skills/canvas-design/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/backend/.claude/debug_skills/canvas-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "backend/.claude/debug_skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/backend/.claude/debug_skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/playground/skills/playground/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/playground/skills/playground/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/plugin-dev/skills/mcp-integration/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/plugin-dev/skills/mcp-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/plugin-dev/skills/plugin-settings/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/plugin-dev/skills/plugin-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/plugin-dev/skills/hook-development/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/plugin-dev/skills/hook-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/plugin-dev/skills/skill-development/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/plugin-dev/skills/skill-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/plugin-dev/skills/agent-development/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/plugin-dev/skills/agent-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/example-plugin/skills/example-skill/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/example-plugin/skills/example-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/plugin-dev/skills/command-development/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/plugin-dev/skills/command-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/frontend-design/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/frontend-design/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/external_plugins/stripe/skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/external_plugins/stripe/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/claude-md-management/skills/claude-md-improver/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/claude-md-management/skills/claude-md-improver/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/skill-creator/skills/investment-due-diligence-report/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/skill-creator/skills/investment-due-diligence-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aigc",
+      "path": "plugins/claude-plugins-official-main/plugins/claude-code-setup/skills/claude-automation-recommender/SKILL.md",
+      "github_url": "https://github.com/xiaoyuge886/aigc/tree/main/plugins/claude-plugins-official-main/plugins/claude-code-setup/skills/claude-automation-recommender/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xiaoyuge886/aigc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T22:32:50Z"
+}
