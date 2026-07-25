@@ -1,0 +1,9 @@
+{
+  "name": "apache--teaclave-sgx-sdk",
+  "displayName": "teaclave-sgx-sdk",
+  "description": "teaclave-sgx-sdk",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/teaclave-sgx-sdk",
+  "skills": []
+}
