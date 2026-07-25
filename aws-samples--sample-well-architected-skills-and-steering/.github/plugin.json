@@ -5,18 +5,5 @@
   "version": "1.0.0",
   "author": "aws-samples",
   "homepage": "https://github.com/aws-samples/sample-well-architected-skills-and-steering",
-  "skills": [
-    {
-      "name": "sample-well-architected-skills-and-steering",
-      "description": ""
-    },
-    {
-      "name": "sample-well-architected-skills-and-steering",
-      "description": ""
-    },
-    {
-      "name": "sample-well-architected-skills-and-steering",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
