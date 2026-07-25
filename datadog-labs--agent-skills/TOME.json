@@ -1,0 +1,255 @@
+{
+  "name": "agent-skills",
+  "owner": "datadog-labs",
+  "repo": "agent-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-skills",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-pup/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-pup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-logs/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-docs/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-audit/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-monitors/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-monitors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-browser-sdk/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-browser-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/service-remapping/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/service-remapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/k8s-ssi/verify-ssi/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/k8s-ssi/verify-ssi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-browser-sdk/upgrade-v7/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-browser-sdk/upgrade-v7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/k8s-ssi/enable-ssi/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/k8s-ssi/enable-ssi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-audit/compliance-report/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-audit/compliance-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-audit/ai-activity-audit/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-audit/ai-activity-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/linux-ssi/enable-ssi/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/linux-ssi/enable-ssi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/linux-ssi/verify-ssi/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/linux-ssi/verify-ssi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/k8s-ssi/agent-install/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/k8s-ssi/agent-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/linux-ssi/agent-install/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/linux-ssi/agent-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/k8s-ssi/troubleshoot-ssi/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/k8s-ssi/troubleshoot-ssi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-audit/security-investigation/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-audit/security-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-software-delivery/unblock-pr/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-software-delivery/unblock-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-security/csm/ownership-agent/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-security/csm/ownership-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-audit/cost-spike-investigation/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-audit/cost-spike-investigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/k8s-ssi/onboarding-summary/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/k8s-ssi/onboarding-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apm/linux-ssi/onboarding-summary/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apm/linux-ssi/onboarding-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-software-delivery/triage-flaky-test/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-software-delivery/triage-flaky-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-apps/datadog-app/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-apps/datadog-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-browser-sdk/upgrade-v5/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-browser-sdk/upgrade-v5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dd-browser-sdk/upgrade-v6/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/dd-browser-sdk/upgrade-v6/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "agent-observability/agent-observability-trace-rca/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/agent-observability/agent-observability-trace-rca/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "agent-observability/agent-observability-eval-pipeline/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/agent-observability/agent-observability-eval-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "agent-observability/agent-observability-eval-bootstrap/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/agent-observability/agent-observability-eval-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "agent-observability/agent-observability-session-classify/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/agent-observability/agent-observability-session-classify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "agent-observability/agent-observability-experiment-analyzer/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/agent-observability/agent-observability-experiment-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "agent-observability/agent-observability-experiment-py-bootstrap/SKILL.md",
+      "github_url": "https://github.com/datadog-labs/agent-skills/tree/main/agent-observability/agent-observability-experiment-py-bootstrap/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/datadog-labs/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T16:32:31Z"
+}
