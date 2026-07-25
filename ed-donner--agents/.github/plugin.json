@@ -1,0 +1,14 @@
+{
+  "name": "ed-donner--agents",
+  "displayName": "agents",
+  "description": "agents",
+  "version": "1.0.0",
+  "author": "ed-donner",
+  "homepage": "https://github.com/ed-donner/agents",
+  "skills": [
+    {
+      "name": "agents",
+      "description": ""
+    }
+  ]
+}
