@@ -1,0 +1,9 @@
+{
+  "name": "cosmos--cosmos-sdk",
+  "displayName": "cosmos-sdk",
+  "description": "cosmos-sdk",
+  "version": "1.0.0",
+  "author": "cosmos",
+  "homepage": "https://github.com/cosmos/cosmos-sdk",
+  "skills": []
+}
