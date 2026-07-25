@@ -1,0 +1,51 @@
+{
+  "name": "Agentkey",
+  "owner": "chainbase-labs",
+  "repo": "Agentkey",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Agentkey",
+      "path": "skills/agentkey/SKILL.md",
+      "github_url": "https://github.com/chainbase-labs/Agentkey/tree/main/skills/agentkey/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chainbase-labs/Agentkey",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:50:16Z"
+}
