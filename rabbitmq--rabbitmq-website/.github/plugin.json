@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--rabbitmq-website",
+  "displayName": "rabbitmq-website",
+  "description": "rabbitmq-website",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://github.com/rabbitmq/rabbitmq-website",
+  "skills": []
+}
