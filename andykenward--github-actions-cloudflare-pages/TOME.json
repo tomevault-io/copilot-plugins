@@ -1,0 +1,75 @@
+{
+  "name": "github-actions-cloudflare-pages",
+  "owner": "andykenward",
+  "repo": "github-actions-cloudflare-pages",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github-actions-cloudflare-pages",
+      "path": ".agents/skills/wrangler/SKILL.md",
+      "github_url": "https://github.com/andykenward/github-actions-cloudflare-pages/tree/main/.agents/skills/wrangler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-actions-cloudflare-pages",
+      "path": ".agents/skills/cloudflare/SKILL.md",
+      "github_url": "https://github.com/andykenward/github-actions-cloudflare-pages/tree/main/.agents/skills/cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-actions-cloudflare-pages",
+      "path": ".agents/skills/graphql-operations/SKILL.md",
+      "github_url": "https://github.com/andykenward/github-actions-cloudflare-pages/tree/main/.agents/skills/graphql-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-actions-cloudflare-pages",
+      "path": ".agents/skills/github-actions-docs/SKILL.md",
+      "github_url": "https://github.com/andykenward/github-actions-cloudflare-pages/tree/main/.agents/skills/github-actions-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-actions-cloudflare-pages",
+      "path": ".agents/skills/typescript-advanced-types/SKILL.md",
+      "github_url": "https://github.com/andykenward/github-actions-cloudflare-pages/tree/main/.agents/skills/typescript-advanced-types/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/andykenward/github-actions-cloudflare-pages",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T19:26:04Z"
+}
