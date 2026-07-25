@@ -1,0 +1,14 @@
+{
+  "name": "scikit-build--scikit-build-core",
+  "displayName": "scikit-build-core",
+  "description": "scikit-build-core",
+  "version": "1.0.0",
+  "author": "scikit-build",
+  "homepage": "https://github.com/scikit-build/scikit-build-core",
+  "skills": [
+    {
+      "name": "scikit-build-core",
+      "description": ""
+    }
+  ]
+}
