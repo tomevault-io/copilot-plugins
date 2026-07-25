@@ -3,8 +3,8 @@
   "owner": "umijs",
   "repo": "qiankun",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "qiankun",
+      "path": ".claude/skills/release-changelog/SKILL.md",
+      "github_url": "https://github.com/umijs/qiankun/tree/main/.claude/skills/release-changelog/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/umijs/qiankun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T06:59:13Z"
+  "distributed_at": "2026-07-25T14:44:05Z"
 }
