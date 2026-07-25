@@ -1,0 +1,14 @@
+{
+  "name": "ros-claw--rosclaw",
+  "displayName": "rosclaw",
+  "description": "rosclaw",
+  "version": "1.0.0",
+  "author": "ros-claw",
+  "homepage": "https://github.com/ros-claw/rosclaw",
+  "skills": [
+    {
+      "name": "rosclaw",
+      "description": ""
+    }
+  ]
+}
