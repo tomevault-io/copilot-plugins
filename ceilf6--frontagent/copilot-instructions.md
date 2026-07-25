@@ -87,4 +87,4 @@ This project is indexed by GitNexus as **FrontAgent** (6641 symbols, 13666 relat
 
 ---
 > Source: [ceilf6/FrontAgent](https://github.com/ceilf6/FrontAgent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
