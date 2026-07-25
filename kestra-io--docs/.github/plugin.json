@@ -1,0 +1,14 @@
+{
+  "name": "kestra-io--docs",
+  "displayName": "docs",
+  "description": "docs",
+  "version": "1.0.0",
+  "author": "kestra-io",
+  "homepage": "https://github.com/kestra-io/docs",
+  "skills": [
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
+}
