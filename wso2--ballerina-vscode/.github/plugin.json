@@ -1,0 +1,18 @@
+{
+  "name": "wso2--ballerina-vscode",
+  "displayName": "ballerina-vscode",
+  "description": "ballerina-vscode",
+  "version": "1.0.0",
+  "author": "wso2",
+  "homepage": "https://github.com/wso2/ballerina-vscode",
+  "skills": [
+    {
+      "name": "ballerina-vscode",
+      "description": ""
+    },
+    {
+      "name": "ballerina-vscode",
+      "description": ""
+    }
+  ]
+}
