@@ -1,0 +1,14 @@
+{
+  "name": "chdb-io--chdb",
+  "displayName": "chdb",
+  "description": "chdb",
+  "version": "1.0.0",
+  "author": "chdb-io",
+  "homepage": "https://github.com/chdb-io/chdb",
+  "skills": [
+    {
+      "name": "chdb",
+      "description": ""
+    }
+  ]
+}
