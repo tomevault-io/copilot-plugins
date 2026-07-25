@@ -1,115 +1,89 @@
 ## alpaca-main
 
-> This project is a comprehensive **Alpaca API Wrapper** designed for stock market analysis, backtesting, and algorithmic trading. It is structured as a **monorepo** managed by **NX**, featuring a Django-based backend and a React-based frontend.
+> This is a **React 19** Single Page Application (SPA) built with **Vite 7**. It serves as the user interface for the Alpaca Wrapper, featuring real-time data visualization, interactive charts, and dashboard management.
 
-# Alpaca API Wrapper Project Context
+# Frontend Context (React + Vite)
 
-## Project Overview
-This project is a comprehensive **Alpaca API Wrapper** designed for stock market analysis, backtesting, and algorithmic trading. It is structured as a **monorepo** managed by **NX**, featuring a Django-based backend and a React-based frontend.
+## Overview
 
-The system is fully Dockerized and includes real-time capabilities via WebSockets, asynchronous task processing with Celery, and a modern UI for data visualization.
+This is a **React 19** Single Page Application (SPA) built with **Vite 7**. It serves as the user interface for the Alpaca Wrapper, featuring real-time data visualization, interactive charts, and dashboard management.
 
 ## Architecture
 
-### Backend (`/backend`)
-*   **Framework:** Django 5.2 + Django REST Framework 3.16
-*   **Real-time:** Django Channels (WebSockets) using Redis
-*   **Async Tasks:** Celery + Celery Beat (Scheduler)
-*   **Database:** PostgreSQL
-*   **Cache/Broker:** Redis
-*   **Package Manager:** `uv` (inferred from `pyproject.toml` structure/speed) or standard pip.
+### Feature-Based Structure (`src/features`)
 
-### Frontend (`/frontend`)
-*   **Framework:** React 19 + Vite 7
-*   **Language:** TypeScript
-*   **UI Library:** Tailwind CSS, Radix UI (headless components), Shadcn/UI patterns.
-*   **State Management:** Redux Toolkit
-*   **Data Visualization:** Lightweight Charts, Chart.js
-*   **Testing:** Vitest
+The codebase is organized by **domain features** rather than technical layers. Each folder in `src/features/` contains the components, logic, and state relevant to that specific feature.
 
-### Infrastructure
-*   **Orchestration:** Docker Compose
-*   **Monorepo Tool:** NX (handles caching, task running)
+- **`accounts`**: User account management.
+- **`assets`**: Stock/Crypto asset display and info.
+- **`auth`**: Login, Signup, and protection logic.
+- **`graphs`**: Charting components (Lightweight Charts/Chart.js).
+- **`paperTrading`**: Interfaces for the trading simulator.
+- **`watchlists`**: Watchlist management UI.
 
-## Getting Started
+### State Management (`src/app`)
 
-### Prerequisites
-*   **Node.js** (v18+) & **npm**
-*   **Docker** & **Docker Compose**
-*   **Alpaca API Credentials** (Key & Secret)
+- **Redux Toolkit**: Used for global state.
+- **`store.ts`**: The central Redux store configuration.
+- **`analyticsMiddleware.ts`**: Custom middleware for tracking actions.
 
-### Installation
-1.  Clone the repository.
-2.  Create `.envs/.env` with your Alpaca credentials (see `.envs` folder).
-3.  Run setup:
-    ```bash
-    npm install
-    ```
+### UI & Styling
 
-### Running the Application
-*   **Full Stack (Recommended):**
-    ```bash
-    npm run dev
-    ```
-    This starts the Frontend (Vite) and Backend infrastructure (Docker) in parallel.
+- **Tailwind CSS**: Utility-first styling.
+- **Radix UI**: Headless, accessible UI primitives (Dialogs, Dropdowns, etc.).
+- **Icons**: `react-icons` and `lucide-react`.
 
-*   **Individual Services:**
-    *   Frontend only: `npm run dev:frontend`
-    *   Backend only: `npm run dev:backend`
-    *   Docker Infra only: `npm run docker:up`
+## Key Technologies
 
-## Key Commands
-
-| Action | Command | Description |
-| :--- | :--- | :--- |
-| **Start Dev** | `npm run dev` | Starts Frontend + Backend Infra |
-| **Stop Docker** | `npm run docker:down` | Stops all Docker containers |
-| **Linting** | `npm run lint` | Lints both Backend (Ruff) and Frontend (ESLint) |
-| **Formatting** | `npm run format` | Formats code (Black/Prettier) |
-| **Testing** | `npm run test` | Runs Pytest and Vitest |
-| **Migrations** | `npm run makemigrations:local` | Creates Django migrations locally |
-| **Apply Migrations** | `npm run migrate` | Applies migrations inside Docker |
-| **Build Frontend** | `npm run build` | Builds React app for production |
-
-## Directory Structure
-
-*   **`backend/`**: Django project root.
-    *   `apps/`: Django apps (`account`, `core`, `home`, `paper_trading`).
-    *   `main/`: Project settings and configuration.
-    *   `scripts/`: Shell scripts for container entrypoints.
-*   **`frontend/`**: React application.
-    *   `src/features/`: Feature-based folder structure.
-    *   `src/shared/`: Shared components and utilities.
-*   **`charts/`**: Helm charts for Kubernetes deployment.
-*   **`.envs/`**: Environment variable files (ensure `.env` exists here).
-*   **`docker-compose.yaml`**: Main infrastructure definition.
+- **Build Tool**: Vite 7 (SWC plugin for fast compilation).
+- **Language**: TypeScript.
+- **Charts**: `lightweight-charts` (TradingView style) and `react-chartjs-2`.
+- **Forms**: `react-hook-form` + `zod` for validation.
+- **Data Fetching**: Likely `axios` or standard `fetch` (check `src/shared` for API clients).
 
 ## Development Workflow
 
-1.  **Code Style:**
-    *   **Python:** Strictly adheres to **Black** formatting and **Ruff** linting rules.
-    *   **TypeScript:** Uses **Prettier** and **ESLint**.
-    *   Always run `npm run lint` and `npm run format` before committing.
+### Commands
 
-2.  **Database Changes:**
-    *   Modify Django models.
-    *   Run `npm run makemigrations:local` to generate migration files.
-    *   Run `npm run migrate` to apply them to the running Docker container.
+- **Start Dev Server**:
+  ```bash
+  npm run dev:frontend
+  ```
+  _Runs on port 5173 by default._
+- **Build for Production**:
+  ```bash
+  npm run build
+  ```
+  _Output is generated in `dist/`._
+- **Lint & Format**:
+  ```bash
+  npm run lint
+  npm run format
+  ```
 
-3.  **Testing:**
-    *   Write tests in `tests.py` or `tests/` directories for Django.
-    *   Write `*.test.tsx` for React components.
-    *   Run `npm run test` to verify changes.
+### Conventions
 
-## Tech Stack Details
+- **Components**: PascalCase (e.g., `StockChart.tsx`).
+- **Hooks**: camelCase, prefixed with `use` (e.g., `useMarketData.ts`).
+- **Slices**: Redux slices should be located within their respective feature folder.
+- **Strict Mode**: React Strict Mode is enabled.
 
-*   **Python:** 3.13+
-*   **Django:** 5.2.x
-*   **React:** 19.x
-*   **Vite:** 7.x
-*   **Tailwind:** 3.4.x
-*   **Celery:** 5.5.x
+## Directory Map
+
+```text
+frontend/
+├── src/
+│   ├── app/            # Redux store and app-wide configs
+│   ├── features/       # Feature modules (The core logic)
+│   ├── shared/         # Reusable UI components and utils
+│   ├── landing/        # Landing page specific code
+│   ├── App.tsx         # Root component/Router setup
+│   └── main.tsx        # Entry point
+├── public/             # Static assets
+├── vite.config.ts      # Vite configuration
+└── tailwind.config.js  # Tailwind configuration
+```
 
 ---
 > Source: [naveedkhan1998/alpaca-main](https://github.com/naveedkhan1998/alpaca-main) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
