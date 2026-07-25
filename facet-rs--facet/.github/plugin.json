@@ -1,0 +1,46 @@
+{
+  "name": "facet-rs--facet",
+  "displayName": "facet",
+  "description": "facet",
+  "version": "1.0.0",
+  "author": "facet-rs",
+  "homepage": "https://github.com/facet-rs/facet",
+  "skills": [
+    {
+      "name": "debug-with-valgrind",
+      "description": ""
+    },
+    {
+      "name": "jit-overview",
+      "description": ""
+    },
+    {
+      "name": "reproduce-reduce-regress",
+      "description": ""
+    },
+    {
+      "name": "use-facet-crates",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "description": ""
+    },
+    {
+      "name": "facet",
+      "description": ""
+    }
+  ]
+}
