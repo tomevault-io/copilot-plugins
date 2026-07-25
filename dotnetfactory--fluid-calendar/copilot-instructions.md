@@ -1,291 +1,119 @@
-## main-rule
+## fluid-calendar
 
-> send this with every request so the AI knows what to do
+> These are repository-wide instructions for GitHub Copilot's coding agent. They are a
 
-send this with every request so the AI knows what to do.
+# GitHub Copilot Instructions for FluidCalendar
 
-- this app will be a clone of the Motion app for calendar and task management
-- user can add a google,outlook or caldav calendars, by clicking add calendar, get the  auth screen, authorizes the app full access to the calendar
-- we will be using postgres
-- this app is built with nextjs, tailwind, prisma, postgres, shadcn, zod, zustand
-- it uses fullcalendar package
-- when adding an external calendar like google or outlook, we still need to sync the data in our database so we are always working with our local data
-- the google/outlook/caldav auth needs to handle refreshing tokens so when the token expires an hour later, we can get a new one and continue syncing.
-- use shadcn whenever possible, the correct command to use is `npx shadcn@latest add`
-- make minimal changes and don't change or break existing logic and only apply the changes requested.
-- no need to touch files after making changes
-- don't use .gitignore to ignore saas-only source files, since the code is synced between the projects, instead update the sync-repos.sh script to exclude files that should not be in the open source version
-- if there are changes to the rules or setup, update the main-rule.mdc file accordingly
-- if you add methods or code that need implementation add a //todo comment explaining what it needs to do so we can implement it later
-- when generating react content make sure to replace quotes and apostrohpes with &apos; and &quot;
-- as you make changes update a CHANGELOG.md file with the changes under the [unreleased] section, so we can keep track for release notes
-- when adding new features, consider if they should be in the saas version or the open source version or both and if you are not sure, ask to confirm
-- when adding new features, consider if they should be in the cmdk commands, if so ask me to confirm then add them to src/lib/commands or @useCommands.ts
-- use bullmq for backgound jobs and queue management.  all jobs are in the saas/jobs folder
+These are repository-wide instructions for GitHub Copilot's coding agent. They are a
+condensed mirror of `CLAUDE.md` and `openspec/project.md`; when anything here is
+ambiguous or conflicts, **`CLAUDE.md` is the source of truth**. Keep this file in sync
+with it.
 
+## Overview
 
-## SAAS vs Open Source
+FluidCalendar is an open-source alternative to Motion: intelligent task scheduling plus
+calendar management. It ships in two flavors from one codebase - a free self-hosted
+**open source** build and a hosted **SAAS** build with premium features (billing,
+advanced AI scheduling).
 
-This project is available in two versions:
-1. **Open Source Version**: Free, self-hosted version with core functionality
-2. **SAAS Version**: Hosted service with premium features
+**Tech stack:** Next.js 15 (App Router) - React 19 - TypeScript - Prisma + PostgreSQL -
+NextAuth.js (v4) - Zustand - TanStack Query - FullCalendar - Tailwind + shadcn/ui
+(Radix) - Zod - BullMQ + Redis (background jobs) - Stripe (SAAS billing).
 
-### Code Organization:
-- All SAAS-specific code is in the `src/saas/` directory, which is excluded from the open source repository via `.gitignore`
-- The open source repository is at https://github.com/dotnetfactory/fluid-calendar
-- The private SAAS repository contains both the open source code and the SAAS-specific code
-- all pages for saas are in the `src/app/(saas)` folder and all common pages are in the `src/app/(common)` folder and open source in `src/app/(open)`
-- we should still add a .saas extension and .open extension to files in (saas) and (open) folders to avoid compiling them
+## Setup and commands
 
-### File Extension Convention:
-- Files with `.saas.tsx`/`.saas.ts` extension are only included in the SAAS build
-- Files with `.open.tsx`/`.open.ts` extension are only included in the open source build
-- Regular files (without special extensions) are included in both builds
+- **Install with `npm install --legacy-peer-deps`** (React 19 peer-dep conflicts
+  otherwise). Node version is pinned in `.nvmrc` (22.x).
 
-### Feature Flags:
-- Use the `isSaasEnabled` and `isFeatureEnabled()` functions from `src/lib/config.ts` to conditionally enable SAAS features
-- SAAS features are controlled by the `NEXT_PUBLIC_ENABLE_SAAS_FEATURES` environment variable
-
-### Component Loading:
-- Use route groups to organize pages: `(saas)`, `(open)`, and `(common)`
-- Place SAAS-specific pages in `src/app/(saas)/` and open source pages in `src/app/(open)/`
-- Common pages that work in both versions go in `src/app/(common)/`
-- For shared components with different implementations:
-  - Create separate files with `.saas.tsx` and `.open.tsx` extensions in the same directory
-  - Use dynamic imports with template literals to select the correct file based on the environment variable
-  - Example: `dynamic(() => import(./path/component${process.env.NEXT_PUBLIC_ENABLE_SAAS_FEATURES === "true" ? ".saas" : ".open"}))`
-  - See `src/app/(common)/settings/page.tsx` for an example of this pattern
-
-### Admin Access Control:
-- Admin-only features should be secured using the `useAdmin` hook or the `AdminOnly` component
-- For pages in the settings section:
-  - Use the `useAdmin` hook to check if the user is an admin
-  - Show an access denied message using the `AccessDeniedMessage` component
-  - Example: 
-    ```tsx
-    const { isAdmin } = useAdmin();
-    if (!isAdmin) {
-      return <AccessDeniedMessage message="Custom access denied message" />;
-    }
-    ```
-- For components:
-  - Use the `AdminOnly` wrapper component from `@/components/auth/AdminOnly`
-  - Provide a fallback component to show for non-admin users
-  - Example:
-    ```tsx
-    <AdminOnly fallback={<AccessDeniedMessage message="Custom access denied message" />}>
-      {/* Admin-only content */}
-    </AdminOnly>
-    ```
-- For more complex access denied messages, create a custom component that uses the layout appropriate for that section
-- In the settings page, use the `isSaasEnabled` constant to conditionally include admin-only tabs:
-  ```tsx
-  if (isAdmin) {
-    const adminTabs = [/* ... */];
-    
-    if (isSaasEnabled) {
-      return [...baseTabs, ...adminTabs, { id: "saas-feature", label: "SAAS Feature" }];
-    }
-    
-    return [...baseTabs, ...adminTabs];
-  }
-  ```
-- For API routes that should only be accessible by admins:
-  - Use the `requireAdmin` middleware from `@/lib/auth/api-auth`
-  - Example:
-    ```typescript
-    import { requireAdmin } from "@/lib/auth/api-auth";
-    
-    export async function GET(request: NextRequest) {
-      // Check if user is admin
-      const authResponse = await requireAdmin(request);
-      if (authResponse) return authResponse;
-      
-      // Continue with admin-only logic
-    }
-    ```
-  - Do NOT use `getServerSession` and check the role manually
-  - The `requireAdmin` middleware handles all the authentication and authorization checks
-
-### Repository Syncing:
-- Use the `scripts/sync-repos.sh` script to sync changes from the private SAAS repository to the public open source repository
-- The script preserves the `.gitignore` file in the public repository to prevent SAAS code from being published
-
-When implementing new features, consider whether they should be:
-1. Core features available in both versions
-2. Premium features exclusive to the SAAS version
-3. Core features with premium enhancements in the SAAS version 
-
-if you are not sure if this is a saas or opensource feature, then ask to confirm
-
-# Cursor Development Rules and Guidelines
-
-## Project Structure
-- Place reusable hooks in `src/hooks`
-- Store types and interfaces in `src/types`
-- Maintain utilities in `src/lib`
-- Keep page components in `src/app`
-
-## Component Organization
-1. Components should be organized in feature folders:
-```
-src/components/
-  calendar/
-    CalendarGrid.tsx
-    TimeSlot.tsx
-    WeekView.tsx
-  tasks/
-    TaskCard.tsx
-    TaskList.tsx
-  ui/
-    Button.tsx
-    Modal.tsx
+```bash
+npm run dev          # Dev server (Next.js + Turbopack) on :3000
+npm run build        # Production build
+npm run build:os     # Open-source build (forces SAAS features off)
+npm run type-check   # tsc --noEmit
+npm run lint         # next lint (CI requires zero warnings)
+npm run test:unit    # Jest unit tests (Node env, src/**/__tests__/**/*.test.ts)
+npm run test:e2e     # Playwright e2e (needs a server on TEST_BASE_URL/localhost:3000)
+npm run prisma:generate   # Regenerate Prisma client after schema changes
 ```
 
-## State Management
-- Use Zustand for global state
-- Keep state logic in `src/store` directory
-- Follow atomic state pattern (small, focused stores)
-- Use local state for component-specific data
+Run a single test with `npx jest path/to/file.test.ts` or `npx jest -t "name"`.
 
-## Styling Guidelines
-- Use Tailwind CSS for styling
-- Follow mobile-first approach
-- Keep custom CSS in `globals.css` minimal
-- Use CSS variables for theming
-- Maintain consistent spacing and color schemes
+**Verification gate for any contribution (must all pass before review):**
 
-## TypeScript Best Practices
-- Always define proper interfaces and types
-- Use strict type checking
-- Avoid `any` type
-- Keep types in separate files when reused
-- Use generics when appropriate
+1. `npm run type-check` - clean
+2. `npm run lint` - **zero warnings** (CI fails on any warning)
+3. `npm run test:unit` - green
 
-## Code Organization (within files)
-1. Imports order:
-   - React and Next.js imports
-   - Third-party libraries
-   - Local components
-   - Types and interfaces
-   - Utilities and hooks
+Do **not** run `npm run format` (it rewrites the whole repo); rely on your editor's
+Prettier integration for changed files. Husky's pre-commit hook runs `npm run lint`
+and `npm run type-check`; a `lint-staged` config (eslint zero-warnings + prettier +
+type-check on staged files) also exists in `package.json`.
 
-2. Component structure:
-   ```typescript
-   // Types/Interfaces
-   interface Props {
-     // ...
-   }
+## Architecture
 
-   // Component
-   export function ComponentName({ prop1, prop2 }: Props) {
-     // Hooks
-     // State
-     // Effects
-     // Helper functions
-     // Render
-   }
-   ```
+- **Local-first calendar sync.** External calendars (Google / Outlook / CalDAV) are
+  never read live in the UI; each provider syncs into our DB (`CalendarFeed` +
+  `CalendarEvent`) and the app always operates on local data. Provider logic lives in
+  `src/lib/{google,outlook,caldav}-*.ts` and `src/lib/token-manager.ts`.
+- **Task scheduling engine** (`src/services/scheduling/`): `TaskSchedulingService`
+  orchestrates auto-scheduling; `TimeSlotManager` enumerates candidate slots;
+  `SlotScorer` ranks them; `CalendarServiceImpl` checks availability.
+- **Task sync** (`src/lib/task-sync/`): one-way sync from external task providers using
+  selective field sync (external-owned fields overwritten each sync; local-owned fields
+  preserved).
+- **Background jobs**: BullMQ + Redis; all job code lives in `src/saas/jobs/`
+  (SAAS-only) and runs in a separate worker process.
+- **State**: small focused Zustand stores in `src/store/`; server state via TanStack
+  Query; command-palette (cmdk) commands in `src/lib/commands/`.
 
-## Performance Considerations
-- Use React.memo for expensive renders
-- Implement proper loading states
-- Optimize images and assets
-- Use code splitting where appropriate
+## SAAS vs open source (most important rule)
 
-## Error Handling
-- Implement proper error boundaries
-- Use consistent error messages
-- Log errors appropriately
-- Provide user-friendly error states
+The private SAAS repo is the superset; the public open-source repo is generated from it
+via `scripts/sync-repos.sh`. Getting this wrong leaks SAAS code into the public repo.
 
-## Environment Variables
-- Never commit sensitive data
-- Use `.env.example` for reference
-- Document required variables
-- Use proper naming convention
+- All SAAS-only code goes in **`src/saas/`**.
+- Route groups: `src/app/(saas)/`, `src/app/(open)/`, `src/app/(common)/`.
+- File-extension convention: `*.saas.ts(x)` compile only in the SAAS build,
+  `*.open.ts(x)` only in open-source, plain files in both. **Always** give files in
+  `(saas)`/`(open)` an explicit `.saas`/`.open` extension.
+- Feature-gate with `isSaasEnabled` / `isFeatureEnabled()` from `src/lib/config.ts`.
+- Do **not** use `.gitignore` to hide SAAS files - exclusions belong in
+  `sync-repos.sh`.
+- When adding a feature, decide whether it is open-source, SAAS-only, or
+  core-with-premium-enhancement. If unsure, ask in the PR rather than guessing.
 
+## Code-style conventions
 
-## Common Commands
+- **Prisma client**: import the singleton `prisma` from `@/lib/prisma`; never
+  `new PrismaClient()`. Import Prisma _types_ from `@prisma/client`.
+- **Dates**: use the helpers in `@/lib/date-utils` for all date work (including
+  `new Date()`); don't reach for `date-fns` / `date-fns-tz` directly.
+- **Calendar DB access**: go through `@/lib/calendar-db.ts`.
+- **Logging**: use `logger` from `@/lib/logger`, never `console.log`. Define a
+  `LOG_SOURCE` string per file and pass it last:
+  `logger.error("msg", { error }, LOG_SOURCE)`.
+- **API route handlers** (Next 15): `params` is a Promise -
+  `const { id } = await params;`.
+- **Admin-only**: API routes use `requireAdmin` from `@/lib/auth/api-auth`; UI uses the
+  `useAdmin` hook or the `<AdminOnly>` wrapper with `<AccessDeniedMessage>`.
+- **shadcn/ui**: add components with `npx shadcn@latest add`; icons via `react-icons`.
+- **JSX text**: escape quotes/apostrophes as `&apos;` / `&quot;`.
+- **No em dashes** in copy; use hyphens, commas, or rephrase.
+- Keep changes minimal and scoped; don't refactor unrelated code. Don't remove `//todo`
+  comments; add them for deferred work.
+- **Update `CHANGELOG.md`** under `[Unreleased]` for any user-facing change.
 
-For `npm install` make sure to include the --legacy-peer-deps flag
+## Where things live
 
-## Database Strategy
-- Use postgres with Prisma for data persistence
-- Keep database file in `/prisma` directory
-- Follow schema-first development approach
-- Use migrations for database changes
-
-
-### Database Guidelines
-1. Schema Design
-   - Use meaningful table names
-   - Follow consistent naming conventions
-   - Include timestamps (createdAt, updatedAt)
-   - Use appropriate field types
-   - Document relationships
-   - Add proper indexes
-
-2. Data Access
-   - Use Prisma Client for all database operations
-   - Implement repository pattern
-   - Keep database logic in `/src/lib/db` directory
-   - Use transactions where appropriate
-   - Handle errors gracefully
-
-3. Database Connection Management
-   - ALWAYS use the global Prisma instance from `@/lib/prisma`
-   - NEVER create new PrismaClient instances with `new PrismaClient()`
-   - Import Prisma types from `@prisma/client` but client instance from `@/lib/prisma`
-   - Example:
-     ```typescript
-     // ❌ Don't do this:
-     import { PrismaClient } from "@prisma/client";
-     const prisma = new PrismaClient();
-
-     // ✅ Do this instead:
-     import { Task, Project } from "@prisma/client"; // For types only
-     import { prisma } from "@/lib/prisma"; // For database access
-     ```
-
-# Conventions
-
-Using Nextjs 15 with app router.
-
-When creating a route, use this method:
-```typescript
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    const { id } = await params;
-```
-
-- when you create a method, add documentation to explain what it does and update it if is changed.
-- do not remove //todo comments in the code.
-- if you delete/change a method or a file, make sure to refactor any usages of it.
-- for docker compose use `docker compose` not `docker-compose`
-- when we are discussing a new change and i tell you to start implementing then: start by creating a list of todos in TODO.md on top once we agree on a plan and update the list as you implement stuff.
-- for icons use react-icons
-- use @date-utils.ts for all date functions including new Date instead of directly using date-fns or date-fns-tz
-- use @calendar-db.ts for all db calls related to calendars
-- all logging should use the logger class defined in /lib/logger/index.js not console.log, the logger is used by importing it and also defining a source:
-```
-import { logger } from "@/lib/logger";
-const LOG_SOURCE = "OutlookCalendar";
-```
-here is an example for logging an error:
-```
-logger.error(
-  "Failed to refresh token",
-  {
-    error: error instanceof Error ? error.message : "Unknown error",
-  },
-  LOG_SOURCE
-);
-```
+- `src/services/scheduling/` - task auto-scheduling engine
+- `src/lib/` - providers, auth, date utils, config, commands, task-sync, db helpers
+- `src/store/` - Zustand stores
+- `src/components/` - feature-foldered UI (calendar, tasks, settings, auth, ...)
+- `src/app/api/` - route handlers
+- `prisma/schema.prisma` - Postgres schema
+- `src/saas/jobs/` - BullMQ background jobs (SAAS, separate worker process)
+- `openspec/` - OpenSpec proposals and specs for non-trivial changes
 
 ---
 > Source: [dotnetfactory/fluid-calendar](https://github.com/dotnetfactory/fluid-calendar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
