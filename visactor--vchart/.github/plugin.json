@@ -1,0 +1,14 @@
+{
+  "name": "visactor--vchart",
+  "displayName": "VChart",
+  "description": "VChart",
+  "version": "1.0.0",
+  "author": "VisActor",
+  "homepage": "https://github.com/VisActor/VChart",
+  "skills": [
+    {
+      "name": "VChart",
+      "description": ""
+    }
+  ]
+}
