@@ -1,0 +1,14 @@
+{
+  "name": "dgellow--steady",
+  "displayName": "steady",
+  "description": "steady",
+  "version": "1.0.0",
+  "author": "dgellow",
+  "homepage": "https://github.com/dgellow/steady",
+  "skills": [
+    {
+      "name": "design-review",
+      "description": ""
+    }
+  ]
+}
