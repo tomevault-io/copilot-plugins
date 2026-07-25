@@ -1,108 +1,52 @@
 ## lean-ctx
 
-> lean-ctx: prefer ctx_read/ctx_shell/ctx_search/ctx_tree over Read/Shell/Grep/ls for token savings
+> PREFER lean-ctx MCP tools over native equivalents for token savings:
 
-
-# lean-ctx — Context Engineering Layer
-<!-- lean-ctx-rules-v9 -->
+{RULES_MARKER}
 
 PREFER lean-ctx MCP tools over native equivalents for token savings:
 
-## Tool Mapping
-
 | PREFER | OVER | Why |
 |--------|------|-----|
-| `ctx_read` | `Read` | Session caching, 10 read modes, re-reads cost ~13 tokens |
-| `ctx_shell` | `Shell` | Pattern-based compression for git, npm, cargo, docker, tsc |
-| `ctx_search` | `Grep` | Compact context, token-efficient results |
-| `ctx_tree` | `ls`, `find` | Compact directory maps with file counts |
+| `ctx_read(path, mode)` | Read / cat / head / tail | Session caching, 10 read modes, re-reads cost ~13 tokens |
+| `ctx_shell(command)` | Bash (shell commands) | Pattern-based compression for git, npm, cargo, docker, tsc |
+| `ctx_search(pattern, path)` | Grep / rg | Compact context, token-efficient results |
+| `ctx_tree(path, depth)` | ls / find | Compact directory maps with file counts |
 
 ## ctx_read Modes
 
 - `auto` — auto-select optimal mode (recommended default)
-- `full` — default, cached read (use for files you will edit)
-- `map` — dependency graph + exports + key signatures (use for context-only files)
+- `anchored` — full text + `N:hh|` anchors (use for files you will edit via ctx_patch)
+- `full` — cached verbatim read
+- `map` — deps + API signatures (use for context-only files)
 - `signatures` — API surface only
-- `diff` — changed lines only (use after edits)
+- `diff` — changed lines only (after edits)
 - `task` — task-relevant filtering
 - `reference` — quote-friendly minimal excerpts
 - `aggressive` — syntax stripped
 - `entropy` — Shannon + Jaccard filtering
 - `lines:N-M` — specific range
 
-Re-reads cost ~13 tokens. File refs F1, F2.. persist across the session.
-
-Set `fresh=true` on ctx_read to bypass cache when spawned as a subagent or after context compaction.
-
-## Default Strategy
-
-- Reading for context → `map`
-- Reading to understand API → `signatures`
-- Reading to edit → `full`
-- Re-reading → just call `full` again (cache returns ~13 tokens)
-
 ## File Editing
 
-Use native Edit/StrReplace when available. If Edit requires native Read and Read is unavailable,
-use `ctx_edit(path, old_string, new_string)` — it reads, replaces, and writes in one MCP call.
-NEVER loop trying to make Edit work. If it fails, switch to ctx_edit immediately.
+Anchored editing saves output tokens: `ctx_read(path, mode="anchored")` → `ctx_patch(path, op, line, hash, new_text)`.
+Patch by `N:hh|` anchor — never reproduce old text byte-for-byte. Batch several edits via `ops:[…]`
+(all-or-nothing); `op=create` writes new files; a stale anchor returns CONFLICT with fresh anchors — retry once.
+Native Edit/StrReplace stay fine when the host provides them. `ctx_edit(path, old_string, new_string)`
+is the legacy str-replace fallback (power profile / ctx_call).
+Write, Delete have no lean-ctx equivalent — use them normally.
 
-## Session Management
+Prefer `ctx_workflow` for state + evidence + tool gating.
 
-- `ctx_compress` at >10 turns — creates memory checkpoint
-- `ctx_metrics` — hard numbers on what was saved
-- `ctx_cost` — per-tool cost + savings breakdown
-- `ctx_heatmap` — file-level savings heatmap
-- `ctx_benchmark` — find optimal mode for a file
-- `ctx_session load` — on new chat, restore previous session
-- `ctx_workflow` — state machine + evidence + tool gating
+## Session Documentation
 
-## Proactive Tools
+After significant work, document progress for session continuity:
+- `ctx_knowledge(action="remember", category="decision", content="<what and why>")`
+- `ctx_session(action="task", value="<task description> [progress%]")`
+- If blocked: `ctx_knowledge(action="remember", category="blocker", content="...")`
 
-Use without being asked:
-- `ctx_compress` — when context grows large, create checkpoint
-- `ctx_metrics` — periodically verify token savings
- - `ctx_overview` — at session start (fast project orientation)
-
-## Write, Delete, Glob
-
-These have no lean-ctx equivalent — use them normally.
-
-## CRP v2 — Compact Response Protocol
-
-Every token costs money. This applies to input, output, AND thinking tokens.
-
-### Thinking Reduction (saves 30-60% thinking tokens)
-
-1. Parse task first, then act. Don't explore when you already know the answer.
-2. One hypothesis, test it. Don't enumerate 5 approaches — pick the most likely, try it.
-3. Stop thinking when you have the answer.
-4. Use structured context. lean-ctx headers tell you deps/exports — don't re-read files to find imports.
-5. File ref tracking: F1=auth.ts means F1 everywhere in this session.
-
-### Output Reduction (saves 50-80% output tokens)
-
-1. NO prose. Just code and results.
-2. NO echoing content that was just read.
-3. Summarize tool results: 1 line max.
-4. Show edits only — not surrounding unchanged code.
-5. Batch tool calls. One message, multiple calls.
-6. Never ask "shall I proceed?" — just do it.
-7. Bullets > paragraphs. Tables > lists.
-
-### Compact Notation
-
-- `F:path` — reading file
-- `+file` = created, `~file` = modified, `!file` = error
-- `->` for results: "Built -> 18 pages, 0 errors"
-
-## Model Selection
-
-- Grep/search/explore → `model: "fast"`
-- Simple edits (rename, add field, fix typo) → `model: "fast"`
-- Multi-file refactors, architecture → default model
-<!-- /lean-ctx -->
+When you see `[CHECKPOINT]` in tool output → document current task status immediately.
 
 ---
 > Source: [yvgude/lean-ctx](https://github.com/yvgude/lean-ctx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
