@@ -2,9 +2,9 @@
   "name": "lean-ctx",
   "owner": "yvgude",
   "repo": "lean-ctx",
-  "description": "Reduce AI coding costs by 99% \u2014 MCP Server + Shell Hook for Cursor, Claude Code, Copilot, Windsurf, Gemini CLI & 24 tools. Single Rust binary, zero telemetry.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "lean-ctx",
+      "path": "skills/lean-ctx/SKILL.md",
+      "github_url": "https://github.com/yvgude/lean-ctx/tree/main/skills/lean-ctx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "lean-ctx",
+      "path": "rust/src/templates/SKILL.md",
+      "github_url": "https://github.com/yvgude/lean-ctx/tree/main/rust/src/templates/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/yvgude/lean-ctx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T05:56:32Z"
+  "distributed_at": "2026-07-25T19:46:46Z"
 }
