@@ -1,0 +1,9 @@
+{
+  "name": "rust-lang--crates-io",
+  "displayName": "crates.io",
+  "description": "crates.io",
+  "version": "1.0.0",
+  "author": "rust-lang",
+  "homepage": "https://github.com/rust-lang/crates.io",
+  "skills": []
+}
