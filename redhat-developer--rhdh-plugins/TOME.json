@@ -3,8 +3,8 @@
   "owner": "redhat-developer",
   "repo": "rhdh-plugins",
   "description": "Red Hat Developer Hub plugins",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "rhdh-plugins",
+      "path": ".agents/skills/rhdh-workspace/SKILL.md",
+      "github_url": "https://github.com/redhat-developer/rhdh-plugins/tree/main/.agents/skills/rhdh-workspace/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/redhat-developer/rhdh-plugins",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T08:47:45Z"
+  "distributed_at": "2026-07-25T20:53:27Z"
 }
