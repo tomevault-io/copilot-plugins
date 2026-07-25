@@ -1,0 +1,9 @@
+{
+  "name": "bazelbuild--intellij",
+  "displayName": "intellij",
+  "description": "intellij",
+  "version": "1.0.0",
+  "author": "bazelbuild",
+  "homepage": "https://github.com/bazelbuild/intellij",
+  "skills": []
+}
