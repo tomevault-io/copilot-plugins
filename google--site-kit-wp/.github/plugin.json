@@ -1,0 +1,18 @@
+{
+  "name": "google--site-kit-wp",
+  "displayName": "site-kit-wp",
+  "description": "site-kit-wp",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/site-kit-wp",
+  "skills": [
+    {
+      "name": "site-kit-wp",
+      "description": ""
+    },
+    {
+      "name": "site-kit-wp",
+      "description": ""
+    }
+  ]
+}
