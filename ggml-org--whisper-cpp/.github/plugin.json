@@ -1,0 +1,9 @@
+{
+  "name": "ggml-org--whisper-cpp",
+  "displayName": "whisper.cpp",
+  "description": "whisper.cpp",
+  "version": "1.0.0",
+  "author": "ggml-org",
+  "homepage": "https://github.com/ggml-org/whisper.cpp",
+  "skills": []
+}
