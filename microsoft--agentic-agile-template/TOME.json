@@ -2,9 +2,9 @@
   "name": "agentic-agile-template",
   "owner": "microsoft",
   "repo": "agentic-agile-template",
-  "description": "Agentic-Agile Development bridges Agile process values with the capabilities of AI coding agents. It is a methodology for building software through human-agent partnerships.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/agentic-agile-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T09:10:46Z"
+  "distributed_at": "2026-07-25T00:49:46Z"
 }
