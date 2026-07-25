@@ -1,0 +1,9 @@
+{
+  "name": "dcurlewis--slacksnap",
+  "displayName": "slacksnap",
+  "description": "A Chrome extension that exports Slack messages to markdown files.",
+  "version": "1.0.0",
+  "author": "dcurlewis",
+  "homepage": "https://github.com/dcurlewis/slacksnap",
+  "skills": []
+}
