@@ -1,0 +1,9 @@
+{
+  "name": "supabase--postgres-meta",
+  "displayName": "postgres-meta",
+  "description": "postgres-meta",
+  "version": "1.0.0",
+  "author": "supabase",
+  "homepage": "https://github.com/supabase/postgres-meta",
+  "skills": []
+}
