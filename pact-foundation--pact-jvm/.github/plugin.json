@@ -1,0 +1,9 @@
+{
+  "name": "pact-foundation--pact-jvm",
+  "displayName": "pact-jvm",
+  "description": "pact-jvm",
+  "version": "1.0.0",
+  "author": "pact-foundation",
+  "homepage": "https://github.com/pact-foundation/pact-jvm",
+  "skills": []
+}
