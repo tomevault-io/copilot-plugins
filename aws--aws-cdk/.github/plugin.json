@@ -1,0 +1,9 @@
+{
+  "name": "aws--aws-cdk",
+  "displayName": "aws-cdk",
+  "description": "aws-cdk",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/aws-cdk",
+  "skills": []
+}
