@@ -1,0 +1,9 @@
+{
+  "name": "dimagi--commcare-hq",
+  "displayName": "commcare-hq",
+  "description": "commcare-hq",
+  "version": "1.0.0",
+  "author": "dimagi",
+  "homepage": "https://github.com/dimagi/commcare-hq",
+  "skills": []
+}
