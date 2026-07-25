@@ -1,0 +1,9 @@
+{
+  "name": "puppetlabs--puppetlabs-firewall",
+  "displayName": "puppetlabs-firewall",
+  "description": "puppetlabs-firewall",
+  "version": "1.0.0",
+  "author": "puppetlabs",
+  "homepage": "https://github.com/puppetlabs/puppetlabs-firewall",
+  "skills": []
+}
