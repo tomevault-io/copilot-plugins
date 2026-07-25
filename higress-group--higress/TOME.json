@@ -1,0 +1,171 @@
+{
+  "name": "higress",
+  "owner": "higress-group",
+  "repo": "higress",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "higress",
+      "path": ".claude/skills/higress-auto-router/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/higress-auto-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/higress-daily-report/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/higress-daily-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/agent-session-monitor/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/agent-session-monitor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/higress-wasm-go-plugin/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/higress-wasm-go-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/nginx-to-higress-migration/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/nginx-to-higress-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/higress-openclaw-integration/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/higress-openclaw-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/issue-spec-apply/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/issue-spec-apply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/issue-spec-apply/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/issue-spec-apply/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/issue-spec-github/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/issue-spec-github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/issue-spec-github/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/issue-spec-github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/issue-spec-review/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/issue-spec-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/issue-spec-review/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/issue-spec-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/issue-spec-verify/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/issue-spec-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/issue-spec-verify/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/issue-spec-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/issue-spec-archive/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/issue-spec-archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/issue-spec-archive/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/issue-spec-archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/issue-spec-propose/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/issue-spec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/issue-spec-propose/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/issue-spec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/issue-spec-workflow/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/issue-spec-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".claude/skills/issue-spec-workflow/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.claude/skills/issue-spec-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "higress",
+      "path": ".agents/skills/higress-update-envoy-gateway/SKILL.md",
+      "github_url": "https://github.com/higress-group/higress/tree/main/.agents/skills/higress-update-envoy-gateway/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/higress-group/higress",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:35:54Z"
+}
