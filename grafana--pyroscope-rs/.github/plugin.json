@@ -1,0 +1,9 @@
+{
+  "name": "grafana--pyroscope-rs",
+  "displayName": "pyroscope-rs",
+  "description": "pyroscope-rs",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/pyroscope-rs",
+  "skills": []
+}
