@@ -4,7 +4,7 @@
   "repo": "bindery",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -67,9 +67,27 @@
       "path": ".claude/skills/smoke-testing/SKILL.md",
       "github_url": "https://github.com/vavallee/bindery/tree/main/.claude/skills/smoke-testing/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "bindery",
+      "path": ".claude/skills/triage/SKILL.md",
+      "github_url": "https://github.com/vavallee/bindery/tree/main/.claude/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bindery",
+      "path": ".claude/skills/fix-issue/SKILL.md",
+      "github_url": "https://github.com/vavallee/bindery/tree/main/.claude/skills/fix-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "bindery",
+      "path": ".claude/skills/discord-reports/SKILL.md",
+      "github_url": "https://github.com/vavallee/bindery/tree/main/.claude/skills/discord-reports/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/vavallee/bindery",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T13:51:35Z"
+  "distributed_at": "2026-07-25T14:39:46Z"
 }
