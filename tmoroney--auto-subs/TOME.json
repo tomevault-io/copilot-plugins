@@ -1,0 +1,57 @@
+{
+  "name": "auto-subs",
+  "owner": "tmoroney",
+  "repo": "auto-subs",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auto-subs",
+      "path": ".agents/skills/prepare-release/SKILL.md",
+      "github_url": "https://github.com/tmoroney/auto-subs/tree/main/.agents/skills/prepare-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "auto-subs",
+      "path": ".agents/skills/davinci-resolve-fusion/SKILL.md",
+      "github_url": "https://github.com/tmoroney/auto-subs/tree/main/.agents/skills/davinci-resolve-fusion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tmoroney/auto-subs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T16:36:31Z"
+}
