@@ -1,0 +1,105 @@
+{
+  "name": "rundeck",
+  "owner": "rundeck",
+  "repo": "rundeck",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/create-test/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/create-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/create-code/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/create-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/backport-pr/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/backport-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/create-plugin/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/create-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/cve-remediation/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/cve-remediation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/write-jest-tests/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/write-jest-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/i18n-vue-template/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/i18n-vue-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/create-api-endpoint/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/create-api-endpoint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/onboard-contributor/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/onboard-contributor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rundeck",
+      "path": ".claude/skills/generate-entity-context/SKILL.md",
+      "github_url": "https://github.com/rundeck/rundeck/tree/main/.claude/skills/generate-entity-context/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rundeck/rundeck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:35:56Z"
+}
