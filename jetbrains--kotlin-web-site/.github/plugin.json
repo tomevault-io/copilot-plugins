@@ -1,0 +1,14 @@
+{
+  "name": "jetbrains--kotlin-web-site",
+  "displayName": "kotlin-web-site",
+  "description": "kotlin-web-site",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/kotlin-web-site",
+  "skills": [
+    {
+      "name": "kotlin-web-site",
+      "description": ""
+    }
+  ]
+}
