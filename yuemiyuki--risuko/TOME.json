@@ -1,0 +1,99 @@
+{
+  "name": "Risuko",
+  "owner": "YueMiyuki",
+  "repo": "Risuko",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-meta/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-meta/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-check/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-channel/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-channel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-break-loop/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-break-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-brainstorm/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-before-dev/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-before-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-update-spec/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-update-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-spec-bootstrap/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-spec-bootstrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Risuko",
+      "path": ".agents/skills/trellis-session-insight/SKILL.md",
+      "github_url": "https://github.com/YueMiyuki/Risuko/tree/main/.agents/skills/trellis-session-insight/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/YueMiyuki/Risuko",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:47:52Z"
+}
