@@ -1,8 +1,6 @@
 # drive-picker-element
 
-> Tome by [googleworkspace](https://github.com/googleworkspace/drive-picker-element) — distributed by [TomeVault](https://tomevault.io)
-
-A web component for Google Drive Picker
+> Tome by [googleworkspace](https://github.com/googleworkspace/drive-picker-element), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `GEMINI.md` in [googleworkspace/drive-picker-element](https://g
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-From [googleworkspace/drive-picker-element](https://github.com/googleworkspace/drive-picker-element) — a repo with 64+ stars on GitHub.
+From [googleworkspace/drive-picker-element](https://github.com/googleworkspace/drive-picker-element) — a repo with 68+ stars on GitHub.
 
 ---
 
