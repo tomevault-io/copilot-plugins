@@ -1,0 +1,87 @@
+{
+  "name": "dawnai",
+  "owner": "cacheplane",
+  "repo": "dawnai",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dawnai",
+      "path": "examples/chat/server/src/app/chat/skills/recover-from-failure/SKILL.md",
+      "github_url": "https://github.com/cacheplane/dawnai/tree/main/examples/chat/server/src/app/chat/skills/recover-from-failure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dawnai",
+      "path": "examples/chat/server/src/app/chat/skills/workspace-conventions/SKILL.md",
+      "github_url": "https://github.com/cacheplane/dawnai/tree/main/examples/chat/server/src/app/chat/skills/workspace-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dawnai",
+      "path": "packages/devkit/templates/app-research/src/app/research/skills/cite-sources/SKILL.md",
+      "github_url": "https://github.com/cacheplane/dawnai/tree/main/packages/devkit/templates/app-research/src/app/research/skills/cite-sources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dawnai",
+      "path": "packages/devkit/templates/app-research/src/app/research/skills/synthesize-findings/SKILL.md",
+      "github_url": "https://github.com/cacheplane/dawnai/tree/main/packages/devkit/templates/app-research/src/app/research/skills/synthesize-findings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dawnai",
+      "path": "packages/cli/SKILL.md",
+      "github_url": "https://github.com/cacheplane/dawnai/tree/main/packages/cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dawnai",
+      "path": "examples/research/server/src/app/research/skills/cite-sources/SKILL.md",
+      "github_url": "https://github.com/cacheplane/dawnai/tree/main/examples/research/server/src/app/research/skills/cite-sources/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dawnai",
+      "path": "examples/research/server/src/app/research/skills/synthesize-findings/SKILL.md",
+      "github_url": "https://github.com/cacheplane/dawnai/tree/main/examples/research/server/src/app/research/skills/synthesize-findings/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cacheplane/dawnai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:48:36Z"
+}
