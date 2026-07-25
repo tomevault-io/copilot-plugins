@@ -1,0 +1,9 @@
+{
+  "name": "libriscv--godot-sandbox",
+  "displayName": "godot-sandbox",
+  "description": "godot-sandbox",
+  "version": "1.0.0",
+  "author": "libriscv",
+  "homepage": "https://github.com/libriscv/godot-sandbox",
+  "skills": []
+}
