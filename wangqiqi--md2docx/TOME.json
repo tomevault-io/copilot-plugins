@@ -1,0 +1,177 @@
+{
+  "name": "md2docx",
+  "owner": "wangqiqi",
+  "repo": "md2docx",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/ia/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/ia/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/ux/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/ux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/mcp/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/run/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/api/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/git/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/plan/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/week/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/week/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/disk/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/disk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/test/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/perf/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/learn/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/debug/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/study/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/study/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/master/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/master/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/review/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/release/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/delivery/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/delivery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/maintain/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/maintain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/scaffold/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/scaffold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/security/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "md2docx",
+      "path": ".cursor/skills/refactor/SKILL.md",
+      "github_url": "https://github.com/wangqiqi/md2docx/tree/main/.cursor/skills/refactor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wangqiqi/md2docx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T16:38:12Z"
+}
