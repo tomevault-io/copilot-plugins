@@ -1,0 +1,57 @@
+{
+  "name": "together-cookbook",
+  "owner": "togethercomputer",
+  "repo": "together-cookbook",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "together-cookbook",
+      "path": "Agents/Nemotron3Ultra_ContentWriter/skills/blog-post/SKILL.md",
+      "github_url": "https://github.com/togethercomputer/together-cookbook/tree/main/Agents/Nemotron3Ultra_ContentWriter/skills/blog-post/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "together-cookbook",
+      "path": "Agents/Nemotron3Ultra_ContentWriter/skills/social-media/SKILL.md",
+      "github_url": "https://github.com/togethercomputer/together-cookbook/tree/main/Agents/Nemotron3Ultra_ContentWriter/skills/social-media/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/togethercomputer/together-cookbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:56:14Z"
+}
