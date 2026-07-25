@@ -1,9 +1,22 @@
 {
   "name": "mynameistito--create-cf-token",
   "displayName": "create-cf-token",
-  "description": "A CLI for creating Cloudflare API tokens (User Tokens) with an interactive, guided prompt flow.",
+  "description": "create-cf-token",
   "version": "1.0.0",
   "author": "mynameistito",
   "homepage": "https://github.com/mynameistito/create-cf-token",
-  "skills": []
+  "skills": [
+    {
+      "name": "create-cf-token",
+      "description": ""
+    },
+    {
+      "name": "create-cf-token",
+      "description": ""
+    },
+    {
+      "name": "create-cf-token",
+      "description": ""
+    }
+  ]
 }
