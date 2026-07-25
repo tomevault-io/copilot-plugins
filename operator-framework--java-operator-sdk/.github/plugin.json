@@ -1,0 +1,9 @@
+{
+  "name": "operator-framework--java-operator-sdk",
+  "displayName": "java-operator-sdk",
+  "description": "java-operator-sdk",
+  "version": "1.0.0",
+  "author": "operator-framework",
+  "homepage": "https://github.com/operator-framework/java-operator-sdk",
+  "skills": []
+}
