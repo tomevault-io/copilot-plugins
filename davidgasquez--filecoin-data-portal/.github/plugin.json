@@ -1,0 +1,14 @@
+{
+  "name": "davidgasquez--filecoin-data-portal",
+  "displayName": "filecoin-data-portal",
+  "description": "filecoin-data-portal",
+  "version": "1.0.0",
+  "author": "davidgasquez",
+  "homepage": "https://github.com/davidgasquez/filecoin-data-portal",
+  "skills": [
+    {
+      "name": "filecoin-data-portal",
+      "description": ""
+    }
+  ]
+}
