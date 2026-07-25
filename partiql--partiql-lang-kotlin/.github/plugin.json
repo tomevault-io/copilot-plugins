@@ -1,0 +1,9 @@
+{
+  "name": "partiql--partiql-lang-kotlin",
+  "displayName": "partiql-lang-kotlin",
+  "description": "partiql-lang-kotlin",
+  "version": "1.0.0",
+  "author": "partiql",
+  "homepage": "https://github.com/partiql/partiql-lang-kotlin",
+  "skills": []
+}
