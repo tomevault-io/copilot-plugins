@@ -1,0 +1,9 @@
+{
+  "name": "apache--hbase",
+  "displayName": "hbase",
+  "description": "hbase",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/hbase",
+  "skills": []
+}
