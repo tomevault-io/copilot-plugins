@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "HarleyCoops",
   "homepage": "https://github.com/HarleyCoops/Math-To-Manim",
-  "skills": []
+  "skills": [
+    {
+      "name": "Math-To-Manim",
+      "description": ""
+    },
+    {
+      "name": "Math-To-Manim",
+      "description": ""
+    }
+  ]
 }
