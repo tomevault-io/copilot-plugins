@@ -4,7 +4,7 @@
   "repo": "finalbenchmark-platform",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abhay-byte/finalbenchmark-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T19:52:23Z"
+  "distributed_at": "2026-07-25T21:52:15Z"
 }
