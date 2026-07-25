@@ -1,0 +1,9 @@
+{
+  "name": "stecklars--dynamic-dns-netcup-api",
+  "displayName": "dynamic-dns-netcup-api",
+  "description": "dynamic-dns-netcup-api",
+  "version": "1.0.0",
+  "author": "stecklars",
+  "homepage": "https://github.com/stecklars/dynamic-dns-netcup-api",
+  "skills": []
+}
