@@ -1,0 +1,87 @@
+{
+  "name": "simui",
+  "owner": "dofu-lab",
+  "repo": "simui",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "simui",
+      "path": ".github/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/dofu-lab/simui/tree/main/.github/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simui",
+      "path": ".github/skills/angular-developer/SKILL.md",
+      "github_url": "https://github.com/dofu-lab/simui/tree/main/.github/skills/angular-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simui",
+      "path": ".agents/skills/spartan/SKILL.md",
+      "github_url": "https://github.com/dofu-lab/simui/tree/main/.agents/skills/spartan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simui",
+      "path": ".agents/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/dofu-lab/simui/tree/main/.agents/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simui",
+      "path": ".agents/skills/angular-developer/SKILL.md",
+      "github_url": "https://github.com/dofu-lab/simui/tree/main/.agents/skills/angular-developer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simui",
+      "path": ".agents/skills/new-component-list/SKILL.md",
+      "github_url": "https://github.com/dofu-lab/simui/tree/main/.agents/skills/new-component-list/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "simui",
+      "path": ".agents/skills/tailwindcss-styling/SKILL.md",
+      "github_url": "https://github.com/dofu-lab/simui/tree/main/.agents/skills/tailwindcss-styling/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dofu-lab/simui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T08:54:30Z"
+}
