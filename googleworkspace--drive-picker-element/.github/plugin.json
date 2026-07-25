@@ -1,7 +1,7 @@
 {
   "name": "googleworkspace--drive-picker-element",
   "displayName": "drive-picker-element",
-  "description": "A web component for Google Drive Picker",
+  "description": "drive-picker-element",
   "version": "1.0.0",
   "author": "googleworkspace",
   "homepage": "https://github.com/googleworkspace/drive-picker-element",
