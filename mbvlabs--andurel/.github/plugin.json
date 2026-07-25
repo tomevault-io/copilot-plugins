@@ -1,0 +1,14 @@
+{
+  "name": "mbvlabs--andurel",
+  "displayName": "andurel",
+  "description": "andurel",
+  "version": "1.0.0",
+  "author": "mbvlabs",
+  "homepage": "https://github.com/mbvlabs/andurel",
+  "skills": [
+    {
+      "name": "andurel",
+      "description": ""
+    }
+  ]
+}
