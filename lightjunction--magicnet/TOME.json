@@ -1,0 +1,153 @@
+{
+  "name": "MagicNet",
+  "owner": "LIghtJUNction",
+  "repo": "MagicNet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/styles/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/styles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/adaptive/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/adaptive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/android-cli/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/android-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/r8-analyzer/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/r8-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/navigation-3/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/navigation-3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/edge-to-edge/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/edge-to-edge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/perfetto-sql/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/perfetto-sql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/appfunctions/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/appfunctions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/testing-setup/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/testing-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/verified-email/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/verified-email/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/jetpack-compose-m3/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/jetpack-compose-m3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/camera1-to-camerax/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/camera1-to-camerax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/engage-sdk-integration/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/engage-sdk-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/perfetto-trace-analysis/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/perfetto-trace-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/migrate-xml-views-to-jetpack-compose/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/migrate-xml-views-to-jetpack-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/play-billing-library-version-upgrade/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/play-billing-library-version-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/display-glasses-with-jetpack-compose-glimmer/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/display-glasses-with-jetpack-compose-glimmer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "MagicNet",
+      "path": ".agents/skills/magicnet-device-debugging/SKILL.md",
+      "github_url": "https://github.com/LIghtJUNction/MagicNet/tree/main/.agents/skills/magicnet-device-debugging/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LIghtJUNction/MagicNet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T04:31:34Z"
+}
