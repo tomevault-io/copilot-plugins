@@ -1,0 +1,26 @@
+{
+  "name": "btcpayserver--btcpayserver",
+  "displayName": "btcpayserver",
+  "description": "btcpayserver",
+  "version": "1.0.0",
+  "author": "btcpayserver",
+  "homepage": "https://github.com/btcpayserver/btcpayserver",
+  "skills": [
+    {
+      "name": "btcpayserver",
+      "description": ""
+    },
+    {
+      "name": "btcpayserver",
+      "description": ""
+    },
+    {
+      "name": "btcpayserver",
+      "description": ""
+    },
+    {
+      "name": "btcpayserver",
+      "description": ""
+    }
+  ]
+}
