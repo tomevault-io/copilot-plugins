@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "author": "kungfu-origin",
   "homepage": "https://github.com/kungfu-origin/kungfu",
-  "skills": []
+  "skills": [
+    {
+      "name": "kungfu",
+      "description": ""
+    },
+    {
+      "name": "kungfu",
+      "description": ""
+    },
+    {
+      "name": "kungfu",
+      "description": ""
+    },
+    {
+      "name": "kungfu",
+      "description": ""
+    }
+  ]
 }
