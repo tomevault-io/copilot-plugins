@@ -1,0 +1,9 @@
+{
+  "name": "saltstack--salt",
+  "displayName": "salt",
+  "description": "salt",
+  "version": "1.0.0",
+  "author": "saltstack",
+  "homepage": "https://github.com/saltstack/salt",
+  "skills": []
+}
