@@ -1,0 +1,9 @@
+{
+  "name": "sdkman--sdkman-cli-native",
+  "displayName": "sdkman-cli-native",
+  "description": "sdkman-cli-native",
+  "version": "1.0.0",
+  "author": "sdkman",
+  "homepage": "https://github.com/sdkman/sdkman-cli-native",
+  "skills": []
+}
