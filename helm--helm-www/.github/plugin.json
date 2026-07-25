@@ -1,0 +1,9 @@
+{
+  "name": "helm--helm-www",
+  "displayName": "helm-www",
+  "description": "helm-www",
+  "version": "1.0.0",
+  "author": "helm",
+  "homepage": "https://github.com/helm/helm-www",
+  "skills": []
+}
