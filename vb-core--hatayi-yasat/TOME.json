@@ -1,0 +1,75 @@
+{
+  "name": "hatayi_yasat",
+  "owner": "VB-CORE",
+  "repo": "hatayi_yasat",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hatayi_yasat",
+      "path": ".claude/skills/hata-issue/SKILL.md",
+      "github_url": "https://github.com/VB-CORE/hatayi_yasat/tree/main/.claude/skills/hata-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hatayi_yasat",
+      "path": ".claude/skills/hata-feature/SKILL.md",
+      "github_url": "https://github.com/VB-CORE/hatayi_yasat/tree/main/.claude/skills/hata-feature/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hatayi_yasat",
+      "path": ".claude/skills/hata-pr-review/SKILL.md",
+      "github_url": "https://github.com/VB-CORE/hatayi_yasat/tree/main/.claude/skills/hata-pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hatayi_yasat",
+      "path": ".claude/skills/hata-style-guide/SKILL.md",
+      "github_url": "https://github.com/VB-CORE/hatayi_yasat/tree/main/.claude/skills/hata-style-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hatayi_yasat",
+      "path": ".claude/skills/hata-architecture-review/SKILL.md",
+      "github_url": "https://github.com/VB-CORE/hatayi_yasat/tree/main/.claude/skills/hata-architecture-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/VB-CORE/hatayi_yasat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T10:32:03Z"
+}
