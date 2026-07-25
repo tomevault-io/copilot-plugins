@@ -2,9 +2,9 @@
   "name": "PlayPalace11",
   "owner": "XGDevGroup",
   "repo": "PlayPalace11",
-  "description": "Blind-Accessible Turn-Based Games Server",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XGDevGroup/PlayPalace11",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T13:09:40Z"
+  "distributed_at": "2026-07-25T21:35:03Z"
 }
