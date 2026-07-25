@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpstan-beberlei-assert",
+  "displayName": "phpstan-beberlei-assert",
+  "description": "phpstan-beberlei-assert",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpstan-beberlei-assert",
+  "skills": []
+}
