@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [diegosouzapw/OmniRoute](https://github.com/dieg
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-From [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) — a repo with 27687+ stars on GitHub.
+From [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) — a repo with 29272+ stars on GitHub.
 
 ---
 
