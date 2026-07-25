@@ -2,9 +2,9 @@
   "name": "fuxi-cli",
   "owner": "MJ-CJM",
   "repo": "fuxi-cli",
-  "description": "\u5f00\u6e90 AI \u547d\u4ee4\u884c\u5de5\u5177\uff0c\u5c06\u591a\u6a21\u578b AI \u667a\u80fd\u4f53\u3001\u667a\u80fd\u5de5\u4f5c\u6d41\u548c\u89c4\u683c\u9a71\u52a8\u5f00\u53d1\u5e26\u5165\u60a8\u7684\u7ec8\u7aef\u3002\uff08An open-source AI command-line tool that brings multi-model AI agents, intelligent workflows, and spec-driven development directly into your terminal.\uff09",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MJ-CJM/fuxi-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:08:13Z"
+  "distributed_at": "2026-07-25T11:03:21Z"
 }
