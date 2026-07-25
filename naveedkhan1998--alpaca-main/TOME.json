@@ -2,9 +2,9 @@
   "name": "alpaca-main",
   "owner": "naveedkhan1998",
   "repo": "alpaca-main",
-  "description": "Realtime trading data boilerplate",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/naveedkhan1998/alpaca-main",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:38:46Z"
+  "distributed_at": "2026-07-25T05:03:57Z"
 }
