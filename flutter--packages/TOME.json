@@ -1,0 +1,93 @@
+{
+  "name": "packages",
+  "owner": "flutter",
+  "repo": "packages",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "packages",
+      "path": "packages/camera/camera_android_camerax/.agents/skills/check-readiness/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/packages/camera/camera_android_camerax/.agents/skills/check-readiness/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "packages",
+      "path": "third_party/skill-repos/mattpocock-skills/.agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/third_party/skill-repos/mattpocock-skills/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "packages",
+      "path": "third_party/skill-repos/dart-lang-skills/.agents/skills/dart-add-unit-test/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/third_party/skill-repos/dart-lang-skills/.agents/skills/dart-add-unit-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "packages",
+      "path": "third_party/skill-repos/obra-superpowers/.agents/skills/receiving-code-review/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/third_party/skill-repos/obra-superpowers/.agents/skills/receiving-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "packages",
+      "path": "third_party/skill-repos/dart-lang-skills/.agents/skills/dart-collect-coverage/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/third_party/skill-repos/dart-lang-skills/.agents/skills/dart-collect-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "packages",
+      "path": "third_party/skill-repos/dart-lang-skills/.agents/skills/dart-generate-test-mocks/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/third_party/skill-repos/dart-lang-skills/.agents/skills/dart-generate-test-mocks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "packages",
+      "path": "third_party/skill-repos/dart-lang-skills/.agents/skills/dart-run-static-analysis/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/third_party/skill-repos/dart-lang-skills/.agents/skills/dart-run-static-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "packages",
+      "path": "third_party/skill-repos/flutter-skills/.agents/skills/flutter-add-integration-test/SKILL.md",
+      "github_url": "https://github.com/flutter/packages/tree/main/third_party/skill-repos/flutter-skills/.agents/skills/flutter-add-integration-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/flutter/packages",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T02:40:51Z"
+}
