@@ -1,0 +1,14 @@
+{
+  "name": "domainaware--parsedmarc",
+  "displayName": "parsedmarc",
+  "description": "parsedmarc",
+  "version": "1.0.0",
+  "author": "domainaware",
+  "homepage": "https://github.com/domainaware/parsedmarc",
+  "skills": [
+    {
+      "name": "parsedmarc",
+      "description": ""
+    }
+  ]
+}
