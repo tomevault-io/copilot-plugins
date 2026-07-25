@@ -1,0 +1,18 @@
+{
+  "name": "togethercomputer--together-cookbook",
+  "displayName": "together-cookbook",
+  "description": "together-cookbook",
+  "version": "1.0.0",
+  "author": "togethercomputer",
+  "homepage": "https://github.com/togethercomputer/together-cookbook",
+  "skills": [
+    {
+      "name": "together-cookbook",
+      "description": ""
+    },
+    {
+      "name": "together-cookbook",
+      "description": ""
+    }
+  ]
+}
