@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--watsonwebserver",
+  "displayName": "WatsonWebserver",
+  "description": "WatsonWebserver",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/WatsonWebserver",
+  "skills": []
+}
