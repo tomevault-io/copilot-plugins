@@ -1,0 +1,30 @@
+{
+  "name": "newrelic--newrelic-dotnet-agent",
+  "displayName": "newrelic-dotnet-agent",
+  "description": "newrelic-dotnet-agent",
+  "version": "1.0.0",
+  "author": "newrelic",
+  "homepage": "https://github.com/newrelic/newrelic-dotnet-agent",
+  "skills": [
+    {
+      "name": "newrelic-dotnet-agent",
+      "description": ""
+    },
+    {
+      "name": "newrelic-dotnet-agent",
+      "description": ""
+    },
+    {
+      "name": "newrelic-dotnet-agent",
+      "description": ""
+    },
+    {
+      "name": "newrelic-dotnet-agent",
+      "description": ""
+    },
+    {
+      "name": "newrelic-dotnet-agent",
+      "description": ""
+    }
+  ]
+}
