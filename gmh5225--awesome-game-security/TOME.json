@@ -1,0 +1,129 @@
+{
+  "name": "awesome-game-security",
+  "owner": "gmh5225",
+  "repo": "awesome-game-security",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anti-cheat",
+      "path": ".claude/skills/anti-cheat",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/anti-cheat",
+      "description": ""
+    },
+    {
+      "name": "overview",
+      "path": ".claude/skills/overview",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/overview",
+      "description": ""
+    },
+    {
+      "name": "dma-attack",
+      "path": ".claude/skills/dma-attack",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/dma-attack",
+      "description": ""
+    },
+    {
+      "name": "game-engine",
+      "path": ".claude/skills/game-engine",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-engine",
+      "description": ""
+    },
+    {
+      "name": "game-hacking",
+      "path": ".claude/skills/game-hacking",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-hacking",
+      "description": ""
+    },
+    {
+      "name": "graphics-api",
+      "path": ".claude/skills/graphics-api",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/graphics-api",
+      "description": ""
+    },
+    {
+      "name": "reverse-engineering",
+      "path": ".claude/skills/reverse-engineering",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/reverse-engineering",
+      "description": ""
+    },
+    {
+      "name": "windows-kernel",
+      "path": ".claude/skills/windows-kernel",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/windows-kernel",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/anti-cheat/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/anti-cheat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/game-engine/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-engine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/game-hacking/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/game-hacking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/graphics-api/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/graphics-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/windows-kernel/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/windows-kernel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-game-security",
+      "path": ".claude/skills/reverse-engineering/SKILL.md",
+      "github_url": "https://github.com/gmh5225/awesome-game-security/tree/main/.claude/skills/reverse-engineering/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gmh5225/awesome-game-security",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T20:34:48Z"
+}
