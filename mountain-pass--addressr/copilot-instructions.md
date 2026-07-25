@@ -1,95 +1,123 @@
 ## addressr
 
-> All agent work in this repo must align with:
+> Follow the instructions in [AGENTS.md](AGENTS.md).
 
-# AGENTS.md
+# Claude Code
 
-## Operating Alignment
+Follow the instructions in [AGENTS.md](AGENTS.md). 
 
-All agent work in this repo must align with:
+Use the planning tool and AskQuestions too liberally.
 
-- `PRINCIPLES.md` (especially locality/simplicity, flow/feedback speed, customer focus, and deterministic vs LLM split)
-- `AGENTIC_RISK_REGISTER.md`
-- `governance/control-traceability.json`
+Use test driven development. i.e. write the failing test first.
 
-When uncertain, prefer the option that improves feedback speed and keeps changes small and recoverable.
-Apply Gall's law in delivery decisions: start from a working simple slice, then earn complexity incrementally through validated trunk feedback.
+## Decision Management
 
-## Trunk-Based Delivery
+Architectural and technical decisions must be documented per [DECISION-MANAGEMENT.md](DECISION-MANAGEMENT.md). Designs and implementations should align with the existing decision records in [docs/decisions/](docs/decisions/). When proposing changes that conflict with an existing decision, either follow the supersession process or discuss the deviation with the user first.
 
-- Use trunk-based development on `master`.
-- Follow `docs/RED_TRUNK_PLAYBOOK.md` when trunk is red.
-- Treat release controls as defined in:
-  - `docs/GITHUB_RULESETS.md`
-  - `.github/workflows/release.yml`
+<!-- accessibility-agents: start -->
+# Accessibility-First Development
 
-## Architecture and Decisions
+This project enforces WCAG AA accessibility standards for all web UI code.
 
-- Keep architecture docs in sync with code:
-  - `/c4` (regenerate C4 diagrams from source)
-  - `/c4-check` (verify diagrams are up to date)
-  - `docs/architecture/C4_MODEL.md`
-- Record significant architecture and build-vs-buy decisions under `docs/decisions/`.
-- Keep `docs/decisions/README.md` updated for locality and traceability.
+## Hook-Based Enforcement
 
-## Controls and Safety
+Accessibility review is enforced by three global hooks:
 
-- Deterministic controls are enforced via `package.json` scripts, git hooks, and CI.
-- Do not bypass controls; if a control is noisy or ineffective, propose a change traced to risks in:
-  - `AGENTIC_RISK_REGISTER.md`
-  - `governance/control-traceability.json`
+1. **Proactive detection** (`UserPromptSubmit`) — Detects web projects and injects the delegation instruction on every prompt.
+2. **Edit gate** (`PreToolUse`) — Blocks Edit/Write to UI files until accessibility-lead has been consulted. Uses `permissionDecision: "deny"`.
+3. **Session marker** (`PostToolUse`) — Unlocks the edit gate after accessibility-lead completes.
 
-## Risk & Release Gates
+If an edit is blocked, delegate to `accessibility-agents:accessibility-lead` first.
 
-_Codifies the prompt-layer expectations that back ADR-001 (Risk-Gated Release Process) and `RISK-POLICY.md`. Prompt layer + tool layer are defense-in-depth; neither replaces the other._
+## Mandatory Accessibility Check
 
-- NEVER attempt `git push origin master`, a release workflow, or any publish when the risk scorer reports a residual score above the `RISK-POLICY.md` appetite (currently 5; see ADR-001). Stop and escalate.
-- Before proposing a release, verify the latest master CI run is green (lint, coverage, licenses, tests, risk gates) — do not rely on assumed-green.
-- If a risk gate blocks, report the score and wait for explicit user approval before retrying. Do not silently rescore or re-run to try to get a different number.
+Before writing or modifying any web UI code - including HTML, JSX, CSS, React components, Tailwind classes, web pages, forms, modals, or any user-facing web content - you MUST:
 
-## Verification Ownership
+1. Consider which accessibility specialist agents are needed for the task
+2. Apply the relevant specialist knowledge before generating code
+3. Verify the output against the appropriate checklists
 
-- Run verification commands (curl, gh, git, npm, test runners) yourself and show the output. Prefer piping the actual output into the response over summarising it when the user asked for evidence.
-- Do not ask the user to run commands unless they require credentials or resources you lack (1Password, production consoles, interactive auth).
-- If a command could be constructed and run safely, construct it and run it; don't offload the shell to the user.
+**Automatic trigger detection:** If a user prompt involves creating, editing, or reviewing any file matching `*.html`, `*.jsx`, `*.tsx`, `*.vue`, `*.svelte`, `*.astro`, or `*.css` - or if the prompt describes building UI components, pages, forms, or visual elements - treat it as a web UI task and apply the Decision Matrix below.
 
-## Completion Protocol (Default)
+## Available Specialist Agents
 
-- Unless explicitly told otherwise, when a task is complete:
-  - Commit all intended changes.
-  - Add a changeset when the change is release-relevant.
-  - Push to `master`.
-  - Monitor the resulting pipeline(s) to completion.
-  - If any pipeline fails, treat recovery as highest priority and push only pipeline-fix commits until trunk is green again.
-  - If a changeset is present (or a release PR is created/updated), also monitor release PR checks to completion.
-  - If any release PR check fails or remains expected/pending due to misconfiguration, treat recovery as highest priority and push only release-pipeline/release-policy fix commits until the release PR is mergeable without bypass.
+| Agent | When to Use |
+|-------|------------|
+| accessibility-lead | Any UI task - coordinates all specialists and runs final review |
+| aria-specialist | Interactive components, custom widgets, ARIA usage |
+| modal-specialist | Dialogs, drawers, popovers, overlays |
+| contrast-master | Colors, themes, CSS styling, visual design |
+| keyboard-navigator | Tab order, focus management, keyboard interaction |
+| live-region-controller | Dynamic content updates, toasts, loading states |
+| forms-specialist | Forms, inputs, validation, error handling, multi-step wizards |
+| alt-text-headings | Images, alt text, SVGs, heading structure, page titles, landmarks |
+| tables-data-specialist | Data tables, sortable tables, grids, comparison tables |
+| link-checker | Ambiguous link text, "click here"/"read more" detection |
+| cognitive-accessibility | WCAG 2.2 cognitive SC, COGA guidance, plain language |
+| mobile-accessibility | React Native, Expo, iOS, Android - touch targets, screen readers |
+| design-system-auditor | Color token contrast, focus ring tokens, spacing tokens |
+| web-accessibility-wizard | Full guided web accessibility audit |
+| document-accessibility-wizard | Document audit for .docx, .xlsx, .pptx, .pdf |
+| markdown-a11y-assistant | Markdown audit - links, headings, emoji, tables |
+| testing-coach | Screen reader testing, keyboard testing, automated testing |
+| wcag-guide | WCAG 2.2 criteria explanations, conformance levels |
 
-## Changeset Quality
+## Commands
 
-- Treat changesets as reviewer-facing release notes, not internal scratch notes.
-- For release-relevant work, add changesets regularly (do not batch too much scope between changesets).
+Type `/` followed by a command name to invoke the corresponding specialist directly:
 
-Good changesets:
+| Command | Specialist | Purpose |
+|-------|-----------|---------|
+| `/aria` | aria-specialist | ARIA patterns - roles, states, properties |
+| `/contrast` | contrast-master | Color contrast - ratios, themes, visual design |
+| `/keyboard` | keyboard-navigator | Keyboard nav - tab order, focus, shortcuts |
+| `/forms` | forms-specialist | Forms - labels, validation, error handling |
+| `/alt-text` | alt-text-headings | Images/headings - alt text, hierarchy, landmarks |
+| `/tables` | tables-data-specialist | Tables - headers, scope, caption, sorting |
+| `/links` | link-checker | Links - ambiguous text detection |
+| `/modal` | modal-specialist | Modals - focus trap, return, escape |
+| `/live-region` | live-region-controller | Live regions - dynamic announcements |
+| `/audit` | web-accessibility-wizard | Full guided web accessibility audit |
+| `/document` | document-accessibility-wizard | Document audit - Word, Excel, PPT, PDF |
+| `/markdown` | markdown-a11y-assistant | Markdown audit - links, headings, emoji |
+| `/test` | testing-coach | Testing - screen reader, keyboard, automated |
+| `/wcag` | wcag-guide | WCAG reference - criteria explanations |
+| `/cognitive` | cognitive-accessibility | Cognitive a11y - COGA, plain language |
+| `/mobile` | mobile-accessibility | Mobile - React Native, touch targets |
+| `/design-system` | design-system-auditor | Tokens - contrast, focus rings, spacing |
+| `/c4` | c4 (skill) | Regenerate C4 architecture diagrams from source |
+| `/c4-check` | c4-check (skill) | Check C4 diagram freshness against source |
+| `/risk-policy` | risk-policy (skill) | Create or update RISK-POLICY.md per ISO 31000 |
+| `/problem` | problem (skill) | Create, update, or transition problem tickets per PROBLEM-MANAGEMENT.md |
+| `/retrospective` | retrospective (skill) | Session retrospective — update BRIEFING.md and create problem tickets |
 
-- Scoped: one product/behavior slice per changeset.
-- User-impact first: describe what changed for users/operators, not only file-level edits.
-- Specific and verifiable: mention concrete behavior, API, workflow, or control changes.
-- Risk-aware: call out notable operational or release implications when relevant.
-- Small and reviewable: easy to map from diff -> changeset -> release decision.
+## Decision Matrix
 
-Bad changesets:
+- **New component or page:** Always apply aria-specialist + keyboard-navigator + alt-text-headings. Add forms-specialist for inputs, contrast-master for styling, modal-specialist for overlays, live-region-controller for dynamic updates, tables-data-specialist for data tables.
+- **Modifying existing UI:** At minimum apply keyboard-navigator. Add others based on what changed.
+- **Code review/audit:** Apply all specialist checklists. Use web-accessibility-wizard for guided audits.
+- **Document audit:** Use document-accessibility-wizard for Office and PDF accessibility audits.
+- **Mobile app:** Use mobile-accessibility for touch targets, labels, and screen reader compatibility.
+- **Cognitive / UX clarity:** Use cognitive-accessibility for WCAG 2.2 SC 3.3.7, 3.3.8, 3.3.9, COGA guidance.
+- **Design system / tokens:** Use design-system-auditor to validate color token pairs, focus ring tokens, spacing tokens.
+- **Data tables:** Always apply tables-data-specialist.
+- **Links:** Always apply link-checker when pages contain hyperlinks.
+- **Images or media:** Always apply alt-text-headings.
 
-- Vague text ("misc fixes", "updates", "cleanup").
-- Mechanical restatement of file edits without behavior impact.
-- Overloaded scope mixing unrelated changes into one entry.
-- Missing changeset for release-relevant changes.
-- Overly noisy churn changesets for non-release/internal-only edits.
+## Non-Negotiable Standards
 
-Quick examples:
+- Semantic HTML before ARIA (`<button>` not `<div role="button">`)
+- One H1 per page, never skip heading levels
+- Every interactive element reachable and operable by keyboard
+- Text contrast 4.5:1, UI component contrast 3:1
+- No information conveyed by color alone
+- Focus managed on route changes, dynamic content, and deletions
+- Modals trap focus and return focus on close
+- Live regions for all dynamic content updates
 
-- Good: "Persist Google sign-in across reload and auto-project on input/sign-in changes; remove false unauthenticated startup error in reviewer UI."
-- Bad: "Updated ui files and tests."
+For tasks that do not involve any user-facing web content (backend logic, scripts, database work), these requirements do not apply.
+<!-- accessibility-agents: end -->
 
 ---
 > Source: [mountain-pass/addressr](https://github.com/mountain-pass/addressr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
