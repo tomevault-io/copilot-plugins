@@ -1,0 +1,14 @@
+{
+  "name": "shoelace-style--webawesome",
+  "displayName": "webawesome",
+  "description": "webawesome",
+  "version": "1.0.0",
+  "author": "shoelace-style",
+  "homepage": "https://github.com/shoelace-style/webawesome",
+  "skills": [
+    {
+      "name": "webawesome",
+      "description": ""
+    }
+  ]
+}
