@@ -1,0 +1,14 @@
+{
+  "name": "ecubus--ecubus-pro",
+  "displayName": "EcuBus-Pro",
+  "description": "EcuBus-Pro",
+  "version": "1.0.0",
+  "author": "ecubus",
+  "homepage": "https://github.com/ecubus/EcuBus-Pro",
+  "skills": [
+    {
+      "name": "EcuBus-Pro",
+      "description": ""
+    }
+  ]
+}
