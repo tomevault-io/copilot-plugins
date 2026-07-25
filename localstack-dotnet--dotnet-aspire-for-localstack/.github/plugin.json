@@ -1,0 +1,14 @@
+{
+  "name": "localstack-dotnet--dotnet-aspire-for-localstack",
+  "displayName": "dotnet-aspire-for-localstack",
+  "description": "dotnet-aspire-for-localstack",
+  "version": "1.0.0",
+  "author": "localstack-dotnet",
+  "homepage": "https://github.com/localstack-dotnet/dotnet-aspire-for-localstack",
+  "skills": [
+    {
+      "name": "dotnet-aspire-for-localstack",
+      "description": ""
+    }
+  ]
+}
