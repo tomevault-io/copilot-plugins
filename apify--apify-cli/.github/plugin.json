@@ -1,0 +1,14 @@
+{
+  "name": "apify--apify-cli",
+  "displayName": "apify-cli",
+  "description": "apify-cli",
+  "version": "1.0.0",
+  "author": "apify",
+  "homepage": "https://github.com/apify/apify-cli",
+  "skills": [
+    {
+      "name": "apify-cli",
+      "description": ""
+    }
+  ]
+}
