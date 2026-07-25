@@ -1,0 +1,219 @@
+{
+  "name": "cellpy",
+  "owner": "jepegit",
+  "repo": "cellpy",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-iflow/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-iflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-build/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-yolo/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-yolo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-plan/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-init/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-close/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-close/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-pause/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-pause/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-start/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-start/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-version-bump/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-version-bump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-cleanup/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-history-update/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-history-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/issueflow-issue-comments/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/issueflow-issue-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-fix/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-pick/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-pick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-yolo/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-yolo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-init/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-plan/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-close/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-close/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-pause/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-pause/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-status/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-archive/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-archive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-cleanup/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-cleanup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-comments/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-graphify/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-graphify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-version-bump/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-version-bump/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cellpy",
+      "path": ".cursor/skills/iflow-history-update/SKILL.md",
+      "github_url": "https://github.com/jepegit/cellpy/tree/main/.cursor/skills/iflow-history-update/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jepegit/cellpy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-25T14:34:40Z"
+}
