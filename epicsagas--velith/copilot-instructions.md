@@ -1,68 +1,63 @@
-## velith-editing
+## velith-genres
 
-> Velith 5-stage editing pipeline, AI-slop detection patterns, and style conventions
+> Velith genre-specific writing conventions for each supported genre
 
 
-# Velith — Editing Pipeline and Style Conventions
+# Velith — Genre Conventions
 
-## 5-Stage Editing Pipeline
+## Fiction
+- Plot structure: Save the Cat! 15-beat or Snowflake Method
+- Character bible with GMC (Goal, Motivation, Conflict) per character
+- Scene beats with RDD (Reaction, Dilemma, Decision) pacing
+- POV consistency (no 1st/3rd mixing within chapters)
+- Dialogue rules: subtext over exposition, distinctive voice per character
 
-| Stage | Focus | What to check |
-|-------|-------|---------------|
-| 1. Editorial Assessment | Macro structure | Chapter order, pacing, gap analysis, argument flow |
-| 2. Developmental Edit | Flow and content | Transitions, evidence quality, redundant sections, missing content |
-| 3. Line Edit | Sentence-level clarity | Word choice, sentence rhythm, paragraph flow, voice consistency |
-| 4. Copy Edit | Grammar and consistency | Grammar, punctuation, terminology consistency, formatting |
-| 5. Proofread | Final polish | Typos, spacing, formatting artifacts, cross-reference accuracy |
+## Non-Fiction
+- Problem-solution structure per chapter
+- Learner persona–driven progression (what does the reader already know?)
+- Evidence hierarchy: primary research > expert interviews > case studies > anecdotes
+- Chapter hooks: open with a question or counterintuitive fact
+- Summary + action items at chapter end
 
-## AI-Slop Detection Patterns
+## Technical
+- Concept progression gradient: novice → intermediate → expert
+- Code examples: compilable, commented, with expected output
+- Diagrams for architecture, data flow, or process steps
+- API docs: endpoint, parameters, response schema, error codes
+- Labs/exercises at end of each chapter
 
-These patterns indicate AI-generated text that reads as inauthentic. Flag and fix:
+## Screenplay
+- 3-act structure + 8-sequence method
+- Dialogue: subtext, distinct voice, no on-the-nose exposition
+- A/B story interweaving (main plot + subplot)
+- Action lines: present tense, visual, concise
+- Page budget: ~1 page = ~1 minute of screen time
 
-**Excessive modifiers:** revolutionary, game-changer, groundbreaking, cutting-edge, transformative, innovative, seamless, robust, comprehensive
+## Poetry
+- Form types: sonnet, haiku, free verse, villanelle, prose poem, etc.
+- Meter/rhythm awareness (iambic, trochaic, anapestic, dactylic)
+- Imagery systems: visual, auditory, tactile, olfactory, gustatory
+- Collection arc: ordering poems for emotional/thematic progression
+- Line break intentionality: enjambment vs end-stopped
 
-**Repetitive transitions:** overuse of "however", "moreover", "furthermore", "additionally", "notably"
+## Game Scenario
+- Quest/event tree structure with branching conditions
+- Dialogue branching with player agency flags
+- Lore bible: world rules, factions, technology/magic systems
+- Flag system: track player choices across chapters/scenes
+- Multiple endings: foreshadowing and divergence points
 
-**Generic conclusions:** "in conclusion", "in summary", "ultimately", "at the end of the day", "it's important to note"
+## Academic
+- IMRAD structure (Introduction, Methods, Results, Discussion)
+- Literature review: thematic organization, not chronological
+- Argument chains: claim → evidence → warrant → backing → rebuttal
+- Citation practices: consistent style (APA, MLA, Chicago, etc.)
+- Abstract and keywords before main body
 
-**Weak hedging:** "can be", "seems like", "it could be argued", "one might say", "arguably"
-
-**English AI markers:** "delve", "tapestry", "landscape" (metaphorical), "nuanced", "multifaceted", "plethora", "myriad"
-
-**List overuse:** 5+ consecutive bullet points without prose context
-
-## Style Drift Indicators
-
-Quantitative signals that a chapter's style has drifted from the rest:
-
-- **Sentence length variance** — compare per-chapter average against book mean
-- **Paragraph length distribution** — flag chapters with significantly different patterns
-- **Type-token ratio** — vocabulary diversity should remain consistent
-- **POV mixing** — detect shifts between 1st/3rd person within chapters
-
-## Severity Classification
-
-| Level | Criteria | Action |
-|-------|----------|--------|
-| Critical | Breaks reader comprehension, factual error, POV violation | Must fix before proceeding |
-| Major | Style drift, inconsistent tone, structural gap | Should fix, flag for review |
-| Minor | Word choice, transition quality, formatting | Nice to fix, batch at proofread stage |
-
-## Tone Rules
-
-- All tone checks reference `STYLE.md` in the project root
-- Flag abrupt shifts between chapters
-- Detect language mixing violations (e.g., Korean text with unmarked English insertions)
-- Check emphasis overuse (bold, italic, exclamation marks)
-
-## Editing Output
-
-Generate `edits/editorial-report.md` with:
-- Issue location (file, line range)
-- Pattern detected
-- Severity level
-- Fix suggestion
-- Quantitative metrics (sentence length, vocabulary diversity, etc.)
+## Custom Genres
+- Compose patterns from any supported genre via genre-creator
+- Define custom quality gates and chapter templates
+- Can inherit from multiple parent genres
 
 ---
 > Source: [epicsagas/Velith](https://github.com/epicsagas/Velith) — distributed by [TomeVault](https://tomevault.io).
