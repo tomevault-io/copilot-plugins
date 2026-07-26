@@ -1,0 +1,123 @@
+{
+  "name": "meshkit",
+  "owner": "meshery",
+  "repo": "meshkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "meshkit",
+      "path": ".agents/skills/lavish/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.agents/skills/lavish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".agents/skills/gh-axi/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.agents/skills/gh-axi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/gepetto/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/gepetto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".agents/skills/quota-axi/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.agents/skills/quota-axi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/iterate-pr/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/iterate-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/cut-release/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/cut-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/qa-test-planner/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/qa-test-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/command-creator/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/command-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/reducing-entropy/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/reducing-entropy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/agent-md-refactor/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/agent-md-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".agents/skills/chrome-devtools-axi/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.agents/skills/chrome-devtools-axi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "meshkit",
+      "path": ".claude/skills/database-schema-designer/SKILL.md",
+      "github_url": "https://github.com/meshery/meshkit/tree/main/.claude/skills/database-schema-designer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/meshery/meshkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T12:00:30Z"
+}
