@@ -2,9 +2,9 @@
   "name": "nalix",
   "owner": "ppn-systems",
   "repo": "nalix",
-  "description": "High-performance TCP networking framework for .NET, low-latency messaging.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ppn-systems/nalix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T02:21:15Z"
+  "distributed_at": "2026-07-26T05:15:24Z"
 }
