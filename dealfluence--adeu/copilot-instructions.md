@@ -1,46 +1,56 @@
 ## adeu
 
-> Adeu is your document redlining engine. It gives you a safe, token-efficient interface to read and edit `.docx` files, producing native Microsoft Word Track Changes rather than rewriting the file.
+> Adeu is a DOCX ↔ LLM translation engine and redlining Virtual DOM. It maintains parallel Python and Node.js implementations plus a LangChain integration.
 
-# Adeu — Native Track Changes for AI
+# Adeu Agent Instructions
 
-Adeu is your document redlining engine. It gives you a safe, token-efficient interface to read and edit `.docx` files, producing native Microsoft Word Track Changes rather than rewriting the file.
+Adeu is a DOCX ↔ LLM translation engine and redlining Virtual DOM. It maintains parallel Python and Node.js implementations plus a LangChain integration.
 
-## Available Tools
+## Repository Structure & Packages
 
-### `read_docx`
-Reads a DOCX file and returns its content as CriticMarkup-annotated text:
-- `{++inserted++}` — tracked insertion
-- `{--deleted--}` — tracked deletion
-- `{>>comment<<}` — comment
+- `python/`: Core Python engine (`adeu`), FastMCP server (`adeu-server`), and CLI (`adeu`). Managed via `uv` (requires Python ≥ 3.12).
+- `node/`: Node.js workspace (requires Node ≥ 22.0.0). Contains:
+  - `node/packages/core`: `@adeu/core` (TypeScript SDK)
+  - `node/packages/mcp-server`: `@adeu/mcp-server` (MCP server binary)
+  - `node/packages/n8n-nodes-adeu`: `n8n-nodes-adeu` (n8n community node)
+- `langchain/`: `langchain-adeu` integration package. Editable-links to `python/` via `tool.uv.sources`.
+- `desktop-extension/`: Claude Desktop extension packaging (`.mcpb`).
+- `scripts/`: Monorepo automation (`bump.py`, `check_release_consistency.mjs`).
 
-**Key parameters:**
-- `file_path` (required): absolute path to the `.docx` file
-- `clean_view=true`: returns the accepted/final text with no markup — use this first to understand context
-- `mode="outline"`: returns a heading map only — start here on large documents before reading in full
-- `mode="appendix"`: returns defined terms and cross-reference anchors — consult before editing legal docs
-- `page=N`: navigate paginated full-text output
+## Commands & Verification Workflow
 
-### `process_document_batch`
-Applies a list of edits to a DOCX. Edits apply **sequentially** — each one evaluates against the document state produced by the edits before it, so dependent edits may be chained in one batch (a later edit must target the text as it reads after the earlier edits). If any edit fails validation, the whole batch is rejected transactionally.
+Run commands from the respective package directory:
 
-**Change types:**
-- `modify`: search-and-replace. `target_text` must uniquely identify the passage. `new_text` supports Markdown headings, bold, italic, and `\n\n` for paragraph breaks. Empty `new_text` deletes the passage.
-- `accept` / `reject`: finalize or revert a tracked change by `target_id` (e.g. `Chg:12`)
-- `reply`: reply to a comment by `target_id` (e.g. `Com:5`)
+### Python (`python/`)
+1. **Lint & Format Check:** `uv run ruff check . && uv run ruff format --check .`
+2. **Type Check:** `uv run mypy src`
+3. **Run Tests:** `uv run pytest` (single test: `uv run pytest tests/test_engine.py -k "test_name"`)
 
-Always call `read_docx` immediately before any `accept`/`reject`/`reply` — IDs shift between document states.
+### Node.js (`node/`)
+1. **Build All Packages:** `npm run build` (must build before testing dependent packages)
+2. **Run Tests:** `npm run test` (single test: `cd packages/core && npm run test -- -t "test_name"`)
+3. **Lint (n8n package):** `cd packages/n8n-nodes-adeu && npm run lint`
 
-### `accept_all_changes`
-Accepts all tracked changes and removes all comments in one operation. Use only when review is fully complete.
+### LangChain (`langchain/`)
+1. **Lint & Format Check:** `uv run ruff check . && uv run ruff format --check .`
+2. **Type Check:** `uv run mypy langchain_adeu`
+3. **Run Tests:** `uv run pytest`
 
-## Recommended Workflow
+## Operational Quirks & Invariants
 
-1. `read_docx(mode="outline")` — understand document structure
-2. `read_docx(clean_view=true)` — read final text for context
-3. `read_docx()` — read raw markup to see existing tracked changes and comment IDs
-4. `process_document_batch(...)` — apply your edits
+- **Command Order:** Node workspace requires `npm run build` before `npm test` so built dist files exist for `@adeu/mcp-server` and `n8n-nodes-adeu`.
+- **Dual-Engine Parity:** Python and TypeScript backends share identical Virtual Text and CriticMarkup behavior. Changes to redlining algorithms must be mirrored in both engines.
+- **Monorepo Version Bumping:** Run `python scripts/bump.py [minor|major|patch|X.Y.Z]` from repo root to update all subprojects simultaneously, then verify with `node scripts/check_release_consistency.mjs`.
+  - **Exception:** Do NOT bump `nodeVersion` or `codexVersion` in `node/packages/n8n-nodes-adeu/nodes/Adeu/Adeu.node.json` during version updates (breaks n8n Cloud verification).
+- **Windows Live Word COM:** Windows-only (`pywin32`). STA COM tests intentionally omit `pythoncom.CoUninitialize()` and `app.Quit()` during teardown to avoid RPC crashes (`0x800706be`).
+- **Prerequisites:** System tests and XML checks require `xmllint` (`libxml2-utils`).
+
+## Key Reference Documents
+
+- `AI_CONTEXT.md`: Architectural invariants (Virtual Text contract, block-level table parsing, OPC part boundaries, XML surgical mode).
+- `GEMINI.md`: Tool specification and parameters (`read_docx`, `process_document_batch`, `accept_all_changes`).
+- `CONTRIBUTING.md`: Dev environment setup, git hooks (`.githooks`), and PR guidelines.
 
 ---
 > Source: [dealfluence/adeu](https://github.com/dealfluence/adeu) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
