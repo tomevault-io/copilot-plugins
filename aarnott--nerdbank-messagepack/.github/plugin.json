@@ -1,0 +1,18 @@
+{
+  "name": "aarnott--nerdbank-messagepack",
+  "displayName": "Nerdbank.MessagePack",
+  "description": "A feature-packed .NET MessagePack serialization library with great performance and simplicity. msgpack.io[C#]",
+  "version": "1.0.0",
+  "author": "AArnott",
+  "homepage": "https://github.com/AArnott/Nerdbank.MessagePack",
+  "skills": [
+    {
+      "name": "Nerdbank.MessagePack",
+      "description": ""
+    },
+    {
+      "name": "Nerdbank.MessagePack",
+      "description": ""
+    }
+  ]
+}
