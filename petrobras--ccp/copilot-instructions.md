@@ -1,0 +1,146 @@
+## ccp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is **ccp** (Centrifugal Compressor Performance), a Python library for calculation of centrifugal compressor performance. It uses CoolProp/REFPROP for gas properties calculations and is based on process engineering principles.
+
+## Key Components
+
+### Core Classes
+- **State**: Represents thermodynamic states with fluid properties (`ccp/state.py`)
+- **Point**: Performance points with suction/discharge states (`ccp/point.py`)
+- **Impeller**: Collection of performance points for analysis (`ccp/impeller.py`)
+- **Curve**: Performance curves and interpolation (`ccp/curve.py`)
+- **FlowOrifice**: Flow measurement calculations (`ccp/fo.py`)
+- **Evaluation**: Performance evaluation utilities (`ccp/evaluation.py`)
+
+### Configuration
+- **Units**: Custom unit definitions in `ccp/config/new_units.txt`
+- **Fluids**: Fluid property management in `ccp/config/fluids.py`
+- **Plotly Theme**: Custom plotting theme in `ccp/plotly_theme.py`
+
+### Applications
+- **Streamlit App**: Web interface located in `ccp/app/` with example files and pages
+- **Data I/O**: CSV/Excel reading utilities in `ccp/data_io/`
+
+## Common Development Commands
+
+### Package Manager
+This project uses **uv** for package and environment management.
+
+### Testing
+```bash
+uv run pytest -m "not slow" -n auto --dist loadfile   # fast tier (~40 s) - use during development
+uv run pytest ccp/tests -n 4 --dist loadfile          # full suite in parallel (~7 min) - run before opening a PR
+uv run pytest                                         # full suite, serial (~25 min; includes doctests)
+```
+
+The heavy integration modules (`test_app.py`, `test_compressor.py`, `test_evaluation.py`, `test_impeller.py`) are auto-marked `slow` in `ccp/tests/conftest.py` — they run full compressor conversions. Use the fast tier while iterating and run the full suite at the end of a feature. `--dist loadfile` keeps each test file in a single xdist worker, which preserves within-file ordering and gives per-file process isolation. Use `-n 4` (not `-n auto`) for the full suite: the slow files spawn their own multiprocessing pools, and 16 workers exhaust memory on a 16 GB machine.
+
+### Development Setup
+```bash
+uv sync 
+uv sync --all-extras 
+```
+
+### Running the App
+```bash
+uv run streamlit run ccp/app/ccp_app.py
+```
+
+### Code Formatting
+Uses **Ruff** formatter - ensure all code follows Ruff formatting standards.
+
+### Documentation
+```bash
+cd docs/
+make html                           # Build full documentation
+make EXECUTE_NOTEBOOKS='off' html  # Build docs without executing notebooks
+```
+
+## Dependencies and Environment
+
+### Key Dependencies
+- **CoolProp/REFPROP**: Gas property calculations
+- **pint**: Unit handling (Q_ quantity objects)
+- **plotly**: Plotting and visualization
+- **pandas**: Data manipulation
+- **streamlit**: Web application framework
+
+### REFPROP Configuration
+The library automatically configures REFPROP paths during initialization. REFPROP is optional but recommended for accurate gas property calculations.
+
+## Code Architecture
+
+### Unit System
+- Uses **pint** for unit handling throughout
+- `Q_` objects represent quantities with units
+- SI units assumed when no units specified
+- Custom units defined in `ccp/config/new_units.txt`
+- **All unit conversions must use pint** - never use manual arithmetic (e.g., divide by 1000)
+- Use `Q_(value, "unit").to("target_unit").m` for conversions
+- Example: `Q_(head_joules, "J/kg").to("kJ/kg").m` instead of `head_joules / 1000`
+- Default internal units (from `ccp/config/units.py`):
+  - head: `J/kg` (joule/kilogram)
+  - power: `W` (watt)
+  - flow_v: `m³/s` (meter³/second)
+  - pressure: `Pa` (pascal)
+  - temperature: `K` (kelvin)
+
+### Fluid Properties
+- Fluids defined as dictionaries with component fractions
+- State objects handle thermodynamic calculations
+- Supports both CoolProp and REFPROP backends
+
+### Performance Calculations
+- Point objects contain suction/discharge states with geometric parameters
+- Impeller objects analyze collections of points
+- Curve objects handle interpolation and curve fitting
+- All calculations follow established process engineering principles
+
+## Testing Structure
+
+Tests are located in `ccp/tests/` with test data in `ccp/tests/data/`. The test suite includes:
+- Unit tests for all core classes
+- Docstring examples (tested via pytest --doctest-modules)
+- Integration tests using real compressor data
+
+## Git Workflow
+
+This project uses a **fork-based workflow**. The upstream repository is `petrobras/ccp`.
+
+### Remote Setup
+Each developer should have:
+- **`origin`**: their personal fork (e.g., `git@github.com:<user>/ccp.git`)
+- **`upstream`**: the main repository (`git@github.com:petrobras/ccp.git`)
+
+```bash
+git remote set-url origin git@github.com:<user>/ccp.git
+git remote add upstream git@github.com:petrobras/ccp.git
+```
+
+### Creating Pull Requests
+1. Create a new branch from `main`
+2. Push the branch to `origin` (your fork)
+3. Open the PR from your fork's branch against `upstream/main` (`petrobras/ccp`)
+
+```bash
+git checkout -b my-feature
+# ... make changes ...
+git push -u origin my-feature
+gh pr create --repo petrobras/ccp --base main
+```
+
+## Documentation Standards
+
+Uses **Numpy docstring style** for all methods and classes. Examples in docstrings are tested automatically and must produce correct output.
+
+---
+> Source: [petrobras/ccp](https://github.com/petrobras/ccp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
