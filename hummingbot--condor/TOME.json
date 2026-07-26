@@ -1,0 +1,93 @@
+{
+  "name": "condor",
+  "owner": "hummingbot",
+  "repo": "condor",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "condor",
+      "path": "assistants/condor/skills/log_analyzer/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/assistants/condor/skills/log_analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "condor",
+      "path": "assistants/condor/skills/agent_builder/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/assistants/condor/skills/agent_builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "condor",
+      "path": "agents/routine_builder/skills/routine_cookbook/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/agents/routine_builder/skills/routine_cookbook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "condor",
+      "path": "agents/market_making_expert/skills/mm_bot_report/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/agents/market_making_expert/skills/mm_bot_report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "condor",
+      "path": "agents/market_making_expert/skills/pmm_mister_deploy/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/agents/market_making_expert/skills/pmm_mister_deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "condor",
+      "path": "assistants/condor/skills/hyperliquid_tokenized_perps/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/assistants/condor/skills/hyperliquid_tokenized_perps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "condor",
+      "path": "agents/market_making_expert/skills/capital_allocation/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/agents/market_making_expert/skills/capital_allocation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "condor",
+      "path": "agents/market_making_expert/skills/pmm_config_playbook/SKILL.md",
+      "github_url": "https://github.com/hummingbot/condor/tree/main/agents/market_making_expert/skills/pmm_config_playbook/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hummingbot/condor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:48:17Z"
+}
