@@ -4,7 +4,7 @@
   "repo": "bkit-claude-code",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -437,5 +437,5 @@
   ],
   "source_url": "https://github.com/popup-studio-ai/bkit-claude-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T10:34:28Z"
+  "distributed_at": "2026-07-26T11:31:53Z"
 }
