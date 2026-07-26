@@ -1,0 +1,14 @@
+{
+  "name": "egraphs-good--egglog",
+  "displayName": "egglog",
+  "description": "egglog",
+  "version": "1.0.0",
+  "author": "egraphs-good",
+  "homepage": "https://github.com/egraphs-good/egglog",
+  "skills": [
+    {
+      "name": "egglog",
+      "description": ""
+    }
+  ]
+}
