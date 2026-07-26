@@ -1,0 +1,9 @@
+{
+  "name": "fmidev--smartmet-server",
+  "displayName": "smartmet-server",
+  "description": "smartmet-server",
+  "version": "1.0.0",
+  "author": "fmidev",
+  "homepage": "https://github.com/fmidev/smartmet-server",
+  "skills": []
+}
