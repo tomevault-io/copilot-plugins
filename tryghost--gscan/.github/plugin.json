@@ -1,0 +1,9 @@
+{
+  "name": "tryghost--gscan",
+  "displayName": "gscan",
+  "description": "gscan",
+  "version": "1.0.0",
+  "author": "TryGhost",
+  "homepage": "https://github.com/TryGhost/gscan",
+  "skills": []
+}
