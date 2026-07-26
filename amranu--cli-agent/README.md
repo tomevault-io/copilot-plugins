@@ -1,16 +1,15 @@
 # cli-agent
 
-> Source: [amranu/cli-agent](https://github.com/amranu/cli-agent) — distributed by [TomeVault](https://tomevault.io)
-
-A lightweight Agentic AI framework which works for Mac/Linux/WSL
+> Source: [amranu/cli-agent](https://github.com/amranu/cli-agent). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [amranu/cli-agent](https://github.com/amranu/cli-agent).
+Original source: `` in [amranu/cli-agent](https://github.com/amranu/cli-agent).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
