@@ -1,0 +1,14 @@
+{
+  "name": "wfcd--wfinfo",
+  "displayName": "WFinfo",
+  "description": "WFinfo",
+  "version": "1.0.0",
+  "author": "WFCD",
+  "homepage": "https://github.com/WFCD/WFinfo",
+  "skills": [
+    {
+      "name": "WFinfo",
+      "description": ""
+    }
+  ]
+}
