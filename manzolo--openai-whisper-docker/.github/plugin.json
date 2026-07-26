@@ -1,0 +1,9 @@
+{
+  "name": "manzolo--openai-whisper-docker",
+  "displayName": "openai-whisper-docker",
+  "description": "openai-whisper-docker",
+  "version": "1.0.0",
+  "author": "manzolo",
+  "homepage": "https://github.com/manzolo/openai-whisper-docker",
+  "skills": []
+}
