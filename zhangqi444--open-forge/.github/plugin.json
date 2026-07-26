@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "zhangqi444",
   "homepage": "https://github.com/zhangqi444/open-forge",
-  "skills": []
+  "skills": [
+    {
+      "name": "open-forge",
+      "description": ""
+    },
+    {
+      "name": "open-forge",
+      "description": ""
+    },
+    {
+      "name": "open-forge",
+      "description": ""
+    }
+  ]
 }
