@@ -1,0 +1,93 @@
+{
+  "name": "enu",
+  "owner": "getenu",
+  "repo": "enu",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "enu",
+      "path": "share/agent/skills/add-bot/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/add-bot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "enu",
+      "path": "share/agent/skills/sign-menu/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/sign-menu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "enu",
+      "path": "share/agent/skills/build-plan/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/build-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "enu",
+      "path": "share/agent/skills/build-script/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/build-script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "enu",
+      "path": "share/agent/skills/reload-verify/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/reload-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "enu",
+      "path": "share/agent/skills/game-mechanics/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/game-mechanics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "enu",
+      "path": "share/agent/skills/build-structure/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/build-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "enu",
+      "path": "share/agent/skills/capture-animation/SKILL.md",
+      "github_url": "https://github.com/getenu/enu/tree/main/share/agent/skills/capture-animation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/getenu/enu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T09:36:41Z"
+}
