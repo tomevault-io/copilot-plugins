@@ -3,8 +3,8 @@
   "owner": "ollama",
   "repo": "ollama",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ollama",
+      "path": "agent/testdata/import/release-notes/SKILL.md",
+      "github_url": "https://github.com/ollama/ollama/tree/main/agent/testdata/import/release-notes/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ollama/ollama",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T04:49:22Z"
+  "distributed_at": "2026-07-26T05:32:19Z"
 }
