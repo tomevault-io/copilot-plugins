@@ -2,9 +2,9 @@
   "name": "mailtrap-mcp",
   "owner": "mailtrap",
   "repo": "mailtrap-mcp",
-  "description": "Official mailtrap.io MCP server",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mailtrap/mailtrap-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T11:02:28Z"
+  "distributed_at": "2026-07-26T16:17:07Z"
 }
