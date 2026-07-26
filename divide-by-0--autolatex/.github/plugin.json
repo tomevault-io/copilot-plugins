@@ -1,0 +1,14 @@
+{
+  "name": "divide-by-0--autolatex",
+  "displayName": "autolatex",
+  "description": "autolatex",
+  "version": "1.0.0",
+  "author": "Divide-By-0",
+  "homepage": "https://github.com/Divide-By-0/autolatex",
+  "skills": [
+    {
+      "name": "autolatex",
+      "description": ""
+    }
+  ]
+}
