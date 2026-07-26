@@ -14,33 +14,44 @@
 
 ### Language-Specific Standards
 
-#### Go (golang-pro)
+#### Go
 ```bash
-# Always run before committing
 go fmt ./...
 golangci-lint run
 go test -race -coverprofile=coverage.out ./...
 go build -o binary ./cmd/...
 ```
-
-**Standards:**
 - Strict `error` handling with wrapped errors using `fmt.Errorf`
 - Context propagation in all API calls
 - Table-driven tests with subtests
 - Benchmark critical paths with `testing.B`
 - Use `slog` for structured logging
 - Configuration via environment variables with `viper` or `envconfig`
+- Accept interfaces, return structs
+- Channels for orchestration, mutexes for state
+- Functional options for APIs
+- Small, focused interfaces
 
-#### TypeScript/React (typescript-pro)
+```go
+// Always wrap errors with context
+if err != nil {
+    return fmt.Errorf("failed to do operation: %w", err)
+}
+
+// Context in all API calls
+func DoSomething(ctx context.Context, arg Arg) (Result, error) {
+    req, err := http.NewRequestWithContext(ctx, ...)
+    // ...
+}
+```
+
+#### TypeScript/React
 ```bash
-# Always run before committing
 npm run lint
 npm run type-check
 npm run test
 npm run build
 ```
-
-**Standards:**
 - Strict TypeScript with `"strict": true`
 - No `any` without explicit justification
 - React functional components with hooks
@@ -48,61 +59,58 @@ npm run build
 - 90%+ test coverage on critical paths
 - Use `tRPC` for type-safe API calls
 
-#### React Native (mobile-developer)
+#### React Native
 ```bash
-# Pre-commit checks
-npm run lint
-npm run type-check
-npx jest
+npm run lint && npm run type-check && npx jest
 cd ios && pod install && cd ..
 npm run build:ios
 ```
-
-**Standards:**
 - Cross-platform code > 80%
 - Platform-specific code via `Platform.select()`
 - Offline-first architecture with proper sync
-- Push notifications for iOS (APNS) and Android (FCM)
 - Performance: cold start < 1.5s, memory < 120MB
-- Use `@react-native-async-storage/async-storage` for secure local storage
 - Hermes engine, RAM bundles for production
 
-#### C++ (cpp-pro)
+#### C++
 ```bash
-# Pre-commit checks
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
-# Run sanitizers
 cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined"
 ctest --output-on-failure
 ```
-
-**Standards:**
 - C++20/23 features where available
 - Clang-Tidy and Cppcheck clean
 - Zero compiler warnings with `-Wall -Wextra`
 - AddressSanitizer and UBSan clean
 - RAII everywhere, no raw new/delete
 - Use `std::expected` for error handling
-- Lock-free data structures for concurrency
 - Profile with `perf` and `pprof`
 
-#### DevOps/SRE
-```bash
-# Infrastructure validation
-terraform validate
-kubectl --dry-run=client
-docker build --check
+```cpp
+// Smart pointers — always
+auto ptr = std::make_unique<Resource>();
+auto shared = std::make_shared<Cache>();
+
+// Concepts (C++20)
+template<typename T>
+concept Hashable = requires(T a) {
+    { std::hash<T>{}(a) } -> std::convertible_to<std::size_t>;
+};
+
+// std::expected (C++23)
+std::expected<int, Error> divide(int a, int b) {
+    if (b == 0) return std::unexpected{DivisionByZero{}};
+    return a / b;
+}
 ```
 
-**Standards:**
+#### DevOps/SRE
 - Infrastructure as Code (Terraform, Pulumi, or Ansible)
 - Kubernetes manifests with Helm charts
 - GitOps workflows (ArgoCD or Flux)
 - SLO/SLI definitions for all services
 - Alerting with proper severity levels
 - Postmortems for all incidents
-- Runbooks for all operational procedures
 
 ---
 
@@ -118,11 +126,10 @@ A task is complete when:
 - [ ] Code review approved
 
 ### Testing
-- [ ] Unit test coverage ≥ 80%
+- [ ] Unit test coverage >= 80%
 - [ ] Integration tests for critical paths
 - [ ] E2E tests for user-facing features
 - [ ] Performance benchmarks for critical code
-- [ ] Load testing for high-traffic endpoints
 
 ### Observability
 - [ ] Structured logging implemented
@@ -139,106 +146,199 @@ A task is complete when:
 
 ---
 
-## Agent Orchestration
+## TDD Workflow
 
-### Standard Development Workflow
+Enforce test-driven development for every implementation:
 
+1. **Write Failing Test** — smallest unit of behavior, test fails because feature doesn't exist
+2. **Write Minimal Code** — only what's needed to pass, no optimization yet
+3. **Refactor** — clean up while tests pass, improve structure/names/organization
+
+### Go Testing Pattern
+```go
+func TestUnitName(t *testing.T) {
+    t.Run("should do thing", func(t *testing.T) {
+        input := ...
+        expected := ...
+        result := DoThing(input)
+        assert.Equal(t, expected, result)
+    })
+}
 ```
-User request
-  → architect (plan - if non-trivial feature)
-  → build (review plan, scope work)
-  → golang-pro / typescript-pro / cpp-pro (implement - TDD)
-  → code-reviewer (verify quality)
-  → security-reviewer (verify security)
-  → observability-reviewer (verify observability)
-  → devops-engineer (CI/CD, deployment - if infra changes)
-  → build (verify all quality gates)
-  → qa (E2E tests)
-  → developer-advocate (update docs)
-  → build (report completion)
+
+### TypeScript Testing Pattern
+```typescript
+describe('UnitName', () => {
+  it('should do thing', () => {
+    const result = doThing(input);
+    expect(result).toEqual(expected);
+  });
+});
 ```
 
-### Context Switching
-- Use Tab to switch between primary agents based on current task
-- `@golang-pro` for Go backend work
-- `@typescript-pro` for TypeScript/React frontend
-- `@mobile-developer` for React Native
-- `@cpp-pro` for C++/systems code
-- `@devops-engineer` for infrastructure/DevOps
+### C++ Testing Pattern
+```cpp
+TEST_F(UnitNameTest, ShouldDoThing) {
+    auto input = ...;
+    auto expected = ...;
+    auto result = doThing(input);
+    EXPECT_EQ(expected, result);
+}
+```
+
+---
+
+## Docker Best Practices
+
+```dockerfile
+# Multi-stage build
+FROM golang:1.23-alpine AS builder
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o /binary ./cmd/app
+
+FROM alpine:3.20
+RUN adduser -D -u 1000 appuser
+WORKDIR /app
+COPY --from=builder /binary /app/app
+USER appuser
+HEALTHCHECK --interval=30s --timeout=3s CMD wget -q --spider http://localhost:8080/healthz || exit 1
+ENTRYPOINT ["/app/app"]
+```
+
+- Minimal base image (alpine, distroless)
+- Non-root user
+- No secrets in image
+- Layer caching optimized
+
+---
+
+## Observability
+
+### Three Pillars
+1. **Logging**: Structured logs with request ID, user ID
+   - Go: `log/slog`
+   - Node: `pino`
+2. **Metrics**: Prometheus metrics (histograms, gauges, counters)
+3. **Tracing**: OpenTelemetry distributed tracing
+
+### SLI/SLO
+- Latency: p99 < 100ms, SLO 99.9%
+- Availability: success rate > 99.9%
+- Quality: error rate < 0.1%
+
+### Health Checks
+```go
+http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+    if !db.Healthy() {
+        http.Error(w, "db unhealthy", http.StatusServiceUnavailable)
+        return
+    }
+    w.WriteHeader(http.StatusOK)
+})
+```
+
+### Alerting
+- Warning: SLO breach at 50% budget
+- Critical: SLO breach at 80% budget
+- Page: SLO breach at 95% budget
+
+---
+
+## Ship Workflow
+
+When asked to "ship it", "commit and push", or "create a PR":
+
+1. `git status` + `git diff` + `git log --oneline -5` + `git remote -v`
+2. `git fetch origin && git rebase origin/main`
+3. Stage relevant files (exclude .env, secrets, .DS_Store, *.db)
+4. Commit with imperative mood (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`), first line <= 72 chars
+5. `git push -u origin <branch>`
+6. `gh pr create --title "..." --body "..." --base main`
+7. Report commit hash, PR URL
+
+**Never force-push to main. Never commit secrets. Always rebase first.**
+
+---
+
+## Agent Roles
+
+Claude Code doesn't have native multi-agent. Adopt these roles by context:
+
+- **golang-pro**: Idiomatic Go, concurrency, performance, cloud-native. gofmt clean, golangci-lint clean, race detector clean.
+- **typescript-pro**: Strict TS, React hooks, tRPC, error boundaries. ESLint clean, 90%+ coverage.
+- **cpp-pro**: Modern C++20/23, RAII, zero-overhead, sanitizers. clang-tidy clean, ASan/UBSan clean.
+- **code-reviewer**: Quality, security, patterns, constructive feedback. Zero critical issues, cyclomatic complexity < 10.
+- **security-engineer**: DevSecOps, vulnerability scanning, zero-trust. No secrets in code, input validated.
+- **devops-engineer**: CI/CD, IaC, Kubernetes, GitOps. terraform validate, kubectl dry-run clean.
+- **mobile-developer**: React Native, cross-platform > 80%, cold start < 1.5s.
+- **sre-engineer**: SLO/SLI, reliability, chaos testing, toil reduction.
+- **observability-reviewer**: Logging, metrics, tracing, alerting all configured.
 
 ---
 
 ## Quality Gates
 
-### Go Projects
-```yaml
-gates:
-  - command: go fmt ./... && go vet ./...
-  - command: golangci-lint run
-  - command: go test -race ./...
-  - coverage: 80
-  - command: go build ./...
-```
+### Go
+- [ ] gofmt passes
+- [ ] golangci-lint passes
+- [ ] go test -race passes
+- [ ] Coverage >= 80%
 
-### TypeScript Projects
-```yaml
-gates:
-  - command: npm run lint
-  - command: npm run type-check
-  - command: npm test -- --coverage
-  - coverage: 90
-  - command: npm run build
-```
+### TypeScript
+- [ ] ESLint passes
+- [ ] Type check passes
+- [ ] Tests pass with >= 90% coverage
+- [ ] Build succeeds
 
-### C++ Projects
-```yaml
-gates:
-  - command: cmake --build build -- -j4
-  - command: ctest --output-on-failure
-  - coverage: 80
-  - command: clang-tidy build/*.cpp
-  - command: valgrind --leak-check=summary ./test
-```
+### C++
+- [ ] clang-tidy passes
+- [ ] Zero warnings
+- [ ] ASan/UBSan clean
+- [ ] Coverage >= 80%
 
 ### DevOps
-```yaml
-gates:
-  - command: terraform validate
-  - command: kubectl apply --dry-run=client
-  - command: hadolint Dockerfile
-  - command: trivy image scan
-```
+- [ ] terraform validate
+- [ ] kubectl dry-run passes
+- [ ] hadolint clean
+- [ ] trivy scan clean
 
 ---
 
-## Productivity Tips
+## Agent & Skill Reference
 
-1. **Plan First**: Use Plan mode for complex features before implementing
-2. **Context is King**: Provide clear context in prompts for better results
-3. **Agent Switching**: Tab through agents based on current task domain
-4. **MCP Tools**: Leverage MCP servers for database queries, browser automation
-5. **Custom Commands**: Use `/` commands for repetitive workflows
-6. **Subagents**: Delegate specialized tasks to focused subagents
+54 specialized agents and 8 skill files are available in `~/.claude/agents/` and `~/.claude/skills/`. Use the Read tool to load them on-demand when context requires deep domain expertise.
 
----
+### Agents (`~/.claude/agents/`)
+| Directory | Agents |
+|-----------|--------|
+| architecture | api-designer, architect-reviewer, cloud-architect, graphql-architect |
+| backend | backend-developer, cpp-pro, golang-pro, python-pro, rust-engineer, sql-pro |
+| data | database-administrator, postgres-pro |
+| devops | azure-infra-engineer, deployment-engineer, devops-engineer, devops-sre-mentor, kubernetes-specialist, terraform-engineer |
+| frontend | frontend-developer, javascript-pro, nextjs-developer, react-specialist, typescript-pro |
+| fullstack | fullstack-developer |
+| incident-response | debugger, devops-incident-responder, error-detective, incident-responder, temporal-investigator |
+| infrastructure | build-engineer, network-engineer, platform-engineer |
+| mentor | mentor |
+| mobile | game-developer, mobile-app-developer, mobile-developer |
+| quality | code-reviewer, security-engineer |
+| specialized | dependency-manager, payment-integration, product-strategist, refactoring-specialist, seo-specialist, sre-engineer |
+| tools | cli-developer, context-manager, dx-optimizer, git-workflow-manager, multi-agent-coordinator, task-distributor, tooling-engineer |
+| ux | commit, documentation-engineer, ui-designer, ux-researcher |
 
-## Multi-Agent Collaboration
-
-### Primary Agents (Tab-switchable)
-- **build** - Orchestrator and task coordinator
-- **golang-pro** - Go backend development
-- **typescript-pro** - TypeScript/React frontend
-- **cpp-pro** - C++/systems programming
-- **devops-engineer** - Infrastructure and deployment
-
-### Subagents (invoked with @)
-- **code-reviewer** - Code quality review
-- **security-reviewer** - Security audit
-- **observability-reviewer** - Observability check
-- **devops-sre-mentor** - Learning and guidance
-- **sre-engineer** - SLO/SLI implementation
-- **kubernetes-specialist** - K8s deployment
+### Skills (`~/.claude/skills/`)
+- `cpp-best-practices` — Modern C++20/23, RAII, zero-overhead abstractions
+- `dockerfile-best-practices` — Multi-stage builds, security, optimization
+- `go-best-practices` — Idiomatic Go, error handling, concurrency patterns
+- `observability` — Logging, metrics, tracing, alerting
+- `react-native-best-practices` — Cross-platform mobile, native modules
+- `ship` — Commit, push, open PR workflow
+- `tdd` — Test-Driven Development workflow
+- `ui-ux-pro-max` — UI/UX design intelligence with searchable database
 
 ---
 > Source: [2SSK/dot-files](https://github.com/2SSK/dot-files) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
