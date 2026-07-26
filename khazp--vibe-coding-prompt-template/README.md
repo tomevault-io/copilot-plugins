@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KhazP/vibe-coding-prompt-template](https://github.com/KhazP/vibe-coding-prompt-template).
+Original source: `CLAUDE.md` in [KhazP/vibe-coding-prompt-template](https://github.com/KhazP/vibe-coding-prompt-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
