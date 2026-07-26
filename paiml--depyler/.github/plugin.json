@@ -1,7 +1,7 @@
 {
   "name": "paiml--depyler",
   "displayName": "depyler",
-  "description": "Compiles Python to Rust, helping transition off of Python to Energy Efficient and Safe Rust Code",
+  "description": "depyler",
   "version": "1.0.0",
   "author": "paiml",
   "homepage": "https://github.com/paiml/depyler",
