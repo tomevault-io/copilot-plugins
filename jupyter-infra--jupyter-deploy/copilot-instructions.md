@@ -1,237 +1,119 @@
 ## jupyter-deploy
 
-> <!-- CLAUDE.md is a symlink to this file -->
+> | Workflow | Trigger | Purpose |
 
-<!-- CLAUDE.md is a symlink to this file -->
+# .github — CI Workflows
 
-# Project Context
-This is a monorepo to deploy Jupyter or IDE types of application to the Cloud.
-It consists in several packages, all managed as uv workspace members.
+## Workflows
 
-## The CLI package
-Code: `./libs/jupyter-deploy`
-CLI tool for deploying Jupyter server to the cloud.
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `ci.yml` | push/PR | Lint + unit tests |
+| `lint.yml`, `test.yml` | `workflow_call` | Reusable lint/test jobs |
+| `release-cli.yml` | `workflow_dispatch` | Release `jupyter-deploy` CLI to PyPI — pre-publish smoke gate (local wheel) → Test PyPI → E2E gate → PyPI |
+| `release-base.yml` | `workflow_dispatch` | Release `jupyter-deploy-tf-aws-ec2-base` to PyPI (with E2E gate) |
+| `release-plugin.yml` | `workflow_dispatch` | Release `pytest-jupyter-deploy` to PyPI |
+| `e2e-cli.yml` | `workflow_call` | CLI release E2E gate — smoke tests (bare/aws/aws-k8s) + functional tests against base app #2 and EKS app #5 |
+| `release-eks-oidc.yml` | `workflow_dispatch` | Release `jupyter-deploy-tf-aws-eks-oidc` to PyPI (with E2E gate) |
+| `e2e-base.yml` | `workflow_dispatch` | E2E tests against an existing deployment |
+| `e2e-base-fresh.yml` | `workflow_dispatch` / `workflow_call` | Deploy from scratch + full E2E chain |
+| `e2e-base-release.yml` | `workflow_call` | Base template release E2E gate — calls fresh workflow with Test PyPI install |
+| `e2e-base-canary.yml` | `schedule` / `workflow_dispatch` | Weekly canary — calls fresh workflow |
+| `e2e-base-job.yml` | `workflow_call` | Reusable base E2E job (called by the above) |
+| `e2e-eks-oidc.yml` | `workflow_dispatch` | EKS E2E tests against an existing deployment |
+| `e2e-eks-oidc-fresh.yml` | `workflow_dispatch` / `workflow_call` | Deploy EKS from scratch (in-container, so pypi-mode deploys the published package) + full E2E chain |
+| `e2e-eks-oidc-release.yml` | `workflow_call` | EKS template release E2E gate — calls fresh workflow with Test PyPI install |
+| `e2e-eks-oidc-canary.yml` | `schedule` / `workflow_dispatch` | Weekly canary — calls fresh workflow |
+| `e2e-eks-oidc-job.yml` | `workflow_call` | Reusable EKS E2E job (called by the above) |
+| `e2e-build-image.yml` | `workflow_call` | Reusable build-and-push E2E image to ECR (`TEMPLATE` build-arg selects base vs eks-oidc for pypi-mode installs) |
 
-It's cloud-provider and infrastructure-as-code agnostic. The CLI code MUST NOT:
-- depend directly on any cloud provider-specific libraries (e.g. `boto3` for AWS)
-- assume that an infrastructure-as-code engine is selected (e.g. it MUST remain extensible to other engines than `terraform`)
-- create custom dataclasses for AWS API types; use boto3 type stubs directly (e.g. `ObjectTypeDef`, `TagTypeDef`)
+## OAuth app slots
 
-To access cloud-provider specific dependencies, we use optional installs such as `pip install juptyer-deploy[aws]` 
-Then module `provider/instruction_runner_factory` handles these optional imports.
-You MUST NOT break that pattern with import statements to cloud-provider or infrastructure-as-code specific libraries
-outside of the instruction runner code paths.
+Fresh deploys consume a Let's Encrypt cert (limit: 5/subdomain/week), so canary and
+release gates use dedicated app slots to avoid contention:
 
-### Three-Layer Architecture
+| Template | Manual/PR fresh | Release gate | Canary |
+|----------|-----------------|--------------|--------|
+| base | 1 | 2 | 3 |
+| eks-oidc | 4 | 5 | 6 |
 
-**1. Core Layer** (handlers, engine, provider):
-- Handlers provide abstraction for each `jupyter-deploy` commands
-- Raise exceptions from `jupyter_deploy/exceptions.py` for errors
-- Accept `DisplayManager` instance from CLI, then use its method: `info()`, `warning()`, `success()`, `hint()`
-- Defines `SupervisedExecutor` class for managing infrastructure-as-code subprocesses
-  - Located in `engine/supervised_execution`
-  - Emits progress events that `DisplayManager` handles
-  - Supports switching between `stdin` and `stdout` when subprocess prompts for input
-- Defines the abstract, provider-agnostic command runner: `/provider/manifest_command_runner`
-  - Run commands declared in a template manifest
-  - Use a specific provider module (e.g. `/provider/aws`), which calls provider-SDK (e.g. `boto3`)
-  - Optional install thanks to lazy import in factory module `/provider/instruction_runner_factory`
+## Release-mode vs canary-mode deploys
 
-**2. Provider and Engine Implementations** (unified abstraction):
-- Engine implement specific command Handlers for a specific infrastructure-as-code engine; current engines:
-  - `terraform`
-- Engine {Config|Up|Down}Handlers leverage `SupervisedExecutor` to run the infrastructure-as-code subprocess calls
-- Provider instruction runners implement the `InstructionRunner` interface to make API calls with the specific provider SDK; current providers:
-  - `aws`
+Fresh-deploy workflows build the E2E image and deploy **from inside it**, so the install
+mode determines what actually gets deployed:
 
-**3. CLI Layer** (cli/):
-- Instantiate Console and error handler
-- Call core handlers and catch exceptions
-- Format and display results using rich/typer
-- Implement `DisplayManager` protocol with display managers; implementations:
-  - `SimpleDisplayManager` (cli/simple_display.py) - Spinners, status messages for SDK-style operations
-  - `ProgressDisplayManager` (cli/progress_display.py) - Progress bars, log boxes for long operations
-  - `NullDisplay` (engine/supervised_execution.py) - No-op for programmatic/test usage
+- **workspace** (default, PR/manual) — local source via `uv sync --all-packages`.
+- **pypi + release** (release gate) — the package under test pinned from Test PyPI
+  (`pkg-version`), the rest from prod PyPI. Renders `.github/e2e-<template>/pyproject.release.toml`.
+- **pypi + canary** (scheduled canary) — everything from prod PyPI, unpinned. Uses
+  `.github/e2e-<template>/pyproject.canary.toml`.
 
-### Key Principles
+The E2E image is **template-shared** (one `.github/e2e-shared/Dockerfile`, used by both
+base and eks-oidc). The `TEMPLATE` build-arg on `e2e-build-image.yml` / the Dockerfile
+selects the per-template `.github/e2e-<template>/` pyproject dir.
 
-1. **Exception Handling**: All custom exceptions in `jupyter_deploy/exceptions.py`
-2. **Keep Core Generic**: Core defines interfaces, instantiates engine-specific and provider-specific instance as needed
-3. **No Terminal-specific Dependencies in Core**: rich/typer only in cli/ module
-4. **No Engine-specific implementation in Core**: use the `/engine/<engine-name>` module
-5. **Not Provider-specific implementation in Core**: use the `/provider/<provider-name>` or `/api/<api-name>` modules
+EKS fresh deploys diverge from base: base wraps deploy inside the `test_deployment` pytest
+(one "Deploy and verify" step), but EKS runs `jd init/config/up` as explicit, log-streaming
+steps via `just ci-e2e-eks-deploy` (deploy happens *in the container*, so a pypi-mode image
+deploys the published package). The ~30-min deploy is readable in its own job; the
+`test_deployment` verify then runs separately against the now-existing project. The job's
+`timeout-minutes` bounds the deploy.
 
-## Base template package
-Code: `./libs/jupyter-deploy-tf-ec2-base`
+## Release ordering & gotchas
 
-Primary template used by the CLI, referred to as "base template".
-- infrastructure-as-code engine: `terraform`
-- cloud provider: `aws`
-- identity provider: `github`
+Lessons from coordinated plugin/CLI/template releases — read before releasing:
 
-All variables MUST be defined in `variables.tf` without default values.
-Default values MUST be set in `presets/defaults-all.tfvars`.
-There MUST NOT BE be any `variable` blocks in files other than `variables.tf`.
+- **Release order for coupled changes: plugin → CLI → templates.** A template's
+  `manifest.yaml` can require CLI features (e.g. new component/health command schema);
+  the eks-oidc release gate installs the CLI *unpinned from prod PyPI*, so the CLI must
+  be published **first** or the gate's deploy fails at `jd config` with a manifest schema
+  error. There's no min-CLI-version check — the coupling is implicit.
+- **The CLI gate's `eks-functional-test` needs a live app #5 deployment.** Don't tear
+  app #5 down before a CLI release, or that job fails at restore. (App #5 is redeployed
+  by the eks-oidc gate, so there's a chicken-and-egg between the two gates — deploy app #5
+  before releasing the CLI.)
+- **Test PyPI re-publish is a safe no-op.** `uv publish --check-url` skips identical
+  files, so re-running a release gate from the same commit does NOT burn the version —
+  as long as the built artifact is byte-identical (don't change the package between runs).
 
-IMPORTANT: Do not copy files to `/home/jovyan` during Docker build time.
-The EBS volume for Jupyter data is mounted at runtime, and any files copied during build will be hidden by this mount.
-Instead, copy files to a location like `/opt` during build and then copy them to `/home/jovyan` in startup scripts.
+## Testing Workflow Changes
 
-## CI infrastructure template package
-Code: `./libs/jupyter-infra-tf-aws-iam-ci`
+To iterate on E2E workflow changes, create a temporary push-triggered workflow:
 
-Template that manages AWS resources for GitHub Actions CI.
-- infrastructure-as-code engine: `terraform`
-- cloud provider: `aws`
-- no host/server resources — IAM roles, SSM parameters and secrets only
+```yaml
+# .github/workflows/test-<name>.yml  — DO NOT merge to main
+name: Test workflow (temporary)
+on:
+  push:
+    branches: [your-branch]
+permissions:
+  id-token: write    # required — reusable workflows inherit caller permissions
+  contents: read
+jobs:
+  test:
+    uses: ./.github/workflows/e2e-base-job.yml
+    secrets: inherit
+    with:
+      oauth-app-num: "1"
+      test-filter: "test_server_running"
+      timeout-minutes: 45
+```
 
-**IMPORTANT:** The GitHub Actions OIDC provider is a singleton per AWS account.
-The `create_oidc_provider` variable controls whether to create it or reference an existing one.
-Set to `false` if another deployment in the same account already created it.
+- Caller **must** declare `permissions: id-token: write` for OIDC to work in reusable workflows.
+- Only workflows with `workflow_call` trigger can be referenced via `uses:`; for example, `e2e-base.yml` is `workflow_dispatch` only, so inline its jobs instead.
+- Target a fast test (e.g. `test_server_running`) to iterate quickly.
+- GitHub org-level oauth requires careful setup, test it with `test_org_and_teams`
+- Once satisfied, verify the full chain via `workflow_dispatch` on your branch.
+- Remove or gitignore the test workflow before merging.
 
-## E2E Pytest plugin package
-Code: `./libs/pytest-jupyter-deploy`
+## Setup
 
-A set of pytest fixtures to run end-to-end tests for templates, referred to as "pytest plugin".
+See [SETUP.md](SETUP.md) for one-time CI infrastructure setup.
 
-It bundles the E2E container image (Dockerfile + docker-compose.yml) used by the justfile to run E2E tests. The image is template-independent — it provides base tooling (Python, Terraform, AWS CLI, Playwright) while template-specific tests are synced at runtime.
+## roborev review environment
 
-# Development Workflow
-
-## After code changes
-Always run from the root of the repository:
-1. Run linting and formatting: `just lint`
-   - Runs `ruff format`, `ruff check --fix`, `mypy`, `terraform fmt`, and `yamllint`
-2. Run unit tests: `just unit-test`
-   - Runs `uv run pytest`
-
-## General coding rules
-1. you MUST NOT silence linters without the user's permission
-2. you MUST NOT write docstrings that merely repeat a method name
-3. you MUST NOT use `TYPE_CHECKING` imports anywhere
-
-## CLI docstring style
-In CLI command docstrings and help strings (`libs/jupyter-deploy/jupyter_deploy/cli/`):
-1. Avoid mentioning "jupyter", "jupyterlab", or "jupyter-deploy project" — use "project" or "app".
-2. Reference commands with angle brackets: `<jd init>`, `<jd up>`.
-3. Reference optional flags bare (no backticks): --overwrite or -o.
-4. Reference flag values in lowercase angle brackets: --path <project-dir>, --variable <variable-name>.
-**Note:** Rules 2-4 DO NOT apply to `console.print()` statements, only to cli docstrings.
-
-## Writing unit tests
-Unit tests are located in `libs/<package-name>/tests/unit`
-
-1. Define `unittest.TestCase` instance for each class, function or major method to be tested
-2. you SHOULD NOT use `pytest.fixtures`
-3. Use `@patch()` or inline `with patch` when possible
-4. Always set `: Mock` typing for `mypy` with patches
-5. When mocking boto3 types in tests, use proper type annotations (e.g., `instance_state: InstanceStateTypeDef = {"Code": code}`) rather than casting
-6. If you detect inconsistencies between implementation and test assertions (e.g., code raises `KeyError` but test expects `ValueError`), notify the user of the implementation issue rather than modifying the unit tests to pass
-
-## Writing and running smoke tests
-Smoke tests live in `libs/jupyter-deploy/tests/e2e/`. No browser interaction, no deployed template — pure CLI validation.
-They run inside a container built from `.github/e2e-cli/`.
-- **aws** (workspace code): `just ci-e2e-cli-build && just test-smoke-cli aws jupyter-deploy-e2e-cli:latest`
-- **bare** (published PyPI): `just test-smoke-cli bare` — auto-builds a pypi image; tests validate that `boto3` is NOT installed
-
-
-## Writing E2E tests
-E2E tests are located in `libs/<template-name>/tests/e2e/`
-
-1. Use the pytest plugin for test fixtures and helpers
-2. Use `@skip_if_testvars_not_set([...])` decorator to skip tests when required env vars are missing
-3. Template-specific utilities should be in `test_utils.py` within the template's e2e directory
-4. Template-specific fixtures should be in `conftest.py` within the template's e2e directory
-
-## E2E Testing Workflow
-E2E tests validate a complete deployment with actual CLI commands and browser-based interactions using `playwright`.
-
-The E2E tests run in a local container using `pytest` where `playwright` and webbrowsers are installed.
-- `just e2e-up` builds and starts the container (image from `pytest-jupyter-deploy` plugin).
-- `just e2e-sync` synchronizes the workspace files with the container.
-- Per-template convenience wrappers: `just test-e2e-base`, `just auth-setup-base`.
-- Generic commands accept a `template` parameter: `just test-e2e <project-dir> <filter> <options> <template>`.
-Look at `./justfile` for more details.
-
-**IMPORTANT**: you CANNOT run any e2e directly with `uv run pytest E2E-TEST-SELECTOR`, you MUST use a `just` command.
-
-**IMPORTANT**: Deployment directories contain their own copy of template files.
-When testing template changes in an existing deployment (e.g., sandbox-e2e),
-you must manually copy the modified template files from `libs/jupyter-deploy-tf-aws-ec2-base/jupyter_deploy_tf_aws_ec2_base/template/`
-to the deployment directory BEFORE running configuration tests or deploying.
-
-**IMPORTANT:** E2E tests MUST be run sequentially — never run multiple `just test-e2e` commands in parallel.
-
-### Prerequisites
-1. A deployed project to test against located in a dir relative to the workspace root (e.g., `./sandbox`)
-2. Some E2E tests require environment variables to be set:
-    - look at `./env.example` in the workspace root
-    - the user must have created an `.env` file with values at the workspace root
-    - tests will be skipped if the required test environment variables are not set.
-3. Most E2E tests for the base template require a specific oauth setup (see Authentication setup)
-
-### Configuration Tests
-The configuration test verifies a template project is correctly wired up.
-In the case of the base template, this corresponds to the `terraform plan` operation succeeding.
-
-**Before running configuration tests on modified template files**:
-- Copy changed template files from base template to the test deployment directory
-- The configuration test validates the LOCAL files in the deployment directory, not the installed package
-
-To run the configuration test:
-1. ask the user for the `<project-dir>` to use
-2. if testing modified template files, ensure they've been copied to `<project-dir>`
-3. run `just test-e2e-base <project-dir> test_configuration`
-
-### Authentication Setup for the base template
-Before running E2E tests, ask the user to run GitHub OAuth authentication: `just auth-setup-base <project-dir>`.
-This will:
-- Launch a browser for the user to authenticate with GitHub (with 2FA presumably)
-- Save authentication state to `.auth/github-oauth-state.json`
-- Allow automated tests to reuse the session
-
-### Running E2E Tests
-Run E2E tests against an existing deployment: `just test-e2e-base <project-dir> TEST-SELECTOR`
-
-Examples (for project-dir == sandbox3):
-- Run all E2E tests without mutating the project: `just test-e2e-base sandbox3 ""`
-- Run all E2E tests: `just test-e2e-base sandbox3 "" mutate=true`
-- Run specific test file: `just test-e2e-base sandbox3 test_users` (possibly needs `mutate=true`)
-- Run CI template E2E tests: `just test-e2e-ci sandbox3 ""`
-
-**NOTE:** mutate tests are long, pipe to log stream to file: `just test-e2e <project-dir> TEST-SELECTOR mutate=true 2>&1 | tee results.log`   
-The test container saves screenshots of failed tests to `./test-results`, use the read image tool.
-
-## Debugging and Investigating Deployments
-
-**Important:** Most `jd` commands (`init` excepted) assume the `cwd` is a particular project; change dir, or use the `--path` attribute (most commands support it).
-
-Essential commands for debugging a deploy project:
-- `jd --help` or `jd CMD SUB-CMD --help` - Find out about API shapes
-- `jd show --variables --list` - Display list of available variables
-- `jd show --outputs --list` - Display list of available outputs
-- `jd show -v VARIABLE-NAME --text` - Display the variable value (careful: it does not guarantee it was applied with `jd up`)
-- `jd show -o OUTPUT-NAME --text` - Display the output value
-- `jd config` - Reconfigure deployment
-- `jd up` - Apply infrastructure changes
-- `jd history show CMD` - Display the content of the latest CMD (`config` or `up`) run (pass `-n 2` for the second-to-latest, etc)
-- `jd history show up -n 100 -s 100` - Display lines [-200:-100] of the latest `up` run
-
-More specific commands are template-dependent.
-Read the `AGENT.md` in the project directory for detailed instructions.
-
-## Writing documentation
-
-Refer to `docs/AGENT.md`
-
-## Updating architecture diagrams
-
-Refer to `diagrams/AGENT.md`
-
-## Making changes in the GitHub CI
-
-Refer to `.github/AGENT.md`
+The roborev review run role (`tf-aws-iam-ci` with `create_review_resources = true`) trusts `repo:<org>/<repo>:environment:review` via OIDC. OIDC only proves a job declared the `review` environment, not that the workflow was trusted, so the `review` GitHub Actions environment in each `review_repos` repo **MUST** have protection rules (required reviewers and/or restricted branches/tags). Without them, a malicious PR (or a `pull_request_target` workflow) could assume the run role on its own terms.
 
 ---
 > Source: [jupyter-infra/jupyter-deploy](https://github.com/jupyter-infra/jupyter-deploy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
