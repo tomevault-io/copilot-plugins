@@ -1,7 +1,7 @@
 {
   "name": "redf0x1--camofox-browser",
   "displayName": "camofox-browser",
-  "description": "Anti-detection browser server for AI agents \u2014 REST API wrapping Camoufox engine with OpenClaw plugin support",
+  "description": "camofox-browser",
   "version": "1.0.0",
   "author": "redf0x1",
   "homepage": "https://github.com/redf0x1/camofox-browser",
