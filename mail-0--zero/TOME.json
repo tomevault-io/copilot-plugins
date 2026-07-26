@@ -2,9 +2,9 @@
   "name": "Zero",
   "owner": "Mail-0",
   "repo": "Zero",
-  "description": "Experience email the way you want with Mail0 \u2013 the first open source email app that puts your privacy and safety first. Join the discord: https://mail0.link/discord",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mail-0/Zero",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T21:06:13Z"
+  "distributed_at": "2026-07-26T22:06:47Z"
 }
