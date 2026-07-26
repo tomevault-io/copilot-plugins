@@ -1,0 +1,30 @@
+{
+  "name": "openbmb--chatdev",
+  "displayName": "ChatDev",
+  "description": "ChatDev",
+  "version": "1.0.0",
+  "author": "OpenBMB",
+  "homepage": "https://github.com/OpenBMB/ChatDev",
+  "skills": [
+    {
+      "name": "python-scratchpad",
+      "description": ""
+    },
+    {
+      "name": "rest-api-caller",
+      "description": ""
+    },
+    {
+      "name": "ChatDev",
+      "description": ""
+    },
+    {
+      "name": "ChatDev",
+      "description": ""
+    },
+    {
+      "name": "ChatDev",
+      "description": ""
+    }
+  ]
+}
