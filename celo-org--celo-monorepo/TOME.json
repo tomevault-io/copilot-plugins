@@ -1,0 +1,63 @@
+{
+  "name": "celo-monorepo",
+  "owner": "celo-org",
+  "repo": "celo-monorepo",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "celo-monorepo",
+      "path": ".agent/skills/celo-release/SKILL.md",
+      "github_url": "https://github.com/celo-org/celo-monorepo/tree/main/.agent/skills/celo-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celo-monorepo",
+      "path": ".agent/skills/node-cache-update/SKILL.md",
+      "github_url": "https://github.com/celo-org/celo-monorepo/tree/main/.agent/skills/node-cache-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "celo-monorepo",
+      "path": ".agent/skills/run-jovian-upgrade/SKILL.md",
+      "github_url": "https://github.com/celo-org/celo-monorepo/tree/main/.agent/skills/run-jovian-upgrade/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/celo-org/celo-monorepo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T07:34:55Z"
+}
