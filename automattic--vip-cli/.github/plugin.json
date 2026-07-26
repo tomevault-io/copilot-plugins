@@ -1,0 +1,9 @@
+{
+  "name": "automattic--vip-cli",
+  "displayName": "vip-cli",
+  "description": "vip-cli",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/vip-cli",
+  "skills": []
+}
