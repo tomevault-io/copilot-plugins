@@ -1,0 +1,49 @@
+## fluttertemplates-dev
+
+> When I ask you to add a component, follow these steps:
+
+When I ask you to add a component, follow these steps:
+
+1. First, ask me for:
+   - Category name (e.g., "toast", "buttons", "loading")
+   - Component name (e.g., "toast_demo", "button_demo")
+
+2. Then create the files in this order:
+   a. Flutter component file:
+      - Path: flutter_apps/core/lib/[category]/[component_name].dart
+      - Create the file with basic component structure
+      - No need to show code before creating
+      - Modify the main.dart with support for the route
+
+   b. Documentation file:
+      - Path: src/content/widgets/[category]/[component_name].md
+      - Include frontmatter:
+        ```yaml
+        ---
+        title: [Component Name]
+        description: A showcase of Flutter's [component] functionality
+        app: core
+        path: /[category]/[component_name]
+        code_files: ["[category]/[component_name].dart"]
+        ---
+        ```
+      - No need to show content before creating
+      - Don't add documentation, just the frontmatter
+
+   c. Update main.dart:
+      - Add import statement
+      - Add new route in switch statement
+      - No need to show changes before applying
+
+3. After all files are created:
+   - Verify all paths and imports
+   - Ensure proper integration
+   - Test routing functionality
+
+4. If I point out any issues:
+   - Fix them immediately
+   - No need to show changes before proceeding
+
+---
+> Source: [bimsina/fluttertemplates.dev](https://github.com/bimsina/fluttertemplates.dev) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
