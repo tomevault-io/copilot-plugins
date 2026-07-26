@@ -3,8 +3,8 @@
   "owner": "sb-mig",
   "repo": "sb-mig",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "sb-mig",
+      "path": ".agents/skills/sb-mig-docs-sync/SKILL.md",
+      "github_url": "https://github.com/sb-mig/sb-mig/tree/main/.agents/skills/sb-mig-docs-sync/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/sb-mig/sb-mig",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T04:11:43Z"
+  "distributed_at": "2026-07-26T07:38:45Z"
 }
