@@ -1,0 +1,9 @@
+{
+  "name": "axivo--k3s-cluster",
+  "displayName": "k3s-cluster",
+  "description": "k3s-cluster",
+  "version": "1.0.0",
+  "author": "axivo",
+  "homepage": "https://github.com/axivo/k3s-cluster",
+  "skills": []
+}
