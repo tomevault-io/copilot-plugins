@@ -43,4 +43,4 @@ Fall back to Grep/Glob/Read **only** when the graph doesn't cover what you need.
 
 ---
 > Source: [OpenCowAI/opencow](https://github.com/OpenCowAI/opencow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
