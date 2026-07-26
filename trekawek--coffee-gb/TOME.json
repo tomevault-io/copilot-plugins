@@ -3,8 +3,8 @@
   "owner": "trekawek",
   "repo": "coffee-gb",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "coffee-gb",
+      "path": ".claude/skills/merge-pr/SKILL.md",
+      "github_url": "https://github.com/trekawek/coffee-gb/tree/main/.claude/skills/merge-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coffee-gb",
+      "path": ".claude/skills/release-new-version/SKILL.md",
+      "github_url": "https://github.com/trekawek/coffee-gb/tree/main/.claude/skills/release-new-version/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coffee-gb",
+      "path": ".claude/skills/fix-compatibility-issue/SKILL.md",
+      "github_url": "https://github.com/trekawek/coffee-gb/tree/main/.claude/skills/fix-compatibility-issue/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/trekawek/coffee-gb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T23:21:16Z"
+  "distributed_at": "2026-07-26T14:05:59Z"
 }
