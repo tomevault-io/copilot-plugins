@@ -1,0 +1,9 @@
+{
+  "name": "external-secrets--external-secrets",
+  "displayName": "external-secrets",
+  "description": "external-secrets",
+  "version": "1.0.0",
+  "author": "external-secrets",
+  "homepage": "https://github.com/external-secrets/external-secrets",
+  "skills": []
+}
