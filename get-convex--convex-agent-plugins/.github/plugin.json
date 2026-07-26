@@ -1,0 +1,62 @@
+{
+  "name": "get-convex--convex-agent-plugins",
+  "displayName": "convex-agent-plugins",
+  "description": "convex-agent-plugins",
+  "version": "1.0.0",
+  "author": "get-convex",
+  "homepage": "https://github.com/get-convex/convex-agent-plugins",
+  "skills": [
+    {
+      "name": "auth-setup",
+      "description": ""
+    },
+    {
+      "name": "components-guide",
+      "description": ""
+    },
+    {
+      "name": "convex-helpers-guide",
+      "description": ""
+    },
+    {
+      "name": "convex-quickstart",
+      "description": ""
+    },
+    {
+      "name": "function-creator",
+      "description": ""
+    },
+    {
+      "name": "schema-builder",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "description": ""
+    }
+  ]
+}
