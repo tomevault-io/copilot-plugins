@@ -1,7 +1,7 @@
 {
   "name": "kubricate--kubricate",
   "displayName": "kubricate",
-  "description": "A TypeScript framework for building reusable, type-safe Kubernetes infrastructure \u2014 without the YAML mess.",
+  "description": "kubricate",
   "version": "1.0.0",
   "author": "kubricate",
   "homepage": "https://github.com/kubricate/kubricate",
