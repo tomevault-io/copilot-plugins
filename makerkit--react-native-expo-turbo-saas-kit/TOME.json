@@ -2,9 +2,9 @@
   "name": "react-native-expo-turbo-saas-kit",
   "owner": "makerkit",
   "repo": "react-native-expo-turbo-saas-kit",
-  "description": "A SaaS Starter Kit built with Expo 52+, React Native, and Tailwind CSS using a Supabase backend",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/makerkit/react-native-expo-turbo-saas-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:57:57Z"
+  "distributed_at": "2026-07-26T22:27:40Z"
 }
