@@ -1,0 +1,9 @@
+{
+  "name": "nodemailer--libmime",
+  "displayName": "libmime",
+  "description": "libmime",
+  "version": "1.0.0",
+  "author": "nodemailer",
+  "homepage": "https://github.com/nodemailer/libmime",
+  "skills": []
+}
