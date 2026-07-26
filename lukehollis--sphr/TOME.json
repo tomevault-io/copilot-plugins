@@ -1,0 +1,93 @@
+{
+  "name": "sphr",
+  "owner": "lukehollis",
+  "repo": "sphr",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-vfx/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-vfx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-360/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-360/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-3dgs/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-3dgs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-iiif/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-iiif/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-tour/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-tour/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-verify/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-project/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sphr",
+      "path": ".agents/skills/sphr-matterport/SKILL.md",
+      "github_url": "https://github.com/lukehollis/sphr/tree/main/.agents/skills/sphr-matterport/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lukehollis/sphr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T14:05:03Z"
+}
