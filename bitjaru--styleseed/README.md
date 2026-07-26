@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bitjaru/styleseed](https://github.com/bitjaru/styleseed).
+Original source: `AGENTS.md` in [bitjaru/styleseed](https://github.com/bitjaru/styleseed).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (15)
+## Bundled Skills (21)
 
 - [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-lint/SKILL.md)
 - [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-copy/SKILL.md)
@@ -32,6 +32,12 @@ Original source: `CLAUDE.md` in [bitjaru/styleseed](https://github.com/bitjaru/s
 - [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-pattern/SKILL.md)
 - [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-feedback/SKILL.md)
 - [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-component/SKILL.md)
+- [styleseed](https://github.com/bitjaru/styleseed/tree/main/skills/styleseed-design-review/SKILL.md)
+- [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-dial/SKILL.md)
+- [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-build/SKILL.md)
+- [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-verify/SKILL.md)
+- [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-restyle/SKILL.md)
+- [styleseed](https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-reference/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/bitjaru/styleseed](https://github.com/bitjaru/styleseed)
 
