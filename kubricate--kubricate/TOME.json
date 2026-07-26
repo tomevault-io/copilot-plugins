@@ -2,9 +2,9 @@
   "name": "kubricate",
   "owner": "kubricate",
   "repo": "kubricate",
-  "description": "A TypeScript framework for building reusable, type-safe Kubernetes infrastructure \u2014 without the YAML mess.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kubricate/kubricate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T16:34:06Z"
+  "distributed_at": "2026-07-26T21:59:49Z"
 }
