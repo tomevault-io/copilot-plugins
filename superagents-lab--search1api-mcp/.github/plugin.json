@@ -1,0 +1,9 @@
+{
+  "name": "superagents-lab--search1api-mcp",
+  "displayName": "search1api-mcp",
+  "description": "Official Search1API MCP server for web search, news, crawling, sitemaps, and trends\u2014hosted with OAuth 2.1 or local via npm.",
+  "version": "1.0.0",
+  "author": "superagents-lab",
+  "homepage": "https://github.com/superagents-lab/search1api-mcp",
+  "skills": []
+}
