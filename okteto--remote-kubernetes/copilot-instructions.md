@@ -1,59 +1,211 @@
 ## remote-kubernetes
 
-> VS Code extension for remote Kubernetes development with Okteto. See AGENT.md for full architecture details.
+> This is a **VS Code extension** called "Remote - Kubernetes" that wraps the [Okteto CLI](https://okteto.com) to provide remote Kubernetes development environments directly from VS Code. It manages the full lifecycle: deploying dev environments, syncing code, connecting via SSH, and cleanup.
 
-# CLAUDE.md - Instructions for Claude Code
+# AGENT.md - Remote Kubernetes VS Code Extension
 
-## Project
+## Project Overview
 
-VS Code extension for remote Kubernetes development with Okteto. See AGENT.md for full architecture details.
+This is a **VS Code extension** called "Remote - Kubernetes" that wraps the [Okteto CLI](https://okteto.com) to provide remote Kubernetes development environments directly from VS Code. It manages the full lifecycle: deploying dev environments, syncing code, connecting via SSH, and cleanup.
 
-## Commands
+**Publisher:** Okteto
+**Repository:** https://github.com/okteto/remote-kubernetes
+**License:** Apache 2.0
+
+## Quick Reference
 
 ```bash
-pnpm run compile        # Dev build (esbuild)
-pnpm test               # Unit tests (Mocha + Chai + Sinon, plain Node.js)
-pnpm run test:e2e       # E2E tests (launches real VS Code via @vscode/test-electron)
-pnpm run lint           # ESLint (typescript-eslint flat config)
-pnpm run package        # Build .vsix (runs esbuild production build first)
-pnpm run ci             # Full CI: install + lint + test + package
+pnpm run compile      # Build (development mode via esbuild)
+pnpm test             # Run unit tests (compiles first via pretest hook)
+pnpm run test:e2e     # Run e2e tests (compiles with tsc, launches VS Code)
+pnpm run lint         # Run ESLint
+pnpm run watch        # Build + watch for changes
+pnpm run package      # Create .vsix extension package
+pnpm run ci           # Full CI pipeline: install + lint + test + package
 ```
 
-## Verification Checklist
+## Architecture
 
-After any code change, verify with:
-1. `pnpm run lint` — no lint errors
-2. `pnpm test` — unit tests pass
-3. `pnpm run test:e2e` — e2e tests pass
-4. `pnpm run package` — extension packages successfully
+### Source Layout
 
-## Key Gotchas
+```
+src/
+├── extension.ts      # Main entry point. Registers all VS Code commands, orchestrates workflows
+├── okteto.ts         # Okteto CLI wrapper. Spawns CLI processes, monitors state via terminal
+├── ssh.ts            # SSH readiness checks and port discovery
+├── telemetry.ts      # Analytics (Mixpanel) and error tracking (Sentry)
+├── manifest.ts       # YAML manifest parsing (Okteto v2, Docker Compose)
+├── download.ts       # Downloads Okteto CLI binary per platform
+├── machineid.ts      # Platform-specific machine ID generation
+├── paths.ts          # Git Bash path conversion (Windows support)
+├── typings/          # TypeScript type definitions
+└── test/
+    ├── mock/
+    │   └── vscode.ts            # VS Code API mock for unit tests
+    ├── suite/                   # Unit tests (run in plain Node.js)
+    │   ├── manifest.test.ts
+    │   ├── paths.test.ts
+    │   ├── machineid.test.ts
+    │   ├── okteto.test.ts
+    │   ├── download.test.ts
+    │   ├── ssh.test.ts
+    │   ├── telemetry.test.ts
+    │   └── artifacts/           # Test fixture YAML files
+    └── e2e/                     # End-to-end tests (run inside VS Code)
+        ├── runTest.ts           # Launcher: downloads VS Code via @vscode/test-electron
+        ├── index.ts             # Mocha bootstrap for extension host (TDD interface)
+        └── extension.test.ts    # Validates extension activation and command registration
+```
 
-- **`@types/vscode` must match `engines.vscode`**: If you bump `@types/vscode`, also bump `engines.vscode` in `package.json` to the same version. `vsce package` enforces this.
-- **`@types/node` must match Node.js runtime**: CI uses Node 22. Keep `@types/node` on `^22.x`. Do not bump to 23+ unless CI is also updated.
-- **E2E tests use `tsc`, not esbuild**: The `test:e2e` script compiles with `tsconfig.test.json` (which has `skipLibCheck: true`). This is required because `@vscode/test-electron` needs individual `.js` files.
-- **E2E tests use TDD Mocha interface**: Use `suite`/`test` syntax in `src/test/e2e/`, not `describe`/`it`. The bootstrap (`src/test/e2e/index.ts`) is configured with `ui: 'tdd'`.
-- **Unit tests use BDD Mocha interface**: Use `describe`/`it` syntax in `src/test/suite/`.
-- **Unit tests mock `vscode`**: The mock at `src/test/mock/vscode.ts` is loaded via `-r` flag. It intercepts `require('vscode')` so modules with runtime `vscode` usage can be tested in plain Node.js.
-- **ESLint v9, not v10**: `typescript-eslint` requires ESLint `^8.57 || ^9.0`. Do not upgrade to ESLint 10 until typescript-eslint supports it.
-- **Squash merges only**: The repo disallows merge commits. Use `gh pr merge --squash`, not `--merge`.
-- **Branch protection**: PRs require passing CI checks. Use `--admin` flag to bypass review requirements if needed.
-- **Sentry CLI v3**: Source maps are uploaded with `sentry-cli sourcemaps upload`, not the old `sentry-cli releases files upload-sourcemaps`.
+### Build Pipeline
 
-## Code Style
+- **Bundler:** esbuild (`esbuild.js`)
+- **Entry:** `src/extension.ts` → **Output:** `dist/extension.js` (CommonJS, Node.js target)
+- **TypeScript:** Strict mode, ES6 target, NodeNext modules
+- The `vscode` module is externalized (provided by VS Code at runtime)
+- **E2E tests use `tsc`** (not esbuild) via `tsconfig.test.json` because `@vscode/test-electron` needs individual `.js` files, not a bundle. The `tsconfig.test.json` extends the main config and adds `skipLibCheck: true` to avoid transitive type conflicts from `@types/eslint-scope` and `@types/glob`.
 
-- TypeScript strict mode, semicolons always, `===` over `==`, curly braces required
-- camelCase functions/variables, PascalCase classes
-- async/await over raw Promises
-- ESM imports compiled to CommonJS via esbuild
-- Telemetry must respect `vscode.env.isTelemetryEnabled`
+### Key Extension Commands
 
-## When Adding Commands
+| Command | ID | Description |
+|---------|-----|------------|
+| Okteto: Up | `okteto.up` | Launch a dev environment |
+| Okteto: Down | `okteto.down` | Stop a dev environment |
+| Okteto: Deploy | `okteto.deploy` | Deploy dev environment |
+| Okteto: Destroy | `okteto.destroy` | Destroy dev environment |
+| Okteto: Test | `okteto.test` | Run tests in dev environment |
+| Okteto: Install | `okteto.install` | Install Okteto CLI |
+| Okteto: Set Context | `okteto.context` | Configure Okteto context |
+| Okteto: Set Namespace | `okteto.namespace` | Configure Okteto namespace |
 
-1. `package.json` → `contributes.commands`
-2. `src/extension.ts` → `vscode.commands.registerCommand`
-3. `src/test/e2e/extension.test.ts` → add to `expectedCommands` array
+### Extension Configuration Options
+
+Defined in `package.json` under `contributes.configuration`:
+- `okteto.binary` - Path to Okteto CLI executable
+- `okteto.remoteSSH` - Use VS Code Remote-SSH (default: true)
+- `okteto.telemetry` - Enable analytics (default: true)
+- `okteto.gitBash` - Windows Git Bash path support (default: false)
+- `okteto.upArgs` - Extra args for `okteto up` (default: `--log-level=warn`)
+- `okteto.upTimeout` - Timeout in seconds (default: 100)
+
+## Testing
+
+### Unit Tests
+
+**Framework:** Mocha + Chai + Sinon + ts-node
+
+```bash
+pnpm test    # Runs: mocha -r ts-node/register -r src/test/mock/vscode.ts src/test/suite/*.test.ts
+```
+
+Unit tests are plain TypeScript files in `src/test/suite/`. They do **not** require a running VS Code instance. Test fixtures (YAML manifests) live in `src/test/suite/artifacts/`.
+
+The `vscode` module is mocked via `src/test/mock/vscode.ts`, which intercepts Node's `Module._resolveFilename` and `Module._load` to provide a stub when any module imports `vscode`. This is required because modules like `okteto.ts`, `download.ts`, and `telemetry.ts` use `vscode` at runtime (not just for types).
+
+### End-to-End Tests
+
+**Framework:** @vscode/test-electron + Mocha (TDD interface)
+
+```bash
+pnpm run test:e2e    # Compiles with tsc, then launches VS Code with the extension
+```
+
+E2E tests live in `src/test/e2e/`. They run inside a real VS Code instance and have access to the full `vscode` API. The tests use `suite`/`test` (TDD) syntax, not `describe`/`it` (BDD).
+
+The e2e Mocha bootstrap is in `src/test/e2e/index.ts` and uses the **TDD** UI (`ui: 'tdd'`).
+
+### Adding Tests
+
+**Unit test:** Create `src/test/suite/<name>.test.ts`, use Chai `expect` assertions with BDD syntax (`describe`/`it`). If the module under test imports `vscode` at runtime, the mock is already loaded via the `-r src/test/mock/vscode.ts` flag in the test script.
+
+**E2e test:** Create `src/test/e2e/<name>.test.ts`, use Node.js `assert` with TDD syntax (`suite`/`test`). The file will be auto-discovered by the glob in `index.ts`.
+
+## Linting
+
+**Framework:** ESLint v9 with typescript-eslint (flat config format)
+
+```bash
+pnpm run lint    # Runs: eslint src/
+```
+
+Configuration is in `eslint.config.mjs`. Key rules:
+- `no-var: error`, `prefer-const: warn`, `eqeqeq: always`, `curly: error`
+- `@typescript-eslint/no-explicit-any: warn` (not error — too many existing uses)
+- `@typescript-eslint/no-require-imports: off` (needed for CommonJS interop)
+- Ignores: `dist/`, `out/`, `node_modules/`, `*.js`, `*.mjs`
+
+Linting is included in the CI pipeline (`pnpm run ci`).
+
+## Code Conventions
+
+- **Language:** TypeScript with strict mode
+- **Style:** camelCase for functions/variables, PascalCase for classes
+- **Semicolons:** Always required
+- **Equality:** Use `===` (no `==`)
+- **Curly braces:** Always required for control structures
+- **Async:** Use async/await throughout (no raw Promises)
+- **Linting:** ESLint v9 with typescript-eslint flat config
+- **Module system:** ESM-style imports compiled to CommonJS via esbuild
+- **Telemetry:** Respects `vscode.env.isTelemetryEnabled` and `onDidChangeTelemetryEnabled`
+- **Lifecycle:** Extension exports both `activate()` and `deactivate()` for proper cleanup
+
+## Dependencies of Note
+
+| Package | Purpose |
+|---------|---------|
+| `execa` | Execute Okteto CLI commands as child processes |
+| `got` | HTTP client for downloading CLI binaries |
+| `yaml` | Parse Okteto and Docker Compose manifests |
+| `semver` | Version comparison for CLI update checks |
+| `@sentry/node` | Error tracking and crash reporting |
+| `@sentry/cli` | Sentry release management (source map uploads) |
+| `mixpanel` | Usage telemetry |
+| `tcp-ping` | SSH readiness checks |
+| `get-port` | Find available network ports |
+
+## CI/CD
+
+- **CI:** GitHub Actions (`.github/workflows/nodejs.yml`) - runs on every push, Node 22, Ubuntu
+- **Pipeline:** `pnpm install → pnpm run lint → pnpm run test → pnpm run package`
+- **Publish:** `.github/workflows/publish.yml` - triggered on GitHub release, publishes to VS Code Marketplace via `vsce`
+- **Security:** CodeQL analysis on PRs to main + weekly schedule
+
+## Release Process
+
+1. Update `version` in `package.json`
+2. Update `CHANGELOG.md`
+3. Create a GitHub release with a tag
+4. CI automatically builds, tests, and publishes to the VS Code Marketplace
+5. Sentry source maps are uploaded via `sentry-cli sourcemaps upload`
+
+## GitHub Workflow
+
+- **Branch protection:** PRs to `main` require passing checks; admin privileges needed to bypass review
+- **Merge strategy:** Squash merges only (merge commits are disabled)
+- Use `gh pr merge --squash` (not `--merge`)
+
+## Common Tasks
+
+### Adding a new VS Code command
+1. Register the command in `package.json` under `contributes.commands`
+2. Implement the handler in `src/extension.ts` using `vscode.commands.registerCommand`
+3. If it needs a menu entry, add it to `contributes.menus` in `package.json`
+4. Add the command ID to the `expectedCommands` array in `src/test/e2e/extension.test.ts`
+
+### Updating minimum Okteto CLI version
+- Change the `minimum` export in `src/download.ts`
+- Update `CHANGELOG.md`
+
+### Updating dependencies
+- `@types/vscode` version must match `engines.vscode` in `package.json` — `vsce package` will fail otherwise
+- `@types/node` should stay on the major version matching the Node.js runtime (currently 22.x, matching CI's Node 22)
+- After updating, run `pnpm test`, `pnpm run test:e2e`, and `pnpm run package` to verify
+
+### Modifying manifest parsing
+- Edit `src/manifest.ts`
+- Supported formats: Okteto v2 manifests and Docker Compose files
+- Tests in `src/test/suite/manifest.test.ts` with YAML fixtures in `artifacts/`
 
 ---
 > Source: [okteto/remote-kubernetes](https://github.com/okteto/remote-kubernetes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
