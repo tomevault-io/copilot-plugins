@@ -1,57 +1,62 @@
 ## chat-tails
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Terminal chat server in Go with optional Tailscale networking. Users connect via telnet/netcat.
 
-# CLAUDE.md
+# Agent Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Context
 
-## Build & Development Commands
+Terminal chat server in Go with optional Tailscale networking. Users connect via telnet/netcat.
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Build | `make build` |
+| Run | `make run` or `./chat-server` |
+| Test | `make test` |
+| Single test | `go test -v -run TestName ./internal/chat/` |
+
+## Code Locations
+
+- Entry point: `cmd/chat-tails/main.go`
+- Server lifecycle: `internal/server/server.go`
+- Chat room logic: `internal/chat/room.go`
+- Client handling: `internal/chat/client.go`
+- UI styling: `internal/ui/styles.go`
+
+## Implementation Notes
+
+### Adding New Chat Commands
+
+1. Add case to `handleCommand()` in `internal/chat/client.go`
+2. Update help text in `internal/ui/styles.go:FormatHelp()`
+
+### Modifying Room Behavior
+
+Room uses channel-based event loop in `run()`. Client map operations go through `join`/`leave` channels to avoid races. Don't access `r.clients` directly outside of `addClient`/`removeClient`.
+
+### Adding New Config Options
+
+1. Add field to `internal/server/config.go:Config`
+2. Add flag in `cmd/chat-tails/main.go:parseFlags()`
+3. Use in `internal/server/server.go`
+
+## Testing
+
+Tests exist for `internal/chat/` package. Run with `make test` or target specific tests:
 
 ```bash
-# Build the binary
-make build              # or: go build -o chat-server ./cmd/ts-chat
-
-# Run the server
-make run                # builds and runs
-./chat-server           # run directly
-./chat-server --plain-text  # run with plain-text mode (Windows telnet compatibility)
-
-# Run tests
-make test               # runs: go test -v ./internal/chat/
-
-# Run a single test
-go test -v -run TestName ./internal/chat/
-
-# Cross-compile
-make build-all          # builds for linux, macos, windows, arm
+go test -v -run TestRoom ./internal/chat/
+go test -v -run TestClient ./internal/chat/
 ```
 
-## Architecture
+## Dependencies
 
-This is a terminal-based chat server written in Go that supports both regular TCP mode and Tailscale networking.
-
-### Package Structure
-
-- `cmd/chat-tails/main.go` - Entry point, CLI flag parsing with spf13/pflag
-- `internal/server/` - Server lifecycle (start/stop), connection handling, Tailscale integration via tsnet
-- `internal/chat/` - Core chat logic:
-  - `room.go` - Room manages clients via channels (join/leave/broadcast pattern)
-  - `client.go` - Client handles per-connection I/O, commands, rate limiting
-- `internal/ui/` - Terminal styling using charmbracelet/lipgloss
-
-### Key Patterns
-
-**Room event loop** (`room.go:run`): Uses channel-based concurrency with `join`, `leave`, and `broadcast` channels processed in a single goroutine to avoid race conditions on the client map.
-
-**Client handling** (`client.go:Handle`): Uses goroutine-based reader with context cancellation for clean shutdown. Rate limiting uses sliding window (5 messages per 5 seconds).
-
-**Connection modes**: Regular TCP (`net.Listen`) or Tailscale (`tsnet.Server.Listen`) based on `--tailscale` flag. Tailscale auth via `TS_AUTHKEY` env var.
-
-### Chat Commands
-
-`/who`, `/me <action>`, `/help`, `/quit` - implemented in `client.go:handleCommand`
+- `github.com/charmbracelet/lipgloss` - Terminal styling
+- `github.com/spf13/pflag` - CLI flags
+- `tailscale.com/tsnet` - Tailscale integration
 
 ---
 > Source: [bscott/chat-tails](https://github.com/bscott/chat-tails) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
