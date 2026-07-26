@@ -1,0 +1,14 @@
+{
+  "name": "bergerx--kubectl-status",
+  "displayName": "kubectl-status",
+  "description": "kubectl-status",
+  "version": "1.0.0",
+  "author": "bergerx",
+  "homepage": "https://github.com/bergerx/kubectl-status",
+  "skills": [
+    {
+      "name": "kubectl-status",
+      "description": ""
+    }
+  ]
+}
