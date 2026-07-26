@@ -1,0 +1,99 @@
+{
+  "name": "home-ops",
+  "owner": "rafaribe",
+  "repo": "home-ops",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/lint/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/add-app/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/add-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/upgrade-app/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/upgrade-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/cluster-debug/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/cluster-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/volsync-restore/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/volsync-restore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/fable-mode/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/fable-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/kopiur-restore/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/kopiur-restore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/migrate-volsync-to-kopiur/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/migrate-volsync-to-kopiur/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "home-ops",
+      "path": ".kiro/skills/volsync-to-kopiur-s3-parallel/SKILL.md",
+      "github_url": "https://github.com/rafaribe/home-ops/tree/main/.kiro/skills/volsync-to-kopiur-s3-parallel/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rafaribe/home-ops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:42:25Z"
+}
