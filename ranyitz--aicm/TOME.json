@@ -1,0 +1,105 @@
+{
+  "name": "aicm",
+  "owner": "ranyitz",
+  "repo": "aicm",
+  "description": "",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "tests/fixtures/skills-basic/skills/code-review",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-basic/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "pdf-processing",
+      "path": "tests/fixtures/skills-basic/skills/pdf-processing",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-basic/skills/pdf-processing",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-basic/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-basic/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-basic/skills/pdf-processing/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-basic/skills/pdf-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-multitarget/skills/multi-skill/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-multitarget/skills/multi-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-preset/preset/skills/data-analysis/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-preset/preset/skills/data-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-workspace/package-a/skills/skill-a/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-workspace/package-a/skills/skill-a/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-workspace/package-b/skills/skill-b/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-workspace/package-b/skills/skill-b/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-collision/preset-a/skills/shared-skill/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-collision/preset-a/skills/shared-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aicm",
+      "path": "tests/fixtures/skills-collision/preset-b/skills/shared-skill/SKILL.md",
+      "github_url": "https://github.com/ranyitz/aicm/tree/main/tests/fixtures/skills-collision/preset-b/skills/shared-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ranyitz/aicm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:35:18Z"
+}
