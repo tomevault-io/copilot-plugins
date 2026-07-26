@@ -1,0 +1,275 @@
+## tempo
+
+> transforms do) — they take Unreal-native units.
+
+# AGENTS.md — Tempo
+
+Orientation for AI agents (and humans) working in this repository. Read this before making changes.
+
+> Tempo is a collection of **Unreal Engine 5.6 / 5.7 / 5.8** plugins that turn Unreal into a
+> programmable simulator for robotics and autonomy. It is not an application — it is a set
+> of plugins that live in a host project's `Plugins/` directory (the reference host is
+> [TempoSample](https://github.com/tempo-sim/TempoSample)). The current working directory
+> is `.../<Project>/Plugins/Tempo`.
+
+---
+
+## 1. What Tempo is
+
+Tempo exposes Unreal to external clients (Python / Rust / C++ / ROS 2) so they can drive a
+simulation deterministically: control time, spawn and configure actors, command vehicles,
+and stream synthetic sensor data. The design goal is to make Unreal's rendering and world
+simulation accessible behind a clean, code-generated, language-agnostic API.
+
+The two pillars to understand first:
+
+1. **A gRPC server inside the engine.** `TempoCore` hosts one `FTempoServer` (default port
+   `10001`). Every plugin registers RPC services on it. Clients talk to the sim over gRPC.
+2. **A code-generation pipeline.** `.proto` files are the source of truth. A pre-build step
+   compiles them into C++ stubs *and* ergonomic Python / Rust client libraries. You almost
+   never hand-write client code or wire serialization.
+
+---
+
+## 2. Plugin map
+
+Each top-level `Tempo*` directory is an Unreal plugin (`<Name>/<Name>.uplugin`,
+`<Name>/Source/<Module>/`). Source files: ~ values exclude vendored third-party.
+
+| Plugin | Purpose | Depends on |
+|---|---|---|
+| **TempoCore** | gRPC server, time control (pause/play/step, wall-clock vs fixed-step), settings, subsystem base classes, the proto→client codegen, vendored gRPC. The foundation everything else builds on. | — |
+| **TempoSensors** | Synthetic sensors: camera (RGB / depth / semantic+instance labels / 2D bounding boxes / H.264 video) and lidar (point clouds, per-beam calibration, reflectivity). Multi-tile wide-FOV / fisheye lens models, GPU readback, streaming. | TempoCore, AV/NV/AMF/WMF/VT codecs |
+| **TempoWorld** | World manipulation by reflection: spawn/destroy actors & components, get/set *any* `UProperty`, query actor state (pose/velocity/bounds), overlaps, raycasts. | TempoCore |
+| **TempoMovement** | Drive pawns/vehicles: normalized throttle/steer (open-loop), velocity/acceleration commands (closed-loop), kinematic bicycle/unicycle + Chaos vehicle models, AI move-to. | TempoCore |
+| **TempoAgents** | Large-scale traffic/crowd agents on Unreal **Mass** (ECS) + **ZoneGraph**; StateTree behaviors; gRPC map-query service (lanes, zones, traffic-light state). | TempoCore, External/Traffic, External/ZoneGraph |
+| **TempoGeographic** | Georeferencing (WGS84 ↔ Unreal cartesian), sim date/time, sun position. | TempoCore |
+| **TempoPCG** | Custom Procedural Content Generation nodes (runtime grass LOD, debris scatter). | TempoCore |
+| **TempoROS** | Native ROS 2 (rclcpp) embedded in Unreal — no external bridge process. Vendors a large ROS tree (~thousands of files) under `Source/ThirdParty/rclcpp`. Custom `.msg`/`.srv` codegen. *Optional.* | — |
+| **TempoROSBridge** | Maps Tempo gRPC services ↔ ROS topics/services. One submodule per domain (Core/Sensors/Movement/Geographic). *Optional; remove to run without ROS.* | TempoROS + the bridged plugin |
+
+`External/` holds **vendored / forked Epic plugins**: `Traffic` (MassTraffic sample),
+`ZoneGraph`, `RuleProcessor` (PointCloud). Treat these as third-party — they have their own
+conventions and the only existing automation tests in the repo (in `RuleProcessor`). Don't
+restyle them to match Tempo.
+
+---
+
+## 3. The core architecture pattern (RPC services)
+
+This is the single most important pattern. Every client-facing capability is an RPC service
+implemented by a UE **subsystem** that registers handlers on the gRPC server.
+
+**Flow:** `client stub → gRPC channel (:10001) → FTempoServer completion queue → handler delegate on a UObject subsystem → ResponseDelegate → client`
+
+To add or understand a service:
+
+1. **Proto** in `<Module>/Public/*.proto` or `Private/*.proto`. Conventions enforced by
+   `gen_protos.py`: package defaults to the module name; **RPC names must be unique within a
+   module** (the Python API is flattened per-module, no service prefix). Avoid Rust-keyword
+   field names (`type`, `match`, `move`) — use qualified names like `actor_type`.
+2. **Service provider**: a class implementing `ITempoServiceProvider`
+   (`TempoCore/.../TempoServiceProvider.h`) — usually a subsystem deriving one of Tempo's
+   base classes in `TempoSubsystems.h` (`UTempoGameWorldSubsystem`, etc., which guard against
+   CDO/duplicate instantiation).
+3. **Register** in `RegisterServices(FTempoServer&)` using `SimpleRequestHandler` (unary) or
+   `StreamingRequestHandler`, binding the generated `AsyncService::RequestXxx` to a member
+   function with signature
+   `void Handler(const ReqType&, const TResponseDelegate<RespType>&) const`.
+4. **Respond** by calling `ResponseContinuation.ExecuteIfBound(response, grpc::Status_OK)` —
+   may be deferred (async).
+5. The **codegen runs automatically** on the next build (PreBuildSteps in the `.uplugin`),
+   producing C++/Python/Rust clients.
+
+Reference implementations: `UTempoTimeServiceSubsystem`, `UTempoCoreServiceSubsystem`,
+`UTempoWorldControlServiceSubsystem`, `UTempoSensorServiceSubsystem`.
+
+---
+
+## 4. Codegen pipeline
+
+`.proto` is the source of truth; generated code is committed (see
+`TempoCore/Content/Python/API/tempo_sim/`, `TempoCore/Content/Rust/`).
+
+- `TempoCore/Content/Python/gen_protos.py` — discovers all protos across plugins (respecting
+  module deps), validates naming, runs `protoc` → C++ `.pb.{h,cc}` + Python `_pb2`/`_pb2_grpc`,
+  and re-exports protos for the C++/Rust generators.
+- `TempoCore/Content/Python/gen_api.py` — introspects proto descriptors, uses Jinja2 to emit
+  ergonomic per-module wrappers with sync + async variants (`tempo_sim.tempo_core`, etc.).
+- Rust (`gen_rust_api.py`, opt-in `TEMPO_GEN_RUST_API=1`) and C++ (`gen_cpp_api.py`) generators.
+- `TempoCore/Scripts/GenAPI.sh` builds/refreshes the `TempoEnv` venv and installs the Python pkg.
+- A `.tempo_prebuild_cache.json` skips unnecessary regeneration.
+
+**Direction in flight** (see `PYTHON_API_SPLIT_PLAN.md`): splitting the Python API into a
+canonical `tempo-sim` distribution + per-project `tempo-sample`, and namespacing protos under
+the package (`import tempo_sim.TempoSensors`).
+
+---
+
+## 5. Build / run / package
+
+All via `Scripts/` (`.sh` + `.bat` mirrors; run `.sh` under Git Bash on Windows). See also
+the `reference_build_scripts` memory.
+
+- **`Setup.sh`** (once): installs the **Tempo toolchain** (`UseTempoToolchain.sh` edits the
+  host `*.Target.cs`), applies **EngineMods**, downloads deps, installs git hooks that keep
+  mods/deps synced across checkouts. `-skip-hooks` only for active Tempo devs.
+- **`Build.sh`** → UBT `<Project>Editor`. **`Run.sh`** → opens the editor. **`Package.sh`** →
+  `RunUAT BuildCookRun` to `Packaged/`. **`Clean.sh`** wipes artifacts.
+- **Engine path**: UE 5.7 lives at `/Users/Shared/Epic Games/UE_5.7` (path has a space —
+  quote it). On Linux set `UNREAL_ENGINE_PATH`; Mac/Win auto-detect.
+
+**Why the toolchain & engine mods exist:** gRPC/Protobuf static libs are vendored into
+TempoCore and re-exported to other modules; custom toolchains
+(`TempoVCToolChain`/`TempoMacToolChain`/`TempoLinuxToolChain`) fix symbol re-export so
+duplicate globals don't crash. `EngineMods/{5.6,5.7,5.8}/` patch UBT, AutomationTool, ZoneGraph,
+MassCrowd, PCG **in place** (idempotently, via `InstallEngineMods.sh` reading
+`EngineMods.json`) so users don't need a custom-built engine. `TempoModuleRules` (added as a
+mod) auto-adds the `ProtobufGenerated` include paths and is the base class for every Tempo
+`*.Build.cs`.
+
+**Third-party deps**: `SyncDeps.sh` hash-verifies and downloads prebuilt gRPC (TempoCore) and
+rclcpp (TempoROS) from GitHub releases (`ttp_manifest.json` per dep). Not committed; fetched.
+
+---
+
+## 6. Conventions
+
+- **Modules**: `<Plugin>` (Runtime) and `<Plugin>Editor` (Editor) under `Source/<Module>/`
+  with `Public/` + `Private/`. Every `*.Build.cs` extends `TempoModuleRules`, sets
+  `PCHUsage = UseExplicitOrSharedPCHs`. TempoCore is `bCanHotReload = false` (gRPC statics).
+- **Copyright header**: `// Copyright Tempo Simulation, LLC. All Rights Reserved`.
+- **Naming**: Unreal conventions — `U`/`A`/`F`/`I`/`E` prefixes, PascalCase. Service
+  subsystems are `U<Domain>ServiceSubsystem`.
+- **Units / frames at the API boundary**: internally Unreal is cm, degrees, left-handed.
+  Proto APIs are **meters, radians, right-handed**. Conversions go through
+  `TempoConversion.h` (`QuantityConverter<CM2M, L2R>`, etc.). Note the documented exception:
+  scalar `set_float_property` / vector `set_*_property` do **not** auto-convert (only
+  transforms do) — they take Unreal-native units.
+- **Actor identity over RPC**: use `UTempoCoreUtils::GetActorIdentifier`, *not*
+  `GetActorNameOrLabel` (editor label race adds/drops `_C`). See `actor_identifier_rpc_naming`
+  memory.
+- **Config**: `UTempoCoreSettings` (`UDeveloperSettings`), stored under `Config/` with
+  command-line overrides. Plugin-owned config (incl. CoreRedirects) belongs in the **plugin's**
+  Config, not the project's (`plugin_config_scope` memory).
+- **Render-thread rule**: `OnRenderCompleted` runs on the render thread — never block on a GPU
+  fence there (deadlocks). Synchronous waits belong on the game thread via
+  `FlushRenderingCommands` (`sensor_readback_thread_model` memory; see `PROGRESS.md`).
+
+---
+
+## 7. Testing
+
+Two layers exist today: a **C++ unit-test harness** (Unreal Automation Framework) for pure,
+engine-light logic, and a **Python API integration suite** that drives a packaged sim over
+gRPC. Functional/rendering/agents/ROS layers are still not built.
+
+### 7a. C++ unit tests (Unreal Automation Framework)
+
+**How it's wired:**
+
+- Tests are plain `.cpp` files under each module's `Private/Tests/`, guarded by
+  `#if WITH_DEV_AUTOMATION_TESTS`, using `IMPLEMENT_SIMPLE_AUTOMATION_TEST` with flags
+  `EditorContext | EngineFilter`. They live in the module they test (no separate test module),
+  so they need no `*.Build.cs` change as long as the deps are already present.
+- **Naming:** `Tempo.<Plugin>.<Area>.<Case>` (e.g. `Tempo.Core.Conversion.UnitFactors`,
+  `Tempo.Sensors.LensModels.DoubleSphere`, `Tempo.Movement.Kinematics.BicycleForward`).
+- **Run:** `Scripts/Test.sh` (all `Tempo.` tests) or `Scripts/Test.sh Tempo.Movement` (prefix
+  filter). It runs the editor headless (`-nullrhi -unattended`), then parses the JSON report and
+  fails on any failure / zero matches / crash. **It builds nothing — run `Scripts/Build.sh`
+  first** (new/changed `.cpp` tests only register after a rebuild).
+- **CI:** `build_and_package.yml` takes an `automation_test_filter` input; `tempo_build_and_package.yml`
+  sets it to `Tempo.`, so all tests run on every CI build and a report is uploaded as an
+  artifact. New tests under the `Tempo.` namespace are picked up automatically.
+
+**Current coverage** (all pure-logic / lightweight, no RHI):
+
+| Area | File | What |
+|---|---|---|
+| Unit/handedness conversion | `TempoCore/.../Tests/TempoConversionTest.cpp` | `QuantityConverter` factors, vector/rotator/quat handedness, round trips |
+| Camera/lidar lens math | `TempoSensors/.../Tests/TempoLensModelsTest.cpp` | factory, Brown-Conrady/Rational/Kannala-Brandt/Equidistant/Double-Sphere distort↔undistort round trips, focal-length math |
+| Kinematic motion models | `TempoMovement/.../Tests/TempoKinematicsTest.cpp` | bicycle & unicycle forward (`SimulateMotion`) + inverse (`ComputeNormalizedSteeringForYawRate`) models, saturation, forward/inverse round trip |
+
+**Convention for testing UObject components** (see `TempoKinematicsTest.cpp`): a const method
+that only reads the component's own properties (e.g. the inverse motion model) can be tested by
+`NewObject`-ing the component into `GetTransientPackage()` and calling it directly. A method that
+reads engine state — e.g. `SimulateMotion` calls `GetOwner()->GetActorRotation()` — needs an
+owning actor: create a transient world (`UWorld::CreateWorld(EWorldType::Game, false)` + a world
+context), `SpawnActor`, then `NewObject<Component>(Actor)` so `GetOwner()` resolves (the
+`FKinematicTestFixture` RAII helper does this and tears it down). These still run under `-nullrhi`.
+
+When adding a new pure-logic helper, add a unit test beside the existing ones; it runs in CI
+automatically.
+
+### 7b. Python API integration tests (against a packaged build)
+
+End-to-end tests for the generated clients (**Python** and **Rust**), run against a **packaged**
+sim (not the editor). They cover the client-facing API contract and behavior over gRPC. See
+`Tests/Python/README.md` and `Tests/Rust/README.md`.
+
+- **Python — `Tests/Python/`:** `conftest.py` (sim lifecycle fixtures), `pytest.ini` (markers),
+  `test_*.py`. Groups = pytest markers: `contract` (wheel-only, no sim — package imports + API
+  surface), `core` (time control), `world` (spawn/query/move/destroy + coordinate round trips),
+  `movement` (commandable pawns; skips if the map has none), `sensors` (camera frame — needs a GPU,
+  **default-off**). Run: `Scripts/TestPythonAPI.sh [group]`.
+- **Rust — `Tests/Rust/`:** a `cargo` crate; `tests/*.rs` files are the groups (`cargo test --test
+  <group>`): `contract` (compile/surface check, no sim) and `integration` (live sim). The crate
+  under test is the packaged `tempo-sim` crate, vendored in by the script. Run: `Scripts/TestRustAPI.sh
+  [group]`.
+- **Sim lifecycle:** Python's session-scoped `sim_server` fixture (and `TestRustAPI.sh` for Rust)
+  launches the packaged binary headless, polls until the gRPC server answers, and tears it down.
+  RHI is `-nullrhi` by default; `TEMPO_SIM_RENDER=1` renders off-screen (the `sensors` group, which
+  also wants a GPU). The sim's full log is written to `TEMPO_TEST_REPORT_DIR/sim.log` (uploaded as a
+  CI artifact) for post-mortem. `contract` groups never launch a sim. Python's `fixed_step` fixture
+  gives deterministic stepping.
+- **Runner scripts** (`Scripts/TestPythonAPI.sh` / `TestRustAPI.sh`, with `.bat` mirrors) locate the
+  `Packaged` build, install the shipped client (`Packaged/API/Python/*.whl` — *all* wheels, so a
+  project's own client installs too — / `Packaged/API/Rust/tempo-sim`), and run the group. Reports
+  → `TEMPO_TEST_REPORT_DIR` (default `Saved/{Python,Rust}TestReport`). **Package first**
+  (`Scripts/Package.sh`; Rust needs `TEMPO_GEN_RUST_API=1`).
+- **CI (fan-out):** `tempo_build_and_package.yml` sets `upload_artifact: true` (package built &
+  uploaded once), then `test_packaged_python_api` and `test_packaged_rust_api` matrix jobs (Unreal
+  version × group) both call the **generic, reusable** `test_packaged.yml`. Each job downloads the
+  same artifact and runs one group in parallel — build once, test many.
+- **`test_packaged.yml` is language-agnostic and reusable by downstream projects.** It takes a
+  `test_command`, optional `python_version` / `setup_rust` / `render`, `submodules`, and an
+  `environment` gate, and exports a fixed env contract (`TEMPO_PACKAGED_DIR`, `TEMPO_SERVER_PORT`,
+  `TEMPO_SIM_RENDER`, `TEMPO_TEST_REPORT_DIR`, …). A project using Tempo as a submodule can call it
+  to test its **own** custom API surface (its generated client ships in the same `Packaged/API`
+  folders) by passing its own `test_command` and `submodules: recursive`.
+
+**Still absent:** functional/agents/ROS tests, and the GPU-gated `sensors` group in CI. Adding a
+new behavior test = a new marker (Python) or `tests/*.rs` (Rust); a brand-new group also needs a
+matrix entry in `tempo_build_and_package.yml` (and, for Python, a line in `pytest.ini`). Enabling
+`sensors` means a GPU `runner` + `render: true` on that matrix entry.
+
+---
+
+## 8. Gotchas
+
+- Don't edit generated code (`*_pb2.py`, `*.pb.cc`, `Content/Rust/`, `ProtobufGenerated/`).
+  Change the `.proto` and rebuild.
+- Don't restyle `External/` — it's vendored Epic code.
+- Quote the engine path (it contains a space).
+- Changing a `.proto` is a client-facing API change: it regenerates Python/Rust/C++ clients
+  and may need CoreRedirects (in the plugin's Config) for renamed assets/classes.
+- `MIGRATION_v0.1.0.md` documents the previous → v0.1.0 module consolidation (e.g. TempoCamera+TempoLidar →
+  TempoSensors); proto packages were renamed, so old external clients must regenerate.
+- Half-pixel offset: the distortion-map UV loop in `TempoCamera.cpp` must use `U + 0.5`
+  (pixel center) or TAA breaks (`distortion_map_half_pixel` memory).
+
+---
+
+## 9. Where to look first
+
+- New capability over the API → §3, copy an existing `*ServiceSubsystem`.
+- Sensor work → `TempoSensors/Source/TempoSensors/{Public,Private}` (`TempoCamera`,
+  `TempoTiledSceneCaptureComponent`, `TempoLensModels`, `TempoSensorInterface`).
+- Build/toolchain/deps → `Scripts/`, `EngineMods/`, `*.Build.cs`.
+- Client examples → `ExampleClients/`.
+- Project status & direction → `PROGRESS.md`, `MIGRATION_v0.1.0.md`, `PYTHON_API_SPLIT_PLAN.md`,
+  and each plugin's `README.md`.
+
+---
+> Source: [tempo-sim/Tempo](https://github.com/tempo-sim/Tempo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
