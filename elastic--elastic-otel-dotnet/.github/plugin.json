@@ -1,0 +1,9 @@
+{
+  "name": "elastic--elastic-otel-dotnet",
+  "displayName": "elastic-otel-dotnet",
+  "description": "elastic-otel-dotnet",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/elastic-otel-dotnet",
+  "skills": []
+}
