@@ -58,5 +58,5 @@ For the complete command reference with all parameters, see:
 Or run `hana-cli <command> --help` for any specific command.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/SAP-samples) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [SAP-samples/cap-hana-exercises-codejam](https://github.com/SAP-samples/cap-hana-exercises-codejam) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
