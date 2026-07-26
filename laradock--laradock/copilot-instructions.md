@@ -1,10 +1,8 @@
 ## laradock
 
-> All AI-agent and contributor guidance for this repo lives in **[AGENTS.md](./AGENTS.md)**. Read it and follow it.
+> All AI-agent and contributor guidance for this repo lives in AGENTS.md at the repository root. Read AGENTS.md and follow it.
 
-# See AGENTS.md
-
-All AI-agent and contributor guidance for this repo lives in **[AGENTS.md](./AGENTS.md)**. Read it and follow it.
+All AI-agent and contributor guidance for this repo lives in AGENTS.md at the repository root. Read AGENTS.md and follow it.
 
 ---
 > Source: [laradock/laradock](https://github.com/laradock/laradock) — distributed by [TomeVault](https://tomevault.io).
