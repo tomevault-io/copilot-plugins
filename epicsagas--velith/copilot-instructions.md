@@ -1,63 +1,125 @@
-## velith-genres
+## velith-pipeline
 
-> Velith genre-specific writing conventions for each supported genre
+> Velith book publishing pipeline — phases, router, agents, quality gates, and project structure
 
 
-# Velith — Genre Conventions
+# Velith — AI-Native Book Publishing Pipeline
 
-## Fiction
-- Plot structure: Save the Cat! 15-beat or Snowflake Method
-- Character bible with GMC (Goal, Motivation, Conflict) per character
-- Scene beats with RDD (Reaction, Dilemma, Decision) pacing
-- POV consistency (no 1st/3rd mixing within chapters)
-- Dialogue rules: subtext over exposition, distinctive voice per character
+## Overview
 
-## Non-Fiction
-- Problem-solution structure per chapter
-- Learner persona–driven progression (what does the reader already know?)
-- Evidence hierarchy: primary research > expert interviews > case studies > anecdotes
-- Chapter hooks: open with a question or counterintuitive fact
-- Summary + action items at chapter end
+Build books like software. 6-phase pipeline from blank page to published book, with quality gates at every stage.
 
-## Technical
-- Concept progression gradient: novice → intermediate → expert
-- Code examples: compilable, commented, with expected output
-- Diagrams for architecture, data flow, or process steps
-- API docs: endpoint, parameters, response schema, error codes
-- Labs/exercises at end of each chapter
+```
+Phase 0: Onboarding → Phase 1: Ideation → Phase 2: Outlining → Phase 3: Drafting → Phase 4: Editing → Phase 5: Publishing
+```
 
-## Screenplay
-- 3-act structure + 8-sequence method
-- Dialogue: subtext, distinct voice, no on-the-nose exposition
-- A/B story interweaving (main plot + subplot)
-- Action lines: present tense, visual, concise
-- Page budget: ~1 page = ~1 minute of screen time
+## Phase Router
 
-## Poetry
-- Form types: sonnet, haiku, free verse, villanelle, prose poem, etc.
-- Meter/rhythm awareness (iambic, trochaic, anapestic, dactylic)
-- Imagery systems: visual, auditory, tactile, olfactory, gustatory
-- Collection arc: ordering poems for emotional/thematic progression
-- Line break intentionality: enjambment vs end-stopped
+Detect current project state and route to the correct phase:
 
-## Game Scenario
-- Quest/event tree structure with branching conditions
-- Dialogue branching with player agency flags
-- Lore bible: world rules, factions, technology/magic systems
-- Flag system: track player choices across chapters/scenes
-- Multiple endings: foreshadowing and divergence points
+1. **No project exists** → Phase 0 (Onboarding)
+2. **Project exists, no outline** → Phase 1 (Ideation)
+3. **Outline exists, no drafts** → Phase 2 (Outlining) validation, then Phase 3
+4. **Drafts exist, incomplete** → Phase 3 (Drafting)
+5. **All drafts complete** → Phase 4 (Editing)
+6. **Editing complete** → Phase 5 (Publishing)
 
-## Academic
-- IMRAD structure (Introduction, Methods, Results, Discussion)
-- Literature review: thematic organization, not chronological
-- Argument chains: claim → evidence → warrant → backing → rebuttal
-- Citation practices: consistent style (APA, MLA, Chicago, etc.)
-- Abstract and keywords before main body
+**Detection:** check for `drafts/` directory, `outline.md`, `STYLE.md`, `PRD.md`.
 
-## Custom Genres
-- Compose patterns from any supported genre via genre-creator
-- Define custom quality gates and chapter templates
-- Can inherit from multiple parent genres
+## Phase Details
+
+### Phase 0: Onboarding
+- Genre selection (fiction/non-fiction/technical/screenplay/poetry/game/academic/custom)
+- Target audience definition
+- Language selection
+- Project directory setup
+- Source material scan (existing notes, articles, code)
+- Generate `STYLE.md` (voice, tone, conventions)
+- Generate `PRD.md` (book requirements)
+
+### Phase 1: Ideation
+- Market research (competing titles, gaps)
+- Core concept distillation (elevator pitch)
+- Unique value proposition
+- Scope definition (chapters, word count, timeline)
+- Save to `ideation.md`
+
+### Phase 2: Outlining
+- Generate full chapter outline with dependencies
+- Per-chapter specs: title, hook, key concepts, word target, difficulty level
+- Cross-chapter reference map
+- Save to `outline.md`
+- Agent `book-architect` validates structure
+
+### Phase 3: Drafting
+- Plan-Then-Execute: chapter-by-chapter generation
+- Each chapter gets: outline context + previous chapter summary + style guide
+- Parallel chapter generation (max 4 concurrent)
+- Agent `scene-generator` decomposes chapters into scenes (fiction only)
+- Agent `chapter-writer` generates each chapter
+- Agent `continuity-editor` checks cross-chapter consistency
+- Quality gate: line count, frontmatter, style compliance
+
+### Phase 4: Editing
+- 5-stage editing pipeline:
+  1. Editorial Assessment (macro structure)
+  2. Developmental Edit (flow, pacing, gaps)
+  3. Line Edit (sentence-level clarity)
+  4. Copy Edit (grammar, consistency)
+  5. Proofread (final typos)
+- Agent `style-doctor` enforces voice consistency
+- Generate editing report with severity-ranked issues
+
+### Phase 5: Publishing
+- Format conversion: EPUB, PDF, MOBI, TXT, Markdown (via Pandoc + Calibre)
+- Agent `cover-designer` generates cover concepts + image prompts
+- Agent `marketing-expert` creates launch strategy
+- Metadata, title candidates, KDP checklist
+
+## Agents
+
+| Agent | Role | Phase |
+|-------|------|-------|
+| `book-architect` | Structure validation, outline scoring | 2 |
+| `chapter-writer` | Chapter draft generation | 3 |
+| `continuity-editor` | Cross-chapter consistency | 3-4 |
+| `style-doctor` | Voice/tone consistency, AI-slop detection | 4 |
+| `scene-generator` | Scene-level GMC+RDD breakdown (fiction only) | 3 |
+| `cover-designer` | Cover concepts + image prompts | 5 |
+| `marketing-expert` | Reader personas, launch strategy | 5 |
+
+## Project Structure
+
+```
+{project-dir}/
+├── PRD.md              # Book requirements (Phase 0)
+├── STYLE.md            # Voice, tone, conventions (Phase 0)
+├── ideation.md         # Ideas, market research (Phase 1)
+├── outline.md          # Full chapter outline (Phase 2)
+├── drafts/             # Chapter drafts (Phase 3)
+├── edits/              # Editing reports (Phase 4)
+├── publish/            # Final outputs (Phase 5)
+└── sources/            # Source material references
+```
+
+## Quality Gates
+
+| Phase | Gate | Evidence |
+|-------|------|----------|
+| 0 | Project initialized | PRD.md + STYLE.md exist |
+| 1 | Concept validated | Elevator pitch + 3 competing titles analyzed |
+| 2 | Outline complete | All chapters specified + cross-reference map |
+| 3 | Drafts complete | All chapters meet word target + frontmatter |
+| 4 | Editing complete | 5-stage pipeline passed + <5 issues remaining |
+| 5 | Publish ready | EPUB/PDF generated + metadata complete |
+
+## Design Principles
+
+- **Plan-Then-Execute** — Outline first, validate, then write
+- **Idempotent** — Skip completed chapters, resume from where you left off
+- **Token Efficient** — Summary-based context, not full text
+- **Genre-Aware** — Different structures, templates, and validation per genre
+- **Quality Gated** — Each phase must pass criteria before proceeding
 
 ---
 > Source: [epicsagas/Velith](https://github.com/epicsagas/Velith) — distributed by [TomeVault](https://tomevault.io).
