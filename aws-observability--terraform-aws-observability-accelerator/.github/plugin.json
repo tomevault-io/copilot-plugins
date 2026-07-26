@@ -1,0 +1,9 @@
+{
+  "name": "aws-observability--terraform-aws-observability-accelerator",
+  "displayName": "terraform-aws-observability-accelerator",
+  "description": "terraform-aws-observability-accelerator",
+  "version": "1.0.0",
+  "author": "aws-observability",
+  "homepage": "https://github.com/aws-observability/terraform-aws-observability-accelerator",
+  "skills": []
+}
