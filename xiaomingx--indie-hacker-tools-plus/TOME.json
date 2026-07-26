@@ -1,0 +1,51 @@
+{
+  "name": "indie-hacker-tools-plus",
+  "owner": "XiaomingX",
+  "repo": "indie-hacker-tools-plus",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "indie-hacker-tools-plus",
+      "path": ".prompt/skill.md",
+      "github_url": "https://github.com/XiaomingX/indie-hacker-tools-plus/tree/main/.prompt/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/XiaomingX/indie-hacker-tools-plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:51:58Z"
+}
