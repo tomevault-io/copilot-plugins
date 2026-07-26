@@ -1,0 +1,240 @@
+## dashboard
+
+> Greptime dashboard UI tokens, layout regions, tables, and Arco overrides — use when editing Vue/LESS styles
+
+
+# Dashboard UI style rules
+
+## Core principles
+
+1. Use **design tokens only**: `--gpt-*`, `--font-family-base`, `--font-mono`. Do not add `#hex`, raw `12px`, or legacy `--color-text-*` / `--main-font-color` in new code.
+2. Prefer **global CSS classes** in `ui-regions.less`, `typography.less`, `button.less`, `dataView.less`. Vue scoped styles are for **page semantics only** (column emphasis, chart, pipeline colors).
+3. **No layout Vue wrappers** (`PageHeader.vue`, etc.). Compose modifier classes on existing DOM.
+4. **CSS selector = template class**: if scoped/CSS uses `.foo.gpt-bar`, the template must have `class="foo gpt-bar"`.
+5. Query results use **`QueryResultTable` → `PaginatedDataTable` → `DataTable`**. Do not reintroduce `data-grid.vue` or standalone `a-table` for SQL results.
+
+## Layout modifiers (pick one on page root)
+
+| Modifier | Pages | Table mode |
+|----------|-------|------------|
+| `new-layout new-layout--workspace` | Table Query, Metrics, Perses | Panel: scroll inside table, pagination fixed at bottom |
+| `query-layout query-layout--stack` | Logs Query, Traces | Last card `flex:1`; toolbar via `.toolbar` in `ui-regions.less` |
+| `query-layout query-layout--surface` | Flow | Page scroll; `gpt-table-page` + `scroll.y: undefined` |
+
+Files: `src/assets/style/ui-regions.less`, `src/assets/style/query-layout.less`.
+
+## Region classes (put on template)
+
+- **Header**: `gpt-page-header` on `.page-header` (do not duplicate page-header block in `query-layout.less`).
+- **Toolbars**: `gpt-toolbar` / `gpt-content-toolbar` / `gpt-results-toolbar` (results = gray table toolbar bg).
+- **Query strip** (workspace): `gpt-query-strip`.
+- **Results card** (workspace): `gpt-results-pane` on result `a-card`.
+- **Panel table** (internal scroll): `gpt-table-panel` on flex column container.
+- **Page table** (document scroll): `gpt-table-page` on `DataTable`.
+- **Surface card**: `gpt-surface-card` + `gpt-surface-card__title` / `__badge` in `#title`.
+- **Editors**: `gpt-light-editor`, `gpt-light-editor-card`, `gpt-code-editor-frame` (+ `--h200/300/500`), `gpt-square-editor` when needed.
+- **Misc**: `gpt-divider-band`, `gpt-popover-panel`, `gpt-card-flush-body`, `gpt-status-pill` (+ `is-running` / `is-error` / `is-default`), `gpt-status-pill__dot`.
+
+Typography utilities: `typography.less` — e.g. `gpt-text-page-subtitle`, `gpt-text-secondary`, `gpt-text-muted`, `gpt-text-toolbar`, `gpt-text-toolbar-meta`, `gpt-icon-muted`.
+
+## Toolbar typography
+
+Base font in toolbars is **`--gpt-font-base` (12px)**. Weight follows **role**, not location:
+
+| Role | Weight | Color (idle) | Examples |
+|------|--------|----------------|----------|
+| **Control** (peer actions) | **`--gpt-font-weight-control` (600)** | `--gpt-text-primary`, or **secondary** for button-radio idle only | `a-button`, `TimeRangeSelect`, **Live** (`gpt-toolbar-checkbox`), Builder/Code radio |
+| **Plain label** | `--gpt-font-weight-regular` (400) | `--gpt-text-primary` | `gpt-text-toolbar` on non-interactive copy |
+| **Meta / hint** | 600 | `--gpt-text-secondary` or `--gpt-text-muted` | Row counts, `gpt-text-toolbar-meta`, **Columns** text-btn label |
+
+**600 on top toolbar is correct** — all Arco buttons use `@btn-font-weight: 600` (`arco-theme.less`). Inline toolbar checkboxes must match via `gpt-toolbar-checkbox`, not default `.arco-checkbox-label` (500).
+
+Do **not** put `gpt-text-secondary` on peer toolbar toggles (Live, Run neighbors). Secondary is for **unselected** button-radio segments and **meta** text only.
+
+Regions: `.gpt-toolbar`, `.gpt-content-toolbar`, `.query-layout .toolbar` (`ui-regions.less`).
+
+## Panel table height chain (Table Query)
+
+```
+.result-container.gpt-table-panel
+  .result-toolbar.gpt-results-toolbar
+  .result-content (flex:1; min-height:0; overflow:hidden)
+    .table-panel → QueryResultTable → .paginated-data-table
+      .data-table-container (flex:1; scroll inside)
+      .grid-pagination (flex-shrink:0; fixed at bottom)
+```
+
+Tab pane: `overflow: hidden` on content item (avoid outer scroll stealing from table). `data-view/index.vue` is the reference.
+
+## Tables & font size
+
+- **`DataTable` default `size`: `medium`** (14px body via Arco). Do not default to `small` for main result tables.
+- `dataView.less` forces **12px** on `.arco-table-size-small` / `mini` cells — use only when density is intentional (compact mode).
+- Logs: `medium` normal, `mini` when compact checkbox on.
+- Flow list: `gpt-table-page`, no virtual fill height.
+
+## Color system (`global.less` + `arco-theme.less`)
+
+**Source of truth**: define new colors only in `:root` (`global.less`) or Arco compile tokens (`arco-theme.less`). Component/page CSS references tokens — no new `#hex` / `rgb()` in Vue/LESS except chart canvas / vp-doc (see exceptions).
+
+### Text hierarchy (four tiers — not all main-dark)
+
+| Tier | Token | Hex | Use |
+|------|--------|-----|-----|
+| Primary | `--gpt-text-primary` | `#473460` | Page titles, input/select **values**, table body, outline/text button idle, standard checkbox label |
+| Secondary | `--gpt-text-secondary` | `#8b7ba8` | Toolbar meta, button-radio **idle**, table header, **Columns** / pagination idle |
+| Label | `--gpt-text-label` | `var(--gpt-text-primary)` / `#473460` | Form field labels (`.arco-form-item-label` in `dataView.less`; matches `@form-color-text-label`) |
+| Muted | `--gpt-text-muted` | `#b0a8c4` | Row counts, hints, disabled-adjacent meta |
+| Inverse | `--gpt-text-inverse` | `#ffffff` | Text on main-dark / purple filled controls (primary btn, radio/checkbox selected, pagination active) |
+
+**Placeholder**: `--gpt-placeholder-color` (`rgba(71,52,96,0.5)`).
+
+### Interactive color (idle → hover → active/focus)
+
+| Role | Idle | Hover | Active / focus / selected |
+|------|------|-------|---------------------------|
+| Primary button | white on main-dark | white on purple | white on `--gpt-brand-primary-hover` |
+| Outline button | main-dark text+border | purple text+border | deeper purple |
+| Text button | main-dark | purple text + `--gpt-nav-active-bg` | main-dark |
+| Button-type radio | **secondary** text (`button.less`) | purple text | **inverse** on main-dark; hover fill → purple |
+| Input / select value | main-dark | border main-dark | border purple |
+| Checkbox / radio circle | main-dark border | main-dark border | main-dark fill; checked hover → purple (`global.less`) |
+| Pagination page | secondary | `--gpt-brand-900` text + `--gpt-nav-active-bg` | inverse on `--gpt-brand-900` |
+| Links | `--gpt-link-color` (purple) | — | — |
+
+**Purple (`--gpt-main-purple`) is for interaction emphasis**, not default body copy. Do not use for idle toolbar labels unless the control is a link or explicit accent.
+
+### Borders & fills
+
+| Token | Use |
+|-------|-----|
+| `--gpt-border-strong` | Input/select/picker idle border; radio-group outer border |
+| `--gpt-border-default` | Cards, regions, dividers |
+| `--gpt-border-subtle` | Disabled outlines |
+| `--gpt-nav-active-bg` | Row/hover fills, light purple tint |
+| `--gpt-table-head-bg` / `--grey-bg-color` | Table header, sidebar label chips |
+
+Checkbox/radio mask border: **1px** (`@checkbox-mask-border-width` / `@radio-border-width` in `arco-theme.less`).
+
+### Timestamp columns (global — `dataView.less`)
+
+All query result tables use **`DataTable`**. Do **not** override timestamp cells with page-local colors (`--color-primary-*`, main-dark, purple links).
+
+| Part | Class / prop | Style |
+|------|----------------|-------|
+| Header pill | `.gpt-semantic-th.timestamp` | `--gpt-semantic-timestamp` on `--gpt-semantic-timestamp-bg` |
+| Body (toggle format) | `.timestamp-cell` | `--gpt-accent-ts`; click toggles formatted/raw |
+| Body (open detail) | `tsCellDetail` + `.timestamp-cell.ts-cell-detail-link` | `--gpt-accent-ts`; underline on hover only |
+
+Logs Query and Table Query both use `tsCellDetail` + `@ts-cell-click` for log/detail drawer — same as `query-result-table`.
+
+### Semantic & status (domain only)
+
+| Token | Use |
+|-------|-----|
+| `--gpt-semantic-field` / `tag` / `timestamp` (+ `-bg`) | Column type pills in `DataTable` |
+| `--gpt-accent-ts` | Timestamp accent |
+| `--success-color` / `--warning-color` / `--danger-color` (+ `-bg`) | Status pills, danger buttons |
+| `--gpt-status-pill` modifiers (`ui-regions.less`) | Running / error badges |
+
+Charts (ECharts): may use `rgba(71,52,96,…)` inline in JS — prefer matching `--gpt-text-*` / `--gpt-border-*` values when editing.
+
+### Legacy aliases — do not use in new code
+
+| Legacy | Maps to | Notes |
+|--------|---------|-------|
+| `--main-font-color` | `--gpt-text-primary` | Still in `dataView.less`, tour, explain |
+| `--small-font-color` | `--gpt-text-secondary` | |
+| `--third-font-color` | `--gpt-text-muted` | |
+| `--brand-color` | `--gpt-main-purple` | **CSS variable** = purple |
+| `--hover-brand-color` | `--gpt-main-purple` | No distinct hover shade |
+| `--color-text-1/2/3` | Arco runtime vars | Prefer `--gpt-text-*`; `@color-text-1` overridden to main-dark in theme |
+
+### Class vs variable trap
+
+```less
+.brand-color, .icon-color { color: var(--gpt-control-accent); }  /* class → main-dark */
+:root { --brand-color: var(--gpt-main-purple); }                 /* var  → purple */
+```
+
+- Template `class="brand-color"` on SVG → **main-dark** (correct for idle icons).
+- Scoped `color: var(--brand-color)` → **purple** (often intended for hover/accent only).
+- New code: idle icons → `icon-color` or `--gpt-icon-color`; hover/accent → `--gpt-link-color` or `--gpt-main-purple` explicitly.
+
+### Theme-first controls (`arco-theme.less`)
+
+Arco **primary palette**: `@color-primary-6` = main-dark (idle), `@color-primary-5` = main-purple (hover). Buttons, inputs, checkbox, switch follow compile-time tokens — **no** duplicate color rules in `button.less` / `form.less` except danger/disabled/radio-group/button-toolbar.
+
+**Exceptions** (not driven by primary-6 alone):
+- Nav **menu** — `@menu-light-color-*` / `@menu-dark-color-*`
+- Body **links** — `--gpt-link-color`
+- **View-switch** / **pagination active** / **gpt-btn-toolbar.active** — `--gpt-brand-900` fill + inverse text
+- **Button-type radio** — idle secondary in `button.less`; selected main-dark
+- **Danger** status buttons — `button.less`
+- **vp-doc** / **docs.less** — documentation chrome; may keep `--brand-color` for links
+
+`--gpt-control-accent` / `--gpt-control-accent-hover`: default icon accent (dark / purple on hover). Used by `.brand-color` class, spin-adjacent patterns; **not** a substitute for text tier tokens.
+
+## Buttons (`button.less`)
+
+- Use `size="small"` (26px) or `size="medium"` (32px) — **no** scoped `:deep(.arco-btn) { height: 24px; padding: 0 4px }`.
+- Primary / text / outline / secondary colors: Arco theme tokens (see color table above).
+- `gpt-btn-toolbar` + optional `gpt-btn-toolbar-mono` — compact toolbar buttons (Logs time pagination); idle secondary, active main-dark fill.
+
+## Form controls
+
+- Input / Select / Picker: text `@input-color-text` (main-dark); borders `@input-color-border_*`.
+- Checkbox: 1px border; label inherits `@checkbox-color-text` (= text-1); checked hover → purple in `global.less`.
+- Picker selected cells: `--gpt-main-purple` in `form.less`.
+- Toolbar inline checkboxes (e.g. Logs **Live**): `gpt-toolbar-checkbox` — primary text + 600, same as outline buttons. Use `gpt-text-secondary` only for meta labels (row counts, **Columns** text button), not peer toolbar toggles.
+
+## Known color debt (fix when touching file)
+
+| Area | Issue | Target |
+|------|--------|--------|
+| `docs.less` / `vp-doc.less` | `--brand-color` links | OK for docs; don't copy to app UI |
+| Many Vue files | `var(--brand-color)` for non-hover states | Distinguish idle (`--gpt-icon-color`) vs accent (`--gpt-link-color`) |
+| Legacy aliases in older LESS | `--main-font-color`, `--small-font-color`, `--third-font-color` | Migrate to `--gpt-text-*` |
+| `metrics-chart.vue` | hardcoded rgba in ECharts | acceptable; align values to tokens when editing |
+
+## Scoped styles — allowed vs forbidden
+
+**OK**: column cells (`.flow-name-cell`), status pills modifiers, page-header `justify-content` on top of `gpt-page-header`, view-switch gap, explain/chart/pipeline-specific UI.
+
+**Forbidden**: custom `#column-{ts}` slots that restyle timestamp text (use `tsCellDetail` / default `timestamp-cell`).
+
+**Avoid**: full toolbar flex/padding/background (use `gpt-results-toolbar`); duplicate title typography; per-page Arco button sizing; compound `.local.gpt-x` without `gpt-x` on element.
+
+## File index
+
+| File | Role |
+|------|------|
+| `global.less` | `:root` tokens |
+| `ui-regions.less` | Regions + layout modifiers |
+| `typography.less` | Text utility classes |
+| `button.less` | Buttons, `gpt-btn-*` |
+| `form.less` / `select.less` | Input, select, picker, checkbox, switch |
+| `arco-theme.less` | Arco compile-time tokens (not menu) |
+| `dataView.less` | Table sizes, pagination, hover |
+| `query-layout.less` | Query page structure |
+| `editor.less` | CodeMirror |
+| `components/data-table/` | Shared table |
+| `components/paginated-data-table/` | Table + bottom pagination |
+| `components/query-result-table/` | Table Query wrapper |
+
+## Pre-commit checklist
+
+- [ ] Correct layout modifier on page root?
+- [ ] `gpt-page-header` / `gpt-results-toolbar` / `gpt-table-panel` on template where CSS expects them?
+- [ ] Panel vs page table class correct?
+- [ ] `DataTable` size appropriate (default medium for results)?
+- [ ] No new hardcoded colors/font sizes?
+- [ ] Text uses correct **tier** (primary / secondary / muted / inverse) — not all main-dark?
+- [ ] Toolbar **controls** at 600; meta at secondary/muted; no `gpt-text-secondary` on peer toggles?
+- [ ] Purple only for hover, links, focus, or selected-state emphasis?
+- [ ] No new `--main-font-color` / `--brand-color` / `--color-text-*` in app UI?
+- [ ] No revived `data-grid`?
+
+---
+> Source: [GreptimeTeam/dashboard](https://github.com/GreptimeTeam/dashboard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
