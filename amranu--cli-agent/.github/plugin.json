@@ -1,7 +1,7 @@
 {
   "name": "amranu--cli-agent",
   "displayName": "cli-agent",
-  "description": "A lightweight Agentic AI framework which works for Mac/Linux/WSL",
+  "description": "cli-agent",
   "version": "1.0.0",
   "author": "amranu",
   "homepage": "https://github.com/amranu/cli-agent",
