@@ -1,0 +1,14 @@
+{
+  "name": "jiji262--claude-design-skill",
+  "displayName": "claude-design-skill",
+  "description": "claude-design-skill",
+  "version": "1.0.0",
+  "author": "jiji262",
+  "homepage": "https://github.com/jiji262/claude-design-skill",
+  "skills": [
+    {
+      "name": "claude-design-skill",
+      "description": ""
+    }
+  ]
+}
