@@ -1,0 +1,14 @@
+{
+  "name": "saadnvd1--agent-os",
+  "displayName": "agent-os",
+  "description": "agent-os",
+  "version": "1.0.0",
+  "author": "saadnvd1",
+  "homepage": "https://github.com/saadnvd1/agent-os",
+  "skills": [
+    {
+      "name": "agent-os",
+      "description": ""
+    }
+  ]
+}
