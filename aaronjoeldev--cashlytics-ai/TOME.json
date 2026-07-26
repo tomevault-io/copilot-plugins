@@ -1,0 +1,63 @@
+{
+  "name": "cashlytics-ai",
+  "owner": "aaronjoeldev",
+  "repo": "cashlytics-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cashlytics-ai",
+      "path": ".claude/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/aaronjoeldev/cashlytics-ai/tree/main/.claude/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cashlytics-ai",
+      "path": ".claude/skills/sync-demo-seeder/SKILL.md",
+      "github_url": "https://github.com/aaronjoeldev/cashlytics-ai/tree/main/.claude/skills/sync-demo-seeder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cashlytics-ai",
+      "path": ".claude/skills/sync-translations/SKILL.md",
+      "github_url": "https://github.com/aaronjoeldev/cashlytics-ai/tree/main/.claude/skills/sync-translations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aaronjoeldev/cashlytics-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:39:21Z"
+}
