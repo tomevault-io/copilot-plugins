@@ -2,9 +2,9 @@
   "name": "PocketFlow-Tutorial-Codebase-Knowledge",
   "owner": "The-Pocket",
   "repo": "PocketFlow-Tutorial-Codebase-Knowledge",
-  "description": "Pocket Flow: Codebase to Tutorial",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T19:32:44Z"
+  "distributed_at": "2026-07-26T22:40:23Z"
 }
