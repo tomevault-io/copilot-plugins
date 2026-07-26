@@ -1,0 +1,117 @@
+{
+  "name": "castella",
+  "owner": "i2y",
+  "repo": "castella",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "castella-a2a",
+      "path": "skills/castella-a2a",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-a2a",
+      "description": ""
+    },
+    {
+      "name": "castella-a2ui",
+      "path": "skills/castella-a2ui",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-a2ui",
+      "description": ""
+    },
+    {
+      "name": "castella-agent-ui",
+      "path": "skills/castella-agent-ui",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-agent-ui",
+      "description": ""
+    },
+    {
+      "name": "castella-core",
+      "path": "skills/castella-core",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-core",
+      "description": ""
+    },
+    {
+      "name": "castella-mcp",
+      "path": "skills/castella-mcp",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-mcp",
+      "description": ""
+    },
+    {
+      "name": "castella-packaging",
+      "path": "skills/castella-packaging",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-packaging",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "path": "skills/castella-mcp/SKILL.md",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "path": "skills/castella-a2a/SKILL.md",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-a2a/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "path": "skills/castella-core/SKILL.md",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "path": "skills/castella-a2ui/SKILL.md",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-a2ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "path": "skills/castella-agent-ui/SKILL.md",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-agent-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "path": "skills/castella-packaging/SKILL.md",
+      "github_url": "https://github.com/i2y/castella/tree/main/skills/castella-packaging/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/i2y/castella",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:33:06Z"
+}
