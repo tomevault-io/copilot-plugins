@@ -1,217 +1,122 @@
-## tailwind-css-v4
+## zero
 
-> Guide for using Tailwind CSS v4 instead of v3.x
+> Zero is an open-source AI email solution built with a modern TypeScript/Next.js stack in a monorepo setup.
 
+# Agent Configuration for Zero Email
 
-# Tailwind CSS v4
+Zero is an open-source AI email solution built with a modern TypeScript/Next.js stack in a monorepo setup.
 
-## Core Changes
+## Project Structure
 
-- **CSS-first configuration**: Configuration is now done in CSS instead of JavaScript
-  - Use `@theme` directive in CSS instead of `tailwind.config.js`
-  - Example:
-    ```css
-    @import "tailwindcss";
+This is a pnpm workspace monorepo with the following structure:
+- `apps/mail/` - Next.js frontend email client
+- `apps/server/` - Backend server
+- `apps/ios-app/` - iOS mobile app
+- `packages/cli/` - CLI tools (`nizzy` command)
+- `packages/db/` - Database schemas and utilities
+- `packages/eslint-config/` - Shared ESLint configuration
+- `packages/tsconfig/` - Shared TypeScript configuration
 
-    @theme {
-      --font-display: "Satoshi", "sans-serif";
-      --breakpoint-3xl: 1920px;
-      --color-avocado-500: oklch(0.84 0.18 117.33);
-      --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
-    }
-    ```
-- Legacy `tailwind.config.js` files can still be imported using the `@config` directive:
-  ```css
-  @import "tailwindcss";
-  @config "../../tailwind.config.js";
-  ```
-- **CSS import syntax**: Use `@import "tailwindcss"` instead of `@tailwind` directives
-  - Old: `@tailwind base; @tailwind components; @tailwind utilities;`
-  - New: `@import "tailwindcss";`
+## Frequently Used Commands
 
-- **Package changes**:
-  - PostCSS plugin is now `@tailwindcss/postcss` (not `tailwindcss`)
-  - CLI is now `@tailwindcss/cli`
-  - Vite plugin is `@tailwindcss/vite`
-  - No need for `postcss-import` or `autoprefixer` anymore
+### Development
+- `pnpm go` - Quick start: starts database and dev servers
+- `pnpm dev` - Start all development servers (uses Turbo)
+- `pnpm docker:db:up` - Start PostgreSQL database in Docker
+- `pnpm docker:db:down` - Stop and remove database container
+- `pnpm docker:db:clean` - Stop and remove database with volumes
 
-- **Native CSS cascade layers**: Uses real CSS `@layer` instead of Tailwind's custom implementation
+### Build & Deploy
+- `pnpm build` - Build all packages (uses Turbo)
+- `pnpm build:frontend` - Build only the mail frontend
+- `pnpm deploy:frontend` - Deploy frontend
+- `pnpm deploy:backend` - Deploy backend
 
-## Theme Configuration
+### Code Quality
+- `pnpm check` - Run format check and lint
+- `pnpm lint` - Run ESLint across all packages
+- `pnpm format` - Format code with Prettier
+- `pnpm check:format` - Check code formatting
 
-- **CSS theme variables**: All design tokens are available as CSS variables
-  - Namespace format: `--category-name` (e.g., `--color-blue-500`, `--font-sans`)
-  - Access in CSS: `var(--color-blue-500)`
-  - Available namespaces:
-    - `--color-*` : Color utilities like `bg-red-500` and `text-sky-300`
-    - `--font-*` : Font family utilities like `font-sans`
-    - `--text-*` : Font size utilities like `text-xl`
-    - `--font-weight-*` : Font weight utilities like `font-bold`
-    - `--tracking-*` : Letter spacing utilities like `tracking-wide`
-    - `--leading-*` : Line height utilities like `leading-tight`
-    - `--breakpoint-*` : Responsive breakpoint variants like `sm:*`
-    - `--container-*` : Container query variants like `@sm:*` and size utilities like `max-w-md`
-    - `--spacing-*` : Spacing and sizing utilities like `px-4` and `max-h-16`
-    - `--radius-*` : Border radius utilities like `rounded-sm`
-    - `--shadow-*` : Box shadow utilities like `shadow-md`
-    - `--inset-shadow-*` : Inset box shadow utilities like `inset-shadow-xs`
-    - `--drop-shadow-*` : Drop shadow filter utilities like `drop-shadow-md`
-    - `--blur-*` : Blur filter utilities like `blur-md`
-    - `--perspective-*` : Perspective utilities like `perspective-near`
-    - `--aspect-*` : Aspect ratio utilities like `aspect-video`
-    - `--ease-*` : Transition timing function utilities like `ease-out`
-    - `--animate-*` : Animation utilities like `animate-spin`
-  
+### Database
+- `pnpm db:push` - Push schema changes to database
+- `pnpm db:generate` - Generate migration files
+- `pnpm db:migrate` - Apply database migrations
+- `pnpm db:studio` - Open Drizzle Studio
 
-- **Simplified theme configuration**: Many utilities no longer need theme configuration
-  - Utilities like `grid-cols-12`, `z-40`, and `opacity-70` work without configuration
-  - Data attributes like `data-selected:opacity-100` don't need configuration
+### Testing & Evaluation
+- `pnpm test:ai` - Run AI tests
+- `pnpm eval` - Run evaluation suite
+- `pnpm eval:dev` - Run evaluation in dev mode
+- `pnpm eval:ci` - Run evaluation in CI mode
 
-- **Dynamic spacing scale**: Derived from a single spacing value
-  - Default: `--spacing: 0.25rem`
-  - Every multiple of the base value is available (e.g., `mt-21` works automatically)
+### Utilities
+- `pnpm nizzy env` - Setup environment variables
+- `pnpm nizzy sync` - Sync environment variables and types
+- `pnpm scripts` - Run custom scripts
 
-- **Overriding theme namespaces**:
-  - Override entire namespace: `--font-*: initial;`
-  - Override entire theme: `--*: initial;`
+## Tech Stack
 
+- **Frontend**: Next.js, React 19, TypeScript, TailwindCSS, Shadcn UI
+- **Backend**: Node.js, tRPC, Drizzle ORM
+- **Database**: PostgreSQL
+- **Authentication**: Better Auth, Google OAuth
+- **Package Manager**: pnpm (v10+)
+- **Build Tool**: Turbo
+- **Linting**: ESLint, Oxlint, Prettier
 
-## New Features
+## Code Style & Conventions
 
-- **Container query support**: Built-in now, no plugin needed
-  - `@container` for container context
-  - `@sm:`, `@md:`, etc. for container-based breakpoints
-  - `@max-md:` for max-width container queries
-  - Combine with `@min-md:@max-xl:hidden` for ranges
+### Formatting
+- 2-space indentation
+- Single quotes
+- 100 character line width
+- Semicolons required
+- Uses Prettier with sort-imports and Tailwind plugins
 
-- **3D transforms**:
-  - `transform-3d` enables 3D transforms
-  - `rotate-x-*`, `rotate-y-*`, `rotate-z-*` for 3D rotation
-  - `scale-z-*` for z-axis scaling
-  - `translate-z-*` for z-axis translation
-  - `perspective-*` utilities (`perspective-near`, `perspective-distant`, etc.)
-  - `perspective-origin-*` utilities
-  - `backface-visible` and `backface-hidden`
+### File Organization
+- TypeScript strict mode enabled
+- Workspace packages use catalog versioning for shared dependencies
+- Monorepo managed with pnpm workspaces
 
-- **Gradient enhancements**:
-  - Linear gradient angles: `bg-linear-45` (renamed from `bg-gradient-*`)
-  - Gradient interpolation: `bg-linear-to-r/oklch`, `bg-linear-to-r/srgb`
-  - Conic and radial gradients: `bg-conic`, `bg-radial-[at_25%_25%]`
+### Important Environment Variables
+- `BETTER_AUTH_SECRET` - Auth secret key
+- `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET` - Gmail integration
+- `AUTUMN_SECRET_KEY` - Encryption service
+- `TWILIO_*` - SMS integration
+- `DATABASE_URL` - PostgreSQL connection string
 
-- **Shadow enhancements**:
-  - `inset-shadow-*` and `inset-ring-*` utilities
-  - Can be composed with regular `shadow-*` and `ring-*`
+## Development Setup
 
-- **New CSS property utilities**:
-  - `field-sizing-content` for auto-resizing textareas
-  - `scheme-light`, `scheme-dark` for `color-scheme` property
-  - `font-stretch-*` utilities for variable fonts
+1. Install dependencies: `pnpm install`
+2. Setup environment: `pnpm nizzy env`
+3. Sync environment: `pnpm nizzy sync`
+4. Start database: `pnpm docker:db:up`
+5. Initialize database: `pnpm db:push`
+6. Start development: `pnpm dev`
 
-## New Variants
+## Common Workflow
 
-- **Composable variants**: Chain variants together
-  - Example: `group-has-data-potato:opacity-100`
+1. Always run `pnpm check` before committing
+2. Use `pnpm nizzy sync` after environment variable changes
+3. Run `pnpm db:push` after schema changes
+4. Use `pnpm go` for quick development startup
 
-- **New variants**:
-  - `starting` variant for `@starting-style` transitions
-  - `not-*` variant for `:not()` pseudo-class
-  - `inert` variant for `inert` attribute
-  - `nth-*` variants (`nth-3:`, `nth-last-5:`, `nth-of-type-4:`, `nth-last-of-type-6:`)
-  - `in-*` variant (like `group-*` but without adding `group` class)
-  - `open` variant now supports `:popover-open`
-  - `**` variant for targeting all descendants
+## Notes
 
-## Custom Extensions
+- Uses Husky for git hooks
+- Integrates with Sentry for error tracking
+- Uses Cloudflare Workers for backend deployment
+- iOS app is part of the monorepo
+- CLI tool `nizzy` helps manage environment and sync operations
 
-- **Custom utilities**: Use `@utility` directive
-  ```css
-  @utility tab-4 {
-    tab-size: 4;
-  }
-  ```
+## IMPORTANT RESTRICTIONS
 
-- **Custom variants**: Use `@variant` directive
-  ```css
-  @variant pointer-coarse (@media (pointer: coarse));
-  @variant theme-midnight (&:where([data-theme="midnight"] *));
-  ```
-
-- **Plugins**: Use `@plugin` directive
-  ```css
-  @plugin "@tailwindcss/typography";
-  ```
-
-## Breaking Changes
-
-- **Removed deprecated utilities**:
-  - `bg-opacity-*` → Use `bg-black/50` instead
-  - `text-opacity-*` → Use `text-black/50` instead
-  - And others: `border-opacity-*`, `divide-opacity-*`, etc.
-
-- **Renamed utilities**:
-  - `shadow-sm` → `shadow-xs` (and `shadow` → `shadow-sm`)
-  - `drop-shadow-sm` → `drop-shadow-xs` (and `drop-shadow` → `drop-shadow-sm`)
-  - `blur-sm` → `blur-xs` (and `blur` → `blur-sm`)
-  - `rounded-sm` → `rounded-xs` (and `rounded` → `rounded-sm`)
-  - `outline-none` → `outline-hidden` (for the old behavior)
-
-- **Default style changes**:
-  - Default border color is now `currentColor` (was `gray-200`)
-  - Default `ring` width is now 1px (was 3px)
-  - Placeholder text now uses current color at 50% opacity (was `gray-400`)
-  - Hover styles only apply on devices that support hover (`@media (hover: hover)`)
-
-- **Syntax changes**:
-  - CSS variables in arbitrary values: `bg-(--brand-color)` instead of `bg-[--brand-color]`
-  - Stacked variants now apply left-to-right (not right-to-left)
-  - Use CSS variables instead of `theme()` function 
-
-## Advanced Configuration
-
-- **Using a prefix**:
-  ```css
-  @import "tailwindcss" prefix(tw);
-  ```
-  - Results in classes like `tw:flex`, `tw:bg-red-500`, `tw:hover:bg-red-600`
-
-- **Source detection**:
-  - Automatic by default (ignores `.gitignore` files and binary files)
-  - Add sources: `@source "../node_modules/@my-company/ui-lib";`
-  - Disable automatic detection: `@import "tailwindcss" source(none);`
-
-- **Legacy config files**:
-  ```css
-  @import "tailwindcss";
-  @config "../../tailwind.config.js";
-  ```
-
-- **Dark mode configuration**:
-  ```css
-  @import "tailwindcss";
-  @variant dark (&:where(.dark, .dark *));
-  ```
-
-- **Container customization**: Extend with `@utility`
-  ```css
-  @utility container {
-    margin-inline: auto;
-    padding-inline: 2rem;
-  }
-  ```
-
-- **Using `@apply` in Vue/Svelte**:
-  ```html
-  <style>
-    @import "../../my-theme.css" theme(reference);
-    /* or */
-    @import "tailwindcss/theme" theme(reference);
-    
-    h1 {
-      @apply font-bold text-2xl text-red-500;
-    }
-  </style>
-  ```
+- **NEVER run project-wide lint/format commands** (`pnpm check`, `pnpm lint`, `pnpm format`, `pnpm check:format`)
+- These commands format/lint the entire codebase and cause unnecessary changes
+- Only use targeted linting/formatting on specific files when absolutely necessary
+- Focus on the specific task at hand without touching unrelated files
 
 ---
 > Source: [Mail-0/Zero](https://github.com/Mail-0/Zero) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
