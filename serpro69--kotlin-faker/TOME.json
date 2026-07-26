@@ -4,7 +4,7 @@
   "repo": "kotlin-faker",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serpro69/kotlin-faker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T16:21:29Z"
+  "distributed_at": "2026-07-26T10:19:45Z"
 }
