@@ -1,0 +1,93 @@
+{
+  "name": "HoloMotion",
+  "owner": "HorizonRobotics",
+  "repo": "HoloMotion",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/ruff-format/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/ruff-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/isaaclab-source-lookup/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/isaaclab-source-lookup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/holomotion-train-interpreter/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/holomotion-train-interpreter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/diagnose-holomotion/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/diagnose-holomotion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/prepare-motion-data/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/prepare-motion-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/train-motion-policy/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/train-motion-policy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/deploy-offline-motion/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/deploy-offline-motion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "HoloMotion",
+      "path": ".agents/skills/run-live-teleoperation/SKILL.md",
+      "github_url": "https://github.com/HorizonRobotics/HoloMotion/tree/main/.agents/skills/run-live-teleoperation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HorizonRobotics/HoloMotion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:43:24Z"
+}
