@@ -1,23 +1,22 @@
 # depyler
 
-> Tome by [paiml](https://github.com/paiml/depyler) — distributed by [TomeVault](https://tomevault.io)
-
-Compiles Python to Rust, helping transition off of Python to Energy Efficient and Safe Rust Code
+> Tome by [paiml](https://github.com/paiml/depyler), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [paiml/depyler](https://github.com/paiml/depyler).
+Original source: `` in [paiml/depyler](https://github.com/paiml/depyler).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/paiml/depyler](https://github.com/paiml/depyler)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/paiml/depyler](https://github.com/paiml/depyler)
 
 ---
 
