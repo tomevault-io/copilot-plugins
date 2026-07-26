@@ -1,0 +1,14 @@
+{
+  "name": "giantswarm--kubectl-gs",
+  "displayName": "kubectl-gs",
+  "description": "kubectl-gs",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/kubectl-gs",
+  "skills": [
+    {
+      "name": "kubectl-gs",
+      "description": ""
+    }
+  ]
+}
