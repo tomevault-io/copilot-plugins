@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "ollama",
   "homepage": "https://github.com/ollama/ollama",
-  "skills": []
+  "skills": [
+    {
+      "name": "ollama",
+      "description": ""
+    }
+  ]
 }
