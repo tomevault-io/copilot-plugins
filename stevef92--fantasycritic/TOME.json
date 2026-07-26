@@ -1,0 +1,57 @@
+{
+  "name": "FantasyCritic",
+  "owner": "SteveF92",
+  "repo": "FantasyCritic",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "FantasyCritic",
+      "path": ".cursor/skills/add-advanced-stat/SKILL.md",
+      "github_url": "https://github.com/SteveF92/FantasyCritic/tree/main/.cursor/skills/add-advanced-stat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "FantasyCritic",
+      "path": ".cursor/skills/add-integration-test/SKILL.md",
+      "github_url": "https://github.com/SteveF92/FantasyCritic/tree/main/.cursor/skills/add-integration-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SteveF92/FantasyCritic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T21:40:24Z"
+}
