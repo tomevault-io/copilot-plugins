@@ -1,0 +1,57 @@
+{
+  "name": "cascadeflow",
+  "owner": "lemony-ai",
+  "repo": "cascadeflow",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cascadeflow",
+      "path": "skills/cascadeflow/SKILL.md",
+      "github_url": "https://github.com/lemony-ai/cascadeflow/tree/main/skills/cascadeflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cascadeflow",
+      "path": "examples/integrations/openclaw/cascadeflow-clawhub/SKILL.md",
+      "github_url": "https://github.com/lemony-ai/cascadeflow/tree/main/examples/integrations/openclaw/cascadeflow-clawhub/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lemony-ai/cascadeflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:54:58Z"
+}
