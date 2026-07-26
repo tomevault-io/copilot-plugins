@@ -1,17 +1,15 @@
 # wolfcha
 
-> Source: [oil-oil/wolfcha](https://github.com/oil-oil/wolfcha) — distributed by [TomeVault](https://tomevault.io)
-
-AI-powered Werewolf (Mafia) social deduction game where every player is controlled by top LLMs like DeepSeek, Qwen, Gemini, and more
+> Source: [oil-oil/wolfcha](https://github.com/oil-oil/wolfcha). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [oil-oil/wolfcha](https://github.com/oil-oil/wolfcha).
+Original source: `AGENTS.md` in [oil-oil/wolfcha](https://github.com/oil-oil/wolfcha).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
