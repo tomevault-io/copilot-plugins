@@ -1,0 +1,87 @@
+{
+  "name": "sistent",
+  "owner": "layer5io",
+  "repo": "sistent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sistent",
+      "path": ".agents/skills/lavish/SKILL.md",
+      "github_url": "https://github.com/layer5io/sistent/tree/main/.agents/skills/lavish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sistent",
+      "path": ".agents/skills/gh-axi/SKILL.md",
+      "github_url": "https://github.com/layer5io/sistent/tree/main/.agents/skills/gh-axi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sistent",
+      "path": ".agents/skills/quota-axi/SKILL.md",
+      "github_url": "https://github.com/layer5io/sistent/tree/main/.agents/skills/quota-axi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sistent",
+      "path": ".agents/skills/iterate-pr/SKILL.md",
+      "github_url": "https://github.com/layer5io/sistent/tree/main/.agents/skills/iterate-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sistent",
+      "path": ".claude/skills/iterate-pr/SKILL.md",
+      "github_url": "https://github.com/layer5io/sistent/tree/main/.claude/skills/iterate-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sistent",
+      "path": ".claude/skills/cut-release/SKILL.md",
+      "github_url": "https://github.com/layer5io/sistent/tree/main/.claude/skills/cut-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sistent",
+      "path": ".agents/skills/chrome-devtools-axi/SKILL.md",
+      "github_url": "https://github.com/layer5io/sistent/tree/main/.agents/skills/chrome-devtools-axi/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/layer5io/sistent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T11:50:54Z"
+}
