@@ -1,16 +1,15 @@
 # jupyter-deploy
 
-> Tome by [jupyter-infra](https://github.com/jupyter-infra/jupyter-deploy) — distributed by [TomeVault](https://tomevault.io)
-
-An open-source command line interface (CLI) to deploy interactive applications to the Cloud.
+> Tome by [jupyter-infra](https://github.com/jupyter-infra/jupyter-deploy), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jupyter-infra/jupyter-deploy](https://github.com/jupyter-infra/jupyter-deploy).
+Original source: `` in [jupyter-infra/jupyter-deploy](https://github.com/jupyter-infra/jupyter-deploy).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
