@@ -1,0 +1,51 @@
+{
+  "name": "steal-react-component",
+  "owner": "dennisonbertram",
+  "repo": "steal-react-component",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "steal-react-component",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/dennisonbertram/steal-react-component/tree/main/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dennisonbertram/steal-react-component",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:54:38Z"
+}
