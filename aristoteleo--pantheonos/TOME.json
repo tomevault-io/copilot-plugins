@@ -1,0 +1,195 @@
+{
+  "name": "PantheonOS",
+  "owner": "aristoteleo",
+  "repo": "PantheonOS",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "examples/fastq_processing/upstream_skills/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/examples/fastq_processing/upstream_skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/live_view/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/live_view/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/scfm/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/scfm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/rare_disease/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/rare_disease/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/presentation/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/presentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/paper_writing/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/paper_writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/virtualembryo/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/virtualembryo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/spatial/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/spatial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/figure_styling/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/figure_styling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/single_cell/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/single_cell/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/structural_biology/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/structural_biology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "examples/single_cell_spatial_analysis/analysis-skills/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/examples/single_cell_spatial_analysis/analysis-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/bio_image_processing/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/bio_image_processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/database_access/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/database_access/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/paper_writing/writing/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/paper_writing/writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/paper_writing/workflow/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/paper_writing/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/sc_best_practices/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/sc_best_practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/paper_writing/scenarios/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/paper_writing/scenarios/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/upstream_processing/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/upstream_processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/gene_panel_selection/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/gene_panel_selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/general_data_analysis/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/general_data_analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/upstream_processing/nfcore/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/upstream_processing/nfcore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/omics/upstream_processing/openst/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/omics/upstream_processing/openst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PantheonOS",
+      "path": "pantheon/factory/templates/skills/bio_image_processing/segmentation/SKILL.md",
+      "github_url": "https://github.com/aristoteleo/PantheonOS/tree/main/pantheon/factory/templates/skills/bio_image_processing/segmentation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aristoteleo/PantheonOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:42:39Z"
+}
