@@ -1,0 +1,63 @@
+{
+  "name": "VSSDK-Analyzers",
+  "owner": "microsoft",
+  "repo": "VSSDK-Analyzers",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "VSSDK-Analyzers",
+      "path": ".github/skills/update-library-template/SKILL.md",
+      "github_url": "https://github.com/microsoft/VSSDK-Analyzers/tree/main/.github/skills/update-library-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VSSDK-Analyzers",
+      "path": ".agents/skills/bundle-dependency-prs/SKILL.md",
+      "github_url": "https://github.com/microsoft/VSSDK-Analyzers/tree/main/.agents/skills/bundle-dependency-prs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VSSDK-Analyzers",
+      "path": ".agents/skills/update-library-template/SKILL.md",
+      "github_url": "https://github.com/microsoft/VSSDK-Analyzers/tree/main/.agents/skills/update-library-template/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/VSSDK-Analyzers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T14:01:50Z"
+}
