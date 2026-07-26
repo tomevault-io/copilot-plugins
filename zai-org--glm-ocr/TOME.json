@@ -1,0 +1,57 @@
+{
+  "name": "GLM-OCR",
+  "owner": "zai-org",
+  "repo": "GLM-OCR",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "GLM-OCR",
+      "path": "skills/sdk/SKILL.md",
+      "github_url": "https://github.com/zai-org/GLM-OCR/tree/main/skills/sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "GLM-OCR",
+      "path": "skills/glmocr/SKILL.md",
+      "github_url": "https://github.com/zai-org/GLM-OCR/tree/main/skills/glmocr/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zai-org/GLM-OCR",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:53:45Z"
+}
