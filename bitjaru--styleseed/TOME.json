@@ -4,7 +4,7 @@
   "repo": "styleseed",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -127,9 +127,45 @@
       "path": "engine/.claude/skills/ss-component/SKILL.md",
       "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-component/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "skills/styleseed-design-review/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/skills/styleseed-design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-dial/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-dial/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-build/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-verify/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-restyle/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-restyle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "styleseed",
+      "path": "engine/.claude/skills/ss-reference/SKILL.md",
+      "github_url": "https://github.com/bitjaru/styleseed/tree/main/engine/.claude/skills/ss-reference/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/bitjaru/styleseed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T19:34:06Z"
+  "distributed_at": "2026-07-26T11:37:38Z"
 }
