@@ -1,0 +1,57 @@
+{
+  "name": "ravendb-python-client",
+  "owner": "ravendb",
+  "repo": "ravendb-python-client",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ravendb-python-client",
+      "path": ".claude/skills/csharp-sync/SKILL.md",
+      "github_url": "https://github.com/ravendb/ravendb-python-client/tree/main/.claude/skills/csharp-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ravendb-python-client",
+      "path": ".claude/skills/ravendb-docs-migration/SKILL.md",
+      "github_url": "https://github.com/ravendb/ravendb-python-client/tree/main/.claude/skills/ravendb-docs-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ravendb/ravendb-python-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:56:24Z"
+}
