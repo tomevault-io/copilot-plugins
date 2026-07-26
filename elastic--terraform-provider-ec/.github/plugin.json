@@ -1,0 +1,14 @@
+{
+  "name": "elastic--terraform-provider-ec",
+  "displayName": "terraform-provider-ec",
+  "description": "terraform-provider-ec",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/terraform-provider-ec",
+  "skills": [
+    {
+      "name": "terraform-provider-ec",
+      "description": ""
+    }
+  ]
+}
