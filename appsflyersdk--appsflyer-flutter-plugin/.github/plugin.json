@@ -1,0 +1,14 @@
+{
+  "name": "appsflyersdk--appsflyer-flutter-plugin",
+  "displayName": "appsflyer-flutter-plugin",
+  "description": "appsflyer-flutter-plugin",
+  "version": "1.0.0",
+  "author": "AppsFlyerSDK",
+  "homepage": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin",
+  "skills": [
+    {
+      "name": "appsflyer-flutter-plugin",
+      "description": ""
+    }
+  ]
+}
