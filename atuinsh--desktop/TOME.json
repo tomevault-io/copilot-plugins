@@ -2,9 +2,9 @@
   "name": "desktop",
   "owner": "atuinsh",
   "repo": "desktop",
-  "description": "\ud83d\udcd6 Runbooks that run ",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atuinsh/desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T09:12:55Z"
+  "distributed_at": "2026-07-26T20:21:29Z"
 }
