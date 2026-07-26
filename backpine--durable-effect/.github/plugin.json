@@ -1,0 +1,14 @@
+{
+  "name": "backpine--durable-effect",
+  "displayName": "durable-effect",
+  "description": "durable-effect",
+  "version": "1.0.0",
+  "author": "backpine",
+  "homepage": "https://github.com/backpine/durable-effect",
+  "skills": [
+    {
+      "name": "durable-effect",
+      "description": ""
+    }
+  ]
+}
