@@ -1,0 +1,159 @@
+{
+  "name": "eunomia.dev",
+  "owner": "eunomia-bpf",
+  "repo": "eunomia.dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/seo-geo/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/seo-geo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/x-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/x-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/gh-workflow/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/gh-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/agent-cli-tools/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/agent-cli-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/zhihu-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/zhihu-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/devto-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/devto-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/juejin-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/juejin-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/reddit-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/reddit-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/medium-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/medium-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/lobsters-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/lobsters-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/linkedin-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/linkedin-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/blog-writing-style/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/blog-writing-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/eunomia-social-radar/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/eunomia-social-radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/hackernews-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/hackernews-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/xiaohongshu-publisher/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/xiaohongshu-publisher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/eunomia-content-patrol/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/eunomia-content-patrol/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/content-launch-planner/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/content-launch-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/eunomia-research-report/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/eunomia-research-report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eunomia.dev",
+      "path": ".agents/skills/eunomia-community-patrol/SKILL.md",
+      "github_url": "https://github.com/eunomia-bpf/eunomia.dev/tree/main/.agents/skills/eunomia-community-patrol/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/eunomia-bpf/eunomia.dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T11:55:27Z"
+}
