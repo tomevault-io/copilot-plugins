@@ -3,8 +3,8 @@
   "owner": "dhis2",
   "repo": "dhis2-android-capture-app",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "dhis2-android-capture-app",
+      "path": ".claude/skills/android-testing/SKILL.md",
+      "github_url": "https://github.com/dhis2/dhis2-android-capture-app/tree/main/.claude/skills/android-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dhis2-android-capture-app",
+      "path": ".claude/skills/update-translations/SKILL.md",
+      "github_url": "https://github.com/dhis2/dhis2-android-capture-app/tree/main/.claude/skills/update-translations/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/dhis2/dhis2-android-capture-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T15:22:56Z"
+  "distributed_at": "2026-07-26T13:55:49Z"
 }
