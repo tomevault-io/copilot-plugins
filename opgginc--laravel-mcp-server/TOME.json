@@ -2,9 +2,9 @@
   "name": "laravel-mcp-server",
   "owner": "opgginc",
   "repo": "laravel-mcp-server",
-  "description": "A Laravel package for implementing secure Model Context Protocol servers using Streamable HTTP and SSE transport, providing real-time communication and a scalable tool system for enterprise environments.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opgginc/laravel-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T01:20:24Z"
+  "distributed_at": "2026-07-26T23:55:51Z"
 }
