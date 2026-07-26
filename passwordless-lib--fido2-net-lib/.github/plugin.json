@@ -1,0 +1,9 @@
+{
+  "name": "passwordless-lib--fido2-net-lib",
+  "displayName": "fido2-net-lib",
+  "description": "fido2-net-lib",
+  "version": "1.0.0",
+  "author": "passwordless-lib",
+  "homepage": "https://github.com/passwordless-lib/fido2-net-lib",
+  "skills": []
+}
