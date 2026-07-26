@@ -1,0 +1,9 @@
+{
+  "name": "openzeppelin--cairo-contracts",
+  "displayName": "cairo-contracts",
+  "description": "cairo-contracts",
+  "version": "1.0.0",
+  "author": "OpenZeppelin",
+  "homepage": "https://github.com/OpenZeppelin/cairo-contracts",
+  "skills": []
+}
