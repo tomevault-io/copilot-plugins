@@ -1,0 +1,177 @@
+{
+  "name": "claude-code-toolkit",
+  "owner": "applied-artificial-intelligence",
+  "repo": "claude-code-toolkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-authentication",
+      "path": "skills/general-dev/api-authentication",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/general-dev/api-authentication",
+      "description": ""
+    },
+    {
+      "name": "docker-optimization",
+      "path": "skills/general-dev/docker-optimization",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/general-dev/docker-optimization",
+      "description": ""
+    },
+    {
+      "name": "huggingface-transformers",
+      "path": "skills/huggingface-transformers",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/huggingface-transformers",
+      "description": ""
+    },
+    {
+      "name": "llm-evaluation",
+      "path": "skills/llm-evaluation",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/llm-evaluation",
+      "description": ""
+    },
+    {
+      "name": "plain-language",
+      "path": "examples/writing/skills/plain-language",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/examples/writing/skills/plain-language",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "path": "plugins/system/skills/project-setup",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/plugins/system/skills/project-setup",
+      "description": ""
+    },
+    {
+      "name": "pyramid-principle",
+      "path": "examples/writing/skills/pyramid-principle",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/examples/writing/skills/pyramid-principle",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "path": "skills/rag-implementation",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "scqa-framework",
+      "path": "examples/writing/skills/scqa-framework",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/examples/writing/skills/scqa-framework",
+      "description": ""
+    },
+    {
+      "name": "shared-setup-patterns",
+      "path": "plugins/setup/skills/shared-setup-patterns",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/plugins/setup/skills/shared-setup-patterns",
+      "description": ""
+    },
+    {
+      "name": "sql-optimization",
+      "path": "skills/general-dev/sql-optimization",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/general-dev/sql-optimization",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "skills/llm-evaluation/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/llm-evaluation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "skills/rag-implementation/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/rag-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "skills/huggingface-transformers/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/huggingface-transformers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "skills/general-dev/sql-optimization/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/general-dev/sql-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "plugins/system/skills/project-setup/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/plugins/system/skills/project-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "skills/general-dev/api-authentication/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/general-dev/api-authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "skills/general-dev/docker-optimization/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/skills/general-dev/docker-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "examples/writing/skills/scqa-framework/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/examples/writing/skills/scqa-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "examples/writing/skills/plain-language/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/examples/writing/skills/plain-language/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "examples/writing/skills/pyramid-principle/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/examples/writing/skills/pyramid-principle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "path": "plugins/setup/skills/shared-setup-patterns/SKILL.md",
+      "github_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit/tree/main/plugins/setup/skills/shared-setup-patterns/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/applied-artificial-intelligence/claude-code-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:31:47Z"
+}
