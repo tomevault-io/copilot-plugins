@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "dhis2",
   "homepage": "https://github.com/dhis2/dhis2-android-capture-app",
-  "skills": []
+  "skills": [
+    {
+      "name": "dhis2-android-capture-app",
+      "description": ""
+    },
+    {
+      "name": "dhis2-android-capture-app",
+      "description": ""
+    }
+  ]
 }
