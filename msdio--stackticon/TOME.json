@@ -4,7 +4,7 @@
   "repo": "stackticon",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/msdio/stackticon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T04:35:12Z"
+  "distributed_at": "2026-07-26T10:08:34Z"
 }
