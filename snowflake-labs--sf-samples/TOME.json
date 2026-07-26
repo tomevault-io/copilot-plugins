@@ -1,0 +1,75 @@
+{
+  "name": "sf-samples",
+  "owner": "Snowflake-Labs",
+  "repo": "sf-samples",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sf-samples",
+      "path": "samples/cloudflare-r2-logpush-agent/SKILL.md",
+      "github_url": "https://github.com/Snowflake-Labs/sf-samples/tree/main/samples/cloudflare-r2-logpush-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "path": "samples/marketing-idr-experimental/SKILL.md",
+      "github_url": "https://github.com/Snowflake-Labs/sf-samples/tree/main/samples/marketing-idr-experimental/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "path": "samples/geospatial/geocoding/.cortex/skills/install-geocoding/SKILL.md",
+      "github_url": "https://github.com/Snowflake-Labs/sf-samples/tree/main/samples/geospatial/geocoding/.cortex/skills/install-geocoding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "path": "samples/meta-capi-pipeline/SKILL.md",
+      "github_url": "https://github.com/Snowflake-Labs/sf-samples/tree/main/samples/meta-capi-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "path": "samples/geospatial/tileserver/.cortex/skills/deploy-tileserver/SKILL.md",
+      "github_url": "https://github.com/Snowflake-Labs/sf-samples/tree/main/samples/geospatial/tileserver/.cortex/skills/deploy-tileserver/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Snowflake-Labs/sf-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:44:28Z"
+}
