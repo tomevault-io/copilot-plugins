@@ -1,56 +1,75 @@
-## 070-search-macros-presets
+## camofox-browser
 
-> camofox-browser search macros and geo presets reference
+> CamoFox cheat sheet (ultra-compact). Canonical details: AGENTS.md.
 
+CamoFox cheat sheet (ultra-compact). Canonical details: AGENTS.md.
 
-# Search Macros and Geo Presets
+WORKFLOW (snapshot-first)
+1) open/create tab -> 2) snapshot -> 3) pick refs (eN) -> 4) click/type/fill/press -> 5) snapshot again after DOM/nav changes.
+Always pass user scope (`--user` / `userId`) and stable `tabId`.
+Prefer refs over CSS selectors.
+Use `--format json` for parsing/agents.
 
-## Search Macros (from `src/utils/macros.ts`)
+TOP COMMANDS
+camofox open <url> [--user u] [--viewport WxH] [--geo preset]
+camofox close [tabId] [--user u]
+camofox navigate <url> [tabId] [--user u]
+camofox snapshot [tabId] [--user u]
+camofox screenshot [tabId] [--output f] [--full-page]
+camofox annotate [tabId] [--output f]
+camofox click <ref> [tabId] [--user u]
+camofox type <ref> <text> [tabId] [--user u]
+camofox fill '[e1]="v1" [e2]="v2"' [tabId] [--user u]
+camofox scroll [up|down|left|right] [tabId] [--amount n]
+camofox select <ref> <value> [tabId] [--user u]
+camofox hover <ref> [tabId] [--user u]
+camofox press <key> [tabId] [--user u]
+camofox drag <fromRef> <toRef> [tabId] [--user u]
+camofox get-url [tabId] [--user u]
+camofox get-text [tabId] [--selector css] [--user u]
+camofox get-links [tabId] [--user u]
+camofox get-tabs [--user u]
+camofox eval "document.title" [tabId] [--user u]
+camofox wait <condition> [tabId] [--timeout ms] [--user u]
+camofox search "q" [tabId] --engine google|youtube|amazon|bing|reddit|duckduckgo|github|stackoverflow
+camofox session save <name> [tabId]
+camofox session load <name> [tabId]
+camofox session list
+camofox session delete <name> [--force]
+camofox cookie export [tabId] --path cookies.json
+camofox cookie import cookies.json [tabId]
+camofox auth save <profile>
+camofox auth load <profile> --inject --username-ref eX --password-ref eY
+camofox auth list | auth delete <profile> | auth change-password <profile>
+camofox server start [--background] [--port p]
+camofox server stop
+camofox server status
+camofox health | version | info
+camofox run flow.txt [--continue-on-error]
 
-| Macro | Destination |
-|---|---|
-| `@google_search` | Google search |
-| `@youtube_search` | YouTube search |
-| `@amazon_search` | Amazon search |
-| `@reddit_search` | Reddit search JSON |
-| `@reddit_subreddit` | Reddit subreddit JSON |
-| `@wikipedia_search` | Wikipedia search |
-| `@twitter_search` | Twitter/X search |
-| `@yelp_search` | Yelp search |
-| `@spotify_search` | Spotify search |
-| `@netflix_search` | Netflix search |
-| `@linkedin_search` | LinkedIn search |
-| `@instagram_search` | Instagram tag search |
-| `@tiktok_search` | TikTok search |
-| `@twitch_search` | Twitch search |
+API QUICK REF
+Base URL: http://localhost:9377
+Create/list tab: POST /tabs ; GET /tabs?userId=u
+Core loop: POST /tabs/:tabId/navigate -> GET /tabs/:tabId/snapshot?userId=u -> POST /tabs/:tabId/click|type|press
+Inspection/control: GET /tabs/:tabId/links|stats|screenshot ; POST /tabs/:tabId/evaluate|evaluate-extended|wait|back|forward|refresh
+Session/downloads: DELETE /tabs/:tabId ; DELETE /sessions/:userId ; GET /users/:userId/downloads ; GET/DELETE /downloads/:downloadId
 
-Usage pattern:
-```json
-{ "macro": "@google_search", "query": "camofox" }
-```
+ESSENTIAL RULES
+- Snapshot before interaction; refresh refs after navigation/major DOM change.
+- Include user scope for all tab-bound operations.
+- Use refs (`eN`) first, selector fallback second.
+- Keep outputs machine-safe: prefer `--format json`.
+- Never print secrets; use auth vault + `--inject`.
+- Reuse existing routes/commands and preserve compatibility aliases.
 
-## Geo Presets (from `src/utils/presets.ts`)
+SEARCH MACROS
+@google_search,@youtube_search,@amazon_search,@reddit_search,@reddit_subreddit,@wikipedia_search,@twitter_search,@yelp_search,@spotify_search,@netflix_search,@linkedin_search,@instagram_search,@tiktok_search,@twitch_search
 
-| Preset | Locale | Timezone | Coordinates |
-|---|---|---|---|
-| `us-east` | `en-US` | `America/New_York` | `40.7128, -74.006` |
-| `us-west` | `en-US` | `America/Los_Angeles` | `34.0522, -118.2437` |
-| `japan` | `ja-JP` | `Asia/Tokyo` | `35.6895, 139.6917` |
-| `uk` | `en-GB` | `Europe/London` | `51.5074, -0.1278` |
-| `germany` | `de-DE` | `Europe/Berlin` | `52.52, 13.405` |
-| `vietnam` | `vi-VN` | `Asia/Ho_Chi_Minh` | `10.8231, 106.6297` |
-| `singapore` | `en-SG` | `Asia/Singapore` | `1.3521, 103.8198` |
-| `australia` | `en-AU` | `Australia/Sydney` | `-33.8688, 151.2093` |
+STACK + AUTH
+Node 20+, TypeScript strict, Express, Commander.js, Jest, Camoufox engine; API key optional (`CAMOFOX_API_KEY`), auth vault uses encrypted local storage.
 
-Preset use in tab creation:
-```json
-{ "userId": "agent1", "sessionKey": "task1", "preset": "japan", "url": "https://example.com" }
-```
-
-Custom presets:
-- Set `CAMOFOX_PRESETS_FILE` to JSON object path.
-- Built-ins + custom are merged; custom keys override same-name built-ins.
+See AGENTS.md for full command, endpoint, and workflow specification.
 
 ---
 > Source: [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
