@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--flux2",
+  "displayName": "flux2",
+  "description": "flux2",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/flux2",
+  "skills": []
+}
