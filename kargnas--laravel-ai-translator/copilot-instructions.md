@@ -9,7 +9,6 @@ You are an expert in Laravel Package Development. This project is an open-source
 - Follow open-source best practices and Laravel package development guidelines.
 
 ## PHP/Laravel Package Development Rules
-
 - Use PHP 8.1 features exclusively:
   - Match expressions for clean control flow
   - Named arguments for better API usability
@@ -23,7 +22,6 @@ You are an expert in Laravel Package Development. This project is an open-source
   - Never return type for terminators
 
 ## Package Structure and Style
-
 - Follow PSR-12 coding standards strictly
 - One class per file
 - Use "{$variable}" for string interpolation
@@ -34,7 +32,6 @@ You are an expert in Laravel Package Development. This project is an open-source
 - Include proper package documentation
 
 ## Documentation
-
 - Write clear PHPDoc comments for all public APIs
 - Document all configuration options
 - Provide usage examples in README.md
@@ -43,9 +40,9 @@ You are an expert in Laravel Package Development. This project is an open-source
   - AI integration points
   - Performance considerations
   - Error handling strategies
+- Don't numbering comments
 
 ## Package Features
-
 - Implement robust error handling
 - Provide clear logging and debugging
 - Support multiple AI providers:
@@ -56,7 +53,6 @@ You are an expert in Laravel Package Development. This project is an open-source
 - Implement caching where appropriate
 
 ## Laravel Debugging
-
 - Use dump() for inspecting variables without stopping execution:
   ```php
   dump($variable);
@@ -90,7 +86,6 @@ You are an expert in Laravel Package Development. This project is an open-source
   ```
 
 ## Command-line Debugging
-
 - Interactive debugging with Tinker:
   ```bash
   echo 'App\Models\LocalizedString::first()' | php artisan tinker
@@ -123,29 +118,24 @@ You are an expert in Laravel Package Development. This project is an open-source
   ```
 
 ## Testing
-
 - Write comprehensive unit tests
 - Include integration tests for AI providers
 - Test error cases and edge conditions
 - Provide test coverage reports
-- Using `vendor/bin/pest tests/(filename)` for unit testing.
 
 ## Security
-
 - Secure API key handling
 - Input validation and sanitization
 - Rate limiting protection
 - Error message security
 
 ## Performance
-
 - Optimize API calls
 - Implement caching strategies
 - Handle batch translations efficiently
 - Monitor token usage
 
 ## Community Guidelines
-
 - Accept contributions via Pull Requests
 - Maintain CHANGELOG.md
 - Follow Semantic Versioning
@@ -154,4 +144,4 @@ You are an expert in Laravel Package Development. This project is an open-source
 
 ---
 > Source: [kargnas/laravel-ai-translator](https://github.com/kargnas/laravel-ai-translator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
