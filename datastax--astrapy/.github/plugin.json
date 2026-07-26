@@ -1,0 +1,9 @@
+{
+  "name": "datastax--astrapy",
+  "displayName": "astrapy",
+  "description": "astrapy",
+  "version": "1.0.0",
+  "author": "datastax",
+  "homepage": "https://github.com/datastax/astrapy",
+  "skills": []
+}
