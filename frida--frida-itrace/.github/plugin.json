@@ -1,0 +1,9 @@
+{
+  "name": "frida--frida-itrace",
+  "displayName": "frida-itrace",
+  "description": "frida-itrace",
+  "version": "1.0.0",
+  "author": "frida",
+  "homepage": "https://github.com/frida/frida-itrace",
+  "skills": []
+}
