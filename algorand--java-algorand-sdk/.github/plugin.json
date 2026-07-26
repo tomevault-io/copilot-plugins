@@ -1,0 +1,9 @@
+{
+  "name": "algorand--java-algorand-sdk",
+  "displayName": "java-algorand-sdk",
+  "description": "java-algorand-sdk",
+  "version": "1.0.0",
+  "author": "algorand",
+  "homepage": "https://github.com/algorand/java-algorand-sdk",
+  "skills": []
+}
