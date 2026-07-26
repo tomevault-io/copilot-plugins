@@ -1,0 +1,9 @@
+{
+  "name": "digitalis-io--k3s-on-prem-production",
+  "displayName": "k3s-on-prem-production",
+  "description": "k3s-on-prem-production",
+  "version": "1.0.0",
+  "author": "digitalis-io",
+  "homepage": "https://github.com/digitalis-io/k3s-on-prem-production",
+  "skills": []
+}
