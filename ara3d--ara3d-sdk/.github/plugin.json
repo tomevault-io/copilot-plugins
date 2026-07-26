@@ -1,0 +1,14 @@
+{
+  "name": "ara3d--ara3d-sdk",
+  "displayName": "ara3d-sdk",
+  "description": "ara3d-sdk",
+  "version": "1.0.0",
+  "author": "ara3d",
+  "homepage": "https://github.com/ara3d/ara3d-sdk",
+  "skills": [
+    {
+      "name": "ara3d-sdk",
+      "description": ""
+    }
+  ]
+}
