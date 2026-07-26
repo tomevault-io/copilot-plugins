@@ -1,8 +1,6 @@
 # AI instruction files for intent
 
-> Sourced from [ghaida/intent](https://github.com/ghaida/intent) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Design with Intent: A collection of specialized AI agents and skills for experience design and strategy.
+> Sourced from [ghaida/intent](https://github.com/ghaida/intent), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
