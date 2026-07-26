@@ -1,0 +1,75 @@
+{
+  "name": "sample-deep-insight",
+  "owner": "aws-samples",
+  "repo": "sample-deep-insight",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sample-deep-insight",
+      "path": "self-hosted/skills/tool-creator/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-deep-insight/tree/main/self-hosted/skills/tool-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-deep-insight",
+      "path": "self-hosted/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-deep-insight/tree/main/self-hosted/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-deep-insight",
+      "path": "self-hosted/skills/readme-generator/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-deep-insight/tree/main/self-hosted/skills/readme-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-deep-insight",
+      "path": "self-hosted/skills/system-prompt-writer/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-deep-insight/tree/main/self-hosted/skills/system-prompt-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "sample-deep-insight",
+      "path": "self-hosted/skills/data-structure-checker/SKILL.md",
+      "github_url": "https://github.com/aws-samples/sample-deep-insight/tree/main/self-hosted/skills/data-structure-checker/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/sample-deep-insight",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:32:25Z"
+}
