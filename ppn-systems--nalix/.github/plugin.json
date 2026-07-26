@@ -1,7 +1,7 @@
 {
   "name": "ppn-systems--nalix",
   "displayName": "nalix",
-  "description": "High-performance TCP networking framework for .NET, low-latency messaging.",
+  "description": "nalix",
   "version": "1.0.0",
   "author": "ppn-systems",
   "homepage": "https://github.com/ppn-systems/nalix",
