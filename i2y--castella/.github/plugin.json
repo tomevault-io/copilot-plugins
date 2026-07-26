@@ -1,0 +1,58 @@
+{
+  "name": "i2y--castella",
+  "displayName": "castella",
+  "description": "castella",
+  "version": "1.0.0",
+  "author": "i2y",
+  "homepage": "https://github.com/i2y/castella",
+  "skills": [
+    {
+      "name": "castella-a2a",
+      "description": ""
+    },
+    {
+      "name": "castella-a2ui",
+      "description": ""
+    },
+    {
+      "name": "castella-agent-ui",
+      "description": ""
+    },
+    {
+      "name": "castella-core",
+      "description": ""
+    },
+    {
+      "name": "castella-mcp",
+      "description": ""
+    },
+    {
+      "name": "castella-packaging",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "description": ""
+    },
+    {
+      "name": "castella",
+      "description": ""
+    }
+  ]
+}
