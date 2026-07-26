@@ -1,0 +1,135 @@
+{
+  "name": "mochibot",
+  "owner": "shikidmsh-rgb",
+  "repo": "mochibot",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/meal/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/meal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/note/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/note/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/todo/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/todo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/oura/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/oura/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/habit/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/habit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/memory/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "docs/skill_template/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/docs/skill_template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/sticker/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/sticker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/checkup/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/checkup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/weather/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/reminder/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/reminder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/workspace/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/workspace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/web_search/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/web_search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/maintenance/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mochibot",
+      "path": "mochi/skills/skill_management/SKILL.md",
+      "github_url": "https://github.com/shikidmsh-rgb/mochibot/tree/main/mochi/skills/skill_management/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shikidmsh-rgb/mochibot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:38:41Z"
+}
