@@ -1,0 +1,14 @@
+{
+  "name": "ran-isenberg--aws-lambda-handler-cookbook",
+  "displayName": "aws-lambda-handler-cookbook",
+  "description": "aws-lambda-handler-cookbook",
+  "version": "1.0.0",
+  "author": "ran-isenberg",
+  "homepage": "https://github.com/ran-isenberg/aws-lambda-handler-cookbook",
+  "skills": [
+    {
+      "name": "aws-lambda-handler-cookbook",
+      "description": ""
+    }
+  ]
+}
