@@ -1,0 +1,14 @@
+{
+  "name": "bioimagesuiteweb--bisweb",
+  "displayName": "bisweb",
+  "description": "bisweb",
+  "version": "1.0.0",
+  "author": "bioimagesuiteweb",
+  "homepage": "https://github.com/bioimagesuiteweb/bisweb",
+  "skills": [
+    {
+      "name": "bisweb",
+      "description": ""
+    }
+  ]
+}
