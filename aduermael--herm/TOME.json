@@ -1,0 +1,129 @@
+{
+  "name": "herm",
+  "owner": "aduermael",
+  "repo": "herm",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "herm",
+      "path": ".claude/skills/create-plan/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/.claude/skills/create-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": ".claude/skills/execute-plan/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/.claude/skills/execute-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": ".claude/skills/manage-plans/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/.claude/skills/manage-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "skills/modernize-tests/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/skills/modernize-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "skills/c-bounds-safety/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/skills/c-bounds-safety/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "skills/device-interaction/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/skills/device-interaction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "skills/swiftui-specialist/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/skills/swiftui-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "skills/swiftui-whats-new-27/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/skills/swiftui-whats-new-27/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "skills/uikit-app-modernization/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/skills/uikit-app-modernization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "skills/audit-xcode-security-settings/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/skills/audit-xcode-security-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "app/apple/herm/Skills/beautiful-pdfs/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/app/apple/herm/Skills/beautiful-pdfs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "app/apple/herm/Skills/webbrowser/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/app/apple/herm/Skills/webbrowser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "app/apple/herm/Skills/image-vision/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/app/apple/herm/Skills/image-vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herm",
+      "path": "app/apple/herm/Skills/apple-context/SKILL.md",
+      "github_url": "https://github.com/aduermael/herm/tree/main/app/apple/herm/Skills/apple-context/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aduermael/herm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:41:29Z"
+}
