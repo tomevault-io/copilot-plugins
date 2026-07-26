@@ -1,0 +1,549 @@
+{
+  "name": "Unity-SkillForge",
+  "owner": "nlelouche",
+  "repo": "Unity-SkillForge",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/physics-logic/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/physics-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/input-system-new/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/input-system-new/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/replay-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/replay-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/ui-toolkit-modern/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/ui-toolkit-modern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/accessibility-hci/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/accessibility-hci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/minimap-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/minimap-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/canvas-performance/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/canvas-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/day-night-cycle/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/day-night-cycle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/mvvm-binding-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/mvvm-binding-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/00-meta-skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/00-meta-skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/responsive-ui-design/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/responsive-ui-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/menu-navigation-flow/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/menu-navigation-flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/ai-behavior-trees/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/ai-behavior-trees/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/loot-rng-management/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/loot-rng-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/navmesh-pathfinding/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/navmesh-pathfinding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/job-system-burst/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/job-system-burst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/event-bus-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/event-bus-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/status-effect-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/status-effect-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/juice-game-feel/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/juice-game-feel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/ability-skill-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/ability-skill-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/dialogue-quest-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/dialogue-quest-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/00-meta-skills/project-scaffolder/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/00-meta-skills/project-scaffolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/procedural-generation/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/procedural-generation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/ai-code-reviewer/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/ai-code-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/mobile-optimization/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/mobile-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/repository-pattern/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/repository-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/damage-health-framework/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/damage-health-framework/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/vfx-graph-shuriken/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/vfx-graph-shuriken/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/save-load-serialization/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/save-load-serialization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/lighting-nav-baker/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/lighting-nav-baker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/di-container-manager/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/di-container-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/lod-occlusion-culling/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/lod-occlusion-culling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/shader-graph-expert/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/shader-graph-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/inventory-crafting-logic/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/inventory-crafting-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/object-pooling-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/object-pooling-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/metadata-validator/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/metadata-validator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/gpu-instancing-expert/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/gpu-instancing-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/05-ui-ux/ui-toolkit-architect-legacy/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/05-ui-ux/ui-toolkit-architect-legacy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/command-pattern-undo/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/command-pattern-undo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/dots-system-architect/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/dots-system-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/unity-mcp-connector/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/unity-mcp-connector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/dynamic-audio-mixers/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/dynamic-audio-mixers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/memory-profiler-expert/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/memory-profiler-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/version-control-git/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/version-control-git/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/oop-patterns-architect/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/oop-patterns-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/00-meta-skills/virtual-production-lead/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/00-meta-skills/virtual-production-lead/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/cinemachine-specialist/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/cinemachine-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/texture-streaming-expert/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/texture-streaming-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/00-core-engineering/coreclr-gc-watchdog/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/00-core-engineering/coreclr-gc-watchdog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/state-machine-architect/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/state-machine-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/service-locator-pattern/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/service-locator-pattern/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/00-core-engineering/unified-style-guide/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/00-core-engineering/unified-style-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/03-simulation-strategy/horde-wave-logic/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/03-simulation-strategy/horde-wave-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/asset-import-pipeline/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/asset-import-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/asynchronous-programming/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/asynchronous-programming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/advanced-design-patterns/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/advanced-design-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/procedural-animation-ik/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/procedural-animation-ik/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/monetization-iap/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/monetization-iap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/automated-unit-testing/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/automated-unit-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/02-gameplay/advanced-character-controller/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/02-gameplay/advanced-character-controller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/lighting-post-processing/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/lighting-post-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/context-discovery-agent/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/context-discovery-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/localization-specialist/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/localization-specialist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/07-tools-pipeline/custom-editor-scripting/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/07-tools-pipeline/custom-editor-scripting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/03-simulation-strategy/unit-population-ai/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/03-simulation-strategy/unit-population-ai/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/03-simulation-strategy/tech-tree-research/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/03-simulation-strategy/tech-tree-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/advanced-game-bootstrapper/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/advanced-game-bootstrapper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/analytics-heatmaps/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/analytics-heatmaps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/09-devops-automation/unity-build-commander/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/09-devops-automation/unity-build-commander/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/playfab-economy-v2/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/playfab-economy-v2/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/00-core-engineering/csharp12-features-guide/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/00-core-engineering/csharp12-features-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/04-visuals-audio/audio-soundscape-architect/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/04-visuals-audio/audio-soundscape-architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/multiplayer-netcode/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/multiplayer-netcode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/backend-integration/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/backend-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/09-devops-automation/build-pipeline-manager/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/09-devops-automation/build-pipeline-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/interface-driven-development/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/interface-driven-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/06-performance/addressables-asset-management/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/06-performance/addressables-asset-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/01-architecture/scriptableobject-architecture/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/01-architecture/scriptableobject-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/unity-gaming-services/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/unity-gaming-services/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/service-layer-generator/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/service-layer-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/08-backend-monetization/ads-mediation-ironsource/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/08-backend-monetization/ads-mediation-ironsource/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/03-simulation-strategy/environment-hazard-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/03-simulation-strategy/environment-hazard-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/03-simulation-strategy/grid-based-building-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/03-simulation-strategy/grid-based-building-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-SkillForge",
+      "path": ".agent/skills/03-simulation-strategy/resource-management-system/SKILL.md",
+      "github_url": "https://github.com/nlelouche/Unity-SkillForge/tree/main/.agent/skills/03-simulation-strategy/resource-management-system/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nlelouche/Unity-SkillForge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:40:01Z"
+}
