@@ -3,8 +3,8 @@
   "owner": "blackfyre",
   "repo": "wga",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "wga",
+      "path": ".claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.claude/skills/gitnexus/gitnexus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.claude/skills/gitnexus/gitnexus-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.claude/skills/gitnexus/gitnexus-exploring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.claude/skills/gitnexus/gitnexus-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "wga",
+      "path": ".claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "github_url": "https://github.com/blackfyre/wga/tree/main/.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/blackfyre/wga",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T23:25:54Z"
+  "distributed_at": "2026-07-26T14:04:13Z"
 }
