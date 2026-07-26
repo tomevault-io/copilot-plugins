@@ -1,0 +1,9 @@
+{
+  "name": "archive--github-actions-slack",
+  "displayName": "github-actions-slack",
+  "description": "github-actions-slack",
+  "version": "1.0.0",
+  "author": "archive",
+  "homepage": "https://github.com/archive/github-actions-slack",
+  "skills": []
+}
