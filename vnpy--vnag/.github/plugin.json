@@ -1,0 +1,14 @@
+{
+  "name": "vnpy--vnag",
+  "displayName": "vnag",
+  "description": "vnag",
+  "version": "1.0.0",
+  "author": "vnpy",
+  "homepage": "https://github.com/vnpy/vnag",
+  "skills": [
+    {
+      "name": "vnag",
+      "description": ""
+    }
+  ]
+}
