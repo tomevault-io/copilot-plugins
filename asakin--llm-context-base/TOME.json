@@ -2,9 +2,9 @@
   "name": "llm-context-base",
   "owner": "asakin",
   "repo": "llm-context-base",
-  "description": "A git template for building your own LLM-powered personal wiki. Training period, metadata standard, lint system included. Clone and go.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/asakin/llm-context-base",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:53:56Z"
+  "distributed_at": "2026-07-26T23:49:29Z"
 }
