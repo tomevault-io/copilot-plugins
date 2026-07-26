@@ -1,17 +1,15 @@
 # AI instruction files for Waza
 
-> Sourced from [tw93/Waza](https://github.com/tw93/Waza) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-🥷 Engineering habits you already know, turned into skills Claude can run.
+> Sourced from [tw93/Waza](https://github.com/tw93/Waza), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tw93/Waza](https://github.com/tw93/Waza).
+Original source: `AGENTS.md` in [tw93/Waza](https://github.com/tw93/Waza).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
