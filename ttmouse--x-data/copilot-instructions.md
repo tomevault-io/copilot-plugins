@@ -1,356 +1,482 @@
-## taskmaster
+## x-data
 
-> Comprehensive reference for Taskmaster MCP tools and CLI commands.
+> Below you will find a variety of important rules spanning:
 
-
-# Taskmaster Tool & Command Reference
-
-This document provides a detailed reference for interacting with Taskmaster, covering both the recommended MCP tools (for integrations like Cursor) and the corresponding `task-master` CLI commands (for direct user interaction or fallback).
-
-**Note:** For interacting with Taskmaster programmatically or via integrated tools, using the **MCP tools is strongly recommended** due to better performance, structured data, and error handling. The CLI commands serve as a user-friendly alternative and fallback. See [`mcp.mdc`](mdc:.cursor/rules/mcp.mdc) for MCP implementation details and [`commands.mdc`](mdc:.cursor/rules/commands.mdc) for CLI implementation guidelines.
-
-**Important:** Several MCP tools involve AI processing and are long-running operations that may take up to a minute to complete. When using these tools, always inform users that the operation is in progress and to wait patiently for results. The AI-powered tools include: `parse_prd`, `analyze_project_complexity`, `update_subtask`, `update_task`, `update`, `expand_all`, `expand_task`, and `add_task`.
+Below you will find a variety of important rules spanning:
+- the dev_workflow
+- the .windsurfrules document self-improvement workflow
+- the template to follow when modifying or adding new sections/rules to this document.
 
 ---
-
-## Initialization & Setup
-
-### 1. Initialize Project (`init`)
-
-*   **MCP Tool:** `initialize_project`
-*   **CLI Command:** `task-master init [options]`
-*   **Description:** `Set up the basic Taskmaster file structure and configuration in the current directory for a new project.`
-*   **Key CLI Options:**
-    *   `--name <name>`: `Set the name for your project in Taskmaster's configuration.`
-    *   `--description <text>`: `Provide a brief description for your project.`
-    *   `--version <version>`: `Set the initial version for your project (e.g., '0.1.0').`
-    *   `-y, --yes`: `Initialize Taskmaster quickly using default settings without interactive prompts.`
-*   **Usage:** Run this once at the beginning of a new project.
-*   **MCP Variant Description:** `Set up the basic Taskmaster file structure and configuration in the current directory for a new project by running the 'task-master init' command.`
-*   **Key MCP Parameters/Options:**
-    *   `projectName`: `Set the name for your project.` (CLI: `--name <name>`)
-    *   `projectDescription`: `Provide a brief description for your project.` (CLI: `--description <text>`)
-    *   `projectVersion`: `Set the initial version for your project (e.g., '0.1.0').` (CLI: `--version <version>`)
-    *   `authorName`: `Author name.` (CLI: `--author <author>`)
-    *   `skipInstall`: `Skip installing dependencies (default: false).` (CLI: `--skip-install`)
-    *   `addAliases`: `Add shell aliases (tm, taskmaster) (default: false).` (CLI: `--aliases`)
-    *   `yes`: `Skip prompts and use defaults/provided arguments (default: false).` (CLI: `-y, --yes`)
-*   **Usage:** Run this once at the beginning of a new project, typically via an integrated tool like Cursor. Operates on the current working directory of the MCP server. 
-*   **Important:** Once complete, you *MUST* parse a prd in order to generate tasks. There will be no tasks files until then. The next step after initializing should be to create a PRD using the example PRD in scripts/example_prd.txt. 
-
-### 2. Parse PRD (`parse_prd`)
-
-*   **MCP Tool:** `parse_prd`
-*   **CLI Command:** `task-master parse-prd [file] [options]`
-*   **Description:** `Parse a Product Requirements Document (PRD) or text file with Taskmaster to automatically generate an initial set of tasks in tasks.json.`
-*   **Key Parameters/Options:**
-    *   `input`: `Path to your PRD or requirements text file that Taskmaster should parse for tasks.` (CLI: `[file]` positional or `-i, --input <file>`)
-    *   `output`: `Specify where Taskmaster should save the generated 'tasks.json' file (default: 'tasks/tasks.json').` (CLI: `-o, --output <file>`)
-    *   `numTasks`: `Approximate number of top-level tasks Taskmaster should aim to generate from the document.` (CLI: `-n, --num-tasks <number>`)
-    *   `force`: `Use this to allow Taskmaster to overwrite an existing 'tasks.json' without asking for confirmation.` (CLI: `-f, --force`)
-*   **Usage:** Useful for bootstrapping a project from an existing requirements document.
-*   **Notes:** Task Master will strictly adhere to any specific requirements mentioned in the PRD (libraries, database schemas, frameworks, tech stacks, etc.) while filling in any gaps where the PRD isn't fully specified. Tasks are designed to provide the most direct implementation path while avoiding over-engineering.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress. If the user does not have a PRD, suggest discussing their idea and then use the example PRD in scripts/example_prd.txt as a template for creating the PRD based on their idea, for use with parse-prd.
-
+DEV_WORKFLOW
+---
+description: Guide for using meta-development script (scripts/dev.js) to manage task-driven development workflows
+globs: **/*
+filesToApplyRule: **/*
+alwaysApply: true
 ---
 
-## Task Listing & Viewing
+- **Global CLI Commands**
+  - Task Master now provides a global CLI through the `task-master` command
+  - All functionality from `scripts/dev.js` is available through this interface
+  - Install globally with `npm install -g claude-task-master` or use locally via `npx`
+  - Use `task-master <command>` instead of `node scripts/dev.js <command>`
+  - Examples:
+    - `task-master list` instead of `node scripts/dev.js list`
+    - `task-master next` instead of `node scripts/dev.js next`
+    - `task-master expand --id=3` instead of `node scripts/dev.js expand --id=3`
+  - All commands accept the same options as their script equivalents
+  - The CLI provides additional commands like `task-master init` for project setup
 
-### 3. Get Tasks (`get_tasks`)
+- **Development Workflow Process**
+  - Start new projects by running `task-master init` or `node scripts/dev.js parse-prd --input=<prd-file.txt>` to generate initial tasks.json
+  - Begin coding sessions with `task-master list` to see current tasks, status, and IDs
+  - Analyze task complexity with `task-master analyze-complexity --research` before breaking down tasks
+  - Select tasks based on dependencies (all marked 'done'), priority level, and ID order
+  - Clarify tasks by checking task files in tasks/ directory or asking for user input
+  - View specific task details using `task-master show <id>` to understand implementation requirements
+  - Break down complex tasks using `task-master expand --id=<id>` with appropriate flags
+  - Clear existing subtasks if needed using `task-master clear-subtasks --id=<id>` before regenerating
+  - Implement code following task details, dependencies, and project standards
+  - Verify tasks according to test strategies before marking as complete
+  - Mark completed tasks with `task-master set-status --id=<id> --status=done`
+  - Update dependent tasks when implementation differs from original plan
+  - Generate task files with `task-master generate` after updating tasks.json
+  - Maintain valid dependency structure with `task-master fix-dependencies` when needed
+  - Respect dependency chains and task priorities when selecting work
+  - Report progress regularly using the list command
 
-*   **MCP Tool:** `get_tasks`
-*   **CLI Command:** `task-master list [options]`
-*   **Description:** `List your Taskmaster tasks, optionally filtering by status and showing subtasks.`
-*   **Key Parameters/Options:**
-    *   `status`: `Show only Taskmaster tasks matching this status (e.g., 'pending', 'done').` (CLI: `-s, --status <status>`)
-    *   `withSubtasks`: `Include subtasks indented under their parent tasks in the list.` (CLI: `--with-subtasks`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Get an overview of the project status, often used at the start of a work session.
+- **Task Complexity Analysis**
+  - Run `node scripts/dev.js analyze-complexity --research` for comprehensive analysis
+  - Review complexity report in scripts/task-complexity-report.json
+  - Or use `node scripts/dev.js complexity-report` for a formatted, readable version of the report
+  - Focus on tasks with highest complexity scores (8-10) for detailed breakdown
+  - Use analysis results to determine appropriate subtask allocation
+  - Note that reports are automatically used by the expand command
 
-### 4. Get Next Task (`next_task`)
+- **Task Breakdown Process**
+  - For tasks with complexity analysis, use `node scripts/dev.js expand --id=<id>`
+  - Otherwise use `node scripts/dev.js expand --id=<id> --subtasks=<number>`
+  - Add `--research` flag to leverage Perplexity AI for research-backed expansion
+  - Use `--prompt="<context>"` to provide additional context when needed
+  - Review and adjust generated subtasks as necessary
+  - Use `--all` flag to expand multiple pending tasks at once
+  - If subtasks need regeneration, clear them first with `clear-subtasks` command
 
-*   **MCP Tool:** `next_task`
-*   **CLI Command:** `task-master next [options]`
-*   **Description:** `Ask Taskmaster to show the next available task you can work on, based on status and completed dependencies.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Identify what to work on next according to the plan.
+- **Implementation Drift Handling**
+  - When implementation differs significantly from planned approach
+  - When future tasks need modification due to current implementation choices
+  - When new dependencies or requirements emerge
+  - Call `node scripts/dev.js update --from=<futureTaskId> --prompt="<explanation>"` to update tasks.json
 
-### 5. Get Task Details (`get_task`)
+- **Task Status Management**
+  - Use 'pending' for tasks ready to be worked on
+  - Use 'done' for completed and verified tasks
+  - Use 'deferred' for postponed tasks
+  - Add custom status values as needed for project-specific workflows
 
-*   **MCP Tool:** `get_task`
-*   **CLI Command:** `task-master show [id] [options]`
-*   **Description:** `Display detailed information for a specific Taskmaster task or subtask by its ID.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task (e.g., '15') or subtask (e.g., '15.2') you want to view.` (CLI: `[id]` positional or `-i, --id <id>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Understand the full details, implementation notes, and test strategy for a specific task before starting work.
+- **Task File Format Reference**
+  ```
+  # Task ID: <id>
+  # Title: <title>
+  # Status: <status>
+  # Dependencies: <comma-separated list of dependency IDs>
+  # Priority: <priority>
+  # Description: <brief description>
+  # Details:
+  <detailed implementation notes>
+  
+  # Test Strategy:
+  <verification approach>
+  ```
+
+- **Command Reference: parse-prd**
+  - Legacy Syntax: `node scripts/dev.js parse-prd --input=<prd-file.txt>`
+  - CLI Syntax: `task-master parse-prd --input=<prd-file.txt>`
+  - Description: Parses a PRD document and generates a tasks.json file with structured tasks
+  - Parameters: 
+    - `--input=<file>`: Path to the PRD text file (default: sample-prd.txt)
+  - Example: `task-master parse-prd --input=requirements.txt`
+  - Notes: Will overwrite existing tasks.json file. Use with caution.
+
+- **Command Reference: update**
+  - Legacy Syntax: `node scripts/dev.js update --from=<id> --prompt="<prompt>"`
+  - CLI Syntax: `task-master update --from=<id> --prompt="<prompt>"`
+  - Description: Updates tasks with ID >= specified ID based on the provided prompt
+  - Parameters:
+    - `--from=<id>`: Task ID from which to start updating (required)
+    - `--prompt="<text>"`: Explanation of changes or new context (required)
+  - Example: `task-master update --from=4 --prompt="Now we are using Express instead of Fastify."`
+  - Notes: Only updates tasks not marked as 'done'. Completed tasks remain unchanged.
+
+- **Command Reference: generate**
+  - Legacy Syntax: `node scripts/dev.js generate`
+  - CLI Syntax: `task-master generate`
+  - Description: Generates individual task files in tasks/ directory based on tasks.json
+  - Parameters: 
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+    - `--output=<dir>, -o`: Output directory (default: 'tasks')
+  - Example: `task-master generate`
+  - Notes: Overwrites existing task files. Creates tasks/ directory if needed.
+
+- **Command Reference: set-status**
+  - Legacy Syntax: `node scripts/dev.js set-status --id=<id> --status=<status>`
+  - CLI Syntax: `task-master set-status --id=<id> --status=<status>`
+  - Description: Updates the status of a specific task in tasks.json
+  - Parameters:
+    - `--id=<id>`: ID of the task to update (required)
+    - `--status=<status>`: New status value (required)
+  - Example: `task-master set-status --id=3 --status=done`
+  - Notes: Common values are 'done', 'pending', and 'deferred', but any string is accepted.
+
+- **Command Reference: list**
+  - Legacy Syntax: `node scripts/dev.js list`
+  - CLI Syntax: `task-master list`
+  - Description: Lists all tasks in tasks.json with IDs, titles, and status
+  - Parameters: 
+    - `--status=<status>, -s`: Filter by status
+    - `--with-subtasks`: Show subtasks for each task
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+  - Example: `task-master list`
+  - Notes: Provides quick overview of project progress. Use at start of sessions.
+
+- **Command Reference: expand**
+  - Legacy Syntax: `node scripts/dev.js expand --id=<id> [--num=<number>] [--research] [--prompt="<context>"]`
+  - CLI Syntax: `task-master expand --id=<id> [--num=<number>] [--research] [--prompt="<context>"]`
+  - Description: Expands a task with subtasks for detailed implementation
+  - Parameters:
+    - `--id=<id>`: ID of task to expand (required unless using --all)
+    - `--all`: Expand all pending tasks, prioritized by complexity
+    - `--num=<number>`: Number of subtasks to generate (default: from complexity report)
+    - `--research`: Use Perplexity AI for research-backed generation
+    - `--prompt="<text>"`: Additional context for subtask generation
+    - `--force`: Regenerate subtasks even for tasks that already have them
+  - Example: `task-master expand --id=3 --num=5 --research --prompt="Focus on security aspects"`
+  - Notes: Uses complexity report recommendations if available.
+
+- **Command Reference: analyze-complexity**
+  - Legacy Syntax: `node scripts/dev.js analyze-complexity [options]`
+  - CLI Syntax: `task-master analyze-complexity [options]`
+  - Description: Analyzes task complexity and generates expansion recommendations
+  - Parameters:
+    - `--output=<file>, -o`: Output file path (default: scripts/task-complexity-report.json)
+    - `--model=<model>, -m`: Override LLM model to use
+    - `--threshold=<number>, -t`: Minimum score for expansion recommendation (default: 5)
+    - `--file=<path>, -f`: Use alternative tasks.json file
+    - `--research, -r`: Use Perplexity AI for research-backed analysis
+  - Example: `task-master analyze-complexity --research`
+  - Notes: Report includes complexity scores, recommended subtasks, and tailored prompts.
+
+- **Command Reference: clear-subtasks**
+  - Legacy Syntax: `node scripts/dev.js clear-subtasks --id=<id>`
+  - CLI Syntax: `task-master clear-subtasks --id=<id>`
+  - Description: Removes subtasks from specified tasks to allow regeneration
+  - Parameters:
+    - `--id=<id>`: ID or comma-separated IDs of tasks to clear subtasks from
+    - `--all`: Clear subtasks from all tasks
+  - Examples:
+    - `task-master clear-subtasks --id=3`
+    - `task-master clear-subtasks --id=1,2,3`
+    - `task-master clear-subtasks --all`
+  - Notes: 
+    - Task files are automatically regenerated after clearing subtasks
+    - Can be combined with expand command to immediately generate new subtasks
+    - Works with both parent tasks and individual subtasks
+
+- **Task Structure Fields**
+  - **id**: Unique identifier for the task (Example: `1`)
+  - **title**: Brief, descriptive title (Example: `"Initialize Repo"`)
+  - **description**: Concise summary of what the task involves (Example: `"Create a new repository, set up initial structure."`)
+  - **status**: Current state of the task (Example: `"pending"`, `"done"`, `"deferred"`)
+  - **dependencies**: IDs of prerequisite tasks (Example: `[1, 2]`)
+    - Dependencies are displayed with status indicators (✅ for completed, ⏱️ for pending)
+    - This helps quickly identify which prerequisite tasks are blocking work
+  - **priority**: Importance level (Example: `"high"`, `"medium"`, `"low"`)
+  - **details**: In-depth implementation instructions (Example: `"Use GitHub client ID/secret, handle callback, set session token."`)
+  - **testStrategy**: Verification approach (Example: `"Deploy and call endpoint to confirm 'Hello World' response."`)
+  - **subtasks**: List of smaller, more specific tasks (Example: `[{"id": 1, "title": "Configure OAuth", ...}]`)
+
+- **Environment Variables Configuration**
+  - **ANTHROPIC_API_KEY** (Required): Your Anthropic API key for Claude (Example: `ANTHROPIC_API_KEY=sk-ant-api03-...`)
+  - **MODEL** (Default: `"claude-3-7-sonnet-20250219"`): Claude model to use (Example: `MODEL=claude-3-opus-20240229`)
+  - **MAX_TOKENS** (Default: `"4000"`): Maximum tokens for responses (Example: `MAX_TOKENS=8000`)
+  - **TEMPERATURE** (Default: `"0.7"`): Temperature for model responses (Example: `TEMPERATURE=0.5`)
+  - **DEBUG** (Default: `"false"`): Enable debug logging (Example: `DEBUG=true`)
+  - **LOG_LEVEL** (Default: `"info"`): Console output level (Example: `LOG_LEVEL=debug`)
+  - **DEFAULT_SUBTASKS** (Default: `"3"`): Default subtask count (Example: `DEFAULT_SUBTASKS=5`)
+  - **DEFAULT_PRIORITY** (Default: `"medium"`): Default priority (Example: `DEFAULT_PRIORITY=high`)
+  - **PROJECT_NAME** (Default: `"MCP SaaS MVP"`): Project name in metadata (Example: `PROJECT_NAME=My Awesome Project`)
+  - **PROJECT_VERSION** (Default: `"1.0.0"`): Version in metadata (Example: `PROJECT_VERSION=2.1.0`)
+  - **PERPLEXITY_API_KEY**: For research-backed features (Example: `PERPLEXITY_API_KEY=pplx-...`)
+  - **PERPLEXITY_MODEL** (Default: `"sonar-medium-online"`): Perplexity model (Example: `PERPLEXITY_MODEL=sonar-large-online`)
+
+- **Determining the Next Task**
+  - Run `task-master next` to show the next task to work on
+  - The next command identifies tasks with all dependencies satisfied
+  - Tasks are prioritized by priority level, dependency count, and ID
+  - The command shows comprehensive task information including:
+    - Basic task details and description
+    - Implementation details
+    - Subtasks (if they exist)
+    - Contextual suggested actions
+  - Recommended before starting any new development work
+  - Respects your project's dependency structure
+  - Ensures tasks are completed in the appropriate sequence
+  - Provides ready-to-use commands for common task actions
+
+- **Viewing Specific Task Details**
+  - Run `task-master show <id>` or `task-master show --id=<id>` to view a specific task
+  - Use dot notation for subtasks: `task-master show 1.2` (shows subtask 2 of task 1)
+  - Displays comprehensive information similar to the next command, but for a specific task
+  - For parent tasks, shows all subtasks and their current status
+  - For subtasks, shows parent task information and relationship
+  - Provides contextual suggested actions appropriate for the specific task
+  - Useful for examining task details before implementation or checking status
+
+- **Managing Task Dependencies**
+  - Use `task-master add-dependency --id=<id> --depends-on=<id>` to add a dependency
+  - Use `task-master remove-dependency --id=<id> --depends-on=<id>` to remove a dependency
+  - The system prevents circular dependencies and duplicate dependency entries
+  - Dependencies are checked for existence before being added or removed
+  - Task files are automatically regenerated after dependency changes
+  - Dependencies are visualized with status indicators in task listings and files
+
+- **Command Reference: add-dependency**
+  - Legacy Syntax: `node scripts/dev.js add-dependency --id=<id> --depends-on=<id>`
+  - CLI Syntax: `task-master add-dependency --id=<id> --depends-on=<id>`
+  - Description: Adds a dependency relationship between two tasks
+  - Parameters:
+    - `--id=<id>`: ID of task that will depend on another task (required)
+    - `--depends-on=<id>`: ID of task that will become a dependency (required)
+  - Example: `task-master add-dependency --id=22 --depends-on=21`
+  - Notes: Prevents circular dependencies and duplicates; updates task files automatically
+
+- **Command Reference: remove-dependency**
+  - Legacy Syntax: `node scripts/dev.js remove-dependency --id=<id> --depends-on=<id>`
+  - CLI Syntax: `task-master remove-dependency --id=<id> --depends-on=<id>`
+  - Description: Removes a dependency relationship between two tasks
+  - Parameters:
+    - `--id=<id>`: ID of task to remove dependency from (required)
+    - `--depends-on=<id>`: ID of task to remove as a dependency (required)
+  - Example: `task-master remove-dependency --id=22 --depends-on=21`
+  - Notes: Checks if dependency actually exists; updates task files automatically
+
+- **Command Reference: validate-dependencies**
+  - Legacy Syntax: `node scripts/dev.js validate-dependencies [options]`
+  - CLI Syntax: `task-master validate-dependencies [options]`
+  - Description: Checks for and identifies invalid dependencies in tasks.json and task files
+  - Parameters:
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+  - Example: `task-master validate-dependencies`
+  - Notes: 
+    - Reports all non-existent dependencies and self-dependencies without modifying files
+    - Provides detailed statistics on task dependency state
+    - Use before fix-dependencies to audit your task structure
+
+- **Command Reference: fix-dependencies**
+  - Legacy Syntax: `node scripts/dev.js fix-dependencies [options]`
+  - CLI Syntax: `task-master fix-dependencies [options]`
+  - Description: Finds and fixes all invalid dependencies in tasks.json and task files
+  - Parameters:
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+  - Example: `task-master fix-dependencies`
+  - Notes: 
+    - Removes references to non-existent tasks and subtasks
+    - Eliminates self-dependencies (tasks depending on themselves)
+    - Regenerates task files with corrected dependencies
+    - Provides detailed report of all fixes made
+
+- **Command Reference: complexity-report**
+  - Legacy Syntax: `node scripts/dev.js complexity-report [options]`
+  - CLI Syntax: `task-master complexity-report [options]`
+  - Description: Displays the task complexity analysis report in a formatted, easy-to-read way
+  - Parameters:
+    - `--file=<path>, -f`: Path to the complexity report file (default: 'scripts/task-complexity-report.json')
+  - Example: `task-master complexity-report`
+  - Notes: 
+    - Shows tasks organized by complexity score with recommended actions
+    - Provides complexity distribution statistics
+    - Displays ready-to-use expansion commands for complex tasks
+    - If no report exists, offers to generate one interactively
+
+- **Command Reference: add-task**
+  - CLI Syntax: `task-master add-task [options]`
+  - Description: Add a new task to tasks.json using AI
+  - Parameters:
+    - `--file=<path>, -f`: Path to the tasks file (default: 'tasks/tasks.json')
+    - `--prompt=<text>, -p`: Description of the task to add (required)
+    - `--dependencies=<ids>, -d`: Comma-separated list of task IDs this task depends on
+    - `--priority=<priority>`: Task priority (high, medium, low) (default: 'medium')
+  - Example: `task-master add-task --prompt="Create user authentication using Auth0"`
+  - Notes: Uses AI to convert description into structured task with appropriate details
+
+- **Command Reference: init**
+  - CLI Syntax: `task-master init`
+  - Description: Initialize a new project with Task Master structure
+  - Parameters: None
+  - Example: `task-master init`
+  - Notes: 
+    - Creates initial project structure with required files
+    - Prompts for project settings if not provided
+    - Merges with existing files when appropriate
+    - Can be used to bootstrap a new Task Master project quickly
+
+- **Code Analysis & Refactoring Techniques**
+  - **Top-Level Function Search**
+    - Use grep pattern matching to find all exported functions across the codebase
+    - Command: `grep -E "export (function|const) \w+|function \w+\(|const \w+ = \(|module\.exports" --include="*.js" -r ./`
+    - Benefits:
+      - Quickly identify all public API functions without reading implementation details
+      - Compare functions between files during refactoring (e.g., monolithic to modular structure)
+      - Verify all expected functions exist in refactored modules
+      - Identify duplicate functionality or naming conflicts
+    - Usage examples:
+      - When migrating from `scripts/dev.js` to modular structure: `grep -E "function \w+\(" scripts/dev.js`
+      - Check function exports in a directory: `grep -E "export (function|const)" scripts/modules/`
+      - Find potential naming conflicts: `grep -E "function (get|set|create|update)\w+\(" -r ./`
+    - Variations:
+      - Add `-n` flag to include line numbers
+      - Add `--include="*.ts"` to filter by file extension
+      - Use with `| sort` to alphabetize results
+    - Integration with refactoring workflow:
+      - Start by mapping all functions in the source file
+      - Create target module files based on function grouping
+      - Verify all functions were properly migrated
+      - Check for any unintentional duplications or omissions
 
 ---
+WINDSURF_RULES
+---
+description: Guidelines for creating and maintaining Windsurf rules to ensure consistency and effectiveness.
+globs: .windsurfrules
+filesToApplyRule: .windsurfrules
+alwaysApply: true
+---
+The below describes how you should be structuring new rule sections in this document.
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
-## Task Creation & Modification
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-### 6. Add Task (`add_task`)
+- **Section References:**
+  - Use `ALL_CAPS_SECTION` to reference files
+  - Example: `WINDSURF_RULES`
 
-*   **MCP Tool:** `add_task`
-*   **CLI Command:** `task-master add-task [options]`
-*   **Description:** `Add a new task to Taskmaster by describing it; AI will structure it.`
-*   **Key Parameters/Options:**
-    *   `prompt`: `Required. Describe the new task you want Taskmaster to create (e.g., "Implement user authentication using JWT").` (CLI: `-p, --prompt <text>`)
-    *   `dependencies`: `Specify the IDs of any Taskmaster tasks that must be completed before this new one can start (e.g., '12,14').` (CLI: `-d, --dependencies <ids>`)
-    *   `priority`: `Set the priority for the new task ('high', 'medium', 'low'; default: 'medium').` (CLI: `--priority <priority>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Quickly add newly identified tasks during development.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
+  
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
-### 7. Add Subtask (`add_subtask`)
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-*   **MCP Tool:** `add_subtask`
-*   **CLI Command:** `task-master add-subtask [options]`
-*   **Description:** `Add a new subtask to a Taskmaster parent task, or convert an existing task into a subtask.`
-*   **Key Parameters/Options:**
-    *   `id` / `parent`: `Required. The ID of the Taskmaster task that will be the parent.` (MCP: `id`, CLI: `-p, --parent <id>`)
-    *   `taskId`: `Use this if you want to convert an existing top-level Taskmaster task into a subtask of the specified parent.` (CLI: `-i, --task-id <id>`)
-    *   `title`: `Required (if not using taskId). The title for the new subtask Taskmaster should create.` (CLI: `-t, --title <title>`)
-    *   `description`: `A brief description for the new subtask.` (CLI: `-d, --description <text>`)
-    *   `details`: `Provide implementation notes or details for the new subtask.` (CLI: `--details <text>`)
-    *   `dependencies`: `Specify IDs of other tasks or subtasks (e.g., '15', '16.1') that must be done before this new subtask.` (CLI: `--dependencies <ids>`)
-    *   `status`: `Set the initial status for the new subtask (default: 'pending').` (CLI: `-s, --status <status>`)
-    *   `skipGenerate`: `Prevent Taskmaster from automatically regenerating markdown task files after adding the subtask.` (CLI: `--skip-generate`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Break down tasks manually or reorganize existing tasks.
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
-### 8. Update Tasks (`update`)
-
-*   **MCP Tool:** `update`
-*   **CLI Command:** `task-master update [options]`
-*   **Description:** `Update multiple upcoming tasks in Taskmaster based on new context or changes, starting from a specific task ID.`
-*   **Key Parameters/Options:**
-    *   `from`: `Required. The ID of the first task Taskmaster should update. All tasks with this ID or higher (and not 'done') will be considered.` (CLI: `--from <id>`)
-    *   `prompt`: `Required. Explain the change or new context for Taskmaster to apply to the tasks (e.g., "We are now using React Query instead of Redux Toolkit for data fetching").` (CLI: `-p, --prompt <text>`)
-    *   `research`: `Enable Taskmaster to use Perplexity AI for more informed updates based on external knowledge (requires PERPLEXITY_API_KEY).` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Handle significant implementation changes or pivots that affect multiple future tasks. Example CLI: `task-master update --from='18' --prompt='Switching to React Query.\nNeed to refactor data fetching...'`
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 9. Update Task (`update_task`)
-
-*   **MCP Tool:** `update_task`
-*   **CLI Command:** `task-master update-task [options]`
-*   **Description:** `Modify a specific Taskmaster task (or subtask) by its ID, incorporating new information or changes.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The specific ID of the Taskmaster task (e.g., '15') or subtask (e.g., '15.2') you want to update.` (CLI: `-i, --id <id>`)
-    *   `prompt`: `Required. Explain the specific changes or provide the new information Taskmaster should incorporate into this task.` (CLI: `-p, --prompt <text>`)
-    *   `research`: `Enable Taskmaster to use Perplexity AI for more informed updates (requires PERPLEXITY_API_KEY).` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Refine a specific task based on new understanding or feedback. Example CLI: `task-master update-task --id='15' --prompt='Clarification: Use PostgreSQL instead of MySQL.\nUpdate schema details...'`
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 10. Update Subtask (`update_subtask`)
-
-*   **MCP Tool:** `update_subtask`
-*   **CLI Command:** `task-master update-subtask [options]`
-*   **Description:** `Append timestamped notes or details to a specific Taskmaster subtask without overwriting existing content. Intended for iterative implementation logging.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The specific ID of the Taskmaster subtask (e.g., '15.2') you want to add information to.` (CLI: `-i, --id <id>`)
-    *   `prompt`: `Required. Provide the information or notes Taskmaster should append to the subtask's details. Ensure this adds *new* information not already present.` (CLI: `-p, --prompt <text>`)
-    *   `research`: `Enable Taskmaster to use Perplexity AI for more informed updates (requires PERPLEXITY_API_KEY).` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Add implementation notes, code snippets, or clarifications to a subtask during development. Before calling, review the subtask's current details to append only fresh insights, helping to build a detailed log of the implementation journey and avoid redundancy. Example CLI: `task-master update-subtask --id='15.2' --prompt='Discovered that the API requires header X.\nImplementation needs adjustment...'`
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 11. Set Task Status (`set_task_status`)
-
-*   **MCP Tool:** `set_task_status`
-*   **CLI Command:** `task-master set-status [options]`
-*   **Description:** `Update the status of one or more Taskmaster tasks or subtasks (e.g., 'pending', 'in-progress', 'done').`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID(s) of the Taskmaster task(s) or subtask(s) (e.g., '15', '15.2', '16,17.1') to update.` (CLI: `-i, --id <id>`)
-    *   `status`: `Required. The new status to set (e.g., 'done', 'pending', 'in-progress', 'review', 'cancelled').` (CLI: `-s, --status <status>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Mark progress as tasks move through the development cycle.
-
-### 12. Remove Task (`remove_task`)
-
-*   **MCP Tool:** `remove_task`
-*   **CLI Command:** `task-master remove-task [options]`
-*   **Description:** `Permanently remove a task or subtask from the Taskmaster tasks list.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task (e.g., '5') or subtask (e.g., '5.2') to permanently remove.` (CLI: `-i, --id <id>`)
-    *   `yes`: `Skip the confirmation prompt and immediately delete the task.` (CLI: `-y, --yes`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Permanently delete tasks or subtasks that are no longer needed in the project.
-*   **Notes:** Use with caution as this operation cannot be undone. Consider using 'blocked', 'cancelled', or 'deferred' status instead if you just want to exclude a task from active planning but keep it for reference. The command automatically cleans up dependency references in other tasks.
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules 
 
 ---
-
-## Task Structure & Breakdown
-
-### 13. Expand Task (`expand_task`)
-
-*   **MCP Tool:** `expand_task`
-*   **CLI Command:** `task-master expand [options]`
-*   **Description:** `Use Taskmaster's AI to break down a complex task (or all tasks) into smaller, manageable subtasks.`
-*   **Key Parameters/Options:**
-    *   `id`: `The ID of the specific Taskmaster task you want to break down into subtasks.` (CLI: `-i, --id <id>`)
-    *   `num`: `Suggests how many subtasks Taskmaster should aim to create (uses complexity analysis by default).` (CLI: `-n, --num <number>`)
-    *   `research`: `Enable Taskmaster to use Perplexity AI for more informed subtask generation (requires PERPLEXITY_API_KEY).` (CLI: `-r, --research`)
-    *   `prompt`: `Provide extra context or specific instructions to Taskmaster for generating the subtasks.` (CLI: `-p, --prompt <text>`)
-    *   `force`: `Use this to make Taskmaster replace existing subtasks with newly generated ones.` (CLI: `--force`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Generate a detailed implementation plan for a complex task before starting coding.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 14. Expand All Tasks (`expand_all`)
-
-*   **MCP Tool:** `expand_all`
-*   **CLI Command:** `task-master expand --all [options]` (Note: CLI uses the `expand` command with the `--all` flag)
-*   **Description:** `Tell Taskmaster to automatically expand all 'pending' tasks based on complexity analysis.`
-*   **Key Parameters/Options:**
-    *   `num`: `Suggests how many subtasks Taskmaster should aim to create per task.` (CLI: `-n, --num <number>`)
-    *   `research`: `Enable Perplexity AI for more informed subtask generation (requires PERPLEXITY_API_KEY).` (CLI: `-r, --research`)
-    *   `prompt`: `Provide extra context for Taskmaster to apply generally during expansion.` (CLI: `-p, --prompt <text>`)
-    *   `force`: `Make Taskmaster replace existing subtasks.` (CLI: `--force`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Useful after initial task generation or complexity analysis to break down multiple tasks at once.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 15. Clear Subtasks (`clear_subtasks`)
-
-*   **MCP Tool:** `clear_subtasks`
-*   **CLI Command:** `task-master clear-subtasks [options]`
-*   **Description:** `Remove all subtasks from one or more specified Taskmaster parent tasks.`
-*   **Key Parameters/Options:**
-    *   `id`: `The ID(s) of the Taskmaster parent task(s) whose subtasks you want to remove (e.g., '15', '16,18').` (Required unless using `all`) (CLI: `-i, --id <ids>`)
-    *   `all`: `Tell Taskmaster to remove subtasks from all parent tasks.` (CLI: `--all`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Used before regenerating subtasks with `expand_task` if the previous breakdown needs replacement.
-
-### 16. Remove Subtask (`remove_subtask`)
-
-*   **MCP Tool:** `remove_subtask`
-*   **CLI Command:** `task-master remove-subtask [options]`
-*   **Description:** `Remove a subtask from its Taskmaster parent, optionally converting it into a standalone task.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID(s) of the Taskmaster subtask(s) to remove (e.g., '15.2', '16.1,16.3').` (CLI: `-i, --id <id>`)
-    *   `convert`: `If used, Taskmaster will turn the subtask into a regular top-level task instead of deleting it.` (CLI: `-c, --convert`)
-    *   `skipGenerate`: `Prevent Taskmaster from automatically regenerating markdown task files after removing the subtask.` (CLI: `--skip-generate`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Delete unnecessary subtasks or promote a subtask to a top-level task.
-
+SELF_IMPROVE
+---
+description: Guidelines for continuously improving this rules document based on emerging code patterns and best practices.
+globs: **/*
+filesToApplyRule: **/*
+alwaysApply: true
 ---
 
-## Dependency Management
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
 
-### 17. Add Dependency (`add_dependency`)
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage
 
-*   **MCP Tool:** `add_dependency`
-*   **CLI Command:** `task-master add-dependency [options]`
-*   **Description:** `Define a dependency in Taskmaster, making one task a prerequisite for another.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task that will depend on another.` (CLI: `-i, --id <id>`)
-    *   `dependsOn`: `Required. The ID of the Taskmaster task that must be completed first (the prerequisite).` (CLI: `-d, --depends-on <id>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Establish the correct order of execution between tasks.
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used in 3+ files
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security or performance patterns emerge
 
-### 18. Remove Dependency (`remove_dependency`)
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases are discovered
+    - Related rules have been updated
+    - Implementation details have changed
 
-*   **MCP Tool:** `remove_dependency`
-*   **CLI Command:** `task-master remove-dependency [options]`
-*   **Description:** `Remove a dependency relationship between two Taskmaster tasks.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task you want to remove a prerequisite from.` (CLI: `-i, --id <id>`)
-    *   `dependsOn`: `Required. The ID of the Taskmaster task that should no longer be a prerequisite.` (CLI: `-d, --depends-on <id>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Update task relationships when the order of execution changes.
+- **Example Pattern Recognition:**
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
+  
+  // Consider adding a PRISMA section in the .windsurfrules:
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
 
-### 19. Validate Dependencies (`validate_dependencies`)
+- **Rule Quality Checks:**
+  - Rules should be actionable and specific
+  - Examples should come from actual code
+  - References should be up to date
+  - Patterns should be consistently enforced
 
-*   **MCP Tool:** `validate_dependencies`
-*   **CLI Command:** `task-master validate-dependencies [options]`
-*   **Description:** `Check your Taskmaster tasks for dependency issues (like circular references or links to non-existent tasks) without making changes.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Audit the integrity of your task dependencies.
+- **Continuous Improvement:**
+  - Monitor code review comments
+  - Track common development questions
+  - Update rules after major refactors
+  - Add links to relevant documentation
+  - Cross-reference related rules
 
-### 20. Fix Dependencies (`fix_dependencies`)
+- **Rule Deprecation:**
+  - Mark outdated patterns as deprecated
+  - Remove rules that no longer apply
+  - Update references to deprecated rules
+  - Document migration paths for old patterns
 
-*   **MCP Tool:** `fix_dependencies`
-*   **CLI Command:** `task-master fix-dependencies [options]`
-*   **Description:** `Automatically fix dependency issues (like circular references or links to non-existent tasks) in your Taskmaster tasks.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Clean up dependency errors automatically.
+- **Documentation Updates:**
+  - Keep examples synchronized with code
+  - Update references to external docs
+  - Maintain links between related rules
+  - Document breaking changes
 
----
-
-## Analysis & Reporting
-
-### 21. Analyze Project Complexity (`analyze_project_complexity`)
-
-*   **MCP Tool:** `analyze_project_complexity`
-*   **CLI Command:** `task-master analyze-complexity [options]`
-*   **Description:** `Have Taskmaster analyze your tasks to determine their complexity and suggest which ones need to be broken down further.`
-*   **Key Parameters/Options:**
-    *   `output`: `Where to save the complexity analysis report (default: 'scripts/task-complexity-report.json').` (CLI: `-o, --output <file>`)
-    *   `threshold`: `The minimum complexity score (1-10) that should trigger a recommendation to expand a task.` (CLI: `-t, --threshold <number>`)
-    *   `research`: `Enable Perplexity AI for more accurate complexity analysis (requires PERPLEXITY_API_KEY).` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Used before breaking down tasks to identify which ones need the most attention.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 22. View Complexity Report (`complexity_report`)
-
-*   **MCP Tool:** `complexity_report`
-*   **CLI Command:** `task-master complexity-report [options]`
-*   **Description:** `Display the task complexity analysis report in a readable format.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to the complexity report (default: 'scripts/task-complexity-report.json').` (CLI: `-f, --file <file>`)
-*   **Usage:** Review and understand the complexity analysis results after running analyze-complexity.
-
----
-
-## File Management
-
-### 23. Generate Task Files (`generate`)
-
-*   **MCP Tool:** `generate`
-*   **CLI Command:** `task-master generate [options]`
-*   **Description:** `Create or update individual Markdown files for each task based on your tasks.json.`
-*   **Key Parameters/Options:**
-    *   `output`: `The directory where Taskmaster should save the task files (default: in a 'tasks' directory).` (CLI: `-o, --output <directory>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file (default relies on auto-detection).` (CLI: `-f, --file <file>`)
-*   **Usage:** Run this after making changes to tasks.json to keep individual task files up to date.
-
----
-
-## Environment Variables Configuration
-
-Taskmaster's behavior can be customized via environment variables. These affect both CLI and MCP server operation:
-
-*   **ANTHROPIC_API_KEY** (Required): Your Anthropic API key for Claude.
-*   **MODEL**: Claude model to use (default: `claude-3-opus-20240229`). 
-*   **MAX_TOKENS**: Maximum tokens for AI responses (default: 8192).
-*   **TEMPERATURE**: Temperature for AI model responses (default: 0.7).
-*   **DEBUG**: Enable debug logging (`true`/`false`, default: `false`).
-*   **LOG_LEVEL**: Console output level (`debug`, `info`, `warn`, `error`, default: `info`).
-*   **DEFAULT_SUBTASKS**: Default number of subtasks for `expand` (default: 5).
-*   **DEFAULT_PRIORITY**: Default priority for new tasks (default: `medium`).
-*   **PROJECT_NAME**: Project name used in metadata.
-*   **PROJECT_VERSION**: Project version used in metadata.
-*   **PERPLEXITY_API_KEY**: API key for Perplexity AI (for `--research` flags).
-*   **PERPLEXITY_MODEL**: Perplexity model to use (default: `sonar-medium-online`).
-
-Set these in your `.env` file in the project root or in your environment before running Taskmaster.
-
----
-
-For implementation details:
-*   CLI commands: See [`commands.mdc`](mdc:.cursor/rules/commands.mdc)
-*   MCP server: See [`mcp.mdc`](mdc:.cursor/rules/mcp.mdc)
-*   Task structure: See [`tasks.mdc`](mdc:.cursor/rules/tasks.mdc)
-*   Workflow: See [`dev_workflow.mdc`](mdc:.cursor/rules/dev_workflow.mdc)
+Follow WINDSURF_RULES for proper rule formatting and structure of windsurf rule sections.
 
 ---
 > Source: [ttmouse/X-data](https://github.com/ttmouse/X-data) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
