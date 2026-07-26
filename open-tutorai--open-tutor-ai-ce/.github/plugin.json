@@ -1,0 +1,18 @@
+{
+  "name": "open-tutorai--open-tutor-ai-ce",
+  "displayName": "open-tutor-ai-CE",
+  "description": "open-tutor-ai-CE",
+  "version": "1.0.0",
+  "author": "Open-TutorAi",
+  "homepage": "https://github.com/Open-TutorAi/open-tutor-ai-CE",
+  "skills": [
+    {
+      "name": "open-tutor-ai-CE",
+      "description": ""
+    },
+    {
+      "name": "open-tutor-ai-CE",
+      "description": ""
+    }
+  ]
+}
