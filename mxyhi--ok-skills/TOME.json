@@ -1,0 +1,291 @@
+{
+  "name": "ok-skills",
+  "owner": "mxyhi",
+  "repo": "ok-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "exa-search",
+      "path": "exa-search",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/exa-search",
+      "description": ""
+    },
+    {
+      "name": "gh-address-comments",
+      "path": "gh-address-comments",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "gh-fix-ci",
+      "path": "gh-fix-ci",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "tdd/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "caveman/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "find-docs/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/find-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "exa-search/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/exa-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "ai-elements/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/ai-elements/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "find-skills/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "minimax-pdf/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/minimax-pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "minimax-docx/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/minimax-docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "minimax-xlsx/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/minimax-xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "better-icons/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/better-icons/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "get-api-docs/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/get-api-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "autoresearch/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/autoresearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "huashu-design/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/huashu-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "browser-trace/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/browser-trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "agent-browser/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "pptx-generator/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/pptx-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "kimi-webbridge/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/kimi-webbridge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "planning-with-files/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/planning-with-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "migrate-to-shoehorn/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/migrate-to-shoehorn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/karpathy-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "opencli/smart-search/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/opencli/smart-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "opencli/opencli-usage/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/opencli/opencli-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "opencli/opencli-browser/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/opencli/opencli-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "opencli/opencli-autofix/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/opencli/opencli-autofix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "opencli/opencli-sitemap-author/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/opencli/opencli-sitemap-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "opencli/opencli-adapter-author/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/opencli/opencli-adapter-author/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "opencli/opencli-browser-sitemap/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/opencli/opencli-browser-sitemap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "teach/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "grilling/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "prototype/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "diagnosing-bugs/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/diagnosing-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "domain-modeling/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "codebase-design/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/codebase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "gpt-taste/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/gpt-taste/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "imagegen-frontend-web/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/imagegen-frontend-web/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "ontoly-software-graph/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/ontoly-software-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ok-skills",
+      "path": "product-decision-agent/SKILL.md",
+      "github_url": "https://github.com/mxyhi/ok-skills/tree/main/product-decision-agent/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mxyhi/ok-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:33:23Z"
+}
