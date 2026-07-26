@@ -1,0 +1,51 @@
+{
+  "name": "agentsecrets",
+  "owner": "The-17",
+  "repo": "agentsecrets",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentsecrets",
+      "path": "integrations/openclaw/SKILL.md",
+      "github_url": "https://github.com/The-17/agentsecrets/tree/main/integrations/openclaw/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/The-17/agentsecrets",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T14:24:39Z"
+}
