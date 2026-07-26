@@ -1,0 +1,14 @@
+{
+  "name": "snowball-tech--fractal",
+  "displayName": "fractal",
+  "description": "fractal",
+  "version": "1.0.0",
+  "author": "snowball-tech",
+  "homepage": "https://github.com/snowball-tech/fractal",
+  "skills": [
+    {
+      "name": "fractal",
+      "description": ""
+    }
+  ]
+}
