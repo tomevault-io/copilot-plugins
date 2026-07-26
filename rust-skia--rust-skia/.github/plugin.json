@@ -1,0 +1,18 @@
+{
+  "name": "rust-skia--rust-skia",
+  "displayName": "rust-skia",
+  "description": "rust-skia",
+  "version": "1.0.0",
+  "author": "rust-skia",
+  "homepage": "https://github.com/rust-skia/rust-skia",
+  "skills": [
+    {
+      "name": "rust-skia",
+      "description": ""
+    },
+    {
+      "name": "rust-skia",
+      "description": ""
+    }
+  ]
+}
