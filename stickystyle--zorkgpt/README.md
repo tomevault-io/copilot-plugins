@@ -1,16 +1,15 @@
 # ZorkGPT
 
-> Tome by [stickystyle](https://github.com/stickystyle/ZorkGPT) — distributed by [TomeVault](https://tomevault.io)
-
-Teaching AI to play the classic text adventure Zork using Large Language Models
+> Tome by [stickystyle](https://github.com/stickystyle/ZorkGPT), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stickystyle/ZorkGPT](https://github.com/stickystyle/ZorkGPT).
+Original source: `` in [stickystyle/ZorkGPT](https://github.com/stickystyle/ZorkGPT).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
