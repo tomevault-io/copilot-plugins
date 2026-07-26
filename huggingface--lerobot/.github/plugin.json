@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--lerobot",
+  "displayName": "lerobot",
+  "description": "lerobot",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/lerobot",
+  "skills": []
+}
