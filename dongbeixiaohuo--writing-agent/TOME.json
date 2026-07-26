@@ -1,0 +1,105 @@
+{
+  "name": "writing-agent",
+  "owner": "dongbeixiaohuo",
+  "repo": "writing-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "\u516c\u4f17\u53f7\u6587\u7ae0\u83b7\u53d6",
+      "path": ".claude/skills/\u516c\u4f17\u53f7\u6587\u7ae0\u83b7\u53d6",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/.claude/skills/\u516c\u4f17\u53f7\u6587\u7ae0\u83b7\u53d6",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": ".claude/skills/style-modeler/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/.claude/skills/style-modeler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": ".claude/skills/workflow-producer/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/.claude/skills/workflow-producer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": "claude-runtime/skills/style-modeler/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/claude-runtime/skills/style-modeler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": ".claude/skills/web-article-extractor/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/.claude/skills/web-article-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": "claude-runtime/skills/workflow-producer/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/claude-runtime/skills/workflow-producer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": "plugins/writing-agent/skills/style-modeler/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/plugins/writing-agent/skills/style-modeler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": "claude-runtime/skills/web-article-extractor/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/claude-runtime/skills/web-article-extractor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": "plugins/writing-agent/skills/workflow-producer/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/plugins/writing-agent/skills/workflow-producer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "writing-agent",
+      "path": "plugins/writing-agent/skills/web-article-extractor/SKILL.md",
+      "github_url": "https://github.com/dongbeixiaohuo/writing-agent/tree/main/plugins/writing-agent/skills/web-article-extractor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dongbeixiaohuo/writing-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:32:31Z"
+}
