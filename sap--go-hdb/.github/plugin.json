@@ -1,0 +1,9 @@
+{
+  "name": "sap--go-hdb",
+  "displayName": "go-hdb",
+  "description": "go-hdb",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/go-hdb",
+  "skills": []
+}
