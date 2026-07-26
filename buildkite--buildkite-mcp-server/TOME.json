@@ -2,9 +2,9 @@
   "name": "buildkite-mcp-server",
   "owner": "buildkite",
   "repo": "buildkite-mcp-server",
-  "description": "Official MCP Server for Buildkite.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/buildkite/buildkite-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T06:52:15Z"
+  "distributed_at": "2026-07-26T16:12:16Z"
 }
