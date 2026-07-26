@@ -1,0 +1,14 @@
+{
+  "name": "slackapi--bolt-python",
+  "displayName": "bolt-python",
+  "description": "bolt-python",
+  "version": "1.0.0",
+  "author": "slackapi",
+  "homepage": "https://github.com/slackapi/bolt-python",
+  "skills": [
+    {
+      "name": "bolt-python",
+      "description": ""
+    }
+  ]
+}
