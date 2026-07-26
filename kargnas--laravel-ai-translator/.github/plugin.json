@@ -1,7 +1,7 @@
 {
   "name": "kargnas--laravel-ai-translator",
   "displayName": "laravel-ai-translator",
-  "description": "High quality automatic translate your language files into many languages using AI like Claude, GPT and etc.",
+  "description": "laravel-ai-translator",
   "version": "1.0.0",
   "author": "kargnas",
   "homepage": "https://github.com/kargnas/laravel-ai-translator",
