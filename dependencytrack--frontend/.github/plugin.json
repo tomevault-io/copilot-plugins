@@ -1,0 +1,9 @@
+{
+  "name": "dependencytrack--frontend",
+  "displayName": "frontend",
+  "description": "frontend",
+  "version": "1.0.0",
+  "author": "DependencyTrack",
+  "homepage": "https://github.com/DependencyTrack/frontend",
+  "skills": []
+}
