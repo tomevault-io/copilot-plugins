@@ -4,7 +4,7 @@
   "repo": "foundry-zksync",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matter-labs/foundry-zksync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T14:27:43Z"
+  "distributed_at": "2026-07-26T05:55:58Z"
 }
