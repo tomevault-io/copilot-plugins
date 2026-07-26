@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-helm-charts",
+  "displayName": "opentelemetry-helm-charts",
+  "description": "opentelemetry-helm-charts",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-helm-charts",
+  "skills": []
+}
