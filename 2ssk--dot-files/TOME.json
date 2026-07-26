@@ -4,7 +4,7 @@
   "repo": "dot-files",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -79,9 +79,63 @@
       "path": ".config/opencode/skills/react-native-best-practices/SKILL.md",
       "github_url": "https://github.com/2SSK/dot-files/tree/main/.config/opencode/skills/react-native-best-practices/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/ship/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/commit/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/ui-ux-pro-max/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/observability/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/go-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/go-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/cpp-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/cpp-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/dockerfile-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/dockerfile-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dot-files",
+      "path": ".claude/skills/react-native-best-practices/SKILL.md",
+      "github_url": "https://github.com/2SSK/dot-files/tree/main/.claude/skills/react-native-best-practices/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/2SSK/dot-files",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T09:45:14Z"
+  "distributed_at": "2026-07-26T13:35:32Z"
 }
