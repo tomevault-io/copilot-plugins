@@ -1,0 +1,213 @@
+{
+  "name": "audio-plugin-coder",
+  "owner": "Noizefield",
+  "repo": "audio-plugin-coder",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/impl/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/impl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/ship/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/plan/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/test/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/debug/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/dream/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/dream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/design/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_debug/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_design/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_testing/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_debug/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_planning/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_ideation/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_ideation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/skill_testing/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/skill_testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_packaging/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_design/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_testing/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_planning/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_ideation/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_ideation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_packaging/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_packaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_implementation/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_design_webview/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_design_webview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/skill_design_webview/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/skill_design_webview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".agent/skills/skill_troubleshooting/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.agent/skills/skill_troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".claude/skills/skill_troubleshooting/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.claude/skills/skill_troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_implementation/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_design_webview/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_design_webview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "audio-plugin-coder",
+      "path": ".kilocode/skills/skill_troubleshooting/SKILL.md",
+      "github_url": "https://github.com/Noizefield/audio-plugin-coder/tree/main/.kilocode/skills/skill_troubleshooting/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Noizefield/audio-plugin-coder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:41:36Z"
+}
