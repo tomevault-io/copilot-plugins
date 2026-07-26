@@ -1,0 +1,9 @@
+{
+  "name": "bluealloy--revm",
+  "displayName": "revm",
+  "description": "revm",
+  "version": "1.0.0",
+  "author": "bluealloy",
+  "homepage": "https://github.com/bluealloy/revm",
+  "skills": []
+}
