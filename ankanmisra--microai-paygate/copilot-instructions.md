@@ -1,29 +1,36 @@
 ## microai-paygate
 
-> - **Full stack**: `bun run stack` (starts gateway:3000, web:3001, verifier:3002)
+> These guidelines apply to automated tools and coding agents used by external contributors.
 
-# AGENTS.md - Instructions for AI Coding Agents
+# Contributor Agent Guidelines
 
-## Build & Test Commands
-- **Full stack**: `bun run stack` (starts gateway:3000, web:3001, verifier:3002)
-- **Gateway (Go)**: `cd gateway && go test -v ./...` | Single test: `go test -v -run TestName`
-- **Verifier (Rust)**: `cd verifier && cargo test` | Single test: `cargo test test_name`
-- **Web (Next.js)**: `cd web && bun run lint && bun run build`
-- **E2E tests**: `bun run test:e2e` (requires OPENROUTER_API_KEY)
+These guidelines apply to automated tools and coding agents used by external contributors.
 
-## Lint & Format
-- **Go**: `go fmt ./...` and `go vet ./...`
-- **Rust**: `cargo fmt -- --check` and `cargo clippy -- -D warnings`
-- **Web**: `cd web && bun run lint`
+## GitHub communication
 
-## Code Style
-- Follow language idioms: Go fmt/vet, Rust fmt/clippy, TypeScript ESLint
-- Use Bun (not npm/node) for JS/TS runtime
-- Commit prefixes: `feat:`, `fix:`, `docs:`, `chore:`
-- No secrets in code/logs; use `.env` files
-- Keep changes minimal and focused; add tests for new behavior
-- Ports: gateway=3000, web=3001, verifier=3002
+- Keep issue and pull-request writing concise, relevant, and in the contributor's own voice.
+- Do not add process commentary or generated-content notices to issue bodies, pull-request bodies, comments, reviews, inline replies, assignment notes, or closure messages.
+- Do not mention the drafting tool unless a maintainer explicitly requests that information.
+- Never post promotional, repetitive, or unrelated comments.
+
+## Changes
+
+- Read `README.md`, the relevant service README, and `CONTRIBUTING.md` before editing.
+- Keep each pull request focused on one issue and avoid unrelated formatting changes.
+- Add or update tests for behavioral changes.
+- Keep cross-service contracts, documentation, configuration, and examples synchronized.
+- Never commit secrets, credentials, private keys, or real API tokens.
+
+## Validation
+
+- Gateway: `cd gateway && go test -v ./... && go vet ./...`
+- Verifier: `cd verifier && cargo fmt -- --check && cargo clippy -- -D warnings && cargo test`
+- Web: `cd web && bun run lint && bun run typecheck && bun run test:unit && bun run build`
+- SDK: `cd sdk/typescript && bun run test && bun run typecheck`
+- Use Bun for JavaScript and TypeScript commands in this repository.
+
+Report which checks were run and disclose any checks that could not be completed.
 
 ---
 > Source: [AnkanMisra/MicroAI-Paygate](https://github.com/AnkanMisra/MicroAI-Paygate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
