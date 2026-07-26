@@ -1,0 +1,9 @@
+{
+  "name": "apache--apisix-ingress-controller",
+  "displayName": "apisix-ingress-controller",
+  "description": "apisix-ingress-controller",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/apisix-ingress-controller",
+  "skills": []
+}
