@@ -3,8 +3,8 @@
   "owner": "zhangqi444",
   "repo": "open-forge",
   "description": "",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "open-forge",
+      "path": "plugins/open-forge/skills/open-forge/SKILL.md",
+      "github_url": "https://github.com/zhangqi444/open-forge/tree/main/plugins/open-forge/skills/open-forge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-forge",
+      "path": "dist/hermes/SKILL.md",
+      "github_url": "https://github.com/zhangqi444/open-forge/tree/main/dist/hermes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "open-forge",
+      "path": "dist/openclaw/SKILL.md",
+      "github_url": "https://github.com/zhangqi444/open-forge/tree/main/dist/openclaw/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/zhangqi444/open-forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T11:13:08Z"
+  "distributed_at": "2026-07-26T15:44:58Z"
 }
