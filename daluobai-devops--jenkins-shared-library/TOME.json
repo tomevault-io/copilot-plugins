@@ -4,7 +4,7 @@
   "repo": "jenkins-shared-library",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/daluobai-devops/jenkins-shared-library",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T23:04:23Z"
+  "distributed_at": "2026-07-26T13:38:24Z"
 }
