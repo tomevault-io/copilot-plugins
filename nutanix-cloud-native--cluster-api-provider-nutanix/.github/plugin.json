@@ -1,0 +1,9 @@
+{
+  "name": "nutanix-cloud-native--cluster-api-provider-nutanix",
+  "displayName": "cluster-api-provider-nutanix",
+  "description": "cluster-api-provider-nutanix",
+  "version": "1.0.0",
+  "author": "nutanix-cloud-native",
+  "homepage": "https://github.com/nutanix-cloud-native/cluster-api-provider-nutanix",
+  "skills": []
+}
