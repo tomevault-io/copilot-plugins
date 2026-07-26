@@ -1,81 +1,142 @@
 ## easytrade
 
-> `src/` contains 19 services grouped by technology:
+> <!-- SYNC NOTICE. This file is the primary context source for Claude Code.
 
-# EasyTrade — Agent Instructions
+<!-- SYNC NOTICE. This file is the primary context source for Claude Code.
+     Rules files live in .claude/rules/ — load automatically when editing matching files.
+     If Copilot is also used, mirror this file in .github/copilot-instructions.md
+     and mirror .claude/rules/*.md in .github/instructions/*.instructions.md. -->
 
-## Repository structure
+# CLAUDE.md
 
-`src/` contains 19 services grouped by technology:
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Detailed per-language conventions live in `.claude/rules/`.
 
-| Technology                     | Services                                                                                                                 |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+## What is EasyTrade
+
+Fake stock-broking demo application for Dynatrace showcases. 19 microservices communicate over REST (mostly JSON; some services also accept XML). All traffic routes through an nginx reverse proxy (`frontendreverseproxy`) on port 80. A RabbitMQ queue (`Trade_Data_Raw`) carries trade data from `pricing-service` to `calculationservice`.
+
+All services share one MSSQL database (`db`, port 1433). Connection string format differs by tech stack — see `compose.yaml` for the three variants (Java/JDBC, .NET, Go/sqlserver).
+
+## Tech stacks
+
+| Stack | Services |
+|---|---|
 | Java 21 / Spring Boot / Gradle | `accountservice`, `contentcreator`, `credit-card-order-service`, `engine`, `feature-flag-service`, `third-party-service` |
-| Go / Go Modules                | `aggregator-service`, `pricing-service`, `problem-operator`                                                              |
-| TypeScript / Node.js / npm     | `frontend`, `loadgen`, `offerservice`                                                                                    |
-| C# / .NET 8 / NuGet            | `broker-service`, `loginservice`, `manager`                                                                              |
-| Python / Poetry                | `db/user-generator` (local utility script, not a service)                                                                |
-| Config only (no packages)      | `calculationservice` (C++, built in Dockerfile), `frontendreverseproxy` (nginx), `rabbitmq`, `db` (MSSQL)                |
+| Go + Go Modules | `aggregator-service`, `pricing-service`, `problem-operator` |
+| TypeScript / Node.js / npm | `frontend` (React + Vite), `loadgen`, `offerservice` (Express) |
+| C# / .NET 8 | `broker-service`, `loginservice`, `manager` |
+| Config only | `calculationservice` (C++, Dockerfile-only), `frontendreverseproxy` (nginx), `rabbitmq`, `db` (MSSQL) |
 
-## Vulnerability remediation process
+## Build & test per stack
 
-### Scanning
-
-Run `snyk test --json --all-projects` from within each service directory that has a package manifest. Services without manifests (`calculationservice`, `frontendreverseproxy`, `rabbitmq`) cannot be scanned this way.
-
-Run scans in parallel across all services to save time.
-
-### Grouping findings
-
-Services that share the same technology will have identical vulnerable packages at identical versions. Identify these groups before fixing so the same change is applied consistently rather than service-by-service.
-
-### Applying fixes
-
-#### Java / Gradle (6 services share `build.gradle`)
-
-Vulnerable dependencies that are not direct dependencies of the service are pinned explicitly in `build.gradle` under a clearly marked comment block:
-
+**Java (run from service directory):**
+```bash
+./gradlew build        # compile + test
+./gradlew test         # tests only
+./gradlew test --tests "com.dynatrace.easytrade.SomeTest"  # single test
 ```
+
+**Go (run from service directory):**
+```bash
+go build .
+go test ./...
+go test ./path/to/pkg -run TestName
+```
+
+**TypeScript/Node.js (run from service directory):**
+```bash
+npm install
+npm run build   # tsc / vite build
+npm test        # vitest (frontend) or jest
+npm run lint    # eslint
+```
+
+**C# / .NET (run from `src/<service>/<ServiceName>/`):**
+```bash
+dotnet build
+dotnet test                        # runs xunit tests in test/ project
+dotnet test --filter "FullyQualifiedName~SomeTest"
+```
+
+## Running locally
+
+Use `compose.dev.yaml` via the helper script:
+```bash
+./runDev.sh start       # proxy + contentcreator + engine (minimal)
+./runDev.sh start-all   # all services
+./runDev.sh build [service...]  # rebuild images
+./runDev.sh stop
+```
+
+Or directly:
+```bash
+docker compose -f compose.dev.yaml up -d
+docker compose up          # uses pre-built images from registry (compose.yaml)
+```
+
+App available at `http://localhost`. Dev credentials: `demouser/demopass`, `james_norton/pass_james_123`.
+
+## Dependency management & vulnerability fixes
+
+All Java services share the same `build.gradle` structure. Transitive dep bumps go in a marked block:
+```groovy
 // -- not direct dependencies but need bumps to patch vulns
 // -- can be removed once the parent packages upgrade
 ```
+Apply the same bump to **all** affected `build.gradle` files in one pass.
 
-Bump versions in this block across **all** affected `build.gradle` files in one pass.
+For Go, stdlib vulns require bumping the `go` directive in `go.mod`, the builder image tag+digest in `Dockerfile`, then running `go mod tidy`.
 
-#### Node.js / npm (services: `frontend`, `offerservice`)
+For Node, use `overrides` in `package.json` to pin transitive deps; run `npm install` after.
 
-- Bump the vulnerable package version constraint in `dependencies` in `package.json`.
-- Pin transitive dependencies using the `overrides` field in `package.json`.
-- Run `npm install` after editing `package.json` to regenerate `package-lock.json`.
+## Feature flags / problem patterns
 
-#### Go (services: `pricing-service`, `problem-operator`)
-
-Go stdlib vulnerabilities are fixed by upgrading the Go toolchain version, not by changing individual module dependencies. Three files must be updated in sync for each service:
-
-1. **`go.mod`** — bump the `go` directive
-2. **`Dockerfile`** — bump both the image tag and the pinned digest on the `FROM golang:…` builder stage
-3. **`go.sum`** — regenerated automatically; run `go mod tidy` after editing `go.mod`
-
-To get the correct digest for the new image:
-
+Feature flags control four problem patterns (`DbNotResponding`, `ErgoAggregatorSlowdown`, `FactoryCrisis`, `HighCpuUsage`). Toggle via:
+```bash
+curl -X PUT "http://localhost/feature-flag-service/v1/flags/{flagId}/" \
+  -H "accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{"enabled": true}'
 ```
-docker pull golang:<new-version>-alpine3.23
-docker inspect --format='{{index .RepoDigests 0}}' golang:<new-version>-alpine3.23
+Swagger: `http://localhost/feature-flag-service/swagger-ui/index.html`
+
+## Dynatrace / Observability
+
+Services are deployed on Kubernetes (namespace `easytrade`) and monitored by Dynatrace. See `AGENTS.md` for DQL query patterns, metric keys, and problem investigation workflow. Monaco configurations live in `./monaco/`.
+
+## Helm / Kubernetes
+
+```bash
+helm install easytrade oci://europe-docker.pkg.dev/dynatrace-demoability/helm/easytrade \
+  --create-namespace --namespace easytrade
+helm uninstall easytrade -n easytrade
 ```
 
-Both Go service Dockerfiles use the same base image, so one pull is sufficient for both.
+## Conventions
 
-### Verifying fixes
+- NEVER commit secrets, tokens, or credentials — use environment variables
+- NEVER use `fetch <metric-key>` for metric queries — use `timeseries` instead (`fetch` is valid for `dt.davis.problems`, `dt.entity.*` and other non-metric record types)
+- Do NOT apply a dep bump to one `build.gradle` without applying it to all affected Java services
+- Do NOT modify `compose.yaml` (pre-built registry images) when you mean `compose.dev.yaml` (local dev)
+- Apply vulnerability fixes across all services in a single pass — partial updates leave the repo inconsistent
 
-For each updated service, run the local build to confirm nothing is broken:
+## Validation
 
-- **Java / Gradle:** `./gradlew build` in the service directory
-- **Node.js / npm:** `npm run build` in the service directory
-- **Go:** `go build .` in the service directory
-- **C# / .NET:** `dotnet build` in the service directory
+Run the relevant build and lint command for the affected stack before declaring any task complete.
+If the build or lint fails, fix the failure — do not skip or suppress.
 
-Then re-run `snyk test --json --all-projects` from the repository root. All projects should exit `0` with zero vulnerabilities before committing.
+## Self-Healing
+
+If you encounter a pattern in the codebase that contradicts these instructions, flag the discrepancy before proceeding. If `.claude/rules/*.md` files have drifted from the actual codebase patterns, flag it.
+
+## Instruction Sync
+
+| Claude Code source | Mirror (if Copilot used) |
+|---|---|
+| `CLAUDE.md` | `.github/copilot-instructions.md` |
+| `.claude/rules/*.md` | `.github/instructions/*.instructions.md` |
 
 ---
 > Source: [Dynatrace/easytrade](https://github.com/Dynatrace/easytrade) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
