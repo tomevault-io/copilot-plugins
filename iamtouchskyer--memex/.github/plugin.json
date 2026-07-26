@@ -1,7 +1,7 @@
 {
   "name": "iamtouchskyer--memex",
   "displayName": "memex",
-  "description": "Zettelkasten-based persistent memory for AI coding agents. Works with Claude Code, Cursor, VS Code Copilot, Codex, Windsurf & any MCP client. No vector DB \u2014 just markdown + git sync.",
+  "description": "memex",
   "version": "1.0.0",
   "author": "iamtouchskyer",
   "homepage": "https://github.com/iamtouchskyer/memex",
