@@ -1,0 +1,411 @@
+{
+  "name": "retort",
+  "owner": "adrianco",
+  "repo": "retort",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "retort",
+      "path": "skills/run-summary/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/skills/run-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "skills/evaluate-run/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/skills/evaluate-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "skills/compare-runs/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/skills/compare-runs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "skills/file-run-issues/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/skills/file-run-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "skills/diagnose-failed-run/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/skills/diagnose-failed-run/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "skills/update-optimal-blog/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/skills/update-optimal-blog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=go_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=java_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-4/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-4/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-4/runs/language=python_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-4/runs/language=python_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=python_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=clojure_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep1/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep2/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=typescript_model=claude-opus-4-8_tooling=beads/rep3/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep1-failed/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-6/runs/language=rust_model=claude-opus-4-7_tooling=beads/rep1-failed/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-7_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1-failed/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep1-failed/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=python_model=claude-opus-4-8_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "retort",
+      "path": "experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/adrianco/retort/tree/main/experiments/adrianco/experiment-5/runs/language=typescript_model=claude-opus-4-7_tooling=beads/rep3-failed/.agents/skills/beads/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adrianco/retort",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T12:08:44Z"
+}
