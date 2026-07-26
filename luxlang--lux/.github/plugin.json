@@ -1,0 +1,14 @@
+{
+  "name": "luxlang--lux",
+  "displayName": "lux",
+  "description": "lux",
+  "version": "1.0.0",
+  "author": "LuxLang",
+  "homepage": "https://github.com/LuxLang/lux",
+  "skills": [
+    {
+      "name": "lux",
+      "description": ""
+    }
+  ]
+}
