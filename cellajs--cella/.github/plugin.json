@@ -1,0 +1,14 @@
+{
+  "name": "cellajs--cella",
+  "displayName": "cella",
+  "description": "cella",
+  "version": "1.0.0",
+  "author": "cellajs",
+  "homepage": "https://github.com/cellajs/cella",
+  "skills": [
+    {
+      "name": "cella",
+      "description": ""
+    }
+  ]
+}
