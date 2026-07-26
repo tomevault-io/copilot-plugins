@@ -1,0 +1,9 @@
+{
+  "name": "gardener--dashboard",
+  "displayName": "dashboard",
+  "description": "dashboard",
+  "version": "1.0.0",
+  "author": "gardener",
+  "homepage": "https://github.com/gardener/dashboard",
+  "skills": []
+}
