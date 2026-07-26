@@ -1,0 +1,34 @@
+{
+  "name": "cline--cline",
+  "displayName": "cline",
+  "description": "Autonomous coding agent as an SDK, IDE extension, or CLI assistant.",
+  "version": "1.0.0",
+  "author": "cline",
+  "homepage": "https://github.com/cline/cline",
+  "skills": [
+    {
+      "name": "cline",
+      "description": ""
+    },
+    {
+      "name": "cline",
+      "description": ""
+    },
+    {
+      "name": "cline",
+      "description": ""
+    },
+    {
+      "name": "cline",
+      "description": ""
+    },
+    {
+      "name": "cline",
+      "description": ""
+    },
+    {
+      "name": "cline",
+      "description": ""
+    }
+  ]
+}
