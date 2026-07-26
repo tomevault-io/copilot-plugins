@@ -1,0 +1,87 @@
+{
+  "name": "cuckoo",
+  "owner": "cuckoo-network",
+  "repo": "cuckoo",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cuckoo",
+      "path": ".agents/skills/pm/SKILL.md",
+      "github_url": "https://github.com/cuckoo-network/cuckoo/tree/main/.agents/skills/pm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "path": ".agents/skills/ship/SKILL.md",
+      "github_url": "https://github.com/cuckoo-network/cuckoo/tree/main/.agents/skills/ship/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "path": ".agents/skills/mermaid/SKILL.md",
+      "github_url": "https://github.com/cuckoo-network/cuckoo/tree/main/.agents/skills/mermaid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "path": ".agents/skills/deploy-app/SKILL.md",
+      "github_url": "https://github.com/cuckoo-network/cuckoo/tree/main/.agents/skills/deploy-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "path": ".agents/skills/mock-cluster/SKILL.md",
+      "github_url": "https://github.com/cuckoo-network/cuckoo/tree/main/.agents/skills/mock-cluster/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "path": ".agents/skills/pm-brainstorm/SKILL.md",
+      "github_url": "https://github.com/cuckoo-network/cuckoo/tree/main/.agents/skills/pm-brainstorm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "path": ".agents/skills/deploy-app-from-local/SKILL.md",
+      "github_url": "https://github.com/cuckoo-network/cuckoo/tree/main/.agents/skills/deploy-app-from-local/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cuckoo-network/cuckoo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T09:43:05Z"
+}
