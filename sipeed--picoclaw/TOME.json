@@ -1,0 +1,87 @@
+{
+  "name": "picoclaw",
+  "owner": "sipeed",
+  "repo": "picoclaw",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "picoclaw",
+      "path": "workspace/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "picoclaw",
+      "path": "workspace/skills/github/SKILL.md",
+      "github_url": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "picoclaw",
+      "path": "workspace/skills/weather/SKILL.md",
+      "github_url": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "picoclaw",
+      "path": "workspace/skills/hardware/SKILL.md",
+      "github_url": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/hardware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "picoclaw",
+      "path": "workspace/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "picoclaw",
+      "path": "workspace/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/skill-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "picoclaw",
+      "path": "workspace/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/sipeed/picoclaw/tree/main/workspace/skills/agent-browser/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sipeed/picoclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:37:50Z"
+}
