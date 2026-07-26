@@ -1,0 +1,471 @@
+{
+  "name": "Unity-Skills",
+  "owner": "Besty0728",
+  "repo": "Unity-Skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/xr/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/xr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/ui/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/urp/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/urp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/adr/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/adr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/test/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/batch/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/batch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/asset/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/asset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/light/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/light/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/scene/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/scene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/debug/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/event/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/event/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/smart/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/smart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/decal/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/decal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/async/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/async/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/script/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/script/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/editor/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/editor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/shader/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/shader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/prefab/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/prefab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/camera/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/camera/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/volume/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/volume/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/sample/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/sample/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/asmdef/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/asmdef/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/dotween/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/dotween/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/console/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/console/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/physics/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/terrain/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/terrain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/cleaner/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/cleaner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/package/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/package/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/netcode/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/netcode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/navmesh/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/navmesh/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/project/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/project/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/history/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/history/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/material/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/material/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/animator/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/animator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/graphics/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/graphics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/timeline/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/timeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/profiler/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/profiler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/yooasset/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/yooasset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/importer/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/importer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/bookmark/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/bookmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/patterns/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/component/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/uitoolkit/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/uitoolkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/inspector/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/inspector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/gameobject/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/gameobject/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/perception/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/perception/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/validation/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/probuilder/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/probuilder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/blueprints/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/blueprints/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/cinemachine/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/cinemachine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/shadergraph/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/shadergraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/postprocess/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/postprocess/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/performance/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/testability/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/testability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/optimization/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/yaml-editing/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/yaml-editing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/scriptdesign/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/scriptdesign/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/script-roles/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/script-roles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/project-scout/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/project-scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/netcode-design/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/netcode-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/unitask-design/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/unitask-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/dotween-design/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/dotween-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/yooasset-design/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/yooasset-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/scene-contracts/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/scene-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/scriptableobject/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/scriptableobject/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/shadergraph-design/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/shadergraph-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/skills/addressables-design/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/skills/addressables-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Unity-Skills",
+      "path": "SkillsForUnity/unity-skills~/SKILL.md",
+      "github_url": "https://github.com/Besty0728/Unity-Skills/tree/main/SkillsForUnity/unity-skills~/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Besty0728/Unity-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:43:32Z"
+}
