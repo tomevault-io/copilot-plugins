@@ -1,7 +1,7 @@
 {
   "name": "opgginc--laravel-mcp-server",
   "displayName": "laravel-mcp-server",
-  "description": "A Laravel package for implementing secure Model Context Protocol servers using Streamable HTTP and SSE transport, providing real-time communication and a scalable tool system for enterprise environmen",
+  "description": "laravel-mcp-server",
   "version": "1.0.0",
   "author": "opgginc",
   "homepage": "https://github.com/opgginc/laravel-mcp-server",
