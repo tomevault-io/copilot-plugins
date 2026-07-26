@@ -1,0 +1,117 @@
+{
+  "name": "kiro-kit",
+  "owner": "ihatesea69",
+  "repo": "kiro-kit",
+  "description": "Engineer-grade Kiro IDE workspaces. One command. Curated presets for frontend, backend, fullstack, mobile, devops, and data-ai with agents, skills, commands, hooks, workflows, and spec-driven AI-SDLC scaffolding.",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kubernetes-ops",
+      "path": "presets/devops/skills/kubernetes-ops",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/devops/skills/kubernetes-ops",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-patterns",
+      "path": "presets/devops/skills/ci-cd-patterns",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/devops/skills/ci-cd-patterns",
+      "description": ""
+    },
+    {
+      "name": "terraform-modules",
+      "path": "presets/devops/skills/terraform-modules",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/devops/skills/terraform-modules",
+      "description": ""
+    },
+    {
+      "name": "mobile-development",
+      "path": "presets/fullstack/skills/mobile-development",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/fullstack/skills/mobile-development",
+      "description": ""
+    },
+    {
+      "name": "flutter-state",
+      "path": "presets/mobile/skills/flutter-state",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/mobile/skills/flutter-state",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "presets/backend/skills/code-review",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/backend/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "presets/fullstack/skills/code-review",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/fullstack/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "presets/mobile/skills/code-review",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/mobile/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "presets/data-ai/skills/code-review",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/data-ai/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "presets/devops/skills/code-review",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/devops/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "presets/frontend/skills/code-review",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/frontend/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "scikit-learn",
+      "path": "presets/data-ai/skills/scikit-learn",
+      "github_url": "https://github.com/ihatesea69/kiro-kit/tree/main/presets/data-ai/skills/scikit-learn",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ihatesea69/kiro-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T02:31:30Z"
+}
