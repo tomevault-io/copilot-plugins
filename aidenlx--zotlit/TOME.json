@@ -1,0 +1,285 @@
+{
+  "name": "zotlit",
+  "owner": "aidenlx",
+  "repo": "zotlit",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/tdd/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/tdd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/teach/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/teach/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/triage/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/valibot/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/valibot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/to-spec/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/to-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/ask-matt/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/ask-matt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/arkregex/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/arkregex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/grilling/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/agents-md/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/agents-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/wayfinder/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/wayfinder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/prototype/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/implement/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/to-tickets/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/to-tickets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/i18n-ui-text/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/i18n-ui-text/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/obsidian-css/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/obsidian-css/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/docs-writing/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/docs-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/paraglide-i18n/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/paraglide-i18n/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/obsidian-debug/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/obsidian-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/comment-review/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/comment-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/batch-grilling/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/batch-grilling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/diagnosing-bugs/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/diagnosing-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/domain-modeling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/codebase-design/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/codebase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/obsidian-actions/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/obsidian-actions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/zotero-rdp-debug/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/zotero-rdp-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".claude/skills/obsidian-settings/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.claude/skills/obsidian-settings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/obsidian-services/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/obsidian-services/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".claude/skills/fumadocs-page-tree/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.claude/skills/fumadocs-page-tree/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/writing-great-skills/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/writing-great-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/obsidian-asar-extract/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/obsidian-asar-extract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/grill-frontend-prototyping/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/grill-frontend-prototyping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zotlit",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/aidenlx/zotlit/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aidenlx/zotlit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T12:03:13Z"
+}
