@@ -1665,4 +1665,4 @@ def call_llm(prompt):
 
 ---
 > Source: [The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
