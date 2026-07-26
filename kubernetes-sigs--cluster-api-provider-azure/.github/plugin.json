@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--cluster-api-provider-azure",
+  "displayName": "cluster-api-provider-azure",
+  "description": "cluster-api-provider-azure",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/cluster-api-provider-azure",
+  "skills": []
+}
