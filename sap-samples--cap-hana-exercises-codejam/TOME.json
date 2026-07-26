@@ -4,7 +4,7 @@
   "repo": "cap-hana-exercises-codejam",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/SAP-samples",
+  "source_url": "https://github.com/SAP-samples/cap-hana-exercises-codejam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T18:31:56Z"
+  "distributed_at": "2026-07-26T20:34:36Z"
 }
