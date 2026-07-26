@@ -1,0 +1,9 @@
+{
+  "name": "rabestro--paperless-genie",
+  "displayName": "paperless-genie",
+  "description": "\ud83e\uddde AI-powered Telegram bot for Paperless-ngx \u2014 chat with your document archive, upload and process documents, set metadata, and search \u2014 all from Telegram.",
+  "version": "1.0.0",
+  "author": "rabestro",
+  "homepage": "https://github.com/rabestro/paperless-genie",
+  "skills": []
+}
