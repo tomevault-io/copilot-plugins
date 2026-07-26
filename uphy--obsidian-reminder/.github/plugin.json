@@ -1,0 +1,14 @@
+{
+  "name": "uphy--obsidian-reminder",
+  "displayName": "obsidian-reminder",
+  "description": "obsidian-reminder",
+  "version": "1.0.0",
+  "author": "uphy",
+  "homepage": "https://github.com/uphy/obsidian-reminder",
+  "skills": [
+    {
+      "name": "obsidian-reminder",
+      "description": ""
+    }
+  ]
+}
