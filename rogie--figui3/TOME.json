@@ -3,7 +3,7 @@
   "owner": "rogie",
   "repo": "figui3",
   "description": "A lightweight, customizable web component library that uses Figmas UI3 style for modern web applications, but specifically for Figma plugins.",
-  "type": "config",
+  "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,8 +37,87 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "figui3",
+      "path": "skills/figui3/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/skills/figui3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": "skills/propkit/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/skills/propkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/a11y/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/a11y/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/figui3/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/figui3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/propkit/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/propkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".agents/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.agents/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/nested-css-selectors/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/nested-css-selectors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/css-component-testing/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/css-component-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/web-component-testing/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/web-component-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/js-runtime-performance/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/js-runtime-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/css-render-performance/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/css-render-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/web-component-performance/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/web-component-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "figui3",
+      "path": ".cursor/skills/frontend-performance-testing/SKILL.md",
+      "github_url": "https://github.com/rogie/figui3/tree/main/.cursor/skills/frontend-performance-testing/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/rogie/figui3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T09:46:45Z"
+  "distributed_at": "2026-07-26T19:43:28Z"
 }
