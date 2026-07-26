@@ -1,328 +1,55 @@
 ## styled-ppx
 
-> This document explains how `[%cx2]` works—the statically extracted CSS path. Unlike `[%cx]` which generates runtime CSS-in-JS code, `[%cx2]` extracts CSS at compile-time into a separate `.css` file with zero runtime CSS generation overhead.
+> - Deliver maintainer-grade support for `styled-ppx` while respecting user intent, repository conventions, and safety rules.
 
+# styled-ppx Agent Handbook
 
-# cx2 Pipeline - Static CSS Extraction
-
-This document explains how `[%cx2]` works—the statically extracted CSS path. Unlike `[%cx]` which generates runtime CSS-in-JS code, `[%cx2]` extracts CSS at compile-time into a separate `.css` file with zero runtime CSS generation overhead.
+## Mission
+- Deliver maintainer-grade support for `styled-ppx` while respecting user intent, repository conventions, and safety rules.
+- Keep the codebase healthy: clarify requests, surface risks early, and document important decisions.
+- Act as a multiplier for the team—favour clear communication, reproducible steps, and actionable suggestions.
+- Balance velocity with correctness; when unsure, ask instead of guessing.
 
 ## Overview
 
-```reason
-let css = color => [%cx2 "display: flex; color: $(color)"];
-```
-
-Gets transformed into:
-
-```reason
-[@css ".css-17vxl0k { display: flex; }\n.css-3tpy8b { color: var(--var-19ja411); }\n"]
-let css = color => CSS.make(
-  "css-17vxl0k css-3tpy8b",
-  [("--var-19ja411", CSS.Types.Color.toString(color))]
-);
-```
-
-The key differences from `[%cx]`:
-1. **Atomic CSS** - Each declaration gets its own className (e.g., `css-17vxl0k` for `display: flex`)
-2. **CSS Custom Properties** - Interpolations become `var(--var-xxxx)` references
-3. **Static Extraction** - CSS is collected into a `[@css ...]` attribute, later extracted to a `.css` file
-4. **Runtime Type Coercion** - `CSS.Types.X.toString` converts typed values to strings at runtime
-
-## Pipeline Stages
-
-### Stage 1: Parsing
-
-Same as `[%cx]` - the CSS string is parsed by `Styled_ppx_css_parser.Driver.parse_declaration_list`.
-
-```reason
-[%cx2 "display: flex; color: $(myColor)"]
-```
-
-Produces an AST representing:
-- Declaration: `display: flex`
-- Declaration: `color: $(myColor)` (with `myColor` as a `Variable` node)
-
-### Stage 2: Type Checking
-
-Before extraction, `[%cx2]` validates all properties against the CSS spec using `type_check_rule_list`:
-
-```reason
-let validations = type_check_rule_list(rule_list);
-switch (get_errors(validations)) {
-| [] => /* proceed with extraction */
-| errors => /* report type errors */
-}
-```
-
-This ensures invalid CSS like `display: banana` is caught at compile-time.
-
-### Stage 3: CSS Transformation (`Css_file.push`)
-
-The parsed AST goes through `Css_file.push` which:
-
-#### 3.1. Atomization
-
-Each declaration becomes its own atomic rule with a content-hashed className:
-
-```css
-/* Input */
-display: flex; color: red;
-
-/* Output - two separate rules */
-.css-17vxl0k { display: flex; }
-.css-3tpy8b { color: red; }
-```
-
-The className is generated via `Murmur2.default(css_content)` ensuring identical declarations share the same className across the codebase.
-
-#### 3.2. Variable Transformation
-
-Interpolations (`$(foo)`) are converted to CSS custom properties:
-
-```css
-/* Input */
-color: $(myColor);
-
-/* Output */
-color: var(--var-19ja411);
-```
-
-The variable name `--var-19ja411` is a hash of the original path (`myColor`).
-
-#### 3.3. Type Path Extraction
-
-For each interpolation, the system determines the correct `toString` function by:
-
-1. Parsing the value with the property's grammar (e.g., `Parser.Property_color.rule`)
-2. Calling `extract_interpolations` on the parsed value
-3. Getting the type path (e.g., `Css_types.Color`) for each interpolated variable
-
-This is handled by `Css_grammar.Parser.get_interpolation_types(~name=property_name, value_string)`.
-
-#### 3.4. Selector Transformation
-
-Nested selectors and media queries are unnested and prefixed with the generated className:
-
-```css
-/* Input */
-.lola { display: flex; }
-
-/* Output */
-.css-1lr2y8 .lola { display: flex; }
-```
-
-### Stage 4: Code Generation (`Css_runtime.render_make_call`)
-
-The PPX generates a call to `CSS.make`:
-
-```reason
-CSS.make(
-  "css-17vxl0k css-3tpy8b",  /* space-separated atomic classNames */
-  [
-    ("--var-19ja411", CSS.Types.Color.toString(myColor)),
-  ]
-)
-```
-
-Where:
-- First argument: concatenated atomic classNames
-- Second argument: list of `(css-var-name, toString(value))` pairs
-
-### Stage 5: CSS Collection (`Css_file.Buffer`)
-
-During PPX execution, all CSS rules are accumulated in `Css_file.Buffer`:
-
-```reason
-Buffer.add_rule(className, cssText);
-```
-
-The buffer deduplicates by className, so identical declarations across files produce only one CSS rule.
-
-### Stage 6: Attribute Emission
-
-After processing all extensions, the PPX emits a `[@css ...]` attribute at the top of the file:
-
-```reason
-let impl = (_ctx, str) => {
-  switch (Css_file.get()) {
-  | "" => str
-  | css => [[%stri [@css [%e Builder.estring(~loc, css)]]], ...str]
-  };
-};
-```
-
-This produces:
-
-```reason
-[@css ".css-17vxl0k { display: flex; }\n.css-3tpy8b { color: var(--var-19ja411); }\n"]
-/* ... rest of file ... */
-```
-
-### Stage 7: CSS Extraction (`styled-ppx.generate`)
-
-A separate binary reads compiled `.ml` files and extracts CSS:
-
-```bash
-styled-ppx.generate output.ml > styles.css
-```
-
-It scans for `[@@@css ...]` attributes and concatenates all CSS:
-
-```ocaml
-match item with
-| [%stri [@@@css [%e? value]]] ->
-  (* Extract string and add to stylesheet *)
-```
-
-Output:
-```css
-/* This file is generated by styled-ppx, do not edit manually */
-.css-17vxl0k { display: flex; }
-.css-3tpy8b { color: var(--var-19ja411); }
-```
-
-## Runtime Behavior
-
-### CSS.make
-
-```ocaml
-type styles = string * ReactDOM.Style.t
-
-let make className vars : styles =
-  let style =
-    List.fold_left
-      (fun style (key, value) ->
-        ReactDOM.Style.unsafeAddProp style key value)
-      (ReactDOM.Style.make ()) vars
-  in
-  className, style
-```
-
-Returns a tuple of:
-- `className`: The atomic class names to apply
-- `style`: A ReactDOM style object with CSS custom properties
-
-### Usage in JSX
-
-```reason
-let css = color => [%cx2 "display: flex; color: $(color)"];
-
-/* Expanded by styles prop rewriter */
-<div className={fst(css(CSS.red))} style={snd(css(CSS.red))} />
-```
-
-The `styles` prop is a convenience that expands to both `className` and `style`.
-
-## Type Safety
-
-### Property-to-Module Mapping (`Property_to_types.re`)
-
-Maps CSS properties to their `Css_types` modules:
-
-```reason
-let property_to_module_mapping = [
-  ("color", "Color"),
-  ("background-color", "Color"),
-  ("width", "Length"),
-  ("margin", "Length"),
-  ("flex-basis", "LengthPercentage"),
-  /* ... */
-];
-```
-
-### Partial Interpolation
-
-When interpolating part of a value (not the entire value), the system uses the grammar's `extract_interpolations` to determine the correct type:
-
-```reason
-/* Input */
-margin: 8px $(right) $(bottom) $(left);
-
-/* Generated */
-CSS.make("css-1641h1j", [
-  ("--var-j35jbq", CSS.Types.Margin.toString(right)),
-  ("--var-15kzvoi", CSS.Types.Margin.toString(bottom)),
-  ("--var-oyh7mz", CSS.Types.Margin.toString(left)),
-])
-```
-
-Each interpolation gets the correct `Margin.toString` because the grammar knows the `<length-percentage>` positions in the margin shorthand.
-
-## Related Extensions
-
-### `[%keyframe2]`
-
-Similar extraction for keyframes:
-
-```reason
-let fadeIn = [%keyframe2 {|
-  from { opacity: 0; }
-  to { opacity: 1; }
-|}];
-```
-
-Becomes:
-
-```reason
-let fadeIn = `KeyframesName("keyframe-85bkd1");
-```
-
-And adds to the CSS buffer:
-```css
-@keyframes keyframe-85bkd1 { from { opacity: 0; } to { opacity: 1; } }
-```
-
-### `[%styled.global2]`
-
-Global styles without className prefixing:
-
-```reason
-[%styled.global2 {|
-  body { margin: 0; }
-  * { box-sizing: border-box; }
-|}];
-```
-
-Outputs directly to CSS:
-```css
-body { margin: 0; }
-* { box-sizing: border-box; }
-```
-
-## Build Integration
-
-Typical build setup:
-
-1. **PPX processing**: `dune` runs `styled-ppx` on source files
-2. **CSS extraction**: Post-build step runs `styled-ppx.generate *.ml -o styles.css`
-3. **CSS inclusion**: Bundle `styles.css` with your application
-
-```makefile
-build:
-	dune build
-	styled-ppx.generate _build/default/**/*.pp.ml -o _build/styles.css
-```
-
-## Minification
-
-When `Settings.Get.minify()` returns `true`:
-- CSS output uses `Styled_ppx_css_parser.Minify.rule` instead of `Render.rule`
-- No newlines between rules
-- Minimal whitespace
-
-## Comparison: cx vs cx2
-
-| Aspect | `[%cx]` | `[%cx2]` |
-|--------|---------|----------|
-| CSS Generation | Runtime (emotion.sh) | Compile-time extraction |
-| Interpolation | Direct value substitution | CSS custom properties + toString |
-| Output | `CSS.style([| ... |])` | `CSS.make(classNames, vars)` |
-| CSS File | None (injected at runtime) | Extracted `.css` file |
-| Type Safety | Full (OCaml inference) | Full (explicit toString) |
-| Runtime Overhead | CSS parsing + injection | Only style prop assignment |
+styled-ppx is a CSS-in-Reason/OCaml ppx (preprocessor extension) and a library that provides type-safe, compile-time verified CSS with minimal runtime overhead.
+
+## Architecture
+
+The project consists of three main components:
+
+## Working Agreements
+- Never revert user-authored changes unless explicitly requested; coordinate if unexpected diffs appear.
+- Avoid commits unless the user asks; stage or push only after explicit approval.
+- Keep responses concise yet complete. Use Markdown, short headers when they aid scanning, and bulleted lists with consistent phrasing.
+- Use the todo list tool for multi-step tasks; update statuses as you progress.
+- If the user requests a “review”, switch to code-review tone: findings first, severity ordered, cite files/lines, then residual risks.
+
+## Testing & Quality Assurance
+- Consult `documents/testing.md` for the authoritative testing matrix and command catalogue.
+- Typical commands (use the local switch, `_opam/bin/dune`):
+  - Everything: `make test` (or `_opam/bin/dune test`).
+  - Per package: `make test-<package>` targets with `-watch`/`-promote` variants; see `documents/testing.md`.
+- When tests are skipped (time, platform, or request), call out the gap and suggest how the user can validate.
+- Record observed failures with enough context (command, exit code, snippet of output) for reproducibility.
+
+## Architecture Orientation
+- **Parser & Type Checker** (`packages/parser`, `packages/css-grammar`): builds the CSS AST, validates properties via generated combinators (`[%spec ...]`), and produces rich error messages for invalid CSS.
+- **PPX Transformer** (`packages/ppx/src/ppx.re`): exposes `[%css]`, `[%styled.<tag>]`, `[%styled.global]`, and `[%keyframe]`; orchestrates parsing, validation, and code generation.
+- **Property → Runtime Bridge** (`packages/ppx/src/Property_to_runtime.re`): maps validated properties to runtime constructors, preserves interpolations, and decides extraction vs runtime emission.
+- **Runtimes** (`packages/runtime/native`, `.../melange`, `.../rescript`): emit CSS for native servers, JS environments, and ReScript compatibility. Shared types live in `packages/runtime/native/shared/Css_types.ml`.
+- **Extraction Pipeline**: all live extensions (`[%css]`, `[%styled.<tag>]`, `[%styled.global]`, `[%keyframe]`) are statically extracted; the PPX emits `[@@@css ...]` attributes that the `styled-ppx.generate` aggregator collects into CSS assets during compilation for zero runtime overhead.
+
+## Reference Documents
+- Consult `documents/design.md` before making structural changes across `packages/parser`, `packages/css-grammar`, `packages/ppx`, or the runtime pipeline.
+- Consult `documents/css-extraction.md` for the extraction wire protocol (`[@@@css ...]`, `[@@@css.bindings ...]`, `[@@@css.refs ...]`) and the aggregator.
+
+## Troubleshooting Tips
+- Regenerate snapshots via the appropriate dune alias if expect tests fail after legitimate changes.
+- If opam tooling appears missing, double-check the `_opam` switch integrity before troubleshooting dune.
+- Watch for generated code churn; understand the source generator before editing outputs directly.
+- When PPX errors are opaque, reproduce with `dune exec -- <binary>` or `dune build --verbose` to capture the PPX invocation.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/davesnx)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/davesnx)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [davesnx/styled-ppx](https://github.com/davesnx/styled-ppx) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
