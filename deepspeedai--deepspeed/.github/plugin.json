@@ -1,0 +1,9 @@
+{
+  "name": "deepspeedai--deepspeed",
+  "displayName": "DeepSpeed",
+  "description": "DeepSpeed",
+  "version": "1.0.0",
+  "author": "deepspeedai",
+  "homepage": "https://github.com/deepspeedai/DeepSpeed",
+  "skills": []
+}
