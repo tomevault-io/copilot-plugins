@@ -1,0 +1,9 @@
+{
+  "name": "grafana--docker-otel-lgtm",
+  "displayName": "docker-otel-lgtm",
+  "description": "docker-otel-lgtm",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/docker-otel-lgtm",
+  "skills": []
+}
