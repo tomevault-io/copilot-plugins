@@ -1,44 +1,175 @@
 ## iphone-mcp
 
-> MCP server for controlling iOS simulators and physical iPhones.
+> npx blitz-ios-mcp --setup    # Install dependencies + configure MCP
 
-# blitz-ios-mcp
+# blitz-ios-mcp Tool Reference
 
-MCP server for controlling iOS simulators and physical iPhones.
+## Setup
 
-## Workflow
+```bash
+npx blitz-ios-mcp --setup    # Install dependencies + configure MCP
+npx blitz-ios-mcp             # Start MCP server (stdio)
+npx blitz-ios-mcp --version   # Print version
+```
 
-1. Call `get_execution_context` first to discover available devices
-2. If `target === 'ambiguous'`, ask the user which device to use
-3. If `target === 'device'`, inform the user about `viewer_url` so they can see the screen
-4. If `target === 'none'`, tell the user to boot a simulator or connect an iPhone
-5. Pass the returned `udid` to all subsequent tool calls
+## Tools
 
-## Key Patterns
+### get_execution_context
 
-- Use `scan_ui` before interacting — it returns interactive elements with tap coordinates
-- Use `get_screenshot` to visually verify the current screen state
-- Use `describe_screen` for the full element tree (all types, not just interactive)
-- All coordinates are in device screen points (not pixels)
-- Use `device_actions` for batching multiple sequential actions
-- Choose the smallest `scan_ui` region possible for speed
+Get available iOS devices. Call this first.
 
-## Physical Devices
+**Returns:**
+- `target: 'simulator'` — one simulator booted. Use `udid` for all calls.
+- `target: 'device'` — one physical device. Use `udid`. Share `viewer_url` with user.
+- `target: 'ambiguous'` — multiple devices. Ask user which to use.
+- `target: 'none'` — no devices found.
 
-- Physical devices require WebDriverAgent (WDA) running on the device
-- Run `npx blitz-ios-mcp --setup` to install WDA and dependencies
-- The viewer URL shows a live screen stream in the browser
-- The agent cannot see the physical device screen directly — rely on `scan_ui` and `get_screenshot`
+```json
+{ "target": "simulator", "udid": "ABC-123", "name": "iPhone 16 Pro", "screen_size": { "width": 393, "height": 852 } }
+```
 
-## Coordinate Systems
+### scan_ui
 
-Common iPhone screen sizes (in points):
-- iPhone 15/16 Pro: 393 x 852
-- iPhone 15/16 Pro Max: 430 x 932
-- iPhone SE: 375 x 667
+Find interactive elements on screen. Returns tap coordinates.
 
-All coordinates passed to tap/swipe should be in these point values.
+**Params:**
+- `region` (required): `'full'` | `'top-half'` | `'bottom-half'` | `'top-left'` | `'top-right'` | `'bottom-left'` | `'bottom-right'`
+- `query` (optional): Text search (case-insensitive)
+- `udid` (optional): Device ID
+
+**Example:**
+```json
+{ "region": "full", "query": "Settings" }
+```
+
+### describe_screen
+
+Get full UI hierarchy (all element types). Use for understanding layout.
+
+**Params:**
+- `udid` (optional)
+- `nested` (optional): Include nested hierarchy
+
+### device_action
+
+Execute a single action.
+
+**Params:**
+- `action`: `'tap'` | `'swipe'` | `'button'` | `'input-text'` | `'key'` | `'key-sequence'`
+- `params`: Action-specific params
+- `udid` (optional)
+- `describe_after` (optional): `{ all: true }` or `{ point: { x, y } }`
+
+**Action params:**
+- tap: `{ x, y, duration? }`
+- swipe: `{ fromX, fromY, toX, toY, duration?, delta? }`
+- button: `{ button: 'HOME'|'LOCK'|'SIDE_BUTTON'|'APPLE_PAY'|'SIRI', duration? }`
+- input-text: `{ text }`
+- key: `{ key: number|string, duration? }`
+- key-sequence: `{ keySequence: (number|string)[] }`
+
+**Examples:**
+```json
+{ "action": "tap", "params": { "x": 200, "y": 400 } }
+{ "action": "swipe", "params": { "fromX": 200, "fromY": 600, "toX": 200, "toY": 200 } }
+{ "action": "input-text", "params": { "text": "Hello world" } }
+{ "action": "button", "params": { "button": "HOME" } }
+```
+
+### device_actions
+
+Execute multiple actions in sequence.
+
+**Params:**
+- `actions`: Array of `{ action, params }` objects
+- `udid` (optional)
+- `describe_after` (optional)
+
+**Example:**
+```json
+{
+  "actions": [
+    { "action": "tap", "params": { "x": 200, "y": 100 } },
+    { "action": "input-text", "params": { "text": "search query" } },
+    { "action": "key", "params": { "key": "\n" } }
+  ]
+}
+```
+
+### get_screenshot
+
+Capture a PNG screenshot. Returns file path.
+
+**Params:**
+- `udid` (optional)
+
+### list_devices
+
+List all booted simulators and connected physical devices.
+
+### launch_app
+
+Launch an app by bundle ID.
+
+**Params:**
+- `bundleId` (required): e.g. `"com.apple.mobilesafari"`
+- `udid` (optional)
+
+### list_apps
+
+List installed apps (simulator only).
+
+**Params:**
+- `udid` (optional)
+
+## Common Patterns
+
+### Navigate to a screen
+```
+1. scan_ui { region: "full" } → find target element
+2. device_action { action: "tap", params: { x, y } } → tap it
+3. scan_ui { region: "full" } → verify new screen
+```
+
+### Fill a form
+```
+1. scan_ui { region: "full", query: "Email" } → find field
+2. device_action { action: "tap", params: { x, y } } → focus field
+3. device_action { action: "input-text", params: { text: "user@example.com" } }
+4. scan_ui { region: "full", query: "Password" } → find next field
+5. device_action { action: "tap", params: { x, y } }
+6. device_action { action: "input-text", params: { text: "password123" } }
+```
+
+### Scroll to find content
+```
+1. scan_ui { region: "full", query: "target" } → check if visible
+2. If not found or warning about off-screen:
+   device_action { action: "swipe", params: { fromX: 200, fromY: 600, toX: 200, toY: 200 } }
+3. scan_ui again
+```
+
+## Coordinate Reference
+
+| Device | Width | Height |
+|--------|-------|--------|
+| iPhone 17 Pro | 402 | 874 |
+| iPhone 17 Pro Max | 440 | 956 |
+| iPhone 16 Pro | 402 | 874 |
+| iPhone 16 Pro Max | 440 | 956 |
+| iPhone 16 | 393 | 852 |
+| iPhone 16 Plus | 430 | 932 |
+| iPhone 15 Pro | 393 | 852 |
+| iPhone 15 Pro Max | 430 | 932 |
+| iPhone SE (3rd gen) | 375 | 667 |
+
+## WDA Troubleshooting
+
+- **Developer Mode**: Enable on iPhone at Settings > Privacy & Security > Developer Mode
+- **Trust This Computer**: Tap "Trust" when prompted on iPhone after USB connection
+- **Provisioning**: Sign into Xcode with Apple ID (Xcode > Settings > Accounts)
+- **WDA not reachable**: Ensure iPhone is unlocked and connected via USB
 
 ---
 > Source: [blitzdotdev/iPhone-mcp](https://github.com/blitzdotdev/iPhone-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
