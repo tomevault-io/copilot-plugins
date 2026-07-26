@@ -1,0 +1,14 @@
+{
+  "name": "moq-dev--moq",
+  "displayName": "moq",
+  "description": "moq",
+  "version": "1.0.0",
+  "author": "moq-dev",
+  "homepage": "https://github.com/moq-dev/moq",
+  "skills": [
+    {
+      "name": "moq",
+      "description": ""
+    }
+  ]
+}
