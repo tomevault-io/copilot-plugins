@@ -15,11 +15,22 @@ Original source: `CLAUDE.md` in [vchelaru/FlatRedBall](https://github.com/vchela
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (3)
+## Bundled Skills (14)
 
 - [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/FRBDK/Glue/.claude/skills/refactor/SKILL.md)
 - [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/FRBDK/Glue/.claude/skills/gum-codegen/SKILL.md)
 - [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/FRBDK/Glue/.claude/skills/gluj-versions/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/achx-format/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/skills-writer/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/glue-live-edit/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/gum-integration/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/glue-file-watch/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/maintenance-mode-workflow/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/release/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/release-notes/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/worktree-cleanup/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/.claude/skills/gum-shared-source/SKILL.md)
+- [FlatRedBall](https://github.com/vchelaru/FlatRedBall/tree/main/FRBDK/Glue/.claude/skills/glue-unit-test-bootstrap/SKILL.md)
 
 From [vchelaru/FlatRedBall](https://github.com/vchelaru/FlatRedBall) — a repo with 563+ stars on GitHub.
 
