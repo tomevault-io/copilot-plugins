@@ -1,0 +1,111 @@
+{
+  "name": "trust-platform",
+  "owner": "johannesPettersson80",
+  "repo": "trust-platform",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/st-lsp-solid/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/st-lsp-solid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-lsp-iec/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-lsp-iec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/vscode-capture/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/vscode-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-hmi-contracts/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-hmi-contracts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-remote-builder/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-remote-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/vscode-ui-acceptance/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/vscode-ui-acceptance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-vscode-quality/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-vscode-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-test-authoring/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-test-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-release-hygiene/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-release-hygiene/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-ci-release-gates/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-ci-release-gates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trust-platform",
+      "path": ".codex/skills/trust-architecture-automation/SKILL.md",
+      "github_url": "https://github.com/johannesPettersson80/trust-platform/tree/main/.codex/skills/trust-architecture-automation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/johannesPettersson80/trust-platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T14:02:41Z"
+}
