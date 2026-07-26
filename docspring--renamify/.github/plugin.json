@@ -1,0 +1,9 @@
+{
+  "name": "docspring--renamify",
+  "displayName": "renamify",
+  "description": "Smart search & replace for code and files with case-aware transformations and built-in undo/redo.",
+  "version": "1.0.0",
+  "author": "DocSpring",
+  "homepage": "https://github.com/DocSpring/renamify",
+  "skills": []
+}
