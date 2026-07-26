@@ -1,0 +1,471 @@
+{
+  "name": "openagent",
+  "owner": "Haohao-end",
+  "repo": "openagent",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "security-best-practices",
+      "path": "api/internal/core/skills/catalog/security-best-practices",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/pdf/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/pdf/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/pdf/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/tdd/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/tdd/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/figma/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/figma/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/figma/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/figma/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/to-prd/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/to-prd/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/triage/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/triage/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/qa-only/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/qa-only/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/caveman/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/caveman/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/handoff/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/handoff/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/grill-me/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/grill-me/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/diagnose/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/diagnose/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/creative/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/creative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/zoom-out/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/zoom-out/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/gh-fix-ci/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/gh-fix-ci/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/gh-fix-ci/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/gh-fix-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/to-issues/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/to-issues/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/playwright/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/playwright/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/playwright/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/screenshot/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/screenshot/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/screenshot/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/screenshot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/cli-creator/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/cli-creator/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/cli-creator/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/cli-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/openai-docs/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/openai-docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/openai-docs/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/openai-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/aspnet-core/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/aspnet-core/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/aspnet-core/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/aspnet-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/find-skills/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/find-skills/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/web_research/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/web_research/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/render-deploy/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/render-deploy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/render-deploy/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/render-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/vercel-deploy/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/vercel-deploy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/vercel-deploy/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/vercel-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/write-a-skill/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/write-a-skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/netlify-deploy/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/netlify-deploy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/netlify-deploy/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/netlify-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/code_workbench/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/code_workbench/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/frontend-skill/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/frontend-skill/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/grill-with-docs/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/grill-with-docs/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/frontend-design/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/frontend-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/jupyter-notebook/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/jupyter-notebook/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/jupyter-notebook/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/jupyter-notebook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/migrate-to-codex/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/migrate-to-codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/develop-web-game/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/develop-web-game/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/setup-pre-commit/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/setup-pre-commit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/migrate-to-codex/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/migrate-to-codex/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/cloudflare-deploy/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/cloudflare-deploy/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/cloudflare-deploy/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/cloudflare-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/scaffold-exercises/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/scaffold-exercises/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/gh-address-comments/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/gh-address-comments/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/gh-address-comments/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/gh-address-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/migrate-to-shoehorn/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/migrate-to-shoehorn/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/playwright-interactive/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/playwright-interactive/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/playwright-interactive/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/playwright-interactive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/security-ownership-map/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/security-ownership-map/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/security-ownership-map/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/security-ownership-map/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/figma-implement-design/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/figma-implement-design/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/security-best-practices/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/security-best-practices/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/security-best-practices/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/security-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-knowledge-capture/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-knowledge-capture/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-knowledge-capture/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-knowledge-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/setup-matt-pocock-skills/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/setup-matt-pocock-skills/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/git-guardrails-claude-code/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/git-guardrails-claude-code/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-meeting-intelligence/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-meeting-intelligence/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-meeting-intelligence/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-meeting-intelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-research-documentation/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-research-documentation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-spec-to-implementation/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-spec-to-implementation/skill.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-research-documentation/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-research-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/notion-spec-to-implementation/SKILL.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/notion-spec-to-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "openagent",
+      "path": "api/internal/core/skills/catalog/improve-codebase-architecture/skill.md",
+      "github_url": "https://github.com/Haohao-end/openagent/tree/main/api/internal/core/skills/catalog/improve-codebase-architecture/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Haohao-end/openagent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:40:16Z"
+}
