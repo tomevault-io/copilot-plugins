@@ -1,0 +1,9 @@
+{
+  "name": "pingcap--tiproxy",
+  "displayName": "tiproxy",
+  "description": "tiproxy",
+  "version": "1.0.0",
+  "author": "pingcap",
+  "homepage": "https://github.com/pingcap/tiproxy",
+  "skills": []
+}
