@@ -1,0 +1,14 @@
+{
+  "name": "heyingjiee--evolve-agent",
+  "displayName": "evolve-agent",
+  "description": "evolve-agent",
+  "version": "1.0.0",
+  "author": "heyingjiee",
+  "homepage": "https://github.com/heyingjiee/evolve-agent",
+  "skills": [
+    {
+      "name": "evolve-agent",
+      "description": ""
+    }
+  ]
+}
