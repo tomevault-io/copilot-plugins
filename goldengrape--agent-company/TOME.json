@@ -1,0 +1,129 @@
+{
+  "name": "Agent-company",
+  "owner": "goldengrape",
+  "repo": "Agent-company",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Agent-company",
+      "path": "companies/default/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/companies/default/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "companies/template/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/companies/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/tmux/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/tmux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/cron/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/cron/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/memory/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/memory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/github/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/clawhub/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/clawhub/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/weather/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/weather/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "companies/news_summary/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/companies/news_summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/summarize/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/summarize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "companies/weather_report/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/companies/weather_report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "companies/company_factory/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/companies/company_factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "companies/tech_news_filter/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/companies/tech_news_filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-company",
+      "path": "nanobot/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/goldengrape/Agent-company/tree/main/nanobot/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/goldengrape/Agent-company",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:45:43Z"
+}
