@@ -1,7 +1,7 @@
 {
   "name": "bscott--chat-tails",
   "displayName": "chat-tails",
-  "description": "Tailscale Backed Chat Server",
+  "description": "chat-tails",
   "version": "1.0.0",
   "author": "bscott",
   "homepage": "https://github.com/bscott/chat-tails",
