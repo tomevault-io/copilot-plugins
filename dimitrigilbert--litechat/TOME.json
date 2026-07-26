@@ -2,9 +2,9 @@
   "name": "LiteChat",
   "owner": "DimitriGilbert",
   "repo": "LiteChat",
-  "description": "A modern, local first AI chat app for your browser. ",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DimitriGilbert/LiteChat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T06:45:32Z"
+  "distributed_at": "2026-07-26T22:10:32Z"
 }
