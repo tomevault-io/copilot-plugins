@@ -1,0 +1,9 @@
+{
+  "name": "grafana--k8s-monitoring-helm",
+  "displayName": "k8s-monitoring-helm",
+  "description": "k8s-monitoring-helm",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/k8s-monitoring-helm",
+  "skills": []
+}
