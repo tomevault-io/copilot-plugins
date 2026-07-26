@@ -1,0 +1,9 @@
+{
+  "name": "cookiecutter--cookiecutter-django",
+  "displayName": "cookiecutter-django",
+  "description": "cookiecutter-django",
+  "version": "1.0.0",
+  "author": "cookiecutter",
+  "homepage": "https://github.com/cookiecutter/cookiecutter-django",
+  "skills": []
+}
