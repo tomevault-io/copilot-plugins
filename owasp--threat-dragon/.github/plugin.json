@@ -1,0 +1,9 @@
+{
+  "name": "owasp--threat-dragon",
+  "displayName": "threat-dragon",
+  "description": "threat-dragon",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/threat-dragon",
+  "skills": []
+}
