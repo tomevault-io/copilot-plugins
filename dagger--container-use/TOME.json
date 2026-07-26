@@ -2,9 +2,9 @@
   "name": "container-use",
   "owner": "dagger",
   "repo": "container-use",
-  "description": "Development environments for coding agents. Enable multiple agents to work safely and independently with your preferred stack.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dagger/container-use",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T19:01:46Z"
+  "distributed_at": "2026-07-26T16:45:41Z"
 }
