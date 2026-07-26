@@ -1,0 +1,38 @@
+{
+  "name": "cuckoo-network--cuckoo",
+  "displayName": "cuckoo",
+  "description": "cuckoo",
+  "version": "1.0.0",
+  "author": "cuckoo-network",
+  "homepage": "https://github.com/cuckoo-network/cuckoo",
+  "skills": [
+    {
+      "name": "cuckoo",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "description": ""
+    },
+    {
+      "name": "cuckoo",
+      "description": ""
+    }
+  ]
+}
