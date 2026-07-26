@@ -1,0 +1,14 @@
+{
+  "name": "textadventures--quest",
+  "displayName": "quest",
+  "description": "quest",
+  "version": "1.0.0",
+  "author": "textadventures",
+  "homepage": "https://github.com/textadventures/quest",
+  "skills": [
+    {
+      "name": "quest",
+      "description": ""
+    }
+  ]
+}
