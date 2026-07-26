@@ -1,0 +1,93 @@
+{
+  "name": "stark-bot",
+  "owner": "ethereumdegen",
+  "repo": "stark-bot",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stark-bot",
+      "path": "skills/swap/SKILL.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/skills/swap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stark-bot",
+      "path": "modules/gog_cli/skill.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/modules/gog_cli/skill.md",
+      "description": ""
+    },
+    {
+      "name": "stark-bot",
+      "path": "modules/kv_store/skill.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/modules/kv_store/skill.md",
+      "description": ""
+    },
+    {
+      "name": "stark-bot",
+      "path": "skills/uniswap_lp/SKILL.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/skills/uniswap_lp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "stark-bot",
+      "path": "modules/railway_cli/skill.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/modules/railway_cli/skill.md",
+      "description": ""
+    },
+    {
+      "name": "stark-bot",
+      "path": "modules/spot_trader/skill.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/modules/spot_trader/skill.md",
+      "description": ""
+    },
+    {
+      "name": "stark-bot",
+      "path": "modules/supabase_cli/skill.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/modules/supabase_cli/skill.md",
+      "description": ""
+    },
+    {
+      "name": "stark-bot",
+      "path": "modules/wallet_monitor/skill.md",
+      "github_url": "https://github.com/ethereumdegen/stark-bot/tree/main/modules/wallet_monitor/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ethereumdegen/stark-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:37:53Z"
+}
