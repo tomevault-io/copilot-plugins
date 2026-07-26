@@ -1,0 +1,14 @@
+{
+  "name": "rdk--p2rank",
+  "displayName": "p2rank",
+  "description": "p2rank",
+  "version": "1.0.0",
+  "author": "rdk",
+  "homepage": "https://github.com/rdk/p2rank",
+  "skills": [
+    {
+      "name": "p2rank",
+      "description": ""
+    }
+  ]
+}
