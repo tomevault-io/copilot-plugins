@@ -1,0 +1,9 @@
+{
+  "name": "algolia--algoliasearch-client-go",
+  "displayName": "algoliasearch-client-go",
+  "description": "algoliasearch-client-go",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/algoliasearch-client-go",
+  "skills": []
+}
