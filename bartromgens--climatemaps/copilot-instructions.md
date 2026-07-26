@@ -1,0 +1,30 @@
+## climatemaps
+
+> General
+
+
+## Development servers
+
+- The FastAPI dev backend is available at localhost:8000
+- The Angular development server is already running and available at localhost:4200 (don't start it!)
+
+## Documentation
+
+- Do not add docstrings on new code or create README.md documentation unless the code is complex.
+
+## End of Session
+
+- Review changes and remove duplicate code.
+- Extract functions and classes to improve readability and encapsulate logic.
+- Keep your summary of changes concise
+- Suggest a short commit message at the end. Start with a capital letter.
+
+## Formatting
+
+- Formatting: Use Black for Python and Prettier for frontend.
+- Linting: Use Flake8 for style and lint checks.
+- Type hints: Add type hints.
+
+---
+> Source: [bartromgens/climatemaps](https://github.com/bartromgens/climatemaps) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
