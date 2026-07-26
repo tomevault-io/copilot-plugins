@@ -84,7 +84,7 @@ If you **add an embedding provider**:
 1. Implement `EmbeddingProvider` interface in `embeddings.ts`
 2. Add to `EmbeddingProviderType` union + `createEmbeddingProvider()` factory
 3. Add config fields in `config.ts`
-4. Update auto-detection fallback chain (order matters: OpenAI → Local → Ollama → yours)
+4. Update auto-detection fallback chain (current order: OpenAI → Azure OpenAI → Local → error; Ollama is explicit-only)
 
 If you **change sync behavior**:
 1. All in `src/lib/sync.ts` (GitAdapter)
@@ -136,4 +136,4 @@ These are separate integration surfaces. Changing core code doesn't require upda
 
 ---
 > Source: [iamtouchskyer/memex](https://github.com/iamtouchskyer/memex) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
