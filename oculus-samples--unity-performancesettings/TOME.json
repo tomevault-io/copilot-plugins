@@ -4,7 +4,7 @@
   "repo": "Unity-PerformanceSettings",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oculus-samples/Unity-PerformanceSettings",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T09:04:52Z"
+  "distributed_at": "2026-07-26T22:24:28Z"
 }
