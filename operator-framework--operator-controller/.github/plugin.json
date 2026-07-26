@@ -1,0 +1,9 @@
+{
+  "name": "operator-framework--operator-controller",
+  "displayName": "operator-controller",
+  "description": "operator-controller",
+  "version": "1.0.0",
+  "author": "operator-framework",
+  "homepage": "https://github.com/operator-framework/operator-controller",
+  "skills": []
+}
