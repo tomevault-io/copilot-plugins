@@ -1,0 +1,22 @@
+{
+  "name": "runwhen-contrib--runwhen-local",
+  "displayName": "runwhen-local",
+  "description": "runwhen-local",
+  "version": "1.0.0",
+  "author": "runwhen-contrib",
+  "homepage": "https://github.com/runwhen-contrib/runwhen-local",
+  "skills": [
+    {
+      "name": "runwhen-local",
+      "description": ""
+    },
+    {
+      "name": "runwhen-local",
+      "description": ""
+    },
+    {
+      "name": "runwhen-local",
+      "description": ""
+    }
+  ]
+}
