@@ -1,0 +1,14 @@
+{
+  "name": "callstackincubator--react-native-harness",
+  "displayName": "react-native-harness",
+  "description": "react-native-harness",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/react-native-harness",
+  "skills": [
+    {
+      "name": "react-native-harness",
+      "description": ""
+    }
+  ]
+}
