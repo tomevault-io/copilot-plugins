@@ -1,0 +1,111 @@
+{
+  "name": "AAuth",
+  "owner": "AuroraWebSoftware",
+  "repo": "AAuth",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/aauth/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/aauth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-onboard/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-onboard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-ff-change/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-ff-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-new-change/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-new-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-verify-change/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-verify-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AAuth",
+      "path": ".claude/skills/openspec-bulk-archive-change/SKILL.md",
+      "github_url": "https://github.com/AuroraWebSoftware/AAuth/tree/main/.claude/skills/openspec-bulk-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AuroraWebSoftware/AAuth",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T11:38:34Z"
+}
