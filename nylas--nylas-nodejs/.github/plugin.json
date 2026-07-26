@@ -1,0 +1,14 @@
+{
+  "name": "nylas--nylas-nodejs",
+  "displayName": "nylas-nodejs",
+  "description": "nylas-nodejs",
+  "version": "1.0.0",
+  "author": "nylas",
+  "homepage": "https://github.com/nylas/nylas-nodejs",
+  "skills": [
+    {
+      "name": "nylas-nodejs",
+      "description": ""
+    }
+  ]
+}
