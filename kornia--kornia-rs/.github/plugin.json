@@ -1,0 +1,14 @@
+{
+  "name": "kornia--kornia-rs",
+  "displayName": "kornia-rs",
+  "description": "kornia-rs",
+  "version": "1.0.0",
+  "author": "kornia",
+  "homepage": "https://github.com/kornia/kornia-rs",
+  "skills": [
+    {
+      "name": "kornia-rs",
+      "description": ""
+    }
+  ]
+}
