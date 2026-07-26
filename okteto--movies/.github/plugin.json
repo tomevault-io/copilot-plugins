@@ -1,0 +1,9 @@
+{
+  "name": "okteto--movies",
+  "displayName": "movies",
+  "description": "movies",
+  "version": "1.0.0",
+  "author": "okteto",
+  "homepage": "https://github.com/okteto/movies",
+  "skills": []
+}
