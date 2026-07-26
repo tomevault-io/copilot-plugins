@@ -1,0 +1,165 @@
+{
+  "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+  "owner": "johnsonhk88",
+  "repo": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "backend/app/skills/pii-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/backend/app/skills/pii-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "backend/app/skills/rag-query-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/backend/app/skills/rag-query-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "backend/app/skills/financial-analysis/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/backend/app/skills/financial-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "backend/app/skills/bank-statement-parsing/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/backend/app/skills/bank-statement-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "backend/app/skills/output-format/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/backend/app/skills/output-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/hermes/skills/pii-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/hermes/skills/pii-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/crewai/skills/pii-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/crewai/skills/pii-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/hermes/skills/output-format/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/hermes/skills/output-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/crewai/skills/output-format/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/crewai/skills/output-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/deep-agents/skills/pii-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/deep-agents/skills/pii-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/hermes/skills/financial-analysis/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/hermes/skills/financial-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/crewai/skills/financial-analysis/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/crewai/skills/financial-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/hermes/skills/rag-query-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/hermes/skills/rag-query-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/crewai/skills/rag-query-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/crewai/skills/rag-query-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/deep-agents/skills/output-format/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/deep-agents/skills/output-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/hermes/skills/bank-statement-parsing/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/hermes/skills/bank-statement-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/crewai/skills/bank-statement-parsing/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/crewai/skills/bank-statement-parsing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/deep-agents/skills/financial-analysis/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/deep-agents/skills/financial-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/deep-agents/skills/rag-query-handling/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/deep-agents/skills/rag-query-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+      "path": "agents/deep-agents/skills/bank-statement-parsing/SKILL.md",
+      "github_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction/tree/main/agents/deep-agents/skills/bank-statement-parsing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/johnsonhk88/AI-Bank-Statement-Document-Automation-By-LLM-And-Personal-Finanical-Analysis-Prediction",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:46:12Z"
+}
