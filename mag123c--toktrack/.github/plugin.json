@@ -1,7 +1,7 @@
 {
   "name": "mag123c--toktrack",
   "displayName": "toktrack",
-  "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)",
+  "description": "toktrack",
   "version": "1.0.0",
   "author": "mag123c",
   "homepage": "https://github.com/mag123c/toktrack",
@@ -20,6 +20,30 @@
     },
     {
       "name": "wrap",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
       "description": ""
     }
   ]
