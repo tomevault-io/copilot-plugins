@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "hoangnb24",
   "homepage": "https://github.com/hoangnb24/harness-experimental",
-  "skills": []
+  "skills": [
+    {
+      "name": "harness-experimental",
+      "description": ""
+    },
+    {
+      "name": "harness-experimental",
+      "description": ""
+    }
+  ]
 }
