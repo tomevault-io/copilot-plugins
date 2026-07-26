@@ -2,9 +2,9 @@
   "name": "laravel-ai-translator",
   "owner": "kargnas",
   "repo": "laravel-ai-translator",
-  "description": "High quality automatic translate your language files into many languages using AI like Claude, GPT and etc.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kargnas/laravel-ai-translator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T22:09:43Z"
+  "distributed_at": "2026-07-26T23:52:41Z"
 }
