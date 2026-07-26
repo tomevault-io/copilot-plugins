@@ -1,0 +1,14 @@
+{
+  "name": "infection--infection",
+  "displayName": "infection",
+  "description": "infection",
+  "version": "1.0.0",
+  "author": "infection",
+  "homepage": "https://github.com/infection/infection",
+  "skills": [
+    {
+      "name": "infection",
+      "description": ""
+    }
+  ]
+}
