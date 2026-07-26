@@ -1,0 +1,14 @@
+{
+  "name": "zauberzeug--lizard",
+  "displayName": "lizard",
+  "description": "lizard",
+  "version": "1.0.0",
+  "author": "zauberzeug",
+  "homepage": "https://github.com/zauberzeug/lizard",
+  "skills": [
+    {
+      "name": "lizard",
+      "description": ""
+    }
+  ]
+}
