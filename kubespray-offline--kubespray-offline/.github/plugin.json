@@ -1,0 +1,9 @@
+{
+  "name": "kubespray-offline--kubespray-offline",
+  "displayName": "kubespray-offline",
+  "description": "kubespray-offline",
+  "version": "1.0.0",
+  "author": "kubespray-offline",
+  "homepage": "https://github.com/kubespray-offline/kubespray-offline",
+  "skills": []
+}
