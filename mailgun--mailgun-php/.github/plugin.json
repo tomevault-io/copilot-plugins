@@ -1,0 +1,9 @@
+{
+  "name": "mailgun--mailgun-php",
+  "displayName": "mailgun-php",
+  "description": "mailgun-php",
+  "version": "1.0.0",
+  "author": "mailgun",
+  "homepage": "https://github.com/mailgun/mailgun-php",
+  "skills": []
+}
