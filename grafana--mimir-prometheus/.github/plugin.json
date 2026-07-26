@@ -1,0 +1,9 @@
+{
+  "name": "grafana--mimir-prometheus",
+  "displayName": "mimir-prometheus",
+  "description": "mimir-prometheus",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/mimir-prometheus",
+  "skills": []
+}
