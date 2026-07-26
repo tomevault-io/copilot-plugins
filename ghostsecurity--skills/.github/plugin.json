@@ -1,0 +1,66 @@
+{
+  "name": "ghostsecurity--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "ghostsecurity",
+  "homepage": "https://github.com/ghostsecurity/skills",
+  "skills": [
+    {
+      "name": "proxy",
+      "description": ""
+    },
+    {
+      "name": "repo-context",
+      "description": ""
+    },
+    {
+      "name": "report",
+      "description": ""
+    },
+    {
+      "name": "scan-code",
+      "description": ""
+    },
+    {
+      "name": "scan-deps",
+      "description": ""
+    },
+    {
+      "name": "scan-secrets",
+      "description": ""
+    },
+    {
+      "name": "validate",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
