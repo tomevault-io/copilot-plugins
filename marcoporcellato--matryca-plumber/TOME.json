@@ -3,8 +3,8 @@
   "owner": "MarcoPorcellato",
   "repo": "matryca-plumber",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,69 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-env/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-github/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-github/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-release/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-logseq-io/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-logseq-io/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-changelog/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-spatial-parser/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-spatial-parser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-logseq-paradigm/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-logseq-paradigm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-python-standards/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-python-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-prompt-maintainer/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-prompt-maintainer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "matryca-plumber",
+      "path": ".agents/skills/matryca-clean-architecture/SKILL.md",
+      "github_url": "https://github.com/MarcoPorcellato/matryca-plumber/tree/main/.agents/skills/matryca-clean-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/MarcoPorcellato/matryca-plumber",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T17:14:58Z"
+  "distributed_at": "2026-07-26T12:01:31Z"
 }
