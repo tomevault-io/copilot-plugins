@@ -1,0 +1,93 @@
+{
+  "name": "snyk-ls",
+  "owner": "snyk",
+  "repo": "snyk-ls",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "snyk-ls",
+      "path": ".cursor/skills/commit/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.cursor/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snyk-ls",
+      "path": ".windsurf/skills/commit/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.windsurf/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snyk-ls",
+      "path": ".cursor/skills/verification/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.cursor/skills/verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snyk-ls",
+      "path": ".windsurf/skills/verification/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.windsurf/skills/verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snyk-ls",
+      "path": ".cursor/skills/implementation/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.cursor/skills/implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snyk-ls",
+      "path": ".windsurf/skills/implementation/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.windsurf/skills/implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snyk-ls",
+      "path": ".cursor/skills/create-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.cursor/skills/create-implementation-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "snyk-ls",
+      "path": ".windsurf/skills/create-implementation-plan/SKILL.md",
+      "github_url": "https://github.com/snyk/snyk-ls/tree/main/.windsurf/skills/create-implementation-plan/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/snyk/snyk-ls",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:46:53Z"
+}
