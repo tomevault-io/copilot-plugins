@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "trekawek",
   "homepage": "https://github.com/trekawek/coffee-gb",
-  "skills": []
+  "skills": [
+    {
+      "name": "coffee-gb",
+      "description": ""
+    },
+    {
+      "name": "coffee-gb",
+      "description": ""
+    },
+    {
+      "name": "coffee-gb",
+      "description": ""
+    }
+  ]
 }
