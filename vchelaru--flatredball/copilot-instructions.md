@@ -1,20 +1,17 @@
 ## flatredball
 
-> This directory contains the FlatRedBall (FRB) Editor, also known as "Glue". It is a large, long-lived project that has grown organically over many years, so code organization is often inconsistent or outdated.
+> - When acting as orchestrator spawning subagents for repo work, always run them with `isolation: "worktree"` (Agent tool) so the user can keep working in the main worktree without interference.
 
-# FlatRedBall Editor (Glue) — Claude Context
+# Orchestration preferences
 
-This directory contains the FlatRedBall (FRB) Editor, also known as "Glue". It is a large, long-lived project that has grown organically over many years, so code organization is often inconsistent or outdated.
-
-## Refactoring Approach
-
-See [REFACTORING.md](REFACTORING.md) for the full refactoring philosophy, checklist, and progress notes.
-
-Key principles:
-- Preserve existing functionality — do not break things while improving them
-- Verify changes with unit tests
-- When starting a new feature, do an incremental refactor pass first to move the affected code in the right direction before adding new behavior
+- When acting as orchestrator spawning subagents for repo work, always run them with `isolation: "worktree"` (Agent tool) so the user can keep working in the main worktree without interference.
+- The user does not review PRs. The orchestrator judges each PR itself (green build, green tests, real/meaningful assertions — not just "didn't throw") and merges it directly, then keeps moving to the next task without stopping to ask. Only pause and ask if a PR's own tests aren't green, if its assertions look hollow/fake, or if something outside normal scope needs a judgment call only the user can make (e.g. an architectural fork, a destructive action, a live-desktop incident).
+- Do not create new GitHub issues for follow-up/deferred work. Add a comment to the existing tracking issue instead.
+- PR descriptions must NOT use closing keywords ("Closes #N", "Fixes #N") against the tracking issue — merging a PR should not auto-close it. Reference the issue plainly (e.g. "Part of #N") instead. Only close the tracking issue manually once its full scope is done.
+- After a PR lands, kick off the next agent for the next task automatically — don't stop and wait to be asked.
+- Every subagent's final report must include what it got stuck on / what took the most time or retries, even if it ultimately succeeded — this feeds back into improving skills and process, not just task completion.
+- Before every `isolation: "worktree"` Agent launch, `git fetch origin NetStandard` and fast-forward the primary checkout to it first — do this every time, not just after the previous PR's merge was confirmed earlier in the conversation. A worktree branches off local HEAD; a stale local branch means the agent inherits a merge conflict mid-task instead of starting clean (burned ~27 minutes on PR #1900 when this step was skipped).
 
 ---
 > Source: [vchelaru/FlatRedBall](https://github.com/vchelaru/FlatRedBall) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
