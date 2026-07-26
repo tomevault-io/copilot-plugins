@@ -1,0 +1,9 @@
+{
+  "name": "dapr--python-sdk",
+  "displayName": "python-sdk",
+  "description": "python-sdk",
+  "version": "1.0.0",
+  "author": "dapr",
+  "homepage": "https://github.com/dapr/python-sdk",
+  "skills": []
+}
