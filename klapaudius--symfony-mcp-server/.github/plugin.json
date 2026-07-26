@@ -1,7 +1,7 @@
 {
   "name": "klapaudius--symfony-mcp-server",
   "displayName": "symfony-mcp-server",
-  "description": "A Symfony package designed for building secure servers based on the Model Context Protocol, utilizing Server-Sent Events (SSE) and/or StreamableHTTP for real-time communication. It offers a scalable t",
+  "description": "symfony-mcp-server",
   "version": "1.0.0",
   "author": "klapaudius",
   "homepage": "https://github.com/klapaudius/symfony-mcp-server",
