@@ -1,0 +1,9 @@
+{
+  "name": "caddyserver--caddy",
+  "displayName": "caddy",
+  "description": "caddy",
+  "version": "1.0.0",
+  "author": "caddyserver",
+  "homepage": "https://github.com/caddyserver/caddy",
+  "skills": []
+}
