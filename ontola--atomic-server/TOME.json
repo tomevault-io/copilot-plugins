@@ -1,0 +1,63 @@
+{
+  "name": "atomic-server",
+  "owner": "ontola",
+  "repo": "atomic-server",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atomic-server",
+      "path": "browser/data-browser/src/chunks/AI/skills/tables/SKILL.md",
+      "github_url": "https://github.com/ontola/atomic-server/tree/main/browser/data-browser/src/chunks/AI/skills/tables/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-server",
+      "path": "browser/data-browser/src/chunks/AI/skills/ontologies/SKILL.md",
+      "github_url": "https://github.com/ontola/atomic-server/tree/main/browser/data-browser/src/chunks/AI/skills/ontologies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "atomic-server",
+      "path": "browser/data-browser/src/chunks/AI/skills/skill-creation/SKILL.md",
+      "github_url": "https://github.com/ontola/atomic-server/tree/main/browser/data-browser/src/chunks/AI/skills/skill-creation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ontola/atomic-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T11:48:54Z"
+}
