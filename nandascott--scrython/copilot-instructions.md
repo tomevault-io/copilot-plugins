@@ -1,0 +1,129 @@
+## scrython
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Scrython is a Python wrapper for the Scryfall API (Magic: The Gathering card database). It provides a clean, Pythonic interface for querying cards, sets, and bulk data from Scryfall's REST API.
+
+## Development Commands
+
+### Testing
+```bash
+python test.py                  # Run the manual test script
+pytest                          # Run pytest tests (if test suite exists)
+```
+
+### Installation
+```bash
+pip install -e .                # Install in development mode
+python setup.py install         # Install package
+```
+
+## Architecture
+
+### Core Design Pattern: Request Handler + Mixins
+
+The library uses a **base request handler** (`ScrythonRequestHandler`) combined with **mixins** to compose API endpoint classes. This pattern allows different endpoints to share common functionality while maintaining specific behaviors.
+
+**Key components:**
+
+1. **`scrython/base.py`**: Contains `ScrythonRequestHandler` - the base class that handles all HTTP requests to Scryfall API
+   - `_build_path()`: Resolves endpoint path parameters (e.g., `:id`, `:code`)
+   - `_build_params()`: Constructs query parameters
+   - `_fetch()`: Executes HTTP request and handles errors via `ScryfallError`
+   - Path parameters use `:param_name` syntax; optional params end with `?` (e.g., `:lang?`)
+
+2. **Mixins** (in `base_mixins.py` and module-specific `*_mixins.py` files):
+   - `ScryfallListMixin`: For endpoints returning lists (search results, collections)
+   - `ScryfallCatalogMixin`: For endpoints returning catalogs
+   - `CoreFieldsMixin`, `GameplayFieldsMixin`, `PrintFieldsMixin`: Card-specific data accessors
+   - Mixins provide `@property` accessors to `scryfall_data` dictionary
+
+3. **Factory Classes (routing endpoints)**: `Catalogs`, `Migrations`, `Rulings`, `Symbology`
+   - Use `__new__()` to dynamically instantiate the correct endpoint class based on kwargs
+   - Example: `scrython.catalogs.Catalogs(catalog_type="creature-types")` routes to the matching catalog class
+   - **`cards`, `sets`, and `bulk_data` have no factory** — callers use the endpoint classes directly: `scrython.cards.Named(fuzzy=...)`, `scrython.sets.ByCode(code=...)`, `scrython.bulk_data.ByType(type=...)`
+
+### Module Structure
+
+```
+scrython/
+├── base.py              # ScrythonRequestHandler, ScryfallError
+├── base_mixins.py       # ScryfallListMixin, ScryfallCatalogMixin
+├── rate_limiter.py      # RateLimiter, SlowRateLimiter (per-endpoint tiering)
+├── cache.py             # Request caching with TTL
+├── utils.py             # Utility functions (e.g., to_object_array)
+├── cards/
+│   ├── cards.py         # Card endpoint classes (Named, Search, ById, …); no factory
+│   └── cards_mixins.py  # Card data accessors (CoreFieldsMixin, etc.)
+├── sets/
+│   ├── sets.py          # Set endpoint classes (All, ByCode, ById, …); no factory
+│   └── sets_mixins.py   # Set data accessors
+└── bulk_data/
+    ├── bulk_data.py     # Bulk data endpoint classes (All, ById, ByType); no factory
+    └── bulk_data_mixins.py  # Bulk data accessors
+```
+
+### How Requests Work
+
+1. User instantiates an endpoint class directly: `card = scrython.cards.Named(fuzzy="Black Lotus")`. (For `catalogs`/`migrations`/`rulings`/`symbology`, a factory class routes via `__new__` to the right endpoint first.)
+2. Class inherits from `ScrythonRequestHandler` + relevant mixins
+3. `ScrythonRequestHandler.__init__()` runs:
+   - `_build_path()` resolves endpoint template (e.g., `/cards/named`)
+   - `_build_params()` adds query params (e.g., `?fuzzy=Black+Lotus`)
+   - `_fetch()` makes HTTP request, parses JSON into `scryfall_data`
+4. Mixin properties provide data access: `card.name` → `scryfall_data['name']`
+
+### Error Handling
+
+- All Scryfall API errors are wrapped in `ScryfallError` (from `scrython/base.py`)
+- `ScryfallError` exposes: `status`, `code`, `details`, `type`, `warnings`
+- HTTP errors that aren't from Scryfall raise generic `Exception`
+
+## Code Style
+
+From Contributing.md:
+- No single character variables (except `f` for files, `i` for iterations)
+- Complex code (regex, etc.) needs explanatory comments
+- Weird/unexpected code needs comments explaining **why** (not just what)
+- 4 spaces for indentation (no tabs)
+- Avoid useless comments
+
+## Important Notes
+
+- **Built-in rate limiting**: Automatic per-endpoint rate limiting (10/s default, 2/s for search/named/random/collection). See `scrython/rate_limiter.py`. Users can override with `rate_limit_per_second` kwarg or disable with `rate_limit=False`.
+- **No backwards compatibility**: Breaking changes expected as Scryfall API evolves
+- **Python 3.10+ required**: Uses `X | Y` union syntax and `type[X]` annotations throughout
+- **Dependencies**: urllib (standard library), no external HTTP dependencies
+- **Branches**: `main` is stable/PyPI, `develop` is staging
+
+## Adding New Endpoints
+
+1. Add endpoint class in appropriate module (e.g., `scrython/cards/cards.py`)
+2. Set `_endpoint` class variable with path template (use `:param` for path params)
+3. Inherit from `ScrythonRequestHandler` + appropriate mixins
+4. If the module has a factory class (`catalogs`/`migrations`/`rulings`/`symbology`), update its `__new__()` to route to your endpoint; `cards`/`sets`/`bulk_data` have no factory to update
+5. Add new properties to mixin files if Scryfall returns new fields
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues at `NandaScott/Scrython` via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical roles: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+---
+> Source: [NandaScott/Scrython](https://github.com/NandaScott/Scrython) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
