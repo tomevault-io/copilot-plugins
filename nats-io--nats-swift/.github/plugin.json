@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nats-swift",
+  "displayName": "nats.swift",
+  "description": "nats.swift",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nats.swift",
+  "skills": []
+}
