@@ -1,0 +1,9 @@
+{
+  "name": "hummingbot--gateway",
+  "displayName": "gateway",
+  "description": "gateway",
+  "version": "1.0.0",
+  "author": "hummingbot",
+  "homepage": "https://github.com/hummingbot/gateway",
+  "skills": []
+}
