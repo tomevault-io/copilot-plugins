@@ -1,0 +1,30 @@
+{
+  "name": "snowflake-labs--sf-samples",
+  "displayName": "sf-samples",
+  "description": "sf-samples",
+  "version": "1.0.0",
+  "author": "Snowflake-Labs",
+  "homepage": "https://github.com/Snowflake-Labs/sf-samples",
+  "skills": [
+    {
+      "name": "sf-samples",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "description": ""
+    },
+    {
+      "name": "sf-samples",
+      "description": ""
+    }
+  ]
+}
