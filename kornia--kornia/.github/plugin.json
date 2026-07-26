@@ -1,0 +1,14 @@
+{
+  "name": "kornia--kornia",
+  "displayName": "kornia",
+  "description": "kornia",
+  "version": "1.0.0",
+  "author": "kornia",
+  "homepage": "https://github.com/kornia/kornia",
+  "skills": [
+    {
+      "name": "kornia",
+      "description": ""
+    }
+  ]
+}
