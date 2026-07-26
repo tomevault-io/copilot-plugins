@@ -1,0 +1,51 @@
+{
+  "name": "PaperClaw",
+  "owner": "1692775560",
+  "repo": "PaperClaw",
+  "description": "",
+  "type": "tome",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PaperClaw",
+      "path": ".claude/skills/researchclaw/SKILL.md",
+      "github_url": "https://github.com/1692775560/PaperClaw/tree/main/.claude/skills/researchclaw/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/1692775560/PaperClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:52:06Z"
+}
