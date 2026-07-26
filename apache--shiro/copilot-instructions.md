@@ -1,0 +1,25 @@
+## shiro
+
+> This file is read by automated agents (security scanners, code
+
+# Agent guidance
+
+This file is read by automated agents (security scanners, code
+analyzers, AI assistants) operating on this repository. It
+points them at the human-authored references they should
+consult before producing output.
+
+## Security
+
+Security model: [SECURITY.md](./SECURITY.md), which links to
+the canonical model document at
+<https://shiro.apache.org/security-model.html>.
+
+Agents that scan this repository should consult the linked
+security model for the project's threat model, in-scope /
+out-of-scope declarations, and known non-findings before
+reporting issues.
+
+---
+> Source: [apache/shiro](https://github.com/apache/shiro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
