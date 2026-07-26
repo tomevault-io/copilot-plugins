@@ -1,0 +1,177 @@
+{
+  "name": "devtools-frontend",
+  "owner": "ChromeDevTools",
+  "repo": "devtools-frontend",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/ui-widgets/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/ui-widgets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/verification/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/version-control/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/version-control/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/devtools-imports/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/devtools-imports/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/creating-a-model/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/creating-a-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/merging-devtools-module/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/merging-devtools-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/foundation-test-migration/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/foundation-test-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/devtools-source-maps/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/devtools-source-maps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/fixing-skipped-tests/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/fixing-skipped-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/migrate-chromium-test/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/migrate-chromium-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/ui-eng-vision-orchestrator/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/ui-eng-vision-orchestrator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/ui-eng-vision-test-scaffolder/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/ui-eng-vision-test-scaffolder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/ui-eng-vision-widget-promoter/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/ui-eng-vision-widget-promoter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/ui-eng-vision-logic-consolidator/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/ui-eng-vision-logic-consolidator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/ui-eng-vision-local-lit-renderer/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/ui-eng-vision-local-lit-renderer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/repro-flaky-tests/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/repro-flaky-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/devtools-ux-writing-refactor/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/devtools-ux-writing-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/devtools-verification/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/devtools-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/devtools-unicode-escaping/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/devtools-unicode-escaping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/devtools-model-management/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/devtools-model-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/evaluate-ai-css-completion/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/evaluate-ai-css-completion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "devtools-frontend",
+      "path": ".agents/skills/devtools-testing-guidance/SKILL.md",
+      "github_url": "https://github.com/ChromeDevTools/devtools-frontend/tree/main/.agents/skills/devtools-testing-guidance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ChromeDevTools/devtools-frontend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:42:40Z"
+}
