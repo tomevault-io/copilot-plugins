@@ -1,0 +1,225 @@
+{
+  "name": "VibeAround",
+  "owner": "jazzenchen",
+  "repo": "VibeAround",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "VibeAround",
+      "path": "src/skills/va-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/va-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/vibearound/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/vibearound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/va-session/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/va-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/va-md-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/va-md-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/kiro/va-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/kiro/va-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/kiro/vibearound/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/kiro/vibearound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/kiro/va-session/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/kiro/va-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/codex/va-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/codex/va-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/codex/vibearound/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/codex/vibearound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/codex/va-session/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/codex/va-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/cursor/va-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/cursor/va-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/claude/va-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/claude/va-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/gemini/va-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/gemini/va-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/cursor/vibearound/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/cursor/vibearound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/claude/vibearound/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/claude/vibearound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/gemini/vibearound/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/gemini/vibearound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/claude/va-session/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/claude/va-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/gemini/va-session/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/gemini/va-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/cursor/va-session/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/cursor/va-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/kiro/va-md-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/kiro/va-md-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/codex/va-md-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/codex/va-md-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/qwen-code/va-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/qwen-code/va-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/qwen-code/vibearound/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/qwen-code/vibearound/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/cursor/va-md-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/cursor/va-md-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/claude/va-md-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/claude/va-md-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/gemini/va-md-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/gemini/va-md-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/qwen-code/va-session/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/qwen-code/va-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/qwen-code/va-md-preview/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/qwen-code/va-md-preview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/codex/agent-collaboration/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/codex/agent-collaboration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "VibeAround",
+      "path": "src/skills/claude/agent-collaboration/SKILL.md",
+      "github_url": "https://github.com/jazzenchen/VibeAround/tree/main/src/skills/claude/agent-collaboration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jazzenchen/VibeAround",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:45:46Z"
+}
