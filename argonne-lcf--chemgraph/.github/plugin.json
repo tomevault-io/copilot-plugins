@@ -1,0 +1,14 @@
+{
+  "name": "argonne-lcf--chemgraph",
+  "displayName": "ChemGraph",
+  "description": "ChemGraph",
+  "version": "1.0.0",
+  "author": "argonne-lcf",
+  "homepage": "https://github.com/argonne-lcf/ChemGraph",
+  "skills": [
+    {
+      "name": "ChemGraph",
+      "description": ""
+    }
+  ]
+}
