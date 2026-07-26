@@ -39,4 +39,4 @@ This is a packge for Symfony which makes easier to build a Model Context Protoco
 
 ---
 > Source: [klapaudius/symfony-mcp-server](https://github.com/klapaudius/symfony-mcp-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
