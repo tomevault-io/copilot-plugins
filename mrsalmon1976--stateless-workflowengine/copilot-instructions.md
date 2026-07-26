@@ -1,95 +1,70 @@
 ## stateless-workflowengine
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Stateless.WorkflowEngine is a .NET workflow engine built on top of the [stateless](https://github.com/nblumhardt/stateless) State Machine. It provides a wrapper for managing state transitions with additional workflow features like retry logic, exception handling, and persistence.
 
-# CLAUDE.md
+# Stateless.WorkflowEngine
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Stateless.WorkflowEngine is a .NET workflow engine built on top of the [stateless](https://github.com/nblumhardt/stateless) State Machine. It provides a wrapper for managing state transitions with additional workflow features like retry logic, exception handling, and persistence.
 
 ## Project Overview
 
-Stateless.WorkflowEngine is a .NET workflow engine built as a wrapper around the [Stateless](https://github.com/nblumhardt/stateless) state machine library. It adds persistence, retry mechanisms, exception handling, and workflow suspension on top of Stateless. Current version: 4.1.1.
+- **Core Engine:** Located in `source/Stateless.WorkflowEngine`.
+- **Persistence:** Supports multiple stores:
+    - **MemoryStore:** In-memory persistence (good for testing).
+    - **MongoDbStore:** Persistence using MongoDB (implemented in `source/Stateless.WorkflowEngine.MongoDb`).
+    - **RavenDbStore:** Persistence using RavenDB (implemented in `source/Stateless.WorkflowEngine.RavenDb`).
+- **Web Console:** A self-hosted monitoring interface using Nancy, located in `source/Stateless.WorkflowEngine.WebConsole`.
+- **Example App:** A sample application demonstrating usage is in `source/Example`.
 
-## Build Commands
+## Architecture & Key Components
 
-```bash
-# Build the solution
-msbuild source/Stateless.WorkflowEngine.sln
+- **Workflow:** The base class for defining workflows. Workflows are configured in the `Initialise` override.
+- **WorkflowServer:** Processes workflows. Typically runs as a singleton in a background service (e.g., using Topshelf).
+- **WorkflowClient:** Used to register workflows for processing by the `WorkflowServer`.
+- **WorkflowStore:** Interface for persistence implementations (`IWorkflowStore`).
 
-# Build via deployment script (finds MSBuild automatically, packages releases)
-powershell -File deployment/build.ps1
+## Building and Running
 
-# Publish NuGet packages
-powershell -File deployment/publish.ps1
+### Prerequisites
+- .NET SDK / Visual Studio
+- MSBuild (for build scripts)
+- PowerShell (for deployment scripts)
+
+### Build Commands
+The project uses MSBuild. You can build the solution from the `source` directory:
+```powershell
+msbuild Stateless.WorkflowEngine.sln
 ```
 
-## Testing
-
-- **Framework**: NUnit 4.1.0 with NSubstitute 5.1.0 for mocking
-- **Test projects** target .NET Framework 4.8 and use `packages.config` (not SDK-style)
-
-```bash
-# Run all tests (from solution root)
-dotnet test source/Stateless.WorkflowEngine.sln
-
-# Run a specific test project
-dotnet test source/Test.Stateless.WorkflowEngine/Test.Stateless.WorkflowEngine.csproj
+Alternatively, use the provided build script in the `deployment` folder:
+```powershell
+.\deployment\build.ps1
 ```
 
-Test projects:
-- `Test.Stateless.WorkflowEngine` — core engine tests
-- `Test.Stateless.WorkflowEngine.MongoDb` — MongoDB store tests
-- `Test.Stateless.WorkflowEngine.RavenDb` — RavenDB store tests
-- `Test.Stateless.WorkflowEngine.WebConsole` — web console tests
+### Running the Web Console
+The Web Console is a Topshelf-hosted service. You can run it as a console application for development:
+```powershell
+cd source\Stateless.WorkflowEngine.WebConsole\bin\Debug
+.\Stateless.WorkflowEngine.WebConsole.exe
+```
 
-## Architecture
+### Testing
+Tests are written using NUnit and can be found in the `source/Test.*` projects. You can run them using the NUnit test runner or through Visual Studio.
 
-### Core Components
+## Development Conventions
 
-- **`Workflow`** (`Stateless.WorkflowEngine/Workflow.cs`) — abstract base class. Custom workflows override `Initialise(initialState)` to configure Stateless states/triggers. Custom properties are serialized and persist across executions.
-- **`WorkflowServer`** — processes queued workflows. Fetches by Priority DESC, then CreatedOn ASC. Supports concurrent execution via `maxConcurrent` parameter. Should be a singleton.
-- **`WorkflowClient`** — registers workflows for processing by the server.
-- **`IWorkflowStore`** — persistence abstraction. Two collections: `Workflows` (active) and `CompletedWorkflows` (archived).
-- **`IWorkflowAction`** — interface for actions executed at each workflow step.
+- **Dependency Injection:** Most classes implement interfaces (`IWorkflowServer`, `IWorkflowClient`, etc.). A custom `IWorkflowEngineDependencyResolver` can be used to integrate with your preferred DI container.
+- **Workflow Configuration:** All state machine configuration should be done in the `Initialise` method of your custom `Workflow` class.
+- **Persistence Models:** Active workflows are stored in a `Workflows` collection, and completed ones are moved to `CompletedWorkflows`.
+- **Events:** The `WorkflowServer` and `Workflow` classes expose several events/overrides for lifecycle hooks (e.g., `WorkflowSuspended`, `OnActionExecuting`, `OnError`).
 
-### Store Implementations
+## Directory Structure
 
-| Store | Project | Target | Key Dependency |
-|-------|---------|--------|---------------|
-| MemoryWorkflowStore | Core library | netstandard2.0 | — |
-| MongoDbWorkflowStore | `Stateless.WorkflowEngine.MongoDb` | netstandard2.0 | MongoDB.Driver 2.26.0 |
-| RavenDbWorkflowStore | `Stateless.WorkflowEngine.RavenDb` | net4.8 | RavenDB.Client 5.4.210 |
-
-### Workflow Lifecycle
-
-1. Custom workflow registered via `WorkflowClient.Register()`
-2. `WorkflowServer` picks it up and calls `ExecuteWorkflow()`
-3. Gets next action, fires Stateless trigger, action executes
-4. On completion → archived to `CompletedWorkflows`
-5. On error → retry with configurable intervals (default: 5, 10, 15, 30, 60 seconds)
-6. After max retries → workflow suspends
-
-### Workflow Event Hooks
-
-`OnActionExecuting()`, `OnActionExecuted()`, `OnError()`, `OnSuspend()`, `OnComplete()`
-
-### Other Projects
-
-- **`Stateless.WorkflowEngine.WebConsole`** (net4.8) — Nancy-based web console for monitoring workflows, managing connections, user auth
-- **`Example`** (net10.0) — interactive console app demonstrating all features and stores
-
-## Key Patterns
-
-- **Strategy pattern** for store implementations (all implement `IWorkflowStore`)
-- **Template method** for workflow configuration (override `Initialise()`)
-- **Event-driven**: `WorkflowSuspended` and `WorkflowCompleted` events on `IWorkflowServer`
-- **DI support**: `IWorkflowEngineDependencyResolver` or override `CreateWorkflowActionInstance<T>()`
-- Serialization via Newtonsoft.Json; MongoDB workflows should use `[BsonIgnoreExtraElements]` for forward compatibility
-
-## Mixed Target Frameworks
-
-The core library targets **netstandard2.0**. The test projects, WebConsole, and RavenDb store target **.NET Framework 4.8** and use legacy `packages.config` NuGet management. The Example project targets **net6.0**.
+- `source/`: Contains the main solution and project files.
+- `deployment/`: Contains build and packaging scripts.
+- `docs/`: Documentation and example files.
+- `packages/`: NuGet packages.
 
 ---
 > Source: [mrsalmon1976/Stateless.WorkflowEngine](https://github.com/mrsalmon1976/Stateless.WorkflowEngine) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
