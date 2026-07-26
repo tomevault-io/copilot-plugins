@@ -2,9 +2,9 @@
   "name": "jupyter-deploy",
   "owner": "jupyter-infra",
   "repo": "jupyter-deploy",
-  "description": "An open-source command line interface (CLI) to deploy interactive applications to the Cloud.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jupyter-infra/jupyter-deploy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:23:53Z"
+  "distributed_at": "2026-07-26T23:42:30Z"
 }
