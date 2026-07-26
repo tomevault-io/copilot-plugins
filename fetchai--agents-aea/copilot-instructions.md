@@ -1,0 +1,321 @@
+## agents-aea
+
+> <a id="aea.agent"></a>
+
+<a id="aea.agent"></a>
+
+# aea.agent
+
+This module contains the implementation of a generic agent.
+
+<a id="aea.agent.Agent"></a>
+
+## Agent Objects
+
+```python
+class Agent(AbstractAgent, WithLogger)
+```
+
+This class provides an abstract base class for a generic agent.
+
+<a id="aea.agent.Agent.__init__"></a>
+
+#### `__`init`__`
+
+```python
+def __init__(identity: Identity,
+             connections: List[Connection],
+             loop: Optional[AbstractEventLoop] = None,
+             period: float = 1.0,
+             loop_mode: Optional[str] = None,
+             runtime_mode: Optional[str] = None,
+             storage_uri: Optional[str] = None,
+             logger: Logger = _default_logger,
+             task_manager_mode: Optional[str] = None) -> None
+```
+
+Instantiate the agent.
+
+**Arguments**:
+
+- `identity`: the identity of the agent.
+- `connections`: the list of connections of the agent.
+- `loop`: the event loop to run the connections.
+- `period`: period to call agent's act
+- `loop_mode`: loop_mode to choose agent run loop.
+- `runtime_mode`: runtime mode to up agent.
+- `storage_uri`: optional uri to set generic storage
+- `task_manager_mode`: task manager mode.
+- `logger`: the logger.
+- `task_manager_mode`: mode of the task manager.
+
+<a id="aea.agent.Agent.storage_uri"></a>
+
+#### storage`_`uri
+
+```python
+@property
+def storage_uri() -> Optional[str]
+```
+
+Return storage uri.
+
+<a id="aea.agent.Agent.is_running"></a>
+
+#### is`_`running
+
+```python
+@property
+def is_running() -> bool
+```
+
+Get running state of the runtime and agent.
+
+<a id="aea.agent.Agent.is_stopped"></a>
+
+#### is`_`stopped
+
+```python
+@property
+def is_stopped() -> bool
+```
+
+Get running state of the runtime and agent.
+
+<a id="aea.agent.Agent.identity"></a>
+
+#### identity
+
+```python
+@property
+def identity() -> Identity
+```
+
+Get the identity.
+
+<a id="aea.agent.Agent.inbox"></a>
+
+#### inbox
+
+```python
+@property
+def inbox() -> InBox
+```
+
+Get the inbox.
+
+The inbox contains Envelopes from the Multiplexer.
+The agent can pick these messages for processing.
+
+**Returns**:
+
+InBox instance
+
+<a id="aea.agent.Agent.outbox"></a>
+
+#### outbox
+
+```python
+@property
+def outbox() -> OutBox
+```
+
+Get the outbox.
+
+The outbox contains Envelopes for the Multiplexer.
+Envelopes placed in the Outbox are processed by the Multiplexer.
+
+**Returns**:
+
+OutBox instance
+
+<a id="aea.agent.Agent.name"></a>
+
+#### name
+
+```python
+@property
+def name() -> str
+```
+
+Get the agent name.
+
+<a id="aea.agent.Agent.tick"></a>
+
+#### tick
+
+```python
+@property
+def tick() -> int
+```
+
+Get the tick or agent loop count.
+
+Each agent loop (one call to each one of act(), react(), update()) increments the tick.
+
+**Returns**:
+
+tick count
+
+<a id="aea.agent.Agent.state"></a>
+
+#### state
+
+```python
+@property
+def state() -> RuntimeStates
+```
+
+Get state of the agent's runtime.
+
+**Returns**:
+
+RuntimeStates
+
+<a id="aea.agent.Agent.period"></a>
+
+#### period
+
+```python
+@property
+def period() -> float
+```
+
+Get a period to call act.
+
+<a id="aea.agent.Agent.runtime"></a>
+
+#### runtime
+
+```python
+@property
+def runtime() -> BaseRuntime
+```
+
+Get the runtime.
+
+<a id="aea.agent.Agent.setup"></a>
+
+#### setup
+
+```python
+def setup() -> None
+```
+
+Set up the agent.
+
+<a id="aea.agent.Agent.start"></a>
+
+#### start
+
+```python
+def start() -> None
+```
+
+Start the agent.
+
+Performs the following:
+
+- calls start() on runtime.
+- waits for runtime to complete running (blocking)
+
+<a id="aea.agent.Agent.handle_envelope"></a>
+
+#### handle`_`envelope
+
+```python
+def handle_envelope(envelope: Envelope) -> None
+```
+
+Handle an envelope.
+
+**Arguments**:
+
+- `envelope`: the envelope to handle.
+
+<a id="aea.agent.Agent.act"></a>
+
+#### act
+
+```python
+def act() -> None
+```
+
+Perform actions on period.
+
+<a id="aea.agent.Agent.stop"></a>
+
+#### stop
+
+```python
+def stop() -> None
+```
+
+Stop the agent.
+
+Performs the following:
+
+- calls stop() on runtime
+- waits for runtime to stop (blocking)
+
+<a id="aea.agent.Agent.teardown"></a>
+
+#### teardown
+
+```python
+def teardown() -> None
+```
+
+Tear down the agent.
+
+<a id="aea.agent.Agent.get_periodic_tasks"></a>
+
+#### get`_`periodic`_`tasks
+
+```python
+def get_periodic_tasks(
+) -> Dict[Callable, Tuple[float, Optional[datetime.datetime]]]
+```
+
+Get all periodic tasks for agent.
+
+**Returns**:
+
+dict of callable with period specified
+
+<a id="aea.agent.Agent.get_message_handlers"></a>
+
+#### get`_`message`_`handlers
+
+```python
+def get_message_handlers() -> List[Tuple[Callable[[Any], None], Callable]]
+```
+
+Get handlers with message getters.
+
+**Returns**:
+
+List of tuples of callables: handler and coroutine to get a message
+
+<a id="aea.agent.Agent.exception_handler"></a>
+
+#### exception`_`handler
+
+```python
+def exception_handler(exception: Exception, function: Callable) -> bool
+```
+
+Handle exception raised during agent main loop execution.
+
+**Arguments**:
+
+- `exception`: exception raised
+- `function`: a callable exception raised in.
+
+**Returns**:
+
+bool, propagate exception if True otherwise skip it.
+
+---
+> Source: [fetchai/agents-aea](https://github.com/fetchai/agents-aea) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
