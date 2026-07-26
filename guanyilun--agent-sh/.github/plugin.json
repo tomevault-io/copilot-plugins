@@ -1,0 +1,14 @@
+{
+  "name": "guanyilun--agent-sh",
+  "displayName": "agent-sh",
+  "description": "agent-sh",
+  "version": "1.0.0",
+  "author": "guanyilun",
+  "homepage": "https://github.com/guanyilun/agent-sh",
+  "skills": [
+    {
+      "name": "agent-sh",
+      "description": ""
+    }
+  ]
+}
