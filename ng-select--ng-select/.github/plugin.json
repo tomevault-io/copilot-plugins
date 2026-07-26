@@ -1,0 +1,14 @@
+{
+  "name": "ng-select--ng-select",
+  "displayName": "ng-select",
+  "description": "ng-select",
+  "version": "1.0.0",
+  "author": "ng-select",
+  "homepage": "https://github.com/ng-select/ng-select",
+  "skills": [
+    {
+      "name": "ng-select",
+      "description": ""
+    }
+  ]
+}
