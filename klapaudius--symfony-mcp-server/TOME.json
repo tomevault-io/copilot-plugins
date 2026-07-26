@@ -2,9 +2,9 @@
   "name": "symfony-mcp-server",
   "owner": "klapaudius",
   "repo": "symfony-mcp-server",
-  "description": "A Symfony package designed for building secure servers based on the Model Context Protocol, utilizing Server-Sent Events (SSE) and/or StreamableHTTP for real-time communication. It offers a scalable tool system tailored for enterprise-grade applications.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/klapaudius/symfony-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T16:55:28Z"
+  "distributed_at": "2026-07-26T23:39:57Z"
 }
