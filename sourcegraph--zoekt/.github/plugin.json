@@ -1,0 +1,9 @@
+{
+  "name": "sourcegraph--zoekt",
+  "displayName": "zoekt",
+  "description": "zoekt",
+  "version": "1.0.0",
+  "author": "sourcegraph",
+  "homepage": "https://github.com/sourcegraph/zoekt",
+  "skills": []
+}
