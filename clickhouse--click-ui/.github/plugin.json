@@ -1,0 +1,14 @@
+{
+  "name": "clickhouse--click-ui",
+  "displayName": "click-ui",
+  "description": "click-ui",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/click-ui",
+  "skills": [
+    {
+      "name": "click-ui",
+      "description": ""
+    }
+  ]
+}
