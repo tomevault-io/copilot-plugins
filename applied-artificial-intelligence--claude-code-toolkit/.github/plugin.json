@@ -1,0 +1,98 @@
+{
+  "name": "applied-artificial-intelligence--claude-code-toolkit",
+  "displayName": "claude-code-toolkit",
+  "description": "claude-code-toolkit",
+  "version": "1.0.0",
+  "author": "applied-artificial-intelligence",
+  "homepage": "https://github.com/applied-artificial-intelligence/claude-code-toolkit",
+  "skills": [
+    {
+      "name": "api-authentication",
+      "description": ""
+    },
+    {
+      "name": "docker-optimization",
+      "description": ""
+    },
+    {
+      "name": "huggingface-transformers",
+      "description": ""
+    },
+    {
+      "name": "llm-evaluation",
+      "description": ""
+    },
+    {
+      "name": "plain-language",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "description": ""
+    },
+    {
+      "name": "pyramid-principle",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "scqa-framework",
+      "description": ""
+    },
+    {
+      "name": "shared-setup-patterns",
+      "description": ""
+    },
+    {
+      "name": "sql-optimization",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    },
+    {
+      "name": "claude-code-toolkit",
+      "description": ""
+    }
+  ]
+}
