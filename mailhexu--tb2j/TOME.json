@@ -1,0 +1,51 @@
+{
+  "name": "TB2J",
+  "owner": "mailhexu",
+  "repo": "TB2J",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TB2J",
+      "path": "skill/TB2J/SKILL.md",
+      "github_url": "https://github.com/mailhexu/TB2J/tree/main/skill/TB2J/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mailhexu/TB2J",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:58:10Z"
+}
