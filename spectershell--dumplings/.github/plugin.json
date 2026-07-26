@@ -1,0 +1,18 @@
+{
+  "name": "spectershell--dumplings",
+  "displayName": "Dumplings",
+  "description": "Dumplings",
+  "version": "1.0.0",
+  "author": "SpecterShell",
+  "homepage": "https://github.com/SpecterShell/Dumplings",
+  "skills": [
+    {
+      "name": "Dumplings",
+      "description": ""
+    },
+    {
+      "name": "Dumplings",
+      "description": ""
+    }
+  ]
+}
