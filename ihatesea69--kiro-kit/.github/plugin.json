@@ -1,0 +1,58 @@
+{
+  "name": "ihatesea69--kiro-kit",
+  "displayName": "kiro-kit",
+  "description": "Engineer-grade Kiro IDE workspaces. One command. Curated presets for frontend, backend, fullstack, mobile, devops, and data-ai with agents, skills, commands, hooks, workflows, and spec-driven AI-SDLC ",
+  "version": "1.0.0",
+  "author": "ihatesea69",
+  "homepage": "https://github.com/ihatesea69/kiro-kit",
+  "skills": [
+    {
+      "name": "kubernetes-ops",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-patterns",
+      "description": ""
+    },
+    {
+      "name": "terraform-modules",
+      "description": ""
+    },
+    {
+      "name": "mobile-development",
+      "description": ""
+    },
+    {
+      "name": "flutter-state",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "scikit-learn",
+      "description": ""
+    }
+  ]
+}
