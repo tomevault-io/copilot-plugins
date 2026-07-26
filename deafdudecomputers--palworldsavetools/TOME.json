@@ -1,0 +1,117 @@
+{
+  "name": "PalWorldSaveTools",
+  "owner": "deafdudecomputers",
+  "repo": "PalWorldSaveTools",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-ui-tabs/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-ui-tabs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-build-ci/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-build-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-codebase/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-codebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-breeding/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-breeding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-game-data/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-game-data/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-cli-tools/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-cli-tools/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-performance/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-stat-formula/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-stat-formula/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-save-pipeline/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-save-pipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-binary-schemas/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-binary-schemas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-opencode-config/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-opencode-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PalWorldSaveTools",
+      "path": ".opencode/skills/pst-gui-architecture/SKILL.md",
+      "github_url": "https://github.com/deafdudecomputers/PalWorldSaveTools/tree/main/.opencode/skills/pst-gui-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/deafdudecomputers/PalWorldSaveTools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:56:36Z"
+}
