@@ -1,0 +1,123 @@
+{
+  "name": "convex-agent-plugins",
+  "owner": "get-convex",
+  "repo": "convex-agent-plugins",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auth-setup",
+      "path": "skills/auth-setup",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/auth-setup",
+      "description": ""
+    },
+    {
+      "name": "components-guide",
+      "path": "skills/components-guide",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/components-guide",
+      "description": ""
+    },
+    {
+      "name": "convex-helpers-guide",
+      "path": "skills/convex-helpers-guide",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/convex-helpers-guide",
+      "description": ""
+    },
+    {
+      "name": "convex-quickstart",
+      "path": "skills/convex-quickstart",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/convex-quickstart",
+      "description": ""
+    },
+    {
+      "name": "function-creator",
+      "path": "skills/function-creator",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/function-creator",
+      "description": ""
+    },
+    {
+      "name": "schema-builder",
+      "path": "skills/schema-builder",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/schema-builder",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "path": "skills/auth-setup/SKILL.md",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/auth-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "path": "skills/schema-builder/SKILL.md",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/schema-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "path": "skills/components-guide/SKILL.md",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/components-guide/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "path": "skills/migration-helper/SKILL.md",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/migration-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "path": "skills/function-creator/SKILL.md",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/function-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "path": "skills/convex-quickstart/SKILL.md",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/convex-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "convex-agent-plugins",
+      "path": "skills/convex-helpers-guide/SKILL.md",
+      "github_url": "https://github.com/get-convex/convex-agent-plugins/tree/main/skills/convex-helpers-guide/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/get-convex/convex-agent-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:34:06Z"
+}
