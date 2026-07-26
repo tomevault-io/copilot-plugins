@@ -1,0 +1,65 @@
+## rust-skia
+
+> This file serves as the evolving knowledge base for working with this codebase.
+
+# Copilot Instructions
+
+This file serves as the evolving knowledge base for working with this codebase.
+Update it whenever you learn something new about the project's patterns, conventions, or receive feedback that should guide future behavior.
+
+## Project
+- Follow the existing project structure and idioms.
+- Prefer small, self-contained changes unless explicitly asked for broader refactors.
+- For targeted ports (for example, "add missing bindings"), keep diffs strictly scoped to the missing API surface.
+- Do not refactor adjacent working code unless it is required for correctness, compatibility, or explicitly requested.
+
+## Code Style
+- Match the surrounding code style.
+- Keep functions small, clear, and deterministic.
+- Avoid unnecessary dependencies.
+- When porting/wrapping C++ APIs, keep Rust method and debug-field ordering aligned with the upstream C++ header order unless there is a project-specific convention to do otherwise.
+- Keep top-level type declarations in the same sequence as the upstream C++ header (for example, main wrapper type first when the C++ type is defined first).
+- For nested C++ types, keep the parent Rust type first and define the nested Rust types directly below the parent to preserve visual parity.
+- Do not add obvious comments that restate what the code clearly expresses.
+- Only comment to explain non-obvious reasoning or intent.
+- Limit qualification paths to at most 2 module levels (e.g., `mpsc::channel` not `tokio::sync::mpsc::channel`).
+- Import types and modules to reduce path qualification in code.
+- Use `pub` visibility by default. Only use `pub(crate)` to limit visibility when the entire containing module is already crate-public.
+- Derive `Debug` for all public types unless there's a specific reason not to. Place `Debug` first in the derive list.
+
+## Safety & Quality
+- Add or update tests when modifying behavior.
+- Preserve backwards compatibility unless instructed otherwise.
+- When refactoring, don't add trait implementations (Clone, Debug, Default, etc.) that weren't present in the original code.
+- If a trait can't be derived due to field constraints, investigate whether the trait is actually needed before implementing it manually.
+- Keep reduced-feature builds and tests working: code and tests that rely on optional components should be gated or provide safe fallbacks when those components are disabled.
+- Before considering a port complete, verify C++↔Rust ordering parity for top-level types, nested types, methods, and debug fields.
+- For C FFI wrappers, do not pass C++ class types like `SkFontStyle` by value across `extern "C"`; use pointers and/or out-parameters.
+- When an out-parameter points to uninitialized storage for a non-trivial C++ type, construct with placement new instead of assignment.
+
+## Communication
+- Explanations should be concise and strictly relevant.
+- When unsure, ask clarifying questions before making assumptions.
+
+## Skills
+The following is the complete list of workspace skills:
+- [`cpp-to-rust-documentation`](skills/cpp-to-rust-documentation/SKILL.md): use when porting documentation from Skia C++ headers to Rust APIs.
+- [`skia-milestone-update`](skills/skia-milestone-update/SKILL.md): use when updating Skia to a milestone or refreshing the current milestone from its upstream `chrome/mXX` branch.
+
+## Documentation
+- Markdown documentation updates to existing files are fine.
+- Ask before creating new Markdown documentation files.
+- Verify documentation links with `make doc`.
+- Use `[`Self::method()`]` instead of `[`method(&self)`]` for intra-doc links to methods.
+- Escape array indexing in comments (e.g., `` `pts[0]` ``) to avoid them being interpreted as links.
+- Use fully qualified paths (e.g., `[`crate::Canvas`]`) if the type is not in the immediate scope.
+
+## Release Notes
+- Follow `.github/release-notes-guidelines.md` for release-note structure, wording, and attribution rules.
+
+## Deprecation
+- Use `since = "0.0.0"` for deprecated items unless a specific version is more appropriate.
+
+---
+> Source: [rust-skia/rust-skia](https://github.com/rust-skia/rust-skia) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
