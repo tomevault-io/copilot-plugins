@@ -1,0 +1,9 @@
+{
+  "name": "keitaroinc--docker-ckan",
+  "displayName": "docker-ckan",
+  "description": "docker-ckan",
+  "version": "1.0.0",
+  "author": "keitaroinc",
+  "homepage": "https://github.com/keitaroinc/docker-ckan",
+  "skills": []
+}
