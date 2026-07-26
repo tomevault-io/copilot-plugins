@@ -1,7 +1,7 @@
 {
   "name": "jupyter-infra--jupyter-deploy",
   "displayName": "jupyter-deploy",
-  "description": "An open-source command line interface (CLI) to deploy interactive applications to the Cloud.",
+  "description": "jupyter-deploy",
   "version": "1.0.0",
   "author": "jupyter-infra",
   "homepage": "https://github.com/jupyter-infra/jupyter-deploy",
