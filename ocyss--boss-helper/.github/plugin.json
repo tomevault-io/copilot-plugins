@@ -1,0 +1,14 @@
+{
+  "name": "ocyss--boss-helper",
+  "displayName": "boss-helper",
+  "description": "boss-helper",
+  "version": "1.0.0",
+  "author": "Ocyss",
+  "homepage": "https://github.com/Ocyss/boss-helper",
+  "skills": [
+    {
+      "name": "boss-helper",
+      "description": ""
+    }
+  ]
+}
