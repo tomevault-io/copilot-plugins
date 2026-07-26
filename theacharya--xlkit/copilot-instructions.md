@@ -1,22 +1,150 @@
 ## xlkit
 
-> XLKit is a modern Swift library for creating and manipulating Excel (.xlsx) files on macOS and iOS. Built with Swift 6.0, targeting macOS 12+ and iOS 15+, using modular SPM architecture. iOS support is available and tested in CI/CD, with platform-specific code handling for iOS compatibility.
+> **See also:** [ARCHITECTURE.md](ARCHITECTURE.md) (structure & conventions), [GUARDRAILS.md](GUARDRAILS.md) (must / must-not), [.cursorrules](.cursorrules).
 
-# XLKit - Cursor Rules for AI Agents
+# XLKit - AI Agent Development Guide
+
+**See also:** [ARCHITECTURE.md](ARCHITECTURE.md) (structure & conventions), [GUARDRAILS.md](GUARDRAILS.md) (must / must-not), [.cursorrules](.cursorrules).
+
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Architecture](#architecture)
+  - [Module Structure](#module-structure)
+  - [Dependencies](#dependencies)
+  - [Test Runner](#test-runner)
+- [Development Standards](#development-standards)
+  - [Code Quality](#code-quality)
+  - [Security Requirements](#security-requirements)
+  - [Security Features](#security-features)
+  - [Testing Strategy](#testing-strategy)
+  - [Documentation](#documentation)
+- [API Reference](#api-reference)
+  - [Core Types](#core-types)
+  - [Sheet Operations](#sheet-operations)
+  - [Workbook Operations](#workbook-operations)
+  - [CSV/TSV Operations](#csvtsv-operations)
+  - [Image Operations](#image-operations)
+- [Recent Improvements](#recent-improvements)
+  - [Comprehensive Demo and Sheet Password Utilities](#comprehensive-demo-and-sheet-password-utilities-2026-06-03-116)
+  - [Swift Testing Migration and CI Updates](#swift-testing-migration-and-ci-updates-2026-07-18-unreleased-117)
+  - [Sheet Visibility and Protection](#sheet-visibility-and-protection-2026-05-30-pr-23)
+  - [iOS Compatibility Fix](#ios-compatibility-fix-2025-07-14)
+  - [Perfect Aspect Ratio Preservation](#perfect-aspect-ratio-preservation-2025-07-07)
+  - [Scaling API Investigation and Fixes](#scaling-api-investigation-and-fixes-2025-07-12)
+- [Implementation Details](#implementation-details)
+  - [XLSX Generation](#xlsx-generation)
+  - [Image Embedding Scaling API](#image-embedding-scaling-api)
+  - [Image Embedding](#image-embedding)
+  - [Error Handling](#error-handling)
+- [Performance & Optimization](#performance--optimization)
+- [Maintenance & Updates](#maintenance--updates)
+
+---
 
 ## Project Overview
-XLKit is a modern Swift library for creating and manipulating Excel (.xlsx) files on macOS and iOS. Built with Swift 6.0, targeting macOS 12+ and iOS 15+, using modular SPM architecture. iOS support is available and tested in CI/CD, with platform-specific code handling for iOS compatibility.
 
-## Architecture & Module Structure
+XLKit is a modern Swift library for creating and manipulating Excel (.xlsx) files on macOS and iOS. Built with Swift 6.0, targeting macOS 12+ and iOS 15+, using modular Swift Package Manager architecture. iOS support is available and tested in CI/CD, with platform-specific code handling for iOS compatibility.
 
-### Core Modules
-- XLKitCore: Core types, data structures, utilities (Workbook, Sheet, Cell, etc.)
-- XLKitFormatters: CSV/TSV import/export functionality
-- XLKitImages: Image processing and embedding utilities
-- XLKitXLSX: XLSX file generation engine
-- XLKit: Main API that re-exports all submodules
+## Architecture
 
-### Module Dependencies
+### Module Structure
+
+The library is organized into five SPM modules:
+
+- **XLKitCore**: Core types, data structures, and utilities
+- **XLKitFormatters**: CSV/TSV import/export functionality  
+- **XLKitImages**: Image processing and embedding utilities
+- **XLKitXLSX**: XLSX file generation engine
+- **XLKit**: Main API that re-exports all submodules
+
+### Directory and File Structure
+
+```
+XLKit/
+├── AGENT.MD                     # AI agent development guide
+├── ARCHITECTURE.md              # Module stack, save pipeline, conventions
+├── GUARDRAILS.md                # Must / must-not for contributors and agents
+├── .cursorrules                 # Cursor rules for AI agents
+├── CHANGELOG.md                 # Version history and changes
+├── LICENSE                      # MIT license
+├── Package.swift                # Swift Package Manager configuration
+├── Package.resolved             # Locked dependency versions
+├── README.md                    # Main documentation
+├── SECURITY.md                  # Security policy
+├── .gitignore                   # Git ignore patterns
+├── .swift-format                # Swift formatting configuration
+├── Assets/                      # Project assets
+│   └── XLKit_Icon.png          # Project icon
+├── Sources/                     # Source code modules
+│   ├── XLKit/                  # Main API module
+│   │   ├── XLKit.swift         # Main API exports
+│   │   ├── Sheet+API.swift     # Sheet operations API
+│   │   └── Workbook+API.swift  # Workbook operations API
+│   ├── XLKitCore/              # Core types and utilities
+│   │   ├── CoreTypes.swift     # Core data structures (1253 lines)
+│   │   └── SecurityManager.swift # Security features (282 lines)
+│   ├── XLKitFormatters/        # CSV/TSV functionality
+│   │   └── CSVUtils.swift      # CSV import/export utilities (294 lines, uses swift-textfile)
+│   ├── XLKitImages/            # Image processing
+│   │   ├── ImageUtils.swift    # Image utilities (155 lines)
+│   │   └── ImageSizingUtils.swift # Image sizing logic (191 lines)
+│   ├── XLKitXLSX/              # XLSX generation engine
+│   │   └── XLSXEngine.swift    # XLSX file generation (897 lines)
+│   └── XLKitTestRunner/        # Test runner executable
+│       ├── main.swift          # Command-line interface (91 lines)
+│       ├── ExcelGenerators.swift # Excel generation tests (590 lines)
+│       ├── ImageEmbedGenerators.swift # Image embedding tests (228 lines)
+│       ├── SheetPasswordUtilities.swift # sheet-password CLI output
+│       ├── ComprehensiveDemoProtection.swift # Demo password/salts for comprehensive CLI
+│       ├── README.md           # Test runner documentation
+│       └── Templates/          # Test templates
+│           └── TestGeneratorTemplate.swift # Template for new tests (224 lines)
+├── Documentation/              # User manual (Documentation/Manual/)
+├── Tests/                      # Unit tests
+│   ├── README.md               # Test suite index (80 tests)
+│   └── XLKitTests/             # Test suite (15 focused Swift Testing suites)
+│       ├── XLKitTestBase.swift # Shared XLKitTestSupport helpers (Swift Testing)
+│       ├── CoreTests.swift     # Workbook and sheet operations (5 tests)
+│       ├── CellValueTests.swift # Cell values and data types (6 tests)
+│       ├── CoordinateTests.swift # Coordinates and ranges (2 tests)
+│       ├── FormattingTests.swift # Cell formatting (8 tests)
+│       ├── NumberFormatTests.swift # Number formatting (5 tests)
+│       ├── TextWrappingTests.swift # Text wrapping (2 tests)
+│       ├── BorderTests.swift   # Border functionality (3 tests)
+│       ├── MergeTests.swift    # Cell merging (4 tests)
+│       ├── CSVTests.swift      # CSV/TSV operations (12 tests)
+│       ├── FileOperationTests.swift # File operations (2 tests)
+│       ├── ImageTests.swift     # Image management (2 tests)
+│       ├── ColumnOrderingTests.swift # Column ordering (2 tests)
+│       ├── SheetUtilityTests.swift # Sheet utilities (6 tests)
+│       ├── SheetStateTests.swift # Sheet visibility state (7 tests)
+│       └── SheetProtectionTests.swift # Sheet protection (14 tests)
+│       # Total: 80 tests across 15 focused Swift Testing suites
+├── Test-Data/                  # Test data files
+│   ├── README.md               # Test data documentation (44 lines)
+│   └── Embed-Test/             # Image embedding test data
+│       ├── Embed-Test.csv      # CSV test data (5 lines)
+│       ├── Embed-Test_00-00-08-06.png # Test image 1 (681KB)
+│       ├── Embed-Test_00-00-22-07.png # Test image 2 (825KB)
+│       ├── Embed-Test_00-00-50-08.png # Test image 3 (779KB)
+│       └── Embed-Test_00-01-09-10.png # Test image 4 (703KB)
+├── Test-Workflows/             # Generated Excel files
+│   └── README.md               # CLI outputs, comprehensive demo passwords
+└── .github/                    # GitHub configuration
+    ├── FUNDING.yml             # Funding configuration
+    └── workflows/              # CI/CD workflows
+        ├── build.yml           # macOS + strict concurrency + iOS (93 lines)
+        ├── codeql.yml          # Security scanning workflow (115 lines)
+        ├── cli-embed.yml       # Image embedding test workflow (40 lines)
+        ├── cli-generic.yml     # Generic test workflow (44 lines)
+        ├── cli-no-embeds.yml   # No-embeds test workflow (40 lines)
+        ├── cli-ios.yml         # iOS CLI workflow (42 lines)
+        └── cli-numbers.yml     # Number-formats CLI (workflow_dispatch, 40 lines)
+```
+
+### Dependencies
+
 ```
 XLKit (main API)
 ├── XLKitCore (core types & utilities)
@@ -37,23 +165,25 @@ XLKitXLSX
 └── XLKitImages
 ```
 
-### Executable Target
-```
-XLKitTestRunner (executable)
-└── XLKit
-```
+External Dependencies:
+- CoreXLSX (0.14.2): Excel file validation and parsing
+- ZIPFoundation (0.9.19): Cross-platform ZIP archive creation
+- XMLCoder (0.14.0): XML serialization
+- swift-textfile (0.4.0): CSV/TSV parsing and generation (used by XLKitFormatters)
 
-### XLKitTestRunner Overview
+### Test Runner
 
-Purpose: Modular test runner for generating Excel files for testing and demonstration purposes.
+XLKitTestRunner is a modular command-line tool for generating Excel files for testing and demonstration purposes.
 
 Structure:
 ```
 Sources/XLKitTestRunner/
-├── main.swift                    # Entry point with command-line interface
+├── main.swift                    # Entry point with CLI
 ├── ExcelGenerators.swift         # Excel generation functions
 ├── ImageEmbedGenerators.swift    # Image embedding tests
-├── Templates/                    # Template files for new tests
+├── SheetPasswordUtilities.swift  # sheet-password command
+├── ComprehensiveDemoProtection.swift # Demo constants for comprehensive CLI
+├── Templates/                    # Template files
 │   └── TestGeneratorTemplate.swift
 └── README.md                     # Documentation
 ```
@@ -65,19 +195,17 @@ swift run XLKitTestRunner no-embeds
 swift run XLKitTestRunner embed
 swift run XLKitTestRunner comprehensive
 swift run XLKitTestRunner help
-
-# Show help
-swift run XLKitTestRunner help
 ```
 
 Available Test Types:
-- `no-embeds` / `no-images` - Generate Excel from CSV without images
-- `embed` / `with-embeds` / `with-images` - Generate Excel with embedded images from CSV data
-- `comprehensive` / `demo` - Comprehensive API demonstration with all features
-- `security-demo` / `security` - Demonstrate file path security restrictions
-- `ios-test` / `ios` - Test iOS file system compatibility and platform-specific features
-- `number-formats` / `formats` - Test number formatting (currency, percentage, custom formats)
-- `help` / `-h` / `--help` - Show available commands
+- `no-embeds` / `no-images`: Generate Excel from CSV without images
+- `embed` / `with-embeds` / `with-images`: Generate Excel with embedded images from CSV data
+- `comprehensive` / `demo`: Comprehensive API demonstration (11 sheets; demo password **1234** via `CoreUtils.configureSheetPassword` and salts in `ComprehensiveDemoProtection.swift`); see `Sources/XLKitTestRunner/README.md`
+- `sheet-password` / `password-hash`: Print legacy + SHA-512 `SheetProtection` fields for a plaintext password (optional `--demo-salts` with **1234**)
+- `security-demo` / `security`: Demonstrate file path security restrictions
+- `ios-test` / `ios`: Test iOS file system compatibility and platform-specific features
+- `number-formats` / `formats`: Test number formatting (currency, percentage, custom formats)
+- `help` / `-h` / `--help`: Show available commands
 
 Test Features:
 - Security Integration: All tests include security logging and validation
@@ -86,18 +214,7 @@ Test Features:
 - Performance Testing: Large dataset handling and memory optimization
 - Error Handling: Comprehensive error testing and edge case coverage
 - Platform Testing: iOS compatibility validation and sandbox restrictions testing
-
-Adding New Tests:
-1. Copy template: `cp Sources/XLKitTestRunner/Templates/TestGeneratorTemplate.swift Sources/XLKitTestRunner/YourTestName.swift`
-2. Modify function name and logic
-3. Register in main.swift switch statement
-4. Update help text
-5. Create GitHub Actions workflow if needed
-
-Naming Conventions:
-- Function names: camelCase (e.g., `generateExcelWithImages()`)
-- Test types: kebab-case (e.g., `with-images`, `csv-import`)
-- File names: PascalCase (e.g., `ExcelGenerators.swift`)
+- Sheet Visibility and Protection: Comprehensive demo exercises `.hidden`, `.veryHidden`, `activeTab`, and `SheetProtection` (basic, legacy + SHA-512, granular flags, SHA-512-only)
 
 Output Structure:
 ```
@@ -120,174 +237,29 @@ Security Features in Tests:
 - File Quarantine: Suspicious test files are automatically quarantined
 - Checksum Verification: Optional file integrity verification (disabled by default)
 
-## File Organization & Paths
+## Development Standards
 
-### Complete Directory Structure
+### Code Quality
 
-```
-XLKit/
-├── AGENT.MD                     # AI agent development guide
-├── .cursorrules                 # Cursor rules for AI agents
-├── CHANGELOG.md                 # Version history and changes
-├── LICENSE                      # MIT license
-├── Package.swift                # Swift Package Manager configuration
-├── Package.resolved             # Locked dependency versions
-├── README.md                    # Main documentation
-├── SECURITY.md                  # Security policy
-├── .gitignore                   # Git ignore patterns
-├── .swift-format                # Swift formatting configuration
-├── Assets/                      # Project assets
-│   └── XLKit_Icon.png          # Project icon
-├── Sources/                     # Source code modules
-│   ├── XLKit/                  # Main API module
-│   │   ├── XLKit.swift         # Main API exports (155 lines)
-│   │   ├── Sheet+API.swift     # Sheet operations API (190 lines)
-│   │   └── Workbook+API.swift  # Workbook operations API (53 lines)
-│   ├── XLKitCore/              # Core types and utilities
-│   │   ├── CoreTypes.swift     # Core data structures (1215 lines)
-│   │   └── SecurityManager.swift # Security features (282 lines)
-│   ├── XLKitFormatters/        # CSV/TSV functionality
-│   │   └── CSVUtils.swift      # CSV import/export utilities (294 lines, uses swift-textfile)
-│   ├── XLKitImages/            # Image processing
-│   │   ├── ImageUtils.swift    # Image utilities (155 lines)
-│   │   └── ImageSizingUtils.swift # Image sizing logic (191 lines)
-│   ├── XLKitXLSX/              # XLSX generation engine
-│   │   └── XLSXEngine.swift    # XLSX file generation (897 lines)
-│   └── XLKitTestRunner/        # Test runner executable
-│       ├── main.swift          # Command-line interface (91 lines)
-│       ├── ExcelGenerators.swift # Excel generation tests (590 lines)
-│       ├── ImageEmbedGenerators.swift # Image embedding tests (228 lines)
-│       ├── README.md           # Test runner documentation (199 lines)
-│       └── Templates/          # Test templates
-│           └── TestGeneratorTemplate.swift # Template for new tests (224 lines)
-├── Tests/                      # Unit tests
-│   ├── README.md               # Test documentation (371 lines)
-│   └── XLKitTests/             # Test suite (13 focused test files)
-│       ├── XLKitTestBase.swift # Shared base class with common helpers (136 lines)
-│       ├── CoreTests.swift     # Workbook and sheet operations (5 tests)
-│       ├── CellValueTests.swift # Cell values and data types (6 tests)
-│       ├── CoordinateTests.swift # Coordinates and ranges (2 tests)
-│       ├── FormattingTests.swift # Cell formatting (8 tests)
-│       ├── NumberFormatTests.swift # Number formatting (5 tests)
-│       ├── TextWrappingTests.swift # Text wrapping (2 tests)
-│       ├── BorderTests.swift   # Border functionality (3 tests)
-│       ├── MergeTests.swift    # Cell merging (4 tests)
-│       ├── CSVTests.swift      # CSV/TSV operations (12 tests)
-│       ├── FileOperationTests.swift # File operations (2 tests)
-│       ├── ImageTests.swift     # Image management (2 tests)
-│       ├── ColumnOrderingTests.swift # Column ordering (2 tests)
-│       └── SheetUtilityTests.swift # Sheet utilities (6 tests)
-│       # Total: 59 tests across 13 focused test files
-├── Test-Data/                  # Test data files
-│   ├── README.md               # Test data documentation (44 lines)
-│   └── Embed-Test/             # Image embedding test data
-│       ├── Embed-Test.csv      # CSV test data (5 lines)
-│       ├── Embed-Test_00-00-08-06.png # Test image 1 (681KB)
-│       ├── Embed-Test_00-00-22-07.png # Test image 2 (825KB)
-│       ├── Embed-Test_00-00-50-08.png # Test image 3 (779KB)
-│       └── Embed-Test_00-01-09-10.png # Test image 4 (703KB)
-├── Test-Workflows/             # Generated Excel files
-│   └── README.md               # Output documentation
-└── .github/                    # GitHub configuration
-    ├── FUNDING.yml             # Funding configuration
-    └── workflows/              # CI/CD workflows
-        ├── build.yml           # Main build and test workflow (85 lines)
-        ├── codeql.yml          # Security scanning workflow (116 lines)
-        ├── cli-embed.yml       # Image embedding test workflow (37 lines)
-        ├── cli-generic.yml     # Generic test workflow (41 lines)
-        ├── cli-no-embeds.yml   # No-embeds test workflow (37 lines)
-        └── cli-ios.yml         # iOS compatibility test workflow (37 lines)
-```
-
-### Allowed Paths for Code Changes
-allowed_paths = [
-    "Sources/XLKit/",           # Main API module
-    "Sources/XLKitCore/",       # Core types and utilities
-    "Sources/XLKitFormatters/", # CSV/TSV functionality
-    "Sources/XLKitImages/",     # Image processing
-    "Sources/XLKitXLSX/",       # XLSX generation
-    "Tests/XLKitTests/",        # Unit tests
-    ".github/workflows/",       # CI/CD workflows
-    "README.md",                # Documentation
-    "AGENT.MD",                 # AI agent guide
-    "Package.swift"             # Package configuration
-]
-
-### Disallowed Paths
-disallowed_paths = [
-    "Sources/XLKit/icons.xcassets/",  # No UI assets
-    "Sources/XLKit/*.storyboard",     # No storyboards
-    "Sources/XLKit/*.xib",            # No XIB files
-    "Sources/XLKit/*.plist",          # No property lists
-    "Sources/XLKit/*.json"            # No JSON configs
-]
-
-### Allowed File Extensions
-allowed_extensions = [
-    ".swift",    # Swift source files
-    ".md",       # Markdown documentation
-    ".yml",      # YAML configuration (CI/CD)
-    ".yaml"      # YAML configuration (CI/CD)
-]
-
-## Platform & Technology Constraints
-
-### Platform Requirements
-require_swift_version = "6.0"
-require_macos_version = "12.0"
-require_ios_version = "15.0"
-
-### Disallowed Platforms
-disallow_platforms = [
-    "Linux", 
-    "Windows",
-    "Android",
-    "tvOS",
-    "watchOS"
-]
-
-## Code Quality Standards
-
-### Documentation Requirements
-require_doc_comments = true
-require_modular_api_docs = true
-
-### Testing Requirements
-require_unit_tests = true
-require_image_and_column_sizing_tests = true
-require_ci_pass = true
-require_image_embedding_tests = true
-
-### API Design Requirements
-require_easy_to_use_api = true
-require_csv_api = "Instance methods on Workbook and Sheet classes"
-require_font_color_support = true
-require_border_support = true
-require_merge_support = true
-
-## Coding Standards & Best Practices
-
-### Swift 6.0 Compliance
+Swift 6.0 Compliance:
 - Use `@preconcurrency` imports for modules with Sendable types
 - Note: Workbook and Sheet classes are not Sendable due to mutable state requirements
 - Use modern Swift idioms and features
 - Avoid force-unwraps and force-casts in public APIs
 
-### Cross-Platform Compatibility
+Cross-Platform Compatibility:
 - Use platform-specific conditionals (`#if os(macOS)`, `#if os(iOS)`) for platform-specific APIs
 - Avoid iOS-unavailable APIs like `FileManager.default.homeDirectoryForCurrentUser`
 - Test builds on both macOS and iOS platforms
 - Ensure all file operations work on both platforms
-- Use `FileManager.default.temporaryDirectory` for cross-platform file operations
 
-### Code Style & Formatting
+Code Style:
 - Use 4-space indentation (no tabs)
 - Use trailing commas for better git diffs
 - Group and reorder imports alphabetically
 - Use MARK comments for code organization
-- Follow the .swift-format configuration
 
-### File Structure Standards
+File Structure:
 ```swift
 //
 //  Filename.swift
@@ -302,63 +274,162 @@ import Foundation
 // Implementation
 ```
 
-### Error Handling Patterns
+Error Handling:
 - Use specific XLKitError types
 - Provide meaningful error messages
 - Use guard statements for early returns
 - Handle errors gracefully in public APIs
 
-### Type Safety Requirements
+Type Safety:
 - Use strong typing throughout
 - Prefer enums over strings for constants
 - Use structs for value types, classes for reference types
 - Implement Equatable, Hashable where appropriate
 
-## API Design Guidelines
+### Security Requirements
 
-### Main API (XLKit Module)
-- Provide instance methods on Workbook and Sheet classes
-- Use fluent API design with method chaining
-- Support both sync and async operations
-- Re-export functionality from submodules
+All code must be free from vulnerability injection, supply chain poisoning, and hidden malicious logic:
 
-### Core Types (XLKitCore Module)
-- Workbook: Final class, manages sheets and images (not Sendable due to mutable state)
-- Sheet: Final class, handles cells, formatting, images (not Sendable due to mutable state)
-- CellValue: Enum with all Excel data types
-- CellCoordinate: Struct for Excel-style coordinates
-- CellRange: Struct for cell ranges
-- Cell: Struct combining value and format
-- CellFormat: Struct for comprehensive formatting including font colours and text alignment
+- No dynamic code execution, system shell commands, or unsafe reflection
+- All dependencies must be reputable, open-source, and version-pinned in Package.resolved
+- No network, HTTP, or remote code execution except for documented, safe APIs
+- All file operations must be local and safe, with no writing to unexpected or system locations
+- No hardcoded secrets, tokens, or suspicious data
+- All code must be readable, idiomatic Swift, and match the documented architecture
+- Every code change must pass static analysis and security review
 
-### CSV/TSV Operations (XLKitFormatters Module)
-- Use instance methods on Workbook and Sheet classes
-- Support header row handling
-- Auto-detect data types
-- Handle special characters and quotes
-- Powered by swift-textfile library for robust CSV/TSV parsing and generation
-- CSV and TSV only (no custom delimiters); spec-compliant parsing/generation via swift-textfile
+### Security Features
 
-### Image Operations (XLKitImages Module)
-- Support GIF, PNG, JPEG formats (BMP, TIFF removed for compatibility)
-- Auto-detect formats and sizes
-- Support both Data and URL inputs
-- Handle image embedding in cells
+XLKit includes comprehensive security features to protect against vulnerabilities, supply chain attacks, and malicious code injection:
 
-### XLSX Generation (XLKitXLSX Module)
-- Generate OpenXML-compliant files
-- Use temporary directories for file creation
-- Implement proper XML escaping
-- Support ZIP archive creation using ZIPFoundation
-- Generate proper font colour XML with theme colour support
+#### SecurityManager
 
-## Testing Standards
+The `SecurityManager` provides centralized security controls and monitoring:
 
-### Test Coverage Requirements
+```swift
+@MainActor
+public struct SecurityManager {
+    // Configuration
+    public static var enableChecksumStorage = false  // Disabled by default
+    
+    // Rate limiting, logging, quarantine, and checksum features
+}
+```
+
+#### Rate Limiting
+
+Prevents abuse and resource exhaustion:
+- Default: 100 operations per minute
+- Configurable: Time window and operation limits
+- Automatic: Integrated into all file operations
+- Logging: Rate limit violations are logged
+
+```swift
+// Check rate limit before operations
+try SecurityManager.checkRateLimit()
+```
+
+#### Security Logging
+
+Comprehensive audit trail of all security-relevant operations:
+- Console logging: Real-time security events
+- File logging: Persistent audit trail in temporary directory
+- Structured data: Timestamp, operation, details, user agent
+- Operations logged: File generation, checksums, quarantines, rate limits
+
+```swift
+// Log security operations
+SecurityManager.logSecurityOperation("xlsx_generation_started", details: [
+    "target_path": filePath,
+    "workbook_sheets": sheetCount,
+    "workbook_images": imageCount
+])
+```
+
+#### File Quarantine
+
+Isolates suspicious files to prevent execution:
+- Pattern detection: Checks for malicious code patterns
+- Size validation: Prevents oversized files
+- Format validation: Validates image formats
+- Automatic isolation: Moves suspicious files to quarantine directory
+
+```swift
+// Check if file should be quarantined
+if SecurityManager.shouldQuarantineFile(imageData, format: .png) {
+    try SecurityManager.quarantineSuspiciousFile(fileURL, reason: "Suspicious content detected")
+}
+```
+
+#### File Checksums
+
+Cryptographic integrity verification (optional):
+- SHA-256 hashes: Secure file integrity verification
+- Configurable: Can be enabled/disabled via `enableChecksumStorage`
+- Tamper detection: Identifies unauthorized file modifications
+- Supply chain protection: Ensures file authenticity
+
+```swift
+// Store file checksum (when enabled)
+SecurityManager.storeFileChecksum(checksum, for: fileURL)
+
+// Verify file integrity (when enabled)
+let isValid = SecurityManager.verifyFileChecksum(fileURL)
+```
+
+#### Input Validation
+
+Comprehensive validation of all user inputs:
+- File paths: Validates and sanitizes file paths
+- Image data: Validates image formats and sizes
+- CSV data: Validates CSV structure and content
+- Coordinates: Validates Excel coordinate formats
+
+#### Error Handling
+
+Secure error handling that doesn't expose sensitive information:
+- Generic messages: User-friendly error messages
+- Detailed logging: Internal error details logged for debugging
+- Graceful degradation: Continues operation when possible
+- Security events: Security-related errors trigger additional logging
+
+#### Security Integration
+
+Security features are integrated throughout the codebase:
+- XLSXEngine: Rate limiting, logging, checksums for file generation
+- ImageUtils: Quarantine, validation for image processing
+- XLKit API: Input validation, security logging for all operations
+- Test Runner: Security validation for all test operations
+
+#### Configuration
+
+Security features can be configured as needed:
+```swift
+// Enable checksum storage (disabled by default)
+SecurityManager.enableChecksumStorage = true
+
+// Security logging is always active
+// Rate limiting is always active
+// Input validation is always active
+// File quarantine is always active
+```
+
+#### Security Log Output
+
+Example security log entries:
+```
+[SECURITY] 2025-07-08 8:25:48 PM +0000: xlsx_generation_started - ["target_path": "...", "workbook_sheets": 1, "workbook_images": 0]
+[SECURITY] 2025-07-08 8:25:48 PM +0000: xlsx_generation_completed - ["checksum": "...", "file_size": 19676, "target_path": "..."]
+[SECURITY] 2025-07-08 8:25:48 PM +0000: checksum_stored - ["checksum": "...", "timestamp": 1752006230.891748, "file_path": "..."]
+```
+
+### Testing Strategy
+
+Test Coverage Requirements:
 - Test all public APIs
 - Test error conditions and edge cases
 - Test CSV/TSV import/export functionality
-- Test image format detection and embedding
+- Test image format detection and embedding with all 17 aspect ratios
 - Test XLSX file generation and saving
 - Test coordinate and range operations
 - Test font colour formatting and XML generation
@@ -368,20 +439,24 @@ import Foundation
 - Test merged cells with complex scenarios
 - Test number formatting (currency, percentage, custom formats)
 - Test column ordering for sheets with more than 26 columns (A-Z, AA, AB, etc.)
+- Test sheet visibility state (`.visible`, `.hidden`, `.veryHidden`) and `activeTab` workbook XML
+- Test sheet protection (`SheetProtection`) including `configureSheetPassword`, legacy/modern hashes, and granular permission flags
 - Test platform compatibility and iOS-specific features
 
-### Test Patterns
-- All test classes inherit from `XLKitTestBase` for shared helpers and utilities
+Test Patterns:
+- Unit tests use **Swift Testing** (`import Testing`, `@Suite`, `@Test`, `#expect` / `#require`, `Issue.record`)
+- All test suites are `@Suite` + `@MainActor` structs that call `XLKitTestSupport` helpers
 - Tests are organized into focused files by functionality (e.g., `CoreTests.swift`, `CSVTests.swift`)
-- Use `XLKitTestBase` helpers: `makeUTCDate()`, `makeTempWorkbookURL()`, `withSavedTempWorkbookSync()`, `withSavedTempWorkbookAsync()`
+- Use `XLKitTestSupport` helpers: `makeUTCDate()`, `makeTempWorkbookURL()`, `withSavedTempWorkbookSync()`, `withSavedTempWorkbookAsync()`
 - Use deterministic dates (`fixedTestDate`, `epochDate`) instead of `Date()` for consistent test results
 - Use UUID-based temp file names to prevent concurrent test conflicts
-- Use proper guard statements with descriptive error messages instead of force unwraps
+- Prefer `try #require(...)` for unwraps that should fail the test; avoid force unwraps
 
 ```swift
+@Suite
 @MainActor
-final class FeatureTests: XLKitTestBase {
-    func testFeatureName() {
+struct FeatureTests {
+    @Test func testFeatureName() {
         // Arrange
         let workbook = Workbook()
         
@@ -389,20 +464,19 @@ final class FeatureTests: XLKitTestBase {
         let result = workbook.someOperation()
         
         // Assert
-        XCTAssertEqual(result, expectedValue)
+        #expect(result == expectedValue)
     }
     
-    func testFeatureNameWithInvalidInput() {
-        // Act & Assert
-        XCTAssertThrowsError(try someOperation(invalidInput)) { error in
-            XCTAssertEqual(error as? XLKitError, .expectedError)
+    @Test func testFeatureNameWithInvalidInput() {
+        #expect(throws: XLKitError.self) {
+            try someOperation(invalidInput)
         }
     }
     
-    func testFeatureWithFileOperation() throws {
-        try withSavedTempWorkbookSync(prefix: "test") { workbook, url in
+    @Test func testFeatureWithFileOperation() throws {
+        try XLKitTestSupport.withSavedTempWorkbookSync(prefix: "test") { workbook, url in
             // Workbook is already saved to disk at url
-            XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
+            #expect(FileManager.default.fileExists(atPath: url.path))
             // Test file operations...
         }
         // Automatic cleanup happens in defer block
@@ -410,13 +484,13 @@ final class FeatureTests: XLKitTestBase {
 }
 ```
 
-### Performance Testing
+Performance Testing:
 - Test with large datasets
 - Test memory usage patterns
 - Test async operations
 - Test concurrent access
 
-### Text Alignment Testing
+Text Alignment Testing:
 - Test all 5 horizontal alignment options (left, center, right, justify, distributed)
 - Test all 5 vertical alignment options (top, center, bottom, justify, distributed)
 - Test combined horizontal and vertical alignment scenarios
@@ -425,7 +499,7 @@ final class FeatureTests: XLKitTestBase {
 - Test format key generation includes alignment information
 - Test Excel-compliant XML generation for all alignment options
 
-### Border and Merge Testing
+Border and Merge Testing:
 - Test all border styles (thin, medium, thick) with different colors
 - Test border combinations with other formatting options
 - Test merged cells with complex scenarios (horizontal, vertical, large merges)
@@ -436,251 +510,433 @@ final class FeatureTests: XLKitTestBase {
 - Test text wrapping inclusion in format key generation
 - Test column ordering with proper Excel column sequence (A, B, ..., Z, AA, AB, ...)
 
-## Documentation Standards
+### Documentation
 
-### Code Documentation
+User manual (structured chapters, full public API tables): **`Documentation/Manual/README.md`** (see also `Documentation/README.md`). Contributor structure: **`ARCHITECTURE.md`**. Hard constraints: **`GUARDRAILS.md`**. Update or add a chapter when you add features; keep [Chapter 12](Documentation/Manual/12-Complete-API-Reference.md) aligned with public APIs. CLI outputs and demo passwords: **`Test-Workflows/README.md`**. Unit tests: **`Tests/README.md`** (80 tests).
+
+Code Documentation:
 - All public APIs must have doc comments
 - Include parameter descriptions
 - Provide usage examples
 - Document error conditions
 
-### README Documentation
+README Documentation:
 - Keep README.md comprehensive and up-to-date
 - Include quick start examples
 - Document all major features
 - Provide API reference sections
 
-### AGENT.MD Documentation
-- Maintain detailed architecture documentation
-- Include implementation details
-- Provide development guidelines
-- Document testing strategies
+Test Documentation:
+- All test documentation maintained in Tests/README.md
+- Must accurately reflect all current tests and coverage
+- Update when tests are added, removed, or reorganized
 
-## Development Workflow
+## API Reference
 
-### Feature Development
-1. Add functionality to appropriate module
-2. Follow existing API patterns
-3. Add comprehensive tests
-4. Update documentation
-5. Ensure CI passes
+### Core Types
 
-### Code Review Checklist
-- Code follows Swift 6.0 standards
-- All public APIs documented
-- Tests cover new functionality
-- No force-unwraps in public API
-- Proper error handling
-- Code is formatted correctly
-- CI tests pass
-
-### Commit Standards
-- Use descriptive commit messages
-- Reference issues when applicable
-- Keep commits focused and atomic
-- Test before committing
-
-## Performance Considerations
-
-### Memory Management
-- Optimize for large datasets
-- Use efficient data structures
-- Minimize memory allocations
-- Handle cleanup properly
-
-### Async Operations
-- Use async/await for file I/O
-- Note: Async operations use synchronous implementation since Workbook/Sheet are not Sendable
-- Implement proper concurrency where possible
-- Avoid blocking operations
-- Handle cancellation gracefully
-
-### Optimization Guidelines
-- Use batch operations for multiple cells
-- Optimize range operations
-- Minimize XML generation overhead
-- Efficient image processing
-
-## Security & Safety
-
-### Input Validation
-- Validate all user inputs
-- Sanitize file paths and URLs
-- Handle malformed data gracefully
-- Prevent path traversal attacks
-
-### Error Handling
-- Never expose internal errors to users
-- Provide meaningful error messages
-- Log errors appropriately
-- Handle edge cases gracefully
-
-## Security & Supply Chain Integrity (2025-07-08)
-
-All code in this repository must be free from vulnerability injection, supply chain poisoning, and hidden malicious logic. This includes:
-- No dynamic code execution, system shell commands, or unsafe reflection.
-- All dependencies must be reputable, open-source, and version-pinned in Package.resolved.
-- No network, HTTP, or remote code execution except for documented, safe APIs.
-- All file operations must be local and safe, with no writing to unexpected or system locations.
-- No hardcoded secrets, tokens, or suspicious data.
-- All code must be readable, idiomatic Swift, and match the documented architecture.
-- Every code change must pass static analysis and security review for injection and supply chain risks.
-
-### Security Features Implementation
-
-XLKit includes comprehensive security features implemented in SecurityManager:
-
-#### SecurityManager Components
-- Rate Limiting: 100 operations per minute, configurable limits
-- Security Logging: Comprehensive audit trail with structured data
-- File Quarantine: Automatic isolation of suspicious files
-- File Checksums: SHA-256 integrity verification (configurable)
-- Input Validation: Comprehensive validation of all user inputs
-- Error Handling: Secure error handling without information leakage
-
-#### Security Integration Points
-- XLSXEngine: Rate limiting, logging, checksums for file generation
-- ImageUtils: Quarantine, validation for image processing
-- XLKit API: Input validation, security logging for all operations
-- Test Runner: Security validation for all test operations
-
-#### Security Configuration
+Workbook Class:
 ```swift
-// Checksum storage (disabled by default)
-SecurityManager.enableChecksumStorage = false
+public final class Workbook {
+    private var sheets: [Sheet] = []
+    private let nextSheetId: Int
+    private var images: [ExcelImage] = []
+}
+```
+- Manages multiple sheets and workbook-level images
+- Auto-increments sheet IDs
+- Not Sendable due to mutable state requirements
 
-// Security logging (always active)
-SecurityManager.logSecurityOperation("operation_name", details: [...])
+Sheet Class:
+```swift
+public final class Sheet: Equatable {
+    public let name: String
+    public let id: Int
+    public var state: SheetState = .visible
+    public var protection: SheetProtection?
+    private var cells: [String: CellValue] = [:]
+    private var mergedRanges: [CellRange] = []
+    private var columnWidths: [Int: Double] = [:]
+    private var rowHeights: [Int: Double] = [:]
+    private var images: [String: ExcelImage] = [:]
+    private var cellFormats: [String: CellFormat] = [:]
+}
+```
+- Represents a worksheet with cells, formatting, images, visibility, and protection
+- Supports cell operations, range operations, and image embedding
+- `state` controls tab-bar visibility (`.visible`, `.hidden`, `.veryHidden`)
+- `protection` enables Excel "Protect Sheet" when set to non-nil `SheetProtection`
+- Not Sendable due to mutable state requirements
 
-// Rate limiting (always active)
-try SecurityManager.checkRateLimit()
-
-// File quarantine (always active)
-if SecurityManager.shouldQuarantineFile(data, format: .png) {
-    try SecurityManager.quarantineSuspiciousFile(url, reason: "Suspicious content")
+SheetState Enum:
+```swift
+public enum SheetState: String {
+    case visible      // default — shown in tab bar
+    case hidden       // hidden; user can unhide in Excel UI
+    case veryHidden   // hidden; not unhideable from Excel UI
 }
 ```
 
-#### Security Log Output
-Security operations are logged with structured data:
+SheetProtection Struct:
+```swift
+public struct SheetProtection {
+    public var sheet: Bool? = true
+    public var password: String?
+    public var algorithmName: String?
+    public var hashValue: String?
+    public var saltValue: String?
+    public var spinCount: Int?
+    // 15 granular permission flags (objects, scenarios, formatCells, ...)
+    public init() {}
+}
 ```
-[SECURITY] 2025-07-08 8:25:48 PM +0000: xlsx_generation_started - ["target_path": "...", "workbook_sheets": 1, "workbook_images": 0]
-[SECURITY] 2025-07-08 8:25:48 PM +0000: xlsx_generation_completed - ["checksum": "...", "file_size": 19676, "target_path": "..."]
-[SECURITY] 2025-07-08 8:25:48 PM +0000: checksum_stored - ["checksum": "...", "timestamp": 1752006230.891748, "file_path": "..."]
+- Maps 1:1 to `<sheetProtection>` XLSX element
+- Boolean flags use inverted lock semantics (`true` = action locked)
+- `nil` properties omit the attribute (XLSX default applies)
+
+CellValue Enum:
+```swift
+public enum CellValue: Equatable {
+    case string(String)
+    case number(Double)
+    case integer(Int)
+    case boolean(Bool)
+    case date(Date)
+    case formula(String)
+    case empty
+}
 ```
 
-#### Security Requirements for AI Agents
-- All security features must remain active and functional
-- Security logging must be maintained for audit trails
-- Rate limiting must be respected to prevent abuse
-- Input validation must be comprehensive and secure
-- File quarantine must be functional for suspicious content
-- Checksum verification can be disabled for development but must be available
-- All security events must be properly logged and handled
+CellCoordinate Struct:
+```swift
+public struct CellCoordinate: Hashable {
+    public let row: Int
+    public let column: Int
+    public var excelAddress: String // e.g., "A1", "B2"
+}
+```
 
-## Maintenance & Evolution
+CellRange Struct:
+```swift
+public struct CellRange: Hashable {
+    public let start: CellCoordinate
+    public let end: CellCoordinate
+    public var coordinates: [CellCoordinate]
+    public var excelRange: String // e.g., "A1:B3"
+}
+```
 
-### Backward Compatibility
-- Maintain API compatibility
-- Use deprecation warnings for changes
-- Provide migration guides
-- Version APIs appropriately
+Cell Struct:
+```swift
+public struct Cell {
+    public let value: CellValue
+    public let format: CellFormat?
+    
+    // Factory methods for each cell type
+    public static func string(_ value: String, format: CellFormat? = nil) -> Cell
+    public static func number(_ value: Double, format: CellFormat? = nil) -> Cell
+    public static func integer(_ value: Int, format: CellFormat? = nil) -> Cell
+    public static func boolean(_ value: Bool, format: CellFormat? = nil) -> Cell
+    public static func date(_ value: Date, format: CellFormat? = nil) -> Cell
+    public static func formula(_ value: String, format: CellFormat? = nil) -> Cell
+}
+```
 
-### Code Quality
-- Regular code reviews
-- Automated testing
-- Performance monitoring
-- Documentation updates
+CellFormat Struct:
+```swift
+public struct CellFormat {
+    public var fontName: String?
+    public var fontSize: Double?
+    public var fontWeight: FontWeight?
+    public var fontStyle: FontStyle?
+    public var fontColor: String?
+    public var backgroundColor: String?
+    public var horizontalAlignment: HorizontalAlignment?
+    public var verticalAlignment: VerticalAlignment?
+    public var textDecoration: TextDecoration?
+    public var textWrapping: Bool?
+    public var textRotation: Int?
+    public var numberFormat: NumberFormat?
+    public var customNumberFormat: String?
+    public var borderTop: BorderStyle?
+    public var borderBottom: BorderStyle?
+    public var borderLeft: BorderStyle?
+    public var borderRight: BorderStyle?
+    public var borderColor: String?
+    
+    // Predefined format factories
+    public static func header(fontSize: Double = 14.0, backgroundColor: String = "#E0E0E0") -> CellFormat
+    public static func currency(format: NumberFormat = .currencyWithDecimals, color: String? = nil) -> CellFormat
+    public static func percentage(format: NumberFormat = .percentageWithDecimals) -> CellFormat
+    public static func date(format: NumberFormat = .date) -> CellFormat
+    public static func bordered(style: BorderStyle = .thin, color: String? = nil) -> CellFormat
+    public static func text(fontName: String?, fontSize: Double?, fontWeight: FontWeight?, fontStyle: FontStyle?, color: String?) -> CellFormat
+}
+```
 
-### Future Considerations
-- Plan for feature additions
-- Consider platform expansion
-- Monitor Swift evolution
-- Track Excel format changes
+Border and Merge Support:
+XLKit provides comprehensive border and merge functionality:
+- Border Support: Thin, medium, and thick border styles with custom colors
+- Merge Support: Cell merging with complex range scenarios
+- Combined Formatting: Borders and merges work with all other formatting options
+- Excel Compliance: Proper XML generation for borders and merges
 
-## Integration Guidelines
+Text Alignment Support:
+XLKit provides comprehensive text alignment support with all 6 alignment options available in Excel:
+- Horizontal Alignment: left, center, right, justify, distributed
+- Vertical Alignment: top, center, bottom, justify, distributed
+- Combined alignment scenarios for precise cell formatting
+- Excel-compliant XML generation for all alignment options
 
-### Package Manager
-- Use Swift Package Manager
-- Maintain proper dependencies
-- Version modules appropriately
-- Document requirements
+ExcelImage Struct:
+```swift
+public struct ExcelImage {
+    public let id: String
+    public let data: Data
+    public let format: ImageFormat
+    public let originalSize: CGSize
+    public let displaySize: CGSize?
+}
+```
 
-### CI/CD Integration
-- Automated testing on macOS
-- Code formatting checks
-- Documentation generation
-- Release automation
+ImageFormat Enum:
+```swift
+public enum ImageFormat: String, CaseIterable {
+    case gif = "gif"
+    case png = "png"
+    case jpeg = "jpeg"
+    case jpg = "jpg"
+    case bmp = "bmp"
+    case tiff = "tiff"
+    
+    public var mimeType: String
+    public var excelContentType: String
+}
+```
 
-### External Dependencies
-- Minimize external dependencies
-- Use only essential libraries
-- Document dependency reasons
-- Monitor for updates
+XLKitError Enum:
+```swift
+public enum XLKitError: Error, LocalizedError {
+    case invalidCoordinate(String)
+    case invalidRange(String)
+    case fileWriteError(String)
+    case zipCreationError(String)
+    case xmlGenerationError(String)
+}
+```
 
-Current External Dependencies:
-- CoreXLSX (0.14.2): Excel file validation and parsing
-- ZIPFoundation (0.9.19): Cross-platform ZIP archive creation
-- XMLCoder (0.14.0): XML serialization (transitive dependency)
-- swift-textfile (0.4.0): CSV/TSV parsing and generation (used by XLKitFormatters)
+CoreUtils (selected):
+```swift
+// Legacy worksheet protection password → four-character hex for SheetProtection.password
+public static func excelLegacySheetPasswordHash(for password: String) -> String
+public static func excelModernSheetPasswordHash(for:spinCount:salt:) throws -> ExcelModernSheetPasswordHash
+public static func configureSheetPassword(_:plaintext:legacy:modern:spinCount:salt:) throws
 
-## Troubleshooting Guide
+// Column/row conversion, XML escape, Excel dates, file validation, checksums
+public static func columnLetter(from column: Int) -> String
+public static func columnNumber(from letter: String) -> Int
+public static func escapeXML(_ string: String) -> String
+```
 
-### Common Issues
-- Sendable conformance warnings
-- Memory usage with large files
-- Image format detection failures
-- CSV parsing edge cases
+### Sheet Operations
 
-### Debugging Tips
-- Use proper logging
-- Test with minimal examples
-- Check file permissions
-- Validate input data
+Cell Operations:
+```swift
+// Set cell values
+sheet.setCell("A1", string: "Hello World")
+sheet.setCell("B1", number: 42.5)
+sheet.setCell("C1", integer: 100)
+sheet.setCell("D1", boolean: true)
+sheet.setCell("E1", date: Date())
+sheet.setCell("F1", formula: "=SUM(A1:E1)")
 
-### Performance Issues
-- Profile memory usage
-- Monitor file I/O operations
-- Check async operation patterns
-- Optimize data structures
+// Get cell values
+let value = sheet.getCell("A1")
 
-## Architecture Update (2025-07-07)
-- The XLSX engine now generates all required files for Excel compliance, including docProps, theme, styles, sharedStrings, and all relationship files.
-- Worksheet, styles, and workbook XML are generated in a single-line, Excel-compliant format.
-- The test runner (`XLKitTestRunner`) now includes automated validation using [CoreXLSX](https://github.com/CoreOffice/CoreXLSX) to ensure every generated file is fully compliant and readable by Excel and third-party tools.
+// Set cell with format
+sheet.setCell("A1", cell: Cell.string("Header", format: CellFormat.header()))
 
-## Compliance & Validation
-- Every generated Excel file must be validated for structure and content using CoreXLSX.
-- Validation checks include: workbook, worksheet, shared strings, styles, and row/cell integrity.
-- The test runner must fail if the generated file is not fully compliant.
+// Set cell with font colour
+sheet.setCell("A1", cell: Cell.string("Red Text", format: CellFormat.text(color: "#FF0000")))
 
-## Developer Workflow
-- To add new Excel features, update the engine and add/extend validation in the test runner.
-- Use the test runner to ensure all changes remain Excel-compliant.
-- Manual unpacking and inspection of .xlsx files is no longer required for compliance.
+// Set range of cells
+sheet.setRange("A1:A10", value: .string("Batch"))
+```
 
-## Recent Improvements (2025-07-07)
-- Perfect Aspect Ratio Preservation: Implemented pixel-perfect image embedding with zero distortion
-- Empirically Derived Formulas: Column width `pixels / 8.0`, Row height `pixels / 1.33` from manual Excel analysis
-- ImageSizingUtils: Centralized sizing logic with consistent formulas across all operations
-- EMU Coordinate System: Correct Excel internal format (1 pixel = 9525 EMUs) for perfect positioning
-- Comprehensive Testing: All 17 professional video and cinema aspect ratios (16:9, 1:1, 9:16, 21:9, 3:4, 2.39:1, 1.85:1, 4:3, 18:9, 1.19:1, 1.5:1, 1.48:1, 1.25:1, 1.9:1, 1.32:1, 2.37:1, 1.37:1) tested and validated, including cinema and mobile formats
-- Excel Compliance: All generated files pass CoreXLSX validation with perfect aspect ratio preservation
-- Simplified API: Easy-to-use methods with automatic sizing and aspect ratio preservation
-- Font Colour Support: Added comprehensive font colour formatting with proper XML generation and theme colour support
+Sheet Visibility and Protection:
+```swift
+// Hide auxiliary sheets from the tab bar
+techSheet.state = .hidden       // user can unhide in Excel
+configSheet.state = .veryHidden  // not unhideable from Excel UI
 
-## Text Alignment Testing (2025-07-15)
-- Comprehensive text alignment testing added to XLKitTests.swift
-- All 5 horizontal alignment options tested (left, center, right, justify, distributed)
-- All 5 vertical alignment options tested (top, center, bottom, justify, distributed)
-- Combined alignment scenarios tested for complex formatting
-- Alignment with other formatting options tested (font, background, etc.)
-- Enum value correctness verified for all alignment options
-- Format key generation tested to include alignment information
-- Excel-compliant XML generation validated for all alignment options
-- Test count increased from 40 to 45 tests with 100% API coverage
+// Protect a sheet (locked cells become read-only in Excel)
+dataSheet.protection = SheetProtection()
 
-## Border and Merge Functionality (2025-08-04)
+// Password-protected sheet (legacy + SHA-512) — prefer configureSheetPassword
+var protection = SheetProtection()
+try CoreUtils.configureSheetPassword(&protection, plaintext: "mySecret")
+protection.selectLockedCells = true
+dataSheet.protection = protection
+
+// Legacy-only: protection.password = CoreUtils.excelLegacySheetPasswordHash(for: "1234")  // CC3D
+// Dev helper: swift run XLKitTestRunner sheet-password mySecret
+// Comprehensive-Demo.xlsx salts: ComprehensiveDemoProtection.swift (TestRunner only)
+
+// Fine-grained protection with inverted lock semantics
+var granular = SheetProtection()
+granular.formatCells = false       // explicitly allow formatting
+granular.selectLockedCells = true  // block selection of locked cells
+dataSheet.protection = granular
+```
+
+Range Operations:
+```swift
+// Merge cells
+sheet.mergeCells("A1:B2")
+
+// Get merged ranges
+let ranges = sheet.getMergedRanges()
+
+// Check if cell is in merged range
+let isMerged = sheet.isCellMerged("A1")
+
+// Border formatting
+var borderedFormat = CellFormat.bordered()
+borderedFormat.borderTop = .thin
+borderedFormat.borderBottom = .thin
+borderedFormat.borderLeft = .thin
+borderedFormat.borderRight = .thin
+borderedFormat.borderColor = "#000000"
+sheet.setCell("A1", string: "Bordered Cell", format: borderedFormat)
+
+// Complex border and merge combination
+var complexFormat = CellFormat.bordered()
+complexFormat.fontSize = 11
+complexFormat.fontWeight = .bold
+complexFormat.horizontalAlignment = .center
+complexFormat.verticalAlignment = .center
+complexFormat.fontName = "Calibri"
+complexFormat.borderTop = .thin
+complexFormat.borderBottom = .thin
+complexFormat.borderLeft = .thin
+complexFormat.borderRight = .thin
+complexFormat.borderColor = "#000000"
+
+sheet.setCell("A1", string: "Test1", format: complexFormat)
+sheet.setCell("A2", string: "Test2")
+sheet.mergeCells("A1:B1")
+sheet.mergeCells("A2:B2")
+```
+
+Formatting Operations:
+```swift
+// Set column width
+sheet.setColumnWidth(1, width: 15.0)
+
+// Set row height
+sheet.setRowHeight(1, height: 20.0)
+
+// Get column width and row height
+let width = sheet.getColumnWidth(1)
+let height = sheet.getRowHeight(1)
+```
+
+Image Operations:
+```swift
+// Add image with automatic sizing
+try sheet.embedImageAutoSized(
+    imageData: imageData,
+    at: "B2",
+    workbook: workbook
+)
+
+// Add image from URL
+try sheet.embedImageAutoSized(
+    imageURL: imageURL,
+    at: "B2",
+    workbook: workbook
+)
+
+// Get all images
+let images = sheet.getImages()
+
+// Check if cell has image
+let hasImage = sheet.hasImage(at: "B2")
+```
+
+Utility Operations:
+```swift
+// Get used cells
+let usedCells = sheet.getUsedCells()
+
+// Clear all data
+sheet.clear()
+```
+
+### Workbook Operations
+
+Sheet Management:
+```swift
+// Add sheets
+let sheet1 = workbook.addSheet(name: "Sheet1")
+let sheet2 = workbook.addSheet(name: "Sheet2")
+
+// Get sheets
+let allSheets = workbook.getSheets()
+let specificSheet = workbook.getSheet(name: "Sheet1")
+
+// Remove sheets
+workbook.removeSheet(name: "Sheet1")
+```
+
+Image Management:
+```swift
+// Add workbook-level images
+workbook.addImage(excelImage)
+
+// Get all images
+let images = workbook.getImages()
+```
+
+### CSV/TSV Operations
+
+Import Operations:
+```swift
+// Create workbook from CSV
+let workbook = Workbook(fromCSV: "Name,Age\nJohn,25\nJane,30", hasHeader: true)
+
+// Import into existing sheet
+sheet.importCSV("Name,Age\nJohn,25\nJane,30", hasHeader: true)
+```
+
+Export Operations:
+```swift
+// Export sheet to CSV
+let csv = sheet.exportToCSV()
+
+// Export sheet to TSV
+let tsv = sheet.exportToTSV()
+```
+
+### Image Operations
+
+Image Embedding:
+```swift
+// Embed image with automatic sizing and perfect aspect ratio
+try await sheet.embedImageAutoSized(imageData, at: "B2", of: workbook)
+
+// Embed image with custom scaling
+try await sheet.embedImageAutoSized(
+    imageData,
+    at: "B2",
+    of: workbook,
+    scale: 0.7
+)
+```
+
+## Recent Improvements
+
+### Border and Merge Functionality (2025-08-04)
 - Comprehensive border and merge functionality implemented and tested
 - Border support with thin, medium, and thick styles with custom colors
 - Merged cells support with complex range scenarios
@@ -689,7 +945,7 @@ Current External Dependencies:
 - Test count increased from 45 to 51 tests with 100% API coverage
 - All border and merge functionality fully tested and validated
 
-## Text Wrapping Functionality (2025-09-25)
+### Text Wrapping Functionality (2025-09-25)
 - Comprehensive text wrapping functionality implemented and tested
 - Text wrapping support with proper Excel XML generation
 - Text wrapping inclusion in format key generation for proper format caching
@@ -697,7 +953,7 @@ Current External Dependencies:
 - Test count increased from 51 to 53 tests with 100% API coverage
 - All text wrapping functionality fully tested and validated
 
-## Column Ordering Fix (2025-10-18)
+### Column Ordering Fix (2025-10-18)
 - Fixed critical column ordering bug for sheets with more than 26 columns (A-Z, AA, AB, etc.)
 - Resolved Excel compatibility issue where generated files were rejected or repaired due to invalid column ordering
 - Implemented proper numeric column sorting in XLSXEngine.generateWorksheetXML() to ensure Excel-compliant column order
@@ -709,7 +965,7 @@ Current External Dependencies:
 - Validated fix with CoreXLSX to ensure all generated Excel files open correctly in Excel
 - Enhanced XLKitTestRunner with column ordering validation for continuous testing
 
-## Test Suite Refactoring and Quality Improvements (2026-02-16)
+### Test Suite Refactoring and Quality Improvements (2026-02-16)
 - Refactored test suite from single 1,535-line file into 13 focused test files organized by functionality for better maintainability
 - Created `XLKitTestBase` shared base class with common helpers (date creation utilities, temp file management with automatic cleanup, border format helpers)
 - Enhanced `XLKitTestBase` error handling: replaced `fatalError` with `XCTFail` and deterministic fallback dates to prevent test suite crashes
@@ -721,7 +977,34 @@ Current External Dependencies:
 - Increased test count from 55 to 59 with 100% API coverage maintained
 - Test files: `CoreTests.swift` (5 tests), `CellValueTests.swift` (6 tests), `CoordinateTests.swift` (2 tests), `FormattingTests.swift` (8 tests), `NumberFormatTests.swift` (5 tests), `TextWrappingTests.swift` (2 tests), `BorderTests.swift` (3 tests), `MergeTests.swift` (4 tests), `CSVTests.swift` (12 tests), `FileOperationTests.swift` (2 tests), `ImageTests.swift` (2 tests), `ColumnOrderingTests.swift` (2 tests), `SheetUtilityTests.swift` (6 tests)
 
-## iOS Compatibility Fix (2025-07-14)
+### Comprehensive Demo and Sheet Password Utilities (2026-06-03, 1.1.6)
+- Added `CoreUtils.excelLegacySheetPasswordHash(for:)`, `excelModernSheetPasswordHash(for:spinCount:salt:)`, and `configureSheetPassword(_:plaintext:legacy:modern:spinCount:salt:)` for worksheet protection (legacy + SHA-512)
+- Added `XLKitTestRunner sheet-password <plaintext>` (prints hash fields and Swift snippet); `--demo-salts` with **1234** uses salts from `ComprehensiveDemoProtection.swift`
+- Extended `comprehensive` / `demo` (11 sheets) to showcase sheet visibility and protection; **Comprehensive-Demo.xlsx** password **1234** via `configureSheetPassword` and demo constants in TestRunner only (not public XLKitCore API)
+- Documented in `Sources/XLKitTestRunner/README.md`, `Test-Workflows/README.md`, `Tests/README.md`, and `Documentation/Manual/` chapters 03, 09, 10, 12
+- Expanded `SheetProtectionTests` to 14 tests; test count 75 → 80
+
+### Swift Testing Migration and CI Updates (2026-07-18, 1.1.7)
+- Migrated all **80** unit tests from XCTest to **Swift Testing** (`import Testing`, `@Suite`, `@Test`, `#expect` / `#require`, `Issue.record`)
+- Replaced `XLKitTestBase` (`XCTestCase` subclass) with **`XLKitTestSupport`** static helpers in `XLKitTestBase.swift`
+- Suites are `@Suite` + `@MainActor` structs; temp-file and date helpers call `XLKitTestSupport` explicitly
+- Updated docs: `Tests/README.md`, `Test-Workflows/README.md`, `Documentation/Manual/` chapters 01 and 10, `CHANGELOG.md` (1.1.7)
+- Added root **`ARCHITECTURE.md`** and **`GUARDRAILS.md`** (contributor / agent docs)
+- CI (`build.yml`): removed redundant `macOS-swift6` tools-version job; added **macOS (strict concurrency)** with `SWIFT_STRICT_CONCURRENCY=complete` (verified locally)
+- Documented `cli-numbers.yml` in Manual chapter 10; corrected iOS requirement note (iOS is tested in CI)
+
+### Sheet Visibility and Protection (2026-05-30, PR #23)
+- Added `SheetState` enum (`.visible`, `.hidden`, `.veryHidden`) and `Sheet.state` property
+- Added `SheetProtection` struct with legacy/modern password support and 15 ECMA-376 granular permission flags
+- Added `Sheet.protection` property; non-nil enables Excel "Protect Sheet" on open
+- XLSX engine emits `state` on `<sheet>`, `activeTab` on `<workbookView>` when first sheet is hidden, and `<sheetProtection>` after `</sheetData>`
+- Visible/unprotected sheets emit no extra XML (backward-compatible byte-identical output)
+- Excel, LibreOffice, and Google Sheets respect both features; Apple Numbers ignores them
+- Added `SheetStateTests.swift` (7 tests) and `SheetProtectionTests.swift` (9 tests at merge; grew to 14 in 1.1.6 with password-hash coverage)
+- Increased test count from 59 to 75 with 100% API coverage maintained
+- Documented in `Documentation/Manual/` chapters 03, 11, and 12 (password helpers in chapter 09 as of 1.1.6)
+
+### iOS Compatibility Fix (2025-07-14)
 - Fixed iOS build error: `'homeDirectoryForCurrentUser' is unavailable in iOS`
 - Implemented platform-specific conditionals for file system operations
 - Updated `allowedDirectories` in CoreTypes.swift to use `#if os(macOS)` for home directory access
@@ -729,7 +1012,17 @@ Current External Dependencies:
 - Verified successful builds on both macOS and iOS platforms
 - Added iOS job to GitHub Actions workflow for continuous testing
 
-## Scaling API Investigation and Fixes (2025-07-12)
+### Perfect Aspect Ratio Preservation (2025-07-07)
+- Implemented pixel-perfect image embedding with zero distortion
+- Empirically derived formulas: Column width `pixels / 8.0`, Row height `pixels / 1.33`
+- ImageSizingUtils: Centralized sizing logic with consistent formulas
+- EMU Coordinate System: Correct Excel internal format (1 pixel = 9525 EMUs)
+- Comprehensive testing of all 17 professional video and cinema aspect ratios
+- Excel compliance with CoreXLSX validation for all generated files
+- Simplified API with automatic sizing and aspect ratio preservation
+- Font Colour Support: Added comprehensive font colour formatting with proper XML generation and theme colour support
+
+### Scaling API Investigation and Fixes (2025-07-12)
 - Identified and resolved scaling inconsistencies between XLKit test and MarkersExtractor integration
 - Fixed XLKit test to use default parameters instead of manual overrides
 - Established consistent API usage pattern: let XLKit handle sizing automatically
@@ -737,12 +1030,76 @@ Current External Dependencies:
 - Verified perfect aspect ratio preservation across all implementations
 - Confirmed Excel compliance and CoreXLSX validation for all generated files
 
-## Image Embedding Implementation (2025-07-07) - PERFECT ASPECT RATIO PRESERVATION
+## Implementation Details
 
-### Overview
-XLKit now supports pixel-perfect image embedding with automatic sizing and perfect aspect ratio preservation, matching Excel's manual behavior and professional quality exports.
+### XLSX Generation
+
+The XLSX engine generates all required files for Excel compliance:
+- docProps (core.xml, app.xml)
+- theme (theme1.xml)
+- styles (styles.xml)
+- sharedStrings (sharedStrings.xml)
+- xl/workbook.xml
+- xl/worksheets/sheet1.xml
+- xl/drawings/drawing1.xml (if images present)
+- xl/media/ (image files)
+- _rels/ (relationship files)
+- [Content_Types].xml
+
+Key Features:
+- Uses ZIPFoundation for cross-platform ZIP creation
+- Generates Excel-compliant XML with proper escaping
+- Validates files using CoreXLSX
+- Supports all Excel data types and formatting
+- Generates proper font colour XML with theme colour support
+- Emits sheet `state` attributes and `activeTab` for hidden sheets in workbook XML
+- Emits `<sheetProtection>` in worksheet XML when `Sheet.protection` is set
+
+### Image Embedding Scaling API
+
+XLKit provides automatic image scaling with perfect aspect ratio preservation. The `embedImageAutoSized` method handles all sizing automatically.
+
+#### Default Parameters
+```swift
+func embedImageAutoSized(
+    _ data: Data,
+    at coordinate: String,
+    of workbook: Workbook,
+    format: ImageFormat? = nil,
+    maxCellWidth: CGFloat = 600,    // Default maximum width
+    maxCellHeight: CGFloat = 400,   // Default maximum height
+    scale: CGFloat = 0.5            // Default 50% scaling
+) throws -> Bool
+```
+
+#### Scale Control
+The `scale` parameter controls image size relative to maximum bounds:
+- `scale: 0.3` - 30% (very small images)
+- `scale: 0.5` - 50% (default, compact)
+- `scale: 0.7` - 70% (medium size)
+- `scale: 0.8` - 80% (larger images)
+- `scale: 1.0` - 100% (full size, maximum bounds)
+
+#### Automatic Sizing Process
+1. XLKit calculates display size within specified bounds
+2. Maintains perfect aspect ratio with zero distortion
+3. Automatically sets column width using `pixels / 8.0` formula
+4. Automatically sets row height using `pixels / 1.33` formula
+5. Handles all Excel compliance and EMU calculations
+
+#### Integration Best Practices
+- Let XLKit handle all sizing automatically using defaults
+- Call `embedImageAutoSized` after column width adjustments
+- XLKit will override image column with perfect sizing
+- Use `scale` parameter to control image size when needed
+- Avoid manual column width calculations for image columns
+
+### Image Embedding
+
+XLKit supports pixel-perfect image embedding with automatic sizing and perfect aspect ratio preservation.
 
 Supported Aspect Ratios (Tested & Validated):
+All 17 professional video and cinema aspect ratios with pixel-perfect preservation:
 - 16:9 (HD/4K video)
 - 1:1 (Square format)
 - 9:16 (Vertical video)
@@ -761,293 +1118,123 @@ Supported Aspect Ratios (Tested & Validated):
 - 2.37:1 (5K Cinema Scope)
 - 1.37:1 (IMAX Film 15/70mm)
 
-All aspect ratios are preserved with pixel-perfect accuracy using empirically derived Excel formulas. See Tests/README.md for details and validation results.
-
-### Scaling API (2025-07-12)
-XLKit provides automatic image scaling with configurable size control through the `embedImageAutoSized` method.
-
-#### Default Parameters
-- `maxCellWidth: 600` - Default maximum width in pixels
-- `maxCellHeight: 400` - Default maximum height in pixels
-- `scale: 0.5` - Default 50% scaling for compact images
-
-#### Scale Control Options
-- `scale: 0.3` - 30% (very small images)
-- `scale: 0.5` - 50% (default, compact)
-- `scale: 0.7` - 70% (medium size)
-- `scale: 0.8` - 80% (larger images)
-- `scale: 1.0` - 100% (full size, maximum bounds)
-
-#### Integration Best Practices
-- Let XLKit handle all sizing automatically using defaults
-- Call `embedImageAutoSized` after column width adjustments
-- XLKit will override image column with perfect sizing
-- Use `scale` parameter to control image size when needed
-- Avoid manual column width calculations for image columns
-
-### Key Features
-
-Perfect Aspect Ratio Preservation
-- Images maintain their exact original proportions regardless of cell dimensions
-- Zero stretching, squashing, or distortion - pixel-perfect preservation
-- Uses empirically derived formulas from manual Excel file analysis
-- Supports all 17 professional video and cinema aspect ratios: 16:9, 1:1, 9:16, 21:9, 3:4, 2.39:1, 1.85:1, 4:3, 18:9, 1.19:1, 1.5:1, 1.48:1, 1.25:1, 1.9:1, 1.32:1, 2.37:1, 1.37:1, and any custom ratio
-
-Super-Precise Cell Sizing
-- Row height automatically adjusts to match image height using correct formulas
-- Column width automatically adjusts to match image width using correct formulas
-- Cells perfectly fit the embedded images with no overflow or underflow
-
-Precise Positioning
-- Images are positioned exactly at cell boundaries with perfect alignment
-- Uses EMU (English Metric Units) for Excel's internal coordinate system
-- Zero offsets that could cause misalignment or stretching
-
-Excel Compliance
-- Uses correct Excel formulas derived from manual file analysis
-- Generates proper drawing XML with accurate EMU coordinates
-- Maintains compatibility with all Excel versions
-- Passes CoreXLSX validation for full compliance
-
-### API Requirements
-
-Simplified Methods
-```swift
-// Sheet extension method - auto-sizing with perfect aspect ratio
-sheet.embedImageAutoSized(
-    imageData,
-    at: coordinate,
-    of: workbook
-) -> Bool
-
-// XLKit convenience method
-XLKit.embedImage(
-    imageData,
-    at: coordinate,
-    in: sheet,
-    of: workbook,
-    scale: 1.0,
-    maxWidth: 600,
-    maxHeight: 400
-) -> Bool
-```
-
-Workbook Registration
-- Images are automatically registered with both sheet and workbook
-- Ensures proper tracking and counting
-- Prevents issues with image enumeration
-
-Correct Cell Sizing Formulas
-- Column width: `pixels / 8.0` (empirically derived from manual Excel files)
-- Row height: `pixels / 1.33` (empirically derived from manual Excel files)
-- EMU conversion: `pixels * 9525` (Excel's internal format)
-- Maintains perfect aspect ratio preservation for all image types
-
-Critical Implementation Rules
-- MANDATORY: Use `ImageSizingUtils` for all sizing calculations
-- MANDATORY: Use calculated values, never hardcoded dimensions
-- MANDATORY: `rowOff = 0` in drawing XML to keep images within cell boundaries
-- MANDATORY: Images must be positioned exactly at cell start point with no offsets
-- MANDATORY: All aspect ratios must be preserved exactly - no exceptions
+Key Features:
+- Perfect Aspect Ratio Preservation: Images maintain exact original proportions with zero distortion
+- Automatic Cell Sizing: Row height and column width adjust to match image dimensions using empirically derived formulas
+- Precise Positioning: Images positioned exactly at cell boundaries with zero offsets
+- Excel Compliance: Uses precise Excel formulas for sizing calculations with CoreXLSX validation
+- Workbook Registration: Images registered with both sheet and workbook for proper tracking
+- Professional Quality: Pixel-perfect exports suitable for professional video editing workflows
 - CRITICAL: The pixel-perfect image embedding is the most critical feature and must be preserved at all costs
 
-### Implementation Standards
+Implementation:
+- Uses ImageSizingUtils for centralized sizing logic with consistent formulas
+- Column width: `pixels / 8.0` (empirically derived from manual Excel analysis)
+- Row height: `pixels / 1.33` (empirically derived from manual Excel analysis)
+- EMU conversion: `pixels * 9525` (Excel's internal format for perfect positioning)
+- Drawing XML with correct EMU coordinates and zero offsets
+- CoreXLSX validation ensures full Excel compliance for all generated files
 
-ImageSizingUtils Integration
-- MANDATORY: Use `ImageSizingUtils.calculateDisplaySize()` for all image scaling
-- MANDATORY: Use `ImageSizingUtils.excelColumnWidth()` for column width calculations
-- MANDATORY: Use `ImageSizingUtils.excelRowHeight()` for row height calculations
-- MANDATORY: Use `ImageSizingUtils.calculateDrawingDimensions()` for EMU conversion
-- MANDATORY: Never use hardcoded values for sizing calculations
+### Error Handling
 
-Drawing XML Generation
-- Generate precise drawing XML with correct EMU coordinates
-- Use Excel's EMU coordinate system (1 pixel = 9525 EMUs)
-- Include proper relationship references and image IDs
-- Ensure perfect aspect ratio preservation in drawing dimensions
+XLKitError Types:
+```swift
+// Coordinate errors
+XLKitError.invalidCoordinate("Z999999") // Invalid Excel address
 
-Worksheet XML Updates
-- Include calculated row heights in `<row>` elements using correct formulas
-- Set calculated column widths in `<col>` elements using correct formulas
-- Ensure cell dimensions match image dimensions exactly
-- Use consistent formulas across all sizing operations
+// Range errors
+XLKitError.invalidRange("A1:Z999999") // Invalid range
 
-Image Processing
-- Support GIF, PNG, JPEG formats (BMP, TIFF removed for compatibility)
-- Auto-detect formats and sizes with proper error handling
-- Handle missing files gracefully with meaningful error messages
-- Preserve original image quality during processing
+// File operation errors
+XLKitError.fileWriteError("Permission denied")
+XLKitError.zipCreationError("ZIP creation failed")
+XLKitError.xmlGenerationError("XML generation failed")
+```
 
-### Testing Requirements
+Error Handling Patterns:
+```swift
+do {
+    try await workbook.save(to: url)
+} catch XLKitError.invalidCoordinate(let coord) {
+    print("Invalid coordinate: \(coord)")
+} catch XLKitError.fileWriteError(let message) {
+    print("File write error: \(message)")
+} catch {
+    print("Unexpected error: \(error)")
+}
+```
 
-Image Embedding Tests
-- Test aspect ratio preservation for all 17 supported ratios (16:9, 1:1, 9:16, 21:9, 3:4, 2.39:1, 1.85:1, 4:3, 18:9, 1.19:1, 1.5:1, 1.48:1, 1.25:1, 1.9:1, 1.32:1, 2.37:1, 1.37:1)
-- Test automatic cell sizing using correct formulas
-- Test precise positioning with zero offsets
-- Test workbook registration and image counting
-- Test error handling for missing files and invalid formats
-- Test different image sizes and scaling scenarios
+## Performance & Optimization
 
-Validation Requirements
-- All generated files must pass CoreXLSX validation
-- Image count must match expected values
-- Cell dimensions must match image dimensions exactly
-- Aspect ratio must be preserved with zero tolerance for distortion
-- Drawing XML must use correct EMU coordinates
-- Worksheet XML must use calculated dimensions (no hardcoded values)
+Memory Management:
+- Optimize for large datasets
+- Use efficient data structures
+- Minimize memory allocations
+- Handle cleanup properly
 
-Test Coverage Requirements
-- Unit tests for all `ImageSizingUtils` methods
-- Integration tests for complete image embedding workflow
-- Validation tests using CoreXLSX for Excel compliance
-- Performance tests for large images and multiple embeds
-- Error handling tests for edge cases and failures
+Async Operations:
+- Use async/await for file I/O
+- Note: Async operations use synchronous implementation since Workbook/Sheet are not Sendable
+- Implement proper concurrency where possible
+- Avoid blocking operations
+- Handle cancellation gracefully
 
-### Performance Guidelines
+Optimization Guidelines:
+- Use batch operations for multiple cells
+- Optimize range operations
+- Minimize XML generation overhead
+- Efficient image processing
 
-Memory Management
-- Process images on-demand
-- Efficient data handling for large images
-- Proper cleanup after processing
+## Maintenance & Updates
 
-File Size Optimization
-- Optimized image compression
-- Efficient XML generation
-- Minimal overhead for embedded images
+Backward Compatibility:
+- Maintain API compatibility
+- Use deprecation warnings for changes
+- Provide migration guides
+- Version APIs appropriately
 
-### Code Quality Standards
+Code Quality:
+- Regular code reviews
+- Automated testing
+- Performance monitoring
+- Documentation updates
 
-Error Handling
-- Handle missing image files gracefully
-- Provide meaningful error messages
-- Use specific error types for image operations
+Future Considerations:
+- Plan for feature additions
+- Consider platform expansion
+- Monitor Swift evolution
+- Track Excel format changes
 
-Documentation
-- Document all new image embedding methods
-- Include usage examples
-- Explain aspect ratio preservation
-- Document cell sizing formulas
+Integration Guidelines:
+- Use Swift Package Manager
+- Maintain proper dependencies
+- Version modules appropriately
+- Document requirements
 
-### Integration Guidelines
+CI/CD Integration:
+- Automated testing on macOS (unit tests + TestRunner smoke) and iOS simulator
+- Optional macOS job with `SWIFT_STRICT_CONCURRENCY=complete`
+- CLI workflows for embed, no-embeds, comprehensive, iOS, and number-formats
+- Code formatting checks
+- Documentation generation
+- Release automation
 
-Test Runner Integration
-- `embed` test type implemented in XLKitTestRunner
-- ImageEmbedGenerators.swift handles image embedding tests
-- Output to `Embed-Test-Embed.xlsx` with validation
-- CoreXLSX validation ensures Excel compliance
-- All tests pass with perfect aspect ratio preservation
+External Dependencies:
+- Minimize external dependencies
+- Use only essential libraries
+- Document dependency reasons
+- Monitor for updates
 
-File Organization
-- ImageSizingUtils.swift in XLKitImages module for centralized sizing logic
-- XLKit.swift provides simplified API methods
-- XLSXEngine.swift uses correct EMU calculations
-- Maintains separation of concerns across modules
-- Follows existing API patterns for consistency
-
-API Design
-- Simplified methods for easy usage
-- Automatic sizing with perfect aspect ratio preservation
-- Consistent error handling across all methods
-- Backward compatibility maintained where possible
-- Comprehensive documentation for all new features
-
-## Documentation Maintenance Requirements
-
-### Structured user manual
-
-The end-user manual is split into chapters under **`Documentation/Manual/`** (index: **`Documentation/Manual/README.md`**). When you add or change public APIs, update the relevant chapter and **`Documentation/Manual/12-Complete-API-Reference.md`**.
-
-### Critical Update Requirements
-
-MANDATORY: This .cursorrules file must be updated whenever:
-- New features are added to the library
-- Significant architectural changes are made
-- New modules or major components are introduced
-- API changes or breaking changes occur
-- New testing patterns or requirements are established
-- Performance optimizations or security improvements are implemented
-- Platform requirements or dependencies change
-- Coding standards or best practices are updated
-- File organization or module structure changes
-- New error types or handling patterns are introduced
-
-### Table of Contents Maintenance
-
-MANDATORY: The table of contents in AGENT.MD must be updated whenever:
-- New sections are added to the document
-- Existing sections are renamed or restructured
-- Subsections are added or removed
-- Document organization changes
-- New implementation details are documented
-- API references are updated
-- Testing strategies are modified
-- Performance considerations are added
-- Architecture updates are documented
-- Any content changes that affect document structure
-
-Update Process:
-1. Review all section headers in AGENT.MD using `grep_search` for `^## [A-Z]`
-2. Compare with existing table of contents
-3. Add missing sections with proper anchor links
-4. Remove outdated sections that no longer exist
-5. Update subsection structure to match document organization
-6. Ensure all links are properly formatted and functional
-7. Maintain consistent formatting and indentation
-8. Verify that all sections in the document are represented in the TOC
-
-TOC Structure Standards:
-- Use proper markdown link format: `[Section Name](#anchor-link)`
-- Maintain consistent indentation for subsections
-- Group related sections logically
-- Include all subsections under major sections
-- Ensure anchor links match actual section headers
-- Keep TOC organized in document order
-
-### Update Checklist for AI Agents
-
-When making significant changes to the codebase, ensure this .cursorrules file is updated to include:
-
-- New Features: Add rules for new functionality and APIs
-- Architecture Changes: Update module structure and dependencies
-- API Guidelines: Add guidelines for new API patterns
-- Testing Requirements: Update testing standards and coverage requirements
-- Performance Guidelines: Add performance considerations for new features
-- Error Handling: Update error types and handling requirements
-- Code Standards: Update coding standards for new patterns
-- File Organization: Update allowed/disallowed paths if needed
-- Platform Constraints: Update platform requirements if changed
-- Integration Rules: Add rules for new integrations or dependencies
-
-### Synchronization with AGENT.MD
-
-Ensure consistency between .cursorrules and AGENT.MD files:
-- Architecture descriptions match between files
-- Coding standards are consistent
-- Testing requirements are aligned
-- Platform constraints are synchronized
-- File organization rules are consistent
-- API design guidelines are synchronized
-- Error handling patterns match
-- Performance considerations are consistent
-
-### Version Tracking
-
-Keep track of major updates to this file:
-- Document the date of significant updates
-- Note the version of XLKit when changes were made
-- Reference specific commits or issues that prompted updates
-- Maintain a changelog of rule updates
-
-### Enforcement
-
-These rules are critical for maintaining code quality and consistency:
-- All AI agents must follow these rules strictly
-- Violations should be caught during code review
-- CI/CD should enforce these rules where possible
-- Regular audits should ensure rule compliance
-
-This ensures that the .cursorrules file remains accurate and enforceable for all AI agents working with the codebase. 
+Troubleshooting:
+- Sendable conformance warnings
+- Memory usage with large files
+- Image format detection failures
+- CSV parsing edge cases
+- Use proper logging
+- Test with minimal examples
+- Check file permissions
+- Validate input data 
 
 ---
 > Source: [TheAcharya/XLKit](https://github.com/TheAcharya/XLKit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
