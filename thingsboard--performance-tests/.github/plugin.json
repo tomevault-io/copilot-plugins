@@ -1,0 +1,9 @@
+{
+  "name": "thingsboard--performance-tests",
+  "displayName": "performance-tests",
+  "description": "performance-tests",
+  "version": "1.0.0",
+  "author": "thingsboard",
+  "homepage": "https://github.com/thingsboard/performance-tests",
+  "skills": []
+}
