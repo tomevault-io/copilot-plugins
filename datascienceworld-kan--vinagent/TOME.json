@@ -1,0 +1,147 @@
+{
+  "name": "vinagent",
+  "owner": "datascienceworld-kan",
+  "repo": "vinagent",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/template/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/pdf/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/pdf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/xlsx/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/xlsx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/docx/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/docx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/pptx/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/pptx/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/claude-api/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/claude-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/canvas-design/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/canvas-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/theme-factory/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/theme-factory/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/internal-comms/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/internal-comms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/doc-coauthoring/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/doc-coauthoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/algorithmic-art/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/algorithmic-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/brand-guidelines/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/brand-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/slack-gif-creator/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/slack-gif-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "vinagent",
+      "path": "agentskills/skills/skills/web-artifacts-builder/SKILL.md",
+      "github_url": "https://github.com/datascienceworld-kan/vinagent/tree/main/agentskills/skills/skills/web-artifacts-builder/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/datascienceworld-kan/vinagent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:38:51Z"
+}
