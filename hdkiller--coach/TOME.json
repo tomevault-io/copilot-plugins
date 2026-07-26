@@ -4,7 +4,7 @@
   "repo": "coach",
   "description": "Your open source AI coach and unified fitness dashboard.",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -73,9 +73,45 @@
       "path": ".gemini/skills/vue",
       "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/vue",
       "description": ""
+    },
+    {
+      "name": "coach",
+      "path": ".gemini/skills/vue/SKILL.md",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coach",
+      "path": ".gemini/skills/nuxt/SKILL.md",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/nuxt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coach",
+      "path": ".gemini/skills/reka-ui/SKILL.md",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/reka-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coach",
+      "path": ".gemini/skills/nuxt-ui/SKILL.md",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/nuxt-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coach",
+      "path": ".claude/skills/report-bug/SKILL.md",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.claude/skills/report-bug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "coach",
+      "path": ".gemini/skills/ts-library/SKILL.md",
+      "github_url": "https://github.com/hdkiller/coach/tree/main/.gemini/skills/ts-library/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/hdkiller/coach",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T00:31:01Z"
+  "distributed_at": "2026-07-26T13:31:48Z"
 }
