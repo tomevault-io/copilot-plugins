@@ -2,9 +2,9 @@
   "name": "Waza",
   "owner": "tw93",
   "repo": "Waza",
-  "description": "\ud83e\udd77 Engineering habits you already know, turned into skills Claude can run.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tw93/Waza",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T07:33:27Z"
+  "distributed_at": "2026-07-26T22:11:39Z"
 }
