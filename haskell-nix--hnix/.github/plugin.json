@@ -1,0 +1,9 @@
+{
+  "name": "haskell-nix--hnix",
+  "displayName": "hnix",
+  "description": "hnix",
+  "version": "1.0.0",
+  "author": "haskell-nix",
+  "homepage": "https://github.com/haskell-nix/hnix",
+  "skills": []
+}
