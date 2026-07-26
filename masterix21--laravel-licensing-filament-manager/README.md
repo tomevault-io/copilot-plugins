@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [masterix21/laravel-licensing-filament-manager](https://github.com/masterix21/laravel-licensing-filament-manager).
+Original source: `CLAUDE.md` in [masterix21/laravel-licensing-filament-manager](https://github.com/masterix21/laravel-licensing-filament-manager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
