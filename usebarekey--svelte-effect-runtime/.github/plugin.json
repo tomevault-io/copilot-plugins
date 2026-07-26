@@ -1,0 +1,14 @@
+{
+  "name": "usebarekey--svelte-effect-runtime",
+  "displayName": "svelte-effect-runtime",
+  "description": "svelte-effect-runtime",
+  "version": "1.0.0",
+  "author": "usebarekey",
+  "homepage": "https://github.com/usebarekey/svelte-effect-runtime",
+  "skills": [
+    {
+      "name": "svelte-effect-runtime",
+      "description": ""
+    }
+  ]
+}
