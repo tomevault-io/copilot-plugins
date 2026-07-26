@@ -1,0 +1,14 @@
+{
+  "name": "fetchai--agents-aea",
+  "displayName": "agents-aea",
+  "description": "agents-aea",
+  "version": "1.0.0",
+  "author": "fetchai",
+  "homepage": "https://github.com/fetchai/agents-aea",
+  "skills": [
+    {
+      "name": "agents-aea",
+      "description": ""
+    }
+  ]
+}
