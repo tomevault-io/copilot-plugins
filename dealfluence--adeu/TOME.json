@@ -4,7 +4,7 @@
   "repo": "adeu",
   "description": "",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,15 @@
       "path": "skills/adeu-redlining",
       "github_url": "https://github.com/dealfluence/adeu/tree/main/skills/adeu-redlining",
       "description": ""
+    },
+    {
+      "name": "adeu",
+      "path": "skills/adeu-redlining/SKILL.md",
+      "github_url": "https://github.com/dealfluence/adeu/tree/main/skills/adeu-redlining/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/dealfluence/adeu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T08:22:27Z"
+  "distributed_at": "2026-07-26T11:40:23Z"
 }
