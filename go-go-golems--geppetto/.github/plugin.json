@@ -1,0 +1,26 @@
+{
+  "name": "go-go-golems--geppetto",
+  "displayName": "geppetto",
+  "description": "geppetto",
+  "version": "1.0.0",
+  "author": "go-go-golems",
+  "homepage": "https://github.com/go-go-golems/geppetto",
+  "skills": [
+    {
+      "name": "inference-smoke-tests",
+      "description": ""
+    },
+    {
+      "name": "geppetto",
+      "description": ""
+    },
+    {
+      "name": "geppetto",
+      "description": ""
+    },
+    {
+      "name": "geppetto",
+      "description": ""
+    }
+  ]
+}
