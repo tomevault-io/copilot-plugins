@@ -1,0 +1,63 @@
+{
+  "name": "agentopology",
+  "owner": "agentopology",
+  "repo": "agentopology",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentopology",
+      "path": "skill/SKILL.md",
+      "github_url": "https://github.com/agentopology/agentopology/tree/main/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentopology",
+      "path": ".claude/skills/parser-dev/SKILL.md",
+      "github_url": "https://github.com/agentopology/agentopology/tree/main/.claude/skills/parser-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentopology",
+      "path": ".claude/skills/agentopology-skill/SKILL.md",
+      "github_url": "https://github.com/agentopology/agentopology/tree/main/.claude/skills/agentopology-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agentopology/agentopology",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:42:39Z"
+}
