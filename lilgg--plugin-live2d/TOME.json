@@ -1,0 +1,141 @@
+{
+  "name": "plugin-live2d",
+  "owner": "LIlGG",
+  "repo": "plugin-live2d",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "plugin-live2d",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".cursor/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.cursor/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".cursor/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.cursor/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".cursor/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.cursor/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".cursor/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.cursor/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".github/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.github/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".github/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.github/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".github/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.github/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".github/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.github/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".codex/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.codex/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".codex/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.codex/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".codex/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.codex/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "plugin-live2d",
+      "path": ".codex/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/LIlGG/plugin-live2d/tree/main/.codex/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LIlGG/plugin-live2d",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:38:38Z"
+}
