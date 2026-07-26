@@ -1,7 +1,7 @@
 {
   "name": "antirez--iris-c",
   "displayName": "iris.c",
-  "description": "Flux 2 image generation model pure C inference",
+  "description": "iris.c",
   "version": "1.0.0",
   "author": "antirez",
   "homepage": "https://github.com/antirez/iris.c",
