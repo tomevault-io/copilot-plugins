@@ -1,0 +1,99 @@
+{
+  "name": "claude_immigration_attorney",
+  "owner": "juntoku9",
+  "repo": "claude_immigration_attorney",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude_immigration_attorney",
+      "path": "petition-audit/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/petition-audit/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "rfe-response-drafter/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/rfe-response-drafter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "o1-petition-narrative/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/o1-petition-narrative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "expert-letter-drafter/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/expert-letter-drafter/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "niw-petition-narrative/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/niw-petition-narrative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "case-strength-assessor/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/case-strength-assessor/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "eb1a-petition-narrative/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/eb1a-petition-narrative/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "document-summary-arrangement/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/document-summary-arrangement/skill.md",
+      "description": ""
+    },
+    {
+      "name": "claude_immigration_attorney",
+      "path": "niw-national-importance-research/skill.md",
+      "github_url": "https://github.com/juntoku9/claude_immigration_attorney/tree/main/niw-national-importance-research/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/juntoku9/claude_immigration_attorney",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:36:59Z"
+}
