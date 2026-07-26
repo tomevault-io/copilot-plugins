@@ -4,7 +4,7 @@
   "repo": "laradock",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/laradock/laradock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T14:59:13Z"
+  "distributed_at": "2026-07-26T20:18:59Z"
 }
