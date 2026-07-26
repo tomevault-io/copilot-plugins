@@ -1,0 +1,9 @@
+{
+  "name": "livekit--rust-sdks",
+  "displayName": "rust-sdks",
+  "description": "rust-sdks",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/rust-sdks",
+  "skills": []
+}
