@@ -1,0 +1,147 @@
+{
+  "name": "opentrons",
+  "owner": "Opentrons",
+  "repo": "opentrons",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opentrons-typescript",
+      "path": ".cursor/skills/opentrons-typescript",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/opentrons-typescript",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/docs/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/ai-server/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/ai-server/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/ai-client/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/ai-client/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/css-modules/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/css-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/locize-sync/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/locize-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/static-deploy/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/static-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/protocol-designer/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/protocol-designer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/protocol-authoring/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/protocol-authoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/js-package-testing/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/js-package-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/opentrons-typescript/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/opentrons-typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/protocol-verification/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/protocol-verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/robot-python-projects/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/robot-python-projects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/react-component-creation/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/react-component-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/analyses-snapshot-testing/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/analyses-snapshot-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/grill-frontend-code/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/grill-frontend-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": ".cursor/skills/documented-mutations/SKILL.md",
+      "github_url": "https://github.com/Opentrons/opentrons/tree/main/.cursor/skills/documented-mutations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Opentrons/opentrons",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:36:16Z"
+}
