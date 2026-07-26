@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--source-controller",
+  "displayName": "source-controller",
+  "description": "source-controller",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/source-controller",
+  "skills": []
+}
