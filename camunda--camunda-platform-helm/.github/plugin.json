@@ -1,0 +1,34 @@
+{
+  "name": "camunda--camunda-platform-helm",
+  "displayName": "camunda-platform-helm",
+  "description": "camunda-platform-helm",
+  "version": "1.0.0",
+  "author": "camunda",
+  "homepage": "https://github.com/camunda/camunda-platform-helm",
+  "skills": [
+    {
+      "name": "camunda-platform-helm",
+      "description": ""
+    },
+    {
+      "name": "camunda-platform-helm",
+      "description": ""
+    },
+    {
+      "name": "camunda-platform-helm",
+      "description": ""
+    },
+    {
+      "name": "camunda-platform-helm",
+      "description": ""
+    },
+    {
+      "name": "camunda-platform-helm",
+      "description": ""
+    },
+    {
+      "name": "camunda-platform-helm",
+      "description": ""
+    }
+  ]
+}
