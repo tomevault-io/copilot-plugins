@@ -1,0 +1,14 @@
+{
+  "name": "dmno-dev--bumpy",
+  "displayName": "bumpy",
+  "description": "bumpy",
+  "version": "1.0.0",
+  "author": "dmno-dev",
+  "homepage": "https://github.com/dmno-dev/bumpy",
+  "skills": [
+    {
+      "name": "bumpy",
+      "description": ""
+    }
+  ]
+}
