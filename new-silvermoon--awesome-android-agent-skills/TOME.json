@@ -1,0 +1,147 @@
+{
+  "name": "awesome-android-agent-skills",
+  "owner": "new-silvermoon",
+  "repo": "awesome-android-agent-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/ui/compose-ui/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/ui/compose-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/ui/coil-compose/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/ui/coil-compose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/ui/compose-navigation/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/ui/compose-navigation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/ui/android-accessibility/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/ui/android-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/architecture/android-viewmodel/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/architecture/android-viewmodel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/architecture/android-data-layer/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/architecture/android-data-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/architecture/android-architecture/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/architecture/android-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/migration/xml-to-compose-migration/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/migration/xml-to-compose-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/performance/gradle-build-performance/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/performance/gradle-build-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/performance/compose-performance-audit/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/performance/compose-performance-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/testing_and_automation/android-testing/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/testing_and_automation/android-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/build_and_tooling/android-gradle-logic/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/build_and_tooling/android-gradle-logic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/migration/rxjava-to-coroutines-migration/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/migration/rxjava-to-coroutines-migration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/concurrency_and_networking/android-retrofit/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/concurrency_and_networking/android-retrofit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/concurrency_and_networking/android-coroutines/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/concurrency_and_networking/android-coroutines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/testing_and_automation/android-emulator-skill/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/testing_and_automation/android-emulator-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "awesome-android-agent-skills",
+      "path": ".github/skills/concurrency_and_networking/kotlin-concurrency-expert/SKILL.md",
+      "github_url": "https://github.com/new-silvermoon/awesome-android-agent-skills/tree/main/.github/skills/concurrency_and_networking/kotlin-concurrency-expert/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/new-silvermoon/awesome-android-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:44:23Z"
+}
