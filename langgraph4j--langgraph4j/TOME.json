@@ -4,7 +4,7 @@
   "repo": "langgraph4j",
   "description": "",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,15 @@
       "path": ".agent/skills/alm-processing/SKILL.md",
       "github_url": "https://github.com/langgraph4j/langgraph4j/tree/main/.agent/skills/alm-processing/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "langgraph4j",
+      "path": "langchain4j/langchain4j-agent/src/test/resources/skills/agent-commit/SKILL.md",
+      "github_url": "https://github.com/langgraph4j/langgraph4j/tree/main/langchain4j/langchain4j-agent/src/test/resources/skills/agent-commit/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/langgraph4j/langgraph4j",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T09:54:33Z"
+  "distributed_at": "2026-07-26T13:50:39Z"
 }
