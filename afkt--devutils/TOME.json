@@ -1,0 +1,123 @@
+{
+  "name": "DevUtils",
+  "owner": "afkT",
+  "repo": "DevUtils",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/ui-shadowlayout/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/ui-shadowlayout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/ui-dialogx-dialog/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/ui-dialogx-dialog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/ui-devwidget-round/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/ui-devwidget-round/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/android-dimen-dp-sp/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/android-dimen-dp-sp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/android-xml-resource/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/android-xml-resource/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/code-method-normalize/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/code-method-normalize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/ui-devsimple-viewtheme/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/ui-devsimple-viewtheme/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/release-changelog-update/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/release-changelog-update/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/android-version-platform-adapt/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/android-version-platform-adapt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/project-gradle-central-deps/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/project-gradle-central-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/project-devengine-implementation/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/project-devengine-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/project-binding-adapter-from-source/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/project-binding-adapter-from-source/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "DevUtils",
+      "path": ".cursor/skills/project-gradle-third-party-version-upgrade/SKILL.md",
+      "github_url": "https://github.com/afkT/DevUtils/tree/main/.cursor/skills/project-gradle-third-party-version-upgrade/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/afkT/DevUtils",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T21:34:56Z"
+}
