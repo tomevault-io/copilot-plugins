@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-demo",
+  "displayName": "opentelemetry-demo",
+  "description": "opentelemetry-demo",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-demo",
+  "skills": []
+}
