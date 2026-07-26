@@ -1,0 +1,75 @@
+{
+  "name": "Agent-Learning-Hub",
+  "owner": "kngwyc3",
+  "repo": "Agent-Learning-Hub",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Agent-Learning-Hub",
+      "path": "stage-5/my-skill/SKILL.md",
+      "github_url": "https://github.com/kngwyc3/Agent-Learning-Hub/tree/main/stage-5/my-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Learning-Hub",
+      "path": "stage-5/my-skill/templates/lark-skill/SKILL.md",
+      "github_url": "https://github.com/kngwyc3/Agent-Learning-Hub/tree/main/stage-5/my-skill/templates/lark-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Learning-Hub",
+      "path": "stage-5/my-skill/templates/eval-skill/SKILL.md",
+      "github_url": "https://github.com/kngwyc3/Agent-Learning-Hub/tree/main/stage-5/my-skill/templates/eval-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Learning-Hub",
+      "path": "stage-5/my-skill/templates/minimal-skill/SKILL.md",
+      "github_url": "https://github.com/kngwyc3/Agent-Learning-Hub/tree/main/stage-5/my-skill/templates/minimal-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Agent-Learning-Hub",
+      "path": "skills/teach/SKILL.md",
+      "github_url": "https://github.com/kngwyc3/Agent-Learning-Hub/tree/main/skills/teach/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kngwyc3/Agent-Learning-Hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:44:45Z"
+}
