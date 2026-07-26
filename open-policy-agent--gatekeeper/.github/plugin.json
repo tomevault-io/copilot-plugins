@@ -1,0 +1,9 @@
+{
+  "name": "open-policy-agent--gatekeeper",
+  "displayName": "gatekeeper",
+  "description": "gatekeeper",
+  "version": "1.0.0",
+  "author": "open-policy-agent",
+  "homepage": "https://github.com/open-policy-agent/gatekeeper",
+  "skills": []
+}
