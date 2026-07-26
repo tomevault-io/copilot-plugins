@@ -1,0 +1,9 @@
+{
+  "name": "alfresco--alfresco-ansible-deployment",
+  "displayName": "alfresco-ansible-deployment",
+  "description": "alfresco-ansible-deployment",
+  "version": "1.0.0",
+  "author": "Alfresco",
+  "homepage": "https://github.com/Alfresco/alfresco-ansible-deployment",
+  "skills": []
+}
