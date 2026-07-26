@@ -1,21 +1,21 @@
 # mex
 
-> Tome by [theDakshJaitly](https://github.com/theDakshJaitly/mex) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [theDakshJaitly](https://github.com/theDakshJaitly/mex), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [theDakshJaitly/mex](https://github.com/theDakshJaitly/mex).
+Original source: `.cursor/rules/*.mdc` in [theDakshJaitly/mex](https://github.com/theDakshJaitly/mex).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [theDakshJaitly/mex](https://github.com/theDakshJaitly/mex) — a repo with 1143+ stars on GitHub.
+From [theDakshJaitly/mex](https://github.com/theDakshJaitly/mex) — a repo with 1160+ stars on GitHub.
 
 ---
 
