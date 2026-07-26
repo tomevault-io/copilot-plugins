@@ -1,0 +1,14 @@
+{
+  "name": "mistralai--client-ts",
+  "displayName": "client-ts",
+  "description": "client-ts",
+  "version": "1.0.0",
+  "author": "mistralai",
+  "homepage": "https://github.com/mistralai/client-ts",
+  "skills": [
+    {
+      "name": "client-ts",
+      "description": ""
+    }
+  ]
+}
