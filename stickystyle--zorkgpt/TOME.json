@@ -2,9 +2,9 @@
   "name": "ZorkGPT",
   "owner": "stickystyle",
   "repo": "ZorkGPT",
-  "description": "Teaching AI to play the classic text adventure Zork using Large Language Models",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stickystyle/ZorkGPT",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T01:39:39Z"
+  "distributed_at": "2026-07-26T18:44:38Z"
 }
