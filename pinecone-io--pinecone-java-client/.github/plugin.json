@@ -1,0 +1,9 @@
+{
+  "name": "pinecone-io--pinecone-java-client",
+  "displayName": "pinecone-java-client",
+  "description": "pinecone-java-client",
+  "version": "1.0.0",
+  "author": "pinecone-io",
+  "homepage": "https://github.com/pinecone-io/pinecone-java-client",
+  "skills": []
+}
