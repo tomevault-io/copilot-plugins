@@ -1,0 +1,75 @@
+{
+  "name": "ChatDev",
+  "owner": "OpenBMB",
+  "repo": "ChatDev",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-scratchpad",
+      "path": ".agents/skills/python-scratchpad",
+      "github_url": "https://github.com/OpenBMB/ChatDev/tree/main/.agents/skills/python-scratchpad",
+      "description": ""
+    },
+    {
+      "name": "rest-api-caller",
+      "path": ".agents/skills/rest-api-caller",
+      "github_url": "https://github.com/OpenBMB/ChatDev/tree/main/.agents/skills/rest-api-caller",
+      "description": ""
+    },
+    {
+      "name": "ChatDev",
+      "path": ".agents/skills/greeting-demo/SKILL.md",
+      "github_url": "https://github.com/OpenBMB/ChatDev/tree/main/.agents/skills/greeting-demo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ChatDev",
+      "path": ".agents/skills/rest-api-caller/SKILL.md",
+      "github_url": "https://github.com/OpenBMB/ChatDev/tree/main/.agents/skills/rest-api-caller/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ChatDev",
+      "path": ".agents/skills/python-scratchpad/SKILL.md",
+      "github_url": "https://github.com/OpenBMB/ChatDev/tree/main/.agents/skills/python-scratchpad/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenBMB/ChatDev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:35:07Z"
+}
