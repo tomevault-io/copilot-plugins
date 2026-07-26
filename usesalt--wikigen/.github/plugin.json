@@ -1,0 +1,9 @@
+{
+  "name": "usesalt--wikigen",
+  "displayName": "wikigen",
+  "description": "Wiki generation tool, built before Google CodeWiki and Devin DeepWiki. Works over CLI and offers MCP to plug into any AI editor for context",
+  "version": "1.0.0",
+  "author": "usesalt",
+  "homepage": "https://github.com/usesalt/wikigen",
+  "skills": []
+}
