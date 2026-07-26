@@ -1,0 +1,9 @@
+{
+  "name": "shigella520--mindtrain",
+  "displayName": "MindTrain",
+  "description": "AI-driven knowledge training platform with pluggable schedulers, Codex Skill integration, and optional Anki/FSRS support.",
+  "version": "1.0.0",
+  "author": "shigella520",
+  "homepage": "https://github.com/shigella520/MindTrain",
+  "skills": []
+}
