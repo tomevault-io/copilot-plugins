@@ -1,0 +1,14 @@
+{
+  "name": "the-17--agentsecrets",
+  "displayName": "agentsecrets",
+  "description": "agentsecrets",
+  "version": "1.0.0",
+  "author": "The-17",
+  "homepage": "https://github.com/The-17/agentsecrets",
+  "skills": [
+    {
+      "name": "agentsecrets",
+      "description": ""
+    }
+  ]
+}
