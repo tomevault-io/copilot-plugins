@@ -1,0 +1,14 @@
+{
+  "name": "flickeringlamp--ai-novelist",
+  "displayName": "ai-novelist",
+  "description": "ai-novelist",
+  "version": "1.0.0",
+  "author": "FlickeringLamp",
+  "homepage": "https://github.com/FlickeringLamp/ai-novelist",
+  "skills": [
+    {
+      "name": "ai-novelist",
+      "description": ""
+    }
+  ]
+}
