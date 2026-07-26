@@ -1,0 +1,9 @@
+{
+  "name": "getgems-io--ton-grpc",
+  "displayName": "ton-grpc",
+  "description": "ton-grpc",
+  "version": "1.0.0",
+  "author": "getgems-io",
+  "homepage": "https://github.com/getgems-io/ton-grpc",
+  "skills": []
+}
