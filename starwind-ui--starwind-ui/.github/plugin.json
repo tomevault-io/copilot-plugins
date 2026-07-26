@@ -1,7 +1,7 @@
 {
   "name": "starwind-ui--starwind-ui",
   "displayName": "starwind-ui",
-  "description": "shadcn/ui for Astro. 45+ animated and accessible components. Install via CLI. Own the code.",
+  "description": "starwind-ui",
   "version": "1.0.0",
   "author": "starwind-ui",
   "homepage": "https://github.com/starwind-ui/starwind-ui",
