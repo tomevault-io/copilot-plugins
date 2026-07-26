@@ -1,0 +1,22 @@
+{
+  "name": "swimlane--ngx-ui",
+  "displayName": "ngx-ui",
+  "description": "ngx-ui",
+  "version": "1.0.0",
+  "author": "swimlane",
+  "homepage": "https://github.com/swimlane/ngx-ui",
+  "skills": [
+    {
+      "name": "ngx-ui",
+      "description": ""
+    },
+    {
+      "name": "ngx-ui",
+      "description": ""
+    },
+    {
+      "name": "ngx-ui",
+      "description": ""
+    }
+  ]
+}
