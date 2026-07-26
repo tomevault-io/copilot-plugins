@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-go-contrib",
+  "displayName": "opentelemetry-go-contrib",
+  "description": "opentelemetry-go-contrib",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-go-contrib",
+  "skills": []
+}
