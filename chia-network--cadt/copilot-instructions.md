@@ -1,0 +1,26 @@
+## cadt
+
+> Validate YAML and JSON files after editing to catch syntax errors early
+
+
+# Validate Structured Data Files
+
+After editing any `.yaml`, `.yml`, or `.json` file, validate the syntax before committing.
+
+## YAML validation
+
+```bash
+node -e "const yaml = require('js-yaml'); const fs = require('fs'); yaml.load(fs.readFileSync('PATH', 'utf8')); console.log('YAML is valid')"
+```
+
+## JSON validation
+
+```bash
+node -e "JSON.parse(require('fs').readFileSync('PATH', 'utf8')); console.log('JSON is valid')"
+```
+
+Replace `PATH` with the actual file path. Run these checks via the Shell tool after any edit to a YAML or JSON file. If validation fails, fix the syntax error before proceeding.
+
+---
+> Source: [Chia-Network/cadt](https://github.com/Chia-Network/cadt) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
