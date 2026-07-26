@@ -1,7 +1,7 @@
 {
   "name": "thunder-compute--thunder-cli",
   "displayName": "thunder-cli",
-  "description": "Official CLI of Thunder Compute",
+  "description": "thunder-cli",
   "version": "1.0.0",
   "author": "Thunder-Compute",
   "homepage": "https://github.com/Thunder-Compute/thunder-cli",
