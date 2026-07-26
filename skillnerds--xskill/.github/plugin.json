@@ -1,0 +1,22 @@
+{
+  "name": "skillnerds--xskill",
+  "displayName": "xskill",
+  "description": "xskill",
+  "version": "1.0.0",
+  "author": "SkillNerds",
+  "homepage": "https://github.com/SkillNerds/xskill",
+  "skills": [
+    {
+      "name": "xskill",
+      "description": ""
+    },
+    {
+      "name": "xskill",
+      "description": ""
+    },
+    {
+      "name": "xskill",
+      "description": ""
+    }
+  ]
+}
