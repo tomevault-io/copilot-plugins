@@ -1,0 +1,9 @@
+{
+  "name": "nginx--njs",
+  "displayName": "njs",
+  "description": "njs",
+  "version": "1.0.0",
+  "author": "nginx",
+  "homepage": "https://github.com/nginx/njs",
+  "skills": []
+}
