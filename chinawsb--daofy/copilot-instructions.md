@@ -1,392 +1,63 @@
 ## daofy
 
-> Daofy — Python 3.10-3.14, Windows, pytest.
-
-# AGENTS.md - Agent Coding Guidelines
-
-Daofy — Python 3.10-3.14, Windows, pytest.
-
-## Quick Command Reference
-
-| Action | Command |
-|--------|---------|
-| Install deps | `pip install -r requirements.txt && pip install -e ".[dev]"` |
-| Install file watcher | `pip install daofy-for-delphi[watcher]` (可选，自动增量 KB) |
-| Install embedding | `pip install daofy-for-delphi[embedding]` (可选，语义搜索) |
-| Run all tests | `pytest` (or `python tests/run_all_tests.py` for basic) |
-| Run one test | `pytest tests/test_validator.py -v` |
-| Lint/type | `mypy src/` |
-| Environment | Always set `$env:PYTHONIOENCODING='utf-8'` on Windows |
-| Run server | `python src/server.py` |
-
-## Project Structure
-
-```
-src/
-├── server.py              # MCP entry point
-├── tools/                 # MCP tool implementations (delphi_file, code_hosting, delphi_project, delphi_kb, ...)
-├── services/              # Business logic
-│   ├── compiler_service.py, config_manager.py, process_manager.py, args_generator.py
-│   └── knowledge_base/    # KB modules (schema, smart_cache, project, thirdparty, scan, embedding, async_task_manager)
-├── models/                # Pydantic/dataclass models
-└── utils/                 # Utilities (delphi_env, dproj_parser, validator, logger)
-```
-
-## 知识库自动生命周期
-
-项目知识库（`.delphi-kb/`）有以下自动化机制：
-
-| 机制 | 触发时机 | 说明 |
-|------|---------|------|
-| **启动时自动构建** | MCP Server 启动 | 自动检测 CWD 下的 `.dproj`，提交后台增量 KB 构建（不阻塞 MCP 就绪） |
-| **热切换重建** | 用户手动 rebuild | 构建到临时目录 `.delphi-kb-tmp-{ts}/`，旧 KB 在构建期间保持可查，构建完成原子 swap |
-| **文件变更监听** | 用户保存 `.pas/.dfm/.dproj` 等 | 需要 `pip install daofy-for-delphi[watcher]`，3秒去抖后自动触发增量更新 |
-
-**文件变更监听依赖**: `watchdog` 可选包，未安装时静默降级，不影响其他功能。
-**查看服务器状态**: MCP 资源 `delphi://health` 返回版本号、运行时长、监听器状态。
-
-## 工具使用规则
-
-### Git 操作必须使用 code_hosting
-所有 Git 操作（status/add/commit/push/clone/push_retry）必须通过 `code_hosting` 工具，禁止直接使用 bash 运行 git 命令。`code_hosting` 会统一格式化输出、自动处理异步推送重试，比原始 bash git 更省 token。
-
-### 经验库维护规则
-`experience` 工具会自动去重（embedding 相似度 >0.85 时合并到旧记录而非新增），但 AI 仍需主动维护经验质量：
-
-0. **保存前先泛化**：调用 `experience(action="save")` 前，先 `experience(action="search", query=...)` 搜索是否已存在覆盖同类问题的抽象经验。如果找到，用 `action=merge` 或 `action=update` 将当前场景合并进去，不要另存为一条具体场景的记录。示例：不要存「编译后 output_file 冗余」，而是合并到「MCP 工具接口输出精简」——后者可以覆盖任意工具的返回值清理。
-1. **任务完成后**：如果刚解决的问题与已有经验高度相关，但解决方式不同，用 `action=merge` 手动合并两条经验
-2. **定期清理**：用 `action=prune` 列出低价值（低 hit_count、长期未更新）的经验，检查后 `action=delete` 删除
-3. **抽象合并**：发现多条经验描述的是同一类问题（如不同工具的「消息精简」），手动合并为一条抽象经验，`tags` 要覆盖各类场景
-4. **重建缺失向量**：若 embedding 模型后来才加载（首次使用时未加载），旧记录缺少向量。`search()` 在模型已加载但无结果时会自动触发 `rebuild_embeddings()` 补全，无需手动调用。也可通过 `experience(action="rebuild_embedding")` 显式触发。
-
-## Agent 编码工作流（优先级顺序）
-
-### 编辑 Delphi 文件前
-
-> ⚠️ **工具调用规则**：以下每一步都使用对应的 **MCP 工具名** 调用。每个工具名即是你在 `list_tools()` 中看到的工具名称。如果工具未出现在列表，刷新 MCP 连接。
-
-| 步骤 | 调用的 MCP 工具 | 说明 |
-|------|----------------|------|
-| ① 环境检查 | `check_environment(action="check")` | 确认编译器可用 |
-| ② 编码规则 | `get_coding_rules(project_path=...)` | 获取项目编码规范 |
-| ③ API 搜索 | `delphi_kb(query=...)` | 搜索 API 定义（详见 `config/CODING_RULES.mdc` ② 节） |
-| ④ 读源码 | `delphi_file(action="read", file_path=...)` | 读取文件确认修改点 |
-| ⑤ 写代码 | `delphi_file(action="write", edits=[...])` | 写入代码（自动备份到 __history） |
-| ⑤b 批量写 | `delphi_file(action="write", edits=[...])` | 批量写入多处（edits 顺序不限，自动备份到 __history） |
-| ⑥ 格式化 | `delphi_file(action="format", file_path=...)` | pasfmt 格式化代码 |
-| **⑦ 编译验证** | **`delphi_project(action="compile", project_path=...)`** | **编译 `.dproj`/`.dpr`/`.dpk` 项目** |
-| **⑧ 运行验证** | **`delphi_project(action="compile", ..., run_verify=True)`** | **编译后启动 exe 运行 3 秒，检测运行时崩溃** |
-| **⑨ 运行时检查** | **`delphi_project(action="runtime", base_dir=...)`** | **扫描组件类名，检测遗漏 uses 单元** |
-
-各步骤补充说明：
-
-- **⑧ run_verify**: 编译成功后自动启动 exe 运行 3 秒，若进程崩溃则标记验证失败（秒级，自动结束进程）。检测到 `exception.log` 时使用 `detect_encoding`（与 delphi_file 同款 BOM/编码检测）读取内容直接嵌入 MCP 响应，无需 AI 额外调用 delphi_file。
-- **⑨ runtime 检查**: 扫描 .pas/.dfm 中组件类名，匹配 `src/rules/runtime_registry.json` 规则表，检测是否遗漏必需 uses 单元（如 FireDAC.DApt）。独立于编译步骤，纯源码级分析。
-
-> 详细 KB 搜索策略、优先级规则、kb_type 范围、Entity Kind Codes 见 `config/CODING_RULES.mdc` ② 节。
-
-## Code Style (Python)
-
-- **类型**: 全部用 type hints
-- **导入顺序**: stdlib → third-party → local (每组空格分隔, 内部字母序)
-- **命名**: `snake_case` 函数/变量, `PascalCase` 类, `UPPER_SNAKE` 常量, `_前缀` 私有
-- **文档**: Google-style docstring, 公共函数必须有
-- **异常**: 用具体异常类型, 不要 `except Exception: pass`
-- **测试**: `test_*.py`, `test_` 前缀函数, pytest fixture, `unittest.mock` 打桩
-
-## Agent 操作硬规则
-
-> 脚本执行、字符串格式化、Python 陷阱等通用规则见 `config/CODING_RULES.mdc`「Agent 操作硬规则」。
-
-### 多进程 Worker
-- **Worker 内部禁用 `print()`**：MCP 环境下 stdout 是 JSON-RPC 通信管道，worker print 破坏协议边界，构建从 8s 飙到 172s
-- Worker 标准模式：
-  ```python
-  def worker(args):
-      import io, sys
-      sys.stdout = sys.stderr = io.StringIO()
-      try:
-          ...  # 实际工作
-          return result
-      except:
-          return None  # 错误通过返回值传递
-  ```
-
-### 数据库
-- **DDL 统一**：所有建表语句集中在 `schema.py`，各 Builder 调 `create_source_tables()`/`create_document_tables()`
-- **同一 DB 文件所有连接用相同 journal 模式**：本项目统一使用 WAL（`PRAGMA journal_mode=WAL`），切换模式需要独占锁，运行中若有其他连接会 locked
-- 修改表结构后 `grep` 全项目旧表名/列名的所有 INSERT/DELETE/SELECT/ALTER 引用
-
-### delphi_file 工具使用规则（详见 CODING_RULES.mdc）
-
-编辑 Delphi 文件时的行号规则、脏标记保护、输出格式等详细规范已迁移至 `config/CODING_RULES.mdc`，AI 应通过以下方式获取：
-
-```python
-get_coding_rules(section="writing")                     # 写代码全部规则
-get_coding_rules(section="delphi_file_write_rule")      # 行号规则
-get_coding_rules(section="delphi_file_dirty_flag")      # 脏标记保护
-get_coding_rules(section="delphi_file_output_format")   # 输出格式
-get_coding_rules(section="delphi_file_usage_tips")      # 使用建议
-```
-
-**核心要点**（完整规则见上方章节）：
-- 行号统一为 **1-indexed 左闭右闭**，`write` 统一使用 `edits=[...]`
-- 写入后文件标记为**脏**，再次 write 前必须 `read` 或 `preview`
-- write 响应中 `[s, e] → [s', e']` 的差值即为**行号偏移量**
-- ❌ 禁止使用原生 edit/write 工具修改 .pas/.dfm 文件
-
-### 编译验证
-
-详见 `config/CODING_RULES.mdc` §⑤ 编译：
-
-## 源码审计
-
-### 审计触发条件
-当用户要求以下内容时，Agent 必须执行源码审计流程：
-
-| 触发词 | 说明 |
-|--------|------|
-| "审计代码"、"审查代码"、"代码审核"、"review code"、"audit" | 全面审计 |
-| "安全检查"、"漏洞扫描"、"安全隐患"、"security review" | 安全专项审计 |
-| "性能分析"、"性能审计"、"慢在哪"、"performance" | 性能专项审计 |
-| "资源泄漏"、"内存泄漏"、"句柄泄漏"、"resource leak" | 资源管理专项审计 |
-
-### 审计工作流
-
-```
-① 确定审计对象
-   ├─ Delphi 代码（.pas/.dproj/.dpk）→ get_coding_rules(section="review")
-   └─ Python 项目（当前 MCP Server）→ 按下方 Python 审计要求逐项检查
-② 确定审计范围（全局/指定文件/新增代码）
-③ 搜索相关 API 定义，评估用法（Delphi 用 delphi_kb，Python 用 grep/LSP）
-④ **优先调用 delphi_project(audit/ast)**（daudit 不可用时降级为引导）
-   → 使用 `mode="ast"`（⭐ 推荐，daudit --mode skeleton --compact）快速了解代码结构
-   → 需要深度规则检查时使用 `mode="audit"`（运行 50+ 条静态分析规则）
-   → AI 解读结果，排除误报，生成修复建议
-   → 补充手动检查（delphi_project(action="audit") 标记 is_ai_needed=true 的项）
-⑤ delphi_project(action="compile") / pytest 验证（如果涉及代码修改）
-⑥ 输出审计报告
-```
-
-### Delphi 审计
-
-审计 Delphi 代码时，直接引用 `CODING_RULES.mdc` 的「审核」章节作为检查项来源：
-
-> **检查项来源**：`get_coding_rules(section="review")` 获取完整的 Delphi 审核表
->（一致性、完整性、资源泄露、Delphi 特有、常见错误模式、代码质量、数据转换、安全、性能）。
-
-### Python 项目审计（当前 MCP Server）
-
-审计本 MCP Server 项目（Python 代码）时，按以下类别逐项检查：
-
-#### 1. 安全审计（Security）
-| # | 检查项 | 说明 |
-|---|--------|------|
-| 1.1 | 命令/Shell 注入 | `subprocess`/`Popen`/`os.system` 参数拼接用户输入 → 必须用列表参数 `["cmd", arg]`，禁用 `shell=True` 传参 |
-| 1.2 | 路径遍历 | 用户传入路径未经 `resolve()`/`abspath()` 校验直接文件操作 → 限制在允许目录内 |
-| 1.3 | 注册表安全 | `winreg` 读写仅读 HKLM/HKCU 的 Embarcadero BDS 路径，不写关键系统位置 |
-| 1.4 | 敏感信息泄露 | `compilers.json` 等配置文件中密钥/密码 → 环境变量替代；日志中不输出 token/password |
-| 1.5 | 临时文件安全 | `tempfile` 模块创建临时文件用 `NamedTemporaryFile(delete=True)`，防竞争 |
-| 1.6 | Pickle 反序列化 | 禁止 `pickle.loads` 从不可信源加载数据 → 用 JSON 替代 |
-
-#### 2. MCP 协议与工具审计（MCP Protocol）
-| # | 检查项 | 说明 |
-|---|--------|------|
-| 2.1 | 工具注册一致性 | `list_tools()` 和 `call_tool()` 必须同步注册 — 所有 call_tool 中处理的工具必须在 list_tools 中声明 |
-| 2.2 | 参数校验 | 工具输入参数前置校验，缺失必需参数返回明确错误信息 |
-| 2.3 | 异常安全 | 工具内全部异常在顶层 `call_tool` 中统一捕获并返回 `CallToolResult(isError=True)`，不得泄露 traceback 给 MCP 客户端 |
-| 2.4 | 返回格式统一 | 所有工具最终返回 `CallToolResult(content=[TextContent(...)], isError=...)`，不得直接返回 dict |
-| 2.5 | 超时控制 | 编译等耗时操作设置 `timeout` 参数，避免 MCP 通信通道超时（约 60s） |
-| 2.6 | 子进程通信保护 | Worker 进程 stdout 已 pipe 为 JSON-RPC 通道时禁用 `print()`，使用 `sys.stderr` 或 logging |
-
-#### 3. 并发与进程审计（Concurrency & Process）
-| # | 检查项 | 说明 |
-|---|--------|------|
-| 3.1 | Worker print 禁令 | `multiprocessing` worker 内部禁用 `print()`，MCP 环境下 stdout 是通信管道，print 破坏协议边界 |
-| 3.2 | 子进程退出清理 | 使用 `Popen`/`Process`/`ProcessPoolExecutor` 后确保进程退出时资源清理（`terminate()`/`join()`/`cancel()`） |
-| 3.3 | 竞态条件 | 共享变量（`_pkb_cache` 等）加锁保护，用 `threading.Lock` 而非 `global` 裸访问 |
-| 3.4 | 跨平台兼容 | Windows `spawn` 模式下子进程重新导入模块 → 在 `if __name__ != '__mp_main__'` 保护下延迟导入 |
-| 3.5 | 长轮询超时 | 编译状态轮询 ≤30 秒，超时后切换短轮询，防止阻塞 MCP 请求通道 |
-
-#### 4. 资源管理审计（Resource Management）
-| # | 检查项 | 说明 |
-|---|--------|------|
-| 4.1 | 数据库连接泄漏 | SQLite 连接用 `with` 或 `try...finally` 保障关闭，`use_wal=False` 时注意独占锁 |
-| 4.2 | 文件句柄泄漏 | `open()` 在 `with` 块内使用，手动 `f.open()` 必须有对应的 `f.close()` |
-| 4.3 | 临时文件清理 | 编译过程中创建的临时 `.res`/`.dcu` 文件应在结束时清理 |
-| 4.4 | 缓存未清理 | `_pkb_cache` 在服务关闭时通过 `_cleanup_resources()` 清理，确保所有 KB 实例 `close()` |
-| 4.5 | 进程残留 | 子进程超时后需 `kill()` 而非仅 `wait()`，避免僵尸进程 |
-
-#### 5. 错误处理审计（Error Handling）
-| # | 检查项 | 说明 |
-|---|--------|------|
-| 5.1 | 空 except | `except: pass` / `except Exception: pass` — 禁止静默忽略，必须记录日志 |
-| 5.2 | 异常范围过宽 | 用具体异常类型而非裸 `except:`，区分 IOError/ValueError/KeyError 等 |
-| 5.3 | 日志完整性 | `except` 块中记录异常用 `logger.error(msg, exc_info=True)` 附带调用栈 |
-| 5.4 | finally 遗漏 | 资源获取（文件/DB/锁）后必须 `try...finally` 确保释放 |
-| 5.5 | 外部调用容错 | 调用编译器/外部工具时的异常需降级处理，不因外部异常导致 MCP Server 崩溃 |
-
-#### 6. 代码质量审计（Code Quality）
-| # | 检查项 | 说明 |
-|---|--------|------|
-| 6.1 | Type Hints | 所有函数/方法必须包含完整的类型注解，返回类型不可省略 |
-| 6.2 | 导入顺序 | stdlib → third-party → local 三组，空格分隔，组内字母序 |
-| 6.3 | 命名规范 | `snake_case` 函数/变量/方法，`PascalCase` 类，`UPPER_SNAKE` 常量，`_前缀` 私有 |
-| 6.4 | 文档字符串 | 公共函数必须有 Google-style docstring，说明 Args/Returns/Raises |
-| 6.5 | 圈复杂度 | 函数不超过 50 行，嵌套不超过 4 层，过长需拆分 |
-| 6.6 | 异步模式 | 异步函数内慎用 `time.sleep()`，使用 `asyncio.sleep()`；避免同步阻塞事件循环 |
-| 6.7 | 字符串格式化 | 禁用 f-string 嵌套字典键 `f'{d["key"]}'`（引号冲突），用 `.format()` 或前置变量 |
-| 6.8 | 函数内局部 import | 禁止在函数内部出现 `from X import Y`（会使 Y 在整个函数作用域成为局部变量），import 必须写在模块顶部 |
-
-#### 7. 配置与环境审计（Configuration）
-| # | 检查项 | 说明 |
-|---|--------|------|
-| 7.1 | 编译器路径 | `compilers.json` 中的路径在服务启动时可校验有效性，无效路径应有降级 |
-| 7.2 | 注册表回退 | 注册表读取失败时自动回退默认路径列表 |
-| 7.3 | 编码设置 | Windows 下必须设置 `PYTHONIOENCODING=utf-8` / `PYTHONUTF8=1` |
-| 7.4 | 依赖完整性 | 新增依赖需同时更新 `requirements.txt` 和 `pyproject.toml` |
-
-### 审计报告模板
-
-```
-## 源码审计报告
-
-**项目**: <项目名称>
-**审计范围**: <全局 / 文件列表>
-**审计日期**: <日期>
-
----
-
-### 概览
-
-审计范围是 Delphi 代码时：
-
-| 类别 | 发现数 | 严重 | 一般 | 建议 |
-|------|--------|------|------|------|
-| 安全 | N | N | N | N |
-| 资源管理 | N | N | N | N |
-| 错误处理 | N | N | N | N |
-| Delphi 特有 | N | N | N | N |
-| 一致性 | N | N | N | N |
-| **合计** | **N** | **N** | **N** | **N** |
-
-审计范围是 Python MCP Server 时：
-
-| 类别 | 发现数 | 严重 | 一般 | 建议 |
-|------|--------|------|------|------|
-| 安全 | N | N | N | N |
-| MCP 协议与工具 | N | N | N | N |
-| 并发与进程 | N | N | N | N |
-| 资源管理 | N | N | N | N |
-| 错误处理 | N | N | N | N |
-| 代码质量 | N | N | N | N |
-| 配置与环境 | N | N | N | N |
-| **合计** | **N** | **N** | **N** | **N** |
-
-### 严重问题
-
-1. **[严重] <文件:F行>: <问题描述>**
-   - **问题**: ...
-   - **风险**: ...
-   - **建议修复**: ...
-   - **代码示例**:
-     ```pascal
-     // 当前代码
-     ...
-     // 修复后
-     ...
-     ```
-
-### 一般问题
-
-...
-
-### 建议项
-
-...
-
-### 审计结论
-
-<整体评估：代码质量评级、主要风险点、建议优先修复项>
-```
-
-### 审计工具配合
-
-```
-get_coding_rules(section="review")               → 获取 Delphi 审核标准
-delphi_project(action="ast", base_dir="src")           → ⭐ 代码骨架提取（daudit --mode skeleton --compact 最省 token）
-delphi_project(action="audit", base_dir=".", rules="P0") → 深度静态分析规则检查（可选的）
-delphi_file(action="read", file_path="unit.pas")   → 查看 Delphi 源码
-delphi_kb(query="TThread", search_type="reference") → 查 Delphi API 用法
-delphi_project(action="compile", project_path="proj.dproj") → Delphi 审计后验证编译
---- Python 项目审计用以下工具 ---
-grep / ast_grep_search                      → 搜索 Python 代码中的模式
-lsp_diagnostics / lsp_symbols               → 类型检查和符号分析
-pytest                                      → 审计后运行测试验证
-```
-
-## 发布打包流程
-
-### 创建 Release 包
-
-```powershell
-$env:PYTHONIOENCODING='utf-8'
-$7z="$src\tools\7z\7z.exe"
-$src="C:\User\delphi-complier-mcp-server"
-$ver="v2026.05.14"  # 替换为当前版本
-$out="$src\releases\daofy-for-delphi-$ver"
-
-# 从 git 索引取文件（自动排除 .gitignore 内容）
-git ls-files | Where-Object {
-    $_ -notmatch '^\.arts/' -and
-    $_ -notmatch '^\.coverage$' -and
-    $_ -notmatch '^config/history\.json$' -and
-    $_ -notmatch '^src/config/compilers\.json$' -and
-    $_ -notmatch '^\.gitignore$' -and
-    $_ -notmatch '^tools/daudit/'
-} | ForEach-Object {
-    $target = Join-Path "$out" "$_"
-    $dir = Split-Path $target -Parent
-    if (!(Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
-    Copy-Item (Join-Path $src $_) $target -Force
-}
-
-# 打包三种格式
-& $7z a -ttar "$src\releases\daofy-for-delphi-$ver.tar" "$out\*" -bb0 -bsp0
-& $7z a -t7z "$src\releases\daofy-for-delphi-$ver.7z" "$src\releases\daofy-for-delphi-$ver.tar" -mx=9 -m0=LZMA2 -bb0 -bsp0
-& $7z a -tzip "$src\releases\daofy-for-delphi-$ver.zip" "$out\*" -mx=9 -bb0 -bsp0
-Remove-Item "$out" -Recurse -Force
-```
-
-**自动包含**：`tools/pasfmt/cli/pasfmt.exe` 等工具文件由 `git ls-files` 自动纳入（已在版本控制中），无需手动处理。
-
-**排除项**：`tools/daudit/` 下的文件（含 `StackTrace.pas`）属于商业付费部分，不包含在 Release 包中。
-
-### 发布步骤
-
-1. 运行打包脚本 → 生成 `.7z` / `.tar` / `.zip`
-2. 创建 GitHub Release：
-   ```bash
-   gh release create v2026.05.14 --title "v2026.05.14" --notes-file release_notes.md
-   ```
-3. 附加包文件到 Release（通过 Web UI 或 `gh release upload`）
-
-## 重构 Checklist
-
-```
-[ ] DDL 统一为 schema 模块
-[ ] grep 旧表名/列名所有 CRUD 引用
-[ ] 删除废弃方法后验证无外部调用
-[ ] 检查局部 import 作用域问题
-[ ] 同一 DB 的 journal 模式一致
-[ ] 0 值用 is not None 判断
-[ ] 构建结束时记录 metadata(时间+用时)
-[ ] 强制重建用 DELETE FROM (不逐行)
-[ ] 全量测试 + KB 构建验证
-[ ] MCP 工具超时说明准确
-[ ] 多进程 worker 禁用 print()
-```
+> >-
+
+
+<!-- @when: 首次进行 Delphi 自动化测试，需了解完整工作流 -->
+<!-- @chain: after=../../ui.md, before=script-generation-workflow.md -->
+
+# Delphi 自动化测试工作流
+
+完整闭环：源码分析 → 脚本构造 → 执行 → 报告 → 修复 → 重跑。
+
+MCP resource URI: `delphi://automation/workflow`。
+
+## 核心循环
+
+1. 加载 `delphi://automation/workflow`。
+2. 先选择测试入口：纯业务类方法用 `action="test"`；UI 用户路径用
+   `action="gui"`；控制台交互用 `action="console"`。
+3. RTTI 单元测试先读 `delphi://automation/rtti-test-runner`；GUI/console 新脚本先读
+   `delphi://automation/script-generation-workflow`。
+4. 分析源码：读目标 `.pas/.dfm`，映射分支、异常、控件、事件和代码派生断言。
+5. 构造可执行测试：RTTI suite 使用 `expected`、`expected_exception` 或
+   `assert_expr`；GUI 脚本的说明文字放 `expected` 或 `note`。
+6. 执行 `automate_delphi(action="test"|"auto"|"gui"|"console", ...)`。
+7. test action 通过 `async_task` 读取结果；GUI action 读取
+   `result.report.first_failure`。存在失败时停止依赖步骤。
+8. 根据结构化结果和失败证据生成修复方案。
+9. 切换到编码模式，修复确定性缺陷，编译，重跑完整 suite/脚本。
+10. 将通过的测试定义保存在项目根目录 `Tests\<测试类型>\` 下，
+    将有用的事故恢复存入 `experience`。
+
+## 关联文档
+
+- `delphi://automation/script-schema` — 创建或编辑脚本前必读。
+- `delphi://automation/rtti-test-runner` — 创建或执行 RTTI 单元测试 suite 时必读。
+- `delphi://automation/script-generation-workflow` — 从源码推导脚本时必读。
+- `delphi://automation/report-schema` — 解释结果或生成测试报告时必读。
+- `delphi://automation/inline-unit` — 将 Delphi 项目接入 `tools/auto` 时必读。
+- `delphi://automation/repair-loop` — 运行失败且需修改代码时必读。
+
+## 硬性规则
+
+- 不得在 `assert_expr` 中写自然语言。
+- RTTI 异常路径用 `expected_exception`；setup/teardown 异常不得作为预期 test 异常通过。
+- 黑盒执行步骤不得使用 `rcall`、`rset` 或直接 RTTI 调用。
+- 优先用 `rget/waitfor/msgscan` 做断言，而非纯视觉检查。
+- 集合类控件（TCategoryButtons、TListBox 等）应使用基于标题的点击
+  （`ControlName@ItemCaption`）而非坐标。仅在子项无稳定标题时回退到
+  `ControlName@x,y`。
+- 坐标点击应使用 `ControlName@x,y`，除非新版的独立 `x/y` 脚本字段有特殊需要。
+- 不要在启动表单上盲目执行 `dumpstate/formsum`（含项目相关 getter 的表单）；
+  先用 `listwnd`、`capture`、`rinspect` 或定向 `rget` 校准。使用 `dumpstate` 时，
+  传入 `props` 白名单（如 `props=name,class,caption,enabled`）避免触发有问题的
+  getter 并控制响应大小。
+- 当 `action="auto"` 时，以 `resolved_action` 为准。
+- 保持 `stop_on_failure=true`，除非明确是探索性任务。
+- Delphi 源码编辑使用 `delphi_file`，然后用 `delphi_project` 编译。
+- 前置步骤失败后不得继续后续自动化步骤。
 
 ---
 > Source: [chinawsb/daofy](https://github.com/chinawsb/daofy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
