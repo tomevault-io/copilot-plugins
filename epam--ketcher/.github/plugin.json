@@ -1,0 +1,18 @@
+{
+  "name": "epam--ketcher",
+  "displayName": "ketcher",
+  "description": "ketcher",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/ketcher",
+  "skills": [
+    {
+      "name": "ketcher",
+      "description": ""
+    },
+    {
+      "name": "ketcher",
+      "description": ""
+    }
+  ]
+}
