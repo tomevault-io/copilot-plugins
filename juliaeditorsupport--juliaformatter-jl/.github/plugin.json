@@ -1,0 +1,9 @@
+{
+  "name": "juliaeditorsupport--juliaformatter-jl",
+  "displayName": "JuliaFormatter.jl",
+  "description": "JuliaFormatter.jl",
+  "version": "1.0.0",
+  "author": "JuliaEditorSupport",
+  "homepage": "https://github.com/JuliaEditorSupport/JuliaFormatter.jl",
+  "skills": []
+}
