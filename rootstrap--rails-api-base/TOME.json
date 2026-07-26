@@ -1,0 +1,63 @@
+{
+  "name": "rails_api_base",
+  "owner": "rootstrap",
+  "repo": "rails_api_base",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rails_api_base",
+      "path": ".claude/skills/ruby-conventions/SKILL.md",
+      "github_url": "https://github.com/rootstrap/rails_api_base/tree/main/.claude/skills/ruby-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_api_base",
+      "path": ".claude/skills/rails-conventions/SKILL.md",
+      "github_url": "https://github.com/rootstrap/rails_api_base/tree/main/.claude/skills/rails-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rails_api_base",
+      "path": ".claude/skills/rspec-conventions/SKILL.md",
+      "github_url": "https://github.com/rootstrap/rails_api_base/tree/main/.claude/skills/rspec-conventions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rootstrap/rails_api_base",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:59:21Z"
+}
