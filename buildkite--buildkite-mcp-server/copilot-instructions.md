@@ -17,7 +17,7 @@
 ## Architecture
 - **Main binary**: `cmd/buildkite-mcp-server/main.go` - MCP server for Buildkite API access
 - **Core packages**: `pkg/buildkite/` - API wrappers and tool handlers, `internal/commands/` - CLI commands, `pkg/toolsets/` - tool registry, `pkg/server/` - MCP server setup
-- **Key dependencies**: `github.com/modelcontextprotocol/go-sdk` (MCP protocol), `github.com/buildkite/go-buildkite/v4` (API client)
+- **Key dependencies**: `github.com/modelcontextprotocol/go-sdk` (MCP protocol), `github.com/buildkite/go-buildkite/v5` (API client)
 - **Configuration**: Environment variables (BUILDKITE_API_TOKEN, OTEL tracing)
 - **CI/CD**: `buildkite` organization, `buildkite-mcp-server` pipeline slug for build and test (`.buildkite/pipeline.yml`), `buildkite-mcp-server-release` pipeline slug for releases (`.buildkite/pipeline.release.yml`)
 
@@ -34,4 +34,4 @@
 
 ---
 > Source: [buildkite/buildkite-mcp-server](https://github.com/buildkite/buildkite-mcp-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
