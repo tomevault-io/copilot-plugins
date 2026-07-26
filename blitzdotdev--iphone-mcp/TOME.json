@@ -2,9 +2,9 @@
   "name": "iPhone-mcp",
   "owner": "blitzdotdev",
   "repo": "iPhone-mcp",
-  "description": "The MCP Server the lets AI use an iPhone",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blitzdotdev/iPhone-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T22:05:30Z"
+  "distributed_at": "2026-07-26T20:15:13Z"
 }
