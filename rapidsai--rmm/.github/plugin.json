@@ -1,0 +1,9 @@
+{
+  "name": "rapidsai--rmm",
+  "displayName": "rmm",
+  "description": "rmm",
+  "version": "1.0.0",
+  "author": "rapidsai",
+  "homepage": "https://github.com/rapidsai/rmm",
+  "skills": []
+}
