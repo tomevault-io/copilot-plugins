@@ -1,0 +1,22 @@
+{
+  "name": "ontola--atomic-server",
+  "displayName": "atomic-server",
+  "description": "atomic-server",
+  "version": "1.0.0",
+  "author": "ontola",
+  "homepage": "https://github.com/ontola/atomic-server",
+  "skills": [
+    {
+      "name": "atomic-server",
+      "description": ""
+    },
+    {
+      "name": "atomic-server",
+      "description": ""
+    },
+    {
+      "name": "atomic-server",
+      "description": ""
+    }
+  ]
+}
