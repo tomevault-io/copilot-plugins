@@ -21,7 +21,7 @@ Original source: `AGENTS.md` in [zfogg/ascii-chat](https://github.com/zfogg/asci
 - [ascii-chat](https://github.com/zfogg/ascii-chat/tree/main/.agents/skills/browser-use/SKILL.md)
 - [ascii-chat](https://github.com/zfogg/ascii-chat/tree/main/.cursor/skills/sentry-commit-messages/SKILL.md)
 
-From [zfogg/ascii-chat](https://github.com/zfogg/ascii-chat) — a repo with 196+ stars on GitHub.
+From [zfogg/ascii-chat](https://github.com/zfogg/ascii-chat) — a repo with 0+ stars on GitHub.
 
 ---
 
