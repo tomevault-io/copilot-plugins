@@ -4,7 +4,7 @@
   "repo": "QuoteUnquote",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -155,5 +155,5 @@
   ],
   "source_url": "https://github.com/jameshnsears/QuoteUnquote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T11:49:43Z"
+  "distributed_at": "2026-07-26T13:54:27Z"
 }
