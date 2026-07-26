@@ -1,0 +1,9 @@
+{
+  "name": "clima--climatimesteppers-jl",
+  "displayName": "ClimaTimeSteppers.jl",
+  "description": "ClimaTimeSteppers.jl",
+  "version": "1.0.0",
+  "author": "CliMA",
+  "homepage": "https://github.com/CliMA/ClimaTimeSteppers.jl",
+  "skills": []
+}
