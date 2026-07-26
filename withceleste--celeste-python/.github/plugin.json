@@ -1,0 +1,14 @@
+{
+  "name": "withceleste--celeste-python",
+  "displayName": "celeste-python",
+  "description": "celeste-python",
+  "version": "1.0.0",
+  "author": "withceleste",
+  "homepage": "https://github.com/withceleste/celeste-python",
+  "skills": [
+    {
+      "name": "celeste-python",
+      "description": ""
+    }
+  ]
+}
