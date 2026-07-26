@@ -2,9 +2,9 @@
   "name": "toktrack",
   "owner": "mag123c",
   "repo": "toktrack",
-  "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -61,9 +61,45 @@
       "path": ".claude/skills/wrap",
       "github_url": "https://github.com/mag123c/toktrack/tree/main/.claude/skills/wrap",
       "description": ""
+    },
+    {
+      "name": "toktrack",
+      "path": ".claude/skills/wrap/SKILL.md",
+      "github_url": "https://github.com/mag123c/toktrack/tree/main/.claude/skills/wrap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "path": ".claude/skills/next/SKILL.md",
+      "github_url": "https://github.com/mag123c/toktrack/tree/main/.claude/skills/next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "path": ".claude/skills/review/SKILL.md",
+      "github_url": "https://github.com/mag123c/toktrack/tree/main/.claude/skills/review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "path": ".claude/skills/verify/SKILL.md",
+      "github_url": "https://github.com/mag123c/toktrack/tree/main/.claude/skills/verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "path": ".claude/skills/clarify/SKILL.md",
+      "github_url": "https://github.com/mag123c/toktrack/tree/main/.claude/skills/clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "toktrack",
+      "path": ".claude/skills/implement/SKILL.md",
+      "github_url": "https://github.com/mag123c/toktrack/tree/main/.claude/skills/implement/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/mag123c/toktrack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T23:38:05Z"
+  "distributed_at": "2026-07-26T04:18:48Z"
 }
