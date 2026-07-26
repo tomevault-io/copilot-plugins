@@ -1,23 +1,21 @@
 # career-copilot
 
-> Source: [RajjjAryan/career-copilot](https://github.com/RajjjAryan/career-copilot) — distributed by [TomeVault](https://tomevault.io)
-
-AI-powered job search pipeline built on GitHub Copilot CLI
+> Source: [RajjjAryan/career-copilot](https://github.com/RajjjAryan/career-copilot). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [RajjjAryan/career-copilot](https://github.com/RajjjAryan/career-copilot).
+Original source: `.windsurf/rules/*.md` in [RajjjAryan/career-copilot](https://github.com/RajjjAryan/career-copilot).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-- **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/RajjjAryan/career-copilot](https://github.com/RajjjAryan/career-copilot)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/RajjjAryan/career-copilot](https://github.com/RajjjAryan/career-copilot)
 
 ---
 
