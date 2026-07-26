@@ -1,0 +1,105 @@
+{
+  "name": "turbo-laravel",
+  "owner": "hotwired-laravel",
+  "repo": "turbo-laravel",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "developing-with-turbo-basics",
+      "path": "resources/boost/skills/developing-with-turbo-basics",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-basics",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-drive",
+      "path": "resources/boost/skills/developing-with-turbo-drive",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-drive",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-frames",
+      "path": "resources/boost/skills/developing-with-turbo-frames",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-frames",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-streams",
+      "path": "resources/boost/skills/developing-with-turbo-streams",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-streams",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-tests",
+      "path": "resources/boost/skills/developing-with-turbo-tests",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-tests",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "path": "resources/boost/skills/developing-with-turbo-tests/SKILL.md",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "path": "resources/boost/skills/developing-with-turbo-drive/SKILL.md",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-drive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "path": "resources/boost/skills/developing-with-turbo-frames/SKILL.md",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-frames/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "path": "resources/boost/skills/developing-with-turbo-basics/SKILL.md",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-basics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "path": "resources/boost/skills/developing-with-turbo-streams/SKILL.md",
+      "github_url": "https://github.com/hotwired-laravel/turbo-laravel/tree/main/resources/boost/skills/developing-with-turbo-streams/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hotwired-laravel/turbo-laravel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:32:57Z"
+}
