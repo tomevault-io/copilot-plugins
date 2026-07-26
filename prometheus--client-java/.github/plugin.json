@@ -1,0 +1,9 @@
+{
+  "name": "prometheus--client-java",
+  "displayName": "client_java",
+  "description": "client_java",
+  "version": "1.0.0",
+  "author": "prometheus",
+  "homepage": "https://github.com/prometheus/client_java",
+  "skills": []
+}
