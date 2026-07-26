@@ -1,0 +1,99 @@
+## leo-profanity
+
+> leo-profanity project context and conventions
+
+
+# leo-profanity Project
+
+Profanity filter library based on Shutterstock dictionary with multi-language support. See [README.md](../../README.md) for full documentation (API, algorithm details, usage examples).
+
+## Project Structure
+
+```
+leo-profanity/
+├── src/
+│   ├── index.js        # Main source (LeoProfanity object)
+│   └── index.d.ts      # TypeScript definitions
+├── test/
+│   └── index.spec.js   # Mocha/Chai tests
+├── dictionary/
+│   └── default.json    # English profanity word list
+├── example/            # Usage examples (CommonJS, ES6, browser)
+└── doc/                # Generated JSDoc documentation
+```
+
+## Technology Stack
+
+- ES6+ JavaScript (Node.js 18+)
+- Mocha + Chai for testing (BDD interface)
+- nyc for coverage (80% threshold)
+- Stryker for mutation testing
+- standard for JavaScript linting
+- ts-standard for TypeScript definition linting
+- semantic-release for versioning
+- JSDoc for documentation
+
+## JavaScript Conventions
+
+- Use `const` for variables that are not reassigned, `let` for variables that are
+- Use arrow functions for callbacks and anonymous functions
+- JSDoc comments with @example, @public/@private, @param, @returns
+- Method chaining pattern: methods that modify state return `this`
+- Single object export pattern: `const LeoProfanity = { ... }; module.exports = LeoProfanity`
+
+## Testing Conventions
+
+- Test files: `test/*.spec.js`
+- Use Mocha with describe/it pattern
+- Import Chai expect: `const expect = require('chai').expect`
+- Handle optional dependencies with try/catch blocks
+- Conditional tests for optional dictionaries (fr, ru)
+
+## Documentation
+
+- Use JSDoc for all public methods
+- Include @example blocks showing usage with expected output
+- Mark visibility with @public or @private tags
+
+## Verification Steps
+
+Before committing changes, run these verification steps:
+
+1. **Linting**: `npm run lint` - Check code quality with standard and ts-standard
+2. **Unit Tests**: `npm test` - Verify all tests pass
+3. **Code Coverage**: `npm run coverage && npm run coverage.check` - Check 80% threshold
+4. **Full Validation**: `npm run validate` - Run all checks together
+
+## Code Architecture
+
+- Single object pattern with all methods on LeoProfanity object
+- Private helpers: `removeWord`, `addWord`, `getReplacementWord`, `sanitize`, `proceed`, `_syncSet`
+- Internal state: `_wordsSet` (Set for O(1) lookups), `_whitelist` (Set for excluded words)
+- Public API:
+  - Core: `list`, `check`, `clean`, `badWordsUsed`
+  - Word management: `add`, `remove`, `reset`, `clearList`
+  - Dictionary: `getDictionary`, `loadDictionary`, `addDictionary`, `removeDictionary`
+  - Whitelist: `addWhitelist`, `removeWhitelist`, `clearWhitelist`, `getWhitelist`
+- Dictionary management for multi-language support (en, fr, ru)
+- Sanitize algorithm: lowercase + replace comma/dot with space
+- Filter algorithm: split by whitespace and check against word Set (O(1) lookup)
+- `clean()` supports both positional args and options object: `clean(str, replaceKey, nbLetters)` or `clean(str, { replaceKey, nbLetters })`
+- TypeScript definitions included in `src/index.d.ts`
+
+## Error Handling
+
+- Return empty values for edge cases:
+  - Empty string input returns `''` for clean, `false` for check, `[]` for badWordsUsed
+- Handle optional dependencies with try/catch (french-badwords-list, russian-bad-words)
+- No thrown exceptions from public API
+
+## Post-Work
+
+After implementing a feature:
+
+1. **Update README.md** - Document new API methods or behavior changes
+2. **Git commit** - Use semantic-release pattern (feat:, fix:, docs:, etc.)
+
+---
+> Source: [jojoee/leo-profanity](https://github.com/jojoee/leo-profanity) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
