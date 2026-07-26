@@ -1,0 +1,81 @@
+{
+  "name": "slime",
+  "owner": "THUDM",
+  "repo": "slime",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "slime",
+      "path": ".claude/skills/add-tests-and-ci/SKILL.md",
+      "github_url": "https://github.com/THUDM/slime/tree/main/.claude/skills/add-tests-and-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slime",
+      "path": ".claude/skills/add-dynamic-filter/SKILL.md",
+      "github_url": "https://github.com/THUDM/slime/tree/main/.claude/skills/add-dynamic-filter/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slime",
+      "path": ".claude/skills/add-reward-function/SKILL.md",
+      "github_url": "https://github.com/THUDM/slime/tree/main/.claude/skills/add-reward-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slime",
+      "path": ".claude/skills/add-rollout-function/SKILL.md",
+      "github_url": "https://github.com/THUDM/slime/tree/main/.claude/skills/add-rollout-function/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slime",
+      "path": ".claude/skills/add-eval-dataset-config/SKILL.md",
+      "github_url": "https://github.com/THUDM/slime/tree/main/.claude/skills/add-eval-dataset-config/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "slime",
+      "path": ".claude/skills/slime-code-review-preferences/SKILL.md",
+      "github_url": "https://github.com/THUDM/slime/tree/main/.claude/skills/slime-code-review-preferences/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/THUDM/slime",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:39:40Z"
+}
