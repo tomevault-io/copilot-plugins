@@ -1,0 +1,57 @@
+{
+  "name": "crabfleet",
+  "owner": "openclaw",
+  "repo": "crabfleet",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "crabfleet",
+      "path": ".agents/skills/crabbox/SKILL.md",
+      "github_url": "https://github.com/openclaw/crabfleet/tree/main/.agents/skills/crabbox/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crabfleet",
+      "path": ".agents/skills/crabfleet-supervisor/SKILL.md",
+      "github_url": "https://github.com/openclaw/crabfleet/tree/main/.agents/skills/crabfleet-supervisor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/crabfleet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T14:08:05Z"
+}
