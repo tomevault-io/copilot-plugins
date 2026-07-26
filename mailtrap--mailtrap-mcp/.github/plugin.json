@@ -1,7 +1,7 @@
 {
   "name": "mailtrap--mailtrap-mcp",
   "displayName": "mailtrap-mcp",
-  "description": "Official mailtrap.io MCP server",
+  "description": "mailtrap-mcp",
   "version": "1.0.0",
   "author": "mailtrap",
   "homepage": "https://github.com/mailtrap/mailtrap-mcp",
