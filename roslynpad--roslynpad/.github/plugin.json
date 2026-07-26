@@ -1,0 +1,14 @@
+{
+  "name": "roslynpad--roslynpad",
+  "displayName": "roslynpad",
+  "description": "roslynpad",
+  "version": "1.0.0",
+  "author": "roslynpad",
+  "homepage": "https://github.com/roslynpad/roslynpad",
+  "skills": [
+    {
+      "name": "roslynpad",
+      "description": ""
+    }
+  ]
+}
