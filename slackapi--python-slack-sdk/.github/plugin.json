@@ -1,0 +1,14 @@
+{
+  "name": "slackapi--python-slack-sdk",
+  "displayName": "python-slack-sdk",
+  "description": "python-slack-sdk",
+  "version": "1.0.0",
+  "author": "slackapi",
+  "homepage": "https://github.com/slackapi/python-slack-sdk",
+  "skills": [
+    {
+      "name": "python-slack-sdk",
+      "description": ""
+    }
+  ]
+}
