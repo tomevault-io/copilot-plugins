@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-opentelemetry-java",
+  "displayName": "grafana-opentelemetry-java",
+  "description": "grafana-opentelemetry-java",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-opentelemetry-java",
+  "skills": []
+}
