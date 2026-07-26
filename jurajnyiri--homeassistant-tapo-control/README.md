@@ -1,21 +1,21 @@
 # HomeAssistant-Tapo-Control
 
-> Tome by [JurajNyiri](https://github.com/JurajNyiri/HomeAssistant-Tapo-Control) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [JurajNyiri](https://github.com/JurajNyiri/HomeAssistant-Tapo-Control), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JurajNyiri/HomeAssistant-Tapo-Control](https://github.com/JurajNyiri/HomeAssistant-Tapo-Control).
+Original source: `.windsurf/rules/*.md` in [JurajNyiri/HomeAssistant-Tapo-Control](https://github.com/JurajNyiri/HomeAssistant-Tapo-Control).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-- **Windsurf** — `project-config.md`
 
-From [JurajNyiri/HomeAssistant-Tapo-Control](https://github.com/JurajNyiri/HomeAssistant-Tapo-Control) — a repo with 1933+ stars on GitHub.
+From [JurajNyiri/HomeAssistant-Tapo-Control](https://github.com/JurajNyiri/HomeAssistant-Tapo-Control) — a repo with 1955+ stars on GitHub.
 
 ---
 
