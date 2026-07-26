@@ -1,0 +1,14 @@
+{
+  "name": "evoluhq--evolu",
+  "displayName": "evolu",
+  "description": "evolu",
+  "version": "1.0.0",
+  "author": "evoluhq",
+  "homepage": "https://github.com/evoluhq/evolu",
+  "skills": [
+    {
+      "name": "evolu",
+      "description": ""
+    }
+  ]
+}
