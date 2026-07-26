@@ -1,0 +1,137 @@
+## chroma-go
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+### Build and Test
+```bash
+# Build all packages
+make build
+
+# Run tests by category (use build tags)
+make test          # V2 API tests (basicv2 tag)
+make test-cloud    # Cloud integration tests (requires CHROMA_CLOUD_* env vars)
+make test-ef       # Embedding function tests
+make test-rf       # Reranking function tests
+
+# Run specific test
+go test -tags=basicv2 -run TestCollectionAdd ./test/client_v2/...
+
+# Linting
+make lint          # Check for linting issues
+make lint-fix      # Auto-fix linting issues
+
+# Local development server
+make server        # Start Docker Chroma server on port 8000
+```
+
+### Environment Variables
+The codebase heavily relies on environment variables for configuration:
+- `CHROMA_URL` - Chroma server URL (default: http://localhost:8000)
+- `CHROMA_CLOUD_API_KEY` - Cloud API key
+- `CHROMA_CLOUD_HOST` - Cloud host
+- `CHROMA_CLOUD_TENANT` - Cloud tenant ID
+- `CHROMA_CLOUD_DATABASE` - Cloud database ID
+- `CHROMAGO_ONNX_RUNTIME_PATH` - Absolute path to ONNX Runtime library file (overrides auto-download)
+- `CHROMAGO_ONNX_RUNTIME_VERSION` - ONNX Runtime version for auto-download (default: 1.23.1)
+- `GITHUB_TOKEN` / `GH_TOKEN` - Optional token to avoid GitHub API rate limits during ONNX bootstrap checksum resolution
+
+## Architecture
+
+### API Structure
+The codebase maintains two API versions:
+- **V2 API** (`/pkg/api/v2/`) - Current primary API, all new features go here
+- **V1 API** (`/pkg/api/v1/`, root files) - Legacy, maintained for backward compatibility
+
+### Core Components
+- **Client**: Main entry point in `/pkg/api/v2/client.go` for V2, `/chroma.go` for V1
+- **Collections**: Vector collection management with embedding/query operations
+- **Embeddings**: Modular embedding functions in `/pkg/embeddings/` supporting 12+ providers
+- **Metadata**: Rich filtering capabilities with type-safe metadata handling
+- **Authentication**: Multiple auth methods (Basic, Bearer, X-Chroma-Token)
+
+### Testing Strategy
+Tests are segregated by build tags to run specific test suites:
+- `basic` - V1 tests
+- `basicv2` - V2 tests
+- `cloud` - Cloud integration
+- `ef` - Embedding functions
+- `rf` - Reranking functions
+
+Integration tests use `testcontainers-go` for Docker-based testing against real Chroma instances.
+
+### Key Patterns
+- **Functional Options**: Client initialization uses option functions pattern
+- **Context Propagation**: All API methods accept context for cancellation/timeout
+- **Interface-based Design**: Clean interfaces for testability and extensibility
+- **Build Tags**: Feature segregation to avoid unnecessary dependencies
+
+## Development Guidelines
+
+### Adding New Features
+1. New features should target V2 API (`/pkg/api/v2/`)
+2. Add corresponding tests with appropriate build tags
+3. Update examples in `/examples/v2/` if applicable
+4. Ensure backward compatibility for V1 if modifying shared components
+
+### Testing Requirements
+- Write tests with appropriate build tags
+- Use `testify` for assertions
+- Integration tests should use testcontainers
+- Run `make lint` before committing
+
+### Panic Prevention Guidelines
+**IMPORTANT**: As a library, this codebase should NEVER panic in production code. Panics provide terrible user experience and can crash applications.
+
+#### Rules for Production Code:
+1. **Never use `Must*` functions** (e.g., `regexp.MustCompile`, `ulid.MustNew`)
+   - Use the non-Must variant and handle errors properly
+   - If API constraints prevent error returns, use defer/recover with fallback
+
+2. **Add panic recovery where necessary**:
+   - ID generators should have defer/recover blocks with fallbacks
+   - Sanitization functions should recover and return partial results
+
+3. **Avoid risky operations**:
+   - Check slice/array bounds before access
+   - Verify map keys exist using comma-ok idiom
+   - Check for nil pointers before dereferencing
+   - Use type switches with default cases
+
+4. **Safe patterns to follow**:
+   ```go
+   // Instead of: regexp.MustCompile(pattern)
+   re, err := regexp.Compile(pattern)
+   if err != nil { /* handle error */ }
+
+   // Safe ID generation with panic recovery
+   func Generate() (result string) {
+       defer func() {
+           if r := recover(); r != nil {
+               result = fallbackID()
+           }
+       }()
+       // ID generation logic
+   }
+   ```
+
+5. **Test code exceptions**: `Must*` functions and `log.Fatal` are acceptable in test files
+
+### Common Tasks
+- **Adding Embedding Provider**: Implement in `/pkg/embeddings/`, follow existing provider patterns
+- **Modifying Client**: V2 changes in `/pkg/api/v2/client.go`, ensure collection caching logic is maintained
+- **Updating Authentication**: Modify `/pkg/api/v2/openapi/configuration.go` and auth middleware
+- **Working with Metadata**: Use `/pkg/api/v2/metadata/` utilities for type conversions
+
+### Version Compatibility
+The client is tested against Chroma versions 0.6.3 to 1.5.5. Ensure changes maintain compatibility across this range.
+- Always lint before commiting or pushing code
+
+---
+> Source: [amikos-tech/chroma-go](https://github.com/amikos-tech/chroma-go) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
