@@ -4,7 +4,7 @@
   "repo": "code-interpreter",
   "description": "",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -137,5 +137,5 @@
   ],
   "source_url": "https://github.com/haseeb-heaven/code-interpreter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T22:40:22Z"
+  "distributed_at": "2026-07-26T11:41:49Z"
 }
