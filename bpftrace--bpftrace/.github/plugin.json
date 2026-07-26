@@ -1,0 +1,9 @@
+{
+  "name": "bpftrace--bpftrace",
+  "displayName": "bpftrace",
+  "description": "bpftrace",
+  "version": "1.0.0",
+  "author": "bpftrace",
+  "homepage": "https://github.com/bpftrace/bpftrace",
+  "skills": []
+}
