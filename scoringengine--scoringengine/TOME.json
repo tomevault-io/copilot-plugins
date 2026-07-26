@@ -4,7 +4,7 @@
   "repo": "scoringengine",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/scoringengine/scoringengine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T04:11:20Z"
+  "distributed_at": "2026-07-26T00:48:37Z"
 }
