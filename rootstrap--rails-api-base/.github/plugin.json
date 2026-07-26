@@ -1,0 +1,22 @@
+{
+  "name": "rootstrap--rails-api-base",
+  "displayName": "rails_api_base",
+  "description": "rails_api_base",
+  "version": "1.0.0",
+  "author": "rootstrap",
+  "homepage": "https://github.com/rootstrap/rails_api_base",
+  "skills": [
+    {
+      "name": "rails_api_base",
+      "description": ""
+    },
+    {
+      "name": "rails_api_base",
+      "description": ""
+    },
+    {
+      "name": "rails_api_base",
+      "description": ""
+    }
+  ]
+}
