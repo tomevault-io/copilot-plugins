@@ -1,0 +1,117 @@
+{
+  "name": "gtm-engineer-skills",
+  "owner": "onvoyage-ai",
+  "repo": "gtm-engineer-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gtm-engineer-skills",
+      "path": "audit-content/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/audit-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "research-brand/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/research-brand/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "improve-aeo-geo/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/improve-aeo-geo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "build-backlinks/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/build-backlinks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "create-geo-charts/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/create-geo-charts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "research-keywords/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/research-keywords/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "audit-website-aeo/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/audit-website-aeo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "geo-content-research/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/geo-content-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "build-resource-pages/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/build-resource-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "geo-content-planning/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/geo-content-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "write-seo-geo-content/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/write-seo-geo-content/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "gtm-engineer-skills",
+      "path": "reddit-opportunity-research/SKILL.md",
+      "github_url": "https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/reddit-opportunity-research/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/onvoyage-ai/gtm-engineer-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:37:33Z"
+}
