@@ -1,0 +1,9 @@
+{
+  "name": "google-deepmind--mujoco-warp",
+  "displayName": "mujoco_warp",
+  "description": "mujoco_warp",
+  "version": "1.0.0",
+  "author": "google-deepmind",
+  "homepage": "https://github.com/google-deepmind/mujoco_warp",
+  "skills": []
+}
