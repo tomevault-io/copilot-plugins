@@ -1,0 +1,51 @@
+{
+  "name": "client-ts",
+  "owner": "mistralai",
+  "repo": "client-ts",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "client-ts",
+      "path": "docs/models/components/skill.md",
+      "github_url": "https://github.com/mistralai/client-ts/tree/main/docs/models/components/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mistralai/client-ts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:50:11Z"
+}
