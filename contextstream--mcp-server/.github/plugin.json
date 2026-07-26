@@ -1,7 +1,7 @@
 {
   "name": "contextstream--mcp-server",
   "displayName": "mcp-server",
-  "description": "Persistent memory and cross-session learning for AI coding assistants. Cloud-based context management via MCP.",
+  "description": "mcp-server",
   "version": "1.0.0",
   "author": "contextstream",
   "homepage": "https://github.com/contextstream/mcp-server",
