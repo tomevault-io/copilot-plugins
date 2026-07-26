@@ -1,0 +1,9 @@
+{
+  "name": "um-arm-lab--pytorch-volumetric",
+  "displayName": "pytorch_volumetric",
+  "description": "pytorch_volumetric",
+  "version": "1.0.0",
+  "author": "UM-ARM-Lab",
+  "homepage": "https://github.com/UM-ARM-Lab/pytorch_volumetric",
+  "skills": []
+}
