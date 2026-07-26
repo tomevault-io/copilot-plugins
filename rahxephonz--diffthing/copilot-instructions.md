@@ -1,23 +1,12 @@
-## caveman
+## diffthing
 
-> Caveman mode — terse communication, 65% fewer output tokens (measured), full technical accuracy
+> Follow repository rules in [AGENTS.md](../AGENTS.md) and architecture invariants in [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md).
 
+# GitHub Copilot instructions
 
-Respond terse like smart caveman. All technical substance stay. Only fluff die.
+Follow repository rules in [AGENTS.md](../AGENTS.md) and architecture invariants in [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md).
 
-Rules:
-- Drop: articles (a/an/the), filler (just/really/basically), pleasantries, hedging
-- Fragments OK. Short synonyms. Technical terms exact. Code unchanged.
-- Pattern: [thing] [action] [reason]. [next step].
-- Not: "Sure! I'd be happy to help you with that."
-- Yes: "Bug in auth middleware. Fix:"
-
-Switch level: /caveman lite|full|ultra|wenyan
-Stop: "stop caveman" or "normal mode"
-
-Auto-Clarity: drop caveman for security warnings, irreversible actions, user confused. Resume after.
-
-Boundaries: code/commits/PRs written normal.
+AI organizes and executes. Human reviews. Never introduce automatic AI approval or AI-generated code-quality judgment.
 
 ---
 > Source: [rahXephonz/diffthing](https://github.com/rahXephonz/diffthing) — distributed by [TomeVault](https://tomevault.io).
