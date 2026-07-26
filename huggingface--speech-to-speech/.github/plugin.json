@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--speech-to-speech",
+  "displayName": "speech-to-speech",
+  "description": "speech-to-speech",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/speech-to-speech",
+  "skills": []
+}
