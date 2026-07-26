@@ -4,7 +4,7 @@
   "repo": "viewer-for-reddit",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -73,9 +73,57 @@
       "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
       "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/next-dev-loop/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/next-dev-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/update-instructions/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/update-instructions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/next-cache-components-adoption/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/next-cache-components-adoption/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/next-cache-components-optimizer/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/next-cache-components-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "viewer-for-reddit",
+      "path": ".claude/skills/next-partial-prefetching-adoption/SKILL.md",
+      "github_url": "https://github.com/gregrickaby/viewer-for-reddit/tree/main/.claude/skills/next-partial-prefetching-adoption/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/gregrickaby/viewer-for-reddit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T22:48:50Z"
+  "distributed_at": "2026-07-26T13:36:28Z"
 }
