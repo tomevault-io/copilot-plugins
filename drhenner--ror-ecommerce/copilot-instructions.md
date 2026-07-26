@@ -1,0 +1,166 @@
+## ror-ecommerce
+
+> Test setup, database seeding, and RSpec conventions for the ror_ecommerce Rails app
+
+
+# Test Setup for ror_ecommerce
+
+## Prerequisites
+
+### 1. MySQL must be running
+
+The app uses MySQL via the `mysql2` gem. Start MySQL before running any specs:
+
+```bash
+brew services start mysql   # or: mysql.server start
+```
+
+If you see `Can't connect to local MySQL server through socket '/tmp/mysql.sock'`, MySQL is not running.
+
+### 2. Cursor sandbox blocks MySQL — always use `required_permissions: ["all"]`
+
+The Cursor sandbox blocks access to the MySQL Unix socket at `/tmp/mysql.sock`. When running specs via the Shell tool, **always** pass `required_permissions: ["all"]` to disable the sandbox. Without this, every spec fails with `ActiveRecord::ConnectionNotEstablished`.
+
+### 3. Database setup (MUST do before running any specs)
+
+The test suite depends on **seed data** that is NOT created by factories. Before running specs for the first time (or after a DB reset):
+
+```bash
+RAILS_ENV=test rake db:create db:migrate db:seed
+bundle exec rails dartsass:build
+```
+
+### Seeded tables (never truncated between tests)
+
+These are populated by `db/seeds.rb` and the test suite assumes they exist:
+
+| Table | Seeded From |
+|---|---|
+| `countries` | `db/seed/countries.yml` |
+| `states` | `db/seed/states.yml` |
+| `roles` | `Role::ROLES` |
+| `address_types` | `AddressType::NAMES` |
+| `phone_types` | `PhoneType::NAMES` |
+| `item_types` | `ItemType::NAMES` |
+| `deal_types` | `DealType::TYPES` |
+| `accounts` | `Account::TYPES` |
+| `shipping_rate_types` | `ShippingRateType::TYPES` |
+| `shipping_zones` | `ShippingZone::LOCATIONS` |
+| `transaction_accounts` | `TransactionAccount::ACCOUNT_TYPES` |
+| `return_reasons` | `ReturnReason::REASONS` |
+| `return_conditions` | `ReturnCondition::CONDITIONS` |
+| `newsletters` | `Newsletter::AUTOSUBSCRIBED` / `MANUALLY_SUBSCRIBE` |
+| `referral_bonuses` | `ReferralBonus::BONUSES` |
+| `referral_programs` | `ReferralProgram::PROGRAMS` |
+| `referral_types` | `ReferralType::NAMES` |
+
+If specs fail with "must exist" errors on `State`, `Country`, `Role`, `ItemType`, `ReferralProgram`, etc. — seed data is missing. Re-run `RAILS_ENV=test rake db:seed`.
+
+### 4. Elasticsearch required for product search specs
+
+Product search uses Searchkick (backed by Elasticsearch). For specs that exercise search, Elasticsearch must be running:
+
+```bash
+brew services start elasticsearch
+```
+
+Searchkick callbacks are disabled globally in `spec_helper.rb` (`Searchkick.disable_callbacks` in `before(:each)`, re-enabled in `after(:each)`). For specs that need to test actual search results, enable callbacks and reindex within the test:
+
+```ruby
+Searchkick.enable_callbacks
+Product.reindex
+# ... perform search assertions ...
+```
+
+## Test Architecture
+
+- **Framework**: RSpec + Mocha (not rspec-mocks). Use `stubs` / `expects`, not `allow` / `expect(...).to receive`.
+- **Factories**: FactoryBot. All attribute values MUST use block syntax: `name { "value" }`, never `name "value"`.
+- **Database cleaning**: DatabaseCleaner runs between each test. The `before(:suite)` hook calls `trunctate_unseeded` which truncates only non-seed tables.
+- **Auth in controller specs**: Use `login_as(user)` or `set_current_user` from `Hadean::TestHelpers`, which stubs `current_user` and creates an Authlogic `UserSession`.
+- **Transactional fixtures are OFF** (`use_transactional_fixtures = false`); DatabaseCleaner handles cleanup.
+
+## Common Gotchas
+
+### belongs_to associations
+`belongs_to_required_by_default` is set to `false` in `config/application.rb` to match the legacy codebase (app was written for Rails 4/5). If you see "must exist" validation errors, the seed data is likely missing — don't add `optional: true` without checking seeds first.
+
+### ActiveRecord configurations API (Rails 7)
+Use `ActiveRecord::Base.connection_db_config.configuration_hash` instead of `ActiveRecord::Base.configurations[Rails.env]`.
+
+### Authlogic 6.x
+- `acts_as_authentic` no longer supports `validate_login_field`, `validate_email_field`, or `validates_length_of_password_field_options` setters. Remove them; add explicit validations if needed.
+- `password_confirmation` accessor is not auto-provided. The `User` model defines `attr_accessor :password_confirmation` explicitly with `require_password_confirmation = false`.
+
+### Paperclip removed — use Active Storage
+The `Image` model uses `has_one_attached :photo`. Call `image.photo_url(:medium)` instead of `image.photo.url(:medium)`. Variants are defined in `Image::IMAGE_STYLES`.
+
+### Payment/CIM stubs
+Every test stubs CIM profile methods on `User` and `PaymentProfile` via Mocha in the global `before(:each)`. Don't remove these or payment-related specs will hit external APIs.
+
+### ReferralProgram.current_program
+Several specs rely on `ReferralProgram.current_program` returning a record. If this is nil, seed data is missing.
+
+### Asset pipeline (Rails 8.1 / Propshaft)
+The app uses Propshaft (not Sprockets) for serving assets, dartsass-rails for SCSS compilation, and importmap-rails. CSS **must be built before running specs** — without it, all admin controller specs fail with `Propshaft::MissingAssetError` for `admin_new.css`. Run `bundle exec rails dartsass:build` after cloning, after SCSS changes, or after a `db:reset`. Compiled CSS is output to `app/assets/builds/`.
+
+### Deprecated `be_success` matcher
+Rails removed `response.success?`. Specs using `expect(response).to be_success` need to be updated to `expect(response).to be_successful` (or `have_http_status(:ok)`).
+
+### Deprecated `Time#to_s(:db)` / `Date#to_s(:db)`
+Rails 7 deprecates `to_s(:format)` in favor of `to_fs(:format)`. Many specs and models still use the old syntax (e.g. `Time.zone.now.to_s(:db)`). Update to `to_fs(:db)` when touching affected code. Common locations: `TaxRate.active_at_ids`, `ProductFilters#deleted_at_filter`, and controller specs for `TaxRatesController` / `PurchaseOrdersController`.
+
+### FactoryBot `build` does not persist association FKs
+`FactoryBot.build(:model)` may leave foreign-key columns nil when associations are defined with the block syntax (`product { |c| c.association(:product) }`). If a spec builds a record, extracts `.attributes`, and posts them to a controller, the FK will be nil and MySQL NOT NULL constraints will reject the insert (even if `valid?` is stubbed to true). Use `FactoryBot.create` instead when you need FK IDs in the attributes hash. (The original `build(:product)` failure in `admin/merchandise/products_controller_spec.rb` has been fixed.)
+
+### Capybara `click_button` — no extra hash argument
+Capybara's `click_button` accepts at most one positional argument (the locator). Do NOT pass an empty hash as a second argument:
+
+```ruby
+# Bad — raises ArgumentError in newer Capybara
+click_button 'Log In', {}
+
+# Good
+click_button 'Log In'
+```
+
+### `PaymentProfileCim#update` must accept attributes
+`PaymentProfileCim` overrides `update`. The override must accept an `attributes` parameter and forward it to `super(attributes)` to match Rails' `ActiveRecord::Persistence#update(attributes)` signature.
+
+### Form helper `number_field` — single options hash only (Rails 8.1)
+Rails 8.1 changed `number_field` (and `number_field_tag`) to accept only 1–2 arguments. Do NOT pass HTML options as a separate third argument:
+
+```erb
+<%# Bad — raises ArgumentError: wrong number of arguments (given 3, expected 1..2) %>
+<%= f.number_field :qty, { step: 1 }, class: "form-control" %>
+
+<%# Good — merge into a single hash %>
+<%= f.number_field :qty, step: 1, class: "form-control" %>
+```
+
+### `raise_on_open_redirects` deprecated (Rails 8.1)
+`config.action_controller.raise_on_open_redirects` is deprecated. Use `config.action_controller.action_on_open_redirect` instead, with values `:log`, `:raise`, or `:notify`. The app currently uses `:log` in `config/application.rb`.
+
+### Framework defaults (Rails 8.1)
+The app runs `config.load_defaults 8.1` with two legacy overrides in `config/application.rb`:
+- `config.active_record.belongs_to_required_by_default = false`
+- `config.action_controller.action_on_open_redirect = :log`
+
+The old `new_framework_defaults_7_0.rb` / `8_0.rb` files have been removed.
+
+## Running Specs
+
+```bash
+# Full suite (from Cursor, always use required_permissions: ["all"])
+bundle exec rspec
+
+# Single file
+bundle exec rspec spec/models/user_spec.rb
+
+# By directory
+bundle exec rspec spec/controllers/
+```
+
+---
+> Source: [drhenner/ror_ecommerce](https://github.com/drhenner/ror_ecommerce) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
