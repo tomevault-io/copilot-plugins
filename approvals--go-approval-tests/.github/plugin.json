@@ -1,0 +1,9 @@
+{
+  "name": "approvals--go-approval-tests",
+  "displayName": "go-approval-tests",
+  "description": "go-approval-tests",
+  "version": "1.0.0",
+  "author": "approvals",
+  "homepage": "https://github.com/approvals/go-approval-tests",
+  "skills": []
+}
