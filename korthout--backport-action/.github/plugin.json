@@ -1,0 +1,14 @@
+{
+  "name": "korthout--backport-action",
+  "displayName": "backport-action",
+  "description": "backport-action",
+  "version": "1.0.0",
+  "author": "korthout",
+  "homepage": "https://github.com/korthout/backport-action",
+  "skills": [
+    {
+      "name": "backport-action",
+      "description": ""
+    }
+  ]
+}
