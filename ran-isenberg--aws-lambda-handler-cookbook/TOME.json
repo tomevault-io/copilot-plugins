@@ -1,0 +1,51 @@
+{
+  "name": "aws-lambda-handler-cookbook",
+  "owner": "ran-isenberg",
+  "repo": "aws-lambda-handler-cookbook",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aws-lambda-handler-cookbook",
+      "path": ".github/skills/ai-sdlc/skill.md",
+      "github_url": "https://github.com/ran-isenberg/aws-lambda-handler-cookbook/tree/main/.github/skills/ai-sdlc/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ran-isenberg/aws-lambda-handler-cookbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T14:14:41Z"
+}
