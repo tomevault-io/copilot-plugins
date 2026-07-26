@@ -1,0 +1,249 @@
+{
+  "name": "django-prodserver",
+  "owner": "nanorepublica",
+  "repo": "django-prodserver",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backend-api",
+      "path": ".claude/skills/backend-api",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-api",
+      "description": ""
+    },
+    {
+      "name": "backend-migrations",
+      "path": ".claude/skills/backend-migrations",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-migrations",
+      "description": ""
+    },
+    {
+      "name": "backend-models",
+      "path": ".claude/skills/backend-models",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-models",
+      "description": ""
+    },
+    {
+      "name": "backend-queries",
+      "path": ".claude/skills/backend-queries",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-queries",
+      "description": ""
+    },
+    {
+      "name": "frontend-accessibility",
+      "path": ".claude/skills/frontend-accessibility",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-accessibility",
+      "description": ""
+    },
+    {
+      "name": "frontend-components",
+      "path": ".claude/skills/frontend-components",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-components",
+      "description": ""
+    },
+    {
+      "name": "frontend-css",
+      "path": ".claude/skills/frontend-css",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-css",
+      "description": ""
+    },
+    {
+      "name": "frontend-responsive",
+      "path": ".claude/skills/frontend-responsive",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-responsive",
+      "description": ""
+    },
+    {
+      "name": "global-coding-style",
+      "path": ".claude/skills/global-coding-style",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-coding-style",
+      "description": ""
+    },
+    {
+      "name": "global-commenting",
+      "path": ".claude/skills/global-commenting",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-commenting",
+      "description": ""
+    },
+    {
+      "name": "global-conventions",
+      "path": ".claude/skills/global-conventions",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-conventions",
+      "description": ""
+    },
+    {
+      "name": "global-error-handling",
+      "path": ".claude/skills/global-error-handling",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-error-handling",
+      "description": ""
+    },
+    {
+      "name": "global-tech-stack",
+      "path": ".claude/skills/global-tech-stack",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-tech-stack",
+      "description": ""
+    },
+    {
+      "name": "global-validation",
+      "path": ".claude/skills/global-validation",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-validation",
+      "description": ""
+    },
+    {
+      "name": "testing-coverage",
+      "path": ".claude/skills/testing-coverage",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/testing-coverage",
+      "description": ""
+    },
+    {
+      "name": "testing-test-writing",
+      "path": ".claude/skills/testing-test-writing",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/testing-test-writing",
+      "description": ""
+    },
+    {
+      "name": "testing-unit-tests",
+      "path": ".claude/skills/testing-unit-tests",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/testing-unit-tests",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/backend-api/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/frontend-css/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-css/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/backend-models/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-models/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/backend-queries/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-queries/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/testing-coverage/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/testing-coverage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/global-commenting/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-commenting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/global-tech-stack/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-tech-stack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/global-validation/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/backend-migrations/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/backend-migrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/global-conventions/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/testing-unit-tests/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/testing-unit-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/frontend-components/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-components/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/frontend-responsive/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-responsive/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/global-coding-style/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-coding-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/testing-test-writing/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/testing-test-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/global-error-handling/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/global-error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "django-prodserver",
+      "path": ".claude/skills/frontend-accessibility/SKILL.md",
+      "github_url": "https://github.com/nanorepublica/django-prodserver/tree/main/.claude/skills/frontend-accessibility/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nanorepublica/django-prodserver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T19:33:59Z"
+}
