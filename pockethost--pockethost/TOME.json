@@ -1,0 +1,111 @@
+{
+  "name": "pockethost",
+  "owner": "pockethost",
+  "repo": "pockethost",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/phio/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/phio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/commit/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/pocketbase/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/pocketbase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/blog-voice/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/blog-voice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/feature-blog/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/feature-blog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/pocketbase-jsvm/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/pocketbase-jsvm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/pocketbase-js-sdk/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/pocketbase-js-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/lemon-squeezy-integration/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/lemon-squeezy-integration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/check-push/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/check-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/dashboard-browser-qa/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/dashboard-browser-qa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pockethost",
+      "path": ".cursor/skills/pocketbase-admin-plugins/SKILL.md",
+      "github_url": "https://github.com/pockethost/pockethost/tree/main/.cursor/skills/pocketbase-admin-plugins/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pockethost/pockethost",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T21:35:50Z"
+}
