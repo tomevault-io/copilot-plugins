@@ -1,0 +1,189 @@
+{
+  "name": "caddy-security",
+  "owner": "greenpau",
+  "repo": "caddy-security",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/testing-and-ci/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/testing-and-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/coding-directives/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/coding-directives/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-users/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-users/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-crypto/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-crypto/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-secrets/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-secrets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-sso-app/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-sso-app/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/scripts-and-automation/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/scripts-and-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/source-code-management/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/source-code-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-messaging/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-messaging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/authentication-portal-api/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/authentication-portal-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/break-fix-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/break-fix-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-credentials/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-credentials/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-registrations/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-registrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-authorization/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-authorization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-saml-providers/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-saml-providers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-authentication/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-authentication/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-oauth-providers/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-oauth-providers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-identity-stores/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-identity-stores/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-http-integrations/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-http-integrations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-authentication-ui/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-authentication-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-runtime-resolution/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-runtime-resolution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-authentication-cookies/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-authentication-cookies/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "caddy-security",
+      "path": ".codex/skills/configuration-authentication-user-transforms/SKILL.md",
+      "github_url": "https://github.com/greenpau/caddy-security/tree/main/.codex/skills/configuration-authentication-user-transforms/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/greenpau/caddy-security",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T12:04:54Z"
+}
