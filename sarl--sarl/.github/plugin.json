@@ -1,0 +1,14 @@
+{
+  "name": "sarl--sarl",
+  "displayName": "sarl",
+  "description": "sarl",
+  "version": "1.0.0",
+  "author": "sarl",
+  "homepage": "https://github.com/sarl/sarl",
+  "skills": [
+    {
+      "name": "sarl",
+      "description": ""
+    }
+  ]
+}
