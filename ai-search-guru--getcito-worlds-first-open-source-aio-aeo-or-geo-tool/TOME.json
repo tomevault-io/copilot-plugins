@@ -1,0 +1,57 @@
+{
+  "name": "getcito-worlds-first-open-source-aio-aeo-or-geo-tool",
+  "owner": "ai-search-guru",
+  "repo": "getcito-worlds-first-open-source-aio-aeo-or-geo-tool",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "getcito-worlds-first-open-source-aio-aeo-or-geo-tool",
+      "path": ".claude/skills/add-changeset/SKILL.md",
+      "github_url": "https://github.com/ai-search-guru/getcito-worlds-first-open-source-aio-aeo-or-geo-tool/tree/main/.claude/skills/add-changeset/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "getcito-worlds-first-open-source-aio-aeo-or-geo-tool",
+      "path": ".claude/skills/add-competitor/SKILL.md",
+      "github_url": "https://github.com/ai-search-guru/getcito-worlds-first-open-source-aio-aeo-or-geo-tool/tree/main/.claude/skills/add-competitor/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ai-search-guru/getcito-worlds-first-open-source-aio-aeo-or-geo-tool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T12:14:06Z"
+}
