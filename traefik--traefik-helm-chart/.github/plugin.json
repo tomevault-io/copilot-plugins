@@ -1,0 +1,9 @@
+{
+  "name": "traefik--traefik-helm-chart",
+  "displayName": "traefik-helm-chart",
+  "description": "traefik-helm-chart",
+  "version": "1.0.0",
+  "author": "traefik",
+  "homepage": "https://github.com/traefik/traefik-helm-chart",
+  "skills": []
+}
