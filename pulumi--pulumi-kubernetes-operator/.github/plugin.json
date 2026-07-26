@@ -1,0 +1,18 @@
+{
+  "name": "pulumi--pulumi-kubernetes-operator",
+  "displayName": "pulumi-kubernetes-operator",
+  "description": "pulumi-kubernetes-operator",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-kubernetes-operator",
+  "skills": [
+    {
+      "name": "pulumi-kubernetes-operator",
+      "description": ""
+    },
+    {
+      "name": "pulumi-kubernetes-operator",
+      "description": ""
+    }
+  ]
+}
