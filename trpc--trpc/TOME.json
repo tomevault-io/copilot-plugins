@@ -1,0 +1,219 @@
+{
+  "name": "trpc",
+  "owner": "trpc",
+  "repo": "trpc",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-query-classic-migration",
+      "path": "packages/tanstack-react-query/skills/react-query-classic-migration",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/tanstack-react-query/skills/react-query-classic-migration",
+      "description": ""
+    },
+    {
+      "name": "react-query-setup",
+      "path": "packages/tanstack-react-query/skills/react-query-setup",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/tanstack-react-query/skills/react-query-setup",
+      "description": ""
+    },
+    {
+      "name": "trpc-router",
+      "path": "packages/server/skills/trpc-router",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/trpc-router",
+      "description": ""
+    },
+    {
+      "name": "nextjs-app-router",
+      "path": "packages/next/skills/nextjs-app-router",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/next/skills/nextjs-app-router",
+      "description": ""
+    },
+    {
+      "name": "nextjs-pages-router",
+      "path": "packages/next/skills/nextjs-pages-router",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/next/skills/nextjs-pages-router",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/auth/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/client/skills/links/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/client/skills/links/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/caching/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/caching/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/openapi/skills/openapi/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/openapi/skills/openapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/client/skills/superjson/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/client/skills/superjson/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/validators/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/validators/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/middlewares/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/middlewares/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/trpc-router/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/trpc-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/client/skills/client-setup/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/client/skills/client-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/server-setup/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/server-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/subscriptions/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/subscriptions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/adapter-fetch/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/adapter-fetch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/error-handling/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/error-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/next/skills/nextjs-app-router/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/next/skills/nextjs-app-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/adapter-fastify/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/adapter-fastify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/adapter-express/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/adapter-express/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/next/skills/nextjs-pages-router/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/next/skills/nextjs-pages-router/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/server-side-calls/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/server-side-calls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/adapter-standalone/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/adapter-standalone/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/adapter-aws-lambda/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/adapter-aws-lambda/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/non-json-content-types/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/non-json-content-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/server/skills/service-oriented-architecture/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/server/skills/service-oriented-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/tanstack-react-query/skills/react-query-setup/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/tanstack-react-query/skills/react-query-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trpc",
+      "path": "packages/tanstack-react-query/skills/react-query-classic-migration/SKILL.md",
+      "github_url": "https://github.com/trpc/trpc/tree/main/packages/tanstack-react-query/skills/react-query-classic-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/trpc/trpc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T21:31:39Z"
+}
