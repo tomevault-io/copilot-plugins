@@ -1,0 +1,129 @@
+{
+  "name": "skills",
+  "owner": "ghostsecurity",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "proxy",
+      "path": "plugins/ghost/skills/proxy",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/proxy",
+      "description": ""
+    },
+    {
+      "name": "repo-context",
+      "path": "plugins/ghost/skills/repo-context",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/repo-context",
+      "description": ""
+    },
+    {
+      "name": "report",
+      "path": "plugins/ghost/skills/report",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/report",
+      "description": ""
+    },
+    {
+      "name": "scan-code",
+      "path": "plugins/ghost/skills/scan-code",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/scan-code",
+      "description": ""
+    },
+    {
+      "name": "scan-deps",
+      "path": "plugins/ghost/skills/scan-deps",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/scan-deps",
+      "description": ""
+    },
+    {
+      "name": "scan-secrets",
+      "path": "plugins/ghost/skills/scan-secrets",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/scan-secrets",
+      "description": ""
+    },
+    {
+      "name": "validate",
+      "path": "plugins/ghost/skills/validate",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/validate",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/ghost/skills/proxy/SKILL.md",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/proxy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/ghost/skills/report/SKILL.md",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/report/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/ghost/skills/validate/SKILL.md",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/ghost/skills/scan-code/SKILL.md",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/scan-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/ghost/skills/scan-deps/SKILL.md",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/scan-deps/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/ghost/skills/scan-secrets/SKILL.md",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/scan-secrets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/ghost/skills/repo-context/SKILL.md",
+      "github_url": "https://github.com/ghostsecurity/skills/tree/main/plugins/ghost/skills/repo-context/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ghostsecurity/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T15:32:03Z"
+}
