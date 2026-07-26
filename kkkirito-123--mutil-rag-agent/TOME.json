@@ -1,0 +1,81 @@
+{
+  "name": "mutil-rag-agent",
+  "owner": "Kkkirito-123",
+  "repo": "mutil-rag-agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mutil-rag-agent",
+      "path": "app/skills/definitions/generic_oncall/SKILL.md",
+      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/generic_oncall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mutil-rag-agent",
+      "path": "app/skills/definitions/network_diagnosis/SKILL.md",
+      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/network_diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mutil-rag-agent",
+      "path": "open-webSearch-main/skills/open-websearch/SKILL.md",
+      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/open-webSearch-main/skills/open-websearch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mutil-rag-agent",
+      "path": "app/skills/definitions/container_diagnosis/SKILL.md",
+      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/container_diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mutil-rag-agent",
+      "path": "app/skills/definitions/host_resource_diagnosis/SKILL.md",
+      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/host_resource_diagnosis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mutil-rag-agent",
+      "path": "open-webSearch-main/skills/open-websearch-maintainer/SKILL.md",
+      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/open-webSearch-main/skills/open-websearch-maintainer/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Kkkirito-123/mutil-rag-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:47:48Z"
+}
