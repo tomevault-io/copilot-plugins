@@ -1,0 +1,57 @@
+{
+  "name": "blog",
+  "owner": "geekskai",
+  "repo": "blog",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-seo-optimization",
+      "path": ".cursor/skills/ai-seo-optimization",
+      "github_url": "https://github.com/geekskai/blog/tree/main/.cursor/skills/ai-seo-optimization",
+      "description": ""
+    },
+    {
+      "name": "blog",
+      "path": ".cursor/skills/ai-seo-optimization/SKILL.md",
+      "github_url": "https://github.com/geekskai/blog/tree/main/.cursor/skills/ai-seo-optimization/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/geekskai/blog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T21:32:38Z"
+}
