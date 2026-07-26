@@ -1,0 +1,9 @@
+{
+  "name": "stac-utils--pgstac",
+  "displayName": "pgstac",
+  "description": "pgstac",
+  "version": "1.0.0",
+  "author": "stac-utils",
+  "homepage": "https://github.com/stac-utils/pgstac",
+  "skills": []
+}
