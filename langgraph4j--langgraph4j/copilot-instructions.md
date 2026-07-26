@@ -1,42 +1,49 @@
 ## langgraph4j
 
-> write a LangGraph4j guide for explain cancellation feature in file @src/site/mkdocs/core/cancellation.md.
+> This file provides local, task-focused guidance for coding agents working in this repository.
 
-## PROMPT 1
+# LangGraph4j Agent Guide
 
-write a LangGraph4j guide for explain cancellation feature in file @src/site/mkdocs/core/cancellation.md.
+This file provides local, task-focused guidance for coding agents working in this repository.
 
-LangGraph4j cancellation feature relies on the AsyncGenerator cancellation feature implementation that is described here https://github.com/bsorrentino/java-async-generator/blob/main/CANCELLATION.md
+## Quick repo map
 
-considering to take inspiration and code nippets from the following unit test:
+- `langgraph4j-core/` core runtime + public APIs.
+- `langgraph4j-*/` optional modules (savers, integrations, observability, etc.).
+- `langchain4j/` + `spring-ai/` adapters and compatibility layers.
+- `samples/` runnable examples.
+- `how-tos/` Jupyter notebooks (Java kernels via [rapaio-jupyter-kernel](https://github.com/padreati/rapaio-jupyter-kernel)).
+- `studio/` UI and related tooling.
+- `src/site/` documentation/website assets and site generation glue.
 
-* Source file @langgraph4j-core/src/test/java/org/bsc/langgraph4j/Cancellationest.java
+## Build and test
 
-Focus documentation on the LangGraph4j adding reference to AsyncGenerator
+- Build all modules (skip tests): `./mvnw -q -DskipTests install`
+- Run unit tests: `./mvnw -q test`
+- Run a single module: `./mvnw -q -pl <module> -am test`
 
-## PROMPT 2
+## Conventions and expectations
 
-Write a tecnical documentation relate to Hooks usage in LangGraph4j. The examples are in the source file @langgraph4j-core/src/test/java/org/bsc/langgraph4j/GraphTest.java in the methods `testNestedNodeWrapHooks` and `testNestedNodeAndEdgeWrapHooks` 
-Hooks implementation details are in the following source files:
+- Java 17+ only.
+- Prefer additive changes to preserve public API stability.
+- Follow module-local patterns (check the nearest module README).
+- Keep logs structured and minimal in production code.
+- Minimize third-party dependencies and avoid transitive bloat.
+- Avoid non-ASCII changes unless the file already uses them.
 
-1. @langgraph4j-core/src/main/java/org/bsc/langgraph4j/hook/NodeHook.java - This is the interface that define the Hooks functions relate to the graph's nodes
-2. @langgraph4j-core/src/main/java/org/bsc/langgraph4j/hook/EdgeHook.java - This are the interface that define the Hooks functions relate to the graph's conditional edge the only one having an associated function
-3. @langgraph4j-core/src/main/java/org/bsc/langgraph4j/StateGraph.java - This is the `StateGraph` class that expose the methods to add hooks
+## Before changing code
 
-Important to take note that the Hooks are available with three different features either for Nodes and Edges:
+- Scan nearby modules for analogous patterns and tests.
+- Use `rg` for search to keep edits precise.
+- Avoid touching unrelated files in a dirty worktree.
+- If modifying a public API, check if there is a BOM or adapter impact.
 
-* Before a Call
-* After a Call 
-* Wrap a Call 
+## After changing code
 
-The Hooks can be added either as a global hook, that affect all nodes or conditiona edges, then by Id so you can add an hook on a specific node or conditional edge
-
-You can specify multiple hooks for both nodes and edges either global than specific. when there are multiple hooks their execution are arranged in the following way:
-
-* Berfore Call hooks are executed using a LIFO (last Input - Last Output ) strategy
-* After Call hooks are executed using a LIFO (last Input - Last Output ) strategy
-* Wrap Call hooks are executed using a FIFO ( Firt Input - First Out ) strategy 
+- Mention any tests you ran (or didn’t).
+- If you add or change public APIs, update module README and relevant `how-tos/` docs.
+- If you add a new module-level feature, ensure `how-tos/` covers it.
 
 ---
 > Source: [langgraph4j/langgraph4j](https://github.com/langgraph4j/langgraph4j) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
