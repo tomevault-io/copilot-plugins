@@ -2,9 +2,9 @@
   "name": "atomic-knowledge",
   "owner": "Nimo1987",
   "repo": "atomic-knowledge",
-  "description": "Markdown-first work-memory protocol for existing agents, with maintained knowledge, candidate notes, evals, and an example KB.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nimo1987/atomic-knowledge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T09:31:56Z"
+  "distributed_at": "2026-07-26T18:47:06Z"
 }
