@@ -1,0 +1,75 @@
+{
+  "name": "trt-samples-for-hackathon-cn",
+  "owner": "NVIDIA",
+  "repo": "trt-samples-for-hackathon-cn",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "trt-samples-for-hackathon-cn",
+      "path": ".claude/skills/trt-perf-analysis/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/trt-samples-for-hackathon-cn/tree/main/.claude/skills/trt-perf-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trt-samples-for-hackathon-cn",
+      "path": ".claude/skills/trt-onnx-quickstart/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/trt-samples-for-hackathon-cn/tree/main/.claude/skills/trt-onnx-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trt-samples-for-hackathon-cn",
+      "path": ".claude/skills/trt-torch-quickstart/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/trt-samples-for-hackathon-cn/tree/main/.claude/skills/trt-torch-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trt-samples-for-hackathon-cn",
+      "path": ".claude/skills/trt-cpp-runtime-quickstart/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/trt-samples-for-hackathon-cn/tree/main/.claude/skills/trt-cpp-runtime-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "trt-samples-for-hackathon-cn",
+      "path": ".claude/skills/trt-strong-typing-migration/SKILL.md",
+      "github_url": "https://github.com/NVIDIA/trt-samples-for-hackathon-cn/tree/main/.claude/skills/trt-strong-typing-migration/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA/trt-samples-for-hackathon-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:57:38Z"
+}
