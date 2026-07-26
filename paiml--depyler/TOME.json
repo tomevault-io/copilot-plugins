@@ -2,9 +2,9 @@
   "name": "depyler",
   "owner": "paiml",
   "repo": "depyler",
-  "description": "Compiles Python to Rust, helping transition off of Python to Energy Efficient and Safe Rust Code",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paiml/depyler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T17:04:37Z"
+  "distributed_at": "2026-07-26T18:54:27Z"
 }
