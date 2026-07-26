@@ -1,0 +1,9 @@
+{
+  "name": "owasp--opencre",
+  "displayName": "OpenCRE",
+  "description": "OpenCRE",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/OpenCRE",
+  "skills": []
+}
