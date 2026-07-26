@@ -1,0 +1,14 @@
+{
+  "name": "maif--daikoku",
+  "displayName": "daikoku",
+  "description": "daikoku",
+  "version": "1.0.0",
+  "author": "MAIF",
+  "homepage": "https://github.com/MAIF/daikoku",
+  "skills": [
+    {
+      "name": "daikoku",
+      "description": ""
+    }
+  ]
+}
