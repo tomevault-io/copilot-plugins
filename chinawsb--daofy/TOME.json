@@ -4,7 +4,7 @@
   "repo": "daofy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chinawsb/daofy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T15:06:18Z"
+  "distributed_at": "2026-07-26T20:40:58Z"
 }
