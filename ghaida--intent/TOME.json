@@ -2,7 +2,7 @@
   "name": "intent",
   "owner": "ghaida",
   "repo": "intent",
-  "description": "Design with Intent: A collection of specialized AI agents and skills for experience design and strategy.",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ghaida/intent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T10:25:52Z"
+  "distributed_at": "2026-07-26T22:09:59Z"
 }
