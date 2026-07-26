@@ -1,0 +1,153 @@
+{
+  "name": "windrose-md",
+  "owner": "alas-poor-ophelia",
+  "repo": "windrose-md",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "windrose-md",
+      "path": ".agents/skills/beads/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.agents/skills/beads/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/dev-loop/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/dev-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/ui-design/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/ui-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/review-src/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/review-src/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/e2e-testing/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/file-format/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/file-format/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/windrose-mcp/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/windrose-mcp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/decomposition/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/decomposition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/curve-boolean/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/curve-boolean/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/review-comments/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/review-comments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/obsidian-bridge/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/obsidian-bridge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/react-performance/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/react-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/datacore-patterns/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/datacore-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".agents/skills/css-modern-features/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.agents/skills/css-modern-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/css-modern-features/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/css-modern-features/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/geometry-coordinates/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/geometry-coordinates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "windrose-md",
+      "path": ".claude/skills/simplification-cascades/SKILL.md",
+      "github_url": "https://github.com/alas-poor-ophelia/windrose-md/tree/main/.claude/skills/simplification-cascades/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alas-poor-ophelia/windrose-md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T11:42:33Z"
+}
