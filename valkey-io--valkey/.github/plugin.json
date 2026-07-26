@@ -1,0 +1,9 @@
+{
+  "name": "valkey-io--valkey",
+  "displayName": "valkey",
+  "description": "valkey",
+  "version": "1.0.0",
+  "author": "valkey-io",
+  "homepage": "https://github.com/valkey-io/valkey",
+  "skills": []
+}
