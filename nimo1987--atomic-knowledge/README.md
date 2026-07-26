@@ -1,17 +1,16 @@
 # atomic-knowledge
 
-> Source: [Nimo1987/atomic-knowledge](https://github.com/Nimo1987/atomic-knowledge) — distributed by [TomeVault](https://tomevault.io)
-
-Markdown-first work-memory protocol for existing agents, with maintained knowledge, candidate notes, evals, and an example KB.
+> Source: [Nimo1987/atomic-knowledge](https://github.com/Nimo1987/atomic-knowledge). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Nimo1987/atomic-knowledge](https://github.com/Nimo1987/atomic-knowledge).
+Original source: `` in [Nimo1987/atomic-knowledge](https://github.com/Nimo1987/atomic-knowledge).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
