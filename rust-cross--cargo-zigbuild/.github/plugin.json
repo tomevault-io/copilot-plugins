@@ -1,0 +1,9 @@
+{
+  "name": "rust-cross--cargo-zigbuild",
+  "displayName": "cargo-zigbuild",
+  "description": "cargo-zigbuild",
+  "version": "1.0.0",
+  "author": "rust-cross",
+  "homepage": "https://github.com/rust-cross/cargo-zigbuild",
+  "skills": []
+}
