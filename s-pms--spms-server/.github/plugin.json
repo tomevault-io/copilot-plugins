@@ -1,0 +1,9 @@
+{
+  "name": "s-pms--spms-server",
+  "displayName": "SPMS-Server",
+  "description": "SPMS-Server",
+  "version": "1.0.0",
+  "author": "s-pms",
+  "homepage": "https://github.com/s-pms/SPMS-Server",
+  "skills": []
+}
