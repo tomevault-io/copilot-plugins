@@ -1,0 +1,9 @@
+{
+  "name": "aws--bedrock-agentcore-sdk-python",
+  "displayName": "bedrock-agentcore-sdk-python",
+  "description": "bedrock-agentcore-sdk-python",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/bedrock-agentcore-sdk-python",
+  "skills": []
+}
