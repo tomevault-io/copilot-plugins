@@ -3,8 +3,8 @@
   "owner": "hoangnb24",
   "repo": "harness-experimental",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "harness-experimental",
+      "path": ".agents/skills/onboard-repository/SKILL.md",
+      "github_url": "https://github.com/hoangnb24/harness-experimental/tree/main/.agents/skills/onboard-repository/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "harness-experimental",
+      "path": ".agents/skills/audit-onboarding-proposal/SKILL.md",
+      "github_url": "https://github.com/hoangnb24/harness-experimental/tree/main/.agents/skills/audit-onboarding-proposal/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/hoangnb24/harness-experimental",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T05:53:02Z"
+  "distributed_at": "2026-07-26T09:31:09Z"
 }
