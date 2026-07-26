@@ -1,0 +1,50 @@
+{
+  "name": "hotwired-laravel--turbo-laravel",
+  "displayName": "turbo-laravel",
+  "description": "turbo-laravel",
+  "version": "1.0.0",
+  "author": "hotwired-laravel",
+  "homepage": "https://github.com/hotwired-laravel/turbo-laravel",
+  "skills": [
+    {
+      "name": "developing-with-turbo-basics",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-drive",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-frames",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-streams",
+      "description": ""
+    },
+    {
+      "name": "developing-with-turbo-tests",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "description": ""
+    },
+    {
+      "name": "turbo-laravel",
+      "description": ""
+    }
+  ]
+}
