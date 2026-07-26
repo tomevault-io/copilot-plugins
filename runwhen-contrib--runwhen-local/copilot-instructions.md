@@ -1,0 +1,152 @@
+## runwhen-local
+
+> Conventions for platform tag and hierarchy Jinja templates (src/templates/*-tags.yaml, *-hierarchy.yaml)
+
+
+# Tag & Hierarchy Template Contract
+
+All platform templates (`gcp`, `aws`, `azure`, `kubernetes`) follow the same
+structural rules. When adding a new provider or modifying an existing one,
+enforce every rule below.
+
+## Hierarchy template (*-hierarchy.yaml)
+
+The hierarchy defines the resourcePath segments. Every entry MUST have a
+corresponding tag of the same name in the tags template.
+
+### Structure
+
+```
+platform → parent scopes → resource_name
+```
+
+The hierarchy ALWAYS ends with `resource_name`. `resource_type` NEVER appears
+in the hierarchy. Non-qualifier details (like `location`) are tags only, not
+hierarchy entries.
+
+### Parent inclusion rule
+
+A scope entry appears in the hierarchy ONLY when a more-specific qualifier
+exists. This prevents a parent from duplicating `resource_name`:
+- GCP: `project_id` only when `qualifiers.resource is defined`
+- K8s: `cluster` when `resource` or `namespace` exists; `namespace` only when `resource` exists
+- AWS: `account_name` when `resource` or `region` exists; `region` only when `resource` exists
+- Azure ARM: `subscription_name` when `resource` or `resource_group` exists; `resource_group` only when `resource` exists
+- Azure DevOps: `organization` when `project` qualifier exists, or when `resource` exists and the match is not `organization`; `project` only when `resource` exists and the match is neither `organization` nor `project` (mirrors `azure-tags.yaml`)
+
+### Leaf entry rule
+
+```jinja
+    - resource_name
+```
+
+Unconditional — no branching on qualifiers or resource_type.
+
+## Tags template (*-tags.yaml)
+
+### Required tags (all platforms)
+
+Every tags template MUST emit these tags when values are available:
+
+| Tag | When emitted |
+|-----|-------------|
+| `platform` | Always |
+| `resource_type` | Always (from `match_resource.resource_type.name`; for K8s CRDs use `kind \| lower`) |
+| `resource_name` | Always (from most-specific qualifier, or `match_resource.name` fallback) |
+| `child_resource` | For each entry in `child_resource_names`, unless it equals `resource_name` |
+
+### resource_name emission rule
+
+`resource_name` is ALWAYS the value of the most-specific qualifier present,
+determined by a fixed specificity chain per platform. The order qualifiers
+appear in the generation rule does NOT affect the output.
+
+Specificity chains (most → least specific):
+- GCP: `resource` > `project`
+- Kubernetes: `resource` > `namespace` > `cluster`
+- AWS: `resource` > `region` > `account_name` > `account_id`
+- Azure ARM: `resource` > `resource_group` > `subscription_name` > `subscription_id`
+- Azure DevOps: `resource` > `project` > `organization`
+
+Example (GCP):
+```jinja
+{% set _rn_val = qualifiers.resource if qualifiers and qualifiers.resource is defined else (qualifiers.project if qualifiers and qualifiers.project is defined else (match_resource.name if match_resource.name is defined else '')) %}
+{% if _rn_val %}
+    - name: resource_name
+      value: '{{ _rn_val | string }}'
+{% endif %}
+```
+
+resource_name is NEVER set to `resource_type`. It always represents the
+scope of the SLX — what is being monitored.
+
+### child_resource deduplication
+
+Always normalize BOTH sides of the comparison identically before comparing:
+
+```jinja
+{% set _resource_name_value = _rn_val | default('') | string | replace(":", "_") | replace("/", "_") %}
+{% for cr in child_resource_names | default([]) %}
+{% set _cr_value = cr | string | replace(":", "_") | replace("/", "_") %}
+{% if _cr_value != _resource_name_value %}
+    - name: child_resource
+      value: '{{ _cr_value }}'
+{% endif %}
+{% endfor %}
+```
+
+Both `_resource_name_value` and `_cr_value` MUST apply the same `replace`
+filters. Asymmetric normalization defeats deduplication.
+
+### Kubernetes CRD resource_type
+
+For Kubernetes custom resources, `match_resource.resource_type.name` is the
+generic `"custom"`. The tags template MUST use `match_resource.kind | lower`
+instead to produce a meaningful type (e.g. `kustomization`, `helmrelease`):
+
+```jinja
+{% if match_resource.resource_type.name == "custom" and match_resource.kind is defined %}
+    - name: resource_type
+      value: '{{ match_resource.kind | lower | string }}'
+{% elif match_resource.resource_type %}
+    - name: resource_type
+      value: '{{ match_resource.resource_type.name | string }}'
+{% endif %}
+```
+
+### Kubernetes CRD resource_name
+
+CRD resources are registered with their simple K8s metadata name (e.g.
+`online-boutique-prod`), NOT the composite `plural_group_version_name`.
+The composite is only used for the internal `qualified_name` registry key.
+Do NOT construct or expect composite CRD names in templates.
+
+### Platform-specific tags
+
+Provider-specific tags (e.g. `[aws]key`, `[k8s]label`, `[azure]tag`,
+`gcp_label_*`) are appended AFTER the standard tags above.
+
+## resourcePath (computed at render time)
+
+`resourcePath` is NEVER set in templates. It is always derived from
+`hierarchy + tags` by `compute_resource_path_from_hierarchy()` in
+`src/renderers/render_output_items.py`.
+
+The path is built by walking the hierarchy in order and joining tag values
+with `/`. `resource_name` is ALWAYS included — even when its value duplicates
+a parent entry. Duplication in the path is expected and intentional.
+
+Do not add `resourcePath` or `qualified_name` logic to tag/hierarchy templates.
+
+## Adding a new platform
+
+1. Create `src/templates/<platform>-hierarchy.yaml` ending with `- resource_name`.
+2. Create `src/templates/<platform>-tags.yaml` emitting all required tags.
+3. Ensure `resource_type` is always emitted as a tag (but never in hierarchy).
+4. Emit `resource_name` from the first qualifier value.
+5. Include the `child_resource` deduplication loop.
+6. Add platform-specific enrichment tags after the standard block.
+
+---
+> Source: [runwhen-contrib/runwhen-local](https://github.com/runwhen-contrib/runwhen-local) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
