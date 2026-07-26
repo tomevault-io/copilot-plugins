@@ -1,0 +1,14 @@
+{
+  "name": "greptimeteam--dashboard",
+  "displayName": "dashboard",
+  "description": "dashboard",
+  "version": "1.0.0",
+  "author": "GreptimeTeam",
+  "homepage": "https://github.com/GreptimeTeam/dashboard",
+  "skills": [
+    {
+      "name": "dashboard",
+      "description": ""
+    }
+  ]
+}
