@@ -1,0 +1,213 @@
+{
+  "name": "rpiv-mono",
+  "owner": "juicesharp",
+  "repo": "rpiv-mono",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "packages/rpiv-pi/skills/code-review",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/plan/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/design/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/revise/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/revise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/commit/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/explore/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/discover/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/discover/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/validate/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/research/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/blueprint/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/blueprint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/pr-triage/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/pr-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/implement/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/resume-handoff/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/resume-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/create-handoff/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/create-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/annotate-inline/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/annotate-inline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/annotate-guidance/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/annotate-guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/architecture-review/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/architecture-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/migrate-to-guidance/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/migrate-to-guidance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/slice/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/grade/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/grade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/amend/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/amend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/elaborate/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/elaborate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/synthesize/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/synthesize/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/design-slice/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/design-slice/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "rpiv-mono",
+      "path": "packages/rpiv-pi/skills/design-review/SKILL.md",
+      "github_url": "https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-pi/skills/design-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/juicesharp/rpiv-mono",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T13:34:08Z"
+}
