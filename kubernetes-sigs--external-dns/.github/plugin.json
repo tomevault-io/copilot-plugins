@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--external-dns",
+  "displayName": "external-dns",
+  "description": "external-dns",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/external-dns",
+  "skills": []
+}
