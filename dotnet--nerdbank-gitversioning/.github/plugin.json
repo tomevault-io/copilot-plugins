@@ -1,0 +1,22 @@
+{
+  "name": "dotnet--nerdbank-gitversioning",
+  "displayName": "Nerdbank.GitVersioning",
+  "description": "Nerdbank.GitVersioning",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/Nerdbank.GitVersioning",
+  "skills": [
+    {
+      "name": "Nerdbank.GitVersioning",
+      "description": ""
+    },
+    {
+      "name": "Nerdbank.GitVersioning",
+      "description": ""
+    },
+    {
+      "name": "Nerdbank.GitVersioning",
+      "description": ""
+    }
+  ]
+}
