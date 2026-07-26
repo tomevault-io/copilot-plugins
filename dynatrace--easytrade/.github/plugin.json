@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "author": "Dynatrace",
   "homepage": "https://github.com/Dynatrace/easytrade",
-  "skills": []
+  "skills": [
+    {
+      "name": "easytrade",
+      "description": ""
+    },
+    {
+      "name": "easytrade",
+      "description": ""
+    },
+    {
+      "name": "easytrade",
+      "description": ""
+    },
+    {
+      "name": "easytrade",
+      "description": ""
+    }
+  ]
 }
