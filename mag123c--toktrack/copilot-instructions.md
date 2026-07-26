@@ -1,56 +1,45 @@
 ## toktrack
 
-> Ultra-fast AI CLI token usage tracker. Rust + simd-json + ratatui.
+> Guidance for any AI coding agent (Codex, Claude, Cursor, …) working in this repo.
 
-# toktrack
+# AGENTS.md
 
-Ultra-fast AI CLI token usage tracker. Rust + simd-json + ratatui.
+Guidance for any AI coding agent (Codex, Claude, Cursor, …) working in this repo.
+This file is intentionally tool-agnostic. The canonical project context lives in:
 
-## Quick Start
+- [`CLAUDE.md`](./CLAUDE.md) — quick start, workflow, commands, commit rules
+- [`.claude/ai-context/architecture.md`](./.claude/ai-context/architecture.md) — layers, paths, traits, data flow
+- [`.claude/ai-context/conventions.md`](./.claude/ai-context/conventions.md) — naming, TDD, error handling, commits
+
+Read those first. The notes below are the few things most easily missed.
+
+## Non-obvious rules
+
+- **Degrade gracefully on partial failure.** `DataLoaderService` aggregates many
+  independent sources; one source failing must never abort the whole load. Warn
+  and continue. Optional/remote sources should fall back to their last good
+  snapshot. A source the user selected explicitly may fail loudly, but one pulled
+  in implicitly (a configured default) must not break a plain command. See the
+  "Data Loading" section in `conventions.md`.
+- **Errors use `ToktrackError`**, not `anyhow`, in library code.
+- **Comments and test names are English only.** (Private `.dev/` docs are exempt.)
+- **TDD**: no implementation without a test first (RED → GREEN → REFACTOR).
+
+## Before you finish
+
 ```bash
-cargo build --release
-./target/release/toktrack
+make check    # fmt + clippy + test — must pass before committing
 ```
 
-## Context
-| File | Content |
-|------|---------|
-| `.claude/ai-context/architecture.md` | Layers, paths, traits, data flow |
-| `.claude/ai-context/conventions.md` | Naming, TDD, error handling, commits |
+## Commits
 
-## Workflow
-
-### 코드 구현 작업
-```
-/clarify → Plan Mode → /implement → /verify → /review → /wrap
-```
-각 단계 완료 후 즉시 다음 호출. 확인 묻지 말 것.
-
-### 문서/마케팅/설정 작업
-```
-Plan Mode (선택) → 직접 작업
-```
-코드가 아닌 작업은 /implement 없이 진행 가능.
-
-## Commands
-```bash
-make check    # fmt + clippy + test (pre-commit)
-cargo test    # Run tests
-cargo bench   # Benchmarks
-```
-
-## CI/CD
-```
-PR → CI (3 OS) → main → release-please → Release PR → 5 platform builds + npm
-```
-
-## Commit Rules
 ```
 {type}({scope}): {description}
 ```
-types: `feat|fix|refactor|docs|test|chore|perf`
-scopes: `parser|tui|services|cache|cli`
+types: `feat|fix|refactor|docs|test|chore|perf` · scopes: `parser|tui|services|cache|cli`
+
+Do not add AI/agent attribution lines (no `Co-Authored-By` for the agent) to commits.
 
 ---
 > Source: [mag123c/toktrack](https://github.com/mag123c/toktrack) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
