@@ -1,0 +1,9 @@
+{
+  "name": "kubeovn--kube-ovn",
+  "displayName": "kube-ovn",
+  "description": "kube-ovn",
+  "version": "1.0.0",
+  "author": "kubeovn",
+  "homepage": "https://github.com/kubeovn/kube-ovn",
+  "skills": []
+}
