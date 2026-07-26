@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-polystat-panel",
+  "displayName": "grafana-polystat-panel",
+  "description": "grafana-polystat-panel",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-polystat-panel",
+  "skills": []
+}
