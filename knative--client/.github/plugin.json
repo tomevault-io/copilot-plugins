@@ -1,0 +1,9 @@
+{
+  "name": "knative--client",
+  "displayName": "client",
+  "description": "client",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/client",
+  "skills": []
+}
