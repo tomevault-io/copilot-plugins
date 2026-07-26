@@ -1,0 +1,63 @@
+{
+  "name": "xskill",
+  "owner": "SkillNerds",
+  "repo": "xskill",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "xskill",
+      "path": "skills/using-xskill/SKILL.md",
+      "github_url": "https://github.com/SkillNerds/xskill/tree/main/skills/using-xskill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xskill",
+      "path": "tests/docker_e2e/openclaw_real_llm/demo_skill/SKILL.md",
+      "github_url": "https://github.com/SkillNerds/xskill/tree/main/tests/docker_e2e/openclaw_real_llm/demo_skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "xskill",
+      "path": "tests/docker_e2e/scenarios/runtime_openclaw_detect/pre_state/.xskill/skill/demo-skill/SKILL.md",
+      "github_url": "https://github.com/SkillNerds/xskill/tree/main/tests/docker_e2e/scenarios/runtime_openclaw_detect/pre_state/.xskill/skill/demo-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SkillNerds/xskill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T17:44:50Z"
+}
