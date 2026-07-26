@@ -1,0 +1,9 @@
+{
+  "name": "meilisearch--mini-dashboard",
+  "displayName": "mini-dashboard",
+  "description": "mini-dashboard",
+  "version": "1.0.0",
+  "author": "meilisearch",
+  "homepage": "https://github.com/meilisearch/mini-dashboard",
+  "skills": []
+}
