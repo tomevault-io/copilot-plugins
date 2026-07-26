@@ -1,0 +1,57 @@
+{
+  "name": "Nerdbank.MessagePack",
+  "owner": "AArnott",
+  "repo": "Nerdbank.MessagePack",
+  "description": "A feature-packed .NET MessagePack serialization library with great performance and simplicity. msgpack.io[C#]",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Nerdbank.MessagePack",
+      "path": ".agents/skills/bundle-dependency-prs/SKILL.md",
+      "github_url": "https://github.com/AArnott/Nerdbank.MessagePack/tree/main/.agents/skills/bundle-dependency-prs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Nerdbank.MessagePack",
+      "path": ".agents/skills/update-library-template/SKILL.md",
+      "github_url": "https://github.com/AArnott/Nerdbank.MessagePack/tree/main/.agents/skills/update-library-template/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/AArnott/Nerdbank.MessagePack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-26T12:07:58Z"
+}
