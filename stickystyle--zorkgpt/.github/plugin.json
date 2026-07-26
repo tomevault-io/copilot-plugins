@@ -1,7 +1,7 @@
 {
   "name": "stickystyle--zorkgpt",
   "displayName": "ZorkGPT",
-  "description": "Teaching AI to play the classic text adventure Zork using Large Language Models",
+  "description": "ZorkGPT",
   "version": "1.0.0",
   "author": "stickystyle",
   "homepage": "https://github.com/stickystyle/ZorkGPT",
