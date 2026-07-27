@@ -1,35 +1,60 @@
 ## wassette
 
-> This file provides specific instructions for GitHub Copilot when working on the Wassette project.
+> When working on documentation changes that affect visual presentation or layout, **always use Playwright** to display and capture visual changes. This helps reviewers understand the impact of documentation modifications.
 
-# GitHub Copilot Instructions for Wassette
 
-This file provides specific instructions for GitHub Copilot when working on the Wassette project.
+# Documentation Changes
 
-## Pull Request Descriptions
+When working on documentation changes that affect visual presentation or layout, **always use Playwright** to display and capture visual changes. This helps reviewers understand the impact of documentation modifications.
 
-**Keep PR descriptions concise and focused:**
-- Describe your changes in **at most 3 sentences**
-- Focus on the what and why, not implementation details
-- If the PR breaks public-facing APIs, use one or two sentences to describe what is broken and how users should adapt
+## Writing Style Guidelines
 
-**Example of a good PR description:**
+**Keep documentation concise and code-focused:**
+- Prefer code examples over verbose explanations
+- Keep document files focused and concise for readability
+- Use clear, simple language that's easy to understand
+- Show working examples first, explain details second
+- Remove unnecessary words - every sentence should add value
+- Write the answer as 2–4 cohesive paragraphs. No bullet points, no numbered lists, no sub-headings, no tables, no Markdown lists.
+
+## Running the Documentation Locally
+
+The project uses [mdbook](https://rust-lang.github.io/mdBook/) for documentation. Use the following commands:
+
+- **Build the docs**: `just docs-build` - Builds the documentation to `docs/book/`
+- **Serve with auto-reload**: `just docs-watch` - Serves the docs at `http://localhost:3000` with live reload
+- **Serve and open browser**: `just docs-serve` - Serves the docs and automatically opens in your browser
+
+Alternatively, you can use mdbook directly:
+```bash
+cd docs
+mdbook serve        # Serve with live reload
+mdbook build        # Build static HTML
 ```
-This PR adds instrumentation to the MCP server runtime. It enables performance monitoring and debugging of tool execution. The changes are backward compatible with existing configurations.
-```
 
-**Example for breaking changes:**
-```
-This PR refactors the component registry API to support versioning. The `ComponentRegistry::register()` method now requires a version parameter. Existing code should be updated to pass a version string as the second argument.
-```
+### Important: Local vs. Production URL Structure
 
-## Additional Guidelines
+The documentation uses a multi-version setup for production deployment on GitHub Pages, but `mdbook serve` doesn't support this structure locally.
 
-For comprehensive development guidelines, see:
-- **[AGENTS.md](../AGENTS.md)** - Complete AI agent development guide
-- **[.github/instructions/rust.instructions.md](.github/instructions/rust.instructions.md)** - Rust-specific instructions
-- **[.github/instructions/docs.instructions.md](.github/instructions/docs.instructions.md)** - Documentation guidelines
+**Local development** (with `mdbook serve`):
+- Navigate directly to `http://localhost:3000/overview.html` or any specific page
+- The version picker dropdown will not work locally (it's designed for the multi-version production site)
+- Root `http://localhost:3000/` may show a redirect page - this is expected
+
+**Production** (GitHub Pages):
+- Full URL: `https://microsoft.github.io/wassette/latest/overview.html`
+- Root redirect: `https://microsoft.github.io/wassette/` → `https://microsoft.github.io/wassette/latest/`
+- Version picker works correctly across `/latest/`, `/v0.3.0/`, etc.
+
+## Using Playwright for Documentation
+
+- Use `playwright-browser_navigate` to load the documentation page
+- Use `playwright-browser_take_screenshot` to capture the visual state before and after changes
+- Compare screenshots to highlight differences in layout, formatting, or content presentation
+- Include screenshots in your progress reports to show visual impact
+
+This ensures that documentation changes are properly validated and reviewers can see the actual visual impact of the modifications.
 
 ---
 > Source: [microsoft/wassette](https://github.com/microsoft/wassette) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
