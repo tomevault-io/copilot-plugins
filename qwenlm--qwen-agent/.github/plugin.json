@@ -1,0 +1,9 @@
+{
+  "name": "qwenlm--qwen-agent",
+  "displayName": "Qwen-Agent",
+  "description": "Qwen-Agent",
+  "version": "1.0.0",
+  "author": "QwenLM",
+  "homepage": "https://github.com/QwenLM/Qwen-Agent",
+  "skills": []
+}
