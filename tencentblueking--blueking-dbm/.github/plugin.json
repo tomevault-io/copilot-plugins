@@ -1,0 +1,26 @@
+{
+  "name": "tencentblueking--blueking-dbm",
+  "displayName": "blueking-dbm",
+  "description": "blueking-dbm",
+  "version": "1.0.0",
+  "author": "TencentBlueKing",
+  "homepage": "https://github.com/TencentBlueKing/blueking-dbm",
+  "skills": [
+    {
+      "name": "vue-component-dev",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "description": ""
+    },
+    {
+      "name": "blueking-dbm",
+      "description": ""
+    }
+  ]
+}
