@@ -1,0 +1,14 @@
+{
+  "name": "lobehub--lobe-icons",
+  "displayName": "lobe-icons",
+  "description": "lobe-icons",
+  "version": "1.0.0",
+  "author": "lobehub",
+  "homepage": "https://github.com/lobehub/lobe-icons",
+  "skills": [
+    {
+      "name": "lobe-icons",
+      "description": ""
+    }
+  ]
+}
