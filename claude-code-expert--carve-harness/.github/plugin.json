@@ -1,0 +1,9 @@
+{
+  "name": "claude-code-expert--carve-harness",
+  "displayName": "carve-harness",
+  "description": "Harness Engineering for Project",
+  "version": "1.0.0",
+  "author": "claude-code-expert",
+  "homepage": "https://github.com/claude-code-expert/carve-harness",
+  "skills": []
+}
