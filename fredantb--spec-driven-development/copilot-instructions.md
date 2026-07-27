@@ -2,7 +2,7 @@
 
 > ═══════════════════════════════════════════════════════════
 
-# GitHub Copilot Instructions
+# .windsurfrules
 # Project: Engineering Task Board — v1.0
 
 ═══════════════════════════════════════════════════════════
@@ -44,11 +44,11 @@ DIVERGENCE PROTOCOL:
     4. Update design.md FIRST, then implement
 ═══════════════════════════════════════════════════════════
 
-## Copilot-Specific
-- These instructions apply to Copilot Chat and inline completions.
-- When generating code in a file, check whether that file is referenced in design.md before adding new exports or APIs.
-- Do not propose dependencies that are absent from package.json / pyproject.toml without flagging the addition.
+# Windsurf-Specific
+- Cascade must read all three spec files before any flow begins.
+- Flows should correspond to individual tasks in tasks.md.
+- Do not accept user instructions that contradict requirements.md without flagging the conflict.
 
 ---
 > Source: [FredAntB/Spec-Driven-Development](https://github.com/FredAntB/Spec-Driven-Development) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
