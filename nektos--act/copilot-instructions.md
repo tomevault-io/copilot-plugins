@@ -1,71 +1,88 @@
 ## act
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Extends: `undici.Dispatcher`
 
-# CLAUDE.md
+# Agent
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Extends: `undici.Dispatcher`
 
-## Project Overview
+Agent allow dispatching requests against multiple different origins.
 
-Act is a tool to run GitHub Actions locally. It reads `.github/workflows/` files, builds an execution plan, and uses Docker to run containers for each action. Written in Go 1.24+.
+Requests are not guaranteed to be dispatched in order of invocation.
 
-## Common Commands
+## `new undici.Agent([options])`
 
-- `make build` — build binary to `dist/local/act`
-- `make test` — run `go test ./...` and the act CLI
-- `make lint-go` — run `golangci-lint run`
-- `make format` — run `go fmt ./...`
-- `make tidy` — run `go mod tidy`
-- `make pr` — full PR checklist: tidy, format-all, lint, test
-- `go test ./pkg/runner/...` — run tests for a single package
-- `go test ./pkg/runner/ -run TestRunEvent` — run a single test
+Arguments:
 
-## Architecture
+* **options** `AgentOptions` (optional)
 
-### Execution Flow
+Returns: `Agent`
 
-1. **CLI** (`cmd/root.go`) — Cobra-based CLI parses flags into an `Input` struct
-2. **Planner** (`pkg/model/planner.go`) — parses workflow YAML into a `Plan` containing `Stage`s (serial) with `Run`s (parallel jobs)
-3. **Runner** (`pkg/runner/runner.go`) — converts the Plan into composable `Executor` chains
-4. **RunContext** (`pkg/runner/run_context.go`) — holds all state for a job execution (env vars, matrix, containers, expressions)
-5. **Steps** (`pkg/runner/step.go`) — each step type (action, docker, script) implements the `step` interface
+### Parameter: `AgentOptions`
 
-### Core Abstraction: Executor Pattern
+Extends: [`PoolOptions`](Pool.md#parameter-pooloptions)
 
-The `Executor` type (`pkg/common/executor.go`) is a `func(ctx context.Context) error` used throughout the codebase. Executors compose via:
+* **factory** `(origin: URL, opts: Object) => Dispatcher` - Default: `(origin, opts) => new Pool(origin, opts)`
+* **maxRedirections** `Integer` - Default: `0`. The number of HTTP redirection to follow unless otherwise specified in `DispatchOptions`.
+* **interceptors** `{ Agent: DispatchInterceptor[] }` - Default: `[RedirectInterceptor]` - A list of interceptors that are applied to the dispatch method. Additional logic can be applied (such as, but not limited to: 302 status code handling, authentication, cookies, compression and caching). Note that the behavior of interceptors is Experimental and might change at any given time.
 
-- `.Then()`, `.Finally()`, `.OnError()` — chaining
-- `NewPipelineExecutor()` — serial execution
-- `NewParallelExecutor()` — parallel execution
-- `.If()`, `.IfNot()` — conditional execution
+## Instance Properties
 
-### Key Packages
+### `Agent.closed`
 
-- **`pkg/model/`** — workflow YAML parsing, plan creation, action definitions
-- **`pkg/runner/`** — core execution engine, expression evaluation, step types (local/remote/docker/composite actions, reusable workflows)
-- **`pkg/container/`** — Docker API wrapper, container and host execution environments
-- **`pkg/common/`** — Executor pattern, context utilities, logging
-- **`pkg/exprparser/`** — GitHub Actions `${{ }}` expression language interpreter
-- **`pkg/artifacts/`** and **`pkg/artifactcache/`** — artifact upload/download and caching server
+Implements [Client.closed](Client.md#clientclosed)
 
-## Linting Rules
+### `Agent.destroyed`
 
-Configured in `.golangci.yml`:
+Implements [Client.destroyed](Client.md#clientdestroyed)
 
-- Use `errors` from stdlib, not `github.com/pkg/errors`
-- Use `github.com/sirupsen/logrus` (aliased as `log`), not stdlib `log`
-- Use `github.com/stretchr/testify` for tests, not `gotest.tools/v3`
-- Max cyclomatic complexity: 20
-- Import aliases enforced: `logrus` → `log`, `testify/assert` → `assert`
+## Instance Methods
 
-## Testing
+### `Agent.close([callback])`
 
-- Tests use `testify/assert` and `testify/mock`
-- Table-driven tests are common in `pkg/model/` and `pkg/exprparser/`
-- Test fixtures live in `testdata/` directories alongside their packages
-- `pkg/runner/testdata/` contains extensive sample GitHub Actions workflows used as integration test fixtures
+Implements [`Dispatcher.close([callback])`](Dispatcher.md#dispatcherclosecallback-promise).
+
+### `Agent.destroy([error, callback])`
+
+Implements [`Dispatcher.destroy([error, callback])`](Dispatcher.md#dispatcherdestroyerror-callback-promise).
+
+### `Agent.dispatch(options, handler: AgentDispatchOptions)`
+
+Implements [`Dispatcher.dispatch(options, handler)`](Dispatcher.md#dispatcherdispatchoptions-handler).
+
+#### Parameter: `AgentDispatchOptions`
+
+Extends: [`DispatchOptions`](Dispatcher.md#parameter-dispatchoptions)
+
+* **origin** `string | URL`
+* **maxRedirections** `Integer`.
+
+Implements [`Dispatcher.destroy([error, callback])`](Dispatcher.md#dispatcherdestroyerror-callback-promise).
+
+### `Agent.connect(options[, callback])`
+
+See [`Dispatcher.connect(options[, callback])`](Dispatcher.md#dispatcherconnectoptions-callback).
+
+### `Agent.dispatch(options, handler)`
+
+Implements [`Dispatcher.dispatch(options, handler)`](Dispatcher.md#dispatcherdispatchoptions-handler).
+
+### `Agent.pipeline(options, handler)`
+
+See [`Dispatcher.pipeline(options, handler)`](Dispatcher.md#dispatcherpipelineoptions-handler).
+
+### `Agent.request(options[, callback])`
+
+See [`Dispatcher.request(options [, callback])`](Dispatcher.md#dispatcherrequestoptions-callback).
+
+### `Agent.stream(options, factory[, callback])`
+
+See [`Dispatcher.stream(options, factory[, callback])`](Dispatcher.md#dispatcherstreamoptions-factory-callback).
+
+### `Agent.upgrade(options[, callback])`
+
+See [`Dispatcher.upgrade(options[, callback])`](Dispatcher.md#dispatcherupgradeoptions-callback).
 
 ---
 > Source: [nektos/act](https://github.com/nektos/act) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
