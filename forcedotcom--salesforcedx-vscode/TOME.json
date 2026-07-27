@@ -1,0 +1,273 @@
+{
+  "name": "salesforcedx-vscode",
+  "owner": "forcedotcom",
+  "repo": "salesforcedx-vscode",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "concise",
+      "path": ".claude/skills/concise",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/concise",
+      "description": ""
+    },
+    {
+      "name": "effect-best-practices",
+      "path": ".claude/skills/effect-best-practices",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/effect-best-practices",
+      "description": ""
+    },
+    {
+      "name": "query-app-insights",
+      "path": ".claude/skills/query-app-insights",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/query-app-insights",
+      "description": ""
+    },
+    {
+      "name": "services-extension-consumption",
+      "path": ".claude/skills/services-extension-consumption",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/services-extension-consumption",
+      "description": ""
+    },
+    {
+      "name": "ts4023-effect-errors",
+      "path": ".claude/skills/ts4023-effect-errors",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/ts4023-effect-errors",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": ".claude/skills/typescript",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/typescript",
+      "description": ""
+    },
+    {
+      "name": "vscode-window-messages",
+      "path": ".claude/skills/vscode-window-messages",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/vscode-window-messages",
+      "description": ""
+    },
+    {
+      "name": "wireit",
+      "path": ".claude/skills/wireit",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/wireit",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/paths/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/paths/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/wireit/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/wireit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/release/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/gus-cli/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/gus-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/concise/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/concise/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/pr-draft/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/pr-draft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/icons-src/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/icons-src/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/typescript/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/packageJson/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/packageJson/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/verification/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/verification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/shipped-issues/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/shipped-issues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/feature-branch/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/feature-branch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/merge-conflicts/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/merge-conflicts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/span-file-export/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/span-file-export/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/core-extension-api/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/core-extension-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/external-consumers/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/external-consumers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/query-app-insights/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/query-app-insights/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/lsp-custom-requests/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/lsp-custom-requests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/ts4023-effect-errors/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/ts4023-effect-errors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/effect-best-practices/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/effect-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/vscode-window-messages/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/vscode-window-messages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/ts1261-filename-casing/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/ts1261-filename-casing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/services-extension-consumption/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/services-extension-consumption/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/work-item-sequencing/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/work-item-sequencing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/i18n-messages/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/i18n-messages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/backlog-grooming/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/backlog-grooming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/dependabot-alerts/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/dependabot-alerts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "salesforcedx-vscode",
+      "path": ".claude/skills/thermonuclear-code-quality-review/SKILL.md",
+      "github_url": "https://github.com/forcedotcom/salesforcedx-vscode/tree/main/.claude/skills/thermonuclear-code-quality-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/forcedotcom/salesforcedx-vscode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T01:33:22Z"
+}
