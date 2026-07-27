@@ -1,7 +1,7 @@
 {
   "name": "alchemiststudiosdotai--tinyagent",
   "displayName": "tinyAgent",
-  "description": "tinyAgent uniquely treats functions as first-class citizens, easily transforming them into powerful AI tools. Inspired by human organizational structures, it dynamically orchestrates specialized agent",
+  "description": "tinyAgent",
   "version": "1.0.0",
   "author": "alchemiststudiosDOTai",
   "homepage": "https://github.com/alchemiststudiosDOTai/tinyAgent",
