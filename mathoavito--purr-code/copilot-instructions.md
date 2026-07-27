@@ -1,16 +1,44 @@
-## project-context
+## runtime-code-invariants
 
-> PurrCode project context and workflow entry points
+> Security and invisibility invariants for PurrCode runtime TypeScript code
 
 
-# PurrCode — read this first
+# Runtime code invariants (violations are P0)
 
-- `AGENTS.md` at the repo root is the canonical agent context: architecture map, commands, and hard constraints. Read it before implementing anything.
-- Callable project agent: **`purrcode`** — prompt in `docs/agents/purrcode.md`, Cursor wrapper in `.cursor/agents/purrcode.md`. Prefer `/purrcode` (or Task → purrcode) for story/spike/sprint work.
-- Work comes from the backlog: `docs/planning/START-HERE.md` has the progress board and dependency order. Stories are `PC-<sprint><nn>` in `docs/planning/sprint-N-*.md`; their acceptance checkboxes are the definition of done. One git branch per sprint (`sprint-N-<short-slug>`), not per story.
-- Workflow skills: `.cursor/skills/{implement-story,run-spike,sprint-review}/SKILL.md`.
-- Never start a story whose dependencies aren't ✅ on the board; never cross a 🚧 human-gate item autonomously.
-- The PRD (`docs/PurrCode-PRD-v0.4.md`) is the spec and roadmap. Scope drift into its §5 non-goals gets stopped, not built.
+## Fail silent on hook paths
+
+Any code reachable from the hook adapter must exit 0 and write **zero bytes** to stdout/stderr, in all failure modes — a transcript error notice in Claude Code is a critical bug. Errors go to the opt-in debug log (`PURRCODE_LOG=debug`) only.
+
+```typescript
+// ❌ BAD — surfaces a hook-error notice in the Claude transcript
+if (!daemon) { console.error("daemon unreachable"); process.exit(1); }
+
+// ✅ GOOD — silent, logged, exit 0
+if (!daemon) { debugLog("daemon unreachable", err); process.exit(0); }
+```
+
+## Child processes: exec form only
+
+Argument arrays, never shell strings, never `eval`, never `npx`:
+
+```typescript
+// ❌ BAD
+exec(`node ${hookPath} start`);
+
+// ✅ GOOD
+spawn("node", [hookPath, "start"], { shell: false });
+```
+
+## Untrusted input
+
+Hook stdin and control-pipe messages are untrusted: schema-validate, size-cap, and never interpolate their fields into commands or file paths.
+
+## Other hard limits
+
+- No network code anywhere in runtime (no fetch, no telemetry, no update checks).
+- No new runtime dependencies without a linked approving issue.
+- Never read, store, or log prompt text, responses, tool inputs, or repo file contents.
+- Debug logs use **hashed** session IDs, never raw ones.
 
 ---
 > Source: [MathoAvito/purr-code](https://github.com/MathoAvito/purr-code) — distributed by [TomeVault](https://tomevault.io).
