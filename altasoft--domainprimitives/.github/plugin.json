@@ -1,0 +1,14 @@
+{
+  "name": "altasoft--domainprimitives",
+  "displayName": "DomainPrimitives",
+  "description": "DomainPrimitives",
+  "version": "1.0.0",
+  "author": "altasoft",
+  "homepage": "https://github.com/altasoft/DomainPrimitives",
+  "skills": [
+    {
+      "name": "DomainPrimitives",
+      "description": ""
+    }
+  ]
+}
