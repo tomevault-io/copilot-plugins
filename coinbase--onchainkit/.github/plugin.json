@@ -1,0 +1,9 @@
+{
+  "name": "coinbase--onchainkit",
+  "displayName": "onchainkit",
+  "description": "onchainkit",
+  "version": "1.0.0",
+  "author": "coinbase",
+  "homepage": "https://github.com/coinbase/onchainkit",
+  "skills": []
+}
