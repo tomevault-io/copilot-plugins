@@ -1,21 +1,71 @@
 ## monorepo-tools
 
-> Here's technologies being used in this workspace:
+> Best practices for modifying existing components
 
 
-Here's technologies being used in this workspace:
+# Component Modification Best Practices
 
-- Tailwind 3
-- yarn
-- Next.js 14
-- Nx
+## When Updating Components
 
-The workspace is structured in a typical Nx setup
+### Always Preserve Structure
 
-- application in `apps/website`
-- logic for the app is split into `libs/website/...`
+- When moving content sections, maintain the original layout structure as placeholders
+- Don't remove sections entirely unless explicitly requested
+- Keep consistent spacing and grid layouts
+
+### Icon and Styling Updates
+
+- Always update icon styling to match existing patterns in [monorepo-features.tsx](mdc:libs/website/ui-home/src/lib/monorepo-features.tsx)
+- Use neutral slate colors instead of brand colors for consistency
+- Maintain responsive design patterns
+
+## Component Section Management
+
+### Moving Sections
+
+When reorganizing component sections:
+
+1. **Preserve original structure** - Keep the formatting/layout as a placeholder
+2. **Move content accurately** - Copy exact content to new location
+3. **Clean up duplicates** - Remove original content after successful move
+4. **Maintain responsive classes** - Keep `lg:order-*` classes for proper layout
+
+### Example Pattern
+
+```tsx
+// Original placeholder structure (content to be replaced)
+<div className="mt-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+  <div>
+    {/* Content will be replaced here */}
+  </div>
+  <div className="mt-10 lg:mt-0">
+    {/* Supporting content */}
+  </div>
+</div>
+
+// New section with moved content
+<div className="mt-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+  <div className="lg:order-2">
+    {/* Moved content here */}
+  </div>
+  <div className="mt-10 lg:order-1 lg:mt-0">
+    {/* Complementary content */}
+  </div>
+</div>
+```
+
+## Consistency Guidelines
+
+- Follow established color schemes from [monorepo-features.tsx](mdc:libs/website/ui-home/src/lib/monorepo-features.tsx)
+- Maintain consistent spacing with `mt-16`, `mt-10`, etc.
+- Use proper semantic HTML with `<dl>`, `<dt>`, `<dd>` for feature lists
+- Always include proper dark mode support with `dark:` prefixes
+
+## References
+
+- [monorepo-features.tsx](mdc:libs/website/ui-home/src/lib/monorepo-features.tsx) - Source of styling patterns
+- [monorepo-ai-advantages.tsx](mdc:libs/website/ui-ai/src/lib/monorepo-ai-advantages.tsx) - Example of updated component
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nrwl)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/nrwl)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [nrwl/monorepo.tools](https://github.com/nrwl/monorepo.tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
