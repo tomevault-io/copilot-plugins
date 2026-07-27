@@ -4,7 +4,7 @@
   "repo": "course-management-system-frontend",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kvishalini55-sudo/course-management-system-frontend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T03:46:54Z"
+  "distributed_at": "2026-07-27T09:43:41Z"
 }
