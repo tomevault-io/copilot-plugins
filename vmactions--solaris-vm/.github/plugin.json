@@ -1,0 +1,9 @@
+{
+  "name": "vmactions--solaris-vm",
+  "displayName": "solaris-vm",
+  "description": "solaris-vm",
+  "version": "1.0.0",
+  "author": "vmactions",
+  "homepage": "https://github.com/vmactions/solaris-vm",
+  "skills": []
+}
