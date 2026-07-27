@@ -1,7 +1,7 @@
 {
   "name": "neondatabase--appdotbuild-agent",
   "displayName": "appdotbuild-agent",
-  "description": "The agent that generates working apps (and maybe some other things)",
+  "description": "appdotbuild-agent",
   "version": "1.0.0",
   "author": "neondatabase",
   "homepage": "https://github.com/neondatabase/appdotbuild-agent",
