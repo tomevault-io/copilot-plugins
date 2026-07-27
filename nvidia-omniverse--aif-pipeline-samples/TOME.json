@@ -2,9 +2,9 @@
   "name": "aif-pipeline-samples",
   "owner": "NVIDIA-Omniverse",
   "repo": "aif-pipeline-samples",
-  "description": "Sample scripts and presets for creating SimReady USD assets in NVIDIA Omniverse, with a focus on CAD ingestion and optimization workflows for digital twin and AI Factory applications.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA-Omniverse/aif-pipeline-samples",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T21:06:06Z"
+  "distributed_at": "2026-07-27T11:59:43Z"
 }
