@@ -1,8 +1,6 @@
 # qbtmud
 
-> Source: [lantean-code/qbtmud](https://github.com/lantean-code/qbtmud) — distributed by [TomeVault](https://tomevault.io)
-
-qbtmud is a drop-in replacement for qBittorrent's default WebUI. It keeps qBittorrent's Web API semantics and core workflows, while adding a more polished application experience around setup, customization, browser integration, and diagnostics.
+> Source: [lantean-code/qbtmud](https://github.com/lantean-code/qbtmud). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [lantean-code/qbtmud](https://github.com/lantean
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lantean-code/qbtmud](https://github.com/lantean-code/qbtmud) — a repo with 58+ stars on GitHub.
+From [lantean-code/qbtmud](https://github.com/lantean-code/qbtmud) — a repo with 69+ stars on GitHub.
 
 ---
 
