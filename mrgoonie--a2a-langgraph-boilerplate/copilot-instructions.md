@@ -20,10 +20,7 @@ This project is a boilerplate for developers who want to start building an AI ag
 * Create & manage AI crews easily (with a default supervisor agent, add/remove AI agents)
 * Create & manage AI agents easily (add/remove MCP tools)
 * Create & manage MCP servers easily (supports Streamable HTTP transport only)
-* Create & manage conversations with AI crews / AI agents easily
 * Able to monitor all the activity logs of AI crews and AI agents easily
-* Expose API for frontend (nextjs) interaction (support streaming request)
-* Expose Swagger API Docs for frontend integration instructions
 
 ## Technical Requirements
 - Programming language: Python
@@ -34,14 +31,6 @@ This project is a boilerplate for developers who want to start building an AI ag
 - Expose API for frontend (nextjs) interaction (support streaming request)
 - Database: PostgreSQL
 - Cloud storage: Cloudflare R2 bucket
-
-## Environment Variables (Development Environment / localhost)
-
-```
-DATABASE_URL=""
-OPENROUTER_API_KEY=""
-...
-```
 
 ## Documentations & References
 * https://langchain-ai.github.io/langgraph/concepts/multi_agent/
@@ -67,9 +56,9 @@ OPENROUTER_API_KEY=""
 * always implement error catching handler
 * always implement user-friendly flows
 * always follow security best practices
-* always commit your code after finishing fixing a bug or implementing a feature completely (DO NOT commit `.env` file)
-* always run the development environment in another process and export logs to `./server.log` (view this file to check the logs and debug)
+* always write tests for every feature
+* always commit your code after finishing fixing a bug or implementing a feature completely (make sure `.env` file is not committed)
 
 ---
 > Source: [mrgoonie/a2a-langgraph-boilerplate](https://github.com/mrgoonie/a2a-langgraph-boilerplate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
