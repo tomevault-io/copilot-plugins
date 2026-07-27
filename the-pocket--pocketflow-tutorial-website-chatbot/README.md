@@ -1,23 +1,21 @@
 # PocketFlow-Tutorial-Website-Chatbot
 
-> Tome by [The-Pocket](https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot) — distributed by [TomeVault](https://tomevault.io)
-
-"Set & Forget" AI Chatbot for Your Website - It Learns Your Website Automatically
+> Tome by [The-Pocket](https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [The-Pocket/PocketFlow-Tutorial-Website-Chatbot](https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot).
+Original source: `.windsurf/rules/*.md` in [The-Pocket/PocketFlow-Tutorial-Website-Chatbot](https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-- **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot](https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot](https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot)
 
 ---
 
