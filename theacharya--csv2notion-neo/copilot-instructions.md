@@ -1,392 +1,408 @@
 ## csv2notion-neo
 
-> This is CSV2Notion Neo, an advanced command-line tool for uploading and merging CSV or JSON files with images to Notion databases. The project is written in Python 3.11+ and uses Poetry for dependency management.
+> - [Project Overview](#project-overview)
 
-# CSV2Notion Neo - Cursor Rules
+# CSV2Notion Neo - Agent Documentation
 
-## Project Context
+## Table of Contents
 
-This is CSV2Notion Neo, an advanced command-line tool for uploading and merging CSV or JSON files with images to Notion databases. The project is written in Python 3.11+ and uses Poetry for dependency management.
+- [Project Overview](#project-overview)
+- [Version 2.0.0+ Migration](#version-200-migration)
+  - [Migration Details](#migration-details)
+    - [Authentication Changes](#authentication-changes)
+    - [API Implementation Changes](#api-implementation-changes)
+    - [Database URL Requirements](#database-url-requirements)
+    - [File Upload Implementation](#file-upload-implementation)
+    - [Error Handling Improvements](#error-handling-improvements)
+    - [Codebase Structure Changes](#codebase-structure-changes)
+- [Core Architecture](#core-architecture)
+  - [Main Components](#main-components)
+- [Key Features](#key-features)
+  - [Data Import Capabilities](#data-import-capabilities)
+  - [Advanced Operations](#advanced-operations)
+  - [AI Integration](#ai-integration)
+  - [Performance Features](#performance-features)
+- [Development Guidelines](#development-guidelines)
+  - [Code Structure](#code-structure)
+  - [Local Development Workflow](#local-development-workflow)
+  - [Testing Strategy](#testing-strategy)
+  - [Code Quality](#code-quality)
+  - [Dependencies](#dependencies)
+- [API Integration](#api-integration)
+  - [Notion API](#notion-api)
+  - [Hugging Face API](#hugging-face-api)
+- [Configuration Management](#configuration-management)
+  - [Command Line Arguments](#command-line-arguments)
+  - [Environment Variables](#environment-variables)
+- [Error Handling](#error-handling)
+  - [Custom Exceptions](#custom-exceptions)
+  - [Logging Strategy](#logging-strategy)
+- [Security Considerations](#security-considerations)
+  - [Authentication](#authentication)
+  - [Data Privacy](#data-privacy)
+- [Performance Optimization](#performance-optimization)
+  - [Upload Efficiency](#upload-efficiency)
+  - [Memory Management](#memory-management)
+- [Deployment and Distribution](#deployment-and-distribution)
+  - [Packaging](#packaging)
+  - [CI/CD Pipeline](#cicd-pipeline)
+- [Maintenance and Updates](#maintenance-and-updates)
+  - [Version Management](#version-management)
+  - [API Compatibility](#api-compatibility)
+- [Contributing Guidelines](#contributing-guidelines)
+  - [Development Setup](#development-setup)
+  - [Ephemeral Build System](#ephemeral-build-system)
+  - [Code Review Process](#code-review-process)
+  - [Testing Requirements](#testing-requirements)
+- [Troubleshooting](#troubleshooting)
+  - [Common Issues](#common-issues)
+  - [Debug Mode](#debug-mode)
+- [Future Roadmap](#future-roadmap)
+  - [Planned Features](#planned-features)
+  - [Technical Debt](#technical-debt)
+- [Dev Toolchain](#dev-toolchain)
+
+## Project Overview
+
+CSV2Notion Neo is an advanced command-line tool for uploading and merging CSV or JSON files with images to Notion databases. It serves as a successor to the original csv2notion project, providing enhanced compatibility with Notion's evolving API and additional features like AI-powered image captioning.
 
 ## Version 2.0.0+ Migration
 
 CSV2Notion Neo has been fully migrated to use the official [Notion API](https://developers.notion.com/) (version 2025-09-03) and the [notion-sdk-py](https://github.com/ramnes/notion-sdk-py) library (`notion-client` ^3.1.0). This migration provides better reliability, security, and future compatibility. The application now uses Notion integration tokens instead of session cookies and requires database URLs to be provided for all operations.
 
-### Migration Implementation Details
+### Migration Details
 
-#### New File Structure
-- `csv2notion_neo/notion_client.py`: Notion API client wrapper with comprehensive retry logic
-- `csv2notion_neo/notion_db.py`: Database operations with enhanced schema detection and thread-safe select option management
-- `csv2notion_neo/notion_row_upload_file.py`: File upload operations with retry logic
-- `csv2notion_neo/notion_db_client.py`: Extended client with additional functionality
+#### Authentication Changes
+- Previous: Used `token_v2` session cookies from Notion web interface
+- Current: Uses official Notion integration tokens with format validation (starts with 'secret_' or 'ntn_')
+- Benefits: Enhanced security, better token management, official authentication method, improved user experience with clear error messages
 
-#### Removed Components
-- `csv2notion_neo/notion/` directory: Legacy API implementation
-- `csv2notion_neo/notion_row.py`: Old row handling classes
-- `csv2notion_neo/notion_db_collection.py`: Old collection management
-- `csv2notion_neo/notion_client_official.py`: Renamed to `notion_client.py`
-- `csv2notion_neo/notion_db_official.py`: Renamed to `notion_db.py`
-- `csv2notion_neo/notion_row_upload_file_official.py`: Renamed to `notion_row_upload_file.py`
-- `csv2notion_neo/notion_db_client_official.py`: Renamed to `notion_db_client.py`
-
-#### Key Implementation Changes
-- Authentication: Integration tokens with format validation instead of session cookies
-- API Version: Notion API 2025-09-03 with data_sources structure for database properties
-- Database Operations: Notion databases API endpoints with page URL support for creating databases within existing pages
+#### API Implementation Changes
+- Previous: Custom implementation using unofficial private Notion APIs
+- Current: Official [notion-sdk-py](https://github.com/ramnes/notion-sdk-py) library integration (`notion-client` ^3.1.0)
+- API Version: Notion API 2025-09-03 with data_sources structure
 - Data Sources: Database properties retrieved from data_sources endpoint instead of database object
 - Schema Updates: Database schema modifications use data_sources.update endpoint
 - Database Creation: Uses initial_data_source for new database property definitions
-- File Uploads: Notion file_uploads API endpoints with comprehensive retry logic
-- Files Property Support: `--image-column-mode file` maps values to Notion `files` property items (`file_upload` for local files, `external` for URLs)
-- Error Handling: Notion API error codes and responses with smart retry strategies
-- Rate Limiting: Built-in API rate limiting with exponential backoff; HTTP 429 handling with Retry-After parsing and cross-thread ban coordination; proactive throttle (~3 req/s) to reduce 429s (issue #76)
-- Property Validation: API property type validation with intelligent schema detection
-- Thread Safety: Thread-safe select option management to prevent race conditions during concurrent uploads
-- Retry Logic: Enhanced retry system with 15 attempts, exponential backoff, and jitter for production reliability
-- Logic Path Separation: Clear distinction between creating new databases in pages vs uploading to existing databases
-- Token Validation: User-friendly token format validation with clear error messages
+- Benefits: Official API support, better error handling, future-proof compatibility
 
-#### Compatibility Layer
-- Maintains existing method signatures where possible
-- Provides seamless transition from old to new API
-- Handles data structure differences between APIs
-- Preserves all existing functionality and features
+#### Database URL Requirements
+- Previous: Optional database URL with automatic database creation
+- Current: Mandatory database URL for all operations (supports both database URLs and page URLs)
+- Benefits: Clearer workflow, explicit database targeting, better error handling, ability to create databases within existing pages
 
-## Dependencies
+#### File Upload Implementation
+- Previous: Custom file upload logic with signed URLs
+- Current: Official Notion file_uploads API endpoints
+- Benefits: Standardised upload process, better error handling, official support
 
-### Runtime (`[tool.poetry.dependencies]`)
-- Python `>=3.11,<3.15` (local builds and CI use **3.14.5** via `scripts/local-test-build.sh`)
-- `notion-client` ^3.1.0 (notion-sdk-py), `requests`, `tqdm`, `emoji`, `python-dateutil`, `icecream`
-- `icecream`: debug helper aligned with Airlift (`ic.enable()` in `cli.py`; `ic(...)` on thread-pool errors in `utils_threading.py`)
+#### Error Handling Improvements
+- Previous: Custom error handling for unofficial API responses
+- Current: Official API error codes and structured error responses
+- Benefits: Better error messages, standardised error handling, official documentation
 
-### Dev-only (`[tool.poetry.group.dev.dependencies]`)
-- Testing: `pytest` ^9, `pytest-cov` ^7, `pytest-mock`, `pyfakefs` ^6
-- Lint/format: `black` ^26, `isort` ^8, `flake8` ^7.3, `wemake-python-styleguide` ^1.6, `mypy` ^2
-- Types: `types-requests`, `types-python-dateutil`, `types-emoji`
-- `python-dotenv` ^1 — tests only (`tests/input_command.py` for integration test env)
-- `pre-commit` ^4, `mdformat` ^1
+#### Codebase Structure Changes
+- Removed: `csv2notion_neo/notion/` directory (legacy API implementation)
+- Added: `csv2notion_neo/notion_client.py` (API client wrapper with comprehensive retry logic)
+- Added: `csv2notion_neo/notion_db.py` (database operations with enhanced schema detection)
+- Added: `csv2notion_neo/notion_row_upload_file.py` (file uploads with retry logic)
+- Added: `csv2notion_neo/notion_db_client.py` (extended client with additional functionality)
+- Renamed: All "_official" suffixed files to clean names without suffixes
+- Enhanced: Comprehensive retry logic with 15 attempts, exponential backoff, and jitter
+- Improved: Clear separation between two distinct logic paths for database operations
+- Enhanced: Comprehensive test suite with 96 test methods across 21 categories (including rate limit/throttle tests; issue #76)
 
-### Removed legacy runtime deps (no longer in `pyproject.toml`)
-- Unused in codebase: `ratelimit`, `commonmark`, `dictdiffer`, `python-slugify`, `bs4`, `cached-property`, `tzlocal` (rate limiting is implemented in `notion_client.py`)
-- Dev-only now: `python-dotenv`
-- Removed dev deps: `flakehell` (incompatible with flake8 7+), `pytest-vcr`, `testfixtures`
+## Core Architecture
 
-## Code Style and Standards
+### Main Components
 
-### Python Code Style
-- Use Black formatting with 88 character line length
-- Follow PEP 8 guidelines
-- Use type hints throughout the codebase
-- Use dataclasses for configuration objects
-- Implement proper error handling with custom exceptions
+1. CLI Interface (`csv2notion_neo/cli.py`)
+   - Entry point for the application
+   - Handles argument parsing and logging setup
+   - Orchestrates the main workflow
+   - Enables `icecream` debug output via `ic.enable()` (consistent with Airlift tooling)
 
-### Import Organization
-- Use isort for import organization
-- Group imports: standard library, third-party, local
-- Use absolute imports for local modules
-- Avoid wildcard imports
+2. Data Processing (`csv2notion_neo/local_data.py`)
+   - Reads and validates CSV/JSON files
+   - Manages column types and data structure
+   - Handles AI feature integration
 
-### Naming Conventions
-- Use snake_case for variables, functions, and modules
-- Use PascalCase for classes
-- Use UPPER_CASE for constants
-- Use descriptive names that clearly indicate purpose
+3. Notion Integration (`csv2notion_neo/notion_client.py`, `csv2notion_neo/notion_db.py`)
+   - Notion API client implementation using notion-sdk-py
+   - Database and collection management with API
+   - File upload and block operations through API endpoints
+   - Comprehensive retry logic with 15 attempts, exponential backoff, and jitter
+   - Smart error handling for different error types (server errors, rate limits, network issues)
+   - HTTP 429 handling: Retry-After parsing, cross-thread ban coordination (_rate_limit_set/_rate_limit_wait), proactive throttle (~3 req/s) (issue #76)
+   - Two distinct logic paths: creating new databases in pages vs uploading to existing databases
 
-## Architecture Guidelines
+4. Conversion Engine (`csv2notion_neo/notion_convert.py`)
+   - Converts CSV/JSON data to Notion format
+   - Handles different column types
+   - Manages image and icon processing
 
-### Module Structure
-- Keep modules focused on single responsibility
-- Use clear separation between CLI, data processing, and Notion integration
-- Maintain loose coupling between components
-- Use dependency injection where appropriate
+5. Upload System (`csv2notion_neo/notion_uploader.py`)
+   - Manages row uploads to Notion
+   - Handles merge operations
+   - Integrates AI captioning features
 
-### Error Handling
-- Use custom exceptions (CriticalError, NotionError) for specific error types
-- Provide meaningful error messages with context
-- Log errors appropriately with proper levels
-- Handle API rate limits gracefully
+## Key Features
 
-### Logging
-- Use structured logging throughout the application
-- Include context in log messages
-- Support configurable log levels
-- Use file-based logging for debugging
-- Provide clean, user-friendly output with verbose debugging options available
-
-## Development Workflow
-
-### Local Development Environment
-- Use `scripts/local-test-build.sh` for all local builds (no system Python/Poetry required)
-- Downloads **python-build-standalone** CPython **3.14.5** into `.build/python/`
-- Pins: pip **26.1.2**, Poetry **2.4.1**, setuptools **82.0.1**, poetry-plugin-export **1.10.0**
-- Project venv under `.build/venv/`; binary output under `test-build/`
-- Common commands: `--clean`, `--comprehensive-test`, `--lock-only`, `--update <pkg>`, `--show-outdated`
-- Aligns with GitHub Actions `BUILD_PYTHON_VERSION` / `BUILD_POETRY_VERSION` env blocks
-
-### Code Quality Tools
-- **Lint:** `setup.cfg` — flake8 + wemake (`select = WPS`); flakehell removed (incompatible with flake8 7+)
-- Run: `poetry run flake8 csv2notion_neo tests` (after `./scripts/local-test-build.sh`)
-- **Format:** Black (88 cols), isort (black profile)
-- **Types:** mypy ^2 in `pyproject.toml` (strict; not run in CI today)
-- Optional: pre-commit hooks
-
-### Testing Requirements
-- Write unit tests for all new functionality
-- Use pytest for testing framework
-- Maintain good test coverage
-- Unit tests use mocks; integration tests may hit live Notion API in CI
-- Test both success and failure scenarios
-- Use ephemeral environment for local testing
-- Comprehensive test suite (test_comprehensive.py): 21 categories, 96 test methods; CLI argument validation and Notion SDK testing without credentials
-- Progress bar real-time updates testing with multi-threaded simulation
-- Large dataset merge simulation testing (1000 rows) to validate merge functionality under high-volume scenarios
-- Rate limit and throttle testing (TestNotionRateLimitAndThrottle): Retry-After parsing, 429 ban coordination, proactive throttle (issue #76)
-
-### Git Workflow
-- Use descriptive commit messages
-- Create feature branches for new development
-- Require pull request reviews
-- Keep commits atomic and focused
-
-## API Integration Patterns
-
-### Notion API
-- Use the Notion API client implementation in csv2notion_neo/notion_client.py
-- Utilise the notion-sdk-py library (`notion-client` ^3.1.0) for all Notion API interactions
-- Dual retry layers: SDK inner retries + Neo outer policy (`_rate_limit_wait`, 429 ban, up to 15 attempts) — see `notion_client.py` module docstring
-- API Version: 2025-09-03 with data_sources structure for database properties
-- Data Sources: Properties retrieved from data_sources endpoint, schema updates via data_sources.update
-- Handle API responses and error codes properly with comprehensive retry logic
-- Implement proper rate limiting: exponential backoff, HTTP 429 handling with Retry-After and cross-thread coordination, proactive throttle (~3 req/s) (issue #76)
-- Use file_uploads endpoints for file operations with retry mechanisms
-- Follow Notion API specifications and best practices
-- Implement smart retry logic with 15 attempts, exponential backoff, and jitter
-- Handle different error types with appropriate retry strategies (server errors, rate limits, network issues)
-- Support two distinct logic paths: creating new databases in pages vs uploading to existing databases
-- Reference: [notion-sdk-py documentation](https://ramnes.github.io/notion-sdk-py/)
-- Reference: [Notion API documentation](https://developers.notion.com/)
-
-### Hugging Face API
-- Implement retry logic for model loading
-- Handle authentication securely
-- Provide fallback options for API failures
-- Log AI processing steps appropriately
-
-## Data Processing Guidelines
-
-### CSV/JSON Handling
-- Validate input data thoroughly
-- Handle missing or malformed data gracefully
-- Support different delimiters and encodings (comma, semicolon, pipe, tab, etc.)
-- Implement proper column type detection with smart auto-detection engine
+### Data Import Capabilities
+- CSV and JSON file support with comprehensive delimiter support (comma, semicolon, pipe, tab, etc.)
+- Enhanced automatic column type detection with intelligent schema analysis and smart pattern recognition
 - Timecode detection for video/film data (automatically set to Rich Text)
 - Boolean/checkbox detection with comprehensive pattern matching
 - Status/select detection for limited unique values with semantic meaning
 - Numeric detection for integers, decimals, and percentages
 - URL, email, and phone number pattern recognition
 - Date format detection supporting multiple international formats
+- Manual column type specification
+- Support for all Notion column types (text, number, select, multi_select, date, checkbox, url, email, phone_number, file, person, relation, rollup, formula, created_time, last_edited_time, created_by, last_edited_by)
+- Page URL support for creating databases within existing Notion pages
 
-### File Operations
-- Use pathlib for file path handling
-- Validate file extensions and types
-- Handle file uploads securely
-- Implement proper cleanup of temporary files
+### Advanced Operations
+- Merge existing databases using key columns
+- Relation column handling with automatic linking
+- File upload support for images and documents
+- Icon and cover image assignment
+- Mandatory column validation
+- Database management: Archive all entries in a database using --delete-all-database-entries (database URL required, page URLs not supported)
 
-## Performance Considerations
+### AI Integration
+- Hugging Face integration for image captioning
+- Support for multiple AI models (vit-gpt2, blip-image, git-large)
+- Automatic caption generation for uploaded images
 
-### Multithreading
-- Use ThreadPoolExecutor for concurrent operations
-- Implement proper thread safety with locks for shared resources
-- Monitor thread usage and performance
-- Handle thread-local data appropriately
-- Prevent race conditions in select option management during concurrent uploads
-- Database creation within pages with proper initialization delays
-- Enhanced retry logic with 15 max retries and exponential backoff for API errors
-- Comprehensive retry mechanism for file uploads, page creation, and database operations
+### Performance Features
+- Multithreaded uploads for improved speed with race condition prevention
+- Rate limiting to respect Notion API limits with exponential backoff
+- Progress tracking with tqdm and real-time updates during multi-threaded operations
+- Thread-safe select option management to prevent conflicts during concurrent uploads
+- Database creation within pages with proper initialization delays and retry logic
+- Enhanced retry mechanism with 15 max retries and exponential backoff for API errors
 - Robust error handling for 503 Service Unavailable, timeout, and 409 Conflict errors
-- Enhanced error handling for 409 Conflict errors during concurrent operations
+- Comprehensive retry logic for file uploads, page creation, and database operations
+- Enhanced error handling for concurrent operations
 - Smart retry logic with jitter to prevent thundering herd problems
 - Production-ready retry system handling high concurrency, large files, and rate limits
-- Real-time progress bar updates during multi-threaded uploads with enhanced threading utilities
+- Two distinct logic paths with optimized retry strategies for different scenarios
 - Improved merge functionality for large CSV files with thread-safe cache invalidation and race condition prevention
-- HTTP 429 handling: Retry-After parsing (default 60s, min 1s), cross-thread ban via _rate_limit_set/_rate_limit_wait; proactive throttle (~3 req/s sliding window) before each request (issue #76)
+- Large dataset pagination support: Complete pagination handling for databases >100 rows to prevent merge duplicates
+- Rate limit and throttle (issue #76): HTTP 429 handling with Retry-After parsing (default 60s, min 1s), cross-thread ban coordination, proactive ~3 req/s sliding-window throttle before each request
 
-### Memory Management
-- Process large files in chunks when possible
-- Avoid loading entire datasets into memory
-- Implement proper resource cleanup
-- Monitor memory usage in long-running operations
+## Development Guidelines
 
-## Security Best Practices
+### Code Structure
+- Follow Python type hints throughout
+- Use dataclasses for configuration objects
+- Implement proper error handling with custom exceptions
+- Maintain comprehensive logging
 
-### Authentication
-- Never hardcode credentials in source code
-- Use environment variables for sensitive data
-- Implement secure token handling with format validation
-- Validate authentication before operations
-- Provide user-friendly error messages for invalid tokens
+### Local Development Workflow
+- Use `scripts/local-test-build.sh` for all local builds (no system Python/Poetry required)
+- Installs **python-build-standalone** CPython **3.14.5** under `.build/python/`
+- Pins: pip **26.1.2**, Poetry **2.4.1**, setuptools **82.0.1**, poetry-plugin-export **1.10.0**
+- Poetry venv: `.build/venv/`; PyInstaller binary: `test-build/csv2notion_neo`
+- Key flags: `--clean`, `--comprehensive-test`, `--lock-only`, `--update <package>`, `--show-outdated`
+- Matches GitHub Actions `BUILD_PYTHON_VERSION` / `BUILD_POETRY_VERSION` in workflow env blocks
 
-### Data Privacy
-- Handle user data securely
-- Implement proper data validation
-- Log sensitive operations appropriately
-- Follow privacy guidelines for AI features
+### Testing Strategy
+- Unit tests for core functionality
+- Integration tests for Notion API interactions
+- Unit tests with mocks; optional live Notion API integration tests in CI
+- Coverage reporting for quality assurance
+- Local testing with ephemeral environment
+- Comprehensive test suite (test_comprehensive.py): 21 categories, 96 test methods; CLI argument validation and Notion SDK testing without credentials, including pagination and rate limit/throttle tests
+- Progress bar real-time updates testing with multi-threaded simulation
+- Large dataset merge simulation testing (1000 rows) to validate merge functionality under high-volume scenarios
+- Rate limit and throttle tests (TestNotionRateLimitAndThrottle): Retry-After parsing, 429 ban coordination, proactive throttle (issue #76)
+
+### Code Quality
+- **Lint:** `setup.cfg` — flake8 + wemake-python-styleguide (`select = WPS`); `flakehell` removed (incompatible with flake8 7+)
+- Command: `poetry run flake8 csv2notion_neo tests` (after `./scripts/local-test-build.sh`)
+- **Format:** Black (88 cols), isort (black profile)
+- **Types:** mypy ^2 with strict `[tool.mypy]` in `pyproject.toml` (optional locally; not run in CI)
+- Optional: pre-commit hooks
+
+### Dependencies
+- **Python:** `>=3.11,<3.15` in `pyproject.toml`; local builds and CI use **3.14.5**
+- **Poetry** for lock/install; see [Dev Toolchain](#dev-toolchain) for full tables
+
+#### Runtime dependencies
+| Package | Role |
+|---------|------|
+| `notion-client` ^3.1 | Official Notion SDK |
+| `requests` | HTTP (AI captioning, etc.) |
+| `tqdm` | Progress bars |
+| `emoji` | Icon/column emoji handling |
+| `python-dateutil` | Date parsing |
+| `icecream` | Debug helper (Airlift consistency; `cli.py`, `utils_threading.py`) |
+
+#### Removed from runtime (cleanup; not used in current code)
+`ratelimit`, `commonmark`, `dictdiffer`, `python-slugify`, `bs4`, `cached-property`, `tzlocal` — custom rate limiting lives in `notion_client.py`
+
+## API Integration
+
+### Notion API
+- Notion API client implementation using notion-sdk-py (`notion-client` ^3.1.0)
+- SDK inner retries + Neo outer retry/throttle policy — documented in `notion_client.py`
+- API Version: 2025-09-03 with data_sources structure for database properties
+- Support for all Notion API endpoints (databases, pages, blocks, users, file uploads, data_sources)
+- Data Sources: Properties retrieved from data_sources endpoint, schema updates via data_sources.update
+- File upload handling through file_uploads endpoints with comprehensive retry logic
+- Files property support: `--image-column-mode file` maps to Notion `files` items (`file_upload` for local paths, `external` for URLs)
+- Built-in rate limiting and error handling: exponential backoff; HTTP 429 handling with Retry-After and cross-thread coordination; proactive ~3 req/s throttle (issue #76)
+- Integration token authentication for enhanced security
+- Full compatibility with Notion's API specifications
+- Smart retry logic with 15 attempts, exponential backoff, and jitter for production reliability
+- Two distinct logic paths: creating new databases in pages vs uploading to existing databases
+- Enhanced error handling for different error types (server errors, rate limits, network issues)
+
+### Hugging Face API
+- Integration with Hugging Face inference API
+- Support for image captioning models
+- Token-based authentication
+- Retry logic for model loading
 
 ## Configuration Management
 
 ### Command Line Arguments
-- Use argparse for CLI argument parsing
-- Provide clear help messages
-- Validate argument combinations
-- Support both required and optional arguments
-- Note: --token (integration token) and --url (database URL or page URL) are now mandatory
-- Token format validation with user-friendly error messages
-- URL validation (Notion.so domain and protocol validation) with clear error messages
+- Workspace and integration token authentication (mandatory) with format validation
+- Database URL or page URL specification (mandatory) with Notion.so domain and protocol validation - supports both existing databases and page URLs for creating new databases
+- Column type mapping
+- Image and icon handling options
+- `--image-column-mode` supports `cover`, `block`, and `file`; use `file` for dedicated Notion `files` columns
+- `relation` is intentionally excluded from `--column-types` allowed values because relation schema creation needs target DB/data source metadata
+- Merge and validation flags
+- AI model configuration
 - Database management: --delete-all-database-entries for archiving all pages in a database (database URL required, page URLs not supported)
 - Comprehensive test coverage: All 50+ CLI arguments and switches validated through test_comprehensive.py
-- `--image-column-mode` supports `cover`, `block`, and `file`; use `file` when CSV/JSON image columns should populate Notion `files` properties
-- `relation` is intentionally excluded from `--column-types` allowed values because relation schema creation requires target database/data source metadata
 
 ### Environment Variables
-- CLI: pass `--token` and credentials via args; no runtime `python-dotenv`
-- Integration tests: `python-dotenv` (dev dep) loads `.env` in `tests/input_command.py` (`NOTION_TOKEN`, `NOTION_URL`, etc.)
-- CI: GitHub secrets for live Notion integration workflows
+- **CLI:** `--token`, `--url`, etc. (no runtime `python-dotenv`)
+- **Local integration tests:** dev dependency `python-dotenv` loads `.env` via `tests/input_command.py` (`NOTION_TOKEN`, `NOTION_URL`, `NOTION_WORKSPACE`)
+- **CI:** GitHub Actions secrets for live Notion upload/delete workflows
+- Hugging Face tokens via CLI when using AI captioning
 
-## Documentation Standards
+## Error Handling
 
-### Code Documentation
-- Use docstrings for all public functions and classes
-- Follow Google or NumPy docstring format
-- Include type information in docstrings
-- Document exceptions and edge cases
+### Custom Exceptions
+- CriticalError: For fatal application errors
+- NotionError: For Notion API related issues
+- ValidationError: For data validation failures
 
-### README and Documentation
-- Keep README.md up to date
-- Document installation and usage instructions
-- Provide clear examples for common use cases
-- Maintain changelog for version history
+### Logging Strategy
+- Configurable log levels (INFO, DEBUG, WARNING)
+- File-based logging support
+- Structured error messages with context
+- Clean, user-friendly output with verbose debugging options available
 
-## Testing Strategy
+## Security Considerations
 
-### Unit Tests
-- Test individual functions and methods
-- Mock external dependencies
-- Test both success and failure paths
-- Maintain high test coverage
-- Comprehensive test suite: 21 categories, 96 methods; CLI arguments, Notion SDK, rate limit/throttle (issue #76)
+### Authentication
+- Secure integration token handling for official Notion API
+- Token format validation with user-friendly error messages
+- Hugging Face token management
+- No hardcoded credentials in source code
+- Integration token validation and error handling
 
-### Integration Tests
-- Test API integrations with real endpoints
-- Integration tests use real endpoints in CI where secrets are configured
-- Test end-to-end workflows
-- Validate error handling in real scenarios
+### Data Privacy
+- Local file processing
+- Secure file uploads to Notion
+- AI image analysis with privacy warnings
 
-### Performance Tests
-- Test with large datasets
-- Monitor memory usage
-- Test concurrent operations
-- Validate rate limiting and throttle behavior (TestNotionRateLimitAndThrottle: Retry-After, 429 coordination, proactive ~3 req/s)
+## Performance Optimization
+
+### Upload Efficiency
+- Multithreaded processing with configurable thread count
+- Batch operations where possible
+- Progress tracking for large datasets
+
+### Memory Management
+- Streaming file processing for large CSV files
+- Efficient data structures for row handling
+- Proper cleanup of temporary resources
 
 ## Deployment and Distribution
 
 ### Packaging
-- Use Poetry for dependency management
-- Maintain pyproject.toml configuration
-- Support multiple Python versions
-- Provide pre-compiled binaries
+- Poetry-based dependency management
+- PyPI distribution
+- Pre-compiled binaries for multiple platforms
+- Docker support for containerized deployment
 
-### CI/CD
-- GitHub Actions on `master` and `dev`: `build`, `unit_tests`, Notion integration tests, `release_github`, `release_pypi`
-- CI Python **3.14**, Poetry **2.4.1** (match `local-test-build.sh` pins)
-- Unit tests: `pytest tests/test_comprehensive.py` (96 tests; mocks, no live Notion credentials)
-- No `pytest-vcr` / `-p no:vcr` (removed; tests do not use VCR cassettes)
+### CI/CD Pipeline
+- Workflows on `master` and `dev`: `build`, `unit_tests`, `notion_image_upload_test`, `notion_delete_database_entries_test`, `release_github`, `release_pypi`
+- **Python 3.14** and **Poetry 2.4.1** in workflow env (aligned with `local-test-build.sh`)
+- Unit tests: `pytest tests/test_comprehensive.py` — 96 tests, mocked Notion (no credentials)
+- Integration tests: real Notion API when repository secrets are set
+- No VCR/pytest-vcr (removed); do not use `-p no:vcr`
 
-## Maintenance Guidelines
+## Maintenance and Updates
 
 ### Version Management
-- Follow semantic versioning (MAJOR.MINOR.PATCH)
-- Maintain backward compatibility
-- Document breaking changes
-- Update dependencies regularly
+- Semantic versioning (MAJOR.MINOR.PATCH)
+- Changelog maintenance
+- Backward compatibility considerations
 
-### Bug Fixes
-- Reproduce issues reliably
-- Write tests for bug fixes
-- Document the root cause
-- Verify fixes in multiple scenarios
+### API Compatibility
+- Full compatibility with official Notion API specifications (version 2025-09-03)
+- Uses `notion-client` ^3.1.0 with data_sources structure support
+- Regular dependency updates for notion-sdk-py
+- Compatibility testing with official Notion API versions
+- Official API stability and backward compatibility guarantees
 
-### Feature Development
-- Plan features thoroughly
-- Consider backward compatibility
-- Update documentation
-- Add appropriate tests
+## Contributing Guidelines
 
-## Common Patterns
+### Development Setup
+1. Clone the repository
+2. Install Poetry (optional - ephemeral build script handles this)
+3. Run `poetry install` for dependencies OR use `./scripts/local-test-build.sh`
+4. Set up pre-commit hooks
+5. Configure environment variables for testing
 
-### Data Conversion
-- Use the NotionRowConverter for data transformation
-- Handle different column types appropriately
-- Validate data before conversion
-- Provide clear error messages for conversion failures
+### Ephemeral Build System
+- Script: `scripts/local-test-build.sh` (see `scripts/README.md`)
+- Host requirements: `curl`, `tar` only
+- Layout:
+  - `.build/python/` — standalone CPython 3.14.5
+  - `.build/venv/` — Poetry project environment
+  - `test-build/csv2notion_neo` — PyInstaller binary
+- Usage:
+  ```bash
+  ./scripts/local-test-build.sh --clean              # remove .build/, test-build/, .pytest_cache/
+  ./scripts/local-test-build.sh                      # full build + default tests
+  ./scripts/local-test-build.sh --comprehensive-test # 96 unit tests
+  ./scripts/local-test-build.sh --lock-only          # refresh poetry.lock only
+  ./scripts/local-test-build.sh --lock-only --update requests  # bump one package
+  ./scripts/local-test-build.sh --show-outdated      # list outdated packages
+  ```
 
-### File Upload
-- Use the upload_filetype function for file handling
-- Validate file types and sizes
-- Handle upload failures gracefully
-- Implement retry logic for transient failures
+### Code Review Process
+- All changes require pull request review
+- Automated testing must pass
+- Code quality checks must be satisfied
+- Documentation updates for new features
 
-### Error Recovery
-- Implement graceful degradation
-- Provide fallback options
-- Log recovery actions
-- Notify users of issues appropriately
+### Testing Requirements
+- Unit tests for new functionality
+- Integration tests for API changes
+- Manual testing for UI/UX changes
+- Performance testing for optimization changes
+- Comprehensive test suite (21 categories, 96 methods) for CLI argument validation, Notion SDK, and rate limit/throttle behavior (issue #76)
 
-## Code Review Checklist
-
-### Functionality
-- Does the code work as intended?
-- Are edge cases handled properly?
-- Is error handling appropriate?
-- Are performance implications considered?
-
-### Code Quality
-- Is the code readable and maintainable?
-- Are type hints used correctly?
-- Is the code properly documented?
-- Are tests included and comprehensive?
-
-### Security
-- Are security best practices followed?
-- Is sensitive data handled properly?
-- Are input validations in place?
-- Are authentication mechanisms secure?
-
-### Integration
-- Do official API integrations work correctly?
-- Are rate limits respected according to official API guidelines?
-- Is error handling robust with official API error codes?
-- Are fallback mechanisms in place for API failures?
-- Are official API changes monitored and handled appropriately?
-
-## Troubleshooting Guidelines
-
-### Debug Mode
-- Enable verbose logging for detailed analysis
-- Use file-based logging for persistent debugging
-- Include context in error messages
-- Preserve error state for analysis
-- Use ephemeral build environment for isolated debugging
+## Troubleshooting
 
 ### Common Issues
 - Integration token expiration or invalid tokens (resolved with format validation and clear error messages)
 - Invalid token format (resolved with user-friendly validation and guidance)
 - Invalid URL format (resolved with Notion.so domain and protocol validation)
-- API rate limiting and HTTP 429 (resolved with 15-attempt retry, Retry-After parsing, cross-thread ban coordination, and proactive ~3 req/s throttle; issue #76)
+- Rate limiting and HTTP 429 from Notion API (resolved with 15-attempt retry, Retry-After parsing, cross-thread ban coordination, and proactive ~3 req/s throttle; issue #76)
 - File upload failures through API endpoints (resolved with enhanced retry logic)
-- Network connectivity issues (resolved with comprehensive retry mechanism)
-- Memory usage problems
+- AI model loading issues
+- Column type conversion errors
 - Database access permissions and sharing requirements
-- Build environment issues (use `./scripts/local-test-build.sh --clean` to reset)
 - Database deletion operations requiring proper permissions and database URL validation (page URLs not supported for deletion operations)
 - Race conditions during concurrent select option creation (resolved with thread-safe implementation)
 - Database creation within pages timing issues (resolved with initialization delays and retry logic)
@@ -400,26 +416,74 @@ CSV2Notion Neo has been fully migrated to use the official [Notion API](https://
 - Test execution issues (resolved with comprehensive test suite covering all functionality)
 - Test coverage gaps (resolved with 96 test methods across 21 categories including progress bar real-time updates, pagination for large datasets, cache behavior, CLI programmatic usage, and rate limit/throttle testing; issue #76)
 
-### Performance Issues
-- Monitor thread usage
-- Check for memory leaks
-- Analyze API call patterns
-- Optimize data processing
+### Debug Mode
+- Enable verbose logging with --verbose flag
+- File-based logging for detailed analysis
+- Error context preservation for debugging
+
+## Future Roadmap
+
+### Planned Features
+- Enhanced AI model support
+- Additional file format support
+- Improved performance optimizations
+- Extended validation options
+- Better error recovery mechanisms
+
+### Technical Debt
+- Code refactoring for better modularity
+- Enhanced test coverage
+- Performance benchmarking
+- Documentation improvements
 
 ## Dev Toolchain
 
-See **AGENT.MD** for the full dependency tables. Summary:
+The dev toolchain is everything in `[tool.poetry.group.dev.dependencies]` plus CI/build pins. **Lint** config is in `setup.cfg` (not `pyproject.toml`; `flakehell` was removed — incompatible with flake8 7+).
 
-| Area | Versions / notes |
-|------|------------------|
-| Python | `>=3.11,<3.15`; local/CI build with **3.14.5** standalone |
-| Runtime | `notion-client` ^3.1, `requests`, `tqdm`, `emoji`, `python-dateutil`, `icecream` |
-| Test | `pytest` ^9, `pytest-cov` ^7, `pyfakefs` ^6, `pytest-mock` |
-| Lint | `flake8` ^7.3 + `wemake-python-styleguide` ^1.6 via `setup.cfg` |
-| Format | `black` ^26, `isort` ^8 |
+### Build pins (local script + GitHub Actions)
+| Tool | Version |
+|------|---------|
+| CPython (standalone) | 3.14.5 (`20260510`) |
+| pip | 26.1.2 |
+| Poetry | 2.4.1 |
+| setuptools | 82.0.1 |
+| poetry-plugin-export | 1.10.0 |
 
-This cursorrule file should be kept in sync with **AGENT.MD**. 
+### Dev dependencies (`pyproject.toml`)
+| Package | Constraint | Notes |
+|---------|------------|-------|
+| pytest | ^9 | Unit + comprehensive suite |
+| pytest-cov | ^7 | Coverage |
+| pytest-mock | ^3.14 | Mocks |
+| pyfakefs | ^6 | Filesystem tests |
+| python-dotenv | ^1 | Dev/tests only — `tests/input_command.py` |
+| types-requests | ^2.33 | Typing stubs |
+| types-python-dateutil | ^2.9 | Typing stubs |
+| types-emoji | ^2.1 | Typing stubs |
+| black | ^26 | Formatter |
+| isort | ^8 | Import sort |
+| flake8 | ^7.3 | Linter driver |
+| wemake-python-styleguide | ^1.6 | WPS rules (`setup.cfg`) |
+| mypy | ^2 | Optional locally; not in CI |
+| pre-commit | ^4 | Optional hooks |
+| mdformat | ^1 | Markdown format |
+
+### Removed dev dependencies
+- `flakehell` — use `setup.cfg` instead
+- `pytest-vcr` / `vcrpy` — no cassettes in repo; was disabled with `-p no:vcr`
+- `testfixtures` — unused in test code
+
+### Lint
+```bash
+./scripts/local-test-build.sh
+poetry run flake8 csv2notion_neo tests
+```
+`tests/*` has relaxed `per-file-ignores` in `setup.cfg`; `csv2notion_neo/` may still report WPS findings under wemake 1.6.
+
+---
+
+This documentation should be kept in sync with **`.cursorrules`**. 
 
 ---
 > Source: [TheAcharya/csv2notion-neo](https://github.com/TheAcharya/csv2notion-neo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
