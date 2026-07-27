@@ -1,112 +1,143 @@
 ## deepfabric
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Agent datasets train models to use tools. DeepFabric uses single-turn agent mode where the model generates complete tool workflows in one assistant response, following a ReAct pattern.
 
-# CLAUDE.md
+# Agent Datasets
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Agent datasets train models to use tools. DeepFabric uses single-turn agent mode where the model generates complete tool workflows in one assistant response, following a ReAct pattern.
 
-## Project Overview
+!!! warning "Prerequisites"
+    Agent datasets require the Spin tool service. See [Tools](../tools/index.md) for setup, or just use Docker:
 
-DeepFabric is a Python library for generating synthetic datasets using LLM providers. It consists of three main components that work together in a pipeline:
+    ```bash
+    docker run -d -p 3000:3000 ghcr.io/nolabs-ai/deepfabric/tools-sdk:latest
+    ```
 
-1. **Tree**: Generates hierarchical topic structures from a root prompt
-2. **DataSetGenerator**: Creates training examples based on topics 
-3. **Dataset**: Manages and exports the final dataset
+## When to Use
 
-## Development Commands
+- Training tool-calling capabilities
+- Building agents that interact with APIs or systems
+- ReAct-style reasoning with action-observation loops
 
-### Package Management
-- `uv sync --all-extras` - Install all dependencies including dev tools
-- `make install` - Same as above via Makefile
+## Agent Configuration
 
-### Code Quality
-- `make format` - Format code with black and ruff auto-fix
-- `make lint` - Run ruff linting checks
-- `make security` - Run bandit security analysis on deepfabric/ directory
+Agent mode is automatically enabled when tools are configured. Create complete tool workflows with reasoning in a single response:
 
-### Testing
-- `make test` - Run pytest test suite
-- `uv run pytest` - Direct pytest execution
-- Test files are in `tests/` directory
+```yaml title="config.yaml"
+topics:
+  prompt: "Python Programming"
+  mode: graph             # tree | graph
+  depth: 2
+  degree: 3
 
-### Build and Release
-- `make build` - Clean, test, and build package
-- `make clean` - Remove build artifacts and cache files
-- `make all` - Complete workflow: install, format, lint, test, security, build
+generation:
+  system_prompt: "Generate tool usage examples with reasoning."
+  instructions: "Create realistic scenarios requiring tools."
 
-## Core Architecture
+  # Agent mode is implicit when tools are configured
+  conversation:
+    type: cot
+    reasoning_style: agent
 
-### Configuration System
-- YAML-based configuration with direct system prompt specification
-- CLI supports extensive parameter overrides
+  tools:
+    spin_endpoint: "http://localhost:3000"
+    components:
+      builtin:
+        - read_file
+        - write_file
+        - list_files
+    max_per_query: 3
+    max_agent_steps: 5
 
-### Data Flow
-1. Tree generates topic hierarchy from root prompt
-2. DataSetGenerator uses topics to create question/answer pairs
-3. Dataset validates, stores, and exports training examples
-4. Optional HuggingFace Hub upload with auto-generated dataset cards
-
-### Key Classes and Their Relationships
-- `DeepFabricConfig`: Loads YAML and provides argument objects
-- `TreeArguments`/`DataSetGeneratorArguments`: Pydantic-style dataclasses for parameters
-- `Dataset`: Handles JSONL import/export and validation
-- `HFUploader`: Manages Hugging Face Hub integration
-
-## Important Implementation Details
-
-### JSON Validation
-The engine includes robust JSON parsing with regex extraction and retry logic for handling LLM response inconsistencies.
-
-### Error Handling
-- Max retries configurable for failed LLM calls
-- Failed samples tracked separately from successful ones
-- Comprehensive error reporting in final summary
-
-### Topic Path Context in Generation
-Dataset generation must always pass the **full hierarchical path** (root -> ... -> leaf) to `build_prompt()`, not just the leaf topic text. This applies to all generation modes (step-based and cycle-based). The full path provides essential context for the LLM to generate domain-specific samples. When modifying generation logic, verify that `subtopics_list` receives the complete path from `TopicModel.get_path_by_id()` or `TopicPath.path`, never just the leaf text in isolation.
-
-### System Message Control
-The `sys_msg` parameter controls whether system messages are included in the final dataset format - this affects training data structure.
-
-## Configuration Patterns
-
-### YAML Structure
-```yaml
-dataset_system_prompt: "..."
-topic_tree:
-  args: {...}
-  save_as: "file.jsonl"
-data_engine:
-  args: {...}
-dataset:
-  creation: {...}
-  save_as: "file.jsonl"
-huggingface: {...}  # optional
+output:
+  system_prompt: |
+    You are an AI with access to tools. Analyze tasks, execute tools, and interpret results.
+  num_samples: 4
+  batch_size: 2
+  save_as: "agent-dataset.jsonl"
 ```
 
-### Provider Configuration
-Specify provider and model separately in config, or use combined format in code:
-- Config: `provider: "ollama"`, `model: "mistral:latest"`
-- Code: `model_name: "ollama/mistral:latest"`
+### Sample Output
 
-## CLI Usage Patterns
+??? example "Sample Output"
 
-The CLI supports both YAML configuration and parameter overrides:
-```bash
-deepfabric start config.yaml --model gpt-4 --temperature 0.8 --hf-repo user/dataset
+    ```json title="agent-dataset.jsonl"
+    {
+      "messages": [
+        {"role": "system", "content": "You are an AI with access to tools."},
+        {"role": "user", "content": "Find all while loops in main.py"},
+        {"role": "assistant", "content": "", "tool_calls": [
+          {"id": "call_0", "type": "function", "function": {"name": "search_file", "arguments": "{\"file_path\": \"main.py\", \"keyword\": \"while\"}"}}
+        ]},
+        {"role": "tool", "content": "[15, 42, 101]", "tool_call_id": "call_0"},
+        {"role": "assistant", "content": "Found 3 while loops on lines 15, 42, and 101."}
+      ],
+      "reasoning": {
+        "style": "agent",
+        "content": [
+          {"step_number": 1, "thought": "Need to search for 'while' keyword in main.py", "action": "search_file(file_path='main.py', keyword='while')"}
+        ]
+      },
+      "tools": [...]
+    }
+    ```
+
+!!! note "Errors Are Expected"
+    You will sometimes see the model attempt to call files or APIs that do not exist in the tool context. This is expected behavior and even wanted behavior, as the model is then forced to deal with its mistakes, just like in real-world scenarios. A `FileNotFound` error is a valid tool response that the model must handle appropriately and do so in a ReAct manner.
+
+## Tool Options
+
+```yaml title="Tool configuration"
+tools:
+  spin_endpoint: "http://localhost:3000"  # Spin service URL
+  components:                              # Component-based tool routing
+    builtin:                               # Built-in VFS tools -> /vfs/execute
+      - read_file
+      - write_file
+      - list_files
+  max_per_query: 3                         # Max tools per sample
+  max_agent_steps: 5                       # Max reasoning iterations
+  scenario_seed:                           # Pre-populate files
+    files:
+      "config.json": '{"debug": true}'
 ```
 
-## Code Style Notes
-- Uses uv for dependency management
-- Ruff for linting with extensive rule set
-- Black for formatting
-- Bandit for security analysis
-- Python 3.11+ required
-- Google-style docstrings preferred
-- do not place imports anywhere but the top of the file
-- When updating `docs/` documentation, if new Markdown files are added or removed, consider updating `mkdocs.yml`.
+### Mock Files
+
+With `scenario_seed`, you can pre-create files in the agent's virtual filesystem:
+
+```yaml title="Pre-populated files"
+scenario_seed:
+  files:
+    "main.py": |
+      for i in range(10):
+          print(i)
+    "Dockerfile": |
+      FROM python:3.9-slim
+      COPY . /app
+      RUN pip install -r /app/requirements.txt
+```
+
+!!! tip "Realistic Scenarios"
+    Pre-populating files creates more realistic training scenarios where the agent can read and modify existing content.
+
+## CLI Usage
+
+```bash title="Agent dataset generation"
+deepfabric generate config.yaml \
+  --conversation-type cot \
+  --reasoning-style agent
+```
+
+## Next Steps
+
+See [Tools](../tools/index.md) for:
+
+- Installing and running Spin
+- Available VFS tools (read_file, write_file, etc.)
+- Creating custom tools
+- Mock tool execution for testing
 
 ---
 > Source: [always-further/deepfabric](https://github.com/always-further/deepfabric) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
