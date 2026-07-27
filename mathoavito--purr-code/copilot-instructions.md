@@ -1,15 +1,16 @@
-## planning-docs
+## project-context
 
-> Conventions for editing PurrCode planning and backlog documents
+> PurrCode project context and workflow entry points
 
 
-# Planning docs conventions
+# PurrCode — read this first
 
-- `START-HERE.md`'s progress board is the single source of truth for story status. Legend: ⬜ todo · 🔵 in progress · ✅ done · ⛔ blocked · 🚧 human gate. Update it in the same commit as the work it reflects.
-- Story acceptance checkboxes live in the `sprint-N-*.md` files; tick them (`- [x]`) only when the criterion is actually met and tested — never pre-emptively.
-- Don't renumber or reuse story IDs (`PC-<sprint><nn>`); new work gets new IDs appended to the relevant sprint file.
-- 🚧 human-gate rows are never flipped to ✅ by an agent; set them 🔵 with a note of what awaits human review.
-- Changes that contradict the PRD require amending `docs/PurrCode-PRD-v0.4.md` in the same PR (the PRD is the roadmap; amendments are PRs like everything else).
+- `AGENTS.md` at the repo root is the canonical agent context: architecture map, commands, and hard constraints. Read it before implementing anything.
+- Callable project agent: **`purrcode`** — prompt in `docs/agents/purrcode.md`, Cursor wrapper in `.cursor/agents/purrcode.md`. Prefer `/purrcode` (or Task → purrcode) for story/spike/sprint work.
+- Work comes from the backlog: `docs/planning/START-HERE.md` has the progress board and dependency order. Stories are `PC-<sprint><nn>` in `docs/planning/sprint-N-*.md`; their acceptance checkboxes are the definition of done. One git branch per sprint (`sprint-N-<short-slug>`), not per story.
+- Workflow skills: `.cursor/skills/{implement-story,run-spike,sprint-review}/SKILL.md`.
+- Never start a story whose dependencies aren't ✅ on the board; never cross a 🚧 human-gate item autonomously.
+- The PRD (`docs/PurrCode-PRD-v0.4.md`) is the spec and roadmap. Scope drift into its §5 non-goals gets stopped, not built.
 
 ---
 > Source: [MathoAvito/purr-code](https://github.com/MathoAvito/purr-code) — distributed by [TomeVault](https://tomevault.io).
