@@ -1,0 +1,44 @@
+{
+  "name": "skill_steward",
+  "owner": "Arenukvern",
+  "repo": "skill_steward",
+  "description": "\u201cWhat\u2019s the thing?\u201d You\u2019d answer: \u201cSkills that teach you how to maintain skills & repos\u201d. Engineering Stewardship for any repository (app, library, tool), a structural governance and quality layer for agent-operated engineering repos. ",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Arenukvern/skill_steward",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T02:07:04Z"
+}
