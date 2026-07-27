@@ -1,0 +1,51 @@
+{
+  "name": "Cline-Recursive-Chain-of-Thought-System-CRCT-",
+  "owner": "RPG-fan",
+  "repo": "Cline-Recursive-Chain-of-Thought-System-CRCT-",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Cline-Recursive-Chain-of-Thought-System-CRCT-",
+      "path": ".agent/skills/comment-skill/SKILL.md",
+      "github_url": "https://github.com/RPG-fan/Cline-Recursive-Chain-of-Thought-System-CRCT-/tree/main/.agent/skills/comment-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RPG-fan/Cline-Recursive-Chain-of-Thought-System-CRCT-",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T09:40:15Z"
+}
