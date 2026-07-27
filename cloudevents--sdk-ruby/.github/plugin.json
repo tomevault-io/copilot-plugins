@@ -1,0 +1,9 @@
+{
+  "name": "cloudevents--sdk-ruby",
+  "displayName": "sdk-ruby",
+  "description": "sdk-ruby",
+  "version": "1.0.0",
+  "author": "cloudevents",
+  "homepage": "https://github.com/cloudevents/sdk-ruby",
+  "skills": []
+}
