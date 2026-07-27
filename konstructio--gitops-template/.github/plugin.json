@@ -1,0 +1,9 @@
+{
+  "name": "konstructio--gitops-template",
+  "displayName": "gitops-template",
+  "description": "gitops-template",
+  "version": "1.0.0",
+  "author": "konstructio",
+  "homepage": "https://github.com/konstructio/gitops-template",
+  "skills": []
+}
