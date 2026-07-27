@@ -1,0 +1,9 @@
+{
+  "name": "vercel--sveltekit-commerce",
+  "displayName": "sveltekit-commerce",
+  "description": "sveltekit-commerce",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/sveltekit-commerce",
+  "skills": []
+}
