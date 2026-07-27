@@ -1,0 +1,243 @@
+{
+  "name": "copilot-collections",
+  "owner": "TheSoftwareHouse",
+  "repo": "copilot-collections",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tsh-implementing-ci-cd",
+      "path": ".github/skills/tsh-implementing-ci-cd",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-ci-cd",
+      "description": ""
+    },
+    {
+      "name": "tsh-implementing-kubernetes",
+      "path": ".github/skills/tsh-implementing-kubernetes",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-kubernetes",
+      "description": ""
+    },
+    {
+      "name": "tsh-creating-instructions",
+      "path": ".github/skills/tsh-creating-instructions",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-creating-instructions",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-e2e-testing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-e2e-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-ui-verifying/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-ui-verifying/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-writing-hooks/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-writing-hooks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-task-analysing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-task-analysing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-code-reviewing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-code-reviewing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-creating-skills/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-creating-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-creating-agents/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-creating-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-task-extracting/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-task-extracting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-managing-secrets/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-managing-secrets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-creating-prompts/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-creating-prompts/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementing-ci-cd/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-ci-cd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementing-forms/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-forms/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-reviewing-frontend/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-reviewing-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-codebase-analysing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-codebase-analysing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-optimizing-frontend/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-optimizing-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementing-backend/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-jira-task-formatting/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-jira-task-formatting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-optimizing-cloud-cost/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-optimizing-cloud-cost/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementing-frontend/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-frontend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-creating-instructions/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-creating-instructions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-transcript-processing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-transcript-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-ensuring-accessibility/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-ensuring-accessibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-task-quality-reviewing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-task-quality-reviewing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-architecture-designing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-architecture-designing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementing-kubernetes/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-kubernetes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementing-observability/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-observability/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementation-gap-analysing/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementation-gap-analysing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-technical-context-discovering/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-technical-context-discovering/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-implementing-terraform-modules/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-implementing-terraform-modules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "copilot-collections",
+      "path": ".github/skills/tsh-designing-multi-cloud-architecture/SKILL.md",
+      "github_url": "https://github.com/TheSoftwareHouse/copilot-collections/tree/main/.github/skills/tsh-designing-multi-cloud-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TheSoftwareHouse/copilot-collections",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T05:31:42Z"
+}
