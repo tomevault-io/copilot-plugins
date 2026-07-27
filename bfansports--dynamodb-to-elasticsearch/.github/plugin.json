@@ -1,0 +1,9 @@
+{
+  "name": "bfansports--dynamodb-to-elasticsearch",
+  "displayName": "dynamodb-to-elasticsearch",
+  "description": "dynamodb-to-elasticsearch",
+  "version": "1.0.0",
+  "author": "bfansports",
+  "homepage": "https://github.com/bfansports/dynamodb-to-elasticsearch",
+  "skills": []
+}
