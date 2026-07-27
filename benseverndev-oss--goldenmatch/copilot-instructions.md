@@ -1,159 +1,81 @@
 ## goldenmatch
 
-> You are wiring the Golden Suite into a project. This is the canonical setup — follow it
+> Native SQL extensions for [GoldenMatch](https://github.com/benzsevern/goldenmatch) (`D:\show_case\goldenmatch`).
 
-# Integrating the Golden Suite (agent guide)
+# GoldenMatch Extensions
 
-You are wiring the Golden Suite into a project. This is the canonical setup — follow it
-instead of re-deriving one. If you only read one thing: **`goldenpipe` is the front door.
-Install `golden-suite`, drive `goldenpipe`, reach for individual tools only when you need
-a single capability.**
+Native SQL extensions for [GoldenMatch](https://github.com/benzsevern/goldenmatch) (`D:\show_case\goldenmatch`).
 
-`pip install golden-suite` gives you the whole suite **plus native acceleration, defaulted
-to the perf-optimized configuration** — no env vars to set. It should never silently run
-the slow pure-Python path; `golden-suite doctor` verifies that and `golden-suite optimize`
-repairs it.
+## Related Projects
+- **Main repo:** `D:\show_case\goldenmatch` -- Python entity resolution toolkit (v1.1.0+).
+- **This repo:** Rust bridge + Postgres extension + DuckDB Python UDFs
+- **PyPI packages:** `goldenmatch` (Python), `goldenmatch-duckdb` (DuckDB UDFs)
 
-## The suite in one screen
+## Branch & Merge SOP (all Golden Suite repos)
+- Feature work goes on `feature/<name>` branches, never directly to main
+- Merge via **squash merge PR** (watchers see PR activity, history stays clean)
+- PR title format: `feat: <description>` or `fix: <description>`
+- PR body: summary bullets + test plan
+- Merge when: tests pass, docs updated. Days not weeks.
+- After merge: delete remote branch
 
-| Package | PyPI | What it does | Import |
-| --- | --- | --- | --- |
-| **GoldenPipe** | `goldenpipe` | Orchestrator. Chains the tools as pluggable stages. **Start here.** | `import goldenpipe as gp` |
-| **GoldenMatch** | `goldenmatch` | Entity resolution: dedupe, match across sources, golden records | `import goldenmatch as gm` |
-| **GoldenCheck** | `goldencheck` | Data validation — discovers rules from the data, no rule-writing | `import goldencheck` |
-| **GoldenFlow** | `goldenflow` | Transform / standardize / normalize messy data | `import goldenflow` |
-| **GoldenSchema** | `infermap` | Inference-driven schema mapping (import name is `infermap`) | `import infermap` |
-| **GoldenAnalysis** | `goldenanalysis` | Read-only cross-cutting metrics + reporting | `import goldenanalysis` |
-| `goldencheck-types` | `goldencheck-types` | Shared field-type contracts (transitive; you won't install directly) | — |
-| `goldensuite-mcp` | `goldensuite-mcp` | One MCP server exposing every tool (the agent front door) | — |
+## Environment
+- Windows 11, bash shell (Git Bash) -- use Unix paths
+- Two GitHub accounts: `benzsevern` (personal, for this repo) and `benzsevern-mjh` (work)
+- MUST `gh auth switch --user benzsevern` before push, switch back to `benzsevern-mjh` after
+- Rust 1.94.0 at `C:\Users\bsevern\.cargo\bin` -- must set `RUSTUP_HOME="C:/Users/bsevern/.rustup"` and `CARGO_HOME="C:/Users/bsevern/.cargo"` in every bash command
+- No admin privileges -- no LLVM/libclang, no WSL2. pgrx builds only work in CI (Linux)
+- PostgreSQL 16 portable at `C:\Users\bsevern\tools\pg16portable\pgsql`
+- Bridge crate compiles locally. Postgres crate requires Linux (CI only).
 
-Dependency shape (a clean DAG — **GoldenMatch is a leaf, not the root**):
+## Architecture
+- Rust workspace (`Cargo.toml`) contains only `bridge/` crate
+- `postgres/` is excluded from workspace (`exclude = ["postgres"]`) -- pgrx 0.12.9 bug with SQL generation in workspace mode
+- `duckdb/` is a standalone Python package (not Rust)
 
-```
-goldencheck-types  ──►  everything (shared contracts)
-infermap (GoldenSchema) ─┐
-goldenmatch ─────────────┤
-goldencheck ─────────────┼──►  goldenpipe  ──►  golden-suite (this meta-package)
-goldenflow  ─────────────┤            └──► goldensuite-mcp (all tools, one MCP)
-goldenanalysis ──────────┘
-```
+### bridge/ (goldenmatch-bridge)
+- Shared crate: embeds CPython via pyo3, calls goldenmatch Python API
+- `api.rs` -- wrappers for dedupe, match, score_strings, score_pair, explain_pair, dedupe_pairs (structured), dedupe_clusters (structured)
+- `convert.rs` -- JSON <-> Polars DataFrame conversion (future: Arrow C Data Interface)
+- `error.rs` -- BridgeError enum with From impls for PyErr and ArrowError
 
-## Install — pick ONE line
+### postgres/ (goldenmatch_pg)
+- pgrx 0.12.9 Postgres extension, standalone crate (not in workspace)
+- `quick.rs` -- 11 SQL functions: table-based (SPI), table-returning (TableIterator), scalar, JSON-based
+- `pipeline.rs` -- 5 job management functions: gm_configure, gm_run, gm_jobs, gm_golden, gm_drop
+- `spi.rs` -- reads PG tables via `row_to_json()` SPI queries
+- SQL file at `sql/goldenmatch_pg--0.5.0.sql` -- handwritten (pgrx doesn't auto-generate)
+- .control file: `schema = goldenmatch` -- all functions in goldenmatch schema
 
-Native acceleration is **included by default** (it's a hard dependency, not an extra).
+### duckdb/ (goldenmatch-duckdb)
+- Python package: `pip install goldenmatch-duckdb`
+- `functions.py` -- registers 7 DuckDB UDFs via `con.create_function()`
+- Table-reading UDFs use `con.cursor()` to avoid deadlock (UDF can't query same connection)
+- Requires `pyarrow` for DuckDB `.pl()` Polars conversion
 
-| You want... | Install |
-| --- | --- |
-| The whole suite + native, perf-optimized | `pip install golden-suite` |
-| Suite + one MCP server for agents | `pip install "golden-suite[mcp]"` |
-| Everything (suite + mcp + serving) | `pip install "golden-suite[all]"` |
-| Just entity resolution | `pip install goldenmatch` |
-| Just validation | `pip install goldencheck` |
-| Orchestrator + the three core tools only | `pip install "goldenpipe[golden-suite]"` |
+## Testing
+- Rust bash preamble (copy-paste before any cargo command): `export PATH="/c/Users/bsevern/.cargo/bin:$PATH" && export RUSTUP_HOME="C:/Users/bsevern/.rustup" && export CARGO_HOME="C:/Users/bsevern/.cargo"`
+- `cargo build -p goldenmatch-bridge` -- builds bridge locally (works on Windows)
+- `cargo test -p goldenmatch-bridge` -- runs bridge tests (needs goldenmatch Python package installed)
+- Postgres extension: build/test only via CI (needs libclang + PG dev headers)
+- DuckDB: `cd duckdb && pip install -e . && python -m pytest tests/ -v`
 
-Supported native platforms: Linux x86_64/aarch64, macOS x86_64/arm64, Windows amd64. On a
-platform without a published wheel the install **fails loudly** (by design — the suite does
-not silently degrade to pure-Python). Those users install the individual pure-Python
-packages directly instead of `golden-suite`.
+## CI
+- 4 jobs: lint, bridge-tests, postgres-build, duckdb-tests
+- Lint: `cargo fmt --check` (bridge + postgres separately) + `cargo clippy` (bridge only)
+- Postgres CI: tests PG 15/16/17 in parallel (fail-fast: false). Uses PostgreSQL apt repo for PG 15/17 availability
+- Multi-PG: must `pg_createcluster` explicitly + use `pg_lsclusters` to find correct port per version
+- System Python for Postgres: `sudo rm -f /usr/lib/python3/dist-packages/typing_extensions.py` then `sudo pip install --break-system-packages goldenmatch`
+- Release workflow: builds .tar.gz + .deb + .rpm for PG 15/16/17, pushes Docker to ghcr.io + Docker Hub
 
-## Verify + repair the setup (do this after install)
-
-```bash
-golden-suite doctor      # lists every component + whether native is ACTIVE; exits non-zero if silently slow
-golden-suite optimize    # installs any missing native kernels for this platform, then re-verifies
-```
-
-`doctor` is read-only and CI-safe (non-zero exit when a package is silently on the
-pure-Python path). Programmatic equivalents:
-
-```python
-from golden_suite import installed, native_status
-print(installed())        # {"goldenpipe": "1.2.1", "goldenmatch": "1.30.0", ...}
-print(native_status())    # per-package: native_active / silently_slow / env_mode
-```
-
-## Three ways to integrate (choose by consumer)
-
-1. **Python API** — you're inside a Python codebase. Import `goldenpipe` (or a single tool).
-2. **MCP** — the consumer is an agent/LLM. Run **one** server: `goldensuite-mcp` (or `golden-suite[mcp]`). Do **not** wire six per-package MCP servers by hand.
-3. **CLI** — one-off / shell / CI. Every package ships a Typer CLI: `goldenpipe run`, `goldenmatch dedupe`, `goldencheck scan`, etc.
-
-## Canonical quick-starts
-
-### Full pipeline (validate → transform → match), one call
-
-```python
-import goldenpipe as gp
-
-result = gp.run("customers.csv")     # zero-config
-print(result.status)                 # "success"
-print(result.check)                  # quality findings
-print(result.transform)              # what got standardized
-print(result.match)                  # deduplicated clusters
-print(result.reasoning)              # why each decision was made
-```
-
-### Just deduplicate
-
-```python
-import goldenmatch as gm
-result = gm.dedupe("customers.csv")              # zero-config
-# explicit:
-result = gm.dedupe("customers.csv", exact=["email"], fuzzy={"name": 0.85}, blocking=["zip"])
-result.golden.write_csv("deduped.csv")
-```
-
-### Match two sources
-
-```python
-result = gm.match("crm.csv", "billing.csv", fuzzy={"name": 0.85, "address": 0.80})
-```
-
-### Validate (rules discovered from the data)
-
-```python
-import goldencheck
-report = goldencheck.scan("customers.csv")
-```
-
-### Map an unknown schema to a canonical one
-
-```python
-import infermap                       # GoldenSchema
-mapping = infermap.infer("raw_export.csv")
-```
-
-### One MCP server for all of it
-
-```bash
-pip install "golden-suite[mcp]"
-goldensuite-mcp                        # every suite tool, one server
-```
-
-## Anti-patterns that cause the back-and-forth (don't do these)
-
-- **Installing `goldenmatch` and expecting the pipeline / check / transform.** GoldenMatch is
-  entity resolution only. For the end-to-end flow use `goldenpipe`.
-- **Hand-wiring each tool into a bespoke pipeline.** `goldenpipe` already registers every tool
-  as a stage (`goldencheck.scan`, `goldenflow.transform`, `goldenmatch.dedupe`,
-  `goldenmatch.identity_resolve`, `goldenanalysis.report`) via entry-points. Use it.
-- **Running six MCP servers.** One `goldensuite-mcp` exposes them all.
-- **Importing `goldenschema`.** The import name is `infermap` (PyPI/product name is GoldenSchema).
-- **Assuming native is off and setting `<PKG>_NATIVE=1` "to turn it on".** It's already on by
-  default (`auto` runs the parity-signed-off hot paths native automatically). `=1` is a
-  *require-and-force* mode that also runs components NOT yet parity-signed-off (notably
-  goldenflow) and **can change outputs** — only use it via `golden-suite optimize --strict`
-  after validating parity for your workload.
-- **Pinning tools to each other's versions.** They release independently. Let `golden-suite`
-  carry the compatible lower bounds; don't hard-pin cross-package versions in the consumer.
-
-## Notes
-
-- Python 3.11–3.13. Everything is Polars-backed.
-- Repo: `benseverndev-oss/goldenmatch` (monorepo — all suite packages live here under
-  `packages/python/<pkg>`).
-- Per-tool detail: each package has its own `AGENTS.md` and `llms.txt`.
+## Gotchas
+- pgrx 0.12.9 does NOT auto-generate SQL files -- must maintain `sql/goldenmatch_pg--0.5.0.sql` manually
+- pgrx extension functions are in `goldenmatch` schema -- use `goldenmatch.function_name()` in psql, or explicit `::TEXT` casts
+- `cargo` defaults CARGO_HOME to drive root on Windows when CWD is D: -- always set explicitly
+- DuckDB UDFs cannot query same connection (deadlock) -- use `con.cursor()` for table reads
+- `cargo fmt` must run separately for bridge (workspace) and postgres (standalone)
+- PyPI publishing uses credentials from `D:\show_case\goldenmatch\.testing\.env`
 
 ---
 > Source: [benseverndev-oss/goldenmatch](https://github.com/benseverndev-oss/goldenmatch) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
