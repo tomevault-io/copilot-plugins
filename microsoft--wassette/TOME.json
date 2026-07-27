@@ -2,9 +2,9 @@
   "name": "wassette",
   "owner": "microsoft",
   "repo": "wassette",
-  "description": "Wassette: A security-oriented runtime that runs WebAssembly Components via MCP",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/wassette",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T01:10:00Z"
+  "distributed_at": "2026-07-27T12:34:03Z"
 }
