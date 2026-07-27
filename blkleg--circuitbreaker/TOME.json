@@ -1,0 +1,93 @@
+{
+  "name": "CircuitBreaker",
+  "owner": "BlkLeg",
+  "repo": "CircuitBreaker",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/redis-rt/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/redis-rt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/api-contract/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/api-contract/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/postgres-test/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/postgres-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/security-vault/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/security-vault/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/cb-code-quality/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/cb-code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/docker-multiarch/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/docker-multiarch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/cb-security-hardening/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/cb-security-hardening/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CircuitBreaker",
+      "path": ".claude/skills/circuit-breaker-persona/SKILL.md",
+      "github_url": "https://github.com/BlkLeg/CircuitBreaker/tree/main/.claude/skills/circuit-breaker-persona/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/BlkLeg/CircuitBreaker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T07:35:54Z"
+}
