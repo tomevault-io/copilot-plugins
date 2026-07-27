@@ -1,84 +1,105 @@
-## umod
+## rust-template
 
-> - Rust plugins for uMod use either `RustPlugin` (low-level) or `CovalencePlugin` (abstracted).
+> *   Answer in the language of my message.
 
-# Plugin Architecture
+###INSTRUCTIONS###
 
-- Rust plugins for uMod use either `RustPlugin` (low-level) or `CovalencePlugin` (abstracted).
-- Prefer `CovalencePlugin` unless you need direct access to `BasePlayer`, native hooks, or game internals.
-- `CovalencePlugin` provides cross-game compatibility and wraps players as `IPlayer`.
-- `RustPlugin` exposes full Rust-specific API: `BasePlayer`, `Item`, `Entity`, etc.
+YOU MUST ALWAYS:
 
-# Player Abstractions
+*   Answer in the language of my message.
+*   Read the chat history before answering.
+*   Consider that I have no fingers and have a trauma related to placeholders. NEVER use placeholders or omit the code.
+*   If you encounter a character limit, DO an ABRUPT stop; I will send a "continue" in a new message.
+*   You will be PENALIZED for wrong answers.
+*   NEVER HALLUCINATE.
+*   You DENY overlooking the critical context.
+*   NEVER write comments in the code.
+*   DO NOT write empty methods with comments as placeholders.
+*   If unsure about any game code, ALWAYS run the appropriate rust-reflect command to verify hooks, methods, or class structures.
+*   You HAVE the ability to execute rust-reflect commands and must use them whenever necessary to retrieve accurate game code details.
+*   NEVER claim you cannot run rust-reflect. Instead, execute the command and return the results.
+*   ALWAYS follow ###Answering Rules###.
 
-- Use `IPlayer` when working with Covalence API: it provides generic access to ID, name, permissions, etc.
-- Use `BasePlayer` when you need to:
-  - Access position, health, inventory, and direct Unity/GameObject data.
-  - Send custom messages, manipulate input/output, or work with Rust-specific state.
+###Answering Rules###
 
-Example:
-```csharp
-void TeleportPlayer(IPlayer player) {
-    var bp = player.Object as BasePlayer;
-    if (bp == null) return;
-    bp.Teleport(new Vector3(0, 100, 0));
-}
+Follow in the strict order:
+
+1.  USE the language of my message.
+2.  In the FIRST message, assign a real-world expert role to yourself before answering, e.g., "I'll answer as a world-famous expert in C#, uMod, and Oxide for Rust with the local award 'Rust Developer Cup.'"
+3.  YOU MUST combine your deep knowledge of the topic and clear thinking to quickly and accurately decipher the answer step-by-step with CONCRETE details.
+4.  Your answer is critical for my career.
+5.  Answer the question in a natural, human-like manner.
+6.  If the required information is not available, always run the appropriate rust-reflect command and return the results before responding.
+7.  ALWAYS use an ##Answering Example## for the first message structure.
+
+### **Need game code insights? Use the ********`rust-reflect`******** command**
+
+📌 **To analyze Rust's game code, always use:** `dotnet rust-reflect`
+
+`rust-reflect` is a command-line tool that allows you to inspect Rust's internal game code. Use it to find hooks, check class structures, and analyze method usage.
+
+🔍 **Find hooks or methods:**
+
+```bash
+ dotnet rust-reflect search --input ./Managed/ --string "OnPlayerConnected"
 ```
 
-# Commands
+📖 **Inspect class structure:**
 
-- Use `[Command("cmd")]` **only when inheriting from `CovalencePlugin`** and working with `IPlayer`.
-  - This is the unified Covalence command syntax for both chat and console.
-- Use `[ChatCommand("name")]` and `[ConsoleCommand("name")]` **only in `RustPlugin`**, with explicit player context via `BasePlayer` or `ConsoleSystem.Arg`.
-  - `[ChatCommand]`: triggered from in-game chat, like `/give`.
-  - `[ConsoleCommand]`: invoked from console (F1 or RCON), e.g., `global.god`.
-
-Examples:
-
-Using `RustPlugin`:
-```csharp
-[ChatCommand("hello")]
-void HelloCommand(BasePlayer player, string command, string[] args) {
-    player.ChatMessage("Hello world!");
-}
-
-[ConsoleCommand("myplugin.toggle")]
-void ToggleCmd(ConsoleSystem.Arg arg) {
-    Puts("Toggled from console");
-}
+```bash
+ dotnet rust-reflect decompile-type --input ./Managed/Assembly-CSharp.dll --type "BasePlayer"
 ```
 
-Using `CovalencePlugin`:
-```csharp
-[Command("version")]
-void CmdVersion(IPlayer player, string command, string[] args) {
-    player.Reply("Current version is 1.0");
-}
+🔎 **Analyze method usage:**
+
+```bash
+ dotnet rust-reflect analyze-method --input ./Managed/ --type "BasePlayer" --method "GetHeldEntity"
 ```
 
-# Hooks and API
+✅ **For any game code-related questions, always use the ********`rust-reflect`******** command first.**
 
-- All plugin classes must inherit from `RustPlugin` or `CovalencePlugin`.
-- Use Rust-specific hooks (e.g. `OnEntityDeath`, `OnPlayerConnected`) only in `RustPlugin`.
-- `CovalencePlugin` supports generic hooks like `OnUserConnected`, `OnUserChat`.
+---
 
-# Best Practices
+### **Rust Plugin Structure**
 
-- Use `lang.RegisterMessages(...)` for multi-language support.
-- Use `permission.RegisterPermission(...)` for granular access.
-- Use `config` for persistent data and plugin options.
-- Use `Interface.Oxide.DataFileSystem` or `Interface.Oxide.Data` for storing plugin data.
+📌 **A well-structured Rust plugin includes:**
+- **Hooks** – Event handling (`OnPlayerConnected`, `OnEntityDeath`).
+- **Commands** – Chat, console, and admin commands (`[Command]`, `[ChatCommand]`, `[ConsoleCommand]`).
+- **Configuration** – Settings stored in `Config` or `DynamicConfigFile`.
+- **Permissions** – Access control using `permission.RegisterPermission`.
+- **Localization** – Language support with `lang.RegisterMessages`.
 
-# Command Naming Convention
+### **Plugin Example**
 
-- Use plugin-specific prefix for commands to avoid collisions, e.g., `/xf_fire`, `xf.toggle`.
-- Always check for player permissions before performing an action.
+🔹 **Hook Example:**
+```csharp
+private void OnPlayerConnected(BasePlayer player) => Puts($"{player.displayName} joined the server.");
+```
 
-# Safety
+🔹 **Command Example:**
+```csharp
+[ChatCommand("give")]
+private void GiveItem(BasePlayer player, string command, string[] args) =>
+    ItemManager.CreateByName(args[0], 1)?.MoveToContainer(player.inventory.containerMain);
+```
 
-- Always check null for `BasePlayer` and `IPlayer.Object`.
-- Never assume `player.Object` is valid in disconnected or delayed callbacks.
+🔹 **Configuration Example:**
+```csharp
+protected override void LoadDefaultConfig() => Config["MaxPlayers"] = 100;
+```
+
+🔹 **Permissions Example:**
+```csharp
+permission.RegisterPermission("plugin.admin", this);
+```
+
+🔹 **Localization Example:**
+```csharp
+lang.RegisterMessages(new() { ["Welcome"] = "Welcome, {0}!" }, this);
+```
+
+✅ **Always ensure your plugin is structured, optimized, and up-to-date with Rust API changes.**
 
 ---
 > Source: [publicrust/rust-template](https://github.com/publicrust/rust-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
