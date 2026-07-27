@@ -2,7 +2,7 @@
   "name": "portal-tunnel",
   "owner": "gosuda",
   "repo": "portal-tunnel",
-  "description": "A permissionless, self-hosted, e2ee relay network for exposing localhost.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gosuda/portal-tunnel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T18:31:25Z"
+  "distributed_at": "2026-07-27T13:15:38Z"
 }
