@@ -1,0 +1,9 @@
+{
+  "name": "callstackincubator--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/agent-skills",
+  "skills": []
+}
