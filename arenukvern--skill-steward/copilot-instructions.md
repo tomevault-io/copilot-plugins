@@ -1,42 +1,26 @@
-## faq-usage
+## steward
 
-> **Q: What is DESIGN_FAQ.mdx for?**
+> Global Steward Governance
 
 
-# FAQ Documentation Usage Guide — Skill Steward
+You are operating in a repository governed by Skill Steward.
+Do not run complex bash scripts manually. Use `steward mcp` or the underlying pipelines.
 
-**Q: What is DESIGN_FAQ.mdx for?**  
-A: Explains **why** Guild repo decisions were made (meta-layer charter, skills vs plugins, ADRs, validation). Use when changing architecture, inclusion criteria, or documenting rationale. Path: `docs/DESIGN_FAQ.mdx`.
+Available Pipelines:
+- test_declare: Testing declare pipeline
+- test_pipeline: A test pipeline
 
-**Q: What is DX_FAQ.mdx for?**  
-A: Explains **how** to contribute and install (npx skills, `pnpm run validate`, add skill workflow). Memory Palace format. Path: `docs/DX_FAQ.mdx`.
-
-**Q: What is the difference from `docs/decisions/` ADRs?**  
-A: ADRs are formal decision records for significant changes. DESIGN_FAQ is a compressed index of standing **why** answers; link to ADRs for full deliberation.
-
-**Q: What about package-level FAQs?**  
-A: This repo has root FAQs only. When adding sub-packages with their own boundaries, add `DESIGN_FAQ.mdx` + `DX_FAQ.mdx` there and router rows; use `repository-governance-lifecycle` for durable doc-lattice changes.
-
-**Q: What format should DX_FAQ.mdx use?**  
-A: **Memory Palace** — emoji locations with terse code blocks (install, validate, add skill). Optimized for agent recall.
-
-**Q: Where is the charter?**  
-A: `docs/NORTH_STAR.mdx` — not DESIGN_FAQ. Use `repository-governance-lifecycle` when changing scope or the AGENTS map.
-
-**Q: When should I reference DESIGN_FAQ.mdx?**  
-A: Scope questions (“does this skill belong in Guild?”), plugins vs skills, documentation strategy, rejection of domain skills.
-
-**Q: When should I reference DX_FAQ.mdx?**  
-A: Installing Guild, adding a skill, running validate, updating registry files, choosing which doc skill to use.
-
-**Q: Can I use both FAQs together?**  
-A: Yes. Example: DESIGN explains why plugins need a separate hook install; DX shows the `npx skills` commands. No duplicated paragraphs.
-
-**Q: Which FAQ should I update after a change?**  
-A: Architectural or charter **why** → `docs/DESIGN_FAQ.mdx` (+ new ADR if significant). Contributor workflow **how** → `docs/DX_FAQ.mdx`. Skill behavior → `skills/{name}/SKILL.md` only.
-
-**Q: Should I update FAQs when adding a skill?**  
-A: Update `docs/DX_FAQ.mdx` only if the maintainer workflow changes. Update `docs/DESIGN_FAQ.mdx` only if the change affects repo-level **why**. Always update `README.md`, `skills.sh.json`, and run `pnpm run validate`.
+Available Skills:
+- harness-engineering-lifecycle
+- mcp-harness-repo-maintainer
+- mixture-of-experts
+- multi-agent-handoff
+- plugin-marketplace-setup
+- release-changelog-harness
+- repository-governance-lifecycle
+- skill-authoring-lifecycle
+- skill-eval-improve
+- skill-source-citations
 
 ---
 > Source: [Arenukvern/skill_steward](https://github.com/Arenukvern/skill_steward) — distributed by [TomeVault](https://tomevault.io).
