@@ -2,9 +2,9 @@
   "name": "VodHub",
   "owner": "consistent-k",
   "repo": "VodHub",
-  "description": "VodHub \u662f\u4e00\u4e2a\u7535\u5f71\u3001\u7535\u89c6\u5267\u3001\u52a8\u6f2b\u7b49\u6807\u51c6CMS\u8d44\u6e90\u64ad\u653e\u5668",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/consistent-k/VodHub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T19:40:03Z"
+  "distributed_at": "2026-07-27T15:04:05Z"
 }
