@@ -1,23 +1,22 @@
 # opencode-im-bridge
 
-> Source: [ET06731/opencode-im-bridge](https://github.com/ET06731/opencode-im-bridge) — distributed by [TomeVault](https://tomevault.io)
-
-opencode-im-bridge
+> Source: [ET06731/opencode-im-bridge](https://github.com/ET06731/opencode-im-bridge). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ET06731/opencode-im-bridge](https://github.com/ET06731/opencode-im-bridge).
+Original source: `` in [ET06731/opencode-im-bridge](https://github.com/ET06731/opencode-im-bridge).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ET06731/opencode-im-bridge](https://github.com/ET06731/opencode-im-bridge)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ET06731/opencode-im-bridge](https://github.com/ET06731/opencode-im-bridge)
 
 ---
 
