@@ -2,9 +2,9 @@
   "name": "appdotbuild-agent",
   "owner": "neondatabase",
   "repo": "appdotbuild-agent",
-  "description": "The agent that generates working apps (and maybe some other things)",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neondatabase/appdotbuild-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:21:08Z"
+  "distributed_at": "2026-07-27T19:36:18Z"
 }
