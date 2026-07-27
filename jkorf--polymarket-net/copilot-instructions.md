@@ -1,26 +1,22 @@
 ## polymarket-net
 
-> This repository is **Polymarket.Net**, a strongly typed C#/.NET client library for the Polymarket REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using Polymarket.Net when working with Polymarket prediction market APIs in C#/.NET. Apply when generating code that interacts with Polymarket.
 
-# Copilot Instructions for Polymarket.Net
 
-This repository is **Polymarket.Net**, a strongly typed C#/.NET client library for the Polymarket REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+# Polymarket.Net Conventions
 
-When generating code that consumes Polymarket.Net, follow these conventions.
+Use **Polymarket.Net** for Polymarket API access. Do not write raw `HttpClient` calls to Polymarket endpoints.
 
-## Use Polymarket.Net, not raw HTTP
-
-Never generate raw `HttpClient` calls to Polymarket CLOB, Gamma, or Data API endpoints. Always use `PolymarketRestClient` or `PolymarketSocketClient`.
-
-## Client setup
+## Client setup pattern
 
 ```csharp
 using Polymarket.Net.Clients;
 
 var restClient = new PolymarketRestClient();
+var socketClient = new PolymarketSocketClient();
 ```
 
-For authenticated calls:
+Authenticated clients use `PolymarketCredentials`:
 
 ```csharp
 using Polymarket.Net;
@@ -34,37 +30,43 @@ var restClient = new PolymarketRestClient(options =>
 });
 ```
 
-## Result handling
+## Result pattern
 
-Methods return `WebCallResult<T>` for REST and `CallResult<UpdateSubscription>` for WebSocket subscriptions. Always check `.Success` before reading `.Data`.
+REST methods return `WebCallResult<T>` or `WebCallResult`; sockets return `CallResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
 
-## API structure
+## API surface
 
-- `restClient.ClobApi.ExchangeData` - CLOB time, markets, prices, order books, spreads, tick size, fee rate
-- `restClient.ClobApi.Account` - API keys, allowances, notifications, builder trades
-- `restClient.ClobApi.Trading` - orders, cancellations, user trades, order heartbeat
-- `restClient.GammaApi` - events, Gamma markets, tags, series, sports, public search
-- `restClient.DataApi` - positions
-- `socketClient.ClobApi` - platform, token, user, and sports WebSocket subscriptions
+- `restClient.ClobApi.ExchangeData`
+- `restClient.ClobApi.Account`
+- `restClient.ClobApi.Trading`
+- `restClient.GammaApi`
+- `restClient.DataApi`
+- `socketClient.ClobApi`
 
-## Authentication
+## Authentication levels
 
-Polymarket.Net has unauthenticated public access, L1 wallet/private-key signing, and L2 API key/secret/passphrase authentication. Use `GetOrCreateApiCredentialsAsync` plus `UpdateL2Credentials` when only L1 credentials are available.
+- Public data: no credentials.
+- L1: `PolymarketL1Credential` or `.WithL1(signType, privateKey, polymarketFundingAddress)`.
+- L2: `HMACPassCredential` or `.WithL2(key, secret, passphrase)`.
+- Create/derive L2 credentials with `restClient.ClobApi.Account.GetOrCreateApiCredentialsAsync()` and apply them with `restClient.UpdateL2Credentials(result.Data)`.
 
-## Avoid
+## Hard rules
 
-- Raw Polymarket URLs and manual signing
-- Binance-style `SpotApi`, `FuturesApi`, or symbol-pair assumptions
-- `.SharedClient`; it is not exposed by current Polymarket.Net interfaces
-- Synchronous `.Result` / `.Wait()`
-- Instantiating clients per request
-- Skipping `WebCallResult.Success`
-- Placing orders with L1-only credentials
+- Never use raw Polymarket URLs or manual request signing.
+- Never invent `SpotApi`, `FuturesApi`, `GeneralApi`, or `.SharedClient`.
+- Never use ticker symbols for CLOB order placement; use token ids.
+- Never skip `WebCallResult.Success` checks.
+- Never use `.Result` or `.Wait()`.
+- Reuse clients or use dependency injection.
+- Store WebSocket subscriptions and unsubscribe with `socketClient.UnsubscribeAsync(sub.Data)`.
 
 ## Reference
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, `llms-full.txt`, `docs/ai-api-map.md`, and `Examples/ai-friendly/`.
+- `AGENTS.md` in the repo root for fuller usage rules
+- `llms.txt` and `llms-full.txt` in the repo root for AI context
+- `docs/ai-api-map.md` for table-style intent routing
+- `Examples/ai-friendly/` for compilable examples
 
 ---
 > Source: [JKorf/Polymarket.Net](https://github.com/JKorf/Polymarket.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
