@@ -1,8 +1,6 @@
 # AI instruction files for evalite
 
-> Sourced from [mattpocock/evalite](https://github.com/mattpocock/evalite) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Evaluate your LLM-powered apps with TypeScript
+> Sourced from [mattpocock/evalite](https://github.com/mattpocock/evalite), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [mattpocock/evalite](https://github.com/mattpoco
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mattpocock/evalite](https://github.com/mattpocock/evalite) — a repo with 1580+ stars on GitHub.
+From [mattpocock/evalite](https://github.com/mattpocock/evalite) — a repo with 0+ stars on GitHub.
 
 ---
 
