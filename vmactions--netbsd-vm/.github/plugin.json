@@ -1,0 +1,9 @@
+{
+  "name": "vmactions--netbsd-vm",
+  "displayName": "netbsd-vm",
+  "description": "netbsd-vm",
+  "version": "1.0.0",
+  "author": "vmactions",
+  "homepage": "https://github.com/vmactions/netbsd-vm",
+  "skills": []
+}
