@@ -1,7 +1,7 @@
 {
   "name": "flonat--claude-research",
   "displayName": "claude-research",
-  "description": "Shareable Claude Code infrastructure for PhD researchers \u2014 skills, agents, hooks, and rules for academic workflows",
+  "description": "claude-research",
   "version": "1.0.0",
   "author": "flonat",
   "homepage": "https://github.com/flonat/claude-research",
