@@ -1,63 +1,95 @@
 ## headplane
 
-> Headplane is a web application to manage Headscale, a self-hosted implementation
+> Configure the Headplane Agent for enhanced functionality.
 
-# Core Concepts
 
-Headplane is a web application to manage Headscale, a self-hosted implementation
-of the Tailscale control server. There are a few tenets that guide the entire
-development of the project:
+# Headplane Agent
 
-- **Simple starts**: We want to make it as easy as possible to set up and use
-  Headplane, while still providing powerful features for advanced users. This
-  means that we prioritize a clean and intuitive user interface, as well as
-  straightforward installation and configuration processes.
+The Headplane Agent is an optional component that periodically syncs node
+information (such as version and OS details) from the Tailnet. Unlike previous
+versions, the agent does not require you to manually create or manage pre-auth
+keys — Headplane generates a fresh key for each agent startup and reuses the
+agent's existing Tailnet state across restarts.
 
-- **No breaking changes**: We want to avoid making breaking changes to the
-  project as much as possible. This means that we will strive to maintain
-  backward compatibility and provide clear migration paths when necessary.
+## Prerequisites
 
-- **Documentation**: This is the most important part of the project, without it
-  the entire project falls apart and is hard to use.
+Before enabling the agent, ensure the following:
 
-## Project Management
+1. **Headscale 0.28 or newer** is required. The agent uses tag-only pre-auth
+   keys which are only available in Headscale 0.28+.
 
-It's hard to manage this project easily, use the `gh` CLI when responding to
-prompts to get context. Some common issue tags to keep track of include a
-"Needs Triage", "Needs Info", "Bug", "Enhancement", and several other tags based
-on what parts of the project are affected.
+2. **`headscale.api_key`** must be set in your Headplane configuration file.
+   The agent uses this key to auto-generate pre-auth keys for connecting to the
+   Tailnet and to auto-approve its own registration when Headscale is configured
+   to require manual approval.
 
-## Headplane Agent
+## Configuration
 
-The Headplane Agent is a lightweight component that runs on the same server as
-Headplane and connects directly to the Tailnet in order to pull in details about
-nodes that aren't available through the Headscale API such as versions, etc.
+To enable the Headplane Agent, you'll need to modify the following fields in
+your Headplane configuration file. For more information on configuring Headplane
+please refer to the
+[example configuration](https://github.com/tale/headplane/blob/main/config.example.yaml)
+for details.
 
-## WebSSH
+| Field                               | Description                                                                     |
+| ----------------------------------- | ------------------------------------------------------------------------------- |
+| **`integration.agent.enabled`**     | Set to `true` to enable the agent.                                              |
+| `integration.agent.host_name`       | _Optional_. Headscale user name for the agent (default: `headplane-agent`).     |
+| `integration.agent.cache_ttl`       | _Optional_. How often to sync in milliseconds (default: `180000` / 3 minutes).  |
+| `integration.agent.work_dir`        | _Optional_. Working directory for the agent's tailnet state.                    |
+| `integration.agent.executable_path` | _Optional_. Path to the agent binary (default: `/usr/libexec/headplane/agent`). |
 
-This is an ephemeral WASM shim that runs in the browser and connects directly
-to the Tailnet using Tailscale's go packages. It allows anyone to open up an
-ephemeral machine in the Tailnet that directly SSHes into a target node.
+## Native Mode Configuration
 
-## Build/Tooling
+Once you've built Headplane locally, there will be a binary in the `./build`
+folder called `hp_agent`. Please move this binary to
+`/usr/libexec/headplane/agent` and ensure that it is executable.
 
-Headplane is a React Router 7 (framework mode) project built with Vite. Take
-care to use our preferred PNPM version and Node version as defined in the
-`engines` field of `package.json`. We also use TypeScript Go and Oxfmt for
-type-checking and formatting respectively.
+::: tip
+If for some reason you cannot move the binary to the intended location, you can
+define **`integration.agent.executable_path`** in your Headplane configuration
+file to point to the correct location of the agent binary.
+:::
 
-When typechecking, use `pnpm run typecheck`, when linting and formatting, use
-the respective `lint` and `format` scripts, you can pass flags to them. You can
-also run Headscale CLI commands with `docker exec headscale headscale <command>`
-when the dev environment is running.
+The agent will also use `/var/lib/headplane/agent` as its data directory by
+default. You can change this location by defining
+**`integration.agent.work_dir`** in your Headplane configuration file. Ensure
+that the specified directory exists and is writable by the user running
+Headplane.
 
-## Docs
+Headplane preserves the agent's `tailscaled.state` in this directory. This lets
+the agent retain its Tailnet identity across Headplane restarts instead of
+registering as a new host each time. If the agent's state is lost or unusable,
+Headplane falls back to the pre-auth key and registers a new agent node.
 
-The project has a documentation site available at the `docs/` directory built
-with VitePress. The documentation is written in Markdown and can be easily
-edited and extended. If making changes to staple features, please take care to
-also update the documentation to reflect any changes in functionality or usage.
+## Interactive approval
+
+Under normal circumstances, the agent connects headlessly using the auto-generated
+pre-auth key and no manual interaction is required. If your Headscale server is
+configured to require interactive approval, Headplane detects the auth URL the
+agent prints and automatically approves the request using the configured
+`headscale.api_key`. The Settings page still shows the approval link as a
+fallback in case auto-approval fails.
+
+## Usage
+
+<figure>
+    <img class="dark-only" src="../assets/preview-dark.png" />
+    <img class="light-only" src="../assets/preview-light.png" />
+    <figcaption>Headplane Dashboard</figcaption>
+</figure>
+
+After enabling and configuring the Headplane Agent, restart your Headplane
+instance. You should now see additional options in the UI, such as host
+information about each node and the ability to open SSH sessions directly from
+the browser if the nodes have Tailscale SSH enabled.
+
+<figure>
+    <img class="dark-only" src="../assets/machine-dark.png" />
+    <img class="light-only" src="../assets/machine-light.png" />
+    <figcaption>Machine page</figcaption>
+</figure>
 
 ---
 > Source: [tale/headplane](https://github.com/tale/headplane) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
