@@ -1,98 +1,132 @@
 ## laktory
 
-> Laktory is a DataOps and ETL framework for building lakehouses on Databricks. It combines:
+> ??? "API Documentation"
 
-# Laktory
+??? "API Documentation"
+    [`laktory.cli.setup_agent`](../api/cli.md)<br>
 
-## Project Overview
+Laktory ships with first-class support for AI coding agents such as
+[Claude Code](https://claude.ai/code) and [GitHub Copilot](https://github.com/features/copilot).
+When configured, these agents can read Laktory's full model documentation, validate YAML
+snippets against live schemas, and discover exact field names and types — all without
+leaving the coding environment.
 
-Laktory is a DataOps and ETL framework for building lakehouses on Databricks. It combines:
-- **Data pipeline definitions** as code (transformations, sources, sinks)
-- **Infrastructure-as-Code** for Databricks resources (Unity Catalog, compute, access grants)
-- **Multi-backend dataframe support** via Narwhals (Spark and Polars)
-- **Multiple orchestrator support** (local, Databricks Jobs/Declarative Pipelines, Apache Airflow)
+## Two tiers of support
 
-## Tech Stack
+`setup-agent` provides two independent layers of value:
 
-| Layer | Technology |
-|-------|-----------|
-| Language | Python 3.10+ |
-| Data modeling | Pydantic v2 |
-| DataFrame abstraction | Narwhals |
-| DataFrame backends | Apache Spark (PySpark), Polars |
-| SQL parsing | SQLGlot |
-| IaC backends | Pulumi, Terraform |
-| CLI | Typer |
-| DAG management | NetworkX |
+**Tier 1 — Instruction file** (always written): A Markdown reference document is placed
+where the agent automatically loads it at session start. It contains YAML syntax, common
+patterns, model hierarchy, naming conventions, and variable injection examples. This
+works in every environment, with no server process required.
 
-## Key Directories
+**Tier 2 — MCP server** (written by default, opt-out with `--no-mcp`): A `.mcp.json`
+file tells the agent to start the Laktory MCP server alongside the coding session. This
+gives the agent live access to exact model schemas, field-level documentation, and YAML
+validation against the installed Laktory version.
 
-| Path | Purpose |
-|------|---------|
-| `laktory/models/` | All Pydantic models - the core of the library |
-| `laktory/models/resources/databricks/` | 50+ Databricks resource definitions (Catalog, Job, Cluster, etc.) |
-| `laktory/models/pipeline/` | Pipeline, PipelineNode, and execution plan |
-| `laktory/models/datasources/` | Input sources (file, Unity Catalog, Hive, DataFrame, node) |
-| `laktory/models/datasinks/` | Output sinks (file, Unity Catalog, Hive, pipeline view) |
-| `laktory/models/dataframe/` | Transformation chain: DataFrameTransformer, DataFrameMethod, DataFrameExpr |
-| `laktory/models/stacks/` | Stack composition (Stack, StackResources, PulumiStack, TerraformStack) |
-| `laktory/models/grants/` | Access control grant models |
-| `laktory/narwhals_ext/` | Custom Narwhals extensions (dataframe, expr, functions) |
-| `laktory/yaml/` | YAML loader with custom tags (`!use`, `!extend`, `!update`) |
-| `laktory/cli/` | CLI commands (`laktory run`, `laktory validate`, etc.) |
-| `laktory/_testing/` | Test helpers and fixture utilities |
-| `tests/` | Pytest test suite |
+## Setup
 
-## Build & Test Commands
+Run `laktory setup-agent` in the root of your project:
 
-```bash
-# Install
-uv sync                  # base dependencies
-uv sync --all-extras     # all extras (dev, polars, pyspark, databricks, airflow)
-
-# Code quality
-ruff format ./
-ruff check ./
-
-# Tests (excludes Databricks Connect tests)
-make test
-# or directly:
-uv run pytest -m "not databricks_connect" --cov=laktory tests
-
-# Build & publish
-uv build
-uv publish
+```cmd
+laktory setup-agent
 ```
 
-## Cross-repo access
+The command prompts for the agent framework you are using and then writes the appropriate
+instruction and configuration files:
 
-The sibling okube-growth repo lives at `../okube-growth/`
+| Agent | Instruction file                               | Host file updated |
+|---|------------------------------------------------|---|
+| `claude` | `.claude/docs/laktory.md`                      | `CLAUDE.md` (imports the instruction file) |
+| `copilot` | `.github/instructions/laktory.instructions.md` | `AGENTS.md` (links to the instruction file) |
+| `other` | `AGENTS_LAKTORY.md`                            | `AGENTS.md` (links to the instruction file) |
 
-**You are allowed to read and write `.md` files in `../okube-growth/` from this repo's context.** Use this when:
-- A Laktory technical decision, new feature, or positioning change should be reflected in the growth strategy or content calendar
-- A release or milestone should be logged as a content opportunity in `../okube-growth/strategy/content_calendar.md`
-- Laktory's public messaging (README, docs) should stay in sync with the growth strategy in `../okube-growth/strategy/positioning.md`
+By default, a `.mcp.json` file is also written to register the Laktory MCP server.
 
-Do not touch okube-growth's tooling code or LinkedIn config files from this context - only `.md` strategy and documentation files.
+Use `--agent` to skip the interactive prompt, and `--no-mcp` to write only the
+instruction files without MCP server configuration:
 
-The okube-growth CLAUDE.md has a reciprocal instruction allowing it to write into this repo.
+```cmd
+laktory setup-agent --agent claude
+laktory setup-agent --agent claude --no-mcp
+```
 
-## Git policy
+All writes are idempotent — running `setup-agent` more than once is safe.
 
-**Never run `git commit`, `git push`, or any git write operation** - make file edits locally and let the user decide when to commit and push.
+!!! tip
+    Use `--no-mcp` in environments where running background server processes is
+    restricted or not permitted. The instruction file alone still provides significant
+    value for YAML authoring.
 
-## Additional Documentation
+## MCP Server
 
-Check these files when working on related topics:
+The instruction files tell the agent how to use Laktory's YAML syntax. The **MCP server**
+gives the agent live access to the model schemas of the installed Laktory version. It
+exposes five tools:
 
-| File | When to consult |
-|------|----------------|
-| `.claude/docs/architectural_patterns.md` | Model hierarchy, resource patterns, pipeline composition, variable injection, YAML tags, SDP orchestrator |
-| `.claude/docs/todo.md` | Open items: A1 MCP server, A2 AI-first solution, A3 SDP Lakeflow Job dual-mode path |
-| `.claude/docs/documentation_system.md` | Full reference for the MkDocs stack, griffe extension, doc stub automation, and VariableType fix - Claude owns this system |
-| `.claude/docs/testing.md` | Test setup, markers, fixtures, backend parametrization, and live test credentials |
-| `.claude/docs/placeholder_convention.md` | Variable / Expression / Reference naming convention; the `$` rule; where each applies |
+| Tool | Purpose |
+|---|---|
+| `list_models()` | List all queryable models grouped by category |
+| `get_model_docs(model_name)` | Full field reference for a model; nested sub-model schemas are inlined automatically |
+| `validate_yaml(yaml_content, model_name=None)` | Validate any Laktory model YAML; auto-detects Pipeline/Stack when `model_name` is omitted |
+| `get_laktory_docs()` | Return the full Laktory AI agent reference (AGENTS.md) with patterns and examples |
+| `get_version()` | Return the installed Laktory version |
+
+The `.mcp.json` written by `setup-agent` starts the server via:
+
+```json
+{
+  "mcpServers": {
+    "laktory": {
+      "command": "python",
+      "args": ["-m", "laktory.mcp.server"]
+    }
+  }
+}
+```
+
+!!! note
+    The MCP server requires the optional `mcp` dependency. Install it with:
+    ```cmd
+    pip install laktory[mcp]
+    ```
+
+## Agent workflow
+
+When an MCP server is active, a capable agent will:
+
+1. Call `get_laktory_docs()` when working with a resource type for the first time to
+   load YAML patterns and examples for that resource category.
+2. Call `get_model_docs(model_name)` to get the exact field names, types, and defaults for
+   the model it is about to configure. Nested sub-models (e.g. `ClusterInitScripts`
+   inside `Cluster`) are included inline — no follow-up call needed.
+3. Generate the YAML and call `validate_yaml` to catch schema errors before writing to
+   the file. For Pipeline or Stack YAML, `model_name` can be omitted (auto-detected).
+   For any other model, pass it explicitly: `validate_yaml(yaml, model_name="Cluster")`.
+
+For small incremental edits to existing files (e.g. adding a user to a group), reading
+the surrounding codebase context is sufficient. The MCP server is most valuable when
+creating new resource or pipeline blocks from scratch.
+
+## Agent instructions
+
+The instruction file written by `setup-agent` is sourced from `laktory/AGENTS.md` in the
+installed package. It contains the full Laktory reference for AI agents, including:
+
+- Core YAML concepts and composition tags (`!use`, `!extend`, `!update`)
+- Stack structure and model hierarchy
+- Key model field reference tables
+- Common pipeline and resource YAML patterns
+- Naming conventions and variable injection syntax
+
+The file is automatically overwritten on each `setup-agent` run, so it always reflects
+the installed version.
+
+## Next steps
+
+See [Build with AI](../build/build-with-ai.md) for example prompts covering pipelines, orchestration, and common resources.
 
 ---
 > Source: [okube-ai/laktory](https://github.com/okube-ai/laktory) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
