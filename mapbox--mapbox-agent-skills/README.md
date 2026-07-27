@@ -1,8 +1,6 @@
 # mapbox-agent-skills
 
-> Tome by [mapbox](https://github.com/mapbox/mapbox-agent-skills) — distributed by [TomeVault](https://tomevault.io)
-
-AI instruction skills by mapbox
+> Tome by [mapbox](https://github.com/mapbox/mapbox-agent-skills), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,20 +15,7 @@ Original source: `AGENTS.md` in [mapbox/mapbox-agent-skills](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (10)
-
-- [mapbox-web-performance-patterns](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-web-performance-patterns)
-- [mapbox-web-integration-patterns](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-web-integration-patterns)
-- [mapbox-cartography](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-cartography)
-- [mapbox-token-security](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-token-security)
-- [mapbox-search-integration](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-search-integration)
-- [mapbox-android-patterns](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-android-patterns)
-- [mapbox-ios-patterns](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-ios-patterns)
-- [mapbox-google-maps-migration](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-google-maps-migration)
-- [mapbox-maplibre-migration](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-maplibre-migration)
-- [mapbox-store-locator-patterns](https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-store-locator-patterns)
-
-From [mapbox/mapbox-agent-skills](https://github.com/mapbox/mapbox-agent-skills) — a repo with 48+ stars on GitHub.
+From [mapbox/mapbox-agent-skills](https://github.com/mapbox/mapbox-agent-skills) — a repo with 69+ stars on GitHub.
 
 ---
 
