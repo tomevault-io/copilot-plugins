@@ -1,0 +1,9 @@
+{
+  "name": "jaegertracing--helm-charts",
+  "displayName": "helm-charts",
+  "description": "helm-charts",
+  "version": "1.0.0",
+  "author": "jaegertracing",
+  "homepage": "https://github.com/jaegertracing/helm-charts",
+  "skills": []
+}
