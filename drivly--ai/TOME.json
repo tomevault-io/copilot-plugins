@@ -2,9 +2,9 @@
   "name": "ai",
   "owner": "drivly",
   "repo": "ai",
-  "description": "Agentic Workflow Platform",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drivly/ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T19:23:43Z"
+  "distributed_at": "2026-07-27T01:57:37Z"
 }
