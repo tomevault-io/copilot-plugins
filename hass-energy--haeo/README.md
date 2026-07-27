@@ -1,6 +1,6 @@
 # haeo
 
-> Source: [hass-energy/haeo](https://github.com/hass-energy/haeo) — distributed by [TomeVault](https://tomevault.io)
+> Source: [hass-energy/haeo](https://github.com/hass-energy/haeo). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [hass-energy/haeo](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [hass-energy/haeo](https://github.com/hass-energy/haeo) — a repo with 0+ stars on GitHub.
+From [hass-energy/haeo](https://github.com/hass-energy/haeo) — a repo with 61+ stars on GitHub.
 
 ---
 
