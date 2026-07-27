@@ -1,0 +1,34 @@
+## cyrene
+
+> Cyrene project rules and conventions
+
+
+# Cyrene Project Rules
+
+## Code Style
+- Use `thiserror` for error enums, `anyhow` only in the binary
+- All public types derive `Debug`, `Clone`, `Serialize`, `Deserialize` where appropriate
+- Use `#[must_use]` on pure functions and builders
+- Async traits use `#[async_trait]`
+
+## Architecture
+- Each subsystem is its own crate under `crates/`
+- Core types in `cyrene-core` have zero app-specific dependencies
+- The Plugin Registry uses factory closures, not direct dependencies on adapter crates
+- Extensions depend only on `cyrene-sdk`, never on internal crates
+
+## Safety
+- No secrets in code: load from env/`.env` only
+- Every action must produce a receipt for the ledger
+- Autonomy defaults: low=auto, medium=approval, high=blocked
+- Untrusted content goes through the injection scanner first
+
+## Testing
+- Property-based tests (proptest) for invariants
+- Unit tests in each crate's `#[cfg(test)]` module
+- Integration tests in `tests/` directories
+- Use `tempfile` for filesystem-dependent tests
+
+---
+> Source: [YourWisemaker/cyrene](https://github.com/YourWisemaker/cyrene) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
