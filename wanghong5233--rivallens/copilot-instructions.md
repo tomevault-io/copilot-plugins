@@ -1,30 +1,43 @@
-## core-principles
+## cursor-package-boundaries
 
-> Core engineering constraints for production Agent projects in this workspace
+> Keep .cursor reusable; choose rules, skills, hooks, and commands by responsibility
 
 
-# Core Constraints
+# Cursor Package Boundaries
 
-## What NOT to Do (this section does the heavy lifting)
-- No bare `except` / `except Exception` — catch specific exceptions, let unknowns propagate
-- No silent fallback returns that hide failures (`return []` instead of raising)
-- No comments that restate code — only explain WHY, never WHAT
-- No wrapper classes that merely delegate (Ghost Layers)
-- No features beyond what's explicitly requested — YAGNI
-- No new dependencies without user approval — verify on PyPI first
-- No hardcoded secrets — use env vars or config/
+## Choose the lowest-cost layer
 
-## What to Do
-- Read existing code patterns before implementing anything new
-- Fail fast: crash loudly at boundaries, fix root cause not symptoms
-- Type hints on all function signatures
-- Prefer `async def` for I/O when the surrounding stack is async; don't force async into tiny scripts or sync-only code
-- Prefer logging in app/runtime code; use `print()` only for tiny scripts or explicit debugging
-- When in doubt, do less
+- Use `rules/` for durable default constraints that should shape Agent behavior whenever matching files are active.
+- Use `skills/` for complex domain workflows that should load only when relevant.
+- Use `commands/` for explicit slash workflows the user intentionally starts.
+- Use `hooks/` for deterministic guardrails that must run automatically and cannot rely on model memory.
 
-## Response Style
-- Fix first, report after. No preamble.
-- Chinese-simplified for explanations, English for code.
+## Sweet spots
+
+| Layer | Sweet spot | Hard warning |
+|---|---:|---|
+| Always-on rules | 1-3 files, 20-50 lines each | More than 100 always-on lines becomes context tax |
+| File-scoped rules | 5-10 focused files | Broad globs with generic content cause accidental trigger |
+| Project skills | 5-8 active skills | Total active skills should stay around 15 or less |
+| Commands | 3-7 reusable workflows | Commands are not a safety mechanism |
+| Hooks | 2-5 deterministic guardrails | Safety hooks should use `failClosed: true` |
+
+## Placement rules
+
+- If it is a repeated default constraint, write a rule.
+- If it needs examples, templates, scripts, or references, write a skill.
+- If it is a manual checklist like review, release, triage, or retro, write a command.
+- If violating it can damage code, data, secrets, git history, or production, write a hook.
+- Do not copy upstream community packs wholesale; adapt only the invariant that prevents repeated local failures.
+- Before adding a new `.cursor` artifact, check whether an existing rule, skill, command, or hook can absorb it without blurring responsibility.
+
+## Bootstrap order for new projects
+
+1. Keep core rules (engineering principles, package boundaries, configuration management, runtime contracts).
+2. Keep generic safety hooks.
+3. Keep cross-project skills (writing, debugging, observability, tool design, cost).
+4. Add project architecture rule **only after** an MVP architecture exists; do not invent boundaries before code.
+5. Add project-specific commands (release-check, db-migration, deploy) when those workflows actually appear.
 
 ---
 > Source: [wanghong5233/RivalLens](https://github.com/wanghong5233/RivalLens) — distributed by [TomeVault](https://tomevault.io).
