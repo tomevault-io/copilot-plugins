@@ -1,229 +1,53 @@
-## wize-document-project
+## wize-domain-research
 
-> 1-analysis: Document Project (brownfield baseline)
+> 1-analysis: Domain Research
 
 
-# Document Project (brownfield baseline)
+# Domain Research
 
-# Document Project — Brownfield Baseline
+# Domain Research
 
-**Goal.** When the kit is installed in an existing repo, baseline the **as-is** state so the rest of the lifecycle isn't blind. Produces a structured snapshot Tony can read before designing the *to-be*, and a knowledge base Wizer can answer questions from.
+**Goal.** Conduct domain and industry research to ground the product in its business, regulatory, and technical context.
 
-Pepper drives discovery. Peggy edits prose. Tony validates architecture interpretation. Output lands in `.wize/knowledge/document-project/`.
+Pepper Potts drives. Peggy Carter edits prose. Output lands in `.wize/planning/research/domain-{slug}-research-{date}.md`.
 
-## When to run
+## When to use
 
-- The installer detected brownfield signals (`package.json`, `src/`, history) and offered to run this. ✓
-- The team is onboarding to a codebase nobody fully owns. ✓
-- A previous re-platforming decision left the docs stale. ✓
-
-Skip:
-- Greenfield (nothing to document yet).
-- Repos < 200 LOC.
+- "I need domain research on..."
+- "What are the regulations in this industry?"
+- "What are the technical trends in this sector?"
 
 ## Inputs
 
-- The target repo (root).
-- `git log --since="1 year ago" --oneline | wc -l` to scope.
-- Any prior README / ARCHITECTURE / docs that exist.
-
-## CLI usage
-
-```bash
-wize-dev-kit document-project                # quick baseline (default)
-wize-dev-kit document-project quick          # same as default
-wize-dev-kit document-project initial_scan   # pattern-only initial scan
-wize-dev-kit document-project initial_scan deep       # reads critical directories
-wize-dev-kit document-project initial_scan exhaustive  # reads all source files in batches
-wize-dev-kit document-project full_rescan    # archives old state, re-runs initial_scan
-wize-dev-kit document-project deep_dive --target src/tools/installer
-```
-
-## Modes
-
-| Mode | What it does | Scan levels |
-|---|---|---|
-| `quick` | Writes the 6 baseline files. Does not read source files. | `quick` only |
-| `initial_scan` | Classifies project type, writes index + overview + source tree + conditional docs. | `quick`, `deep`, `exhaustive` |
-| `full_rescan` | Archives `project-scan-report.json` and re-runs `initial_scan`. | `quick`, `deep`, `exhaustive` |
-| `deep_dive` | Exhaustive analysis of a specific folder/file/feature. | `exhaustive` |
+- Open questions from `.wize/planning/brief.md`
+- User-provided domain or industry
+- Web search access
 
 ## Outputs
 
-- `.wize/knowledge/document-project/overview.md` — what the project is, who uses it, how big it is.
-- `.wize/knowledge/document-project/architecture-snapshot.md` — current components, integrations, data flow.
-- `.wize/knowledge/document-project/conventions.md` — coding/test/folder conventions actually used.
-- `.wize/knowledge/document-project/dependencies.md` — runtime deps + dev deps + their roles.
-- `.wize/knowledge/document-project/risk-spots.md` — areas of concentrated complexity, undocumented behavior, or known fragility.
-- `.wize/knowledge/document-project/open-questions.md` — things the code doesn't answer; route to humans.
-- `.wize/knowledge/document-project/index.md` — master navigation with `_(To be generated)_` markers for missing conditional docs.
-- `.wize/knowledge/document-project/project-scan-report.json` — resume state.
+- `.wize/planning/research/domain-{slug}-research-{date}.md`
 
-## Steps
+## Workflow architecture
 
-### 1. Inventory (Pepper, mechanical)
+Step-file architecture with six steps:
 
-A first pass that requires no judgment, just listing.
+1. Scope confirmation
+2. Domain analysis
+3. Competitive landscape
+4. Regulatory focus
+5. Technical trends
+6. Research synthesis
 
-```
-ls -la                                  # top-level layout
-cat package.json | jq '.dependencies, .devDependencies, .scripts'
-git log --since="3 months ago" --oneline | wc -l
-git log --pretty=format:"%an" | sort | uniq -c | sort -rn | head
-find . -name "*.test.*" -o -name "*.spec.*" | wc -l
-find . -type f -name "*.md" | head
-```
+## On activation
 
-Write what you found in `overview.md` (no opinions yet).
-
-### 2. Architecture snapshot (Pepper + Tony)
-
-Walk the repo top-down. Identify:
-- **Entry points** (CLI, server, worker, build).
-- **Components** (where the boundaries are — by folder, by package, by feature).
-- **Integrations** (databases, queues, external APIs, third-party SDKs).
-- **Data flow** for at least one end-to-end critical path (e.g., a typical user request).
-
-Draw or describe. Diagrams in ASCII or Mermaid are fine — the point is shared mental model.
-
-Tony validates. If the snapshot misnames a pattern, fix it.
-
-### 3. Conventions (Peggy)
-
-Sample 5–10 files across the repo. Note:
-- Naming (camelCase / snake_case / kebab-case).
-- Folder structure (feature-first / layer-first).
-- Test placement (co-located / `__tests__` / `test/`).
-- Comment style (JSDoc / TSDoc / inline).
-- Import ordering (alphabetical / by source).
-- Logging / error handling patterns.
-- Linter / formatter config (eslint, prettier, etc.).
-
-Write the convention found, not the convention you'd prefer.
-
-### 4. Dependencies (Pepper)
-
-For each runtime dep, write one line:
-- Name, version, what it does in this repo, whether it's load-bearing.
-
-Flag:
-- Deps without a clear role.
-- Deps with known CVEs (run `npm audit --omit=dev` and capture).
-- Multiple deps doing the same job (`lodash` + `ramda`, both date libs, etc.).
-- Deps not maintained in > 2 years (link to last release).
-
-### 5. Risk spots (Pepper + Tony)
-
-For each, name the area + the symptom + the likely cause + how confident you are:
-
-| Area | Symptom | Likely cause | Confidence |
-|---|---|---|---|
-| `src/legacy/billing/` | 2k-line file with no tests | rushed migration in 2024 | high |
-| Webhooks handler | Silent retries | no idempotency layer | medium |
-| Auth middleware | Custom JWT parsing | predates the library that handles it | high |
-
-This is *not* a refactor backlog. It's a map. Tony decides what to fix; this just makes the choices visible.
-
-### 6. Open questions (everyone)
-
-Things the code does NOT answer:
-- Why was this choice made?
-- What's the SLA?
-- Who's the owner of feature X?
-- Are there secret configs we're missing?
-
-Each question gets an owner (a human Pepper will ask). Route back via Wizer.
-
-### 7. Hand-off
-
-- Mark all docs `status: baseline`.
-- Tell Wizer: *"Baseline complete. Tony can read it before architecture work; Hill can read it before scoping."*
-
-## Conventions doc — template
-
-```markdown
----
-status: baseline
-owner: Pepper Potts + Peggy Carter
-created: YYYY-MM-DD
-sampled: 8 files across src/, tests/, scripts/
----
-
-# Conventions (observed, not prescribed)
-
-## Naming
-- Files: kebab-case (e.g., `user-profile.ts`).
-- Classes: PascalCase.
-- Functions: camelCase, verb-led.
-- Constants: UPPER_SNAKE_CASE.
-
-## Folder structure
-Feature-first: `src/features/<feature>/{index.ts, api.ts, ui.tsx, *.spec.ts}`.
-Shared utilities in `src/shared/`.
-
-## Tests
-Co-located with the file under test. `.spec.ts` for unit; `.e2e.ts` for end-to-end (separate runner).
-
-## Lint/format
-`eslint.config.mjs` with `airbnb-base` + custom rules in `eslint.local.cjs`. Prettier with 2-space indent.
-
-## Observed deviations
-- `src/legacy/billing/` doesn't follow feature-first; it predates the convention.
-- Some files use `_test.ts` suffix instead of `.spec.ts` — older code.
-```
-
-## Update mode (how the baseline stays alive)
-
-The first run of this workflow produces the **baseline**. Two complementary mechanisms keep it current after:
-
-### 1. Inline updates per story (the daily cadence)
-
-Every `wize-dev-story` ends with a Knowledge Update step (step 8). If the story touched any of the 5 axes (architecture, conventions, risk-spots, dependencies, overview), Shuri appends 1–3 dated bullets to the matching `document-project/*.md` file **in the same PR**. Hawkeye verifies in `tea-review`; a touched-but-not-updated story gets a `KN-NN` finding at gate.
-
-`wize-quick-dev` has a lighter version: only when a dep bump or a public rename actually shifts the baseline.
-
-This produces dated bullets like:
-
-```markdown
-## 2026-06-12 — E01-S03
-- Conventions: `data-testid="invite-*"` published as public contract.
-- Risk: R-1 (mailer) mitigation confirmed.
-```
-
-### 2. Sprint-end refresh (the narrative cadence)
-
-`wize-refresh-knowledge` runs at sprint end (triggered by `wize-help next` when it detects the sprint emptied). Pepper + Peggy consolidate the inline bullets into the narrative prose of each axis file, demote stale claims to a "Deprecated" section, freeze a sprint snapshot in `_history/{YYYY-Qn}/sprint-{N}.md`, and stamp `last_refreshed` in each file.
-
-Result: the baseline reads like a single coherent document, not a chronological log. New devs can read it linearly and form a mental model. Forensics readers (six months later, asking "when did X change?") consult `_history/`.
-
-### File frontmatter convention
-
-Each `document-project/*.md` file ships with:
-
-```yaml
----
-status: baseline
-owner: Pepper Potts + Peggy Carter
-created: 2026-04-02
-last_refreshed: 2026-06-25
-sampled: "wkly + sprint refresh"
----
-```
-
-`last_refreshed` tells the reader how much to trust the file vs the inline bullets accumulating since.
-
-## Anti-patterns Pepper rejects
-
-- "TODO: document later." The baseline IS the documentation pass; later doesn't come.
-- Romanticizing the code ("clean, modular"). Describe what you see; let Tony judge.
-- Architecture diagrams that show what the team *wishes* exists. Diagram the real state.
-- Risk-spot table with no confidence label. Without confidence, readers can't act.
-- Open questions with no owner. They never get answered.
-- Treating the baseline as one-shot. The mode + refresh exist precisely because point-in-time docs lie within weeks.
+1. Load `.wize/config/project.toml` and `.wize/config/user.toml`.
+2. Ask for the domain/industry topic if not provided.
+3. Derive `{research_topic_slug}` and create the output file from `research.template.md`.
+4. Read fully and follow `./domain-steps/step-01-init.md`.
 
 ## Hand-off
 
-> Baseline is in `.wize/knowledge/document-project/`. Three risk spots flagged. Five open questions routed to the humans named per question. Tony can read this before drawing `architecture.md`; Hill can scope the PRD knowing what's already there.
+> Domain research is in `.wize/planning/research/`. Hill can use it for PRD constraints; open questions route back to Wizer.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
