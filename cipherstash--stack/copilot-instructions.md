@@ -1,55 +1,36 @@
 ## stack
 
-> These rules guide agents when creating or updating example apps under `examples/*` in this repository.
+> The project instructions for this repo live in `AGENTS.md`, shared by every agent
 
-## Protect.js Cursor Rules
+# CipherStash Stack — Claude Code
 
-These rules guide agents when creating or updating example apps under `examples/*` in this repository.
+The project instructions for this repo live in `AGENTS.md`, shared by every agent
+that works here. It is imported below rather than duplicated, so there is exactly
+one source of truth.
 
-### Example App Prompt (for agents)
+@AGENTS.md
 
-- **Goals**
-  - Show end-to-end usage of Protect.js with clear, minimal code.
-  - Demonstrate schema, encrypt/decrypt, and (when relevant) searchable encryption on PostgreSQL.
+## Before you finish
 
-- **Hard guardrails (do not violate)**
-  - Do not log plaintext at any time.
-  - Preserve the Result contract: operations return `{ data }` or `{ failure }` with stable error `type` strings.
-  - Do not change EQL payload shapes or keys (e.g., `c`).
-  - `@cipherstash/protect-ffi` is a native Node-API module and must be externalized by bundlers (loaded via runtime `require`).
-  - Keep both ESM and CJS exports working; do not break `require`.
+Two rules from `AGENTS.md` are the ones most often missed. They are repeated here
+because both fail silently — nothing in CI catches either:
 
-- **Prerequisites and workflow**
-  - Use Node.js >= 22 and pnpm 9.x.
-  - Install/build/test:
-    - `pnpm install`
-    - `pnpm --filter <example> dev|build|test`
-  - Environment variables for examples/tests that talk to CipherStash:
-    - `CS_WORKSPACE_CRN`, `CS_CLIENT_ID`, `CS_CLIENT_KEY`, `CS_CLIENT_ACCESS_KEY`
-    - Optional for identity-aware encryption: `USER_JWT`, `USER_2_JWT`
+1. **Check the skills.** If you changed a package's public API, the CLI command
+   surface, or a user-facing workflow, update the affected `skills/*/SKILL.md` in
+   the same PR. These files ship inside the `stash` npm tarball and get copied
+   into customer repos, so drift becomes wrong guidance in someone else's
+   codebase. See "Agent Skills — these ship to customers".
 
-- **Docs to reference**
-  - `docs/how-to/nextjs-external-packages.md`
-  - `docs/how-to/sst-external-packages.md`
-  - `docs/how-to/npm-lockfile-v3.md`
-  - `docs/reference/schema.md`
-  - `docs/concepts/searchable-encryption.md`
+2. **Add a changeset** when the change affects a published package's surface —
+   including a skills-only change, since `skills/` ships in the `stash` tarball.
 
-- **Deliverables checklist for a new example**
-  - A `protect.ts` (or equivalent) that initializes `protect({ schemas })` using `csTable`/`csColumn`.
-  - If targeting Postgres searchable encryption, include `.freeTextSearch().equality().orderAndRange()` on appropriate columns.
-  - A minimal script or route/handler that encrypts and decrypts at least one value.
-  - A README covering:
-    - Setup (env vars, install, run commands)
-    - Notes on native module externalization if the framework builds/bundles (e.g., Next.js, SST)
-    - How to run tests (if included)
-  - Optional: demonstrate identity-aware encryption via `LockContext` and chaining `.withLockContext()` for both encrypt and decrypt.
+## Package-specific notes
 
-- **Quality bar**
-  - Prefer bulk operations to demonstrate performance where appropriate.
-  - Keep examples small, idiomatic, and runnable as-is with documented env vars.
-  - Never leak secrets in code or logs; avoid any plaintext logging.
+`packages/cli` has its own `AGENTS.md` covering the two Vitest configs (unit vs.
+the pty-driven e2e suite) and when each needs to run. Read it before touching
+`packages/cli/src/bin/main.ts`, `packages/cli/src/messages.ts`, or the command
+registry at `packages/cli/src/cli/registry.ts`.
 
 ---
 > Source: [cipherstash/stack](https://github.com/cipherstash/stack) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
