@@ -1,8 +1,6 @@
 # benchmark
 
-> Source: [base/benchmark](https://github.com/base/benchmark) — distributed by [TomeVault](https://tomevault.io)
-
-Benchmarking tool for OP stack chains
+> Source: [base/benchmark](https://github.com/base/benchmark). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
