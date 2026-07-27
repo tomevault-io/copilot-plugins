@@ -1,0 +1,9 @@
+{
+  "name": "wanghong5233--rivallens",
+  "displayName": "RivalLens",
+  "description": "AI \u9a71\u52a8\u7684\u7ade\u54c1\u5206\u6790 Agent \u534f\u4f5c\u7cfb\u7edf \u2014 2026 \u5b57\u8282\u8df3\u52a8 AI \u5168\u6808\u6311\u6218\u8d5b\u53c2\u8d5b\u4f5c\u54c1\uff08LangGraph + FastAPI + PostgreSQL + React\uff09",
+  "version": "1.0.0",
+  "author": "wanghong5233",
+  "homepage": "https://github.com/wanghong5233/RivalLens",
+  "skills": []
+}
