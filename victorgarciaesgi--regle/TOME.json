@@ -1,0 +1,213 @@
+{
+  "name": "regle",
+  "owner": "victorgarciaesgi",
+  "repo": "regle",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "regle",
+      "path": "skills/regle",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle",
+      "description": ""
+    },
+    {
+      "name": "regle-typescript",
+      "path": "skills/regle-typescript",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle-typescript",
+      "description": ""
+    },
+    {
+      "name": "tsdown",
+      "path": ".cursor/skills/tsdown",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/tsdown",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": "skills/regle/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/vue/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/vue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": "skills/regle-rules/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle-rules/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/vite/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/vite/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/antfu/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/antfu/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": "skills/regle-schemas/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle-schemas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/tsdown/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/tsdown/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": "skills/regle-advanced/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/vitest/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/vitest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/caveman/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/caveman/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/diagnose/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/diagnose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": "skills/regle-typescript/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle-typescript/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/zoom-out/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/zoom-out/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/turborepo/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/turborepo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/vitepress/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/vitepress/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/prototype/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/prototype/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/vite-plus/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/vite-plus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/edit-article/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/edit-article/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/write-a-skill/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/write-a-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": "skills/regle-migrate-vuelidate/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/skills/regle-migrate-vuelidate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/ts-memory-baseline/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/ts-memory-baseline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".cursor/skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.cursor/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "regle",
+      "path": ".github/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/victorgarciaesgi/regle/tree/main/.github/skills/code-review/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/victorgarciaesgi/regle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T07:32:58Z"
+}
