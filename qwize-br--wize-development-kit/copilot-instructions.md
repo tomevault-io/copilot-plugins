@@ -1,22 +1,21 @@
-## wize-review-adversarial
+## wize-shard-doc
 
-> core skill: Adversarial Review
+> core skill: Shard Doc
 
 
-# Adversarial Review
+# Shard Doc
 
-# Adversarial Review
+# Shard Doc
 
-Red-team review of an artifact. Used by Hawkeye on stories/architecture and by Peggy on prose.
+Splits large markdown (PRD, architecture, etc.) into addressable shards under `{doc-name}.shards/`.
 
-## Method
-1. **Pretend you hate this idea.** Find three reasons it fails.
-2. **Pretend you'll have to maintain it for 3 years.** What hurts?
-3. **Pretend you're an attacker.** What's the abuse vector?
-4. **Pretend you're a new hire.** What's confusing?
+## Why
+Agents quote shards by id (`prd.shards/AC-5.md`) instead of pulling the whole document.
 
-## Output
-Findings appended to the source artifact with `## Adversarial review` section.
+## Behavior
+- Splits at headings (`##` by default; configurable).
+- Each shard gets `id` from heading slug + frontmatter.
+- Original doc becomes the index.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
