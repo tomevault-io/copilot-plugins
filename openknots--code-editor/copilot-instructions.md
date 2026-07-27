@@ -1,64 +1,160 @@
 ## code-editor
 
-> Next.js 16 + Tauri desktop code editor. Static export (`output: 'export'`), Turbopack dev.
+> KnotCode includes a dedicated AI coding agent that operates as a full-stack expert pair programmer. The agent runs via the OpenClaw gateway in an isolated session, separate from other OpenClaw surfaces (Telegram, Discord, CodeFlow).
 
-# AGENTS.md — KnotCode Editor
+# Agent System
 
-## Project
+## Overview
 
-Next.js 16 + Tauri desktop code editor. Static export (`output: 'export'`), Turbopack dev.
+KnotCode includes a dedicated AI coding agent that operates as a full-stack expert pair programmer. The agent runs via the OpenClaw gateway in an isolated session, separate from other OpenClaw surfaces (Telegram, Discord, CodeFlow).
 
-- **Package manager:** pnpm (never npm)
-- **Repo:** `~/Documents/GitHub/OpenKnots/code-editor`
-- **Stack:** Next.js, Tailwind CSS v4, TypeScript strict, Tauri v2
-- **Build check:** `pnpm build` must pass with zero TS errors before committing
+## Session Architecture
 
-## Git Workflow — Use gitquick (`gq`)
-
-This project uses [gitquick](https://github.com/Clawborn/gitquick) for fast git operations.
-
-### Commands
-
-```bash
-gq save "commit message"   # git add -A && git commit -m "message" && git push
-gq sync                     # git pull --rebase && git push
-gq clean                    # delete local branches already merged into main/master
+```
+                    OpenClaw Gateway
+                         │
+           ┌─────────────┼─────────────┐
+           │             │             │
+    agent:main    agent:main:     agent:main:
+    (Telegram)    codeflow         code-editor
+                  (CodeFlow)       (Knot Code)
 ```
 
-### When to use
+Each session maintains its own:
 
-- **`gq save "msg"`** — After completing a feature, fix, or logical unit of work. Stages everything, commits, and pushes in one shot. Default message is "update" if omitted.
-- **`gq sync`** — Before starting new work or when you need to pull latest changes. Rebases local commits on top of remote, then pushes.
-- **`gq clean`** — After PRs are merged. Removes stale local branches that have been merged into main/master.
+- Message history
+- System prompt
+- Agent persona and behavior rules
+- Context injection format
 
-### Rules
+## System Prompt
 
-- Always run `pnpm build` (or at minimum `npx tsc --noEmit`) before `gq save` to catch type errors
-- Write meaningful commit messages — not just "update"
-- If there are merge conflicts during `gq sync`, resolve them before continuing
+The agent is initialized with a comprehensive system prompt (`lib/agent-session.ts`) that defines:
 
-### Agent Workflow Guardrails
+### Expertise Levels
 
-- Skill-first policy is required: run `/skill <query>` before creating a new skill.
-- New skill creation is blocked by default unless a recent skill probe exists.
-- Explicit override token for audited bypass only: `--allow-new-skill`.
+| Domain       | Level  | Key Areas                                 |
+| ------------ | ------ | ----------------------------------------- |
+| Next.js      | Expert | App Router, SSR/ISR, proxy.ts, API routes |
+| Lit          | Expert | Web Components, Shadow DOM, decorators    |
+| React        | Expert | Hooks, context, performance, concurrent   |
+| TypeScript   | Expert | Strict mode, generics, type guards        |
+| Tailwind v4  | Expert | CSS variables, @theme, responsive         |
+| PostgreSQL   | Expert | Query optimization, CTEs, JSONB           |
+| Drizzle ORM  | Expert | Schema, relations, query builder          |
+| Web Security | Expert | XSS, CSRF, CSP, DOMPurify                 |
+| Auth         | Expert | OAuth2, OIDC, JWTs, WorkOS                |
+| Git          | Expert | Rebase, cherry-pick, conventional commits |
+| Vercel       | Expert | Deployment, edge, env vars                |
 
-## Code Conventions
+### Behavior Rules
 
-- All colors use CSS theme variables (`var(--brand)`, `var(--brand-contrast)`, etc.) — never hardcode `text-white` on brand elements
-- Tauri desktop: use `data-tauri-drag-region` for window drag, `tauri-no-drag` class to exclude interactive elements
-- Components go in `components/`, views in `components/views/`, contexts in `context/`
-- Prefer `useCallback` and `useMemo` for performance in large components
-- Use `@iconify/react` `Icon` component for all icons (Lucide set)
+1. **Propose, don't auto-apply** — all edits use `[EDIT]` markers for diff review
+2. **Complete files** — no `// rest of file` shortcuts
+3. **Match existing style** — read context before writing
+4. **TypeScript strict** — no `any` without justification
+5. **Security by default** — sanitize, validate, escape
+6. **Skill-first policy** — before creating a new skill, run `/skill <query>` to try existing skills first
+7. **Audited override only** — use `--allow-new-skill` explicitly when a new skill is required now
+8. **Be direct** — no filler, no hedging
+9. **Be actionable** — every response ends with a next step
+10. **Flag risks** — security/performance/breaking implications upfront
 
-## Key Architecture
+## Context Injection
 
-- **Theme system:** CSS custom properties via `data-theme` on `<html>`, presets in `context/theme-context.tsx`, all CSS in `app/globals.css`
-- **Gateway comms:** WebSocket to `ws://127.0.0.1:18789`, JSON RPC via `makeRequest()` in `lib/gateway.ts`
-- **Local filesystem:** Tauri commands in `src-tauri/src/local_fs.rs`, exposed via `context/local-context.tsx`
-- **Terminal:** Max 3 tabs, managed in `components/terminal-panel.tsx`
-- **Agent chat:** Per-chat session keys `agent:main:code-editor:{chatId.slice(0,8)}`, lazy init on first message
+Every message includes contextual information via `buildEditorContext()`:
+
+````
+[Repository: OpenKnots/code-editor (main)]
+
+[Active file: components/agent-panel.tsx]
+```typescript
+// file content (capped at 8000 chars)
+````
+
+[Open files]
+
+- components/agent-panel.tsx (modified)
+- lib/agent-session.ts
+- app/page.tsx
+
+[Instructions: When proposing code edits, use [EDIT path/to/file.ext]...]
+
+```
+
+## Edit Flow
+
+### Via Agent Panel (/edit)
+
+```
+
+User: "/edit add error handling to the fetch call"
+→ Context injected (file, repo, open files)
+→ Agent responds with [EDIT lib/api.ts] marker
+→ Edit parser detects proposal
+→ "Review diff: lib/api.ts" button appears
+→ Click → DiffViewer (Apply/Reject)
+→ Apply → file updated in editor (dirty)
+→ /commit → pushed to GitHub
+
+```
+
+### Via Inline Edit (Cmd/Ctrl+K)
+
+```
+
+User selects code → Cmd/Ctrl+K → types "add null check"
+→ InlineEdit component appears at cursor position
+→ Submit dispatches CustomEvent('inline-edit-request')
+→ AgentPanel handles event: - Includes selected text + line range - Sends to gateway with full context
+→ Same diff review flow as /edit
+
+```
+
+## Edit Proposal Format
+
+The agent wraps proposed changes in markers:
+
+```
+
+[EDIT path/to/file.ts]
+
+```typescript
+// complete file content
+```
+
+````
+
+The `parseEditProposals()` function in `lib/edit-parser.ts` detects two formats:
+1. `[EDIT path] + fenced block` — explicit marker (preferred)
+2. `` ```path.ext `` — fenced block with file path as language tag
+
+## Streaming
+
+Replies arrive via WebSocket events:
+
+| Event State | Action |
+|-------------|--------|
+| `delta` | Update `streamBuffer`, show live typing |
+| `final` | Parse edit proposals, append as message |
+| `error` | Show error in system message |
+| `aborted` | Append partial text with [cancelled] |
+
+Events are matched by `idempotencyKey` (primary) or `sessionKey` (fallback).
+
+## Slash Commands
+
+| Command | Action | Gateway Required |
+|---------|--------|:---:|
+| `/edit <instruction>` | Propose code changes | ✓ |
+| `/explain` | Explain current file | ✓ |
+| `/refactor <instruction>` | Refactor with goals | ✓ |
+| `/generate <description>` | Generate new code | ✓ |
+| `/search <query>` | Search across repo | ✓ |
+| `/commit <message>` | Commit modified files | ✓ |
+| `/diff` | Show uncommitted changes | ✓ |
+````
 
 ---
 > Source: [OpenKnots/code-editor](https://github.com/OpenKnots/code-editor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
