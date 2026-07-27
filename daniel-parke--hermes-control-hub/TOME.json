@@ -2,7 +2,7 @@
   "name": "hermes-control-hub",
   "owner": "Daniel-Parke",
   "repo": "hermes-control-hub",
-  "description": "Control Hub for Hermes AI Agent",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Daniel-Parke/hermes-control-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:48:21Z"
+  "distributed_at": "2026-07-27T22:56:10Z"
 }
