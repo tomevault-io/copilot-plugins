@@ -1,0 +1,9 @@
+{
+  "name": "metal3-io--ip-address-manager",
+  "displayName": "ip-address-manager",
+  "description": "ip-address-manager",
+  "version": "1.0.0",
+  "author": "metal3-io",
+  "homepage": "https://github.com/metal3-io/ip-address-manager",
+  "skills": []
+}
