@@ -1,7 +1,7 @@
 {
   "name": "microsoft--wassette",
   "displayName": "wassette",
-  "description": "Wassette: A security-oriented runtime that runs WebAssembly Components via MCP",
+  "description": "wassette",
   "version": "1.0.0",
   "author": "microsoft",
   "homepage": "https://github.com/microsoft/wassette",
