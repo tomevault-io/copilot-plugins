@@ -1,23 +1,22 @@
 # iFace
 
-> Tome by [dogxii](https://github.com/dogxii/iFace) — distributed by [TomeVault](https://tomevault.io)
-
-前端面试题库 -  智能刷题工具，自定义 AI 接口，实现高效辅助学习
+> Tome by [dogxii](https://github.com/dogxii/iFace), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dogxii/iFace](https://github.com/dogxii/iFace).
+Original source: `` in [dogxii/iFace](https://github.com/dogxii/iFace).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dogxii/iFace](https://github.com/dogxii/iFace) — a repo with 33+ stars on GitHub.
+From [dogxii/iFace](https://github.com/dogxii/iFace) — a repo with 136+ stars on GitHub.
 
 ---
 
