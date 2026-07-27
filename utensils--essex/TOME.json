@@ -4,7 +4,7 @@
   "repo": "essex",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/utensils",
+  "source_url": "https://github.com/utensils/essex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T20:35:49Z"
+  "distributed_at": "2026-07-27T02:12:21Z"
 }
