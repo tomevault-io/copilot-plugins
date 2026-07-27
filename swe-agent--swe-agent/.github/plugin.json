@@ -1,0 +1,9 @@
+{
+  "name": "swe-agent--swe-agent",
+  "displayName": "SWE-agent",
+  "description": "SWE-agent",
+  "version": "1.0.0",
+  "author": "SWE-agent",
+  "homepage": "https://github.com/SWE-agent/SWE-agent",
+  "skills": []
+}
