@@ -1,23 +1,21 @@
 # AI instruction files for pi-extensions
 
-> Sourced from [MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A set of pi-extensions, including pi-continuous-learning that continually improves you pi coding agent experience
+> Sourced from [MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions).
+Original source: `AGENTS.md` in [MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions)
 
 ---
 
