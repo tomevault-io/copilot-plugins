@@ -1,0 +1,9 @@
+{
+  "name": "rocm--rocm-xio",
+  "displayName": "rocm-xio",
+  "description": "rocm-xio",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/rocm-xio",
+  "skills": []
+}
