@@ -1,0 +1,9 @@
+{
+  "name": "stripe--pg-schema-diff",
+  "displayName": "pg-schema-diff",
+  "description": "pg-schema-diff",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/pg-schema-diff",
+  "skills": []
+}
