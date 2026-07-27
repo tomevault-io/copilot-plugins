@@ -1,0 +1,14 @@
+{
+  "name": "taylorwilsdon--google-workspace-mcp",
+  "displayName": "google_workspace_mcp",
+  "description": "google_workspace_mcp",
+  "version": "1.0.0",
+  "author": "taylorwilsdon",
+  "homepage": "https://github.com/taylorwilsdon/google_workspace_mcp",
+  "skills": [
+    {
+      "name": "google_workspace_mcp",
+      "description": ""
+    }
+  ]
+}
