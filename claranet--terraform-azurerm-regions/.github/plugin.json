@@ -1,0 +1,9 @@
+{
+  "name": "claranet--terraform-azurerm-regions",
+  "displayName": "terraform-azurerm-regions",
+  "description": "terraform-azurerm-regions",
+  "version": "1.0.0",
+  "author": "claranet",
+  "homepage": "https://github.com/claranet/terraform-azurerm-regions",
+  "skills": []
+}
