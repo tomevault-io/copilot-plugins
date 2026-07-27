@@ -1,0 +1,9 @@
+{
+  "name": "zaproxy--zap-extensions",
+  "displayName": "zap-extensions",
+  "description": "zap-extensions",
+  "version": "1.0.0",
+  "author": "zaproxy",
+  "homepage": "https://github.com/zaproxy/zap-extensions",
+  "skills": []
+}
