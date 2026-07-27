@@ -1,88 +1,86 @@
-## project-structure
+## benchmark
 
-> - **benchmark/**: Go-based benchmark runner and core logic
+> - Prefer functional components with hooks over class components
 
-# Project Structure and Organization
+# React Component Development Guidelines
 
-## Directory Structure
+## Component Structure
 
-### Root Level
-- **benchmark/**: Go-based benchmark runner and core logic
-- **contracts/**: Solidity smart contracts for testing
-- **configs/**: YAML configuration files for different benchmark scenarios
-- **report/**: React-based web UI for viewing benchmark results
-- **runner/**: Go-based execution engine
-- **scripts/**: Utility scripts for setup and automation
+### Functional Programming Approach
+- Prefer functional components with hooks over class components
+- Extract complex logic into helper functions outside the component
+- Keep components focused on a single responsibility
+- Use pure functions for data transformations
 
-### Report UI Structure ([report/](mdc:report))
-```
-report/
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/         # Page-level components
-│   ├── hooks/         # Custom React hooks
-│   ├── utils/         # Utility functions and formatters
-│   └── types.ts       # TypeScript type definitions
-├── public/            # Static assets
-└── package.json       # Frontend dependencies
-```
+### Helper Functions
+- Extract repetitive logic into reusable helper functions
+- Place helper functions above the main component
+- Use descriptive names that explain the function's purpose
+- Add JSDoc comments for complex helper functions
 
-## Configuration Management
+### Render Functions
+- Extract complex JSX into separate render functions
+- Name render functions with the `render` prefix
+- Keep render functions focused on a single UI element
+- Pass only necessary props to render functions
 
-### Benchmark Configs ([configs/](mdc:configs))
-- YAML-based configuration files
-- Define test parameters and thresholds
-- Support for different benchmark scenarios
-- Examples: basic.yml, contract.yml, ecadd.yml
+### State Management
+- Use `useState` for local component state
+- Prefer `useMemo` for expensive calculations
+- Use `useCallback` for functions passed as props to child components
+- Keep state as close to where it's used as possible
 
-### Contract Integration ([contracts/](mdc:contracts))
-- Solidity contracts for performance testing
-- Integration with Foundry for compilation
-- Support for OpenZeppelin contracts
-- Test fixtures and mock contracts
+## Code Organization
 
-## Development Workflow
+### Imports
+- Group imports by type: React, third-party libraries, local utilities, types
+- Use absolute imports for local files when possible
+- Remove unused imports
 
-### Frontend Development
-1. Work in the `report/` directory for UI changes
-2. Use TypeScript for type safety
-3. Follow React functional component patterns
-4. Use Tailwind CSS for styling
+### TypeScript
+- Define interfaces for component props
+- Use union types for finite sets of values
+- Prefer `const assertions` for configuration objects
+- Use proper typing for event handlers
 
-### Backend Development
-1. Work in `benchmark/` and `runner/` directories
-2. Use Go for performance-critical code
-3. Follow Go conventions and patterns
-4. Implement proper error handling
+### Comments
+- Only comment code that explains business logic or complex algorithms
+- Avoid comments that describe obvious operations
+- Use comments to explain "why" not "what"
+- Remove comments about styling or implementation details
 
-### Testing
-- Unit tests for individual components
-- Integration tests for benchmark scenarios
-- End-to-end tests for complete workflows
-- Performance regression testing
+## Styling Guidelines
 
-## Build and Deployment
+### Tailwind CSS
+- Use semantic color classes (emerald for success, red for errors, etc.)
+- Prefer utility classes over custom CSS
+- Use consistent spacing and sizing scales
+- Group related classes logically
 
-### Frontend Build
-- Vite-based build system
-- Static asset generation
-- Optimized bundle output
-- Development server with hot reload
+### Accessibility
+- Include proper focus states for interactive elements
+- Use semantic HTML elements
+- Provide alternative text for images
+- Ensure sufficient color contrast
 
-### Backend Build
-- Go module-based dependencies
-- Cross-platform compilation
-- Docker containerization support
-- Binary distribution
+### Responsive Design
+- Use responsive utility classes
+- Test components at different screen sizes
+- Consider mobile-first design approach
 
-## Data Flow
+## Performance
 
-### Benchmark Execution
-1. Configuration files define test parameters
-2. Go runner executes benchmarks
-3. Results stored in structured format
-4. React UI displays and analyzes results
+### Optimization
+- Use `React.memo` for expensive components
+- Implement proper key props for list items
+- Avoid inline object/function creation in render
+- Use `useMemo` for expensive calculations
+
+### Code Splitting
+- Consider lazy loading for large components
+- Split components into smaller, focused pieces
+- Use dynamic imports for route-based code splitting
 
 ---
 > Source: [base/benchmark](https://github.com/base/benchmark) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
