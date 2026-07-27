@@ -1,43 +1,47 @@
-## cursor-package-boundaries
+## engineering
 
-> Keep .cursor reusable; choose rules, skills, hooks, and commands by responsibility
+> Always-on engineering rules for RivalLens. Use before any code edit, refactor, Git operation, or env/config change.
 
 
-# Cursor Package Boundaries
+# RivalLens Engineering Rules
 
-## Choose the lowest-cost layer
+## Repository Model
 
-- Use `rules/` for durable default constraints that should shape Agent behavior whenever matching files are active.
-- Use `skills/` for complex domain workflows that should load only when relevant.
-- Use `commands/` for explicit slash workflows the user intentionally starts.
-- Use `hooks/` for deterministic guardrails that must run automatically and cannot rely on model memory.
+Single-repository monorepo. Top-level packages:
 
-## Sweet spots
+- `backend/` — Python 3.11 + FastAPI + LangGraph agent core, PostgreSQL persistence.
+- `frontend/` — React + Vite + TypeScript visualization console.
+- `docs/` — source-of-truth specs (problem, demo, architecture, schema, ownership, prior art).
+- `backend/skills/` — Skill Library (`applies_to` in `qa_rule`, `prompt_template`, `source_routing`; loaded via `load_skill` / `read_skill_file`).
+- `backend/demo_fixtures/` — demo seeds (competitor autocomplete source, not a hard constraint set).
+- `configs/`, `data/`, `scripts/` — supporting material.
 
-| Layer | Sweet spot | Hard warning |
-|---|---:|---|
-| Always-on rules | 1-3 files, 20-50 lines each | More than 100 always-on lines becomes context tax |
-| File-scoped rules | 5-10 focused files | Broad globs with generic content cause accidental trigger |
-| Project skills | 5-8 active skills | Total active skills should stay around 15 or less |
-| Commands | 3-7 reusable workflows | Commands are not a safety mechanism |
-| Hooks | 2-5 deterministic guardrails | Safety hooks should use `failClosed: true` |
+## Git Safety
 
-## Placement rules
+- Never use `git add .` or `git add -A` from the repo root.
+- Never run destructive commands (`git reset --hard`, `git clean -fd`, recursive forced deletes) without explicit user approval.
+- Preserve unrelated dirty files when staging.
+- Prefer explicit file paths for staging and edits.
 
-- If it is a repeated default constraint, write a rule.
-- If it needs examples, templates, scripts, or references, write a skill.
-- If it is a manual checklist like review, release, triage, or retro, write a command.
-- If violating it can damage code, data, secrets, git history, or production, write a hook.
-- Do not copy upstream community packs wholesale; adapt only the invariant that prevents repeated local failures.
-- Before adding a new `.cursor` artifact, check whether an existing rule, skill, command, or hook can absorb it without blurring responsibility.
+## Env and Secret Safety
 
-## Bootstrap order for new projects
+- Never commit real `.env` values, tokens, API keys, credentials, cookies, or private URLs.
+- Edit `.env.example` for placeholders; copy to `.env` locally and keep it gitignored.
+- Do not log full JWTs, API keys, or `Authorization` headers.
 
-1. Keep core rules (engineering principles, package boundaries, configuration management, runtime contracts).
-2. Keep generic safety hooks.
-3. Keep cross-project skills (writing, debugging, observability, tool design, cost).
-4. Add project architecture rule **only after** an MVP architecture exists; do not invent boundaries before code.
-5. Add project-specific commands (release-check, db-migration, deploy) when those workflows actually appear.
+## Engineering Discipline
+
+- Read existing patterns before adding new ones.
+- Fail fast at boundaries — do not silently return empty defaults to hide failures.
+- No bare `except` / `except Exception` — catch specific exceptions.
+- Type hints on every Python function signature.
+- Comments explain WHY, never WHAT. No narrative comments that restate code.
+- No wrapper classes that merely delegate (avoid Ghost Layers).
+- YAGNI: do not add features beyond what is explicitly requested.
+
+## Temporary Integration
+
+Keep temporary or experimental integrations visibly temporary. Avoid persistence until explicitly requested.
 
 ---
 > Source: [wanghong5233/RivalLens](https://github.com/wanghong5233/RivalLens) — distributed by [TomeVault](https://tomevault.io).
