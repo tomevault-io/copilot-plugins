@@ -1,106 +1,60 @@
 ## aquamai
 
-> AquaMai is a comprehensive Harmony-based mod suite for the Sinmai (maimai DX) arcade game, loaded via MelonLoader. C# / .NET Framework 4.7.2. Multi-project solution with embedded assembly loading.
+> TOML-based configuration system with reflection-driven section/entry discovery, versioned migration, and bilingual serialization.
 
-# PROJECT KNOWLEDGE BASE
+# AquaMai.Config
 
-## OVERVIEW
-
-AquaMai is a comprehensive Harmony-based mod suite for the Sinmai (maimai DX) arcade game, loaded via MelonLoader. C# / .NET Framework 4.7.2. Multi-project solution with embedded assembly loading.
+TOML-based configuration system with reflection-driven section/entry discovery, versioned migration, and bilingual serialization.
 
 ## STRUCTURE
 
 ```
-AquaMai/
-├── AquaMai/                  # Entry point — MelonMod subclass, assembly loader
-├── AquaMai.Core/             # Startup, helpers, lifecycle, i18n, shared state
-├── AquaMai.Mods/             # All mod patches — categorized (Fix, UX, Tweaks, etc.)
-├── AquaMai.Config/           # TOML config system — parse, serialize, migrate, reflect
-├── AquaMai.Config.Interfaces/  # Abstraction layer for config (used by HeadlessLoader)
-├── AquaMai.Config.HeadlessLoader/  # Config loading without game runtime
-├── AquaMai.Build/            # Build-time tools — example config gen, post-build patching
-├── AquaMai.ErrorReport/      # Standalone crash report WinForms app
-├── MuMod/                    # Separate auto-updater mod (downloads + signature-verifies AquaMai)
-├── MelonLoader.TinyJSON/     # Vendored JSON lib (empty source, likely reference)
-├── Libs/                     # Game DLLs (Assembly-CSharp, UnityEngine, etc.) — gitignored contents
-├── Output/                   # Build artifacts
-└── tools/                    # NuGet/Cake build tooling
+AquaMai.Config/
+├── Config.cs             # Main config class — SectionState/EntryState records
+├── ConfigParser.cs       # Parses TOML ConfigView into Config object
+├── ConfigSerializer.cs   # Serializes Config back to TOML (with comments, i18n)
+├── ConfigView.cs         # TOML document abstraction layer
+├── ApiVersion.cs         # Config API version constant
+├── Utility.cs            # Shared utilities (logging delegate)
+├── Attributes/           # [ConfigSection], [ConfigEntry], [ConfigCollapseNamespace], EnableCondition
+├── Migration/            # Version chain: V1.0 → V2.0 → V2.1 → V2.2 → V2.3 → V2.4
+├── Reflection/           # ReflectionManager, SystemReflectionProvider, MonoCecil provider
+└── Types/                # Config value types (KeyCodeOrName, SoundChannel, IOKeyMap, etc.)
 ```
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-|------|----------|-------|
-| Add new mod/feature | `AquaMai.Mods/{Category}/` | See category READMEs for placement rules |
-| Modify startup/init | `AquaMai.Core/Startup.cs` | Patch collection + lifecycle orchestration |
-| Config system changes | `AquaMai.Config/` | Has its own AGENTS.md |
-| Add config entry | Target mod class — use `[ConfigEntry]` on `static readonly` field |
-| Add config section | Add `[ConfigSection]` class + entry in `SectionNameOrder` enum in `General.cs` |
-| Conditional enable | `[EnableIf]`, `[EnableGameVersion]` attributes from `AquaMai.Core.Attributes` |
-| i18n strings | `AquaMai.Core/Resources/Locale.resx` + `Locale.zh.resx` |
-| Build the project | `./build.ps1` → outputs `Output/AquaMai.dll` |
-| Config migration | `AquaMai.Config/Migration/` — implement `IConfigMigration` |
+| Task | File |
+|------|------|
+| Add new config attribute | `Attributes/` — implement matching interface from `Config.Interfaces` |
+| Add config migration | `Migration/` — new `IConfigMigration` impl + register in `ConfigMigrationManager` |
+| Change TOML parsing | `ConfigParser.cs` |
+| Change TOML output | `ConfigSerializer.cs` — respects `Options.Lang` for bilingual output |
+| Add custom value type | `Types/` — may need parser/serializer support |
+| Headless config access | `AquaMai.Config.HeadlessLoader` project (separate) |
 
-## ARCHITECTURE
+## MIGRATION SYSTEM
 
-**Assembly loading**: `AquaMai.dll` is the MelonLoader entry. It embeds `Config.Interfaces`, `Config`, `Core`, `Mods` as compressed resources. `AssemblyLoader.cs` extracts and loads them at runtime via `AppDomain.CurrentDomain.Load()`.
+- `ConfigMigrationManager` chains migrations sequentially
+- Each migration implements `IConfigMigration` with source/target version
+- Operates on `ConfigView` (TOML level) — not on typed Config object
+- Old config backed up as `AquaMai.toml.old-v{version}.`
 
-**Mod lifecycle** (defined in `Startup.cs`):
-1. `OnBeforeEnableCheck` — init fields for `[EnableIf]`
-2. Config-based collection — sections enabled in `AquaMai.toml`
-3. `OnBeforeAllPatch` → `OnBeforePatch` → `_harmony.PatchAll(type)` → `OnAfterPatch` → `OnAfterAllPatch`
-4. `OnPatchError` on failure
+## REFLECTION SYSTEM
 
-**Config flow**: `AquaMai.toml` (TOML) → `ConfigView` → `ConfigMigrationManager` (version upgrade) → `ConfigParser.Parse()` → reflection-based field population → re-serialize on save.
-
-## CONVENTIONS
-
-- **Mod pattern**: One static class per feature, decorated with `[ConfigSection]`. Harmony patches as nested `[HarmonyPatch]` methods. Config as `static readonly` fields with `[ConfigEntry]`.
-- **Lifecycle hooks**: Static methods named exactly `OnBeforePatch`, `OnAfterPatch`, etc. — discovered by reflection.
-- **Namespace**: `AquaMai.Mods.{Category}` matching directory structure.
-- **Config bilingual**: All `[ConfigEntry]` and `[ConfigSection]` should have both `en:` and `zh:` descriptions.
-- **SectionNameOrder**: When adding/removing sections, update the enum in `General.cs`.
-- **Fix patches**: Must be `defaultOn: true, exampleHidden: true` — no negative side-effects.
-- **No DI**: Static classes + shared instances (`SharedInstances` helper). No IoC container.
-- **Fody**: Used in `AquaMai.Mods` for IL weaving (`FodyWeavers.xml`).
-
-## ANTI-PATTERNS (THIS PROJECT)
-
-- **Don't patch in General.cs** — settings only, no Harmony patches.
-- **Don't add GameSettingsManager/JvsSwitchHook to startup collection** — patch on-demand only (see comment in `Startup.cs` line 198-200).
-- **Tweaks must not change game behavior** — if they do, move to `GameSystem`.
-- **GameSettings vs GameSystem**: GameSettings = override existing configurable settings; GameSystem = new behavior not possible in stock.
-- **Fix patches must have no visual side-effects** on the original game.
-- **Fancy patches are not well-tested** — enable only if you know what you're doing.
-- **Don't use `hideWhenDefault` to hide useful options** — only truly unused ones.
-- **Don't use `alwaysEnabled`** — reserved for `General` section only.
-
-## COMMANDS
-
-```bash
-# Build (Release)
-./build.ps1
-
-# Build (Debug)
-./build.ps1 -Configuration Debug
-
-# Build + copy to game + launch
-./build-run.ps1
-
-# Config env override
-$env:AQUAMAI_CONFIG = "path/to/AquaMai.toml"
-```
+- `ReflectionManager` discovers `[ConfigSection]` classes + `[ConfigEntry]` fields from mods assembly
+- `SystemReflectionProvider` — runtime reflection (used in game)
+- `MonoCecilAssemblyReflectionProvider` — Mono.Cecil-based (used by HeadlessLoader + Build tools)
+- Section paths derived from namespace: `AquaMai.Mods.Fix.DisableReboot` → `Fix.DisableReboot`
 
 ## NOTES
 
-- Target framework is .NET Framework 4.7.2 (Unity Mono runtime)
-- Game DLLs in `Libs/` are gitignored — copy from game installation manually
-- `BuildInfo.g.cs` is auto-generated from `git describe` — don't edit manually
-- CI builds on Windows via GitHub Actions, signs + uploads to cloud on main branch push
-- No unit tests — testing is manual
-- Config versions are migrated automatically (V1.0 → V2.4 chain in `Migration/`)
-- `configSort.yaml` in `AquaMai/` defines TOML key ordering; `checkSort.py` validates it
+- Config is case-insensitive (uses `StringComparer.OrdinalIgnoreCase`)
+- `[ConfigSection(alwaysEnabled: true)]` reserved for `General` only
+- `[ConfigEntry(hideWhenDefault: true)]` — only for truly unused options
+- Serializer outputs bilingual comments based on `Options.Lang`
+- `Polyfills.cs` provides .NET compatibility shims for older framework target
 
 ---
 > Source: [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS/AquaMai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
