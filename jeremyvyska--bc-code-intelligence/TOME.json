@@ -4,7 +4,7 @@
   "repo": "bc-code-intelligence",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JeremyVyska/bc-code-intelligence",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T22:01:01Z"
+  "distributed_at": "2026-07-27T06:19:27Z"
 }
