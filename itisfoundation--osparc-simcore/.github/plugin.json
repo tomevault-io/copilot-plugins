@@ -1,0 +1,30 @@
+{
+  "name": "itisfoundation--osparc-simcore",
+  "displayName": "osparc-simcore",
+  "description": "osparc-simcore",
+  "version": "1.0.0",
+  "author": "ITISFoundation",
+  "homepage": "https://github.com/ITISFoundation/osparc-simcore",
+  "skills": [
+    {
+      "name": "osparc-simcore",
+      "description": ""
+    },
+    {
+      "name": "osparc-simcore",
+      "description": ""
+    },
+    {
+      "name": "osparc-simcore",
+      "description": ""
+    },
+    {
+      "name": "osparc-simcore",
+      "description": ""
+    },
+    {
+      "name": "osparc-simcore",
+      "description": ""
+    }
+  ]
+}
