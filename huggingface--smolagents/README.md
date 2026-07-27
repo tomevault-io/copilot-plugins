@@ -1,8 +1,6 @@
 # smolagents
 
-> Tome by [huggingface](https://github.com/huggingface/smolagents) — distributed by [TomeVault](https://tomevault.io)
-
-🤗 smolagents: a barebones library for agents that think in code.
+> Tome by [huggingface](https://github.com/huggingface/smolagents), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [huggingface/smolagents](https://github.com/hugg
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/huggingface/smolagents](https://github.com/huggingface/smolagents)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/huggingface/smolagents](https://github.com/huggingface/smolagents)
 
 ---
 
