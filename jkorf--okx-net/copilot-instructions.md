@@ -1,18 +1,13 @@
 ## okx-net
 
-> This repository is **OKX.Net**, a strongly typed C#/.NET client library for the OKX cryptocurrency exchange API. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using OKX.Net library when working with OKX cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with OKX API.
 
-# Copilot Instructions for OKX.Net
 
-This repository is **OKX.Net**, a strongly typed C#/.NET client library for the OKX cryptocurrency exchange API. It is part of the CryptoExchange.Net ecosystem.
+# OKX.Net Conventions
 
-When generating code that consumes OKX.Net, follow these conventions:
+This codebase uses **OKX.Net** for OKX cryptocurrency exchange access. Do not write raw `HttpClient` calls to OKX endpoints.
 
-## Use OKX.Net, Not Raw HTTP
-
-Never generate raw `HttpClient` calls to OKX REST endpoints or hand-written WebSocket clients. Use `OKXRestClient` or `OKXSocketClient` for signing, passphrase authentication, rate limit integration, reconnects, and typed responses.
-
-## Client Setup
+## Client Setup Pattern
 
 ```csharp
 using OKX.Net;
@@ -24,47 +19,86 @@ var restClient = new OKXRestClient(options =>
 });
 ```
 
-## Result Handling
+For public market data only, no credentials are needed: `new OKXRestClient()`.
 
-Methods return `WebCallResult<T>` for REST and `CallResult<T>` for WebSocket. Always check `.Success` before reading `.Data`. The error is on `.Error`.
+## Result Pattern
 
-## API Structure
+All methods return `WebCallResult<T>` for REST or `CallResult<T>` for WebSocket. Always check `.Success` before reading `.Data`.
 
-- `restClient.UnifiedApi.ExchangeData` - public market data, public info, announcements, trading stats
-- `restClient.UnifiedApi.Account` - balances, positions, funding, deposits, withdrawals, leverage
-- `restClient.UnifiedApi.Trading` - order placement, amendment, cancellation, history, fills, algo orders
-- `restClient.UnifiedApi.SubAccounts` - sub-account management
-- `restClient.UnifiedApi.CopyTrading` - copy trading endpoints
-- `socketClient.UnifiedApi.ExchangeData` - public streams
-- `socketClient.UnifiedApi.Account` - private account/funding streams
-- `socketClient.UnifiedApi.Trading` - private trading streams and socket trading requests
+```csharp
+var ticker = await restClient.UnifiedApi.ExchangeData.GetTickerAsync("BTC-USDT");
+if (!ticker.Success) { /* ticker.Error */ return; }
+var price = ticker.Data.LastPrice;
+```
 
-## OKX-Specific Rules
+## API Surface
 
-- Use `OKXCredentials("key", "secret", "passphrase")`.
-- Use `UnifiedApi`, not separate Spot/Futures roots.
-- Use OKX symbols such as `BTC-USDT` and `BTC-USDT-SWAP`, not `BTCUSDT`.
-- For product-specific calls use `InstrumentType.Spot`, `InstrumentType.Swap`, `InstrumentType.Futures`, or `InstrumentType.Option`.
-- For orders use `TradeMode.Cash`, `TradeMode.Cross`, or `TradeMode.Isolated` as appropriate.
-- Store WebSocket `UpdateSubscription` values and unsubscribe on shutdown.
+- `restClient.UnifiedApi.{ExchangeData|Account|Trading|SubAccounts|CopyTrading}`
+- `socketClient.UnifiedApi.{ExchangeData|Account|Trading}`
+- `restClient.UnifiedApi.SharedClient`
+- `socketClient.UnifiedApi.SharedClient`
 
-## Cross-Exchange
+There is no `SpotApi`, `FuturesApi`, or `MarginApi` root in OKX.Net.
 
-For exchange-agnostic code, use `CryptoExchange.Net.SharedApis` via `.UnifiedApi.SharedClient`. Same pattern works for Binance, Bybit, Kraken, CoinEx, and other CryptoExchange.Net libraries.
+## Order Placement
 
-## Avoid
+```csharp
+var order = await restClient.UnifiedApi.Trading.PlaceOrderAsync(
+    "BTC-USDT",
+    OrderSide.Buy,
+    OrderType.Limit,
+    quantity: 0.001m,
+    price: 50000m,
+    tradeMode: TradeMode.Cash);
+```
 
-- Legacy or guessed API roots such as `SpotApi` or `FuturesApi`
-- Generic `ApiCredentials` in OKX examples
-- Synchronous `.Result` / `.Wait()`
-- Instantiating clients per request
-- Manual ticker polling when a WebSocket stream fits
-- Reading `.Data` without checking `.Success`
+For swap/futures, use symbols like `BTC-USDT-SWAP`, set leverage through `UnifiedApi.Account.SetLeverageAsync`, and pass `TradeMode.Cross` or `TradeMode.Isolated` as appropriate.
+
+## WebSocket Pattern
+
+```csharp
+var socketClient = new OKXSocketClient();
+var sub = await socketClient.UnifiedApi.ExchangeData.SubscribeToTickerUpdatesAsync(
+    "BTC-USDT",
+    update => { /* update.Data.LastPrice */ });
+if (!sub.Success) { /* sub.Error */ return; }
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Multi-Exchange Code
+
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new OKXRestClient().UnifiedApi.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
+```
+
+The shared spot/futures symbol interfaces expose cached symbol catalogs. Returned symbols include display names and base/quote asset type and subtype metadata; use it instead of inferring crypto, fiat, TradFi, stablecoin, equity, or commodity types from symbol strings.
+
+## Hard Rules
+
+- Never write raw `HttpClient` to OKX endpoints.
+- Never use `.Result` or `.Wait()`.
+- Never instantiate clients per request.
+- Never skip checking `WebCallResult.Success`.
+- Never invent `SpotApi`, `FuturesApi`, or `MarginApi` roots.
+- Always use `OKXCredentials("key", "secret", "passphrase")`.
+- Always use OKX symbol format like `ETH-USDT` and `ETH-USDT-SWAP`.
+- Always store WebSocket subscriptions and unsubscribe on shutdown.
+- Use `client.UnifiedApi.SharedClient` for cross-exchange code.
 
 ## Reference
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, `llms-full.txt`, and `docs/ai-api-map.md` in the repository root, and `Examples/ai-friendly/` for compilable examples.
+- Skill: `AGENTS.md` in repo root has fuller examples.
+- `llms.txt` and `llms-full.txt` in repo root for AI context.
+- API map: `docs/ai-api-map.md`.
+- Examples: `Examples/ai-friendly/`.
 
 ---
 > Source: [JKorf/OKX.Net](https://github.com/JKorf/OKX.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
