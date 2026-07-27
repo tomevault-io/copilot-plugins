@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--apiserver-network-proxy",
+  "displayName": "apiserver-network-proxy",
+  "description": "apiserver-network-proxy",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/apiserver-network-proxy",
+  "skills": []
+}
