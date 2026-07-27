@@ -1,0 +1,9 @@
+{
+  "name": "jfrog--setup-jfrog-cli",
+  "displayName": "setup-jfrog-cli",
+  "description": "setup-jfrog-cli",
+  "version": "1.0.0",
+  "author": "jfrog",
+  "homepage": "https://github.com/jfrog/setup-jfrog-cli",
+  "skills": []
+}
