@@ -1,0 +1,9 @@
+{
+  "name": "um-arm-lab--pytorch-mppi",
+  "displayName": "pytorch_mppi",
+  "description": "pytorch_mppi",
+  "version": "1.0.0",
+  "author": "UM-ARM-Lab",
+  "homepage": "https://github.com/UM-ARM-Lab/pytorch_mppi",
+  "skills": []
+}
