@@ -1,21 +1,21 @@
 # Neuron
 
-> Tome by [wvabrinskas](https://github.com/wvabrinskas/Neuron) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [wvabrinskas](https://github.com/wvabrinskas/Neuron), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wvabrinskas/Neuron](https://github.com/wvabrinskas/Neuron).
+Original source: `.cursor/rules/*.mdc` in [wvabrinskas/Neuron](https://github.com/wvabrinskas/Neuron).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [wvabrinskas/Neuron](https://github.com/wvabrinskas/Neuron) — a repo with 129+ stars on GitHub.
+From [wvabrinskas/Neuron](https://github.com/wvabrinskas/Neuron) — a repo with 130+ stars on GitHub.
 
 ---
 
