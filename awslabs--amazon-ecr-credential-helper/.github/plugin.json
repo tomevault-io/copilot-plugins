@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--amazon-ecr-credential-helper",
+  "displayName": "amazon-ecr-credential-helper",
+  "description": "amazon-ecr-credential-helper",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/amazon-ecr-credential-helper",
+  "skills": []
+}
