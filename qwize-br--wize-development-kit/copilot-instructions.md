@@ -1,130 +1,142 @@
-## wize-tea-design
+## wize-tea-gate
 
-> design: TEA Test Design
+> gate: TEA Gate Decision
 
 
-# TEA Test Design
+# TEA Gate Decision
 
-# TEA — Test Design
+# TEA — Gate Decision
 
-**Goal.** For **one story**: declare the test split, the fixtures, the mocks, the environments, and the assertion targets. This is Hawkeye's contract Shuri implements against. No story enters dev without one.
+**Goal.** Final per-story decision. **PASS / CONCERNS / FAIL / WAIVED** with documented rationale, score, and policy mode. This is the line: a story doesn't advance past it without a recorded gate.
 
-Hawkeye drives. Runs at the start of every story (advisory; can be relaxed only when `tea.toml` says so).
+Hawkeye drives. The four inputs (`design`, `trace`, `review`, plus `nfr` at epic boundary) feed in. Policy is read from `.wize/config/tea.toml`.
 
 ## Inputs
 
-- `.wize/solutioning/stories/{epic}/{story}.md`
-- `.wize/solutioning/architecture.md`
-- `.wize/implementation/tea/risk-profile.md`
-- Overlay test playbooks if active:
-  - `web-overlay/playbooks/playwright-vitest.md`
-  - `app-overlay/playbooks/detox-maestro.md`
+- `.wize/implementation/tea/{epic}/{story}/design.md`
+- `.wize/implementation/tea/{epic}/{story}/trace.md`
+- `.wize/implementation/tea/{epic}/{story}/review.md`
+- `.wize/implementation/tea/nfr/{epic}.md` (when the story is the last of its epic)
+- `.wize/config/tea.toml`
 
 ## Output
 
-- `.wize/implementation/tea/{epic}/{story}/design.md`
+- `.wize/implementation/tea/{epic}/{story}/gate.md`
+
+## Decision rules
+
+| Inputs | Recommendation |
+|---|---|
+| All ACs `met`, no findings | **PASS** |
+| All ACs `met`, only low/medium non-blocking findings | **PASS** with notes (or **CONCERNS** depending on count) |
+| Any AC `partial` | **CONCERNS** |
+| Any AC `not-met` | **FAIL** |
+| NFR `FAIL` on the epic (last story) | **FAIL** |
+| `tea-review` flagged `knowledge_axes_touched` ≠ `knowledge_axes_updated` (any axis touched without update) | **CONCERNS** (advisory mode) / **FAIL** (enforcing mode) — adds finding `KN-NN` |
+| Failing AC OR non-neg NFR with documented business rationale + senior signoff | **WAIVED** |
+
+Score (0–100): heuristic. `100 - (10 × high) - (5 × medium) - (2 × low)`. Floor 0.
+
+## Policy
+
+`.wize/config/tea.toml` sets `policy = "advisory"` (default) or `"enforcing"`.
+
+- **Advisory:** `FAIL` is a visible warning in PR; merge isn't auto-blocked. The team decides.
+- **Enforcing:** `FAIL` blocks merge via CI status check (`tea-gate`). PASS / CONCERNS allowed through.
 
 ## Steps
 
-### 1. Read the story; map every AC
+### 1. Read the three inputs
 
-For each AC, write **one assertion-shape sentence**: *"There will be a {kind} test that does {what} and expects {observable}."*
+If trace shows `partial`, you know the recommendation. If review recommends FAIL, you've got your decision. The gate doc just records it.
 
-### 2. Pick the test split
+### 2. Compute score
 
-Defaults (from `playwright-vitest.md` / `detox-maestro.md`):
-- **Low-risk story:** 70% unit / 20% integration / 10% E2E.
-- **Risk-profile flagged story (R-1..R-3):** add 1–2 dedicated E2E + integration for the risk area.
-- **UI-only story:** 60% unit / 30% component (Testing Library) / 10% E2E.
-- **Server-only story:** 80% unit / 20% integration; no E2E unless an upstream consumer story bundles it.
+Don't game it. The score communicates magnitude to humans skimming a backlog.
 
-### 3. Declare fixtures + mocks
+### 3. Write the doc
 
-- Fixtures: known users, known DB rows, known files.
-- Mocks: external services at the network boundary (MSW). Don't mock the unit under test.
+Frontmatter is the structured truth. The body is the narrative for humans.
 
-### 4. Environment
+### 4. Notify
 
-- Where it runs (local sim, headless emulator, real device farm).
-- Network conditions (offline / 3G slow / lossy WiFi).
-- OS / browser matrix (from `device-matrix.md` or playwright projects).
-
-### 5. Edge cases (cheap; pay back × 10)
-
-List 3–7 edge cases the ACs don't name but the user might hit:
-- Empty / max-length inputs.
-- IME / paste / autofill.
-- Offline mid-action.
-- Concurrent users on the same resource.
-- Time-zone / DST.
-- Localized number/currency.
-
-Each gets a test of its own (usually unit).
-
-### 6. Hand off
-
-Mark `status: ready-for-dev` in the design.md frontmatter. Shuri reads before starting.
+Update the PR description with the gate verdict + link to the doc. Maria Hill watches the gate status in `sprint-status.md`.
 
 ## YAML frontmatter (canonical)
 
 ```yaml
 ---
-gate: design
+gate: gate
 story_id: E01-S03
-ac_ids: [AC-02-1, AC-02-2]
 status: PASS
-created_at: 2026-06-11T12:00:00Z
-test_split:
-  unit: { count: 4, description: "validation, server-action contract, error mapper, mailer payload" }
-  integration: { count: 1, description: "server action calls mailer with right args, against MSW" }
-  e2e: { count: 1, description: "happy path; Playwright @chromium @ios" }
-fixtures:
-  - "new-admin user"
-  - "empty team"
-mocks:
-  - "Resend via MSW"
-  - "Auth session via fixture cookie"
-environment: "local + Playwright project chromium + ios"
-risk_links: [R-1]
-edges:
-  - "invalid email rules: blank, missing @, weird IME chars"
-  - "duplicate teammate email"
-  - "offline at submit time"
+score: 95
+policy: advisory
+inputs:
+  design: ".wize/implementation/tea/E01-S03/design.md"
+  trace:  ".wize/implementation/tea/E01-S03/trace.md"
+  review: ".wize/implementation/tea/E01-S03/review.md"
+  nfr:    null   # not the last story of E01
+findings:
+  - id: REV-01
+    severity: low
+    summary: "Empty-state copy slightly differs from Mantis' spec."
+    recommendation: "Update `<EmptyTeamPanel>` heading in a follow-up."
+  - id: KN-01
+    severity: medium
+    summary: "Story added a new component (`<InviteForm>`) but architecture-snapshot.md was not updated."
+    recommendation: "Add 2 lines to `.wize/knowledge/document-project/architecture-snapshot.md` under a dated bullet referencing the new component + its public testid contract."
+    owner: shuri
+    blocking: false   # advisory mode; would be true under enforcing
+waived_by: null
+waived_reason: null
+created_at: 2026-06-11T20:30:00Z
 ---
 ```
 
-## Body of `design.md`
+## Body of `gate.md`
 
 ```markdown
-## Per-AC assertion shapes
+## Verdict
+**PASS** (score 95)
 
-- **AC-02-1**: Vitest unit on `validateInviteEmail()` → returns `{ ok: true }` for `name+tag@example.com`. Vitest integration on `inviteTeammate()` server action → asserts `mailer.send` called once with `{ to: 'name@example.com', template: 'team-invite' }`. Playwright E2E → clicks "Send invite", asserts `[data-testid="invite-sent-banner"]` appears within 1s.
+## Why
+- All ACs met with observed evidence.
+- Trace clean; coverage 100% on ACs, partial on edges (E3, E4) — tracked for follow-up.
+- Review found one low-severity copy finding (REV-01).
+- Story is not the last in epic 01; NFR gate runs separately at epic boundary.
 
-- **AC-02-2**: Vitest unit on `validateInviteEmail()` → returns `{ ok: false, code: 'invalid_format', field: 'email' }` for empty/no-@. Component test (Testing Library) on `<InviteForm>` → asserts the input's `aria-describedby` error region announces "Enter a valid email."
+## Notes for follow-up
+- Open a tiny story (or include in next sprint planning) to fix REV-01 and close edges E3, E4.
 
-## Edge cases (additional tests)
-
-- E1: Empty email — `validateInviteEmail('')` → `invalid_format`.
-- E2: 254-char local part — boundary check; expect graceful clipping.
-- E3: Same email submitted twice — second call hits `inviteTeammate()`, asserts second insert is a no-op (idempotency key based on `(team_id, email)`).
-- E4: Offline at submit — Playwright `context.setOffline(true)` after click; banner shows "We'll retry when you're back online."
-
-## Run plan
-- On every PR: full unit + integration; E2E `@smoke` tag only (≤ 30s).
-- Nightly: full E2E suite + Lighthouse baseline.
+## Trail
+- design.md → 4/1/1 split (unit/integration/e2e) + 4 edges declared.
+- trace.md → all ACs `covered`; E3 `partial`, E4 `missing` (follow-up).
+- review.md → ACs `met`, scope mostly disciplined, copy nit.
+- nfr.md → N/A (mid-epic).
 ```
+
+## When to WAIVE
+
+Rare. Examples:
+- A failing E2E that depends on a flaky external sandbox; the production code is unaffected; sign-off by Tony + Hill.
+- A non-negotiable temporarily slipped because of an external integration blocker; we ship with mitigation in place; sign-off by Fury.
+
+A WAIVE always lists:
+- Who waived (`waived_by`).
+- Why (`waived_reason`).
+- The compensating control (a follow-up story, an SLA monitor, a feature flag).
 
 ## Anti-patterns Hawkeye rejects
 
-- **`design.md` written after dev started.** Then the story slipped through; flag.
-- **One test per AC, no edges.** Edges are where users live.
-- **Mocking the unit under test.** You'd be testing the mock.
-- **E2E that test the happy path only.** Cover failure too.
-- **Selectors by visible text in a multilingual app.** Use `data-testid` or `role` with locale-aware patterns.
+- **Gating without `review.md`.** No review → no gate.
+- **PASS with a `not-met` AC.** Auto-fail.
+- **WAIVED with no `waived_by` field.** Reject.
+- **Scoring jiggered to clear a threshold.** Trust trumps point-scoring; if the count says 70, don't write 91.
+- **Enforcing mode gates without CI check wiring.** Ghost gate; remove or wire it.
 
 ## Hand-off
 
-> Test design for E01-S03 at `.wize/implementation/tea/E01-S03/design.md`. 4 unit, 1 integration, 1 E2E, plus 4 edges. Shuri can start; I'll check `tea-trace.md` against this when the PR opens.
+> Gate for E01-S03: **PASS** (score 95). One low-severity finding logged for follow-up. Maria Hill, sprint-status updated; Shuri, ready to start the next story.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
