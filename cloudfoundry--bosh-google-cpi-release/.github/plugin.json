@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--bosh-google-cpi-release",
+  "displayName": "bosh-google-cpi-release",
+  "description": "bosh-google-cpi-release",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/bosh-google-cpi-release",
+  "skills": []
+}
