@@ -1,0 +1,9 @@
+{
+  "name": "nest-modules--ioredis",
+  "displayName": "ioredis",
+  "description": "ioredis",
+  "version": "1.0.0",
+  "author": "nest-modules",
+  "homepage": "https://github.com/nest-modules/ioredis",
+  "skills": []
+}
