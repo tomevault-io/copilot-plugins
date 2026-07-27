@@ -1,0 +1,9 @@
+{
+  "name": "google-deepmind--gemma",
+  "displayName": "gemma",
+  "description": "gemma",
+  "version": "1.0.0",
+  "author": "google-deepmind",
+  "homepage": "https://github.com/google-deepmind/gemma",
+  "skills": []
+}
