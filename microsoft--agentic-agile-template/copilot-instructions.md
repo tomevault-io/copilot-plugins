@@ -1,69 +1,145 @@
 ## agentic-agile-template
 
-> > This file provides GitHub Copilot with project-specific context. For the universal cross-agent entry point used by this project, see [`AGENTS.md`](../../../AGENTS.md).
+> 2-3 sentences describing what this project does, who it's for, and what
 
-# Copilot Instructions
+# Research note: The official Windsurf rules filename was verified against
+# community documentation and the Codeium blog — `.windsurfrules` is the
+# established convention for the repository root and continues to be supported.
+# Newer Windsurf versions also introduced a directory-based system at
+# `.windsurf/rules/` where rules are defined as named markdown files with
+# activation modes (always on, manual, glob, model decision). Verify the
+# current recommendation in the official documentation at https://docs.windsurf.com/
+# before deploying, as Windsurf's tooling evolves frequently.
 
-> This file provides GitHub Copilot with project-specific context. For the universal cross-agent entry point used by this project, see [`AGENTS.md`](../../../AGENTS.md).
+# Agent Context — [Your Project Name]
 
-## Project Description
+## Project Purpose
 
-<!-- Replace this with a 2-3 sentence description of your project. -->
-<!-- Example: "A REST API for task management built with Node.js and Express. Uses PostgreSQL for storage and JWT for authentication." -->
+<!--
+  2-3 sentences describing what this project does, who it's for, and what
+  problem it solves. Helps Cascade understand the domain and make
+  appropriate design decisions.
+
+  Example:
+  "A REST API for inventory management used by warehouse operations teams.
+  Built with Go and PostgreSQL. Handles ~10K requests/minute in production."
+-->
 
 [Describe your project here]
 
-## Coding Style
+---
 
-<!-- Define the conventions Copilot should follow when generating code. -->
+## Architecture
 
-- **Language:** [e.g., TypeScript, Python, Go]
-- **Formatting:** [e.g., Prettier with default config, Black for Python]
-- **Naming:** [e.g., camelCase for variables, PascalCase for classes]
-- **Imports:** [e.g., absolute imports only, group by stdlib/third-party/local]
-- **Error handling:** [e.g., always use typed errors, never swallow exceptions]
+<!--
+  Describe the high-level structure: major components, how they interact,
+  key technology choices, and what patterns the codebase follows.
 
-## Testing Approach
+  Example:
+  "Monorepo with packages/ for libraries and apps/ for services.
+  All services communicate via gRPC with protobuf schemas in proto/.
+  Shared utilities live in packages/common."
+-->
 
-<!-- Describe how tests should be written and organized. -->
-
-- **Framework:** [e.g., Jest, pytest, Go testing]
-- **Location:** [e.g., `__tests__/` directories alongside source, `tests/` at root]
-- **Naming:** [e.g., `test_<function_name>`, `describe/it` blocks]
-- **Coverage expectations:** [e.g., all public functions must have tests]
-
-## File Structure
-
-<!-- Describe the project layout so Copilot understands where things belong. -->
+- **Primary language:** [e.g., TypeScript, Python, Go, Rust]
+- **Framework/runtime:** [e.g., Next.js 14, FastAPI, Go stdlib]
+- **Key dependencies:** [e.g., Prisma + PostgreSQL, Redis for caching]
+- **Project structure:**
 
 ```
 project-root/
 ├── src/              # Application source code
 ├── tests/            # Test files
 ├── docs/             # Documentation
-├── .github/          # GitHub configuration
 └── ...
 ```
 
-## Key Conventions
+---
 
-<!-- List project-specific conventions that affect code generation. -->
+## Coding Conventions
 
-- [e.g., "Use dependency injection for all service classes"]
-- [e.g., "All API endpoints return JSON with {data, error, metadata} shape"]
-- [e.g., "Database queries go through the repository layer, never called directly"]
+<!--
+  Rules Cascade should follow when generating or modifying code.
+  Be explicit — the AI has no way to infer unwritten conventions.
+-->
+
+- **Formatting:** [e.g., Prettier with default config; Black + isort for Python]
+- **Naming:** [e.g., camelCase for variables, PascalCase for classes, SCREAMING_SNAKE for constants]
+- **Imports:** [e.g., absolute imports only; group as stdlib / third-party / local with blank lines between]
+- **Types:** [e.g., strict TypeScript — no implicit `any`; type hints required on all public functions]
+- **Comments:** [e.g., explain why, not what; JSDoc on all public APIs]
+
+---
+
+## Error Handling
+
+<!--
+  How errors should be surfaced, logged, and propagated.
+-->
+
+- [e.g., "Use typed error classes — never throw raw strings"]
+- [e.g., "All async functions must have explicit try/catch or propagate via Result<T, E>"]
+- [e.g., "Log errors at the point of origin; do not re-log at callers"]
+- [e.g., "User-facing error messages must not expose internal stack traces"]
+
+---
+
+## Testing
+
+<!--
+  Test framework, file location conventions, naming conventions,
+  and coverage expectations.
+-->
+
+- **Framework:** [e.g., Jest + Testing Library; pytest; Go testing]
+- **Location:** [e.g., `__tests__/` next to source; `tests/` at root]
+- **Naming:** [e.g., `*.test.ts`; `test_<module>.py`; `*_test.go`]
+- **Coverage expectations:** [e.g., all public functions must have tests; 80% line coverage minimum]
+- **Test data:** [e.g., fixtures in `tests/fixtures/`; factories in `tests/factories/`]
+
+---
+
+## Development Workflow
+
+<!--
+  Branch strategy, commit message format, PR requirements,
+  and anything Cascade should know when helping with git or CI tasks.
+-->
+
+- **Branches:** [e.g., `feature/<ticket>-<slug>`, `fix/<ticket>-<slug>`]
+- **Commits:** [e.g., Conventional Commits — `feat:`, `fix:`, `docs:`, `refactor:`]
+- **PRs:** [e.g., must link to issue; must pass CI; require one reviewer]
+- **CI:** [e.g., GitHub Actions — lint, test, build on every push]
+- **Local setup:** [e.g., `make dev` starts the dev server; `make test` runs the full suite]
+
+---
+
+## Parallelization Rules
+
+<!--
+  How work should be divided when multiple agents or tasks run concurrently.
+  Prevents conflicts when AI agents work in parallel across the codebase.
+-->
+
+- [e.g., "Each agent works in its own git worktree — never share a working directory"]
+- [e.g., "Database migrations are sequential — only one agent may write migrations at a time"]
+- [e.g., "Shared config files (package.json, pyproject.toml) require coordination — flag conflicts"]
+- [e.g., "Generated files (OpenAPI, protobuf) are regenerated from source — do not edit directly"]
+
+---
 
 ## What Not to Do
 
-<!-- Explicit anti-patterns to avoid. -->
+<!--
+  Explicit anti-patterns. Cascade will follow these as hard rules.
+-->
 
-- [e.g., "Do not use `any` type in TypeScript"]
-- [e.g., "Do not commit secrets or credentials"]
-- [e.g., "Do not add dependencies without documenting the reason"]
-- Do not start implementation without a corresponding GitHub Issue. Every work request must be tracked.
-- Do not discard the originating human prompt — capture it in the issue's "Originating Prompt" section or as a comment for retrospective use.
-- Do not close, implement, or modify issues labeled `sample`. These are onboarding references (prefixed `[SAMPLE 1]`, `[SAMPLE 2]`), not actionable work items.
+- [e.g., "Do not use `any` type in TypeScript — use `unknown` and narrow explicitly"]
+- [e.g., "Do not commit secrets, API keys, or credentials — use environment variables"]
+- [e.g., "Do not add dependencies without documenting the reason in the PR"]
+- [e.g., "Do not bypass the repository layer — never call the database directly from handlers"]
+- [e.g., "Do not leave TODO comments in production code — open an issue instead"]
 
 ---
 > Source: [microsoft/agentic-agile-template](https://github.com/microsoft/agentic-agile-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
