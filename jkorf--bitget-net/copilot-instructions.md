@@ -1,18 +1,13 @@
 ## bitget-net
 
-> This repository is **Bitget.Net**, a strongly typed C#/.NET client library for the Bitget REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using Bitget.Net library when working with Bitget in C#/.NET. Apply when generating code that interacts with the Bitget API.
 
-# Copilot Instructions for Bitget.Net
 
-This repository is **Bitget.Net**, a strongly typed C#/.NET client library for the Bitget REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+# Bitget.Net Conventions
 
-When generating code that consumes Bitget.Net, follow these conventions.
+This codebase uses **Bitget.Net** for Bitget exchange access. Do not write raw `HttpClient` calls to Bitget endpoints.
 
-## Use Bitget.Net, not raw HTTP
-
-Never generate `HttpClient` calls to Bitget API URLs. Always use `BitgetRestClient` or `BitgetSocketClient`. This ensures correct request signing, passphrase handling, rate limiting, serialization, and error handling.
-
-## Client setup
+## Client setup pattern
 
 ```csharp
 using Bitget.Net;
@@ -24,60 +19,42 @@ var restClient = new BitgetRestClient(options =>
 });
 ```
 
-For public market data, credentials are not required:
+For public market data only, no credentials are needed: `new BitgetRestClient()`.
+
+## Result pattern
+
+All REST methods return `WebCallResult<T>` or `WebCallResult`. WebSocket subscriptions return `CallResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`:
 
 ```csharp
-var restClient = new BitgetRestClient();
+var ticker = await restClient.SpotApiV2.ExchangeData.GetTickersAsync("BTCUSDT");
+if (!ticker.Success) { /* ticker.Error */ return; }
+var price = ticker.Data.Single().LastPrice;
 ```
 
-Socket client:
+## API surface
 
-```csharp
-var socketClient = new BitgetSocketClient(options =>
-{
-    options.ApiCredentials = new BitgetCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
-});
-```
-
-## Result handling
-
-REST methods return `WebCallResult<T>` or `WebCallResult`. Socket subscription methods return `CallResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`. The error is on `.Error`.
-
-```csharp
-var result = await restClient.SpotApiV2.ExchangeData.GetTickersAsync("BTCUSDT");
-if (!result.Success)
-{
-    Console.WriteLine(result.Error);
-    return;
-}
-
-Console.WriteLine(result.Data.Single().LastPrice);
-```
-
-## API structure
-
-- `restClient.SpotApiV2.ExchangeData` - spot public server time, announcements, assets, symbols, tickers, order books, klines and trades
-- `restClient.SpotApiV2.Account` - funding balances, spot balances, fees, transfers, deposits, withdrawals, ledgers, BGB deduction and subaccounts
-- `restClient.SpotApiV2.Trading` - spot orders, cancel/replace, open/closed orders, fills and spot trigger orders
-- `restClient.SpotApiV2.Margin` - spot cross and isolated margin balances, borrowing, repayment, risk, orders and histories
-- `restClient.FuturesApiV2.ExchangeData` - futures contracts, tickers, order books, klines, funding, open interest, prices and tiers
-- `restClient.FuturesApiV2.Account` - futures balances, leverage, margin mode, position mode, ledger, ADL, liquidation price and openable quantity
-- `restClient.FuturesApiV2.Trading` - futures positions, orders, fills, close-position actions, trigger orders and TP/SL
-- `restClient.CopyTradingFuturesV2.Trader` and `.Follower` - copy trading futures endpoints
-- `restClient.UnifiedApi.ExchangeData`, `.Account` and `.Trading` - Unified/UTA market, account and trading endpoints
-- `restClient.BrokerV2` - broker reporting endpoints on the concrete `BitgetRestClient`
-- `socketClient.SpotApiV2` - spot public/private WebSocket streams and margin streams
-- `socketClient.FuturesApiV2` - futures public/private WebSocket streams
-- `socketClient.UnifiedApi` - Unified/UTA public/private WebSocket streams and socket order actions
+- `restClient.SpotApiV2.ExchangeData` for spot public server time, assets, symbols, tickers, books, candles and trades
+- `restClient.SpotApiV2.Account` for funding balances, spot balances, fees, transfers, deposits, withdrawals, ledgers and subaccounts
+- `restClient.SpotApiV2.Trading` for spot orders, cancel/replace, fills and trigger orders
+- `restClient.SpotApiV2.Margin` for cross and isolated spot margin
+- `restClient.FuturesApiV2.ExchangeData` for futures contracts, tickers, books, candles, funding, open interest and tiers
+- `restClient.FuturesApiV2.Account` for balances, leverage, margin mode, position mode, ADL and ledger
+- `restClient.FuturesApiV2.Trading` for futures positions, orders, fills, close-position actions, triggers and TP/SL
+- `restClient.CopyTradingFuturesV2.Trader` and `.Follower` for copy trading futures
+- `restClient.UnifiedApi.ExchangeData`, `.Account` and `.Trading` for Unified/UTA market, account and trading endpoints
+- `restClient.BrokerV2` for broker reporting on the concrete `BitgetRestClient`
+- `socketClient.SpotApiV2` for spot public/private WebSocket streams and margin streams
+- `socketClient.FuturesApiV2` for futures public/private WebSocket streams
+- `socketClient.UnifiedApi` for Unified/UTA public/private WebSocket streams and socket order actions
 
 ## Symbols and product types
 
-Bitget symbols are compact:
+Bitget V2 symbol conventions matter:
 
-- Correct: `BTCUSDT`, `ETHUSDT`, `BGBUSDT`
-- Wrong: `BTC-USDT`, `BTC/USDT`, `BTC_USDT`, `tBTCUSD`
+- Spot and futures symbols: `BTCUSDT`, `ETHUSDT`, `BGBUSDT`
+- Do not use `BTC-USDT`, `BTC/USDT`, `BTC_USDT`, or `tBTCUSD`
 
-Futures calls usually require a product type:
+Futures product types:
 
 ```csharp
 BitgetProductTypeV2.UsdtFutures
@@ -86,47 +63,44 @@ BitgetProductTypeV2.UsdcFutures
 BitgetProductTypeV2.SimUsdtFutures
 ```
 
-Futures account and trading calls often require a margin asset such as `"USDT"`.
+Futures account and trading methods often require a margin asset such as `"USDT"`.
 
 ## Enum namespaces
 
-Use `Bitget.Net.Enums` for:
-
-- `BitgetProductTypeV2`
-- `BitgetStreamKlineIntervalV2`
-- `BitgetFuturesKlineInterval`
-- `BitgetBusinessType`
-
-Use `Bitget.Net.Enums.V2` for:
-
-- `OrderSide`, `OrderType`, `TimeInForce`
-- `MarginMode`, `TradeSide`, `PositionSide`, `PositionMode`
-- `TransferAccountType`, `TransferType`, `AccountType`
-- spot REST `KlineInterval`
-- trigger-order enums
-
-Use `Bitget.Net.Enums.Uta` for Unified/UTA enums:
-
-- `ProductCategory`, `KlineUaInterval`
-- `AccountLevel`, `AccountMode`, `HoldingMode`
-- `StpMode`, `StrategyType`, `TpslMode`
-
-## Spot examples
-
-Market data:
+Use `Bitget.Net.Enums` for product type and stream/futures kline enums:
 
 ```csharp
-var ticker = await restClient.SpotApiV2.ExchangeData.GetTickersAsync("BTCUSDT");
-if (!ticker.Success) { Console.WriteLine(ticker.Error); return; }
-
-Console.WriteLine(ticker.Data.Single().LastPrice);
+BitgetProductTypeV2.UsdtFutures
+BitgetStreamKlineIntervalV2.OneMinute
+BitgetFuturesKlineInterval.OneMinute
 ```
 
-Spot order:
+Use `Bitget.Net.Enums.V2` for V2 order/account enums:
 
 ```csharp
-using Bitget.Net.Enums.V2;
+OrderSide.Buy
+OrderType.Limit
+TimeInForce.GoodTillCanceled
+MarginMode.CrossMargin
+TradeSide.Open
+TransferAccountType.Spot
+TransferType.OnChain
+```
 
+Use `Bitget.Net.Enums.Uta` for Unified/UTA category and account enums:
+
+```csharp
+ProductCategory.Spot
+ProductCategory.UsdtFutures
+KlineUaInterval.OneMinute
+AccountLevel.Advanced
+HoldingMode.OneWayMode
+StpMode.CancelMaker
+```
+
+## Spot order placement
+
+```csharp
 var order = await restClient.SpotApiV2.Trading.PlaceOrderAsync(
     "BTCUSDT",
     OrderSide.Buy,
@@ -136,30 +110,17 @@ var order = await restClient.SpotApiV2.Trading.PlaceOrderAsync(
     price: 1m);
 ```
 
-Spot margin:
+`GetTickersAsync("BTCUSDT")` returns an array. Use `.Single()` or `.FirstOrDefault()` after checking `.Success`.
+
+## Futures order placement
 
 ```csharp
-var crossBalances = await restClient.SpotApiV2.Margin.GetCrossBalancesAsync("USDT");
-var isolatedBalances = await restClient.SpotApiV2.Margin.GetIsolatedBalancesAsync();
-```
-
-## Futures examples
-
-```csharp
-using Bitget.Net.Enums;
-using Bitget.Net.Enums.V2;
-
 var productType = BitgetProductTypeV2.UsdtFutures;
-const string symbol = "BTCUSDT";
-const string marginAsset = "USDT";
-
-var ticker = await restClient.FuturesApiV2.ExchangeData.GetTickerAsync(productType, symbol);
-var positions = await restClient.FuturesApiV2.Trading.GetPositionsAsync(productType, marginAsset);
 
 var order = await restClient.FuturesApiV2.Trading.PlaceOrderAsync(
     productType,
-    symbol,
-    marginAsset,
+    "BTCUSDT",
+    "USDT",
     OrderSide.Buy,
     OrderType.Limit,
     MarginMode.CrossMargin,
@@ -169,14 +130,21 @@ var order = await restClient.FuturesApiV2.Trading.PlaceOrderAsync(
     tradeSide: TradeSide.Open);
 ```
 
-## Unified/UTA examples
+## Spot margin
+
+Spot margin is not a separate top-level API. Use `SpotApiV2.Margin`:
 
 ```csharp
-using Bitget.Net.Enums.Uta;
-using Bitget.Net.Enums.V2;
+var crossBalances = await restClient.SpotApiV2.Margin.GetCrossBalancesAsync("USDT");
+var isolatedBalances = await restClient.SpotApiV2.Margin.GetIsolatedBalancesAsync();
+```
 
+## Unified/UTA
+
+Unified/UTA endpoints are under `UnifiedApi`. Use `ProductCategory` from `Bitget.Net.Enums.Uta` for category parameters:
+
+```csharp
 var symbols = await restClient.UnifiedApi.ExchangeData.GetSpotSymbolsAsync("BTCUSDT");
-var futuresTickers = await restClient.UnifiedApi.ExchangeData.GetFuturesTickersAsync(ProductCategory.UsdtFutures);
 var balances = await restClient.UnifiedApi.Account.GetBalancesAsync();
 
 var order = await restClient.UnifiedApi.Trading.PlaceOrderAsync(
@@ -190,52 +158,50 @@ var order = await restClient.UnifiedApi.Trading.PlaceOrderAsync(
 
 ## WebSocket pattern
 
-Store the returned `UpdateSubscription` and unsubscribe on shutdown via `socketClient.UnsubscribeAsync(sub.Data)`.
-
 ```csharp
+var socketClient = new BitgetSocketClient();
 var sub = await socketClient.SpotApiV2.SubscribeToTickerUpdatesAsync(
     "BTCUSDT",
-    update => Console.WriteLine(update.Data.First().LastPrice));
+    update => { /* update.Data.First().LastPrice */ });
+if (!sub.Success) { /* sub.Error */ return; }
 
-if (!sub.Success) { Console.WriteLine(sub.Error); return; }
-
+// On shutdown:
 await socketClient.UnsubscribeAsync(sub.Data);
 ```
 
-Futures socket subscriptions require product type:
+For futures sockets:
 
 ```csharp
-var sub = await socketClient.FuturesApiV2.SubscribeToTickerUpdatesAsync(
+var futuresSub = await socketClient.FuturesApiV2.SubscribeToTickerUpdatesAsync(
     BitgetProductTypeV2.UsdtFutures,
     "BTCUSDT",
-    update => Console.WriteLine(update.Data.First().LastPrice));
+    update => { /* update.Data.First().LastPrice */ });
 ```
 
-Unified/UTA socket subscriptions use `ProductCategory`:
+For Unified/UTA sockets:
 
 ```csharp
-var sub = await socketClient.UnifiedApi.SubscribeToTickerUpdatesAsync(
+var unifiedSub = await socketClient.UnifiedApi.SubscribeToTickerUpdatesAsync(
     ProductCategory.Spot,
     "BTCUSDT",
-    update => Console.WriteLine(update.Data.First().LastPrice));
+    update => { /* update.Data.First().LastPrice */ });
 ```
 
-## Cross-exchange
+## Multi-exchange code
 
-For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed via `.SharedClient` properties.
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
 
 ```csharp
-using Bitget.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 var shared = new BitgetRestClient().SpotApiV2.SharedClient;
-var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
 ```
 
-Use `SharedSymbol` for shared APIs. Do not pass exchange-native `BTCUSDT` strings to shared requests.
+Same pattern works against other CryptoExchange.Net libraries. Shared socket interfaces do not expose unsubscribe; keep the concrete socket client and call `socketClient.UnsubscribeAsync(sub.Data)`.
 
-For shared socket subscriptions, keep the concrete socket client because shared socket interfaces do not expose unsubscribe.
+Shared spot and futures symbol discovery returns base/quote asset type and subtype metadata. Successful symbol requests also populate `SpotSymbolCatalog` or `FuturesSymbolCatalog` on the corresponding shared symbol REST interface.
 
 ## Dependency injection
 
@@ -248,35 +214,42 @@ services.AddBitget(options =>
 
 Inject `IBitgetRestClient` and `IBitgetSocketClient`.
 
-## Avoid
+## Local order books and trackers
 
-- Raw `HttpClient` calls to Bitget endpoints
-- Generic `ApiCredentials` without Bitget passphrase support
-- Invented roots such as `SpotApi`, `FuturesApi`, `MarginApi`, `CopyTradingApi`, `UsdFuturesApi`, or `PerpetualFuturesApi`
-- Invented Unified/UTA roots such as `UtaApi`; use `UnifiedApi`
-- Symbols with separators (`BTC-USDT`, `BTC/USDT`)
-- Missing `BitgetProductTypeV2` on futures calls
-- Missing margin asset on futures account/trading calls that require it
-- Wrong enum namespace (`OrderSide` should come from `Bitget.Net.Enums.V2`)
-- Wrong Unified/UTA enum namespace (`ProductCategory` should come from `Bitget.Net.Enums.Uta`)
-- Synchronous `.Result` / `.Wait()`
-- Instantiating clients per request
-- Manual ticker polling when a WebSocket subscription fits
-- Manual order book merge logic when local order book helpers fit
+Prefer project helpers instead of hand-rolling stream merge logic:
 
-## Source of truth
+- `BitgetSpotSymbolOrderBook`
+- `BitgetFuturesSymbolOrderBook`
+- `BitgetUnifiedSymbolOrderBook`
+- `BitgetOrderBookFactory`
+- `BitgetUserDataTracker`
+- `BitgetTrackerFactory`
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, `llms-full.txt`, `docs/ai-api-map.md`, and `Examples/ai-friendly/`.
+## Hard rules
 
-When method signatures are unclear, inspect:
+- Never write raw `HttpClient` to Bitget endpoints.
+- Never use `.Result` or `.Wait()`; use async all the way.
+- Never instantiate clients per request; reuse them or use DI.
+- Never skip checking `WebCallResult.Success`.
+- Prefer `BitgetRestClient` and `BitgetSocketClient`.
+- Always use `BitgetCredentials("key", "secret", "passPhrase")`, not generic credentials without passphrase.
+- Always store WebSocket subscriptions and unsubscribe on shutdown.
+- Use V2 roots: `SpotApiV2`, `FuturesApiV2`, `CopyTradingFuturesV2`; use `UnifiedApi` for Unified/UTA.
+- Use `SpotApiV2.Margin` for spot margin.
+- Use compact Bitget symbols such as `BTCUSDT`.
+- Include `BitgetProductTypeV2` on futures calls.
+- Include margin asset where futures methods require it.
+- Use the correct enum namespace.
+- Do not invent `UtaApi`; the Unified/UTA root is `UnifiedApi`.
 
-- `Bitget.Net/Interfaces/Clients/SpotApiV2/**`
-- `Bitget.Net/Interfaces/Clients/FuturesApiV2/**`
-- `Bitget.Net/Interfaces/Clients/UnifiedApi/**`
-- `Bitget.Net/Interfaces/Clients/CopyTradingApiV2/**`
-- `Bitget.Net/Interfaces/Clients/BrokerApiV2/**`
-- `Bitget.Net/Enums/**`
+## Reference
+
+- Skill: `AGENTS.md` in repo root has fuller examples
+- `llms.txt` and `llms-full.txt` in repo root for AI context
+- API map: `docs/ai-api-map.md`
+- Examples: `Examples/ai-friendly/`
+- Source of truth: `Bitget.Net/Interfaces/Clients/**` and `Bitget.Net/Enums/**`
 
 ---
 > Source: [JKorf/Bitget.Net](https://github.com/JKorf/Bitget.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
