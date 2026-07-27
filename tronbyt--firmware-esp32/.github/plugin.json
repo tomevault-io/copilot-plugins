@@ -1,0 +1,9 @@
+{
+  "name": "tronbyt--firmware-esp32",
+  "displayName": "firmware-esp32",
+  "description": "firmware-esp32",
+  "version": "1.0.0",
+  "author": "tronbyt",
+  "homepage": "https://github.com/tronbyt/firmware-esp32",
+  "skills": []
+}
