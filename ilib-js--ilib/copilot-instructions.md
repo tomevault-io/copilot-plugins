@@ -1,96 +1,41 @@
 ## ilib
 
-> This file is for humans and coding agents working in this repository. For user-facing overview, see [README.md](README.md). Deeper narrative docs live under [docs/](docs/).
+> TDD workflow, approval gates, and test-first fixes for iLib
 
-# AGENTS.md — iLib quick orientation
 
-This file is for humans and coding agents working in this repository. For user-facing overview, see [README.md](README.md). Deeper narrative docs live under [docs/](docs/).
+# Development process (agent)
 
-## What this project is
+Follow **test-driven development** unless the user explicitly directs otherwise.
 
-**iLib** is a **pure ES5 JavaScript** internationalization library (Apache-2.0). It provides locale-sensitive formatting, parsing, calendars, time zones (IANA), collation, translation bundles, phone/name/address handling, units, Unicode normalization, and related utilities—aligned heavily with **Unicode CLDR** data.
+## New class or substantial new API
 
-- **npm package**: `ilib` (see [package.json](package.json) for version and engines).
-- **Upstream / issues**: https://github.com/iLib-js/iLib
+1. Add the **API skeleton** and **JSDoc** only (signatures, options, behaviour described; minimal or stub implementation if needed to load).
+2. **Stop and wait** for explicit user approval before continuing.
+3. After approval, write **unit tests** that define the intended behaviour.
+4. **Stop and wait** for user approval of the tests.
+5. Only after tests are approved, implement code until tests pass.
+6. Prefer **changing implementation** to satisfy tests. **Do not** weaken or rewrite tests just to turn them green.
+7. If a test likely reflects a wrong expectation, **stop and ask the user** before changing the test.
 
-## Where the important code lives
+## Bug fixes or behaviour changes in existing code
 
-| Area | Path | Notes |
-|------|------|--------|
-| **Runtime JS modules** | [js/lib/](js/lib/) | One main class/feature per `.js` file; CommonJS `require` / `module.exports`. |
-| **Package entry** | [js/index.js](js/index.js) | `package.json` `"main"`; picks platform glue (`ilib-node.js`, `ilib-webpack.js`, `ilib-qt.js`, etc.). |
-| **Locale / CLDR JSON** | [js/locale/](js/locale/) | Merged per BCP-47 rules (language, `und/region`, script, region, variants). |
-| **Human docs** | [docs/](docs/) | Architecture, getting started, tutorials, FAQ. Start with [docs/Architecture.md](docs/Architecture.md) and [docs/tutorial/modules.md](docs/tutorial/modules.md). |
-| **Build / test orchestration** | `Gruntfile.js`, `build.xml`, Ant targets | Legacy-heavy; `npm test` delegates to Ant (see below). |
-| **Assembly / meta** | [js/assembleData/](js/assembleData/), `ilib-assemble` (devDependency) | Merging locale JSON, custom locales, assembled bundles. |
+1. **Add or adjust unit tests first** so the bug or gap is **reproduced** (failing test).
+2. **Stop and wait** for user approval of that test (or test change) before editing production code.
+3. Then fix **`js/lib`** (or relevant code) so tests pass, using the same rules as above about not “fixing” tests without user confirmation.
 
-### Notable `js/lib/` patterns
+## Pull requests and CI
 
-- **`ilib.js`**: global `ilib` namespace, shared `ilib.data` caches, version helpers.
-- **Loaders**: `Loader.js` base; `NodeLoader.js`, `WebLoader.js`, `AsyncNodeLoader.js`, `WebpackLoader.js`, `QMLLoader.js`, `RhinoLoader.js`, etc. Dynamic locale data requires a loader before first use.
-- **Platform entry wrappers**: `ilib-node.js`, `ilib-web.js`, `ilib-qt.js`, `ilib-rhino.js`, `ilib-ringo.js`, `ilib-webpack.js`.
-- **Unicode normalization**: large trees under `nfc/`, `nfd/`, `nfkc/`, `nfkd/`, plus `charmaps/`.
-- **Calendars / dates**: `*Cal.js`, `*Date.js`, `CalendarFactory.js`, `DateFactory.js`, `RataDie.js`, etc.
+- **All unit tests must pass** in CI before a PR is merge-ready (enforced by GitHub checks).
+- **Local verification:** follow **[docs/Contributing.md](../../docs/Contributing.md)**—Node tests need **`JAVA_HOME`** (JDK **24+**), **`ant`**, then **`cd js` && `ant test`**; browser tests use **`ant test.remote`** and **http://localhost:9090/**; Qt uses **[docs/QtTest.md](../../docs/QtTest.md)**.
 
-### Assembly directives (critical for bundling)
+## Git branches (summary)
 
-At the top of many source files:
+- **`development`** is the main integration branch for day-to-day work.
+- **Feature branches** branch from **`development`** and merge back via PR to **`development`**.
+- **Releases:** merge **`development`** → **`main`** via PR when ready; **annotated tags** are created on **`main`** only.
 
-- `/*!depends file1.js file2.js */` — include other sources in order (no circular deps).
-- `/*!data datalabel ... */` — pull matching JSON from [js/locale/](js/locale/) for requested locales.
-
-See [docs/Architecture.md](docs/Architecture.md) for sync vs async construction (`sync`, `onLoad`, `loadParams`) and assembled vs dynamic (`-dyn`) builds.
-
-## How consumers import iLib (Node / modular)
-
-After `require("ilib")` initializes the environment:
-
-```js
-var DateFmt = require("ilib/lib/DateFmt");
-var DateFactory = require("ilib/lib/DateFactory");
-```
-
-Classes are **ES5**; factories like `DateFactory`, `CalendarFactory`, `MeasurementFactory` replaced older `ilib.Date.newInstance` style (see [docs/tutorial/modules.md](docs/tutorial/modules.md)).
-
-## Builds and tests (from repo root)
-
-- **Full Node test suite:** set **`JAVA_HOME`** (JDK **24+**), ensure **`ant`** is available, then **`cd js`** and **`ant test`**. See [docs/Contributing.md](docs/Contributing.md) for browser (`ant test.remote`, **http://localhost:9090/**) and Qt steps.
-- **`npm test`** (repo root): runs **`ant test.dynamic.uncompiled`**—a faster subset, not the full **`cd js && ant test`** run.
-- **`npm run build.web`**: production webpack build (`webpack -p`).
-- **Locale merge scripts**: `npm run build:mergeJson` / `build:mergeJson-compressed` / `debug:mergeJson` (use `ilib-assemble`).
-
-When in doubt, read [package.json](package.json) `scripts` and [README.md](README.md) “Other iLib Support” (webpack loader/plugin, scanner, external packages).
-
-## Development workflow
-
-- **Policy and branching:** [docs/Contributing.md](docs/Contributing.md) (TDD, `development` / `main`, releases, platform matrix).
-- **Cursor agents:** [`.cursor/rules/development-process.mdc`](.cursor/rules/development-process.mdc) is **`alwaysApply: true`** so assistants follow approval gates and test-first fixes.
-
-## Conventions for changes
-
-- Match **existing style**: ES5, JSDoc-style comments, same dependency/loader patterns.
-- Keep **one concern per file**; update **`/*!depends` / `/*!data`** when adding dependencies or locale needs.
-- Do not assume modern JS features in `js/lib/` without an explicit project decision.
-- Published npm `files` field includes `js/lib`, `js/locale`, `README.md`, `LICENSE`—changes outside those may not ship in the package unless packaging is updated.
-
-## External docs and API reference
-
-- Hosted docs index: https://ilib-js.github.io/iLib/docs/
-- JSDoc (latest linked from [docs/index.md](docs/index.md))
-
-## Related tooling (separate repos)
-
-- [ilib-webpack-loader](https://github.com/iLib-js/ilib-webpack-loader) / [ilib-webpack-plugin](https://github.com/iLib-js/ilib-webpack-plugin) — tree-shaken bundles.
-- [ilib-scanner](https://github.com/iLib-js/ilib-scanner) — minimal webpack config from codebase scan.
-- [loctool](https://github.com/iLib-js/loctool) — XLIFF / string extraction.
-- [ilib-es6](https://github.com/iLib-js/ilib-es6) — Promise/async wrappers.
-
----
-
-## Cursor / AGENTS.md
-
-**AGENTS.md is not a substitute for Cursor Rules.** Cursor’s primary always-on project instructions live in [`.cursor/rules/`](.cursor/rules/) (`.mdc` files with frontmatter). **Root `AGENTS.md` is a conventional place to stash repo orientation** so agents and developers can read it quickly; Cursor may include it in context when working in this workspace (e.g. along with README), but **behaviour depends on Cursor version and settings**. For instructions that must apply to every chat, add or extend a rule under `.cursor/rules/`.
+For full branching, release, and platform coverage details, see **`docs/Contributing.md`**.
 
 ---
 > Source: [iLib-js/iLib](https://github.com/iLib-js/iLib) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
