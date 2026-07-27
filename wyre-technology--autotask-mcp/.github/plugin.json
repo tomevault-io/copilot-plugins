@@ -1,7 +1,7 @@
 {
   "name": "wyre-technology--autotask-mcp",
   "displayName": "autotask-mcp",
-  "description": "MCP server for Kaseya Autotask PSA \u2014 39 tools for companies, tickets, projects, time entries, and more",
+  "description": "autotask-mcp",
   "version": "1.0.0",
   "author": "wyre-technology",
   "homepage": "https://github.com/wyre-technology/autotask-mcp",
