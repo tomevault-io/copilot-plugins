@@ -2,7 +2,7 @@
   "name": "evalite",
   "owner": "mattpocock",
   "repo": "evalite",
-  "description": "Evaluate your LLM-powered apps with TypeScript",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mattpocock/evalite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T19:46:34Z"
+  "distributed_at": "2026-07-27T19:30:12Z"
 }
