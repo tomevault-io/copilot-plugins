@@ -1,8 +1,6 @@
 # effect-messaging
 
-> Source: [spiko-tech/effect-messaging](https://github.com/spiko-tech/effect-messaging) — distributed by [TomeVault](https://tomevault.io)
-
-A message broker toolkit for Effect
+> Source: [spiko-tech/effect-messaging](https://github.com/spiko-tech/effect-messaging). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [spiko-tech/effect-messaging](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/spiko-tech/effect-messaging](https://github.com/spiko-tech/effect-messaging)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/spiko-tech/effect-messaging](https://github.com/spiko-tech/effect-messaging)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
