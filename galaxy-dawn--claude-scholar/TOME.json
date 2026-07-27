@@ -2,9 +2,9 @@
   "name": "claude-scholar",
   "owner": "Galaxy-Dawn",
   "repo": "claude-scholar",
-  "description": "Semi-automated research assistant for academic research and software development. Supports Claude Code, OpenCode, and Codex CLI across ideation, coding, experiments, writing, and publication.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Galaxy-Dawn/claude-scholar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T05:32:14Z"
+  "distributed_at": "2026-07-27T02:07:51Z"
 }
