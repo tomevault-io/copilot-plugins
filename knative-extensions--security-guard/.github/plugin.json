@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--security-guard",
+  "displayName": "security-guard",
+  "description": "security-guard",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/security-guard",
+  "skills": []
+}
