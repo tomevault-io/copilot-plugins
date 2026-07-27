@@ -1,0 +1,9 @@
+{
+  "name": "deno-libs--gql",
+  "displayName": "gql",
+  "description": "gql",
+  "version": "1.0.0",
+  "author": "deno-libs",
+  "homepage": "https://github.com/deno-libs/gql",
+  "skills": []
+}
