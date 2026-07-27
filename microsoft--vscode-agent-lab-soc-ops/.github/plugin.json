@@ -1,0 +1,14 @@
+{
+  "name": "microsoft--vscode-agent-lab-soc-ops",
+  "displayName": "vscode-agent-lab-soc-ops",
+  "description": "vscode-agent-lab-soc-ops",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/vscode-agent-lab-soc-ops",
+  "skills": [
+    {
+      "name": "vscode-agent-lab-soc-ops",
+      "description": ""
+    }
+  ]
+}
