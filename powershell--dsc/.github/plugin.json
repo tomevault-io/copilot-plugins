@@ -1,0 +1,18 @@
+{
+  "name": "powershell--dsc",
+  "displayName": "DSC",
+  "description": "DSC",
+  "version": "1.0.0",
+  "author": "PowerShell",
+  "homepage": "https://github.com/PowerShell/DSC",
+  "skills": [
+    {
+      "name": "DSC",
+      "description": ""
+    },
+    {
+      "name": "DSC",
+      "description": ""
+    }
+  ]
+}
