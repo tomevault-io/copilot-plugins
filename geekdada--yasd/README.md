@@ -15,13 +15,6 @@ Original source: `AGENTS.md` in [geekdada/yasd](https://github.com/geekdada/yasd
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (4)
-
-- [yasd](https://github.com/geekdada/yasd/tree/main/.agents/skills/vite/SKILL.md)
-- [yasd](https://github.com/geekdada/yasd/tree/main/.agents/skills/shadcn/SKILL.md)
-- [yasd](https://github.com/geekdada/yasd/tree/main/.agents/skills/web-design-guidelines/SKILL.md)
-- [yasd](https://github.com/geekdada/yasd/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/geekdada/yasd](https://github.com/geekdada/yasd)
 
 ---
