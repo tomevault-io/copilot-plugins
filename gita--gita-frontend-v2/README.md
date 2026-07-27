@@ -1,6 +1,6 @@
 # gita-frontend-v2
 
-> Tome by [gita](https://github.com/gita/gita-frontend-v2) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [gita](https://github.com/gita/gita-frontend-v2), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [gita/gita-frontend-v2](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/gita/gita-frontend-v2](https://github.com/gita/gita-frontend-v2)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/gita/gita-frontend-v2](https://github.com/gita/gita-frontend-v2)
 
 ---
 
