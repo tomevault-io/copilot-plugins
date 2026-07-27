@@ -1,8 +1,6 @@
 # kirby-mcp
 
-> Tome by [bnomei](https://github.com/bnomei/kirby-mcp) — distributed by [TomeVault](https://tomevault.io/claim/bnomei)
-
-AI instruction files for kirby-mcp by bnomei
+> Source: [bnomei/kirby-mcp](https://github.com/bnomei/kirby-mcp). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,17 +15,10 @@ Original source: `AGENTS.md` in [bnomei/kirby-mcp](https://github.com/bnomei/kir
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/bnomei](https://tomevault.io/claim/bnomei)
-
-## Bundled Skills (5)
-
-- [kirby-content-migration](https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-content-migration)
-- [kirby-forms-and-frontend-actions](https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-forms-and-frontend-actions)
-- [kirby-headless-api](https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-headless-api)
-- [kirby-panel-and-blueprints](https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-panel-and-blueprints)
-- [kirby-plugin-development](https://github.com/bnomei/kirby-mcp/tree/main/skills/kirby-plugin-development)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/bnomei/kirby-mcp](https://github.com/bnomei/kirby-mcp)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/bnomei) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-q -->
