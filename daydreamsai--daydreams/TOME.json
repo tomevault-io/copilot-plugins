@@ -2,9 +2,9 @@
   "name": "daydreams",
   "owner": "daydreamsai",
   "repo": "daydreams",
-  "description": "Daydreams is a set of tools for building agents for commerce",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/daydreamsai/daydreams",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:05:55Z"
+  "distributed_at": "2026-07-27T23:44:05Z"
 }
