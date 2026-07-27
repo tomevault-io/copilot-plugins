@@ -1,0 +1,9 @@
+{
+  "name": "giantswarm--net-exporter",
+  "displayName": "net-exporter",
+  "description": "net-exporter",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/net-exporter",
+  "skills": []
+}
