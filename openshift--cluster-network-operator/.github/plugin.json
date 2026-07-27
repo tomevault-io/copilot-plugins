@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-network-operator",
+  "displayName": "cluster-network-operator",
+  "description": "cluster-network-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-network-operator",
+  "skills": []
+}
