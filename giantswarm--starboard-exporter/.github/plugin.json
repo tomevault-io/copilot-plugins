@@ -1,0 +1,9 @@
+{
+  "name": "giantswarm--starboard-exporter",
+  "displayName": "starboard-exporter",
+  "description": "starboard-exporter",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/starboard-exporter",
+  "skills": []
+}
