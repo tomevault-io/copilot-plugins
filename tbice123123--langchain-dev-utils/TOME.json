@@ -2,9 +2,9 @@
   "name": "langchain-dev-utils",
   "owner": "TBice123123",
   "repo": "langchain-dev-utils",
-  "description": "A practical utility library for LangChain and LangGraph development",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TBice123123/langchain-dev-utils",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T15:31:23Z"
+  "distributed_at": "2026-07-27T21:05:39Z"
 }
