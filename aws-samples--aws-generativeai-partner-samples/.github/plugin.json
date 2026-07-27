@@ -1,0 +1,14 @@
+{
+  "name": "aws-samples--aws-generativeai-partner-samples",
+  "displayName": "aws-generativeai-partner-samples",
+  "description": "aws-generativeai-partner-samples",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/aws-generativeai-partner-samples",
+  "skills": [
+    {
+      "name": "aws-generativeai-partner-samples",
+      "description": ""
+    }
+  ]
+}
