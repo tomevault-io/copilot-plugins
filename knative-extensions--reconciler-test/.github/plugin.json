@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--reconciler-test",
+  "displayName": "reconciler-test",
+  "description": "reconciler-test",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/reconciler-test",
+  "skills": []
+}
