@@ -1,0 +1,9 @@
+{
+  "name": "sensu--sensu-docs",
+  "displayName": "sensu-docs",
+  "description": "sensu-docs",
+  "version": "1.0.0",
+  "author": "sensu",
+  "homepage": "https://github.com/sensu/sensu-docs",
+  "skills": []
+}
