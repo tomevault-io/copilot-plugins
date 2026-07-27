@@ -1,6 +1,6 @@
 # AI instruction files for dna
 
-> Sourced from [AcademySoftwareFoundation/dna](https://github.com/AcademySoftwareFoundation/dna) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [AcademySoftwareFoundation/dna](https://github.com/AcademySoftwareFoundation/dna), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -14,6 +14,11 @@ Original source: `.cursor/rules/*.mdc` in [AcademySoftwareFoundation/dna](https:
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (2)
+
+- [dna](https://github.com/AcademySoftwareFoundation/dna/tree/main/.cursor/skills/run-tests/SKILL.md)
+- [dna](https://github.com/AcademySoftwareFoundation/dna/tree/main/.cursor/skills/write-github-issues/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/AcademySoftwareFoundation/dna](https://github.com/AcademySoftwareFoundation/dna)
 
