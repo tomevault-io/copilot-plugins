@@ -1,0 +1,9 @@
+{
+  "name": "ansible--ansible-ai-connect-service",
+  "displayName": "ansible-ai-connect-service",
+  "description": "ansible-ai-connect-service",
+  "version": "1.0.0",
+  "author": "ansible",
+  "homepage": "https://github.com/ansible/ansible-ai-connect-service",
+  "skills": []
+}
