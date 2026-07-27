@@ -1,0 +1,78 @@
+{
+  "name": "microsoft--vscode-python-environments",
+  "displayName": "vscode-python-environments",
+  "description": "vscode-python-environments",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/vscode-python-environments",
+  "skills": [
+    {
+      "name": "cross-platform-paths",
+      "description": ""
+    },
+    {
+      "name": "debug-failing-test",
+      "description": ""
+    },
+    {
+      "name": "generate-snapshot",
+      "description": ""
+    },
+    {
+      "name": "python-manager-discovery",
+      "description": ""
+    },
+    {
+      "name": "run-e2e-tests",
+      "description": ""
+    },
+    {
+      "name": "run-integration-tests",
+      "description": ""
+    },
+    {
+      "name": "run-pre-commit-checks",
+      "description": ""
+    },
+    {
+      "name": "run-smoke-tests",
+      "description": ""
+    },
+    {
+      "name": "settings-precedence",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    },
+    {
+      "name": "vscode-python-environments",
+      "description": ""
+    }
+  ]
+}
