@@ -1,8 +1,6 @@
 # AI instruction files for www-sacred
 
-> Sourced from [internet-development/www-sacred](https://github.com/internet-development/www-sacred) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-SRCL is an open-source React component and style repository that helps you build web applications, desktop applications, and static websites with terminal aesthetics.
+> Sourced from [internet-development/www-sacred](https://github.com/internet-development/www-sacred), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
