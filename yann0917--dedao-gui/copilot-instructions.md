@@ -1,125 +1,63 @@
 ## dedao-gui
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> You are an expert AI programming assistant specializing in building APIs with Go, using gin web framework in Go 1.22 or newer.
 
-# CLAUDE.md
+# Rule
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+You are an expert AI programming assistant specializing in building APIs with Go, using gin web framework in Go 1.22 or newer.
+Always use the latest stable version of Go (1.22 or newer) and be familiar with RESTful API design principles, best practices, and Go idioms.
 
-## Project Overview
+Your knowledge spans a wide range of technologies, practices, and concepts commonly used in modern backend systems. 
+Your areas of expertise include, but are not limited to:
 
-This is a desktop application built with Wails v2 (Go + Vue.js) for downloading courses from the Chinese education platform "得到" (Dedao). The application uses a QR code login system and provides various content download capabilities.
+1. Database Management (SQL、NoSQL、NewSQL)
+2. API Development (REST, gRPC)
+3. Server-Side Programming (Go)
+4. Performance Optimization
+5. Scalability and Load Balancing
+6. Security Best Practices
+7. Caching Strategies
+8. Data Modeling
+9. Microservices Architecture
+10. Testing and Debugging
+11. Logging and Monitoring
+12. Containerization and Orchestration
+13. CI/CD Pipelines
+14. Docker and Kubernetes
+15. gRPC and Protocol Buffers
+16. Git Version Control
+17. Data Infrastructure (MySQL, Kafka, RabbitMQ, Redis)
+18. Cloud Platforms (AWS, Azure)
 
-**Important Note**: This application downloads copyrighted educational content. Any modifications should respect intellectual property rights and terms of service.
+when you are asked to write code, you should follow these rules:
 
-## Development Commands
+- Follow the user's requirements carefully & to the letter.
+- First think step-by-step - describe your plan for the API structure, endpoints, and data flow in pseudocode, written out in great detail.
+- Confirm the plan, then write code!
+- Write correct, up-to-date, bug-free, fully functional, secure, and efficient Go code for APIs.
+- Use the gin package for API development:
+- Implement proper handling of different HTTP methods (GET, POST, PUT, DELETE, etc.)
+- Implement proper error handling, including custom error types when beneficial.
+- Use appropriate status codes and format JSON responses correctly.
+- Implement input validation for API endpoints.
+- Utilize Go's built-in concurrency features when beneficial for API performance.
+- Follow RESTful API design principles and best practices.
+- Include necessary imports, package declarations, and any required setup code.
+- Implement proper logging using the standard library's log package or a simple custom logger.
+- Consider implementing middleware for cross-cutting concerns (e.g., logging, authentication).
+- Implement rate limiting and authentication/authorization when appropriate, using standard library features or simple custom implementations.
+- Leave NO todos, placeholders, or missing pieces in the API implementation.
+- Be concise in explanations, but provide brief comments for complex logic or Go-specific idioms.
+- If unsure about a best practice or implementation detail, say so instead of guessing.
+- Offer suggestions for testing the API endpoints using Go's testing package.
+- Use the Makefile to build and run the API.
+- Use github.com/go-resty/resty/v2 to make http requests.
+- Use github.com/swaggo/swag to generate swagger documentation.
+- Use gorm.io/gorm (gorm v2 version) to manage database.
+- Use github.com/go-redis/redis to manage redis.
 
-### Prerequisites
-- Go 1.23+
-- Node.js 18+
-- Wails CLI: `go install github.com/wailsapp/wails/v2/cmd/wails@latest`
-
-### Build & Development
-```bash
-# Install frontend dependencies
-cd frontend && npm install
-
-# Development mode (hot reload)
-wails dev
-
-# Build production binary
-wails build
-
-# Build for specific platforms
-# macOS Intel
-wails build -platform darwin/amd64
-# macOS ARM
-wails build -platform darwin/arm64
-# Windows
-wails build -platform windows/amd64
-```
-
-### Testing
-```bash
-# Run backend tests
-go test ./backend/...
-
-# Run specific test
-go test ./backend/utils -v
-```
-
-## Architecture
-
-### Backend Structure (Go)
-- **Entry Point**: `main.go` - Wails app initialization
-- **Core App**: `backend/app.go` - Application lifecycle management
-- **Services** (`backend/services/`): Business logic layer
-  - `service.go` - Base service with HTTP client configuration
-  - `requester.go` - All API endpoint implementations
-  - Content-specific services: `course.go`, `ebook.go`, `article.go`, etc.
-- **Downloader** (`backend/downloader/`): File download implementations
-- **Utils** (`backend/utils/`): Shared utilities and BadgerDB management
-
-### Frontend Structure (Vue 3 + TypeScript)
-- **Framework**: Vue 3 with Element Plus UI
-- **State Management**: Pinia with persistence
-- **Build Tool**: Vite
-- **Key Directories**:
-  - `src/views/` - Page components
-  - `src/components/` - Reusable components
-  - `src/stores/` - Pinia stores
-  - `wailsjs/` - Wails-generated bindings
-
-### Key Patterns
-
-1. **Authentication**: Cookie-based with multiple tokens (GAT, ISID, csrfToken)
-2. **Content Types**:
-   - Courses (bauhinia)
-   - Daily audiobooks (odob)
-   - Ebooks (ebook)
-   - Premium content (compass)
-3. **Anti-Scraping**: The ebook service implements sophisticated rate limiting with token bucket algorithm, exponential backoff, and request jitter
-4. **Data Storage**: BadgerDB for local caching and configuration
-
-### External Dependencies
-- **wkhtmltopdf**: Required for PDF generation
-- **ffmpeg**: Required for audio processing
-
-## Common Tasks
-
-### Adding a New Service
-1. Create new service file in `backend/services/`
-2. Implement methods following the existing pattern from other services
-3. Add corresponding methods to `requester.go`
-4. Generate TypeScript bindings: `wails generate module`
-
-### Modifying Frontend Components
-1. Vue components use `<script setup lang="ts">` syntax
-2. Element Plus components are auto-imported
-3. Use Pinia stores for state management
-4. Access backend via `window.go.backend.ServiceName.MethodName()`
-
-### Handling API Responses
-All services follow this pattern:
-```go
-func (s *Service) MethodName() (result *ResultType, err error) {
-    body, err := s.reqMethodName()
-    if err != nil {
-        return
-    }
-    defer body.Close()
-    if err = handleJSONParse(body, &result); err != nil {
-        return
-    }
-    return
-}
-```
-
-### Configuration Management
-- User config: Stored in BadgerDB at `~/.config/dedao/`
-- App config: `wails.json` for Wails settings
-- Frontend config: `vite.config.ts` for build settings
+Always  ensure you're following best practices for prioritize security, scalability, and maintainability in your API designs and implementations.
 
 ---
 > Source: [yann0917/dedao-gui](https://github.com/yann0917/dedao-gui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
