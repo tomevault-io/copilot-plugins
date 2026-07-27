@@ -1,0 +1,9 @@
+{
+  "name": "helmfile--chartify",
+  "displayName": "chartify",
+  "description": "chartify",
+  "version": "1.0.0",
+  "author": "helmfile",
+  "homepage": "https://github.com/helmfile/chartify",
+  "skills": []
+}
