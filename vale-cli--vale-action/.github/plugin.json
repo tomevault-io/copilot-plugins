@@ -1,0 +1,9 @@
+{
+  "name": "vale-cli--vale-action",
+  "displayName": "vale-action",
+  "description": "vale-action",
+  "version": "1.0.0",
+  "author": "vale-cli",
+  "homepage": "https://github.com/vale-cli/vale-action",
+  "skills": []
+}
