@@ -1,17 +1,15 @@
 # gridex
 
-> Source: [gridex/gridex](https://github.com/gridex/gridex) — distributed by [TomeVault](https://tomevault.io)
-
-A native macOS / windows database IDE built with Swift and AppKit. Connect to PostgreSQL, MySQL, SQLite, and Redis from a single app with a fast, keyboard-driven interface.
+> Source: [gridex/gridex](https://github.com/gridex/gridex). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [gridex/gridex](https://github.com/gridex/gridex).
+Original source: `AGENTS.md` in [gridex/gridex](https://github.com/gridex/gridex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
