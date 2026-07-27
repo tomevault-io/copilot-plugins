@@ -2,9 +2,9 @@
   "name": "mcp-unity",
   "owner": "CoderGamester",
   "repo": "mcp-unity",
-  "description": "Model Context Protocol (MCP) plugin to connect with Unity Editor \u2014 designed for Cursor, Claude Code, Codex, Windsurf and other IDEs",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CoderGamester/mcp-unity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T08:02:20Z"
+  "distributed_at": "2026-07-27T03:58:26Z"
 }
