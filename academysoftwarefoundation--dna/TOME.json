@@ -3,7 +3,7 @@
   "owner": "AcademySoftwareFoundation",
   "repo": "dna",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "dna",
+      "path": ".cursor/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/AcademySoftwareFoundation/dna/tree/main/.cursor/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dna",
+      "path": ".cursor/skills/write-github-issues/SKILL.md",
+      "github_url": "https://github.com/AcademySoftwareFoundation/dna/tree/main/.cursor/skills/write-github-issues/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/AcademySoftwareFoundation/dna",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T20:58:56Z"
+  "distributed_at": "2026-07-27T01:34:31Z"
 }
