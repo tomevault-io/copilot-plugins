@@ -1,8 +1,6 @@
 # AquaMai
 
-> Tome by [MuNET-OSS](https://github.com/MuNET-OSS/AquaMai) — distributed by [TomeVault](https://tomevault.io)
-
-Mod for Sinmai
+> Tome by [MuNET-OSS](https://github.com/MuNET-OSS/AquaMai), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS/AquaMai) — a repo with 97+ stars on GitHub.
+From [MuNET-OSS/AquaMai](https://github.com/MuNET-OSS/AquaMai) — a repo with 105+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
