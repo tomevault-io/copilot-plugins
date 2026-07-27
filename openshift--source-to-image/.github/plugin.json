@@ -1,0 +1,9 @@
+{
+  "name": "openshift--source-to-image",
+  "displayName": "source-to-image",
+  "description": "source-to-image",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/source-to-image",
+  "skills": []
+}
