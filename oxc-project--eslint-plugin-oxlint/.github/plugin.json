@@ -1,0 +1,9 @@
+{
+  "name": "oxc-project--eslint-plugin-oxlint",
+  "displayName": "eslint-plugin-oxlint",
+  "description": "eslint-plugin-oxlint",
+  "version": "1.0.0",
+  "author": "oxc-project",
+  "homepage": "https://github.com/oxc-project/eslint-plugin-oxlint",
+  "skills": []
+}
