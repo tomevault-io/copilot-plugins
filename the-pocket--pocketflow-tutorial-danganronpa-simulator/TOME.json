@@ -4,7 +4,7 @@
   "repo": "PocketFlow-Tutorial-Danganronpa-Simulator",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Pocket/PocketFlow-Tutorial-Danganronpa-Simulator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T19:25:34Z"
+  "distributed_at": "2026-07-27T02:04:53Z"
 }
