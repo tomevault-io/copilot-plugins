@@ -1,0 +1,9 @@
+{
+  "name": "okta--okta-sdk-python",
+  "displayName": "okta-sdk-python",
+  "description": "okta-sdk-python",
+  "version": "1.0.0",
+  "author": "okta",
+  "homepage": "https://github.com/okta/okta-sdk-python",
+  "skills": []
+}
