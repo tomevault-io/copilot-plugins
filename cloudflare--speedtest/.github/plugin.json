@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--speedtest",
+  "displayName": "speedtest",
+  "description": "speedtest",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/speedtest",
+  "skills": []
+}
