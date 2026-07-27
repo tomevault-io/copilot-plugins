@@ -2,9 +2,9 @@
   "name": "ralph-claude-code",
   "owner": "frankbria",
   "repo": "ralph-claude-code",
-  "description": "Autonomous AI development loop for Claude Code with intelligent exit detection",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frankbria/ralph-claude-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T02:58:10Z"
+  "distributed_at": "2026-07-27T01:56:57Z"
 }
