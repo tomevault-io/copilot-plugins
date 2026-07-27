@@ -1,143 +1,140 @@
-## wize-tea-review
+## wize-tea-risk
 
-> review: TEA Story Review
+> risk: TEA Risk Profile
 
 
-# TEA Story Review
+# TEA Risk Profile
 
-# TEA — Story Review
+# TEA — Risk Profile
 
-**Goal.** A structured review of one story before its gate decision. Distinct from Shuri's `wize-code-review` (which audits code health). This one audits **AC fulfillment, test discipline, and risk-spot coverage**.
+**Goal.** Build the **probability × impact** matrix that prioritizes the rest of TEA's work. Areas in `HIGH` get deep test design; areas in `LOW` get smoke. Without a risk profile, every story is tested the same — wasteful, and unsafe.
 
-Hawkeye drives. Runs at story end, right before `tea-gate`.
+Hawkeye drives. Tony co-signs. Runs **once**, right after architecture is signed off; revisit only on significant scope or architecture changes.
 
 ## Inputs
 
-- Story file (the AC list, out-of-scope, notes).
-- `tea-design.md` + `tea-trace.md`.
-- Test run results (PR CI).
-- Code diff (the PR).
+- `.wize/solutioning/architecture.md`
+- `.wize/solutioning/epics/`
+- `.wize/planning/nfr-principles.md`
+- `.wize/knowledge/document-project/risk-spots.md` (brownfield)
+- `.wize/knowledge/document-project/index.md` (documentation gap markers)
 
 ## Output
 
-- `.wize/implementation/tea/{epic}/{story}/review.md`
+- `.wize/implementation/tea/risk-profile.md`
 
 ## Steps
 
-### 1. AC check (per AC)
+### 1. List candidate hot spots
 
-For each AC, observe the actual behavior on a staging or local build and decide: `met` / `partial` / `not-met`. Use the recorded video/screenshot when CI captured one (Playwright `screenshot: only-on-failure` or always for review tag).
+For every architectural component + every epic, ask: *"If this misbehaves, what hurts?"*. Write candidates without filtering.
 
-### 2. Test discipline
+### 2. Score each
 
-Walk:
-- Are `tea-design.md`'s declared tests present in code?
-- Is every assertion meaningful (not just `expect(true).toBe(true)`)?
-- Are selectors stable (role/label/testid) rather than brittle (CSS classes)?
-- Are mocks at the network boundary (MSW) rather than in the unit under test?
-- Are there `test.skip` or `test.only` left in?
+| Axis | Levels |
+|---|---|
+| Probability | `low` (would be a surprise), `medium` (could happen), `high` (likely without explicit work) |
+| Impact | `low` (cosmetic / opex), `medium` (user friction / revenue dent), `high` (data loss / outage / regulatory) |
 
-### 3. Risk-spot coverage
+Composite score:
+- `low × low` = LOW
+- `low × medium`, `medium × low`, `medium × medium` = MEDIUM
+- anything touching `high` = HIGH
 
-If the story touches any `R-x` from the risk profile, walk the mitigation contract and confirm it's met.
+### 3. For each finding, write the mitigation contract
 
-### 4. Story scope discipline
+Per row:
+- **What test makes us confident?** Unit / integration / E2E / NFR / manual.
+- **Who owns the mitigation?** Shuri / Tony / external service.
+- **When is it verified?** Story-level / epic-level / pre-launch.
 
-Did the story stay within its declared scope? Any out-of-scope item that crept in is flagged in the review (and either moved to a new story or backed out).
+### 4. Hand off
 
-### 5. Knowledge update check
-
-Did this story touch any of the 5 `document-project` axes (architecture / conventions / risk-spots / dependencies / overview)? If yes, walk the PR diff and confirm the corresponding `.wize/knowledge/document-project/*.md` got 1–3 new lines this commit.
-
-Decision:
-- **Touched + updated** → record as PASS, no finding.
-- **Touched + NOT updated** → record finding `KN-NN` (severity `medium`); recommendation: `gate CONCERNS` (advisory mode) or `gate FAIL` (enforcing).
-- **Not touched** → write `knowledge: n/a` in the body, move on.
-
-This is what keeps the brownfield baseline alive instead of stale. Without it, `document-project` is honest in week 1 and obsolete in week 24.
-
-### 6. Findings
-
-For each issue, write: severity (`low / medium / high`), what, why it matters, what to do.
-
-### 7. Recommend gate outcome
-
-Review doesn't *make* the gate decision (that's `tea-gate`); it recommends. Possible recommendations:
-- `gate PASS`
-- `gate CONCERNS` with N findings
-- `gate FAIL` (only if a non-negotiable AC is `not-met`)
-- `gate WAIVED` (only with documented reason + senior signoff)
+Hawkeye uses this in every `tea-design.md`. Tony respects it when picking ADR options.
 
 ## YAML frontmatter (canonical)
 
 ```yaml
 ---
-gate: review
-story_id: E01-S03
-status: PASS
-ac_check:
-  - id: AC-02-1
-    met: true
-    evidence: "e2e/onboarding/invite.spec.ts::happy path passed on PR-#412; recording in CI artifact #412-1"
-  - id: AC-02-2
-    met: true
-    evidence: "InviteForm.spec.tsx::error region announces"
-knowledge_axes_touched: [conventions, risk-spots]
-knowledge_axes_updated: [conventions, risk-spots]   # leave empty array if axes touched but no update happened
+gate: risk
+status: PASS | CONCERNS | FAIL | WAIVED
+score: 0-100
+created_at: 2026-06-11T12:00:00Z
 findings:
-  - id: REV-01
-    severity: low
-    summary: "Empty-state copy slightly differs from Mantis' spec."
-    recommendation: "Update `<EmptyTeamPanel>` heading to 'Invite your first teammate'."
+  - id: R-1
+    area: "Outbox / mailer"
+    probability: high
+    impact: medium
+    rationale: "Sign-up flow depends on email delivery; first impression failure is high-cost."
+    mitigation: "Integration test against Resend sandbox; outbox retry with backoff; on-call alert on delivery failure rate > 5%."
+    owner: shuri + tony
+    verified_when: story E01-S04 + NFR per epic
+  - id: R-2
+    area: "Database migrations under load"
+    probability: medium
+    impact: high
+    rationale: "Future migrations must be rolled out without lock contention."
+    mitigation: "Online schema changes; canary on staging with synthetic load; ADR-006 process."
+    owner: tony
+    verified_when: pre-launch
+  - id: R-3
+    area: "Auth: token refresh during long-running tabs"
+    probability: medium
+    impact: medium
+    rationale: "Cookie refresh race in RSC + edge can sign user out unexpectedly."
+    mitigation: "E2E covering > 1h tab; refresh strategy ADR-008; on-call alert on `auth_session_expired_unexpected`."
     owner: shuri
-    blocking: false
-risk_links: [R-1]
-recommendation: gate-PASS
-created_at: 2026-06-11T20:00:00Z
+    verified_when: story E04-S02 + post-launch monitoring
 ---
 ```
 
-## Body of `review.md`
+## Body of `risk-profile.md`
+
+The narrative explains the matrix; the YAML is the structured truth. Hawkeye writes 1–2 lines per finding explaining the *why*.
 
 ```markdown
-## Per-AC
+## Matrix
 
-### AC-02-1 — met
-Evidence: E2E `e2e/onboarding/invite.spec.ts::happy path` passed locally + CI run #412. Banner appears 720ms after click (well within 1s NFR).
+| | Impact LOW | Impact MEDIUM | Impact HIGH |
+|---|---|---|---|
+| **Prob HIGH** | R-7 | R-1 | R-2 |
+| **Prob MEDIUM** | R-4 | R-3 | R-5 |
+| **Prob LOW** | — | R-6 | — |
 
-### AC-02-2 — met
-Evidence: Unit + component test both pass. Manually walked screen-reader output — VoiceOver announces "Email — error — Enter a valid email." correctly.
+## Top-3 (drive test design)
 
-## Test discipline
-- All declared tests present.
-- `data-testid` discipline solid (invite-form, invite-email, invite-cta, invite-sent-banner).
-- No `test.skip` / `.only`.
-- One snapshot test — small enough to be useful; not a tree snapshot.
+1. **R-2** — Database migrations under load. Pre-launch verification mandatory.
+2. **R-1** — Outbox/mailer. Story E01-S04 covers; epic NFR re-verifies.
+3. **R-5** — Payment idempotency. Story E03-S02 covers.
 
-## Risk coverage
-- R-1 (mailer): integration test covers the right path; happy path E2E confirms end-to-end. PASS.
+## What this means for `tea-design.md`
 
-## Scope discipline
-- Two minor copy tweaks crept in (out-of-spec; logged as REV-01).
-
-## Findings
-- REV-01 (low): empty-state copy.
-
-## Recommendation
-Recommend `gate PASS` with one low-severity finding to fix in a follow-up.
+- E01-S04 (mailer): 1 unit (retry policy), 1 integration (Resend sandbox), 1 E2E (sign-up arrives within 5min).
+- E03-S02 (payments): 2 integration (Stripe idempotency keys), 1 E2E (double-click guard).
+- Other stories follow the default 70/20/10 split.
 ```
+
+## Documentation gap risk category
+
+In brownfield repos, missing or stale documentation is an operational risk: new contributors make unsafe assumptions, AI agents hallucinate context, and reviews miss implicit contracts. Hawkeye treats it as a first-class risk area.
+
+| Symptom | Severity | Rationale | Mitigation |
+|---|---|---|---|
+| `index.md` contains `_(To be generated)_` markers | medium | Conditional docs were skipped; the baseline is incomplete. | Schedule `wize-document-project initial_scan` for the next cooldown. |
+| Baseline files older than 60 days | medium | Docs may no longer reflect the codebase. | Run `wize-refresh-knowledge` at sprint end. |
+| No baseline exists in a brownfield repo | high | Team is flying blind; architecture and conventions are tribal knowledge. | Run `wize-dev-kit document-project quick` immediately. |
 
 ## Anti-patterns Hawkeye rejects
 
-- **Review without walking the code.** Reading the test names isn't review.
-- **AC marked "met" without observed evidence.** Tests passing + screenshot/recording, please.
-- **Findings without owners.** Same as everywhere else in the kit.
-- **Recommending PASS when an AC is `partial`.** No.
-- **Recommending PASS when a non-negotiable NFR slipped.** That's a gate FAIL.
+- **Findings without mitigation.** A finding without a contract is a wish.
+- **Mitigation owned by "the team."** Name a persona/human.
+- **HIGH impact, MEDIUM probability, no NFR re-check.** Wire it into epic NFR gate.
+- **Cosmetic risks scored HIGH.** Calibration. Reserve HIGH for data, outage, regulatory.
+- **Risk profile rewritten per sprint.** Run once; revise on real architecture changes.
 
 ## Hand-off
 
-> Review for E01-S03 at `.wize/implementation/tea/E01-S03/review.md`. All ACs `met`, one low-severity copy finding. Recommending `gate PASS`. Final at `wize-tea-gate`.
+> Risk profile at `.wize/implementation/tea/risk-profile.md`. Top-3 drive deep `tea-design.md` for E01-S04, E03-S02, plus pre-launch migration drill. Default 70/20/10 split for the rest.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
