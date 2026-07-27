@@ -2,9 +2,9 @@
   "name": "ai-agents",
   "owner": "chatwoot",
   "repo": "ai-agents",
-  "description": "Ruby AI Agents SDK - Inspired by OpenAI Agents SDK",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chatwoot/ai-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T15:19:22Z"
+  "distributed_at": "2026-07-27T16:07:59Z"
 }
