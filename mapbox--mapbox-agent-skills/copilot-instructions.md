@@ -1,66 +1,200 @@
 ## mapbox-agent-skills
 
-> This repo contains specialized Agent Skills for Mapbox development. Skills provide domain expertise that helps you make informed decisions when building map applications.
+> Quick reference for optimizing Mapbox GL JS applications. Prioritized by impact: 🔴 Critical → 🟡 High Impact → 🟢 Optimization.
 
-# Mapbox Development Knowledge Base
+# Mapbox GL JS Performance Optimization Guide
 
-This repo contains specialized Agent Skills for Mapbox development. Skills provide domain expertise that helps you make informed decisions when building map applications.
+Quick reference for optimizing Mapbox GL JS applications. Prioritized by impact: 🔴 Critical → 🟡 High Impact → 🟢 Optimization.
 
-## Available Skills
+## 🔴 Critical Performance Patterns (Fix First)
 
-### Migration & Platform Comparison
+### 1. Eliminate Initialization Waterfalls
 
-- **mapbox-google-maps-migration**: Migrate from Google Maps Platform to Mapbox GL JS. Covers API equivalents (coordinate order, markers, popups, geocoding), performance advantages (WebGL vs DOM), and migration patterns. Use when transitioning existing Google Maps apps or comparing platforms.
-- **mapbox-maplibre-migration**: Migrate between Mapbox GL JS ↔ MapLibre GL JS. ~95% API compatible. Covers package/import changes, token handling, style URLs (mapbox:// vs custom), license differences. Use for open-source migrations or understanding compatibility.
+**Impact:** Saves 500ms-2s on initial load
 
-### Performance & Optimization
+**Problem:** Sequential loading (map → data → render)
+**Solution:** Parallel data fetching
 
-- **mapbox-web-performance-patterns**: Optimize Mapbox GL JS apps. Covers initialization waterfalls, bundle size, marker performance (HTML vs Canvas vs Symbol layers), clustering, data loading (GeoJSON vs vector tiles), memory management. Critical patterns prioritized by UX impact.
-- **mapbox-web-integration-patterns**: Framework integration (React, Vue, Svelte, Angular, Next.js). Covers proper initialization/cleanup, state management, SSR handling, component patterns. Use when integrating Mapbox into modern web frameworks.
+```javascript
+// ❌ Sequential: 1.5s total
+map.on('load', async () => {
+  const data = await fetch('/api/data'); // Waits for map first
+});
 
-### Design & Styling
+// ✅ Parallel: ~1s total
+const dataPromise = fetch('/api/data'); // Starts immediately
+const map = new mapboxgl.Map({...});
+map.on('load', async () => {
+  const data = await dataPromise; // Already fetching
+});
+```
 
-- **mapbox-cartography**: Map design principles. Covers color theory, visual hierarchy, typography, accessibility, data visualization best practices. Use for creating visually effective, accessible maps.
-- **mapbox-style-patterns**: Common style patterns and layer configurations. Covers data-driven styling, expressions, filters, layer types. Use when building custom map styles or configuring layers.
-- **mapbox-style-quality**: Style validation, accessibility checks, performance optimization, testing patterns. Use when ensuring style quality and performance.
+**Key principle:** Start all data fetches immediately, don't wait for map load.
 
-### Security
+### 2. Bundle Size Optimization
 
-- **mapbox-token-security**: Access token best practices. Covers public vs secret tokens, URL restrictions, token rotation, scoping, rate limiting. Use when implementing secure token management.
+**Impact:** 200-500KB savings, faster load times
 
-### Mobile Development
+**Critical actions:**
 
-- **mapbox-ios-patterns**: iOS integration with Swift, SwiftUI, UIKit (Maps SDK for iOS). Covers initialization, markers, annotations, camera control, platform-specific patterns.
-- **mapbox-android-patterns**: Android integration with Kotlin, Jetpack Compose, View system (Maps SDK for Android). Covers setup, markers, styling, camera animations, platform patterns.
+- Use dynamic imports for large features: `const geocoder = await import('mapbox-gl-geocoder')`
+- Code-split by route/feature
+- Avoid importing entire Mapbox GL JS if only using specific features
+- Use CSS splitting for mapbox-gl.css
 
-## How to Use Skills
+**Size targets:** <500KB initial bundle, <200KB per route
 
-Skills are invoked automatically by your AI assistant when relevant. You can also explicitly reference them:
+## 🟡 High Impact Patterns
 
-- "Use the mapbox-web-performance-patterns skill to optimize this"
-- "Check the mapbox-token-security skill for best practices"
+### 3. Marker Performance
 
-Install skills: `npx skills add mapbox/mapbox-agent-skills`
+**Impact:** Smooth rendering with many markers
 
-## Skill Combinations
+**Decision tree:**
 
-Common workflows that combine multiple skills:
+- **< 100 markers:** HTML markers (`new mapboxgl.Marker()`) - OK
+- **100-10,000 markers:** Symbol layers - GPU-accelerated, much faster
+- **10,000+ markers:** Symbol layers + clustering required
+- **100,000+ markers:** Vector tiles with server-side clustering
 
-- **Building production web app**: web-integration-patterns + web-performance-patterns + token-security
-- **Migrating from Google Maps**: google-maps-migration + web-integration-patterns + token-security
-- **Custom styled map**: cartography + style-patterns + style-quality
-- **Cross-platform app**: ios-patterns + android-patterns + token-security
-- **Open-source project**: maplibre-migration + web-performance-patterns
+```javascript
+// ✅ For 100+ markers: Use symbol layer, not HTML markers
+map.addLayer({
+  id: 'points',
+  type: 'symbol',
+  source: 'points',
+  layout: { 'icon-image': 'marker' }
+});
+
+// ✅ For 10,000+ markers: Add clustering
+map.addSource('points', {
+  type: 'geojson',
+  data: geojson,
+  cluster: true,
+  clusterRadius: 50 // Relative to tile dimensions (512 = full tile width)
+});
+```
+
+### 4. Data Loading Strategy
+
+**Impact:** Faster rendering, lower memory
+
+**Decision tree:**
+
+- **< 5MB GeoJSON:** Load directly as GeoJSON source
+- **> 5MB GeoJSON:** Use vector tiles instead
+- **Dynamic data:** Implement viewport-based loading
+- **Static data:** Embed small datasets, fetch large ones
+
+**Viewport-based loading pattern:**
+
+```javascript
+map.on('moveend', () => {
+  const bounds = map.getBounds();
+  fetchDataInBounds(bounds).then((data) => {
+    map.getSource('data').setData(data);
+  });
+});
+```
+
+**Warning:** `setData()` triggers a full re-parse in a web worker. For small datasets updated frequently, use `source.updateData()` (requires `dynamic: true`) for partial updates. For large datasets, switch to vector tiles.
+
+### 5. Event Handler Optimization
+
+**Impact:** Prevents jank during interactions
+
+**Rules:**
+
+- Debounce search/geocoding: 300ms minimum
+- Throttle move/zoom events: 100ms for analytics, 16ms for UI updates (move fires ~60fps)
+- Use `once()` for one-time events
+- Remove event listeners on cleanup
+
+```javascript
+// ✅ Debounce expensive operations
+const debouncedSearch = debounce((query) => {
+  geocode(query);
+}, 300);
+
+// ✅ Throttle frequent events
+const throttledUpdate = throttle(() => {
+  updateAnalytics(map.getCenter());
+}, 100);
+```
+
+### 6. Memory Management
+
+**Critical for SPAs and long-running apps**
+
+**Always cleanup on unmount:**
+
+```javascript
+// ✅ Remove map and all resources
+map.remove(); // Removes all event listeners, sources, layers
+
+// ✅ Cancel pending requests
+controller.abort();
+
+// ✅ Clear references
+markers.forEach((m) => m.remove());
+markers = [];
+```
+
+## 🟢 Optimization Patterns
+
+### 7. Layer Management
+
+**Rules:**
+
+- Use feature state instead of removing/re-adding layers for hover/selection
+- Batch style changes: Use `map.once('idle', callback)` after multiple changes
+- Hide layers with visibility: 'none' instead of removing
+- Minimize layer count: Combine similar layers with data-driven styling where possible
+
+### 8. Rendering Optimization
+
+**Key patterns:**
+
+- Set `maxzoom` on sources to avoid over-fetching tiles
+- Use `generateId: true` on GeoJSON sources to enable feature state (auto-assigns feature IDs)
+- Use `promoteId` to use an existing data property as the feature ID (alternative to generateId)
+- To fully skip collision work on a symbol layer, set BOTH `'icon-allow-overlap': true` AND `'icon-ignore-placement': true` (plus text equivalents if using text)
+- Avoid enabling `preserveDrawingBuffer` or `antialias` unless specifically needed
 
 ## Quick Decision Guide
 
-**Choose Mapbox GL JS when**: Commercial support needed, Mapbox-hosted tiles/APIs required, latest features important
-**Choose MapLibre GL JS when**: Open-source license required, self-hosted infrastructure, cost optimization, custom tile sources
+**Slow initial load?** → Check for waterfalls (data loading), optimize bundle size
+**Jank with many markers?** → Switch to symbol layers + clustering at 100+ markers
+**Memory leaks in SPA?** → Add proper cleanup (`map.remove()`)
+**Slow with large data?** → Use vector tiles, viewport loading
+**Sluggish interactions?** → Debounce/throttle event handlers
+**High memory usage?** → Use feature state instead of layer churn, check for listener leaks
 
-**Performance priorities**: 1) Eliminate initialization waterfalls 2) Use data-driven symbol layers for 100+ markers 3) Implement clustering for 1000+ points 4) Use vector tiles over large GeoJSON
+## Performance Testing
 
-**Token security**: Always use public tokens (pk.\*) client-side, add URL restrictions, never commit tokens to git, rotate tokens if exposed
+**Measure what matters:**
+
+- Time to Interactive (TTI): < 2s on 3G
+- First Contentful Paint (FCP): < 1s
+- Bundle size: < 500KB initial
+- Memory: Stable over time (no leaks)
+
+**Key API for measurement:** `map.isStyleLoaded()` returns true when the style and all resources are fully loaded. Use `map.once('idle')` to detect when all rendering is complete.
+
+**Tools:** Chrome DevTools Performance tab, Lighthouse, Bundle analyzers (webpack-bundle-analyzer, vite-bundle-visualizer)
+
+## Anti-Patterns to Avoid
+
+- Loading data after map initialization (waterfall)
+- Using HTML markers for 100+ points
+- Not clustering 10,000+ markers
+- Loading entire GeoJSON files > 5MB without vector tiles
+- Not debouncing search/geocoding
+- Forgetting to call `map.remove()` in SPAs
+- Adding/removing layers frequently (use feature state)
+- Not code-splitting large features
+- Calling `setData()` frequently on large GeoJSON sources (use vector tiles instead)
 
 ---
 > Source: [mapbox/mapbox-agent-skills](https://github.com/mapbox/mapbox-agent-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
