@@ -2,9 +2,9 @@
   "name": "mcp-debug",
   "owner": "giantswarm",
   "repo": "mcp-debug",
-  "description": "Command-line tool for debugging MCP servers",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/giantswarm/mcp-debug",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T09:47:25Z"
+  "distributed_at": "2026-07-27T04:25:50Z"
 }
