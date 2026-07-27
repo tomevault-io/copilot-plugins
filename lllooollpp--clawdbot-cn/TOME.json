@@ -4,7 +4,7 @@
   "repo": "clawdbot-cn",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lllooollpp/clawdbot-cn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T06:55:09Z"
+  "distributed_at": "2026-07-27T23:19:44Z"
 }
