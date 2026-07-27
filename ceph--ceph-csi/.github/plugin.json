@@ -1,0 +1,9 @@
+{
+  "name": "ceph--ceph-csi",
+  "displayName": "ceph-csi",
+  "description": "ceph-csi",
+  "version": "1.0.0",
+  "author": "ceph",
+  "homepage": "https://github.com/ceph/ceph-csi",
+  "skills": []
+}
