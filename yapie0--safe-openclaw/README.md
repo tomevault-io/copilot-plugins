@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Yapie0/safe-openclaw](https://github.com/Yapie0/safe-openclaw).
+Original source: `` in [Yapie0/safe-openclaw](https://github.com/Yapie0/safe-openclaw).
 
 ## Also available for
 
@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [Yapie0/safe-openclaw](https://github.com/Yapie0
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Yapie0/safe-openclaw](https://github.com/Yapie0/safe-openclaw) — a repo with 55+ stars on GitHub.
