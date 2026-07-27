@@ -1,41 +1,53 @@
 ## tasknebula
 
-> Model Context Protocol server exposing TaskNebula to Claude/Cursor/etc. over the web app's REST API.
+> Internationalization (i18n) — mandatory for all user-facing strings
 
-# packages/mcp-server — @tasknebula/mcp-server
 
-Model Context Protocol server exposing TaskNebula to Claude/Cursor/etc. over the web app's REST API.
-Root guide: `/CLAUDE.md`. Transports: stdio (`src/stdio.ts`) and HTTP (`src/http.ts`).
+# i18n is MANDATORY — zero hardcoded user-facing strings
 
-## Commands (run in packages/mcp-server)
+TaskNebula ships **30 languages** with device/browser auto-detection. Every
+contribution must keep the app fully localized. This applies to all assistants
+and tools (Claude, Cursor, Codex, Copilot, etc.).
 
-```bash
-pnpm build        # tsc -p tsconfig.build.json
-pnpm start        # node ./bin/tasknebula-mcp.mjs (stdio)
-pnpm test         # jest (43 tests live in src/__tests__)
-pnpm type-check && pnpm lint
-```
+## The rule
 
-## Surface
+- **Never hardcode user-facing display text.** Every string a user can see goes
+  through `next-intl`. This includes:
+  - JSX text nodes (labels, headings, empty states, button text, hints).
+  - String props: `placeholder`, `aria-label`, `title`, `alt`, `label`,
+    `description`, `tooltip`, `confirmText`, `emptyText`, …
+  - `toast`/sonner messages and any user-facing error messages.
+  - Select/menu/option labels, dialog titles & descriptions, table headers,
+    badges, tab labels, status text.
+- **Client components:** `const t = useTranslations('namespace')` → `t('key')`,
+  `t('key', { name })` for interpolation, ICU for plurals
+  (`{count, plural, one {# item} other {# items}}`), `t.rich` for links/bold.
+- **Async server components:** `const t = await getTranslations('namespace')`.
+  Don't use hooks in sync server components.
 
-12 tools in `src/tools/`: create-issue, create-subtask, get-issue, update-issue, assign-issue,
-add-comment, transition-status, link-pr, search-issues, list-projects, list-my-assigned,
-get-my-workload. Plus resources (`src/resources.ts`) and prompts (`src/prompts.ts`), registered in
-`src/server.ts`. REST calls go through `src/client.ts`; auth resolution in `src/auth.ts`
-(`TASKNEBULA_API_URL` + `TASKNEBULA_API_KEY` env).
+## Adding a new string
 
-## Gotchas (audit, June 2026)
+1. Add the English key to `apps/web/messages/en.json` under the relevant
+   top-level namespace.
+2. **Add the same key, translated, to ALL locale files** in
+   `apps/web/messages/*.json` (30 locales). Keep full key parity — a missing
+   key in any locale is a bug.
+3. Preserve ICU placeholders verbatim (`{count}`, `{name}`, plural/select, `#`).
+   Never translate placeholder names or brand/tech terms (TaskNebula, GitHub,
+   Docker, Jira, Linear, MCP, API, AI, …).
+4. Verify with `node scripts/i18n-check.mjs` (key parity across all locales).
 
-- **Auth caveat — tools 401 until fixed**: the web REST API does not yet accept API keys (no route
-  consumes the `api_keys` table; everything uses session cookies via `await auth()`). Every tool call
-  fails with 401 until an API-key resolver lands in `apps/web` route auth. Don't "fix" this inside the
-  MCP package — the gap is server-side.
-- **Not published to npm**: `npx @tasknebula/mcp-server` 404s despite README instructions. Version 0.1.0,
-  publish pending.
-- Real API keys are prefixed `sk_live_` (README's `tnk_` is wrong); some tool contracts drift from the
-  REST API (priority enums, `subtask` type not creatable server-side, `link_pr` shape) — verify against
-  `apps/web/src/app/api/issues/route.ts` before changing tool schemas.
+## Notes
+
+- Locale config: `apps/web/src/lib/i18n/config.ts` (locales + native labels +
+  RTL list + `Accept-Language` negotiation). Add a locale there to surface it
+  in the switcher.
+- `ar` and `he` are right-to-left (handled by the `DirectionProvider`).
+- The **only** intentionally English-only surface is the marketing landing
+  (`apps/web/src/components/marketing/*`, the public `/` page).
+- ESLint (`react/jsx-no-literals`) rejects new hardcoded JSX text — fix by
+  moving the string into the message catalog, not by disabling the rule.
 
 ---
 > Source: [neuraparse/taskNebula](https://github.com/neuraparse/taskNebula) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
