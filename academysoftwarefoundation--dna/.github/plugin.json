@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "AcademySoftwareFoundation",
   "homepage": "https://github.com/AcademySoftwareFoundation/dna",
-  "skills": []
+  "skills": [
+    {
+      "name": "dna",
+      "description": ""
+    },
+    {
+      "name": "dna",
+      "description": ""
+    }
+  ]
 }
