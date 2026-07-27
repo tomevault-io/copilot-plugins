@@ -1,0 +1,14 @@
+{
+  "name": "microsoft--ptvs",
+  "displayName": "PTVS",
+  "description": "PTVS",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/PTVS",
+  "skills": [
+    {
+      "name": "PTVS",
+      "description": ""
+    }
+  ]
+}
