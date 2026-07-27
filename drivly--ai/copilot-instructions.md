@@ -1,156 +1,267 @@
-## typescript-rules
+## ai
 
-> You are a senior TypeScript and Node.js developer with a preference for clean programming and design patterns. You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
+> 1. **Instruction Reception and Understanding**
 
-You are a senior TypeScript and Node.js developer with a preference for clean programming and design patterns. You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
 
-- Master of functional programming, especially in TypeScript
-- Deep understanding of TypeScript and its ecosystem
-- Expert at creating code libraries with APIs that delight developers
-- Advocate for composability, immutability, and simple pragmatic solutions
-- Prefer Function over Class if possible
-- Prefer Types over Interfaces if possible
-- Follow the user's requirements carefully & to the letter.
-- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
+# AI Primitives Project Guidelines
 
-## Shortcuts
+## Core Operating Principles
 
-- When provided with the words 'CURSOR:PAIR' this means you are to act as a pair programmer and senior developer, providing guidance and suggestions to the user. You are to provide alternatives the user may have not considered, and weigh in on the best course of action.
-- When provided with the words 'RFC', refactor the code per the instructions provided. Follow the requirements of the instructions provided.
-- When provided with the words 'RFP', improve the prompt provided to be clear.
-  - Break it down into smaller steps. Provide a clear breakdown of the issue or question at hand at the start.
-  - When breaking it down, ensure your writing follows Google's Technical Writing Style Guide.
+1. **Instruction Reception and Understanding**
+   - Carefully read and interpret user instructions
+   - Ask specific questions when clarification is needed
+   - Clearly identify technical constraints and requirements
+   - Do not perform any operations beyond what is instructed
 
-## TypeScript General Guidelines
+2. **In-depth Analysis and Planning**
+   ```markdown
+   ## Task Analysis
+   - Purpose: [Final goal of the task]
+   - Technical Requirements: [Technology stack and constraints]
+   - Implementation Steps: [Specific steps]
+   - Risks: [Potential issues]
+   - Quality Standards: [Requirements to meet]
 
-### Core Principles
+   ## Implementation Plan
+   1. [Specific step 1]
+      - Detailed implementation content
+      - Expected challenges and countermeasures
+   2. [Specific step 2]
+      ...
+   ```
 
-- Use English for all code and documentation.
-- Write straightforward, readable, and maintainable code
-- Follow SOLID principles and design patterns
-- Use strong typing and avoid 'any'
-- Use JSDoc to document public classes and methods.
-- Restate what the objective is of what you are being asked to change clearly in a short summary.
+3. **Comprehensive Implementation and Verification**
+   - Execute file operations and related processes in optimized complete sequences
+   - Continuously verify against quality standards throughout implementation
+   - Address issues promptly with integrated solutions
+   - Execute processes only within the scope of instructions, without adding extra features or operations
 
-### Style and Structure
+4. **Continuous Feedback**
+   - Regularly report implementation progress
+   - Confirm at critical decision points
+   - Promptly report issues with proposed solutions
 
-- Write concise, technical TypeScript code with accurate examples.
-- Prefer functional composition and declarative patterns over inheritance and imperative code.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Structure files: exports, types, interfaces, constants, and helper functions.
+## Technology Stack and Constraints
+
+### Core Technologies
+- TypeScript: ^5.7.3
+- Node.js: ^20 ||^22
+- Package Manager: pnpm ^9 || ^10
+
+### Frontend
+- Next.js: ^15.2.4
+- React: ^19.0.0
+- React DOM: ^19.0.0
+- Vercel for deployment and preview environments
+
+### Backend
+- Payload CMS: ^3.28.1
+- MongoDB (via @payloadcms/db-mongodb): latest
+- Cloudflare Workers (for APIs)
+- Hono: ^4.7.4
+- Zod: ^3.24.1
+- Composio for underlying infrastructure
+
+### Development Tools
+- ESLint: ^9.16.0
+- Prettier: ^3.5.3
+- TypeScript: ^5.7.3
+- Wrangler: ^4.2.0
+
+
+### Common Commands
+- Build: `pnpm build` or `pnpm build:turbo`
+- Dev: `pnpm dev` or `pnpm dev:turbo`
+- Clean: `pnpm clean:turbo`
+- Test: `pnpm test:turbo` (all tests) or `pnpm test -- -t "test pattern"` (in package directory)
+- Test watch mode: `pnpm test:watch`
+- Typecheck: `pnpm typecheck`
+- Lint: `pnpm lint` or `pnpm lint:turbo`
+- Format: `pnpm format` or `pnpm prettier-fix`
+## Quality Management Protocol
+
+### 1. Code Quality
+- Strict TypeScript type checking
+- Full compliance with ESLint rules
+- Consistent code formatting using Prettier
+- Follow Conventional Commits specification
+- Adhere to the project's naming conventions
+
+### 2. Performance
+- Prevention of unnecessary re-rendering in React components
+- Efficient data fetching
+- Bundle size optimization
+- Optimize Cloudflare Workers for edge performance
+
+### 3. Security
+- Strict input validation using Zod
+- Appropriate error handling
+- Secure management of sensitive information
+- Follow best practices for API security
+
+### 4. UI/UX
+- Responsive design
+- Accessibility compliance
+- Consistent design system
+- Clear and intuitive user interfaces
+## Strategic Vision
+
+The AI Primitives platform provides composable building blocks that enable developers to create, deploy, and manage AI applications with minimal complexity while maintaining reliability and scalability. The platform emphasizes:
+
+1. **Economically valuable work** delivered through simple APIs
+2. **Practical applications** of AI that deliver measurable business value
+3. **Composable architecture** with Functions, Workflows, and Agents as core primitives
+4. **Enterprise-grade reliability** with comprehensive testing and evaluation
+
+## Project Structure Convention
+
+```
+ai/
+├── api/                  # API implementations for various services
+├── app/                  # Application code
+│   ├── (apis)/           # API route handlers
+│   ├── (websites)/       # Website components
+│   └── (payload)/        # Payload CMS admin configurations
+├── collections/          # Collection definitions
+│   ├── ai/               # AI-related collections (Functions, Workflows, Agents)
+│   ├── data/             # Data model collections (Things, Nouns, Verbs)
+│   ├── events/           # Event-related collections (Triggers, Searches, Actions)
+│   └── observability/    # Monitoring collections (Generations)
+├── components/           # Reusable UI components
+├── content/              # Content files and assets (MDX files at /content/**/*.mdx)
+├── examples/             # Example implementations
+├── lib/                  # Library code and utilities
+├── pkgs/                 # Shared packages and libraries (can have dependencies)
+│   ├── ai-models/        # AI model abstractions and selection
+│   ├── deploy-worker/    # Cloudflare Workers deployment utilities
+│   └── clickable-links/  # API handler utilities
+├── sdks/                 # Software Development Kits (zero dependencies except apis.do)
+├── tasks/                # Task implementations with dependencies
+├── tests/                # Test suites
+├── websites/             # Website implementations
+├── workers/              # Cloudflare Workers implementations
+└── workflows/            # Workflow definitions
+```
+
+## Important Constraints
+
+### Monorepo Structure
+- Respect the monorepo architecture using pnpm workspaces
+- Place new code in the appropriate directory based on its purpose
+- Follow the naming conventions outlined in CONTRIBUTING.md
+- SDK implementations in `/sdks/` must maintain zero dependencies (except apis.do) to be publishable on npm
+- Backend implementations of SDK features should be placed in the `/tasks/` folder with workspace-level dependencies
+- Package entry points in package.json files should point to built files (e.g., dist/index.js) rather than source files
+
+### Versioning Strategy
+- Use semantic-release for version management across SDKs and packages
+- Packages in the `sdks` directory must maintain synchronized version numbers
+- Packages in the `pkgs` directory can be versioned independently
+- During API instability phase, restrict all automatic version increments to patch versions (0.0.x) only
+- All packages must be properly configured in pnpm-workspace.yaml
+- Package names must exactly match names in respective package.json files
+
+### Deployment Patterns
+- Vercel is used for deployment and preview environments
+- Preview environments follow the URL pattern: https://ai-git-{branch-name}.dev.driv.ly/
+- The Velite content build step (build:content) must be integrated into the Vercel build process
+- Keep next.config.mjs minimal with only essential configurations
+- Avoid using node: imports in package files, particularly in ai-models
+
+### Code Style
+- Single quotes
+- No semicolons
+- 2 spaces for indentation
+- Trailing commas
+- 180 character line width
+- JSX uses single quotes
+- JSX brackets on the same line
+- Use modern Node.js features (Node 20+ or 22+):
+  - Use built-in fetch instead of node-fetch or require('https')
+  - Avoid older Node.js built-in modules when modern alternatives exist
+  - Remove unnecessary dependencies in favor of built-in alternatives
 
 ### Naming Conventions
+- Use kebab-case for file names
+- Use camelCase for variables and function names (boolean variables use `is/has/should` prefix)
+- Use PascalCase for React components and their filenames
+- Use PascalCase for types and interfaces with meaningful names
+- Use UPPER_SNAKE_CASE for constants
+## Implementation Process
 
-- Classes: PascalCase
-- Variables, functions, methods: camelCase
-- Files, directories: kebab-case
-- Constants, env variables: UPPERCASE
+### 1. Initial Analysis Phase
+```markdown
+### Requirements Analysis
+- Identify functional requirements
+- Confirm technical constraints
+- Check consistency with existing code
 
-### Functions
+### Risk Assessment
+- Potential technical challenges
+- Performance impacts
+- Security risks
+```
 
-- Use descriptive names: verbs & nouns (e.g., getUserData)
-- Prefer arrow functions for simple operations
-- Use default parameters and object destructuring
-- Document with JSDoc
+### MDX-Based Agent Capabilities
+- MDX-based agent definitions support:
+  - Structured data through frontmatter including tools, inputs, and outputs
+  - Full code execution capabilities with import/export support
+  - Visual component integration rendered as JSX/React components
+  - Agent state visualization with support for multiple states/modes
+- MDX content files should be located at `/content/**/*.mdx`
+- The Velite content build step (`build:content`) must be integrated into the Vercel build process
+- Content files should use plural names for core primitives (Functions, Agents, Workflows) to match domain names
 
-### Types and Interfaces
+### Build Configuration Principles
+- Use Turborepo for managing the build order in monorepo packages
+- Use Turbopack for Next.js applications, making transpilePackages configuration unnecessary
+- Keep next.config.mjs minimal with only essential configurations
+- Avoid complex webpack configurations entirely
+- Tests should be excluded from the build process
+- Nextra v4 configuration is primarily managed in app/(docs)/docs/layout.tsx
 
-- For any new types, prefer to create a Zod schema, and zod inference type for the created schema.
-- Create custom types/interfaces for complex structures
-- Use 'readonly' for immutable properties
-- If an import is only used as a type in the file, use 'import type' instead of 'import'
-- Avoid enums; use const objects instead.
-- Utilize TypeScript's type system fully: use interfaces, type aliases, and generics where appropriate
-  For example:
-  - Nullable: Maybe<T> = T | null
-  - API responses: ResponseData<T> = { status: 'success' | 'error', data: T }
-  - Collections: Collection<T> = T[]
-  - Async: AsyncResult<T> = Promise<ResponseData<T>>
+### 2. Implementation Phase
+- Integrated implementation approach
+- Continuous verification
+- Maintenance of code quality
+- Follow the project's established patterns
 
-### TypeScript-Specific Patterns
+### 3. Verification Phase
+- Unit testing
+- Integration testing
+- Performance testing
+- Ensure compatibility with the rest of the system
 
-- Choose between type and interface appropriately:
+### 4. Final Confirmation
+- Consistency with requirements
+- Code quality
+- Documentation completeness
+- Adherence to project standards
 
-  - Use `interface` for extendable, object-oriented designs
-  - Use `type` for unions, intersections, and mapped types
-  - Prefer `interface` when you might need to extend later
-  - Use `type` for function types and complex type manipulations
+## Error Handling Protocol
 
-- Leverage TypeScript's Utility Types:
+### Problem Identification
+- Error message analysis
+- Impact scope identification
+- Root cause isolation
 
-  - Use `Partial<T>` for optional fields
-  - Use `Pick<T, K>` and `Omit<T, K>` for type subsets
-  - Use `Record<K, T>` for dynamic key-value structures
-  - Use `Required<T>` to make all properties required
-  - Use `Readonly<T>` for immutable types
+### Solution Development
+- Evaluation of multiple approaches
+- Risk assessment
+- Optimal solution selection
 
-- Implement Type Guards effectively:
+### Implementation and Verification
+- Solution implementation
+- Verification through testing
+- Side effect confirmation
 
-  ```typescript
-  // User-defined type guards
-  function isString(value: unknown): value is string {
-    return typeof value === 'string'
-  }
+### Documentation
+- Record of problem and solution
+- Preventive measure proposals
+- Sharing of learning points
 
-  // Discriminated unions
-  interface Success {
-    kind: 'success'
-    data: string
-  }
-  interface Error {
-    kind: 'error'
-    error: string
-  }
-  type Result = Success | Error
-  ```
-
-- Module and Import Best Practices:
-
-  - Use `import type` for type-only imports
-  - Prefer named exports over default exports
-  - Group related types in separate type files
-  - Use barrel exports (index.ts) for public APIs
-
-- Generic Patterns:
-
-  - Use constraints to restrict type parameters
-  - Provide good defaults for optional type parameters
-  - Use generic factories for reusable component patterns
-
-  ```typescript
-  function createCollection<T extends { id: string }>(items: T[]) {
-    return new Collection(items)
-  }
-  ```
-
-- Type Inference and Assertions:
-  - Let TypeScript infer types when obvious
-  - Use `as const` for literal type inference
-  - Avoid `as` assertions except when necessary
-  - Use `satisfies` operator for type validation
-
-## Code Review Checklist
-
-- Ensure proper typing
-- Check for code duplication
-- Verify error handling
-- Confirm test coverage
-- Review naming conventions
-- Assess overall code structure and readability
-
-## Documentation
-
-- When writing documentation, README's, technical writing, technical documentation, JSDocs or comments, always follow Google's Technical Writing Style Guide.
-- Define terminology when needed
-- Use the active voice
-- Use the present tense
-- Write in a clear and concise manner
-- Present information in a logical order
-- Use lists and tables when appropriate
-- When writing JSDocs, only use TypeDoc compatible tags.
-- Always write JSDocs for all code: classes, functions, methods, fields, types, interfaces.
+I will follow these instructions to deliver high-quality implementations. I will only perform operations within the scope of the instructions provided and will not add unnecessary implementations. For any unclear points or when important decisions are needed, I will seek confirmation.
 
 ---
 > Source: [drivly/ai](https://github.com/drivly/ai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
