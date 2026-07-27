@@ -4,7 +4,7 @@
   "repo": "HomeAssistant-Tapo-Control",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JurajNyiri/HomeAssistant-Tapo-Control",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T20:09:33Z"
+  "distributed_at": "2026-07-27T04:38:30Z"
 }
