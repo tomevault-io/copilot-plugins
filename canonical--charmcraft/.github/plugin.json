@@ -1,0 +1,34 @@
+{
+  "name": "canonical--charmcraft",
+  "displayName": "charmcraft",
+  "description": "charmcraft",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/charmcraft",
+  "skills": [
+    {
+      "name": "charmcraft",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "description": ""
+    }
+  ]
+}
