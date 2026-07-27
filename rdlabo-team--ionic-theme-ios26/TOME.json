@@ -2,7 +2,7 @@
   "name": "ionic-theme-ios26",
   "owner": "rdlabo-team",
   "repo": "ionic-theme-ios26",
-  "description": "CSS/JavaScript Library for Ionic Framework",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rdlabo-team/ionic-theme-ios26",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T12:38:56Z"
+  "distributed_at": "2026-07-27T19:33:25Z"
 }
