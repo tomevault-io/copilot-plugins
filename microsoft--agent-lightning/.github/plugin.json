@@ -1,7 +1,7 @@
 {
   "name": "microsoft--agent-lightning",
   "displayName": "agent-lightning",
-  "description": "The absolute trainer to light up AI agents.",
+  "description": "agent-lightning",
   "version": "1.0.0",
   "author": "microsoft",
   "homepage": "https://github.com/microsoft/agent-lightning",
