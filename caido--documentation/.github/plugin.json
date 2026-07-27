@@ -1,0 +1,14 @@
+{
+  "name": "caido--documentation",
+  "displayName": "documentation",
+  "description": "documentation",
+  "version": "1.0.0",
+  "author": "caido",
+  "homepage": "https://github.com/caido/documentation",
+  "skills": [
+    {
+      "name": "documentation",
+      "description": ""
+    }
+  ]
+}
