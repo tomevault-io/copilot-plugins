@@ -1,0 +1,14 @@
+{
+  "name": "yfge--agent-harness-skills",
+  "displayName": "agent-harness-skills",
+  "description": "Turn real software repos into agent-ready engineering environments with entrypoints, validation, evidence, and delivery records.",
+  "version": "1.0.0",
+  "author": "yfge",
+  "homepage": "https://github.com/yfge/agent-harness-skills",
+  "skills": [
+    {
+      "name": "agent-entrypoint-design",
+      "description": ""
+    }
+  ]
+}
