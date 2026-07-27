@@ -2,9 +2,9 @@
   "name": "gridex",
   "owner": "gridex",
   "repo": "gridex",
-  "description": "A native macOS / windows database IDE built with Swift and AppKit. Connect to PostgreSQL, MySQL, SQLite, and Redis from a single app with a fast, keyboard-driven interface.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gridex/gridex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T03:35:39Z"
+  "distributed_at": "2026-07-27T20:31:39Z"
 }
