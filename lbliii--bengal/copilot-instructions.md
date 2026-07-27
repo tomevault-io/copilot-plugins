@@ -1,262 +1,401 @@
 ## bengal
 
-> Evaluate RFC for evidence quality, design completeness, and confidence scoring
+> Bengal follows strict separation of concerns: **models are passive data containers**, **orchestrators handle all operations**.
 
+# Architecture Patterns
 
-# RFC Evaluation
+Bengal follows strict separation of concerns: **models are passive data containers**, **orchestrators handle all operations**.
 
-Evaluate an RFC for evidence quality, design completeness, and readiness.
-
-**Shortcut**: `::rfc-eval`
-
-**Works with**: `modules/evidence-handling`, `modules/output-format`
+**Works with**: `modules/types-as-contracts`, `modules/evidence-handling`
 
 ---
 
-## RFC Lifecycle Position
+## The Model/Orchestrator Split
 
-```
-plan/drafted/    →    plan/evaluated/    →    plan/ready/    →    DELETE
-     ↑                      ↑                      ↑
-  ::rfc               ::rfc-eval               ::plan
-```
+### Models (`bengal/core/`) - PASSIVE
 
----
+Models are **data structures only**:
 
-## Procedure
+```python
+# ✅ CORRECT - Models hold data, no I/O
+@dataclass
+class Page:
+    source_path: Path
+    content: str
+    metadata: dict[str, Any]
 
-### Step 1: Evidence Audit
-
-For each claim in the RFC:
-
-```yaml
-claim_audit:
-  - claim: "[Claim text]"
-    has_evidence: [yes/no]
-    evidence_quality: [direct_code/test/inferred/none]
-    file_line_refs: [list of references]
-    needs_verification: [yes/no]
+    @property
+    def title(self) -> str:
+        return self.metadata.get("title", "Untitled")
 ```
 
-**Scoring**:
-- Direct code reference with excerpt: 40 points
-- Test reference: 30 points
-- Inferred from context: 10 points
-- No evidence: 0 points (flag for revision)
+Models **MUST NOT**:
+- Log messages
+- Perform file I/O
+- Make network requests
+- Have side effects
+- Access global state
 
-### Step 2: Design Completeness
+### Orchestrators (`bengal/orchestration/`) - ACTIVE
 
-Check RFC sections:
+Orchestrators **handle all operations**:
 
-| Section | Present | Quality | Notes |
-|---------|---------|---------|-------|
-| Executive Summary | ✅/❌ | [Good/Needs work] | |
-| Problem Statement | ✅/❌ | [Good/Needs work] | |
-| Goals/Non-Goals | ✅/❌ | [Good/Needs work] | |
-| Design Options (≥2) | ✅/❌ | [Good/Needs work] | |
-| Recommended Approach | ✅/❌ | [Good/Needs work] | |
-| Architecture Impact | ✅/❌ | [Good/Needs work] | |
-| Risks & Mitigations | ✅/❌ | [Good/Needs work] | |
-| Implementation Plan | ✅/❌ | [Good/Needs work] | |
-
-### Step 3: 3-Path Validation (HIGH Criticality)
-
-For claims about:
-- API contracts
-- Core behavior changes
-- User-facing features
-- Performance characteristics
-
-Run 3-path validation:
-
-```yaml
-claim: "[HIGH criticality claim]"
-path_a_source:
-  location: "file:line"
-  finding: "[What was found]"
-  status: ✅/❌
-
-path_b_tests:
-  location: "file:line"
-  finding: "[What tests show]"
-  status: ✅/❌
-
-path_c_config:
-  location: "file:line or N/A"
-  finding: "[Config/schema status]"
-  status: ✅/❌/N/A
-
-agreement: [3/3, 2/3, 1/3, conflict]
-```
-
-### Step 4: Calculate Confidence Score
-
-```yaml
-confidence = (
-    evidence_strength +      # 0-40
-    self_consistency +       # 0-30
-    recency +                # 0-15
-    completeness             # 0-15
-) = 0-100%
-
-thresholds:
-  90-100%: Excellent - ready for planning 🟢
-  85-89%: Good - minor improvements optional 🟢
-  70-84%: Moderate - address gaps before planning 🟡
-  50-69%: Weak - significant revision needed 🟠
-  < 50%: Insufficient - major revision required 🔴
-```
-
-### Step 5: Identify Action Items
-
-```yaml
-critical_issues:  # Must fix before approval
-  - "[Issue requiring RFC revision]"
-
-recommended_improvements:  # Should fix
-  - "[Improvement that would strengthen RFC]"
-
-optional_enhancements:  # Nice to have
-  - "[Optional improvement]"
-
-open_questions:  # Need answers
-  - "[Question that blocks approval]"
+```python
+# ✅ CORRECT - Orchestrator handles I/O and logging
+class RenderOrchestrator:
+    @staticmethod
+    def render_pages(site: Site) -> None:
+        """Render all pages in the site."""
+        logger.info(f"Rendering {len(site.pages)} pages")
+        for page in site.pages:
+            html = TemplateEngine.render(page)
+            output_path = site.output_dir / page.url
+            output_path.write_text(html)
 ```
 
 ---
 
-## Output Format
+## Delegation Pattern
 
-```markdown
-## 🔍 RFC Evaluation: [RFC Title]
+Models delegate operations to orchestrators:
 
-### Executive Summary
-[2-3 sentences: overall assessment, confidence, recommendation]
+```python
+# In bengal/core/site.py
+class Site:
+    def build(self) -> None:
+        """Build the site (delegates to orchestrator)."""
+        return BuildOrchestrator.build(self)
 
----
+    def discover_content(self) -> None:
+        """Discover content (delegates to orchestrator)."""
+        return ContentOrchestrator.discover(self)
+```
 
-### Evidence Quality
-
-| Claim | Evidence | Quality | Status |
-|-------|----------|---------|--------|
-| [Claim 1] | `file:line` | Direct | ✅ |
-| [Claim 2] | Inferred | Weak | ⚠️ |
-| [Claim 3] | None | Missing | ❌ |
-
-**Evidence Score**: [N]/40
-
----
-
-### Design Completeness
-
-| Section | Status | Notes |
-|---------|--------|-------|
-| Problem Statement | ✅ | Clear with evidence |
-| Design Options | ⚠️ | Only 1 option, need alternatives |
-| Architecture Impact | ❌ | Missing |
-
-**Completeness Score**: [N]/15
+**Why?**
+- Models remain testable without I/O mocking
+- Operations are centralized and consistent
+- Clear separation of data and behavior
 
 ---
 
-### HIGH Criticality Validation
+## Subsystem Responsibilities
 
-#### Claim: [Critical claim text]
-
-| Path | Location | Finding | Status |
-|------|----------|---------|--------|
-| Source | `file:line` | [Finding] | ✅ |
-| Tests | `file:line` | [Finding] | ✅ |
-| Config | N/A | Not applicable | - |
-
-**Agreement**: 2/2 applicable paths agree
-
----
-
-### Confidence Score
-
-| Component | Score | Max |
-|-----------|-------|-----|
-| Evidence Strength | [N] | 40 |
-| Self-Consistency | [N] | 30 |
-| Recency | [N] | 15 |
-| Completeness | [N] | 15 |
-| **Total** | **[N]** | **100** |
-
-**Confidence**: [N]% [emoji]
-
----
-
-### 📋 Action Items
-
-**Critical (must fix)**:
-- [ ] [Item]
-
-**Recommended**:
-- [ ] [Item]
-
-**Open Questions**:
-- [ ] [Question]
-
----
-
-### Recommendation
-
-[APPROVE / REVISE / REJECT]
-
-**Reasoning**: [Why this recommendation]
-
-**Next Steps**:
-- If APPROVE: Move to `plan/evaluated/`, proceed to `::plan`
-- If REVISE: Address critical items, re-run `::rfc-eval`
-- If REJECT: [Reason and alternative approach]
+```
+bengal/
+├── core/              # Data models (no I/O, no logging)
+│   ├── site.py        # Site container
+│   ├── page/          # Page model (package - >400 lines)
+│   ├── section.py     # Section/directory model
+│   ├── asset/         # Asset model
+│   └── theme/         # Theme resolution
+│
+├── orchestration/     # Build operations (all I/O here)
+│   ├── build_orchestrator.py
+│   ├── render_orchestrator.py
+│   ├── content_orchestrator.py
+│   └── asset_orchestrator.py
+│
+├── rendering/         # Template and content rendering
+├── discovery/         # Content/asset discovery
+├── cache/             # Caching infrastructure
+├── health/            # Validation and health checks
+└── cli/               # Command-line interface
 ```
 
 ---
 
-## Approval Criteria
+## Composition Over Inheritance
 
-**APPROVE** when:
-- Confidence ≥ 85%
-- No critical issues
-- All HIGH criticality claims validated
-- At least 2 design options analyzed
+Use mixins instead of deep inheritance:
 
-**REVISE** when:
-- Confidence 70-84%
-- Has fixable critical issues
-- Missing evidence that can be gathered
+```python
+# ✅ CORRECT - Composition with focused mixins
+@dataclass
+class Page(
+    PageMetadataMixin,      # Metadata access
+    PageNavigationMixin,    # URL/navigation helpers
+    PageComputedMixin,      # Computed properties
+    PageRelationshipsMixin, # Parent/children/siblings
+):
+    """Page combines focused mixins."""
+    core: PageCore
+    content: str
+    rendered_html: str | None = None
+```
 
-**REJECT** when:
-- Confidence < 70%
-- Fundamental design flaws
-- Problem statement invalid
-- Better approached differently
+**Not this**:
 
----
-
-## After Approval
-
-```bash
-# Move RFC to evaluated
-mv plan/drafted/rfc-[name].md plan/evaluated/
-
-# Update status in file
-Status: Evaluated
-
-# Proceed to planning
-::plan
+```python
+# ❌ WRONG - Deep inheritance
+class BasePage: pass
+class ContentPage(BasePage): pass
+class BlogPage(ContentPage): pass
+class ArticlePage(BlogPage): pass  # Too deep!
 ```
 
 ---
 
-## Related
+## Single Responsibility
 
-- `commands/research` - Gather more evidence if needed
-- `commands/rfc` - RFC drafting
-- `commands/plan` - Convert to tasks after approval
-- `commands/validate` - General validation patterns
+Each class has **one clear purpose**:
+
+| Class | Responsibility |
+|-------|----------------|
+| `Site` | Root data container for a build |
+| `Page` | Represents one content file |
+| `Section` | Represents content directory |
+| `BuildOrchestrator` | Coordinates build phases |
+| `RenderOrchestrator` | Handles page rendering |
+| `ContentOrchestrator` | Discovers content |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/lbliii) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+
+## File Size Threshold (400 Lines)
+
+When a file exceeds **400 lines**, convert to a package:
+
+```
+# Before (450 lines)
+bengal/core/page.py
+
+# After (converted to package)
+bengal/core/page/
+├── __init__.py          # Main Page class (~50 lines)
+├── page_core.py         # PageCore (~200 lines)
+├── metadata.py          # PageMetadataMixin (~80 lines)
+├── navigation.py        # PageNavigationMixin (~60 lines)
+├── computed.py          # PageComputedMixin (~100 lines)
+└── proxy.py             # PageProxy (~150 lines)
+```
+
+---
+
+## Common Patterns
+
+### Strategy Pattern
+
+```python
+class ContentStrategy(ABC):
+    @abstractmethod
+    def get_template(self, page: Page) -> str: ...
+
+class BlogStrategy(ContentStrategy):
+    def get_template(self, page: Page) -> str:
+        return 'blog/post.html'
+
+class DocStrategy(ContentStrategy):
+    def get_template(self, page: Page) -> str:
+        return 'docs/page.html'
+```
+
+### Registry Pattern
+
+```python
+class ContentTypeRegistry:
+    _strategies: dict[str, ContentStrategy] = {}
+
+    @classmethod
+    def register(cls, name: str, strategy: ContentStrategy) -> None:
+        cls._strategies[name] = strategy
+
+    @classmethod
+    def get(cls, name: str) -> ContentStrategy:
+        return cls._strategies[name]
+```
+
+### Builder Pattern
+
+```python
+builder = MenuBuilder('main')
+builder.add_from_config(items)
+builder.add_from_pages(pages)
+menu = builder.build_hierarchy()
+```
+
+---
+
+## Data Flow
+
+### Explicit State Management
+
+```python
+# ✅ CORRECT - Pass state explicitly
+def render_page(page: Page, context: BuildContext) -> str:
+    return template.render(page=page, site=context.site)
+
+# ❌ WRONG - Hidden global state
+_current_site = None  # Global mutable state
+
+def render_page(page: Page) -> str:
+    global _current_site
+    return template.render(page=page, site=_current_site)
+```
+
+### Single Source of Truth
+
+- **Site** is the root data container
+- **Cache** stores paths, not object references
+- References reconstructed each build
+
+---
+
+## God Object Warning Signs
+
+A class may be a "God object" if it has:
+
+- More than **400 lines**
+- More than **10 public methods**
+- Imports from **>5 different modules**
+- Does **multiple unrelated things**
+
+**Solution**:
+1. Extract mixins for different concerns
+2. Delegate operations to specialized classes
+3. Use composition instead of adding methods
+
+---
+
+## Validation Checklist
+
+When reviewing code:
+
+- [ ] **Models have no I/O** - No file operations in `bengal/core/`
+- [ ] **Models don't log** - No `logger.info()` in models
+- [ ] **Orchestrators handle operations** - All I/O in `bengal/orchestration/`
+- [ ] **Composition over inheritance** - Mixins, not deep hierarchies
+- [ ] **Single responsibility** - Each class does one thing
+- [ ] **File size < 400 lines** - Convert to package if exceeded
+
+---
+
+## Quick Reference
+
+| Pattern | Use When |
+|---------|----------|
+| Delegation | Model needs to trigger operation |
+| Strategy | Multiple implementations of behavior |
+| Registry | Dynamic type/handler lookup |
+| Builder | Complex object construction |
+| Mixin | Shared functionality across classes |
+
+---
+
+## Frozen Boundary: Build → Render
+
+Data flowing from build phases to the render phase MUST be immutable. The render
+phase runs in parallel (free-threading, Python 3.14t) — mutable shared state
+causes data races.
+
+### Rule
+
+| Container | Allowed in build output? | Allowed in render input? |
+|-----------|-------------------------|-------------------------|
+| `frozenset` | Yes | Yes (read-only) |
+| `tuple` | Yes | Yes (read-only) |
+| `frozen dataclass` | Yes | Yes (read-only) |
+| `dict[K, frozenset]` | Yes | Yes (read values only) |
+| `list` | Build-internal only | **NO** — freeze before handoff |
+| `set` | Build-internal only | **NO** — freeze before handoff |
+| `dict` (mutable values) | Build-internal only | **NO** |
+
+### Examples
+
+```python
+# ✅ CORRECT — Frozen artifacts from build to render
+page_tags_map: dict[int, frozenset[str]]    # immutable tag sets
+excluded_ids: frozenset[int]                 # immutable exclusion set
+tag_index: dict[str, frozenset[int]]        # immutable inverted index
+identity_map: dict[int, PageIdentity]       # frozen dataclass values
+
+# ❌ WRONG — Mutable containers crossing the boundary
+related_map: dict[int, list[Page]]          # list is mutable
+active_tags: set[str]                        # set is mutable
+```
+
+### Where the Boundary Is
+
+Build phases (sequential or cooperative parallel):
+- Discovery → Content → Parsing (phases 1-12.5)
+- Output: frozen data structures on Site and pages
+
+Render phase (fully parallel, no locks):
+- Rendering → Finalization (phases 13+)
+- Reads frozen data, writes individual page HTML files
+
+### PageIdentity as Boundary Artifact
+
+`page.identity` (PageIdentity frozen dataclass) is the primary boundary artifact.
+It is computed at the end of content phases via `page.finalize_identity()` and is
+immutable for the entire render phase.
+
+### @cached_property at the Boundary
+
+`@cached_property` is a common mechanism for lazy-computing data that crosses the
+build/render boundary. Since it writes to `instance.__dict__` without a lock,
+properties read during parallel render MUST either:
+
+1. Return immutable types (tuple, frozenset, frozen dataclass) so the race is benign
+2. Be pre-warmed during the sequential snapshot phase so they're already cached
+
+Properties that return mutable containers and are accessed during render are
+**data races** under 3.14t. Known properties that require immutable returns:
+
+| Property | File | Safe Return Type |
+|---|---|---|
+| `visibility` | `page/metadata.py` | `VisibilitySettings` (frozen dataclass) |
+| `regular_pages` | `section/queries.py` | `tuple[Page, ...]` |
+| `sorted_pages` | `section/queries.py` | `tuple[Page, ...]` |
+| `sorted_subsections` | `section/hierarchy.py` | `tuple[Section, ...]` |
+| `subsection_index_urls` | `section/navigation.py` | `frozenset[str]` |
+| `authors` | `page/__init__.py` | `tuple[Author, ...]` |
+
+See `modules/free-threading` for the full audit classification and decision tree.
+
+### Module-Level Cache Pattern
+
+Module-level mutable dicts used as caches MUST protect ALL access paths with a
+lock — including the "fast-path" read. Under free-threading, a concurrent `.clear()`
+or write can race with an unprotected `.get()`.
+
+```python
+# ❌ WRONG — fast-path read outside lock races with .clear()
+cached = _cache.get(key)
+if cached is not None:
+    return cached
+with _lock:
+    ...
+
+# ✅ CORRECT — all reads inside lock (uncontended after warm-up)
+with _lock:
+    cached = _cache.get(key)
+    if cached is not None:
+        return cached
+    result = compute()
+    _cache[key] = result
+    return result
+```
+
+Never use `.clear()` for cache eviction — it evicts all entries at once, causing a
+stampede where every thread misses and rebuilds simultaneously. Use LRU eviction:
+
+```python
+if len(_cache) >= _max_size:
+    to_remove = list(_cache.keys())[:len(_cache) // 2]
+    for k in to_remove:
+        del _cache[k]
+```
+
+---
+
+## Evidence
+
+- `bengal/core/site.py` - Site delegates to orchestrators
+- `bengal/core/page/__init__.py` - Page uses mixins
+- `bengal/core/page/page_identity.py` - PageIdentity frozen dataclass
+- `bengal/orchestration/build_orchestrator.py` - Orchestrator with I/O
+- `bengal/orchestration/related_posts.py` - Frozen build artifacts example
+- `architecture/design-principles.md` - Full design documentation
+
+---
+> Source: [lbliii/bengal](https://github.com/lbliii/bengal) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
