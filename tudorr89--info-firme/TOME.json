@@ -4,7 +4,7 @@
   "repo": "info-firme",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/tudorr89/info-firme",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T07:50:23Z"
+  "distributed_at": "2026-07-27T16:25:53Z"
 }
