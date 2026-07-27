@@ -1,137 +1,90 @@
 ## humbug
 
-> Humbug is a platform for human-AI collaboration, written in Python. This document describes the directory structure to help AI agents navigate the codebase.
+> Validates parenthesis balance in a `.menai` file. Uses the Menai lexer so that
 
-# AGENTS.md - Humbug Project Directory Structure
+# AGENTS.md — tools/menai
 
-## Overview
+Developer tools for working with Menai source files and bytecode. Each tool is
+a standalone Python script that adds `src/` to its own path, so all can be run
+from any working directory.
 
-Humbug is a platform for human-AI collaboration, written in Python. This document describes the directory structure to help AI agents navigate the codebase.
+For invocation details (flags, options, examples) read the tool's own source
+file or its README where one exists.
 
-## Tool use
+## benchmark — `benchmark/run.py`
 
-- If you want to use the terminal you will require user authorization every time you send keystrokes.  If you load files into
-  an editor tab, however, you don't, so if you just want to do a simple search of a file then consider using the editor
-  tabs.  They can get pretty cluttered though so if you don't need the tab again then close it.
-- If you open a terminal it will automatically be in the root of the mindspace directory.  Don't change directory unless
-  you want to be somewhere else.
-- Terminals will not open with a python virtual environment by default.  If you want a venv then you must do that yourself.
+Compares Menai performance against idiomatic Python and pure-functional Python
+across a set of algorithmic benchmark suites.
 
+Each suite benchmarks three implementations of the same algorithm: Menai (run
+on the Menai VM), idiomatic Python (using mutation and built-ins), and
+functional Python (pure-functional style matching Menai's semantics). The
+first implementation (Menai) is the reference; all others are validated against
+it with per-suite correctness checks. Timing is reported as mean and minimum
+wall-clock time in milliseconds, with a speedup/slowdown ratio relative to the
+reference.
 
-## Code generation
+## checker — `checker/check.py`
 
-- When you help write code, do not write lengthy file-level docstrings.  These go stale very fast as the code evolves.
-- Do not add comments marking blocks of functionality within files.  Functions, classes, etc., have docstrings so we have
-  everything we need anyway and these sorts of delimeter comments simply add clutter to the code.
-- If you are writing tests, the tests must reflect the correct and desired behaviour.  NEVER write or patch a test to
-  mask broken implementation logic.  If the logic is wrong then a test must fail.
+Validates parenthesis balance in a `.menai` file. Uses the Menai lexer so that
+parentheses inside strings and comments are correctly ignored.
 
+Produces a line-by-line depth chart and identifies the exact location of any
+imbalance. Closing parentheses can optionally be annotated with the special
+form they close (`lambda`, `let`, `letrec`, `if`, `match`). Supports ANSI
+colour output with depth-matched colouring on parentheses, line numbers, and
+annotations. Exit codes are suitable for CI/CD use.
 
-## Top-Level Structure
+## disassembler — `disassembler/disassemble.py`
 
-```text
-humbug/
-├── src/                    # Main source code
-├── tests/                  # Test suite
-├── tools/                  # Development and analysis tools
-├── docs/                   # Documentation
-├── menai_modules/          # Menai standard library modules
-├── conversations/          # Example AI conversations
-├── icons/                  # Application icons
-└── pyproject.toml          # Python project configuration
-```
+Compiles a `.menai` file and prints annotated bytecode for every `CodeObject`
+in the module, recursing into nested closures.
 
-## `src/` Directory
+Each function section lists its code-objects table, constants table, input
+parameters, captured free variables, and an annotated instruction listing.
+Instructions are annotated with what they load, call, or close over. Jump
+targets are marked and control-flow boundaries are visually separated. An
+optional call-trace mode summarises which functions call which.
 
-### `src/humbug/`
-Main application and GUI components.
+## pretty-print — `pretty-print/pretty-print.py`
 
-**Subdirectories:**
-- `tabs/` - Tab management (conversations, editors, terminals, preview, log, diff)
-- `mindspace/` - Project workspace management (conversations, files, preview, vcs)
-- `settings/` - Application and user settings
-- `user/` - User management
-- `language/` - Localization support
+Formats Menai source code using `MenaiPrettyPrinter` from `src/menai`. Reads
+from a file or stdin and writes to stdout, a file, or back in-place.
 
-### `src/ai/`
-Multi-backend AI conversation system.
+Short expressions are kept on one line; longer ones are broken across lines
+with consistent indentation. `lambda`, `if`, `match`, `let`, `let*`, and
+`letrec` receive special multi-line layouts with aligned bindings. End-of-line
+and standalone comments are preserved. A check mode (exit 0/1) is available
+for use in pre-commit hooks or CI.
 
-**Backend subdirectories:**
-- `anthropic/` - Claude models
-- `deepseek/` - DeepSeek models
-- `google/` - Gemini models
-- `mistral/` - Mistral models
-- `ollama/` - Local Ollama models
-- `openai/` - GPT models
-- `vllm/` - vLLM server integration
-- `xai/` - xAI (Grok) models
-- `zai/` - Z.ai models
+## profiler — `profiler/profile.py`
 
-### `src/ai_tool/`
-Framework for AI tools and capabilities.
+Compiles and executes a `.menai` file under Python's `cProfile`, then prints a
+summary of the hottest call sites. Prelude compilation happens before profiling
+starts and is excluded from the results, so the profile reflects only the user
+program's execution cost.
 
-**Tool subdirectories:**
-- `menai/` - Menai language execution
-- `clock/` - Date/time operations
-- `filesystem/` - File operations
-- `help/` - Tool documentation
+Raw profile data can optionally be saved to a `.prof` file for further
+inspection with `pstats` or `snakeviz`. Benchmark programs are in
+`tests/` (e.g. `sudoku-solver.menai`, `rubiks_cube.menai`, `list-sort.menai`).
 
-### `src/menai/`
-Pure functional programming language designed for AI use. Includes lexer, parser, compiler, and virtual machine.
+## test-runner — `test-runner/test-run.py`
 
-### `src/diff/`
-Unified diff parsing and application with fuzzy matching.
+Discovers `*_test.menai` files, parses their test trees, and executes each
+leaf thunk in an isolated VM invocation. A runtime error in one test does not
+affect any other.
 
-### `src/git/`
-Lightweight, GUI-free tools for git operations.
+Test files export a dict with a `"tests"` key containing a node-list — a
+nested structure of named groups (branches) and zero-argument lambdas (leaves).
+The runner reports pass/fail per leaf with the full group path, and exits with
+a non-zero code if any test fails. An optional name filter runs only the tests
+whose path contains a given substring.
 
-### `src/dmarkdown/`
-Advanced markdown parsing to AST.
-
-### `src/pdf/`
-Pure-Python PDF text extraction (stdlib only). Parses PDF structure, decodes streams
-(FlateDecode, ASCII85Decode, ASCIIHexDecode), and extracts text from content streams.
-Public API: `parse(data: bytes) -> PDFDocument` and `extract_text(doc: PDFDocument) -> str`.
-
-### `src/syntax/`
-Language-specific syntax highlighting system.
-
-**Language subdirectories:**
-- `menai/`, `c/`, `cpp/`, `csharp/`, `css/`, `diff/`, `go/`, `html/`, `java/`
-- `javascript/`, `json/`, `kotlin/`, `lua/`, `markdown/`, `metaphor/`, `move/`
-- `python/`, `rust/`, `scheme/`, `solidity/`, `swift/`, `text/`, `typescript/`, `xml/`
-
-### `src/terminal/`
-Cross-platform terminal emulator with Unix and Windows implementations.
-
-## `tests/` Directory
-
-Test structure mirrors `src/` organization:
-- `ai_tool/` - AI tool tests
-- `menai/` - Menai language tests
-- `diff/` - Diff system tests
-- `dmarkdown/` - Markdown parser tests
-- `syntax/` - Syntax highlighting tests
-
-## `tools/` Directory
-
-Development and debugging utilities:
-- `menai/benchmark/` - Menai performance benchmarking
-- `menai/bytecode_analyzer/` - Bytecode inspection
-- `menai/checker/` - Static analysis
-- `menai/disassembler/` - Bytecode disassembly
-- `menai/pretty_print/` - Code formatting
-- `dependency_checker/` - Module dependency validation
-- `planner/` - Project planning
-
-## Key Documentation Files
-
-- `README.md` - Project overview
-- `CHANGELOG.md` - Version history
-- `src/menai/README.md` - Menai implementation overview and Python API
-- `src/menai/AGENTS.md` - Guide for AIs working on the Menai implementation
-- Component-specific README.md files in subdirectories
+The `menai_test` support module (`test-runner/menai_test.menai`) is injected by the
+runner and provides `assert-equal` (polymorphic structural equality check) and
+the internal `test-find` navigation helper. It is not part of the standard
+`menai_modules/` library.
 
 ---
 > Source: [m6r-ai/humbug](https://github.com/m6r-ai/humbug) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
