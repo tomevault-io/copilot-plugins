@@ -1,0 +1,63 @@
+{
+  "name": "hyperswitch-control-center",
+  "owner": "juspay",
+  "repo": "hyperswitch-control-center",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hyperswitch-control-center",
+      "path": ".opencode/skills/raise-pr/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-control-center/tree/main/.opencode/skills/raise-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-control-center",
+      "path": ".opencode/skills/pr-review/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-control-center/tree/main/.opencode/skills/pr-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "hyperswitch-control-center",
+      "path": ".opencode/skills/playwright-test/SKILL.md",
+      "github_url": "https://github.com/juspay/hyperswitch-control-center/tree/main/.opencode/skills/playwright-test/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/juspay/hyperswitch-control-center",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T09:34:05Z"
+}
