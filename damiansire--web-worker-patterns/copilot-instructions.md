@@ -1,0 +1,17 @@
+## web-worker-patterns
+
+> Regla de oro de la arquitectura multi-theme (core/ ⇏ themes/)
+
+
+- El dominio se escribe una vez en `core/`; la presentación cinco veces en `themes/`.
+- `core/` NUNCA importa de `themes/` — la dependencia va en un solo sentido.
+- La lógica de Web Workers vive en `core/domain/workers/`, nunca dentro de un theme.
+- Nada de colores/fuentes literales en componentes compartidos: siempre tokens semánticos
+  (`--surface`, `--ink`, `--accent`, `--thread-*`).
+- Antes de cerrar un cambio: `npm run format:check`, `npm run build`, `npm test`, `npm run lint:boundaries`.
+- Fuente de verdad completa: `ARQUITECTURA-multi-theme.md`, `CLAUDE.md`, `docs/AI-PROCESS.md`,
+  `AGENTS.md`.
+
+---
+> Source: [damiansire/web-worker-patterns](https://github.com/damiansire/web-worker-patterns) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
