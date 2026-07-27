@@ -1,0 +1,9 @@
+{
+  "name": "appveyor--website",
+  "displayName": "website",
+  "description": "website",
+  "version": "1.0.0",
+  "author": "appveyor",
+  "homepage": "https://github.com/appveyor/website",
+  "skills": []
+}
