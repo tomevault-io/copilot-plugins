@@ -1,41 +1,38 @@
 ## vibe-coding-ai-rules
 
-> - Strict mode with `exactOptionalPropertyTypes`
+> FocusFlow is an advanced productivity SaaS platform combining Pomodoro technique, AI-driven insights, team synchronization, and analytics for remote teams.
 
+# FocusFlow - Project Context
 
-# FocusFlow Code Style
+## Overview
+FocusFlow is an advanced productivity SaaS platform combining Pomodoro technique, AI-driven insights, team synchronization, and analytics for remote teams.
 
-## TypeScript/React
-- Strict mode with `exactOptionalPropertyTypes`
-- Explicit return types on all functions
-- Prefer `type` over `interface`
-- Server Components by default; `'use client'` only when needed
-- No default exports (except Next.js pages/layouts)
-- No `any` — use `unknown` with type guards
+**Architecture**: Microservices with event-driven architecture
+**Scale**: Series A startup targeting 10K+ MAU
 
-## Python
-- Type hints required for all functions
-- Pydantic for data validation
-- Async/await for all I/O
-- PEP 8 + Black (line length 88)
+## Tech Stack
+- **Frontend**: TypeScript 5.3+, Next.js 14.2, React 18.3, TailwindCSS 3.4
+- **Backend**: NestJS 10.3, FastAPI 0.110+ (Python)
+- **Database**: PostgreSQL 16 (Prisma), MongoDB 7.0, Redis 7.2+
+- **Testing**: Vitest 1.4, Playwright 1.42, pytest 8.1
+- **Package Manager**: pnpm 9.x
 
-## Naming
-- Files: `kebab-case.tsx`, `snake_case.py`
-- Components: PascalCase
-- Functions: camelCase with verb prefixes
-- Constants: UPPER_SNAKE_CASE
+## DO NOT Use
+- Redux (use Zustand), Axios (use fetch), Moment.js (use date-fns)
+- CSS-in-JS (use TailwindCSS), GraphQL (REST + WebSocket)
 
-## Formatting
-- 2 spaces (TS), 4 spaces (Python)
-- 100 chars (TS), 88 chars (Python)
-- Single quotes (TS), double quotes (Python)
-- Semicolons required (TS)
+## Commands
+```bash
+pnpm install        # Install
+pnpm dev            # All services
+pnpm test           # Tests
+pnpm build          # Build
+```
 
-## Patterns
-- Repository pattern for data access
-- Service layer for business logic
-- CQRS for analytics
-- Atomic design for UI
+## Key Files
+- `apps/web/middleware.ts` — Auth
+- `services/api/prisma/schema.prisma` — DB schema
+- `apps/web/lib/schemas/` — Zod schemas
 
 ---
 > Source: [obviousworks/vibe-coding-ai-rules](https://github.com/obviousworks/vibe-coding-ai-rules) — distributed by [TomeVault](https://tomevault.io).
