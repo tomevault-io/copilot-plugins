@@ -1,42 +1,91 @@
 ## boilerplates-library
 
-> Guidance for AI agents working in this repository.
+> Guidance for AI coding agents working in this repository.
 
 # AGENTS.md
 
-Guidance for AI agents working in this repository.
+Guidance for AI coding agents working in this repository.
 
-## Repository Purpose
+## Project
 
-This repository is the canonical `0.2.0+` boilerplates template library consumed by the `boilerplates` CLI.
+Project name: << project_name >>
 
+## Scope and precedence
+
+- This file applies to the repository tree rooted at the directory containing this `AGENTS.md` file.
+- More deeply nested `AGENTS.md` files may add or override instructions for their subtrees.
+
+## Repository map
+
+Use this as the first place to understand where things live. Replace TODOs with the actual project structure as it becomes clear.
+
+<%- if source_dir %>
+- Source: `<< source_dir >>` - main application or library source code.
+<%- endif %>
+<%- if tests_dir %>
+- Tests: `<< tests_dir >>` - automated tests, fixtures, and test utilities.
+<%- endif %>
+<%- if docs_dir %>
+- Docs: `<< docs_dir >>` - project documentation, architecture notes, and user/developer guides.
+<%- endif %>
+<%- if cfg_dir %>
+- Config: `<< cfg_dir >>` - configuration files, examples, defaults, or environment-specific settings.
+<%- endif %>
+<%- if ansible_dir %>
+- Ansible: `<< ansible_dir >>` - playbooks, roles, inventories, and automation tasks.
+<%- endif %>
+<%- if terraform_dir %>
+- Terraform: `<< terraform_dir >>` - infrastructure-as-code modules, stacks, variables, and provider configuration.
+<%- endif %>
+<%- if deployments_dir %>
+- Deployments: `<< deployments_dir >>` - deployment manifests, environment overlays, Compose files, Helm values, or Kubernetes resources.
+<%- endif %>
+
+<%- if docs_dir  %>
+## Documentation
+
+Project documentation lives in `<< docs_dir >>`.
+
+Agents should read the relevant docs before making changes and update docs when behavior, configuration, or workflows change.
+
+### Documentation map
+
+TODO: fill in
+
+<%- endif %>
+<%- if validation_enabled %>
 ## Validation
 
-- Always validate template changes with the `boilerplates` CLI from this repository root.
-- The validate command requires either one template slug or `--all`.
-- Template/Jinja validation always runs.
-- Add `--semantic` to render the dependency matrix and run semantic checks for every generated case.
-- Add `--kind` to also run the kind-specific validator when a local validator tool is available. If no applicable validator or rendered kind files are available, the result may be reported as `skip` with a warning.
-- For a specific template, run:
-  - `boilerplates <kind> validate <template-slug> --semantic --kind`
-- For every template of a kind, run:
-  - `boilerplates <kind> validate --all --semantic --kind`
-- Example commands:
-  - `boilerplates compose validate whoami --semantic --kind`
-  - `boilerplates compose validate --all --semantic --kind`
-  - `boilerplates kubernetes validate core-deployment --semantic --kind`
-  - `boilerplates kubernetes validate --all --semantic --kind`
-  - `boilerplates terraform validate cloudflare-dns-record --semantic --kind`
-  - `boilerplates terraform validate --all --semantic --kind`
-- After changing templates, run validation for every affected kind before finishing.
+Run the relevant checks before finishing changes.
 
-## Local Config
+<%- if validation_commands %>
+<< validation_commands >>
+<%- else %>
+AI placeholder: fill in the project-specific validation commands agents should run.
 
-- This repository includes a local `config.yaml`.
-- The local `config.yaml` must point to this checkout as a `static` library so validation reads this repository directly.
-- Do not validate against the git-synced library under `~/.config/boilerplates/libraries/...`.
-- Run validation from the repo root so `boilerplates` picks up `./config.yaml` instead of the global config.
+- TODO: format
+- TODO: lint
+- TODO: test
+- TODO: build
+- TODO: any template, config, or deployment validation
+<%- endif %>
+<%- endif %>
+
+<%- if conventions_enabled %>
+## Project conventions
+
+<%- if rule_existing_patterns %>- Follow existing project structure, naming, and patterns before introducing new ones.
+<%- endif %><% if rule_minimal_changes %>- Keep changes focused on the requested task; avoid unrelated refactors or broad rewrites.
+<%- endif %><% if rule_update_docs %>- When adding or changing features, update the relevant documentation.
+<%- endif %><% if rule_add_tests %>- When changing logic, add or update tests where practical.
+<%- endif %>
+- Do not commit secrets, tokens, private keys, or environment-specific credentials.
+<% if conventions_notes %>
+<< conventions_notes >>
+<%- else %>- TODO: add project-specific coding style, architecture, naming, dependency, or review conventions.
+<%- endif %>
+<%- endif %>
 
 ---
 > Source: [ChristianLempa/boilerplates-library](https://github.com/ChristianLempa/boilerplates-library) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
