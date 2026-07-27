@@ -1,105 +1,171 @@
-## wize-trigger-map
+## wize-ux-design
 
-> 1-analysis: Trigger Map
+> 2-plan: UX Design
 
 
-# Trigger Map
+# UX Design
 
-# Trigger Map
+# UX Design
 
-**Goal.** Map user psychology to business goals. For each user action the product wants to drive, name the **trigger** (the need/anxiety/desire that precedes it), the **friction** that blocks it today, the **business outcome** unlocked, and the **signal** that confirms it happened.
+**Goal.** Turn scenarios into page-by-page specifications Tony can architect against and Shuri can implement. One spec per screen. Every spec answers: purpose, primary action, layout, content, interactions, states (loading/empty/error/success/disabled), accessibility, and metrics.
 
-This is the bridge between Pepper's brief and Maria Hill's PRD: it forces the team to argue *why* users would do the thing before *what* the team will build.
-
-Pepper drives. Output lands in `.wize/planning/ux/trigger-map.md`.
+Mantis drives. Output lands in `.wize/planning/ux/ux-design/{screen-name}.md`.
 
 ## Inputs
 
-- `.wize/planning/brief.md` (vision + audience + success criteria).
-- `.wize/planning/research.md` (when present — strengthens triggers with evidence).
+- `.wize/planning/ux/ux-scenarios.md` (every screen traces back to ≥ 1 scenario)
+- `.wize/planning/prd.md` (every screen advances at least one AC)
+- `.wize/solutioning/design-system/` (when Mantis already wrote tokens; otherwise this runs in parallel with `wize-design-system`)
+- Overlay playbooks if active:
+  - `web-overlay/playbooks/wcag-aa.md`, `responsive-breakpoints.md`, `semantic-html.md`
+  - `app-overlay/playbooks/apple-hig.md`, `material-design-3.md`, `touch-targets-and-gestures.md`, `permissions-ux.md`
 
 ## Outputs
 
-- `.wize/planning/ux/trigger-map.md`
+- `.wize/planning/ux/ux-design/{screen-name}.md` (one per screen)
+- `.wize/planning/ux/ux-design/index.md` (map of screens → scenarios → PRD ACs)
 
 ## Steps
 
-### 1. List target user actions
+### 1. Enumerate the screens
 
-From the brief, list **3–8 actions** users must take for the product to succeed. Verb-led. Concrete.
+From the scenarios, list every screen needed to deliver the moment-of-truth. Name them by role + state: `signup-empty.md`, `signup-error.md`, `team-list-with-members.md`, `team-list-empty.md`. Empty/error/loading states are screens.
 
-- ✓ "Sign up using a work email."
-- ✓ "Add a teammate."
-- ✓ "Confirm the first invoice."
-- ✗ "Get value." (too abstract)
+### 2. Per screen: fill the spec template
 
-If you have more than 8, you're conflating products. Trim.
+For each screen, write the spec below. Stay disciplined; if a section is empty, ask why.
 
-### 2. Per row: trigger / friction / business outcome / signal
+### 3. Write the index
 
-For each action, fill four cells. Each cell ≤ 1 sentence.
+`index.md` is a single table mapping screen → scenarios touched → PRD ACs advanced. Tony reads this first; Hawkeye references it in `tea-design.md`.
 
-| Field | What goes here |
-|---|---|
-| **Trigger** | The mental state preceding the action. *Need / anxiety / desire.* What makes the user think "I need to do this now"? |
-| **Friction** | The cost of doing it today (in the current workaround or competitor). What stops them? |
-| **Business outcome** | What changes for the business when this action happens. Revenue, retention, cost, NPS, risk reduction. |
-| **Signal** | The telemetry event/state-change proving it happened. Name it like an event (`signup_succeeded`), not a phrase ("user signs up"). |
+### 4. Hand off
 
-### 3. Mark each row evidence-backed or hypothesis
+Mark `status: ready-for-architecture` on each spec. Notify Wizer; Tony reads next.
 
-Every cell must be tagged:
-
-- `evidence:<source>` — when based on an interview, survey, analytics or a citable doc.
-- `hypothesis` — when we believe it but haven't proven it.
-
-Hypotheses are fine. Hidden hypotheses are not. Force the label.
-
-### 4. Wire to success criteria
-
-For each of Pepper's success criteria in the brief, identify **which row of the map is the load-bearing one**. If a criterion has no row mapped to it, either it's not a real success criterion or the map is missing an action.
-
-### 5. Hand off
-
-Mark `status: ready-for-prd`. Tell Wizer the next step is Maria Hill.
-
-## Output template
+## Spec template (one file per screen)
 
 ```markdown
 ---
-status: ready-for-prd | draft
-owner: Pepper Potts
-created: YYYY-MM-DD
+screen: signup-empty
+status: ready-for-architecture
+owner: Mantis
+linked_scenarios: [S1]
+linked_acs: [AC-01-1, AC-01-2]
 ---
 
-# Trigger Map — {{project_name}}
+# Sign up (empty state)
 
-## Actions
+## Purpose
+First contact: a manager wants to create an account. The goal of *this* screen is to collect work email + password with minimum friction, in service of scenario S1 moment-of-truth (3 invites within 5 minutes).
 
-| # | Action | Trigger | Friction | Business outcome | Signal | Evidence |
-|---|---|---|---|---|---|---|
-| 1 | Sign up with work email | "We need a tool we can hand to the team next week." | Existing tool requires manual SSO; we want self-serve. | New paid-team conversion. | `signup_completed` | research:user-interview-2026-04 |
-| 2 | Invite first teammate | Won't move forward solo. | Email + reminder loops cost manager 10min. | Activation. | `teammate_invited` | hypothesis |
-| … | … | … | … | … | … | … |
+## Primary user action
+Submit the form (CTA: "Create account").
 
-## Coverage of brief success criteria
+## Layout (ASCII or Mermaid)
 
-- **Criterion 1** ("TTI ≤ 1.5s on Android by Q3") → covered by row 4 (`page_loaded`).
-- **Criterion 2** ("…") → covered by row 1.
-- …
+(web overlay)
+```
+┌─────────────────────────────────────────────────┐
+│ Wize logo                          [Sign in →]  │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│           Create your team's account            │
+│           ──────────────────────────            │
+│           [ Work email           ]              │
+│           [ Password (12+)       ]              │
+│                                                 │
+│           [    Create account    ]              │
+│                                                 │
+│           Already a member? Sign in              │
+│                                                 │
+└─────────────────────────────────────────────────┘
 ```
 
-## Anti-patterns Pepper rejects
+(app overlay note: stacked, top-aligned, system back disabled.)
 
-- **Triggers written as features.** "Wants the dashboard." Wrong layer. Reword to the emotion/need: "Wants to know if the team is okay."
-- **Friction in vague language.** "It's confusing." Wrong. Name the step that breaks: "After invite, no email arrives for 4 hours."
-- **Business outcomes with no metric.** "Drives engagement." Wrong. "Reduces churn by ≥ 1pp in cohort C." If you can't measure it, it's not an outcome — it's a hope.
-- **Signals that fire on intent, not completion.** `signup_button_clicked` is intent. `signup_completed` is the signal.
-- **Same row repeated for two actions.** Each row must justify a distinct action. If you can collapse them, do it.
+## Content (copy)
+
+- Headline: "Create your team's account"
+- Sub: (none — keep the screen empty for focus)
+- Field 1 label: "Work email"
+- Field 1 placeholder: "name@yourcompany.com"
+- Field 2 label: "Password"
+- Field 2 helper text: "At least 12 characters."
+- CTA: "Create account"
+- Secondary: "Already a member? Sign in" → routes to /signin
+
+## Interactions
+
+- Click CTA with valid form → submit; show loading state; redirect on success.
+- Click CTA with invalid form → set focus to first invalid field; show error region.
+- Tab order: email → password → CTA → "Sign in" link.
+- Enter on either field submits if both are valid.
+
+## States
+
+- **Loading:** CTA shows spinner; button is disabled; inputs remain editable.
+- **Empty (this state):** placeholders visible; CTA disabled until both fields non-empty.
+- **Error (inline per field):** error region appears under each field, `role="alert"`, identifies the rule and the fix.
+- **Error (global):** Banner above headline if the back-end fails with a non-field error; provides a "retry" action.
+- **Success:** redirect; no flash. The next screen owns acknowledgement.
+- **Disabled:** CTA opacity 0.4; aria-disabled="true"; tooltip *"Fill both fields to continue"*.
+
+## Accessibility notes
+
+(web overlay)
+- Both inputs have visible persistent labels (no placeholder-only).
+- `lang="en"` on `<html>`.
+- Error region: per-field `aria-describedby`, ALL `role="alert"` after first submit only.
+- Contrast pairs all ≥ 4.5:1 in light mode, ≥ 4.5:1 in dark mode.
+- 200% zoom: no horizontal scroll on 360px viewport.
+- Skip link absent (no main nav before).
+
+(app overlay)
+- Apple HIG / Material 3 systemic input components.
+- Dynamic Type / font scale: layout reflows at largest accessibility size; CTA pinned to bottom-safe-area.
+- Touch targets ≥ 44pt (iOS) / 48dp (Android).
+- VoiceOver order: headline → email → password → CTA → secondary link.
+
+## Metrics
+
+- Event `signup_completed` (Q7 success quote): fires after redirect.
+- Event `signup_error_shown {rule}`: fires on inline error.
+- Event `signup_abandoned`: fires on `beforeunload` if form had focus and CTA never fired.
+
+## Open questions for Tony
+
+- Should we use Auth0 hosted UI or our own form? (UX-decision is to keep our own; Tony decides feasibility.)
+- Magic-link as an alternative path? Out of scope per PRD; Mantis recommends putting in *Out*.
+```
+
+## Index template
+
+```markdown
+# UX Design — index
+
+| Screen | Scenarios | PRD ACs |
+|---|---|---|
+| signup-empty | S1 | AC-01-1, AC-01-2 |
+| signup-error | S1 | AC-01-2 |
+| onboarding-step-1 | S1 | AC-02-1 |
+| team-list-empty | S1, S2 | AC-03-1 |
+| team-list-with-members | S1, S2 | AC-03-2, AC-03-3 |
+| invite-modal | S1, S2 | AC-02-2, AC-02-3 |
+```
+
+## Anti-patterns Mantis rejects
+
+- **Specs without states.** A screen with no empty/error spec is half a spec.
+- **Copy as marketing tone.** Use the user's voice. Cut "world-class," "delightful," "seamless."
+- **Mystery icons.** Icons need accessible labels; if you can't name it, draw a word next to it.
+- **Hover-only affordances on touch.** Spec the non-hover equivalent.
+- **Touch targets < platform minimum.** 24×24 CSS px on web (WCAG 2.5.8), 44pt iOS, 48dp Android — non-negotiable.
+- **Screens that don't trace to scenarios + PRD ACs.** If you can't fill the index row, the screen isn't justified.
 
 ## Hand-off
 
-> Trigger map is in `.wize/planning/ux/trigger-map.md`. Hill, the PRD goals should anchor on rows 1, 3, and 5 — they map to the success criteria in the brief.
+> UX specs are at `.wize/planning/ux/ux-design/`. Index points screen → scenario → AC. Tony, you can start `wize-create-architecture` now; the moment-of-truth lines in scenarios tell you which interactions are load-bearing. Hawkeye, `tea-design.md` should index by screen to keep test design and UI aligned.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
