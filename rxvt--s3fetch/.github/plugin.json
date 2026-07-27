@@ -1,0 +1,9 @@
+{
+  "name": "rxvt--s3fetch",
+  "displayName": "s3fetch",
+  "description": "s3fetch",
+  "version": "1.0.0",
+  "author": "rxvt",
+  "homepage": "https://github.com/rxvt/s3fetch",
+  "skills": []
+}
