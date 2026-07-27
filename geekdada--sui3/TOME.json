@@ -4,7 +4,7 @@
   "repo": "sui3",
   "description": "Yet another your personal start page.\uff5c\u53c8\u4e00\u4e2a\u4e2a\u4eba\u8d77\u59cb\u9875\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/geekdada/sui3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T18:04:47Z"
+  "distributed_at": "2026-07-27T18:05:26Z"
 }
