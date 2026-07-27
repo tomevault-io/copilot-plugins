@@ -1,4 +1,4 @@
-## guidelines
+## cursor
 
 > You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
