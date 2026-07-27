@@ -2,9 +2,9 @@
   "name": "PocketFlow",
   "owner": "The-Pocket",
   "repo": "PocketFlow",
-  "description": "Pocket Flow: 100-line LLM framework. Let Agents build Agents!",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Pocket/PocketFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:03:44Z"
+  "distributed_at": "2026-07-27T20:58:09Z"
 }
