@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [YeSongYun/openclaw-cn](https://github.com/YeSongYun/openclaw-cn).
+Original source: `` in [YeSongYun/openclaw-cn](https://github.com/YeSongYun/openclaw-cn).
 
 ## Also available for
 
@@ -13,6 +13,7 @@ Original source: `GEMINI.md` in [YeSongYun/openclaw-cn](https://github.com/YeSon
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/YeSongYun/openclaw-cn](https://github.com/YeSongYun/openclaw-cn)
