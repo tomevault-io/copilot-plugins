@@ -1,0 +1,9 @@
+{
+  "name": "jmbuhr--nvim-config",
+  "displayName": "nvim-config",
+  "description": "nvim-config",
+  "version": "1.0.0",
+  "author": "jmbuhr",
+  "homepage": "https://github.com/jmbuhr/nvim-config",
+  "skills": []
+}
