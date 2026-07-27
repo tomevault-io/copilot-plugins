@@ -1,0 +1,9 @@
+{
+  "name": "okta--okta-sdk-golang",
+  "displayName": "okta-sdk-golang",
+  "description": "okta-sdk-golang",
+  "version": "1.0.0",
+  "author": "okta",
+  "homepage": "https://github.com/okta/okta-sdk-golang",
+  "skills": []
+}
