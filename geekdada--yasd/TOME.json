@@ -37,33 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "yasd",
-      "path": ".agents/skills/vite/SKILL.md",
-      "github_url": "https://github.com/geekdada/yasd/tree/main/.agents/skills/vite/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "yasd",
-      "path": ".agents/skills/shadcn/SKILL.md",
-      "github_url": "https://github.com/geekdada/yasd/tree/main/.agents/skills/shadcn/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "yasd",
-      "path": ".agents/skills/web-design-guidelines/SKILL.md",
-      "github_url": "https://github.com/geekdada/yasd/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "yasd",
-      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
-      "github_url": "https://github.com/geekdada/yasd/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/geekdada/yasd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T07:04:33Z"
+  "distributed_at": "2026-07-27T18:04:11Z"
 }
