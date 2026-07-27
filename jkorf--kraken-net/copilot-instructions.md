@@ -1,18 +1,13 @@
 ## kraken-net
 
-> This repository is **Kraken.Net** - a strongly typed C#/.NET client library for the Kraken Spot and Futures REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using Kraken.Net when working with Kraken Spot and Futures cryptocurrency exchange APIs in C#/.NET. Apply when generating code that interacts with Kraken API.
 
-# Copilot Instructions for Kraken.Net
 
-This repository is **Kraken.Net** - a strongly typed C#/.NET client library for the Kraken Spot and Futures REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+# Kraken.Net Conventions
 
-When generating code that consumes Kraken.Net, follow these conventions:
+This codebase uses **Kraken.Net** for Kraken Spot and Futures exchange access. Do not write raw `HttpClient` calls to Kraken endpoints.
 
-## Use Kraken.Net, not raw HTTP
-
-Never generate raw `HttpClient` calls to Kraken endpoints. Always use `KrakenRestClient` or `KrakenSocketClient` so request signing, rate limiting, WebSocket reconnection, and result handling stay consistent with the library.
-
-## Client setup
+## Client setup pattern
 
 ```csharp
 using CryptoExchange.Net.Authentication;
@@ -27,48 +22,65 @@ var restClient = new KrakenRestClient(options =>
 });
 ```
 
-For public market data, credentials are not required: `new KrakenRestClient()`.
+For public market data only, no credentials are needed: `new KrakenRestClient()`.
 
-## Result handling
+## Result pattern
 
-REST methods return `WebCallResult<T>` or `WebCallResult`. WebSocket subscriptions and socket API requests return `CallResult<T>` or `CallResult`. Always check `.Success` before reading `.Data`; error details are on `.Error`.
+All methods return `WebCallResult<T>` or `CallResult<T>`. Always check `.Success` before reading `.Data`:
 
-## API structure
+```csharp
+var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
+if (!ticker.Success) { Console.WriteLine(ticker.Error); return; }
+var price = ticker.Data.Values.First().LastTrade.Price;
+```
 
-- `restClient.SpotApi.ExchangeData` - spot market data, assets, symbols, tickers, klines, order books, trades, spreads
-- `restClient.SpotApi.Account` - balances, ledgers, deposits, withdrawals, transfers, API key info
-- `restClient.SpotApi.Trading` - spot open/closed orders, order query, trade history, place/edit/cancel orders
-- `restClient.SpotApi.Earn` - Kraken Earn strategies, allocations, allocate/deallocate funds
-- `restClient.FuturesApi.ExchangeData` - futures symbols, tickers, klines, order books, funding rates, trades
-- `restClient.FuturesApi.Account` - futures balances, account log, PNL currency, transfers, fees, margin requirements
-- `restClient.FuturesApi.Trading` - futures orders, positions, leverage, user trades, order history
-- `socketClient.SpotApi` - spot WebSocket v2 subscriptions and socket order requests
-- `socketClient.FuturesApi` - futures WebSocket subscriptions
+## API surface
 
-## Symbol formats
+- `restClient.SpotApi.{ExchangeData|Account|Trading|Earn}`
+- `restClient.FuturesApi.{ExchangeData|Account|Trading}`
+- `socketClient.SpotApi` for Spot WebSocket v2 subscriptions and socket order requests
+- `socketClient.FuturesApi` for Futures WebSocket subscriptions
+- `.SharedClient` on Spot/Futures REST and socket APIs for `CryptoExchange.Net.SharedApis`
+- Shared Spot/Futures symbol clients expose symbol catalogs and typed asset metadata; Spot shared symbol discovery includes tokenized assets
 
-REST spot examples commonly use symbols such as `ETHUSDT`. Spot WebSocket v2 subscriptions use Kraken WebSocket names such as `ETH/USDT`; obtain them from `restClient.SpotApi.ExchangeData.GetSymbolsAsync()` via `KrakenSymbol.WebsocketName`.
+## Kraken-specific details
 
-Futures examples use symbols such as `PF_ETHUSD`.
+- Spot REST symbol examples use `ETHUSDT`; Spot WebSocket v2 uses names such as `ETH/USDT`.
+- Futures symbols use names such as `PF_ETHUSD`.
+- Credentials can differ for Spot and Futures. Prefer `new KrakenCredentials(new HMACCredential(...), new HMACCredential(...))`.
+- `KrakenEnvironment.Live` is the built-in environment. Use `KrakenEnvironment.CreateCustom(...)` for custom addresses.
+- Spot private endpoints can use `twoFactorPassword`; `KrakenRestOptions.StaticTwoFactorAuthenticationPassword` can provide a static OTP value for private REST requests.
 
-## Cross-exchange
+## WebSocket pattern
 
-For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` from `.SharedClient` properties. Kraken exposes shared clients on Spot and Futures REST and socket APIs.
+```csharp
+var socketClient = new KrakenSocketClient();
+var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
+    "ETH/USDT",
+    update => Console.WriteLine(update.Data.LastPrice));
+if (!sub.Success) { Console.WriteLine(sub.Error); return; }
 
-## Avoid
+await socketClient.UnsubscribeAsync(sub.Data);
+```
 
-- Legacy or non-existent `KrakenClient` classes; use `KrakenRestClient` and `KrakenSocketClient`.
-- Generic `ApiCredentials` for new code; use `KrakenCredentials` with separate Spot and Futures `HMACCredential` values when needed.
-- Assuming Kraken has testnet environments in this library; `KrakenEnvironment.Live` is the built-in environment, with `KrakenEnvironment.CreateCustom(...)` for custom addresses.
-- Reading `.Data` without checking `.Success`.
-- Blocking async calls with `.Result` or `.Wait()`.
-- Instantiating clients per request in production; use dependency injection and reuse clients.
-- Forgetting to unsubscribe WebSocket subscriptions via the concrete socket client.
+## Hard rules
+
+- Never use raw HTTP for Kraken endpoints.
+- Never use `.Result` or `.Wait()`.
+- Never instantiate clients per request in production; use DI.
+- Never skip checking `WebCallResult.Success` / `CallResult.Success`.
+- Never guess method names; inspect `Kraken.Net/Interfaces/Clients/**`.
+- Always use Spot/Futures credential separation when writing authenticated examples.
+- Always keep the concrete socket client for `UnsubscribeAsync(subscription.Data)`.
 
 ## Reference
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, and `llms-full.txt` in the repository root, plus `docs/ai-api-map.md` and `Examples/ai-friendly/` for compilable examples.
+- Skill: `AGENTS.md` in repo root has fuller examples
+- LLM index: `llms.txt` in repo root
+- Full LLM context: `llms-full.txt` in repo root
+- API map: `docs/ai-api-map.md`
+- Examples: `Examples/ai-friendly/`
 
 ---
 > Source: [JKorf/Kraken.Net](https://github.com/JKorf/Kraken.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
