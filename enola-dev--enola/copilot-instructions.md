@@ -20,45 +20,53 @@
     limitations under the License.
 -->
 
-# Agents 🕵🏾‍♀️ Tutorial
+# Agent 🕵🏾‍♀️ Concept
 
-[AI Agents](../concepts/agent.md) are _the most awesome thing since life spread!_
+_Agents_ use a _[Large Language Model (LLM)](../specs/aiuri/index.md#language-models-lm)_ to reason, plan, and execute actions to achieve a specific goal, often interacting with _[Tools](tool.md)._ They augment LLMs to go beyond just generating text by enabling them to perform tasks and solve problems proactively.
 
-Agents work in [all Chat UXs of Enola](chat.md). Here are some examples to use them.
+Enola lets you easily create ‘opinionated’ (“only one way to do it”) _No Code_ agents
+declaratively in YAML or JSON (and maybe TextProto later), based on its [Agent Schema](https://github.com/enola-dev/enola/blob/main/models/enola.dev/ai/agent.schema.yaml).
 
-This tutorial uses Enola from a [container](../use/index.md#container), but there are other ways to [install Enola](../use/index.md).
+**[Check out the tutorial](../tutorial/agents.md)!**
 
-<!-- TODO Use a new builtin: URL scheme instead of http://github.com URLs! -->
+_[Check out our existing agents!](../agents/index.md)_
 
-## Optimistic Chef 👨🏽‍🍳
+## Schema
 
-```yaml
-{% include "../../test/agents/chef-optimist.agent.yaml" %}
-```
+<!-- NB: This is copy/pasted from agent.schema.yaml; please keep them (manually, for now) in sync! TODO Add a JSON Schema Documentation Generator to Enola, and use it to gen agent.schema.md and link to that from here... -->
 
-can be used like this to chat with a very enthusiastic 👨🏽‍🍳 chef:
+See https://github.com/enola-dev/enola/tree/main/test/agents for examples.
 
-    docker run --rm --volume "$PWD":/app/CWD/:Z --tty -p7070:7070 \
-      -e GOOGLE_AI_API_KEY=... ghcr.io/enola-dev/enola:main \
-      server --chatPort=7070 --lm="google://?model=gemini-2.5-flash" \
-      --http-scheme --agents=https://raw.githubusercontent.com/enola-dev/enola/refs/heads/main/test/agents/chef-optimist.agent.yaml
+### Instruction
 
-[See here](../specs/aiuri/index.md#google-ai) re. `GOOGLE_AI_API_KEY` etc. and now open <http://localhost:7070> to open the UI.
+Instructions for LLM model, guiding the agent's behaviour. You should describe concisely what the agent will do, when it should defer to other agents/tools, and how it should respond to the user.
 
-## Cynical Chef 😾
+### Description
 
-```yaml
-{% include "../../test/agents/chefs-opposites-stream.agent.yaml" %}
-```
+One-line description of the agent's capability. The model uses this to determine whether to delegate control to the agent.
 
-can be used by replacing `chef-optimist.agent.yaml` with `chefs-opposites-stream.agent.yaml` in the command above.
+### Model
 
-The drop-down in the Web UI will now let you select the `optimist` _vs._ the `pessimist` chef agent.
+The language model to use, based on the [Enola.dev AI URI specification](../specs/aiuri/index.md); so e.g. `google://?model=gemini-2.5-flash`. May be omitted, in which case a default one (built-in, or specified as a parameter to a CLI) will typically be used.
 
-## Tools
+### Name
 
-Agents become a lot more powerful [with Tools](../concepts/tool.md).
+Name ("nick") of agent. Typically, it's set automatically by a loader from a portion of the origin URL. <!-- This is just a recommendation, and a loader could change it if another agent (with another ID) already uses this name. Users can also change the nicknames of their agents. -->
+
+### Output Schema
+
+The `output.schema` allows specifying the expected structure of the output from the agent in JSON Schema.
+
+The [`person.agent.yaml`](https://github.com/enola-dev/enola/blob/main/test/agents/person.agent.yaml) example illustrates how to use this.
+
+### Tools
+
+[Tools](tool.md) to which the agent has access, including [MCP](mcp.md).
+
+## TODO
+
+_Agents will soon allow configuring parallel (or sequential) and "looped" execution of other agents!_
 
 ---
 > Source: [enola-dev/enola](https://github.com/enola-dev/enola) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
