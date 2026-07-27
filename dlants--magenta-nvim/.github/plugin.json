@@ -1,0 +1,34 @@
+{
+  "name": "dlants--magenta-nvim",
+  "displayName": "magenta.nvim",
+  "description": "magenta.nvim",
+  "version": "1.0.0",
+  "author": "dlants",
+  "homepage": "https://github.com/dlants/magenta.nvim",
+  "skills": [
+    {
+      "name": "doc-testing",
+      "description": ""
+    },
+    {
+      "name": "doc-views",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "description": ""
+    }
+  ]
+}
