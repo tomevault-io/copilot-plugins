@@ -1,7 +1,7 @@
 {
   "name": "base--benchmark",
   "displayName": "benchmark",
-  "description": "Benchmarking tool for OP stack chains",
+  "description": "benchmark",
   "version": "1.0.0",
   "author": "base",
   "homepage": "https://github.com/base/benchmark",
