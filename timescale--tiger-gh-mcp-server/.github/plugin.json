@@ -1,0 +1,9 @@
+{
+  "name": "timescale--tiger-gh-mcp-server",
+  "displayName": "tiger-gh-mcp-server",
+  "description": "tiger-gh-mcp-server",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/tiger-gh-mcp-server",
+  "skills": []
+}
