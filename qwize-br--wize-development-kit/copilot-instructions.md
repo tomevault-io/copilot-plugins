@@ -1,151 +1,129 @@
-## wize-quick-dev
+## wize-refresh-knowledge
 
-> 4-implementation: Quick Dev (lifecycle shortcut)
+> 1-analysis: Refresh Project Knowledge
 
 
-# Quick Dev (lifecycle shortcut)
+# Refresh Project Knowledge
 
-# Quick Dev
+# Refresh Project Knowledge
 
-**Goal.** When the task is small and well-scoped (bug fix, copy edit, small refactor, dep bump, brownfield maintenance), skip Phase 1–3 and execute with light TEA. Save the full lifecycle for new value.
+**Goal.** Consolidate the dated bullets added to `document-project/*.md` over the sprint (via `wize-dev-story` step 8 and `wize-quick-dev` step 5) into a coherent, narrated, current-state baseline. Keep what's still true; demote what's outdated; archive what's no longer relevant.
 
-Wizer authorizes the shortcut (via routing). Shuri runs it. Hawkeye does smoke-only.
+This is the workflow that **keeps `document-project` honest over months**, instead of letting it stale within a sprint.
 
-## Operating contract (light)
+Pepper drives the consolidation. Peggy edits prose. Tony reviews architecture-snapshot changes. Hawkeye reviews risk-spots changes.
 
-Still a **mission contract**, just a small one: `.wize/` + `AGENTS.md` + skills are the instructions. Inspect before editing, reuse ladder before new code, smallest sufficient change, test-first when the change has a testable surface, run the real smoke + checks, no success claim without evidence. If it grows past ~1h or touches a new feature/architecture/UX/security surface, stop and re-route to Full Lifecycle — don't force it through here.
+## When to run
 
-## When to use (yes)
+- **End of sprint** (default cadence). `wize-help next` suggests it when it detects the sprint ended.
+- **After a major epic ships.** Architecture often shifts visibly; this is the moment to consolidate.
+- **Before onboarding a new engineer.** The baseline is the first thing they read; keep it fresh.
+- **Before an audit / external review.** Same.
 
-- Bug fix with a clear root cause.
-- Copy or content edit.
-- Small refactor with no behavior change.
-- Dependency bump (security or minor).
-- Brownfield maintenance: rename, structural cleanup, dead-code removal.
-- Hotfix during incident response (post-mortem after).
-
-## When NOT to use (no)
-
-- New feature, even small.
-- Cross-cutting change touching architecture.
-- Changes where ACs need to be agreed.
-- Anything that should be a story.
-- Anything that touches security/auth/payments without senior review.
-
-## Decision tree
-
-```
-Question                              Yes              No
-Is there an AC to write?              → full lifecycle  → next
-Does it touch architecture?           → full lifecycle  → next
-Does it need UX input?                → full lifecycle  → next
-Could it surprise a user?             → full lifecycle  → next
-Is it ≤ 1 hour to a careful dev?      → quick-dev       → full lifecycle
-```
+Don't run after every story — that's why each story already does its own inline update. This is the *periodic narration pass*.
 
 ## Inputs
 
-- Issue / Slack message / PR comment describing the problem.
-- Repo state.
-- `.wize/config/tea.toml` (smoke-only policy when `policy = "advisory"`).
+- `.wize/knowledge/document-project/{overview,architecture-snapshot,conventions,dependencies,risk-spots,open-questions}.md`
+- `.wize/implementation/tea/**/gate.md` from this sprint (look for `KN-NN` findings — they flag where the baseline got out of sync).
+- Git log of the sprint window (`git log --since="<sprint-start>" --until="<sprint-end>"`).
+- `.wize/implementation/sprint-status.md` (latest sprint block).
 
-## Output
+## Outputs
 
-- Code change (single PR).
-- Single-line entry appended to `.wize/implementation/quick-dev-log.md`.
-- Conventional commit.
+- Updated `.wize/knowledge/document-project/*.md` (in place).
+- `.wize/knowledge/document-project/_history/{YYYY-Qn}/{sprint-N}.md` — sprint-scoped snapshot (frozen).
+- Optional new entries appended to `open-questions.md`.
 
 ## Steps
 
-### 1. Frame in one paragraph
+### 1. Collect the inline notes
 
-What changes, why, and what could break. If the paragraph is hard to write, you're not in quick-dev territory.
-
-### 2. Implement
-
-- TDD when reasonable; smoke-test-and-fix when the cost of TDD is greater than the value.
-- Run Shuri's reuse ladder (see `wize-agent-dev` persona) before writing anything new: does this need to exist → already in the codebase → stdlib → native/framework feature → installed dependency → one-liner → only then new code. Don't introduce new abstractions.
-
-### 3. Hawkeye lite
-
-- Smoke test: imports load, the changed flow doesn't break.
-- Lint + format + type-check clean.
-- No `tea-design / trace / review / nfr` written.
-- Single one-line gate entry instead of full `gate.md`.
-
-### 4. Log
-
-Append one line to `.wize/implementation/quick-dev-log.md`:
+For each of the 5 axes, list every dated bullet added since the previous refresh (or since the baseline was created). They look like:
 
 ```
-2026-06-11 | shuri | dep-bump zod 3.22→3.23 | smoke PASS | PR #418
-2026-06-11 | shuri | fix copy on /signin help link | smoke PASS | PR #419
-2026-06-11 | shuri | rename UserService → AccountService | smoke PASS | PR #420
+## 2026-06-12 — E01-S03
+- Conventions: `data-testid="invite-*"` published as public contract.
+- Risk: R-1 (mailer) mitigation confirmed.
 ```
 
-### 5. Knowledge update (only if applicable)
+Pepper extracts them by axis.
 
-Most quick-dev changes don't touch the baseline axes (copy edit, small refactor, dep bump in a stable lib). When they do — typically a **dependency bump** or a **rename that breaks a public contract** — add **one line** to the matching `document-project/*.md` file:
+### 2. Narrate, don't list
+
+For each axis, write a short paragraph that **integrates** the new bullets into the surrounding context. The bullets disappear; the prose grows. Each axis remains a single coherent file — not a chronological log.
+
+Example for `conventions.md` before refresh:
 
 ```markdown
-## 2026-06-11
-- Dependencies: bump zod 3.22 → 3.23. No API changes; validateInviteEmail unaffected.
-- Conventions: `AccountService` replaces `UserService` (rename); imports updated repo-wide.
+## Tests
+Co-located with the file under test. `.spec.ts` for unit; `.e2e.ts` for end-to-end.
 ```
 
-Heuristic: *"would a new dev hitting `document-project/*.md` next week be misled if I don't add this?"* Yes → write. No → skip.
-
-### 6. Commit + open PR
-
-Conventional commit. PR description: the paragraph from step 1.
-
-```
-fix(auth): typo in error message for AC-04-2 follow-up
-
-The error shown after rate-limit said "Sloow down" — corrected to "Slow down".
-No behavior change; copy-only.
-```
-
-## Quick-dev log template
+After refresh integrating an inline note "data-testid='invite-*' is a public contract":
 
 ```markdown
-# Quick-dev log
-
-| Date | Owner | What | Smoke | PR |
-|---|---|---|---|---|
-| 2026-06-11 | shuri | … | PASS | #N |
+## Tests
+Co-located with the file under test. `.spec.ts` for unit; `.e2e.ts` for end-to-end. Test IDs follow the `data-testid="{feature}-{element}"` convention and are treated as a **public contract** — renaming one is a breaking change for end-to-end tests; ping Hawkeye before changing.
 ```
 
-## Done report (compact)
+### 3. Demote what's outdated
 
-Report in four lines — no ceremony:
+If a previous claim no longer holds (a service was retired, a convention was replaced), don't delete silently. Move it to a "Deprecated" section at the bottom of the file with the date it was replaced and the new pattern. Future readers need the breadcrumb.
 
-1. What changed + why.
-2. Files changed.
-3. Checks run + results (smoke, lint, format, type-check). Name any that couldn't run and why.
-4. Recommended next action, if any.
+### 4. Archive a sprint snapshot
 
-## Disabling
+Freeze the *current* state into `_history/{YYYY-Qn}/sprint-{N}.md`. This file is read-only after creation. Six months from now, when someone asks "when did we change the test-id convention?", the answer is in `_history/`.
 
-To force every change through the full lifecycle (for very high-stakes products), set in `.wize/config/project.toml`:
+### 5. Open questions sweep
 
-```toml
-[install]
-quick_dev_enabled = false
+Pull any `KN-NN` findings that weren't resolved (the gap was acknowledged but the doc still wasn't updated) and copy them as `open-questions.md` entries with owners.
+
+### 6. Diff narrative
+
+Append a one-paragraph summary to the bottom of each updated file:
+
+```markdown
+## Last refresh: 2026-06-25 (Sprint 7)
+- Architecture: 2 new components documented (`<InviteForm>`, `<TeamList>`); ADR-008 anchored in the auth section.
+- Conventions: test-id public contract documented; eslint plugin added (commit 7a3d2f).
+- Risk-spots: R-1 (mailer) closed; R-7 (rate limiter) added.
+- Dependencies: bumped zod, drizzle, expo (notes in dependencies.md).
+- Overview: unchanged; no new top-level feature in this sprint.
 ```
 
-Wizer respects this; quick-dev becomes unavailable; every change must go through Pepper → … → Hawkeye gate.
+### 7. Hand off
 
-## Anti-patterns Shuri rejects in herself
+- All updated docs flip frontmatter `last_refreshed: YYYY-MM-DD`.
+- Wizer announces in `sprint-status.md`: *"Knowledge refresh done; baseline current."*
+- Maria Hill carries this into the retrospective: was the refresh smooth, or did the team accumulate too many KN findings?
 
-- Reaching for quick-dev to skip writing an AC because she doesn't want to argue with Hill.
-- Quick-dev that touches security/auth/payments.
-- A "small refactor" that ends up changing behavior.
-- Skipping the log entry.
+## Frontmatter convention for `document-project/*.md`
+
+Each baseline file ships with:
+
+```yaml
+---
+status: baseline
+owner: Pepper + Peggy
+created: 2026-04-02
+last_refreshed: 2026-06-25
+sampled: "wkly + sprint refresh"
+---
+```
+
+`last_refreshed` tells the next reader how much to trust the file vs read the more recent inline notes from `_history/`.
+
+## Anti-patterns Pepper rejects
+
+- **Refreshing into a chronological log.** That defeats narration; if a new dev opens `conventions.md` and sees 47 dated bullets, they can't form a mental model. Narrate.
+- **Refresh without reading the gate findings.** `KN-NN` findings are exactly the gaps you should be patching here; ignoring them recreates the original problem.
+- **Refresh every sprint regardless of activity.** If the sprint touched zero axes (rare but possible — a sprint of pure UI polish), say so in the diff narrative and skip the bulk of the work.
+- **Demotion without breadcrumb.** Future readers need the trail.
 
 ## Hand-off
 
-> `dep-bump zod 3.23` is in. PR #418, smoke PASS. Logged. No further TEA artifacts; moving on.
+> Knowledge refresh for Sprint 7 done. Baseline current; 1 historical snapshot frozen at `_history/2026-Q2/sprint-7.md`. KN-01 closed, KN-03 still open (deferred to S8 — assigned to Aaliyah).
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
