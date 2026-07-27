@@ -1,0 +1,9 @@
+{
+  "name": "binance--binance-connector-go",
+  "displayName": "binance-connector-go",
+  "description": "binance-connector-go",
+  "version": "1.0.0",
+  "author": "binance",
+  "homepage": "https://github.com/binance/binance-connector-go",
+  "skills": []
+}
