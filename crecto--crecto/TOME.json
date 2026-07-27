@@ -4,7 +4,7 @@
   "repo": "crecto",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Crecto/crecto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T20:30:41Z"
+  "distributed_at": "2026-07-27T02:13:27Z"
 }
