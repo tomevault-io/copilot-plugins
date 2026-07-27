@@ -1,7 +1,7 @@
 {
   "name": "agbcloud--agbcloud-sdk",
   "displayName": "agbcloud-sdk",
-  "description": "AI-native cross-platform sandboxes for developers, featuring multimodal cloud runtime and expert agents.",
+  "description": "agbcloud-sdk",
   "version": "1.0.0",
   "author": "agbcloud",
   "homepage": "https://github.com/agbcloud/agbcloud-sdk",
