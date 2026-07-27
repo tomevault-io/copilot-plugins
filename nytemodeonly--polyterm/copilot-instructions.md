@@ -1,37 +1,198 @@
 ## polyterm
 
-> These instructions apply to all work in this repository.
+> > Agent manifests, schemas, standard MCP tooling, and JSON-lines stdio tooling for PolyTerm.
 
-# Project Agent Rules
+# Agent
 
-These instructions apply to all work in this repository.
+> Agent manifests, schemas, standard MCP tooling, and JSON-lines stdio tooling for PolyTerm.
 
-## Architecture Rule: No Monoliths
+## Overview
 
-- Do not introduce monolithic files, modules, or command handlers.
-- Prefer small, focused modules with clear single responsibilities.
-- Keep features easy to edit, add, remove, and test in isolation.
-- Split large changes into composable units (API layer, core logic, CLI/TUI wiring, tests).
-- Favor explicit interfaces between modules over tightly coupled cross-module logic.
-- When extending functionality, add or modify the smallest relevant module instead of expanding a central "god" file.
+`polyterm agent` exposes the command and schema surface that external agents use to call PolyTerm safely. The command is intentionally separate from market analysis commands so Hermes Agent, OpenClaw, Codex, and other agent runtimes can discover tools before they call them. It focuses on stable metadata, JSON Schemas, safety flags, a real FastMCP stdio server, and a lightweight legacy JSON-lines adapter.
 
-## Change Quality Gate
+The command does not execute trades or hold private keys. It exposes no-custody market intelligence, wallet inspection, archive metadata, natural-language answer synthesis, and local alert-rule workflows with explicit mutation flags.
 
-Before finalizing substantial changes, verify:
+## Usage
 
-- The code path can be understood without reading unrelated modules.
-- A future contributor can replace/remove a feature without broad refactors.
-- Tests are scoped to behavior of the touched module(s), not accidental implementation details.
+### CLI
 
-## Documentation Rule
+```bash
+polyterm agent manifest --format json
+polyterm agent schemas --format json
+polyterm agent schemas analytics.thesis --format json
+polyterm agent doctor --format json
+polyterm agent mcp-server
+polyterm agent jsonl-server
+polyterm agent examples
+```
 
-- Keep `docs/README.md` aligned with the command, TUI, API, core, database, and utility modules that exist in the repo.
-- When adding or renaming a module under `polyterm/cli/commands`, `polyterm/tui/screens`, `polyterm/api`, `polyterm/core`, `polyterm/db`, or `polyterm/utils`, add or update the matching page under `docs/`.
-- Do not leave generated placeholder docs in the published tree. Replace stubs with a clear overview, source path, data sources, verification notes, and related documentation links.
-- For API-facing changes, document the current Polymarket endpoint contract and identifier requirements. Be explicit about Gamma market IDs, Gamma slugs, CLOB condition IDs, and CLOB token IDs.
-- For CLI/TUI changes, document the exact command, shortcuts, options, output modes, and whether the workflow is view-only or can mutate local state.
-- Run `./test_all_commands.sh`, `.venv/bin/python scripts/validate_docs.py`, and focused tests for touched modules before committing documentation-sensitive changes.
+### TUI
+
+There is no TUI screen for agent setup. Agent workflows are intended for automation and stdio use. The TUI can still use the same underlying features through market, wallet, alert, and thesis commands.
+
+## Options / Parameters
+
+| Flag | Type | Default | Description |
+|------|------|---------|-------------|
+| `manifest` | command | - | Print the full tool manifest in a stable JSON envelope. |
+| `schemas` | command | - | Print all schemas or a single tool schema. |
+| `doctor` | command | - | Diagnose schema files, manifest sync, MCP boot, API connectivity, SQLite archive health, and Hermes config. |
+| `mcp-server` | command | - | Run the real FastMCP stdio server for MCP clients. |
+| `jsonl-server` | command | - | Run the legacy JSON-lines stdio adapter for simple pipe-based integrations. |
+| `examples` | command | - | Print example JSON-lines requests. |
+| `--skip-network` | flag | `false` | Skip Data API and CLOB connectivity checks in doctor mode. |
+| `--format` | choice | `json` | Agent output format. Currently JSON only. |
+
+## Examples
+
+```bash
+# Discover all agent-safe tools
+polyterm agent manifest --format json
+
+# Get schemas for every tool
+polyterm agent schemas --format json
+
+# Get one schema
+polyterm agent schemas wallet.inspect --format json
+
+# Diagnose the local agent/MCP installation
+polyterm agent doctor --skip-network --format json
+
+# Run the real MCP stdio server
+polyterm agent mcp-server
+
+# Legacy JSON-lines request
+printf '{"tool":"market.search","args":{"query":"bitcoin","limit":3}}\n' | polyterm agent jsonl-server
+
+# Confirm markets whose YES price crossed 50% in the last 72 hours
+printf '{"tool":"market.flips","args":{"hours":72,"limit":3,"min_volume":500}}\n' | polyterm agent jsonl-server
+
+# Deterministic top whale wagers with scan metadata and caveats
+printf '{"tool":"wallet.whale_trades","args":{"hours":48,"limit":3,"min_notional":10000,"sample_size":3000}}\n' | polyterm agent jsonl-server
+
+# Natural-language answer path with confidence, evidence, and tool trace
+printf '{"tool":"agent.answer","args":{"query":"3 biggest whale wagers last 48 hours","hours":48,"limit":3}}\n' | polyterm agent jsonl-server
+```
+
+## How It Works
+
+The command reads metadata from `polyterm.agent.registry`, wraps output through `polyterm.agent.contracts`, and prints responses with `utils.json_output`. The FastMCP server in `polyterm.agent.mcp.fastmcp_server` dispatches to the same small grouped tool modules under `polyterm/agent/mcp/tools` as the legacy JSON-lines adapter.
+
+MCP clients can configure PolyTerm as a stdio server:
+
+```yaml
+mcp_servers:
+  polyterm:
+    command: "polyterm"
+    args: ["agent", "mcp-server"]
+    timeout: 120
+    connect_timeout: 60
+```
+
+## Data Sources
+
+- `polyterm.agent.registry` for command metadata and safety flags.
+- `polyterm.agent.schemas` for JSON Schema generation.
+- `polyterm.agent.mcp.fastmcp_server` for standard MCP protocol registration through FastMCP.
+- `polyterm.agent.mcp.server` for JSON-lines request dispatch.
+- Gamma, CLOB, Data API, and local SQLite through the grouped tool functions.
+- `market.flips` uses Gamma market discovery plus CLOB `/prices-history` with explicit `startTs` and `endTs` bounds to confirm 50% YES-price crossings.
+
+## Agent Safety
+
+Every manifest row includes:
+
+- `read_only`
+- `mutates_local_state`
+- `requires_confirmation`
+- `may_prompt`
+- `long_running`
+- `adapter_available`
+- `live_data`
+- `examples`
+
+Agent runtimes should refuse tools that mutate local state unless their policy explicitly allows local state changes. They should also treat `long_running` tools as foreground processes that may need interruption.
+
+## Schema Contract
+
+`polyterm agent schemas [tool] --format json` returns agent-usable schema packets. Each packet includes:
+
+- `tool`: registry tool name such as `wallet.whales`
+- `description`: human-readable purpose
+- `command`: equivalent CLI command pattern
+- `schema_path`: checked-in schema path for docs/reference
+- `safety`: `read_only`, `mutates_local_state`, `requires_confirmation`, `may_prompt`, and `long_running`
+- `input_schema`: JSON Schema object for tool arguments, including inferred required args from command argument tokens
+- `output_schema`: JSON Schema for PolyTerm's stable response envelope
+
+Example single-tool payload inside the standard envelope:
+
+```json
+{
+  "tool": "wallet.whales",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "min_notional": {"type": "number"},
+      "hours": {"type": "integer"},
+      "limit": {"type": "integer"}
+    },
+    "required": [],
+    "additionalProperties": false
+  }
+}
+```
+
+## Output Contract
+
+Agent command outputs use:
+
+```json
+{
+  "schema_version": "2026-06-25",
+  "success": true,
+  "data": {},
+  "error": null,
+  "meta": {}
+}
+```
+
+The same envelope is used for successful and failed responses. Failures set `success` to `false` and put the error text in `error`.
+
+## Doctor Checks
+
+`polyterm agent doctor` runs bounded diagnostics that are safe for automation.
+It checks that registry schema files exist and parse, the runtime registry is
+in sync with `docs/tool-manifest.json`, the local SQLite archive is readable,
+the FastMCP server can be constructed, and the Hermes config snippet is
+available in the output. Unless `--skip-network` is used, it also probes the
+Polymarket Data API and CLOB sampling markets endpoint.
+
+The command returns a summary status of `ok`, `warn`, or `error`. Network
+connectivity failures are warnings because an offline environment can still
+have a valid local installation.
+
+## Verification
+
+```bash
+polyterm agent manifest --format json
+polyterm agent schemas --format json
+polyterm agent doctor --skip-network --format json
+polyterm agent examples
+printf '{"method":"manifest"}\n' | polyterm agent jsonl-server
+```
+
+Run `./test_all_commands.sh` and `.venv/bin/python scripts/validate_docs.py` after changes.
+
+## Related Features
+
+- [Agent Mode](../AGENT_MODE.md)
+- [Agentic Usage Guide](../AGENTIC_USAGE.md)
+- [Trade Thesis](thesis.md)
+- [Wallets](wallets.md)
+- [Whales](whales.md)
+- [Export](export.md)
 
 ---
 > Source: [NYTEMODEONLY/polyterm](https://github.com/NYTEMODEONLY/polyterm) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
