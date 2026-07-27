@@ -1,0 +1,9 @@
+{
+  "name": "oauth2-proxy--manifests",
+  "displayName": "manifests",
+  "description": "manifests",
+  "version": "1.0.0",
+  "author": "oauth2-proxy",
+  "homepage": "https://github.com/oauth2-proxy/manifests",
+  "skills": []
+}
