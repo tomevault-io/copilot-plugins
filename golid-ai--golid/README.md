@@ -1,8 +1,6 @@
 # golid
 
-> Tome by [golid-ai](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io)
-
-Production-ready Go + SolidJS starter — Auth, 70+ components, SSR, real-time, one-command deployment
+> Tome by [golid-ai](https://github.com/golid-ai/golid), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [golid-ai/golid](https://github.com/go
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/golid-ai/golid](https://github.com/golid-ai/golid)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/golid-ai/golid](https://github.com/golid-ai/golid)
 
 ---
 
