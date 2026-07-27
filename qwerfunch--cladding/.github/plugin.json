@@ -1,0 +1,9 @@
+{
+  "name": "qwerfunch--cladding",
+  "displayName": "cladding",
+  "description": "For an organization to trust AI with its code, three things must hold \u2014 trust, traceability, and stability at scale. cladding wraps your AI coding agent: your intent goes in before it writes, and the ",
+  "version": "1.0.0",
+  "author": "qwerfunch",
+  "homepage": "https://github.com/qwerfunch/cladding",
+  "skills": []
+}
