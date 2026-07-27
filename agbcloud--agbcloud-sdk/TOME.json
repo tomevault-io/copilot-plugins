@@ -2,9 +2,9 @@
   "name": "agbcloud-sdk",
   "owner": "agbcloud",
   "repo": "agbcloud-sdk",
-  "description": "AI-native cross-platform sandboxes for developers, featuring multimodal cloud runtime and expert agents.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agbcloud/agbcloud-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T16:43:47Z"
+  "distributed_at": "2026-07-27T17:59:07Z"
 }
