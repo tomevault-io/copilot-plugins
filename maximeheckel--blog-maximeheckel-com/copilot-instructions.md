@@ -1,89 +1,71 @@
 ## blog-maximeheckel-com
 
-> > This document provides context for AI coding assistants working on this codebase.
+> TypeScript conventions, import order, and ESLint rules
 
-# Agent Guidelines
 
-> This document provides context for AI coding assistants working on this codebase.
+# TypeScript & Code Conventions
 
-## Project Overview
+## TypeScript
 
-A personal blog built with Next.js featuring interactive articles about web development, shaders, and 3D graphics. The blog emphasizes rich interactive experiences through custom MDX widgets, WebGL visualizations, and code playgrounds.
+- Strict mode enabled, avoid `any`
+- Prefix unused variables with `_`
+- Use `useId()` for generated element IDs
+- Define prop interfaces explicitly
 
-**Live site:** https://blog.maximeheckel.com
+## Import Order
 
-## Tech Stack
+1. External libraries (react, next, etc.)
+2. `@maximeheckel/design-system`
+3. `@base-ui/react`
+4. Local `@core/*` imports
+5. Relative imports
 
-| Category        | Technology                                                      |
-| --------------- | --------------------------------------------------------------- |
-| Framework       | Next.js 15 (Pages Router)                                       |
-| UI              | React 19, @maximeheckel/design-system                           |
-| Headless UI     | @base-ui/react (Select, Dialog, etc.)                           |
-| Styling         | Stitches (via design-system), CSS custom properties             |
-| Animation       | Motion library (framer-motion successor)                        |
-| 3D/WebGL        | Three.js, @react-three/fiber, @react-three/drei, postprocessing |
-| Content         | MDX with next-mdx-remote                                        |
-| Testing         | Vitest + Testing Library, Cypress for E2E                       |
-| Package Manager | pnpm                                                            |
+### Example
 
-## Directory Structure
+```tsx
+// External
+import { useId } from 'react';
+import dynamic from 'next/dynamic';
 
+// Design system
+import { Icon, Text } from '@maximeheckel/design-system';
+
+// Headless UI
+import { Select as BaseSelect } from '@base-ui/react/select';
+
+// Local imports
+import { useIsMobile } from '@core/hooks/useIsMobile';
+
+// Relative imports
+import { Wrapper, Container } from './Component.styles';
+import type { ComponentProps } from './types';
 ```
-├── core/
-│   ├── components/     # Reusable UI components
-│   ├── features/       # Feature-specific components (BlogPost, IndexSection)
-│   └── hooks/          # Custom React hooks
-├── pages/              # Next.js pages (NOT app router)
-├── content/            # MDX blog posts
-├── lib/                # Utilities, config, rehype plugins
-├── types/              # TypeScript type definitions
-├── scripts/            # Build scripts (RSS, sitemap, OG images)
-├── cypress/            # E2E tests
-└── public/             # Static assets
+
+## ESLint Rules
+
+- No `console.log` (error) - use proper error handling or remove debug statements
+- React hooks rules enforced (`rules-of-hooks`, `exhaustive-deps`)
+- Unused vars must be prefixed with `_`
+
+## Prop Interfaces
+
+Always define explicit prop interfaces:
+
+```tsx
+export interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
+  onClick?: () => void;
+  children: React.ReactNode;
+}
+
+const Button = (props: ButtonProps) => {
+  const { variant = 'primary', size = 'medium', disabled, onClick, children } = props;
+  // ...
+};
 ```
-
-## Detailed Rules
-
-Context-specific coding guidelines are located in `.cursor/rules/`:
-
-| Rule File        | Description                                        | Applied To             |
-| ---------------- | -------------------------------------------------- | ---------------------- |
-| `general.mdc`    | Links to this document (entry point)               | Always                 |
-| `react.mdc`      | Component conventions, MDX widgets, animations     | `*.ts`, `*.tsx`        |
-| `tokens.mdc`     | Design tokens, styling patterns, CSS variables     | `*.ts`, `*.tsx`        |
-| `typescript.mdc` | TypeScript conventions, import order, ESLint rules | `*.ts`, `*.tsx`        |
-| `testing.mdc`    | Vitest, Testing Library, Cypress patterns          | `*.spec.*`, `cypress/` |
-
-## Custom Commands
-
-Slash commands for common tasks are located in `.cursor/commands/`:
-
-| Command           | Description                                        |
-| ----------------- | -------------------------------------------------- |
-| `/create-article` | Create a new blog post with proper MDX frontmatter |
-
-## Scripts
-
-| Command                 | Purpose                  |
-| ----------------------- | ------------------------ |
-| `pnpm dev`              | Start development server |
-| `pnpm build`            | Production build         |
-| `pnpm lint`             | Run ESLint               |
-| `pnpm type-check`       | TypeScript validation    |
-| `pnpm format`           | Format with Prettier     |
-| `pnpm generate:og`      | Generate OG images       |
-| `pnpm generate:rss`     | Generate RSS feed        |
-| `pnpm generate:sitemap` | Generate sitemap         |
-
-## Important Notes
-
-- **Pages Router**: This project uses Next.js Pages Router, NOT App Router
-- **SSG**: Blog posts are statically generated at build time
-- **Design System**: Most base components come from `@maximeheckel/design-system`
-- **Headless UI**: Use `@base-ui/react` for accessible primitives (Select, Dialog, etc.)
-- **No console.log**: Use proper error handling or remove debug statements
-- `@maximeheckel/design-system` codebase can be found at https://github.com/maximeheckel/design-system. The repository is public.
 
 ---
 > Source: [MaximeHeckel/blog.maximeheckel.com](https://github.com/MaximeHeckel/blog.maximeheckel.com) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
