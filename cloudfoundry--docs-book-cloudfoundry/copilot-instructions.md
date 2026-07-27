@@ -1,157 +1,26 @@
 ## docs-book-cloudfoundry
 
-> Instructions for AI coding agents working on the **Cloud Foundry** documentation set. This doc set is built from multiple repositories; the book repo (this repo) assembles the TOC and references content that lives in sibling docs repos.
+> Ensure all doc-set repos are on master before making any edits
 
-# AGENTS.md
 
-Instructions for AI coding agents working on the **Cloud Foundry** documentation set. This doc set is built from multiple repositories; the book repo (this repo) assembles the TOC and references content that lives in sibling docs repos.
+# Switch all repos to master before editing
 
-## Project overview
+**This is the first action for every task in this doc set, before any file read, plan, or edit.**
 
-Product documentation for **Cloud Foundry** (OSS). Content is published at docs.cloudfoundry.org. Source is Markdown with ERB templating (`*.html.md.erb`), HTML tables, and template variables. The book is built with Bookbinder/Middleman.
+If you have not yet confirmed that every affected repo is on the `master` branch, stop and do it now:
 
-**Multi-repo layout:** This repository (**docs-book-cloudfoundry**) is the **book** (aggregator). It does not hold most of the topic content. It holds:
+- PowerShell (from the book repo): `scripts/ensure-master.ps1`
+- Bash (from the book repo): `scripts/ensure-master.sh`
 
-- **Subnav/TOC** (e.g. `master_middleman/source/subnavs/_cf-subnav.erb`) that define the navigation and point at content using path prefixes such as `/buildpacks/`, `/bbr/`, `/concepts/`, etc.
-- Those paths are resolved at build time from **sibling documentation repositories** (see the "Repositories in the doc set" table and the "Quick reference: TOC path → repo" table below).
-
-When you change or add a topic that is referenced in the TOC, the actual file often lives in a content repo (e.g. **docs-buildpacks**, **docs-bbr**), not in this repo. When you rename or move a file in a content repo, you must update the TOC in **this** repo so the book still links to the correct path.
-
-**Cross-repo change awareness:** When you make a change in any of the repos listed in this doc set, **alert the user** if that change might also require updates in other related repos—especially **docs-book-cloudfoundry** (e.g. TOC links, new or removed topics, renamed paths). Prompt them to check the other repo(s).
-
-## Repositories in the doc set
-
-| Repository | Role | Path prefix in TOC (examples) |
-|------------|------|-------------------------------|
-| **docs-book-cloudfoundry** (this repo) | Book: TOC, subnav, assembly | — |
-| **docs-buildpacks** | [Buildpacks](https://github.com/cloudfoundry/docs-buildpacks) | `/buildpacks/` |
-| **docs-bbr** | [BOSH Backup and Restore](https://github.com/cloudfoundry/docs-bbr) | `/bbr/` |
-| **docs-deploying-cf** | [Deploying Cloud Foundry](https://github.com/cloudfoundry/docs-deploying-cf) | `/deploying/` |
-| **docs-cf-admin** | [CF Admin](https://github.com/cloudfoundry/docs-cf-admin) | `/adminguide/` |
-| **docs-cf-cli** | [CF CLI](https://github.com/cloudfoundry/docs-cf-cli) | `/cf-cli/` |
-| **docs-cloudfoundry-concepts** | [Cloud Foundry concepts](https://github.com/cloudfoundry/docs-cloudfoundry-concepts) | `/concepts/` |
-| **docs-dev-guide** | [Developer guide](https://github.com/cloudfoundry/docs-dev-guide) | `/devguide/` |
-| **docs-loggregator** | [Loggregator](https://github.com/cloudfoundry/docs-loggregator) | `/loggregator/` |
-| **docs-services** | [Services](https://github.com/cloudfoundry/docs-services) | `/services/` |
-| **docs-uaa** | [UAA](https://github.com/cloudfoundry/docs-uaa) | `/uaa/` |
-| **docs-credhub** | [CredHub](https://github.com/cloudfoundry/docs-credhub) | `/credhub/` |
-| **docs-running-cf** | [Running Cloud Foundry](https://github.com/cloudfoundry/docs-running-cf) | `/running/` |
-
-The repos listed above are the full set used in the Cloud Foundry book. The TOC in this repo is the single place that ties all content together.
-
-**Quick reference: TOC path → repo** (all repos use **master** branch)
-
-| TOC path | Repo |
-| -------- | ---- |
-| `/buildpacks/` | docs-buildpacks |
-| `/bbr/` | docs-bbr |
-| `/deploying/` | docs-deploying-cf |
-| `/adminguide/` | docs-cf-admin |
-| `/cf-cli/` | docs-cf-cli |
-| `/concepts/` | docs-cloudfoundry-concepts |
-| `/devguide/` | docs-dev-guide |
-| `/loggregator/` | docs-loggregator |
-| `/services/` | docs-services |
-| `/uaa/` | docs-uaa |
-| `/credhub/` | docs-credhub |
-| `/running/` | docs-running-cf |
-
-## Branch
-
-This doc set uses a single version. All repositories use the **master** branch. Keep content and TOC in sync on **master** when making cross-repo changes.
-
-**Before editing any file in any content repo, verify the repo is on `master`:**
+Or check and switch each repo manually:
 
 ```powershell
-git -C <repo-path> rev-parse --abbrev-ref HEAD
+git -C <repo-path> rev-parse --abbrev-ref HEAD   # must return "master"
+git -C <repo-path> checkout master                # switch if not already on master
 ```
 
-If the result is not `master`, run `git -C <repo-path> checkout master` to switch it, then confirm the switch succeeded before proceeding. Do this for every affected repo at the start of any task, before making any edits.
-
-**Scope all searches to the 13 listed workspace repos only.** The workspace parent folder may contain other repositories (e.g. commercial doc sets). Do not act on, report, or include results from any repo not listed in the "Repositories in the doc set" table above.
-
-### Scripts (run from docs-book-cloudfoundry or with optional workspace root)
-
-- **`scripts/ensure-master.ps1`** and **`scripts/ensure-master.sh`** — Switch every doc set repo to the `master` branch. Call at the start of a task so all repos are on master before edits. Optional arg: workspace root (default: parent of this repo).
-- **`scripts/repo-status.ps1`** and **`scripts/repo-status.sh`** — Print branch and clean/dirty state for each doc set repo, and whether it is on `master`. Exit `0` only if every **present** repo is on `master` (missing clones are ignored for the exit code). Optional: workspace root, or set `DOCS_REPOS_PARENT` (Bash) / `$env:DOCS_REPOS_PARENT` (PowerShell).
-- **`scripts/check-prohibited-terms.ps1`** and **`scripts/check-prohibited-terms.sh`** — Search all content repos for prohibited commercial terms (Tanzu, etc.). Exit 0 = no matches (OK to commit); exit 1 = matches found. Run before committing. No extra tools required (PowerShell uses built-in cmdlets; Bash uses find + grep). Optional arg: workspace root.
-
-## TOC files in this repo
-
-The main subnav lives at `master_middleman/source/subnavs/_cf-subnav.erb`. Template variables and other book config are under `config/` (e.g. `config/template_variables.yml`).
-
-**Link format in TOC:** Links are absolute-style paths that match the published URL structure, e.g. `/buildpacks/`, `/bbr/`, `/deploying/`, `/concepts/`, `/devguide/`, `/adminguide/`, `/cf-cli/`, `/uaa/`, `/credhub/`, `/running/`, `/loggregator/`, `/services/`.
-
-The segment after the first slash (e.g. `buildpacks`, `bbr`) corresponds to content supplied by the content repos at build time. Do not create those topic files in this repo; edit them in the repo that owns that path.
-
-## Cross-repo workflows
-
-1. **Renaming or moving a file in a content repo**  
-   After renaming/moving the file in the content repo, open **docs-book-cloudfoundry** on **master** and update every TOC entry that pointed at the old path so it uses the new path. Check the main subnav file `master_middleman/source/subnavs/_cf-subnav.erb` and any other subnavs or index files that reference that path.
-
-2. **Adding a new topic in a content repo**  
-   Add the topic file in the content repo, then in this repo add a TOC entry in the appropriate subnav (e.g. `_cf-subnav.erb`) using the path that will resolve to that topic (e.g. `/buildpacks/my-topic.html`, `/bbr/my-topic.html`, `/deploying/my-topic.html`, `/concepts/my-topic.html`, `/devguide/my-topic.html`, `/adminguide/my-topic.html`, `/cf-cli/my-topic.html`, `/uaa/my-topic.html`, `/credhub/my-topic.html`, `/running/my-topic.html`, `/loggregator/my-topic.html`, `/services/my-topic.html`).
-
-   **TOC placement convention:** When adding a new topic to a submenu that has a corresponding index page (e.g. `managing-apps-stacks-index.html.md.erb`), place the new TOC entry in the same order as it appears in that index file. Always check the index file first.
-
-3. **TOC subnav structure conventions**  
-   The subnav (`_cf-subnav.erb`) is a single HTML file. Keep these rules in mind when editing:
-   - Every `<li class="has_submenu">` must have a matching `</li>` after its closing `</ul>`.
-   - Every `<a href="...">link text</a>` must use `</a>` (not `<a>`) as the closing tag.
-   - Sections using a non-linked heading that **has children** (e.g. operator sections, UAA) should use `<li class="has_submenu"><span>Heading text</span><ul>...</ul></li>`, not a bare `<li><strong>` followed by a detached `<ul>`.
-   - Standalone label headings with **no children** (e.g. "General Information", "Information for Operators", "Information for developers") use `<li><strong>Heading text</strong></li>`. Do not add a `<ul>` inside these.
-   - Do not link the same page in more than one location in the subnav. If a page is relevant in two sections, keep it in the section that best matches its audience and add a cross-reference in the content if needed.
-   - Some subnav entries link to files in a different content repo than the section they appear under (e.g. a `/running/` file inside the Devguide section). When adding or editing such cross-section links, note which repo owns the file so future editors know where to make changes.
-
-## No commercial references
-
-This is the **open-source Cloud Foundry** documentation. It must not contain references to commercial products, commercial product names, or commercial release version numbers.
-
-### Prohibited terms and patterns
-
-| Prohibited | OSS replacement |
-|------------|----------------|
-| Tanzu (as a product name) | Cloud Foundry |
-| Tanzu Application Service (TAS) | Cloud Foundry |
-| TAS for VMs | Cloud Foundry |
-| Tanzu Platform for Cloud Foundry | Cloud Foundry |
-| Elastic Application Runtime | Cloud Foundry |
-| VMware (as a company reference in product context) | _(remove or rewrite)_ |
-| Broadcom Support Portal / Tanzu Support Hub | _(remove link entirely)_ |
-| Tanzu cf CLI | cf CLI |
-| Tanzu UAA | UAA |
-| Tanzu User Account and Authentication | User Account and Authentication (UAA) |
-| Commercial release versions: 2.x, 3.x, 4.x, 5.x, 6.0, 10.x | _(remove or rewrite without version)_ |
-| Extended App Support tile | _(commercial TAS tile — remove entirely)_ |
-| Ops Manager | _(Pivotal/VMware Ops Manager — remove entirely)_ |
-
-### What is acceptable
-
-- Component/dependency version numbers are fine: `cflinuxfs4 v1.45.0`, `cf CLI v8.12.0`, `Go 1.21`.
-- Infrastructure platform names used as deployment targets are fine: `VMware vSphere`, `AWS`, `GCP`, `Azure`, `OpenStack`.
-- Links to open-source projects and their GitHub repositories are fine.
-- Conditional ERB blocks gated on `vars.platform_code == 'PCF'` may remain, as they do not render in OSS builds.
-
-### How to check
-
-Run the following search across all content repos before committing:
-
-```
-rg "Tanzu|VMware Tanzu|TAS for VMs|Tanzu Application Service|Elastic Application Runtime|Tanzu Support Hub" --glob "*.html.md.erb" --glob "!archive/*"
-```
-
-Any hits outside gated `<% if vars.platform_code == 'PCF' %>` blocks must be fixed before the change is committed.
-
-## Commit messages
-
-Cloud Foundry has an AI disclosure policy ([RFC-0047](https://github.com/cloudfoundry/community/blob/2d2df6e9cb3efa7b0729ea011c0f7e4952cca12f/toc/rfc/rfc-0047-ai-disclosures.md)). All commits made with AI assistance must disclose it. See `.cursor/rules/commit-message.mdc` for the required format.
-
-## Keeping this file current
-
-When new repos are added to the doc set, update the "Repositories in the doc set" table and the quick reference table. After doing a cross-repo task, consider adding a short note here if you discover a convention or gotcha that would help future edits.
-
-**After actions in a session:** Consider whether what you did suggests a helpful addition to **AGENTS.md** or **.cursor/rules/multi-repo-docs.mdc**. Keep the rules file in sync with AGENTS.md when repo list or paths change.
+Do not write or edit any file until every affected repo is confirmed on `master`.
 
 ---
 > Source: [cloudfoundry/docs-book-cloudfoundry](https://github.com/cloudfoundry/docs-book-cloudfoundry) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
