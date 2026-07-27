@@ -1,8 +1,6 @@
 # AI instruction files for tdx2db
 
-> Sourced from [jing2uo/tdx2db](https://github.com/jing2uo/tdx2db) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-30s 拥有专属的A股行情数据库～
+> Sourced from [jing2uo/tdx2db](https://github.com/jing2uo/tdx2db), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
