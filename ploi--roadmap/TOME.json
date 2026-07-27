@@ -1,0 +1,69 @@
+{
+  "name": "roadmap",
+  "owner": "ploi",
+  "repo": "roadmap",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/pest-testing/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/pest-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/socialite-development/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/socialite-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/laravel-best-practices/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/laravel-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": ".claude/skills/tailwindcss-development/SKILL.md",
+      "github_url": "https://github.com/ploi/roadmap/tree/main/.claude/skills/tailwindcss-development/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ploi/roadmap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T09:31:55Z"
+}
