@@ -1,0 +1,51 @@
+{
+  "name": "vscode-agent-lab-soc-ops",
+  "owner": "microsoft",
+  "repo": "vscode-agent-lab-soc-ops",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vscode-agent-lab-soc-ops",
+      "path": ".github/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/microsoft/vscode-agent-lab-soc-ops/tree/main/.github/skills/frontend-design/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/vscode-agent-lab-soc-ops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T05:50:36Z"
+}
