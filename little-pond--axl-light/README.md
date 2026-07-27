@@ -1,6 +1,6 @@
 # axl-light
 
-> Source: [little-pond/axl-light](https://github.com/little-pond/axl-light) — distributed by [TomeVault](https://tomevault.io)
+> Source: [little-pond/axl-light](https://github.com/little-pond/axl-light). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [little-pond/axl-light](https://github.com/littl
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/little-pond/axl-light](https://github.com/little-pond/axl-light)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/little-pond/axl-light](https://github.com/little-pond/axl-light)
 
 ---
 
