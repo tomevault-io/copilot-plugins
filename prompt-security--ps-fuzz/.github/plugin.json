@@ -1,0 +1,9 @@
+{
+  "name": "prompt-security--ps-fuzz",
+  "displayName": "ps-fuzz",
+  "description": "ps-fuzz",
+  "version": "1.0.0",
+  "author": "prompt-security",
+  "homepage": "https://github.com/prompt-security/ps-fuzz",
+  "skills": []
+}
