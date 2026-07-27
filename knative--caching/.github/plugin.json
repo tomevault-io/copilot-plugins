@@ -1,0 +1,9 @@
+{
+  "name": "knative--caching",
+  "displayName": "caching",
+  "description": "caching",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/caching",
+  "skills": []
+}
