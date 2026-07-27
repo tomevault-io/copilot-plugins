@@ -1,0 +1,9 @@
+{
+  "name": "reolink--reolink-cli",
+  "displayName": "reolink-cli",
+  "description": "The CLI for devices manufactured by Reolink",
+  "version": "1.0.0",
+  "author": "reolink",
+  "homepage": "https://github.com/reolink/reolink-cli",
+  "skills": []
+}
