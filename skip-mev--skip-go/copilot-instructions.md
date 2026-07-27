@@ -1,487 +1,953 @@
 ## skip-go
 
-> This document provides comprehensive guidelines for contributing to the Skip Go codebase, with a focus on code organization and wallet integration patterns.
+> This document provides comprehensive guidelines for working with the Skip Go Explorer codebase.
 
-# Skip Go Development Guidelines
+# Skip Go Explorer - Agent Guide
 
-This document provides comprehensive guidelines for contributing to the Skip Go codebase, with a focus on code organization and wallet integration patterns.
+This document provides comprehensive guidelines for working with the Skip Go Explorer codebase.
 
-## Table of Contents
-1. [Code Organization and Conventions](#code-organization-and-conventions)
-2. [Wallet Integration](#wallet-integration)
-3. [Contribution Guidance](#contribution-guidance)
-4. [Storage Patterns](#storage-patterns)
-5. [Performance Optimization Patterns](#performance-optimization-patterns)
-6. [Error Handling Patterns](#error-handling-patterns)
-7. [API Integration Patterns](#api-integration-patterns)
-8. [State Management Best Practices](#state-management-best-practices)
-9. [UI/UX Enhancement Patterns](#uiux-enhancement-patterns)
-10. [Development Tools](#development-tools)
-11. [Code Refactoring Guidelines](#code-refactoring-guidelines)
-12. [Pull Request Best Practices](#pull-request-best-practices)
-13. [Changeset Requirements](#changeset-requirements)
-14. [Testing Standards](#testing-standards)
+---
 
-## Code Organization and Conventions
+## 1. Project Overview
 
-### Project Structure
-The codebase follows a modular architecture with clear separation of concerns:
+### What does this project do?
+
+Skip Go Explorer is a **cross-chain transaction explorer** built with Next.js. It allows users to:
+- Track cross-chain transactions across multiple blockchain ecosystems
+- View detailed transaction status and transfer events
+- Visualize transaction routing through different chains
+- Monitor asset releases and transfers in real-time
+- Debug transactions with raw data inspection
+
+### Tech Stack
+
+| Category | Technology |
+|----------|-----------|
+| Framework | Next.js 15.4 (App Router) |
+| Runtime | React 19.1 |
+| Language | TypeScript 5 |
+| State Management | Jotai 2.13 + Jotai-TanStack-Query 0.11 |
+| Data Fetching | TanStack Query (React Query) 5.84 |
+| Styling | styled-components (from widget package) |
+| URL State | nuqs 2.4 |
+| API Client | @skip-go/client (workspace monorepo package) |
+| Error Boundaries | react-error-boundary 6.0 |
+| Utilities | @uidotdev/usehooks 2.4 |
+
+### Main Applications/Services
+
+This is a **single-page application (SPA)** that serves as a transaction explorer interface for Skip Protocol's cross-chain infrastructure.
+
+---
+
+## 2. Project Structure
 
 ```
-packages/
-├── widget/src/
-│   ├── components/      # Reusable UI components
-│   ├── constants/       # Application constants and configurations
-│   ├── hooks/          # Custom React hooks for business logic
-│   ├── icons/          # Icon components
-│   ├── modals/         # Modal components
-│   ├── pages/          # Page-level components
-│   ├── providers/      # Context providers for different chain types
-│   ├── state/          # State management using Jotai atoms
-│   ├── utils/          # Utility functions organized by purpose
-│   └── widget/         # Main widget entry points
-└── client/             # API client and chain-specific logic
+apps/explorer/
+├── src/
+│   ├── app/                          # Next.js App Router pages
+│   │   ├── page.tsx                  # Main transaction explorer page
+│   │   ├── layout.tsx                # Root layout with metadata
+│   │   ├── template.tsx              # Client-side providers wrapper
+│   │   └── globals.css               # Global styles
+│   ├── components/                   # UI components
+│   │   ├── Badge.tsx                 # Status badges
+│   │   ├── Bridge.tsx                # Bridge visualization
+│   │   ├── ChainSelector.tsx         # Chain selection dropdown
+│   │   ├── ErrorCard.tsx             # Error display
+│   │   ├── Navbar.tsx                # Navigation bar
+│   │   ├── QueryProvider.tsx         # React Query provider
+│   │   ├── SearchButton.tsx          # Search trigger
+│   │   ├── SuccessfulTransactionCard.tsx  # Success state
+│   │   ├── TokenDetails.tsx          # Token information display
+│   │   ├── TransactionDetails.tsx    # Transaction metadata
+│   │   ├── TransferEventCard.tsx     # Individual transfer event
+│   │   ├── TxHashInput.tsx           # Transaction hash input
+│   │   └── modals/
+│   │       ├── SearchModal.tsx       # Mobile search modal
+│   │       └── ViewRawDataModal.tsx  # Raw JSON viewer
+│   ├── constants/
+│   │   ├── chainIdsSortedToTop.ts    # Chain priority sorting
+│   │   └── modal.tsx                 # Modal identifiers
+│   ├── hooks/                        # Custom React hooks
+│   │   ├── useGetTransferAssetReleaseAsset.ts
+│   │   ├── useOverallStatusLabelAndColor.ts
+│   │   ├── useTheme.ts               # Theme detection
+│   │   └── useTransactionHistoryItemFromUrlParams.ts
+│   ├── icons/                        # SVG icon components
+│   │   ├── BridgeIcon.tsx
+│   │   ├── ClockIcon.tsx
+│   │   ├── CoinsIcon.tsx
+│   │   ├── RightArrowIcon.tsx
+│   │   ├── SearchIcon.tsx
+│   │   └── TopRightArrowIcon.tsx
+│   ├── jotai.ts                      # Jotai re-exports
+│   ├── mixins/
+│   │   └── styledScrollbar.ts        # Scrollbar styling
+│   ├── types/
+│   │   └── theme.d.ts                # Theme type definitions
+│   └── utils/
+│       ├── denomUtils.ts             # Denomination transformations
+│       └── skipClientConfig.ts       # Skip API client setup
+├── public/                           # Static assets
+│   ├── logo.svg                      # Dark theme logo
+│   ├── logo-light.svg                # Light theme logo
+│   ├── dark-bg.svg                   # Dark background
+│   ├── light-bg.svg                  # Light background
+│   └── skip-*.png                    # Favicons & manifest icons
+├── declarations.d.ts                 # TypeScript declarations
+├── eslint.config.mjs                 # ESLint configuration
+├── next.config.ts                    # Next.js configuration
+├── package.json                      # Dependencies & scripts
+└── tsconfig.json                     # TypeScript configuration
 ```
 
-### File and Folder Organization
-- **Feature-based grouping**: Related functionality is grouped together in logical directories
-- **Single responsibility**: Each file has a single, clear purpose
-- **Utility separation**: Utilities are organized by domain (e.g., `fees.ts`, `crypto.ts`, `date.ts`)
+### Key Configuration Files
 
-### Naming Conventions
-- **Components**: PascalCase (e.g., `SwapPage.tsx`, `AssetInput.tsx`)
-- **Hooks**: camelCase with `use` prefix (e.g., `useCreateCosmosWallets.tsx`, `useGetBalance.ts`)
-- **Constants**: SCREAMING_SNAKE_CASE for constants, camelCase for configuration objects
-- **State atoms**: camelCase with `Atom` suffix (e.g., `cosmosWalletAtom`, `sourceAssetAtom`)
+| File | Purpose |
+|------|---------|
+| `next.config.ts` | Next.js configuration, webpack aliases, remote image patterns |
+| `tsconfig.json` | TypeScript compiler options, path aliases to widget package |
+| `eslint.config.mjs` | Linting rules for Next.js and TypeScript |
+| `package.json` | Dependencies, scripts, workspace references |
 
-### Import Organization
+### Entry Points
+
+1. **Application Entry**: `src/app/layout.tsx` - Root layout with metadata
+2. **Main Page**: `src/app/page.tsx` - Transaction explorer UI
+3. **Client Providers**: `src/app/template.tsx` - Jotai, React Query, NiceModal providers
+4. **API Client**: `src/utils/skipClientConfig.ts` - Skip client initialization
+
+---
+
+## 3. Build Commands
+
+All commands should be run from the **monorepo root** or from the `apps/explorer` directory:
+
+| Command | Description | Location |
+|---------|-------------|----------|
+| `yarn dev` | Start development server (http://localhost:3000) | `apps/explorer` |
+| `yarn build` | Build production bundle | `apps/explorer` |
+| `yarn start` | Start production server | `apps/explorer` |
+| `yarn lint` | Run ESLint checks | `apps/explorer` |
+
+### Monorepo Commands (from root)
+
+```bash
+# Install all dependencies
+yarn install
+
+# Build all packages
+yarn build
+
+# Build only explorer
+yarn workspace explorer build
+```
+
+---
+
+## 4. Architecture
+
+### Application Architecture Pattern
+
+**Modular Single-Page Application (SPA)** with Next.js App Router
+
+### Layer Organization
+
+```
+┌─────────────────────────────────────┐
+│      Presentation Layer             │
+│  (App Router Pages & Components)    │
+├─────────────────────────────────────┤
+│      State Management Layer         │
+│    (Jotai Atoms + React Query)      │
+├─────────────────────────────────────┤
+│      Business Logic Layer           │
+│    (Custom Hooks + Utilities)       │
+├─────────────────────────────────────┤
+│      Data Access Layer              │
+│    (@skip-go/client package)        │
+└─────────────────────────────────────┘
+```
+
+### Module/Package Structure
+
+The explorer is part of a **monorepo** and heavily reuses components from the `@skip-go/widget` package:
+
+```
+Shared from Widget Package:
+- @/components/*      (Layout, Button, Typography, Modal, Container, etc.)
+- @/hooks/*           (useIsMobileScreenSize, useClipboard, etc.)
+- @/icons/*           (Icon components)
+- @/state/*           (Jotai atoms)
+- @/styled-components (styled-components setup)
+- @/utils/*           (Utility functions)
+- @/modals/*          (AssetAndChainSelectorModal)
+- @/nice-modal        (Modal management)
+- @/jotai             (Jotai with TanStack Query)
+```
+
+### Key Design Patterns Used
+
+#### 1. **Container/Presentational Pattern**
+Components are split into smart (container) and presentational components.
+
 ```typescript
-// 1. External dependencies
-import { atom } from "jotai";
-import { ChainType } from "@skip-go/client";
+// Container component (page.tsx)
+export default function Home() {
+  const [txHash, setTxHash] = useState<string>();
+  const [transferEvents, setTransferEvents] = useState<ClientTransferEvent[]>([]);
+  // ... business logic
+  return <TransferEventCard {...props} />;
+}
 
-// 2. Internal absolute imports
-import { mainnetChains } from "@/constants/chains";
-import { useGetAccount } from "@/hooks/useGetAccount";
-
-// 3. Relative imports
-import { MinimalWallet } from "./types";
+// Presentational component (TransferEventCard.tsx)
+export const TransferEventCard = ({ chainId, status, step }: TransferEventCardProps) => {
+  // ... UI rendering only
+}
 ```
 
-### State Management
-The codebase uses Jotai for state management with a clear atom structure:
-- Atoms are defined in the `state/` directory
-- Each domain has its own state file (e.g., `wallets.ts`, `swapPage.ts`)
-- Complex state logic is encapsulated in custom hooks
-
-### Modular Design Patterns
-- **Provider pattern**: Chain-specific providers wrap components with necessary context
-- **Hook composition**: Complex functionality is built by composing smaller, focused hooks
-- **Type safety**: TypeScript interfaces define clear contracts between modules
-
-## Wallet Integration
-
-### Architecture Overview
-Wallet integration follows a modular adapter pattern that supports multiple blockchain types:
-
-```
-providers/
-├── CosmosProvider.tsx    # Cosmos chain wallet provider
-├── EVMProvider.tsx       # Ethereum/EVM wallet provider
-└── SolanaProvider.tsx    # Solana wallet provider
-```
-
-### Wallet State Management
-Centralized wallet state is managed through Jotai atoms:
+#### 2. **Hook Composition Pattern**
+Complex logic is extracted into custom hooks:
 
 ```typescript
-// Core wallet types
-export type MinimalWallet = {
-  walletName: string;
-  walletPrettyName: string;
-  walletChainType: ChainType;
-  walletInfo: { logo?: string };
-  connect: (chainId?: string) => Promise<void>;
-  disconnect: () => Promise<void>;
-  isWalletConnected: boolean;
-  getAddress?: (props: AddressProps) => Promise<AddressResult>;
+// Custom hook
+export const useTransactionHistoryItemFromUrlParams = () => {
+  const [data] = useQueryState("data");
+  const skipAssets = useAtomValue(skipAssetsAtom);
+  // ... logic
+  return { sourceAsset, destAsset, userAddresses, operations };
 };
+
+// Usage in component
+const { sourceAsset, destAsset } = useTransactionHistoryItemFromUrlParams();
 ```
 
-### Chain-Specific Wallet Hooks
-Each chain type has dedicated hooks for wallet creation and management:
-- `useCreateCosmosWallets.tsx` - Handles Cosmos ecosystem wallets
-- `useCreateEvmWallets.tsx` - Manages EVM-compatible wallets
-- `useCreateSolanaWallets.tsx` - Supports Solana wallet integration
+#### 3. **Atomic State Management**
+Jotai atoms provide granular, reactive state:
 
-### Wallet Connection Flow
-1. **Provider Initialization**: Chain-specific providers wrap the application
-2. **Wallet Discovery**: Available wallets are detected based on browser extensions
-3. **Connection Management**: Hooks handle connection state and chain switching
-4. **Address Resolution**: Unified interface for getting addresses across chain types
-
-### Error Handling
-- Asynchronous operations use try-catch blocks with specific error handling
-- Wallet connection failures trigger appropriate user feedback
-- Chain switching errors are handled gracefully with fallback options
-
-### Testing Wallet Features
-- Mock wallet providers for unit tests
-- Integration tests verify wallet connection flows
-- Edge cases like disconnection and chain switching are covered
-
-## Contribution Guidance
-
-### Navigating the Codebase
-1. **Start with the entry point**: `packages/widget/src/widget/Widget.tsx`
-2. **Follow the import trail**: Use imports to understand component relationships
-3. **Check state definitions**: Look in `state/` for atom definitions
-4. **Review hooks**: Custom hooks in `hooks/` contain core business logic
-
-### Key Entry Points
-- **Widget initialization**: `packages/widget/src/widget/`
-- **Wallet integration**: `packages/widget/src/providers/`
-- **State management**: `packages/widget/src/state/`
-- **API client**: `packages/client/src/`
-
-### Common Patterns
-
-#### Hook Composition
 ```typescript
-// Compose smaller hooks for complex functionality
-const useWalletConnection = () => {
-  const wallet = useAtomValue(walletAtom);
-  const { disconnectAsync } = useDisconnect();
-  const callbacks = useAtomValue(callbacksAtom);
-  
-  // Combine functionality
-  return { wallet, disconnect: disconnectAsync, callbacks };
-};
-```
-
-#### Provider Wrapping
-```typescript
-// Providers wrap components with necessary context
-<CosmosProvider>
-  <EVMProvider>
-    <SolanaProvider>
-      <App />
-    </SolanaProvider>
-  </EVMProvider>
-</CosmosProvider>
-```
-
-#### State Updates
-```typescript
-// Use atoms for global state
-const [sourceAsset, setSourceAsset] = useAtom(sourceAssetAtom);
+// Atom definition
+export const skipClientConfigAtom = atom(defaultSkipClientConfig);
 
 // Read-only access
-const chainType = useAtomValue(chainTypeAtom);
+const config = useAtomValue(skipClientConfigAtom);
 
-// Write-only access
-const setWallet = useSetAtom(walletAtom);
+// Write access
+const setConfig = useSetAtom(skipClientConfigAtom);
 ```
 
-### Code Quality Standards
-1. **Type Safety**: Always provide TypeScript types for function parameters and returns
-2. **Error Boundaries**: Wrap components that might fail with error boundaries
-3. **Performance**: Use React.memo and useMemo for expensive computations
-4. **Accessibility**: Include ARIA labels and keyboard navigation support
-
-### Documentation Requirements
-- **Complex Logic**: Add inline comments explaining non-obvious code
-- **Public APIs**: Include JSDoc comments for exported functions
-- **Type Definitions**: Document complex types with examples
-- **Hook Usage**: Provide usage examples in hook file comments
-
-### Storage Patterns
-
-#### Local Storage Migration
-When dealing with large data sets, consider migrating from localStorage to IndexedDB:
+#### 4. **Provider Wrapper Pattern**
+Multiple providers wrap the app in `template.tsx`:
 
 ```typescript
-// Custom storage atom without cross-tab sync for performance
-export function atomWithStorageNoCrossTabSync<T>(storageKey: string, initialValue: T) {
-  const defaultStorage: SyncStorage<T> = {
-    getItem: (key) => {
-      const storedValue = localStorage.getItem(key);
-      return storedValue ? JSON.parse(storedValue) : initialValue;
-    },
-    setItem: (key, newValue) => {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    },
-    removeItem: (key) => localStorage.removeItem(key),
-  };
-  return atomWithStorage<T>(storageKey, initialValue, defaultStorage, { getOnInit: true });
+<ClientOnly>
+  <QueryProvider>
+    <Provider store={jotaiStore}>
+      <NiceModal.Provider>
+        <Wrapper>{children}</Wrapper>
+      </NiceModal.Provider>
+    </Provider>
+  </QueryProvider>
+</ClientOnly>
+```
+
+#### 5. **Modal Registry Pattern**
+Modals are registered once and shown imperatively:
+
+```typescript
+// Register
+NiceModal.register(ExplorerModals.ViewRawDataModal, ViewRawDataModal);
+
+// Show
+NiceModal.show(ExplorerModals.ViewRawDataModal, { data: jsonData });
+```
+
+---
+
+## 5. Database
+
+**N/A** - This application does not use a database. All data is fetched from the Skip API.
+
+---
+
+## 6. APIs
+
+### API Style
+**REST API** - The application consumes the Skip Protocol REST API.
+
+### Where are API definitions?
+
+API interactions are handled by the `@skip-go/client` package (workspace dependency).
+
+Key functions used from `@skip-go/client`:
+
+| Function | Purpose |
+|----------|---------|
+| `waitForTransactionWithCancel()` | Poll transaction status with cancellation |
+| `trackTransaction()` | Start tracking a new transaction |
+| `transactionStatus()` | Get current transaction status |
+| `getTransferEventsFromTxStatusResponse()` | Extract transfer events |
+
+### API Configuration
+
+```typescript
+// src/utils/skipClientConfig.ts
+import { setApiOptions } from "@skip-go/client";
+
+export function initializeSkipClient() {
+  setApiOptions({
+    apiUrl: "https://api.skip.build",
+    // apiKey: process.env.NEXT_PUBLIC_SKIP_API_KEY, // Optional
+  });
 }
 ```
 
-#### Storage Versioning
-Implement versioning for stored data to handle schema changes:
-- Add version numbers to storage keys (e.g., `transactionHistoryVersion`)
-- Provide migration utilities in `utils/migrateOldLocalStorageValues.ts`
-- Clear outdated data when schemas change
+### API Endpoints Used
 
-### Performance Optimization Patterns
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/v2/tx/retry_track` | POST | Reindex abandoned transactions |
+| `/v2/tx/status` | GET | Get transaction status (via client) |
+| `/v2/tx/track` | POST | Start tracking transaction (via client) |
 
-#### UI Virtualization
-For long lists (e.g., history pages), implement virtualization:
-- Use virtual scrolling libraries for better performance
-- Lazy load data as users scroll
-- Implement proper loading states
+---
 
-#### Loading State Management
-Prevent UI flickering and improve perceived performance:
+## 7. Configuration
+
+### Environment Variables
+
+| Variable | Required | Description | Default |
+|----------|----------|-------------|---------|
+| `NEXT_PUBLIC_SKIP_API_KEY` | No | API key for Skip API (optional) | None |
+| `NODE_ENV` | No | Environment mode | `development` |
+
+**Note**: Currently, no environment variables are strictly required. The app uses the public Skip API endpoint.
+
+### Config File Locations
+
+| File | Format | Purpose |
+|------|--------|---------|
+| `next.config.ts` | TypeScript | Next.js webpack config, image domains |
+| `tsconfig.json` | JSON | TypeScript compiler options |
+| `eslint.config.mjs` | ES Module | Linting rules |
+
+### Next.js Configuration Highlights
+
 ```typescript
-// Use suspense boundaries for async operations
-<Suspense fallback={<LoadingComponent />}>
-  <AsyncComponent />
-</Suspense>
-
-// Prevent state update loops with proper dependency tracking
-const prevRouteRef = useRef(route);
-if (prevRouteRef.current !== route) {
-  // Update only when route actually changes
-}
-```
-
-#### Shimmer Effects
-Implement skeleton loading states with shimmer effects:
-- Use `Skeleton` component with shimmer animation
-- Provide realistic content dimensions during loading
-- Maintain layout stability
-
-### Error Handling Patterns
-
-#### Graceful Timeout Handling
-Implement timeouts before showing error states:
-```typescript
-// Show error only after reasonable wait time
-const ERROR_DISPLAY_TIMEOUT = 15000; // 15 seconds
-
-useEffect(() => {
-  const timer = setTimeout(() => {
-    if (hasError) {
-      setShowError(true);
-    }
-  }, ERROR_DISPLAY_TIMEOUT);
-  
-  return () => clearTimeout(timer);
-}, [hasError]);
-```
-
-#### Fallback Mechanisms
-Always provide fallbacks for critical operations:
-- Wallet connection fallbacks to default signers
-- API polling with retry logic
-- Cache fallbacks when network requests fail
-
-### API Integration Patterns
-
-#### Flexible API Configuration
-Support custom headers and polling options:
-```typescript
-interface SkipApiOptions {
-  apiHeaders?: Record<string, string>;
-  trackTxPollingOptions?: {
-    interval?: number;
-    maxAttempts?: number;
-  };
-}
-```
-
-#### Selective Data Fetching
-Optimize API calls by requesting only necessary fields:
-```typescript
-// Only pass specific fields to reduce payload
-const { data } = await api.getRoute({
-  sourceAssetDenom,
-  sourceAssetChainId,
-  destAssetDenom,
-  destAssetChainId,
-  // Only include necessary fields
-});
-```
-
-### State Management Best Practices
-
-#### Preventing Infinite Loops
-Guard against infinite re-renders:
-```typescript
-// Use refs to track previous values
-const prevValueRef = useRef(value);
-if (prevValueRef.current !== value) {
-  prevValueRef.current = value;
-  // Perform update
-}
-
-// Wrap state updates in startTransition for React 18+
-import { startTransition } from 'react';
-startTransition(() => {
-  setComplexState(newValue);
-});
-```
-
-#### Transaction History Management
-Implement robust history tracking:
-- Use unique timestamps as IDs for history items
-- Store pending transactions separately
-- Version history data for compatibility
-- Clear stale data periodically
-
-### UI/UX Enhancement Patterns
-
-#### Visual Feedback
-Provide clear visual indicators:
-- Show "< $0.01" for very small fee amounts
-- Display "No fees" when applicable
-- Add hover effects to interactive elements
-- Use consistent loading animations
-
-#### Callback System
-Implement comprehensive callbacks for widget events:
-```typescript
-interface WidgetCallbacks {
-  onSourceAssetUpdated?: (asset: Asset) => void;
-  onDestinationAssetUpdated?: (asset: Asset) => void;
-  onRouteUpdated?: (route: Route) => void;
-  onTransactionBroadcasted?: (tx: Transaction) => void;
-  onTransactionFailed?: (error: Error) => void;
-  onTransactionComplete?: (tx: Transaction) => void;
-}
-```
-
-### Development Tools
-
-#### E2E Testing Enhancements
-Capture screenshots on test failures:
-```typescript
-test.afterEach(async ({ page }, testInfo) => {
-  if (testInfo.status === 'failed') {
-    await page.screenshot({ 
-      path: `test-results/screenshots/${testInfo.title}.png` 
-    });
+// next.config.ts
+{
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: '**' }, // Allow any HTTPS image
+      { protocol: 'http', hostname: '**' }   // Allow any HTTP image
+    ]
+  },
+  webpack: (config) => {
+    // Aliases to widget package
+    config.resolve.alias['@/components'] = '../../packages/widget/src/components';
+    // ... more aliases
   }
-});
+}
 ```
 
-#### Build Variants
-Support multiple build outputs:
-- ES modules for modern bundlers
-- CommonJS for Node.js compatibility
-- Web components for framework-agnostic usage
+---
 
-### Code Refactoring Guidelines
+## 8. Dependencies
 
-#### Utility Organization
-Move utilities to appropriate domain-specific files:
-- Fee calculations → `utils/fees.ts`
-- Route utilities → `utils/route.ts`
-- Date formatting → `utils/date.ts`
-- Number formatting → `utils/number.ts`
+### Key Dependencies
 
-#### Component Extraction
-Extract reusable logic into custom hooks:
-- Complex state management
-- API integration logic
-- Side effect handling
-- Cross-component communication
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `@skip-go/client` | workspace | API client for Skip Protocol |
+| `next` | 15.4.10 | React framework with App Router |
+| `react` | 19.1.2 | UI library |
+| `jotai` | 2.13.1 | Atomic state management |
+| `jotai-tanstack-query` | 0.11.0 | Jotai integration with React Query |
+| `@tanstack/react-query` | 5.84.2 | Data fetching and caching |
+| `nuqs` | 2.4.3 | Type-safe URL state management |
+| `react-error-boundary` | 6.0.0 | Error boundary component |
+| `@uidotdev/usehooks` | 2.4.1 | Utility hooks (useLocalStorage, useIsClient) |
 
-## Pull Request Best Practices
+### Dev Dependencies
 
-### PR Organization
-- **Single Focus**: Each PR should address one specific issue or feature
-- **Clear Titles**: Use descriptive PR titles that explain the change (e.g., "Fix flickering of select asset button")
-- **Small Changes**: Break large features into smaller, reviewable PRs
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `typescript` | 5 | Type checking |
+| `eslint` | 9 | Linting |
+| `eslint-config-next` | 15.4.5 | Next.js ESLint rules |
+| `@types/react` | 19 | React type definitions |
+| `@types/node` | 20 | Node.js type definitions |
 
-### Common PR Patterns
+---
 
-#### Bug Fixes
-When fixing bugs:
-- Identify the root cause in the PR description
-- Include steps to reproduce the issue
-- Add tests to prevent regression
-- Example: "Fix infinite setState loop" with clear explanation of the fix
+## 9. Testing Conventions
 
-#### Performance Improvements
-For performance PRs:
-- Include before/after metrics when possible
-- Document the optimization approach
-- Consider edge cases and fallbacks
-- Example: "Implement virtualization for history page"
+### Current State
+**No test files exist in the explorer application.**
 
-#### Refactoring
-When refactoring code:
-- Move related utilities to appropriate files
-- Maintain backward compatibility
-- Update all references
-- Example: "Refactor fee utilities from route.ts to fees.ts"
+### Recommended Testing Setup (Future)
 
-#### Feature Additions
-For new features:
-- Add comprehensive documentation
-- Include usage examples
-- Implement proper error handling
-- Provide callbacks for integration
-- Example: "Add onSourceAssetUpdated callback"
+Based on the monorepo's testing standards:
 
-### Version Management
-- **Patch versions**: Bug fixes and minor improvements
-- **Minor versions**: New features that are backward compatible
-- **Major versions**: Breaking changes (rare, coordinate with team)
+#### Test File Naming
+- **Unit tests**: `ComponentName.test.tsx`
+- **Integration tests**: `feature.integration.test.tsx`
 
-## Changeset Requirements
-
-All PRs must include a changeset entry:
-
-1. From the repository root run `npx changeset`
-2. Select the packages that have changed
-3. Choose the appropriate version bump (patch/minor/major)
-4. Write a clear description of the changes
-5. Commit the generated file inside `.changeset/` with your changes
-
-### Changeset Best Practices
-- Write user-facing descriptions
-- Focus on what changed, not how
-- Include migration notes for breaking changes
-- Example: "Added setAsset function to programmatically update source/destination assets"
-
-## Testing Standards
-
-### General Testing Rules
-1. **File Naming**: Name test files after the file being tested with `.test.ts` suffix
-2. **Test Organization**: Group related tests using `describe` blocks
-3. **Coverage**: Include tests for both success and error cases
-4. **Isolation**: Tests should not depend on external services or state
-
-### Widget Package Testing
+#### Test Organization
 ```typescript
-// Example test structure
 import { describe, test, expect } from "@playwright/test";
 
-describe("ComponentName", () => {
-  test("should handle normal case", async () => {
-    // Test implementation
+describe("TransactionExplorer", () => {
+  test("should display transaction details when valid hash provided", async () => {
+    // Arrange
+    // Act
+    // Assert
   });
-  
-  test("should handle error case", async () => {
+
+  test("should show error when transaction not found", async () => {
     // Test error handling
   });
 });
 ```
 
-### Integration Testing
-- Test wallet connection flows end-to-end
-- Verify cross-chain operations work correctly
-- Ensure state updates propagate properly
+#### Test Frameworks (Recommended)
+- **E2E**: Playwright
+- **Unit/Integration**: Jest + React Testing Library
+- **Mocking**: MSW (Mock Service Worker) for API calls
+
+---
+
+## 10. Logging Conventions
+
+### Current Logging Approach
+
+#### Console Logging
+```typescript
+// Error logging
+try {
+  const jsonString = atob(data);
+  return JSON.parse(jsonString);
+} catch (error) {
+  if (error instanceof Error) {
+    console.error("Failed to decode URL parameter:", error.message);
+  } else {
+    console.error("Failed to decode URL parameter:", String(error));
+  }
+  return null;
+}
+```
+
+#### Error Handling
+```typescript
+// API error handling
+onError: async (error) => {
+  const errorWithCodeAndDetails = error as ErrorWithCodeAndDetails;
+  const notFound = error.message === "tx not found";
+  const abandoned = error.message === "Tracking for the transaction has been abandoned";
+
+  if (notFound) {
+    await trackTransaction({ txHash, chainId });
+  } else if (abandoned) {
+    await onReindex(txHash, chainId);
+  }
+
+  setErrorDetails({
+    errorMessage: ErrorMessages.TRANSACTION_ERROR,
+    error: errorWithCodeAndDetails,
+  });
+}
+```
+
+### Logging Levels
+
+| Level | When to Use | Example |
+|-------|-------------|---------|
+| `console.error()` | Exceptions, failed operations | API errors, parsing failures |
+| `console.warn()` | Not currently used | Deprecations, non-critical issues |
+| `console.log()` | Not currently used in production | Debug information |
 
 ### Best Practices
-1. **Descriptive Names**: Use clear, descriptive test names
-2. **Arrange-Act-Assert**: Structure tests with clear sections
-3. **Mock External Dependencies**: Use mocks for wallet providers and API calls
-4. **Test User Flows**: Focus on testing complete user workflows
+
+✅ **CORRECT**: Type-safe error handling
+```typescript
+if (error instanceof Error) {
+  console.error("Failed to decode URL parameter:", error.message);
+} else {
+  console.error("Failed to decode URL parameter:", String(error));
+}
+```
+
+❌ **WRONG**: Generic error logging
+```typescript
+catch (error) {
+  console.error(error); // No context
+}
+```
+
+---
+
+## 11. Code Conventions
+
+### File Naming
+
+| Type | Convention | Example |
+|------|-----------|---------|
+| Components | PascalCase | `TransferEventCard.tsx` |
+| Hooks | camelCase with `use` prefix | `useTransactionHistoryItemFromUrlParams.ts` |
+| Utilities | camelCase | `denomUtils.ts` |
+| Constants | camelCase file | `modal.tsx` |
+| Types | PascalCase | `theme.d.ts` |
+
+### Component Structure
+
+```typescript
+// ✅ CORRECT: Exports first, styled components at bottom
+export const TransferEventCard = ({ chainId, status }: Props) => {
+  const theme = useTheme();
+  const data = useAtomValue(dataAtom);
+
+  return (
+    <Container>
+      {/* JSX */}
+    </Container>
+  );
+};
+
+// Styled components at bottom of file
+const Container = styled.div`
+  padding: 16px;
+`;
+```
+
+### Import Organization
+
+```typescript
+// ✅ CORRECT: Organized imports
+// 1. React/Next.js
+import React, { useCallback, useState } from "react";
+import Image from "next/image";
+
+// 2. External libraries
+import { useAtomValue } from "@/jotai";
+
+// 3. Internal - shared package
+import { Column, Row } from "@/components/Layout";
+import { Text } from "@/components/Typography";
+
+// 4. Internal - local
+import { Badge } from "./Badge";
+import { useTheme } from "../hooks/useTheme";
+```
+
+### State Management
+
+```typescript
+// ✅ CORRECT: Read-only atom access
+const chains = useAtomValue(skipChainsAtom);
+
+// ✅ CORRECT: Write-only atom access
+const setConfig = useSetAtom(skipClientConfigAtom);
+
+// ✅ CORRECT: Read-write atom access
+const [txHash, setTxHash] = useAtom(txHashAtom);
+
+// ❌ WRONG: Don't use useState for global state
+const [chains, setChains] = useState([]);
+```
+
+### TypeScript Patterns
+
+```typescript
+// ✅ CORRECT: Explicit prop types
+export type TransferEventCardProps = {
+  chainId: string;
+  explorerLink: string;
+  transferType: TransferType | string;
+  status?: TransferEventStatus;
+  state?: TransactionState;
+  step: Step;
+  index: number;
+  onReindex?: () => void;
+};
+
+// ✅ CORRECT: Type narrowing
+if (error instanceof Error) {
+  console.error(error.message);
+}
+
+// ❌ WRONG: Any types
+const handleError = (error: any) => { /* ... */ };
+```
+
+### Async/Await Patterns
+
+```typescript
+// ✅ CORRECT: Async with proper error handling
+const onReindex = useCallback(async (_txHash?: string, _chainId?: string) => {
+  try {
+    await fetch('https://api.skip.build/v2/tx/retry_track', {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tx_hash: _txHash ?? txHash,
+        chain_id: _chainId ?? chainId,
+      }),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}, [txHash, chainId]);
+
+// ❌ WRONG: Missing error handling
+const onReindex = async () => {
+  await fetch(url); // No try/catch
+};
+```
+
+### Conditional Rendering
+
+```typescript
+// ✅ CORRECT: Early returns
+if (!data) return null;
+
+// ✅ CORRECT: Conditional expression
+{showTokenDetails && <TokenDetails />}
+
+// ✅ CORRECT: Ternary for alternatives
+{isLoading ? <Spinner /> : <Content />}
+
+// ❌ WRONG: Nested ternaries
+{isLoading ? <Spinner /> : isError ? <Error /> : isSuccess ? <Content /> : null}
+```
+
+---
+
+## 12. Common Mistakes to Avoid
+
+### State Management Anti-patterns
+
+❌ **WRONG**: Mutating state directly
+```typescript
+transferEvents.push(newEvent);
+setTransferEvents(transferEvents);
+```
+
+✅ **CORRECT**: Immutable updates
+```typescript
+setTransferEvents((prev) => [...prev, newEvent]);
+```
+
+### URL State Management
+
+❌ **WRONG**: Losing URL parameters on navigation
+```typescript
+router.push('/'); // Clears all query params
+```
+
+✅ **CORRECT**: Use nuqs for type-safe URL state
+```typescript
+const [txHash, setTxHash] = useQueryState("tx_hash", parseAsString);
+setTxHash(newHash); // Updates URL automatically
+```
+
+### Effect Dependencies
+
+❌ **WRONG**: Disabling exhaustive-deps without reason
+```typescript
+useEffect(() => {
+  fetchData(txHash);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []); // Missing txHash dependency
+```
+
+✅ **CORRECT**: Include all dependencies or use proper cleanup
+```typescript
+useEffect(() => {
+  if (txHash) {
+    fetchData(txHash);
+  }
+}, [txHash]); // Proper dependencies
+```
+
+### Memory Leaks
+
+❌ **WRONG**: Not canceling async operations
+```typescript
+useEffect(() => {
+  pollTransaction();
+}, []);
+```
+
+✅ **CORRECT**: Cleanup on unmount
+```typescript
+useEffect(() => {
+  const { promise, cancel } = waitForTransactionWithCancel({ txHash, chainId });
+
+  return () => {
+    cancel(); // Cleanup
+  };
+}, [txHash, chainId]);
+```
+
+### Image Optimization
+
+❌ **WRONG**: Using regular img tags
+```typescript
+<img src={chain.logoUri} alt="logo" />
+```
+
+✅ **CORRECT**: Use Next.js Image component
+```typescript
+<Image
+  src={chain.logoUri}
+  alt="logo"
+  width={40}
+  height={40}
+/>
+```
+
+### Modal Management
+
+❌ **WRONG**: Local modal state
+```typescript
+const [isModalOpen, setIsModalOpen] = useState(false);
+```
+
+✅ **CORRECT**: Use NiceModal for imperative control
+```typescript
+NiceModal.show(ExplorerModals.ViewRawDataModal, { data });
+```
+
+### Type Assertions
+
+❌ **WRONG**: Unsafe type casting
+```typescript
+const error = err as ErrorWithCodeAndDetails;
+error.code; // Might not exist
+```
+
+✅ **CORRECT**: Type guards
+```typescript
+const isErrorWithCode = (error: unknown): error is ErrorWithCodeAndDetails => {
+  return error !== null && typeof error === 'object' && 'code' in error;
+};
+
+if (isErrorWithCode(error)) {
+  error.code; // Safe
+}
+```
+
+---
+
+## 13. Webpack Aliases
+
+The explorer heavily relies on webpack aliases to import from the widget package:
+
+```typescript
+// Configured in next.config.ts and tsconfig.json
+import { Column } from "@/components/Layout";         // → ../../packages/widget/src/components/Layout
+import { useAtomValue } from "@/jotai";               // → ../../packages/widget/src/jotai
+import { skipChainsAtom } from "@/state/skipClient";  // → ../../packages/widget/src/state/skipClient
+```
+
+### Available Aliases
+
+| Alias | Target |
+|-------|--------|
+| `@/*` | `./src/*` (local files) |
+| `@/components/*` | `../../packages/widget/src/components/*` |
+| `@/utils/*` | `../../packages/widget/src/utils/*` |
+| `@/hooks/*` | `../../packages/widget/src/hooks/*` |
+| `@/modals/*` | `../../packages/widget/src/modals/*` |
+| `@/icons/*` | `../../packages/widget/src/icons/*` |
+| `@/state/*` | `../../packages/widget/src/state/*` |
+| `@/styled-components` | `../../packages/widget/src/styled-components` |
+| `@/nice-modal` | `../../packages/widget/src/nice-modal` |
+| `@/jotai` | `../../packages/widget/src/jotai` |
+
+---
+
+## 14. Development Workflow
+
+### Starting Development
+
+```bash
+# From monorepo root
+yarn install
+yarn dev  # Starts all apps in monorepo
+
+# Or specifically for explorer
+cd apps/explorer
+yarn dev
+```
+
+### Making Changes
+
+1. **Local-first changes**: Put explorer-specific code in `src/` directories
+2. **Shared changes**: If modifying widget components, changes affect both packages
+3. **Type checking**: Run `yarn build` to ensure no TypeScript errors
+
+### Adding New Features
+
+1. **New Page**: Add to `src/app/` (App Router)
+2. **New Component**: Add to `src/components/`
+3. **New Hook**: Add to `src/hooks/`
+4. **New Utility**: Add to `src/utils/`
+5. **State**: Consider if it should be in widget package or local
+
+### Debugging
+
+#### React DevTools
+- Install React DevTools browser extension
+- Inspect Jotai atoms with Jotai DevTools
+
+#### URL State Debugging
+```typescript
+// URL params are type-safe and synced
+const [txHash] = useQueryState("tx_hash", parseAsString);
+console.log("Current tx hash:", txHash);
+```
+
+#### API Debugging
+```typescript
+// View raw API responses
+NiceModal.show(ExplorerModals.ViewRawDataModal, {
+  data: JSON.stringify(apiResponse, null, 2),
+});
+```
+
+---
+
+## 15. Performance Considerations
+
+### Image Optimization
+- Always use `next/image` for logos and icons
+- Remote images are configured in `next.config.ts`
+
+### State Updates
+```typescript
+// ✅ CORRECT: Batch state updates
+setTransactionStatuses((prev) => {
+  const newStatuses = [...prev];
+  newStatuses[index] = status;
+  return newStatuses;
+});
+
+// ❌ WRONG: Multiple separate updates
+setTransactionStatuses(newStatuses);
+setTransferEvents(newEvents);
+setStatusResponse(newResponse); // Causes multiple re-renders
+```
+
+### Memoization
+```typescript
+// ✅ CORRECT: Memoize expensive computations
+const transfersToShow = useMemo(() => {
+  const transfers = [];
+  transferEvents.forEach((event, index) => {
+    // ... expensive logic
+  });
+  return transfers;
+}, [transferEvents, operations, transactionStatusResponse]);
+```
+
+### Virtualization
+For large lists, consider virtual scrolling (not currently implemented).
+
+---
+
+## 16. Deployment
+
+### Build Process
+
+```bash
+# Production build
+yarn build
+
+# Output: .next/ directory
+```
+
+### Environment-specific Builds
+
+The app automatically adapts based on `NODE_ENV`:
+- **Development**: `yarn dev`
+- **Production**: `yarn build && yarn start`
+
+### Deployment Checklist
+
+- [ ] Run `yarn build` successfully
+- [ ] Check for TypeScript errors
+- [ ] Run `yarn lint`
+- [ ] Test on production build locally
+- [ ] Verify remote images load correctly
+- [ ] Test URL sharing (data parameter)
+
+---
+
+## 17. Troubleshooting
+
+### Common Issues
+
+#### Issue: Module not found errors
+**Solution**: Ensure widget package is built
+```bash
+cd packages/widget
+yarn build
+```
+
+#### Issue: Type errors from widget package
+**Solution**: Rebuild widget package types
+```bash
+cd packages/widget
+yarn build
+```
+
+#### Issue: Images not loading
+**Solution**: Check `next.config.ts` remote patterns allow the domain
+
+#### Issue: URL parameters not persisting
+**Solution**: Use `nuqs` hooks, not manual `router.push()`
+
+#### Issue: State not updating across components
+**Solution**: Ensure using Jotai atoms, not local state
+
+---
+
+## 18. Related Documentation
+
+- [Skip Protocol API Docs](https://docs.skip.build/)
+- [Next.js App Router Docs](https://nextjs.org/docs/app)
+- [Jotai Documentation](https://jotai.org/)
+- [TanStack Query Docs](https://tanstack.com/query/latest)
+- [Widget Package Guidelines](../../packages/widget/README.md)
+- [Monorepo Root AGENTS.md](../../AGENTS.md)
+
+---
+
+## Quick Reference Card
+
+### Most Common Tasks
+
+| Task | Command/Pattern |
+|------|----------------|
+| Start dev server | `yarn dev` |
+| Build for production | `yarn build` |
+| Add new component | Create in `src/components/`, export types |
+| Fetch API data | Use `@skip-go/client` functions |
+| Global state | Use `useAtomValue(atom)` |
+| URL state | Use `useQueryState("key", parser)` |
+| Show modal | `NiceModal.show(ExplorerModals.ModalName, props)` |
+| Style component | Use `styled()` from `@/styled-components` |
+| Get theme | `const theme = useTheme()` |
+| Handle errors | Wrap in `try/catch`, log with context |
+
+---
+
+**Last Updated**: January 2026
+**Maintainers**: Skip Protocol Team
+**Questions**: Discord - https://discord.gg/interchain
 
 ---
 > Source: [skip-mev/skip-go](https://github.com/skip-mev/skip-go) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
