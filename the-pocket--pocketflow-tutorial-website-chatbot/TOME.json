@@ -2,9 +2,9 @@
   "name": "PocketFlow-Tutorial-Website-Chatbot",
   "owner": "The-Pocket",
   "repo": "PocketFlow-Tutorial-Website-Chatbot",
-  "description": "\"Set & Forget\" AI Chatbot for Your Website - It Learns Your Website Automatically",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:53:44Z"
+  "distributed_at": "2026-07-27T00:33:13Z"
 }
