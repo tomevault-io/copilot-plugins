@@ -1,0 +1,9 @@
+{
+  "name": "grafana--clickhouse-datasource",
+  "displayName": "clickhouse-datasource",
+  "description": "clickhouse-datasource",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/clickhouse-datasource",
+  "skills": []
+}
