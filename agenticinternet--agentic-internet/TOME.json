@@ -2,7 +2,7 @@
   "name": "agentic-internet",
   "owner": "AgenticInternet",
   "repo": "agentic-internet",
-  "description": "AgenticInternet is an innovative project focused on empowering agents to autonomously browse, interact, and collaborate across the web. Our goal is to create an intelligent assistant capable of executing complex online workflows, enhancing productivity and creativity for end-users and organizations.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgenticInternet/agentic-internet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:26:26Z"
+  "distributed_at": "2026-07-27T16:27:31Z"
 }
