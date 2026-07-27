@@ -4,7 +4,7 @@
   "repo": "unihan-etl",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cihai/unihan-etl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T00:25:40Z"
+  "distributed_at": "2026-07-27T04:22:01Z"
 }
