@@ -1,8 +1,6 @@
 # hermes-control-hub
 
-> Tome by [Daniel-Parke](https://github.com/Daniel-Parke/hermes-control-hub) — distributed by [TomeVault](https://tomevault.io)
-
-Control Hub for Hermes AI Agent
+> Tome by [Daniel-Parke](https://github.com/Daniel-Parke/hermes-control-hub), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Daniel-Parke/hermes-control-hub](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Daniel-Parke/hermes-control-hub](https://github.com/Daniel-Parke/hermes-control-hub)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Daniel-Parke/hermes-control-hub](https://github.com/Daniel-Parke/hermes-control-hub)
 
 ---
 
