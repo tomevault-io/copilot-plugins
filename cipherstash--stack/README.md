@@ -1,8 +1,6 @@
 # stack
 
-> Source: [cipherstash/stack](https://github.com/cipherstash/stack) — distributed by [TomeVault](https://tomevault.io)
-
-Data level access controls via field level searchable encryption SDK for JavaScript/TypeScript
+> Source: [cipherstash/stack](https://github.com/cipherstash/stack). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [cipherstash/stack](https://github.com/ciphersta
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cipherstash/stack](https://github.com/cipherstash/stack) — a repo with 142+ stars on GitHub.
+From [cipherstash/stack](https://github.com/cipherstash/stack) — a repo with 148+ stars on GitHub.
 
 ---
 
