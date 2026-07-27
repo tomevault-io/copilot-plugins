@@ -4,7 +4,7 @@
   "repo": "OpenAEON",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openaeon/OpenAEON",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T23:36:31Z"
+  "distributed_at": "2026-07-27T15:12:40Z"
 }
