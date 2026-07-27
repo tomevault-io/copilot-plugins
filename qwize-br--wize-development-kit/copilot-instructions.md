@@ -1,125 +1,123 @@
-## wize-ux-scenarios
+## wize-validate-prd
 
-> 2-plan: UX Scenarios
+> 2-plan: Validate PRD
 
 
-# UX Scenarios
+# Validate PRD
 
-# UX Scenarios
+# Validate PRD
 
-**Goal.** Produce a scenario map that anchors all UX work. Eight focused questions; one short answer each. Scenarios are pieces of behavior, not personas — they're how *this* user, in *this* state, tries to accomplish *that* JTBD.
+**Goal.** Decide whether the PRD is ready to leave Plan and enter Solutioning. Catch ambiguity before architecture is wasted on it. Cheap step; saves multiples of itself downstream.
 
-Mantis drives. Output lands in `.wize/planning/ux/ux-scenarios.md`. It's the bridge from PM intent (PRD) to designer concreteness (next workflow: `wize-ux-design`).
+Maria Hill chairs. Pepper, Mantis, Fury contribute. Output is either `validated: true` written to `prd.md` or a punch list routed back to authors.
+
+## When to run
+
+After `wize-create-prd` produces `status: ready-for-validation`. Run once per major PRD change.
 
 ## Inputs
 
-- `.wize/planning/prd.md` (validated)
-- `.wize/planning/ux/trigger-map.md` (Pepper)
+- `.wize/planning/prd.md`
 - `.wize/planning/brief.md`
+- `.wize/planning/ux/trigger-map.md`
+- `.wize/planning/research.md` (when present)
+- `.wize/planning/tech-vision.md` (when Fury already wrote one)
 
 ## Outputs
 
-- `.wize/planning/ux/ux-scenarios.md`
+- In-place edits to `prd.md` (validators add a "Validation log" section).
+- If validated: `prd.md` frontmatter flips to `status: validated`.
+- If not: a punch list, each item routed back to the owning agent.
 
-## Steps
+## Checklist (Maria Hill runs this)
 
-### 1. Identify the scenarios
+### Completeness
+- [ ] Vision sentence present and matches the brief.
+- [ ] 3–5 goals; each measurable; each tied to a trigger-map row.
+- [ ] Scope `In` and `Out` both populated; `Out` items have reasons.
+- [ ] Backbone stories cover every In-scope item.
+- [ ] Every In-scope item has 3–7 ACs.
+- [ ] Constraints + Assumptions + Dependencies all named.
+- [ ] NFR pointer present.
+- [ ] Open questions: each has an owner + deadline.
 
-A scenario = one (user, state, JTBD) tuple where the product earns or loses. Aim for **3–8 scenarios** that, taken together, cover all backbone stories in the PRD.
+### Quality
+- [ ] Every AC is observable (testable by Hawkeye without ambiguity).
+- [ ] No AC contains the word "easy", "intuitive", "responsive" without a numeric criterion.
+- [ ] INVEST: every backbone story passes (independent, negotiable, valuable, estimable, small, testable).
+- [ ] No goal repeats a brief constraint as if it were a goal.
 
-Rules:
-- One sentence each at this stage.
-- Verb-led. *"New manager onboards their first team."* Not *"Manager onboarding."*
-- Distinct. If two scenarios share trigger + state, collapse them.
+### Cross-checks
+- [ ] **Pepper:** every goal anchors on a row of the trigger map.
+- [ ] **Mantis:** every screen implied by the ACs is addressable in UX (no AC requires a UI the team hasn't agreed exists).
+- [ ] **Fury:** the PRD's NFR pointer doesn't contradict the tech-vision.
+- [ ] **Hawkeye preview:** at least the gate strategy is mentioned (advisory vs enforcing) for visibility.
 
-### 2. Run the 8-question dialog per scenario (WDS Freya)
+### Risk
+- [ ] No open question is marked `blocker` AND has a deadline past the PRD validation date.
+- [ ] Any assumption that, if wrong, kills > 30% of the scope has a verification plan.
 
-For each scenario, answer the eight questions. One paragraph per answer. No filler. Cite trigger-map row when relevant.
+## Decision
 
-1. **Who is the user, in one sentence?**
-   Role + context. *"A 38-year-old engineering manager at a 25-person SaaS, primarily on desktop, sometimes phone."*
+After the checklist:
 
-2. **What state are they in when they arrive?**
-   Emotion + situational context. *"It's Monday morning. They just got CTO's request to onboard 3 hires this sprint. They're alt-tabbing between Slack and Linear."*
+- **Validated** → flip frontmatter to `status: validated`. Append a Validation log block to `prd.md` with date + each signatory.
+- **Concerns** → write specific fix-asks per agent. Each fix-ask is concrete (line ref + what to change).
+- **Reject** → rare. Use when the brief itself is wrong; loop back to Pepper.
 
-3. **What are they trying to accomplish?** (JTBD)
-   *"Add three teammates and assign each to the right project before the team standup at 10am."* Concrete.
-
-4. **What would they do without our product today?**
-   *"Slack screenshots of the project list to each new hire; have them sign up individually; cross-check who landed where."*
-
-5. **What's the moment of truth — when they decide it works?**
-   *"The first time they see all three names in the team list with the right project tags, in under 5 minutes."*
-
-6. **What's the failure mode — when do they walk away?**
-   *"If they can't tell whether the invite arrived. If the invite email looks like spam. If they have to leave the page to find someone's email."*
-
-7. **What does success look like to them, in their words?**
-   *"It just worked. I sent the invites, they signed up, they were on the right project."* (Imagine the future quote.)
-
-8. **What's the next thing we want them to do?**
-   *"Open the project where the first teammate landed and verify the access works."*
-
-### 3. Cross-link to the PRD
-
-For each scenario, list the **backbone story IDs** + **AC IDs** it touches. Mantis won't write specs for a scenario the PRD doesn't cover (it'd be scope creep); Hill won't sign off on a story the scenarios don't surface (it'd be over-spec).
-
-### 4. Hand off to UX Design
-
-Mark `status: ready-for-design`. Wizer pings Mantis to start `wize-ux-design`, where each scenario becomes one or more page specs.
-
-## Output template
+## Validation log template (appended to `prd.md`)
 
 ```markdown
----
-status: ready-for-design
-owner: Mantis
-created: YYYY-MM-DD
-covers_prd_stories: [E01, E02, E04]
----
+## Validation log — YYYY-MM-DD
 
-# UX Scenarios — {{project_name}}
+**Status:** validated
 
-## Scenario 1: New manager onboards their first team
+**Signatories**
+- Maria Hill (PM)  — concerns: none
+- Pepper Potts (Analyst) — concerns: trigger-map row 3 needs a stronger signal name, will update.
+- Mantis (UX) — concerns: none, UX work starts next.
+- Fury (Solution Strategy) — concerns: none. NFR pointer confirmed.
 
-- **Trigger-map row:** 1 (Sign up), 2 (Invite first teammate)
-- **PRD stories:** E01, E02
-- **AC IDs touched:** AC-01-1, AC-01-2, AC-02-1, AC-02-3
-
-**Q1 — Who:** A 38-year-old engineering manager at a 25-person SaaS, primarily on desktop, sometimes phone.
-**Q2 — State:** It's Monday morning. They just got CTO's request to onboard 3 hires this sprint. They're alt-tabbing between Slack and Linear.
-**Q3 — JTBD:** Add three teammates and assign each to the right project before the team standup at 10am.
-**Q4 — Today:** Slack screenshots of the project list to each new hire; have them sign up individually; cross-check who landed where.
-**Q5 — Moment of truth:** The first time they see all three names in the team list with the right project tags, under 5 minutes.
-**Q6 — Failure mode:** Can't tell whether the invite arrived; the email looks like spam; they have to leave the page to find someone's email.
-**Q7 — Success in their words:** "It just worked. I sent the invites, they signed up, they were on the right project."
-**Q8 — Next thing:** Open the project where the first teammate landed and verify access.
-
-## Scenario 2: Returning admin adds a fourth member months later
-
-(…)
-
-## Coverage check
-
-| PRD story | Scenarios |
-|---|---|
-| E01 (Sign up) | S1 |
-| E02 (Invite) | S1, S2 |
-| E03 (Switch project) | S2 |
-| E04 (Dashboard) | S1 |
+**Notes**
+- Open question "Brazil-only beta?" was answered by sales lead — added to *Out of scope: global launch* with rationale.
 ```
 
-## Anti-patterns Mantis rejects
+## Punch-list template (when not validated)
 
-- **Personas instead of scenarios.** Mantis cares what people *do*, not who they are in the abstract.
-- **Scenarios with no emotion or context.** "User wants to sign up." — that's a backbone story restated. The point is the *state*.
-- **JTBD written as features.** "Wants the dashboard." Wrong layer. Reword to the goal: "Wants to know if the team is healthy at a glance."
-- **Q5 ("moment of truth") that's actually a feature description.** It should be the user's perception, not the UI.
-- **More than 8 scenarios.** Two of them are duplicates. Find which.
+```markdown
+## Validation punch list — YYYY-MM-DD
+
+**Status:** changes required
+
+**By Maria Hill — author rewrites:**
+- `AC-02-3`: "loads fast" is not observable. Rewrite with numeric target tied to Fury's NFRs.
+- Backbone story E04 fails INVEST-S (too large). Split into 2 stories.
+
+**By Pepper:**
+- Goal 2 is not anchored on a trigger-map row. Add row reference or remove.
+
+**By Mantis:**
+- AC-01-4 implies a "preview" screen that isn't in any UX list. Either spec the screen or cut the AC.
+
+**By Fury:**
+- NFR pointer cites old version of nfr-principles.md. Update.
+```
+
+## Anti-patterns
+
+- "Looks good to me" with no checklist run. The validation only counts if checked.
+- Validating to keep the schedule, knowing concerns are open. Document the concern.
+- Validating with no Hawkeye preview at all. Even a one-line gate strategy reference matters.
 
 ## Hand-off
 
-> Scenarios are in `.wize/planning/ux/ux-scenarios.md`. They cover E01–E04. Next: page specs in `.wize/planning/ux/ux-design/` (one per screen). Tony, when you read these, the moment-of-truth lines tell you which interactions are load-bearing.
+If validated:
+
+> PRD validated. Mantis, you're up: `wize-ux-scenarios`. Fury, write or refresh `tech-vision.md` so Tony can read both.
+
+If not:
+
+> PRD not yet validated. Punch list lives at the bottom of `prd.md`. {{Author}} fixes by {{date}}; we re-run validation.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
