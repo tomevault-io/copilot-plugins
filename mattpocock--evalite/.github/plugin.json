@@ -1,7 +1,7 @@
 {
   "name": "mattpocock--evalite",
   "displayName": "evalite",
-  "description": "Evaluate your LLM-powered apps with TypeScript",
+  "description": "evalite",
   "version": "1.0.0",
   "author": "mattpocock",
   "homepage": "https://github.com/mattpocock/evalite",
