@@ -1,121 +1,96 @@
 ## musa-core
 
-> Win32 API reimplementation (Kernel32, Advapi32) on top of ntoskrnl.
+> > Parent: `../AGENTS.md` — core headers, init, PE parser. Root: `../../AGENTS.md` — naming, build.
 
-# AGENTS.md — Musa.Core
+# AGENTS.md — Musa.Core/Thunks
 
-## OVERVIEW
+> Parent: `../AGENTS.md` — core headers, init, PE parser. Root: `../../AGENTS.md` — naming, build.
 
-Win32 API reimplementation (Kernel32, Advapi32) on top of ntoskrnl.
-Kernel-mode driver only.
-Author: MiroKaku/MeeSong. Beta. MIT license.
+## ROLE
 
-## STRUCTURE
+Win32 API shim implementations. Reimplements Win32 APIs via ntoskrnl.
 
+## FILE NAMING
+
+`{DLL}.{Category}.cpp` — DLL source × functional group:
+- `KernelBase.Process.cpp` — process creation, info, startup
+- `KernelBase.Thread.cpp` — thread creation, context, naming
+- `KernelBase.Heap.cpp` — HeapCreate/Alloc/Free wrappers
+- `Ntdll.Heap.cpp` — RtlCreateHeap/RtlAllocateHeap (lowest level)
+- `KernelBase.LibraryLoader.cpp` — LoadLibrary, GetModuleHandle, GetProcAddress
+- `KernelBase.Synchronize.cpp` — critical sections, SRW locks, condition vars
+- `KernelBase.FileVersion.cpp` — version resource APIs
+- `KernelBase.NLS.cpp` — locale/codepage/Unicode conversion
+
+Private shared header: `KernelBase.Private.h` (in this directory, not `Internal/`).
+
+## THUNK IMPLEMENTATION PATTERN
+
+Every thunk follows this exact structure:
+
+```cpp
+#include "KernelBase.Private.h"  // or Ntdll equivalent
+
+#ifdef ALLOC_PRAGMA
+#pragma alloc_text(PAGE, MUSA_NAME(FunctionName))
+#endif
+
+DWORD MUSA_API MUSA_NAME(FunctionName)(params...)
+{
+    // kernel implementation using Nt*/Rtl* APIs
+}
+
+MUSA_IAT_SYMBOL(FunctionName, stack_size)
 ```
-Musa.Core/                  Core source — headers, init, PE parser, thunks
-  Thunks/                   Win32 API shim implementations (32 .cpp files)
-  Thunks/Internal/          Private headers for thunk internals (18 .h/.cpp files)
-Musa.Core.StaticLibraryForDriver/  Kernel-mode static library (universal.h + vcxproj)
-Musa.Core.TestForDriver/    Kernel-mode test (KMDF driver, DriverEntry, boot-start reinit)
-Musa.Core.NuGet/            NuGet packaging (.nuspec, .props, .targets)
-Publish/                    Staged output consumed by dependents + NuGet
-  Include/                  Published headers (copy of Musa.Core.h)
-  Library/{Config}/{Platform}/  Built .lib files
-  Config/                   .props/.targets injected into consuming projects
-Output/                     Build artifacts (Binaries/, Objects/, .binlog)
-docs/                       Comprehensive project documentation
-```
 
-## KEY DEPENDENCIES
+### Critical steps (miss any → broken):
+1. `MUSA_NAME(Fn)` wraps the function name → `_Musa_Fn`
+2. `MUSA_API` = `__stdcall` calling convention
+3. `#pragma alloc_text` — kernel builds REQUIRE section placement
+4. `MUSA_IAT_SYMBOL(Fn, N)` at bottom — registers for IAT hooking. N = stack bytes (x86 only, 0 for x64/ARM64)
 
-- `Mile.Project.Windows` MSBuild SDK via `Mile.Project.Configurations` v1.0.1917
-- `Musa.CoreLite` NuGet v1.2.2 — lightweight core subset (exposes `MusaCoreLiteGetNtdllBase()` function)
-- `Musa.Veil` — header-only NT internals (Veil.h), git submodule or NuGet
+## Internal/ SUBDIRECTORY
 
-## BUILD
+17 private headers + 1 .cpp (`{DLL}.{Category}.h`) providing shared helpers for thunks.
+Examples: `KernelBase.Fiber.h`, `KernelBase.Locale.h`, `KernelBase.Heap.h`, `Ntdll.Image.h`.
+NOT public — never include from outside `Thunks/`.
 
-- `BuildAllTargets.cmd` → sources VS env → `MSBuild BuildAllTargets.proj`
-- Builds 6 configurations: {Debug,Release} x {x86,x64,ARM64}
-- CI: GitHub Actions `windows-latest`, triggers on push to `main` + `v*` tags
-- NuGet publish: tag push `v*` → pack → `dotnet nuget push` to nuget.org
-- Kernel driver: MUST link with `/INTEGRITYCHECK`
-- Solution: `.slnx` format (VS2022 17.10+ XML solution, not traditional `.sln`)
-- WDK: CI auto-installs matching WDK via `winget` if kernel headers missing
-- PCH: `universal.h` forced-include via empty `Musa.Core.Nothing.cpp`
+### Ntdll.Image.h notable macros
+- `LDR_RESOURCE_ID_NAME_MASK` — mask clearing lower 16 bits (identifies name-type resource IDs)
+- `LDR_RESOURCE_ID_NAME_MINVAL` — minimum value for name-type resource IDs (17th bit set)
+- `RtlFindResource` uses `ULONG_PTR[3]` array (Type, Name, Language) instead of `LDR_RESOURCE_INFO` struct, with `_countof(IdPath)` as the level parameter to `LdrFindResource_U`
 
-## CONVENTIONS
+### KernelBase.NLS.Table.cpp
+Locale/NLS table lookup implementation — shared by `KernelBase.NLS.cpp` thunks.
 
-### Naming
-- Public symbols: `MUSA_NAME(name)` → `_Musa_name`
-- Private symbols: `MUSA_NAME_PRIVATE(name)` → `_Musa_Private_name`
-- IAT exports: `MUSA_IAT_SYMBOL(name, stack)` — x86 uses decorated `_name@stack`
-- Thunk files: `{DLL}.{Category}.cpp` (e.g., `KernelBase.Process.cpp`)
-- Pool tags: `'-iM-'` (kernel-mode)
+## ADDING A NEW THUNK
 
-### Code Style (.editorconfig enforced)
-- C/C++: UTF-8 BOM, CRLF, 4-space indent, doxygen `/** */` comments
-- **NEVER use non-ASCII characters in source files** -- compiler C4819 /WX on CP936 blocks build. Use ASCII equivalents: `--` for dashes, `->` for arrows, `"` for quotes.
-- `.rc`/`.inf`: UTF-16LE
-- `.bat`: UTF-16LE
-- Calling convention: `__stdcall` (`MUSA_API` macro)
+1. Find or create `{DLL}.{Category}.cpp` matching the API's origin DLL
+2. Follow the THUNK IMPLEMENTATION PATTERN above exactly
+3. Update `.vcxproj` if a new .cpp file was created
+4. Test in `Musa.Core.TestForDriver` (kernel-mode)
 
-### Section Placement (kernel-mode)
-- `#pragma alloc_text(PAGE, ...)` for startup/init and pageable functions (all startup functions moved from INIT to PAGE to support boot-start driver reinitialization)
-- Every thunk file uses this for kernel builds
+## COMMON PATTERNS
 
-### Debug Logging
-- `MusaLOG(fmt, ...)` → `DbgPrintEx` (DEBUG builds), no-op in Release
+### Status conversion
+`BaseSetLastNTError(Status)` converts NTSTATUS → Win32 last-error. Return `NT_SUCCESS(Status)`.
 
-### Environment Variables (kernel-mode)
-- Per-process environment stored in KPEB `EnvironmentListHead` linked list
-- `SetEnvironmentVariableW` writes to KPEB only, does NOT modify system registry
-- `GetEnvironmentVariableW` checks KPEB first, falls back to system registry
-- `GetEnvironmentStringsW` builds from KPEB; falls back to registry enumeration
-- PEB lock (shared for reads, exclusive for writes) protects concurrent access
+### Heap
+`RtlCreateHeap`/`RtlAllocateHeap` with custom pool. Pool tag: `'-iM-'`.
 
-## WHERE TO LOOK
+### Module enumeration
+`GetModuleHandle`/`GetProcAddress`: walk PEB loader data manually.
 
-| Task | Location |
-|---|---|
-| Add new Win32 API shim | `Musa.Core/Thunks/` — match existing `{DLL}.{Category}.cpp` pattern |
-| Modify init/startup | `Musa.Core/Musa.Core.cpp` (MusaCoreStartup/MusaCoreShutdown) |
-| Change exported symbols | `Musa.Core/Musa.Core.def` (~490 ZwRoutine exports) |
-| PE parsing utilities | `Musa.Core/Musa.Utilities.PEParser.h` |
-| System environment block | `Musa.Core/Musa.Core.SystemEnvironmentBlock.{h,cpp}` |
-| Build configuration | `Directory.Build.props`, `Directory.Packages.Cpp.props` |
-| NuGet package layout | `Musa.Core.NuGet/Musa.Core.nuspec` |
-| Kernel-mode macros | `Musa.Core.StaticLibraryForDriver/universal.h` |
-| Full project documentation | `docs/` — architecture, API reference, coding standards, testing guide |
+### Thunk file splitting
+Large categories split into sub-files: `KernelBase.Synchronize.cpp` includes `Synchronize.Event.cpp`, `Synchronize.Mutex.cpp`, `Synchronize.Semaphore.cpp`. Similarly `KernelBase.Thread.cpp` splits into `Thread.Create.cpp`, `Thread.ProcAttr.cpp`.
 
-## ANTI-PATTERNS
+### #pragma warning suppressions
+7 instances across 6 thunk files — all for ReSharper/SAL false positives (6387, 28023, 6385, 6001, 4996, 28751). Not real bugs.
 
-- Do NOT use `as`-style casts — project uses C-style casts and `reinterpret_cast`
-- Do NOT add new .cpp files without updating the corresponding `.vcxproj`
-- Do NOT forget `MUSA_IAT_SYMBOL` after implementing a thunk — the API won't be exported
-- Do NOT omit `#pragma alloc_text` in kernel-mode thunks — causes non-paged pool bloat
-- Do NOT assume heap APIs work identically in kernel — kernel uses `RtlAllocateHeap` with special pool setup
-- Do NOT test kernel-mode code without `/INTEGRITYCHECK` linker flag
-- Do NOT add forward declarations directly in .cpp files — place them in `Thunks/Internal/` headers
+## KNOWN INCOMPLETE
 
-## KNOWN ISSUES
-
-- `GetStartupInfoW` kernel-mode: incomplete, TODO for PEB access
-- `GetProcessInformation(ProcessAppMemoryInfo)`: returns `STATUS_NOT_IMPLEMENTED`
-- `RtlFindAndFormatMessage`: now uses `MusaCoreLiteGetNtdllBase()` with null check; returns `STATUS_DLL_NOT_FOUND` if ntdll base unavailable
-- `ThreadNotifyCallback`: added null guard for `MusaCoreThreadNotifyCallbackObject` before `ExNotifyCallback`
-- Several `#pragma warning(suppress: ...)` for ReSharper false positives
-- `RtlWalkHeap`: stub returning `STATUS_NOT_IMPLEMENTED`
-- `LocalAlloc`/`LocalReAlloc`: `LMEM_MOVEABLE` flag not supported
-- `Ntdll.LibraryLoader.ProcAddr.cpp`: callback field assignment is TODO placeholder
-- `Ntdll.LibraryLoader.cpp`: module unload logic incomplete (TODO: if LdrEntry->LoadCount == 1 then Unload)
-
-## CHILD AGENTS
-
-- `Musa.Core/AGENTS.md` — core source, headers, init logic
-- `Musa.Core/Thunks/AGENTS.md` — thunk implementation patterns and conventions
-- `docs/` — comprehensive documentation: architecture, API reference, coding standards, testing guide
+See root AGENTS.md KNOWN ISSUES.
 
 ---
 > Source: [MiroKaku/Musa.Core](https://github.com/MiroKaku/Musa.Core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
