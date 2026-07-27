@@ -1,0 +1,14 @@
+{
+  "name": "xiaolai--cc-suite",
+  "displayName": "cc-suite",
+  "description": "One plugin to bridge and delegate across Claude Code, Codex CLI, and Gemini CLI \u2014 single-source AGENTS.md, shared skills, mirrored hooks and MCP servers, and full Claude\u2194Codex bidirectional delegation",
+  "version": "1.0.0",
+  "author": "xiaolai",
+  "homepage": "https://github.com/xiaolai/cc-suite",
+  "skills": [
+    {
+      "name": "init",
+      "description": ""
+    }
+  ]
+}
