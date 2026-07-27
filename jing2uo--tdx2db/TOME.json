@@ -2,7 +2,7 @@
   "name": "tdx2db",
   "owner": "jing2uo",
   "repo": "tdx2db",
-  "description": "30s \u62e5\u6709\u4e13\u5c5e\u7684A\u80a1\u884c\u60c5\u6570\u636e\u5e93\uff5e",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jing2uo/tdx2db",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T08:20:26Z"
+  "distributed_at": "2026-07-27T21:26:02Z"
 }
