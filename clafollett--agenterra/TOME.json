@@ -4,7 +4,7 @@
   "repo": "agenterra",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clafollett/agenterra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T01:16:50Z"
+  "distributed_at": "2026-07-27T00:30:00Z"
 }
