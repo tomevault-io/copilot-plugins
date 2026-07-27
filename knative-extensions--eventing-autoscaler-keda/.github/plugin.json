@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--eventing-autoscaler-keda",
+  "displayName": "eventing-autoscaler-keda",
+  "description": "eventing-autoscaler-keda",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/eventing-autoscaler-keda",
+  "skills": []
+}
