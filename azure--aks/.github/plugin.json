@@ -1,0 +1,9 @@
+{
+  "name": "azure--aks",
+  "displayName": "AKS",
+  "description": "AKS",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/AKS",
+  "skills": []
+}
