@@ -1,0 +1,111 @@
+{
+  "name": "marchat",
+  "owner": "Cod-e-Codes",
+  "repo": "marchat",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/server-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/server-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/client-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/client-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/plugins-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/plugins-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/testing-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/testing-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/database-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/database-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/protocol-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/protocol-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/releasing-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/releasing-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/debugging-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/debugging-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/developing-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/developing-marchat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/writing-marchat-docs/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/writing-marchat-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "marchat",
+      "path": ".cursor/skills/git-workflow-marchat/SKILL.md",
+      "github_url": "https://github.com/Cod-e-Codes/marchat/tree/main/.cursor/skills/git-workflow-marchat/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Cod-e-Codes/marchat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T03:33:02Z"
+}
