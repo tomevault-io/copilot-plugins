@@ -4,7 +4,7 @@
   "repo": "rgeometry",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rgeometry/rgeometry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T20:13:34Z"
+  "distributed_at": "2026-07-27T00:14:47Z"
 }
