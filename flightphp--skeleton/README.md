@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [flightphp/skeleton](https://github.com/flightphp/skeleton).
+Original source: `.windsurf/rules/*.md` in [flightphp/skeleton](https://github.com/flightphp/skeleton).
 
 ## Also available for
 
@@ -13,7 +13,7 @@ Original source: `GEMINI.md` in [flightphp/skeleton](https://github.com/flightph
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/flightphp/skeleton](https://github.com/flightphp/skeleton)
 
