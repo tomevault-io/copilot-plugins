@@ -1,0 +1,57 @@
+{
+  "name": "layerchart",
+  "owner": "techniq",
+  "repo": "layerchart",
+  "description": "",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "layerchart",
+      "path": ".claude/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/techniq/layerchart/tree/main/.claude/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "layerchart",
+      "path": ".claude/skills/svelte-testing/SKILL.md",
+      "github_url": "https://github.com/techniq/layerchart/tree/main/.claude/skills/svelte-testing/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/techniq/layerchart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T01:37:43Z"
+}
