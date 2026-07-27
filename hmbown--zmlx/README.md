@@ -1,23 +1,22 @@
 # ZMLX
 
-> Tome by [Hmbown](https://github.com/Hmbown/ZMLX) — distributed by [TomeVault](https://tomevault.io)
-
-Triton‑style kernel toolkit for MLX plus a small upstream incubator: prototype, benchmark, and upstream fusions for Apple Silicon
+> Tome by [Hmbown](https://github.com/Hmbown/ZMLX), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Hmbown/ZMLX](https://github.com/Hmbown/ZMLX).
+Original source: `` in [Hmbown/ZMLX](https://github.com/Hmbown/ZMLX).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Hmbown/ZMLX](https://github.com/Hmbown/ZMLX)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Hmbown/ZMLX](https://github.com/Hmbown/ZMLX)
 
 ---
 
