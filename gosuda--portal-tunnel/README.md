@@ -1,8 +1,6 @@
 # AI instruction files for portal-tunnel
 
-> Sourced from [gosuda/portal-tunnel](https://github.com/gosuda/portal-tunnel) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A permissionless, self-hosted, e2ee relay network for exposing localhost.
+> Sourced from [gosuda/portal-tunnel](https://github.com/gosuda/portal-tunnel), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
