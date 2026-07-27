@@ -1,0 +1,9 @@
+{
+  "name": "stackkit--laravel-google-cloud-scheduler",
+  "displayName": "laravel-google-cloud-scheduler",
+  "description": "laravel-google-cloud-scheduler",
+  "version": "1.0.0",
+  "author": "stackkit",
+  "homepage": "https://github.com/stackkit/laravel-google-cloud-scheduler",
+  "skills": []
+}
