@@ -1,0 +1,9 @@
+{
+  "name": "giantswarm--chart-operator",
+  "displayName": "chart-operator",
+  "description": "chart-operator",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/chart-operator",
+  "skills": []
+}
