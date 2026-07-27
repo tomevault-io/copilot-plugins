@@ -2,9 +2,9 @@
   "name": "K-LEAN",
   "owner": "calinfaja",
   "repo": "K-LEAN",
-  "description": "Cross-platform toolkit to enhance Claude Code with multi-LLM consensus, 8 specialist agents, semantic knowledge search, and one-command install.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/calinfaja/K-LEAN",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T21:31:40Z"
+  "distributed_at": "2026-07-27T23:11:59Z"
 }
