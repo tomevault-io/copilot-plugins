@@ -1,12 +1,9 @@
 ## dna
 
-> Use styled components for the frontend framework.
+> Always work in the dna-frontend-framework directory or the frontend-framework-example-app directory.
 
-
-# Overview
-
-When working in the frontend, use styled components for the frontend framework. Only create custom components if absolutely necessary. Always check the latest styled components documentation for the best practices. Use a common file for variables and mixins but keep component specific styles in the component file.
+Always work in the dna-frontend-framework directory or the frontend-framework-example-app directory.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AcademySoftwareFoundation) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [AcademySoftwareFoundation/dna](https://github.com/AcademySoftwareFoundation/dna) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
