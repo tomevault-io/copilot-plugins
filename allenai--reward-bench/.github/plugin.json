@@ -1,0 +1,9 @@
+{
+  "name": "allenai--reward-bench",
+  "displayName": "reward-bench",
+  "description": "reward-bench",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/reward-bench",
+  "skills": []
+}
