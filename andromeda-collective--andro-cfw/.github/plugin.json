@@ -1,0 +1,9 @@
+{
+  "name": "andromeda-collective--andro-cfw",
+  "displayName": "andro-cfw",
+  "description": "Run Telegram bots from filtered/restricted regions (e.g. Iran) without a VPN \u2014 via your own Cloudflare Worker reverse proxy.",
+  "version": "1.0.0",
+  "author": "Andromeda-Collective",
+  "homepage": "https://github.com/Andromeda-Collective/andro-cfw",
+  "skills": []
+}
