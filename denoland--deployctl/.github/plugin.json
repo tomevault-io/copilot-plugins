@@ -1,0 +1,9 @@
+{
+  "name": "denoland--deployctl",
+  "displayName": "deployctl",
+  "description": "deployctl",
+  "version": "1.0.0",
+  "author": "denoland",
+  "homepage": "https://github.com/denoland/deployctl",
+  "skills": []
+}
