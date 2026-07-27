@@ -1,0 +1,9 @@
+{
+  "name": "mkobit--jenkins-pipeline-shared-libraries-gradle-plugin",
+  "displayName": "jenkins-pipeline-shared-libraries-gradle-plugin",
+  "description": "jenkins-pipeline-shared-libraries-gradle-plugin",
+  "version": "1.0.0",
+  "author": "mkobit",
+  "homepage": "https://github.com/mkobit/jenkins-pipeline-shared-libraries-gradle-plugin",
+  "skills": []
+}
