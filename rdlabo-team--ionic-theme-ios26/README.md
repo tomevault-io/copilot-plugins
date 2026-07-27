@@ -1,8 +1,6 @@
 # ionic-theme-ios26
 
-> Source: [rdlabo-team/ionic-theme-ios26](https://github.com/rdlabo-team/ionic-theme-ios26) — distributed by [TomeVault](https://tomevault.io)
-
-CSS/JavaScript Library for Ionic Framework
+> Source: [rdlabo-team/ionic-theme-ios26](https://github.com/rdlabo-team/ionic-theme-ios26). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
