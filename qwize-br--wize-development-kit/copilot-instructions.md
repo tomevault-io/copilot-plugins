@@ -1,88 +1,59 @@
-## wize-sprint-planning
+## wize-sprint-status
 
-> 4-implementation: Sprint Planning
+> 4-implementation: Sprint Status
 
 
-# Sprint Planning
+# Sprint Status
 
-# Sprint Planning
+# Sprint Status
 
-**Goal.** Pick what enters this sprint. Capacity-honest, priority-honest, risk-honest.
-
-Maria Hill chairs. Tony advises on slicing. Hawkeye flags risk. Shuri commits to the load.
+**Goal.** Read `.wize/implementation/sprint-status.yaml` in 60 seconds and say what to do next.
 
 ## Inputs
 
-- Story backlog: `.wize/solutioning/stories/`
-- Previous sprint state: `.wize/implementation/sprint-status.yaml`
-- `.wize/implementation/tea/risk-profile.md`
-- Team availability for the next interval.
+- `.wize/implementation/sprint-status.yaml`
+- `.wize/implementation/tea/{epic}/{story}/gate.md`
 
 ## Output
 
-- Updated `.wize/implementation/sprint-status.yaml`.
-- Story files updated with `priority: 1` for chosen stories.
+- Updated sprint-status.yaml (if statuses changed).
+- One recommended next workflow.
 
 ## Steps
 
-1. **Look back** — what shipped, what slipped, what surprised.
-2. **Refresh capacity** — person-days × utilization − overhead.
-3. **Pull stories** — continuation first, then priority, then risk.
-4. **Reserve 10–15% buffer** for unknowns.
-5. **Walk the gate plan** — design/trace/review/gate per story.
-6. **Commit** — verbal + written into YAML.
+1. **Load YAML.** Parse `development_status`.
+2. **Classify** each key: epic, story, retrospective.
+3. **Count** statuses.
+4. **Detect risks:**
+   - Story `in-progress` older than 2 days with no update.
+   - Blocked story without owner/deadline.
+   - Epic `in-progress` with no stories.
+5. **Recommend next step** (in priority order):
+   1. Story `in-progress` → `/wize-dev-story`
+   2. Story `review` → `/wize-tea-review`
+   3. Story `ready-for-dev` → `/wize-dev-story`
+   4. Story `backlog` → `/wize-create-story`
+   5. Retrospective `optional` → `/wize-retrospective`
+   6. All done → congratulate team.
 
-## Status state machine
+## Summary output
 
-- Epic: `backlog` → `in-progress` → `done`
-- Story: `backlog` → `ready-for-dev` → `in-progress` → `review` → `done`
-- Retrospective: `optional` ↔ `done`
+```markdown
+## Sprint Status
 
-## Sprint block template
+- Project: {project} ({project_key})
+- Tracking: {tracking_system}
+- Status file: .wize/implementation/sprint-status.yaml
 
-```yaml
-# generated: YYYY-MM-DD
-# last_updated: YYYY-MM-DD
-# project: {project_name}
-# project_key: {project_key}
-# tracking_system: file-system
-# story_location: .wize/solutioning/stories
+**Stories:** backlog {n} | ready-for-dev {n} | in-progress {n} | review {n} | done {n}
+**Epics:** backlog {n} | in-progress {n} | done {n}
 
-generated: YYYY-MM-DD
-last_updated: YYYY-MM-DD
-project: {project_name}
-project_key: {project_key}
-tracking_system: file-system
-story_location: .wize/solutioning/stories
-
-development_status:
-  epic-1: backlog
-  1-1-story-one: backlog
-  1-2-story-two: backlog
-  epic-1-retrospective: optional
+**Next:** /{next_workflow} ({next_story_id})
 ```
-
-## Anti-patterns
-
-- Optimistic velocity.
-- Stories without owners.
-- Stretch goals that are really plan.
-- Pulling blocked dependencies.
-- Zero buffer.
 
 ## Hand-off
 
-> Sprint committed at `.wize/implementation/sprint-status.yaml`. Stories in `ready-for-dev` are now eligible for the dev loop.
->
-> **Recommended next loop:**
->
-> ```
-> /loop /wize-dev-story
-> ```
->
-> `/loop /wize-dev-story` drives one story at a time: TDD red-green-refactor, AC IDs in commits, `tea-design.md` contract, knowledge update on the 5 baseline axes, and a clean gate at the end. `/loop` keeps it going across the sprint's `ready-for-dev` queue until the user pauses.
->
-> Next: `/wize-sprint-status` (Maria Hill) to acompanhar o progresso.
+> Status updated. Run the recommended workflow or call `/wize-sprint-planning` to reprioritize.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
