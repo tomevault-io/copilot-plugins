@@ -1,171 +1,125 @@
-## wize-ux-design
+## wize-ux-scenarios
 
-> 2-plan: UX Design
+> 2-plan: UX Scenarios
 
 
-# UX Design
+# UX Scenarios
 
-# UX Design
+# UX Scenarios
 
-**Goal.** Turn scenarios into page-by-page specifications Tony can architect against and Shuri can implement. One spec per screen. Every spec answers: purpose, primary action, layout, content, interactions, states (loading/empty/error/success/disabled), accessibility, and metrics.
+**Goal.** Produce a scenario map that anchors all UX work. Eight focused questions; one short answer each. Scenarios are pieces of behavior, not personas — they're how *this* user, in *this* state, tries to accomplish *that* JTBD.
 
-Mantis drives. Output lands in `.wize/planning/ux/ux-design/{screen-name}.md`.
+Mantis drives. Output lands in `.wize/planning/ux/ux-scenarios.md`. It's the bridge from PM intent (PRD) to designer concreteness (next workflow: `wize-ux-design`).
 
 ## Inputs
 
-- `.wize/planning/ux/ux-scenarios.md` (every screen traces back to ≥ 1 scenario)
-- `.wize/planning/prd.md` (every screen advances at least one AC)
-- `.wize/solutioning/design-system/` (when Mantis already wrote tokens; otherwise this runs in parallel with `wize-design-system`)
-- Overlay playbooks if active:
-  - `web-overlay/playbooks/wcag-aa.md`, `responsive-breakpoints.md`, `semantic-html.md`
-  - `app-overlay/playbooks/apple-hig.md`, `material-design-3.md`, `touch-targets-and-gestures.md`, `permissions-ux.md`
+- `.wize/planning/prd.md` (validated)
+- `.wize/planning/ux/trigger-map.md` (Pepper)
+- `.wize/planning/brief.md`
 
 ## Outputs
 
-- `.wize/planning/ux/ux-design/{screen-name}.md` (one per screen)
-- `.wize/planning/ux/ux-design/index.md` (map of screens → scenarios → PRD ACs)
+- `.wize/planning/ux/ux-scenarios.md`
 
 ## Steps
 
-### 1. Enumerate the screens
+### 1. Identify the scenarios
 
-From the scenarios, list every screen needed to deliver the moment-of-truth. Name them by role + state: `signup-empty.md`, `signup-error.md`, `team-list-with-members.md`, `team-list-empty.md`. Empty/error/loading states are screens.
+A scenario = one (user, state, JTBD) tuple where the product earns or loses. Aim for **3–8 scenarios** that, taken together, cover all backbone stories in the PRD.
 
-### 2. Per screen: fill the spec template
+Rules:
+- One sentence each at this stage.
+- Verb-led. *"New manager onboards their first team."* Not *"Manager onboarding."*
+- Distinct. If two scenarios share trigger + state, collapse them.
 
-For each screen, write the spec below. Stay disciplined; if a section is empty, ask why.
+### 2. Run the 8-question dialog per scenario (WDS Freya)
 
-### 3. Write the index
+For each scenario, answer the eight questions. One paragraph per answer. No filler. Cite trigger-map row when relevant.
 
-`index.md` is a single table mapping screen → scenarios touched → PRD ACs advanced. Tony reads this first; Hawkeye references it in `tea-design.md`.
+1. **Who is the user, in one sentence?**
+   Role + context. *"A 38-year-old engineering manager at a 25-person SaaS, primarily on desktop, sometimes phone."*
 
-### 4. Hand off
+2. **What state are they in when they arrive?**
+   Emotion + situational context. *"It's Monday morning. They just got CTO's request to onboard 3 hires this sprint. They're alt-tabbing between Slack and Linear."*
 
-Mark `status: ready-for-architecture` on each spec. Notify Wizer; Tony reads next.
+3. **What are they trying to accomplish?** (JTBD)
+   *"Add three teammates and assign each to the right project before the team standup at 10am."* Concrete.
 
-## Spec template (one file per screen)
+4. **What would they do without our product today?**
+   *"Slack screenshots of the project list to each new hire; have them sign up individually; cross-check who landed where."*
+
+5. **What's the moment of truth — when they decide it works?**
+   *"The first time they see all three names in the team list with the right project tags, in under 5 minutes."*
+
+6. **What's the failure mode — when do they walk away?**
+   *"If they can't tell whether the invite arrived. If the invite email looks like spam. If they have to leave the page to find someone's email."*
+
+7. **What does success look like to them, in their words?**
+   *"It just worked. I sent the invites, they signed up, they were on the right project."* (Imagine the future quote.)
+
+8. **What's the next thing we want them to do?**
+   *"Open the project where the first teammate landed and verify the access works."*
+
+### 3. Cross-link to the PRD
+
+For each scenario, list the **backbone story IDs** + **AC IDs** it touches. Mantis won't write specs for a scenario the PRD doesn't cover (it'd be scope creep); Hill won't sign off on a story the scenarios don't surface (it'd be over-spec).
+
+### 4. Hand off to UX Design
+
+Mark `status: ready-for-design`. Wizer pings Mantis to start `wize-ux-design`, where each scenario becomes one or more page specs.
+
+## Output template
 
 ```markdown
 ---
-screen: signup-empty
-status: ready-for-architecture
+status: ready-for-design
 owner: Mantis
-linked_scenarios: [S1]
-linked_acs: [AC-01-1, AC-01-2]
+created: YYYY-MM-DD
+covers_prd_stories: [E01, E02, E04]
 ---
 
-# Sign up (empty state)
+# UX Scenarios — {{project_name}}
 
-## Purpose
-First contact: a manager wants to create an account. The goal of *this* screen is to collect work email + password with minimum friction, in service of scenario S1 moment-of-truth (3 invites within 5 minutes).
+## Scenario 1: New manager onboards their first team
 
-## Primary user action
-Submit the form (CTA: "Create account").
+- **Trigger-map row:** 1 (Sign up), 2 (Invite first teammate)
+- **PRD stories:** E01, E02
+- **AC IDs touched:** AC-01-1, AC-01-2, AC-02-1, AC-02-3
 
-## Layout (ASCII or Mermaid)
+**Q1 — Who:** A 38-year-old engineering manager at a 25-person SaaS, primarily on desktop, sometimes phone.
+**Q2 — State:** It's Monday morning. They just got CTO's request to onboard 3 hires this sprint. They're alt-tabbing between Slack and Linear.
+**Q3 — JTBD:** Add three teammates and assign each to the right project before the team standup at 10am.
+**Q4 — Today:** Slack screenshots of the project list to each new hire; have them sign up individually; cross-check who landed where.
+**Q5 — Moment of truth:** The first time they see all three names in the team list with the right project tags, under 5 minutes.
+**Q6 — Failure mode:** Can't tell whether the invite arrived; the email looks like spam; they have to leave the page to find someone's email.
+**Q7 — Success in their words:** "It just worked. I sent the invites, they signed up, they were on the right project."
+**Q8 — Next thing:** Open the project where the first teammate landed and verify access.
 
-(web overlay)
-```
-┌─────────────────────────────────────────────────┐
-│ Wize logo                          [Sign in →]  │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│           Create your team's account            │
-│           ──────────────────────────            │
-│           [ Work email           ]              │
-│           [ Password (12+)       ]              │
-│                                                 │
-│           [    Create account    ]              │
-│                                                 │
-│           Already a member? Sign in              │
-│                                                 │
-└─────────────────────────────────────────────────┘
-```
+## Scenario 2: Returning admin adds a fourth member months later
 
-(app overlay note: stacked, top-aligned, system back disabled.)
+(…)
 
-## Content (copy)
+## Coverage check
 
-- Headline: "Create your team's account"
-- Sub: (none — keep the screen empty for focus)
-- Field 1 label: "Work email"
-- Field 1 placeholder: "name@yourcompany.com"
-- Field 2 label: "Password"
-- Field 2 helper text: "At least 12 characters."
-- CTA: "Create account"
-- Secondary: "Already a member? Sign in" → routes to /signin
-
-## Interactions
-
-- Click CTA with valid form → submit; show loading state; redirect on success.
-- Click CTA with invalid form → set focus to first invalid field; show error region.
-- Tab order: email → password → CTA → "Sign in" link.
-- Enter on either field submits if both are valid.
-
-## States
-
-- **Loading:** CTA shows spinner; button is disabled; inputs remain editable.
-- **Empty (this state):** placeholders visible; CTA disabled until both fields non-empty.
-- **Error (inline per field):** error region appears under each field, `role="alert"`, identifies the rule and the fix.
-- **Error (global):** Banner above headline if the back-end fails with a non-field error; provides a "retry" action.
-- **Success:** redirect; no flash. The next screen owns acknowledgement.
-- **Disabled:** CTA opacity 0.4; aria-disabled="true"; tooltip *"Fill both fields to continue"*.
-
-## Accessibility notes
-
-(web overlay)
-- Both inputs have visible persistent labels (no placeholder-only).
-- `lang="en"` on `<html>`.
-- Error region: per-field `aria-describedby`, ALL `role="alert"` after first submit only.
-- Contrast pairs all ≥ 4.5:1 in light mode, ≥ 4.5:1 in dark mode.
-- 200% zoom: no horizontal scroll on 360px viewport.
-- Skip link absent (no main nav before).
-
-(app overlay)
-- Apple HIG / Material 3 systemic input components.
-- Dynamic Type / font scale: layout reflows at largest accessibility size; CTA pinned to bottom-safe-area.
-- Touch targets ≥ 44pt (iOS) / 48dp (Android).
-- VoiceOver order: headline → email → password → CTA → secondary link.
-
-## Metrics
-
-- Event `signup_completed` (Q7 success quote): fires after redirect.
-- Event `signup_error_shown {rule}`: fires on inline error.
-- Event `signup_abandoned`: fires on `beforeunload` if form had focus and CTA never fired.
-
-## Open questions for Tony
-
-- Should we use Auth0 hosted UI or our own form? (UX-decision is to keep our own; Tony decides feasibility.)
-- Magic-link as an alternative path? Out of scope per PRD; Mantis recommends putting in *Out*.
-```
-
-## Index template
-
-```markdown
-# UX Design — index
-
-| Screen | Scenarios | PRD ACs |
-|---|---|---|
-| signup-empty | S1 | AC-01-1, AC-01-2 |
-| signup-error | S1 | AC-01-2 |
-| onboarding-step-1 | S1 | AC-02-1 |
-| team-list-empty | S1, S2 | AC-03-1 |
-| team-list-with-members | S1, S2 | AC-03-2, AC-03-3 |
-| invite-modal | S1, S2 | AC-02-2, AC-02-3 |
+| PRD story | Scenarios |
+|---|---|
+| E01 (Sign up) | S1 |
+| E02 (Invite) | S1, S2 |
+| E03 (Switch project) | S2 |
+| E04 (Dashboard) | S1 |
 ```
 
 ## Anti-patterns Mantis rejects
 
-- **Specs without states.** A screen with no empty/error spec is half a spec.
-- **Copy as marketing tone.** Use the user's voice. Cut "world-class," "delightful," "seamless."
-- **Mystery icons.** Icons need accessible labels; if you can't name it, draw a word next to it.
-- **Hover-only affordances on touch.** Spec the non-hover equivalent.
-- **Touch targets < platform minimum.** 24×24 CSS px on web (WCAG 2.5.8), 44pt iOS, 48dp Android — non-negotiable.
-- **Screens that don't trace to scenarios + PRD ACs.** If you can't fill the index row, the screen isn't justified.
+- **Personas instead of scenarios.** Mantis cares what people *do*, not who they are in the abstract.
+- **Scenarios with no emotion or context.** "User wants to sign up." — that's a backbone story restated. The point is the *state*.
+- **JTBD written as features.** "Wants the dashboard." Wrong layer. Reword to the goal: "Wants to know if the team is healthy at a glance."
+- **Q5 ("moment of truth") that's actually a feature description.** It should be the user's perception, not the UI.
+- **More than 8 scenarios.** Two of them are duplicates. Find which.
 
 ## Hand-off
 
-> UX specs are at `.wize/planning/ux/ux-design/`. Index points screen → scenario → AC. Tony, you can start `wize-create-architecture` now; the moment-of-truth lines in scenarios tell you which interactions are load-bearing. Hawkeye, `tea-design.md` should index by screen to keep test design and UI aligned.
+> Scenarios are in `.wize/planning/ux/ux-scenarios.md`. They cover E01–E04. Next: page specs in `.wize/planning/ux/ux-design/` (one per screen). Tony, when you read these, the moment-of-truth lines tell you which interactions are load-bearing.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
