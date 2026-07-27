@@ -4,7 +4,7 @@
   "repo": "skills-for-fabric",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/skills-for-fabric",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T22:53:34Z"
+  "distributed_at": "2026-07-27T02:31:53Z"
 }
