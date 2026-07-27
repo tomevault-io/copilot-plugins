@@ -1,85 +1,17 @@
 ## pdpipe
 
-> This file defines contributor and coding-agent rules for this repository.
+> When asked to build virtualenvs, run commands in them, run tests, setup or build the package, handle dependencies, integrate tools into the package or the CI, and anytime handling pyproject.tom
 
-# AGENTS.md - pdpipe
 
-This file defines contributor and coding-agent rules for this repository.
+# Build and dependency system in cachier
 
-## Scope and intent
-
-- Keep changes focused, minimal, and test-backed.
-- Preserve backward compatibility unless the issue or PR explicitly allows breaking changes.
-- Prefer clear, deterministic behavior over implicit magic.
-
-## Project basics
-
-- Package: `pdpipe`
-- Purpose: easy pipelines for pandas DataFrames.
-- Python: CI-supported versions in this repo.
-- Optional extras: `nltk`, `sklearn`.
-- Primary source path: `src/pdpipe/`.
-
-## Repository layout
-
-```
-pdpipe/
-├── src/pdpipe/            # Source package
-│   ├── core.py            # Pipeline and stage core abstractions
-│   ├── basic_stages.py    # Core dataframe transformation stages
-│   ├── col_generation.py  # Column/feature generation stages
-│   ├── nltk_stages.py     # NLTK-dependent text stages
-│   ├── sklearn_stages.py  # sklearn-dependent stages
-│   ├── skintegrate.py     # sklearn estimator integration wrapper
-│   ├── cond.py / cq.py / rq.py
-│   └── ...
-├── tests/                 # Pytest suite
-├── docs/                  # Documentation
-├── dev/                   # Developer scripts
-├── .github/workflows/     # CI workflows
-└── pyproject.toml         # Build + lint + test configuration
-```
-
-## Core quality requirements
-
-- Lint/format before every commit:
-  - `python -m black .`
-  - `python -m flake8`
-- Run relevant tests for touched code.
-- Keep doctest examples valid for touched modules.
-
-## CI workflows
-
-- `test.yml`: main test matrix.
-- `lint.yml`: flake8 checks.
-- `black.yml`: formatting check.
-- `npdocval.yml`: numpydoc validation.
-- `release.yml`: release workflow.
-
-## Coding expectations
-
-- Favor explicit, readable implementations.
-- Keep behavior deterministic and backward-compatible by default.
-- Add regression tests for bug fixes.
-- Keep optional dependencies optional; degrade gracefully when unavailable.
-
-## PR expectations
-
-- One logical change per PR.
-- Clear summary of behavior changes and test evidence.
-- Green CI before merge.
-
-## Local overrides (optional, untracked)
-
-- If `LOCAL_AGENTS.md` exists at repo root, treat it as additive local instructions.
-- `LOCAL_AGENTS.md` should remain untracked.
-- On conflicts, repository/security policy takes precedence.
-
-## Security and secrets
-
-- Never commit credentials or machine-specific secrets.
-- Avoid weakening protections around sensitive files or env vars.
+- We use pyproject.toml with the modern PEP 621 format.
+- I prefer working with uv for virtualenv management, depdency isnallation, etc.
+- Tests should be run inside the uv venv, and using the dev/scripts/run_pytest.sh, so using the command `uv run sh dev/scripts/run_pytest.sh`.
+- In this machine, uv is installed on pyenv's Python 3.12.10, and pyenv is not initialized on every terminal session *on purpose*, so you'll have to run `pyenv init - bash`, then `pyenv shell 3.12.10` and only then the above command for running pytest inside the uv venv.
+- Before every commit, run the pre-commit hooks defined by pre-commit-config.yaml by running `uv run pre-commit run --all-files` in the project's root, and fix every raised error.
+- Black formatting errors raised by the above pre-commit command should be handled by running `uv run black src` and `uv run black tests`
 
 ---
 > Source: [pdpipe/pdpipe](https://github.com/pdpipe/pdpipe) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
