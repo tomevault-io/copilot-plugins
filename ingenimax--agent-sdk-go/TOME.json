@@ -2,9 +2,9 @@
   "name": "agent-sdk-go",
   "owner": "Ingenimax",
   "repo": "agent-sdk-go",
-  "description": "A powerful Go framework for building production-ready AI agents!",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ingenimax/agent-sdk-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:38:16Z"
+  "distributed_at": "2026-07-27T09:45:09Z"
 }
