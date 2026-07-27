@@ -1,0 +1,64 @@
+## thegates
+
+> - Always use @export annotations instead of direct node references
+
+
+# Godot 4.4 Game Development .cursorrules
+
+## Core Development Guidelines
+
+- Always use @export annotations instead of direct node references
+- Prefer composition over inheritance where possible
+- Use signals for loose coupling between nodes
+- Follow Godot's node naming conventions (PascalCase for nodes, snake_case for methods)
+
+## Code Style
+
+- Keep methods focused and under 24 lines
+- Use meaningful variable and function names
+- Group related properties and methods together
+- Use TABS instead of spaces
+
+## Naming Conventions
+
+- Files: Use snake_case for all filenames (e.g., player_character.gd, main_menu.tscn)
+- Classes: Use PascalCase for custom class names with class_name (e.g., PlayerCharacter)
+- Variables: Use snake_case for all variables including member variables (e.g., health_points)
+- Constants: Use ALL_CAPS_SNAKE_CASE for constants (e.g., MAX_HEALTH)
+- Functions: Use snake_case for all functions including lifecycle functions (e.g., move_player())
+- Functions: Don't use leading underscore '_' in private functions, variables in GDScript
+- Enums: Use PascalCase for enum type names and ALL_CAPS_SNAKE_CASE for enum values
+- Nodes: Use PascalCase for node names in the scene tree (e.g., PlayerCharacter, MainCamera)
+- Signals: Use snake_case in past tense to name events (e.g., health_depleted, enemy_defeated)
+
+## Scene Organization
+
+- Use scene inheritance for reusable components
+- Implement proper scene cleanup on queue_free()
+
+## Signal Best Practices
+
+- Use clear, contextual signal names that describe their purpose (e.g., player_health_changed)
+- Utilize typed signals to improve safety and IDE assistance (e.g., signal item_collected(item_name: String))
+- Connect signals in code for dynamic nodes, and in the editor for static relationships
+- Avoid overusing signals - reserve them for important events, not frequent updates
+- Pass only necessary data through signal arguments, avoiding entire node references when possible
+- Use an autoload "EventBus" singleton for global signals that need to reach distant nodes (e.g., gate_events.gd)
+- Minimize signal bubbling through multiple parent nodes
+- Always disconnect signals when nodes are freed to prevent memory leaks
+- Document signals with comments explaining their purpose and parameters
+
+## Resource Management
+
+- Implement proper resource cleanup in \_exit_tree()
+
+## Performance Best Practices
+
+- Use node groups judiciously for managing collections, and prefer direct node references for frequent, specific access to individual nodes.
+- Implement object pooling for frequently spawned objects
+- Use physics layers to optimize collision detection
+- Prefer packed arrays (PackedVector2Array, etc.) over regular arrays
+
+---
+> Source: [thegatesbrowser/thegates](https://github.com/thegatesbrowser/thegates) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
