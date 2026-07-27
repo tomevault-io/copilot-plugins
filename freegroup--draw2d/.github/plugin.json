@@ -1,0 +1,14 @@
+{
+  "name": "freegroup--draw2d",
+  "displayName": "draw2d",
+  "description": "draw2d",
+  "version": "1.0.0",
+  "author": "freegroup",
+  "homepage": "https://github.com/freegroup/draw2d",
+  "skills": [
+    {
+      "name": "draw2d",
+      "description": ""
+    }
+  ]
+}
