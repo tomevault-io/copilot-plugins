@@ -1,0 +1,9 @@
+{
+  "name": "knative--networking",
+  "displayName": "networking",
+  "description": "networking",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/networking",
+  "skills": []
+}
