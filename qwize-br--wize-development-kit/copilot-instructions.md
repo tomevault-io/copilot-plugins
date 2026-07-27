@@ -1,140 +1,108 @@
-## wize-tea-risk
+## wize-tea-trace
 
-> risk: TEA Risk Profile
+> trace: TEA Traceability
 
 
-# TEA Risk Profile
+# TEA Traceability
 
-# TEA — Risk Profile
+# TEA — Traceability
 
-**Goal.** Build the **probability × impact** matrix that prioritizes the rest of TEA's work. Areas in `HIGH` get deep test design; areas in `LOW` get smoke. Without a risk profile, every story is tested the same — wasteful, and unsafe.
+**Goal.** Map every Acceptance Criterion to **one or more concrete tests in the repo**. Reports honest coverage: `covered`, `partial`, `missing`. A story with `missing` rows cannot pass gate.
 
-Hawkeye drives. Tony co-signs. Runs **once**, right after architecture is signed off; revisit only on significant scope or architecture changes.
+Hawkeye drives. Runs while Shuri implements (or right after PR open).
 
 ## Inputs
 
-- `.wize/solutioning/architecture.md`
-- `.wize/solutioning/epics/`
-- `.wize/planning/nfr-principles.md`
-- `.wize/knowledge/document-project/risk-spots.md` (brownfield)
-- `.wize/knowledge/document-project/index.md` (documentation gap markers)
+- Story file (the AC list).
+- `tea-design.md` (the test contract).
+- Repo (the actual test files).
 
 ## Output
 
-- `.wize/implementation/tea/risk-profile.md`
+- `.wize/implementation/tea/{epic}/{story}/trace.md`
 
 ## Steps
 
-### 1. List candidate hot spots
+### 1. Walk every AC
 
-For every architectural component + every epic, ask: *"If this misbehaves, what hurts?"*. Write candidates without filtering.
+For each AC ID:
+- Find the test(s) that exercise it.
+- Reference the file + test name precisely.
+- Decide status: `covered` (every assertion of the AC has a test) / `partial` (some assertions only) / `missing` (no test).
 
-### 2. Score each
+### 2. Compute coverage score
 
-| Axis | Levels |
-|---|---|
-| Probability | `low` (would be a surprise), `medium` (could happen), `high` (likely without explicit work) |
-| Impact | `low` (cosmetic / opex), `medium` (user friction / revenue dent), `high` (data loss / outage / regulatory) |
+- `covered_count / total_acs`.
+- Reported but doesn't drive gate alone; the **per-AC status** drives gate.
 
-Composite score:
-- `low × low` = LOW
-- `low × medium`, `medium × low`, `medium × medium` = MEDIUM
-- anything touching `high` = HIGH
+### 3. Flag holes
 
-### 3. For each finding, write the mitigation contract
-
-Per row:
-- **What test makes us confident?** Unit / integration / E2E / NFR / manual.
-- **Who owns the mitigation?** Shuri / Tony / external service.
-- **When is it verified?** Story-level / epic-level / pre-launch.
+For every `partial` / `missing`, write what's needed in one line. Hawkeye proposes the test; Shuri writes it.
 
 ### 4. Hand off
 
-Hawkeye uses this in every `tea-design.md`. Tony respects it when picking ADR options.
+If everything is `covered`, status `PASS`. Otherwise `CONCERNS` (advisory) or `FAIL` (enforcing) until holes are closed.
 
 ## YAML frontmatter (canonical)
 
 ```yaml
 ---
-gate: risk
-status: PASS | CONCERNS | FAIL | WAIVED
-score: 0-100
-created_at: 2026-06-11T12:00:00Z
-findings:
-  - id: R-1
-    area: "Outbox / mailer"
-    probability: high
-    impact: medium
-    rationale: "Sign-up flow depends on email delivery; first impression failure is high-cost."
-    mitigation: "Integration test against Resend sandbox; outbox retry with backoff; on-call alert on delivery failure rate > 5%."
-    owner: shuri + tony
-    verified_when: story E01-S04 + NFR per epic
-  - id: R-2
-    area: "Database migrations under load"
-    probability: medium
-    impact: high
-    rationale: "Future migrations must be rolled out without lock contention."
-    mitigation: "Online schema changes; canary on staging with synthetic load; ADR-006 process."
-    owner: tony
-    verified_when: pre-launch
-  - id: R-3
-    area: "Auth: token refresh during long-running tabs"
-    probability: medium
-    impact: medium
-    rationale: "Cookie refresh race in RSC + edge can sign user out unexpectedly."
-    mitigation: "E2E covering > 1h tab; refresh strategy ADR-008; on-call alert on `auth_session_expired_unexpected`."
-    owner: shuri
-    verified_when: story E04-S02 + post-launch monitoring
+gate: trace
+story_id: E01-S03
+status: PASS
+coverage:
+  - ac_id: AC-02-1
+    status: covered
+    tests:
+      - "src/onboarding/invite/__tests__/validateInviteEmail.spec.ts::valid email"
+      - "src/onboarding/invite/__tests__/inviteTeammate.spec.ts::calls mailer with right args"
+      - "e2e/onboarding/invite.spec.ts::happy path on Playwright @chromium"
+  - ac_id: AC-02-2
+    status: covered
+    tests:
+      - "src/onboarding/invite/__tests__/validateInviteEmail.spec.ts::invalid email rules"
+      - "src/onboarding/invite/__tests__/InviteForm.spec.tsx::error region announces"
+created_at: 2026-06-11T15:30:00Z
 ---
 ```
 
-## Body of `risk-profile.md`
-
-The narrative explains the matrix; the YAML is the structured truth. Hawkeye writes 1–2 lines per finding explaining the *why*.
+## Body of `trace.md`
 
 ```markdown
-## Matrix
+## Per-AC
 
-| | Impact LOW | Impact MEDIUM | Impact HIGH |
-|---|---|---|---|
-| **Prob HIGH** | R-7 | R-1 | R-2 |
-| **Prob MEDIUM** | R-4 | R-3 | R-5 |
-| **Prob LOW** | — | R-6 | — |
+### AC-02-1 — covered
+Tests:
+- `validateInviteEmail.spec.ts::valid email`
+- `inviteTeammate.spec.ts::calls mailer with right args`
+- `e2e/onboarding/invite.spec.ts::happy path`
 
-## Top-3 (drive test design)
+### AC-02-2 — covered
+Tests:
+- `validateInviteEmail.spec.ts::invalid email rules`
+- `InviteForm.spec.tsx::error region announces`
 
-1. **R-2** — Database migrations under load. Pre-launch verification mandatory.
-2. **R-1** — Outbox/mailer. Story E01-S04 covers; epic NFR re-verifies.
-3. **R-5** — Payment idempotency. Story E03-S02 covers.
+## Edges (from `design.md`)
 
-## What this means for `tea-design.md`
+- E1 (empty) — covered (validateInviteEmail.spec.ts::empty).
+- E3 (idempotency) — **partial**. Integration test exists but doesn't assert second insert is no-op. Propose: assert `db.invites.count({ email, team_id })` = 1 after two calls.
+- E4 (offline) — **missing**. Propose: Playwright `context.setOffline(true)` before click; assert offline banner.
 
-- E01-S04 (mailer): 1 unit (retry policy), 1 integration (Resend sandbox), 1 E2E (sign-up arrives within 5min).
-- E03-S02 (payments): 2 integration (Stripe idempotency keys), 1 E2E (double-click guard).
-- Other stories follow the default 70/20/10 split.
+## Action items
+- Shuri: add the missing offline E2E (or split into next story; flag in `review.md` then).
+- Hawkeye: re-run trace once PR has the new tests.
 ```
-
-## Documentation gap risk category
-
-In brownfield repos, missing or stale documentation is an operational risk: new contributors make unsafe assumptions, AI agents hallucinate context, and reviews miss implicit contracts. Hawkeye treats it as a first-class risk area.
-
-| Symptom | Severity | Rationale | Mitigation |
-|---|---|---|---|
-| `index.md` contains `_(To be generated)_` markers | medium | Conditional docs were skipped; the baseline is incomplete. | Schedule `wize-document-project initial_scan` for the next cooldown. |
-| Baseline files older than 60 days | medium | Docs may no longer reflect the codebase. | Run `wize-refresh-knowledge` at sprint end. |
-| No baseline exists in a brownfield repo | high | Team is flying blind; architecture and conventions are tribal knowledge. | Run `wize-dev-kit document-project quick` immediately. |
 
 ## Anti-patterns Hawkeye rejects
 
-- **Findings without mitigation.** A finding without a contract is a wish.
-- **Mitigation owned by "the team."** Name a persona/human.
-- **HIGH impact, MEDIUM probability, no NFR re-check.** Wire it into epic NFR gate.
-- **Cosmetic risks scored HIGH.** Calibration. Reserve HIGH for data, outage, regulatory.
-- **Risk profile rewritten per sprint.** Run once; revise on real architecture changes.
+- **Trace by file count, not per-AC.** "We have 24 tests" tells you nothing. Per AC, please.
+- **Counting passing CI as trace.** CI passes when a test exists; trace cares whether the test exercises the AC.
+- **`partial` left unflagged.** Either close or list as a known-open with story link.
+- **Re-naming tests after trace.** The trace breaks; Shuri renames in agreement with Hawkeye or doesn't rename.
 
 ## Hand-off
 
-> Risk profile at `.wize/implementation/tea/risk-profile.md`. Top-3 drive deep `tea-design.md` for E01-S04, E03-S02, plus pre-launch migration drill. Default 70/20/10 split for the rest.
+> Trace for E01-S03 at `.wize/implementation/tea/E01-S03/trace.md`. All ACs `covered`. Two edges still open (E3, E4); proposing follow-up. Ready for `tea-review`.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
