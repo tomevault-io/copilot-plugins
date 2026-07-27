@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [RichardGeorgeDavis/Codex-Workspace](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (32)
+## Bundled Skills (38)
 
 - [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/agent-tooling-doctor/SKILL.md)
 - [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/quality-gate/SKILL.md)
@@ -49,6 +49,12 @@ Original source: `AGENTS.md` in [RichardGeorgeDavis/Codex-Workspace](https://git
 - [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/ssh-keychain-access/SKILL.md)
 - [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/repos/workspace-hub/.codex/skills/graphify/SKILL.md)
 - [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/supermachine-api/SKILL.md)
+- [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/tools/templates/skills/common/quality-gate/SKILL.md)
+- [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/tools/templates/skills/common/security-check/SKILL.md)
+- [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/tools/templates/skills/typescript/review/SKILL.md)
+- [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/plugins/workspace-quality-gate/skills/workspace-quality-gate/SKILL.md)
+- [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/agent-tooling-doctor/SKILL.md)
+- [SKILL.md](https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/repo-onboarding/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/RichardGeorgeDavis/Codex-Workspace](https://github.com/RichardGeorgeDavis/Codex-Workspace)
 
