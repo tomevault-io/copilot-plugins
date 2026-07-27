@@ -1,149 +1,71 @@
 ## vfox
 
-> **Generated:** 2026-01-18
+> **Generated:** 2026-01-17
 
-# PROJECT KNOWLEDGE BASE
+# internal/env Knowledge Base
 
-**Generated:** 2026-01-18
-**Project:** vfox (Version Fox) - Cross-platform SDK version manager
+**Generated:** 2026-01-17
+**Commit:** v0.x
+**Package:** env - Environment variable management and shell integration
 
 ## OVERVIEW
-vfox is a cross-platform SDK version manager (similar to nvm, fvm, sdkman, asdf-vm) that uses Lua-based plugins to manage runtime versions across Global, Project, and Session scopes. Built with Go 1.24.0.
+Core package for scope-aware environment variable management and shell integration with dual merge semantics (Paths append, Vars override).
 
-## COMMANDS
-```bash
-# Build
-go build .
-
-# Test (all)
-go test ./...
-
-# Test (single package)
-go test ./internal/sdk -v
-
-# Test with coverage
-go test ./... -coverprofile=coverage.out -covermode=atomic
-
-# E2E tests
-./scripts/e2e-test.sh  # Unix
-pwsh ./scripts/e2e-test.ps1  # Windows
-
-# Dependencies
-go mod tidy
-go get .
-
-# Version bump
-./scripts/bump.sh <version>
-
-# Release (via goreleaser)
-goreleaser release
+## STRUCTURE
 ```
+internal/env/
+├── env.go              # Vars, Envs structures, scope-aware merging
+├── context.go          # RuntimeEnvContext, config loading, HTTP client
+├── scope.go            # Global, Project, Session scope definitions
+├── path.go             # PATH handling with SortedSet, ToBinPaths
+├── state.go            # ConfigState for config file change tracking
+├── vfox_toml_chain.go  # Chain of configs with priority lookup
+├── env_unix.go         # Unix-specific exports
+├── env_win.go          # Windows-specific exports
+├── symlink_unix.go     # Unix symlink handling
+├── symlink_windows.go  # Windows shim handling
+├── flag.go             # Environment variable name constants
+└── *_test.go           # Unit tests
+```
+
+## WHERE TO LOOK
+| Task | Location | Notes |
+|------|----------|-------|
+| **Environment merging** | `env.go:MergeByScopePriority` | Dual-merge: Paths append, Vars override |
+| **Scope management** | `scope.go` | Global=0, Project=1, Session=2 |
+| **PATH operations** | `path.go` | SortedSet-based, ToBinPaths for executables |
+| **Config loading** | `context.go:LoadVfoxTomlByScope` | Per-scope config loader |
+| **Config chain** | `vfox_toml_chain.go` | Multi-config with priority lookup |
+| **Change tracking** | `state.go:HasChanged` | mtime-based, PATH caching |
+| **Shell exports** | `env_*.go` | ToExport() generates shell-specific output |
 
 ## CONVENTIONS
 
-### Code Style
-- **License headers:** All Go files start with Apache 2.0 copyright block (17 lines)
-- **Formatting:** Standard `gofmt` - use `go fmt ./` before committing
-- **No linter config:** No golangci-lint, go vet, or golint configuration found
-- **Import grouping:** Third-party packages grouped, internal packages last
-- **Error wrapping:** Use `fmt.Errorf("context: %w", err)` for error chains
+### Scope-Aware Environment Merging (CRITICAL)
+**PATH (append):** First added = HIGHEST, appears FIRST in PATH. Order: Project → Session → Global.
+**Vars (override):** Last added wins = HIGHEST. Order: Global → Session → Project (reverse of PATH).
 
-### Package Dependency Hierarchy (STRICT)
-```
-manager (orchestration)
-  ↓
-sdk (SDK abstraction)
-  ↓
-plugin (Lua plugin system)
-  ↓
-env (environment variables & shell integration)
-  ↓
-pathmeta, config (metadata & configuration)
-  ↓
-shared/* (utilities: logger, util, cache, shim)
-```
-- ✅ Downward dependencies only
-- ❌ No upward dependencies
-- ❌ No peer dependencies
-- ✅ `shared/*` can import nothing from `internal/`
+### Config Chain Priority
+Configs added in order (first = lowest priority). Tool lookup searches tail-to-head. `GetToolConfig()` returns scope.
 
-### SDK Operations (CRITICAL)
-**FORBIDDEN:** Manager layer directly handling SDK operations
-```go
-// WRONG - Manager handling SDK ops directly
-manager.Install(sdk, version)
-manager.CreateSymlinks(...)
+### State Caching
+Tracks config file mtimes, caches PATH for user changes, stores shell output for fast reload.
 
-// CORRECT - Delegate to SDK layer
-sdk, err := manager.LookupSdk("nodejs")
-sdk.Install(version)
-sdk.CreateSymlinksForScope(version, env.Project)
-sdk.EnvKeysForScope(version, env.Project)
-```
+## ANTI-PATTERNS (THIS PACKAGE)
 
-### Environment Variable Merging
-- **Paths:** Appended in order (first = HIGHEST priority): Project → Session → Global
-- **Vars:** Overwritten (last = HIGHEST priority): Global → Session → Project
+### Merging Violations
+1. Wrong PATH/vars merge order breaks priority semantics (different orders required)
+2. Same order for both PATH and Vars (dual semantics mandatory)
 
-### Configuration Format
-**Simple:** `[tools] nodejs = "21.5.1"`
-**Complex:** `[tools] java = { version = "21", vendor = "openjdk" }`
-**Priority:** `.vfox.toml` > `vfox.toml` > `.tool-versions` > `.nvmrc` > `.node-version` > `.sdkmanrc`
+### State Management
+1. Ignoring PATH or project changes causes stale state
+2. State operations must be fast (JSON on disk)
 
-### Path Architecture
-- **UserPaths** (`~/.vfox` or `~/.version-fox`): tmp/, config.yaml, sdks/ (symlinks)
-- **SharedPaths** (`VFOX_HOME` or UserPaths): cache/ (installs), plugins/, config.yaml
-- **Environment variable:** `VFOX_HOME` sets shared root (default: same as UserPaths)
-- **Internal vars:** `__VFOX_SHELL`, `__VFOX_PID`, `__VFOX_CURTMPPATH` (for shell hooks)
-
-### Plugin System (Lua-based)
-**Required hooks:** `Available()`, `PreInstall(version)`, `EnvKeys(version)`
-**Optional hooks:** `PostInstall(version)`, `PreUse(version)`, `ParseLegacyFile()`, `PreUninstall(version)`
-**Formats:** Single file (`main.lua`) or multi-file (`metadata.lua` + `hooks/*.lua`)
-
-## ANTI-PATTERNS
-
-### Architectural Violations
-1. **Upward dependencies:** Lower layers importing higher layers
-2. **Peer dependencies:** Same-level packages importing each other
-3. **Manager SDK operations:** Direct SDK handling in manager (must delegate to SDK layer)
-4. **Shared packages with business logic:** `internal/shared/*` should only contain utilities
-
-### Code Quality
-1. **No log.Fatal:** Use proper error handling
-2. **Minimize unsafe:** Only for Windows-specific UAC elevation
-3. **No circular imports:** Enforce strict layered hierarchy
-4. **No empty catch blocks:** Handle errors properly
-
-### Testing
-1. **Write tests first:** TDD approach
-2. **No deleting failing tests:** Fix code, not tests
-3. **33 test files** cover: concurrent SDK lookup, paths, config, shells, plugins, cross-platform
-
-## WHERE TO LOOK
-| Task | Location |
-|------|----------|
-| **CLI commands** | `cmd/commands/` (22 commands) |
-| **SDK operations** | `internal/sdk/sdk.go` |
-| **Plugin system** | `internal/plugin/` |
-| **Manager** | `internal/manager.go` (lookup, plugin registry only) |
-| **Paths** | `internal/pathmeta/path_meta.go` |
-| **Environment** | `internal/env/env.go` (scope-aware merging) |
-| **Config** | `internal/config/config.go` |
-
-## KEY DEPENDENCIES
-- `github.com/urfave/cli/v3` - CLI framework
-- `github.com/yuin/gopher-lua` - Lua VM
-- `github.com/BurntSushi/toml` - TOML parsing
-- `gopkg.in/yaml.v3` - YAML parsing
-- `github.com/pterm/pterm` - Terminal UI
-- `github.com/shirou/gopsutil/v4` - Process/system utilities
-
-## CROSS-PLATFORM
-- **Targets:** linux, darwin, windows on 386, amd64, arm, arm64, loong64
-- **Shells:** Bash, Zsh, Fish, PowerShell, Clink, Nushell
-- **Symlinks:** Unix (symbolic links), Windows (shim executables)
+### Config Chain
+1. Always use `GetToolConfig()` (tail-to-head priority lookup)
+2. Don't merge entire chain just to find one tool
+3. Always check scope returned from `GetToolConfig()`
 
 ---
 > Source: [version-fox/vfox](https://github.com/version-fox/vfox) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
