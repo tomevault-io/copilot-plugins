@@ -199,7 +199,8 @@ This avoids repeatedly reading large files and provides instant context about th
 5. **Gateway spawn inherits stdio** → logs appear in wrapper output (src/server.js:134)
 6. **WebSocket auth requires proxy event handlers** → Direct `req.headers` modification doesn't work for WebSocket upgrades with http-proxy; must use `proxyReqWs` event (src/server.js:741) to reliably inject Authorization header
 7. **Control UI requires allowInsecureAuth to bypass pairing** → Set `gateway.controlUi.allowInsecureAuth=true` during onboarding to prevent "disconnected (1008): pairing required" errors (GitHub issue #2284). Wrapper already handles bearer token auth, so device pairing is unnecessary.
+8. **Config Editor (`/setup/config`) writes `openclaw.json` directly** → unlike onboarding (which uses `openclaw config set --json`), the editor parses+validates JSON, makes a `.bak-<timestamp>` copy, then `fs.writeFileSync`s the new contents and calls `restartGateway()`. This is intentional: it's an operator-targeted advanced tool, so direct writes are simpler and let users fix arbitrarily-broken config without depending on the CLI.
 
 ---
 > Source: [arjunkomath/openclaw-railway-template](https://github.com/arjunkomath/openclaw-railway-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
