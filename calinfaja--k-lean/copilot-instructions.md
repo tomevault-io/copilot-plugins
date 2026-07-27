@@ -1,181 +1,102 @@
 ## k-lean
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Execute SmolKLN agents for specialized analysis. Use /kln:agent <role> \"<task>\" [--model MODEL]
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# /kln:agent - SmolKLN Agent Execution
 
-## Project Overview
+Specialized AI agents with role-based expertise powered by smolagents. Each agent has
+domain-specific prompts and access to tools for file reading, pattern search, and knowledge DB.
 
-K-LEAN is a multi-model code review and knowledge capture system for Claude Code. It provides consensus reviews from multiple LLMs via LiteLLM proxy, a persistent per-project knowledge database with hybrid semantic search, and 8 specialist agents for domain-specific analysis.
+## When to Use
 
-**Package name:** `kln-ai` (PyPI)
-**Entry points:** `kln` (main CLI), `kln-smol` (agent executor)
+- Task requires domain expertise (security audit, architecture review)
+- Role-based analysis is more effective than general review
+- Need multiple specialists in parallel (--parallel mode)
+- Want agents that can actually read and analyze files
 
-## Development Commands
+**NOT for:**
+- General code review → use `/kln:quick` or `/kln:multi`
+- Quick feedback without role specialization → use `/kln:quick`
+- Fresh debugging perspectives → use `/kln:rethink`
 
-**IMPORTANT:** Always use the project venv at `.venv/`. System python lacks required dependencies (platformdirs, psutil, etc.) and will fail on import.
+## Arguments
 
-```bash
-# Install in editable mode
-pipx install -e .
+$ARGUMENTS
 
-# Run tests (MUST use .venv)
-.venv/bin/pytest tests/ -v
-.venv/bin/pytest tests/unit/test_hooks.py -v
-.venv/bin/pytest tests/unit/test_hooks.py::TestClassName::test_method -v
+## Flags
 
-# Lint (MUST use .venv)
-.venv/bin/ruff check src/
-.venv/bin/ruff check src/ --fix
+- `--role, -r` - Agent role: code-reviewer, security-auditor, etc.
+- `--model, -m` - Specific model (auto-selects best for role if omitted)
+- `--parallel, -p` - Run 3 agents in parallel
+- `--async, -a` - Run in background
 
-# Format
-.venv/bin/black src/
+**Model names:** If user gives partial name (e.g. "qwen"), run `kln model list` to list available models and find full match. The kln-smol executor handles partial name resolution automatically.
 
-# Sync data files to ~/.claude/ after editing data/*
-kln admin sync
+**Role names:** If user gives partial role (e.g. "security"), match to full name from: `ls ~/.klean/agents/*.md | xargs -I{} basename {} .md`
 
-# Check installation health
-kln doctor -f
-```
+## Available Roles
 
-## Architecture
+| Role | Focus | Agent File |
+|------|-------|------------|
+| `code-reviewer` | Code quality, bugs, best practices | code-reviewer.md |
+| `security-auditor` | Security, compliance, OWASP | security-auditor.md |
+| `orchestrator` | Task coordination, planning | orchestrator.md |
+| `debugger` | Root cause analysis | debugger.md |
+| `arm-cortex-expert` | Embedded ARM systems | arm-cortex-expert.md |
+| `c-pro` | C99/C11/POSIX expertise | c-pro.md |
+| `rust-expert` | Rust ownership, lifetimes | rust-expert.md |
+| `performance-engineer` | Profiling, optimization | performance-engineer.md |
 
-### Core Flow
+## Execution
 
-```
-Claude Code
-    |
-    v
-/kln:* commands (data/commands/kln/*.md)
-    |
-    +---> LiteLLM Proxy (localhost:4000) ---> NanoGPT/OpenRouter
-    |
-    +---> Knowledge DB (.knowledge-db/) - fastembed hybrid search
-    |
-    +---> SmolKLN Agents (src/klean/smol/) - smolagents framework
-```
-
-### Key Modules
-
-| Module | Purpose |
-|--------|---------|
-| `src/klean/cli.py` | Click CLI with subgroups: `model`, `provider`, `admin` |
-| `src/klean/discovery.py` | Dynamic model discovery from LiteLLM proxy |
-| `src/klean/config_generator.py` | LiteLLM config generation with non-destructive merging |
-| `src/klean/model_defaults.py` | Default model configurations per provider |
-| `src/klean/model_utils.py` | Model name extraction and parsing utilities |
-| `src/klean/smol/executor.py` | Single agent execution with tool use |
-| `src/klean/smol/multi_agent.py` | Multi-agent orchestration and consensus |
-| `src/klean/smol/loader.py` | Agent definition loading from markdown (YAML frontmatter + system prompt) |
-| `src/klean/smol/models.py` | LiteLLM model wrapper with thinking model support |
-
-### Data Directory Structure
-
-`src/klean/data/` contains installable assets deployed to `~/.claude/`:
-
-```
-data/
-├── scripts/        # Python scripts for knowledge DB
-├── commands/kln/   # Slash commands (10 .md files)
-├── agents/         # SmolKLN agent definitions (8 + template)
-├── config/         # Config templates (LiteLLM, CLAUDE.md)
-├── core/           # Review prompts and role definitions
-├── multi-agents/   # Multi-agent orchestration definitions (6 .md files)
-├── prompts/        # Shared prompt templates
-└── rules/          # Claude Code rules (kln.md)
-```
-
-**Note:** Hooks are now Python entry points (`kln-hook-*`), not shell scripts.
-
-### Cross-Platform Modules
-
-| Module | Purpose |
-|--------|---------|
-| `src/klean/platform.py` | Cross-platform paths (platformdirs) and process management (psutil) |
-| `src/klean/reviews.py` | Async code review with httpx (quick, consensus, second-opinion) |
-| `src/klean/hooks.py` | Claude Code hook handlers (session, prompt, bash, web, compact) |
-
-### Knowledge DB
-
-Per-project storage in `.knowledge-db/` using hybrid search:
-- Dense embeddings: BAAI/bge-small-en-v1.5 via fastembed
-- Sparse matching: BM42
-- RRF fusion + post-RRF filtering (date, branch, type) + cross-encoder reranking
-- TCP server for fast queries (~30ms vs ~17s cold)
-- Auto-pinning: critical entries pinned at capture, others after 3 retrievals (1.3x boost, cap 15)
-
-Core scripts: `data/scripts/knowledge_db.py`, `knowledge-server.py`, `knowledge-capture.py`
-
-### Status Line
-
-`data/scripts/klean-statusline.py` polls LiteLLM and KB via TCP on each prompt.
-Displays: model, project, branch (dirty indicator), lines changed, model count, KB entry count.
-
-### Thinking Model Handling
-
-Models may return content in different fields. Always check both:
-```python
-content = response.get("content") or response.get("reasoning_content")
-```
-
-The `reviews.py` module handles this automatically via `_extract_content()` which strips `<think>` tags.
-
-## CLI Structure
-
-```
-kln
-├── init                    # Interactive setup (provider selection + install)
-├── install / uninstall     # Deploy/remove ~/.claude/ components
-├── start / stop            # LiteLLM proxy management
-├── status / doctor         # Health checks
-├── multi                   # Multi-agent orchestrated review
-├── model                   # Subgroup
-│   ├── list [--health]
-│   ├── add --provider <p> "<model>"
-│   ├── remove "<model>"
-│   └── test "<model>"
-├── provider                # Subgroup
-│   ├── list
-│   ├── add <provider> --api-key <key>
-│   ├── set-key <provider> --key <key>
-│   └── remove <provider>
-└── admin                   # Hidden subgroup
-    ├── sync                # Sync data files
-    ├── debug               # Live monitoring
-    ├── test                # Run test suite
-    └── persist-session     # Generate session log via Claude Haiku
-```
-
-## Release Process
-
-Version is maintained in TWO files (must match):
-1. `pyproject.toml` -> `version = "X.Y.Z"`
-2. `src/klean/__init__.py` -> `__version__ = "X.Y.Z"`
+Run via `kln-smol` command (installed with kln-ai) which uses smolagents with LiteLLM:
 
 ```bash
-# Verify release readiness
-./src/klean/data/scripts/prepare-release.sh --check
-
-# Build locally
-python -m build
-twine check dist/*
+kln-smol <agent> "<task>" [--model MODEL] [--telemetry]
 ```
 
-Releases are published via GitHub Actions workflow `.github/workflows/publish.yml`.
+**Note:** Requires smolagents: `pipx inject kln-ai 'smolagents[litellm]'`
 
-## Code Conventions
+### Tools Available to Agents
 
-- Line length: 100 characters (ruff/black)
-- Target Python: 3.9+
-- Cross-platform: Use `klean.platform` for paths and process management
-- Hooks: Python entry points (`kln-hook-*`), read JSON from stdin, output JSON to stdout
-- PreCompact: async hook, generates session log via Claude Haiku, validates structured output
-- Session logs: `.serena/memories/kln-session-YYYY-MM-DD.md` (auto-generated on PreCompact)
-- IPC: TCP localhost (not Unix sockets) for cross-platform compatibility
-- Commit style: conventional commits (`feat:`, `fix:`, `docs:`, etc.)
+- `read_file` - Read file contents
+- `search_files` - Glob pattern search (recursive by default)
+- `grep` - Pattern search in files
+- `knowledge_search` - Query project's Knowledge DB
+- `get_complexity` - Analyze code complexity (Python + C/C++ via lizard)
+- `scan_secrets` - Detect hardcoded secrets/credentials
+- `git_show`, `git_diff`, `git_log`, `git_status` - Git operations
+
+### MCP Integration (if available)
+
+- Serena MCP for code symbol analysis
+- Context7 for documentation lookup
+
+## Parallel Mode (--parallel)
+
+When `--parallel` is set, spawn 3 agents simultaneously:
+- code-reviewer (quality focus)
+- security-auditor (security focus)
+- performance-engineer (performance focus)
+
+Aggregate their findings into a unified report.
+
+## Examples
+
+```
+/kln:agent code-reviewer "review auth module"
+/kln:agent --role security-auditor "audit API endpoints"
+/kln:agent --role orchestrator "plan refactoring of data layer"
+/kln:agent --parallel "comprehensive review of latest changes"
+/kln:agent -r debugger "investigate memory leak in parser"
+```
+
+## Agent Locations
+
+- Installed: `~/.klean/agents/*.md`
+- Source: `src/klean/data/agents/*.md`
 
 ---
 > Source: [calinfaja/K-LEAN](https://github.com/calinfaja/K-LEAN) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
