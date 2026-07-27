@@ -4,7 +4,7 @@
   "repo": "DoraCMS",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doramart/DoraCMS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T13:26:32Z"
+  "distributed_at": "2026-07-27T04:35:19Z"
 }
