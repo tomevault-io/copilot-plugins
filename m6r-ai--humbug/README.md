@@ -1,8 +1,6 @@
 # humbug
 
-> Source: [m6r-ai/humbug](https://github.com/m6r-ai/humbug) — distributed by [TomeVault](https://tomevault.io)
-
-Humbug: building an operating system for human-AI collaboration
+> Source: [m6r-ai/humbug](https://github.com/m6r-ai/humbug). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [m6r-ai/humbug](https://github.com/m6r-ai/humbug
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [m6r-ai/humbug](https://github.com/m6r-ai/humbug) — a repo with 94+ stars on GitHub.
+From [m6r-ai/humbug](https://github.com/m6r-ai/humbug) — a repo with 100+ stars on GitHub.
 
 ---
 
