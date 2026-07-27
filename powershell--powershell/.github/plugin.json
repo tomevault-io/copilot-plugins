@@ -1,0 +1,14 @@
+{
+  "name": "powershell--powershell",
+  "displayName": "PowerShell",
+  "description": "PowerShell",
+  "version": "1.0.0",
+  "author": "PowerShell",
+  "homepage": "https://github.com/PowerShell/PowerShell",
+  "skills": [
+    {
+      "name": "PowerShell",
+      "description": ""
+    }
+  ]
+}
