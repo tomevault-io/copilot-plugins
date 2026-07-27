@@ -1,7 +1,7 @@
 {
   "name": "openknots--code-editor",
   "displayName": "code-editor",
-  "description": "Cursor-Codex-lite: Gateway-integrated code editor with AI coding agent",
+  "description": "code-editor",
   "version": "1.0.0",
   "author": "OpenKnots",
   "homepage": "https://github.com/OpenKnots/code-editor",
