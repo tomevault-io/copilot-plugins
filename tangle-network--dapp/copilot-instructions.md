@@ -2,7 +2,6 @@
 
 > This project is Tangle dApp - a monorepo containing multiple dApp projects that serve as the frontend for our custom Substrate-based network/node 'Tangle'. Tangle is a cryptocurrency network created using the Substrate framework, which is part of the Polkadot ecosystem. Tangle is a layer 1 for on-demand services where developers can build and monetize decentralized services using Tangle Blueprints. They can also deploy innovative infrastructure in any blockchain ecosystem.
 
-
 # Tangle dApp Monorepo
 
 This project is Tangle dApp - a monorepo containing multiple dApp projects that serve as the frontend for our custom Substrate-based network/node 'Tangle'. Tangle is a cryptocurrency network created using the Substrate framework, which is part of the Polkadot ecosystem. Tangle is a layer 1 for on-demand services where developers can build and monetize decentralized services using Tangle Blueprints. They can also deploy innovative infrastructure in any blockchain ecosystem.
@@ -19,7 +18,6 @@ This project is Tangle dApp - a monorepo containing multiple dApp projects that 
 - Always use `if (condition) { ... }` style over `if (condition) ...` (braces = less chance for logic bugs to creep in).
 - If making new components, always prefer the `const ...: FC<Props> = ({propA, propB, ...}) => {...}` style.
 - When writing JSX, add empty lines between sibiling components to stay consistent. Example:
-
 ```
 <>
   <div>
@@ -69,5 +67,5 @@ Tangle dApp is the main product and focus of the monorepo. Here's the tech stack
 Contains shared logic, hooks, and utility functions between multiple Tangle dApps, such as `tangle-cloud` & `tangle-dapp`. This differs from `ui-components` in that `ui-components` is more geared towards general & re-usable components, not necesarily tied to any context, whereas `libs/tangle-shared-ui` is specific to Tangle-related logic.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/tangle-network) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [tangle-network/dapp](https://github.com/tangle-network/dapp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
