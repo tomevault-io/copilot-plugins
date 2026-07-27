@@ -1,0 +1,86 @@
+{
+  "name": "epicweb-dev--epic-stack",
+  "displayName": "epic-stack",
+  "description": "epic-stack",
+  "version": "1.0.0",
+  "author": "epicweb-dev",
+  "homepage": "https://github.com/epicweb-dev/epic-stack",
+  "skills": [
+    {
+      "name": "epic-auth",
+      "description": ""
+    },
+    {
+      "name": "epic-caching",
+      "description": ""
+    },
+    {
+      "name": "epic-database",
+      "description": ""
+    },
+    {
+      "name": "epic-deployment",
+      "description": ""
+    },
+    {
+      "name": "epic-forms",
+      "description": ""
+    },
+    {
+      "name": "epic-permissions",
+      "description": ""
+    },
+    {
+      "name": "epic-react-patterns",
+      "description": ""
+    },
+    {
+      "name": "epic-routing",
+      "description": ""
+    },
+    {
+      "name": "epic-security",
+      "description": ""
+    },
+    {
+      "name": "epic-ui-guidelines",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    },
+    {
+      "name": "epic-stack",
+      "description": ""
+    }
+  ]
+}
