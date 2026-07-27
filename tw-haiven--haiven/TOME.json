@@ -4,7 +4,7 @@
   "repo": "haiven",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tw-haiven/haiven",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T20:15:53Z"
+  "distributed_at": "2026-07-27T11:33:14Z"
 }
