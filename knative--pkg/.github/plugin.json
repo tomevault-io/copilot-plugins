@@ -1,0 +1,9 @@
+{
+  "name": "knative--pkg",
+  "displayName": "pkg",
+  "description": "pkg",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/pkg",
+  "skills": []
+}
