@@ -1,0 +1,14 @@
+{
+  "name": "microsoft--fabric-rti-mcp",
+  "displayName": "fabric-rti-mcp",
+  "description": "fabric-rti-mcp",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/fabric-rti-mcp",
+  "skills": [
+    {
+      "name": "fabric-rti-mcp",
+      "description": ""
+    }
+  ]
+}
