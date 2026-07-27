@@ -1,0 +1,81 @@
+{
+  "name": "charmcraft",
+  "owner": "canonical",
+  "repo": "charmcraft",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "charmcraft",
+      "path": ".github/skills/documentation-style/SKILL.md",
+      "github_url": "https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-style/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "path": ".github/skills/documentation-build/SKILL.md",
+      "github_url": "https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "path": ".github/skills/documentation-review/SKILL.md",
+      "github_url": "https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "path": ".github/skills/documentation-verify/SKILL.md",
+      "github_url": "https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-verify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "path": ".github/skills/documentation-diataxis/SKILL.md",
+      "github_url": "https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-diataxis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "charmcraft",
+      "path": ".github/skills/documentation-structure/SKILL.md",
+      "github_url": "https://github.com/canonical/charmcraft/tree/main/.github/skills/documentation-structure/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/canonical/charmcraft",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T05:32:39Z"
+}
