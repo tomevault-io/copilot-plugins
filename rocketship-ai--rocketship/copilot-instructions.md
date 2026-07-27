@@ -1,394 +1,162 @@
 ## rocketship
 
-> This file provides guidance to AI coding agents (including this Codex CLI assistant) when working with code in this repository.
+> AI-powered testing using Claude for browser control, verification, and multi-step workflows.
 
-# AGENTS.md
+# Agent Plugin
 
-This file provides guidance to AI coding agents (including this Codex CLI assistant) when working with code in this repository.
+AI-powered testing using Claude for browser control, verification, and multi-step workflows.
 
-> **Versioning note:** Rocketship is still pre-1.0. There is **no backwards-compatibility requirement** for any interface, schema, or behaviour. Optimise for the current epic even if it means breaking past behaviour; do not preserve legacy code paths for compatibility unless the user explicitly asks.
-
-## Rocketship Cloud v1 Snapshot
-
-- Product focus: hosted cloud with GitHub SSO (device flow for CLI, OAuth for web) backed by our controlplane that mints Rocketship JWTs. Engine + worker still run tests via Temporal.
-- Tenancy: **Org → Project**. Projects reference repo URL, default branch, and `path_scope` globs for mono-repo isolation. No “workspace” layer.
-- Roles: project-level **Read** (view only) and **Write** (run/edit). Org Admins inherit Write on all projects. Tokens must carry explicit roles; missing roles are rejected.
-- Git-as-SoT: UI/CLI can run uncommitted edits immediately (flagged as `config_source=uncommitted`). Approvals/merges happen in GitHub; Rocketship can optionally open PRs or commits if the user has push rights.
-- Tokens: user JWT + refresh issued by controlplane; CI tokens are opaque secrets scoped per project with explicit permissions + TTL. Engine tags runs with `initiator`, `environment`, `config_source`, `commit_sha`/`bundle_sha` for auditability.
-- Controlplane persists orgs/users/memberships in Postgres. Fresh logins return `pending` roles until the user creates or joins an org via `POST /api/orgs`.
-- Guardrails: enforce path scopes, reject unknown RPCs in auth, clarify uncommitted runs, prefer minikube Helm flow for reproducible clusters.
-
-## Architecture Overview
-
-Rocketship is an open-source testing framework for browser and API testing that uses Temporal for durable execution. The system is built with Go and follows a plugin-based architecture.
-
-There are 3 "server" components that make up the Rocketship system: Temporal, Engine, and Worker. The CLI is meant to communicate with the engine. There are three ways to run Rocketship:
-
-1. **Minikube stack**: `scripts/install-minikube.sh` provisions Temporal + Rocketship inside an isolated cluster per branch.
-2. **Self-hosted cluster**: Deploy the Helm charts to your own Kubernetes environment and connect the CLI remotely.
-3. **Local processes**: Use `rocketship start server` / `rocketship run -af` for quick experiments without Kubernetes.
-
-**Key Components:**
-
-- **CLI (`cmd/rocketship/`)**: Main entry point that wraps the engine and worker binaries
-- **Engine (`cmd/engine/`)**: gRPC server that orchestrates test execution via Temporal workflows
-- **Worker (`cmd/worker/`)**: Temporal worker that executes test workflows using plugins
-- **Plugins (`internal/plugins/`)**: Extensible system for different protocols (HTTP, delay, AWS services)
-- **DSL Parser (`internal/dsl/`)**: Parses YAML test specifications into executable workflows
-- **Orchestrator (`internal/orchestrator/`)**: Engine implementation that manages test runs and streaming logs
-
-**Test Flow:**
-
-1. YAML spec is parsed by DSL parser
-2. Engine creates Temporal workflows for each test
-3. Worker executes test steps using appropriate plugins
-4. Results are streamed back via gRPC to CLI
-
-## Development Commands
-
-### Build and Install
-
-```bash
-make install        # Build CLI with embedded binaries and install CLI to $GOPATH/bin
-```
-
-### Testing and Quality
-
-```bash
-make lint && make test    # lint and test
-```
-
-### Embedded Binaries
-
-The CLI embeds engine and worker binaries. Always run `make install` after modifying engine/worker code.
-
-### Protocol Buffers
-
-```bash
-make proto          # Regenerate protobuf code from proto/engine.proto
-```
-
-### Documentation
-
-```bash
-make docs-serve     # Start local documentation server
-make docs           # Build documentation
-```
-
-## Debugging and Logging
-
-### Debug Logging
-
-All processes (CLI, engine, worker) use unified structured logging from `internal/cli/logging.go`:
-
-```bash
-rocketship run --debug -af test.yaml    # Full debug output
-rocketship run -af test.yaml            # Info level (default)
-ROCKETSHIP_LOG=ERROR rocketship run -af test.yaml    # Errors only
-```
-
-Debug logging shows:
-
-- Process lifecycle (start, stop, cleanup)
-- Temporal connections and workflow execution
-- Plugin execution details
-- gRPC server initialization
-
-DEBUG LOGGING IS EXTREMELY USEFUL DURING DEVELOPMENT.
-
-### Advanced Debugging Techniques
-
-When debugging complex issues with plugins or workflow state:
-
-```bash
-# Run with debug logging and save to file for analysis
-rocketship run --debug -af test.yaml --env-file .env 2>&1 > /tmp/debug.log
-
-# Search for specific plugin activity logs
-cat /tmp/debug.log | grep -A 10 "SUPABASE Activity"
-
-# Find logs for a specific step by Activity ID
-cat /tmp/debug.log | grep -A 5 "ActivityID 47"
-
-# Search for save/state-related logs
-cat /tmp/debug.log | grep -E "(Processing save|saved values|State after step)"
-
-# Find all logs for a specific workflow step
-cat /tmp/debug.log | grep -A 20 "step 2:"
-
-# Check for variable replacement issues
-cat /tmp/debug.log | grep -E "(undefined variables|failed to parse template)"
-```
-
-**Key Log Patterns to Look For:**
-
-- `SUPABASE Activity called` - Shows parameters passed to Supabase plugin
-- `Processing save configs` - Indicates save operations are being processed
-- `State after step N` - Shows workflow state after each step (check if variables are saved)
-- `DEBUG processSave` - Shows response data structure during save operations
-- `Successfully saved value` - Confirms a value was extracted and saved
-
-**Common Issues:**
-
-1. **Empty state after step**: Variable extraction failed, check `responseData` in logs
-2. **undefined variables error**: Variable not saved in previous step, check save configs
-3. **null responseData**: API returned error or empty response, check for error logs
-
-### Development Workflow
-
-1. **Make code changes** to engine/worker/CLI
-2. **Rebuild binaries**: `make install`
-3. **Test with debug logging**: `rocketship run --debug -af .rocketship/simple-http.yaml`
-4. **Run lint and test suite**: `make lint && make test`
-
-### Local Development Binary Usage
-
-The system automatically uses local development binaries from `internal/embedded/bin/` when available, avoiding GitHub downloads. This makes iterative development faster.
-
-### Common Development Tasks
-
-```bash
-# Quick test with debug output
-rocketship run --debug -af .rocketship/simple-http.yaml
-
-# Background server for iterative testing
-rocketship --debug start server --background
-rocketship run -f test.yaml
-rocketship stop server
-
-# Validate YAML changes
-rocketship validate test.yaml
-```
-
-## Test Specifications
-
-Tests are defined in YAML files with this structure:
-
-- `name`: Test suite name
-- `tests[]`: Array of test cases
-- `tests[].steps[]`: Sequential steps within a test
-- `steps[].plugin`: Plugin to use (http, delay, aws/\*)
-- `steps[].assertions[]`: Validation rules
-- `steps[].save[]`: Variable extraction for step chaining
-
-## Plugin System
-
-Plugins implement the `Plugin` interface in `internal/plugins/plugin.go`. Each plugin has:
-
-- `Execute()`: Main execution logic
-- `Parse()`: Configuration parsing
-- Plugin-specific types in separate files
-
-Plugins include: HTTP, delay, AWS (S3, SQS, DynamoDB), SQL, log, script, agent, playwright, supabase, etc.
-
-### Variable Replacement in Plugins
-
-**CRITICAL**: All plugins MUST use the central DSL template system for variable replacement to ensure consistency.
-
-**DO NOT create custom variable replacement implementations.** Always use:
-
-- `dsl.ProcessTemplate()` for runtime and environment variable processing
-- `dsl.ProcessConfigVariablesRecursive()` for config variable processing in nested structures
-- `dsl.TemplateContext` for providing runtime variables to the template system
-
-**Supported Variable Types:**
-
-- Config variables: `{{ .vars.variable_name }}` (processed by CLI before plugin execution)
-- Runtime variables: `{{ variable_name }}` (processed by plugins using DSL system)
-- Environment variables: `{{ .env.VARIABLE_NAME }}` (processed by DSL system)
-- Escaped handlebars: `\{{ literal_handlebars }}` (handled by DSL system)
-
-**Standard Implementation Pattern:**
-
-```go
-// Convert state to interface{} map for DSL compatibility
-runtime := make(map[string]interface{})
-for k, v := range state {
-    runtime[k] = v
-}
-
-// Create template context with runtime variables
-context := dsl.TemplateContext{
-    Runtime: runtime,
-}
-
-// Use centralized template processing
-result, err := dsl.ProcessTemplate(input, context)
-if err != nil {
-    return "", fmt.Errorf("template processing failed: %w", err)
-}
-```
-
-This ensures all plugins handle variables identically and support all documented features including escaped handlebars and environment variables.
-
-### Browser Testing Plugins
-
-Rocketship provides browser testing plugins:
-
-- **`playwright`**: For low-level browser control and scripted actions (Python-based, uses Playwright library)
-- **`agent`**: For AI-driven testing using Claude (Python-based, uses the Claude Agent SDK)
-
-Both plugins support persistent browser sessions and have their Python scripts embedded into the binary using `go:embed`.
-
-## 🚀 Minikube Environment (RECOMMENDED)
-
-The legacy `.docker/rocketship` wrapper has been replaced by a maintained Minikube workflow. Use it to get an isolated Temporal + Rocketship stack per branch.
-
-### Quick Start
-
-```bash
-scripts/install-minikube.sh
-```
-
-The script initializes (or reuses) a Minikube profile, builds fresh engine/worker images inside the cluster, installs Temporal, registers the workflow namespace, and deploys the Rocketship chart.
-
-### Customisation
-
-Environment variables you can override:
-
-| Variable                      | Default      | Description                                   |
-| ----------------------------- | ------------ | --------------------------------------------- |
-| `MINIKUBE_PROFILE`            | `rocketship` | Minikube profile name                         |
-| `ROCKETSHIP_NAMESPACE`        | `rocketship` | Namespace for Rocketship deployments          |
-| `TEMPORAL_NAMESPACE`          | `rocketship` | Namespace for the Temporal release            |
-| `TEMPORAL_WORKFLOW_NAMESPACE` | `rocketship` | Temporal logical namespace used by Rocketship |
-| `ROCKETSHIP_RELEASE`          | `rocketship` | Helm release for Rocketship                   |
-| `TEMPORAL_RELEASE`            | `temporal`   | Helm release for Temporal                     |
-
-### Usage Workflow
-
-```bash
-# 1. Provision / update the stack
-scripts/install-minikube.sh
-
-# 2. Inspect resources
-kubectl get pods -n rocketship
-
-# 3. Port-forward when running CLI commands locally
-kubectl port-forward -n rocketship svc/rocketship-engine 7700:7700
-rocketship profile create minikube grpc://localhost:7700
-rocketship profile use minikube
-
-# 4. Run tests
-rocketship run -af .rocketship/simple-http.yaml
-
-# 5. Tear down when finished
-helm uninstall rocketship temporal -n rocketship
-kubectl delete namespace rocketship
-minikube delete -p rocketship
-```
-
-Always include a unique `X-Test-Session` header when calling shared services like `https://tryme.rocketship.sh` to avoid cross-test contamination.
-
-## Running Tests (Legacy Local Mode)
-
-```bash
-rocketship run -af test.yaml    # Auto-start local engine, run tests, auto-stop engine
-rocketship start server -b      # Start engine locally in the background
-rocketship run test.yaml        # Run against existing engine (defaults to localhost:7700)
-rocketship stop server          # Stop local background engine
-```
-
-### Engine Dependencies for Commands
-
-**Important**: Some commands require a running engine to communicate with:
-
-- `rocketship get` - Requires running engine to fetch run details
-- `rocketship list` - Requires running engine to list test runs
-- `rocketship validate` - Works offline (no engine required)
-
-**Workflow for using get/list commands:**
-
-```bash
-# Start server in background
-rocketship start server -b
-
-# Run tests (keeps engine running)
-rocketship run test.yaml
-
-# Now you can use get/list commands
-rocketship list runs
-rocketship get run <run-id>
-
-# Stop server when done
-rocketship stop server
-```
-
-**Auto mode (-a flag)**: Starts engine, runs tests, then shuts down engine automatically. Use this for simple test execution, but you won't be able to use get/list commands afterward since the engine stops.
-
-## Running Tests with SQL Plugin
-
-- **Minikube stack:** run `scripts/install-minikube.sh`, port-forward the engine, then execute `rocketship run -af .rocketship/sql-testing.yaml`.
-- **Standalone Docker containers:**
-
-  ```bash
-  docker run --rm -d --name rocketship-postgres     -e POSTGRES_PASSWORD=testpass     -e POSTGRES_DB=testdb     -p 5433:5432     postgres:13
-
-  docker run --rm -d --name rocketship-mysql     -e MYSQL_ROOT_PASSWORD=testpass     -e MYSQL_DATABASE=testdb     -p 3306:3306     mysql:8.0
-  ```
-
-  Update DSNs accordingly and stop the containers after testing.
-
-## Running Tests with Browser Plugin
-
-When using Minikube, the worker image built by `scripts/install-minikube.sh` already contains the Python and Playwright dependencies. After the script completes, port-forward the engine and run:
-
-```bash
-rocketship run -af .rocketship/browser.yaml
-```
-
-For manual local setups, install the dependencies once:
-
-```bash
-pip install playwright
-playwright install chromium
-rocketship run -af .rocketship/browser.yaml
-```
-
-## Testing Against tryme Server
-
-For testing purposes, there's a hosted test server at `tryme.rocketship.sh` that provides endpoints for testing HTTP requests. This server is useful for development and testing without requiring external services.
-
-The tryme server features:
-
-- Test CRUD operations for a resource type
-- Resources are isolated based off a session header
-- Resource cleanup is done hourly (every :00)
-
-### Test Session Isolation
-
-When multiple coding agents are testing simultaneously, use the `X-Test-Session` header to ensure complete isolation between test sessions:
+## Quick Start
 
 ```yaml
-steps:
-  - name: "Test with session isolation"
-    plugin: http
-    config:
-      url: "https://tryme.rocketship.sh/users"
-      method: "POST"
-      headers:
-        X-Test-Session: "unique-session-id-for-this-agent"
-      body: |
-        {
-          "name": "Test User",
-          "email": "test@example.com"
-        }
+- name: "Verify login page"
+  plugin: agent
+  config:
+    prompt: |
+      Navigate to {{ .env.FRONTEND_URL }}/login and verify:
+      - Login form is visible
+      - Email and password fields exist
+      - Submit button is present
 ```
 
-**Important**: Each coding agent should use a unique value for the `X-Test-Session` header to prevent interference between concurrent test runs. This ensures that:
+## Prerequisites
 
-- Test data is isolated per session
-- Concurrent agents don't affect each other's test results
-- Each agent gets its own isolated test environment
+```bash
+# Set Anthropic API key
+export ANTHROPIC_API_KEY=sk-ant-your-key-here
+```
 
-Example session ID patterns:
+## Configuration
 
-- `agent-1-timestamp-hash`
-- `worktree-name-uuid`
-- `feature-branch-random-id`
+### Required Fields
 
-This isolation is particularly important when using the Docker worktree setup where multiple agents may be testing simultaneously.
+| Field    | Description                      | Example                                    |
+| -------- | -------------------------------- | ------------------------------------------ |
+| `prompt` | Natural language task for Claude | `"Click login button and verify redirect"` |
+
+### Optional Fields
+
+| Field       | Description               | Default     |
+| ----------- | ------------------------- | ----------- |
+| `max_turns` | Max agent loop iterations | unlimited   |
+| `timeout`   | Max execution time        | unlimited   |
+
+## Common Use Cases
+
+### Login Flow
+
+```yaml
+- name: "Complete login"
+  plugin: agent
+  config:
+    prompt: |
+      Navigate to {{ .env.FRONTEND_URL }}/login and login with:
+      - Email: {{ .env.TEST_EMAIL }}
+      - Password: {{ .env.TEST_PASSWORD }}
+
+      Verify you land on the dashboard page.
+    timeout: "2m"
+```
+
+### Multi-Step Workflows
+
+```yaml
+- name: "Complete checkout"
+  plugin: agent
+  config:
+    prompt: |
+      Complete a checkout flow:
+      1. Add product ID {{ product_id }} to cart
+      2. Navigate to cart
+      3. Click checkout
+      4. Fill shipping form with test data
+      5. Verify order summary shows {{ product_id }}
+    max_turns: 15
+    timeout: "3m"
+  save:
+    - json_path: ".result"
+      as: "checkout_result"
+```
+
+### Data Extraction
+
+```yaml
+- name: "Extract pricing"
+  plugin: agent
+  config:
+    prompt: |
+      Go to /pricing and extract all plan names and prices.
+      Return as JSON: [{"name": "...", "price": "..."}]
+  save:
+    - json_path: ".result"
+      as: "pricing_plans"
+```
+
+### Combining with Database
+
+```yaml
+- name: "Get expected count from database"
+  plugin: supabase
+  config:
+    operation: "select"
+    table: "vehicles"
+    select:
+      columns: ["id"]
+  save:
+    - json_path: ". | length"
+      as: "vehicle_count"
+
+- name: "Verify UI matches database"
+  plugin: agent
+  config:
+    prompt: |
+      Navigate to /fleet and verify:
+      - Map displays {{ vehicle_count }} vehicle markers
+      - Vehicle cards show {{ vehicle_count }} vehicles
+```
+
+## Complete Example
+
+```yaml
+name: "Login Test"
+tests:
+  - name: "Agent-powered login flow"
+    steps:
+      - name: "Login and verify"
+        plugin: agent
+        config:
+          prompt: |
+            1. Navigate to {{ .env.FRONTEND_URL }}/login
+            2. Fill email: {{ .env.TEST_EMAIL }}
+            3. Fill password: {{ .env.TEST_PASSWORD }}
+            4. Click login button
+            5. Verify you're on the dashboard page
+          max_turns: 10
+          timeout: "2m"
+```
+
+## Best Practices
+
+- **Be specific**: `"Click 'Add to Cart' for product 123"` not `"Add something"`
+- **Set timeouts**: 30s (simple), 2m (multi-step), 5m (complex)
+- **Use variables**: Pass dynamic data via `{{ variable_name }}`
+- **Handle dynamic content**: `"Wait for spinner to disappear, then verify..."`
+- **Clear prompts**: Break complex tasks into numbered steps
+
+## Troubleshooting
+
+| Issue             | Solution                                        |
+| ----------------- | ----------------------------------------------- |
+| Agent timeout     | Increase `timeout` or reduce task complexity    |
+| Task fails        | Simplify prompt, add more specific instructions |
+| Connection errors | Verify ANTHROPIC_API_KEY is set                 |
+
+## See Also
+
+- [Playwright Plugin](playwright.md) - Deterministic browser automation
+- [Browser Use Plugin](browser-use.md) - Alternative AI browser automation
+- [Variables](../features/variables.md) - Passing data to agent prompts
 
 ---
 > Source: [rocketship-ai/rocketship](https://github.com/rocketship-ai/rocketship) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
