@@ -1,114 +1,66 @@
-## wize-check-implementation-readiness
+## wize-code-review
 
-> 3-solutioning: Check Implementation Readiness
+> 4-implementation: Code Review
 
 
-# Check Implementation Readiness
+# Code Review
 
-# Check Implementation Readiness
+# Code Review
 
-**Goal.** Before any story enters dev, confirm everything is in place. This is the **gate at the end of Phase 3**. Cheap; saves multiples of itself downstream.
+**Goal.** Review code changes adversarially using parallel review layers and structured triage into actionable categories.
 
-Tony chairs. Hill and Hawkeye sign off. Pepper and Mantis answer if pulled in.
+This is **Shuri's peer code review** — separate from Hawkeye's `wize-tea-review` (which audits AC fulfillment). Both run on every story PR; they are complementary.
+
+## When to run
+
+Every PR that ships code. Quick-dev PRs get a lighter review (skip architecture checks unless they touched architecture).
 
 ## Inputs
 
-- `.wize/planning/prd.md` (validated)
-- `.wize/planning/ux/ux-design/` + `index.md`
-- `.wize/planning/tech-vision.md`
-- `.wize/planning/nfr-principles.md`
-- `.wize/solutioning/architecture.md`
-- `.wize/solutioning/adrs/`
-- `.wize/solutioning/design-system/`
-- `.wize/solutioning/epics/` + `stories/`
-- `.wize/implementation/tea/risk-profile.md` (Hawkeye)
-- `.wize/config/tea.toml` (policy choice)
+- The diff, PR, branch, or commit range to review.
+- The spec/story file for context (optional but recommended).
+- Existing code style and project context from `.wize/knowledge/document-project/`.
 
 ## Outputs
 
-- `.wize/solutioning/readiness-{YYYY-MM-DD}.md` — checklist result + signoffs.
+- Inline-style findings presented in the conversation.
+- Optional patch application if the user chooses to fix findings now.
+- Updated story file with a `### Review Findings` section when a spec file is provided.
+- Updated sprint status when a story key is discovered.
 
-## Checklist (Tony chairs)
+## Workflow architecture
 
-### Planning artifacts
-- [ ] PRD `status: validated`.
-- [ ] All open questions in PRD resolved (no `blocker` open).
-- [ ] Trigger map covers every PRD goal.
+This skill uses **step-file architecture**:
 
-### UX
-- [ ] Every In-scope item has at least one screen spec.
-- [ ] UX design index maps every screen → scenario → AC.
-- [ ] Design system tokens + components needed by the UX exist.
+- Each step is self-contained and followed exactly.
+- Sequential enforcement: complete steps in order, no skipping.
+- State tracked in frontmatter variables set at runtime.
+- Append-only building of findings.
 
-### Strategy
-- [ ] Tech vision `status: aligned`.
-- [ ] NFR principles `status: aligned`; verifiers named for every non-negotiable.
+## Critical rules
 
-### Architecture
-- [ ] Architecture doc `status: ready-for-stories`.
-- [ ] ADRs cover every meaningful trade-off.
-- [ ] NFR check section answers *how* for each non-negotiable.
+- **Read completely** each step file before acting.
+- **Never** load multiple step files simultaneously.
+- **Always** halt at checkpoints and wait for human input.
+- Use CWD-relative `path:line` for every code reference.
 
-### Stories
-- [ ] Every epic has 3–10 stories.
-- [ ] Every story has AC IDs from the PRD; the union per epic equals the epic's AC set.
-- [ ] No story is XL.
-- [ ] Each story names touch-points + `testid` + reuse of design-system components.
+## On activation
 
-### TEA
-- [ ] `tea-risk.md` exists.
-- [ ] `.wize/config/tea.toml` policy is committed (advisory / enforcing).
-- [ ] First-story `tea-design.md` is drafted (proof Hawkeye's contract works).
+1. Load `.wize/config/project.toml` and `.wize/config/user.toml`.
+2. Resolve `user_name`, `communication_language`, `document_output_language`, `implementation_artifacts`, `planning_artifacts`.
+3. Greet the user in `communication_language`.
+4. Read fully and follow `./steps/step-01-gather-context.md`.
 
-### Cross-cutting
-- [ ] CI runs tests + validators on every PR.
-- [ ] Lint/format on commit.
-- [ ] Branch protection on `main`.
-- [ ] Secrets vault wired; no secret in repo.
+## Steps
 
-## Outcome
-
-- **Ready** → write the readiness file, link from `sprint-planning`.
-- **Concerns** → list specifically what's missing, owner per item, deadline. Re-check.
-
-## Output template
-
-```markdown
----
-status: ready | concerns
-date: YYYY-MM-DD
-chair: Tony Stark
-signoffs:
-  - Maria Hill (PM)
-  - Hawkeye (TEA)
-  - Mantis (UX) — async
-  - Fury (Strategy) — async
----
-
-# Implementation Readiness — {{project_name}}
-
-## Result: Ready
-
-## Notes
-- Architecture covers 5 epics and 28 stories.
-- TEA policy: advisory; NFR gate per epic.
-- 2 ADRs accepted in this gate review (ADR-008, ADR-009).
-
-## Open items (carry forward, not blockers)
-- Marketing site for launch — separate track, owned by …
-- Stripe-Atlas back-office decision — by date X.
-```
-
-## Anti-patterns
-
-- "Looks ready" without running the checklist.
-- Signing off before Hawkeye has risk-profiled.
-- Closing concerns without re-checking.
-- Leaving CI configuration "for later" — never gets done.
+1. `step-01-gather-context.md` — identify the diff source, construct `{diff_output}`, set `{review_mode}` and `{spec_file}`.
+2. `step-02-review.md` — launch parallel review layers (Blind Hunter, Edge Case Hunter, Acceptance Auditor).
+3. `step-03-triage.md` — normalize, deduplicate, and classify findings into `decision_needed`, `patch`, `defer`, `dismiss`.
+4. `step-04-present.md` — present findings, resolve decisions, apply patches, update story status.
 
 ## Hand-off
 
-> Implementation readiness signed off. Hill, kick `wize-sprint-planning`. Hawkeye, your gate cadence is set: design per story, trace + review + gate per story, NFR per epic.
+> Code review complete for `{story_key or change}`. `{decision_needed}` decision(s), `{patch}` patch(es), `{defer}` deferred, `{dismissed}` dismissed as noise. Next: re-run review or continue to `wize-tea-review` (Hawkeye).
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
