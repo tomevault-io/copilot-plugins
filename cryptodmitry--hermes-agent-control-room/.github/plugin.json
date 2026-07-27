@@ -1,7 +1,7 @@
 {
   "name": "cryptodmitry--hermes-agent-control-room",
   "displayName": "hermes-agent-control-room",
-  "description": "Control Room-first template for managing Hermes agents from one VPS agent to specialist teams and orchestrated workflows ",
+  "description": "hermes-agent-control-room",
   "version": "1.0.0",
   "author": "CryptoDmitry",
   "homepage": "https://github.com/CryptoDmitry/hermes-agent-control-room",
