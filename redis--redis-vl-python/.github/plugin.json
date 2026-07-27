@@ -1,0 +1,9 @@
+{
+  "name": "redis--redis-vl-python",
+  "displayName": "redis-vl-python",
+  "description": "redis-vl-python",
+  "version": "1.0.0",
+  "author": "redis",
+  "homepage": "https://github.com/redis/redis-vl-python",
+  "skills": []
+}
