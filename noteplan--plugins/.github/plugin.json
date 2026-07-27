@@ -1,0 +1,9 @@
+{
+  "name": "noteplan--plugins",
+  "displayName": "plugins",
+  "description": "plugins",
+  "version": "1.0.0",
+  "author": "NotePlan",
+  "homepage": "https://github.com/NotePlan/plugins",
+  "skills": []
+}
