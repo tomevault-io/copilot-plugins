@@ -1,21 +1,88 @@
 ## prof
 
-> Entry point for coding agents in **prof** (Go profiling CLI). Navigate to the documentation file that best matches your task.
+> Enforce Microsoft Learn documentation standards when writing or reviewing developer-facing docs. Rewrite existing content only when it violates these rules.
 
-# Agent instructions
+# Documentation Standards (Microsoft Learn)
 
-Entry point for coding agents in **prof** (Go profiling CLI). Navigate to the documentation file that best matches your task.
+Follow the [Microsoft Writing Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/) and [Microsoft Learn contributor guidance](https://learn.microsoft.com/en-us/contribute/content/style-quick-start) when writing or editing documentation. Apply these rules to new content. When reviewing or touching existing docs, fix violations you encounter — don't rewrite pages that already comply.
 
+## Voice
 
-| Need | Doc |
-| --- | --- |
-| Package layout, call flow, invariants, `go test ./...` | [CODEBASE_DESIGN.md](CODEBASE_DESIGN.md) |
-| Trace interactive collect internally (`prof tui` / `prof ui`) | [docs/collect-request-flow.md](docs/collect-request-flow.md) |
-| Test layers, coverage, harness | [TESTING.md](TESTING.md) |
-| PR workflow and contribution steps | [CONTRIBUTING.md](CONTRIBUTING.md) |
-| Tool playbooks (Codegraph MCP, etc.) | [docs/agents/README.md](docs/agents/README.md) |
-| Cursor behavioral rules | [.cursor/rules/](.cursor/rules/) |
+Be **warm and relaxed**, **crisp and clear**, and **ready to lend a hand**.
+
+- Write to one reader in second person ("you"). Use active voice and contractions.
+- Front-load what matters. Short sentences. Scan first, read second.
+- Assume developers know programming basics. Focus on product-specific information.
+- No marketing language ("powerful", "seamless") or filler ("simply", "just", "obviously").
+- Use inclusive, bias-free language.
+- Present tense over future tense. Sentence case for all headings.
+
+## Content types
+
+Each page serves one primary intent (Diátaxis). Don't mix types on one page.
+
+| Type | When to use |
+|------|-------------|
+| **Tutorial** | Reader is learning — guide them to a first success step by step. |
+| **How-to** | Reader has a specific task — give numbered steps, assume baseline competence. |
+| **Reference** | Reader is looking something up — parameters, commands, errors, concisely. |
+| **Explanation** | Reader wants context — define concepts and explain why, don't instruct. |
+
+Before writing, identify the reader, their task, and the content type.
+
+## Structure
+
+- Open with what the page is and what the reader will accomplish or understand.
+- List prerequisites explicitly — never assume implicit knowledge.
+- Break content with headings, lists, tables, and code blocks. No walls of text.
+- End with **Next steps** or **See also**.
+- New concepts: define **what it is** before explaining **why it matters**.
+
+## Procedures
+
+- Numbered lists for sequential steps. Imperative verb, complete sentence, period at end.
+- Say where the action happens before what to do (terminal, config file, UI location).
+- Keep procedures ≤12 steps; split longer ones into sections.
+- Don't interrupt steps with commentary — put detail in code comments instead.
+- Bold UI labels: Select **Settings** > **Advanced**.
+
+## Code examples
+
+- Runnable with imports/setup where needed. Clear placeholders (`YOUR_API_KEY`).
+- Primary languages for this project: **Go** and **shell**. Don't add other languages unless readers need them.
+- State expected output after each example. Show responses when they matter.
+
+## Reference entries
+
+For each parameter, option, or field document: type, required/optional, units, limits, and enum values. Document errors with cause and fix — not "contact support."
+
+## Callouts
+
+Use sparingly (≤1 per major section): **Note**, **Important**, **Warning**, **Tip**.
+
+## Deprecation and testing
+
+- Breaking changes need a migration guide with replacement and example.
+- Deprecated items need deprecation date, sunset date, and replacement.
+- Feature guides cover success verification and common failure scenarios.
+
+## Localization
+
+Short sentences. Simple construction. Consistent terminology. Avoid idioms and long clause chains.
+
+## Review checklist
+
+When finishing a doc change, confirm:
+
+- [ ] Content type matches reader intent
+- [ ] Opening states purpose; prerequisites are explicit
+- [ ] Headings are sentence case; page is scannable
+- [ ] Procedures are numbered imperatives (≤12 steps)
+- [ ] Code examples run; output is described
+- [ ] Reference fields and errors are fully documented
+- [ ] No filler, marketing language, or support deflection
+- [ ] Page ends with next steps or see also
 
 ---
 > Source: [AlexsanderHamir/prof](https://github.com/AlexsanderHamir/prof) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-12 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
