@@ -1,0 +1,14 @@
+{
+  "name": "nvidia--physicsnemo",
+  "displayName": "physicsnemo",
+  "description": "physicsnemo",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/physicsnemo",
+  "skills": [
+    {
+      "name": "physicsnemo",
+      "description": ""
+    }
+  ]
+}
