@@ -1,32 +1,40 @@
-## agent-runtime-contracts
+## configuration-management
 
-> Production runtime contracts for LLM, RAG, tool, and async Agent flows
+> Configuration must be centralized, typed, and free of magic numbers across runtime, infra, and Agent flows
 
 
-# Agent Runtime Contracts
+# Configuration Management
 
-## Durability
+## What counts as configuration
 
-- Persist user-visible intent before starting expensive or failure-prone generation, parsing, retrieval, indexing, or tool execution.
-- Any async or long-running Agent path needs explicit states such as `accepted`, `running`, `failed`, `timed_out`, and `completed`.
-- Failed requests must preserve enough state for retry, audit, and user trust: provider, model/tool, error code, retryability, and attempt id.
+- Anything tunable per environment: hosts, ports, URLs, credentials, region, feature flags.
+- Anything tunable per business: limits, thresholds, timeouts, retry budgets, page sizes, cache TTL, batch sizes.
+- Anything tunable per model/provider: model names, endpoints, quotas, fallback chains, prompt versions.
+- Anything that you would change without recompiling the product.
 
-## External dependency semantics
+## Hard rules
 
-- Do not convert provider auth, quota, parser billing, index, network, schema, or MCP failures into empty success values.
-- Classify provider-level failures separately from model-level failures; do not serially exhaust the same failed provider.
-- Every fallback must record why it happened and whether output quality changed.
+- No magic numbers or magic strings inline. Numeric thresholds, timeouts, sizes, retries, and provider names must be named and centralized.
+- Configuration must have a single source of truth per scope (one `Settings` / `config` module per service).
+- Configuration values must be typed and validated at process start; the process must fail fast on missing or malformed required values.
+- Secrets must come from environment variables or a secret manager. They must not appear in code, tests, fixtures, logs, error messages, or docs.
+- Environment-specific behavior must be controlled by configuration, not by `if env == "prod"` branches scattered through code.
+- Default values must be safe for local development and explicitly overridable in production.
 
-## Retrieval and tool grounding
+## Layout
 
-- RAG, research, and tool-using answers must be traceable to retrieved chunks, source metadata, web evidence, or tool traces.
-- Frontend loading text must match the actual backend stage; never show retrieval, parsing, or generation states that did not occur.
-- LLM output consumed by code must use structured schemas and fail loudly on invalid shape.
+- One typed config object per service or app.
+- Group related fields (database, queue, LLM provider, retrieval, storage, auth) into nested sub-objects.
+- Provide an `.env.example` (or equivalent) listing every required variable with a short comment.
+- Document every config field's unit (ms, s, MB, count) in the field itself, not in prose.
 
-## User-facing failure contract
+## Anti-patterns
 
-- Prefer visible failed/retryable states over generic empty screens, `Network Error`, or silent disappearance.
-- A retry should create a new attempt unless the backend guarantees idempotent resume semantics.
+- Reading `os.environ` directly in business logic.
+- Hardcoded provider names, model names, or endpoint URLs in service code.
+- Different defaults for the same value in different files.
+- Boolean flags that silently change critical behavior without being logged at startup.
+- "Temporary" inline constants that survive past one PR.
 
 ---
 > Source: [wanghong5233/RivalLens](https://github.com/wanghong5233/RivalLens) — distributed by [TomeVault](https://tomevault.io).
