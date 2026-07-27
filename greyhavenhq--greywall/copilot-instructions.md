@@ -1,87 +1,75 @@
 ## greywall
 
-> Deny-by-default command sandbox. Wraps commands with restricted filesystem access (current directory only by default) and transparent network redirection through [greyproxy](https://github.com/GreyhavenHQ/greyproxy). Supports `--learning` mode to trace filesystem access and auto-generate config templates. Linux (bubblewrap + seccomp/Landlock/eBPF) and macOS (sandbox-exec Seatbelt profiles).
+> Many popular coding agents already include sandboxing. Greywall can still be useful when you want a tool-agnostic policy layer that works the same way across:
 
-# Greywall
 
-Deny-by-default command sandbox. Wraps commands with restricted filesystem access (current directory only by default) and transparent network redirection through [greyproxy](https://github.com/GreyhavenHQ/greyproxy). Supports `--learning` mode to trace filesystem access and auto-generate config templates. Linux (bubblewrap + seccomp/Landlock/eBPF) and macOS (sandbox-exec Seatbelt profiles).
+# Using Greywall with AI Agents
 
-## Build & Run
+Many popular coding agents already include sandboxing. Greywall can still be useful when you want a tool-agnostic policy layer that works the same way across:
+
+- local developer machines
+- CI jobs
+- custom/internal agents or automation scripts
+- different agent products (as defense-in-depth)
+
+## Recommended approach
+
+Treat an agent as "semi-trusted automation":
+
+- Restrict writes to the workspace (and maybe `/tmp`)
+- Configure the external proxy to allow only the network destinations you need
+- Use `-m` (monitor mode) to audit blocked attempts and tighten policy
+
+Greywall can also reduce the risk of running agents with fewer interactive permission prompts (e.g. "skip permissions"), as long as your Greywall config tightly scopes writes and outbound destinations. It's defense-in-depth, not a substitute for the agent's own safeguards.
+
+## Example: API-only agent
+
+```json
+{
+  "filesystem": {
+    "allowWrite": ["."]
+  }
+}
+```
+
+Run:
 
 ```bash
-make setup          # install deps + lint tools (first time)
-make build          # compile binary (downloads tun2socks)
-make run            # build and run
-./greywall --help   # CLI usage
+greywall --settings ./greywall.json <agent-command>
 ```
 
-## Test
+## Popular CLI coding agents
 
-```bash
-make test           # all unit + integration tests
-make test-ci        # with coverage and race detection (-race -coverprofile)
-GREYWALL_TEST_NETWORK=1 ./scripts/smoke_test.sh ./greywall  # smoke tests
-```
+We provide these template for guardrailing CLI coding agents:
 
-## Lint & Format
+- [`code`](https://github.com/GreyhavenHQ/greywall/blob/main/internal/templates/code.json) - Routes all network traffic through an external SOCKS5 proxy. Protects secrets, restricts dangerous commands.
+- [`code-relaxed`](https://github.com/GreyhavenHQ/greywall/blob/main/internal/templates/code-relaxed.json) - Same filesystem/command protections as `code`, with relaxed network settings for environments where TUN is unavailable.
 
-```bash
-make fmt            # format with gofumpt
-make lint           # golangci-lint (staticcheck, errcheck, gosec, govet, revive, gofumpt, misspell, etc.)
-```
+You can use it like `greywall --profile code -- claude`.
 
-Always run `make fmt && make lint` before committing.
+| Agent | Works with template | Notes |
+|-------|--------| ----- |
+| Claude Code | `code` | - |
+| Codex | `code` | - |
+| Gemini CLI | `code` | - |
+| OpenCode | `code` | - |
+| Droid | `code` | - |
+| Cursor Agent | `code-relaxed` | Node.js/undici doesn't respect HTTP_PROXY |
 
-## Project Structure
+These configs can drift as agents evolve. If you encounter false positives on blocked requests or want a CLI agent listed, please open an issue or PR.
 
-```
-cmd/greywall/          CLI entry point
-internal/
-  config/              Configuration loading & validation
-  platform/            OS detection
-  sandbox/             Platform-specific sandboxing (~7k lines)
-    manager.go         Sandbox lifecycle orchestration
-    command.go         Command blocking/allow lists
-    linux.go           bubblewrap + bridges (ProxyBridge, DnsBridge)
-    macos.go           sandbox-exec Seatbelt profiles
-    linux_seccomp.go   Seccomp BPF syscall filtering
-    linux_landlock.go  Landlock filesystem control
-    linux_ebpf.go      eBPF violation monitoring
-    sanitize.go        Environment variable hardening
-    dangerous.go       Protected files/dirs lists
-pkg/greywall/          Public Go API
-docs/                  Full documentation
-scripts/               Smoke tests, benchmarks, release
-```
+Note: On Linux, if OpenCode or Gemini CLI is installed via Linuxbrew, Landlock can block the Linuxbrew node binary unless you widen filesystem access. Installing OpenCode/Gemini under your home directory (e.g., via nvm or npm prefix) avoids this without relaxing the template.
 
-## Code Conventions
+## Protecting your environment
 
-- **Language:** Go 1.25+
-- **Formatter:** `gofumpt` (enforced in CI)
-- **Linter:** `golangci-lint` v2 (config in `.golangci.yml`)
-- **Import order:** stdlib, third-party, local (`github.com/GreyhavenHQ/greywall`)
-- **Platform code:** build tags (`//go:build linux`, `//go:build darwin`) with `*_stub.go` for unsupported platforms
-- **Error handling:** custom error types (e.g., `CommandBlockedError`)
-- **Logging:** stderr with `[greywall:component]` prefixes
-- **Config:** JSON with comments (via `tidwall/jsonc`), optional pointer fields for three-state booleans
+Greywall includes additional "dangerous file protection" (writes blocked regardless of config) to reduce persistence and environment-tampering vectors like:
 
-## Dependencies
+- `.git/hooks/*`
+- shell startup files (`.zshrc`, `.bashrc`, etc.)
+- some editor/tool config directories
 
-4 direct deps: `doublestar` (glob matching), `cobra` (CLI), `jsonc` (config parsing), `golang.org/x/sys`.
-
-Runtime (Linux): `bubblewrap`, `socat`, embedded `tun2socks` v2.5.2.
-
-## CI
-
-GitHub Actions workflows: `main.yml` (build/lint/test on Linux+macOS), `release.yml` (GoReleaser + SLSA provenance), `benchmark.yml`.
-
-## Release
-
-```bash
-make release          # patch (v0.0.X)
-make release-minor    # minor (v0.X.0)
-```
+See [Architecture](./architecture) for the full list and rationale.
 
 ---
 > Source: [GreyhavenHQ/greywall](https://github.com/GreyhavenHQ/greywall) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
