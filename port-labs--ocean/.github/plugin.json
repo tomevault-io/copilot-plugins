@@ -1,0 +1,14 @@
+{
+  "name": "port-labs--ocean",
+  "displayName": "ocean",
+  "description": "ocean",
+  "version": "1.0.0",
+  "author": "port-labs",
+  "homepage": "https://github.com/port-labs/ocean",
+  "skills": [
+    {
+      "name": "ocean",
+      "description": ""
+    }
+  ]
+}
