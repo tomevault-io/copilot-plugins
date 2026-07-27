@@ -1,0 +1,9 @@
+{
+  "name": "prettier--prettier-vscode",
+  "displayName": "prettier-vscode",
+  "description": "prettier-vscode",
+  "version": "1.0.0",
+  "author": "prettier",
+  "homepage": "https://github.com/prettier/prettier-vscode",
+  "skills": []
+}
