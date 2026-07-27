@@ -1,22 +1,94 @@
-## frontend-architecture
+## sourcetool
 
-> | Layer & path                                             | Responsibility                                           | **May import** (✓ only)                 |
+> These rules reflect the **current** package layout (`server → {database, pubsub, mail, permission} → infra → core`). Use them for all new code reviews and CI checks.
 
-# Layer map (import contract)
+# Backend architecture (/backend)
 
-| Layer & path                                             | Responsibility                                           | **May import** (✓ only)                 |
+These rules reflect the **current** package layout (`server → {database, pubsub, mail, permission} → infra → core`). Use them for all new code reviews and CI checks.
+
+---
+
+## Layer map & allowed imports
+
+| Layer & path                                   | Purpose                                              | May **import**                                      |
+|------------------------------------------------|------------------------------------------------------|------------------------------------------------------|
+| **core** `internal/core/**`                    | Pure domain entities & helpers – **no I/O**          | **stdlib**, tiny 3rd‑party (uuid, errors)            |
+| **database** `internal/database/**`            | Database interfaces & query builders                 | **core**, stdlib, sqlx                               |
+| **infra** `internal/{postgres,mail,pubsub,ws}/**` | Concrete adapters (DB, SMTP, Redis, WS)             | **core**, **database**, support pkgs, stdlib, 3rd‑party |
+| **permission** `internal/permission/**`         | Authorization & RBAC implementation                  | **core**, **database**, support pkgs, stdlib          |
+| **server** `internal/server/**`                | HTTP/WS routers, handlers, DTOs, middleware          | **core**, **database**, **infra**, **permission**, support pkgs, stdlib, 3rd‑party |
+| **support** `internal/{config,logger,jwt,google,errdefs}`, `internal/context.go`, `internal/url.go`, `internal/pb/go/**` | Cross‑cutting util & generated code | usable from any layer (never import `internal/server` from support pkgs) |
+
+### Dependency direction
+
+```
+server → {database, pubsub, mail, permission} → infra → core
+```
+
+* `core` never depends on adapters or HTTP.
+* `database` defines interfaces and query builders for data persistence.
+* `infra` implements concrete adapters (DB, Redis, SMTP) and depends on `core`.
+* `pubsub`, `mail`, and `permission` provide high-level services using infra implementations.
+* `server` wires everything; it can depend on any layer below.
+
+---
+
+## Directory conventions
+
+* **Core** package per model (`apikey`, `user`, …) containing structs and small helper methods.
+* **Database** package contains:
+  * Model interfaces and base types (`internal/database/<model>.go`)
+  * Common database utilities and interfaces (`internal/database/database.go`)
+* **Infra** adapter per tech:
+  * `internal/postgres/<model>.go` (concrete SQL implementations)
+  * `internal/postgres/<model>_ce.go` and `<model>_ee.go` (edition-specific implementations)
+  * `internal/pubsub/redis.go`
+  * `internal/mail/smtp.go`
+  * `internal/ws/manager.go`
+  * `internal/permission/checker.go`
+* **Server** keeps CE/EE variations with build‑tag files inside the same directory tree (e.g. `group_ee.go`, `websocket_ee.go`). There is **no separate `ee/internal` directory**.
+  * `internal/server/middleware.go`, `validate.go`, etc.
+* **Composition root**: `cmd/server/main.go` (sets up config, DB, Redis, SMTP, WS manager, router).
+* Tests live next to code (`*_test.go`) and cross layers only via exported interfaces.
+
+---
+
+## Import linter rules
+
+* `internal/core/**` **must not** import any `internal/server/**`, `internal/database/**`, or `internal/{postgres,pubsub,mail,ws,...}/**` packages.
+* `internal/database/**` **must not** import any `internal/server/**` or `internal/{postgres,pubsub,mail,ws,...}/**` packages.
+* `internal/{postgres,mail,pubsub,ws}/**` **must not** import `internal/server/**`.
+* `internal/server/**` **must not** import sibling sub‑directories of itself to avoid cycles.
+* Generated protobuf in `internal/pb/go/**` is allowed anywhere, but heavy message types should stay out of `core`.
+* Enforce with `golangci‑lint` (`revive import‑graph`).
+
+---
+
+## CE / EE Split
+
+Sourcetool Community Edition (CE) and Enterprise Edition (EE) are separated at the **file level** using Go build tags, e.g.:  
+`//go:build ee` and `//go:build !ee`.  
+Files live next to each other in the same package (`group_ce.go`, `group_ee.go`). They follow the same import rules described above.
+
+---
+
+# Frontend architecture (/frontend)
+
+## Layer map (import contract)
+
+| Layer & path                                             | Responsibility                                           | **May import** (✓ only)                 |
 |----------------------------------------------------------|----------------------------------------------------------|-----------------------------------------|
-| **pb** `app/pb/**`                                       | Auto‑generated gRPC / Protobuf code (read‑only)          | std lib ✓                               |
-| **types** `app/types/**`, `app/constants.ts`             | Global type aliases, enums, constants                    | std lib ✓, pb ✓                         |
-| **lib** `app/lib/**`, `app/i18n.ts`, `app/locales/**`    | Pure helpers & i18n utilities                            | std lib ✓, pb ✓, types ✓                |
-| **api** `app/api/**`                                     | REST / WS clients & helpers                              | std lib ✓, pb ✓, types ✓, lib ✓         |
-| **store** `app/store/**`                                 | Redux Toolkit slices & selectors                         | std lib ✓, pb ✓, types ✓, lib ✓, api ✓  |
-| **hooks** `app/hooks/**`                                 | Reusable React hooks                                     | std lib ✓, pb ✓, types ✓, lib ✓, api ✓, store ✓ |
-| **ui‑base** `app/components/ui/**`, `app/components/icon/**` | Design‑system primitives (shadcn / lucide)               | std lib ✓, types ✓, lib ✓               |
-| **components** `app/components/common/**`                | Compound widgets / generic UI                            | std lib ✓, ui‑base ✓, hooks ✓, store ✓, api ✓ |
-| **layout** `app/components/layout/**`                    | Screen shells / frames                                   | All upper layers except pb ✓            |
-| **routes** `app/routes/**`                               | URL‑mapped pages                                         | All upper layers ✓                      |
-| **entry** `app/root.tsx`, `app/entry.client.tsx`, …      | App bootstrap                                           | Everything ✓                            |
+| **pb** `app/pb/**`                                       | Auto‑generated gRPC / Protobuf code (read‑only)          | std lib ✓                               |
+| **types** `app/types/**`, `app/constants.ts`             | Global type aliases, enums, constants                    | std lib ✓, pb ✓                         |
+| **lib** `app/lib/**`, `app/i18n.ts`, `app/locales/**`    | Pure helpers & i18n utilities                            | std lib ✓, pb ✓, types ✓                |
+| **api** `app/api/**`                                     | REST / WS clients & helpers                              | std lib ✓, pb ✓, types ✓, lib ✓         |
+| **store** `app/store/**`                                 | Redux Toolkit slices & selectors                         | std lib ✓, pb ✓, types ✓, lib ✓, api ✓  |
+| **hooks** `app/hooks/**`                                 | Reusable React hooks                                     | std lib ✓, pb ✓, types ✓, lib ✓, api ✓, store ✓ |
+| **ui‑base** `app/components/ui/**`, `app/components/icon/**` | Design‑system primitives (shadcn / lucide)               | std lib ✓, types ✓, lib ✓               |
+| **components** `app/components/common/**`                | Compound widgets / generic UI                            | std lib ✓, ui‑base ✓, hooks ✓, store ✓, api ✓ |
+| **layout** `app/components/layout/**`                    | Screen shells / frames                                   | All upper layers except pb ✓            |
+| **routes** `app/routes/**`                               | URL‑mapped pages                                         | All upper layers ✓                      |
+| **entry** `app/root.tsx`, `app/entry.client.tsx`, …      | App bootstrap                                           | Everything ✓                            |
 
 **Import rules**
 
@@ -27,10 +99,10 @@
 
 ---
 
-# Operational rules
+## Operational rules
 
 ### i18n
-* All user‑visible text must come from `common.json` via `useTranslation`; undefined keys cause a type error.
+* All user‑visible text must come from `common.json` via `useTranslation`; undefined keys cause a type error.
 * Keep key names meaningful and follow existing naming conventions.
 
 ### Routing
@@ -45,7 +117,7 @@
 * Define endpoints and types under `app/api/modules/**.ts` per domain.
 * API‑driven state belongs in Redux (asyncAction + selector).
 * Local component concerns: `useState`/`useEffect` as needed.
-* Unless there’s a special reason, trigger async calls via Redux asyncActions.
+* Unless there's a special reason, trigger async calls via Redux asyncActions.
 
 ### Styling
 * Extend Tailwind utilities in `tailwind.css`; large blocks can be split into a separate file.
@@ -62,7 +134,7 @@
 
 ---
 
-# Sample workflows
+## Sample workflows
 
 ### 1. Adding an API property or endpoint
 
@@ -88,9 +160,9 @@
 
 1. Create `routes/<new>/index.tsx` with basic JSX.
 2. Define validation with `zod`; share types via `z.infer`.
-3. Build the UI with shadcn’s `Form` components.
+3. Build the UI with shadcn's `Form` components.
 4. Debug including validation messages.
 
 ---
 > Source: [trysourcetool/sourcetool](https://github.com/trysourcetool/sourcetool) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
