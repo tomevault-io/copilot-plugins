@@ -2,9 +2,9 @@
   "name": "greywall",
   "owner": "GreyhavenHQ",
   "repo": "greywall",
-  "description": "Container-free, deny-by-default sandbox for AI coding agents. Kernel-enforced filesystem, network, and syscall isolation for Linux and macOS",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GreyhavenHQ/greywall",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T04:02:10Z"
+  "distributed_at": "2026-07-27T14:31:47Z"
 }
