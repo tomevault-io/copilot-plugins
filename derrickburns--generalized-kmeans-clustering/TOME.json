@@ -4,7 +4,7 @@
   "repo": "generalized-kmeans-clustering",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/derrickburns",
+  "source_url": "https://github.com/derrickburns/generalized-kmeans-clustering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T07:37:50Z"
+  "distributed_at": "2026-07-27T15:37:43Z"
 }
