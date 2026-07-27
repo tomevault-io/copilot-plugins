@@ -1,168 +1,132 @@
-## wize-prfaq
+## wize-product-brief
 
-> 1-analysis: PR/FAQ
+> 1-analysis: Product Brief
 
 
-# PR/FAQ
+# Product Brief
 
-# PR/FAQ — Working Backwards
+# Product Brief
 
-**Goal.** Force alignment by writing the *future* press release and a tight FAQ **before** anyone builds anything. Amazon-style. If you can't write a compelling PR, you don't have a product yet.
+**Goal.** Convert raw demand into a one-page brief the team can ship from. The brief is the single source of truth at this point — every other artifact (PRD, UX, architecture) references back to it.
 
-Pepper drives. Peggy polishes prose. Output lands in `.wize/planning/prfaq.md`.
-
-## When to run
-
-Run this:
-- New product or new strategic feature.
-- The team disagrees on the user-visible value.
-- You're about to commit > 1 month of engineering.
-
-Skip this:
-- Bug fix, copy edit, dependency bump → use `wize-quick-dev`.
-- The brief already crisply names the user-visible value and the team is aligned → write the PRD directly.
+Pepper drives. Peggy edits prose. Output lands in `.wize/planning/brief.md`.
 
 ## Inputs
 
-- `.wize/planning/brief.md`
-- `.wize/planning/research.md` (optional)
+- Raw demand (chat message, doc, ticket, screenshot, recording).
+- Optional existing materials (deck, doc, prior brief).
+- `.wize/config/project.toml`.
 
 ## Outputs
 
-- `.wize/planning/prfaq.md`
-
-## Structure (the Amazon shape)
-
-A PR/FAQ has two parts: the **PR** (≤ 1 page) and the **FAQ** (≤ 2 pages).
-
-### The PR (write this first)
-
-| Section | Length | What goes in it |
-|---|---|---|
-| **Headline** | 1 line | Audience + benefit + product name. Reader-understandable. |
-| **Sub-headline** | 1 line | The non-obvious part of the benefit. |
-| **Summary paragraph** | 3–5 sentences | What it is, who it's for, what changes, where to get it. |
-| **Problem paragraph** | 3–5 sentences | Why this matters *now*, evidence the pain is real. |
-| **Solution paragraph** | 3–5 sentences | How the product solves the problem. Concrete, not abstract. |
-| **Internal quote** | 1 quote | A leader (founder/CEO) saying why this matters strategically. |
-| **How it works** | 3 sentences | Three lines max. Not implementation — the *user* mental model. |
-| **Customer quote** | 1 quote | An imagined real user saying the thing they'd say. Specific. |
-| **How to get started** | 2 lines | One sentence: where + how. One sentence: what's first. |
-
-If you find yourself writing more, cut. The discipline is the point.
-
-### The FAQ
-
-5–10 questions a sharp reader would actually ask. Crisp answers.
-
-**Mandatory questions** (always include):
-
-1. Who exactly is this for?
-2. What does this replace today?
-3. Why now? (Why not last year, why not next year?)
-4. How is this different from {{nearest competitor}}?
-5. What's *out* of scope at launch?
-6. What does success look like in 6 months? In 18 months?
-7. What are the top three risks?
-
-**Optional questions** (include when relevant):
-
-8. What's the pricing model?
-9. How does this work for non-English locales / accessibility / offline?
-10. What does the regulatory story look like?
-11. What's the launch sequence (geos / segments / preview)?
+- `.wize/planning/brief.md`
+- Optionally `.wize/knowledge/research/` if Pepper pulled external sources.
 
 ## Steps
 
-### 1. Frame and freeze the audience
+### 1. Frame in one paragraph
 
-Write the audience line at the top of your draft and don't move it. Every sentence is judged against "does this matter to the audience?"
+What is being asked, by whom, and by when. If you can't write it in three sentences, you don't understand it yet. Ask one clarifying question, then write.
 
-### 2. PR before FAQ
+### 2. Audience
 
-Always. The discipline of writing the PR exposes vague thinking. The FAQ comes after, when you're forced to defend it.
+- **Primary user** (one, name them by role + JTBD).
+- **Secondary users** (≤ 2).
+- **Stakeholders** (≤ 3 — the people whose lives change if this ships).
 
-### 3. Show, don't market
+If the user list overflows, the brief is too broad. Force the cut.
 
-No "world-class," "revolutionary," "AI-powered" without a noun next to it. If you can replace the adjective with another and lose nothing, delete it.
+### 3. Vision
 
-### 4. Numbers, not adjectives
+One sentence describing the desired future state. Future tense. Concrete. No buzzwords. Test: can a new dev one month from now repeat it after a 30-second read?
 
-Every claim has a unit. "Reduces onboarding from 35 minutes to 7" beats "reduces onboarding significantly."
+### 4. Success criteria
 
-### 5. Pre-mortem question
+3–5 measurable outcomes. Numbers, not adjectives.
 
-Before sending, write the answer to: *"It's six months after launch and it failed. Why?"*. If the FAQ doesn't already cover the failure mode, add the question.
+Examples:
+- ✓ "Median TTI on the checkout page ≤ 1.5s on a mid-range Android by Q3."
+- ✗ "Faster checkout."
 
-### 6. Adversarial review
+### 5. Non-goals
 
-Run `wize-review-adversarial` on the draft. Cut what survives only "trust me."
+What this is *not*. Cut ambiguity early. If a feature isn't ruled in or out here, it will be in the PRD review.
 
-### 7. Hand off
+### 6. Constraints
 
-The PR/FAQ is **not** the PRD. It's a strategic alignment doc. Marker `status: aligned`. Hill writes the PRD from this + the brief.
+Hard limits. Pick from:
+- Deadline (and what slipping it means).
+- Budget envelope (one-time and run-rate).
+- Compliance (GDPR, LGPD, SOC2, PCI, HIPAA, etc.).
+- Integrations the product must speak to.
+- Team / hiring envelope.
 
-## Output template
+### 7. Open questions
+
+Each with the human who can answer it. Each marked priority `blocker` / `important` / `nice-to-know`. Blockers must be resolved before the PRD starts.
+
+### 8. Hand-off
+
+- Mark `status: ready-for-prd` in the brief.
+- Notify Wizer: "Brief ready, hand to Hill."
+- Move to `wize-trigger-map` next (Pepper continues).
+
+## Brief template
 
 ```markdown
 ---
-status: draft | aligned
+status: ready-for-prd | draft
 owner: Pepper Potts
 created: YYYY-MM-DD
 ---
 
-# PR/FAQ — {{project_name}}
+# Brief — {{project_name}}
 
-## Press Release
-
-**Headline:** {{audience}} can now {{benefit}} with {{product_name}}.
-**Sub-headline:** {{the non-obvious twist}}.
-
-{{summary paragraph}}
-
-{{problem paragraph}}
-
-{{solution paragraph}}
-
-> "{{quote}}" — {{internal leader title}}
-
-How it works: {{three sentences}}
-
-> "{{customer quote}}" — {{persona}}
-
-Get started: {{where + first step}}
-
-## FAQ
-
-**Q1. Who exactly is this for?**
+## Vision
 …
 
-**Q2. What does this replace today?**
-…
+## Audience
+- **Primary:** … (one role + their JTBD)
+- **Secondary:** …
+- **Stakeholders:** …
 
-**Q3. Why now?**
-…
-
-(…through Q10 as needed)
-
-## Pre-mortem
-It's six months after launch and it failed. Why?
+## Success criteria
 1. …
 2. …
 3. …
+
+## Non-goals
+- …
+
+## Constraints
+- **Deadline:** …
+- **Budget:** …
+- **Compliance:** …
+- **Integrations:** …
+
+## Open questions
+- [ ] **(blocker)** … — *owner: NAME*
+- [ ] **(important)** … — *owner: NAME*
+- [ ] **(nice-to-know)** … — *owner: NAME*
 ```
 
 ## Anti-patterns Pepper rejects
 
-- PR longer than one page. Cut.
-- A press release with no user. ("Wize Foo unlocks synergies.") — say *who*.
-- A FAQ that dodges the hard question. The reader will ask it; better in your draft than in a launch review.
-- Pricing left vague when it's the load-bearing question.
-- Customer quote that sounds like marketing copy. Rewrite as a person speaking.
+- "Make the product better." → no audience, no outcome, not a brief.
+- Pasting a stakeholder's slack message verbatim. Rewrite in the brief voice.
+- Success criteria like "increase engagement". Reword: which event, how much, by when.
+- Hidden assumptions ("everyone has fast internet"). Surface them in *Constraints* or *Open questions*.
+- Open questions with no owner. If nobody owns it, the answer never comes.
+
+## When to skip
+
+This workflow is **not optional** for new products / new features. For tiny fixes (typo, copy, dependency bump), use `wize-quick-dev` instead — Pepper isn't called.
 
 ## Hand-off
 
-> PR/FAQ is in `.wize/planning/prfaq.md`. Aligned with leadership. Hill, the PRD scope should anchor on FAQ Q5 (in/out). Mantis, the customer quote is your North Star for UX.
+When the brief is approved, Pepper notifies Wizer:
+
+> Brief is ready in `.wize/planning/brief.md`. No blockers open. Hill, your call on PRD.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
