@@ -4,7 +4,7 @@
   "repo": "Kucoin.Net",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JKorf/Kucoin.Net",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T10:56:30Z"
+  "distributed_at": "2026-07-27T21:16:19Z"
 }
