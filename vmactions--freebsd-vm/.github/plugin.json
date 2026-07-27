@@ -1,0 +1,9 @@
+{
+  "name": "vmactions--freebsd-vm",
+  "displayName": "freebsd-vm",
+  "description": "freebsd-vm",
+  "version": "1.0.0",
+  "author": "vmactions",
+  "homepage": "https://github.com/vmactions/freebsd-vm",
+  "skills": []
+}
