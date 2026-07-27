@@ -2,9 +2,9 @@
   "name": "openclaw-railway-template",
   "owner": "arjunkomath",
   "repo": "openclaw-railway-template",
-  "description": "OpenClaw Railway 1\u2011click deploy Template",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arjunkomath/openclaw-railway-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T07:55:08Z"
+  "distributed_at": "2026-07-27T00:13:02Z"
 }
