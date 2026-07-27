@@ -1,0 +1,9 @@
+{
+  "name": "algorand--py-algorand-sdk",
+  "displayName": "py-algorand-sdk",
+  "description": "py-algorand-sdk",
+  "version": "1.0.0",
+  "author": "algorand",
+  "homepage": "https://github.com/algorand/py-algorand-sdk",
+  "skills": []
+}
