@@ -5,22 +5,5 @@
   "version": "1.0.0",
   "author": "geekdada",
   "homepage": "https://github.com/geekdada/yasd",
-  "skills": [
-    {
-      "name": "yasd",
-      "description": ""
-    },
-    {
-      "name": "yasd",
-      "description": ""
-    },
-    {
-      "name": "yasd",
-      "description": ""
-    },
-    {
-      "name": "yasd",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
