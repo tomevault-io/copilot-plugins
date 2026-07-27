@@ -1,8 +1,6 @@
 # AI instruction files for slides-from-anything
 
-> Sourced from [sanqiufong/slides-from-anything](https://github.com/sanqiufong/slides-from-anything) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Turn anything into slides
+> Sourced from [sanqiufong/slides-from-anything](https://github.com/sanqiufong/slides-from-anything), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
