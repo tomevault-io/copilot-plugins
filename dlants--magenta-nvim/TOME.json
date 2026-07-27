@@ -1,0 +1,81 @@
+{
+  "name": "magenta.nvim",
+  "owner": "dlants",
+  "repo": "magenta.nvim",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-testing",
+      "path": ".magenta/skills/doc-testing",
+      "github_url": "https://github.com/dlants/magenta.nvim/tree/main/.magenta/skills/doc-testing",
+      "description": ""
+    },
+    {
+      "name": "doc-views",
+      "path": ".magenta/skills/doc-views",
+      "github_url": "https://github.com/dlants/magenta.nvim/tree/main/.magenta/skills/doc-views",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "path": ".magenta/skills/doc-views/skill.md",
+      "github_url": "https://github.com/dlants/magenta.nvim/tree/main/.magenta/skills/doc-views/skill.md",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "path": ".magenta/skills/doc-testing/skill.md",
+      "github_url": "https://github.com/dlants/magenta.nvim/tree/main/.magenta/skills/doc-testing/skill.md",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "path": "skills/authoring-magenta-scripts/skill.md",
+      "github_url": "https://github.com/dlants/magenta.nvim/tree/main/skills/authoring-magenta-scripts/skill.md",
+      "description": ""
+    },
+    {
+      "name": "magenta.nvim",
+      "path": "skills/creating-skills/skill.md",
+      "github_url": "https://github.com/dlants/magenta.nvim/tree/main/skills/creating-skills/skill.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dlants/magenta.nvim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T07:31:51Z"
+}
