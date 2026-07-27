@@ -4,7 +4,7 @@
   "repo": "sample-well-architected-skills-and-steering",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aws-samples/sample-well-architected-skills-and-steering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T19:29:58Z"
+  "distributed_at": "2026-07-27T04:29:17Z"
 }
