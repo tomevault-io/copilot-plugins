@@ -1,7 +1,7 @@
 {
   "name": "webdevtodayjason--sub-agents",
   "displayName": "sub-agents",
-  "description": "Claude Code Sub Agent Manager. A simple Manager for adding Claude Code Sub Agents with hooks and custom slash commands.",
+  "description": "sub-agents",
   "version": "1.0.0",
   "author": "webdevtodayjason",
   "homepage": "https://github.com/webdevtodayjason/sub-agents",
