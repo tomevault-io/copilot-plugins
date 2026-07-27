@@ -4,7 +4,7 @@
   "repo": "kalkulator-dla-przedsiebiorcy-vue",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RacyMind/kalkulator-dla-przedsiebiorcy-vue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T20:27:07Z"
+  "distributed_at": "2026-07-27T00:02:30Z"
 }
