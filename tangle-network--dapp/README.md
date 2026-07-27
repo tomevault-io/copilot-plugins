@@ -1,21 +1,21 @@
 # dapp
 
-> Tome by [tangle-network](https://github.com/tangle-network/dapp) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [tangle-network](https://github.com/tangle-network/dapp), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [tangle-network/dapp](https://github.com/tangle-network/dapp).
+Original source: `.cursor/rules/*.mdc` in [tangle-network/dapp](https://github.com/tangle-network/dapp).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-From [tangle-network/dapp](https://github.com/tangle-network/dapp) — a repo with 0+ stars on GitHub.
+From [tangle-network/dapp](https://github.com/tangle-network/dapp) — a repo with 36+ stars on GitHub.
 
 ---
 
