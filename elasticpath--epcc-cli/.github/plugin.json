@@ -1,0 +1,9 @@
+{
+  "name": "elasticpath--epcc-cli",
+  "displayName": "epcc-cli",
+  "description": "epcc-cli",
+  "version": "1.0.0",
+  "author": "elasticpath",
+  "homepage": "https://github.com/elasticpath/epcc-cli",
+  "skills": []
+}
