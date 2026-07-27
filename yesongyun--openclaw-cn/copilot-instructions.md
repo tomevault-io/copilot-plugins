@@ -1,84 +1,72 @@
 ## openclaw-cn
 
-> This document outlines the validation rules implemented in the `validateSchema` function. The purpose of this validator is to check for constraints that are not easily expressed in the JSON schema itself, such as conditional requirements and reference integrity.
+> **Always reuse existing code - no redundancy!**
 
-# A2UI Protocol Message Validation Logic
+# OpenClaw Codebase Patterns
 
-This document outlines the validation rules implemented in the `validateSchema` function. The purpose of this validator is to check for constraints that are not easily expressed in the JSON schema itself, such as conditional requirements and reference integrity.
+**Always reuse existing code - no redundancy!**
 
-An A2UI message is a JSON object that can have a `surfaceId` and one of the following properties, defining the message type: `beginRendering`, `surfaceUpdate`, `dataModelUpdate`, or `deleteSurface`.
+## Tech Stack
 
-## Common Properties
+- **Runtime**: Node 22+ (Bun also supported for dev/scripts)
+- **Language**: TypeScript (ESM, strict mode)
+- **Package Manager**: pnpm (keep `pnpm-lock.yaml` in sync)
+- **Lint/Format**: Oxlint, Oxfmt (`pnpm check`)
+- **Tests**: Vitest with V8 coverage
+- **CLI Framework**: Commander + clack/prompts
+- **Build**: tsdown (outputs to `dist/`)
 
-- **`surfaceId`**: An optional string that identifies the UI surface the message applies to.
+## Anti-Redundancy Rules
 
-## `BeginRendering` Message Rules
+- Avoid files that just re-export from another file. Import directly from the original source.
+- If a function already exists, import it - do NOT create a duplicate in another file.
+- Before creating any formatter, utility, or helper, search for existing implementations first.
 
-- **Required**: Must have a `root` property, which is the ID of the root component to render.
+## Source of Truth Locations
 
-## `SurfaceUpdate` Message Rules
+### Formatting Utilities (`src/infra/`)
 
-### 1. Component ID Integrity
+- **Time formatting**: `src\infra\format-time`
 
-- **Uniqueness**: All component `id`s within the `components` array must be unique.
-- **Reference Validity**: Any property that references a component ID (e.g., `child`, `children`, `entryPointChild`, `contentChild`) must point to an ID that actually exists in the `components` array.
+**NEVER create local `formatAge`, `formatDuration`, `formatElapsedTime` functions - import from centralized modules.**
 
-### 2. Component-Specific Property Rules
+### Terminal Output (`src/terminal/`)
 
-For each component in the `components` array, the following rules apply:
+- Tables: `src/terminal/table.ts` (`renderTable`)
+- Themes/colors: `src/terminal/theme.ts` (`theme.success`, `theme.muted`, etc.)
+- Progress: `src/cli/progress.ts` (spinners, progress bars)
 
-- **General**:
-  - A component must have an `id` and a `componentProperties` object.
-  - The `componentProperties` object must contain exactly one key, which defines the component's type (e.g., "Heading", "Text").
+### CLI Patterns
 
-- **Heading**:
-  - **Required**: Must have a `text` property.
-- **Text**:
-  - **Required**: Must have a `text` property.
-- **Image**:
-  - **Required**: Must have a `url` property.
-- **Video**:
-  - **Required**: Must have a `url` property.
-- **AudioPlayer**:
-  - **Required**: Must have a `url` property.
-- **TextField**:
-  - **Required**: Must have a `label` property.
-- **DateTimeInput**:
-  - **Required**: Must have a `value` property.
-- **MultipleChoice**:
-  - **Required**: Must have a `selections` property.
-- **Slider**:
-  - **Required**: Must have a `value` property.
-- **Container Components** (`Row`, `Column`, `List`):
-  - **Required**: Must have a `children` property.
-  - The `children` object must contain _either_ `explicitList` _or_ `template`, but not both.
-- **Card**:
-  - **Required**: Must have a `child` property.
-- **Tabs**:
-  - **Required**: Must have a `tabItems` property, which must be an array.
-  - Each item in `tabItems` must have a `title` and a `child`.
-- **Modal**:
-  - **Required**: Must have both `entryPointChild` and `contentChild` properties.
-- **Button**:
-  - **Required**: Must have `label` and `action` properties.
-- **CheckBox**:
-  - **Required**: Must have `label` and `value` properties.
-- **Divider**:
-  - No required properties.
+- CLI option wiring: `src/cli/`
+- Commands: `src/commands/`
+- Dependency injection via `createDefaultDeps`
 
-## `DataModelUpdate` Message Rules
+## Import Conventions
 
-- **Required**: A `DataModelUpdate` message must have a `contents` property.
-- The `path` property is optional.
-- If `path` is not present, the `contents` object will replace the entire data model.
-- If `path` is present, the `contents` will be set at that location in the data model.
-- No other properties besides `path` and `contents` are allowed.
+- Use `.js` extension for cross-package imports (ESM)
+- Direct imports only - no re-export wrapper files
+- Types: `import type { X }` for type-only imports
 
-## `DeleteSurface` Message Rules
+## Code Quality
 
-- **Required**: Must have a `delete` property set to `true`.
-- No other properties are allowed.
+- TypeScript (ESM), strict typing, avoid `any`
+- Keep files under ~700 LOC - extract helpers when larger
+- Colocated tests: `*.test.ts` next to source files
+- Run `pnpm check` before commits (lint + format)
+- Run `pnpm tsgo` for type checking
+
+## Stack & Commands
+
+- **Package manager**: pnpm (`pnpm install`)
+- **Dev**: `pnpm openclaw ...` or `pnpm dev`
+- **Type-check**: `pnpm tsgo`
+- **Lint/format**: `pnpm check`
+- **Tests**: `pnpm test`
+- **Build**: `pnpm build`
+
+If you are coding together with a human, do NOT use scripts/committer, but git directly and run the above commands manually to ensure quality.
 
 ---
 > Source: [YeSongYun/openclaw-cn](https://github.com/YeSongYun/openclaw-cn) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
