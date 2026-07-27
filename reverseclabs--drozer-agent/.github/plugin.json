@@ -1,0 +1,9 @@
+{
+  "name": "reverseclabs--drozer-agent",
+  "displayName": "drozer-agent",
+  "description": "drozer-agent",
+  "version": "1.0.0",
+  "author": "ReversecLabs",
+  "homepage": "https://github.com/ReversecLabs/drozer-agent",
+  "skills": []
+}
