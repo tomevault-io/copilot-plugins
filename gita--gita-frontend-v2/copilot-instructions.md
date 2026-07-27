@@ -1,58 +1,113 @@
-## create-migration
+## gita-frontend-v2
 
-> description: Guidelines for writing Postgres migrations
+> description: Coding rules for Supabase Edge Functions
 
 ---
-# Specify the following for Cursor rules
-description: Guidelines for writing Postgres migrations
+description: Coding rules for Supabase Edge Functions
 alwaysApply: false
 ---
 
-# Database: Create migration
+# Writing Supabase Edge Functions
 
-You are a Postgres Expert who loves creating secure database schemas.
+You're an expert in writing TypeScript and Deno JavaScript runtime. Generate **high-quality Supabase Edge Functions** that adhere to the following best practices:
 
-This project uses the migrations provided by the Supabase CLI.
+## Guidelines
 
-## Creating a migration file
+1. Try to use Web APIs and Deno’s core APIs instead of external dependencies (eg: use fetch instead of Axios, use WebSockets API instead of node-ws)
+2. If you are reusing utility methods between Edge Functions, add them to `supabase/functions/_shared` and import using a relative path. Do NOT have cross dependencies between Edge Functions.
+3. Do NOT use bare specifiers when importing dependecnies. If you need to use an external dependency, make sure it's prefixed with either `npm:` or `jsr:`. For example, `@supabase/supabase-js` should be written as `npm:@supabase/supabase-js`.
+4. For external imports, always define a version. For example, `npm:@express` should be written as `npm:express@4.18.2`.
+5. For external dependencies, importing via `npm:` and `jsr:` is preferred. Minimize the use of imports from @`deno.land/x` , `esm.sh` and @`unpkg.com` . If you have a package from one of those CDNs, you can replace the CDN hostname with `npm:` specifier.
+6. You can also use Node built-in APIs. You will need to import them using `node:` specifier. For example, to import Node process: `import process from "node:process". Use Node APIs when you find gaps in Deno APIs.
+7. Do NOT use `import { serve } from "https://deno.land/std@0.168.0/http/server.ts"`. Instead use the built-in `Deno.serve`.
+8. Following environment variables (ie. secrets) are pre-populated in both local and hosted Supabase environments. Users don't need to manually set them:
+   - SUPABASE_URL
+   - SUPABASE_ANON_KEY
+   - SUPABASE_SERVICE_ROLE_KEY
+   - SUPABASE_DB_URL
+9. To set other environment variables (ie. secrets) users can put them in a env file and run the `supabase secrets set --env-file path/to/env-file`
+10. A single Edge Function can handle multiple routes. It is recommended to use a library like Express or Hono to handle the routes as it's easier for developer to understand and maintain. Each route must be prefixed with `/function-name` so they are routed correctly.
+11. File write operations are ONLY permitted on `/tmp` directory. You can use either Deno or Node File APIs.
+12. Use `EdgeRuntime.waitUntil(promise)` static method to run long-running tasks in the background without blocking response to a request. Do NOT assume it is available in the request / execution context.
 
-Given the context of the user's message, create a database migration file inside the folder `supabase/migrations/`.
+## Example Templates
 
-The file MUST following this naming convention:
+### Simple Hello World Function
 
-The file MUST be named in the format `YYYYMMDDHHmmss_short_description.sql` with proper casing for months, minutes, and seconds in UTC time:
+```tsx
+interface reqPayload {
+  name: string
+}
 
-1. `YYYY` - Four digits for the year (e.g., `2024`).
-2. `MM` - Two digits for the month (01 to 12).
-3. `DD` - Two digits for the day of the month (01 to 31).
-4. `HH` - Two digits for the hour in 24-hour format (00 to 23).
-5. `mm` - Two digits for the minute (00 to 59).
-6. `ss` - Two digits for the second (00 to 59).
-7. Add an appropriate description for the migration.
+console.info('server started')
 
-For example:
+Deno.serve(async (req: Request) => {
+  const { name }: reqPayload = await req.json()
+  const data = {
+    message: `Hello ${name} from foo!`,
+  }
 
+  return new Response(JSON.stringify(data), {
+    headers: { 'Content-Type': 'application/json', Connection: 'keep-alive' },
+  })
+})
 ```
-20240906123045_create_profiles.sql
+
+### Example Function using Node built-in API
+
+```tsx
+import { randomBytes } from 'node:crypto'
+import { createServer } from 'node:http'
+import process from 'node:process'
+
+const generateRandomString = (length) => {
+  const buffer = randomBytes(length)
+  return buffer.toString('hex')
+}
+
+const randomString = generateRandomString(10)
+console.log(randomString)
+
+const server = createServer((req, res) => {
+  const message = `Hello`
+  res.end(message)
+})
+
+server.listen(9999)
 ```
 
-## SQL Guidelines
+### Using npm packages in Functions
 
-Write Postgres-compatible SQL code for Supabase migration files that:
+```tsx
+import express from 'npm:express@4.18.2'
 
-- Includes a header comment with metadata about the migration, such as the purpose, affected tables/columns, and any special considerations.
-- Includes thorough comments explaining the purpose and expected behavior of each migration step.
-- Write all SQL in lowercase.
-- Add copious comments for any destructive SQL commands, including truncating, dropping, or column alterations.
-- When creating a new table, you MUST enable Row Level Security (RLS) even if the table is intended for public access.
-- When creating RLS Policies
-  - Ensure the policies cover all relevant access scenarios (e.g. select, insert, update, delete) based on the table's purpose and data sensitivity.
-  - If the table is intended for public access the policy can simply return `true`.
-  - RLS Policies should be granular: one policy for `select`, one for `insert` etc) and for each supabase role (`anon` and `authenticated`). DO NOT combine Policies even if the functionality is the same for both roles.
-  - Include comments explaining the rationale and intended behavior of each security policy
+const app = express()
 
-The generated SQL code should be production-ready, well-documented, and aligned with Supabase's best practices.
+app.get(/(.*)/, (req, res) => {
+  res.send('Welcome to Supabase')
+})
+
+app.listen(8000)
+```
+
+### Generate embeddings using built-in @Supabase.ai API
+
+```tsx
+const model = new Supabase.ai.Session('gte-small')
+
+Deno.serve(async (req: Request) => {
+  const params = new URL(req.url).searchParams
+  const input = params.get('text')
+  const output = await model.run(input, { mean_pool: true, normalize: true })
+  return new Response(JSON.stringify(output), {
+    headers: {
+      'Content-Type': 'application/json',
+      Connection: 'keep-alive',
+    },
+  })
+})
+```
 
 ---
 > Source: [gita/gita-frontend-v2](https://github.com/gita/gita-frontend-v2) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
