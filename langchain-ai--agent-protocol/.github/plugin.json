@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--agent-protocol",
+  "displayName": "agent-protocol",
+  "description": "agent-protocol",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/agent-protocol",
+  "skills": []
+}
