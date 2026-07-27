@@ -1,423 +1,47 @@
 ## puppyone
 
-> PuppyOne is a **cloud file system built for AI Agents**, centered around two core pillars: **Connect** and **Collaborate**.
+> <!-- OPENSPEC:START -->
 
-# PuppyOne (ContextBase)
+<!-- OPENSPEC:START -->
+# OpenSpec Instructions
 
-## Overview
+These instructions are for AI assistants working in this project.
 
-PuppyOne is a **cloud file system built for AI Agents**, centered around two core pillars: **Connect** and **Collaborate**.
+Always open `@/openspec/AGENTS.md` when the request:
+- Mentions planning or proposals (words like proposal, spec, change, plan)
+- Introduces new capabilities, breaking changes, architecture shifts, or big performance/security work
+- Sounds ambiguous and you need the authoritative spec before coding
 
-It aggregates information scattered across various sources into a unified Context Space, while providing a complete infrastructure for multi-party collaboration between humans and agents — authentication, access control, version history, audit logging, and backup/rollback. Through the file system, bash, and the MCP protocol, any agent can read and write this ContextBase just like a local file system.
+Use `@/openspec/AGENTS.md` to learn:
+- How to create and apply change proposals
+- Spec format and conventions
+- Project structure and guidelines
 
-### Connect
+Keep this managed block so 'openspec update' can refresh the instructions.
 
-- **Multi-source data connectors** — OAuth connectors for 15+ platforms including Notion, GitHub, Gmail, Google Drive, Linear, Airtable, and more; also supports URL scraping, database connections, and custom scripts
-- **Bidirectional local folder sync** — Real-time sync between local directories and the cloud Context Space via MUT protocol, powered by a background daemon
-- **MCP protocol exposure** — Generates standard MCP interfaces for each agent or endpoint; any MCP-compatible client (Claude Desktop, Cursor, etc.) can connect directly
-- **Code sandbox** — Securely execute code in isolated Docker/E2B containers; agents can invoke sandbox endpoints remotely
+<!-- OPENSPEC:END -->
 
-### Collaborate
+# ContextBase Backend Guide
 
-- **Authentication & access control** — JWT for human users + Access Key for machine authentication; agent-level node access permissions
-- **Version history & rollback** — File-level version management, arbitrary version diff comparison, one-click rollback; folder-level snapshots
-- **Audit logging** — Records all operations (who did what to which node, and when), fully traceable
-- **Collaborative editing** — Checkout/commit workflow, locking mechanism, conflict detection and resolution
-- **Structured data management** — Cloud file system (folders/JSON/Markdown/files), JSON Pointer table operations
+The backend's authoritative version architecture is Git-native Version Engine.
+Read these first:
 
-### Platform
+- `AGENTS.md`
+- `docs/architecture/01-version-engine.md`
 
-- **Agent management** — Create agents, bind tools, control access scope, SSE streaming chat
-- **Full CLI coverage** — Every operation available via command line, enabling AI coding tools like Claude Code to drive the platform directly
-- **Unified access management** — All access types (sync/agent/MCP/sandbox/filesystem) consolidated into a single `access_points` table with a single entry point
+Do not reintroduce the removed pre-Git protocol, removed external version
+package, or old source/module naming. Web/API/Puppyone CLI writes enter through
+`ProductOperationAdapter`; native Git clients enter through `/git/...`; both
+publish through `GitNativeTransactionEngine`.
 
-## Active Development Directories
-
-- **`backend/`** — Python (FastAPI) backend service
-- **`frontend/`** — Next.js frontend application
-- **`cli/`** — Node.js command-line tool (Commander.js)
-- **`sandbox/`** — Docker sandbox environment (JSON editing / code execution)
-
-## Deprecated Directories (do not modify)
-
-- `PuppyEngine`, `PuppyFlow`, `PuppyStorage`, `tools`
-
----
-
-## Backend
-
-- **Language**: Python 3.12+
-- **Framework**: FastAPI + Uvicorn (ASGI)
-- **Package manager**: uv (`pyproject.toml`)
-- **Database**: Supabase (PostgreSQL)
-- **Storage**: AWS S3 / LocalStack
-- **LLM gateway**: LiteLLM
-- **Task queue**: ARQ (Redis)
-- **Logging**: Loguru
-
-### Directory Structure
-
-```
-backend/
-├── src/
-│   ├── main.py                # App entrypoint & lifespan
-│   ├── config.py              # Global config (Pydantic Settings)
-│   │
-│   ├── mut_engine/            # Mut version engine (core write funnel)
-│   │   ├── write_service.py   #   Single entry point for all content writes
-│   │   ├── compat_service.py  #   Legacy CollaborationService compatibility layer
-│   │   ├── repo_manager.py    #   Server-side repo lifecycle
-│   │   ├── server_repo.py     #   PuppyOneServerRepo (S3 + Supabase adapter)
-│   │   ├── ops.py             #   MutOps — unified tree operations entry point
-│   │   ├── ephemeral_client.py #  MutEphemeralClient — in-process clone→push
-│   │   ├── protocol_router.py #   MUT wire protocol (/clone /push /pull /negotiate)
-│   │   ├── collab_router.py   #   Collab API (checkout/commit/versions/rollback/diff)
-│   │   ├── audit_router.py    #   Audit log API
-│   │   ├── audit_repository.py#   Audit log data access
-│   │   ├── schemas.py         #   All Mut data types (Mutation, CommitResult, etc.)
-│   │   ├── dependencies.py    #   FastAPI DI factories
-│   │   ├── auth.py            #   MUT protocol auth (Access Key)
-│   │   └── backends/          #   Storage backend adapters
-│   │       ├── s3_storage.py  #     S3 object store
-│   │       ├── supabase_history.py # mut_commits table
-│   │       └── supabase_audit.py   # audit_logs table
-│   │
-│   ├── content/               # Content node tree (folder/JSON/MD/file)
-│   │   └── table/             #     Structured data tables (JSON Pointer)
-│   ├── tool/                  # Tool registration & search index
-│   │
-│   ├── connectors/            # Access types
-│   │   ├── manager/           #   Unified access CRUD (connections table)
-│   │   ├── datasource/        #   SaaS data source providers (Gmail/GitHub/Notion/...)
-│   │   │   ├── gmail/         #     Gmail connector
-│   │   │   ├── github/        #     GitHub connector
-│   │   │   ├── google_drive/  #     Google Drive connector
-│   │   │   ├── google_docs/   #     Google Docs connector
-│   │   │   ├── google_sheets/ #     Google Sheets connector
-│   │   │   ├── google_calendar/ #   Google Calendar connector
-│   │   │   ├── google_search_console/ # GSC connector
-│   │   │   ├── url/           #     URL/web page connector
-│   │   │   └── _base.py       #     BaseConnector & ConnectorSpec
-│   │   ├── filesystem/        #   Bidirectional local folder sync via MUT protocol
-│   │   ├── database/          #   External database connector
-│   │   ├── agent/             #   AI agents (config, chat, MCP tool binding)
-│   │   │   ├── config/        #     Agent CRUD & access permissions
-│   │   │   └── mcp/           #     MCP v3 tool binding & proxy
-│   │   ├── mcp_endpoint/      #   MCP endpoint CRUD & API key
-│   │   └── sandbox_endpoint/  #   Sandbox endpoint CRUD & exec
-│   │
-│   ├── platform/              # Platform services
-│   │   ├── auth/              #   JWT auth (Supabase Auth)
-│   │   ├── organization/      #   Org management & member invitations
-│   │   ├── project/           #   Project CRUD & members & dashboard
-│   │   ├── profile/           #   User profile & onboarding status
-│   │   ├── workspace/         #   Workspace management
-│   │   └── analytics/         #   Usage analytics
-│   │
-│   ├── infra/                 # Infrastructure services
-│   │   ├── supabase/          #   Supabase client & repository facade
-│   │   ├── s3/                #   S3 storage service
-│   │   ├── llm/               #   LLM service (generation + embedding)
-│   │   ├── search/            #   Vector search (Turbopuffer + RRF)
-│   │   ├── chunking/          #   Text chunking
-│   │   ├── security/          #   Security module (AES-256-GCM)
-│   │   ├── scheduler/         #   Scheduled tasks (APScheduler)
-│   │   ├── sandbox/           #   Sandbox runtime (Docker/E2B execution engine)
-│   │   ├── turbopuffer/       #   Turbopuffer vector DB client
-│   │   └── mcp_server/        #   MCP Server management (health checks, cache, legacy mcps table)
-│   ├── ingest/                # File ingestion ETL (MineRU + LLM)
-│   ├── context_publish/       # Public JSON publishing (short links)
-│   ├── internal/              # Internal API (X-Internal-Secret)
-│   └── utils/                 # Utilities (logging/middleware)
-├── mcp_service/               # Standalone MCP Server service (FastMCP)
-├── sql/                       # Database DDL & migrations
-├── tests/                     # Tests
-├── scripts/                   # Scripts
-└── docs/                      # Feature documentation
-```
-
-### Development Conventions
-
-- **Layered architecture**: `Router → Service → Repository (Supabase)` three-tier separation
-- **Dependency injection**: Use FastAPI `Depends` to inject Service and Repository
-- **Fully async**: All I/O operations use `async/await`
-- **Pydantic models**: All request/response defined with Pydantic schemas
-- **Naming conventions**: Files `snake_case.py`, classes `PascalCase`, functions/variables `snake_case`
-- **DB table naming**: All table names use **plural snake_case** (e.g. `projects`, `access_points`, `mut_commits`)
-- **Route prefix**: Business APIs under `/api/v1`, internal APIs under `/internal`
-- **Module structure**: Each module typically contains `router.py`, `service.py`, `repository.py`, `schemas.py`
-
-### Database Tables
-
-All tables use plural snake_case names. The "unified access" architecture stores agents, MCP endpoints, sandbox endpoints, and sync access points in a single `access_points` base table differentiated by `provider`. Sync-specific state lives in the `sync_state` satellite table; agent-specific config in `agent_profiles`.
-
-| Table | Repository | Description |
-|-------|-----------|-------------|
-| `projects` | `supabase/projects/repository.py` | Projects |
-| `project_members` | `project/repository.py`, `project/service.py` | Project membership |
-| `organizations` | `organization/repository.py` | Organizations |
-| `org_members` | `organization/repository.py` | Organization membership |
-| `org_invitations` | `organization/repository.py` | Organization invitations |
-| `profiles` | `profile/repository.py` | User profiles |
-| `access_points` | `connectors/manager/router.py`, `connectors/agent/config/repository.py` | Unified access points (agents/MCP/sandbox/sync) — base table |
-| `sync_state` | _(satellite table)_ | Sync-specific state (direction, cursor, last_synced_at, etc.) |
-| `agent_profiles` | _(satellite table)_ | Agent-specific config (model, system_prompt, etc.) |
-| `access_permissions` | `connectors/agent/config/repository.py` | Access point ↔ content node permissions |
-| `access_tools` | `connectors/agent/config/repository.py`, `tool/service.py` | Access point ↔ tool bindings |
-| `content_nodes` | _(dropped — replaced by MUT tree in S3)_ | Legacy content tree |
-| `tools` | `supabase/tools/repository.py` | Registered tools |
-| `mcps` | `supabase/mcps/repository.py`, `supabase/mcp_v2/repository.py` | MCP server instances |
-| `mcp_bindings` | `supabase/mcp_binding/repository.py` | MCP ↔ tool bindings |
-| `chunks` | `chunking/repository.py` | Text chunks for search |
-| `uploads` | `upload/file/tasks/repository.py` | File upload/ingest tasks |
-| `etl_rules` | `upload/file/rules/repository_supabase.py` | ETL transformation rules |
-| `context_publishes` | `supabase/context_publish/repository.py` | Public JSON short links |
-| `oauth_connections` | `connectors/datasource/oauth/repository.py` | OAuth integrations |
-| `chat_sessions` | `agent/chat/repository.py` | Agent chat sessions |
-| `chat_messages` | `agent/chat/repository.py` | Agent chat messages |
-| `agent_execution_logs` | `agent/config/repository.py`, `scheduler/jobs/agent_job.py` | Scheduled agent execution logs |
-| `file_versions` | _(deprecated — no longer used in code)_ | Legacy file version history |
-| `folder_snapshots` | _(deprecated — no longer used in code)_ | Legacy folder snapshots |
-| `mut_commits` | `mut_core/backends/supabase_history.py` | Mut version history (per-project commits) |
-| `audit_logs` | `collaboration/audit_repository.py`, `mut_core/backends/supabase_audit.py` | Audit trail |
-| `search_index_tasks` | `project/dashboard_router.py` | Search indexing tasks |
-| `ingest_tasks` | `project/dashboard_router.py` | Ingestion tasks |
-| `agent_logs` | `analytics/service.py` | Agent usage analytics |
-| `access_logs` | `analytics/service.py`, `analytics/router.py` | API access analytics |
-
-### API Routes
-
-| Route Prefix | Module | Description |
-|-------------|--------|-------------|
-| `/api/v1/organizations` | organization | Org CRUD & members & invitations |
-| `/api/v1/projects` | project | Project CRUD & members & dashboard |
-| `/api/v1/nodes` | content_node | Content nodes (folder/JSON/MD/file) & versions |
-| `/api/v1/tables` | table | Data tables & JSON Pointer operations |
-| `/api/v1/tools` | tool | Tool registration & search index |
-| `/api/v1/agents` | connectors/agent | Agent SSE streaming chat |
-| `/api/v1/agent-config` | connectors/agent/config | Agent CRUD & access permissions |
-| `/api/v1/mcp` | connectors/agent/mcp | MCP v3 tool binding & proxy |
-| `/api/v1/mcp-endpoints` | connectors/mcp_endpoint | MCP endpoint CRUD & API key |
-| `/api/v1/sandbox-endpoints` | connectors/sandbox_endpoint | Sandbox endpoint CRUD & exec |
-| `/api/v1/access` | connectors/manager | Unified access management (all types) |
-| `/api/v1/sync` | connectors/datasource | Data source sync |
-| `/api/v1/filesystem` | connectors/filesystem | Filesystem access lifecycle |
-| `/api/v1/ingest` | upload | File/URL ingestion ETL |
-| `/api/v1/collab` | collaboration | Collaborative editing & versions & audit |
-| `/api/v1/mut/{project_id}` | mut_core | MUT protocol (clone/push/pull/negotiate) |
-| `/api/v1/workspace` | workspace | Workspace management |
-| `/api/v1/db-connector` | db_connector | External database access |
-| `/api/v1/publishes` | context_publish | Public JSON short links |
-| `/api/v1/oauth` | connectors/datasource/oauth | OAuth authorization (9+ platforms) |
-| `/api/v1/auth` | auth | Authentication (login/refresh) |
-| `/api/v1/analytics` | analytics | Usage statistics |
-| `/api/v1/profile` | profile | User profile & onboarding |
-| `/api/v1/s3` | s3 | File upload/download/presigned URLs |
-| `/internal` | internal | Internal service API |
-| `/p/{key}` | context_publish | Public JSON access (no auth required) |
-| `/health` | main | Health check |
-
-### Common Commands
+Common commands:
 
 ```bash
-# Install dependencies
 uv sync
-
-# Start dev server
 uv run uvicorn src.main:app --host 0.0.0.0 --port 9090 --reload --log-level info --no-access-log
-
-# Run tests
-uv run pytest
-uv run pytest -m "not e2e"      # Exclude e2e tests
-
-# Start file worker (ETL / OCR)
-uv run arq src.upload.file.jobs.worker.WorkerSettings
+uv run pytest tests/version_engine -q
 ```
-
-### Deployment
-
-Railway multi-service deployment (shared codebase, differentiated by `SERVICE_ROLE`):
-
-- **api** (default): Main API service
-- **file_worker**: File ETL Worker (ARQ)
-- **mcp_server**: MCP protocol service (FastMCP)
-
----
-
-## Frontend
-
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **UI**: React 18 + Tailwind CSS
-- **Auth**: Supabase Auth
-- **State management**: Zustand + React Context
-- **Data fetching**: SWR
-
-### Directory Structure
-
-```
-frontend/
-├── app/                          # Next.js App Router pages
-│   ├── (main)/                   # Route group (shared AppSidebar layout)
-│   │   ├── projects/             # Projects module
-│   │   │   └── [projectId]/      # Project detail pages
-│   │   │       ├── data/         # Data explorer
-│   │   │       ├── access/       # Access management
-│   │   │       ├── toolkit/      # Agent toolkit
-│   │   │       ├── monitor/      # Monitoring
-│   │   │       └── settings/     # Project settings
-│   │   ├── settings/             # Global settings
-│   │   ├── tools-and-server/     # Tools & MCP server management
-│   │   ├── home/                 # Home / dashboard
-│   │   ├── billing/              # Billing
-│   │   └── team/                 # Team management
-│   ├── api/                      # API routes (agent, sandbox)
-│   ├── auth/                     # Auth callbacks
-│   ├── login/                    # Login page
-│   ├── onboarding/               # Onboarding flow
-│   └── oauth/                    # OAuth callbacks (multi-platform)
-├── components/                    # React components
-│   ├── agent/                    # Agent components
-│   ├── chat/                     # Chat interface
-│   ├── dashboard/                # Dashboard components
-│   ├── editors/                  # Editors (JSON/Markdown/Code)
-│   │   ├── code/                 # Monaco / CodeMirror
-│   │   ├── markdown/             # Milkdown Markdown editor
-│   │   ├── table/                # Tabular JSON editor
-│   │   ├── tree/                 # Tree JSON editor
-│   │   └── vanilla/              # Vanilla JSON editor
-│   ├── sidebar/                  # Sidebar
-│   ├── views/                    # Shared view components
-│   ├── onboarding/               # Onboarding components
-│   └── RightAuxiliaryPanel/      # Right auxiliary panel
-├── lib/                          # Utilities & API clients
-│   ├── hooks/                    # Custom React hooks
-│   ├── apiClient.ts              # Base API client
-│   ├── chatApi.ts                # Chat API
-│   ├── contentTreeApi.ts         # Content tree API
-│   ├── mcpApi.ts                 # MCP API
-│   ├── mcpEndpointsApi.ts        # MCP endpoints API
-│   ├── sandboxEndpointsApi.ts    # Sandbox endpoints API
-│   ├── projectsApi.ts            # Projects API
-│   ├── organizationsApi.ts       # Organizations API
-│   ├── oauthApi.ts               # OAuth API
-│   ├── ingestApi.ts              # Ingestion API
-│   ├── dbConnectorApi.ts         # Database connector API
-│   └── profileApi.ts             # User profile API
-├── contexts/                     # React Context
-│   ├── AgentContext.tsx           # Agent state management
-│   └── WorkspaceContext.tsx       # Workspace state management
-├── middleware.ts                  # Next.js middleware (auth & routing)
-└── next.config.ts                # Next.js config
-```
-
-### Common Commands
-
-```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Production build
-npm run build
-```
-
-### Environment Variables
-
-```
-NEXT_PUBLIC_SUPABASE_URL        # Supabase URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY   # Supabase anon key
-NEXT_PUBLIC_API_URL             # Backend API URL (default http://localhost:9090)
-NEXT_PUBLIC_DEV_MODE            # Dev mode flag
-```
-
----
-
-## CLI
-
-- **Language**: JavaScript (ESM)
-- **Framework**: Commander.js
-- **Install**: `npm install -g puppyone`
-
-### Directory Structure
-
-```
-cli/
-├── bin/puppyone.js             # Entrypoint & command registration
-├── src/
-│   ├── commands/               # Command implementations
-│   │   ├── auth.js             # Auth (login/logout/whoami/targets)
-│   │   ├── org.js              # Organization management
-│   │   ├── project.js          # Project management
-│   │   ├── access.js           # Unified Access Point management (all access types)
-│   │   ├── ap/                 # Access Point profile command domain
-│   │   │   ├── index.js        # ap command registration
-│   │   │   └── profiles.js     # login/use/list/current/logout/clear
-│   │   ├── fs/                 # Access Point scoped filesystem command domain
-│   │   │   ├── index.js        # fs command registration
-│   │   │   ├── commands/       # ls/tree/find/cat/head/tail/stat/write/mkdir/touch/cp/mv/rm/upload/download
-│   │   │   └── lib/            # shared FS context/http/path/render/read/transfer helpers
-│   │   ├── ap.js               # Compatibility re-export only
-│   │   ├── chat.js             # Agent chat (SSE streaming)
-│   │   ├── config-cmd.js       # CLI configuration
-│   │   ├── global.js           # Global commands (status/ps)
-│   │   └── _daemon.js          # Filesystem sync daemon (internal, legacy)
-│   ├── api.js                  # HTTP client
-│   ├── config.js               # Config file read/write
-│   ├── daemon.js               # Background daemon management
-│   ├── registry.js             # Local access registry
-│   ├── output.js               # Output formatting (human/JSON)
-│   ├── helpers.js              # Shared utilities
-│   └── state.js                # Sync state management
-```
-
-### Key Commands
-
-```bash
-puppyone auth login                    # Sign in
-puppyone project use "My Project"      # Set active project
-puppyone access add notion <url>       # Connect a SaaS data source
-puppyone access add agent "Bot"        # Create an AI agent
-puppyone access add mcp "Data API"     # Create MCP endpoint
-puppyone access add filesystem /docs   # Mount local folder sync
-puppyone access ls                     # List all access points
-puppyone status                        # Project dashboard
-puppyone chat                          # Chat with an agent
-puppyone fs semantics                  # Unix compatibility notes + resource limits for agents
-puppyone fs rmdir empty-dir            # Remove an empty scoped directory through MUT/MAT
-```
-
-See `docs/architecture/03-cli.md` for full reference.
-
----
-
-## Sandbox
-
-Lightweight Docker sandbox environment for securely executing CLI commands (e.g. `jq` for JSON editing) in isolated containers.
-
-```
-sandbox/
-├── README.md          # Usage docs
-├── Dockerfile         # Alpine + jq/bash/coreutils
-└── test-data.json     # Sample test data
-```
-
-Both the frontend (`app/api/sandbox/route.ts`) and backend (`src/infra/sandbox/`) integrate with sandboxes; the backend also supports E2B cloud sandboxes.
-
----
-
-## Other Directories
-
-| Directory | Description |
-|-----------|-------------|
-| `docs/` | Project-level documentation |
-| `assert/` | Static assets |
-| `scripts/` | Utility scripts |
-| `todo/` | Todo items |
-| `.github/` | GitHub Actions & CI |
 
 ---
 > Source: [puppyone-ai/puppyone](https://github.com/puppyone-ai/puppyone) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
