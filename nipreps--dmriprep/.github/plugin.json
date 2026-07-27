@@ -1,0 +1,9 @@
+{
+  "name": "nipreps--dmriprep",
+  "displayName": "dmriprep",
+  "description": "dmriprep",
+  "version": "1.0.0",
+  "author": "nipreps",
+  "homepage": "https://github.com/nipreps/dmriprep",
+  "skills": []
+}
