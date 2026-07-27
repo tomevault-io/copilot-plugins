@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-etcd-operator",
+  "displayName": "cluster-etcd-operator",
+  "description": "cluster-etcd-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-etcd-operator",
+  "skills": []
+}
