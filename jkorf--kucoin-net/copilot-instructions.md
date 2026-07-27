@@ -1,18 +1,13 @@
 ## kucoin-net
 
-> This repository is **Kucoin.Net** - a strongly typed C#/.NET client library for the Kucoin cryptocurrency exchange API. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using Kucoin.Net library when working with Kucoin cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with Kucoin API.
 
-# Copilot Instructions for Kucoin.Net
 
-This repository is **Kucoin.Net** - a strongly typed C#/.NET client library for the Kucoin cryptocurrency exchange API. It is part of the CryptoExchange.Net ecosystem.
+# Kucoin.Net Conventions
 
-When generating code that consumes Kucoin.Net, follow these conventions:
+This codebase uses **Kucoin.Net** for Kucoin cryptocurrency exchange access. Do not write raw `HttpClient` calls to Kucoin endpoints.
 
-## Use Kucoin.Net, not raw HTTP
-
-Never generate `HttpClient` calls to Kucoin REST or WebSocket endpoints. Always use `KucoinRestClient` or `KucoinSocketClient`. This ensures correct request signing, passphrase handling, rate limiting, and error handling.
-
-## Client setup
+## Client setup pattern
 
 ```csharp
 using Kucoin.Net;
@@ -26,56 +21,83 @@ var restClient = new KucoinRestClient(options =>
 
 For public market data only, no credentials are needed: `new KucoinRestClient()`.
 
-## Result handling
+## Result pattern
 
-Methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`. The error is on `.Error`.
+All methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`:
 
-## API structure
+```csharp
+var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("BTC-USDT");
+if (!ticker.Success) { Console.WriteLine(ticker.Error); return; }
+var price = ticker.Data.LastPrice;
+```
 
-- `restClient.SpotApi.ExchangeData` - public spot market data
-- `restClient.SpotApi.Account` - balances, deposits, withdrawals, account info
-- `restClient.SpotApi.SubAccount` - sub-account endpoints
-- `restClient.SpotApi.Trading` - spot orders, margin orders, stop orders, OCO
-- `restClient.SpotApi.HfTrading` - high frequency spot and margin order endpoints
-- `restClient.SpotApi.Margin` - margin configuration, lending, interest, mark prices
-- `restClient.SpotApi.Earn` - Kucoin Earn endpoints
-- `restClient.FuturesApi.ExchangeData` - futures market data
-- `restClient.FuturesApi.Account` - futures account, positions, margin mode, leverage
-- `restClient.FuturesApi.Trading` - futures orders
-- `restClient.UnifiedApi.*` - Unified Account endpoints
-- `socketClient.SpotApi`, `socketClient.FuturesApi`, `socketClient.UnifiedApi` - WebSocket streams
+## API surface
 
-## Symbols and credentials
+- `restClient.SpotApi.{ExchangeData|Account|SubAccount|Trading|HfTrading|Margin|Earn|SharedClient}`
+- `restClient.FuturesApi.{ExchangeData|Account|Trading|SharedClient}`
+- `restClient.UnifiedApi.{ExchangeData|Account|Trading}`
+- `socketClient.SpotApi`
+- `socketClient.FuturesApi`
+- `socketClient.UnifiedApi`
 
-Spot symbols use dash-separated names such as `BTC-USDT`. Futures symbols use contract names such as `XBTUSDTM` or `ETHUSDTM`. Kucoin credentials require key, secret, and passphrase.
+## Symbols and order placement
 
-## Order placement
+Spot symbols use `BTC-USDT`; futures symbols use contracts like `ETHUSDTM`. Let the library generate `clientOrderId` unless the caller explicitly needs external correlation.
 
-Let the library auto-generate `clientOrderId`. Do not pass a custom value unless required for an existing operational flow.
+```csharp
+var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
+    "BTC-USDT",
+    OrderSide.Buy,
+    NewOrderType.Limit,
+    quantity: 0.001m,
+    price: 50000m,
+    timeInForce: TimeInForce.GoodTillCanceled);
+```
 
 ## WebSocket pattern
 
-Store the returned `UpdateSubscription` and unsubscribe on shutdown via `socketClient.UnsubscribeAsync(sub.Data)`.
+```csharp
+var socketClient = new KucoinSocketClient();
+var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
+    "BTC-USDT",
+    update => Console.WriteLine(update.Data.LastPrice));
+if (!sub.Success) { Console.WriteLine(sub.Error); return; }
 
-## Cross-exchange
+await socketClient.UnsubscribeAsync(sub.Data);
+```
 
-For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed via `.SharedClient` properties. Kucoin exposes shared clients on `SpotApi` and `FuturesApi`.
+## Multi-exchange code
 
-## Avoid
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
 
-- Legacy or guessed `KucoinClient` class; use `KucoinRestClient`
-- Generic `ApiCredentials`; use `KucoinCredentials`
-- Two-argument credentials; Kucoin requires passphrase
-- Binance-style spot symbols like `BTCUSDT`; use `BTC-USDT`
-- `.Result` / `.Wait()`; use `await`
-- Instantiating clients per request; use DI and reuse instances
-- Skipping `WebCallResult.Success`
-- Manual signing or raw Kucoin URLs
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new KucoinRestClient().SpotApi.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
+```
+
+Shared symbol interfaces expose cached `SpotSymbolCatalog` / `FuturesSymbolCatalog` properties. Symbol requests support asset type/subtype filters and return display names plus base/quote asset classification metadata.
+
+## Hard rules
+
+- Never write raw `HttpClient` to Kucoin endpoints.
+- Never use `.Result` or `.Wait()`; async-only.
+- Never instantiate clients per request; reuse via DI.
+- Never skip checking `WebCallResult.Success`.
+- Never use two-part credentials; use `KucoinCredentials("key", "secret", "passphrase")`.
+- Never use `BTCUSDT` for spot examples; use `BTC-USDT`.
+- Always store WebSocket subscriptions and unsubscribe on shutdown.
+- Always inspect `Kucoin.Net/Interfaces/Clients/**` before inventing endpoint names.
 
 ## Reference
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, and `llms-full.txt` in the repository root, and `Examples/ai-friendly/` for compilable examples.
+- Skill: `AGENTS.md` in repo root has fuller examples.
+- LLM indexes: `llms.txt` and `llms-full.txt` in repo root.
+- API map: `docs/ai-api-map.md`.
+- Examples: `Examples/ai-friendly/`.
 
 ---
 > Source: [JKorf/Kucoin.Net](https://github.com/JKorf/Kucoin.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
