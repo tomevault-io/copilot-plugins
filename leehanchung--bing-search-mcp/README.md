@@ -1,23 +1,21 @@
 # bing-search-mcp
 
-> Source: [leehanchung/bing-search-mcp](https://github.com/leehanchung/bing-search-mcp) — distributed by [TomeVault](https://tomevault.io)
-
-MCP Server for Bing Search API
+> Source: [leehanchung/bing-search-mcp](https://github.com/leehanchung/bing-search-mcp). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [leehanchung/bing-search-mcp](https://github.com/leehanchung/bing-search-mcp).
+Original source: `.windsurf/rules/*.md` in [leehanchung/bing-search-mcp](https://github.com/leehanchung/bing-search-mcp).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-- **Windsurf** — `project-config.md`
 
-From [leehanchung/bing-search-mcp](https://github.com/leehanchung/bing-search-mcp) — a repo with 79+ stars on GitHub.
+From [leehanchung/bing-search-mcp](https://github.com/leehanchung/bing-search-mcp) — a repo with 78+ stars on GitHub.
 
 ---
 
