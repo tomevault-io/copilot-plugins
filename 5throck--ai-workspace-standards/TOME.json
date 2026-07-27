@@ -1,0 +1,44 @@
+{
+  "name": "ai-workspace-standards",
+  "owner": "5throck",
+  "repo": "ai-workspace-standards",
+  "description": "Master configuration for Vibe Coding and Harness Engineering \u2014 workspace standards for Claude Code, Gemini CLI, and all AI tools",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/5throck/ai-workspace-standards",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T01:43:07Z"
+}
