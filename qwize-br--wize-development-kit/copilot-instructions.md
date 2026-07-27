@@ -1,128 +1,143 @@
-## wize-tea-nfr
+## wize-tea-review
 
-> nfr: TEA NFR Assessment
+> review: TEA Story Review
 
 
-# TEA NFR Assessment
+# TEA Story Review
 
-# TEA — NFR Assessment
+# TEA — Story Review
 
-**Goal.** Verify that the **epic** as a whole meets Fury's NFR principles: performance, security, reliability, maintainability, accessibility, cost. Story-level gates miss NFRs that emerge only at integration; this gate catches them.
+**Goal.** A structured review of one story before its gate decision. Distinct from Shuri's `wize-code-review` (which audits code health). This one audits **AC fulfillment, test discipline, and risk-spot coverage**.
 
-Hawkeye drives. Tony reviews perf + security findings. Fury escalates if a non-negotiable is at risk. Runs **per epic**, just before any of its stories merges.
+Hawkeye drives. Runs at story end, right before `tea-gate`.
 
 ## Inputs
 
-- `.wize/planning/nfr-principles.md` (Fury's targets)
-- Code from all stories in the epic
-- Telemetry / benchmark output (lighthouse, web-vitals, macrobenchmark, Sentry perf)
-- Overlay perf playbooks: `web-perf-budgets.md`, `mobile-perf-budgets.md`
+- Story file (the AC list, out-of-scope, notes).
+- `tea-design.md` + `tea-trace.md`.
+- Test run results (PR CI).
+- Code diff (the PR).
 
 ## Output
 
-- `.wize/implementation/tea/nfr/{epic}.md`
+- `.wize/implementation/tea/{epic}/{story}/review.md`
 
 ## Steps
 
-### 1. For each category, run the verifier
+### 1. AC check (per AC)
 
-| Category | Verifier (typical) |
-|---|---|
-| Performance | lighthouse-ci against epic-scope routes; web-vitals beacon delta |
-| Security | `npm audit --omit=dev`; manual OWASP Top 10 walk; secret scan |
-| Reliability | injected-failure tests (`@chaos` tag); retry policy review; idempotency check |
-| Maintainability | coverage delta; cyclomatic complexity delta; lint baseline |
-| Accessibility | axe on every epic-scope route; keyboard walk on critical flows |
-| Cost | cost dashboard delta in the epic window |
+For each AC, observe the actual behavior on a staging or local build and decide: `met` / `partial` / `not-met`. Use the recorded video/screenshot when CI captured one (Playwright `screenshot: only-on-failure` or always for review tag).
 
-### 2. Score each
+### 2. Test discipline
 
-For each category: `PASS` (meets non-negotiable) / `CONCERNS` (within stretch range; below non-negotiable on a measurable item with mitigation plan) / `FAIL` (non-negotiable missed; no plan) / `WAIVED` (with documented reason + sign-off).
+Walk:
+- Are `tea-design.md`'s declared tests present in code?
+- Is every assertion meaningful (not just `expect(true).toBe(true)`)?
+- Are selectors stable (role/label/testid) rather than brittle (CSS classes)?
+- Are mocks at the network boundary (MSW) rather than in the unit under test?
+- Are there `test.skip` or `test.only` left in?
 
-### 3. Findings (one per slip)
+### 3. Risk-spot coverage
 
-If anything failed or concerned, write the finding: what we measured, what was expected, why the slip, what the next step is.
+If the story touches any `R-x` from the risk profile, walk the mitigation contract and confirm it's met.
 
-### 4. Hand off
+### 4. Story scope discipline
 
-`PASS` → epic can merge. `CONCERNS` (advisory) → flag in PR description. `FAIL` (enforcing) → blocks merge.
+Did the story stay within its declared scope? Any out-of-scope item that crept in is flagged in the review (and either moved to a new story or backed out).
+
+### 5. Knowledge update check
+
+Did this story touch any of the 5 `document-project` axes (architecture / conventions / risk-spots / dependencies / overview)? If yes, walk the PR diff and confirm the corresponding `.wize/knowledge/document-project/*.md` got 1–3 new lines this commit.
+
+Decision:
+- **Touched + updated** → record as PASS, no finding.
+- **Touched + NOT updated** → record finding `KN-NN` (severity `medium`); recommendation: `gate CONCERNS` (advisory mode) or `gate FAIL` (enforcing).
+- **Not touched** → write `knowledge: n/a` in the body, move on.
+
+This is what keeps the brownfield baseline alive instead of stale. Without it, `document-project` is honest in week 1 and obsolete in week 24.
+
+### 6. Findings
+
+For each issue, write: severity (`low / medium / high`), what, why it matters, what to do.
+
+### 7. Recommend gate outcome
+
+Review doesn't *make* the gate decision (that's `tea-gate`); it recommends. Possible recommendations:
+- `gate PASS`
+- `gate CONCERNS` with N findings
+- `gate FAIL` (only if a non-negotiable AC is `not-met`)
+- `gate WAIVED` (only with documented reason + senior signoff)
 
 ## YAML frontmatter (canonical)
 
 ```yaml
 ---
-gate: nfr
-epic: 01-onboarding
-status: CONCERNS
-scores:
-  performance: PASS
-  security: PASS
-  reliability: CONCERNS
-  maintainability: PASS
-  accessibility: PASS
-  cost: PASS
+gate: review
+story_id: E01-S03
+status: PASS
+ac_check:
+  - id: AC-02-1
+    met: true
+    evidence: "e2e/onboarding/invite.spec.ts::happy path passed on PR-#412; recording in CI artifact #412-1"
+  - id: AC-02-2
+    met: true
+    evidence: "InviteForm.spec.tsx::error region announces"
+knowledge_axes_touched: [conventions, risk-spots]
+knowledge_axes_updated: [conventions, risk-spots]   # leave empty array if axes touched but no update happened
 findings:
-  - id: NFR-01-1
-    category: reliability
-    severity: medium
-    summary: "Outbox retry interval too aggressive for Resend's documented backoff."
-    expected: "Exponential 30s/2m/10m; we set 5s/15s/45s."
-    actual: "Spike in Resend 429s during integration test."
-    recommendation: "Update retry policy in `lib/email/outbox.ts`; capture with `outbox-retry.spec.ts`."
+  - id: REV-01
+    severity: low
+    summary: "Empty-state copy slightly differs from Mantis' spec."
+    recommendation: "Update `<EmptyTeamPanel>` heading to 'Invite your first teammate'."
     owner: shuri
     blocking: false
-created_at: 2026-06-11T18:00:00Z
+risk_links: [R-1]
+recommendation: gate-PASS
+created_at: 2026-06-11T20:00:00Z
 ---
 ```
 
-## Body of `nfr/{epic}.md`
+## Body of `review.md`
 
 ```markdown
-## Summary
-Epic 01 (onboarding) at gate. Performance and a11y pass non-negotiables; reliability has one mid-severity concern around outbox backoff.
+## Per-AC
 
-## Per category
+### AC-02-1 — met
+Evidence: E2E `e2e/onboarding/invite.spec.ts::happy path` passed locally + CI run #412. Banner appears 720ms after click (well within 1s NFR).
 
-### Performance — PASS
-- LCP (signup): 1.45s p75 (target ≤ 2.5s).
-- INP (signup): 90ms p75 (target ≤ 200ms).
-- CLS (signup): 0.03 (target ≤ 0.1).
-- LCP (onboarding): 1.7s p75.
+### AC-02-2 — met
+Evidence: Unit + component test both pass. Manually walked screen-reader output — VoiceOver announces "Email — error — Enter a valid email." correctly.
 
-### Security — PASS
-- `npm audit` clean (dev advisories noted in `.audit-ignore.md`).
-- OWASP Top 10 walk: no findings.
-- RLS verified on `users`, `teams`, `memberships`.
+## Test discipline
+- All declared tests present.
+- `data-testid` discipline solid (invite-form, invite-email, invite-cta, invite-sent-banner).
+- No `test.skip` / `.only`.
+- One snapshot test — small enough to be useful; not a tree snapshot.
 
-### Reliability — CONCERNS
-- See NFR-01-1.
+## Risk coverage
+- R-1 (mailer): integration test covers the right path; happy path E2E confirms end-to-end. PASS.
 
-### Maintainability — PASS
-- Coverage 84% on logic modules in this epic.
-- No file > 300 LOC introduced.
+## Scope discipline
+- Two minor copy tweaks crept in (out-of-spec; logged as REV-01).
 
-### Accessibility — PASS
-- axe clean on `/signup`, `/signup/error`, `/onboarding`, `/onboarding/invite-sent`.
-- Keyboard walk: focus order matches visual; modal traps + restores.
+## Findings
+- REV-01 (low): empty-state copy.
 
-### Cost — PASS
-- No cost dashboard change beyond expected (account creation; mailer spend within budget).
-
-## Action items
-- Shuri: PR-XXX fixes NFR-01-1. Re-run NFR after merge.
-- Hawkeye: re-baseline web-vitals after epic ships to prod.
+## Recommendation
+Recommend `gate PASS` with one low-severity finding to fix in a follow-up.
 ```
 
 ## Anti-patterns Hawkeye rejects
 
-- **Self-reported "looks fine" with no verifier output.** Attach the artifact.
-- **Concerns left for "later."** Either an action item with owner+deadline or it's not a concern.
-- **Waived without sign-off.** WAIVED needs `waived_by: NAME` + reason.
-- **NFR run on stage with synthetic data.** Use realistic distributions whenever possible.
+- **Review without walking the code.** Reading the test names isn't review.
+- **AC marked "met" without observed evidence.** Tests passing + screenshot/recording, please.
+- **Findings without owners.** Same as everywhere else in the kit.
+- **Recommending PASS when an AC is `partial`.** No.
+- **Recommending PASS when a non-negotiable NFR slipped.** That's a gate FAIL.
 
 ## Hand-off
 
-> NFR gate for Epic 01: **CONCERNS**. PR can proceed if the reliability finding (NFR-01-1) is committed to be addressed in the next sprint. Otherwise hold the merge.
+> Review for E01-S03 at `.wize/implementation/tea/E01-S03/review.md`. All ACs `met`, one low-severity copy finding. Recommending `gate PASS`. Final at `wize-tea-gate`.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
