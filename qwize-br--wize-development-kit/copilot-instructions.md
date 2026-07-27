@@ -1,132 +1,151 @@
-## wize-product-brief
+## wize-quick-dev
 
-> 1-analysis: Product Brief
+> 4-implementation: Quick Dev (lifecycle shortcut)
 
 
-# Product Brief
+# Quick Dev (lifecycle shortcut)
 
-# Product Brief
+# Quick Dev
 
-**Goal.** Convert raw demand into a one-page brief the team can ship from. The brief is the single source of truth at this point — every other artifact (PRD, UX, architecture) references back to it.
+**Goal.** When the task is small and well-scoped (bug fix, copy edit, small refactor, dep bump, brownfield maintenance), skip Phase 1–3 and execute with light TEA. Save the full lifecycle for new value.
 
-Pepper drives. Peggy edits prose. Output lands in `.wize/planning/brief.md`.
+Wizer authorizes the shortcut (via routing). Shuri runs it. Hawkeye does smoke-only.
+
+## Operating contract (light)
+
+Still a **mission contract**, just a small one: `.wize/` + `AGENTS.md` + skills are the instructions. Inspect before editing, reuse ladder before new code, smallest sufficient change, test-first when the change has a testable surface, run the real smoke + checks, no success claim without evidence. If it grows past ~1h or touches a new feature/architecture/UX/security surface, stop and re-route to Full Lifecycle — don't force it through here.
+
+## When to use (yes)
+
+- Bug fix with a clear root cause.
+- Copy or content edit.
+- Small refactor with no behavior change.
+- Dependency bump (security or minor).
+- Brownfield maintenance: rename, structural cleanup, dead-code removal.
+- Hotfix during incident response (post-mortem after).
+
+## When NOT to use (no)
+
+- New feature, even small.
+- Cross-cutting change touching architecture.
+- Changes where ACs need to be agreed.
+- Anything that should be a story.
+- Anything that touches security/auth/payments without senior review.
+
+## Decision tree
+
+```
+Question                              Yes              No
+Is there an AC to write?              → full lifecycle  → next
+Does it touch architecture?           → full lifecycle  → next
+Does it need UX input?                → full lifecycle  → next
+Could it surprise a user?             → full lifecycle  → next
+Is it ≤ 1 hour to a careful dev?      → quick-dev       → full lifecycle
+```
 
 ## Inputs
 
-- Raw demand (chat message, doc, ticket, screenshot, recording).
-- Optional existing materials (deck, doc, prior brief).
-- `.wize/config/project.toml`.
+- Issue / Slack message / PR comment describing the problem.
+- Repo state.
+- `.wize/config/tea.toml` (smoke-only policy when `policy = "advisory"`).
 
-## Outputs
+## Output
 
-- `.wize/planning/brief.md`
-- Optionally `.wize/knowledge/research/` if Pepper pulled external sources.
+- Code change (single PR).
+- Single-line entry appended to `.wize/implementation/quick-dev-log.md`.
+- Conventional commit.
 
 ## Steps
 
 ### 1. Frame in one paragraph
 
-What is being asked, by whom, and by when. If you can't write it in three sentences, you don't understand it yet. Ask one clarifying question, then write.
+What changes, why, and what could break. If the paragraph is hard to write, you're not in quick-dev territory.
 
-### 2. Audience
+### 2. Implement
 
-- **Primary user** (one, name them by role + JTBD).
-- **Secondary users** (≤ 2).
-- **Stakeholders** (≤ 3 — the people whose lives change if this ships).
+- TDD when reasonable; smoke-test-and-fix when the cost of TDD is greater than the value.
+- Run Shuri's reuse ladder (see `wize-agent-dev` persona) before writing anything new: does this need to exist → already in the codebase → stdlib → native/framework feature → installed dependency → one-liner → only then new code. Don't introduce new abstractions.
 
-If the user list overflows, the brief is too broad. Force the cut.
+### 3. Hawkeye lite
 
-### 3. Vision
+- Smoke test: imports load, the changed flow doesn't break.
+- Lint + format + type-check clean.
+- No `tea-design / trace / review / nfr` written.
+- Single one-line gate entry instead of full `gate.md`.
 
-One sentence describing the desired future state. Future tense. Concrete. No buzzwords. Test: can a new dev one month from now repeat it after a 30-second read?
+### 4. Log
 
-### 4. Success criteria
+Append one line to `.wize/implementation/quick-dev-log.md`:
 
-3–5 measurable outcomes. Numbers, not adjectives.
-
-Examples:
-- ✓ "Median TTI on the checkout page ≤ 1.5s on a mid-range Android by Q3."
-- ✗ "Faster checkout."
-
-### 5. Non-goals
-
-What this is *not*. Cut ambiguity early. If a feature isn't ruled in or out here, it will be in the PRD review.
-
-### 6. Constraints
-
-Hard limits. Pick from:
-- Deadline (and what slipping it means).
-- Budget envelope (one-time and run-rate).
-- Compliance (GDPR, LGPD, SOC2, PCI, HIPAA, etc.).
-- Integrations the product must speak to.
-- Team / hiring envelope.
-
-### 7. Open questions
-
-Each with the human who can answer it. Each marked priority `blocker` / `important` / `nice-to-know`. Blockers must be resolved before the PRD starts.
-
-### 8. Hand-off
-
-- Mark `status: ready-for-prd` in the brief.
-- Notify Wizer: "Brief ready, hand to Hill."
-- Move to `wize-trigger-map` next (Pepper continues).
-
-## Brief template
-
-```markdown
----
-status: ready-for-prd | draft
-owner: Pepper Potts
-created: YYYY-MM-DD
----
-
-# Brief — {{project_name}}
-
-## Vision
-…
-
-## Audience
-- **Primary:** … (one role + their JTBD)
-- **Secondary:** …
-- **Stakeholders:** …
-
-## Success criteria
-1. …
-2. …
-3. …
-
-## Non-goals
-- …
-
-## Constraints
-- **Deadline:** …
-- **Budget:** …
-- **Compliance:** …
-- **Integrations:** …
-
-## Open questions
-- [ ] **(blocker)** … — *owner: NAME*
-- [ ] **(important)** … — *owner: NAME*
-- [ ] **(nice-to-know)** … — *owner: NAME*
+```
+2026-06-11 | shuri | dep-bump zod 3.22→3.23 | smoke PASS | PR #418
+2026-06-11 | shuri | fix copy on /signin help link | smoke PASS | PR #419
+2026-06-11 | shuri | rename UserService → AccountService | smoke PASS | PR #420
 ```
 
-## Anti-patterns Pepper rejects
+### 5. Knowledge update (only if applicable)
 
-- "Make the product better." → no audience, no outcome, not a brief.
-- Pasting a stakeholder's slack message verbatim. Rewrite in the brief voice.
-- Success criteria like "increase engagement". Reword: which event, how much, by when.
-- Hidden assumptions ("everyone has fast internet"). Surface them in *Constraints* or *Open questions*.
-- Open questions with no owner. If nobody owns it, the answer never comes.
+Most quick-dev changes don't touch the baseline axes (copy edit, small refactor, dep bump in a stable lib). When they do — typically a **dependency bump** or a **rename that breaks a public contract** — add **one line** to the matching `document-project/*.md` file:
 
-## When to skip
+```markdown
+## 2026-06-11
+- Dependencies: bump zod 3.22 → 3.23. No API changes; validateInviteEmail unaffected.
+- Conventions: `AccountService` replaces `UserService` (rename); imports updated repo-wide.
+```
 
-This workflow is **not optional** for new products / new features. For tiny fixes (typo, copy, dependency bump), use `wize-quick-dev` instead — Pepper isn't called.
+Heuristic: *"would a new dev hitting `document-project/*.md` next week be misled if I don't add this?"* Yes → write. No → skip.
+
+### 6. Commit + open PR
+
+Conventional commit. PR description: the paragraph from step 1.
+
+```
+fix(auth): typo in error message for AC-04-2 follow-up
+
+The error shown after rate-limit said "Sloow down" — corrected to "Slow down".
+No behavior change; copy-only.
+```
+
+## Quick-dev log template
+
+```markdown
+# Quick-dev log
+
+| Date | Owner | What | Smoke | PR |
+|---|---|---|---|---|
+| 2026-06-11 | shuri | … | PASS | #N |
+```
+
+## Done report (compact)
+
+Report in four lines — no ceremony:
+
+1. What changed + why.
+2. Files changed.
+3. Checks run + results (smoke, lint, format, type-check). Name any that couldn't run and why.
+4. Recommended next action, if any.
+
+## Disabling
+
+To force every change through the full lifecycle (for very high-stakes products), set in `.wize/config/project.toml`:
+
+```toml
+[install]
+quick_dev_enabled = false
+```
+
+Wizer respects this; quick-dev becomes unavailable; every change must go through Pepper → … → Hawkeye gate.
+
+## Anti-patterns Shuri rejects in herself
+
+- Reaching for quick-dev to skip writing an AC because she doesn't want to argue with Hill.
+- Quick-dev that touches security/auth/payments.
+- A "small refactor" that ends up changing behavior.
+- Skipping the log entry.
 
 ## Hand-off
 
-When the brief is approved, Pepper notifies Wizer:
-
-> Brief is ready in `.wize/planning/brief.md`. No blockers open. Hill, your call on PRD.
+> `dep-bump zod 3.23` is in. PR #418, smoke PASS. Logged. No further TEA artifacts; moving on.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
