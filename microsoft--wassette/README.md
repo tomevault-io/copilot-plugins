@@ -1,17 +1,16 @@
 # wassette
 
-> Tome by [microsoft](https://github.com/microsoft/wassette) — distributed by [TomeVault](https://tomevault.io)
-
-Wassette: A security-oriented runtime that runs WebAssembly Components via MCP
+> Tome by [microsoft](https://github.com/microsoft/wassette), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [microsoft/wassette](https://github.com/microsoft/wassette).
+Original source: `` in [microsoft/wassette](https://github.com/microsoft/wassette).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
