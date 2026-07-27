@@ -1,0 +1,81 @@
+{
+  "name": "micronaut-spring",
+  "owner": "micronaut-projects",
+  "repo": "micronaut-spring",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "micronaut-spring",
+      "path": ".agents/skills/docs/SKILL.md",
+      "github_url": "https://github.com/micronaut-projects/micronaut-spring/tree/main/.agents/skills/docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micronaut-spring",
+      "path": ".agents/skills/coding/SKILL.md",
+      "github_url": "https://github.com/micronaut-projects/micronaut-spring/tree/main/.agents/skills/coding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micronaut-spring",
+      "path": ".agents/skills/guides/SKILL.md",
+      "github_url": "https://github.com/micronaut-projects/micronaut-spring/tree/main/.agents/skills/guides/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micronaut-spring",
+      "path": ".agents/skills/gradle/SKILL.md",
+      "github_url": "https://github.com/micronaut-projects/micronaut-spring/tree/main/.agents/skills/gradle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micronaut-spring",
+      "path": ".agents/skills/agent-md-refactor/SKILL.md",
+      "github_url": "https://github.com/micronaut-projects/micronaut-spring/tree/main/.agents/skills/agent-md-refactor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "micronaut-spring",
+      "path": ".agents/skills/micronaut-sourcegen/SKILL.md",
+      "github_url": "https://github.com/micronaut-projects/micronaut-spring/tree/main/.agents/skills/micronaut-sourcegen/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/micronaut-projects/micronaut-spring",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T05:38:02Z"
+}
