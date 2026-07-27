@@ -1,0 +1,51 @@
+{
+  "name": "aws-generativeai-partner-samples",
+  "owner": "aws-samples",
+  "repo": "aws-generativeai-partner-samples",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aws-generativeai-partner-samples",
+      "path": "snowflake/snow-summit-2026/SKILL.md",
+      "github_url": "https://github.com/aws-samples/aws-generativeai-partner-samples/tree/main/snowflake/snow-summit-2026/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/aws-generativeai-partner-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-27T09:41:15Z"
+}
