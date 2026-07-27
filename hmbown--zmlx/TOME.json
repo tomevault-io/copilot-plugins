@@ -2,9 +2,9 @@
   "name": "ZMLX",
   "owner": "Hmbown",
   "repo": "ZMLX",
-  "description": "Triton\u2011style kernel toolkit for MLX plus a small upstream incubator: prototype, benchmark, and upstream fusions for Apple Silicon",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hmbown/ZMLX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T15:14:19Z"
+  "distributed_at": "2026-07-27T22:07:24Z"
 }
