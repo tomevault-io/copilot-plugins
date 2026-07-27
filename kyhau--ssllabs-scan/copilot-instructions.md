@@ -1,91 +1,62 @@
 ## ssllabs-scan
 
-> Makefile-based development workflow for Python projects using Poetry
+> General coding standards (language-agnostic)
 
 
-# Python Project Development Workflow
+# General Coding Standards
 
-## Available Makefile Targets
+## Documentation & Instructions
 
-### Setup
-- `make setup-init` - Complete first-time setup (configure venv, lock, install all deps)
-- `make setup-venv` - Configure Poetry to use .venv in project directory
+- **Be concise** - Instructions, rules, and documentation should be brief and actionable
+- **Focus on essentials** - Include only what's necessary, remove verbose explanations
 
-### Installation
-- `make install` - Install main dependencies only
-- `make install-dev` - Install main + dev dependencies
-- `make install-test` - Install main + test dependencies
-- `make install-all` - Install all dependencies (main + dev + test)
+## File Formatting
 
-### Dependency Management
-- `make lock` - Regenerate poetry.lock from pyproject.toml
-- `make update-deps` - Update dependencies to latest compatible versions
+- **End files with newline** - POSIX standard, required for Git diffs
+- **Use LF (`\n`) line endings** - Not CRLF (`\r\n`), except `.bat`/`.cmd` files
+- **No trailing whitespace** - Remove spaces/tabs at end of lines
+- **Consistent indentation** - Spaces or tabs, never mixed
 
-### Testing
-- `make test` - Run unit tests without coverage
-- `make test-with-coverage` - Run unit tests with coverage reporting
+## File Naming
 
-### Code Quality
-- `make lint-python` - Lint Python code with flake8
-- `make lint-yaml` - Lint YAML files with yamllint
-- `make format-python` - Format Python code with black
-- `make pre-commit` - Run all quality checks (format, lint, test)
+- **Lowercase with hyphens** - `my-file.txt` not `My-File.txt`
+- **Be descriptive** - `user-authentication.py` not `auth.py`
+- **Avoid special characters** - Use only `a-z`, `0-9`, `-`, `_`, `.`
 
-### Build
-- `make build` - Build the Python package
+**Exceptions:**
+- Python: `snake_case.py`
+- JavaScript/TypeScript: `PascalCase.tsx`
 
-### Cleanup
-- `make clean` - Clean test artifacts, build artifacts and temporary files
-- `make clean-all` - Clean everything including virtual environment
+## Git
 
-### Help
-- `make help` - Show all available targets
+**Commits:**
+- Atomic (one change per commit)
+- Present tense messages ("Add feature" not "Added feature")
+- Include issue numbers (`Fixes #123`)
 
-## Project Setup
+**Never commit:**
+- ❌ Build artifacts (`dist/`, `build/`)
+- ❌ Dependencies (`node_modules/`, `.venv/`)
+- ❌ IDE files (`.vscode/`, `.idea/`)
+- ❌ OS files (`.DS_Store`, `Thumbs.db`)
+- ❌ Secrets or credentials
 
-**Quick Start:**
-```bash
-make setup-init              # Complete first-time setup
-make test-with-coverage      # Verify installation
-```
+## Security
 
-## Python Environment
-- **Poetry** - Dependency management
-- **Python 3.11+** - Minimum version (supports 3.11, 3.12, 3.13)
-- **`.venv/`** - Virtual environment (project-local)
-- **Dependencies** in `pyproject.toml`:
-  - Main: requests
-  - Test: pytest, pytest-cov, pytest-mock, pytest-gitignore, coverage, mock, flake8
-  - Dev: setuptools, wheel, yamllint, black
+- **Never commit secrets** - Use environment variables
+- **Pin dependency versions** - Use exact versions
+- **Use secret scanners** - gitleaks, truffleHog
+- **Security scanning** - Snyk, Dependabot
 
-## Development Workflow
+## Before Committing
 
-**Daily development:**
-```bash
-# 1. Make code changes
-# 2. Run all quality checks before committing
-make pre-commit             # Format, lint, and test everything
-# Or run individual checks:
-make format-python          # Auto-format
-make lint-python            # Lint Python
-make lint-yaml              # Lint YAML
-make test-with-coverage     # Test with coverage
-make clean                  # Remove artifacts
-```
-
-## Project Structure
-- Main package: `ssllabsscan/`
-- Tests: `tests/`
-- CLI entry point: `ssllabs-scan` (defined in pyproject.toml)
-- Configuration: `pyproject.toml`
-
-## CLI Tool Usage
-After installation with `poetry install` or `pip install .`:
-```bash
-ssllabs-scan                 # Main CLI tool
-ssllabs-scan --help          # Show help
-```
+- [ ] Tests pass
+- [ ] No linter errors
+- [ ] No trailing whitespace
+- [ ] Newline at end of files
+- [ ] No debug code
+- [ ] Documentation updated
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/kyhau) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [kyhau/ssllabs-scan](https://github.com/kyhau/ssllabs-scan) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
