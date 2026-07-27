@@ -1,8 +1,6 @@
 # AI instruction files for realtimekit-ui
 
-> Sourced from [cloudflare/realtimekit-ui](https://github.com/cloudflare/realtimekit-ui) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-RealtimeKit UI provides pre-built, ready-to-use UI components for integrating with Cloudflare RealtimeKit
+> Sourced from [cloudflare/realtimekit-ui](https://github.com/cloudflare/realtimekit-ui), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [cloudflare/realtimekit-ui](https://github.com/c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cloudflare/realtimekit-ui](https://github.com/cloudflare/realtimekit-ui) — a repo with 52+ stars on GitHub.
+From [cloudflare/realtimekit-ui](https://github.com/cloudflare/realtimekit-ui) — a repo with 60+ stars on GitHub.
 
 ---
 
