@@ -1,142 +1,128 @@
-## wize-tea-gate
+## wize-tea-nfr
 
-> gate: TEA Gate Decision
+> nfr: TEA NFR Assessment
 
 
-# TEA Gate Decision
+# TEA NFR Assessment
 
-# TEA — Gate Decision
+# TEA — NFR Assessment
 
-**Goal.** Final per-story decision. **PASS / CONCERNS / FAIL / WAIVED** with documented rationale, score, and policy mode. This is the line: a story doesn't advance past it without a recorded gate.
+**Goal.** Verify that the **epic** as a whole meets Fury's NFR principles: performance, security, reliability, maintainability, accessibility, cost. Story-level gates miss NFRs that emerge only at integration; this gate catches them.
 
-Hawkeye drives. The four inputs (`design`, `trace`, `review`, plus `nfr` at epic boundary) feed in. Policy is read from `.wize/config/tea.toml`.
+Hawkeye drives. Tony reviews perf + security findings. Fury escalates if a non-negotiable is at risk. Runs **per epic**, just before any of its stories merges.
 
 ## Inputs
 
-- `.wize/implementation/tea/{epic}/{story}/design.md`
-- `.wize/implementation/tea/{epic}/{story}/trace.md`
-- `.wize/implementation/tea/{epic}/{story}/review.md`
-- `.wize/implementation/tea/nfr/{epic}.md` (when the story is the last of its epic)
-- `.wize/config/tea.toml`
+- `.wize/planning/nfr-principles.md` (Fury's targets)
+- Code from all stories in the epic
+- Telemetry / benchmark output (lighthouse, web-vitals, macrobenchmark, Sentry perf)
+- Overlay perf playbooks: `web-perf-budgets.md`, `mobile-perf-budgets.md`
 
 ## Output
 
-- `.wize/implementation/tea/{epic}/{story}/gate.md`
-
-## Decision rules
-
-| Inputs | Recommendation |
-|---|---|
-| All ACs `met`, no findings | **PASS** |
-| All ACs `met`, only low/medium non-blocking findings | **PASS** with notes (or **CONCERNS** depending on count) |
-| Any AC `partial` | **CONCERNS** |
-| Any AC `not-met` | **FAIL** |
-| NFR `FAIL` on the epic (last story) | **FAIL** |
-| `tea-review` flagged `knowledge_axes_touched` ≠ `knowledge_axes_updated` (any axis touched without update) | **CONCERNS** (advisory mode) / **FAIL** (enforcing mode) — adds finding `KN-NN` |
-| Failing AC OR non-neg NFR with documented business rationale + senior signoff | **WAIVED** |
-
-Score (0–100): heuristic. `100 - (10 × high) - (5 × medium) - (2 × low)`. Floor 0.
-
-## Policy
-
-`.wize/config/tea.toml` sets `policy = "advisory"` (default) or `"enforcing"`.
-
-- **Advisory:** `FAIL` is a visible warning in PR; merge isn't auto-blocked. The team decides.
-- **Enforcing:** `FAIL` blocks merge via CI status check (`tea-gate`). PASS / CONCERNS allowed through.
+- `.wize/implementation/tea/nfr/{epic}.md`
 
 ## Steps
 
-### 1. Read the three inputs
+### 1. For each category, run the verifier
 
-If trace shows `partial`, you know the recommendation. If review recommends FAIL, you've got your decision. The gate doc just records it.
+| Category | Verifier (typical) |
+|---|---|
+| Performance | lighthouse-ci against epic-scope routes; web-vitals beacon delta |
+| Security | `npm audit --omit=dev`; manual OWASP Top 10 walk; secret scan |
+| Reliability | injected-failure tests (`@chaos` tag); retry policy review; idempotency check |
+| Maintainability | coverage delta; cyclomatic complexity delta; lint baseline |
+| Accessibility | axe on every epic-scope route; keyboard walk on critical flows |
+| Cost | cost dashboard delta in the epic window |
 
-### 2. Compute score
+### 2. Score each
 
-Don't game it. The score communicates magnitude to humans skimming a backlog.
+For each category: `PASS` (meets non-negotiable) / `CONCERNS` (within stretch range; below non-negotiable on a measurable item with mitigation plan) / `FAIL` (non-negotiable missed; no plan) / `WAIVED` (with documented reason + sign-off).
 
-### 3. Write the doc
+### 3. Findings (one per slip)
 
-Frontmatter is the structured truth. The body is the narrative for humans.
+If anything failed or concerned, write the finding: what we measured, what was expected, why the slip, what the next step is.
 
-### 4. Notify
+### 4. Hand off
 
-Update the PR description with the gate verdict + link to the doc. Maria Hill watches the gate status in `sprint-status.md`.
+`PASS` → epic can merge. `CONCERNS` (advisory) → flag in PR description. `FAIL` (enforcing) → blocks merge.
 
 ## YAML frontmatter (canonical)
 
 ```yaml
 ---
-gate: gate
-story_id: E01-S03
-status: PASS
-score: 95
-policy: advisory
-inputs:
-  design: ".wize/implementation/tea/E01-S03/design.md"
-  trace:  ".wize/implementation/tea/E01-S03/trace.md"
-  review: ".wize/implementation/tea/E01-S03/review.md"
-  nfr:    null   # not the last story of E01
+gate: nfr
+epic: 01-onboarding
+status: CONCERNS
+scores:
+  performance: PASS
+  security: PASS
+  reliability: CONCERNS
+  maintainability: PASS
+  accessibility: PASS
+  cost: PASS
 findings:
-  - id: REV-01
-    severity: low
-    summary: "Empty-state copy slightly differs from Mantis' spec."
-    recommendation: "Update `<EmptyTeamPanel>` heading in a follow-up."
-  - id: KN-01
+  - id: NFR-01-1
+    category: reliability
     severity: medium
-    summary: "Story added a new component (`<InviteForm>`) but architecture-snapshot.md was not updated."
-    recommendation: "Add 2 lines to `.wize/knowledge/document-project/architecture-snapshot.md` under a dated bullet referencing the new component + its public testid contract."
+    summary: "Outbox retry interval too aggressive for Resend's documented backoff."
+    expected: "Exponential 30s/2m/10m; we set 5s/15s/45s."
+    actual: "Spike in Resend 429s during integration test."
+    recommendation: "Update retry policy in `lib/email/outbox.ts`; capture with `outbox-retry.spec.ts`."
     owner: shuri
-    blocking: false   # advisory mode; would be true under enforcing
-waived_by: null
-waived_reason: null
-created_at: 2026-06-11T20:30:00Z
+    blocking: false
+created_at: 2026-06-11T18:00:00Z
 ---
 ```
 
-## Body of `gate.md`
+## Body of `nfr/{epic}.md`
 
 ```markdown
-## Verdict
-**PASS** (score 95)
+## Summary
+Epic 01 (onboarding) at gate. Performance and a11y pass non-negotiables; reliability has one mid-severity concern around outbox backoff.
 
-## Why
-- All ACs met with observed evidence.
-- Trace clean; coverage 100% on ACs, partial on edges (E3, E4) — tracked for follow-up.
-- Review found one low-severity copy finding (REV-01).
-- Story is not the last in epic 01; NFR gate runs separately at epic boundary.
+## Per category
 
-## Notes for follow-up
-- Open a tiny story (or include in next sprint planning) to fix REV-01 and close edges E3, E4.
+### Performance — PASS
+- LCP (signup): 1.45s p75 (target ≤ 2.5s).
+- INP (signup): 90ms p75 (target ≤ 200ms).
+- CLS (signup): 0.03 (target ≤ 0.1).
+- LCP (onboarding): 1.7s p75.
 
-## Trail
-- design.md → 4/1/1 split (unit/integration/e2e) + 4 edges declared.
-- trace.md → all ACs `covered`; E3 `partial`, E4 `missing` (follow-up).
-- review.md → ACs `met`, scope mostly disciplined, copy nit.
-- nfr.md → N/A (mid-epic).
+### Security — PASS
+- `npm audit` clean (dev advisories noted in `.audit-ignore.md`).
+- OWASP Top 10 walk: no findings.
+- RLS verified on `users`, `teams`, `memberships`.
+
+### Reliability — CONCERNS
+- See NFR-01-1.
+
+### Maintainability — PASS
+- Coverage 84% on logic modules in this epic.
+- No file > 300 LOC introduced.
+
+### Accessibility — PASS
+- axe clean on `/signup`, `/signup/error`, `/onboarding`, `/onboarding/invite-sent`.
+- Keyboard walk: focus order matches visual; modal traps + restores.
+
+### Cost — PASS
+- No cost dashboard change beyond expected (account creation; mailer spend within budget).
+
+## Action items
+- Shuri: PR-XXX fixes NFR-01-1. Re-run NFR after merge.
+- Hawkeye: re-baseline web-vitals after epic ships to prod.
 ```
-
-## When to WAIVE
-
-Rare. Examples:
-- A failing E2E that depends on a flaky external sandbox; the production code is unaffected; sign-off by Tony + Hill.
-- A non-negotiable temporarily slipped because of an external integration blocker; we ship with mitigation in place; sign-off by Fury.
-
-A WAIVE always lists:
-- Who waived (`waived_by`).
-- Why (`waived_reason`).
-- The compensating control (a follow-up story, an SLA monitor, a feature flag).
 
 ## Anti-patterns Hawkeye rejects
 
-- **Gating without `review.md`.** No review → no gate.
-- **PASS with a `not-met` AC.** Auto-fail.
-- **WAIVED with no `waived_by` field.** Reject.
-- **Scoring jiggered to clear a threshold.** Trust trumps point-scoring; if the count says 70, don't write 91.
-- **Enforcing mode gates without CI check wiring.** Ghost gate; remove or wire it.
+- **Self-reported "looks fine" with no verifier output.** Attach the artifact.
+- **Concerns left for "later."** Either an action item with owner+deadline or it's not a concern.
+- **Waived without sign-off.** WAIVED needs `waived_by: NAME` + reason.
+- **NFR run on stage with synthetic data.** Use realistic distributions whenever possible.
 
 ## Hand-off
 
-> Gate for E01-S03: **PASS** (score 95). One low-severity finding logged for follow-up. Maria Hill, sprint-status updated; Shuri, ready to start the next story.
+> NFR gate for Epic 01: **CONCERNS**. PR can proceed if the reliability finding (NFR-01-1) is committed to be addressed in the next sprint. Otherwise hold the merge.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
