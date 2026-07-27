@@ -1,0 +1,9 @@
+{
+  "name": "openhikmah--openhikmah-web",
+  "displayName": "openhikmah-web",
+  "description": "  An AI-powered Quran knowledge graph \u2014 place verses on a canvas and discover thematic, linguistic, and theological connections.",
+  "version": "1.0.0",
+  "author": "OpenHikmah",
+  "homepage": "https://github.com/OpenHikmah/openhikmah-web",
+  "skills": []
+}
