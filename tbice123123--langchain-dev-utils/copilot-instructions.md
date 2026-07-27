@@ -1,293 +1,598 @@
 ## langchain-dev-utils
 
-> This file provides guidelines for AI agents working in this repository.
+> Creates an agent, providing functionality identical to the official Langchain `create_agent`, but extends the model specification via string.
 
-# Agentic Coding Guidelines for langchain-dev-utils
+# Agent Module API Reference Documentation
 
-This file provides guidelines for AI agents working in this repository.
+## create_agent
 
-## Project Overview
+Creates an agent, providing functionality identical to the official Langchain `create_agent`, but extends the model specification via string.
 
-A Python utility library for LangChain and LangGraph development. Uses hatchling build system, uv for package management, ruff for linting, and pytest for testing.
+### Function Signature
 
-**Current Version:** 1.4.6
-
----
-
-## Build/Lint/Test Commands
-
-### Package Management (uv)
-```bash
-# Install dependencies
-uv sync
-
-# Install with optional dependencies
-uv sync --extra standard
-
-# Install dev dependencies
-uv sync --group dev
-
-# Install test dependencies
-uv sync --group tests
-
-# Install docs dependencies
-uv sync --group docs
+```python
+def create_agent(  # noqa: PLR0915
+    model: str,
+    tools: Sequence[BaseTool | Callable | dict[str, Any]] | None = None,
+    *,
+    system_prompt: str | SystemMessage | None = None,
+    response_format: ResponseFormat[ResponseT] | type[ResponseT] | None = None,
+    middleware: Sequence[AgentMiddleware[StateT_co, ContextT]] = (),
+    state_schema: type[AgentState[ResponseT]] | None = None,
+    context_schema: type[ContextT] | None = None,
+    checkpointer: Checkpointer | None = None,
+    store: BaseStore | None = None,
+    interrupt_before: list[str] | None = None,
+    interrupt_after: list[str] | None = None,
+    debug: bool = False,
+    name: str | None = None,
+    cache: BaseCache | None = None,
+) -> CompiledStateGraph[
+    AgentState[ResponseT], ContextT, _InputAgentState, _OutputAgentState[ResponseT]
+]:
 ```
 
-### Linting & Formatting (ruff)
-```bash
-# Check linting
-uv run ruff check .
+### Parameters
 
-# Check specific file
-uv run ruff check src/langchain_dev_utils/path/to/file.py
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| model | str | Yes | - | Model identifier string that can be loaded by `load_chat_model`. Can be specified in "provider:model-name" format |
+| tools | Sequence[BaseTool \| Callable \| dict[str, Any]] \| None | No | None | List of tools available to the agent |
+| system_prompt | str \| SystemMessage \| None | No | None | Custom system prompt for the agent |
+| middleware | Sequence[AgentMiddleware[AgentState[ResponseT], ContextT]] | No | () | Middleware for the agent |
+| response_format | ResponseFormat[ResponseT] \| type[ResponseT] \| None | No | None | Response format for the agent |
+| state_schema | type[AgentState[ResponseT]] \| None | No | None | State schema for the agent |
+| context_schema | type[ContextT] \| None | No | None | Context schema for the agent |
+| checkpointer | Checkpointer \| None | No | None | Checkpointer for state persistence |
+| store | BaseStore \| None | No | None | Store for data persistence |
+| interrupt_before | list[str] \| None | No | None | Nodes to interrupt before execution |
+| interrupt_after | list[str] \| None | No | None | Nodes to interrupt after execution |
+| debug | bool | No | False | Enable debug mode |
+| name | str \| None | No | None | Agent name |
+| cache | BaseCache \| None | No | None | Cache |
 
-# Fix auto-fixable issues
-uv run ruff check --fix .
 
-# Format code
-uv run ruff format .
+### Notes
 
-# Format specific file
-uv run ruff format src/langchain_dev_utils/path/to/file.py
-```
+This function provides functionality identical to the official `langchain` `create_agent`, but extends model selection. The main difference is that the `model` parameter must be a string loadable by the `load_chat_model` function, allowing for more flexible model selection using registered model providers.
 
-### Testing (pytest)
-```bash
-# Run all tests
-uv run pytest
+### Example
 
-# Run with verbose output
-uv run pytest -v
-
-# Run specific test file
-uv run pytest tests/test_agent.py
-
-# Run specific test function
-uv run pytest tests/test_agent.py::test_prebuilt_agent
-
-# Run specific test class
-uv run pytest tests/test_chat_models.py::TestImageProcessing
-
-# Run with asyncio support (automatically configured)
-uv run pytest -s
-
-# Run tests matching pattern
-uv run pytest -k "test_load"
-```
-
-### Build
-```bash
-# Build package
-uv build
-
-# Build wheel only
-uv build --wheel
-```
-
-### Documentation
-```bash
-# Serve docs locally
-mkdocs serve
-
-# Build docs
-mkdocs build
-
-# Deploy docs
-mkdocs gh-deploy
+```python
+agent = create_agent(model="vllm:qwen2.5-7b", tools=[get_current_time])
 ```
 
 ---
 
-## Code Style Guidelines
+## wrap_agent_as_tool
 
-### Imports
-- Use absolute imports for external packages
-- Use relative imports within the package (e.g., `from ..chat_models import ...`)
-- Group imports: stdlib → third-party → local
-- Ruff handles import sorting automatically
+Wraps an agent as a tool.
 
-### Type Hints
-- Use type hints for all function parameters and return types
-- Use `Optional[Type]` or `Type | None` for nullable types (both acceptable)
-- Use `Any` sparingly and only when necessary
-- Use `Sequence`, `Mapping` for generic collections
-- Use generics with TypeVars where appropriate
+### Function Signature
 
-### Naming Conventions
-- `snake_case` for functions, methods, variables
-- `PascalCase` for classes
-- `UPPER_CASE` for constants
-- `_leading_underscore` for private/internal functions
-- Leading double underscore for name mangling when needed
-
-### Docstrings
-- Use Google-style docstrings
-- Include Args, Returns, Raises sections for public functions
-- Include Examples section for complex functions
-- Keep docstrings under 100 characters per line when possible
-
-### Code Structure
-- Maximum line length: 88 characters (ruff enforces, E501 ignored)
-- Use trailing commas in multi-line structures
-- Two blank lines between top-level functions/classes
-- One blank line between methods
-
-### Error Handling
-- Use specific exception types, not bare `except:`
-- Provide descriptive error messages with f-strings
-- Use `raise ValueError(msg)` pattern with descriptive messages
-- Avoid bare `raise` statements
-
-### Async Code
-- Use `pytest.mark.asyncio` for async test functions
-- Use `async`/`await` consistently
-- Prefer `asyncio` primitives from standard library
-
-### Ruff Configuration
-- Enabled rules: E, F, I, PGH003, T201
-- Import sorting (I) is enforced
-- No print statements in production code (T201)
-
----
-
-## Testing Guidelines
-
-- Tests live in `tests/` directory
-- Test files named `test_*.py`
-- Test functions named `test_*`
-- Use pytest fixtures for setup/teardown
-- Use `pytest.mark.asyncio` for async tests
-- Mock external API calls in unit tests
-- Integration tests use actual APIs (marked implicitly by test names)
-- Tests use `langchain-tests` for standard integration test suites
-
----
-
-## Project Structure
-
+```python
+def wrap_agent_as_tool(
+    agent: CompiledStateGraph,
+    tool_name: Optional[str] = None,
+    tool_description: Optional[str] = None,
+    pre_input_hooks: Optional[
+        tuple[
+            Callable[[str, ToolRuntime], str | dict[str, Any]],
+            Callable[[str, ToolRuntime], Awaitable[str | dict[str, Any]]],
+        ]
+        | Callable[[str, ToolRuntime], str | dict[str, Any]]
+    ] = None,
+    post_output_hooks: Optional[
+        tuple[
+            Callable[[str, dict[str, Any], ToolRuntime], Any],
+            Callable[[str, dict[str, Any], ToolRuntime], Awaitable[Any]],
+        ]
+        | Callable[[str, dict[str, Any], ToolRuntime], Any]
+    ] = None,
+) -> BaseTool:
 ```
-langchain-dev-utils/
-├── src/langchain_dev_utils/      # Source code
-│   ├── agents/                   # Agent utilities
-│   │   ├── factory.py            # Agent creation functions
-│   │   ├── wrap.py               # Agent wrapping utilities
-│   │   └── middleware/           # Agent middleware components
-│   │       ├── format_prompt.py      # Format prompt middleware
-│   │       ├── handoffs.py           # Multi-agent handoff middleware
-│   │       ├── model_fallback.py     # Model fallback middleware
-│   │       ├── model_router.py       # Model routing middleware
-│   │       ├── plan.py               # Planning middleware
-│   │       ├── summarization.py      # Message summarization middleware
-│   │       ├── tool_call_repair.py   # Tool call repair middleware
-│   │       ├── tool_emulator.py      # LLM tool emulator middleware
-│   │       └── tool_selection.py     # LLM tool selector middleware
-│   ├── chat_models/              # Chat model utilities
-│   │   ├── base.py               # Base chat model classes
-│   │   ├── types.py              # Type definitions
-│   │   └── adapters/             # Model provider adapters
-│   ├── embeddings/               # Embedding utilities
-│   │   ├── base.py               # Base embedding classes
-│   │   └── adapters/             # Embedding provider adapters
-│   ├── graph/                    # Graph utilities
-│   │   ├── parallel.py           # Parallel graph construction
-│   │   ├── sequential.py         # Sequential graph construction
-│   │   └── types.py              # Graph type definitions
-│   ├── message_convert/          # Message conversion utilities
-│   │   ├── content.py            # Content conversion
-│   │   └── format.py             # Message formatting
-│   ├── pipeline/                 # Pipeline utilities (deprecated since v1.4.0, will be removed in v1.5.0)
-│   │   ├── parallel.py
-│   │   ├── sequential.py
-│   │   └── types.py
-│   └── tool_calling/             # Tool calling utilities
-│       ├── human_in_the_loop.py  # Human review functionality
-│       └── utils.py              # Tool calling utilities
-├── tests/                        # Test files
-├── docs/                         # Documentation (MkDocs)
-│   ├── en/                       # English documentation
-│   └── zh/                       # Chinese documentation
-├── pyproject.toml                # Project configuration
-├── uv.lock                       # Dependency lock file
-└── mkdocs.yml                    # MkDocs configuration
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| agent | CompiledStateGraph | Yes | - | The agent |
+| tool_name | Optional[str] | No | None | Tool name |
+| tool_description | Optional[str] | No | None | Tool description |
+| pre_input_hooks | - | No | None | Agent input preprocessing function |
+| post_output_hooks | - | No | None | Agent output post-processing function |
+
+
+### Example
+
+```python
+tool = wrap_agent_as_tool(agent)
 ```
 
 ---
 
-## Middleware Components
+## wrap_all_agents_as_tool
 
-The `agents.middleware` module provides reusable middleware components for agent enhancement:
+Wraps all agents as a single tool.
 
-| Middleware | Purpose |
-|------------|---------|
-| `SummarizationMiddleware` | Summarizes long message histories |
-| `LLMToolSelectorMiddleware` | Uses LLM to select appropriate tools |
-| `PlanMiddleware` | Adds planning capabilities to agents |
-| `ModelFallbackMiddleware` | Provides fallback to alternative models |
-| `LLMToolEmulator` | Emulates tool calling for models without native support |
-| `ModelRouterMiddleware` | Routes requests to different models based on criteria |
-| `ToolCallRepairMiddleware` | Repairs malformed tool calls |
-| `FormatPromptMiddleware` | Formats prompts with templates |
-| `HandoffAgentMiddleware` | Enables multi-agent handoff workflows |
+### Function Signature
 
----
+```python
+def wrap_all_agents_as_tool(
+    agents: list[CompiledStateGraph],
+    tool_name: Optional[str] = None,
+    tool_description: Optional[str] = None,
+    pre_input_hooks: Optional[
+        tuple[
+            Callable[[str, ToolRuntime], str | dict[str, Any]],
+            Callable[[str, ToolRuntime], Awaitable[str | dict[str, Any]]],
+        ]
+        | Callable[[str, ToolRuntime], str | dict[str, Any]]
+    ] = None,
+    post_output_hooks: Optional[
+        tuple[
+            Callable[[str, dict[str, Any], ToolRuntime], Any],
+            Callable[[str, dict[str, Any], ToolRuntime], Awaitable[Any]],
+        ]
+        | Callable[[str, dict[str, Any], ToolRuntime], Any]
+    ] = None,
+) -> BaseTool:
+```
 
-## Dependencies
 
-### Core Dependencies
-- `langchain>=1.2.0` - LangChain framework
-- `langchain-core>=1.2.5` - Core LangChain components
-- `langgraph>=1.0.0` - LangGraph for graph-based workflows
+### Parameters
 
-### Optional Dependencies (standard)
-- `jinja2>=3.1.6` - Template engine for prompt formatting
-- `json-repair>=0.53.1` - JSON repair utilities
-- `langchain-openai` - OpenAI integration
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| agents | list[CompiledStateGraph] | Yes | - | List of agents (must contain at least 2, and each agent must have a unique name) |
+| tool_name | Optional[str] | No | None | Tool name |
+| tool_description | Optional[str] | No | None | Tool description |
+| pre_input_hooks | - | No | None | Agent input preprocessing function |
+| post_output_hooks | - | No | None | Agent output post-processing function |
 
-### Dev Dependencies
-- `langchain-model-profiles>=0.0.5` - Model profile management
-- `ruff>=0.14.5` - Linting and formatting
+### Example
 
-### Docs Dependencies
-- `jupyter>=1.1.1` - Jupyter notebook support
-- `mkdocs-material>=9.7.0` - Material theme for MkDocs
-- `mkdocs-static-i18n>=1.3.0` - Internationalization support
-
-### Test Dependencies
-- `python-dotenv>=1.1.1` - Environment variable management
-- `langchain-tests>=1.0.0` - Standard LangChain test suite
-- `langchain-deepseek>=1.0.0` - DeepSeek model integration
-- `langchain-qwq>=0.3.0` - QwQ model integration
-- `langchain-ollama>=1.0.0` - Ollama integration
-- `langchain-community>=0.4.1` - Community model integrations
-- `dashscope>=1.25.12` - Alibaba DashScope integration
-
-**Python version:** >=3.11
+```python
+tool = wrap_all_agents_as_tool([time_agent, weather_agent])
+```
 
 ---
 
-## Documentation
+## SummarizationMiddleware
 
-- Documentation is built with MkDocs using the Material theme
-- Supports internationalization (English and Chinese)
-- Hosted at: https://tbice123123.github.io/langchain-dev-utils/
-- Source files located in `docs/en/` and `docs/zh/`
+Middleware for agent context summarization.
+
+### Class Definition
+
+```python
+class SummarizationMiddleware(_SummarizationMiddleware):
+    def __init__(
+        self,
+        model: str,
+        *,
+        trigger: ContextSize | list[ContextSize] | None = None,
+        keep: ContextSize = ("messages", _DEFAULT_MESSAGES_TO_KEEP),
+        token_counter: TokenCounter = count_tokens_approximately,
+        summary_prompt: str = DEFAULT_SUMMARY_PROMPT,
+        trim_tokens_to_summarize: int | None = _DEFAULT_TRIM_TOKEN_LIMIT,
+        **deprecated_kwargs: Any,
+    ) -> None
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| model | str | Yes | - | Model identifier string that can be loaded by `load_chat_model`. Can be specified in "provider:model-name" format |
+| trigger | ContextSize \| list[ContextSize] \| None | No | None | Context size that triggers summarization |
+| keep | ContextSize | No | ("messages", _DEFAULT_MESSAGES_TO_KEEP) | Context size to keep |
+| token_counter | TokenCounter | No | count_tokens_approximately | Token counter |
+| summary_prompt | str | No | DEFAULT_SUMMARY_PROMPT | Summary prompt |
+| trim_tokens_to_summarize | int \| None | No | _DEFAULT_TRIM_TOKEN_LIMIT | Number of tokens to trim before summarizing |
+
+### Example
+
+```python
+summarization_middleware = SummarizationMiddleware(model="vllm:qwen2.5-7b")
+```
 
 ---
 
-## Release Checklist
+## LLMToolSelectorMiddleware
 
-When preparing a new release:
+Middleware for agent tool selection.
 
-1. Update version in `src/langchain_dev_utils/__init__.py`
-2. Update version in `pyproject.toml` if needed
-3. Run full test suite: `uv run pytest`
-4. Run linting: `uv run ruff check .`
-5. Run formatting: `uv run ruff format .`
-6. Build package: `uv build`
-7. Update documentation if needed
-8. Tag release in git
+### Class Definition
+
+```python
+class LLMToolSelectorMiddleware(_LLMToolSelectorMiddleware):
+    def __init__(
+        self,
+        *,
+        model: str,
+        system_prompt: Optional[str] = None,
+        max_tools: Optional[int] = None,
+        always_include: Optional[list[str]] = None,
+    ) -> None
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| model | str | Yes | - | Model identifier string that can be loaded by `load_chat_model`. Can be specified in "provider:model-name" format |
+| system_prompt | Optional[str] | No | None | System prompt |
+| max_tools | Optional[int] | No | None | Maximum number of tools |
+| always_include | Optional[list[str]] | No | None | Tools to always include |
+
+### Example
+
+```python
+llm_tool_selector_middleware = LLMToolSelectorMiddleware(model="vllm:qwen2.5-7b")
+```
+
+---
+
+## PlanMiddleware
+
+Middleware for agent plan management.
+
+### Class Definition
+
+```python
+class PlanMiddleware(AgentMiddleware):
+    state_schema = PlanState
+    def __init__(
+        self,
+        *,
+        system_prompt: Optional[str] = None,
+        custom_plan_tool_descriptions: Optional[PlanToolDescription] = None,
+        use_read_plan_tool: bool = True,
+    ) -> None:
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| system_prompt | Optional[str] | No | None | System prompt |
+| custom_plan_tool_descriptions | Optional[PlanToolDescription] | No | None | Custom plan tool descriptions |
+| use_read_plan_tool | bool | No | True | Whether to use the read plan tool |
+
+
+### Example
+
+```python
+plan_middleware = PlanMiddleware()
+```
+
+---
+
+## ModelFallbackMiddleware
+
+Middleware for agent model fallback.
+
+### Class Definition
+
+```python
+class ModelFallbackMiddleware(_ModelFallbackMiddleware):
+    def __init__(
+        self,
+        first_model: str,
+        *additional_models: str,
+    ) -> None
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| first_model | str | Yes | - | Model identifier string that can be loaded by `load_chat_model`. Can be specified in "provider:model-name" format |
+| additional_models | str | No | - | List of fallback models |
+
+### Example
+
+```python
+model_fallback_middleware = ModelFallbackMiddleware(
+    "vllm:qwen2.5-7b",
+    "vllm:qwen2.5-3b"
+)
+```
+
+---
+
+## LLMToolEmulator
+
+Middleware for using an LLM to emulate tool calls.
+
+### Class Definition
+
+```python
+class LLMToolEmulator(_LLMToolEmulator):
+    def __init__(
+        self,
+        *,
+        model: str,
+        tools: list[str | BaseTool] | None = None,
+    ) -> None
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| model | str | Yes | - | Model identifier string that can be loaded by `load_chat_model`. Can be specified in "provider:model-name" format |
+| tools | list[str \| BaseTool] \| None | No | None | List of tools |
+
+### Example
+
+```python
+llm_tool_emulator = LLMToolEmulator(model="vllm:qwen2.5-7b", tools=[get_current_time])
+```
+
+---
+
+## ModelRouterMiddleware
+
+Middleware for dynamically routing to a suitable model based on input content.
+
+### Class Definition
+
+```python
+class ModelRouterMiddleware(AgentMiddleware):
+    state_schema = ModelRouterState
+    def __init__(
+        self,
+        router_model: str | BaseChatModel,
+        model_list: list[ModelDict],
+        router_prompt: Optional[str] = None,
+    ) -> None
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| router_model | str \| BaseChatModel | Yes | - | Model used for routing. Accepts a string type (loaded using `load_chat_model`) or a direct ChatModel instance |
+| model_list | list[ModelDict] | Yes | - | List of models. Each model must contain `model_name` and `model_description` keys, and can optionally contain `tools`, `model_kwargs`, `model_instance`, and `model_system_prompt` keys |
+| router_prompt | Optional[str] | No | None | Prompt for the routing model. If None, the default prompt is used |
+
+### Example
+
+```python
+model_router_middleware = ModelRouterMiddleware(
+    router_model="vllm:qwen2.5-7b",
+    model_list=[
+        {
+            "model_name": "vllm:qwen2.5-7b",
+            "model_description": "Suitable for general tasks, such as conversation, text generation, etc."
+        },
+        {
+            "model_name": "vllm:qwen3-4b",
+            "model_description": "Suitable for complex tasks, such as code generation, data analysis, etc.",
+        },
+    ]
+)
+```
+
+---
+
+## HandoffAgentMiddleware
+
+Middleware for implementing multi-agent handoffs.
+
+### Class Definition
+
+```python
+class HandoffAgentMiddleware(AgentMiddleware):
+    state_schema = MultiAgentState
+    def __init__(
+        self,
+        agents_config: dict[str, AgentConfig],
+        custom_handoffs_tool_descriptions: Optional[dict[str, str]] = None,
+        handoffs_tool_overrides: Optional[dict[str, BaseTool]] = None,
+    ) -> None:
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| agents_config | dict[str, AgentConfig] | Yes | - | Dictionary of agent configurations, where keys are agent names and values are agent configurations |
+| custom_handoffs_tool_descriptions | Optional[dict[str, str]] | No | None | Custom descriptions for tools that hand off to other agents |
+| handoffs_tool_overrides | Optional[dict[str, BaseTool]] | No | None | Custom tools for handing off to other agents |
+
+### Example
+
+```python
+handoffs_agent_middleware = HandoffsAgentMiddleware({
+    "time_agent":{
+        "model":"vllm:qwen2.5-7b",
+        "prompt":"You are a time agent, responsible for answering time-related questions.",
+        "tools":[get_current_time, transfer_to_default_agent],
+        "handoffs":["default_agent"]
+    },
+    "default_agent":{
+        "model":"vllm:qwen2.5-3b",
+        "prompt":"You are a complex task agent, responsible for answering questions related to complex tasks.",
+        "default":True,
+        "handoffs":["time_agent"]
+    }
+})
+```
+
+---
+
+## ToolCallRepairMiddleware
+
+Middleware for repairing invalid tool calls.
+
+### Class Definition
+
+```python
+class ToolCallRepairMiddleware(AgentMiddleware):
+```
+
+### Example
+
+```python
+tool_call_repair_middleware = ToolCallRepairMiddleware()
+```
+
+---
+
+## FormatPromptMiddleware
+
+Middleware for formatting prompts.
+
+### Function Signature
+
+```python
+class FormatPromptMiddleware(AgentMiddleware):
+    def __init__(
+        self,
+        *,
+        template_format: Literal["f-string", "jinja2"] = "f-string",
+    ) -> None:
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|------|------|------|--------|------|
+| template_format | Literal["f-string", "jinja2"] | No | `"f-string"` | Template syntax, values are `f-string` or `jinja2` |
+
+### Example
+
+```python
+format_prompt_middleware = FormatPromptMiddleware(template_format="jinja2")
+```
+
+---
+
+## PlanState
+
+State Schema for Plan.
+
+### Class Definition
+
+```python
+class Plan(TypedDict):
+    content: str
+    status: Literal["pending", "in_progress", "done"]
+
+
+class PlanState(AgentState):
+    plan: NotRequired[list[Plan]]
+```
+
+### Attributes
+
+| Attribute | Type | Description |
+|------|------|------|
+| plan | NotRequired[list[Plan]] | List of plans |
+| plan.content | str | Plan content |
+| plan.status | Literal["pending", "in_progress", "done"] | Plan status, values are `pending`, `in_progress`, `done` |
+
+---
+
+## ModelDict
+
+Type for the model list.
+
+### Class Definition
+
+```python
+class ModelDict(TypedDict):
+    model_name: str
+    model_description: str
+    tools: NotRequired[list[BaseTool | dict[str, Any]]]
+    model_kwargs: NotRequired[dict[str, Any]]
+    model_instance: NotRequired[BaseChatModel]
+    model_system_prompt: NotRequired[str]
+```
+
+### Attributes
+
+| Attribute | Type | Required | Description |
+|------|------|------|------|
+| model_name | str | Yes | Model name |
+| model_description | str | Yes | Model description |
+| tools | NotRequired[list[BaseTool \| dict[str, Any]]] | No | Tools available to the model |
+| model_kwargs | NotRequired[dict[str, Any]] | No | Additional arguments passed to the model |
+| model_instance | NotRequired[BaseChatModel] | No | Model instance |
+| model_system_prompt | NotRequired[str] | No | System prompt for the model |
+
+---
+
+## SelectModel
+
+Tool class for selecting a model.
+
+### Class Definition
+
+```python
+class SelectModel(BaseModel):
+    """Tool for model selection - Must call this tool to return the finally selected model"""
+
+    model_name: str = Field(
+        ...,
+        description="Selected model name (must be the full model name, for example, openai:gpt-4o)",
+    )
+```
+
+### Attributes
+
+| Attribute | Type | Required | Description |
+|------|------|------|------|
+| model_name | str | Yes | Selected model name (must be the full model name, e.g., openai:gpt-4o) |
+
+---
+
+## MultiAgentState
+
+State Schema for multi-agent handoffs.
+
+### Class Definition
+
+```python
+class MultiAgentState(AgentState):
+    active_agent: NotRequired[str]
+```
+
+### Attributes
+
+| Attribute | Type | Description |
+|------|------|------|
+| active_agent | NotRequired[str] | Name of the currently active agent |
+
+---
+
+## AgentConfig
+
+Type for agent configuration.
+
+### Class Definition
+
+```python
+class AgentConfig(TypedDict):
+    model: NotRequired[str | BaseChatModel]
+    prompt: str | SystemMessage
+    tools: NotRequired[list[BaseTool | dict[str, Any]]]
+    default: NotRequired[bool]
+    handoffs: list[str] | Literal["all"]
+```
+
+### Attributes
+
+| Attribute | Type | Required | Description |
+|------|------|------|------|
+| model | NotRequired[str \| BaseChatModel] | No | Model name or model instance |
+| prompt | str \| SystemMessage | Yes | Prompt for the agent |
+| tools | list[BaseTool \| dict[str, Any]] | Yes | Tools available to the agent |
+| default | NotRequired[bool] | No | Whether it is the default agent |
+| handoffs | list[str] \| Literal["all"] | Yes | List of agent names to which handoffs can occur, or "all" for all agents |
 
 ---
 > Source: [TBice123123/langchain-dev-utils](https://github.com/TBice123123/langchain-dev-utils) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
