@@ -1,10 +1,10 @@
 ## skeleton
 
-> This document provides guidelines and best practices for structuring and developing a project using the Flight PHP framework.
+> This document provides guidelines and best practices for structuring and developing a project using the FlightPHP framework.
 
-# Flight Skeleton Project Instructions
+# FlightPHP Skeleton Project Instructions
 
-This document provides guidelines and best practices for structuring and developing a project using the Flight PHP framework.
+This document provides guidelines and best practices for structuring and developing a project using the FlightPHP framework.
 
 ## Instructions for AI Coding Assistants
 
@@ -82,15 +82,15 @@ Refer to the Runway documentation for details on creating and using custom comma
 - **Follow coding standards:** Use PSR1 coding standards and strict comparisons (`===`). Maintain a high level of code quality and consistency throughout your project.
 - **Test thoroughly:** Regularly run and maintain tests for your codebase. Ensure your application works as expected.
 
-For more details, see the README file or visit the Flight documentation.
+For more details, see the README file or visit the FlightPHP documentation.
 
 ## Suggested Packages
 
 Flight is highly extensible. Here are some recommended packages and plugins for common needs:
 
 - **ORM / Database:**
-  - [flightphp/core](https://github.com/flightphp/core) PdoWrapper (simple PDO wrapper)
   - [flightphp/active-record](https://github.com/flightphp/active-record) (official ORM/Mapper)
+  - [flightphp/core](https://github.com/flightphp/core) PdoWrapper (simple PDO wrapper)
   - [byjg/php-migration](https://github.com/byjg/php-migration) (database migrations)
 - **Session:**
   - [flightphp/session](https://github.com/flightphp/session) (official session library)
@@ -117,9 +117,9 @@ Flight is highly extensible. Here are some recommended packages and plugins for 
   - (Deprecated) flightphp/core View (basic, not recommended for large projects)
 - **API Documentation:**betaflightphp
   - [SwaggerUI](https://github.com/zircote/swagger-php) (Swagger/OpenAPI documentation)
-  - [Flight OpenAPI Generator](https://daniel-schreiber.de/blog/flightphp-openapi-generator.html) (API-first approach)
+  - [FlightPHP OpenAPI Generator](https://daniel-schreiber.de/blog/flightphp-openapi-generator.html) (API-first approach)
 
-Choose the packages that best fit your project's needs. Official Flight packages are recommended for core functionality.
+Choose the packages that best fit your project's needs. Official FlightPHP packages are recommended for core functionality.
 
 ## Security Best Practices (Condensed)
 
@@ -136,9 +136,9 @@ Flight::view()->render('template', ['name' => $name]);
 ### SQL Injection
 - Never concatenate user input in SQL.
 - Always use prepared statements or parameterized queries.
-- Preferred usage for raw SQL is with flight\database\PdoWrapper
 ```php
-$statement = Flight::db()->fetchRow('SELECT * FROM users WHERE username = :username', [':username' => $username]);
+$statement = Flight::db()->prepare('SELECT * FROM users WHERE username = :username');
+$statement->execute([':username' => $username]);
 ```
 
 ### CORS
@@ -179,7 +179,7 @@ Flight::before('start', function() {
     $cache = Flight::cache();
     $ip = Flight::request()->ip;
     $key = "rate_limit_{$ip}";
-    $attempts = (int) $cache->get($key);
+    $attempts = (int) $cache->retrieve($key);
     if ($attempts >= 10) Flight::halt(429, 'Too many requests');
     $cache->set($key, $attempts + 1, 60);
 });
@@ -187,4 +187,4 @@ Flight::before('start', function() {
 
 ---
 > Source: [flightphp/skeleton](https://github.com/flightphp/skeleton) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
