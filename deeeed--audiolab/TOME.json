@@ -4,7 +4,7 @@
   "repo": "audiolab",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/deeeed/audiolab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T00:42:40Z"
+  "distributed_at": "2026-07-27T22:50:57Z"
 }
