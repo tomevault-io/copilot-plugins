@@ -1,86 +1,43 @@
 ## agent-skills-for-context-engineering
 
-> Automation scripts and agent helpers for the Digital Brain. Use these scripts for recurring tasks, summaries, and maintenance.
+> This is a Digital Brain personal operating system. When working in this project:
 
+# Digital Brain - Claude Instructions
 
-# Agent Automation
+This is a Digital Brain personal operating system. When working in this project:
 
-Scripts and workflows that help maintain and leverage your Digital Brain.
+## Core Rules
 
-## Available Scripts
+1. **Always read identity/voice.md before writing any content** - Match the user's authentic voice
+2. **Append to JSONL files, never overwrite** - Preserve history
+3. **Update timestamps** when modifying tracked data
+4. **Cross-reference modules** - Knowledge informs content, network informs operations
 
-| Script | Purpose | Frequency |
-|--------|---------|-----------|
-| `weekly_review.py` | Generate weekly review from data | Weekly |
-| `content_ideas.py` | Generate content ideas from knowledge | On-demand |
-| `stale_contacts.py` | Find contacts needing outreach | Weekly |
-| `metrics_snapshot.py` | Compile metrics for tracking | Weekly |
-| `idea_to_draft.py` | Expand an idea into a draft | On-demand |
+## Quick Reference
 
-## How to Use
+- **Writing content**: Read `identity/voice.md` first, then use templates in `content/templates/`
+- **Looking up contacts**: Search `network/contacts.jsonl`, check `interactions.jsonl` for history
+- **Content ideas**: Check `content/ideas.jsonl`, run `agents/scripts/content_ideas.py`
+- **Task management**: Use `operations/todos.md`, align with `operations/goals.yaml`
+- **Weekly review**: Run `agents/scripts/weekly_review.py`
 
-Scripts are in `agents/scripts/`. They work with your Digital Brain data and can be run by the agent when needed.
+## File Conventions
 
-### Running Scripts
-```bash
-# Agent can execute scripts directly
-python agents/scripts/weekly_review.py
+- `.jsonl` files: One JSON object per line, append-only
+- `.md` files: Human-readable, freely editable
+- `.yaml` files: Configuration and structured data
+- `_template.md` or `_schema` entries: Reference formats, don't modify
 
-# Or with arguments
-python agents/scripts/content_ideas.py --pillar "ai_agents" --count 5
-```
+## When User Asks To...
 
-### Script Outputs
-Scripts output to stdout in a format the agent can process. They may also write to files when appropriate (e.g., generating a review document).
-
-## Agent Instructions
-
-<instructions>
-When using automation scripts:
-
-1. **Weekly review**: Run every Sunday, outputs review template with data filled in
-2. **Content ideas**: Use when user asks for ideas, leverages knowledge base
-3. **Stale contacts**: Run weekly, surfaces relationships needing attention
-4. **Metrics snapshot**: Run weekly to append to metrics.jsonl
-5. **Idea to draft**: Use when user wants to develop a specific idea
-
-Scripts read from Digital Brain files and output actionable results.
-</instructions>
-
-## Workflow Automations
-
-### Sunday Weekly Review
-```
-1. Run metrics_snapshot.py to update metrics.jsonl
-2. Run stale_contacts.py to identify outreach needs
-3. Run weekly_review.py to generate review document
-4. Present summary to user
-```
-
-### Content Ideation Session
-```
-1. Read recent entries from knowledge/bookmarks.jsonl
-2. Check content/ideas.jsonl for undeveloped ideas
-3. Run content_ideas.py for fresh suggestions
-4. Cross-reference with content calendar
-```
-
-### Pre-Meeting Prep
-```
-1. Look up contact in network/contacts.jsonl
-2. Pull recent interactions from network/interactions.jsonl
-3. Check any pending todos involving them
-4. Generate brief with context
-```
-
-## Custom Script Development
-
-To add new scripts:
-1. Create Python file in `agents/scripts/`
-2. Follow existing patterns (read JSONL, output structured data)
-3. Document in this file
-4. Test with sample data
+| Request | Action |
+|---------|--------|
+| "Write a post about X" | Read voice.md → Draft → Match voice patterns |
+| "Prepare for meeting with Y" | Look up contact → Get interactions → Summarize |
+| "What should I create?" | Run content_ideas.py → Check calendar |
+| "Add contact Z" | Append to contacts.jsonl with full schema |
+| "Weekly review" | Run weekly_review.py → Present insights |
 
 ---
 > Source: [muratcankoylan/Agent-Skills-for-Context-Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
