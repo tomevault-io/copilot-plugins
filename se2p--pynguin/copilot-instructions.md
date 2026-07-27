@@ -1,14 +1,8 @@
 ## pynguin
 
-> SPDX-FileCopyrightText: 2019–2026 Pynguin Contributors
+> **See [AGENTS.md](./AGENTS.md) for:**
 
-<!--
-SPDX-FileCopyrightText: 2019–2026 Pynguin Contributors
-
-SPDX-License-Identifier: CC-BY-4.0
--->
-
-# Gemini Instructions
+# Junie Development Guidelines for Pynguin
 
 **See [AGENTS.md](./AGENTS.md) for:**
 - Project architecture and codebase structure
@@ -20,4 +14,4 @@ If you read this file, you must also read `AGENTS.md`!
 
 ---
 > Source: [se2p/pynguin](https://github.com/se2p/pynguin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
