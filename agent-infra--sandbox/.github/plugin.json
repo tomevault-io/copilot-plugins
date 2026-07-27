@@ -1,0 +1,9 @@
+{
+  "name": "agent-infra--sandbox",
+  "displayName": "sandbox",
+  "description": "sandbox",
+  "version": "1.0.0",
+  "author": "agent-infra",
+  "homepage": "https://github.com/agent-infra/sandbox",
+  "skills": []
+}
