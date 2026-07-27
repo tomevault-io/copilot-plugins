@@ -1,66 +1,43 @@
-## wize-code-review
+## wize-create-agent
 
-> 4-implementation: Code Review
+> workflow: Create Agent
 
 
-# Code Review
+# Create Agent
 
-# Code Review
+# Create Agent
 
-**Goal.** Review code changes adversarially using parallel review layers and structured triage into actionable categories.
+**Goal.** Scaffold and register a new custom agent under `.wize/custom/agents/{code}/`.
 
-This is **Shuri's peer code review** — separate from Hawkeye's `wize-tea-review` (which audits AC fulfillment). Both run on every story PR; they are complementary.
-
-## When to run
-
-Every PR that ships code. Quick-dev PRs get a lighter review (skip architecture checks unless they touched architecture).
-
-## Inputs
-
-- The diff, PR, branch, or commit range to review.
-- The spec/story file for context (optional but recommended).
-- Existing code style and project context from `.wize/knowledge/document-project/`.
+## Inputs (interactive)
+- `code` (must match `^wize-agent-[a-z0-9-]+$` or `^wize-{anything}-[a-z0-9-]+$`)
+- `name` (display)
+- `title`
+- `team`
+- `module` (which module hosts it: orchestrator | method | tea | builder | custom)
+- `description` (one paragraph)
+- `style` (voice, brevity, motto)
+- `skills[]`
+- `inputs[]`, `outputs[]`
 
 ## Outputs
+- `.wize/custom/agents/{code}/agent.yaml`
+- `.wize/custom/agents/{code}/persona.md`
+- Auto-regen of IDE adapter entries for all active targets.
 
-- Inline-style findings presented in the conversation.
-- Optional patch application if the user chooses to fix findings now.
-- Updated story file with a `### Review Findings` section when a spec file is provided.
-- Updated sprint status when a story key is discovered.
+## Validation
+1. **Schema** — `agent.yaml` against `schemas/agent.schema.json`.
+2. **Lint** — `persona.md` markdownlint.
+3. **Dry-run** — invoke the agent with a synthetic prompt; assert response shape.
 
-## Workflow architecture
+Any failure → registration aborted, errors printed to stderr.
 
-This skill uses **step-file architecture**:
-
-- Each step is self-contained and followed exactly.
-- Sequential enforcement: complete steps in order, no skipping.
-- State tracked in frontmatter variables set at runtime.
-- Append-only building of findings.
-
-## Critical rules
-
-- **Read completely** each step file before acting.
-- **Never** load multiple step files simultaneously.
-- **Always** halt at checkpoints and wait for human input.
-- Use CWD-relative `path:line` for every code reference.
-
-## On activation
-
-1. Load `.wize/config/project.toml` and `.wize/config/user.toml`.
-2. Resolve `user_name`, `communication_language`, `document_output_language`, `implementation_artifacts`, `planning_artifacts`.
-3. Greet the user in `communication_language`.
-4. Read fully and follow `./steps/step-01-gather-context.md`.
-
-## Steps
-
-1. `step-01-gather-context.md` — identify the diff source, construct `{diff_output}`, set `{review_mode}` and `{spec_file}`.
-2. `step-02-review.md` — launch parallel review layers (Blind Hunter, Edge Case Hunter, Acceptance Auditor).
-3. `step-03-triage.md` — normalize, deduplicate, and classify findings into `decision_needed`, `patch`, `defer`, `dismiss`.
-4. `step-04-present.md` — present findings, resolve decisions, apply patches, update story status.
-
-## Hand-off
-
-> Code review complete for `{story_key or change}`. `{decision_needed}` decision(s), `{patch}` patch(es), `{defer}` deferred, `{dismissed}` dismissed as noise. Next: re-run review or continue to `wize-tea-review` (Hawkeye).
+## Override of a built-in
+To override an existing built-in (e.g. tweak Pepper's tone), use:
+```
+wize-dev-kit agent edit wize-agent-analyst --override
+```
+This writes `.wize/custom/agents/wize-agent-analyst/customize.toml` instead of redefining the agent.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
