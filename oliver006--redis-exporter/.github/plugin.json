@@ -1,0 +1,9 @@
+{
+  "name": "oliver006--redis-exporter",
+  "displayName": "redis_exporter",
+  "description": "redis_exporter",
+  "version": "1.0.0",
+  "author": "oliver006",
+  "homepage": "https://github.com/oliver006/redis_exporter",
+  "skills": []
+}
