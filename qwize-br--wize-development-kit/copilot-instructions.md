@@ -1,108 +1,151 @@
-## wize-tea-trace
+## wize-tech-vision
 
-> trace: TEA Traceability
+> 2-to-3-boundary: Tech Vision
 
 
-# TEA Traceability
+# Tech Vision
 
-# TEA — Traceability
+# Tech Vision
 
-**Goal.** Map every Acceptance Criterion to **one or more concrete tests in the repo**. Reports honest coverage: `covered`, `partial`, `missing`. A story with `missing` rows cannot pass gate.
+**Goal.** State the technical north star in one page. Stack family, runtime envelope, build/buy/borrow calls, non-negotiables. Fury sets the **shape**, not the libraries — Tony fills in inside the frame.
 
-Hawkeye drives. Runs while Shuri implements (or right after PR open).
+Output lands in `.wize/planning/tech-vision.md`. Tony reads this before drawing architecture. Hill references it when scoping. Hawkeye uses it when picking gate granularity.
 
 ## Inputs
 
-- Story file (the AC list).
-- `tea-design.md` (the test contract).
-- Repo (the actual test files).
+- `.wize/planning/prd.md` (validated)
+- `.wize/planning/ux/ux-design/` (so the runtime envelope respects the UX)
+- `.wize/knowledge/document-project/` (brownfield only)
+- Stack catalogs (per active overlay):
+  - `src/web-overlay/stack-catalog.md`
+  - `src/app-overlay/stack-catalog.md`
 
-## Output
+## Outputs
 
-- `.wize/implementation/tea/{epic}/{story}/trace.md`
+- `.wize/planning/tech-vision.md`
 
 ## Steps
 
-### 1. Walk every AC
+### 1. Pick the stack family
 
-For each AC ID:
-- Find the test(s) that exercise it.
-- Reference the file + test name precisely.
-- Decide status: `covered` (every assertion of the AC has a test) / `partial` (some assertions only) / `missing` (no test).
+By order of constraint:
 
-### 2. Compute coverage score
+1. **Audience reach.** Public + SEO-critical? Authenticated app? Native mobile required?
+2. **Latency budget.** Sub-1s LCP on 3G or richer-but-slower OK?
+3. **Team familiarity.** Favor what the team has shipped before unless the project truly demands new.
+4. **Backend coupling.** Separate API / fullstack monolith / BaaS?
+5. **Deploy target.** Edge / container / self-managed.
 
-- `covered_count / total_acs`.
-- Reported but doesn't drive gate alone; the **per-AC status** drives gate.
+Don't pick libraries here. Pick the *shape*: "Next.js-class SSR fullstack on edge" or "React Native + Expo with a Supabase backend" or "Compose Multiplatform with Kotlin services."
 
-### 3. Flag holes
+### 2. State the runtime envelope
 
-For every `partial` / `missing`, write what's needed in one line. Hawkeye proposes the test; Shuri writes it.
+| Dimension | Decision |
+|---|---|
+| Language(s) of record | TS, Kotlin, etc. |
+| Runtime(s) | Browser / Node / Edge / Native iOS / Native Android / JVM |
+| Persistence | Postgres / SQLite / KV / cloud-native |
+| Deploy target | Vercel / Cloudflare / Fly / EKS / EAS / etc. |
+| Edge vs origin | Edge-first / origin-first |
 
-### 4. Hand off
+### 3. Build / buy / borrow
 
-If everything is `covered`, status `PASS`. Otherwise `CONCERNS` (advisory) or `FAIL` (enforcing) until holes are closed.
+For each capability the PRD implies, declare:
 
-## YAML frontmatter (canonical)
+| Capability | Build | Buy | Borrow (OSS) |
+|---|---|---|---|
+| Auth | — | Clerk / Auth0 | NextAuth / Lucia |
+| Payments | — | Stripe | — |
+| Search | — | Algolia / Typesense Cloud | Meilisearch self-hosted |
+| Queues | — | SQS / Cloud Tasks | BullMQ |
+| Analytics | — | Amplitude | PostHog OSS |
+| Email | — | Resend / Postmark | — |
+| Realtime | — | Pusher / Ably | Supabase Realtime |
 
-```yaml
----
-gate: trace
-story_id: E01-S03
-status: PASS
-coverage:
-  - ac_id: AC-02-1
-    status: covered
-    tests:
-      - "src/onboarding/invite/__tests__/validateInviteEmail.spec.ts::valid email"
-      - "src/onboarding/invite/__tests__/inviteTeammate.spec.ts::calls mailer with right args"
-      - "e2e/onboarding/invite.spec.ts::happy path on Playwright @chromium"
-  - ac_id: AC-02-2
-    status: covered
-    tests:
-      - "src/onboarding/invite/__tests__/validateInviteEmail.spec.ts::invalid email rules"
-      - "src/onboarding/invite/__tests__/InviteForm.spec.tsx::error region announces"
-created_at: 2026-06-11T15:30:00Z
----
-```
+One row per capability. Empty cells are explicit choices.
 
-## Body of `trace.md`
+### 4. Non-negotiables
+
+The 2–5 things the team will not compromise on.
+
+Examples:
+- *"All endpoint responses ≤ 200ms p95 from the user's region."*
+- *"Single source of truth for user data — no shadow stores."*
+- *"PII never leaves the EU."*
+- *"On-call burden ≤ 0.5 pages per engineer per week."*
+
+These outrank PRD goals. If they conflict, Fury escalates.
+
+### 5. Deferred (with triggers)
+
+What we won't decide yet, and what would trigger the decision. Don't list "could be revisited"; list the *signal* that forces the decision.
+
+- *"Multi-region storage: revisit when EU+US daily active users > 5k."*
+- *"WebSockets vs SSE: revisit when realtime updates < 500ms become a PRD goal."*
+
+### 6. Hand off
+
+Mark `status: aligned`. Tony reads it as the frame; he can argue specific decisions but not redraw the family without escalating.
+
+## Output template
 
 ```markdown
-## Per-AC
+---
+status: aligned
+owner: Nick Fury
+created: YYYY-MM-DD
+---
 
-### AC-02-1 — covered
-Tests:
-- `validateInviteEmail.spec.ts::valid email`
-- `inviteTeammate.spec.ts::calls mailer with right args`
-- `e2e/onboarding/invite.spec.ts::happy path`
+# Tech Vision — {{project_name}}
 
-### AC-02-2 — covered
-Tests:
-- `validateInviteEmail.spec.ts::invalid email rules`
-- `InviteForm.spec.tsx::error region announces`
+## Stack family
+Next.js-class SSR fullstack on edge, with Supabase Postgres as the system of record.
 
-## Edges (from `design.md`)
+## Runtime envelope
+| Dimension | Decision |
+|---|---|
+| Language | TypeScript end-to-end |
+| Runtime | Edge (Vercel Edge Functions) + Node (server actions) |
+| Persistence | Supabase Postgres (RLS) + PgBouncer |
+| Deploy target | Vercel for app; Supabase managed for data |
+| Edge vs origin | Edge-first for reads; origin for writes |
 
-- E1 (empty) — covered (validateInviteEmail.spec.ts::empty).
-- E3 (idempotency) — **partial**. Integration test exists but doesn't assert second insert is no-op. Propose: assert `db.invites.count({ email, team_id })` = 1 after two calls.
-- E4 (offline) — **missing**. Propose: Playwright `context.setOffline(true)` before click; assert offline banner.
+## Build / buy / borrow
+| Capability | Decision |
+|---|---|
+| Auth | Buy — Supabase Auth |
+| Payments | Buy — Stripe |
+| Search | Buy — Algolia (1st year), revisit |
+| Queues | Borrow — pg_cron + outbox pattern |
+| Analytics | Borrow — PostHog OSS |
+| Email | Buy — Resend |
 
-## Action items
-- Shuri: add the missing offline E2E (or split into next story; flag in `review.md` then).
-- Hawkeye: re-run trace once PR has the new tests.
+## Non-negotiables
+1. PII (incl. emails) stored in the user's region only.
+2. p95 server response ≤ 200ms in the user's region.
+3. Single auth identity per human (no shadow accounts).
+4. On-call rotation never exceeds 0.5 pages/eng/week.
+
+## Deferred
+- Multi-region writes: revisit when EU active users > 2k.
+- Native mobile clients: revisit when web TTI > 4s on > 20% of sessions or PRD demands offline.
+
+## Constraints that drove this
+- Brief constraint #2 (LGPD/GDPR) ruled out global-replica DBs.
+- PRD goal G1 ruled in edge-first reads.
+- Hiring tail in TypeScript ruled out Compose Multiplatform.
 ```
 
-## Anti-patterns Hawkeye rejects
+## Anti-patterns Fury rejects
 
-- **Trace by file count, not per-AC.** "We have 24 tests" tells you nothing. Per AC, please.
-- **Counting passing CI as trace.** CI passes when a test exists; trace cares whether the test exercises the AC.
-- **`partial` left unflagged.** Either close or list as a known-open with story link.
-- **Re-naming tests after trace.** The trace breaks; Shuri renames in agreement with Hawkeye or doesn't rename.
+- **Picking a library here.** That's Tony. Pick the *family*.
+- **Non-negotiables that are aspirations.** "Always 100% uptime." Wrong. "Error budget ≤ 0.1% in EU region."
+- **Deferred items with no trigger.** That's procrastination.
+- **A non-negotiable that contradicts a PRD constraint silently.** Surface it, escalate it, decide it.
 
 ## Hand-off
 
-> Trace for E01-S03 at `.wize/implementation/tea/E01-S03/trace.md`. All ACs `covered`. Two edges still open (E3, E4); proposing follow-up. Ready for `tea-review`.
+> Tech vision at `.wize/planning/tech-vision.md`. Tony, build the architecture inside this frame. Hill, scope the PRD against the non-negotiables (item 1 means the global launch is back on the table only after EU baseline holds). Hawkeye, pick gate granularity assuming `policy = advisory`.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
