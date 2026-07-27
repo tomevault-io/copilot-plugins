@@ -1,0 +1,9 @@
+{
+  "name": "openwisp--docker-openwisp",
+  "displayName": "docker-openwisp",
+  "description": "docker-openwisp",
+  "version": "1.0.0",
+  "author": "openwisp",
+  "homepage": "https://github.com/openwisp/docker-openwisp",
+  "skills": []
+}
