@@ -1,178 +1,137 @@
 ## mixpanel-android
 
-> This file provides specific guidance for working with core SDK components in the `com.mixpanel.android.mpmetrics` package.
+> Generate **instrumented tests only** - no unit tests. All tests require an Android device/emulator.
 
-# CLAUDE.md - Mixpanel Core Components
+# Test Generation Instructions - Mixpanel Android SDK
 
-This file provides specific guidance for working with core SDK components in the `com.mixpanel.android.mpmetrics` package.
+Generate **instrumented tests only** - no unit tests. All tests require an Android device/emulator.
 
-## Component Overview
-
-This package contains the heart of the Mixpanel Android SDK:
-- **MixpanelAPI** - Public entry point (the ONLY public class)
-- **AnalyticsMessages** - Message queue and worker thread management
-- **MPDbAdapter** - SQLite persistence layer
-- **PersistentIdentity** - Identity and super properties management
-- **HttpService** - Network communication layer
-
-## Critical Patterns for Core Components
-
-### 1. Visibility Rules
-```java
-// WRONG - Making internal classes public
-public class NewHelper {  // NO!
-
-// CORRECT - Package-private by default
-class NewHelper {  // YES!
-```
-
-### 2. Thread Safety Requirements
-All classes in this package MUST be thread-safe:
-```java
-// ALWAYS use dedicated lock objects
-private final Object mLock = new Object();
-
-// NEVER use 'this' for synchronization
-synchronized (mLock) {  // CORRECT
-    // critical section
-}
-```
-
-### 3. Never Crash the Host App
-```java
-// EVERY public method must be defensive
-public void track(String event, JSONObject properties) {
-    try {
-        if (hasOptedOut()) {
-            return;
-        }
-        if (event == null) {
-            MPLog.e(LOGTAG, "Event cannot be null");
-            return;
-        }
-        // implementation
-    } catch (Exception e) {
-        MPLog.e(LOGTAG, "Failed to track event", e);
-    }
-}
-```
-
-### 4. Message Passing Pattern
-When modifying AnalyticsMessages or worker thread behavior:
-```java
-// Use Handler messages, not direct method calls
-Message msg = Message.obtain();
-msg.what = ENQUEUE_EVENTS;
-msg.obj = new AnalyticsMessageDescription(token, event);
-mWorker.runMessage(msg);
-```
-
-### 5. Database Operations
-When working with MPDbAdapter:
-```java
-Cursor cursor = null;
-try {
-    cursor = db.query(...);
-    // use cursor
-} finally {
-    if (cursor != null) {
-        cursor.close();
-    }
-}
-```
-
-## Component-Specific Guidelines
-
-### MixpanelAPI
-- This is the ONLY public class - guard its API carefully
-- Every public method needs null checks and opt-out checks
-- Changes here affect ALL SDK users
-- Maintain backward compatibility
-
-### AnalyticsMessages
-- Single HandlerThread for all background work
-- Never block the main thread
-- Batch operations for efficiency
-- Handle offline gracefully
-
-### MPDbAdapter
-- Direct SQLite usage (no ORM)
-- Always use transactions for bulk operations
-- Clean up old data automatically
-- Handle database upgrades carefully
-
-### PersistentIdentity
-- Thread-safe SharedPreferences access
-- Lazy loading of values
-- Cache for performance
-- Never lose user identity
-
-### HttpService
-- Configurable timeouts
-- Automatic retry with backoff
-- GZIP compression
-- Never expose raw responses
-
-## Testing Requirements
-
-All changes to core components require instrumented tests:
+## Test Structure
 ```java
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ComponentTest {
+public class FeatureTest {
+    private Context mContext;
+    private MixpanelAPI mMixpanel;
     private BlockingQueue<String> mMessages;
     
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        // Get instrumentation context
+        mContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        
+        // Clear preferences
+        SharedPreferences prefs = mContext.getSharedPreferences(
+            "com.mixpanel.android.mpmetrics.MixpanelAPI_" + TEST_TOKEN,
+            Context.MODE_PRIVATE
+        );
+        prefs.edit().clear().commit();
+        
+        // Create test instance
         mMessages = new LinkedBlockingQueue<>();
+        mMixpanel = TestUtils.createMixpanelApiWithMockedMessages(
+            mContext, mMessages
+        );
     }
     
-    @Test
-    public void testAsyncOperation() throws InterruptedException {
-        // Trigger async operation
-        api.track("test");
-        
-        // Wait for completion
-        String result = mMessages.poll(5, TimeUnit.SECONDS);
-        assertNotNull(result);
+    @After
+    public void tearDown() {
+        // Clean up
+        mMixpanel.flush();
     }
 }
 ```
 
-## Common Pitfalls
+## Async Testing Pattern
+```java
+@Test
+public void testAsyncOperation() throws Exception {
+    // Perform operation
+    mMixpanel.track("Event", null);
+    
+    // Wait for result with timeout
+    String message = mMessages.poll(2, TimeUnit.SECONDS);
+    assertNotNull("Expected message within timeout", message);
+    
+    // Verify content
+    JSONObject json = new JSONObject(message);
+    assertEquals("Event", json.getString("event"));
+}
+```
 
-### DON'T
-- Create new public classes
-- Throw exceptions from public methods
-- Use Activity context (memory leaks)
-- Access database on main thread
-- Create new threads (use HandlerThread)
+## Database Testing
+```java
+@Test
+public void testPersistence() throws Exception {
+    MPDbAdapter db = new MPDbAdapter(mContext);
+    
+    // Test with real SQLite
+    JSONObject data = new JSONObject();
+    data.put("test", "value");
+    
+    int count = db.addJSON(data, "token", MPDbAdapter.Table.EVENTS);
+    assertEquals(1, count);
+    
+    // Verify retrieval
+    String[] events = db.generateDataString(MPDbAdapter.Table.EVENTS, "token", 10);
+    assertEquals(1, events.length);
+    
+    // Clean up
+    db.cleanupEvents(System.currentTimeMillis() + 1000, MPDbAdapter.Table.EVENTS);
+}
+```
 
-### DO
-- Keep classes package-private
-- Catch and log all exceptions
-- Use application context
-- Batch database operations
-- Use message passing for async work
+## Thread Safety Testing
+```java
+@Test
+public void testConcurrentAccess() throws Exception {
+    final int THREAD_COUNT = 10;
+    final CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
+    
+    for (int i = 0; i < THREAD_COUNT; i++) {
+        final int threadId = i;
+        new Thread(() -> {
+            mMixpanel.track("Thread " + threadId);
+            latch.countDown();
+        }).start();
+    }
+    
+    assertTrue("Threads should complete", latch.await(5, TimeUnit.SECONDS));
+    
+    // Verify all events recorded
+    Thread.sleep(500); // Let queue settle
+    List<String> messages = new ArrayList<>();
+    mMessages.drainTo(messages);
+    assertEquals(THREAD_COUNT, messages.size());
+}
+```
 
-## Making Changes
+## Error Handling Tests
+```java
+@Test
+public void testInvalidInput() throws Exception {
+    // Should not crash
+    mMixpanel.track(null, null);
+    mMixpanel.track("", null);
+    
+    // Invalid JSON
+    JSONObject props = new JSONObject();
+    props.put("invalid", Double.NaN);
+    mMixpanel.track("Event", props);
+    
+    // Verify graceful handling
+    assertTrue("App should not crash", true);
+}
+```
 
-1. **Before modifying**, understand the component's role in the system
-2. **Maintain thread safety** - these are core components
-3. **Test on real devices** - emulators hide timing issues
-4. **Consider backward compatibility** - SDK is widely used
-5. **Update tests** - every change needs test coverage
-
-## Performance Considerations
-
-- Event batching happens every 60 seconds
-- Database cleanup runs periodically
-- HTTP requests timeout after 10 seconds
-- SharedPreferences cached in memory
-- Minimize synchronization scope
-
-Remember: These core components are the foundation of the SDK. Changes here have the highest impact and risk. Be extra careful with thread safety, error handling, and backward compatibility.
+## Test Patterns
+- Always use descriptive assertion messages
+- Test both success and failure cases
+- Verify thread safety with concurrent tests
+- Use realistic timeouts (2-5 seconds)
+- Clean up resources in @After
+- Test with real components, not mocks
 
 ---
 > Source: [mixpanel/mixpanel-android](https://github.com/mixpanel/mixpanel-android) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
