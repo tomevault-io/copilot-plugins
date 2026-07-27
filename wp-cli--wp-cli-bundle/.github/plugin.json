@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--wp-cli-bundle",
+  "displayName": "wp-cli-bundle",
+  "description": "wp-cli-bundle",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/wp-cli-bundle",
+  "skills": []
+}
