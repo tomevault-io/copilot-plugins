@@ -1,118 +1,140 @@
-## wize-research
+## wize-retrospective
 
-> 1-analysis: Research
+> 4-implementation: Retrospective
 
 
-# Research
+# Retrospective
 
-# Research
+# Retrospective
 
-**Goal.** Surface evidence that hardens the brief and trigger map. Frame the questions Pepper actually needs answered, do focused passes (market / competitors / analytics / interviews), and write the synthesis in a way Maria Hill can quote in the PRD.
+**Goal.** Capture what worked, what didn't, what surprised, and **one concrete change for next sprint**. A retro that ends in a vibe is a retro that didn't ship a change.
 
-Pepper drives. Peggy edits prose. Output lands in `.wize/planning/research.md` with raw materials in `.wize/knowledge/research/`.
+Wizer facilitates. Hill enforces output discipline. Everyone (including Pepper, Mantis, Fury) contributes.
+
+## When to run
+
+- End of every sprint (cadence).
+- After any incident (separate; pulls from incident timeline).
+- At major milestones (epic close, release, year-end).
 
 ## Inputs
 
-- Open questions in `.wize/planning/brief.md`.
-- Hypotheses in `.wize/planning/ux/trigger-map.md`.
-- External access (browser, MCPs) and/or attached materials (decks, transcripts).
+- `.wize/implementation/sprint-status.md` (current sprint)
+- All `gate.md` files from current sprint
+- `tea/nfr/{epic}.md` if an epic closed this sprint
+- Quick-dev log
 
-## Outputs
+## Output
 
-- `.wize/planning/research.md` — short synthesis (≤ 2 pages) referencing sources.
-- `.wize/knowledge/research/{slug}.md` — one file per major source (raw notes, links, attached PDFs).
+- `.wize/implementation/retrospective/{YYYY-MM-DD}.md`
+
+## Format (60 minutes, fixed)
+
+| Minutes | Section |
+|---|---|
+| 0–5 | Frame: Wizer reads the sprint stats (capacity, shipped, slipped, gates). |
+| 5–15 | **Worked** — what we want to repeat. |
+| 15–25 | **Didn't work** — what we want to change. |
+| 25–35 | **Surprised us** — externalities, signals, anything not on plan. |
+| 35–45 | Pick **1–3 changes**. Vote with effort/impact dots. |
+| 45–55 | Each change gets an owner + deadline. |
+| 55–60 | Wizer reads back the doc; everyone confirms; close. |
+
+Going over 60 minutes is a sign the retro became therapy. Time-box.
 
 ## Steps
 
-### 1. Frame the questions
+### 1. Open with stats
 
-Convert open questions + hypotheses into a numbered list. Each question is:
-- **Specific** — "What's the median onboarding time for the top 5 competitors?" not "How is onboarding usually done?".
-- **Answerable in a finite pass** — if it takes weeks, decompose.
-- **Tagged with category** — `market / competitive / analytics / interview / desk-research / regulatory`.
+Wizer reads the sprint dashboard from `sprint-status.md`:
+- Velocity vs commitment.
+- Number of gates: PASS / CONCERNS / FAIL / WAIVED.
+- Blockers and their resolution times.
+- Carry-over count.
 
-### 2. Choose the framework that fits each question
+Stats anchor the retro in observations, not feelings.
 
-| Category | Recommended frame | Tools |
-|---|---|---|
-| Market sizing | TAM/SAM/SOM, top-down + bottom-up reconciled | Statista, public filings, gov registries |
-| Competitive | Porter's 5 + feature matrix + pricing scan | competitor sites, G2/Capterra, Pricing/Plans pages |
-| User research | Jobs-to-be-Done (Christensen / Klement) | 5–8 interviews (semi-structured, 30min) |
-| Behavioral | 5W2H + analytics funnel | product analytics (Amplitude/PostHog), session replays |
-| Compliance/legal | Reg list + clause map | gov sites, legal counsel review |
-| Macro context | PESTLE (political/economic/social/technological/legal/environmental) | desk research |
+### 2. Worked / didn't / surprised
 
-### 3. Run focused passes
+Each engineer brings 2–3 items per section, written in advance ideally. Time-box discussion: any item that takes > 3 min becomes a follow-up.
 
-One question, one pass. Don't bundle. For each:
+### 3. Changes (1–3 max)
 
-- Define what "enough evidence" looks like before starting.
-- Cite or it didn't happen. Links + access date.
-- When numbers conflict across sources, write down both and flag.
+A change is:
+- **Specific:** "Pair-program for E04-S02 because R-3 is high" — not "communicate more."
+- **Owned:** a person.
+- **Bounded:** a deadline or a sprint to land it.
 
-### 4. Synthesize
+If you pick 4+ changes, you'll execute 0. Choose.
 
-In `research.md`, for each original question, write:
+### 4. Write the doc
 
-```markdown
-### Q1. {{the question}}
-**Finding:** one sentence answer.
-**Confidence:** high | medium | low
-**Why we believe it:** 2–3 lines + citations [1][2][3].
-**Implication for the brief/PRD:** what changes (or doesn't) because of this.
-```
+Use the template; close the retro with the doc in front of the team.
 
-Don't include raw quotes here — link to `.wize/knowledge/research/{slug}.md`.
+### 5. Trigger reads
 
-### 5. Flag the gaps
+Wizer notifies Hill (who plugs the changes into next sprint planning), Hawkeye (who may revise risk profile), Fury (when an NFR principle change emerges).
 
-End the synthesis with a "Still open" section. List questions we couldn't answer + the cheapest next step (one interview / one analytics query / one expert call). Route back to Wizer with the gap.
-
-## Output template (synthesis)
+## Output template
 
 ```markdown
 ---
-status: ready-for-prd
-owner: Pepper Potts
-created: YYYY-MM-DD
+sprint: 7
+date: 2026-06-25
+facilitator: Wizer
+attendees: [Hill, Tony, Mantis, Pepper, Fury, Hawkeye, Shuri]
 ---
 
-# Research — {{project_name}}
+# Retrospective — Sprint 7
 
-## Q1. {{question}}
-**Finding:** …
-**Confidence:** medium
-**Why:** … [1]
-**Implication:** Brief constraint #3 holds; PRD scope can drop feature X.
+## Sprint snapshot
+- Committed: 4 stories + 1 stretch
+- Shipped: 4 stories
+- Stretch: not pulled
+- Gates: 4 PASS, 1 CONCERNS, 0 FAIL
+- Blockers: 1 (vendor sandbox, resolved Day 5)
+- Carry-over to S8: 0
 
-## Q2. …
+## Worked
+- Pairing on E03-S02 (auth refresh) — issue caught at integration test instead of in prod.
+- TEA design done at planning for R-3 stories paid off.
+- Mantis' "before/after" recordings in PRs accelerated review.
 
-## Still open
-- Q5: pricing elasticity in segment S — needs 1 hour with sales lead.
+## Didn't work
+- Sprint-status entries went stale on Days 7–8 (Hill on vacation).
+- E02-S02 estimated M, actually L; we over-committed.
+- Vendor outage with no fallback caught us cold for 4h.
 
-## Sources
-[1] {{title}} — {{url}} (accessed YYYY-MM-DD)
-[2] interview-acme-cto-2026-05-30 — see knowledge/research/acme-cto.md
+## Surprised us
+- A11y audit caught 3 issues on a screen Mantis had already signed off on (axe found dynamic-content edge cases).
+- Cost dashboard showed mailer spend doubled — outbox retry was too aggressive.
+
+## Changes for Sprint 8
+
+1. **Sprint-status delegation rotation** — when Hill is OOO, Wizer takes over. *Owner: Wizer. By: Sprint 8 Day 1.*
+2. **L estimates require justification** — any L gets one paragraph "why L not M" in the story file. *Owner: Tony. By: Sprint 8 planning.*
+3. **Vendor fallback drill** — quarterly, simulate top-3 vendor outages. *Owner: Hawkeye + Tony. By: end of Q3.*
+
+## Decisions made
+- Mailer retry policy updated (NFR-01-1).
+- Risk profile revised: R-1 mitigation now confirmed.
+
+## Notes for next sprint
+- Carry zero stories; everyone starts S8 fresh.
+- Stretch goal in S8: catch up on REV-01 (copy fix from S7).
 ```
 
-## When to use which framework (heuristic)
+## Anti-patterns Wizer rejects (politely)
 
-- **JTBD** when you're about to write personas; JTBD is sharper than archetypes.
-- **Porter** when picking a market to enter or a defensible moat.
-- **PESTLE** for projects with regulatory or geopolitical exposure.
-- **5 Whys + analytics funnel** when a metric is bad and the cause isn't obvious.
-
-## Anti-patterns Pepper rejects
-
-- Synthesis without citations.
-- "We surveyed users" with no n, no method, no script.
-- Single-source claims with high confidence ("everyone is using X" because of one blog post).
-- Using brand-name competitor research as user research — they're different.
-- Continuing to research when the decision is already made. Stop and ship.
+- **A retro without a change.** Then it was venting.
+- **"We need to communicate better."** Specific or it doesn't count.
+- **Adopting > 3 changes.** None will land.
+- **No owner / no deadline.** Hopes, not plans.
+- **Skipping the retro to "save time."** The next sprint costs more.
 
 ## Hand-off
 
-> Research is in `.wize/planning/research.md`. Q3 still open — sales lead has a slot tomorrow. Hill can start the PRD on what's confirmed.
+> Retro at `.wize/implementation/retrospective/2026-06-25.md`. 3 changes; owners assigned. Sprint 8 planning anchors on them. Hawkeye, please update `risk-profile.md` with the R-1 mitigation confirmed.
 
 ---
 > Source: [qwize-br/wize-development-kit](https://github.com/qwize-br/wize-development-kit) — distributed by [TomeVault](https://tomevault.io).
