@@ -1,52 +1,69 @@
 ## zapstore
 
-> Local-first, Nostr-native app store for Android.
+> Flutter/Dart conventions for Zapstore projects
 
-# Zapstore — Agent Instructions
 
-Local-first, Nostr-native app store for Android.
+# Flutter/Dart Conventions
 
-All behavioral authority lives in `spec/guidelines/`. If this file conflicts, guidelines win.
+## State Management
 
-## Quick Reference
+- Use Flutter Hooks (`HookWidget`, `HookConsumerWidget`) for local widget state — not `StatefulWidget`.
+- Use `useState`, `useAnimationController`, `useEffect` over manual `State` classes.
+- Use Riverpod providers for shared/global state. Keep providers focused and composable.
+- Prefer `ref.watch` for reactive UI, `ref.read` in callbacks only.
 
-| What | Where |
-|------|-------|
-| Architecture & patterns | `spec/guidelines/ARCHITECTURE.md` |
-| Non-negotiable rules | `spec/guidelines/INVARIANTS.md` |
-| Quality standards | `spec/guidelines/QUALITY_BAR.md` |
-| Product vision | `spec/guidelines/VISION.md` |
-| Feature specs | `spec/features/` |
-| Active work | `spec/work/` |
-| Decisions & learnings | `spec/knowledge/` |
-| ADR-equivalent decisions | `spec/knowledge/DEC-XXX-*.md` |
+## Data & Async
 
-Guidelines are symlinked into `.cursor/rules/` and auto-load.
+- All async work must be cancellable. Pass `CancellationToken` or use `ref.onDispose`.
+- Never `await` inside `build()`. Move async work to providers or `useEffect`.
+- Use `switch` on sealed classes / union types for exhaustive state handling:
+  ```dart
+  return switch (state) {
+    StorageLoading() => const CircularProgressIndicator(),
+    StorageError(:final exception) => Text('Error: $exception'),
+    StorageData(:final models) => MyWidget(models),
+  };
+  ```
+- All async operations must have explicit loading, success, and error states in the UI.
 
-If a skill references `docs/adr/`, read `spec/knowledge/` instead. If a skill references an issue tracker, this repo doesn't have one configured — work is tracked in `spec/work/` and `spec/features/`.
+## Widget Structure
 
-## File Ownership
+- One widget per file. File name matches widget name in snake_case.
+- Keep `build()` methods short — extract sub-widgets or use helper methods.
+- Widgets must not manage relay connections, storage, or background jobs.
+- Use `const` constructors wherever possible.
 
-| Path | Owner | AI May Modify |
-|------|-------|---------------|
-| `spec/guidelines/*` | Human | No |
-| `spec/features/*` | Human | No (unless asked) |
-| `spec/work/*.md` | AI | Yes |
-| `spec/knowledge/*.md` | AI | Yes |
-| `lib/**`, `test/**` | Shared | Yes |
+## Naming
 
-## Key Commands
+- Files: `snake_case.dart`. Classes: `PascalCase`. Variables/methods: `camelCase`.
+- Providers: `<noun>Provider` or `<noun>NotifierProvider`.
+- Services: `<Noun>Service`. Notifiers: `<Noun>Notifier`.
 
-```bash
-fvm flutter pub get      # Dependencies
-fvm flutter analyze      # Lint
-fvm flutter test         # Tests
-```
+## Error Handling
 
-## Project Rules
+- Never swallow exceptions silently. Surface errors to the UI or log them.
+- Use typed exceptions where the caller needs to distinguish error types.
+- `try/catch` at the boundary (provider/service), not deep in domain logic.
+
+## Testing
+
+- Test providers and services, not widget internals.
+- Use `ProviderContainer` for unit-testing Riverpod providers.
+- Mock external dependencies (storage, network) — no real I/O in unit tests.
+- Widget tests for critical UI states: loading, error, empty, success.
+
+## Dependencies
+
+- Run `fvm flutter pub get` after any `pubspec.yaml` change.
+- Pin Flutter SDK version via FVM (`fvm use <version>`).
+- Prefer packages already in use over adding new ones.
+
+## Build
 
 - Assume Android as default target unless instructed otherwise.
+- Release builds must be reproducible (see INVARIANTS.md).
+- Run `flutter analyze` — fix all issues before committing.
 
 ---
 > Source: [zapstore/zapstore](https://github.com/zapstore/zapstore) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
