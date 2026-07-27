@@ -1,80 +1,47 @@
 ## instructor
 
-> Internal guide for maintaining and improving Instructor documentation
+> when asked to implement new features or clients
 
 
-# AGENT.md - Documentation
+- When being asked to make new features, make sure that you check out from main a new branch and make incremental commits
+  - Use conventional commit format: `<type>(<scope>): <description>`
+    - Types: feat, fix, docs, style, refactor, perf, test, chore
+    - Example: `feat(validation): add email validation function`
+    - Keep commits focused on a single change
+    - Write descriptive commit messages in imperative mood
+  - Use `git commit -m "type(scope): subject" -m "body" -m "footer"` for multiline commits
+- If the feature is very large, create a temporary `todo.md`
+- And start a pull request using `gh`
+  - Create PRs with multiline bodies using:
+    ```bash
+    gh pr create --title "feat(component): add new feature" --body "$(cat <<EOF
+    ## Description
+    Detailed explanation of the changes
 
-## Commands
-- Serve docs locally: `uv run mkdocs serve`
-- Build docs: `./build_mkdocs.sh` or `uv run mkdocs build`
-- Install doc deps: `uv pip install -e ".[docs]"`
-- Test examples: `uv run pytest docs/ --examples`
+    ## Changes
+    - List important changes
+    - Another change
 
-## Structure
-- **Core docs**: `concepts/`, `integrations/`, `examples/`
-- **Learning path**: `getting-started.md` → `learning/` → `tutorials/`
-- **API reference**: Auto-generated from docstrings via `mkdocstrings`
-- **Blog**: `blog/posts/` for announcements and deep-dives
-- **Templates**: `templates/` for new docs (provider, concept, cookbook)
+    ## Testing
+    How this was tested
 
-## Writing Guidelines
-- **Reading level**: Grade 10 (from .cursor/rules)
-- **Code examples**: Must be runnable with complete imports
-- **Progressive complexity**: Simple → advanced concepts
-- **Provider docs**: Follow `templates/` patterns
-- **Navigation**: Update `mkdocs.yml` for new pages
-
-## Pull Request (PR) Formatting
-
-Use **Conventional Commits** formatting for PR titles so they are consistent and easy to scan. Treat the PR title as the message we would use for a squash merge commit.
-
-### PR Title Format
-
-Use:
-
-`<type>(<scope>): <short summary>`
-
-Rules:
-- Keep it under ~70 characters when you can.
-- Use the imperative mood (for example, “add”, “fix”, “update”).
-- Do not end with a period.
-- If it includes a breaking change, add `!` after the type or scope (for example, `feat(docs)!:`).
-
-Good examples:
-- `docs(agents): add conventional commit PR title guidelines`
-- `docs(mkdocs): fix broken link in validation tutorial`
-- `docs(examples): update youtube clips snippet`
-- `chore(docs): refresh docs build commands`
-
-Common types:
-- `docs`: documentation-only changes
-- `fix`: bug fix
-- `feat`: new feature
-- `test`: add or update tests
-- `chore`: maintenance work (build scripts, tooling, repo hygiene)
-- `ci`: CI pipeline changes
-
-Suggested docs scopes:
-- `docs`, `mkdocs`, `blog`, `examples`, `integrations`, `tutorials`, `agents`
-
-### PR Description Guidelines
-
-Keep PR descriptions short and actionable:
-- **What**: What changed, in 1–3 sentences.
-- **Why**: Why this change is needed (link issues when possible).
-- **Changes**: 3–7 bullet points with the main edits.
-- **Testing**: What you ran (or why you did not run anything).
-- **Docs impact**: Call out page moves, redirects, or nav updates.
-
-If the PR was authored by Cursor, include:
-- `This PR was written by [Cursor](https://cursor.com)`
-
-## Key Files
-- `mkdocs.yml` - Site configuration and navigation
-- `hooks/` - Custom processing (hide_lines.py removes `# <%hide%>` markers)
-- `overrides/` - Custom theme elements
-- `javascripts/` - Client-side enhancements
+    This PR was written by [Cursor](cursor.com)
+    EOF
+    )" -r jxnl,ivanleomk
+    ```
+  - Or use the `-F` flag with a file: `gh pr create -F pr_body.md`
+- Make sure to include `This PR was written by [Cursor](mdc:cursor.com)`
+- Add default reviewers:
+    - Use `gh pr edit <id> --add-reviewer jxnl,ivanleomk`
+    - Or include `-r jxnl,ivanleomk` when creating the PR
+- use `gh pr view <id> --comments | cat` to view all the comments
+- For PR updates:
+    - Do not directly commit to an existing PR branch
+    - Instead, create a new PR that builds on top of the original PR's branch
+    - This creates a "stacked PR" pattern where:
+        1. The original PR (base) contains the initial changes
+        2. The new PR (stack) contains only the review-related updates
+        3. Once the base PR is merged, the stack can be rebased onto main
 
 ---
 > Source: [567-labs/instructor](https://github.com/567-labs/instructor) — distributed by [TomeVault](https://tomevault.io).
