@@ -2,9 +2,9 @@
   "name": "pi-extensions",
   "owner": "MattDevy",
   "repo": "pi-extensions",
-  "description": "A set of pi-extensions, including pi-continuous-learning that continually improves you pi coding agent experience",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MattDevy/pi-extensions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T00:53:06Z"
+  "distributed_at": "2026-07-27T21:42:35Z"
 }
