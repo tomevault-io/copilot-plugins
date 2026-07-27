@@ -1,7 +1,7 @@
 {
   "name": "cloudflare--realtimekit-ui",
   "displayName": "realtimekit-ui",
-  "description": "RealtimeKit UI provides pre-built, ready-to-use UI components for integrating with Cloudflare RealtimeKit",
+  "description": "realtimekit-ui",
   "version": "1.0.0",
   "author": "cloudflare",
   "homepage": "https://github.com/cloudflare/realtimekit-ui",
