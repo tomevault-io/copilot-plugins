@@ -4,7 +4,7 @@
   "repo": "codedna",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Larens94/codedna",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T00:52:31Z"
+  "distributed_at": "2026-07-27T04:32:42Z"
 }
