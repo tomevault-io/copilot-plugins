@@ -1,0 +1,9 @@
+{
+  "name": "5throck--ai-workspace-standards",
+  "displayName": "ai-workspace-standards",
+  "description": "Master configuration for Vibe Coding and Harness Engineering \u2014 workspace standards for Claude Code, Gemini CLI, and all AI tools",
+  "version": "1.0.0",
+  "author": "5throck",
+  "homepage": "https://github.com/5throck/ai-workspace-standards",
+  "skills": []
+}
