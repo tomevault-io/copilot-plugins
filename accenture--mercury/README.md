@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Accenture/mercury](https://github.com/Accenture/mercury).
+Original source: `.windsurf/rules/*.md` in [Accenture/mercury](https://github.com/Accenture/mercury).
 
 ## Also available for
 
@@ -13,7 +13,7 @@ Original source: `GEMINI.md` in [Accenture/mercury](https://github.com/Accenture
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Windsurf** — `project-config.md`
+- **Gemini CLI** — `GEMINI.md`
 
 From [Accenture/mercury](https://github.com/Accenture/mercury) — a repo with 90+ stars on GitHub.
 
