@@ -1,7 +1,7 @@
 {
   "name": "chatwoot--ai-agents",
   "displayName": "ai-agents",
-  "description": "Ruby AI Agents SDK - Inspired by OpenAI Agents SDK",
+  "description": "ai-agents",
   "version": "1.0.0",
   "author": "chatwoot",
   "homepage": "https://github.com/chatwoot/ai-agents",
