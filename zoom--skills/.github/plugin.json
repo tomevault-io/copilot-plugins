@@ -1,0 +1,9 @@
+{
+  "name": "zoom--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "zoom",
+  "homepage": "https://github.com/zoom/skills",
+  "skills": []
+}
