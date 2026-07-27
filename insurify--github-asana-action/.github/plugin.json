@@ -1,0 +1,9 @@
+{
+  "name": "insurify--github-asana-action",
+  "displayName": "github-asana-action",
+  "description": "github-asana-action",
+  "version": "1.0.0",
+  "author": "insurify",
+  "homepage": "https://github.com/insurify/github-asana-action",
+  "skills": []
+}
