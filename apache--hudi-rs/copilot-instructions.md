@@ -1,73 +1,100 @@
 ## hudi-rs
 
-> - **No `.unwrap()` / `.expect()` / `panic!()`** in non-test code (Critical). `unreachable!()`
+> When reviewing updated PRs:
 
-# Rust Conventions
 
-## Error Handling
+# Code Review Instructions for Apache Hudi-rs
 
-- **No `.unwrap()` / `.expect()` / `panic!()`** in non-test code (Critical). `unreachable!()`
-  only with a comment justifying the invariant.
-- **Errors carry context** — typed `thiserror` variants or `anyhow::Context`; messages name the
-  offending value. Avoid bare `.map_err(Into::into)`.
+## Multi-Round Review Behavior
 
-```rust
-// GOOD — with context
-let file = File::open(&path)
-    .with_context(|| format!("Failed to open table metadata at {}", path.display()))?;
+When reviewing updated PRs:
 
-// BAD — no context
-let file = File::open(&path).map_err(|e| HudiError::Io(e))?;
-```
+- Do NOT re-raise issues addressed by new commits
+- Focus on code added or modified in latest commits
+- Check if fixes introduced regressions elsewhere
+- Acknowledge progress while maintaining standards
 
-## Async
+### Severity Classification
 
-- **No blocking I/O in async** (`std::fs::*`, `std::thread::sleep`); use Tokio or
-  `tokio::task::spawn_blocking`. Async functions must return `Send` futures (no `Rc` or `RefCell`
-  across await points).
+- **🔴 Critical**: Must fix before merge (correctness, safety, breaking changes)
+- **🟠 Important**: Should fix before merge (error handling, testing, docs)
+- **🟡 Suggestion**: Nice to have, not blocking (style, optimization)
+- **💬 Question**: Clarification needed, not necessarily an issue
 
-## Memory & Performance
+## Apache Hudi-rs Specific Review Criteria
 
-- **Avoid unnecessary `.clone()`** on `RecordBatch` / `Schema` / `Vec<_>`. Prefer `&str`, `&[T]`,
-  `Cow<'_, str>` in parameters.
-- **Prefer streaming over collecting** — don't collect streams of `RecordBatch` into `Vec` when
-  you can process them incrementally.
-- Prefer Arrow compute kernels over hand-rolled loops. Use `arrow::compute::concat_batches` for
-  combining batches.
+### Hudi Semantics
 
-## API Design
+- Verify correct handling of Hudi timeline operations
+- Check proper partition pruning logic
+- Ensure file group/file slice handling is correct
+- Validate commit timestamp parsing and comparison
 
-- **Builder pattern** for many-optional types: consume `self`, return `Self`, finalize with
-  `build()`.
+### Arrow Integration
 
-```rust
-pub struct TableBuilder {
-    base_uri: String,
-    options: HashMap<String, String>,
-}
+- Verify schema compatibility between Hudi and Arrow types
+- Check proper memory management with RecordBatches
+- Ensure efficient use of Arrow compute kernels
+- Validate proper null handling
 
-impl TableBuilder {
-    pub fn from_base_uri(uri: impl Into<String>) -> Self { ... }
-    pub fn with_option(mut self, key: impl Into<String>, value: impl Into<String>) -> Self { ... }
-    pub async fn build(self) -> Result<Table> { ... }
-}
-```
+### DataFusion Integration
 
-- **Public items must have doc comments** (examples for non-trivial APIs; note panics, errors,
-  safety).
+- Check TableProvider implementation correctness
+- Verify filter pushdown implementation
+- Ensure proper async execution patterns
+- Validate scan parallelization
 
-## Testing
+### Cloud Storage
 
-Unit tests are colocated under `#[cfg(test)] mod tests`; use `#[tokio::test]` for async.
-Naming: `test_<function>_<scenario>_<expected>`. Shared fixtures in `crates/test`.
+- Check object_store usage patterns
+- Verify proper credential handling (no hardcoded secrets)
+- Ensure retry logic for transient failures
+- Validate path handling across storage backends
 
-## Style
+## Review Checklist
 
-Run `make format-rust check-rust` before submitting to match CI.
+### Before Approving, Verify:
 
-- **Inline format args** (Rust 1.91.1+): `format!("{x}")`, not `format!("{}", x)` — expressions
-  like `path.display()` still require positional args.
+- [ ] All CI checks pass
+- [ ] Tests cover the changed functionality
+- [ ] Public APIs have documentation
+- [ ] Error handling uses Result, not panic
+- [ ] No `.unwrap()` in non-test code
+- [ ] Breaking changes are documented
+- [ ] PR diff is under 1000 lines (or justified)
+
+### For New Features:
+
+- [ ] Feature is behind appropriate configuration if experimental
+- [ ] Integration tests demonstrate the feature works end-to-end
+- [ ] Python bindings updated if applicable
+- [ ] README/docs updated if user-facing
+
+### For Bug Fixes:
+
+- [ ] Root cause is identified and explained
+- [ ] Test case added that would have caught the bug
+- [ ] Related areas checked for similar issues
+
+## Patterns to Flag
+
+- 🔴 `.unwrap()` / `.expect()` / `panic!()` in non-test code
+- 🔴 Blocking calls (`std::thread::sleep`, `std::fs`) in async context
+- 🔴 Hardcoded credentials or secrets
+- 🟠 Missing error context (bare `.map_err()` without message)
+- 🟠 Unnecessary `.clone()`, taking ownership when borrow suffices
+- 🟠 Missing doc comments on public items
+- 🟡 Imperative loops replaceable with iterator chains
+- 🟡 Nested `match` on `Result` replaceable with `and_then` or `?`
+
+## Cross-File Impact
+
+- **Core table changes** → check Python/C++ bindings
+- **Public API (`hudi` crate)** → check for breaking changes
+- **DataFusion integration** → verify compatibility
+- **Schema/type conversions** → check serialization paths
+- **Configuration structs** → verify backward compatibility
 
 ---
 > Source: [apache/hudi-rs](https://github.com/apache/hudi-rs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
