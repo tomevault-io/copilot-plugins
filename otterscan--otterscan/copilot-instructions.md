@@ -1,63 +1,179 @@
 ## otterscan
 
-> - Source: TypeScript + React in `src/`. Key subfolders: `components/`, `execution/`, `search/`, `utils/`; hooks follow `use*.ts(x)`. UI stories live alongside code as `*.stories.tsx`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- Source: TypeScript + React in `src/`. Key subfolders: `components/`, `execution/`, `search/`, `utils/`; hooks follow `use*.ts(x)`. UI stories live alongside code as `*.stories.tsx`.
-- Assets & config: `public/` (static), `.storybook/` (Storybook), `docs/`, `nginx/`, `dist/` (build output).
-- Tests: Unit tests co-located as `*.test.ts(x)`; E2E specs in `cypress/e2e/`.
+## Project Overview
 
-## Build, Test, and Development Commands
+Otterscan is an open-source, local Ethereum block explorer built as a React application. It's designed to work with Erigon nodes and provides a fast, privacy-focused alternative to centralized block explorers. The application enables users to explore blocks, transactions, addresses, contracts, and consensus data directly from their local Erigon node.
 
-- `npm start`: Run Vite dev server at `http://localhost:5173`.
-- `npm run start-devnet`: Start with local devnet config (`VITE_CONFIG_JSON`).
-- `npm run build`: Type-check then build production bundle to `dist/`.
-- `npm run preview`: Serve the built app locally.
-- `npm test`: Run Jest unit tests.
-- `npm run storybook` / `npm run build-storybook`: Run/build component docs.
-- `npm run cy:run-mainnet` / `npm run cy:run-devnet`: Run Cypress E2E suites.
-- Docker helpers: `docker-build`, `docker-start`, `docker-hub-start`, and matching `*-stop`.
+## Development Commands
 
-## Coding Style & Naming Conventions
+### Core Development
 
-- Language: TypeScript + React 19 (Vite); Tailwind CSS enabled.
-- Formatting: Prettier with organize-imports. Run `npx prettier -w .` before pushing.
-- Linting: ESLint extends `react-app` defaults.
-- Naming: Components in `PascalCase` (`ComponentName.tsx`), hooks prefixed `use*`, utilities in `utils/`, tests `*.test.ts(x)` beside subjects.
+- `npm start` - Start development server with Vite (default port 5173)
+- `npm run build` - Build production version (TypeScript compilation + Vite build)
+- `npm run preview` - Preview production build
+- `npm test` - Run Jest unit tests
 
-## Testing Guidelines
+### Specialized Development
 
-- Unit: Jest via `ts-jest` (`testEnvironment: node`). Keep tests near code; focus on edge cases.
-- E2E: Cypress in `cypress/e2e/`. Ensure dev server is reachable; for devnet flows, verify Erigon/Sourcify endpoints in `cypress.config.ts`.
-- Visuals: Update Storybook stories for UI changes.
+- `npm run start-devnet` - Start with devnet configuration using `cypress/support/devnet-config.json`
+- `npm run storybook` - Start Storybook development server on port 6006
+- `npm run build-storybook` - Build static Storybook
 
-## Commit & Pull Request Guidelines
+### Testing
 
-- Commits: Short, imperative, descriptive (e.g., "Fix spacing in validator view"). Version bumps: "Bump <pkg> from A to B (#PR)".
-- PRs: Clear description, linked issues, and screenshots/videos for UI changes. Note config/env impacts. Keep diffs focused and pass CI (build + tests).
+- `npm run cy:run-mainnet` - Run Cypress E2E tests for mainnet
+- `npm run cy:run-devnet` - Run Cypress E2E tests for devnet
+- `npm run source-map-explorer` - Analyze bundle size
 
-## Security & Configuration Tips
+### Parser Generation
 
-- Never commit secrets. Use `.env.*`; Vite reads `VITE_*` at build time.
-- For local devnet, set `DEVNET_ERIGON_URL` and `DEVNET_SOURCIFY_SOURCE` per `cypress.config.ts`.
+- `npm run build-parsers` - Generate contract input data parser from grammar file
 
 ## Architecture Overview
 
-- Client-only SPA: Built to static assets in `dist/` and served via `nginx/` or any static host; all data fetched at runtime.
-- Data sources: Ethereum JSON-RPC (optimized for Erigon performance/features) and Sourcify for verified contract metadata/ABIs.
-- No backend: Business logic lives in `src/` — `search/` for lookups, `execution/` for call/trace decoding, reusable UI in `components/`.
-- Configuration: Endpoints provided via `VITE_*` env vars; devnet defaults and helpers live in `cypress.config.ts`.
+### Core Structure
 
-## External Docs
+The application follows a React Router-based architecture with lazy-loaded components:
 
-- Reference: https://docs.otterscan.io/
-- Coverage: Architecture, data sources (Erigon/Sourcify), deployment, configuration.
-- Contributions: When changing APIs, flows, or UX, update external docs and related Storybook stories.
+- **App.tsx**: Main application entry with router configuration, context providers, and loading states
+- **Main.tsx**: Primary layout component that wraps most pages
+- **Home.tsx**: Landing page component
+- **types.ts**: Core type definitions including transaction data, chain info, and connection status
+
+### Key Directories
+
+#### `/src/execution/`
+
+Contains all execution layer (Ethereum L1) related components:
+
+- **Block.tsx**, **Transaction.tsx**, **Address.tsx**: Main entity pages
+- **address/**: Address-specific functionality including contract interaction, token holdings, transactions
+- **block/**: Block-specific components and transaction listings
+- **transaction/**: Transaction details, logs, traces, and decoding components
+- **components/**: Shared execution layer components
+
+#### `/src/consensus/`
+
+Consensus layer (Beacon Chain) related components:
+
+- **Epoch.tsx**, **Slot.tsx**, **Validator.tsx**: Main consensus entities
+- **epoch/**, **slot/**, **validator/**: Entity-specific components
+- **components/**: Shared consensus components
+
+#### `/src/api/`
+
+External service integrations:
+
+- **address-resolver/**: Multi-source address name resolution (ENS, tokens, Uniswap, hardcoded)
+- **token-price-resolver/**: Token price fetching from Uniswap pools
+
+#### `/src/components/`
+
+Reusable UI components with extensive Storybook stories
+
+#### `/src/sourcify/`
+
+Sourcify contract verification integration
+
+#### `/src/search/`
+
+Search functionality including QR code scanning
+
+#### `/src/token/`
+
+Token-related pages and components (ERC20, ERC721, etc.)
+
+#### `/src/special/`
+
+Special features like London hard fork live blocks visualization
+
+#### `/src/ots2/`
+
+Integration with Otterscan API v2 (OTS2) for enhanced functionality
+
+### Configuration System
+
+The application uses a flexible configuration system:
+
+- **public/config.json**: Main configuration file loaded at runtime
+- **useConfig.ts**: Configuration loading and environment variable overrides
+- **VITE_CONFIG_JSON**: Environment variable for complete config override
+- **VITE\_\*** variables\*\*: Individual config overrides during development
+
+Key configuration options:
+
+- `erigonURL`: Erigon node JSON-RPC endpoint
+- `beaconAPI`: Beacon chain API endpoint (optional)
+- `assetsURLPrefix`: Static assets URL
+- `experimental`: Enable experimental features
+- `chainInfo`: Chain metadata (name, native currency, faucets)
+- `priceOracleInfo`: Price oracle configuration
+- `sourcify`: Custom Sourcify sources
+
+### State Management
+
+- **React Query (@tanstack/react-query)**: Server state management and caching
+- **React Context**: Global application state (runtime, chain info, app config)
+- **SWR**: Additional data fetching for certain components
+- **Local hooks**: Component-specific state management
+
+### Runtime System
+
+The application builds a runtime context that includes:
+
+- Provider connection to Erigon node
+- Chain information detection/configuration
+- API level verification
+- Connection status management
+
+### Key Hooks and Utilities
+
+- **useErigonHooks.ts**: Core Erigon node interaction
+- **useRuntime.ts**: Runtime context creation and management
+- **useChainInfo.ts**: Chain information handling
+- **useSourcify.ts**: Sourcify contract verification
+- **useProvider.ts**: Ethereum provider management
+
+### Component Architecture
+
+Components follow React best practices:
+
+- Extensive use of lazy loading for performance
+- Comprehensive Storybook stories for UI components
+- TypeScript throughout with strict typing
+- Error boundaries for robust error handling
+- Suspense boundaries for loading states
+
+### Data Flow
+
+1. Configuration loaded from `config.json` or environment
+2. Runtime built with provider connection and chain detection
+3. React Query manages server state with prefetching in route loaders
+4. Components consume data through hooks and context
+5. UI updates reactively based on query state changes
+
+## Testing Strategy
+
+- **Unit Tests**: Jest for utility functions and components
+- **E2E Tests**: Cypress for full application testing
+- **Storybook**: Component isolation and visual testing
+- **Multiple Environments**: Mainnet and devnet testing configurations
+
+## Development Notes
+
+- Uses Vite as build tool with React SWC plugin
+- TailwindCSS for styling with custom configuration
+- Ethers.js for Ethereum interactions
+- Extensive use of FontAwesome icons
+- Docker support for containerized deployment
+- GitHub Actions for CI/CD
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/otterscan)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/otterscan)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [otterscan/otterscan](https://github.com/otterscan/otterscan) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
