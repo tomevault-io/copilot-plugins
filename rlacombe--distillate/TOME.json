@@ -2,8 +2,8 @@
   "name": "distillate",
   "owner": "rlacombe",
   "repo": "distillate",
-  "description": " AI research agent that reads papers, runs experiments, and tells you what worked!",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,81 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "distillate",
+      "path": ".claude/skills/brew/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/brew/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/assay/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/assay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/steer/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/steer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/forage/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/forage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/signup/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/signup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/survey/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/survey/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/distill/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/distill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/conjure/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/conjure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/tincture/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/tincture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/transmute/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/transmute/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": ".claude/skills/connectors/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/.claude/skills/connectors/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "path": "distillate/autoresearch/skills/experiment/SKILL.md",
+      "github_url": "https://github.com/rlacombe/distillate/tree/main/distillate/autoresearch/skills/experiment/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/rlacombe/distillate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T08:47:37Z"
+  "distributed_at": "2026-07-28T12:05:17Z"
 }
