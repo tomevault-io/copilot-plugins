@@ -1,88 +1,50 @@
 ## dora
 
-> dora is a CLI that converts SCIP indexes into a queryable SQLite database. AI agents use it to answer questions about large codebases without reading files or tracing imports manually.
+> Documentation website for dora CLI at https://dora-cli.dev. Built with Astro, deployed to Cloudflare Workers.
 
-# CLAUDE.md
+# docs/AGENTS.md
 
-dora is a CLI that converts SCIP indexes into a queryable SQLite database. AI agents use it to answer questions about large codebases without reading files or tracing imports manually.
+Documentation website for dora CLI at https://dora-cli.dev. Built with Astro, deployed to Cloudflare Workers.
+
+**For dora CLI context, commands, and schema, see `../AGENTS.md`.**
 
 ## Stack
 
-- Runtime: Bun
-- Database: SQLite via `bun:sqlite`
-- Language: TypeScript
-- Protobuf parsing: `@bufbuild/protobuf`
-- AST parsing: `web-tree-sitter` (on-demand, per file)
-- Output format: TOON by default (`dora status`), JSON via `--json` (`dora status --json`)
+- Framework: Astro 5.x
+- Styling: Tailwind CSS 4.x via `@tailwindcss/vite`
+- Icons: lucide-astro
+- Deployment: Cloudflare Workers via `@astrojs/cloudflare`
 
-## Source layout
+## Structure
 
 ```
 src/
-├── commands/       # one file per CLI command
-├── converter/      # SCIP protobuf parser + SQLite converter
-├── db/             # schema and all SQL queries
-├── mcp/            # MCP server, tool definitions, handlers
-├── schemas/        # Zod schemas and inferred types
-├── tree-sitter/    # grammar discovery, parser, language registry
-└── utils/          # config, errors, output formatting
+├── pages/
+│   ├── index.astro        # Landing page
+│   ├── docs.astro         # Full documentation
+│   ├── commands.astro     # Command reference
+│   └── og-image.astro     # OG image (SSR)
+├── components/            # Shared components
+└── layouts/
+    └── Layout.astro       # Base layout, nav, footer
 ```
 
-## Two indexing layers
+## Dev
 
-**SCIP** — runs the configured indexer (e.g. `scip-typescript`), produces a `.scip` protobuf, converts it to SQLite. Gives you symbols, references, and file-to-file dependencies derived from actual import resolution.
-
-**Tree-sitter** — parses source files on-demand using wasm grammars. Covers what SCIP doesn't: function signatures, cyclomatic complexity, class hierarchy, code smells. Grammar discovery checks local `node_modules`, then global bun packages, then explicit config paths.
-
-## Database design
-
-Denormalized counts (`symbol_count`, `dependency_count`, `dependent_count`, `reference_count`) are pre-computed at index time. Most queries are index lookups, not aggregations.
-
-Local symbols (function parameters, closure variables) are flagged `is_local = 1` and filtered out by default. Symbol kinds are extracted from SCIP documentation strings since `scip-typescript` doesn't populate the kind field.
-
-Schema: `src/converter/schema.sql`. All queries: `src/db/queries.ts`.
-
-## Config file: `.dora/config.json`
-
-```json
-{
-  "root": "/absolute/path/to/repo",
-  "scip": ".dora/index.scip",
-  "db": ".dora/dora.db",
-  "commands": {
-    "index": "scip-typescript index --output .dora/index.scip"
-  },
-  "lastIndexed": "2025-01-15T10:30:00Z",
-  "ignore": ["test/**", "**/*.generated.ts"],
-  "treeSitter": {
-    "grammars": {
-      "typescript": "/explicit/path/to/tree-sitter-typescript.wasm"
-    }
-  }
-}
+```bash
+bun run dev      # http://localhost:4321
+bun run build    # production build → dist/
+bun run deploy   # deploy to Cloudflare Workers
 ```
 
-## Code conventions
+## Keeping content in sync
 
-- Single object parameter — never multiple positional params
-- No inline comments, no section separators, no file headers
-- No `any` — use `unknown` or proper types
-- Boolean variables prefixed with `is` or `has`
-- Use `type` not `interface`
-- No emojis
-- Output JSON to stdout, errors to stderr as `{"error": "message"}`, exit 1 on error
+When adding or changing dora CLI commands, update `commands.astro` to match. The command reference should mirror what `dora --help` outputs.
 
-## Adding a tree-sitter language
+## Styling
 
-1. Create `src/tree-sitter/languages/mylang.ts` — export `functionQueryString`, `classQueryString`, `parseFunctionCaptures`, `parseClassCaptures`
-2. Register in `src/tree-sitter/languages/registry.ts` with grammar name and extensions
-3. Add tests in `test/tree-sitter/` — see `function-captures.test.ts` as the reference. Tests mock `Parser.QueryCapture[]` objects directly; no wasm or disk I/O needed.
-
-## Hooks (`.claude/settings.json`)
-
-- **Stop**: runs `dora index` in the background after each turn
-- **SessionStart**: checks index health, prompts to init if missing
+Dark theme: `zinc-950` page background, `zinc-900` cards, `zinc-800` borders. Primary: `blue-400/500`. Body text: `zinc-300`.
 
 ---
 > Source: [butttons/dora](https://github.com/butttons/dora) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
