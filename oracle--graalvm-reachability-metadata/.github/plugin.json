@@ -1,0 +1,9 @@
+{
+  "name": "oracle--graalvm-reachability-metadata",
+  "displayName": "graalvm-reachability-metadata",
+  "description": "graalvm-reachability-metadata",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/graalvm-reachability-metadata",
+  "skills": []
+}
