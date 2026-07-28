@@ -1,8 +1,6 @@
 # my-cursor-framework
 
-> Source: [biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework) — distributed by [TomeVault](https://tomevault.io)
-
-In-depth guide containing best practices for supercharging your productivity with Cursor AI
+> Source: [biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [biokraft/my-cursor-framework](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework)
 
 ---
 
