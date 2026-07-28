@@ -1,87 +1,145 @@
-## readme-badges
+## my-cursor-framework
 
-> README Badges: Guidelines for adding tech stack and project status badges to README.md files.
+> TypeScript Modules, Imports, and Exports: Best practices for organizing code into modules and managing imports/exports.
 
-# Guidelines for README Badges
+# TypeScript Modules, Imports, and Exports
 
-This document provides instructions for adding and maintaining informative badges in project `README.md` files. The goal is to provide a quick, at-a-glance overview of the project's status, technology stack, and community links.
+## Introduction
+Properly structuring code into modules and managing imports and exports is essential for creating scalable and maintainable TypeScript applications. This guide provides best practices for these aspects.
 
-Refer to this repository for a comprehensive list of available badges: [inttter/md-badges](https://github.com/inttter/md-badges)
+## Guidelines
 
-## Placement
+### Module Organization
+- **Single Responsibility**: Aim for modules (files) that have a single, well-defined responsibility or focus on a specific feature/domain.
+- **Directory Structure**: Organize modules into a logical directory structure. Common patterns include feature-based (e.g., `src/features/user/`) or type-based (e.g., `src/components/`, `src/services/`, `src/utils/`).
+- **Barrel Files (`index.ts`)**: Use `index.ts` files (barrel files) to re-export entities from a directory, making it easier to import them from outside the directory.
+  ```typescript
+  // In src/components/index.ts
+  export * from './Button';
+  export * from './Modal';
 
-All badges should be placed in a single block at the top of the `README.md` file, immediately following the main project title (H1).
+  // Usage elsewhere
+  import { Button, Modal } from '../components'; // Imports from src/components/index.ts
+  ```
+  Use barrels judiciously, as overusing them can sometimes lead to larger bundle sizes if tree-shaking is not effective, or circular dependency issues if not managed carefully.
 
-## Badge Selection Guidelines
+### Exporting Members
+- **Named Exports**: Prefer named exports for clarity and to allow importing only what is needed. This also aids tree-shaking.
+  ```typescript
+  // Good: Named exports
+  export const utilityFunction = () => { /* ... */ };
+  export interface UserProfile { /* ... */ }
+  ```
+- **Default Exports**: Use default exports sparingly, typically for the primary export of a module (e.g., a main component in a UI file, or a class). Be consistent if you choose to use them.
+  ```typescript
+  // Good: Default export for a primary component
+  // In UserCard.tsx
+  export default function UserCard(props: UserCardProps) { /* ... */ }
+  // Import: import MyUserCard from './UserCard';
+  ```
+  Mixing default and named exports in the same file is possible but can sometimes be confusing. Clarity is key.
 
-When adding or updating badges, you should analyze the project to select the most relevant ones.
+### Importing Members
+- **Specific Imports**: Import only the specific members you need.
+  ```typescript
+  // Good
+  import { utilityFunction, UserProfile } from './utils';
 
-### 1. Mandatory Badges
+  // Avoid (if you only need a few things)
+  import * as Utils from './utils';
+  // Utils.utilityFunction(); -- Less clear about what is being used
+  ```
+- **Path Aliases**: Configure path aliases in `tsconfig.json` (e.g., `@/*` for `src/*`) to avoid long relative paths (`../../../`).
+  ```json
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    }
+  }
+  ```
+  ```typescript
+  // Usage
+  import { MyComponent } from '@/components/MyComponent';
+  import { apiService } from '@/services/api';
+  ```
+- **Group and Sort Imports**: Keep imports organized. A common convention is:
+  1. External/third-party library imports
+  2. Internal imports (using path aliases or relative paths)
+  3. Type imports (if using `import type`)
+  Many linters/formatters can enforce import sorting (e.g., ESLint with `eslint-plugin-import`).
+  ```typescript
+  import React from 'react'; // External
+  import { Button } from '@mui/material'; // External UI library
 
-These badges should be present in every `README.md` file.
+  import { userService } from '@/services/userService'; // Internal
+  import { MyCustomHook } from '../hooks/myCustomHook'; // Internal relative
 
-*   **Latest Version:** Always include a badge indicating the latest stable version or release of the project.
-    *   For packages published to a registry (PyPI, npm, Crates.io, etc.), use a version badge from that registry.
-    *   For other projects, use the latest GitHub release or tag.
-    *   **Example (PyPI):** `[![PyPI version](https://img.shields.io/pypi/v/your-package.svg)](https://pypi.python.org/pypi/your-package)`
-    *   **Example (GitHub Release):** `[![GitHub release (latest by date)](https://img.shields.io/github/v/release/your-user/your-repo)](https://github.com/your-user/your-repo/releases/latest)`
+  import type { User } from '@/types'; // Type import
+  ```
+- **`import type`**: Use `import type` when importing only types (interfaces, type aliases). This makes it clear that the import is for type information only and can be safely erased by the TypeScript compiler, sometimes leading to better optimization or avoiding circular dependency issues related to values.
+  ```typescript
+  import type { User, Order } from './models';
 
-*   **Technology Stack:** Display badges for all major technologies used in the project.
-    *   **Languages:** Python, TypeScript, Go, Rust, etc.
-    *   **Frameworks:** FastAPI, React, Django, Vue, etc.
-    *   **Databases:** PostgreSQL, Redis, MongoDB, etc.
-    *   **Tools:** Docker, pre-commit, Ruff, uv, etc.
-    *   **How to identify:** Scan files like `pyproject.toml`, `package.json`, `go.mod`, `Dockerfile`, and `docker-compose.yml` to determine the stack.
+  function processUser(user: User) {
+    // ...
+  }
+  ```
 
-### 2. Recommended Badges (Context-Dependent)
+### Circular Dependencies
+- Be mindful of circular dependencies between modules. They can lead to unexpected `undefined` values at runtime.
+- If you encounter them, try to refactor your code by:
+  - Extracting shared logic into a new, lower-level module.
+  - Using dependency injection.
+  - Re-evaluating module responsibilities.
+- `import type` can sometimes help break circular dependencies if the cycle involves only type information.
 
-Add these badges if they are relevant to the project.
+## Examples
 
-*   **Build & CI/CD Status:** If the project uses CI/CD, add a badge showing the build status of the main branch.
-    *   **Source:** Look for configuration files in `.github/workflows`, `.circleci/`, `travis.yml`, etc.
-    *   **Example (GitHub Actions):** `[![CI](https://github.com/your-user/your-repo/actions/workflows/ci.yml/badge.svg)](https://github.com/your-user/your-repo/actions/workflows/ci.yml)`
+### Barrel File Example (`src/utils/index.ts`)
+```typescript
+// src/utils/formatters.ts
+export const formatDate = (date: Date): string => { /* ... */ };
+export const formatCurrency = (amount: number): string => { /* ... */ };
 
-*   **Code Quality & Coverage:**
-    *   **Code Coverage:** If the project tracks test coverage (e.g., via Codecov, Coveralls).
-    *   **Linter/Formatter:** A badge for the code formatter or linter used (e.g., Ruff, Prettier, Black).
-    *   **Dependency Manager:** For Python projects using [uv](https://github.com/astral-sh/uv), add the uv badge:
-        *   `[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)`
-    *   **Example (Codecov):** `[![codecov](https://codecov.io/gh/your-user/your-repo/graph/badge.svg?token=YOUR_TOKEN)](https://codecov.io/gh/your-user/your-repo)`
-    *   **Example (Ruff):** `[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)`
-    *   **Example (uv):** `[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)`
+// src/utils/validators.ts
+export const isValidEmail = (email: string): boolean => { /* ... */ };
 
-*   **License:** Include a badge for the project's license.
-    *   **Source:** Check for a `LICENSE` or `COPYING` file.
-    *   **Example (MIT):** `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
+// src/utils/index.ts
+export * from './formatters';
+export * from './validators';
 
-*   **Community & Social:**
-    *   Links to Discord, Slack, Twitter, etc.
-    *   **Example (Discord):** `[![Discord](https://img.shields.io/discord/YOUR_SERVER_ID?logo=discord)](https://discord.gg/YOUR_INVITE_CODE)`
+// Usage elsewhere:
+import { formatDate, isValidEmail } from '@/utils';
+```
 
-### Example Implementation
+### Path Alias and Import Grouping Example
+```typescript
+// External libraries
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-Here is an example of a well-formatted badge section:
+// Internal modules (using path aliases)
+import { logger } from '@/core/logger';
+import { AppConfig } from '@/config';
+import { ProductCard } from '@/components/ProductCard';
 
-\`\`\`markdown
-# My Awesome Project
+// Type imports
+import type { UserSession, Product } from '@/types';
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/your-user/your-repo)](https://github.com/your-user/your-repo/releases/latest)
-[![CI](https://github.com/your-user/your-repo/actions/workflows/ci.yml/badge.svg)](https://github.com/your-user/your-repo/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+function MyFeatureComponent() {
+  const [data, setData] = useState<Product[] | null>(null);
+  // ... uses logger, AppConfig, etc.
+}
+```
 
-[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=fff)](https://fastapi.tiangolo.com/)
-[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)](https://www.docker.com/)
-
-... rest of README ...
-\`
-description:
-globs:
-alwaysApply: false
----
+## Tools
+- **ESLint (`eslint-plugin-import`)**: Helps enforce import order, prevent unresolved imports, and manage import paths.
+- **TypeScript Compiler (`tsc`)**: The `paths` and `baseUrl` options in `tsconfig.json` are essential for path aliases.
 
 ---
 > Source: [biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
