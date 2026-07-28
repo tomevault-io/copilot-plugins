@@ -1,0 +1,9 @@
+{
+  "name": "rr-wfm--msbuild-sdk-sqlproj",
+  "displayName": "MSBuild.Sdk.SqlProj",
+  "description": "MSBuild.Sdk.SqlProj",
+  "version": "1.0.0",
+  "author": "rr-wfm",
+  "homepage": "https://github.com/rr-wfm/MSBuild.Sdk.SqlProj",
+  "skills": []
+}
