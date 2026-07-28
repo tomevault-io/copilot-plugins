@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-kube-scheduler-operator",
+  "displayName": "cluster-kube-scheduler-operator",
+  "description": "cluster-kube-scheduler-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-kube-scheduler-operator",
+  "skills": []
+}
