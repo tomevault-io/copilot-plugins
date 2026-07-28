@@ -4,7 +4,7 @@
   "repo": "meltano",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meltano/meltano",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T11:20:27Z"
+  "distributed_at": "2026-07-28T19:04:22Z"
 }
