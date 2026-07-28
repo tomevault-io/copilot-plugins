@@ -1,15 +1,10 @@
-## yo
+## vibe-rules
 
-> If you need my input to answer a question or when you finish a task and want to know what to do next you must send me a yo using the yo-mcp MCP tool.
+> description for when the rule can be applied
 
-If you need my input to answer a question or when you finish a task and want to know what to do next you must send me a yo using the yo-mcp MCP tool.
 
-In the yo you MUST provide ONLY a very short message (think like an email subject line) for why you need my attention / input.
-
-Then reply with your update / question to the normal chat.
-
-This mcp server should be called with this tool name: "mcp_yo-mcp_com_yo"
+do this when the description matches the current task
 
 ---
 > Source: [FutureExcited/vibe-rules](https://github.com/FutureExcited/vibe-rules) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
