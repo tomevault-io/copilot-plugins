@@ -1,0 +1,9 @@
+{
+  "name": "rollbar--rollbar-js",
+  "displayName": "rollbar.js",
+  "description": "rollbar.js",
+  "version": "1.0.0",
+  "author": "rollbar",
+  "homepage": "https://github.com/rollbar/rollbar.js",
+  "skills": []
+}
