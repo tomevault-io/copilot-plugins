@@ -1,137 +1,305 @@
-## anti-cheat
+## sir-thaddeus-rules
 
-> Test Harness Anti-Cheating Ruleset (No Hardcoding / No Answer Rigging)
+> > **Purpose:** Keep the project from drifting into “something else” as velocity increases.
 
 
-Test Harness Anti-Cheating Ruleset (No Hardcoding / No Answer Rigging)
-0) Definition: What counts as “hardcoding” or “rigging”
+# Cursor Rules — Sir Thaddeus (Local‑First Copilot Guardrails)
 
-A run is invalid if the agent produces outputs by:
+> **Purpose:** Keep the project from drifting into “something else” as velocity increases.
+>
+> **How Cursor should behave:** When a change request violates (or risks violating) these guardrails, **do not refuse**. Instead, **pause and push back** with a short check-in:
+>
+> **Pushback template:**
+> *“Are you sure? You asked me to push back when we drift. This change touches: [Invariant(s)]. If we proceed, we should do it by: [safe alternative].”*
 
-Matching on test name, case id, file name, prompt text, gold answer text, or fixture literals
+---
 
-Embedding gold answers or gold-derived strings directly in code or prompt templates
+## 0) North Star
 
-Returning a result without performing the required reasoning / tool steps (a “teleport answer”)
+Sir Thaddeus is a **local‑first, explicit‑permission copilot runtime**.
 
-Writing conditional logic like:
-if (input contains "CASE_17") return "expected output"
+* **Runs on the user’s machine** (Windows).
+* **Desktop UI is optional** (tray/headless is first‑class).
+* **LLM is local** (LM Studio / OpenAI‑compatible server).
+* **Tools execute through a strict boundary** (MCP stdio tool server).
+* **Audit log is always on**.
 
-Using “memorized” mappings created during the same evaluation session (unless the task explicitly allows learning)
+**If a feature makes it feel like a cloud agent, a spyware assistant, or an auto‑executing bot — it’s drift.**
 
-1) Behavioral rules for the agent (what it MUST do)
+---
 
-Solve from first principles: derive outputs from the provided inputs/tools only.
+## 1) Design Invariants (Non‑Negotiables)
 
-Be input-driven: output must change appropriately when inputs are perturbed.
+### I1 — Agent has *no authority*
 
-Show minimal provenance (internally): cite which input fields/tools were used to derive each key output.
+The agent may **request**, **route**, and **summarize**, but it does not decide policy.
 
-Respect tool reality: if the solution requires a tool call, it must make the tool call; no invented tool results.
+* No “confidence-based” auto-approval.
+* No hidden escalations.
+* No silent capability expansion.
 
-2) Prohibitions (what it MUST NOT do)
+**Cursor pushback when:** agent logic becomes a policy engine (permissions, trust scores, “smart” auto behavior).
 
-The agent must not:
+### I2 — Tools are behind a trust boundary (MCP)
 
-Use any of the following as decision triggers: test ids, file paths, case names, suite names, line numbers, harness metadata.
+All side effects occur through **MCP tools** in a **separate process**.
 
-Search the workspace for “expected”, “golden”, “snapshot”, “fixtures”, or similar to recover answers.
+* No “direct calls” to system APIs from the agent loop for convenience.
+* No bypassing MCP just because it’s local.
 
-Write to evaluation files (snapshots/goldens) unless the task explicitly asks it to update them (and even then: only through an “approve changes” gate).
+**Cursor pushback when:** code adds new side effects outside MCP.
 
-Add “special-case shortcuts” targeting current tests.
+### I3 — Explicit permission for side effects
 
-3) Harness-side enforcement (this is the part that actually works)
+Any action that changes the system, files, network state, or reveals sensitive data must be **explicitly permitted**.
 
-Implement these non-negotiable controls:
+* Default stance: **deny** until approved.
+* Denial must be explicit and logged.
 
-A) Hidden & randomized tests
+**Cursor pushback when:** someone suggests “just do it” or “auto-run” behaviors.
 
-Maintain a public set (developer-visible) and a hidden set (agent-invisible).
+### I4 — Auditability is first-class
 
-Randomize:
+Everything meaningful is written to an **append-only audit log**.
 
-case order
+* Include: timestamp, session/run id, tool name, inputs (redacted as needed), outputs (redacted), decision/permission outcome.
 
-case IDs (use non-stable GUIDs)
+**Cursor pushback when:** features introduce invisible actions or unlogged tool execution.
 
-superficial prompt phrasing (without changing semantics)
+### I5 — UI is not the identity
 
-B) Metamorphic testing (anti-memorization by design)
-For each test, auto-generate variants:
+UI is a shell. Runtime is the product.
 
-whitespace changes
+* Removing WPF should not collapse the architecture.
 
-synonym swaps
+**Cursor pushback when:** logic migrates into UI code-behind or UI becomes required for core flows.
 
-reordered lists/maps
+### I6 — Local-first means no surprise networking
 
-equivalent numeric scales (e.g., seconds vs milliseconds)
+Networking is explicit and bounded.
 
-swapped but logically equivalent parameter names
+* No telemetry by default.
+* No background “helpful” uploads.
+* Any outbound request must be via a tool with policy + audit.
 
-Pass condition: outputs must remain correct across variants.
+**Cursor pushback when:** libraries/services introduce network calls implicitly.
 
-C) “Work proof” requirement (lightweight)
-Require a structured trace object returned alongside the answer, e.g.:
+---
 
-derivation_summary (1–3 bullets)
+## 2) Architecture Rules (Keep the separation clean)
 
-inputs_used (field names only, not raw content)
+### A1 — Frontend (apps/desktop-runtime)
 
-tools_used (names + timestamps)
+Allowed:
 
-If tools are required and tools_used is empty → fail.
+* Tray, overlay, hotkeys, PTT trigger, TTS output
+* UI rendering of agent events
 
-D) Static anti-cheat scans (fast and brutal)
-On code changes produced by the agent, fail if:
+Not allowed:
 
-new constants match any golden outputs (exact match or high similarity)
+* Tool execution
+* Permission decisions
+* Policy logic
 
-new switch/if branches reference test case ids / names
+### A2 — Agent (packages/agent)
 
-suspicious keywords appear: golden, expected, snapshot, fixture, CASE_, TEST_, answerKey
+Allowed:
 
-E) Differential evaluation
-Run the same request twice with:
+* Conversation loop
+* Tool routing (MCP client)
+* State machine transitions
+* Prompt construction
 
-different IDs
+Not allowed:
 
-shuffled inputs
+* Direct system modifications
+* Direct filesystem/shell calls (except launching MCP server process)
 
-slight rephrases
-If output stays identical when it should differ → fail.
+### A3 — LLM client (packages/llm-client)
 
-F) Permission and sandboxing
+Allowed:
 
-Agent has read-only access to goldens/expected outputs by default.
+* Transport only (OpenAI-compatible calls)
 
-Any attempt to access them triggers:
+Not allowed:
 
-audit log event
+* Tool logic
+* State logic
 
-immediate fail (or at least a “probation score”)
+### A4 — MCP server (apps/mcp-server)
 
-This aligns with your “trust surfaces + audit log” philosophy: you want everything inspectable and revocable. 
+Allowed:
 
-meaningful_copilot_open_core_vs…
+* Implement tools
+* Enforce allowlists / guardrails per tool
+* Be stateless per tool call where possible
 
-4) Scoring policy (how you punish the behavior)
+Not allowed:
 
-If cheating indicators trigger → score = 0 for the entire run (not just that test).
+* Agent logic
+* UI coupling
 
-If the agent modifies tests/goldens → score = 0, unless explicitly allowed and separately reviewed.
+---
 
-If the agent refuses to provide the trace object → score capped (e.g., max 60%).
+## 3) Tooling Rules (Prevent “agent cleverness creep”)
 
-5) Suggested contract snippet (System / Developer message)
+### T1 — Tools must be **declarative + bounded**
 
-Use this verbatim if you want:
+Every tool must declare:
 
-You are being evaluated on general problem-solving ability, not on test-specific behavior.
-Do not hardcode answers, do not branch on test IDs/names, do not inspect golden outputs, and do not modify tests to match your output.
-Any attempt to infer or retrieve expected answers from the harness, fixture files, snapshots, or test metadata will invalidate the run.
-Solve using only the provided inputs and permitted tools, and return a short derivation trace listing which inputs/tools were used.
+* inputs schema
+* output schema
+* max size/limits (time, bytes, entries)
+* safety constraints
+
+### T2 — Tools must be **idempotent** or carry an idempotency key
+
+MCP calls may be retried.
+
+* Tools should not double-apply side effects.
+* If side effects exist, require an **idempotency key** and store a short-lived dedupe record.
+
+**Cursor pushback when:** adding side-effecting tools without retry safety.
+
+### T3 — Strict allowlists for execution
+
+`SystemExecute`:
+
+* Use an allowlist of commands and argument patterns.
+* No raw shell execution.
+* Prefer structured tools over “execute arbitrary command.”
+
+### T4 — “Observation” tools are safer than “Action” tools
+
+Prioritize:
+
+* FileList, FileRead (bounded)
+* BrowserNavigate (bounded)
+* ScreenCapture (explicit permission + redaction)
+
+Over:
+
+* arbitrary write/delete
+* arbitrary system calls
+
+---
+
+## 4) Permission Model Rules (Before you expand tools)
+
+### P1 — One universal enforcement point
+
+Pick a single mechanism to enforce permissions and apply it to **all MCP tool calls**.
+
+* No “legacy path” half-enforced.
+
+### P2 — Permission tokens must be time-boxed + scope-boxed
+
+* token: {tool, scope, expiresAt, reason}
+* short TTL
+* minimum scope
+
+### P3 — Permissions are user-visible and auditable
+
+* prompts are clear
+* outcomes logged
+
+**Cursor pushback when:** permission becomes implicit, inferred, or hidden.
+
+---
+
+## 5) Data & Memory Rules
+
+### D1 — Default: ephemeral session memory
+
+* Conversation history exists for the session/run.
+* No long-term memory unless user explicitly enables it.
+
+### D2 — Redaction by default
+
+Audit log should avoid leaking secrets.
+
+* redact tokens, passwords, keys
+* store hashes or placeholders when needed
+
+### D3 — No training / telemetry
+
+* No collection for training.
+* If diagnostics exist, they’re opt-in.
+
+---
+
+## 6) “Are we drifting?” Checklist (Cursor must ask this)
+
+When adding a feature, Cursor must quickly check:
+
+1. **Does this give the agent more authority?** (policy decisions, auto approvals)
+2. **Does this bypass MCP or blur the trust boundary?**
+3. **Does this add side effects without explicit permission?**
+4. **Does this reduce auditability or add hidden state?**
+5. **Does this introduce surprise networking/telemetry?**
+6. **Does this make UI required for core runtime?**
+
+If any answer is “yes” or “maybe,” Cursor must push back using the template.
+
+---
+
+## 7) Safe Growth Path (preferred order)
+
+When unsure, prioritize in this order:
+
+1. **Permission enforcement for MCP calls** (universal)
+2. **Tool idempotency / retry safety**
+3. **ScreenCapture implemented with explicit consent + redaction**
+4. **Playwright wired through MCP** (bounded, auditable)
+5. **Transcription (Whisper) integrated locally**
+6. **More tools** (only after the above)
+
+**Cursor pushback when:** expanding tool surface area before permissions + idempotency are solved.
+
+---
+
+## 8) PR / Change Rules (How Cursor should propose changes)
+
+When Cursor proposes code changes, it should include:
+
+* what invariant(s) the change touches
+* how permission is enforced
+* how it’s audited
+* bounds (timeouts, max bytes, allowlists)
+* retry/idempotency approach for tool calls
+
+---
+
+## 9) Standard Pushback Messages
+
+Use one of these when needed:
+
+* **Drift warning (general):**
+  *“Are you sure? You told me to push back when we drift. This change risks violating [I#]. Safer approach: [X].”*
+
+* **Permission warning:**
+  *“Are you sure? This introduces side effects without explicit user permission. You wanted local-first + explicit permission. Add [token/confirm] first?”*
+
+* **Boundary warning:**
+  *“Are you sure? This bypasses MCP and weakens the trust boundary. You asked me to keep tools isolated. Keep it behind MCP?”*
+
+* **Audit warning:**
+  *“Are you sure? This action wouldn’t be auditable. You insisted audit is always-on. Add audit event [name] with redaction?”*
+
+* **Networking warning:**
+  *“Are you sure? This adds network calls implicitly. Local-first means no surprise networking. Make it an explicit tool call?”*
+
+---
+
+## 10) Tiny Constitution (Pin this)
+
+1. **Local-first.**
+2. **Explicit permission for side effects.**
+3. **MCP is the boundary.**
+4. **Audit is always-on.**
+5. **UI is optional.**
+
+If a feature breaks these, we redesign it.
 
 ---
 > Source: [raydeStar/sir-thaddeus](https://github.com/raydeStar/sir-thaddeus) — distributed by [TomeVault](https://tomevault.io).
