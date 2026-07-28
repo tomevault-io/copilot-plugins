@@ -1,0 +1,9 @@
+{
+  "name": "factset--enterprise-sdk",
+  "displayName": "enterprise-sdk",
+  "description": "enterprise-sdk",
+  "version": "1.0.0",
+  "author": "factset",
+  "homepage": "https://github.com/factset/enterprise-sdk",
+  "skills": []
+}
