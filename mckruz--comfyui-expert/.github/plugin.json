@@ -1,7 +1,7 @@
 {
   "name": "mckruz--comfyui-expert",
   "displayName": "ComfyUI-Expert",
-  "description": "Session-scoped Claude Code agent for ComfyUI video production \u2014 12 specialized skills for image gen, video, voice cloning, LoRA training, and publishing",
+  "description": "ComfyUI-Expert",
   "version": "1.0.0",
   "author": "MCKRUZ",
   "homepage": "https://github.com/MCKRUZ/ComfyUI-Expert",
