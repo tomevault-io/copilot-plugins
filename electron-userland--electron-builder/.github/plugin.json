@@ -1,0 +1,9 @@
+{
+  "name": "electron-userland--electron-builder",
+  "displayName": "electron-builder",
+  "description": "electron-builder",
+  "version": "1.0.0",
+  "author": "electron-userland",
+  "homepage": "https://github.com/electron-userland/electron-builder",
+  "skills": []
+}
