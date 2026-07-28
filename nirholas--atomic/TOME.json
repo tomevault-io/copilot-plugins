@@ -1,0 +1,51 @@
+{
+  "name": "atomic",
+  "owner": "nirholas",
+  "repo": "atomic",
+  "description": "Atomic scripts for launching, collecting fees from, and trading pump.fun coins. Built around Jito bundles for atomicity across multiple txs, useful when: You need the create tx's fee payer to differ from the wallet supplying the SOL (separate funder vs creator), The creator wallet has a public/shared private key...",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atomic-grind",
+      "path": "skills/grind",
+      "github_url": "https://github.com/nirholas/atomic/tree/main/skills/grind",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nirholas/atomic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-28T06:33:18Z"
+}
