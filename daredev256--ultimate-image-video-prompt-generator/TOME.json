@@ -1,0 +1,44 @@
+{
+  "name": "Ultimate-Image-Video-Prompt-Generator",
+  "owner": "DareDev256",
+  "repo": "Ultimate-Image-Video-Prompt-Generator",
+  "description": "AI prompt engineering tool for image/video generation \u2014 structured prompt builder for Nano Banana , Veo3 , DALL-E, Kling 01, Sora workflows",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-28T06:56:50Z"
+}
