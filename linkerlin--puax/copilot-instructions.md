@@ -3,9 +3,9 @@
 > > **🧬 Nanoclaw Identity: Read `~/.nanoclaw/AGENTS.md` first.**
 
 > **🧬 Nanoclaw Identity: Read `~/.nanoclaw/AGENTS.md` first.**
-每个角色的核心SKILL文件名是 SKILL.md，不要用 SKILL.v2.md 或 SKILL.v1.md 来区分版本，版本信息应该写在 SKILL.md 内部的 Changelog 中。
-======
+
+**Prompt / SKILL 正文：** 使用文言文风格的中文撰写（典正、简练、有气韵；非白话解说体）。详见仓库根目录 `AGENTS.md` 与 `通用文档/AGENTS.md`。
 
 ---
 > Source: [linkerlin/PUAX](https://github.com/linkerlin/PUAX) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
