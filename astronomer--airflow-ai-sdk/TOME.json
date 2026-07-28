@@ -2,9 +2,9 @@
   "name": "airflow-ai-sdk",
   "owner": "astronomer",
   "repo": "airflow-ai-sdk",
-  "description": "An SDK for working with LLMs and AI Agents from Apache Airflow, based on Pydantic AI",
-  "type": "tome",
-  "source_format": "AGENTS.md",
+  "description": "",
+  "type": "config",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "airflow",
-      "path": "skills/airflow",
-      "github_url": "https://github.com/astronomer/airflow-ai-sdk/tree/main/skills/airflow",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/astronomer/airflow-ai-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:31:17Z"
+  "distributed_at": "2026-07-28T16:47:24Z"
 }
