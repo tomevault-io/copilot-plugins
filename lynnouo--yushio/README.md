@@ -1,26 +1,24 @@
 # yushio
 
-> Tome by [Lynnouo](https://github.com/Lynnouo/yushio) — distributed by [TomeVault](https://tomevault.io)
-
-Yushio (夕潮) — An AI collaborator persona for Claude Code and beyond. Three layered skills: base + art director + code auditor. Distilled from months of dogfooding. Portable across Claude Code, Cursor, Codex, Gemini CLI, ChatGPT, Claude.ai web, Aider.
+> Tome by [Lynnouo](https://github.com/Lynnouo/yushio), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Lynnouo/yushio](https://github.com/Lynnouo/yushio).
+Original source: `.cursor/rules/*.mdc` in [Lynnouo/yushio](https://github.com/Lynnouo/yushio).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Lynnouo/yushio](https://github.com/Lynnouo/yushio)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Lynnouo/yushio](https://github.com/Lynnouo/yushio)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
