@@ -55,9 +55,27 @@
       "path": ".github/skills/tbdflow",
       "github_url": "https://github.com/cladam/tbdflow/tree/main/.github/skills/tbdflow",
       "description": ""
+    },
+    {
+      "name": "tbdflow",
+      "path": ".github/skills/tbdflow/SKILL.md",
+      "github_url": "https://github.com/cladam/tbdflow/tree/main/.github/skills/tbdflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tbdflow",
+      "path": ".github/skills/code-analyzer/SKILL.md",
+      "github_url": "https://github.com/cladam/tbdflow/tree/main/.github/skills/code-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "tbdflow",
+      "path": ".github/skills/rust-developer/SKILL.md",
+      "github_url": "https://github.com/cladam/tbdflow/tree/main/.github/skills/rust-developer/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/cladam/tbdflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-17T04:31:16Z"
+  "distributed_at": "2026-07-28T15:08:08Z"
 }
