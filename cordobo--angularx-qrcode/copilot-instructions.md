@@ -52,4 +52,4 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ---
 > Source: [Cordobo/angularx-qrcode](https://github.com/Cordobo/angularx-qrcode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
