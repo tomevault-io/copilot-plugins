@@ -1184,6 +1184,11 @@
       "description": "mantine"
     },
     {
+      "name": "mantinedev--mantine",
+      "source": "./mantinedev--mantine",
+      "description": "mantine"
+    },
+    {
       "name": "fabricjs--fabric-js",
       "source": "./fabricjs--fabric-js",
       "description": "fabric.js"
@@ -1192,6 +1197,11 @@
       "name": "shardeum--shardeum",
       "source": "./shardeum--shardeum",
       "description": "shardeum"
+    },
+    {
+      "name": "transloadit--uppy",
+      "source": "./transloadit--uppy",
+      "description": "uppy"
     },
     {
       "name": "vercel--turborepo",
@@ -1502,6 +1512,11 @@
       "name": "luongnv89--claude-howto",
       "source": "./luongnv89--claude-howto",
       "description": "A visual, example-driven guide to Claude Code \u2014 from basic concepts to advanced agents, with copy-paste templates that bring immediate value."
+    },
+    {
+      "name": "bagisto--bagisto",
+      "source": "./bagisto--bagisto",
+      "description": "bagisto"
     },
     {
       "name": "bagisto--bagisto",
@@ -2084,6 +2099,11 @@
       "description": "An open-source AI agent that lives in your terminal."
     },
     {
+      "name": "dolthub--dolt",
+      "source": "./dolthub--dolt",
+      "description": "dolt"
+    },
+    {
       "name": "lfnovo--open-notebook",
       "source": "./lfnovo--open-notebook",
       "description": "An Open Source implementation of Notebook LM with more flexibility and features"
@@ -2242,6 +2262,11 @@
       "name": "basecamp--omarchy",
       "source": "./basecamp--omarchy",
       "description": "Beautiful, Modern & Opinionated Linux"
+    },
+    {
+      "name": "jhipster--generator-jhipster",
+      "source": "./jhipster--generator-jhipster",
+      "description": "generator-jhipster"
     },
     {
       "name": "jhipster--generator-jhipster",
@@ -2952,6 +2977,11 @@
       "name": "umijs--qiankun",
       "source": "./umijs--qiankun",
       "description": "qiankun"
+    },
+    {
+      "name": "weaviate--weaviate",
+      "source": "./weaviate--weaviate",
+      "description": "weaviate"
     },
     {
       "name": "teng-lin--notebooklm-py",
@@ -5709,6 +5739,11 @@
       "description": "Get the main content of any page as Markdown."
     },
     {
+      "name": "nodejs--undici",
+      "source": "./nodejs--undici",
+      "description": "undici"
+    },
+    {
       "name": "thudm--slime",
       "source": "./thudm--slime",
       "description": "slime"
@@ -5829,6 +5864,11 @@
       "description": "DankMaterialShell"
     },
     {
+      "name": "oneuptime--oneuptime",
+      "source": "./oneuptime--oneuptime",
+      "description": "oneuptime"
+    },
+    {
       "name": "traceloop--openllmetry",
       "source": "./traceloop--openllmetry",
       "description": "openllmetry"
@@ -5847,6 +5887,11 @@
       "name": "wiremock--wiremock",
       "source": "./wiremock--wiremock",
       "description": "wiremock"
+    },
+    {
+      "name": "mnfst--manifest",
+      "source": "./mnfst--manifest",
+      "description": "manifest"
     },
     {
       "name": "open-telemetry--opentelemetry-collector",
@@ -10539,6 +10584,11 @@
       "description": "basic"
     },
     {
+      "name": "facebook--mcrouter",
+      "source": "./facebook--mcrouter",
+      "description": "mcrouter"
+    },
+    {
       "name": "overtrue--easy-sms",
       "source": "./overtrue--easy-sms",
       "description": "easy-sms"
@@ -12649,6 +12699,11 @@
       "description": "Akavache"
     },
     {
+      "name": "medplum--medplum",
+      "source": "./medplum--medplum",
+      "description": "medplum"
+    },
+    {
       "name": "coddingtonbear--obsidian-local-rest-api",
       "source": "./coddingtonbear--obsidian-local-rest-api",
       "description": "obsidian-local-rest-api"
@@ -13342,6 +13397,11 @@
       "name": "the-vibe-company--companion",
       "source": "./the-vibe-company--companion",
       "description": "Web & Mobile UI for Claude Code & Codex . Launch sessions, stream responses, approve tools.  All from your browser / mobile"
+    },
+    {
+      "name": "agentuniverse-ai--agentuniverse",
+      "source": "./agentuniverse-ai--agentuniverse",
+      "description": "agentUniverse"
     },
     {
       "name": "johnpapa--lite-server",
@@ -16872,6 +16932,11 @@
       "name": "igorescodro--alkaa",
       "source": "./igorescodro--alkaa",
       "description": "alkaa"
+    },
+    {
+      "name": "fetchai--uagents",
+      "source": "./fetchai--uagents",
+      "description": "uAgents"
     },
     {
       "name": "googlecloudplatform--scion",
@@ -27429,6 +27494,11 @@
       "description": "orc"
     },
     {
+      "name": "wasmerio--edgejs",
+      "source": "./wasmerio--edgejs",
+      "description": "edgejs"
+    },
+    {
       "name": "makcre--kugoumusicapi",
       "source": "./makcre--kugoumusicapi",
       "description": "KuGouMusicApi"
@@ -30304,6 +30374,51 @@
       "description": "obsidian-reminder"
     },
     {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
+      "name": "uxlfoundation--onedal",
+      "source": "./uxlfoundation--onedal",
+      "description": "oneDAL"
+    },
+    {
       "name": "minamijoyo--tfupdate",
       "source": "./minamijoyo--tfupdate",
       "description": "tfupdate"
@@ -30382,6 +30497,11 @@
       "name": "openplayerjs--openplayerjs",
       "source": "./openplayerjs--openplayerjs",
       "description": "openplayerjs"
+    },
+    {
+      "name": "serenedb--serenedb",
+      "source": "./serenedb--serenedb",
+      "description": "serenedb"
     },
     {
       "name": "versatly--clawvault",
@@ -30952,6 +31072,11 @@
       "name": "rootstrap--rails-api-base",
       "source": "./rootstrap--rails-api-base",
       "description": "rails_api_base"
+    },
+    {
+      "name": "openfeign--querydsl",
+      "source": "./openfeign--querydsl",
+      "description": "querydsl"
     },
     {
       "name": "letsfg--letsfg",
@@ -41999,6 +42124,11 @@
       "description": "bitbox02-firmware"
     },
     {
+      "name": "opensearch-project--data-prepper",
+      "source": "./opensearch-project--data-prepper",
+      "description": "data-prepper"
+    },
+    {
       "name": "zimoliao--scholaraio",
       "source": "./zimoliao--scholaraio",
       "description": "Scholar All-In-One: A research infrastructure for AI agents"
@@ -43939,6 +44069,11 @@
       "description": "quepid"
     },
     {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
       "name": "kzahel--yepanywhere",
       "source": "./kzahel--yepanywhere",
       "description": "Self-hosted web UI for Claude and Codex. Push notifications, file uploads, no accounts, no database. Uses your existing CLI session history."
@@ -44107,6 +44242,11 @@
       "name": "jcreinhold--intensity-normalization",
       "source": "./jcreinhold--intensity-normalization",
       "description": "intensity-normalization"
+    },
+    {
+      "name": "komapper--komapper",
+      "source": "./komapper--komapper",
+      "description": "komapper"
     },
     {
       "name": "wiedymi--restty",
@@ -44517,6 +44657,11 @@
       "name": "nebulock-inc--agentic-threat-hunting-framework",
       "source": "./nebulock-inc--agentic-threat-hunting-framework",
       "description": "agentic-threat-hunting-framework"
+    },
+    {
+      "name": "aisecuritylab--hackagent",
+      "source": "./aisecuritylab--hackagent",
+      "description": "hackagent"
     },
     {
       "name": "atilladeniz--kubeli",
@@ -50689,6 +50834,41 @@
       "description": "armory"
     },
     {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
       "name": "0xsero--orchestra",
       "source": "./0xsero--orchestra",
       "description": "orchestra"
@@ -51304,6 +51484,61 @@
       "description": "setup-jfrog-cli"
     },
     {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
+      "name": "huggingface--optimum-neuron",
+      "source": "./huggingface--optimum-neuron",
+      "description": "optimum-neuron"
+    },
+    {
       "name": "teng-lin--agent-fetch",
       "source": "./teng-lin--agent-fetch",
       "description": "Full-content web fetcher for AI agents \u2014 Chrome TLS fingerprinting, browser impersonation, and    multi-strategy article extraction"
@@ -51642,6 +51877,26 @@
       "name": "meta-quest--meta-spatial-sdk-samples",
       "source": "./meta-quest--meta-spatial-sdk-samples",
       "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
     },
     {
       "name": "lamatic--agentkit",
@@ -57419,6 +57674,11 @@
       "description": "hot-toast"
     },
     {
+      "name": "polytope-labs--hyperbridge",
+      "source": "./polytope-labs--hyperbridge",
+      "description": "hyperbridge"
+    },
+    {
       "name": "vaayne--mori",
       "source": "./vaayne--mori",
       "description": "A native macOS workspace terminal organized around Projects and Worktrees, powered by tmux and libghostty"
@@ -59372,6 +59632,11 @@
       "name": "savannabits--filament-modules",
       "source": "./savannabits--filament-modules",
       "description": "filament-modules"
+    },
+    {
+      "name": "datadog--chaos-controller",
+      "source": "./datadog--chaos-controller",
+      "description": "chaos-controller"
     },
     {
       "name": "chmouel--lazyworktree",
@@ -69979,6 +70244,11 @@
       "description": "pulumi-azure-native"
     },
     {
+      "name": "nomadkaraoke--karaoke-gen",
+      "source": "./nomadkaraoke--karaoke-gen",
+      "description": "karaoke-gen"
+    },
+    {
       "name": "akazwz--hostc",
       "source": "./akazwz--hostc",
       "description": "Localhost to the edge. Secure, fast, and zero-config edge tunnels powered by Cloudflare Workers."
@@ -70402,6 +70672,16 @@
       "name": "tfukaza--harvest",
       "source": "./tfukaza--harvest",
       "description": "harvest"
+    },
+    {
+      "name": "speechmatics--speechmatics-academy",
+      "source": "./speechmatics--speechmatics-academy",
+      "description": "speechmatics-academy"
+    },
+    {
+      "name": "speechmatics--speechmatics-academy",
+      "source": "./speechmatics--speechmatics-academy",
+      "description": "speechmatics-academy"
     },
     {
       "name": "yonatangross--orchestkit",
@@ -73247,6 +73527,11 @@
       "name": "areed1192--finance-news-aggregator",
       "source": "./areed1192--finance-news-aggregator",
       "description": "finance-news-aggregator"
+    },
+    {
+      "name": "jupyter-naas--abi",
+      "source": "./jupyter-naas--abi",
+      "description": "abi"
     },
     {
       "name": "jupyter-naas--abi",
@@ -84184,6 +84469,11 @@
       "description": "cryptoclaw"
     },
     {
+      "name": "metaculus--metaculus",
+      "source": "./metaculus--metaculus",
+      "description": "metaculus"
+    },
+    {
       "name": "productdevbook--sumak",
       "source": "./productdevbook--sumak",
       "description": "Type-safe SQL query builder. Zero dependencies, AST-first, hookable, tree-shakeable. Pure TypeScript."
@@ -84962,6 +85252,11 @@
       "name": "atqq--easypicker2-client",
       "source": "./atqq--easypicker2-client",
       "description": "easypicker2-client"
+    },
+    {
+      "name": "slackhq--hakana",
+      "source": "./slackhq--hakana",
+      "description": "hakana"
     },
     {
       "name": "lidr-academy--ai-specs",
@@ -98709,6 +99004,11 @@
       "description": "mkl-service"
     },
     {
+      "name": "codefresh-io--cli",
+      "source": "./codefresh-io--cli",
+      "description": "cli"
+    },
+    {
       "name": "keep-starknet-strange--starknet-agentic",
       "source": "./keep-starknet-strange--starknet-agentic",
       "description": "Smart contracts, tools, and skills for AI agents that transact on Starknet"
@@ -100597,6 +100897,11 @@
       "name": "graphql-aspnet--graphql-aspnet",
       "source": "./graphql-aspnet--graphql-aspnet",
       "description": "graphql-aspnet"
+    },
+    {
+      "name": "papyrine--excelsior",
+      "source": "./papyrine--excelsior",
+      "description": "Excelsior"
     },
     {
       "name": "edisonwong520--wanny",
@@ -105957,6 +106262,11 @@
       "name": "googlecloudplatform--knfsd-cache-utils",
       "source": "./googlecloudplatform--knfsd-cache-utils",
       "description": "knfsd-cache-utils"
+    },
+    {
+      "name": "mistralai--platform-docs-public",
+      "source": "./mistralai--platform-docs-public",
+      "description": "platform-docs-public"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -112419,6 +112729,116 @@
       "description": "my-cursor-framework"
     },
     {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
       "name": "attilaszasz--sdd-pilot",
       "source": "./attilaszasz--sdd-pilot",
       "description": "Replace chaotic AI code generation with a disciplined, spec-driven workflow. SDD Pilot enforces structured development phases and quality gates, leveraging AI agents to conduct online research for bes"
@@ -113399,6 +113819,11 @@
       "description": "rimuru"
     },
     {
+      "name": "airladon--figureone",
+      "source": "./airladon--figureone",
+      "description": "FigureOne"
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -114337,6 +114762,11 @@
       "name": "dereuromark--cakephp-sandbox",
       "source": "./dereuromark--cakephp-sandbox",
       "description": "cakephp-sandbox"
+    },
+    {
+      "name": "nitic-robot-club--natto-library",
+      "source": "./nitic-robot-club--natto-library",
+      "description": "natto_library"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -120809,6 +121239,11 @@
       "description": "XenoAtom.Logging"
     },
     {
+      "name": "openshift--console-operator",
+      "source": "./openshift--console-operator",
+      "description": "console-operator"
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -123182,6 +123617,11 @@
       "name": "emberagi--arbitrum-vibekit",
       "source": "./emberagi--arbitrum-vibekit",
       "description": "arbitrum-vibekit"
+    },
+    {
+      "name": "realmcu--honeygui",
+      "source": "./realmcu--honeygui",
+      "description": "HoneyGUI"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -131252,6 +131692,11 @@
       "name": "gostaticanalysis--knife",
       "source": "./gostaticanalysis--knife",
       "description": "knife"
+    },
+    {
+      "name": "kanevry--session-orchestrator",
+      "source": "./kanevry--session-orchestrator",
+      "description": "session-orchestrator"
     },
     {
       "name": "rust-works--succinctly",
@@ -162057,6 +162502,11 @@
       "name": "ruvnet--yyz-agentics-june",
       "source": "./ruvnet--yyz-agentics-june",
       "description": "yyz-agentics-june"
+    },
+    {
+      "name": "carnegielearningweb--upgrade",
+      "source": "./carnegielearningweb--upgrade",
+      "description": "UpGrade"
     },
     {
       "name": "compozy--kb",
