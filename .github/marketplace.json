@@ -1124,6 +1124,121 @@
       "description": "Data-Science-For-Beginners"
     },
     {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
       "name": "copilotkit--copilotkit",
       "source": "./copilotkit--copilotkit",
       "description": "CopilotKit"
@@ -1302,6 +1417,11 @@
       "name": "hasura--graphql-engine",
       "source": "./hasura--graphql-engine",
       "description": "graphql-engine"
+    },
+    {
+      "name": "conductor-oss--conductor",
+      "source": "./conductor-oss--conductor",
+      "description": "conductor"
     },
     {
       "name": "conductor-oss--conductor",
@@ -3194,6 +3314,11 @@
       "description": "SDL"
     },
     {
+      "name": "libsdl-org--sdl",
+      "source": "./libsdl-org--sdl",
+      "description": "SDL"
+    },
+    {
       "name": "browser-use--browser-harness",
       "source": "./browser-use--browser-harness",
       "description": "browser-harness"
@@ -3577,6 +3702,11 @@
       "name": "mobile-dev-inc--maestro",
       "source": "./mobile-dev-inc--maestro",
       "description": "maestro"
+    },
+    {
+      "name": "vibrantlabsai--ragas",
+      "source": "./vibrantlabsai--ragas",
+      "description": "ragas"
     },
     {
       "name": "wasp-lang--open-saas",
@@ -4432,6 +4562,11 @@
       "name": "rerun-io--rerun",
       "source": "./rerun-io--rerun",
       "description": "rerun"
+    },
+    {
+      "name": "gui-cs--terminal-gui",
+      "source": "./gui-cs--terminal-gui",
+      "description": "Terminal.Gui"
     },
     {
       "name": "gui-cs--terminal-gui",
@@ -12924,6 +13059,11 @@
       "description": "medplum"
     },
     {
+      "name": "huangwb8--chineseresearchlatex",
+      "source": "./huangwb8--chineseresearchlatex",
+      "description": "ChineseResearchLaTeX"
+    },
+    {
       "name": "coddingtonbear--obsidian-local-rest-api",
       "source": "./coddingtonbear--obsidian-local-rest-api",
       "description": "obsidian-local-rest-api"
@@ -17377,6 +17517,11 @@
       "name": "iongion--container-desktop",
       "source": "./iongion--container-desktop",
       "description": "container-desktop"
+    },
+    {
+      "name": "easy-coding-standard--ecs",
+      "source": "./easy-coding-standard--ecs",
+      "description": "ecs"
     },
     {
       "name": "d3plus--d3plus",
@@ -30274,6 +30419,11 @@
       "description": "ungh"
     },
     {
+      "name": "buckaroo-data--buckaroo",
+      "source": "./buckaroo-data--buckaroo",
+      "description": "buckaroo"
+    },
+    {
       "name": "anza-xyz--kit",
       "source": "./anza-xyz--kit",
       "description": "Solana JavaScript SDK"
@@ -30487,6 +30637,11 @@
       "name": "alecjacobson--gptoolbox",
       "source": "./alecjacobson--gptoolbox",
       "description": "gptoolbox"
+    },
+    {
+      "name": "xgo-dev--llgo",
+      "source": "./xgo-dev--llgo",
+      "description": "llgo"
     },
     {
       "name": "dicklesworthstone--coding-agent-session-search",
@@ -36984,6 +37139,11 @@
       "description": "tidewave_rails"
     },
     {
+      "name": "chainreactors--malice-network",
+      "source": "./chainreactors--malice-network",
+      "description": "malice-network"
+    },
+    {
       "name": "cyanheads--atlas-mcp-server",
       "source": "./cyanheads--atlas-mcp-server",
       "description": "A Model Context Protocol (MCP) server for ATLAS, a Neo4j-powered task management system for LLM Agents - implementing a three-tier architecture (Projects, Tasks, Knowledge) to manage complex workflows"
@@ -38184,6 +38344,11 @@
       "description": "wifi-densepose"
     },
     {
+      "name": "shihuili1218--rssh",
+      "source": "./shihuili1218--rssh",
+      "description": "rssh"
+    },
+    {
       "name": "dokhacgiakhoa--agent-skills-setup-for-antigravity",
       "source": "./dokhacgiakhoa--agent-skills-setup-for-antigravity",
       "description": "Agent-skills-setup-for-AntiGravity"
@@ -38689,6 +38854,11 @@
       "description": "libcanard"
     },
     {
+      "name": "reearth--reearth-visualizer",
+      "source": "./reearth--reearth-visualizer",
+      "description": "reearth-visualizer"
+    },
+    {
       "name": "techartdev--openclawhomeassistant",
       "source": "./techartdev--openclawhomeassistant",
       "description": "OpenClaw Assistant \u2013 Home Assistant Add-on"
@@ -39184,6 +39354,16 @@
       "description": "pi-extensions"
     },
     {
+      "name": "tugraph-family--chat2graph",
+      "source": "./tugraph-family--chat2graph",
+      "description": "chat2graph"
+    },
+    {
+      "name": "tugraph-family--chat2graph",
+      "source": "./tugraph-family--chat2graph",
+      "description": "chat2graph"
+    },
+    {
       "name": "microsoft--ontology-playground",
       "source": "./microsoft--ontology-playground",
       "description": "Free, open-source web app for learning about ontologies and Microsoft Fabric IQ. Explore a catalogue of pre-built ontologies, design your own visually, export as RDF/XML, and share interactive diagram"
@@ -39242,6 +39422,16 @@
       "name": "morishin--xdeck",
       "source": "./morishin--xdeck",
       "description": "XDeck"
+    },
+    {
+      "name": "graphprotocol--graph-tooling",
+      "source": "./graphprotocol--graph-tooling",
+      "description": "graph-tooling"
+    },
+    {
+      "name": "graphprotocol--graph-tooling",
+      "source": "./graphprotocol--graph-tooling",
+      "description": "graph-tooling"
     },
     {
       "name": "cyhhao--vibe-remote",
@@ -39637,6 +39827,11 @@
       "name": "redis--redis-vl-python",
       "source": "./redis--redis-vl-python",
       "description": "redis-vl-python"
+    },
+    {
+      "name": "qiskit-community--qiskit-metal",
+      "source": "./qiskit-community--qiskit-metal",
+      "description": "qiskit-metal"
     },
     {
       "name": "levnikolaevich--claude-code-skills",
@@ -40997,6 +41192,21 @@
       "name": "jvkersch--pyconcorde",
       "source": "./jvkersch--pyconcorde",
       "description": "pyconcorde"
+    },
+    {
+      "name": "zju-vipa--odyssey",
+      "source": "./zju-vipa--odyssey",
+      "description": "Odyssey"
+    },
+    {
+      "name": "zju-vipa--odyssey",
+      "source": "./zju-vipa--odyssey",
+      "description": "Odyssey"
+    },
+    {
+      "name": "zju-vipa--odyssey",
+      "source": "./zju-vipa--odyssey",
+      "description": "Odyssey"
     },
     {
       "name": "nicebucket-org--nicebucket",
@@ -44644,6 +44854,11 @@
       "description": "tdx2db"
     },
     {
+      "name": "jandelgado--jled",
+      "source": "./jandelgado--jled",
+      "description": "jled"
+    },
+    {
       "name": "kkokosa--dotllm",
       "source": "./kkokosa--dotllm",
       "description": "LLM inference engine written in .NET"
@@ -46992,6 +47207,11 @@
       "name": "jmbuhr--nvim-config",
       "source": "./jmbuhr--nvim-config",
       "description": "nvim-config"
+    },
+    {
+      "name": "databricks--sjsonnet",
+      "source": "./databricks--sjsonnet",
+      "description": "sjsonnet"
     },
     {
       "name": "rs-4--tanstack-ai-demo",
@@ -54559,6 +54779,11 @@
       "description": "vale-action"
     },
     {
+      "name": "cequence-io--openai-scala-client",
+      "source": "./cequence-io--openai-scala-client",
+      "description": "openai-scala-client"
+    },
+    {
       "name": "codefactory-co--kimoring-ai-skills",
       "source": "./codefactory-co--kimoring-ai-skills",
       "description": "kimoring-ai-skills"
@@ -55032,6 +55257,11 @@
       "name": "bozhoudev--14days-build-claude-code-cli",
       "source": "./bozhoudev--14days-build-claude-code-cli",
       "description": "14days-build-claude-code-cli"
+    },
+    {
+      "name": "yumnumm--eqmonitor",
+      "source": "./yumnumm--eqmonitor",
+      "description": "EQMonitor"
     },
     {
       "name": "amadad--mirofish-cli",
@@ -67549,6 +67779,11 @@
       "description": "insta-infra"
     },
     {
+      "name": "mchestr--home-cluster",
+      "source": "./mchestr--home-cluster",
+      "description": "home-cluster"
+    },
+    {
       "name": "azure-samples--python-mcp-demos",
       "source": "./azure-samples--python-mcp-demos",
       "description": "python-mcp-demos"
@@ -79674,6 +79909,11 @@
       "description": "Exonerate"
     },
     {
+      "name": "adobe--react-spectrum-charts",
+      "source": "./adobe--react-spectrum-charts",
+      "description": "react-spectrum-charts"
+    },
+    {
       "name": "anthaathi--pico",
       "source": "./anthaathi--pico",
       "description": "A web, mobile and desktop client for pi"
@@ -89744,6 +89984,11 @@
       "description": "CogAlg"
     },
     {
+      "name": "ironplc--ironplc",
+      "source": "./ironplc--ironplc",
+      "description": "ironplc"
+    },
+    {
       "name": "okikusan-public--stock-skills",
       "source": "./okikusan-public--stock-skills",
       "description": "stock_skills"
@@ -97249,6 +97494,21 @@
       "description": "gscan"
     },
     {
+      "name": "appboypov--pew-pew-plaza-packs",
+      "source": "./appboypov--pew-pew-plaza-packs",
+      "description": "pew-pew-plaza-packs"
+    },
+    {
+      "name": "appboypov--pew-pew-plaza-packs",
+      "source": "./appboypov--pew-pew-plaza-packs",
+      "description": "pew-pew-plaza-packs"
+    },
+    {
+      "name": "appboypov--pew-pew-plaza-packs",
+      "source": "./appboypov--pew-pew-plaza-packs",
+      "description": "pew-pew-plaza-packs"
+    },
+    {
       "name": "qtzx06--yolodex",
       "source": "./qtzx06--yolodex",
       "description": "agent skills for autonomous data labeling, winner at openai codex hackathon 2026"
@@ -99359,6 +99619,11 @@
       "description": "claude-marketing"
     },
     {
+      "name": "aws-samples--genai-ml-platform-examples",
+      "source": "./aws-samples--genai-ml-platform-examples",
+      "description": "genai-ml-platform-examples"
+    },
+    {
       "name": "sonarsource--sonarqube-agent-plugins",
       "source": "./sonarsource--sonarqube-agent-plugins",
       "description": "SonarQube Plugin for AI Agents"
@@ -99987,6 +100252,11 @@
       "name": "sage-bionetworks--synapsepythonclient",
       "source": "./sage-bionetworks--synapsepythonclient",
       "description": "synapsePythonClient"
+    },
+    {
+      "name": "kuan-er--sjtu-agent",
+      "source": "./kuan-er--sjtu-agent",
+      "description": "sjtu-agent"
     },
     {
       "name": "keep-starknet-strange--starknet-agentic",
@@ -101892,6 +102162,46 @@
       "name": "papyrine--excelsior",
       "source": "./papyrine--excelsior",
       "description": "Excelsior"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
+    },
+    {
+      "name": "zhangquanchen--4dthinker",
+      "source": "./zhangquanchen--4dthinker",
+      "description": "4DThinker"
     },
     {
       "name": "edisonwong520--wanny",
@@ -104444,6 +104754,11 @@
       "description": "algotutor"
     },
     {
+      "name": "neuland--pug4j",
+      "source": "./neuland--pug4j",
+      "description": "pug4j"
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -106622,6 +106937,16 @@
       "name": "kybernetwork--kyberswap-interface",
       "source": "./kybernetwork--kyberswap-interface",
       "description": "kyberswap-interface"
+    },
+    {
+      "name": "holochain--wind-tunnel",
+      "source": "./holochain--wind-tunnel",
+      "description": "wind-tunnel"
+    },
+    {
+      "name": "ardriveapp--ardrive-web",
+      "source": "./ardriveapp--ardrive-web",
+      "description": "ardrive-web"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -117709,6 +118034,11 @@
       "description": "nanika"
     },
     {
+      "name": "microsoftdocs--common-data-model-and-service",
+      "source": "./microsoftdocs--common-data-model-and-service",
+      "description": "common-data-model-and-service"
+    },
+    {
       "name": "shinchven--nano-banana-skills",
       "source": "./shinchven--nano-banana-skills",
       "description": "Nano Banana Pro Skills"
@@ -126054,6 +126384,11 @@
       "description": "cainome"
     },
     {
+      "name": "asamarts--alint",
+      "source": "./asamarts--alint",
+      "description": "alint"
+    },
+    {
       "name": "lktiep--cortex-hub",
       "source": "./lktiep--cortex-hub",
       "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents."
@@ -127337,6 +127672,11 @@
       "name": "stytchauth--stytch-react-example",
       "source": "./stytchauth--stytch-react-example",
       "description": "stytch-react-example"
+    },
+    {
+      "name": "hujianbest--harness-flow",
+      "source": "./hujianbest--harness-flow",
+      "description": "harness-flow"
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -132799,6 +133139,11 @@
       "description": "session-orchestrator"
     },
     {
+      "name": "lwohvye--unicorn",
+      "source": "./lwohvye--unicorn",
+      "description": "unicorn"
+    },
+    {
       "name": "rust-works--succinctly",
       "source": "./rust-works--succinctly",
       "description": "Succinct data structures"
@@ -134397,6 +134742,11 @@
       "name": "reserve-protocol--register",
       "source": "./reserve-protocol--register",
       "description": "register"
+    },
+    {
+      "name": "anoni-net--docs",
+      "source": "./anoni-net--docs",
+      "description": "docs"
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -137627,6 +137977,101 @@
       "name": "ahoo-wang--cosec",
       "source": "./ahoo-wang--cosec",
       "description": "CoSec"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
+    },
+    {
+      "name": "getsieutoc--voi",
+      "source": "./getsieutoc--voi",
+      "description": "voi"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -150637,6 +151082,16 @@
       "name": "viktor-ferenczi--se-performance-improvements",
       "source": "./viktor-ferenczi--se-performance-improvements",
       "description": "se-performance-improvements"
+    },
+    {
+      "name": "fission--examples",
+      "source": "./fission--examples",
+      "description": "examples"
+    },
+    {
+      "name": "rafeekpro--claudeautopm",
+      "source": "./rafeekpro--claudeautopm",
+      "description": "ClaudeAutoPM"
     },
     {
       "name": "affitor--open-affiliate",
