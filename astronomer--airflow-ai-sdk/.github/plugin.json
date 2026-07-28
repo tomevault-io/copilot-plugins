@@ -1,14 +1,9 @@
 {
   "name": "astronomer--airflow-ai-sdk",
   "displayName": "airflow-ai-sdk",
-  "description": "An SDK for working with LLMs and AI Agents from Apache Airflow, based on Pydantic AI",
+  "description": "airflow-ai-sdk",
   "version": "1.0.0",
   "author": "astronomer",
   "homepage": "https://github.com/astronomer/airflow-ai-sdk",
-  "skills": [
-    {
-      "name": "airflow",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
