@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Osly-AI/PocketManus](https://github.com/Osly-AI/PocketManus).
+Original source: `` in [Osly-AI/PocketManus](https://github.com/Osly-AI/PocketManus).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Osly-AI/PocketManus](https://github.com/Osly-AI/PocketManus) — a repo with 305+ stars on GitHub.
+From [Osly-AI/PocketManus](https://github.com/Osly-AI/PocketManus) — a repo with 304+ stars on GitHub.
 
 ---
 
