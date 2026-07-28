@@ -1,0 +1,9 @@
+{
+  "name": "sap--abap-file-formats",
+  "displayName": "abap-file-formats",
+  "description": "abap-file-formats",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/abap-file-formats",
+  "skills": []
+}
