@@ -1,67 +1,111 @@
 ## octo-web
 
-> > 通用工作习惯在 Agent 自身配置里。
+> This file provides guidance to Claude Code when working with code in this repository.
 
-# AGENTS.md — DMWork 项目工作约定
+# CLAUDE.md
 
-> 只写这个项目特有的约定。
-> 通用工作习惯在 Agent 自身配置里。
-> 技术规范在 **DEVELOPMENT.md**。
+This file provides guidance to Claude Code when working with code in this repository.
 
----
+## Project Overview
 
-## 开始任务前
+Octo-web is the web frontend for DMWork (enterprise IM platform). It's a pnpm monorepo with Turborepo, React + TypeScript.
 
-读 `DEVELOPMENT.md` — 按顶部"快速查阅"找对应章节，不需要全读。
+- **Package Manager**: pnpm
+- **Build Tool**: Vite + Turborepo
+- **Test Framework**: Vitest
+- **Default Branch**: `main`
 
-在分配的 worktree 里工作，不要动主仓库目录。
+## Common Commands
 
----
+```bash
+# Install dependencies
+pnpm install
 
-## 新建 UI 组件：必须先写 Story 再接业务
+# Development
+pnpm dev                        # start dev server (excludes extension)
+pnpm dev:all                    # start all including extension
+
+# Build
+pnpm build                      # production build
+
+# Test
+cd apps/web && pnpm test        # run vitest
+
+# Lint
+pnpm lint                       # turbo-orchestrated lint across all packages
+```
+
+## Architecture
+
+### Monorepo Structure
 
 ```
-1. 建组件文件（index.tsx + index.css）
-2. 写 Story（ComponentName.stories.tsx）
-3. Storybook 里验证通过（light + dark 都看）
-4. 再接入业务代码
+apps/
+  web/          — Main web application (Vite + React)
+  extension/    — Browser extension
+packages/
+  dmworkbase/       — Core shared components (Chat, ChannelSetting, Conversation)
+  dmworkcontacts/   — Contacts module
+  dmworkdatasource/ — Data layer
+  dmworklogin/      — Authentication
+  dmworksummary/    — Summary/notes feature
+  dmworktodo/       — Todo/task feature
+  dmworkappbot/     — App bot integration
+  eslint-config-custom/  — Shared ESLint config
+  tsconfig/         — Shared TS config
 ```
 
-顺序不能颠倒。CI 会检查 story 覆盖，没有 story 的新组件 PR 不能合并。
+### Key Patterns
 
-Story 写法见 DEVELOPMENT.md 章节四、六。
+**Global App Object**: `WKApp.shared` is the singleton entry point for app-wide state, API clients, module registration, and navigation.
 
----
+```typescript
+WKApp.shared.registerModule(new MyModule())
+WKApp.apiClient.config.apiURL
+WKApp.shared.currentSpaceId
+```
 
-## 禁止事项
+**ViewModel Pattern**: Components use `ProviderListener`-based ViewModels (not Redux/Zustand):
 
-详细规范见 DEVELOPMENT.md 对应章节，以下为核心约束：
+```typescript
+export class ChatVM extends ProviderListener {
+  // reactive state + business logic
+}
+```
 
-- **硬编码颜色/间距/圆角** → 章节二
-- **`!important`** → 章节十三
-- **直接覆盖 Semi class** → 章节十三
-- **在组件里创建新颜色变量** → 章节十三
-- **`@media (prefers-color-scheme: dark)`** → 章节十三
+**Module Registration**: Each package exports a Module class registered in `apps/web/src/index.tsx`:
 
----
+```typescript
+import { MyModule } from '@octo/my-package'
+WKApp.shared.registerModule(new MyModule())
+```
 
-## UI/数据分离架构
+### Mention System
 
-本项目遵循 UI/数据分离开发规范（skill: `ui-data-separation`）。
+DMWork uses a multi-tier mention protocol:
+- `@所有人` (all humans) → UID sentinel `-2`, `mention.humans=1`
+- `@所有AI` (all AIs) → UID sentinel `-3`, `mention.ais=1`
+- `@具体用户` → standard UID in `mention.uids[]`
 
-**三层结构：**
-- `ui/` — 纯 UI 组件，无 WKSDK/WKApp，由 agent 维护
-- `bridge/` — 数据桥接层（types.ts + use*.ts），由工程师维护
-- `Components/` / `Messages/` — 旧组件，迁移中，**禁止修改**
+Key files: `voiceMention.ts`, `MessageInput/index.tsx`, mention parsing in `dmworkbase`
 
-**三条核心规则：**
-1. `ui/` 下禁止 import `wukongimjssdk`、`WKApp`、`Service/`
-2. 组件 props 类型只用 `bridge/types.ts` 里的类型
-3. 遇到越界需求：输出工单，不自行处理
+### CSS
 
-**详细流程：** 读 skill `ui-data-separation` 的对应 reference
-**项目路径配置：** `AGENTS.config.json`（根目录）
+Plain CSS files (no CSS Modules, no Tailwind). Styles co-located with components.
+
+## Coding Conventions
+
+- Commit messages: English, Conventional Commits (`feat:`, `fix:`, etc.)
+- Branch types from AGENTS.config.json: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`
+- Components: PascalCase directories, `index.tsx` entry
+- ViewModels: `vm.ts` or `vm.tsx` in component directory
+- Tests: `__tests__/` directory or `*.test.ts` co-located
+- Imports: use workspace package names for cross-package imports:
+  - `@octo/base`, `@octo/contacts`, `@octo/datasource`, `@octo/login`, `@octo/todo`
+  - `@dmwork/summary`, `@dmwork/appbot`
+- Type safety: avoid `any` — use proper types or `unknown` with type guards
+- API calls: go through `WKApp.apiClient`, do NOT create separate axios/fetch instances
 
 ---
 > Source: [Mininglamp-OSS/octo-web](https://github.com/Mininglamp-OSS/octo-web) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-12 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
