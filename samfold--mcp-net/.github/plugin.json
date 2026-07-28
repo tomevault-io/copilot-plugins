@@ -1,7 +1,7 @@
 {
   "name": "samfold--mcp-net",
   "displayName": "Mcp.Net",
-  "description": "A fully featured C# implementation of Anthropic's Model Context Protocol (MCP)",
+  "description": "Mcp.Net",
   "version": "1.0.0",
   "author": "SamFold",
   "homepage": "https://github.com/SamFold/Mcp.Net",
