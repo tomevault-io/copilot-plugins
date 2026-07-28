@@ -1,0 +1,9 @@
+{
+  "name": "bilibili--http-service",
+  "displayName": "http-service",
+  "description": "http-service",
+  "version": "1.0.0",
+  "author": "bilibili",
+  "homepage": "https://github.com/bilibili/http-service",
+  "skills": []
+}
