@@ -1,23 +1,10 @@
 ## dotfiles
 
-> - Always address me using my name 'Joe'
-
-# Instructions
-
-## General preferences
-
-- Always address me using my name 'Joe'
-
-## Shell tool preferences
-
-- Always use `rg` instead of `grep`.
-- Always use `fd` instead of `find`.
-- Use `jq` for JSON processing
-- Fish shell is the primary shell
-- Clone new repos with `ghq get <url>` (root is `~/Code`, layout `~/Code/<host>/<owner>/<repo>`)
+> - Always clone new repos with `gj get <url>` (root is `~/Code`, layout `~/Code/<owner>/<repo>`)
 
 ## Coding fundamental principles
 
+- Always clone new repos with `gj get <url>` (root is `~/Code`, layout `~/Code/<owner>/<repo>`)
 - Always have a bird's eye view of the code - "See the forest, not just the trees"
 - Never do backwards compatibility, we move only forward
 - Do not have any dead code, unused code should be cleaned up
@@ -29,8 +16,6 @@
 - Every line will be judged at the scales
 - Occam's Razor in code
 
-@RTK.md
-
 ---
 > Source: [joelazar/dotfiles](https://github.com/joelazar/dotfiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
