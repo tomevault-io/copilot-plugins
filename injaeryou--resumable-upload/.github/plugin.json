@@ -1,0 +1,9 @@
+{
+  "name": "injaeryou--resumable-upload",
+  "displayName": "resumable-upload",
+  "description": "A Python implementation of the [TUS resumable upload protocol](https://tus.io/) v1.0.0 for server and client, with zero runtime dependencies.",
+  "version": "1.0.0",
+  "author": "injaeryou",
+  "homepage": "https://github.com/injaeryou/resumable-upload",
+  "skills": []
+}
