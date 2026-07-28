@@ -1,0 +1,9 @@
+{
+  "name": "hapifhir--org-hl7-fhir-core",
+  "displayName": "org.hl7.fhir.core",
+  "description": "org.hl7.fhir.core",
+  "version": "1.0.0",
+  "author": "hapifhir",
+  "homepage": "https://github.com/hapifhir/org.hl7.fhir.core",
+  "skills": []
+}
