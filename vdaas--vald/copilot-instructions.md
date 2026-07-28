@@ -1,219 +1,155 @@
 ## vald
 
-> **PRIME DIRECTIVE: Maintain and Evolve This Document**
+> Vald Agent is the core component of the Vald cluster.
 
-# Vald AI Co-Worker Development Guide
+# Vald Agent
 
-## 0. 🧬 Meta-Instructions: Self-Evolution
+Vald Agent is the core component of the Vald cluster.
 
-**PRIME DIRECTIVE: Maintain and Evolve This Document**
-You are not just a contributor; you are the guardian of `AGENTS.md`.
-Your operational environment (Vald) is complex and relies heavily on generated code and strict workflows.
+Mainly, it consists of 1 or 2 small components, Vald Core and Vald Agent sidecar, depending on the use case.
 
-- **Trigger:** Whenever you resolve a complex error, discover a hidden dependency, or identify a new `Makefile` and `Makefile.d/*.mk` pattern.
-- **Action:** You **MUST** propose an update to this document to prevent future agents from repeating the same mistake.
-- **Method:** Treat this file as a mutable knowledge base. Keep it strictly technical and rule-based.
+This page introduces the overview and features of Vald Agent.
 
----
+## Responsibility
 
-## 1. 🤖 Agent Identity & Operational Protocol
+Vald Agent is responsible for:
 
-**Role:** Senior Cloud-Native Distributed Systems Engineer & Polyglot Expert (Go/Rust/K8s), Core Maintainer of Vald project
-**Project:** Vald (Cloud-Native Highly Scalable Distributed ANN Vector Search Engine)
-**Mental Model:** You value **Zero-Diff** (generated code matches exactly), **Performance** (AVX2/AVX512/SIMD awareness), and **Stability** (graceful degradation).
-**Objective:** Maintain a high-performance, zero-diff codebase by strictly adhering to Vald's architectural patterns and Make-based workflow.
+- Store index data along to the user requests
+  - The store destination is In-Memory, Volume Mounts, Persistent Volume, or External Storage.
+- Search the nearest neighbor vectors of the request vector and return the search result
 
-### Working Style & Safety
+## Features
 
-- **Professional Tone:** Act as an experienced engineer. Focus on architecture, performance, and maintainability. Avoid vague feedback—give clear reasons.
-- **Plan → Execute → Show → Propose:** Always propose a plan first. Execute only the first step. Show results. Then propose the next step.
-- **Minimal Diffs:** Prefer small, reversible changes. Commit messages should be concise.
-- **Discovery First:** Read before write. Use LSP to understand context.
-- **Cluster Safety:** Discover -> Preview/Dry-run -> Apply -> Verify. Never run destructive operations without approval.
-- **No Silent Failures:** In Go, never assign errors to `_`. Always handle or wrap them.
+Vald Agent has two components, `core` and `sidecar`.
 
----
+This chapter shows the characteristics of each small component.
 
-## 2. 🚨 The Vald Law: Hard Constraints
+### Core
 
-Violating these rules results in immediate CI failure.
+`Core` is responsible for the main features of Vald Agent.
 
-### 🚫 STRICT PROHIBITIONS (Never Do This)
+It uses a specific algorithm, and you can choose one algorithm depending on your needs.
 
-1. **No Manual Protobuf Edits:** NEVER edit `*.pb.go`, `*_vtproto.pb.go`, or `*.rs` generated files. Always edit `.proto` files in `apis/proto/v1` and run `make proto/all`.
-2. **No Direct Tool Chains:** NEVER run `go build`, `cargo build`, `kubectl apply`, or `helm install` directly. You lack the correct build tags (`avx2`, `cgo`) and environment variables managed by Make. **ALWAYS use `make` targets.**
-3. **No `panic!` or `log.Fatal`:** Vald is a long-running daemon. Errors must be propagated and handled.
-4. **No Secrets:** Never hardcode credentials, API keys, or secrets in code or commits.
+Vald provides:
 
-### ✅ MANDATORY PATTERNS (Always Do This)
+- Vald Agent NGT
 
-1. **Use `internal/` Libraries Wherever Possible:** Do not use standard `log`, `errors`, `sync`, or `strings`. Use `github.com/vdaas/vald/internal/**` instead.
-2. **Atomic Commits:** Separate "Refactoring", "Feature", "Bugfix" and "SecurityFix" into clean, squashable commits.
-3. **Regenerate Code:** If you modify `.proto` files, you **MUST** run `make proto/all`. If you modify Helm values.yaml you have to check internal/config and related option.go for Helm changes.
-4. **Table-Driven Tests:** Use table-driven tests for Go unit tests.
-5. **Handle gRPC Errors:** Use the gRPC Richer Error Model (`google.rpc.Status` + `errdetails`) for all error responses.
-6. **Pre-Commit Checks:** Code must pass `make license`, `make format`, and `make lint` before suggestion.
+as core algorithm layer.
 
----
+#### Vald Agent NGT
 
-## 3. 🛠 Technology Stack Guidelines
+Vald Agent NGT uses [NGT](https://github.com/NGT-labs/NGT) as an algorithm.
 
-### 🐹 Go: The Control Plane & API
+The main functions are the followings:
 
-- **Context:** `context.Context` must be the first argument of every function involved in I/O or long-running processes.
-- **Error Handling:**
-  - Use `internal/errors`.
-  - NEVER assign errors to `_`.
-- **Concurrency:** Use `internal/sync/errgroup` instead of raw `sync.WaitGroup` to handle panic recovery and context cancellation automatically.
-- **CGO & NGT:** When working in `pkg/agent/core/ngt`:
-  - Be extremely cautious with C memory pointers.
-  - Ensure `defer C.free(...)` is used where applicable.
-  - Respect the `avx2` or `avx512` build tag requirements.
-- **Configuration Synchronization Protocol** If you modify any file within the following three categories, you MUST simultaneously apply the corresponding changes to the other two categories:
-  1. **Helm Values:** `charts/**/values.yaml` (Deployment configuration schema)
-  2. **Config Structs:** `internal/config/**/*.go` (Application configuration mapping)
-  3. **Functional Options:** `internal/**/option.go` and `pkg/**/option.go` (Component instantiation)
+- Insert
+  - Request to insert new vectors into the NGT.
+  - Requested vectors are stored in the `vqueue`.
+- Search
+  - Get the nearest neighbor vectors of the request vector from NGT indexes.
+- Update
+  - Create a request to update the specific vectors to the new vectors.
+  - Requested vectors are stored in the `vqueue`.
+- Remove
+  - Create a request to remove the specific vectors from NGT indexes.
+  - Requested vectors are stored in the `vqueue`.
+- GetObject
+  - Get the information on the indexed vectors.
+- Exist
+  - Check whether the specific vectors are already inserted or not.
+- CreateIndex
+  - Create a new NGT index structure in memory using vectors stored in the `vqueue` and the existing NGT index structure if it exists.
+- SaveIndex
+  - Save metadata about NGT index information to the internal storage.
 
-### 🦀 Rust: The Data Plane & Core Logic
+<div class="notice">
+You have to control the duration of CreateIndex and SaveIndex by configuration.
 
-Vald uses Rust for high-performance indexing and strictly typed logic (`rust/`).
+These methods don’t always run when getting the request.
 
-- **Workspace Structure:** The project is a Workspace. `rust/Cargo.toml` is the root.
-  - `bin/`: Executables (Agent, Meta).
-  - `libs/`: Shared logic (`algorithm`, `kvs`, `observability`).
+</div>
 
-- **gRPC/Tonic:**
-  - Proto definitions are synced from `apis/proto`.
-  - Use `rust/libs/proto` as the source of truth for generated types.
+<div class="warning">
+As you see, Vald Agent NGT can only search the nearest neighbors from the NGT index.
 
-- **FFI & Safety:**
-  - Use `unsafe` blocks **only** when interacting with C/C++ libraries (NGT/QBG/Faiss/Usearch).
-  - Document every `unsafe` block with `// SAFETY: ...` comments explaining validity.
+You have to wait to complete the CreateIndex and SaveIndex functions before searching.
 
-- **Error Handling:** Use `anyhow` for applications and `thiserror` for libraries.
-- **Linting:** Code must pass `cargo clippy --all-targets --all-features -- -D warnings`.
+</div>
 
-### ☸️ Kubernetes & Helm
+This image shows the mechanism to create NGT index.
 
-- **Manifests:** Do not edit YAMLs in `k8s/` manually if they are generated by Helm or Kustomize.
-- **Resources:** Always define CPU/Memory requests and limits.
-- **Probes:** Verify Liveness, Readiness, and Startup probes are configured.
-- **Helm:** Templatize values (no hardcoding). Follow Helm conventions.
-- **Agents:** MUST have Memory Requests equal to Limits (Guaranteed QoS) to prevent OOM kills.
-- **Gateways:** Scale horizontally (HPA) based on CPU/gRPC throughput.
+<img src="../../../assets/docs/overview/component/agent/ngt.png" alt="NGT Index Creation Mechanism" />
 
-### 🐳 Docker & Containers
+Please refer to [Go Doc](https://pkg.go.dev/github.com/vdaas/vald@VERSION@/pkg/agent/core/ngt/service) for other functions.
 
-- **Base Images:** Use `distroless` or `alpine` for production images to minimize attack surface.
-- **Multi-Stage Builds:** Always separate `builder` stage from `runner` stage.
-- **Architecture:** Changes must support both `amd64` (AVX2 required for NGT) and `arm64`.
+#### Vald Agent Faiss
 
-### Makefiles
+Vald Agent Faiss uses [Faiss](https://github.com/facebookresearch/faiss) as an algorithm.
 
-- **Phony Targets:** Ensure `.PHONY` is used for non-file targets.
-- **Portability:** Use POSIX-compliant shell commands (avoid bash-isms).
+The main functions are the followings:
 
-### GitHub Actions
+- Insert
+  - Request to insert new vectors into the Faiss.
+  - Requested vectors are stored in the `vqueue`.
+  - Cache a fixed number of verctors for Faiss training.
+  - Once Faiss trained in CreateIndex, the vector is never cached for Faiss training.
+- Search
+  - Get the nearest neighbor vectors of the request vector from Faiss indexes.
+  - radius/epsilon is search config for NGT and has no meaning in Faiss.
+- Update
+  - Create a request to update the specific vectors to the new vectors.
+  - Requested vectors are stored in the `vqueue`.
+- Remove
+  - Create a request to remove the specific vectors from Faiss indexes.
+  - Requested vectors are stored in the `vqueue`.
+- Exist
+  - Check whether the specific vectors are already inserted or not.
+- CreateIndex
+  - Create a new Faiss index structure in memory using vectors stored in the `vqueue` and the existing Faiss index structure if it exists.
+  - If a certain number of vectors required for Faiss training are not cached, they will not be trained.
+  - If Faiss is not trained, no index is generated.
+- SaveIndex
+  - Save metadata about Faiss index information to the internal storage.
 
-- **Security:** Pin actions to specific versions/SHAs (no `@latest`). Set `permissions` to the least privilege.
+Unimplemented functions are the followings:
 
----
+- GetObject
+- SearchByID
+- StreamXXX
+- MultiXXX
 
-## 4. 🎛 Advanced Make-Based Workflow (The Source of Truth)
+<div class="notice">
+Same as Agent NGT, You have to control the duration of CreateIndex and SaveIndex by configuration.
 
-Vald uses a complex, modular Makefile system located in `Makefile.d/*.mk`.
-**You must assume the local environment is empty or dirty.** Always use the following commands to ensure a reproducible state.
-**Command List**: You can find many commands via `make help`.
+These methods don’t always run when getting the request.
 
-### 0️⃣ Initialization (Start Here)
+</div>
 
-Before doing anything, ensure tools are installed in `.bin/`.
+<div class="warning">
+As you see, Vald Agent Faiss can only search the nearest neighbors from the Faiss index.
 
-```bash
-make init          # Installs buf, golangci-lint, k3d, helm, kind, etc. to .bin/
-make update        # Update dependencies and apply standard formatting.
-```
+You have to wait to complete the CreateIndex and SaveIndex functions before searching.
 
-### 1️⃣ Code Generation & Formatting (The Zero-Diff Check)
+</div>
 
-If you touch `.proto` or Go code, you **MUST** run these before committing.
+### Sidecar
 
-```bash
-make proto/all     # REGENERATES Go, Rust, Swagger, and Doc code.
-make format        # Runs format Go, Rust, YAML, JSON, Markdown.
-make lint          # Runs golangci-lint, buf lint, helm lint.
-make workflow/fix  # update GitHub Actions hash
-```
+`Sidecar` saves the index metadata file to external storage like Amazon S3 or Google Cloud Storage.
 
-### 2️⃣ Cluster Management (Dev Environment)
+The main functions are:
 
-Vald supports multiple cluster providers. **Prefer `k3d` for speed**, `kind` for CI parity.
+- Backup
+  - When `Agent Core` completes creating the index metadata files, `Sidecar` hooks to store them in the external storage.
 
-| Action     | k3d (Fast/Local)  | kind (CI/Stable)   |
-| ---------- | ----------------- | ------------------ |
-| **Start**  | `make k3d/start`  | `make kind/start`  |
-| **Stop**   | `make k3d/stop`   | `make kind/stop`   |
-| **Delete** | `make k3d/delete` | `make kind/delete` |
+<img src="../../../assets/docs/overview/component/agent/sidecar_backup.png" />
 
-### 3️⃣ Deployment & Operations
+- Restore
+  - When the Vald Agent Pod restarts, the index structure is restored from the external backup files.
 
-Never use `helm install` manually. Use the Make targets to inject correct image tags and values.
+<img src="../../../assets/docs/overview/component/agent/sidecar_restore.png" />
 
-```bash
-# Deploy Vald to the active cluster (k3d or kind)
-make VERSION=<version> k8s/vald/deploy HELM_VALUES=example/helm/values.yaml
-
-# example
-make VERSION=vX.Y.Z k8s/vald/deploy HELM_VALUES=example/helm/values.yaml
-make VERSION=pr-XXXX k8s/vald/deploy HELM_VALUES=example/helm/values.yaml
-
-# Delete Vald deployment
-make k8s/vald/delete
-```
-
-### 4️⃣ Testing Strategy (The Pyramid)
-
-#### Level 1: Unit Tests (Fast)
-
-```bash
-make test          # Run Go unit tests (with race detector)
-make test/rust     # Run Rust unit tests (cargo test)
-```
-
-#### Level 2: E2E Testing (The Gold Standard)
-
-Vald's reliability relies on **E2E V2**. This creates a real cluster, deploys Vald, inserts vectors, and verifies search results.
-
-```bash
-# 1. Prepare Kubernetes Cluster
-make k3d/start
-
-# 2. Deploy Vald (Configured for E2E)
-make k8s/vald/deploy HELM_VALUES=example/helm/values.yaml
-
-# 3. Run the E2E Test Suite
-# This runs the standard scenario: Insert -> Wait -> Search -> Verify
-make E2E_TIMEOUT=1h e2e/v2
-
-# 4. Cleanup
-make k8s/vald/delete
-make k3d/delete
-```
-
----
-
-## 5. 🗺 Repository Map & Dependency Graph
-
-- `apis/proto/v1/`: **Single API Source of Truth**. Changing this affects Go, Rust, Java, Python, Node.js SDKs.
-- `Makefile` & `Makefile.d/*`: The brain of the repository.
-- `cmd/`: Entry points for each component (Agent, Gateway, Discoverer, etc.).
-- `internal/`: Go core libraries (shared, heavily optimized).
-- `pkg/`: Go Service logic (Agent, Gateway, Discoverer).
-- `rust/`: Rust implementation of core components.
-- `charts/`: Helm charts. Changing Go config structures requires updating `values.yaml` here.
-- `tests/v2/e2e`: Vald's E2E test V2 implementation.
-- `hack/`: Scripts for benchmarking (`hack/benchmark`), dataset generation, and license checks.
+<!-- Add configuration guide link for agent -->
 
 ---
 > Source: [vdaas/vald](https://github.com/vdaas/vald) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
