@@ -1,0 +1,9 @@
+{
+  "name": "ahgraber--homelab-gitops-k3s",
+  "displayName": "homelab-gitops-k3s",
+  "description": "homelab-gitops-k3s",
+  "version": "1.0.0",
+  "author": "ahgraber",
+  "homepage": "https://github.com/ahgraber/homelab-gitops-k3s",
+  "skills": []
+}
