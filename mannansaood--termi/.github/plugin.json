@@ -1,0 +1,9 @@
+{
+  "name": "mannansaood--termi",
+  "displayName": "termi",
+  "description": "Next-gen Android Terminal Environment. Built with Rust & Jetpack Compose, featuring a custom SAF-VFS bridge to bypass storage restrictions.",
+  "version": "1.0.0",
+  "author": "MannanSaood",
+  "homepage": "https://github.com/MannanSaood/termi",
+  "skills": []
+}
