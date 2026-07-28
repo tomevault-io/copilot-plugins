@@ -1,16 +1,15 @@
 # mcpadvisor
 
-> Tome by [istarwyh](https://github.com/istarwyh/mcpadvisor) — distributed by [TomeVault](https://tomevault.io)
-
-MCP Advisor & Installation - Use the right MCP server for your needs
+> Tome by [istarwyh](https://github.com/istarwyh/mcpadvisor), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [istarwyh/mcpadvisor](https://github.com/istarwyh/mcpadvisor).
+Original source: `` in [istarwyh/mcpadvisor](https://github.com/istarwyh/mcpadvisor).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
