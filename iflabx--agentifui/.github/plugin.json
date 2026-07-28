@@ -1,9 +1,9 @@
 {
   "name": "iflabx--agentifui",
-  "displayName": "agentifui",
-  "description": "agentifui",
+  "displayName": "AgentifUI",
+  "description": "AgentifUI",
   "version": "1.0.0",
-  "author": "iflabx",
-  "homepage": "https://github.com/iflabx/agentifui",
+  "author": "ifLabX",
+  "homepage": "https://github.com/ifLabX/AgentifUI",
   "skills": []
 }
