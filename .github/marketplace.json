@@ -774,6 +774,11 @@
       "description": "dubbo"
     },
     {
+      "name": "rohitg00--ai-engineering-from-scratch",
+      "source": "./rohitg00--ai-engineering-from-scratch",
+      "description": "ai-engineering-from-scratch"
+    },
+    {
       "name": "tabler--tabler",
       "source": "./tabler--tabler",
       "description": "tabler"
@@ -1942,6 +1947,11 @@
       "name": "yamadashy--repomix",
       "source": "./yamadashy--repomix",
       "description": "\ud83d\udce6 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like C"
+    },
+    {
+      "name": "icsharpcode--ilspy",
+      "source": "./icsharpcode--ilspy",
+      "description": "ILSpy"
     },
     {
       "name": "bazelbuild--bazel",
@@ -6439,6 +6449,11 @@
       "description": "\u7edd\u533a\u96f6 \u4e00\u6761\u9f99 | \u5168\u81ea\u52a8 | \u81ea\u52a8\u95ea\u907f | \u81ea\u52a8\u6bcf\u65e5 | \u81ea\u52a8\u7a7a\u6d1e | \u652f\u6301\u624b\u67c4"
     },
     {
+      "name": "apache--iotdb",
+      "source": "./apache--iotdb",
+      "description": "iotdb"
+    },
+    {
       "name": "airweave-ai--airweave",
       "source": "./airweave-ai--airweave",
       "description": "Open-source context retrieval layer for AI agents"
@@ -6737,6 +6752,11 @@
       "name": "getbindu--bindu",
       "source": "./getbindu--bindu",
       "description": "Bindu: The identity, communication, and payments layer for AI agents."
+    },
+    {
+      "name": "chakra-ui--panda",
+      "source": "./chakra-ui--panda",
+      "description": "panda"
     },
     {
       "name": "apache--pinot",
@@ -9409,6 +9429,11 @@
       "description": "ai-agent-book-projects"
     },
     {
+      "name": "thomhurst--tunit",
+      "source": "./thomhurst--tunit",
+      "description": "TUnit"
+    },
+    {
       "name": "hardkoded--puppeteer-sharp",
       "source": "./hardkoded--puppeteer-sharp",
       "description": "puppeteer-sharp"
@@ -9969,6 +9994,11 @@
       "description": "Any model. Any hardware. Zero compromise. Built with @ziglang / @openxla / MLIR / @bazelbuild"
     },
     {
+      "name": "b-nnett--codex-plusplus",
+      "source": "./b-nnett--codex-plusplus",
+      "description": "codex-plusplus"
+    },
+    {
       "name": "dustinlyons--nixos-config",
       "source": "./dustinlyons--nixos-config",
       "description": "nixos-config"
@@ -10454,6 +10484,11 @@
       "description": "Agent Skills as a Memory Layer"
     },
     {
+      "name": "microsoft--power-fx",
+      "source": "./microsoft--power-fx",
+      "description": "Power-Fx"
+    },
+    {
       "name": "web-infra-dev--rsbuild",
       "source": "./web-infra-dev--rsbuild",
       "description": "rsbuild"
@@ -10882,6 +10917,11 @@
       "name": "fable-compiler--fable",
       "source": "./fable-compiler--fable",
       "description": "Fable"
+    },
+    {
+      "name": "langchain-ai--langgraphjs",
+      "source": "./langchain-ai--langgraphjs",
+      "description": "langgraphjs"
     },
     {
       "name": "runjuu--inputsourcepro",
@@ -13352,6 +13392,11 @@
       "name": "alessiodm--drl-zh",
       "source": "./alessiodm--drl-zh",
       "description": "drl-zh"
+    },
+    {
+      "name": "gotd--td",
+      "source": "./gotd--td",
+      "description": "td"
     },
     {
       "name": "josephburnett--jd",
@@ -17914,6 +17959,11 @@
       "description": "xls"
     },
     {
+      "name": "simoncropp--delta",
+      "source": "./simoncropp--delta",
+      "description": "Delta"
+    },
+    {
       "name": "bramstroker--homeassistant-powercalc",
       "source": "./bramstroker--homeassistant-powercalc",
       "description": "homeassistant-powercalc"
@@ -21404,6 +21454,11 @@
       "description": "harness-100"
     },
     {
+      "name": "ethereum--execution-specs",
+      "source": "./ethereum--execution-specs",
+      "description": "execution-specs"
+    },
+    {
       "name": "tencent--tdesign-flutter",
       "source": "./tencent--tdesign-flutter",
       "description": "tdesign-flutter"
@@ -22072,6 +22127,11 @@
       "name": "study8677--antigravity-workspace-template",
       "source": "./study8677--antigravity-workspace-template",
       "description": "\ud83e\ude90 The ultimate starter kit for AI IDEs, Claude code\uff0ccodex, and other agentic coding environments."
+    },
+    {
+      "name": "dotnetcore--smartsql",
+      "source": "./dotnetcore--smartsql",
+      "description": "SmartSql"
     },
     {
       "name": "dotnetcore--smartsql",
@@ -24867,6 +24927,11 @@
       "name": "deepnoodle-ai--risor",
       "source": "./deepnoodle-ai--risor",
       "description": "risor"
+    },
+    {
+      "name": "rohitg00--awesome-claude-design",
+      "source": "./rohitg00--awesome-claude-design",
+      "description": "awesome-claude-design"
     },
     {
       "name": "datadog--pup",
@@ -31279,6 +31344,11 @@
       "description": "diygoapi"
     },
     {
+      "name": "xutowei--gamedevelopmentkit",
+      "source": "./xutowei--gamedevelopmentkit",
+      "description": "GameDevelopmentKit"
+    },
+    {
       "name": "ibelick--webclaw",
       "source": "./ibelick--webclaw",
       "description": "Fast web client for OpenClaw"
@@ -33667,6 +33737,11 @@
       "name": "npbruce--valkyrie",
       "source": "./npbruce--valkyrie",
       "description": "valkyrie"
+    },
+    {
+      "name": "lf-edge--eve",
+      "source": "./lf-edge--eve",
+      "description": "eve"
     },
     {
       "name": "askui--python-sdk",
@@ -46709,6 +46784,16 @@
       "description": "docs"
     },
     {
+      "name": "yandex-cloud--docs",
+      "source": "./yandex-cloud--docs",
+      "description": "docs"
+    },
+    {
+      "name": "yandex-cloud--docs",
+      "source": "./yandex-cloud--docs",
+      "description": "docs"
+    },
+    {
       "name": "izwi-ai--izwi",
       "source": "./izwi-ai--izwi",
       "description": "Voice AI runtime. Local first transcription, speaker diarization, TTS, and voice cloning with an OpenAI compatible API."
@@ -50594,6 +50679,16 @@
       "description": "armory"
     },
     {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
+      "name": "mathews-tom--armory",
+      "source": "./mathews-tom--armory",
+      "description": "armory"
+    },
+    {
       "name": "0xsero--orchestra",
       "source": "./0xsero--orchestra",
       "description": "orchestra"
@@ -51407,6 +51502,166 @@
       "name": "meta-quest--meta-spatial-sdk-samples",
       "source": "./meta-quest--meta-spatial-sdk-samples",
       "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "meta-quest--meta-spatial-sdk-samples",
+      "source": "./meta-quest--meta-spatial-sdk-samples",
+      "description": "Meta-Spatial-SDK-Samples"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
     },
     {
       "name": "arthurheymans--emacs-tramp-rpc",
@@ -54142,6 +54397,11 @@
       "name": "gilbarbara--react-floater",
       "source": "./gilbarbara--react-floater",
       "description": "react-floater"
+    },
+    {
+      "name": "newrelic--newrelic-java-agent",
+      "source": "./newrelic--newrelic-java-agent",
+      "description": "newrelic-java-agent"
     },
     {
       "name": "paid-tw--skills",
@@ -73004,6 +73264,16 @@
       "description": "abi"
     },
     {
+      "name": "jupyter-naas--abi",
+      "source": "./jupyter-naas--abi",
+      "description": "abi"
+    },
+    {
+      "name": "jupyter-naas--abi",
+      "source": "./jupyter-naas--abi",
+      "description": "abi"
+    },
+    {
       "name": "wedow--harness",
       "source": "./wedow--harness",
       "description": "Minimal agent loop in bash. Pure state follower core with plugin-based tools, hooks, providers, and commands. Dependencies: bash 4+, jq, curl."
@@ -81344,6 +81614,11 @@
       "description": "HALC"
     },
     {
+      "name": "friendsofhyperf--components",
+      "source": "./friendsofhyperf--components",
+      "description": "components"
+    },
+    {
       "name": "macrocosm-os--dataverse-cli",
       "source": "./macrocosm-os--dataverse-cli",
       "description": "The cli of dataverse"
@@ -82107,6 +82382,11 @@
       "name": "shikiw--modality-integration-rate",
       "source": "./shikiw--modality-integration-rate",
       "description": "Modality-Integration-Rate"
+    },
+    {
+      "name": "speciesfilegroup--taxonworks",
+      "source": "./speciesfilegroup--taxonworks",
+      "description": "taxonworks"
     },
     {
       "name": "atuinsh--eye-declare",
@@ -85089,6 +85369,16 @@
       "description": "thegates"
     },
     {
+      "name": "apache--skywalking-website",
+      "source": "./apache--skywalking-website",
+      "description": "skywalking-website"
+    },
+    {
+      "name": "pythonitalia--pycon",
+      "source": "./pythonitalia--pycon",
+      "description": "pycon"
+    },
+    {
       "name": "aws-samples--sample-kolya-br-proxy",
       "source": "./aws-samples--sample-kolya-br-proxy",
       "description": "sample-kolya-br-proxy"
@@ -86027,6 +86317,11 @@
       "name": "dc-js--dc-graph-js",
       "source": "./dc-js--dc-graph-js",
       "description": "dc.graph.js"
+    },
+    {
+      "name": "moonrunnerkc--swarm-orchestrator",
+      "source": "./moonrunnerkc--swarm-orchestrator",
+      "description": "swarm-orchestrator"
     },
     {
       "name": "butttons--dora",
@@ -94024,6 +94319,11 @@
       "description": "OpenAEON"
     },
     {
+      "name": "wso2--identity-apps",
+      "source": "./wso2--identity-apps",
+      "description": "identity-apps"
+    },
+    {
       "name": "cohen-liel--hivemind",
       "source": "./cohen-liel--hivemind",
       "description": "One prompt. A full AI engineering team. Go lie on the couch. \ud83e\udde0"
@@ -101099,6 +101399,11 @@
       "description": "HTX.Net"
     },
     {
+      "name": "smeup--jariko",
+      "source": "./smeup--jariko",
+      "description": "jariko"
+    },
+    {
       "name": "pproenca--agent-tui",
       "source": "./pproenca--agent-tui",
       "description": "TUI automation for AI agents. Control any terminal app from code."
@@ -105014,6 +105319,11 @@
       "description": "static_ffmpeg"
     },
     {
+      "name": "kybernetwork--kyberswap-interface",
+      "source": "./kybernetwork--kyberswap-interface",
+      "description": "kyberswap-interface"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -106557,6 +106867,11 @@
       "name": "dsnezhkov--racketeer",
       "source": "./dsnezhkov--racketeer",
       "description": "racketeer"
+    },
+    {
+      "name": "ekala-project--corepkgs",
+      "source": "./ekala-project--corepkgs",
+      "description": "corepkgs"
     },
     {
       "name": "0xranx--agentbrief",
@@ -111994,6 +112309,116 @@
       "description": "my-cursor-framework"
     },
     {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
+      "name": "biokraft--my-cursor-framework",
+      "source": "./biokraft--my-cursor-framework",
+      "description": "my-cursor-framework"
+    },
+    {
       "name": "attilaszasz--sdd-pilot",
       "source": "./attilaszasz--sdd-pilot",
       "description": "Replace chaotic AI code generation with a disciplined, spec-driven workflow. SDD Pilot enforces structured development phases and quality gates, leveraging AI agents to conduct online research for bes"
@@ -112969,6 +113394,11 @@
       "description": "macLLM"
     },
     {
+      "name": "rohitg00--rimuru",
+      "source": "./rohitg00--rimuru",
+      "description": "rimuru"
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -113902,6 +114332,11 @@
       "name": "sunrain520--spec-first",
       "source": "./sunrain520--spec-first",
       "description": "spec-first"
+    },
+    {
+      "name": "dereuromark--cakephp-sandbox",
+      "source": "./dereuromark--cakephp-sandbox",
+      "description": "cakephp-sandbox"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -116807,6 +117242,11 @@
       "name": "basgeertsema--rsmotion",
       "source": "./basgeertsema--rsmotion",
       "description": "rsmotion"
+    },
+    {
+      "name": "the-momentum--python-ai-kit",
+      "source": "./the-momentum--python-ai-kit",
+      "description": "python-ai-kit"
     },
     {
       "name": "rstackjs--agent-skills",
@@ -120362,6 +120802,11 @@
       "name": "scale-tone--az-func-as-a-graph",
       "source": "./scale-tone--az-func-as-a-graph",
       "description": "az-func-as-a-graph"
+    },
+    {
+      "name": "xenoatom--xenoatom-logging",
+      "source": "./xenoatom--xenoatom-logging",
+      "description": "XenoAtom.Logging"
     },
     {
       "name": "domye--solace",
@@ -132397,6 +132842,16 @@
       "name": "connerohnesorge--vim-toggle",
       "source": "./connerohnesorge--vim-toggle",
       "description": "vim-toggle"
+    },
+    {
+      "name": "voipbin--monorepo",
+      "source": "./voipbin--monorepo",
+      "description": "monorepo"
+    },
+    {
+      "name": "reserve-protocol--register",
+      "source": "./reserve-protocol--register",
+      "description": "register"
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -146374,6 +146829,11 @@
       "description": "essex"
     },
     {
+      "name": "agentserver--agentserver",
+      "source": "./agentserver--agentserver",
+      "description": "agentserver"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -154907,6 +155367,11 @@
       "name": "jboss-fuse--fabric8",
       "source": "./jboss-fuse--fabric8",
       "description": "fabric8"
+    },
+    {
+      "name": "rohitg00--agentbrain",
+      "source": "./rohitg00--agentbrain",
+      "description": "agentbrain"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -300662,6 +301127,21 @@
       "name": "daredev256--ultimate-image-video-prompt-generator",
       "source": "./daredev256--ultimate-image-video-prompt-generator",
       "description": "AI prompt engineering tool for image/video generation \u2014 structured prompt builder for Nano Banana , Veo3 , DALL-E, Kling 01, Sora workflows"
+    },
+    {
+      "name": "learn-ukrainian--learn-ukrainian-github-io",
+      "source": "./learn-ukrainian--learn-ukrainian-github-io",
+      "description": "Free open-source Ukrainian course. A1 to C2. Based on Ukrainian State Standard 2024. \u00ab\u041c\u043e\u0432\u0430 \u2013 \u0434\u0443\u0448\u0430 \u043d\u0430\u0440\u043e\u0434\u0443\u00bb"
+    },
+    {
+      "name": "apicalshark--mikuinvidious",
+      "source": "./apicalshark--mikuinvidious",
+      "description": "Alternative frontend of bilibili"
+    },
+    {
+      "name": "s-hiraoku--synapse-a2a",
+      "source": "./s-hiraoku--synapse-a2a",
+      "description": "synapse-a2a"
     },
     {
       "name": "ocrbase-hq--ocrbase",
