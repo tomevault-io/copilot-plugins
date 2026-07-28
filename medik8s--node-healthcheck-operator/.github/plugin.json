@@ -1,0 +1,9 @@
+{
+  "name": "medik8s--node-healthcheck-operator",
+  "displayName": "node-healthcheck-operator",
+  "description": "node-healthcheck-operator",
+  "version": "1.0.0",
+  "author": "medik8s",
+  "homepage": "https://github.com/medik8s/node-healthcheck-operator",
+  "skills": []
+}
