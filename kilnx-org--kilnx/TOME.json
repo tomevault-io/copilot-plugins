@@ -2,9 +2,9 @@
   "name": "kilnx",
   "owner": "kilnx-org",
   "repo": "kilnx",
-  "description": "The backend language for the htmx era",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kilnx-org/kilnx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T19:45:44Z"
+  "distributed_at": "2026-07-28T18:39:56Z"
 }
