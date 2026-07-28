@@ -1,15 +1,16 @@
 # AI instruction files for tapflow
 
-> Sourced from [jo-duchan/tapflow](https://github.com/jo-duchan/tapflow) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [jo-duchan/tapflow](https://github.com/jo-duchan/tapflow), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jo-duchan/tapflow](https://github.com/jo-duchan/tapflow).
+Original source: `` in [jo-duchan/tapflow](https://github.com/jo-duchan/tapflow).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
