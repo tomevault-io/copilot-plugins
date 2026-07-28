@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--cfn-ecr-aws-soci-index-builder",
+  "displayName": "cfn-ecr-aws-soci-index-builder",
+  "description": "cfn-ecr-aws-soci-index-builder",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/cfn-ecr-aws-soci-index-builder",
+  "skills": []
+}
