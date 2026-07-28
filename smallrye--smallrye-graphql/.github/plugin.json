@@ -1,0 +1,9 @@
+{
+  "name": "smallrye--smallrye-graphql",
+  "displayName": "smallrye-graphql",
+  "description": "smallrye-graphql",
+  "version": "1.0.0",
+  "author": "smallrye",
+  "homepage": "https://github.com/smallrye/smallrye-graphql",
+  "skills": []
+}
