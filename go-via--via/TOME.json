@@ -2,9 +2,9 @@
   "name": "via",
   "owner": "go-via",
   "repo": "via",
-  "description": "Real-time engine for building reactive web applications in pure Go.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/go-via/via",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T01:08:59Z"
+  "distributed_at": "2026-07-28T22:51:42Z"
 }
