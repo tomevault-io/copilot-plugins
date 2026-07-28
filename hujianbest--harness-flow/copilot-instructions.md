@@ -1,0 +1,30 @@
+## harness-flow
+
+> This workspace ships HarnessFlow: a harness that drives an agent from a raw idea to a working app (and through everyday feature delivery) — main-chain discipline (SDD + TDD), mechanical gates, demo-gated acceptance, and pluggable domain extensions.
+
+# HarnessFlow on Cursor
+
+This workspace ships HarnessFlow: a harness that drives an agent from a raw idea to a working app (and through everyday feature delivery) — main-chain discipline (SDD + TDD), mechanical gates, demo-gated acceptance, and pluggable domain extensions.
+
+## On every development task
+
+1. Load `skills/hf-workflow/SKILL.md` first. It defines the two entry paths — idea→app (`shape → skeleton → slice loop`) and existing-codebase delivery — the delivery chain `frame → plan → build → verify → ship`, the exploration path `frame → build → close`, risk tiers, the product-layer files under `product/`, the artifact/evidence layout under `features/<NNN>-<slug>/`, and the mechanical gate `skills/hf-workflow/scripts/hf_gate.py`.
+2. Follow the skill for the current stage: `hf-shape`, `hf-skeleton`, `hf-frame`, `hf-plan`, `hf-build`, `hf-verify`, `hf-ship`, with `hf-review` at every review gate — read the stage skill's `SKILL.md` when you enter that stage.
+3. Before each stage, check `skills/ext-*/` descriptions and load extensions whose binding stage and trigger conditions match.
+
+## Hard rules
+
+- Run `hf_gate.py check --to <stage>` (or `check --product`) before entering any stage and record the RESULT line in `progress.md`; a FAIL means you may not proceed.
+- Evidence is machine output only: every test/build/smoke/demo run goes through `hf_gate.py run` into `features/<id>/evidence/`. Hand-writing or editing evidence logs is fabrication.
+- Underspecification is never silently filled: propose a default, record it in `product/assumptions.md`, then proceed.
+- User-perceivable slices are demo-gated: ship requires `evidence/demo-*` plus an on-disk acceptance in `reviews/demo-acceptance.md`; chat approval alone does not count.
+- Exploration prototypes are disposable: tier 1 only, can never ship, close via `conclusion.md` + `check --to close`; never promote prototype code directly.
+- Author/reviewer separation: reviews run in a subagent or fresh session; a same-session (degraded) review may not verdict "通过" and may never self-approve.
+- One task at a time in the build stage; no implementation code before a failing test (red log with nonzero exit) — build mode only.
+- Recover state with `hf_gate.py status`, not from chat memory.
+
+Pure Q&A or code-reading requests that produce no code changes do not need HarnessFlow.
+
+---
+> Source: [hujianbest/harness-flow](https://github.com/hujianbest/harness-flow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
