@@ -1,65 +1,76 @@
 ## shallot
 
-> WebGPU game engine. In-development.
+> The retrieval surface for shallot's examples. Grep it for the problem you have before writing a pattern
 
-# Shallot
+# Examples
 
-WebGPU game engine. In-development.
+The retrieval surface for shallot's examples. Grep it for the problem you have before writing a pattern
+from scratch. Four groups: **recipes** (one minimal project per problem, the teaching corpus),
+**gym** (machine-verdict atoms), **flows** (standalone-app engine flows), **showcase** (richer capability
+exhibits). Each recipe is a manifest project — run it with `bunx shallot dev examples/recipes/<name>/`. The
+recipe contract is `.claude/rules/examples.md`.
 
-For consumer-facing patterns (how to build games on Shallot — ECS, plugins, GPU, render, physics, testing), see `packages/shallot/AGENTS.md`. This file covers engine-internal layout and commands. Behavioral constraints live in `.claude/rules/`.
+## Recipes
 
-**Layout:** `packages/shallot/` (engine — `src/engine/`, `src/standard/`, `src/extras/`, `src/editor/`), `packages/shallot/editor/` (Svelte editor app), `examples/` (standalone projects).
+One minimal project per problem a game developer actually has.
 
-**Docs:** `docs/guide/`, `docs/engine/`, `docs/standard/`, `docs/extras/`, `docs/editor/`. Code is source of truth — make it elegant first, document what's non-obvious. Three tabs (UI/Code/Reference) with distinct audiences — see `.claude/rules/docs.md`. `bun run build` generates `docs/dist/` with API tables from source exports.
+- **build a scene** — `recipes/build-a-scene/` — compose a world declaratively in a `.scene` file (entities, components, vectors, colors, `@` refs), and build more entities from code.
+- **code a game loop** — `recipes/game-loop/` — the ECS basics: a custom component, a system over a query, a marker + `not()`, a plugin.
+- **respond to input** — `recipes/respond-to-input/` — read held keys and the mouse, edge-triggered presses, drive an entity each frame.
+- **orbit camera** — `recipes/orbit-camera/` — the orbit camera: frame a target, tune distance / yaw / pitch.
+- **first-person character** — `recipes/first-person/` — the first-person character controller, plus riding a moving platform.
+- **physics playground** — `recipes/physics-playground/` — rigidbodies and colliders (`Body`/`Spring`/`Joint`), spawning bodies from code; settling behavior is oracle-verified in the gym physics golds (e.g. `pile`, `joints-suspension`).
+- **ragdoll** — `recipes/ragdoll/` — a physics-driven ragdoll posing a live joint palette (`LiveSkin`); the cone/twist joints ride the `Tumble.world` hatch (no substrate-surface equivalent yet — twin: gym `ragdoll-ragdoll`).
+- **connect bodies with joints** — `recipes/joints/` — the published substrate `Spring` (a soft distance suspension) and `Joint` (a fixed-weld cantilever); the hertz/damping-tuned versions live in the gym twins `joints-suspension` / `joints-cantilever`.
+- **a moving platform** — `recipes/moving-platform/` — a kinematic code-driven lift (`Physics.backend.setKinematic`) carrying crates up and down; the motor-driven prismatic version is the gym twin `joints-elevator`.
+- **drive a vehicle** — `recipes/drive-a-vehicle/` — a car on wheel joints (rear spin + front steering) driven with W/S/A/D, via the `Tumble.world` hatch (no substrate-surface equivalent yet — twin: gym `joints-driving`).
+- **breakable joints** — `recipes/breakable-joints/` — distance joints that cut under load, read off the tumble joint-event stream (`getJointEvents`), via the `Tumble.world` hatch (no substrate-surface equivalent yet — twin: gym `events-joint-break`).
+- **surface friction** — `recipes/surface-friction/` — the substrate `Body.friction` field: a friction ladder of boxes on a tilted ramp, slippery to grippy (twin: gym `shapes-inclined-plane`).
+- **import a model (glTF)** — `recipes/import-a-model/` — declarative mesh refs (`mesh: file.glb#0`) and the programmatic `loadGltf` / `placeGltf` / `placeScene`.
+- **day-night sky** — `recipes/day-night-sky/` — the procedural sky: sun direction, time of day.
+- **fog and light shafts** — `recipes/fog-and-light-shafts/` — volumetric fog and god rays.
+- **stylize the look** — `recipes/stylize-the-look/` — the screen-space outline post-effect on selected entities.
+- **author a custom material** — `recipes/custom-material/` — register a custom WGSL surface and use it by name in a scene, plus a custom backdrop via `Backgrounds.register`.
+- **run a compute pass and read it back** — `recipes/compute-and-readback/` — a custom GPU compute pass over per-entity slab data, results read back to the CPU with `Mirror`.
+- **annotate the world** — `recipes/annotate-the-world/` — world-space text labels plus debug lines and arrows (retained components and the immediate `box` / `arrow` API).
+- **billboards and sprites** — `recipes/billboards-and-sprites/` — camera-facing sprites, the billboard modes, a radial meter.
+- **play sound** — `recipes/play-sound/` — spatial audio: a listener and positioned sound sources.
+- **animate with tweens** — `recipes/animate-with-tweens/` — the `Tween` component, easing a transform and color over time.
+- **overlay DOM UI / embed in a page** — `recipes/overlay-ui/` — `mountOverlay` for a canvas-bounded HUD, and the `run()` embedding path.
+- **save and restore** — `recipes/save-and-restore/` — `serialize` the world to scene XML, persist it to `localStorage`, restore it in place via `parse` → `load` (or `run({ scene })` at app boot).
+- **measure performance** — `recipes/measure-performance/` — `showProfiler()` surfaces the profiler HUD on open, reading `Profile.gpu` per-frame and `window.__benchmark` for aggregated timing.
 
----
+## Gym
 
-## Commands
+`gym/` — one project, `?scenario=`-selected. Each scenario is a correctness gate + benchmark + live demo
+in one, run on a real device via `bun bench --scenario <name>`. The scenario list and the GPU-driven
+coverage each carries is the barrel header in `gym/src/scenarios/index.ts`. This is the machine tier, not
+a teaching reference — read a recipe first.
 
-```bash
-bun test                                           # Unit tests (bun-webgpu)
-bun bench                                          # Benchmark — default (raster)
-bun bench -- --scenario pile                       # Physics scenario (default 100 bodies)
-bun bench -- --pipeline raytracing --frames 100     # Custom params
-bun run scripts/shader-compile.ts                   # Shader compilation profiling (Vulkan/bun-webgpu)
-bun run scripts/shader-compile-chrome.ts             # Shader compilation profiling (Chrome/DX12 via WSL)
-bun check                                          # Format + type check (Biome + tsc)
-bun run check:svelte [filter]                       # Svelte compiler diagnostics (optional: filter by dir name)
-bun run format                                     # Biome + scene formatter
-bun run build                                      # All Rust artifacts (WASM + native window) + docs
-shallot build [dir]                                # Web build (Vite → dist/)
-shallot build --target windows [dir]               # Windows webview build (→ build/windows/debug/)
-shallot build --target windows --release [dir]     # Windows webview release (→ build/windows/release/)
-shallot build --target mac [dir]                   # macOS .app build (→ build/mac/debug/)
-shallot build --target mac --release [dir]         # macOS .app release (→ build/mac/release/)
-shallot build --target linux [dir]                 # Linux build (→ build/linux/debug/)
-shallot build --target linux --release [dir]       # Linux release (→ build/linux/release/)
-shallot run [dir]                                  # Web build + preview server
-shallot run [dir] --target windows                 # Windows debug build + run (WSL→Windows)
-shallot run [dir] --target windows --release       # Windows release build + run (single exe)
-shallot run [dir] --target mac                     # macOS build + run
-shallot run [dir] --target linux                   # Linux build + run (CEF)
-bun local [name]                                   # Scaffold local test project with packed engine
-bun run capture --out <dir>                        # Editor screenshot capture (WebP + manifest)
-bun run capture --out <dir> --flow editor-layout   # Single capture flow
-```
+## Flows
 
-GPU test args: `--scenario`, `--pipeline`, `--frames`, `--warmup`, `--count`, `--effects`, `--camera`, `--layout`, `--test`. One invocation = one page load = one measurement. Physics scenarios: `pile` (body stress, scales with `--count`, default 100), `physics --test <name>` (AVBD solver variant: box, sphere, capsule, cone, mixed, stack, pyramid, rope, heavy-rope, spring, spring-chain, bridge, gravity, force, impulse, velocity, filter).
+Standalone-app engine flows — ejected vite apps that exercise engine behavior a `bun test` can't reach,
+driven by `bun run flows` (`scripts/flows.ts` over `shallot verify`).
 
-### Verification
+- **survive-reload** — `flows/survive-reload/` — a runtime value + a `warm`-derived entity survive a real
+  `location.reload()` through the serialize→sessionStorage→restore path; the restored boot's `window.__harness` asserts it.
+- **ui-containment** — `flows/ui-containment/` — a deliberately invalid `config.ui` HUD (`position: fixed`,
+  oversized) must stay clipped to the canvas; the flow asserts the host-chrome pixels stay clear.
+- **blank** — `flows/blank/` — the pixel-gate red-proof: a draw-nothing app `shallot verify` must fail with
+  `rendered: false`; an expected-fail flow, so it never reddens the matrix.
 
-Run `bun run format`, `bun check`, `bun test` before completing work. `cargo test` after Rust audio changes (run from `packages/shallot/rust/audio`). `bun bench` required after GPU code changes. `bun run capture` after editor UI changes.
+## Showcase
 
----
+Richer exhibits — each a self-contained real project that owns its own test gate, run with
+`bunx shallot dev examples/showcase/<name>/` (except `visualization`, which owns a vite harness: `cd
+examples/showcase/visualization && bun dev`).
 
-## Examples
-
-`cd examples/<name> && bun dev`. Editor: `shallot examples/<name>/`.
-
-Every example must include `public/icon.svg` (the shallot icon) and a `<link rel="icon" type="image/svg+xml" href="/icon.svg" />` in `index.html`. For native builds, `public/icon.png` becomes the window icon; if absent, the default shallot icon is used. Always `dispose()` State on HMR/unmount — without it, each hot-reload stacks another State + RAF loop.
-
-**UI convention:** Control panels use `config.ui`: `(container: HTMLElement, state: State) => () => void`. UI receives State directly — read/write ECS components, query entities, access resources. No bridge pattern needed. Framework-agnostic — any framework that mounts into a DOM element works. **Must return a cleanup function** — called on dispose to cancel animation loops, unmount frameworks, etc. Return `() => {}` if no cleanup is needed. Examples with complex UI (e.g. `workstation/`) can own their full page layout with Svelte — add `svelte`, `@sveltejs/vite-plugin-svelte` as deps, copy `svelte.config.js` from the editor, and mount via `svelte`'s `mount()`/`unmount()`.
+- **collapse** — `showcase/collapse/` — an AVBD rigidbody structure collapsing, profiled.
+- **fountain** — `showcase/fountain/` — a custom GPU render producer: a particle fountain.
+- **sandbox** — `showcase/sandbox/` — a playable physics sandbox (character + AVBD + modal-synthesis audio).
+- **visualization** — `showcase/visualization/` — a multi-canvas gallery of the debug-draw primitives (lines, text, tweens, wireframe).
+- **voxel** — `showcase/voxel/` — a voxel editor (carve tools + a greedy mesher) that owns its own Playwright gate.
 
 ---
 > Source: [dylanebert/shallot](https://github.com/dylanebert/shallot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
