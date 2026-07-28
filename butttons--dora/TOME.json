@@ -2,7 +2,7 @@
   "name": "dora",
   "owner": "butttons",
   "repo": "dora",
-  "description": "CLI built for AI agents to help navigate codebases better. An alternative to grep/find/glob",
+  "description": "",
   "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
@@ -43,9 +43,21 @@
       "path": "src/templates/docs",
       "github_url": "https://github.com/butttons/dora/tree/main/src/templates/docs",
       "description": ""
+    },
+    {
+      "name": "dora",
+      "path": ".pi/skills/toon/SKILL.md",
+      "github_url": "https://github.com/butttons/dora/tree/main/.pi/skills/toon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dora",
+      "path": "src/templates/docs/SKILL.md",
+      "github_url": "https://github.com/butttons/dora/tree/main/src/templates/docs/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/butttons/dora",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T11:47:20Z"
+  "distributed_at": "2026-07-28T23:09:37Z"
 }
