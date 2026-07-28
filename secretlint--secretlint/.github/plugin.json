@@ -1,0 +1,9 @@
+{
+  "name": "secretlint--secretlint",
+  "displayName": "secretlint",
+  "description": "secretlint",
+  "version": "1.0.0",
+  "author": "secretlint",
+  "homepage": "https://github.com/secretlint/secretlint",
+  "skills": []
+}
