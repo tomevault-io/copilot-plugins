@@ -1,7 +1,7 @@
 {
   "name": "uniswap--continuous-clearing-auction",
   "displayName": "continuous-clearing-auction",
-  "description": "Smart contracts for Continuous Clearing Auctions to be used with the Uniswap Liquidity Launcher",
+  "description": "continuous-clearing-auction",
   "version": "1.0.0",
   "author": "Uniswap",
   "homepage": "https://github.com/Uniswap/continuous-clearing-auction",
