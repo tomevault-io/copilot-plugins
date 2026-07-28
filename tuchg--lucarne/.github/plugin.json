@@ -1,7 +1,7 @@
 {
   "name": "tuchg--lucarne",
   "displayName": "Lucarne",
-  "description": "Stop babysitting local AI agents. 0-Intrusion mobile control via Telegram/WeChat.   No hooks, no skills, no MCP. Just sync, approve, and resume your Codex,Pi, or Claude sessions anywhere.",
+  "description": "Lucarne",
   "version": "1.0.0",
   "author": "tuchg",
   "homepage": "https://github.com/tuchg/Lucarne",
