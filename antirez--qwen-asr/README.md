@@ -1,23 +1,22 @@
 # qwen-asr
 
-> Tome by [antirez](https://github.com/antirez/qwen-asr) — distributed by [TomeVault](https://tomevault.io)
-
-C inference for Qwen3-ASR 0.6b and 1.7b transcriptions models
+> Tome by [antirez](https://github.com/antirez/qwen-asr), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [antirez/qwen-asr](https://github.com/antirez/qwen-asr).
+Original source: `` in [antirez/qwen-asr](https://github.com/antirez/qwen-asr).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [antirez/qwen-asr](https://github.com/antirez/qwen-asr) — a repo with 515+ stars on GitHub.
+From [antirez/qwen-asr](https://github.com/antirez/qwen-asr) — a repo with 585+ stars on GitHub.
 
 ---
 
