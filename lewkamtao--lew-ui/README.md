@@ -1,6 +1,6 @@
-# lew-ui
+# AI instruction files for lew-ui
 
-> Config by [lewkamtao](https://github.com/lewkamtao/lew-ui) — distributed by [TomeVault](https://tomevault.io/claim/lewkamtao)
+> Sourced from [lewkamtao/lew-ui](https://github.com/lewkamtao/lew-ui), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [lewkamtao/lew-ui](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/lewkamtao](https://tomevault.io/claim/lewkamtao)
+From [lewkamtao/lew-ui](https://github.com/lewkamtao/lew-ui) — a repo with 1501+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/lewkamtao) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-s -->
