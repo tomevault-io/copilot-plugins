@@ -1,0 +1,9 @@
+{
+  "name": "nix-rust--nix",
+  "displayName": "nix",
+  "description": "nix",
+  "version": "1.0.0",
+  "author": "nix-rust",
+  "homepage": "https://github.com/nix-rust/nix",
+  "skills": []
+}
