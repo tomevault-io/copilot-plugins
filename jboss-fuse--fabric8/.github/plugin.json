@@ -1,0 +1,9 @@
+{
+  "name": "jboss-fuse--fabric8",
+  "displayName": "fabric8",
+  "description": "fabric8",
+  "version": "1.0.0",
+  "author": "jboss-fuse",
+  "homepage": "https://github.com/jboss-fuse/fabric8",
+  "skills": []
+}
