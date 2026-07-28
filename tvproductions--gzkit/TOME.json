@@ -1,0 +1,75 @@
+{
+  "name": "gzkit",
+  "owner": "tvproductions",
+  "repo": "gzkit",
+  "description": "GovZero Kit: A Development Covenant for Human-AI Collaboration - gzkit is cognitive infrastructure for extended human-AI collaboration - a protocol that preserves human intent across agent context boundaries, gives agents constraints to reason against, creates verification loops both parties trust, and reserves final judgment for humans.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gz-adr-audit",
+      "path": ".agents/skills/gz-adr-audit",
+      "github_url": "https://github.com/tvproductions/gzkit/tree/main/.agents/skills/gz-adr-audit",
+      "description": ""
+    },
+    {
+      "name": "gz-adr-autolink",
+      "path": ".agents/skills/gz-adr-autolink",
+      "github_url": "https://github.com/tvproductions/gzkit/tree/main/.agents/skills/gz-adr-autolink",
+      "description": ""
+    },
+    {
+      "name": "gz-adr-create",
+      "path": ".agents/skills/gz-adr-create",
+      "github_url": "https://github.com/tvproductions/gzkit/tree/main/.agents/skills/gz-adr-create",
+      "description": ""
+    },
+    {
+      "name": "gz-session-handoff",
+      "path": ".agents/skills/gz-session-handoff",
+      "github_url": "https://github.com/tvproductions/gzkit/tree/main/.agents/skills/gz-session-handoff",
+      "description": ""
+    },
+    {
+      "name": "gz-validate",
+      "path": ".agents/skills/gz-validate",
+      "github_url": "https://github.com/tvproductions/gzkit/tree/main/.agents/skills/gz-validate",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tvproductions/gzkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-28T06:31:35Z"
+}
