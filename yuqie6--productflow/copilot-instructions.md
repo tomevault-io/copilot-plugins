@@ -1,59 +1,88 @@
 ## productflow
 
-> <!-- TRELLIS:START -->
+> Trellis agent files define specialized roles. Common Trellis agents in a user project are:
 
-<!-- TRELLIS:START -->
-# Trellis Instructions
+# Agents
 
-These instructions are for AI assistants working in this project.
+Trellis agent files define specialized roles. Common Trellis agents in a user project are:
 
-Use the `/trellis:start` command when starting a new session to:
-- Initialize your developer identity
-- Understand current project context
-- Read relevant guidelines
+- `trellis-research`
+- `trellis-implement`
+- `trellis-check`
 
-Use `@/.trellis/` to learn:
-- Development workflow (`workflow.md`)
-- Project structure guidelines (`spec/`)
-- Developer workspace (`workspace/`)
+File locations and formats differ by platform, but responsibility boundaries should stay consistent.
 
-If you're using Codex, project-scoped helpers may also live in:
-- `.agents/skills/` for reusable Trellis skills
-- `.codex/agents/` for optional custom subagents
+## Agent Responsibilities
 
-Keep this managed block so 'trellis update' can refresh the instructions.
+| Agent | Responsibility |
+| --- | --- |
+| `trellis-research` | Investigate the question and write findings into the current task's `research/`. |
+| `trellis-implement` | Implement against `prd.md`, optional `design.md` / `implement.md`, `implement.jsonl`, and related spec/research. |
+| `trellis-check` | Review changes, fix discovered issues, and run necessary checks. |
 
-<!-- TRELLIS:END -->
-# Repository Guidelines
+Agent files should not become generic chat prompts. They should define input sources, write boundaries, whether code may be changed, and how results are reported.
 
-## Project Structure & Module Organization
-ProductFlow is a private single-merchant workspace. The backend lives in `backend/src/productflow_backend/` and uses clear layers: `presentation/` for FastAPI routes and schemas, `application/` for use cases, `domain/` for enums/core concepts, and `infrastructure/` for database, storage, queues, text/image providers, and poster rendering. Alembic migrations are in `backend/alembic/versions/`; backend tests are in `backend/tests/`. The React/Vite app lives in `web/src/`, with pages in `web/src/pages/`, shared UI in `web/src/components/`, and API/type helpers in `web/src/lib/`. Product and architecture notes live in `docs/`.
+## Common Paths
 
-## Build, Test, and Development Commands
-Use the root `justfile` whenever possible:
+| Platform | Agent path |
+| --- | --- |
+| Claude Code | `.claude/agents/trellis-*.md` |
+| Cursor | `.cursor/agents/trellis-*.md` |
+| OpenCode | `.opencode/agents/trellis-*.md` |
+| Codex | `.codex/agents/trellis-*.toml` |
+| Kiro | `.kiro/agents/trellis-*.json` |
+| Gemini CLI | `.gemini/agents/trellis-*.md` |
+| Qoder | `.qoder/agents/trellis-*.md` |
+| CodeBuddy | `.codebuddy/agents/trellis-*.md` |
+| Factory Droid | `.factory/droids/trellis-*.md` |
+| Pi Agent | `.pi/agents/trellis-*.md` |
 
-- `just backend-install` — install backend dependencies with `uv` dev extras.
-- `docker compose up -d` — start local PostgreSQL and Redis.
-- `just backend-migrate` — apply Alembic migrations with dev env vars.
-- `just backend-run` — run the FastAPI API on the dev port.
-- `just backend-worker` — run Dramatiq workers for async jobs.
-- `just backend-test` — run backend pytest tests.
-- `just web-install` — install frontend dependencies with pnpm.
-- `just web-dev` — run Vite with the API proxy configured.
-- `just web-build` — type-check and build the frontend.
+GitHub Copilot agent/prompt support is provided by a combination of directories such as `.github/agents/`, `.github/prompts/`, and `.github/skills/`; inspect the files actually generated in the user project.
 
-## Coding Style & Naming Conventions
-Python targets 3.12 and uses Ruff with 120-character lines plus `E`, `F`, `I`, `UP`, and `B` lint rules. Keep imports sorted, prefer typed functions, and name modules/functions in `snake_case`. React components and pages use `PascalCase` filenames, such as `ProductListPage.tsx`; hooks, helpers, and API functions use `camelCase`. Keep provider-specific code behind infrastructure factories instead of leaking it into routes.
+Main-session workflow platforms such as Kilo, Antigravity, and Windsurf may not have Trellis sub-agent files. They usually rely on workflows/skills to guide the main session.
 
-## Testing Guidelines
-Backend tests use pytest and are discovered from `backend/tests/` as `test_*.py`. Add workflow-level coverage when changing product, copy, poster, settings, or image-session behavior. Run `just backend-test` before backend commits and `just web-build` before frontend commits. For schema or migration changes, include both an Alembic revision and a regression test where practical.
+## Two Context Loading Modes
 
-## Commit & Pull Request Guidelines
-Recent history mixes Conventional Commit prefixes (`feat:`, `chore:`) with concise Chinese summaries. Use one focused commit per topic, for example `feat: 增加设置页模型配置`. Pull requests should describe the user-visible change, list verification commands, call out migrations/config changes, and include screenshots for UI updates.
+### hook push
 
-## Security & Configuration Tips
-Do not commit `.env`, `web/.env`, generated storage, caches, or build output. Keep secrets in files copied from `.env.example` / `web/.env.example`. Runtime database settings may override selected provider/model options, while `DATABASE_URL`, `REDIS_URL`, `SESSION_SECRET`, and `ADMIN_ACCESS_KEY` remain env-only.
+The platform hook injects task context before the agent starts. The agent file itself can focus more on responsibilities and boundaries.
+
+Common on platforms that support agent hooks.
+
+### agent pull
+
+The agent file instructs the agent to read after startup:
+
+- `python3 ./.trellis/scripts/task.py current --source`
+- `implement.jsonl` or `check.jsonl`
+- spec/research files referenced by JSONL
+- current task `prd.md`
+- `design.md` if present
+- `implement.md` if present
+
+This mode fits platforms whose hooks cannot reliably rewrite sub-agent prompts.
+
+## Local Change Scenarios
+
+| User need | Edit location |
+| --- | --- |
+| Implement agent must follow extra restrictions | The platform's `trellis-implement` agent file. |
+| Check agent must run project-specific commands | `trellis-check` agent file, and `.trellis/spec/` if needed. |
+| Research agent must output a fixed format | `trellis-research` agent file. |
+| Agent cannot read task context | Agent prelude or `inject-subagent-context` hook. |
+| Add a project-specific agent | Platform agent directory + related workflow/command/skill entry point. |
+
+## Modification Principles
+
+1. **Keep responsibilities single-purpose**. Do not mix research, implement, and check responsibilities into one agent.
+2. **Specify the read order**. Agents must know to start from the active task, read jsonl/spec context, then read `prd.md`, `design.md` if present, and `implement.md` if present.
+3. **Specify write boundaries**. Research usually only writes `research/`; implement can write code; check can fix issues.
+4. **Keep semantics synchronized in multi-platform projects**. If the user configured Claude, Codex, and Cursor together, decide whether changes to one platform's agent also need to be applied to others.
+
+## Do Not Default To Editing Upstream Templates
+
+Local AI should default to modifying platform agent files inside the user project. Discuss upstream template source only when the user explicitly wants to contribute the change back to Trellis.
 
 ---
 > Source: [yuqie6/ProductFlow](https://github.com/yuqie6/ProductFlow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
