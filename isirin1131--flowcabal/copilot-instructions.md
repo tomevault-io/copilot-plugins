@@ -1,128 +1,66 @@
 ## flowcabal
 
-> FlowCabal is a DAG-based AI-assisted novel writing workflow engine. It consists of two packages:
+> <!-- BEGIN:nextjs-agent-rules -->
 
-# FlowCabal Developer Guide
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
-## Project Overview
-
-FlowCabal is a DAG-based AI-assisted novel writing workflow engine. It consists of two packages:
-- `@flowcabal/engine` - Core engine with workspace, node, and LLM integration
-- `@flowcabal/cli` - CLI built with yargs
-
-Language: TypeScript with Bun runtime.
+This version (Next 16+ Turbopack, React 19) has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
 
 ---
 
-## Build / Type Check Commands
+# GUI 内特定陷阱
 
-```bash
-# Type check all packages
-bun run typecheck
+下面这些都是已踩过、看代码发现不了的坑。改 GUI 之前先扫一眼。
 
-# Run CLI
-bun run flowcabal
+## Radix Select Value 不能塞 children
 
-# Or directly
-bun packages/cli/src/index.ts
+React 19 + Next 16 严格 ref 检查会让 `<SelectValue placeholder="…">{value}</SelectValue>` 抛 createRoot/portal 冲突。**只用 `placeholder`**，被选中的 `<SelectItem>` 内容会自动 mirror 上来。
+
+## React 19 不许渲染体里调 store setter
+
+`ContextMenuPanel` 渲染时调 `selectNode(...)` 会被 React 19 严格模式抓住 `Cannot update a component while rendering a different component`。把 setState 移到事件处理（`onNodeContextMenu` 等）或 `useEffect`。
+
+## Next 15+ dynamic route params 是 Promise
+
+```ts
+export async function POST(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const { id } = await params  // 必须 await
+  ...
+}
 ```
 
-There are **no dedicated lint or test commands** currently. Use `bun run typecheck` as the primary validation.
+## xyflow `defaultEdgeOptions` 是 fill-missing 不是 override
 
----
+构造 edge 时显式 `type: 'custom'`，不要 `'default'`。defaultEdgeOptions 不会覆盖已有 type 字段。
 
-## Code Style Guidelines
+## store edges 跟 ws.upstream 必须同步
 
-### Imports
-- Use absolute imports from packages: `import { foo } from '@flowcabal/engine'`
-- Use relative imports for internal modules: `import { bar } from '../utils'`
-- Group imports: external → internal → types
-- Sort alphabetically within groups
+任何修改 `ws.upstream` 的操作（block CRUD via `#updateNodeDataFromWorkspace`，或 workspace load via `workspaceToFlowData`）都必须同步重算 store.edges。只刷 nodes 不刷 edges 会让画布连线不更新。
 
-### Types and Interfaces
-- Define types in `packages/engine/src/types.ts` for shared interfaces
-- Use discriminated unions for variant types (e.g., `TextBlock` in types.ts)
-- Prefer interfaces for objects, type aliases for unions/primitives
+## handle 视觉隐藏但 DOM 保留
 
-### Naming Conventions
-- Files: kebab-case (`memory-agent.ts`)
-- Functions: camelCase (`addNode`, `removeNode`)
-- Interfaces/Types: PascalCase (`NodeDef`, `TextBlock`)
-- Constants: SCREAMING_SNAKE_CASE for config values
-- Private functions: prefix with `_` (not used here)
-
-### Error Handling
-- CLI: use `console.error` and `process.exit(1)` for fatal errors
-- Engine: return `null` or `false` for not-found cases, throw for unexpected errors
-- Validate inputs early, return early with error messages
-
-### Code Patterns
-
-**Workspace operations** (in `workspace/core/`):
-- Functions mutate the `Workspace` object in place
-- Return `boolean` for success/failure, or the modified object
-- Use Maps for `outputs`, `upstream`, `downstream` (converted to/from JSON)
-
-**CLI commands**:
-- Use yargs positional arguments for required inputs
-- Use `--workspace` or `-w` option for workspace selection
-- Call `requireRoot()` to ensure project initialized
-
-**Block insertion**:
-- `insertBlock(ws, nodeId, block, isSystem, index?)`
-- `isSystem: boolean` determines `systemPrompt` vs `userPrompt`
-- `index` defaults to append
-
-### Formatting
-- 2-space indentation
-- No semicolons
-- Trailing commas
-- Single quotes for strings
-- Max ~100 lines per file
-
-### Schema Validation
-- Use Zod for JSON schema validation (see `packages/engine/src/schema.ts`)
-- Use `Schema.parse(data)` with try/catch for external input
-
-### Avoiding Common Pitfalls
-- Remember Maps/ Sets are not JSON-serializable; use `Object.fromEntries()` when writing to files
-- When adding ref blocks, update both `upstream` and `downstream`
-- When removing nodes, clean up stale/target arrays and outputs Map
-- CLI commands need to handle the case where workspace is not set
-
----
-
-## Project Structure
-
-```
-packages/
-├── engine/src/
-│   ├── agent/         # AI agent, memory, tools
-│   ├── llm/          # LLM provider & generation
-│   ├── workspace/    # Workspace core (node, graph, runner)
-│   ├── paths.ts      # Path utilities & global config
-│   ├── schema.ts     # Zod schemas
-│   ├── types.ts      # TypeScript interfaces
-│   └── index.ts      # Public exports
-└── cli/src/
-    ├── commands/     # yargs command handlers
-    └── index.ts      # CLI entry point
+```tsx
+<Handle type="target" position={Position.Top} id="t"
+  className="!opacity-0 !pointer-events-none" />
 ```
 
----
+handle 节点必须保留（xyflow edge 路径计算需要），但视觉用 `!opacity-0` 隐藏。`nodesConnectable={false}` + 不传 `onConnect` 让用户无法拖动连线。
 
-## Key Patterns
+## FlowNode visualStatus 不读 data.status
 
-**Adding a new CLI command**:
-1. Add handler in `packages/cli/src/commands/<feature>.ts`
-2. Export the handler function
-3. Register in `packages/cli/src/index.ts` under appropriate `.command()`
+视觉 4 态从 store 派生：
+- `runningNodeId === id` → running（N1 光晕）
+- `target_nodes.includes(id) && !output` → target+pending
+- `target_nodes.includes(id) && output` → target+completed
+- else → completed
 
-**Adding engine functionality**:
-1. Place in appropriate subdirectory under `packages/engine/src/`
-2. Export via `packages/engine/src/index.ts`
-3. Use Zod for input validation if called externally
+`data.status` 字段还存在但**信息性**，不驱动视觉。
 
 ---
 > Source: [isirin1131/FlowCabal](https://github.com/isirin1131/FlowCabal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
