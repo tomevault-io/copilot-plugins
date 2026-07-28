@@ -1,31 +1,24 @@
 # claude-workflow-v2
 
-> Source: [CloudAI-X/claude-workflow-v2](https://github.com/CloudAI-X/claude-workflow-v2) — distributed by [TomeVault](https://tomevault.io)
-
-Universal Claude Code workflow plugin with agents, skills, hooks, and commands
+> Source: [CloudAI-X/claude-workflow-v2](https://github.com/CloudAI-X/claude-workflow-v2). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CloudAI-X/claude-workflow-v2](https://github.com/CloudAI-X/claude-workflow-v2).
+Original source: `AGENTS.md` in [CloudAI-X/claude-workflow-v2](https://github.com/CloudAI-X/claude-workflow-v2).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [managing-git](https://github.com/CloudAI-X/claude-workflow-v2/tree/main/skills/managing-git)
-- [vercel-react-best-practices](https://github.com/CloudAI-X/claude-workflow-v2/tree/main/skills/vercel-react-best-practices)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/CloudAI-X/claude-workflow-v2](https://github.com/CloudAI-X/claude-workflow-v2)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
