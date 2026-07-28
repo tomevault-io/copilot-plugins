@@ -1,0 +1,14 @@
+{
+  "name": "xpzouying--xiaohongshu-mcp",
+  "displayName": "xiaohongshu-mcp",
+  "description": "MCP for xiaohongshu.com",
+  "version": "1.0.0",
+  "author": "xpzouying",
+  "homepage": "https://github.com/xpzouying/xiaohongshu-mcp",
+  "skills": [
+    {
+      "name": "xiaohongshu-mcp",
+      "description": ""
+    }
+  ]
+}
