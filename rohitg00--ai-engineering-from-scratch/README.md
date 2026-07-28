@@ -15,12 +15,7 @@ Original source: `AGENTS.md` in [rohitg00/ai-engineering-from-scratch](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/.claude/skills/find-your-level/SKILL.md)
-- [ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/.claude/skills/check-understanding/SKILL.md)
-
-From [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — a repo with 40650+ stars on GitHub.
+From [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — a repo with 0+ stars on GitHub.
 
 ---
 
