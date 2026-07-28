@@ -1,0 +1,9 @@
+{
+  "name": "thushan--proxmox-vm-to-ct",
+  "displayName": "proxmox-vm-to-ct",
+  "description": "proxmox-vm-to-ct",
+  "version": "1.0.0",
+  "author": "thushan",
+  "homepage": "https://github.com/thushan/proxmox-vm-to-ct",
+  "skills": []
+}
