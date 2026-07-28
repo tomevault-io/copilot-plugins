@@ -1,6 +1,6 @@
 # teek-design-vue3
 
-> Source: [Kele-Bingtang/teek-design-vue3](https://github.com/Kele-Bingtang/teek-design-vue3) — distributed by [TomeVault](https://tomevault.io)
+> Source: [Kele-Bingtang/teek-design-vue3](https://github.com/Kele-Bingtang/teek-design-vue3). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
