@@ -1,0 +1,9 @@
+{
+  "name": "nonbeing--mysqlclient-python3-aws-lambda",
+  "displayName": "mysqlclient-python3-aws-lambda",
+  "description": "mysqlclient-python3-aws-lambda",
+  "version": "1.0.0",
+  "author": "nonbeing",
+  "homepage": "https://github.com/nonbeing/mysqlclient-python3-aws-lambda",
+  "skills": []
+}
