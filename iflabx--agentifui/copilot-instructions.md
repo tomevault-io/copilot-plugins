@@ -1,83 +1,205 @@
-## test
+## agentifui
 
-> Must read when writing tests or working with testing framework
+> Must read before making any database schema changes or migrations
 
 
-# AgentifUI Testing Development Standards
+# Supabase Database Development Standards
 
-## Core Architecture
+## Core Principles
 
-AgentifUI uses Jest with React Testing Library for comprehensive testing:
+1. **Security First**: MUST thoroughly evaluate and test all database operations
+2. **Type Synchronization**: MUST synchronize TypeScript type definitions with database changes
+3. **Documentation Sync**: MUST update related documentation with all changes
+4. **Atomic Commits**: MUST commit migration files, type definitions, and documentation together
 
-- **Testing Framework**: Jest with Next.js integration
-- **Component Testing**: React Testing Library with jsdom environment
-- **Test Patterns**: `*.test.{ts,tsx}` or `*.spec.{ts,tsx}` or `__tests__/` directory
-- **Coverage**: Currently 0% threshold (temporary, to be increased)
-- **Automation**: Husky handles precommit testing automatically
+## 6-Phase Development Flow
 
-## Test Configuration
+### Phase 1: Requirements Analysis & Impact Assessment
 
-```
-jest.config.js         # Main Jest configuration
-jest.setup.js          # Test environment setup and mocks
-__tests__/             # Test files directory
-**/*.test.{ts,tsx}     # Inline test files
-```
+#### 1.1 Requirements Understanding
+- MUST clarify specific database change requirements and objectives
+- MUST analyze business context and technical necessity
+- MUST determine scope (table structure, indexes, constraints, functions)
 
-## Available Commands
+#### 1.2 Impact Assessment
+**Database Level:**
+- Table structure changes impact on existing data
+- Foreign key constraints and cascade deletion impact
+- Index performance impact
+- RLS policy impact
 
+**Application Level:**
+- TypeScript type definition files requiring updates
+- Business logic code locations requiring modifications
+- API interface compatibility impact
+- Frontend component data structure dependencies
+
+#### 1.3 Risk Assessment
+- **High Risk**: DROP TABLE, ALTER COLUMN type changes, constraint deletion
+- **Medium Risk**: ADD COLUMN, CREATE INDEX, RLS policy modifications
+- **Low Risk**: INSERT data, UPDATE configuration, CREATE FUNCTION
+
+### Phase 2: Create Migration Files
+
+#### 2.1 Get Standard Timestamp
 ```bash
-# Run all tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run tests with coverage
-pnpm test:coverage
-
-# Run tests for CI (no watch, with coverage)
-pnpm test:ci
+# Use date command to get standard format timestamp
+date +%Y%m%d%H%M%S
 ```
 
-## Development Workflow
+#### 2.2 Create Migration File
+Migration file naming format: `{timestamp}_{descriptive_name}.sql`
 
-### 1. Writing Tests (RECOMMENDED PROCESS)
-
-**Step 1**: Create test file alongside component or in `__tests__/` directory
-**Step 2**: Use React Testing Library for component testing
-**Step 3**: Follow existing mocking patterns from `jest.setup.js`
-
-### 2. Test Structure
-
-```tsx
-import { render, screen } from '@testing-library/react';
-import { ComponentName } from '../component-path';
-
-describe('ComponentName', () => {
-  test('should render correctly', () => {
-    render(<ComponentName />);
-    expect(screen.getByText('Expected Text')).toBeInTheDocument();
-  });
-});
+**Example:**
+```
+supabase/migrations/20250621091656_add_user_preferences_table.sql
 ```
 
-## Mocking Setup
+#### 2.3 Migration File Standards
 
-Pre-configured mocks in `jest.setup.js`:
-- Next.js router and navigation
-- next/image and next/link
-- next-intl translations
-- Global browser APIs (IntersectionObserver, ResizeObserver)
+**File Header Comment:**
+```sql
+-- Migration: 20250621091656_add_user_preferences_table.sql
+-- Description: Add user preferences table for theme and language settings
+-- Impact: New table, no existing data impact
+-- Risk: Low risk
+```
 
-## Core Rules
+**MUST Include Checks:**
+```sql
+-- Check if table exists
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.tables 
+        WHERE table_schema = 'public' 
+        AND table_name = 'user_preferences'
+    ) THEN
+        -- Create table SQL
+        CREATE TABLE user_preferences (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+            theme TEXT DEFAULT 'system',
+            language TEXT DEFAULT 'zh-CN',
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            updated_at TIMESTAMPTZ DEFAULT NOW()
+        );
+    END IF;
+END $$;
+```
 
-1. **🧪 TEST COVERAGE**: SHOULD write tests for new components and critical logic
-2. **🔧 USE MOCKS**: MUST use existing mocks from jest.setup.js
-3. **📝 DESCRIPTIVE NAMES**: MUST use clear test descriptions
-4. **⚡ AUTOMATION**: Tests run automatically via Husky precommit hooks
-5. **🎯 FOCUSED TESTING**: Focus on user behavior rather than implementation details
+### Phase 3: Type Definition Synchronization
+
+#### 3.1 Update Core Type Files
+
+**MUST update:**
+- `lib/types/database.ts` - Core database type definitions
+- `lib/supabase/types.ts` - Supabase auto-generated types
+
+#### 3.2 Type Definition Example
+
+```typescript
+// In lib/types/database.ts
+export interface UserPreference {
+  id: string;
+  user_id: string;
+  theme: string;
+  language: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// Update Database namespace
+export namespace Database {
+  export interface Tables {
+    // ... existing tables
+    user_preferences: UserPreference;
+  }
+}
+```
+
+### Phase 4: Business Code Synchronization
+
+#### 4.1 Check Required Directories
+
+**MUST check:**
+- `lib/db/` - Database operation layer
+- `lib/hooks/` - React Hooks layer
+- `lib/services/` - Service layer
+
+#### 4.2 Code Update Example
+
+```typescript
+// lib/db/user-preferences.ts
+import { Database } from '@lib/types/database';
+
+type UserPreference = Database['Tables']['user_preferences'];
+
+export async function getUserPreferences(userId: string): Promise<UserPreference | null> {
+  // Implementation
+}
+```
+
+### Phase 5: Testing and Validation
+
+#### 5.1 Local Testing
+```bash
+# Push migration to local database
+supabase db push
+
+# Check migration status
+supabase db status
+```
+
+#### 5.2 Type Checking
+```bash
+# TypeScript type checking
+pnpm run type-check
+
+# Build testing
+pnpm run build
+```
+
+### Phase 6: Deployment and Documentation
+
+#### 6.1 Commit Changes
+MUST follow git-commit-rule.mdc format:
+```bash
+git commit -m "feat(db): add user preferences table" \
+           -m "" \
+           -m "Add user_preferences table for theme and language settings" \
+           -m "- Add migration file with proper checks" \
+           -m "- Update TypeScript type definitions" \
+           -m "- Add corresponding data access functions"
+```
+
+#### 6.2 Deploy to Production
+```bash
+# Deploy to Supabase cloud
+supabase db push --linked
+```
+
+## Emergency Rollback
+
+If migration causes issues:
+```bash
+# View migration history
+supabase migration list
+
+# Rollback to specific version
+supabase db reset --db-url [your-db-url]
+```
+
+## Best Practices
+
+1. **Incremental Changes**: Break large changes into multiple small migrations
+2. **Backup First**: Ensure data backup before important changes
+3. **Test Driven**: Test thoroughly in development environment first
+4. **Document Immediately**: Update documentation immediately after changes
+5. **Team Communication**: Communicate major changes with team in advance
+
+Following these standards ensures data safety, type consistency, and code synchronization.
 
 ---
-> Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+> Source: [ifLabX/AgentifUI](https://github.com/ifLabX/AgentifUI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
