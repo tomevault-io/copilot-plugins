@@ -1,0 +1,9 @@
+{
+  "name": "holochain--wind-tunnel",
+  "displayName": "wind-tunnel",
+  "description": "wind-tunnel",
+  "version": "1.0.0",
+  "author": "holochain",
+  "homepage": "https://github.com/holochain/wind-tunnel",
+  "skills": []
+}
