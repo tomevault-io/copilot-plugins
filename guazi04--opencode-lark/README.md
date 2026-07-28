@@ -1,8 +1,6 @@
 # opencode-lark
 
-> Source: [guazi04/opencode-lark](https://github.com/guazi04/opencode-lark) — distributed by [TomeVault](https://tomevault.io)
-
-Feishu/Lark ↔ opencode bidirectional messaging bridge with real-time streaming cards
+> Source: [guazi04/opencode-lark](https://github.com/guazi04/opencode-lark). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [guazi04/opencode-lark](https://github.com/guazi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [guazi04/opencode-lark](https://github.com/guazi04/opencode-lark) — a repo with 25+ stars on GitHub.
+From [guazi04/opencode-lark](https://github.com/guazi04/opencode-lark) — a repo with 37+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
