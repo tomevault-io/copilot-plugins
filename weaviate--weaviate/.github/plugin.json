@@ -1,0 +1,9 @@
+{
+  "name": "weaviate--weaviate",
+  "displayName": "weaviate",
+  "description": "weaviate",
+  "version": "1.0.0",
+  "author": "weaviate",
+  "homepage": "https://github.com/weaviate/weaviate",
+  "skills": []
+}
