@@ -1,0 +1,164 @@
+## compound
+
+> Extract and persist learnings from coding sessions
+
+
+# /compound - Extract Session Learnings
+
+When the user says `/compound`, extract learnings from the current session and persist them.
+
+## Behavior
+
+### 1. Reflect on This Session
+
+Review what was accomplished in this session:
+- What patterns worked well?
+- What gotchas or edge cases were discovered?
+- What decisions were made and why?
+- What would be done differently next time?
+- Any bugs encountered and how they were fixed?
+
+### 2. Categorize Learnings
+
+#### Feature-Specific Learnings
+Learnings that apply to a specific feature go in that feature's spec:
+- Add to the `## Learnings` section of the relevant `.specs/features/{domain}/{feature}.feature.md`
+- Format:
+  ```markdown
+  ### YYYY-MM-DD
+  - **Pattern**: [What worked well]
+  - **Gotcha**: [Edge case or pitfall discovered]
+  - **Decision**: [Choice made and why]
+  ```
+
+#### Cross-Cutting Learnings
+Learnings that apply across features go in `.specs/learnings/` by category:
+
+| Category | File |
+|----------|------|
+| Testing patterns | `.specs/learnings/testing.md` |
+| Performance | `.specs/learnings/performance.md` |
+| Security | `.specs/learnings/security.md` |
+| API & Data | `.specs/learnings/api.md` |
+| Design System | `.specs/learnings/design.md` |
+| General | `.specs/learnings/general.md` |
+
+Also add a brief entry to `.specs/learnings/index.md` under "Recent Learnings".
+
+### 3. Update Files
+
+1. **Feature spec(s)**: Add learnings to `## Learnings` section
+2. **Cross-cutting**: Add to the appropriate `.specs/learnings/{category}.md` file
+3. **Index**: Add brief entry to `.specs/learnings/index.md` under "Recent Learnings"
+4. **Frontmatter**: Update `updated:` date in any modified specs
+
+### 4. Commit Changes
+
+```bash
+git add .specs/
+git commit -m "compound: learnings from [brief session description]"
+```
+
+### 5. Summarize
+
+Tell the user:
+- How many learnings were captured
+- Which files were updated
+- Which categories were added to
+
+---
+
+## Learning Types
+
+| Type | Example | Where to Store |
+|------|---------|----------------|
+| **Pattern** | "Always debounce form validation to avoid API spam" | Feature spec or `learnings/general.md` |
+| **Gotcha** | "Safari autofill doesn't trigger onChange events" | Feature spec |
+| **Decision** | "Using httpOnly cookies for auth (XSS protection)" | `learnings/security.md` |
+| **Bug Fix** | "Fixed race condition by adding loading state check" | Feature spec |
+| **Performance** | "Memoize expensive calculations in useMemo" | `learnings/performance.md` |
+| **Testing** | "Mock timers for debounce tests" | `learnings/testing.md` |
+
+---
+
+## Learnings Folder Structure
+
+Learnings are organized by category in `.specs/learnings/`:
+
+```
+.specs/learnings/
+├── index.md        # Summary + recent learnings
+├── testing.md      # Mocking, assertions, test patterns
+├── performance.md  # Optimization, lazy loading, caching
+├── security.md     # Auth, cookies, validation
+├── api.md          # Endpoints, data handling, errors
+├── design.md       # Tokens, components, accessibility
+└── general.md      # Other patterns
+```
+
+### Format for Category Files
+
+Add learnings under the appropriate section with a date:
+
+```markdown
+## [Section Name]
+
+### YYYY-MM-DD
+- **Pattern**: [What worked well]
+- **Gotcha**: [Edge case or pitfall]
+
+### YYYY-MM-DD
+- **Decision**: [Choice made and rationale]
+```
+
+### Format for index.md Recent Learnings
+
+Add brief entries under "Recent Learnings":
+
+```markdown
+## Recent Learnings
+
+### YYYY-MM-DD
+- **Testing**: Mock fetch globally in setupTests.ts
+- **Security**: Use httpOnly cookies for auth tokens
+```
+
+---
+
+## When NOT to Compound
+
+- If the session was just reading/exploring (no implementation)
+- If no new learnings were discovered
+- If learnings are already documented
+
+---
+
+## Example Output
+
+```markdown
+## Compound Summary
+
+**Session**: Implemented user login feature
+
+### Learnings Captured: 3
+
+#### Feature-Specific (added to login.feature.md)
+- **Gotcha**: Safari autofill requires onBlur handler as backup
+- **Pattern**: Debounce email validation to 300ms
+
+#### Cross-Cutting (added to learnings/)
+- **Testing**: Mock fetch globally in setupTests.ts → `testing.md`
+
+### Files Updated
+- `.specs/features/auth/login.feature.md`
+- `.specs/learnings/testing.md`
+- `.specs/learnings/index.md`
+
+---
+
+Consider running `/compound` at the end of significant implementation sessions!
+```
+
+---
+> Source: [AdrianRogowski/auto-sdd](https://github.com/AdrianRogowski/auto-sdd) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
