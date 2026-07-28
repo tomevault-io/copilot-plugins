@@ -1,29 +1,17 @@
 ## knocker
 
-> This file provides guidance to agents when working with code in this repository.
+> - **Stateless Application**: The `knocker` service is designed to be completely stateless. All state is managed in the `whitelist.json` file, which is persisted via a Docker volume. Do not introduce in-memory state that would break this pattern.
 
-# AGENTS.md
+# Project Architecture Rules (Non-Obvious Only)
 
-This file provides guidance to agents when working with code in this repository.
+- **Stateless Application**: The `knocker` service is designed to be completely stateless. All state is managed in the `whitelist.json` file, which is persisted via a Docker volume. Do not introduce in-memory state that would break this pattern.
+- **Reverse Proxy is Essential**: The application is not designed to be exposed directly to the internet. It relies on a reverse proxy (like Caddy) to handle TLS and to provide the `X-Forwarded-For` header, which is critical for the IP whitelisting logic.
+- **Configuration via Environment Variable**: The application's configuration is loaded from a single YAML file whose path is specified by the `KNOCKER_CONFIG_PATH` environment variable. This is a deliberate design choice to decouple the configuration from the application code.
+- **No Database**: The project intentionally uses a simple JSON file for the whitelist to keep the architecture simple and to avoid introducing a database dependency. Any proposal to add a database would be a major architectural change.
 
-## Critical Project-Specific Information (Non-Obvious)
-
-- **Configuration is Mandatory**: The application will not start without the `KNOCKER_CONFIG_PATH` environment variable pointing to a valid `knocker.yaml` file. See [`knocker.example.yaml`](knocker.example.yaml:1) for the required structure.
-- **IP Spoofing Risk**: The service's security depends on the `trusted_proxies` list in `knocker.yaml`. If this is misconfigured, clients can easily spoof their IP address via the `X-Forwarded-For` header.
-- **Testing Requires `PYTHONPATH`**: Unit tests must be run with `PYTHONPATH=src python3 -m pytest`. Without this, imports will fail.
-- **Whitelist Persistence**: The IP whitelist is stored in a simple JSON file (`/data/whitelist.json` inside the container), not a database. The path is configured in `knocker.yaml`.
-- **API Key Permissions**: API keys have two important properties: `allow_remote_whitelist` (boolean) and `max_ttl` (integer). A key with `allow_remote_whitelist: false` can only whitelist its own source IP. `max_ttl` defines the maximum duration in seconds an IP can be whitelisted for with that key.
-- **Development Environment**: The only reliable way to run the full stack for development is with `docker compose -f dev/docker-compose.yml up`. This includes the Caddy reverse proxy, which is essential for testing the full request flow.
-
-## Workflow
-
-- **Run All Tests After Changes**: After making any code changes, you must run both the local unit tests (`PYTHONPATH=src python3 -m pytest`) and the full Docker-based integration tests (`docker compose -f dev/docker-compose.yml up -d --build` followed by the scripts under dev.
-- **Create Git Commits**: All work should be committed to Git.
-
-- github repo: FarisZR/knocker
-
-- **Update Documentation**: on any changes, you must update the documentation under the docs/ directory.
+- **Firewalld integration caveat**: When integrating with firewalld, command-line tools (firewall-cmd) may return "success" with a warning (e.g., ALREADY_ENABLED) while not updating timeouts. Any code that adds rich-rules must detect these warnings, remove the existing rule and re-add it with the intended timeout to ensure TTL semantics are enforced.
+- **Integration tests are authoritative**: Integration tests (dev/firewalld_integration_test.sh and dev/docker-compose.yml) exercise real interactions with the system (firewalld, Caddy). Use them as the final verification step for changes that touch networking, firewall rules, or startup/restore logic.
 
 ---
 > Source: [FarisZR/knocker](https://github.com/FarisZR/knocker) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
