@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--pest-intellij",
+  "displayName": "pest-intellij",
+  "description": "pest-intellij",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/pest-intellij",
+  "skills": []
+}
