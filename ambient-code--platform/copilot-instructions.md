@@ -1,174 +1,624 @@
 ## platform
 
-> Kubernetes-native AI automation platform that orchestrates agentic sessions through containerized microservices. Built with Go (backend, operator), NextJS + Shadcn (frontend), Python (runner), and Kubernetes CRDs.
+> Name | Type | Description | Notes
 
-# Ambient Code Platform
+# Agent
 
-Kubernetes-native AI automation platform that orchestrates agentic sessions through containerized microservices. Built with Go (backend, operator), NextJS + Shadcn (frontend), Python (runner), and Kubernetes CRDs.
+## Properties
 
-> Technical artifacts still use "vteam" for backward compatibility.
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** |  | [optional] 
+**Kind** | Pointer to **string** |  | [optional] 
+**Href** | Pointer to **string** |  | [optional] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
+**ProjectId** | **string** | The project this agent belongs to | 
+**ParentAgentId** | Pointer to **string** |  | [optional] 
+**OwnerUserId** | Pointer to **string** |  | [optional] 
+**Name** | **string** | Human-readable identifier; unique within the project | 
+**DisplayName** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**Prompt** | Pointer to **string** | Defines who this agent is. Mutable via PATCH. Access controlled by RBAC. | [optional] 
+**RepoUrl** | Pointer to **string** |  | [optional] 
+**WorkflowId** | Pointer to **string** |  | [optional] 
+**LlmModel** | Pointer to **string** |  | [optional] 
+**LlmTemperature** | Pointer to **float64** |  | [optional] 
+**LlmMaxTokens** | Pointer to **int32** |  | [optional] 
+**BotAccountName** | Pointer to **string** |  | [optional] 
+**ResourceOverrides** | Pointer to **string** |  | [optional] 
+**EnvironmentVariables** | Pointer to **string** |  | [optional] 
+**CurrentSessionId** | Pointer to **string** | Denormalized for fast reads — the active session, if any | [optional] [readonly] 
+**Labels** | Pointer to **string** |  | [optional] 
+**Annotations** | Pointer to **string** |  | [optional] 
 
-## Structure
+## Methods
 
-- `components/backend/` - Go REST API (Gin), manages K8s Custom Resources with multi-tenant project isolation
-- `components/frontend/` - NextJS web UI for session management and monitoring
-- `components/operator/` - Go Kubernetes controller, watches CRDs and creates Jobs
-- `components/runners/ambient-runner/` - Python runner executing Claude Code CLI in Job pods
-- `components/ambient-cli/` - Go CLI (`acpctl`), manages agentic sessions from the command line
-- `components/public-api/` - Stateless HTTP gateway, proxies to backend (no direct K8s access)
-- `components/ambient-api-server/` - Go REST API microservice (rh-trex-ai framework), PostgreSQL-backed
-- `components/ambient-sdk/` - Go + Python client SDK for the platform's public REST API
-- `components/open-webui-llm/` - Open WebUI LLM integration
-- `components/manifests/` - Kustomize-based deployment manifests and overlays
-- `e2e/` - Cypress end-to-end tests
-- `docs/` - Astro Starlight documentation site
-- `specs/` - Desired state of the system ([sessions](specs/sessions/), [agents](specs/agents/), [control-plane](specs/control-plane/), [integrations](specs/integrations/), [standards](specs/standards/))
-- `workflows/` - Agent-consumable procedures ([sessions](workflows/sessions/), [control-plane](workflows/control-plane/), [integrations](workflows/integrations/))
-- `skills/` - [Agent Skills](https://agentskills.io) (`.claude/skills` symlinks here; domain symlinks in `specs/{domain}/.agents/skills`)
+### NewAgent
 
-## Key Files
+`func NewAgent(projectId string, name string, ) *Agent`
 
-- CRD definitions: `components/manifests/base/crds/agenticsessions-crd.yaml`, `projectsettings-crd.yaml`
-- Session lifecycle: `components/backend/handlers/sessions.go`, `components/operator/internal/handlers/sessions.go`
-- Auth & RBAC middleware: `components/backend/handlers/middleware.go`
-- K8s client init: `components/operator/internal/config/config.go`
-- Runner entry point: `components/runners/ambient-runner/main.py`
-- Route registration: `components/backend/routes.go`
-- Frontend API layer: `components/frontend/src/services/api/`, `src/services/queries/`
+NewAgent instantiates a new Agent object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
 
-## Session Flow
+### NewAgentWithDefaults
 
-```
-User Creates Session → Backend Creates CR → Operator Spawns Job →
-Pod Runs Claude CLI → Results Stored in CR → UI Displays Progress
-```
+`func NewAgentWithDefaults() *Agent`
 
-## Commands
+NewAgentWithDefaults instantiates a new Agent object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
 
-```shell
-make build-all                # Build all container images
-make deploy                   # Deploy to cluster
-make test                     # Run tests
-make lint                     # Lint code
-make kind-up                  # Start local Kind cluster
-make kind-rebuild              # Rebuild images + redeploy to running cluster
-make kind-login                # Set kubectl context + configure acpctl
-make dev-bootstrap             # Bootstrap developer workspace
-make test-e2e-local           # Run E2E tests against Kind
-make benchmark                # Run component benchmark harness
-```
+### GetId
 
-### Per-Component
+`func (o *Agent) GetId() string`
 
-```shell
-# Backend / Operator (Go)
-cd components/backend && gofmt -l . && go vet ./... && golangci-lint run
-cd components/operator && gofmt -l . && go vet ./... && golangci-lint run
+GetId returns the Id field if non-nil, zero value otherwise.
 
-# Frontend
-cd components/frontend && npm run build  # Must pass with 0 errors, 0 warnings
+### GetIdOk
 
-# Runner (Python)
-cd components/runners/ambient-runner && uv venv && uv pip install -e .
+`func (o *Agent) GetIdOk() (*string, bool)`
 
-# Docs
-cd docs && npm run dev  # http://localhost:4321
-```
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
 
-### Benchmarking
+### SetId
 
-```shell
-# Human-friendly summary
-make benchmark
+`func (o *Agent) SetId(v string)`
 
-# Agent / automation friendly output
-make benchmark FORMAT=tsv
+SetId sets Id field to given value.
 
-# Single component
-make benchmark COMPONENT=frontend MODE=cold
-```
+### HasId
 
-Benchmark notes:
+`func (o *Agent) HasId() bool`
 
-- `frontend` requires **Node.js 20+**
-- `FORMAT=tsv` is preferred for agents to minimize token usage
-- `warm` measures rebuild proxies, not browser-observed hot reload latency
-- See `scripts/benchmarks/README.md` for semantics and caveats
+HasId returns a boolean if a field has been set.
 
-## Critical Conventions
+### GetKind
 
-Cross-cutting rules that apply across ALL components. Component-specific conventions live in
-[specs/standards/](specs/standards/) (see [BOOKMARKS.md](BOOKMARKS.md) > Component Standards).
+`func (o *Agent) GetKind() string`
 
-- **User token auth required**: All user-facing API ops use `GetK8sClientsForRequest(c)`, never the backend service account
-- **No tokens in logs/errors/responses**: Use `len(token)` for logging, generic messages to users
-- **OwnerReferences on all child resources**: Jobs, Secrets, PVCs must have controller owner refs
-- **No `panic()` in production**: Return explicit `fmt.Errorf` with context
-- **No `any` types in frontend**: Use proper types, `unknown`, or generic constraints
-- **Feature flags strongly recommended**: Gate new features behind Unleash flags. Use `/unleash-flag` to set up
-- **No new CRDs**: Existing CRDs (AgenticSession, ProjectSettings) are grandfathered. For new persistent storage, confirm with the user whether to use repo files or PostgreSQL — do not default to K8s custom resources
-- **Conventional commits**: Squashed on merge to `main`
-- **Design for extensibility before adding items**: When building infrastructure that will have
-  things added to it (menus, config schemas, API surfaces), build the extensibility mechanism
-  first — conditional rendering, feature-flag gating, discovery. Retrofitting causes rework.
-- **Verify contracts and references**: Before building on an assumption (env var exists, path is
-  correct, URL is reachable), verify the contract. After moving anything, grep scripts, workflows,
-  manifests, and configs — not just source code.
-- **CI/CD security**: Never use `pull_request_target` (grants write access to forked PR code).
-  Never hardcode tokens — use `actions/create-github-app-token`. For automated pipelines:
-  discovery → validation → PR → auto-merge.
-- **Full-stack awareness**: Before building a new pipeline, check if an existing one can be
-  reused. Auth/credential/API changes must update ALL consumers (backend, CLI, SDK, runner,
-  sidecar) in the same PR.
-- **Separate configuration from code**: Config changes must not require code changes. Externalize
-  via env vars, ConfigMaps, manifests, or feature flags. If a value varies across environments
-  or changes over time, it's config, not code.
-- **Image references must match across the stack**: After changing an image name or tag, grep all overlays, workflows, and ConfigMaps
-- **Reconcile, don't create-or-skip**: Use update-or-create patterns, not create-and-ignore-`AlreadyExists`
-- **Never silently swallow partial failures**: Every error path must propagate or be collected, not discarded
-- **Namespace-scope shared state keys**: Cache keys and status entries must include namespace/project prefix
-- **Restricted SecurityContext on all containers**: `runAsNonRoot`, drop `ALL` capabilities, `readOnlyRootFilesystem`
+GetKind returns the Kind field if non-nil, zero value otherwise.
 
-Component-specific conventions:
-- Backend: [conventions](specs/standards/backend/conventions.spec.md), [error handling](specs/standards/backend/error-handling.spec.md), [K8s client](specs/standards/backend/k8s-client.spec.md)
-- Frontend: [conventions](specs/standards/frontend/conventions.spec.md), [React Query](specs/standards/frontend/react-query.spec.md)
-- Operator: [conventions](specs/standards/control-plane/conventions.spec.md)
-- Security: [security standards](specs/standards/security/security.spec.md)
+### GetKindOk
 
-## Pre-commit Hooks
+`func (o *Agent) GetKindOk() (*string, bool)`
 
-Configured in `.pre-commit-config.yaml`. Install: `make setup-hooks`. Run all: `make lint`.
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
 
-- Go and ESLint wrappers (`scripts/pre-commit/`) skip gracefully if the toolchain is not installed
-- `tsc --noEmit` and `npm run build` are **not** in pre-commit (slow; CI gates on them)
-- Branch/push protection blocks commits and pushes to main/master/production
+### SetKind
 
-## PR Review Gate
+`func (o *Agent) SetKind(v string)`
 
-Before running `gh pr create`, agents MUST self-review their changes:
+SetKind sets Kind field to given value.
 
-1. Review the diff against conventions in this file and [BOOKMARKS.md](BOOKMARKS.md)
-2. Verify the changes follow patterns documented in `specs/standards/`
-3. Check that no `panic()` calls exist in production Go code (use `fmt.Errorf`)
-4. Check that no `any` types exist in frontend TypeScript (use proper types, `unknown`, or generics)
-5. Ensure all new API endpoints have corresponding frontend proxy routes
-6. Verify owner references on any new K8s child resources
+### HasKind
 
-A PreToolUse hook (`scripts/hooks/pr-review-gate.sh`) enforces mechanical checks (lint, format, secrets) and runs `coderabbit review --agent --base main` for AI-powered review (security, performance, K8s safety per `.coderabbit.yaml`). The hook will block `gh pr create` if any check fails. The self-review above covers what the hook cannot — architectural fit, convention adherence, and design quality.
+`func (o *Agent) HasKind() bool`
 
-When both the self-review and the hook pass, apply the `ambient-code:self-reviewed` label to the PR if the changes were authored and reviewed without human involvement.
+HasKind returns a boolean if a field has been set.
 
-## Testing
+### GetHref
 
-- **Frontend unit tests**: `cd components/frontend && npx vitest run --coverage`. See `components/frontend/README.md`.
-- **E2E tests**: `cd e2e && npx cypress run --browser chrome`. See `e2e/README.md`.
-- **Runner tests**: `cd components/runners/ambient-runner && python -m pytest tests/`
-- **Backend tests**: `cd components/backend && make test`. See `components/backend/TEST_GUIDE.md`.
+`func (o *Agent) GetHref() string`
 
-## Convention Authority
+GetHref returns the Href field if non-nil, zero value otherwise.
 
-This file and [BOOKMARKS.md](BOOKMARKS.md) are the authoritative source of project conventions. The [ACP Constitution](.specify/memory/constitution.md) covers spec-kit-specific governance (commit discipline thresholds, context engineering, amendment process) but defers to this file for shared conventions. If they conflict, this file wins. Spec-kit is optional tooling, not mandatory.
+### GetHrefOk
+
+`func (o *Agent) GetHrefOk() (*string, bool)`
+
+GetHrefOk returns a tuple with the Href field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHref
+
+`func (o *Agent) SetHref(v string)`
+
+SetHref sets Href field to given value.
+
+### HasHref
+
+`func (o *Agent) HasHref() bool`
+
+HasHref returns a boolean if a field has been set.
+
+### GetCreatedAt
+
+`func (o *Agent) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *Agent) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *Agent) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *Agent) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetUpdatedAt
+
+`func (o *Agent) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *Agent) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *Agent) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
+### HasUpdatedAt
+
+`func (o *Agent) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
+
+### GetProjectId
+
+`func (o *Agent) GetProjectId() string`
+
+GetProjectId returns the ProjectId field if non-nil, zero value otherwise.
+
+### GetProjectIdOk
+
+`func (o *Agent) GetProjectIdOk() (*string, bool)`
+
+GetProjectIdOk returns a tuple with the ProjectId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProjectId
+
+`func (o *Agent) SetProjectId(v string)`
+
+SetProjectId sets ProjectId field to given value.
+
+
+### GetParentAgentId
+
+`func (o *Agent) GetParentAgentId() string`
+
+GetParentAgentId returns the ParentAgentId field if non-nil, zero value otherwise.
+
+### GetParentAgentIdOk
+
+`func (o *Agent) GetParentAgentIdOk() (*string, bool)`
+
+GetParentAgentIdOk returns a tuple with the ParentAgentId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParentAgentId
+
+`func (o *Agent) SetParentAgentId(v string)`
+
+SetParentAgentId sets ParentAgentId field to given value.
+
+### HasParentAgentId
+
+`func (o *Agent) HasParentAgentId() bool`
+
+HasParentAgentId returns a boolean if a field has been set.
+
+### GetOwnerUserId
+
+`func (o *Agent) GetOwnerUserId() string`
+
+GetOwnerUserId returns the OwnerUserId field if non-nil, zero value otherwise.
+
+### GetOwnerUserIdOk
+
+`func (o *Agent) GetOwnerUserIdOk() (*string, bool)`
+
+GetOwnerUserIdOk returns a tuple with the OwnerUserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwnerUserId
+
+`func (o *Agent) SetOwnerUserId(v string)`
+
+SetOwnerUserId sets OwnerUserId field to given value.
+
+### HasOwnerUserId
+
+`func (o *Agent) HasOwnerUserId() bool`
+
+HasOwnerUserId returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *Agent) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *Agent) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *Agent) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetDisplayName
+
+`func (o *Agent) GetDisplayName() string`
+
+GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
+
+### GetDisplayNameOk
+
+`func (o *Agent) GetDisplayNameOk() (*string, bool)`
+
+GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisplayName
+
+`func (o *Agent) SetDisplayName(v string)`
+
+SetDisplayName sets DisplayName field to given value.
+
+### HasDisplayName
+
+`func (o *Agent) HasDisplayName() bool`
+
+HasDisplayName returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *Agent) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Agent) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Agent) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Agent) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetPrompt
+
+`func (o *Agent) GetPrompt() string`
+
+GetPrompt returns the Prompt field if non-nil, zero value otherwise.
+
+### GetPromptOk
+
+`func (o *Agent) GetPromptOk() (*string, bool)`
+
+GetPromptOk returns a tuple with the Prompt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrompt
+
+`func (o *Agent) SetPrompt(v string)`
+
+SetPrompt sets Prompt field to given value.
+
+### HasPrompt
+
+`func (o *Agent) HasPrompt() bool`
+
+HasPrompt returns a boolean if a field has been set.
+
+### GetRepoUrl
+
+`func (o *Agent) GetRepoUrl() string`
+
+GetRepoUrl returns the RepoUrl field if non-nil, zero value otherwise.
+
+### GetRepoUrlOk
+
+`func (o *Agent) GetRepoUrlOk() (*string, bool)`
+
+GetRepoUrlOk returns a tuple with the RepoUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepoUrl
+
+`func (o *Agent) SetRepoUrl(v string)`
+
+SetRepoUrl sets RepoUrl field to given value.
+
+### HasRepoUrl
+
+`func (o *Agent) HasRepoUrl() bool`
+
+HasRepoUrl returns a boolean if a field has been set.
+
+### GetWorkflowId
+
+`func (o *Agent) GetWorkflowId() string`
+
+GetWorkflowId returns the WorkflowId field if non-nil, zero value otherwise.
+
+### GetWorkflowIdOk
+
+`func (o *Agent) GetWorkflowIdOk() (*string, bool)`
+
+GetWorkflowIdOk returns a tuple with the WorkflowId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkflowId
+
+`func (o *Agent) SetWorkflowId(v string)`
+
+SetWorkflowId sets WorkflowId field to given value.
+
+### HasWorkflowId
+
+`func (o *Agent) HasWorkflowId() bool`
+
+HasWorkflowId returns a boolean if a field has been set.
+
+### GetLlmModel
+
+`func (o *Agent) GetLlmModel() string`
+
+GetLlmModel returns the LlmModel field if non-nil, zero value otherwise.
+
+### GetLlmModelOk
+
+`func (o *Agent) GetLlmModelOk() (*string, bool)`
+
+GetLlmModelOk returns a tuple with the LlmModel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLlmModel
+
+`func (o *Agent) SetLlmModel(v string)`
+
+SetLlmModel sets LlmModel field to given value.
+
+### HasLlmModel
+
+`func (o *Agent) HasLlmModel() bool`
+
+HasLlmModel returns a boolean if a field has been set.
+
+### GetLlmTemperature
+
+`func (o *Agent) GetLlmTemperature() float64`
+
+GetLlmTemperature returns the LlmTemperature field if non-nil, zero value otherwise.
+
+### GetLlmTemperatureOk
+
+`func (o *Agent) GetLlmTemperatureOk() (*float64, bool)`
+
+GetLlmTemperatureOk returns a tuple with the LlmTemperature field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLlmTemperature
+
+`func (o *Agent) SetLlmTemperature(v float64)`
+
+SetLlmTemperature sets LlmTemperature field to given value.
+
+### HasLlmTemperature
+
+`func (o *Agent) HasLlmTemperature() bool`
+
+HasLlmTemperature returns a boolean if a field has been set.
+
+### GetLlmMaxTokens
+
+`func (o *Agent) GetLlmMaxTokens() int32`
+
+GetLlmMaxTokens returns the LlmMaxTokens field if non-nil, zero value otherwise.
+
+### GetLlmMaxTokensOk
+
+`func (o *Agent) GetLlmMaxTokensOk() (*int32, bool)`
+
+GetLlmMaxTokensOk returns a tuple with the LlmMaxTokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLlmMaxTokens
+
+`func (o *Agent) SetLlmMaxTokens(v int32)`
+
+SetLlmMaxTokens sets LlmMaxTokens field to given value.
+
+### HasLlmMaxTokens
+
+`func (o *Agent) HasLlmMaxTokens() bool`
+
+HasLlmMaxTokens returns a boolean if a field has been set.
+
+### GetBotAccountName
+
+`func (o *Agent) GetBotAccountName() string`
+
+GetBotAccountName returns the BotAccountName field if non-nil, zero value otherwise.
+
+### GetBotAccountNameOk
+
+`func (o *Agent) GetBotAccountNameOk() (*string, bool)`
+
+GetBotAccountNameOk returns a tuple with the BotAccountName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBotAccountName
+
+`func (o *Agent) SetBotAccountName(v string)`
+
+SetBotAccountName sets BotAccountName field to given value.
+
+### HasBotAccountName
+
+`func (o *Agent) HasBotAccountName() bool`
+
+HasBotAccountName returns a boolean if a field has been set.
+
+### GetResourceOverrides
+
+`func (o *Agent) GetResourceOverrides() string`
+
+GetResourceOverrides returns the ResourceOverrides field if non-nil, zero value otherwise.
+
+### GetResourceOverridesOk
+
+`func (o *Agent) GetResourceOverridesOk() (*string, bool)`
+
+GetResourceOverridesOk returns a tuple with the ResourceOverrides field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceOverrides
+
+`func (o *Agent) SetResourceOverrides(v string)`
+
+SetResourceOverrides sets ResourceOverrides field to given value.
+
+### HasResourceOverrides
+
+`func (o *Agent) HasResourceOverrides() bool`
+
+HasResourceOverrides returns a boolean if a field has been set.
+
+### GetEnvironmentVariables
+
+`func (o *Agent) GetEnvironmentVariables() string`
+
+GetEnvironmentVariables returns the EnvironmentVariables field if non-nil, zero value otherwise.
+
+### GetEnvironmentVariablesOk
+
+`func (o *Agent) GetEnvironmentVariablesOk() (*string, bool)`
+
+GetEnvironmentVariablesOk returns a tuple with the EnvironmentVariables field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironmentVariables
+
+`func (o *Agent) SetEnvironmentVariables(v string)`
+
+SetEnvironmentVariables sets EnvironmentVariables field to given value.
+
+### HasEnvironmentVariables
+
+`func (o *Agent) HasEnvironmentVariables() bool`
+
+HasEnvironmentVariables returns a boolean if a field has been set.
+
+### GetCurrentSessionId
+
+`func (o *Agent) GetCurrentSessionId() string`
+
+GetCurrentSessionId returns the CurrentSessionId field if non-nil, zero value otherwise.
+
+### GetCurrentSessionIdOk
+
+`func (o *Agent) GetCurrentSessionIdOk() (*string, bool)`
+
+GetCurrentSessionIdOk returns a tuple with the CurrentSessionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentSessionId
+
+`func (o *Agent) SetCurrentSessionId(v string)`
+
+SetCurrentSessionId sets CurrentSessionId field to given value.
+
+### HasCurrentSessionId
+
+`func (o *Agent) HasCurrentSessionId() bool`
+
+HasCurrentSessionId returns a boolean if a field has been set.
+
+### GetLabels
+
+`func (o *Agent) GetLabels() string`
+
+GetLabels returns the Labels field if non-nil, zero value otherwise.
+
+### GetLabelsOk
+
+`func (o *Agent) GetLabelsOk() (*string, bool)`
+
+GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabels
+
+`func (o *Agent) SetLabels(v string)`
+
+SetLabels sets Labels field to given value.
+
+### HasLabels
+
+`func (o *Agent) HasLabels() bool`
+
+HasLabels returns a boolean if a field has been set.
+
+### GetAnnotations
+
+`func (o *Agent) GetAnnotations() string`
+
+GetAnnotations returns the Annotations field if non-nil, zero value otherwise.
+
+### GetAnnotationsOk
+
+`func (o *Agent) GetAnnotationsOk() (*string, bool)`
+
+GetAnnotationsOk returns a tuple with the Annotations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnnotations
+
+`func (o *Agent) SetAnnotations(v string)`
+
+SetAnnotations sets Annotations field to given value.
+
+### HasAnnotations
+
+`func (o *Agent) HasAnnotations() bool`
+
+HasAnnotations returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 ---
 > Source: [ambient-code/platform](https://github.com/ambient-code/platform) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
