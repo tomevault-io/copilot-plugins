@@ -1,0 +1,9 @@
+{
+  "name": "umass-embodied-agi--covlm",
+  "displayName": "CoVLM",
+  "description": "CoVLM",
+  "version": "1.0.0",
+  "author": "UMass-Embodied-AGI",
+  "homepage": "https://github.com/UMass-Embodied-AGI/CoVLM",
+  "skills": []
+}
