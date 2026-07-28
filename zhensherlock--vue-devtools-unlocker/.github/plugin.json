@@ -1,7 +1,7 @@
 {
   "name": "zhensherlock--vue-devtools-unlocker",
   "displayName": "vue-devtools-unlocker",
-  "description": "Debug Vue apps in production, without touching the source code.",
+  "description": "vue-devtools-unlocker",
   "version": "1.0.0",
   "author": "zhensherlock",
   "homepage": "https://github.com/zhensherlock/vue-devtools-unlocker",
