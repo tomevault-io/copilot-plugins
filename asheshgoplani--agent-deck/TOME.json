@@ -2,7 +2,7 @@
   "name": "agent-deck",
   "owner": "asheshgoplani",
   "repo": "agent-deck",
-  "description": "Terminal session manager for AI coding agents. One TUI for Claude, Gemini, OpenCode, Codex, and more.",
+  "description": "",
   "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -45,13 +45,25 @@
       "description": ""
     },
     {
-      "name": "session-share",
-      "path": "skills/session-share",
-      "github_url": "https://github.com/asheshgoplani/agent-deck/tree/main/skills/session-share",
+      "name": "agent-deck",
+      "path": "skills/agent-deck/SKILL.md",
+      "github_url": "https://github.com/asheshgoplani/agent-deck/tree/main/skills/agent-deck/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-deck",
+      "path": "cmd/agent-deck/assets/skills/watcher-creator/SKILL.md",
+      "github_url": "https://github.com/asheshgoplani/agent-deck/tree/main/cmd/agent-deck/assets/skills/watcher-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-deck",
+      "path": "skills/fleet/SKILL.md",
+      "github_url": "https://github.com/asheshgoplani/agent-deck/tree/main/skills/fleet/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/asheshgoplani/agent-deck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T19:30:22Z"
+  "distributed_at": "2026-07-28T08:08:54Z"
 }
