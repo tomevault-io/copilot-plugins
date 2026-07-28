@@ -1,0 +1,9 @@
+{
+  "name": "binance--binance-connector-rust",
+  "displayName": "binance-connector-rust",
+  "description": "binance-connector-rust",
+  "version": "1.0.0",
+  "author": "binance",
+  "homepage": "https://github.com/binance/binance-connector-rust",
+  "skills": []
+}
