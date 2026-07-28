@@ -2,7 +2,7 @@
   "name": "better-auth",
   "owner": "get-convex",
   "repo": "better-auth",
-  "description": "Convex + Better Auth \ud83d\udd25",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/get-convex/better-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:53:07Z"
+  "distributed_at": "2026-07-28T13:01:32Z"
 }
