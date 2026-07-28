@@ -1,0 +1,832 @@
+## samples
+
+> Single source of truth for agents working on **abap2UI5 Samples** — a collection
+
+# AGENTS.md
+
+Single source of truth for agents working on **abap2UI5 Samples** — a collection
+of demo apps for the abap2UI5 framework. This file owns everything: the folder
+scheme, the compatibility model, the overview generation rules, **and** the
+ABAP code style / app-structure conventions.
+
+> These instructions OVERRIDE any default behavior and must be followed exactly.
+
+## Language
+
+**This entire project is in English.** All code, comments, commit messages, PR
+titles, PR descriptions, and any other text must be written in English.
+
+## Pull requests
+
+- **The PR title becomes the squash-merge commit subject — make it describe
+  the change.** Before merging, replace any auto-generated title (e.g. a
+  branch name like `Claude/...-abc123`) with a short descriptive English
+  title that states what actually changed.
+- **One topic per PR.** A structural change (moving, adding, or renaming
+  subpackages) must not ride along in a PR titled for an unrelated sample —
+  split it into its own PR so the history stays searchable.
+
+---
+
+## 1. Repository layout
+
+All samples live under `src/`, split into exactly two top-level packages
+(abapGit `FOLDER_LOGIC=PREFIX`, `STARTING_FOLDER=/src/`). There are **no demo
+apps directly in `src/` root** — every sample sits in a categorised subpackage.
+
+```
+src/
+├── 01/  "basic"     cloud-ready & downportable — survives every build
+│   ├── 01/  Basic I
+│   ├── 02/  Basic II     framework actions, custom controls and use cases
+│   └── 08/  Control Library     1:1 rebuilds of UI5 demo kit samples, split by library
+│       ├── 00/  controls - sap.m
+│       ├── 01/  controls - sap.uxap
+│       ├── 02/  controls - sap.f
+│       ├── 03/  controls - sap.ui.core
+│       ├── 04/  controls - sap.ui.layout
+│       ├── 05/  controls - sap.tnt
+│       ├── 06/  controls - sap.ui.codeeditor
+│       └── 07/  controls - sap.ui.unified
+└── 00/  "extended"  restricted / special-purpose — STRIPPED from cloud & 702 builds
+    ├── 00/  extended                     restricted samples without a more specific category
+    ├── 01/  only non-abap-cloud          on-premise-only ABAP (not ABAP Cloud ready)
+    ├── 02/  only non-openui5 or higher UI5 1.71   SAPUI5-only controls (sap.suite.*, sap.ui.comp.*, VizFrame, …) or a control/property introduced after UI5 1.71
+    ├── 03/  only with launchpad          runs only inside the Fiori Launchpad
+    ├── 05/  only with javascript and css and html   needs native JS / CSS / HTML
+    ├── 06/  only testing                 test / scaffolding apps, not demos
+    ├── 07/  experimental, TODO           work-in-progress / not finished
+    └── 99/  obsolete                     superseded, or built on a deprecated UI5 control
+```
+
+This tree is machine-checked: `node scripts/check-agents-structure.js` compares
+it against the actual `package.devc.xml` `<CTEXT>` values and fails on any
+drift (runs in CI). **Whenever a subpackage is added, removed, or renamed,
+update this tree in the same change.**
+
+Each subpackage's `package.devc.xml` `<CTEXT>` is the human-readable name shown
+above (e.g. `only non-abap-cloud`). **That CTEXT string is also the overview
+group name — keep the two identical** (see §4).
+
+> Class names never encode the folder (`FOLDER_LOGIC=PREFIX`). Moving a sample
+> between packages needs **no rename** and keeps navigation intact — but the
+> overview catalog must be updated (§4).
+
+Every sample in `01/08` is a faithful rebuild of one specific UI5 demo kit
+sample, filed in the subpackage of the library its entity belongs to
+(`01/08/00` = sap.m, `01/08/01` = sap.uxap, …), and carries the demo kit URL
+as an ABAP Doc line directly above its `CLASS ... DEFINITION`
+(`"! Rebuild of the UI5 demo kit sample: <url>`).
+Its `<DESCRIPT>` follows the convention `<entity> - <demo kit description>`
+(e.g. `sap.m.Switch - "Some say it is only a switch, I say it i`), where the
+entity is the control from the demo kit URL and the description comes from
+the library's `demokit/docuindex.json` in openui5 (HTML markup stripped,
+truncated to the 60-character DESCRIPT limit). The **full, untruncated**
+description is kept as additional ABAP Doc lines below the URL line; the
+overview generator prefers those lines as the tile `sub` (§4).
+Demos that have no demo kit original do not belong in `01/08` — file them in
+the framework package (`01/02`, actions / custom controls / use cases) or,
+when a restriction applies, in the matching `src/00` category.
+
+Machine-generated demo kit ports that have not been manually reviewed do not
+live in this repository — they are collected in the separate api repository
+of the abap2UI5 organization. Everything under `01/08` here is manually
+reviewed.
+
+---
+
+## 2. Compatibility model — what belongs in `src/01` vs `src/00`
+
+The split is driven directly by the CI builds:
+
+| Build (workflow)   | What it does                                    | Sees `src/01` | Sees `src/00` |
+|--------------------|-------------------------------------------------|:---:|:---:|
+| `ABAP_STANDARD`    | `abaplint ./abaplint.jsonc` (syntax `v750`)     | ✅ | ✅ |
+| `ABAP_CLOUD`       | `rm -r src/00` → `abaplint abap_cloud.jsonc`    | ✅ | ❌ |
+| `ABAP_702`         | `npm run downport` (does `rm -rf src/00`) → `abaplint abap_702.jsonc` | ✅ | ❌ |
+
+**Consequence of the rule:**
+
+- **`src/01` ("basic")** — a sample may only live here if it is **ABAP Cloud
+  ready AND downportable to 7.02** and runs on plain OpenUI5 1.71 without any
+  restriction. These survive all three builds.
+- **`src/00` ("extended")** — anything with *any* restriction. It is deleted
+  before the cloud and 702 builds, so it is only ever checked by
+  `ABAP_STANDARD`. Pick the subpackage by the **first** restriction that
+  applies:
+
+  1. Needs on-premise-only ABAP (not Cloud) → `00/01`
+  2. Uses a SAPUI5-only control, **or** a control/property introduced after UI5 1.71 → `00/02`
+  3. Runs only inside the Launchpad → `00/03`
+  4. Needs native JavaScript / CSS / HTML → `00/05`
+  5. Test / scaffolding app → `00/06`
+  6. Experimental / work-in-progress → `00/07`
+  7. Deprecated control/property, or superseded → `00/99`
+  8. Otherwise restricted, not fitting any category above → `00/00` ("extended")
+
+A sample qualifies for `src/01` **only if none** of the above restrictions
+apply: OpenUI5-compatible, ABAP-Cloud-ready, standalone, every control **and**
+property available since UI5 1.71 (16 Jan 2020) **and** not deprecated, no native
+JS, not a test, finished and clean. "Old" is not enough (deprecated → `00/99`);
+"non-deprecated" is not enough (post-1.71 → `00/02`).
+
+---
+
+## 3. The two overview apps
+
+`z2ui5_cl_sample_app_g01` and `z2ui5_cl_demo_app_g00` are **overview apps** —
+generated index pages that list all samples of an area. They are *not* Fiori
+Launchpad apps; do not confuse them with the launchpad samples in `src/00/03`,
+which are the demos that run inside a real Fiori Launchpad.
+
+There is **one overview app per top-level package**, and they cross-link:
+
+| App class                | Lives in | Title                            | Mirrors     | Button → other |
+|--------------------------|----------|----------------------------------|-------------|----------------|
+| `z2ui5_cl_demo_app_g00`| `src/01` | `abap2UI5 - Samples`             | `src/01/**` | "Extended Samples" → `sample_app_g01` |
+| `z2ui5_cl_sample_app_g01`| `src/00` | `abap2UI5 - Samples (restricted)`| `src/00/**` | "Basic Samples" → `demo_app_g00` |
+
+Both are identical in shape: a `get_catalog( )` method returning a flat table of
+tiles, and a `view_display( )` that loops the catalog, emitting an H3 section
+title whenever the `group` changes and one link (`header` + optional `sub`) per
+tile. Navigation is by class name: the tile press event is the `app` value,
+`on_event` does `to_upper( )` → `CREATE OBJECT TYPE (classname)` →
+`nav_app_call( )`. A `class_exists( )` guard keeps the view from breaking on a
+missing class — but that is a safety net, **not** a substitute for keeping the
+catalog correct.
+
+Within a group, `view_display( )` also inserts a **blank line between blocks**:
+consecutive tiles whose `header` shares the same base name form one block, and a
+new block (first row gets `sapUiSmallMarginTop`) starts when the base changes.
+The base comes from `block_base( )`: in the **controls section** (groups whose
+CTEXT starts with `controls -`) it is the header's **first letter**, so a blank
+line separates letter groups only (`Button`, `ButtonGroup` render together, then
+a gap before `Carousel`); everywhere else it is the header with a trailing Roman
+numeral removed (`header_base( )`), so `Binding`, `Binding I` … `Binding VIII`
+render as one block, then a gap, then the `Event` block, and so on. All links of
+a block share the same width — the estimated render width of the widest header in
+the block plus roughly one space, precomputed by `block_widths( )` /
+`header_width( )` — so the `sub` descriptions of a block line up exactly
+underneath each other in one column, directly next to the links. This
+blank-line-between-blocks applies to the **basic** overview (`demo_app_g00`)
+only; the **extended** overview (`sample_app_g01`) lists every sample directly
+under the previous one (no inter-block blank line), keeping only the per-group
+H3 titles and the column alignment.
+
+`z2ui5_cl_demo_app_000` is the old "classic" overview app (now under `00/99`,
+obsolete); `sample_app_g01` links to it from its info message strip. Do not
+extend it.
+
+---
+
+## 4. The overview is ALWAYS (re)generated — schema & rules
+
+**Treat the two `get_catalog( )` tables as a generated mirror of the folder
+tree, never as free-form data.** Whenever you add, remove, or move a sample —
+or move a whole subpackage between `src/00` and `src/01`, or change a class's
+description — you **must** regenerate the affected catalog(s) in the same change.
+
+### Regenerate with the generator
+
+Do not hand-edit the catalogs. Run the generator, which scans the folders and
+class descriptions and rewrites both `get_catalog( )` blocks:
+
+```
+npm run launchpad      # → node scripts/generate-launchpad.js
+npx abaplint           # must report 0 issues
+```
+
+`scripts/generate-launchpad.js` implements every rule below. Edit the script (not
+the generated ABAP) if a rule changes.
+
+### Tile schema
+
+One row per app, all four fields always present:
+
+```abap
+( group = `<subpackage CTEXT>` header = `<display title>` sub = `<short description>` app = `<class name, lowercase>` )
+```
+
+| Field    | Meaning / rule |
+|----------|----------------|
+| `group`  | **Exactly** the CTEXT of the subpackage the app physically lives in. Becomes the H3 section title (rendered once, when the group changes). |
+| `header` | Link text shown to the user. **Derived from the class short text** (see below). |
+| `sub`    | Short description shown next to the link. **Derived from the class short text** (see below). May be empty (`` `` ``) → then only the link is rendered. |
+| `app`    | The app's class name in **lowercase** (folder-independent). Drives navigation. |
+
+**`header` and `sub` come from the class, not from hand-written labels.** The
+source of truth is the app class's abapGit short text `<DESCRIPT>` in its
+`*.clas.xml`, written in the format `header - sub` — except for demo kit
+rebuilds (§1), where the generator overrides `sub` with the full description
+from the ABAP Doc lines below the `"! Rebuild of the UI5 demo kit sample:`
+line:
+- Split the DESCRIPT on the **first** `` ` - ` `` (space-hyphen-space): the part
+  before is `header`, the part after is `sub` (which may itself contain ` - `).
+- No ` - ` at all → `header` = the whole DESCRIPT, `sub` = empty.
+- Unescape XML entities (`&amp;` → `&`, etc.) when copying into the ABAP literal.
+- **Controls section only** (groups whose CTEXT starts with `controls -`): the
+  generator drops the namespace prefix from `header` (`sap.m.Switch` → `Switch`
+  — the group heading already names the namespace) and truncates `sub` to one
+  line (`CONTROLS_SUB_MAX` characters, backed off to a word boundary, `+ " ..."`)
+  so the overview never wraps.
+
+When regenerating, **re-read every class's `<DESCRIPT>`** — the descriptions are
+maintained on the classes and change there, so never carry `header`/`sub` over
+from the old catalog.
+
+### Generation rules
+
+1. **One catalog per area.** Apps in `src/01/**` belong in `demo_app_g00`; apps in
+   `src/00/**` belong in `sample_app_g01`. Never list an app in the wrong overview app.
+2. **Each app appears exactly once**, and every demo app physically present in an
+   area is listed (no missing tiles) — **except hidden helper apps**: a class
+   whose `<DESCRIPT>` header is `ZZZ` (e.g. `ZZZ - called by SubApp I`) is only
+   ever called by another app and must **not** get a tile. It stays in the
+   folder (and is checked by abaplint), just not shown in the overview.
+3. **`group` == subpackage CTEXT.** If you rename a subpackage's CTEXT, update
+   every tile's `group` to match. A tile's group must equal the CTEXT of the
+   folder the class physically lives in — never a neighbouring category.
+4. **Group blocks follow folder order.** Emit groups in ascending folder number
+   (`00/00` → `00/07` → `00/99`; `01/01` → `01/08/00` → `01/08/07`) so the
+   on-screen order mirrors the tree; a nested subpackage forms its own group
+   directly after its parent slot. When inserting a new group, place it at its
+   numeric slot (e.g. `only with launchpad` = `00/03` goes **after**
+   `only non-openui5 or higher UI5 1.71` (`00/02`) and **before**
+   `only with javascript and css and html` (`00/05`)).
+5. **Within a group, sort tiles alphabetically (case-insensitive) by `header`,
+   then by `sub`.** Sorting by `header` first keeps numbered series together and
+   in order (`Binding I`, `Binding II`, `Binding III`, … underneath each other;
+   likewise `Popover I…IV`, `Popup I…III`). The group order from rule 4 is
+   untouched; only the tiles inside each group are ordered.
+6. **Moving a subpackage = moving its whole tile group** between the two
+   catalogs, inserted at the correct numeric slot (moving a subpackage from
+   `src/01` to `src/00` lifts its entire tile group out of `demo_app_g00`
+   and into `sample_app_g01`).
+7. After every change, verify: `get_catalog( )` and the folder tree agree —
+   same apps, same group names (== CTEXT), same grouping, no app in the wrong
+   overview, none missing. The safest way to regenerate is to rebuild each
+   catalog straight from the physical tree (one tile per class, group = its
+   folder CTEXT) and carry over the existing `header`/`sub` metadata.
+
+### Formatting
+
+Keep the `VALUE #( ... )` literal one tile per line, aligned as in the existing
+catalog. Follow all ABAP rules in §7 (backticks, 2-space indent, LF, final
+newline). **Run `abaplint` — 0 issues — before committing.**
+
+---
+
+## 5. Checklists
+
+**Adding a sample**
+1. Create the class; place it in the correct folder per §2.
+2. Regenerate the overview catalogs: `npm run launchpad` (§4).
+3. `abaplint` → 0 issues → commit (English message).
+
+**Moving a sample / subpackage**
+1. `git mv` the files (no rename needed — `FOLDER_LOGIC=PREFIX`).
+2. Regenerate the overview catalogs: `npm run launchpad` (§4).
+3. If a subpackage was added/removed/renamed: update the §1 tree and run
+   `node scripts/check-agents-structure.js`.
+4. `abaplint` → 0 issues → commit.
+
+**Before every commit**
+- `abaplint` reports 0 issues (config `abaplint.jsonc`).
+- `node scripts/check-agents-structure.js` reports no drift between the §1
+  tree and the actual `package.devc.xml` CTEXTs.
+- abapGit file format for all file types: UTF-8, LF only, final newline,
+  2-space indent (§6).
+- Overview catalogs still mirror the folder tree (§4).
+
+---
+
+## 6. Rules
+
+### abaplint
+
+- **Run `abaplint` before every commit. It must report 0 issues.**
+- Configuration: `abaplint.jsonc`
+- Install: `npm install -g @abaplint/cli`
+- Run: `abaplint`
+
+### abapGit file consistency
+
+All serialized files (`.abap`, `.xml`, and any other abapGit-managed file types)
+must conform to the abapGit file format:
+- **Encoding**: UTF-8 (with optional BOM: `xEF BB BF`)
+- **Line endings**: LF (`x0A`) only — never CRLF
+- **abapGit `*.clas.xml` sidecars start with the UTF-8 BOM** (`EF BB BF` before
+  `<?xml`) — abapGit writes them that way, and a BOM-less sidecar produces a
+  spurious diff on the next push from a system (human fixes 2026-07-18).
+  Copy an existing sidecar as template.
+- **Final newline**: every file must end with a single newline character after the last line
+- **Indentation**: 2 spaces — never tabs
+- **Line length**: max **255 characters** per `.abap` source line (hard ABAP
+  limit — longer lines break the abapGit import with "Literals across more
+  than one line are not allowed"; enforced via the abaplint `line_length`
+  rule). Split long string literals into `&&` chunks.
+
+**Always verify consistency for all file types before committing**, not just
+`.abap` files. abaplint covers `.abap` files; for `.xml` and other files, check
+manually or via editor tooling that the above rules are met.
+
+---
+
+## 7. Code Conventions
+
+- Follow the [SAP ABAP Style Guide](https://github.com/SAP/styleguides/blob/main/clean-abap/CleanABAP.md).
+- Never use an init flag attribute (`check_initialized`, `mv_init`, `is_initialized`, etc.). Always use `client->check_on_init( )` instead.
+- Use backticks for all string literals, not single quotes.
+- Use string templates (`|...|` with `{ }` for embedded expressions) instead of `&&` for string concatenation (e.g. `|item { name }|` not `` `item ` && name ``).
+- Prefer functional to procedural language constructs — use `var = VALUE #( ).` to reset a variable, never `CLEAR var.`.
+- Use type prefixes only for tables and structures: prefix table variables/attributes with `t_` (e.g. `t_items`) and structure variables/attributes with `s_` (e.g. `s_screen`). Do not add prefixes to scalar variables or object references.
+- Name local types with a `ty_s_` prefix for structure types (e.g. `ty_s_row`) and `ty_t_` for table types (e.g. `ty_t_rows`). Only define a `ty_t_` table type when it is used more than once — for a single-use table, declare it inline with `STANDARD TABLE OF ty_s_xxx`.
+- No blank line between a `TYPES` definition and the `DATA` declaration that directly uses it.
+- Class names are always written in **lowercase** in both `DEFINITION` and `IMPLEMENTATION` — never uppercase.
+- Classes are **not** `FINAL` — do not add the `FINAL` keyword to class definitions.
+- Use `DEFINITION PUBLIC.` — never `DEFINITION PUBLIC CREATE PUBLIC.` (`CREATE PUBLIC` is the default and adds unnecessary overhead).
+- Always include `PROTECTED SECTION.` and `PRIVATE SECTION.` in the class definition, even if empty.
+- Keep `PRIVATE SECTION.` always empty — declare everything at `PROTECTED SECTION.` level at most.
+- In every section (`PUBLIC SECTION.`, `PROTECTED SECTION.`), always follow this declaration order: `TYPES` first, then `DATA`, then `METHODS`.
+- **Blank lines — class definition** (`EMPTY_LINES_IN_CLASS_DEFINITION`):
+  - Add one blank line above each section keyword (`PUBLIC SECTION.`, `PROTECTED SECTION.`, `PRIVATE SECTION.`) — unless the preceding section is empty.
+  - No blank line directly below a section keyword.
+  - No blank line above `ENDCLASS.`.
+  - Max 1 consecutive blank line inside the definition block.
+  - Add one blank line between groups of different declaration types (e.g. between `INTERFACES` and `DATA`, or `DATA` and `METHODS`).
+- **Blank lines — outside methods** (`EMPTY_LINES_OUTSIDE_METHODS`):
+  - Exactly 2 blank lines between `ENDCLASS.` and the next `CLASS … IMPLEMENTATION.` (i.e. between the definition and the implementation block).
+  - Exactly 2 blank lines between two `METHOD … ENDMETHOD.` blocks.
+  - Exactly 2 blank lines between two top-level class blocks.
+- **Blank lines — inside methods** (`EMPTY_LINES_WITHIN_METHODS`):
+  - Always add exactly 1 blank line at the very start of a method body (after `METHOD`).
+  - Always add exactly 1 blank line at the very end of a method body (before `ENDMETHOD`).
+  - Max 1 consecutive blank line inside a method body.
+  - Always add 1 blank line **before** an `IF` block — **except** when the method is a pure dispatcher (its only purpose is to jump to other methods, with no own logic before the `IF`). In that case, omit the blank line between the opening assignment and the `IF`.
+  - Always add 1 blank line **before** `ELSEIF` and `ELSE`.
+  - In setup methods (`on_init` and similar), add 1 blank line between the last data assignment and the first non-assignment statement (e.g. before `view_display( )`):
+    ```abap
+    METHOD on_init.
+
+      price    = `1234`.
+      currency = `EUR`.
+
+      view_display( ).
+
+    ENDMETHOD.
+    ```
+  - If a branch (`IF`, `ELSEIF`, `ELSE`) contains **more than one statement**, add 1 blank line directly after the condition line as well:
+    ```abap
+    me->client = client.
+
+    IF client->check_on_init( ).
+
+      product  = `products`.
+      quantity = `500`.
+      view_display( ).
+
+    ELSEIF client->check_on_event( `SAVE` ).
+      data_update( ).
+    ENDIF.
+    ```
+- Always run `abaplint` after every change. It must report 0 issues before committing.
+- Before starting app development, read all active rules in `abaplint.jsonc` and follow them throughout.
+
+---
+
+## 8. Framework Reference
+
+For deeper information about how the abap2UI5 framework works internally —
+architecture, roundtrip processing, data binding engine, session persistence,
+and core classes — refer to the
+[abap2UI5 repository](https://github.com/abap2UI5/abap2UI5) and its `AGENTS.md`.
+
+---
+
+## 9. How Apps Work
+
+Every abap2UI5 app implements `z2ui5_if_app` with a single `main()` method. The framework calls `main()` on every roundtrip (HTTP POST). Use the lifecycle checks to react to different situations:
+
+- `client->check_on_init( )` — true on the very first call
+- `client->check_on_navigated( )` — true when returning from a sub-app or popup — re-display the view here (see below)
+- `client->check_on_event( )` — true when a user triggered an event
+
+Always use `ELSEIF` to chain these checks — never separate `IF` blocks:
+```abap
+IF client->check_on_init( ).
+  ...
+ELSEIF client->check_on_navigated( ).
+  ...
+ELSEIF client->check_on_event( ).
+  ...
+ENDIF.
+```
+
+### Returning from a sub-app — always re-display the view
+
+When a called sub-app takes over the screen with its own `view_display( )` and later returns via `nav_app_leave( )`, the browser still shows the sub-app's view — the framework does not restore the previous view automatically. All class attributes survive the roundtrip serialization, so there is nothing to re-read: simply call `view_display( )` again in the `check_on_navigated( )` branch. Do **not** call `data_read( )` or similar there.
+
+```abap
+IF client->check_on_init( ).
+  data_read( ).
+  view_display( ).
+ELSEIF client->check_on_navigated( ).
+  view_display( ).
+ELSEIF client->check_on_event( `SAVE` ).
+  data_update( ).
+ENDIF.
+```
+
+Calling `view_display( )` in the `check_on_navigated( )` branch is **always safe** — even after a popup, where the main view stayed on screen, it simply re-renders the same view. Use it as the general rule. Only as an optional optimization, when the app returns exclusively from a popup (`z2ui5_cl_pop_*` / `popup_display`), a `client->view_model_update( )` is sufficient — never rely on it when a full-screen sub-app can be called.
+
+### Event checking — inline vs. CASE
+
+`check_on_event( )` accepts an optional event name argument. Use it to check for a specific event directly in the `ELSEIF` chain when there are **2–3 events** and no complex dispatch logic is needed:
+
+```abap
+IF client->check_on_init( ).
+  ...
+ELSEIF client->check_on_event( `SAVE` ).
+  data_update( ).
+ELSEIF client->check_on_event( `DELETE` ).
+  data_delete( ).
+ENDIF.
+```
+
+Use a `CASE` statement (inside an `ELSEIF client->check_on_event( )` block) only when there are **4 or more events**, or when a dedicated `on_event` method is extracted for a larger app.
+
+### Client API (`z2ui5_if_client`)
+
+| Category | Methods | Purpose |
+|---|---|---|
+| Views | `view_display`, `view_destroy`, `view_model_update` | Main view lifecycle |
+| Nested views | `nest_view_display/destroy/model_update`, `nest2_view_*` | Embedded sub-views |
+| Popups | `popup_display`, `popup_destroy`, `popup_model_update` | Modal dialogs |
+| Popovers | `popover_display`, `popover_destroy`, `popover_model_update` | Context popovers |
+| Binding | `_bind(val)`, `_bind_edit(val)` | Read-only / two-way binding |
+| Events | `_event(val)`, `_event_client(val)`, `check_on_event(val)` | Event registration and checking |
+| Navigation | `nav_app_call(app)`, `nav_app_leave()`, `get_app_prev()` | App stack navigation |
+| Lifecycle | `check_on_init()`, `check_on_navigated()`, `check_app_prev_stack()` | State checks |
+| Messages | `message_box_display(text)`, `message_toast_display(text)` | User notifications |
+| Session | `set_session_stateful(val)`, `set_app_state_active(val)` | Session management |
+| Browser | `set_push_state(val)`, `set_nav_back(val)`, `follow_up_action(val)` | Browser interaction |
+| Info | `get()`, `get_event_arg()`, `get_app(id)` | Request/context data |
+| Constants | `cs_event`, `cs_view` | Predefined event IDs and view names |
+
+### Navigation
+
+**Back Navigation** — always use `client->_event_nav_app_leave()` to bind the back button event directly in the view. This triggers navigation without a roundtrip to the ABAP backend:
+
+```abap
+METHOD view_display.
+
+  DATA(view) = z2ui5_cl_xml_view=>factory( ).
+  DATA(page) = view->shell(
+      )->page(
+          title          = `My App`
+          shownavbutton  = client->check_app_prev_stack( )
+          navbuttonpress = client->_event_nav_app_leave( ) ).
+  " ...
+  client->view_display( view->stringify( ) ).
+
+ENDMETHOD.
+```
+
+Only use the manual pattern (handling `BACK` in `on_event`) when you need to do something with the app or client instance **before** navigating back — for example, writing data back to the previous app:
+
+```abap
+METHOD on_event.
+
+  CASE client->get( )-event.
+    WHEN `BACK`.
+      " interact with previous app instance first
+      CAST z2ui5_cl_app_parent( client->get_app_prev( ) )->set_result( s_result ).
+      client->nav_app_leave( ).
+  ENDCASE.
+
+ENDMETHOD.
+```
+
+---
+
+## 10. Building Views
+
+Views are XML strings passed to `client->view_display()`, built with the
+`z2ui5_cl_xml_view` fluent API — typed methods where they exist, `_generic( )`
+for the rest.
+
+### 1. `z2ui5_cl_xml_view` — typed fluent API
+Pre-built methods for common UI5 controls (`shell`, `page`, `simple_form`, `input`, `button`, etc.). Use this for standard layouts.
+
+#### View structure and indentation
+
+Always add 1 blank line before `DATA(view) = z2ui5_cl_xml_view=>factory( ).` to visually separate view construction from preceding logic.
+
+Always build the view in `view_display` and call `client->view_display( view->stringify( ) )` as a **standalone statement at the end** — never nested inside the chain.
+
+Indent the fluent chain to reflect the XML hierarchy:
+- Each method that **navigates into a child element** (returns a child node) is indented **4 spaces deeper** than its parent call.
+- Methods that **add a sibling** within the same container (and return the container) stay at the **same indentation level**.
+
+#### Parameter formatting
+
+- **Single parameter**: write inline — `)->label( `Quantity` )` or `)->input( client->_bind_edit( qty ) )`.
+- **More than one parameter**: always split across multiple lines — one parameter per line, aligned below the opening `(`, closing `)` on its own line:
+
+```abap
+)->input(
+    value   = product
+    enabled = abap_false
+)->button(
+    text  = `Post`
+    press = client->_event( `POST` ) ).
+```
+
+Never put two or more named parameters on the same line.
+
+```abap
+METHOD view_display.
+
+  DATA(view) = z2ui5_cl_xml_view=>factory( ).
+  view->shell(
+      )->page(
+          title          = `My App`
+          navbuttonpress = client->_event_nav_app_leave( )
+          shownavbutton  = client->check_app_prev_stack( )
+          )->simple_form(
+              title    = `Form Title`
+              editable = abap_true
+              )->content( `form`
+              )->label( `Quantity`
+              )->input( client->_bind_edit( quantity )
+              )->label( `Product`
+              )->input(
+                  value   = product
+                  enabled = abap_false
+              )->button(
+                  text  = `Post`
+                  press = client->_event( `POST` ) ).
+  client->view_display( view->stringify( ) ).
+
+ENDMETHOD.
+```
+
+The hierarchy above is: `shell` → `page` → `simple_form` → `content` → (leaf elements).
+`label`, `input`, `button` are siblings inside `content`, so they stay at the same indent level as `)->content(`.
+
+### 2. `_generic( )` — controls without a typed method
+
+When a control or aggregation has no typed wrapper method (yet), stay inside
+the `z2ui5_cl_xml_view` chain and add the element generically. **Look up the
+control in the [UI5 API Reference](https://ui5.sap.com/#/api) and translate
+1:1** — element name, namespace and properties exactly as documented:
+
+```abap
+header_title->_generic(
+    name   = `breadcrumbs`
+    ns     = `f`
+    )->breadcrumbs(
+        )->link( text = `Home` ).
+```
+
+**Binding paths always come from a bind call — never hardcode them.** Every
+model value a view references must be registered through
+`client->_bind_edit( )` (use `_bind_edit`, not the one-way `_bind`): a
+hand-written path (`{/START_DATE}`, or `{ path: '/START_DATE', ... }` in a
+raw binding-info string) is NOT part of the serialized model — the frontend
+receives no data for it and typed/object properties crash on the missing
+value (human find 2026-07-18 in samples 456/457). Compose raw binding-info
+strings with the bare path from
+`client->_bind_edit( val = x path = abap_true )`.
+
+Key rules for `_generic( )`:
+- `_generic( name = ... ns = ... t_prop = ... )` adds one element and
+  navigates **into** it; typed methods continue the chain below it.
+- **Navigation is per-method, not uniform — check `result =` in
+  `z2ui5_cl_xml_view` before chaining siblings.** Methods returning
+  `result = me` stay on the current node (leaf controls like `text`,
+  `button`, `object_number`, `search_field`, `standard_list_item`,
+  `message_strip`) — siblings chain directly. Methods returning
+  `result = _generic( ... )` navigate INTO the new element (all containers
+  and aggregations, but also child-less controls like `object_status`) —
+  a following sibling needs `->get_parent( )` first, or it silently nests
+  inside and UI5 fails view creation with "Cannot add direct child
+  without default aggregation" (bit sample 453: two chained
+  `object_status` cells).
+- Attributes go into `t_prop = VALUE #( ( n = `...` v = `...` ) ... )`.
+- `ns` is registered on the view automatically — only pass namespaces that
+  are actually used.
+- Raw embedded content (e.g. an inline `<style>` body) goes through
+  `_cc_plain_xml( )`.
+
+> The former standalone XML builder `z2ui5_cl_util_xml` is retired in the
+> framework (obsolete package, no new consumers) and is no longer used by any
+> sample — do not use it in new samples.
+
+#### VALUE #( ) formatting
+
+In `VALUE #( )` constructor expressions with named fields, use **either** entirely inline (all fields on one line) **or** each field on its own line — never mix both styles in the same expression:
+
+```abap
+" Wrong — mixed
+t_products = VALUE #(
+  ( name = `Notebook Basic 15`  product_id = `HT-1000` supplier_name = `Very Best Screens`
+    dimensions = `30 x 18 x 3 cm` weight_measure = `4.2` weight_unit = `KG` ) ).
+
+" Correct — one field per line, = signs aligned
+t_products = VALUE #(
+  ( name           = `Notebook Basic 15`
+    product_id     = `HT-1000`
+    supplier_name  = `Very Best Screens`
+    dimensions     = `30 x 18 x 3 cm`
+    weight_measure = `4.2`
+    weight_unit    = `KG` ) ).
+```
+
+---
+
+## 11. App Structure
+
+### Simple apps (< 50 lines in `main`)
+
+Write everything directly in `main` — no method encapsulation needed. Count only the lines inside the `main` method, not the total class length.
+
+**Do not extract `view_display` or any other helper method just because the app has a view.** A separate `view_display` method is only justified when the app is large enough to warrant the full canonical structure (≥ 50 lines in `main`). Extracting it in a simple app adds unnecessary indirection.
+
+### Larger apps — canonical template
+
+When the logic no longer fits inside `main`, always extract exactly `on_init` and `on_event` as the first step — never use other method names for this purpose. `main` then becomes a pure dispatcher that calls these two methods. Only add further methods (`view_display`, `data_read`, etc.) when they are actually needed.
+
+In the `check_on_navigated( )` branch the dispatcher calls `view_display( )` directly — the app state survived the serialization, only the view must be re-displayed. Extract a dedicated `on_navigation` method only when the app additionally needs to process results from the called sub-app (via `get_app_prev( )`) before re-displaying.
+
+**Never create a pass-through method with only one statement.** If an extracted method (e.g. `on_init`) would contain only a single call, replace the method call in the dispatcher with that single call directly — and omit the pass-through method entirely. For example, if `on_init` would only call `view_display( )`, write `view_display( )` directly in the `IF client->check_on_init( ).` branch instead.
+
+### Event handler sub-methods
+
+When the body of a single `WHEN` branch in `on_event` grows too long, extract it into a dedicated method named `on_event_<event>` (e.g. `on_event_save`, `on_event_delete`). The `on_event` method then stays a thin dispatcher — one call per branch — and all the logic lives in the sub-method.
+
+The following is the **maximum structure**. Only add methods that are actually needed.
+
+```abap
+CLASS z2ui5_cl_app_xxx DEFINITION PUBLIC.
+  PUBLIC SECTION.
+    INTERFACES z2ui5_if_app.
+    " bound data (DATA attributes for _bind/_bind_edit)...
+  PROTECTED SECTION.
+    DATA client TYPE REF TO z2ui5_if_client.
+
+    METHODS on_init.        " first call: load data, display view
+    METHODS on_event.       " user triggered an event
+    METHODS view_display.   " build and render the view
+    METHODS data_read.      " SELECT from database
+    METHODS data_update.    " INSERT / UPDATE / DELETE
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+CLASS z2ui5_cl_app_xxx IMPLEMENTATION.
+
+  METHOD z2ui5_if_app~main.
+
+    me->client = client.
+    IF client->check_on_init( ).
+      on_init( ).
+    ELSEIF client->check_on_navigated( ).
+      view_display( ).
+    ELSEIF client->check_on_event( ).
+      on_event( ).
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD on_init.
+
+    data_read( ).
+    view_display( ).
+
+  ENDMETHOD.
+
+
+  METHOD on_event.
+
+    CASE client->get( )-event.
+      WHEN `SAVE`.
+        on_event_save( ).
+      WHEN `BACK`.
+        client->nav_app_leave( ).
+    ENDCASE.
+
+  ENDMETHOD.
+
+
+  METHOD on_event_save.
+
+    data_update( ).
+
+  ENDMETHOD.
+
+
+  METHOD view_display.
+
+    DATA(view) = z2ui5_cl_xml_view=>factory( ).
+    " ...
+    client->view_display( view->stringify( ) ).
+
+  ENDMETHOD.
+
+
+  METHOD data_read.
+
+    " SELECT ...
+
+  ENDMETHOD.
+
+
+  METHOD data_update.
+
+    " INSERT / UPDATE / DELETE ...
+
+  ENDMETHOD.
+
+ENDCLASS.
+```
+
+---
+
+## 12. Sample content conventions
+
+Learned while curating the `01/01` (Basic I) and `01/02` (Basic II) packages —
+follow these so new/edited samples stay consistent:
+
+- **Every sample opens with an intro `MessageStrip`.** As the **first control in
+  the page content** (right after the page is created, before the form/table),
+  add a short, specific English explanation of what the sample demonstrates:
+  ```abap
+  page->message_strip(
+      text     = `<one or two sentences: what this sample shows / does>`
+      type     = `Information`
+      showicon = abap_true
+      class    = `sapUiSmallMargin` ).
+  ```
+  Split a long `text` into `` `chunk ` && `` continuation lines (≤255 chars/line,
+  aligned under the first backtick). If the view is one uncaptured fluent chain,
+  capture the page first (`DATA(page) = <view>->shell( )->page( ... ).`).
+
+- **`01/02` DESCRIPTs carry a capability marker** appended to the `<DESCRIPT>`
+  (leading space), surfaced in the overview:
+  - `(C)` — uses an abap2UI5 **custom control** (`view->_z2ui5( )->…`, or the
+    `z2ui5` cc namespace: `_generic( … ns = `z2ui5` … )`, `z2ui5.cc`, `xmlns:z2ui5`).
+  - `(A)` — performs a **frontend action**: `client->_event_client( )`,
+    `client->follow_up_action( )` (including the `cs_event-control_by_id` /
+    `cs_event-control_global` / `cs_event-binding_call` events), or a
+    client-side interaction like drag-and-drop. The ubiquitous back-button
+    `client->_event_nav_app_leave( )` does **not** count.
+  - `(A,C)` — both. Regenerate the overviews after changing any DESCRIPT (§4).
+
+- **A read-only info form disables its inputs** (`enabled = abap_false`) — do not
+  leave display-only values in editable inputs (see `z2ui5_cl_demo_app_122`).
+
+- **No redundant footer Back button.** The `shell( )->page( )` already renders a
+  nav-back button (`navbuttonpress` / `shownavbutton`); do not add a second
+  `Back` button in the page footer (removed from the MessageBox / MessageToast
+  samples).
+
+- **Must run on OpenUI5 1.71 — watch for "phantom control" 404s.** A generic
+  aggregation-escape method that names an aggregation the parent does **not**
+  have makes UI5 resolve it as a *control class* and 404 with `failed to load
+  sap/<lib>/<name>.js` on 1.71, crashing the sample. Two real cases:
+  - `object_page_section( )->heading( `uxap` )` — `sap.uxap.ObjectPageSection`
+    has no `heading` aggregation. Put the section title in `title = `…`` and go
+    straight to `sub_sections( )`. (`heading( `f` )` **is** valid on a
+    `dynamic_page_title( )` — sap.f `DynamicPageTitle` has that aggregation.)
+  - `<footer>` on a popup `Dialog` — `sap.m.Dialog` only got a public `footer`
+    aggregation ~1.110; a `page( )->footer( )` is fine (sap.m.Page always had
+    one). Every control/property in `src/01` must exist since 1.71 (§2); when in
+    doubt check "available since" in the demo kit.
+
+- **`sap.m.SimpleForm` needs `editable = abap_true`** for its label/input pairs
+  to line up on one row — without it the form renders in display mode and the
+  first field is mislaid (fixed in `189`; compare `133`).
+
+- **`StandardListItem`: `info` right-aligns to the far edge** (a status/amount
+  slot). For a secondary attribute that belongs *with* the title (e.g. a
+  product's category) use `description` — a left-aligned subtitle — instead; the
+  far-right float looks disconnected on wide screens (fixed in `454`/`455`).
+
+- **The page title should carry the `<DESCRIPT>` text.** A user clicks a tile in
+  the overview (which shows the DESCRIPT) and the opened sample's
+  `page( title = … )` should name the same thing so it is recognisably the right
+  sample — e.g. `045` had a copy-pasted "Scroll Container" title on a "Backend
+  Filter" sample.
+
+- **Start every view from `view->shell( )->page( … )`** (not `view->page( … )`)
+  so all samples share the same outer frame (fixed in `143`).
+
+- **Give a `search_field` an explicit `placeholder`.** Without one UI5 shows its
+  locale default (German "Suchen" on a DE system), which clashes with the
+  otherwise-English samples.
+
+---
+> Source: [abap2UI5/samples](https://github.com/abap2UI5/samples) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
