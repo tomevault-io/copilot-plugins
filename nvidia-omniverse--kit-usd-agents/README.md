@@ -1,8 +1,6 @@
 # kit-usd-agents
 
-> Tome by [NVIDIA-Omniverse](https://github.com/NVIDIA-Omniverse/kit-usd-agents) — distributed by [TomeVault](https://tomevault.io)
-
-The base repository to build OmniverseKit USD agents. 
+> Tome by [NVIDIA-Omniverse](https://github.com/NVIDIA-Omniverse/kit-usd-agents), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
