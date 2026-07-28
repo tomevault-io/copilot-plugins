@@ -1,0 +1,9 @@
+{
+  "name": "andrewdryga--emisar",
+  "displayName": "emisar",
+  "description": "An MCP that lets AI tools securely connect to your infrastructure, write IaaS code, debug issues, and assist during incidents - without risking production stability. Built for security teams to approv",
+  "version": "1.0.0",
+  "author": "AndrewDryga",
+  "homepage": "https://github.com/AndrewDryga/emisar",
+  "skills": []
+}
