@@ -1,0 +1,9 @@
+{
+  "name": "sap-samples--kyma-runtime-samples",
+  "displayName": "kyma-runtime-samples",
+  "description": "kyma-runtime-samples",
+  "version": "1.0.0",
+  "author": "SAP-samples",
+  "homepage": "https://github.com/SAP-samples/kyma-runtime-samples",
+  "skills": []
+}
