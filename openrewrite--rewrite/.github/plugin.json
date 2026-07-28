@@ -1,0 +1,9 @@
+{
+  "name": "openrewrite--rewrite",
+  "displayName": "rewrite",
+  "description": "rewrite",
+  "version": "1.0.0",
+  "author": "openrewrite",
+  "homepage": "https://github.com/openrewrite/rewrite",
+  "skills": []
+}
