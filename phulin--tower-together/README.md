@@ -1,8 +1,6 @@
 # AI instruction files for tower-together
 
-> Sourced from [phulin/tower-together](https://github.com/phulin/tower-together) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A perfect clone of 1993 game SimTower.
+> Sourced from [phulin/tower-together](https://github.com/phulin/tower-together), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [phulin/tower-together](https://github.com/phuli
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [phulin/tower-together](https://github.com/phulin/tower-together) — a repo with 8+ stars on GitHub.
+From [phulin/tower-together](https://github.com/phulin/tower-together) — a repo with 62+ stars on GitHub.
 
 ---
 
