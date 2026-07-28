@@ -1,185 +1,91 @@
 ## agentic-seo-skills
 
-> Agentic SEO is a Claude Code-first plugin that should remain portable to Codex, Antigravity, and other agents that read `AGENTS.md`.
+> These rules apply to every change inside `apps/companion/`.
 
-# Agentic SEO Agent Instructions
+# Companion UI Conventions
 
-Agentic SEO is a Claude Code-first plugin that should remain portable to Codex, Antigravity, and other agents that read `AGENTS.md`.
+These rules apply to every change inside `apps/companion/`.
 
-## Product Direction
+## Internationalisation
 
-Agentic SEO implements Agentic SEO through six pillars:
+The Companion is fully bilingual. English is the canonical language; Brazilian
+Portuguese (`pt-BR`) is the official second language. Every user-visible string
+must go through `useI18n().t('namespace.key')` — no hardcoded English or
+Portuguese in JSX, toasts, ARIA labels, placeholders, or option labels.
 
-1. Strategy
-2. Brain
-3. Technology
-4. Technical SEO
-5. Content
-6. Data and Analysis
+- Add new keys to both `en` and `pt-BR` blocks in
+  `apps/companion/src/lib/i18n.ts`. Keep the English copy authoritative;
+  translate to `pt-BR` immediately.
+- Names that double as UI labels for paths (e.g. `brain/index.md`, virtual
+  sections) go through `displayPageTitle` in `src/lib/page-display.ts`. The
+  store keeps canonical English titles (`Brain`, `Content`, `Workbench`,
+  `Reports`); the UI translates at render time.
+- "Brain" in English maps to "Cérebro" in `pt-BR` (`common.brain`). Never
+  short-circuit this with a literal string.
+- Server-only strings that land in the authorial Brain log (`brain/log.md`)
+  stay in `pt-BR` — they are editorial content for the project, not UI.
 
-Humans own judgment. Agents execute intelligence. Agent decisions may update project files directly when evidence and checks are recorded in `project/brain/log.md`; `tipo: aprovacao` remains valid only for legacy log history.
+If you add a new component, audit it for hardcoded text before merging:
 
-## Repository Shape
-
-This repository root is the plugin root.
-
-- Claude Code manifest: `.claude-plugin/plugin.json`
-- Codex manifest: `.codex-plugin/plugin.json`
-- Skills: `skills/<skill-name>/SKILL.md`
-- Refactor continuity: `docs/refactor-status.md`
-- Tools: `tools/` for deterministic provider CLIs.
-- Templates: `templates/`
-- Utility scripts: `scripts/`
-- Runtime project: `project/` and ignored by git except `project/.gitkeep`
-
-## Compatibility Rules
-
-- Keep skill bodies in standard `SKILL.md` directories so Claude Code and Codex can discover them.
-- Keep cross-tool behavior in `AGENTS.md`, not only in Claude-specific files.
-- Keep user-facing runtime behavior in the canonical `agentic-seo` skill; `AGENTS.md` and `CLAUDE.md` are development guidance.
-- Do not rely on terminal output as the primary UX for nontechnical users.
-- Prefer local web UI artifacts for previews, decisions, and reports.
-- Do not commit secrets, raw user project data, generated runs, or provider responses from real clients.
-
-## Process Integrity
-
-The default is to follow the full documented process. Do not skip analysis, decision recording, review, lint, source separation, or other gates because the user gave a narrow request, because an old artifact exists, or because a shortcut seems sufficient.
-
-- A process step may be skipped only when the current user explicitly asks to skip that specific step or confirms the bypass after the agent names the missing step and consequence.
-- Existing drafts, previous briefings, homepage-only context, or agent confidence do not waive preconditions.
-- When a bypass is explicit, record it in the artifact and append a `tipo: decisao` entry to `project/brain/log.md` before presenting the result. State clearly that the artifact is not data-backed for the skipped dimension.
-- A decision on an artifact is not acceptance of an undisclosed bypass. Decision requests must show missing analysis, missing sources, and skipped checks before the user decides.
-- If a required process cannot run, stop at the gate, run the local browser handoff as the agent when possible, and present only a friendly user instruction. Do not hand bash commands to the user as the UX for decisions or gates.
-
-## Language Fidelity
-
-Agentic SEO is English-first and supports Brazilian Portuguese as an official second language, but generated natural-language output should work in any requested language.
-
-- Preserve the spelling, accents, and diacritics of the output language in all human-facing prose, headings, UI text, Markdown, logs, reports, prompts, and review notes.
-- For pt-BR, write correct Portuguese with accents: `página`, `conteúdo`, `análise`, `evidência`, `aprovação`, `técnico`, `não`, `até`.
-- ASCII transliteration is allowed only for slugs, file paths, IDs, enum values, command names, provider payloads, code identifiers, or verbatim source text that originally has no diacritics.
-- Never strip accents from user-provided names, titles, claims, excerpts, anchors, or editorial text while summarizing, extracting, reviewing, or rewriting.
-
-## Brain Rules
-
-Every Agentic SEO project keeps authorial knowledge in one place: `project/brain/`. Open it as the Obsidian vault. Public content, evidence, and intermediate artifacts live outside `brain/` so the brain stays small and editable.
-
-### Layout
-
-```
-project/
-  brain/
-    index.md          # mapa + dashboard curto
-    identidade.md     # brandbook narrativo (aposto, parágrafo, frase-marca, público, canais)
-    voz.md            # princípios editoriais
-    tecnologia.md     # contexto técnico observado + SEO técnico
-    editorial.md      # áreas de conteúdo
-    topic-clusters.md # clusters semânticos
-    log.md            # append-only, autoral
-  sources/            # raw, imutável
-  conteudos/          # produto público
-    blog/<slug>.md
-    linkedin/<slug>.md
-    podcast/<slug>.md
-    outros/<slug>.md
-  artifacts/          # entregáveis intermediários e drafts
-  workbench/          # rascunhos antes de virar entrada no brain
+```bash
+rg "[áéíóúãõçâêô]" apps/companion/src --type tsx
 ```
 
-### Frontmatter
+The grep above should return zero matches outside `src/lib/i18n.ts`.
 
-Brain pages: `title`, `updated`. No `status`, `judgment_level`, `pillar`, `owner`, `approved_by`, `approved_at`. Confiança vem do log.
+## Links e fontes
 
-Public content (`conteudos/<origem>/<slug>.md`): `title`, `slug`, `published_at`, `source_url`, `origem` (`blog | linkedin | podcast | outros`), `area` (slug que existe como seção em `brain/editorial.md`).
+- Links Markdown externos (`https://`, `mailto:`) renderizam clicáveis no editor.
+  Clique abre em nova aba com `noopener,noreferrer`.
+- Links para `sources/**` abrem em um modal interno (`SourceViewerModal`) que
+  carrega o arquivo via `GET /api/project/source?path=...` num `<iframe sandbox>`.
+  O endpoint roda no Companion local, exige token e bloqueia traversal, paths
+  fora de `sources/`, extensões não-whitelisted e arquivos acima de 2 MB.
+- Para adicionar ou editar link com texto selecionado, usar o `LinkEditModal`
+  (botão Link no bubble menu ou Cmd+K). Nunca usar `window.prompt`.
+- PageMention (`[[wiki]]`) renderiza no editor sem o prefixo `@`. O `@` é só
+  atalho de digitação; quem está lendo vê apenas o título resolvido.
 
-### Brain-first protocol
+## Markdown round-trip
 
-- Mudança em arquivo autoral do brain (`identidade`, `voz`, `tecnologia`, `editorial`, `topic-clusters`, `index`) pode ser aplicada diretamente quando a evidência e a decisão forem registradas em `brain/log.md` como `tipo: decisao` com `aprovador: agent` ou nome humano.
-- Mudança operacional (catalogar fonte, registrar lint, registrar publicação, anotar errata) vai direto pro `log.md` com `aprovador: agent` ou nome humano.
-- O log é append-only. Erratas são novas entradas referenciando a entrada anterior, não reescrita.
+Páginas autorais ficam em Markdown no disco e abrem no Tiptap editor. O parser
+e o serializer estão em `apps/companion/src/lib/markdown.ts` e delegam o tratamento
+inline para `apps/companion/src/lib/inline-markdown.ts`. Os dois lados precisam ficar
+em sincronia: tudo que o parser produz, o serializer reconstrói; tudo que o serializer
+gera, o parser entende. O smoke test em `tests/test_companion_markdown_roundtrip.mjs`
+é o portão dessa garantia.
 
-### Tipos de log
+Sintaxe inline suportada e preservada round-trip:
 
-`aprovacao`, `decisao`, `errata`, `lint`, `ingestao`, `publicacao`, `prova`. Schema completo na skill `brain-keeper`.
+- Wikilink: `[[pagina]]`, `[[pagina#âncora]]`, `[[pagina|alias]]`, `[[pagina#âncora|alias]]`.
+- Link Markdown: `[texto](url)` ou `[texto](url "title")`.
+- Code inline: `` `código` ``.
+- Negrito: `**texto**` ou `__texto__`.
+- Itálico: `*texto*` ou `_texto_`.
 
-### Wikilinks
+Skills que escrevem markdown podem usar essas formas livremente; o Companion vai
+renderizar como link clicável, código mono, negrito e itálico, e re-salvar o
+markdown sem dano. Não inventar outras sintaxes (autolink HTML, sublinhado com
+`__`, strikethrough com `~~`, image inline) sem atualizar o parser, o serializer
+e o teste de round-trip ao mesmo tempo.
 
-Use Obsidian wikilinks `[[...]]` apenas para arquivos reais dentro de `brain/`. Use Markdown links normais para `../sources/`, `../conteudos/`, e URLs externas.
+DRY: o parser de uma sintaxe nova vai em `inline-markdown.ts` (como `matchLink`,
+`matchCodeSpan`, etc.) e o serializer correspondente entra em `serializeNode`
+do mesmo arquivo. Não duplicar parsing em outros lugares.
 
-### Regra editorial
+## Form controls
 
-A skill `brain-keeper` carrega a regra dura de escrita jornalística imparcial (lead na primeira frase, atribuição visível, sem opinião dissimulada, anti-IA-slop, anti-Conversion-explainer, preservação de acentos pt-BR). Particularidades do projeto vão em `brain/voz.md`.
+Never use native form selects (`<select>` / `<option>`). They render the
+browser's default chrome and break visual consistency.
 
-### Public content
+Use the styled component at `apps/companion/src/components/select.tsx` for
+every dropdown. Pass `triggerClassName` to match the surrounding control style
+(e.g. filter row, frontmatter field, modal). Add new variants by extending
+that component, not by reintroducing native selects.
 
-Public content lives in `project/conteudos/<origem>/<slug>.md`. Drafts and reviews stay in `project/workbench/content/<slug>/` and `project/artifacts/contents/<slug>/`. The `area:` field in the frontmatter must match a section slug in `brain/editorial.md`.
-
-### Project Subfolders
-
-Skill artifacts live under one folder per dimension per slug, separate from the brain. The brain remains the only authorial knowledge layer; these dimension folders hold provider evidence, working analysis, drafts, and per-run deliverables.
-
-| Dimension | Canonical root | Layout |
-|---|---|---|
-| Content | `project/contents/<slug>/` | `workbench/`, `sources/`, `draft.md`, `published.md`, `checks.yaml` |
-| Keywords | `project/keywords/<seed-slug>/` | `sources/`, `report.yaml` |
-| Audits (technical-seo, seo-analysis, internal-links, backlink-analysis, serp-extract) | `project/audits/<slug>/` | `sources/`, `report.yaml`, optional `report.md` |
-| Topic cluster | `project/clusters/<seed-slug>/` | `sources/`, `cluster.json`, optional projection |
-| EEAT | `project/eeat/<entity-or-run-slug>/` | `sources/`, `report.md` |
-| Brain (authorial) | `project/brain/` | direct edits allowed when recorded as `tipo: decisao` in `brain/log.md` |
-
-Skills read the brain for context (identidade, voz, tecnologia, editorial) and may write brain changes when the decision, evidence, and limitations are recorded in `brain/log.md`.
-
-## Browser Handoff
-
-For previews, decisions, sensitive input, and option selection, prefer a local browser handoff over terminal interaction.
-
-- Implementation lives in `scripts/companion.mjs` and templates under `templates/companion/`.
-- Do not show users raw `node scripts/companion.mjs ...` commands as the primary handoff UX. Ask whether you may open a local browser window for the decision, preview, or sensitive input flow, then run the companion yourself when the user agrees.
-- Each handoff binds to `127.0.0.1` on an ephemeral port, requires a one-time token, validates `Origin`/`Host`, and shuts down on submit, cancel, or TTL expiry.
-- Sensitive values (credentials, API keys) are never echoed to agent stdout, never logged in full, and never written to the repo root `.env`. They are stored via Claude Code `userConfig` when running as a plugin, or in `project/.env.local` when running standalone.
-- Handoff state lives outside `project/` (in `.companion/handoffs/`, gitignored) so skill `Writes only` contracts remain intact.
-- Every handoff submission appends to `project/brain/log.md` with the appropriate `tipo:`.
-
-## Plugin Development
-
-Use these rules when changing manifests, skills, templates, scripts, or agent instructions.
-
-- Read `docs/refactor-status.md` for the current refactor state before starting work.
-- Canonical skills should be self-sufficient narrative `SKILL.md` files. Do not reintroduce required cross-skill reads through `skills/_shared/`.
-- Deterministic provider and audit behavior belongs in `tools/`, `scripts/`, or `src/commands/`, not hidden inside natural-language skill contracts.
-- Keep agent files short; put durable workflow detail in `skills/<skill>/SKILL.md`, local skill references, scripts, fixtures, or templates.
-- Treat every skill change as a verifiable workflow change. Before implementation is complete, define the skill contract, inputs, outputs, fixture strategy, and pass/fail criteria.
-- Prefer Autoresearch-style loops: one skill or subsystem per run, baseline first, fixed fixtures or budget, explicit metric or rubric, and a keep/reject decision. For deeper context, see `karpathy/autoresearch`. The runtime engine is `scripts/autoresearch.mjs`; doctrine lives in `program.md`.
-- Validate meaningful skill changes with sub-agents that run or simulate the target skill against fixtures. Use one executor-style sub-agent and, for nontrivial changes, one reviewer-style sub-agent focused on contract drift, hallucination risk, source separation, and decision/check gates.
-- Sub-agent output is evidence, not a final decision. The main agent remains responsible for integration and log entries.
-- Keep eval artifacts reviewable. Save development run notes in `.context/skill-evals/`; commit only reusable fixtures, scripts, templates, and concise docs.
-- Keep an implementation only when it passes the agreed checks or preserves behavior while simplifying the workflow. Log rejected experiments with the reason.
-- Separate extracted data, LLM synthesis, and human judgment in every artifact.
-- Never fabricate keyword volume, backlinks, credentials, awards, clients, or proof.
-
-## Size & Language Budgets
-
-Use size as an editorial principle, not as a contract that forces under-explained skills. Keep artifacts focused, but let user-facing skills carry enough context to guide agents without excessive reference chasing.
-
-| Artifact | Path | Guideline | Structural trigger | Overflow strategy |
-|---|---|---|---|---|
-| Skill body | `skills/*/SKILL.md` | 60-120 lines for most skills | >250 lines means review structure | Move durable detail to `references/`, `templates/`, or a specific skill. Canonical/router skills may be longer when it improves routing, safety, or reduces scattered context. |
-| Utility script | `scripts/*.mjs` | ≤ 100 lines | 200 lines is a hard ceiling | Extract modules into `scripts/lib/`. |
-| Production code | `src/**/*.ts` | ≤ 300 lines | 500 lines is a hard ceiling | Split by subcommand or domain into multiple files. |
-| Test case | `tests/*.mjs` | ≤ 80 lines | — | Split scenarios into separate files. |
-
-Skill bodies should still use progressive discovery. The point of the 250-line trigger is to prompt review, not to reward long prompts. Prefer a longer skill only when the extra guidance prevents predictable workflow mistakes.
-
-### TypeScript vs MJS
-
-- **TypeScript (`src/**/*.ts`)** — code with reusable shapes, multi-module structure, or that grows over time. The build step pays for itself when ≥ 2 `type`/`interface` are reused across functions or ≥ 3 functions share related signatures.
-- **MJS (`scripts/*.mjs`, `tests/*.mjs`)** — linear, fixture-driven, single-purpose scripts under 200 lines. No build, executed directly with `node`.
-- Default to MJS for new utilities and tests; promote to TS only when the criteria above are met.
-
-### Known debt
-
-- `src/agentic-seo.ts` is a slim dispatcher; behavior is split into `src/commands/`.
+This rule covers filters, frontmatter fields, settings forms, modals, and any
+future control that exposes a fixed set of choices.
 
 ---
 > Source: [agencia-conversion/agentic-seo-skills](https://github.com/agencia-conversion/agentic-seo-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
