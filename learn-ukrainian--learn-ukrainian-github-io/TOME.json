@@ -1,0 +1,51 @@
+{
+  "name": "learn-ukrainian.github.io",
+  "owner": "learn-ukrainian",
+  "repo": "learn-ukrainian.github.io",
+  "description": "Free open-source Ukrainian course. A1 to C2. Based on Ukrainian State Standard 2024. \u00ab\u041c\u043e\u0432\u0430 \u2013 \u0434\u0443\u0448\u0430 \u043d\u0430\u0440\u043e\u0434\u0443\u00bb",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "local-code-review",
+      "path": ".agents/skills/local-code-review",
+      "github_url": "https://github.com/learn-ukrainian/learn-ukrainian.github.io/tree/main/.agents/skills/local-code-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/learn-ukrainian/learn-ukrainian.github.io",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-28T08:31:57Z"
+}
