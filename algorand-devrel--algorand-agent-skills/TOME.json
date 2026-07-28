@@ -2,8 +2,8 @@
   "name": "algorand-agent-skills",
   "owner": "algorand-devrel",
   "repo": "algorand-agent-skills",
-  "description": "Canonical collection of Agent Skills for for AI-assisted development on Algorand",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "algorand-typescript",
-      "path": "skills/algorand-typescript",
-      "github_url": "https://github.com/algorand-devrel/algorand-agent-skills/tree/main/skills/algorand-typescript",
-      "description": ""
-    },
-    {
-      "name": "skill-creator",
-      "path": ".claude/skills/skill-creator",
-      "github_url": "https://github.com/algorand-devrel/algorand-agent-skills/tree/main/.claude/skills/skill-creator",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/algorand-devrel/algorand-agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T15:39:05Z"
+  "distributed_at": "2026-07-28T23:56:02Z"
 }
