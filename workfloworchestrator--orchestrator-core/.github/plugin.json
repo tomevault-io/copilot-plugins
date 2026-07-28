@@ -1,0 +1,9 @@
+{
+  "name": "workfloworchestrator--orchestrator-core",
+  "displayName": "orchestrator-core",
+  "description": "orchestrator-core",
+  "version": "1.0.0",
+  "author": "workfloworchestrator",
+  "homepage": "https://github.com/workfloworchestrator/orchestrator-core",
+  "skills": []
+}
