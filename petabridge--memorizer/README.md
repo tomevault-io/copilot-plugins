@@ -1,16 +1,15 @@
 # AI instruction files for memorizer
 
-> Sourced from [petabridge/memorizer](https://github.com/petabridge/memorizer) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Vector-search powered agent memory MCP server
+> Sourced from [petabridge/memorizer](https://github.com/petabridge/memorizer), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [petabridge/memorizer](https://github.com/petabridge/memorizer).
+Original source: `` in [petabridge/memorizer](https://github.com/petabridge/memorizer).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
