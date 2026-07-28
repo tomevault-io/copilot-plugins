@@ -1,64 +1,204 @@
 ## agent-toolkit
 
-> You have access to Atlan's data catalog through MCP tools. The Atlan MCP server connects via OAuth at `mcp.atlan.com/mcp` - no API keys required. Use these tools to help users search, explore, govern, and manage their data assets.
+> This guide outlines the core coding patterns for implementing tools in the Atlan MCP server.
 
-# Atlan Plugin for Claude Code
+This guide outlines the core coding patterns for implementing tools in the Atlan MCP server.
 
-You have access to Atlan's data catalog through MCP tools. The Atlan MCP server connects via OAuth at `mcp.atlan.com/mcp` - no API keys required. Use these tools to help users search, explore, govern, and manage their data assets.
+## Tool Implementation Pattern
 
-## Authentication
+1. Define core function in tools.py
+2. Register function as MCP tool in server.py
+3. Use appropriate type hints for PyAtlan and MCP compatibility
 
-The Atlan MCP server uses OAuth 2.1 authentication. Users authenticate via the `/mcp` command in Claude Code, which opens a browser-based login flow. No API keys or environment variables are needed.
+## Core Function Template (tools.py)
 
-## Available MCP Tools
+```python
+def implement_atlan_tool(
+    param1: str,
+    param2: Optional[int] = None,
+    param3: Optional[Dict[str, Any]] = None
+) -> Any:
+    """
+    Implement an Atlan tool with appropriate parameters.
+    """
+    logger.info(f"Starting tool execution with parameters: param1={param1}")
 
-12 tools are enabled by default for most customers. 3 additional tools are available but require enablement per tenant via feature flags.
+    try:
+        # Tool-specific implementation
+        result = execute_atlan_operation(param1, param2, param3)
 
-### Search & Discovery
-- **`semantic_search_tool`** - Natural language search across all data assets using AI-powered semantic understanding.
-- **`search_assets_tool`** *(not enabled by default)* - Search assets using structured filters and conditions.
-- **`get_assets_by_dsl_tool`** *(not enabled by default)* - Query assets using Atlan's DSL (Domain Specific Language) for advanced filtering.
+        logger.info(f"Tool execution completed successfully")
+        return result
+    except Exception as e:
+        logger.error(f"Error executing tool: {str(e)}")
+        logger.exception("Exception details:")
+        return get_appropriate_default_value()
+```
 
-### Lineage
-- **`traverse_lineage_tool`** - Trace data flow upstream (where data comes from) or downstream (where data goes).
+## MCP Tool Registration Template (server.py)
 
-### Asset Management
-- **`update_assets_tool`** - Update asset descriptions, certificates, README, terms, or custom metadata.
+```python
+@mcp.tool()
+def registered_tool_name(
+    param1: str,
+    param2: Optional[int] = None,
+    param3: Optional[Dict[str, Any]] = None
+) -> Any:
+    """
+    Tool description with clear purpose.
 
-### Query
-- **`query_assets_tool`** *(not enabled by default)* - Execute SQL queries against connected data sources.
+    Args:
+        param1: First parameter description
+        param2: Second parameter description
+        param3: Third parameter description (complex structure)
 
-### Glossary
-- **`create_glossaries`** - Create new glossaries.
-- **`create_glossary_terms`** - Create terms within glossaries.
-- **`create_glossary_categories`** - Create categories within glossaries.
+    Returns:
+        Description of return value
 
-### Data Mesh
-- **`create_domains`** - Create data domains and subdomains.
-- **`create_data_products`** - Create data products linked to domains and assets.
+    Example:
+        registered_tool_name("value1", 42, {"key": "value"})
+    """
+    return implement_atlan_tool(param1, param2, param3)
+```
 
-### Data Quality
-- **`create_dq_rules_tool`** - Create data quality rules (null checks, uniqueness, regex, custom SQL, etc.).
-- **`update_dq_rules_tool`** - Update existing DQ rules.
-- **`schedule_dq_rules_tool`** - Schedule DQ rule execution with cron expressions.
-- **`delete_dq_rules_tool`** - Delete DQ rules.
+## Common Operation Patterns
 
-## Conventions
+### Asset Search Operation
+```python
+def search_operation(criteria):
+    search = FluentSearch()
+    # Add filters based on criteria
+    request = search.to_request()
+    results = list(atlan_client.asset.search(request).current_page())
+    return results
+```
 
-- Use `semantic_search_tool` as the primary search method for discovery queries.
-- For glossary terms and categories, search first to check for existing assets before creating duplicates.
-- When creating data products, use search to find asset GUIDs to link.
-- Certificate statuses are: `VERIFIED`, `DRAFT`, `DEPRECATED`.
-- Lineage directions are: `UPSTREAM` (sources) or `DOWNSTREAM` (consumers).
-- Always include pagination context when presenting search results (showing X of Y total).
+### Asset Retrieval Operation
+```python
+def get_asset_operation(qualified_name, asset_type):
+    try:
+        asset = asset_type.get_by_qualified_name(
+            qualified_name=qualified_name,
+            min_ext_info=True,
+            atlan_client=atlan_client
+        )
+        return asset
+    except Exception as e:
+        logger.error(f"Failed to get asset: {e}")
+        return None
+```
 
-## Error Handling
+### Batch Processing Operation
+```python
+def batch_operation(items, process_function):
+    results = []
+    for item in items:
+        try:
+            result = process_function(item)
+            results.append(result)
+        except Exception as e:
+            logger.warning(f"Error processing item {item}: {e}")
+            results.append(None)
+    return results
+```
 
-- If authentication fails, prompt the user to run `/mcp` and authenticate with their Atlan instance.
-- If a search returns no results, suggest broadening the query or trying alternative terms.
-- If an update fails, check that the asset GUID and qualified_name are correct.
-- If a tool returns a "not enabled" error, the tool may not be enabled for the user's tenant.
+### DSL Query Operation
+```python
+def dsl_query_operation(dsl_query):
+    try:
+        dsl_dict = json.loads(dsl_query)
+        index_request = IndexSearchRequest(dsl=DSL(**dsl_dict))
+        results = atlan_client.asset.search(index_request)
+        return results
+    except Exception as e:
+        logger.error(f"DSL query error: {e}")
+        return None
+```
+
+## Parameter Validation Patterns
+
+```python
+def validate_parameters(param, expected_type, allowed_values=None):
+    if param is None:
+        return False
+
+    if not isinstance(param, expected_type):
+        return False
+
+    if allowed_values and param not in allowed_values:
+        return False
+
+    return True
+```
+
+## Result Formatting Patterns
+
+```python
+def format_asset_results(assets):
+    return [
+        {
+            "name": asset.name,
+            "qualified_name": asset.qualified_name,
+            "type": asset.type_name,
+            "description": asset.description
+        }
+        for asset in assets if asset
+    ]
+```
+
+## Error Handling Pattern
+
+```python
+try:
+    # Attempt operation
+    result = perform_operation()
+    return result
+except ValueError as e:
+    logger.error(f"Invalid input parameter: {str(e)}")
+    return {"error": "Invalid input", "details": str(e)}
+except ConnectionError as e:
+    logger.error(f"Connection to Atlan failed: {str(e)}")
+    return {"error": "Connection failed", "details": str(e)}
+except Exception as e:
+    logger.error(f"Operation failed: {str(e)}")
+    logger.exception("Exception details:")
+    return {"error": "Unknown error", "details": str(e)}
+```
+
+## Common Type Patterns
+
+```python
+from typing import Optional, Dict, Any, List, Union, Type, TypeVar, Callable, Tuple
+
+# Generic result type
+Result = Union[Dict[str, Any], List[Dict[str, Any]], None]
+
+# Function returning success status and result
+def operation_with_status() -> Tuple[bool, Optional[Result], Optional[str]]:
+    try:
+        result = perform_operation()
+        return True, result, None
+    except Exception as e:
+        return False, None, str(e)
+```
+
+## Logging Pattern
+
+```python
+# Start of operation
+logger.info(f"Starting {operation_name} with {parameters}")
+
+# Debug information during operation
+logger.debug(f"Intermediate state: {some_variable}")
+
+# Operation completed
+logger.info(f"Operation {operation_name} completed with {result_summary}")
+
+# Error handling
+logger.error(f"Operation {operation_name} failed: {error_message}")
+logger.exception("Exception details:")
+```
 
 ---
 > Source: [atlanhq/agent-toolkit](https://github.com/atlanhq/agent-toolkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
