@@ -1,121 +1,105 @@
 ## mcp-net
 
-> - `Mcp.Net.sln` is the root solution.
+> - Revisit `IMcpClient` ergonomics around tool-call cancellation and async disposal.
 
-# Mcp.Net AGENTS.md
+# Roadmap: Mcp.Net.Agent
 
-## Project Structure
-- `Mcp.Net.sln` is the root solution.
-- Core libraries live in `Mcp.Net.Core`, `Mcp.Net.Client`, `Mcp.Net.Server`, and `Mcp.Net.LLM`.
-- Runnable samples live under `Mcp.Net.Examples.*` and `Mcp.Net.WebUi`.
-- Automated tests live in `Mcp.Net.Tests`.
-- Ongoing planning and dev history live under `docs/`.
+## Current focus
 
-## Build, Test, and Development Commands
-- `dotnet restore Mcp.Net.sln`
-- `dotnet build Mcp.Net.sln -c Release`
-- `dotnet test Mcp.Net.Tests/Mcp.Net.Tests.csproj -c Release`
-- `dotnet format`
-- `dotnet run --project Mcp.Net.Examples.SimpleServer/Mcp.Net.Examples.SimpleServer.csproj`
-- `dotnet run --project Mcp.Net.Examples.SimpleClient/Mcp.Net.Examples.SimpleClient.csproj -- --url http://localhost:5000 --auth-mode pkce`
+- Revisit `IMcpClient` ergonomics around tool-call cancellation and async disposal.
+- Keep the local filesystem and process surfaces coherent now that `ReadFileTool` metadata, `WriteFileTool`, `GrepTool`, `GlobTool`, `EditFileTool`, `run_shell_command`, and the bounded-vs-unbounded filesystem policy are in place.
+- Preserve the now-completed continue/resume, per-turn summary, guarded event-dispatch, async compaction, and transcript lifecycle-notification surfaces while tool coverage expands.
 
-## Working Style
-- Default to TDD.
-- For non-trivial changes, write or update a failing test first, then implement the smallest code change to make it pass.
-- After the focused test passes, run the next broader relevant test scope before finishing.
-- Keep each change set to one coherent vertical slice. Do not mix unrelated refactors into the same slice.
-- Prefer minimal, comprehensible changes over broad rewrites.
-- Keep each active `docs/vnext/*.md` slice roughly commit-sized.
+## What
 
-## Planning and Docs
-- `docs/vnext.md` is the repo-level planning index for active component and system tracks.
-- Detailed next-slice planning lives in per-component files under `docs/vnext/`.
-- Update the relevant `docs/vnext/*.md` track file or files before substantial implementation when the planned slice changes.
-- Update the same `docs/vnext/*.md` track file or files again after completing a slice so they point at the next slice for that area.
-- If a change spans multiple components, update each affected track or create a dedicated cross-cutting track.
-- `docs/roadmap.md` is the repo-level roadmap index for medium-term sequencing and should be updated whenever priorities, milestones, or major decisions change.
-- Detailed medium-term planning lives in project-specific files under `docs/roadmap/`.
-- `docs/testing.md` is the canonical testing policy for this repo.
-- Keep design notes, technical plans, and deeper writeups in `docs/` rather than scattering new markdown files at the repo root.
+- Revisit the `IMcpClient` seam so callers can eventually get cleaner cancellation and ownership/disposal behavior for remote tool execution.
+- Keep `run_shell_command` as the bounded local process tool for host CLI workflows, with host-shell resolution, root-bounded working directories, timeout caps, output truncation, and concurrency limits.
+- Later, replace the entry-count-only compaction trigger with token-aware context budgeting that can target provider max-context limits and reserve output budget explicitly.
 
-## Dev History
-- Maintain one dev-history entry per commit in `docs/dev-history/`.
-- File name format: `YYYY-MM-DD_short-description.md`.
-- Use short kebab-case for the description.
-- Each dev-history file must include:
-  - change summary
-  - why
-  - major files changed
-  - verification notes
-- Commit the dev-history file in the same commit as the related code/docs change.
+## Why
 
-## Git Discipline
-- Do not commit unless the user asks.
-- Only commit files changed in the current session.
-- Never use `git add -A`, `git add .`, or wildcard staging that can sweep unrelated files.
-- Always stage files explicitly by path.
-- Run `git status` before staging and again before committing.
-- Do not use destructive cleanup commands:
-  - `git reset --hard`
-  - `git checkout .`
-  - `git clean -fd`
-  - `git stash`
-- Use the repo's existing short-tagged commit format:
-  - `[feat]` new functionality
-  - `[fix]` bug fix
-  - `[test]` tests
-  - `[docs]` documentation only
-  - `[chore]` housekeeping or non-behavioral refactor
-- No emojis in commit messages.
+- The runtime and factory seams are now in place and the dead model layer is gone.
+- Continue/resume, per-turn summaries, transcript lifecycle notifications, and the dead session-start seam are now in place.
+- The next highest-value gap is not another runtime seam; it is proving the library with concrete tools that real consumers can use.
+- The first built-in tools should establish a public authoring pattern for outside consumers instead of relying on internal-only helpers.
+- `Mcp.Net.WebUi` is an older adapter layer and should not drive `Mcp.Net.Agent` design; the runtime can move first and Web UI can be rebuilt around it if necessary.
+- Bounded filesystem discovery, content search, and surgical mutation tools are now in place.
+- `ReadFileTool` now exposes mutation-oriented metadata, `GlobTool` enables deterministic candidate discovery, `GrepTool` enables bounded content search, and `EditFileTool` enables bounded edits to existing text files.
+- The first bounded process seam is now in place for real CLI workflows (`git`, `dotnet`, `npm`, `cargo`).
+- The local file/process tool stack now covers discovery, content search, reads, writes, edits, and bounded shell execution, so the next runtime gap is the remote-client seam.
+- The current entry-count compactor is a good MVP, but it does not track real context-window pressure or leave deliberate room for model output.
 
-## Docs and Examples
-- Do not put real secrets, tokens, private hostnames, or device-specific values in docs, code samples, or tests.
-- Use placeholders for sensitive values.
-- Keep sample code runnable, but keep library code free of demo-specific shortcuts.
+## How
 
-## C# Code Quality
-- Use the SDK defaults already established in the repo: nullable enabled, implicit usings, and file-scoped namespaces where appropriate.
-- Prefer clear, explicit names over abbreviated ones.
-- Keep methods and classes focused. Split behavior into collaborators rather than growing large multi-responsibility types.
-- Prefer dependency injection and explicit constructor dependencies over service location and hidden global state.
-- Prefer immutable data flow and local reasoning; avoid static mutable state unless there is a strong reason.
-- Use existing framework or repo types before introducing ad-hoc abstractions.
-- Keep comments sparse and useful. Explain why or non-obvious behavior, not basic mechanics.
-- Preserve public API behavior unless the change is intentional and called out.
-- For server work, prefer extending existing collaborators such as `ToolDiscoveryService`, `ToolInvocationFactory`, transport helpers, and completion/resource services instead of inflating `ToolRegistry` or `McpServer`.
+### Next runtime slice
 
-## Testability Gate
-- Core logic must be testable by default.
-- Protocol, transport, routing, serialization, negotiation, and auth behavior should live in testable seams rather than being trapped inside middleware glue or oversized orchestration methods.
-- Bug fixes require regression tests unless there is a documented reason they cannot.
-- Major core changes are not complete unless they have meaningful verification in the same slice.
+- Revisit `IMcpClient` so tool-call cancellation and ownership/disposal behavior are explicit instead of leaking through host-specific composition.
+- Keep the landed `ReadFileTool` / `WriteFileTool` / `EditFileTool` / `GrepTool` / `GlobTool` / `ListFilesTool` / `RunShellCommandTool` surface stable while validating that next runtime seam.
+- Preserve the snapshot-based provider boundary and avoid inventing provider-specific escape hatches while the local-tool surface grows.
 
-## Testing
-- Test framework stack: xUnit, FluentAssertions, and Moq.
-- Place tests in `Mcp.Net.Tests`, mirroring the namespace of the code under test.
-- Name tests `MethodUnderTest_ShouldExpectation`.
-- For protocol, transport, and routing work, add integration coverage when behavior crosses component boundaries.
-- Use the existing integration harness in `Mcp.Net.Tests/Integration/TestServerHarness.cs` and related server/client integration tests instead of building ad-hoc harnesses.
-- When fixing a bug, prefer a regression test that fails before the fix and passes after it.
-- Follow `docs/testing.md` for test layers, quality gates, and verification expectations.
+### Verification
 
-## Review and Refactoring Expectations
-- During code review, prioritize correctness, regressions, edge cases, missing tests, and hidden coupling.
-- Refactors must preserve behavior unless the behavioral change is explicit and tested.
-- If a refactor makes debugging harder or obscures data flow, it is not an improvement.
+- Add focused tool coverage for containment checks, truncation, typed argument binding, and error paths.
+- Add executor/session coverage as needed to prove the tools flow through the current runtime seams.
+- Keep the completed `ChatSession` lifecycle tests and broader agent/runtime coverage green.
 
-## Current Docs Layout
-- `docs/vnext.md`
-- `docs/vnext/README.md`
-- `docs/vnext/<component>.md`
-- `docs/roadmap.md`
-- `docs/roadmap/README.md`
-- `docs/roadmap/<project>.md`
-- `docs/testing.md`
-- `docs/dev-history/README.md`
-- `docs/dev-history/YYYY-MM-DD_short-description.md`
-- `docs/archive/`
+## Near-term sequence
+
+1. Revisit `IMcpClient` ergonomics when a real caller needs `CallTool` cancellation or async disposal.
+2. Revisit session-owned transcript persistence when non-Web UI consumers need durable session state.
+3. Consider hook/extension and conversation-branching surfaces only after the core loop is robust.
+4. Revisit context-window management with token-aware compaction driven by provider context limits, reserved output budget, and a stronger summarizer path once real conversation pressure justifies it.
+
+## Recently completed
+
+- Removed the obsolete `AgentDefinition` / manager / store / registry model and agent-oriented DI/extensions from `Mcp.Net.Agent`.
+- Removed the corresponding agent-driven controllers, DTOs, startup hooks, and chat-factory branches from `Mcp.Net.WebUi`.
+- Narrowed the remaining registration story to `AddChatRuntimeServices()` plus `AddChatSessionFactory()`.
+- `ChatSession` now flows caller cancellation through provider requests and tool execution.
+- Abort behavior is now deterministic for provider waits and tool execution, including partial tool-result persistence when some tool work finished before cancellation.
+- `ChatSession` now validates tool execution against its own configured tool catalog and no longer depends on `IToolRegistry` at runtime.
+- `Mcp.Net.Agent.Tools` now includes `ILocalTool`, `LocalToolExecutor`, and `CompositeToolExecutor`.
+- Local tools can now create results through public `ToolInvocation` / `ToolInvocationResults` helpers instead of relying on the raw `ToolInvocationResult` constructor.
+- Local tools can now bind invocation arguments through `ToolInvocation.BindArguments<TArgs>()` or derive from `LocalToolBase<TArgs>` for typed authoring plus generated input schema from a transport-neutral local-tool generator.
+- `AddChatRuntimeServices()` no longer registers the disconnected tool-registry seam; `ToolRegistry` is now explicit opt-in through `AddToolRegistry()`.
+- `Mcp.Net.Agent` now includes `FileSystemToolPolicy`, `ReadFileTool`, and `ListFilesTool` as the first bounded built-in local filesystem tools, including containment, truncation, and missing-path coverage.
+- `Mcp.Net.Agent` now supports bounded-vs-unbounded filesystem scope through `FileSystemToolPolicy`, while keeping the configured base path as the default traversal and relative-resolution anchor.
+- `ReadFileTool` now returns mutation-oriented metadata including `contentHash`, encoding/BOM, and newline-style information so later mutation tools can use optimistic concurrency and preserve file shape.
+- `Mcp.Net.Agent` now includes `WriteFileTool` as the whole-file creation primitive, including explicit overwrite intent, parent-directory creation, encoded byte limits, encoding/BOM preservation on overwrite, and atomic sibling-temp commits.
+- `Mcp.Net.Agent` now includes `GlobTool` with compiled segment matching, literal-prefix search-root narrowing, deterministic bounded traversal, and policy-owned skip/depth/result limits on top of the same bounded filesystem seam.
+- `Mcp.Net.Agent` now includes `EditFileTool` as the first bounded filesystem mutation primitive for existing text files, including optimistic concurrency, one-snapshot batch planning, newline-normalized fallback matching, and atomic temp-file-plus-replace commits.
+- `Mcp.Net.Agent` now includes `GrepTool` as a bounded local content-search tool backed by ripgrep when the host can provide it, including deterministic root-relative output and policy-owned match/output limits.
+- `Mcp.Net.Agent` now includes `ProcessToolPolicy` plus `RunShellCommandTool` as the first bounded local process-execution seam, including deterministic shell resolution, root-bounded working-directory overrides, timeout/process-tree-kill behavior, and bounded head+tail output capture.
+- `Mcp.Net.Examples.LLMConsole` now uses `ChatSession` in non-MCP mode and can optionally enable the built-in local filesystem tools in direct or mixed MCP sessions.
+- `ChatSession` now appends synthetic cancelled tool results for unfinished parallel calls after abort, preserving completed results so `ContinueAsync(...)` sees a structurally valid transcript tail.
+- `ChatSession` no longer enforces the temporary max tool-round guard or exposes a `MaxToolCallRounds` configuration knob, so normal coding-agent exploration is not capped by an artificially small round budget.
+- `Mcp.Net.LLM.OpenAI` now reconstructs streamed tool-call arguments by streaming update index and raw bytes, matching the OpenAI SDK streaming function-calling model.
+- Focused tests now cover mixed local+MCP turns plus missing-session-tool failure semantics through the shared executor seam.
+- `ChatSession` now rejects overlapping turns, exposes `IsProcessing` plus abort/wait lifecycle APIs, and blocks mutable state changes while a turn is active.
+- `Mcp.Net.Agent` now includes `IChatSessionFactory`, `ChatSessionFactoryOptions`, and `ChatSessionFactory` for library-first session composition with caller-owned MCP clients.
+- `ChatSession` now supports `ContinueAsync(...)` with explicit transcript-tail rules.
+- `SendUserMessageAsync(...)` and `ContinueAsync(...)` now return `ChatTurnSummary` so awaited callers can inspect per-turn changes directly.
+- `ChatSession` no longer exposes `StartSession()` / `SessionStarted`; session-start notification is now owned by the Web UI adapter where it is actually consumed.
+- `ChatSession` now guards runtime event dispatch so observer exceptions are logged and swallowed instead of breaking turns.
+- `IChatTranscriptCompactor` now uses `CompactAsync(...)`, and `ChatSession` awaits compaction with cancellation propagation before provider requests.
+- `ChatSession` now raises `Reset` and `Loaded` transcript notifications with whole-transcript snapshots for reset/load operations.
+
+## Dependencies and risks
+
+- Full MCP tool-call cancellation still depends on a `Mcp.Net.Client` seam because `IMcpClient.CallTool` does not yet accept a `CancellationToken`.
+- The provider boundary should remain snapshot-based; the runtime should not reintroduce provider-owned conversation state.
+- The first local tools still need disciplined scope when they land. If they expand into shell/write behavior too early, the slice will mix seam validation with policy decisions.
+- Legacy Web UI composition and registry usage should adapt to the runtime; they are not reasons to keep weaker or older `Mcp.Net.Agent` seams alive.
+- The current compaction trigger is intentionally simple; it does not account for provider context-window limits or reserved output budget, so future pressure should move the runtime toward token-aware compaction and possibly stronger summarization.
+
+## Open questions
+
+- Should concrete built-in tools live under `Mcp.Net.Agent` temporarily, or should the repo create a dedicated `Mcp.Net.Tools` project as soon as the contracts land?
+- Should local tools always be app-owned reusable registrations, or should the runtime explicitly support session-owned local tool instances from the start?
+- Should the library commit to `LocalToolBase<TArgs>` as the primary public authoring pattern, or keep only low-level helpers and let consumers build their own typed wrappers?
+- When context-window pressure grows further, how should token-aware compaction get provider context-window and output-budget information without reopening provider-owned session state?
+- Should stronger summarization land in the same slice as token-aware budgeting, or only after budget-based trimming proves insufficient?
 
 ---
 > Source: [SamFold/Mcp.Net](https://github.com/SamFold/Mcp.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
