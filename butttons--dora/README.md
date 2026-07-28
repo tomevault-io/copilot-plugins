@@ -1,8 +1,6 @@
 # AI instruction files for dora
 
-> Sourced from [butttons/dora](https://github.com/butttons/dora) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-CLI built for AI agents to help navigate codebases better. An alternative to grep/find/glob
+> Sourced from [butttons/dora](https://github.com/butttons/dora), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,11 +15,13 @@ Original source: `AGENTS.md` in [butttons/dora](https://github.com/butttons/dora
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
+## Bundled Skills (3)
 
 - [docs](https://github.com/butttons/dora/tree/main/src/templates/docs)
+- [dora](https://github.com/butttons/dora/tree/main/.pi/skills/toon/SKILL.md)
+- [dora](https://github.com/butttons/dora/tree/main/src/templates/docs/SKILL.md)
 
-From [butttons/dora](https://github.com/butttons/dora) — a repo with 103+ stars on GitHub.
+From [butttons/dora](https://github.com/butttons/dora) — a repo with 0+ stars on GitHub.
 
 ---
 
