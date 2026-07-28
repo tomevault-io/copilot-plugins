@@ -1,0 +1,9 @@
+{
+  "name": "sap--terraform-provider-btp",
+  "displayName": "terraform-provider-btp",
+  "description": "terraform-provider-btp",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/terraform-provider-btp",
+  "skills": []
+}
