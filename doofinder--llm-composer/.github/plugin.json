@@ -1,7 +1,7 @@
 {
   "name": "doofinder--llm-composer",
   "displayName": "llm_composer",
-  "description": "An Elixir library for integrating large language models (LLMs) via HTTP, supporting OpenAI, Ollama, and other future backends.",
+  "description": "llm_composer",
   "version": "1.0.0",
   "author": "doofinder",
   "homepage": "https://github.com/doofinder/llm_composer",
