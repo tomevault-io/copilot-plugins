@@ -1,40 +1,27 @@
 ## codedna
 
-> Every source file in this project must have a CodeDNA module docstring as the very first block.
+> This project uses CodeDNA. Every Python file begins with a module docstring.
 
 # CodeDNA v0.8 — In-Source Communication Protocol
 # Annotate your project: pip install git+https://github.com/Larens94/codedna.git && codedna init ./
 
-Every source file in this project must have a CodeDNA module docstring as the very first block.
+This project uses CodeDNA. Every Python file begins with a module docstring.
 
-## Module docstring format
+On SESSION START:
+- Read `.codedna` at repo root — project map, last 3-5 agent_sessions entries
+- CodeDNA is additive — it complements Cline's native memory, not replaces it
 
-```python
-"""filename.py — <what it does, ≤15 words>.
-
-exports: public_function(arg) -> return_type
-used_by: consumer_file.py → consumer_function
-rules:   <hard constraint agents must never violate>
-agent:   <model-id> | <provider> | <YYYY-MM-DD> | <session_id> | <what you did and what you noticed>
-         message: "<open hypothesis or observation for the next agent>"
-"""
-```
-
-## Rules on every edit
-
-- Read `.codedna` at repo root first — project structure and recent session history
-- Re-read `rules:` as your **first** step — never violate these constraints
+On EDIT:
+- Re-read `rules:` before writing any logic — never violate these constraints
 - Read `Rules:` in function docstrings before writing logic there
-- Check `used_by:` after changes — update callers if signatures change
-- Never rename `exports:` symbols without explicit instruction
+- Check `used_by:` after changes and update callers if needed
 - If you discover a constraint or fix a bug, add it to `rules:` for the next agent
-- After editing, append a new `agent:` line to the module docstring. Keep only the last 5 entries — drop the oldest if adding a 6th. Full history is in git and `.codedna`.
+- Append a new `agent:` line to the module docstring after editing. Keep only the last 5 entries — drop the oldest if adding a 6th. Full history is in git and `.codedna`.
 
-## Rules on generate
-
-- Write the module docstring before any imports
+On CREATE:
+- Write module docstring before any imports (exports/used_by/rules/agent)
 - Every public function **must** have a `Rules:` docstring
-- Use semantic variable names: `list_dict_users_from_db = get_users()`
+- Use semantic naming: `list_dict_users_from_db = get_users()`
 
 ## Writing good `rules:`
 
@@ -59,11 +46,11 @@ Update rules: every time you discover a constraint, fix a bug, or notice a non-o
 Every public function **must** have a `Rules:` docstring:
 
 ```python
-def process(arg: type) -> return_type:
+def my_function(arg: type) -> return_type:
     """Short description.
 
-    Rules:   MUST cap before returning; exceed = compliance bug.
-    message: <model-id> | <date> | open observation for next agent (optional)
+    Rules:   What the agent MUST or MUST NOT do here.
+    message: model-id | YYYY-MM-DD | observation for next agent
     """
 ```
 
@@ -82,48 +69,29 @@ amount = order.amount * get_exchange_rate(order.currency)
 When to add: business-rule conditionals, loops with filtering, algorithm steps where order matters, edge cases.
 When NOT to add: simple getters, obvious control flow, standard library usage.
 
-## `message:` — Agent Chat Layer (v0.8)
+`message:` field (v0.8) — use for open observations not yet certain enough to become `rules:`:
+- In module docstring: `message: "<hypothesis or note for the next agent>"`
+- In function docstring: `message: <model-id> | <date> | <open observation>`
+- Lifecycle: promote to `rules:` or dismiss. Always append-only — never delete.
 
-Use `message:` for observations not yet certain enough to become `rules:`, open questions, and notes for the next agent.
+On SESSION END:
+- Append to `.codedna` → `agent_sessions:` with agent, provider, date, session_id, task, changed, visited, message
+- Commit with AI git trailers: AI-Agent, AI-Provider, AI-Session, AI-Visited, AI-Message
 
-**Lifecycle:** promote to `rules:` with `@prev: promoted to rules:` or dismiss with `@prev: verified, not applicable because...`. Always append-only — never delete.
+`exports:` are contracts — never rename without explicit instruction and updating all `used_by:` callers.
 
-## CodeDNA + native memory — additive, not replacing
-
-CodeDNA is the **shared** layer — git-tracked, visible to every agent and every tool. It does not replace Windsurf's native memories. Use both:
-
-- `.codedna` + file annotations → shared architectural truth, readable by any tool on any machine
-- Windsurf native memories → user preferences and tool-specific context — local to Windsurf
-
-## Planner read protocol
-
-Read `.codedna` first. Then read only the module docstring (first 8–12 lines) of each file. Build an `exports:` → `used_by:` graph. Open only relevant files in full.
-
-## Session end protocol
-
-At session end, append to `.codedna` `agent_sessions:`:
-```yaml
-- agent: <model-id>
-  provider: <provider>
-  date: <YYYY-MM-DD>
-  session_id: <s_YYYYMMDD_NNN>
-  task: "<what you did ≤15 words>"
-  changed: [files, modified]
-  visited: [files, read]
-  message: > what you found and what the next agent should know
+Module docstring format:
 ```
+"""filename.py — <purpose ≤15 words>.
 
-Commit with AI git trailers:
-```
-<imperative summary>
-
-AI-Agent:    <model-id>
-AI-Provider: <provider>
-AI-Session:  <session_id>
-AI-Visited:  <comma-separated files read>
-AI-Message:  <one-line summary>
+exports: fn(args) -> type
+used_by: consumer.py → fn
+rules:   <hard constraint>
+agent:   <model-id> | <provider> | <YYYY-MM-DD> | <session_id> | <what you did and noticed>
+         message: "<open hypothesis>"
+"""
 ```
 
 ---
 > Source: [Larens94/codedna](https://github.com/Larens94/codedna) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
