@@ -1,6 +1,6 @@
 # dotfiles
 
-> Source: [joelazar/dotfiles](https://github.com/joelazar/dotfiles) — distributed by [TomeVault](https://tomevault.io)
+> Source: [joelazar/dotfiles](https://github.com/joelazar/dotfiles). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [joelazar/dotfiles](https://github.com/joelazar/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (9)
+## Bundled Skills (11)
 
 - [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/uv/SKILL.md)
 - [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/reddit/SKILL.md)
@@ -26,6 +26,8 @@ Original source: `AGENTS.md` in [joelazar/dotfiles](https://github.com/joelazar/
 - [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/web-search/SKILL.md)
 - [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/listen-later/SKILL.md)
 - [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/session-analyzer/SKILL.md)
+- [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/pdf/SKILL.md)
+- [dotfiles](https://github.com/joelazar/dotfiles/tree/main/dot_agents/skills/humanizer/SKILL.md)
 
 From [joelazar/dotfiles](https://github.com/joelazar/dotfiles) — a repo with 0+ stars on GitHub.
 
