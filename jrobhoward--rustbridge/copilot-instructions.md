@@ -1,0 +1,268 @@
+## rustbridge
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+rustbridge is a framework for developing Rust shared libraries callable from other languages (Java, C#, Python, etc.). It uses C ABI under the hood but abstracts the complexity, providing OSGI-like lifecycle, mandatory async (Tokio), logging callbacks, and JSON-based data transport with optional binary transport for performance-critical paths.
+
+## Quick Reference
+
+```bash
+# Pre-commit validation (run before committing)
+./scripts/pre-commit.sh              # Full validation (Linux/macOS)
+./scripts/pre-commit.sh --fast       # Skip clippy and integration tests
+./scripts/pre-commit.sh --smart      # Only test changed components
+scripts\pre-commit.bat               # Windows (full validation)
+scripts\pre-commit.bat --fast        # Windows (skip clippy/integration)
+
+# Common development commands
+cargo fmt --all                                                    # Format code
+cargo clippy --workspace --examples --tests -- -D warnings         # Lint (must pass)
+cargo test --workspace                                             # Test all crates
+cargo test -p rustbridge-ffi                                       # Test specific crate
+cargo test lifecycle___installed                                   # Run tests matching pattern
+cargo bench -p rustbridge-transport -- small_roundtrip             # Run specific benchmark
+
+# Bundle operations
+rustbridge pack                                                    # Auto-detect and bundle from current dir
+rustbridge pack --no-sign                                          # Bundle without signing
+rustbridge promote plugin-dev.rbp --key secret.key -o plugin.rbp  # Slim dev bundle to signed release
+rustbridge bundle create --name my-plugin --version 1.0.0 \
+  --lib linux-x86_64:target/release/libmyplugin.so --output plugin.rbp  # Manual bundle creation
+
+# Build native library (required before Java/C#/Python tests)
+cargo build --release -p hello-plugin                             # Example plugin
+# Output: target/release/libhello_plugin.so (Linux), .dylib (macOS), .dll (Windows)
+
+# Java/Kotlin (from rustbridge-java/)
+./gradlew build && ./gradlew test                                 # Linux/macOS
+./gradlew test --tests "*PluginTest*"                             # Run tests matching pattern
+gradlew.bat build && gradlew.bat test                             # Windows
+
+# Python (from rustbridge-python/)
+source .venv/bin/activate && python -m pytest tests/ -v
+python -m pytest tests/test_log_level.py::test_log_level___debug___has_correct_value -v  # Single test
+```
+
+## Common Workflows
+
+1. **Making code changes**: Edit → `cargo fmt --all` → `cargo clippy --workspace --examples --tests -- -D warnings` → `cargo test -p <changed-crate>`
+2. **Before committing**: Run `./scripts/pre-commit.sh --smart` (tests only changed components)
+3. **Full validation**: Run `./scripts/pre-commit.sh` (required before PRs)
+4. **Cross-language changes**: If modifying FFI code in Rust, rebuild native lib (`cargo build --release`), then run Java/C#/Python tests
+
+## Version Requirements
+
+| Component | Minimum Version |
+|-----------|----------------|
+| Rust | 1.90.0 (Edition 2024) |
+| Java | 21+ (22+ recommended) |
+| .NET | 8.0+ |
+| Python | 3.10+ |
+| Go | 1.21+ |
+| Erlang/OTP | 27+ |
+
+**Note**: Java 21 requires `--enable-preview` flag in addition to `--enable-native-access=ALL-UNNAMED`. Java 22+ only needs `--enable-native-access=ALL-UNNAMED`.
+
+Use `cargo msrv verify` when adding Rust dependencies.
+
+## Versioning
+
+Each language ecosystem is versioned independently. There is no lock-step version across ecosystems.
+
+| Ecosystem | Registry | Version source |
+|-----------|----------|----------------|
+| Rust (12 crates) | crates.io | `Cargo.toml` workspace version (all crates share one version) |
+| Java/Kotlin | Maven Central | `rustbridge-java/build.gradle.kts` `allprojects { version }` |
+| C# | NuGet | `RustBridge.Core.csproj` and `RustBridge.Native.csproj` `<Version>` |
+| Python | PyPI | `rustbridge-python/pyproject.toml` `version` |
+| Erlang | hex.pm | `rustbridge-erlang/src/rustbridge.app.src` `{vsn, ...}` |
+| Go | Go modules | Git tags (no version in `go.mod`) |
+
+**Key rules:**
+- All 12 Rust workspace crates are always versioned in lock-step via `[workspace.package] version` in the root `Cargo.toml`.
+- Bump only the ecosystems that actually changed. Don't publish empty releases.
+- When updating CLI templates (`crates/rustbridge-cli/templates/`), use the latest published version for each ecosystem's package references.
+- CHANGELOG entries use ecosystem prefixes (`**C#**:`, `**Python**:`, `**Rust**:`, etc.) and release headers list which packages were published.
+
+See [docs/VERSIONING.md](./docs/VERSIONING.md) for the full policy.
+
+## Architecture Overview
+
+```
+Host Language → FFI Boundary → Async Runtime → Plugin Implementation → Response → FFI → Host
+```
+
+**Layered crate structure:**
+- **Core** (`rustbridge-core`, `rustbridge-transport`): Traits, types, serialization
+- **Runtime** (`rustbridge-runtime`, `rustbridge-logging`): Tokio integration, tracing callbacks
+- **FFI** (`rustbridge-ffi`): C ABI exports, buffer management
+- **Consumer** (`rustbridge-consumer`): Rust host library for loading plugins
+- **Tooling** (`rustbridge-macros`, `rustbridge-cli`, `rustbridge-bundle`): Code generation, CLI (`new`, `pack`, `promote`, `bundle`, `keygen`, `generate-header`), `.rbp` packaging
+
+Memory follows "Rust allocates, host frees" pattern. See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) for details.
+
+## Code Quality Requirements
+
+### Forbidden in Production Code
+
+- `.unwrap()` / `.expect()` - Use `?` or proper error handling. If truly safe, annotate with `#[allow(clippy::unwrap_used)]` and comment.
+- `panic!()` - Handle errors gracefully, especially in FFI code
+
+**Exceptions**: Allowed in test code (`#[cfg(test)]`) and examples.
+
+### Error Handling
+
+- Use `thiserror` for library crates, `anyhow` only in CLI/examples
+- All errors have stable numeric codes for FFI
+- Never panic across FFI boundary
+
+### Lock Safety
+
+**Never call external code while holding a lock.** This includes logging, callbacks, and async operations. Release locks before any external calls. See [docs/SKILLS.md](./docs/SKILLS.md) for patterns.
+
+The workspace enforces `await_holding_lock = "deny"` to catch async violations at compile time.
+
+## Testing Conventions
+
+See [docs/TESTING.md](./docs/TESTING.md), [docs/TESTING_KOTLIN.md](./docs/TESTING_KOTLIN.md), [docs/TESTING_JAVA.md](./docs/TESTING_JAVA.md), [docs/TESTING_CSHARP.md](./docs/TESTING_CSHARP.md), [docs/TESTING_GO.md](./docs/TESTING_GO.md), [docs/TESTING_ERLANG.md](./docs/TESTING_ERLANG.md).
+
+**Key conventions:**
+- Test naming: `subjectUnderTest___condition___expectedResult` (triple underscores)
+- Arrange-Act-Assert pattern with blank lines (no comments)
+- Tests in separate files (Rust: `module_tests.rs`)
+- Async: `#[tokio::test]` (Rust), `runTest` (Kotlin)
+
+## FFI Safety
+
+All FFI functions must:
+1. Be marked `unsafe extern "C"` with thorough `# Safety` docs
+2. Validate all pointers before dereferencing
+3. Handle null pointers gracefully
+4. Never panic across the FFI boundary (use `catch_unwind`)
+
+**Do NOT use `panic = "abort"`** - this crashes the host application. The default `panic = "unwind"` allows graceful panic handling.
+
+## Java/Kotlin Integration
+
+The `rustbridge-java/` directory contains:
+- `rustbridge-core`: Core Java interfaces
+- `rustbridge-ffm`: FFM implementation (Java 21+)
+- `rustbridge-kotlin`: Kotlin extensions and DSL
+
+## C# Integration
+
+**Requires .NET 8.0 or later.**
+
+The `rustbridge-csharp/` directory contains:
+- `RustBridge.Core`: Core interfaces and types (IPlugin, PluginConfig)
+- `RustBridge.Native`: P/Invoke-based native plugin loader
+- `RustBridge.Tests`: Unit and integration tests
+- `RustBridge.Benchmarks`: Performance benchmarks
+
+```bash
+# C# development (from rustbridge-csharp/)
+dotnet build                                        # Build all projects
+dotnet test                                         # Run all tests
+dotnet test --filter "FullyQualifiedName~FromCode"  # Run tests matching pattern
+```
+
+See [docs/TESTING_CSHARP.md](./docs/TESTING_CSHARP.md) for C# testing conventions.
+
+## Python Integration
+
+The `rustbridge-python/` directory contains:
+- `rustbridge.core`: Core types (LogLevel, LifecycleState, PluginConfig, etc.)
+- `rustbridge.native`: ctypes-based native plugin loader
+- `rustbridge.core.bundle_loader`: Bundle loading with minisign signature verification
+
+```bash
+# Python development (from rustbridge-python/)
+python -m venv .venv && source .venv/bin/activate  # Create virtual environment
+pip install -e ".[dev]"                             # Install with dev dependencies
+python -m pytest tests/ -v                          # Run all tests
+python -m pytest tests/test_log_level.py -v         # Run tests matching pattern
+```
+
+See [docs/TESTING_PYTHON.md](./docs/TESTING_PYTHON.md) for Python testing conventions.
+
+## Erlang Integration
+
+**Requires Erlang/OTP 27+ and rebar3.**
+
+The `rustbridge-erlang/` directory is an OTP application that communicates with plugins via an Erlang Port. A Rust binary (`rustbridge-port-driver`) bridges stdin/stdout to the plugin FFI.
+
+The `rustbridge-erlang/port-driver/` crate is the Rust port driver binary (outside the Cargo workspace for isolation).
+
+```bash
+# Erlang development (from rustbridge-erlang/)
+rebar3 compile                                      # Build (also builds port driver via pre-hook)
+rebar3 eunit                                        # Run unit tests (protocol, config, log)
+rebar3 ct                                           # Run integration tests (against hello-plugin)
+rebar3 ct --verbose                                 # Verbose integration tests
+```
+
+See [docs/TESTING_ERLANG.md](./docs/TESTING_ERLANG.md) for Erlang testing conventions.
+
+## Go Integration
+
+**Requires Go 1.21+ and a C compiler (for CGo).**
+
+The `rustbridge-go/` directory is a Go module that loads plugins via CGo + dlopen for direct in-process FFI calls.
+
+```bash
+# Go development (from rustbridge-go/)
+go test -v ./...                                    # Run all tests (requires hello-plugin)
+go test -run 'Test(LogLevel|Config|ResponseEnvelope)' ./...  # Unit tests only (no plugin)
+go test -bench=. -benchmem ./...                    # Run benchmarks
+make test                                           # Build plugin + run tests
+make bench                                          # Build plugin + run benchmarks
+```
+
+See [docs/TESTING_GO.md](./docs/TESTING_GO.md) for Go testing conventions.
+
+## Rust Consumer Integration
+
+The `rustbridge-consumer` crate allows Rust applications to load and call rustbridge plugins.
+
+**Note**: Rust consumers should be created as standalone projects with `cargo new` to avoid Cargo workspace conflicts. Do not use CLI scaffolding for Rust consumers.
+
+```bash
+# Create a Rust consumer project
+cargo new my-consumer
+cd my-consumer
+
+# Add dependency to Cargo.toml
+# rustbridge-consumer = "1.0"
+
+# Build and run
+cargo build --release
+cargo run
+```
+
+See [docs/TESTING_RUST_CONSUMER.md](./docs/TESTING_RUST_CONSUMER.md) for Rust consumer testing conventions.
+
+## Documentation
+
+- [docs/INSTALL.md](./docs/INSTALL.md) - Installation from published packages
+- [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) - Building from source for contributors
+- [docs/GETTING_STARTED.md](./docs/GETTING_STARTED.md) - Tutorial for creating your first plugin
+- [docs/CLI.md](./docs/CLI.md) - CLI reference (new, pack, promote, bundle, keygen, generate-header)
+- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) - System architecture and design decisions
+- [docs/BUNDLE_FORMAT.md](./docs/BUNDLE_FORMAT.md) - .rbp bundle specification
+- [docs/TRANSPORT.md](./docs/TRANSPORT.md) - JSON and binary transport (binary is 7x faster)
+- [docs/MEMORY_MODEL.md](./docs/MEMORY_MODEL.md) - Memory ownership patterns
+- [docs/SKILLS.md](./docs/SKILLS.md) - Development best practices
+- [docs/PLUGIN_LIFECYCLE.md](./docs/PLUGIN_LIFECYCLE.md) - Plugin lifecycle and resource cleanup
+- [docs/ERROR_HANDLING.md](./docs/ERROR_HANDLING.md) - Error types and FFI error codes
+- [docs/DEBUGGING.md](./docs/DEBUGGING.md) - Debugging techniques
+- [docs/VERSIONING.md](./docs/VERSIONING.md) - Versioning policy and release process
+
+---
+> Source: [jrobhoward/rustbridge](https://github.com/jrobhoward/rustbridge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
