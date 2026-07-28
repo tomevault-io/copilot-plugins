@@ -1,0 +1,9 @@
+{
+  "name": "autopkg--datajar-recipes",
+  "displayName": "dataJAR-recipes",
+  "description": "dataJAR-recipes",
+  "version": "1.0.0",
+  "author": "autopkg",
+  "homepage": "https://github.com/autopkg/dataJAR-recipes",
+  "skills": []
+}
