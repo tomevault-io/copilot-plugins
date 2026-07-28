@@ -1,0 +1,175 @@
+## wind-tunnel
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Build and Development Commands
+
+Use `nix develop` to enter the development shell before running most commands. The Nix shell provides InfluxDB, Telegraf, Nomad, Holochain, and other tooling.
+
+For one-off commands that need these tools, use `nix develop -c <command>` to run a single command in the Nix environment without entering an interactive shell.
+
+```bash
+# Build default workspace members (framework, bindings, summariser, happ_builder)
+cargo build
+
+# Run all tests
+cargo test --workspace --all-targets
+
+# Run tests for a single crate
+cargo test -p holochain_summariser
+
+# Lint (must pass with no warnings)
+cargo clippy --workspace --all-targets --all-features -- --deny warnings
+
+# Format Rust
+cargo fmt --all
+
+# Format TOML
+taplo format
+
+# All static checks (see scripts/checks.sh for full list)
+nix develop -c bash -c "source scripts/checks.sh && check_all"
+```
+
+Scenarios and zomes are **excluded from the default workspace members** and must be built explicitly:
+
+```bash
+# Run a scenario locally
+RUST_LOG=info cargo run -p zome_call_single_value -- --duration 60
+
+# Smoke-test a scenario through Nix (as CI does)
+nix run .#rust-smoke-test -- --package zome_call_single_value -- --duration 5 --no-progress
+```
+
+## Project Architecture
+
+### Framework (`framework/`)
+
+Generic load-testing infrastructure with no Holochain-specific code:
+
+- `wind_tunnel_core` — shared types and traits
+- `wind_tunnel_instruments` / `wind_tunnel_instruments_derive` — metrics collection and procedural macros
+- `wind_tunnel_runner` — scenario execution engine (agents, hooks, CLI)
+- `wind_tunnel_summary_model` — `RunSummary` and related serializable types read from `run_summary.jsonl`
+
+### Bindings (`bindings/`)
+
+Adapt the framework to specific systems:
+
+- `holochain_client_instrumented` / `holochain_wind_tunnel_runner` — Holochain bindings
+- `kitsune_client_instrumented` / `kitsune_wind_tunnel_runner` — Kitsune bindings
+
+### Scenarios (`scenarios/`)
+
+Each scenario is a standalone binary using `holochain_wind_tunnel_runner` (or `kitsune_wind_tunnel_runner`). A `ScenarioDefinitionBuilder` wires up global setup/teardown hooks, per-agent setup/teardown hooks, and one or more agent behaviour functions. Scenarios are not in `default-members` and are built on demand.
+
+Scenarios that require custom zomes reference a `build = "../scenario_build.rs"` build script and declare `[package.metadata.required-dna]` / `[package.metadata.required-happ]` / `[package.metadata.fetch-required-happ]` sections in their `Cargo.toml` to build zomes and package them into hApps at build time.
+
+Common functionality available for scenarios:
+- Scenarios which use an instrumented client like `holochain_client_instrumented` will automatically record metrics for client calls. Custom metrics can also be recorded by getting a `Reporter` from the scenario context.
+- Setup/teardown hooks can be used to perform common tasks before or after the scenario. Use agent setup/teardown hooks for tasks that only apply to the current agent.
+- The scenario can check whether the framework is trying to shut down to break out of retry loops or stop other long-running work.
+- Named behaviors allow a scenario to be comprised of multiple agents, behaving differently while interacting with each other.
+- Report which environment variables affect scenario behavior. This *must* be used for any variable that changes the scenario's behavior, otherwise the summariser can't recognize different configurations of the same scenario.
+
+### Shared Scenario Libraries (`scenarios_common/`)
+
+Reusable library crates shared across multiple scenario binaries. Each subdirectory is a Rust library (not a standalone binary) providing common helpers for a family of related scenarios.
+
+- `unyt_scenario` (`wind_tunnel_unyt_scenario`) — shared infrastructure for the Unyt scenarios (`unyt_chain_transaction`, `unyt_chain_transaction_zero_arc`), including network initialization, agent setup, durable object communication, and behaviour logic.
+
+### Zomes (`zomes/`)
+
+Holochain coordinator/integrity zome pairs. Each zome uses `build = "../../wasm_build.rs"`. Coordinator and integrity zomes are separate Rust projects.
+
+### Summariser (`summariser/`)
+
+A utility tool (`holochain-summariser`) that queries InfluxDB for a completed run, produces structured JSON summaries, and writes a report file.
+
+**Data flow:**
+1. Reads `run_summary.jsonl` (or `$RUN_SUMMARY_PATH`) to find runs — `RunSummary` contains the key fields: `run_id`, `scenario_name`, `started_at`, `run_duration`, `fingerprint`.
+2. Dispatches to a per-scenario `summarize_*` function (registered in `lib.rs`) which queries InfluxDB.
+3. InfluxDB responses are converted to Polars `DataFrame`s via `frame.rs`.
+4. Analysis functions in `analyze.rs` compute statistics.
+5. Results are combined into `SummaryOutput` and serialised as JSON.
+
+### Test Data for Summariser
+
+The summariser has two Cargo features to enable snapshot testing:
+
+- `test_data` — captures real InfluxDB query results to `summariser/test_data/2_query_results/` (keyed by SHA3-256 hash of the query string) and run summaries to `1_run_summaries/`. Enable when capturing new test data against a live InfluxDB.
+- `query_test_data` — replays captured data in place of real InfluxDB calls. Unit tests automatically use this feature via `dev-dependencies`.
+
+When the output is changed, the tests will print a diff of the new output against the corresponding snapshot from `summariser/test_data/3_summary_outputs/`. If the change is expected, run the tests again with `UPDATE_SNAPSHOTS=1 cargo test --test snapshot` to accept the new snapshots
+
+**Changing queries invalidates snapshot test data** because the file name is the SHA3-256 hash of the query string. Plan query changes carefully; renaming existing query files is preferred over modifying them. It is acceptable to write temporary code to determine the old and new hashes to enable this renaming. Such temporary code must be cleaned up once the migration is done.
+
+### Summary Visualiser (`summary-visualiser/`)
+
+Go templates and shell scripts — not a Rust crate. Renders the JSON summary outputs as HTML for the GitHub Pages site.
+
+## Summariser Design Constraints
+
+- Assume a mixed estate of hardware. For example, computing the mean of remaining memory is not meaningful because different machines can have different quantities of RAM installed.
+- The project uses Polars data frames for working with data. 
+- Converting from Polars into other data structures like `HashMap` or `Vec` in Rust is sometimes necessary but should be avoided when possible. Using vectorised operations with Polars is always preferred for performance.
+- If a vectorised operation is possible but limits the meaning of the output, that operation should be preferred but it *must* be communicated to the user.
+- Limit the output size of summaries. For example, don't partition data by agent and report individual agent performance, but instead report overall performance across all agents.
+- Key, actionable insights are preferred over having a large number of output summary statistics.
+- Prefer fetching fields and tags from InfluxDB in a smaller number of queries where possible. Once converted to a Polars data frame, the data can be filtered and manipulated as required.
+- A user-friendly interpretation of each output metric must be included on struct fields.
+- Where interpreting the meaning of summary statistics requires some care, this must also be documented. For example, the `mean_time_above_80_percent_s` field which is *only* calculated for hosts that spent some amount of time above 80% usage.
+- Common functions for computing summary statistics from data frames should have their behavior and re-usability clearly documented so that they can be appropriately applied.
+- Backwards compatibility is not required to be maintained. If the source data changes, or a change is planned to the output summary statistics, then make the change directly without compatibility in mind.
+- Changes to queries that result in empty values in summary outputs for test data are not acceptable because the tests aren't exercising the code properly in that case. The user must be informed to re-generate test data when this happens.
+
+## PR Review Guidelines
+
+When reviewing pull requests:
+
+- **Be terse.** Only flag genuine issues: bugs, logic errors, security problems, or violations of project conventions documented here.
+- **Do NOT comment on:** style preferences, minor naming choices, things that are already fine, or anything that `cargo clippy` / `cargo fmt` / `taplo format` would catch (CI handles those).
+- **Do NOT leave praise or filler** like "nice work" or "looks good overall." If there are no issues, say "No issues found." and nothing else.
+- **Each comment should be 1–3 sentences.** State the problem, why it matters, and include a short code snippet showing the suggested fix.
+- **Focus on the diff.** Don't review unchanged code unless a change introduces a problem in surrounding context.
+- **Understand the architecture** before commenting. Read the relevant sections above (Framework, Bindings, Scenarios, Summariser) so your feedback is informed by how the project actually works.
+
+## Code Hygiene
+
+- Generated Rust and TOML must always be properly formatted, if you're not sure then run `cargo fmt` or `taplo format` on the relevant files.
+
+## New Scenario Checklist
+
+When a PR adds a new scenario (a Rust project under `scenarios/`), verify that every applicable item from [`docs/new-scenario-checklist.md`](docs/new-scenario-checklist.md) is addressed. The checklist covers core implementation, CI smoke tests, Nomad deployment (`canonical`, `demo`, and optionally `canonical-scaled` variants plus their workflow `job-name` matrices), summariser integration, and summary visualiser templates. Summariser and summary visualiser items are optional only if a tracking issue is linked from the PR; otherwise they are required.
+
+## Upgrading to a new Holochain release
+
+Start by gathering version and tag information. The user should have supplied a Holochain version to update to like `0.6.1`.
+
+- There should be a corresponding Holochain tag on the repository https://github.com/holochain/holochain with a matching tag `holochain-0.6.1`.
+- Read the file `Cargo.lock` at the corresponding Holochain tag, at the root of the repository. Look for `name = "kitsune2"` and check its version. This is the version of Kitsune2 to use in this repository.
+- Find the Kitsune2 tag on the repository `https://github.com/holochain/kitsune2`. For a Kitsune2 version like `0.4.1`, there will be a `v0.4.1` tag.
+- Read the file `./rust-toolchain.toml` at the corresponding Holochain tag, at the root of the repository. Look for the Rust version that Holochain is using.
+
+These are the steps to be followed to update to a new Holochain release:
+
+1. Update the root `./Cargo.toml` file with new versions of Holochain crates in the section labeled "Deps for Holochain".
+2. Update the root `./Cargo.toml` file with new versions of Kitsune2 crates in the section labeled "Deps for Kitsune".
+3. Update `./rust-toolchain.toml` to use the same Rust version that Holochain is using.
+4. Run `cargo update` and handle any changes to feature flags or dependency conflicts.
+5. Build the workspace with `cargo build` and address any code changes from Holochain. Iterate until the workspace builds successfully.
+6. Ensure the `./flake.nix` points at the matching branch of Holonix. E.g. `main-0.6` for Holochain 0.6.x, or `main` for the upcoming release of Holochain that is currently producing `-dev.X` pre-release versions. Therefore, this only needs to change if the minor version of Holochain is changing, patch and preleases stay on the same Holonix branch.
+7. Run `nix flake update` and verify that the `flake.lock` now points to the right Holochain and Kitsune2 tags.
+8. Ensure the Nix development shell is functional by running `nix develop -c echo "shell builds"`.
+9. Run a smoke test with `nix run .#rust-smoke-test -- --package zome_call_single_value -- --duration 5 --no-progress`. This ensures that at least one scenario runs.
+10. Update the `./README.md` which contains download URLs for Holochain binaries. These can be found with `grep -n 'holochain/releases/download/holochain-' README.md`. Update the Holochain tag in each URL.
+11. Just like the `./README.md`, there are download URLs in each of `./.github/workflows/nomad-demo.yaml`, `./.github/workflows/nomad-canonical.yaml` and `./.github/workflows/nomad-canonical-scaled.yaml`. These can be found with `grep -rn 'holochain/releases/download/holochain-' .github/workflows/` and also need updating to the corresponding Holochain tag.
+12. Verify static checks are passing for Rust and TOML sources using the command `nix develop -c bash -c "source scripts/checks.sh && check_all"`.
+
+---
+> Source: [holochain/wind-tunnel](https://github.com/holochain/wind-tunnel) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
