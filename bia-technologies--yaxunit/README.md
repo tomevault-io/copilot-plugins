@@ -1,6 +1,6 @@
 # AI instruction files for yaxunit
 
-> Sourced from [bia-technologies/yaxunit](https://github.com/bia-technologies/yaxunit) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [bia-technologies/yaxunit](https://github.com/bia-technologies/yaxunit), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [bia-technologies/yaxunit](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/bia-technologies#quality)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/bia-technologies/yaxunit](https://github.com/bia-technologies/yaxunit)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
