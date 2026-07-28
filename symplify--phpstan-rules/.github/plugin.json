@@ -1,0 +1,9 @@
+{
+  "name": "symplify--phpstan-rules",
+  "displayName": "phpstan-rules",
+  "description": "phpstan-rules",
+  "version": "1.0.0",
+  "author": "symplify",
+  "homepage": "https://github.com/symplify/phpstan-rules",
+  "skills": []
+}
