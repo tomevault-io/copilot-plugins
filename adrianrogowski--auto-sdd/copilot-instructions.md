@@ -1,630 +1,91 @@
-## specs-workflow
+## subagent-patterns
 
-> Specs-driven development workflow with design system integration
+> When to use subagents (Task tool) for parallel work in SDD commands
 
 
-# Specs-Driven Development Workflow
+# Subagent Patterns for SDD
 
-This project uses a specs-driven workflow. The `.specs/` directory contains:
-- `strategy.md` - Business strategy: target customer, buying motion, value prop
-- `constitution.md` - Non-negotiable constraints: security, data handling, errors
-- `migrations.md` - Database migration playbook: tool, conventions, reversibility (created by /infer-migrations)
-- `features/` - Gherkin feature specifications with ASCII mockups
-- `personas/` - User personas that inform every spec
-- `test-suites/` - Documentation of what each test file covers
-- `design-system/` - Design tokens and component patterns
-- `learnings/` - Cross-cutting patterns by category
-- `mapping.md` - Links features ↔ tests ↔ components ↔ design
+When executing SDD commands, use subagents (the Task tool) to parallelize independent work. This applies to both interactive commands and the build loop.
 
----
+## When to Fan Out
 
-## Command Triggers
+### During /spec-first
+- **Parallel reads**: Load strategy, constitution, personas, design tokens, learnings index, and search for existing spec simultaneously (up to 6 parallel explore subagents)
+- **Component stub creation**: If mockup references 3+ new components, create stubs in parallel
 
-When the user says any of these phrases, **automatically invoke `/spec-first`**:
+### During /tdd
+- **Post-GREEN validation**: Run build check, lint check, and test check simultaneously (3 parallel shell subagents)
+- **Drift check + compound**: After refactor, drift check and compound can start reading files in parallel (drift checks code, compound reads learnings index)
 
-| User says | Action |
-|-----------|--------|
-| "spec first" | Run `/spec-first {feature}` |
-| "spec-first" | Run `/spec-first {feature}` |
-| "write a spec for" | Run `/spec-first {feature}` |
-| "create a spec" | Run `/spec-first {feature}` |
-| "spec this out" | Run `/spec-first {feature}` |
-| "spec out" | Run `/spec-first {feature}` |
-| "plan this feature" | Run `/spec-first {feature}` |
-| "write the spec" | Run `/spec-first {feature}` |
-| "create spec" | Run `/spec-first {feature}` |
-| "update the spec for" | Run `/spec-first {feature}` (update mode) |
-| "update spec" | Run `/spec-first {feature}` (update mode) |
+### During /build-next
+- **Context loading**: Read strategy, vision, personas, constitution, design tokens, related specs, and learnings index in parallel (7 parallel reads)
+- **Post-build phases**: If drift check and code review are both enabled, they read independent file sets — run simultaneously
 
-When the user says any of these after a spec is shown, **invoke `/tdd`**:
+### During /check-coverage
+- **Parallel analysis**: Check spec coverage, test coverage, and mapping consistency as 3 independent subagents
 
-| User says | Action |
-|-----------|--------|
-| "tdd" | Run `/tdd {feature}` |
-| "go ahead" | Run `/tdd` with current spec |
-| "build it" | Run `/tdd` with current spec |
-| "implement it" | Run `/tdd` with current spec |
-| "ship it" | Run `/tdd` with current spec |
+### During /catch-drift
+- **Multi-spec drift scan**: When scanning multiple specs, batch 3-5 specs per subagent instead of one at a time
 
-Extract the feature description from the rest of their message.
+### During /guide
+- **Parallel gathering**: Read all feature specs, codebase files, and learnings in parallel batches
 
-When the user says any of these, **invoke the corresponding ralph/utility command**:
+### During /ralph-run
+- **Pre-flight checks**: Validate CLI, check ports, read roadmap simultaneously
 
-| User says | Action |
-|-----------|--------|
-| "ralph setup", "set up ralph", "configure ralph" | Run `/ralph-setup` |
-| "ralph run", "run ralph", "start the loop", "run the loop" | Run `/ralph-run` |
-| "clean slate", "kill everything", "restart everything", "nuke localhost" | Run `/clean-slate` |
-| "generate guide", "update guide", "how to use guide" | Run `/guide` |
+## When NOT to Fan Out
 
-When the user says any of these, **invoke `/strategy`**:
+- **Sequential dependencies**: Spec must complete before tests, tests before implementation
+- **Git operations**: Only one agent should touch git at a time (commits, branches, merges)
+- **Roadmap updates**: Single writer to avoid race conditions on roadmap.md
+- **Small tasks**: If the total work is < 10 seconds, the subagent overhead isn't worth it
 
-| User says | Action |
-|-----------|--------|
-| "strategy" | Run `/strategy` |
-| "product strategy" | Run `/strategy` |
-| "business strategy" | Run `/strategy` |
-| "shape this" | Run `/strategy` |
-| "who are we selling to" | Run `/strategy` |
-| "business model" | Run `/strategy` |
+## How to Fan Out
 
-When the user says any of these, **invoke `/gtm`**:
-
-| User says | Action |
-|-----------|--------|
-| "gtm playbook" | Run `/gtm` |
-| "marketing plan" | Run `/gtm` |
-| "how do we get users" | Run `/gtm` |
-| "distribution plan" | Run `/gtm` |
-| "growth plan" | Run `/gtm` |
-| "channel strategy" | Run `/gtm` |
-| "launch plan" | Run `/gtm` |
-| "outreach plan" | Run `/gtm` |
-
-When the user says any of these, **invoke `/find-early-users`**:
-
-| User says | Action |
-|-----------|--------|
-| "find early users" | Run `/find-early-users` |
-| "find users" | Run `/find-early-users` |
-| "find prospects" | Run `/find-early-users` |
-| "find people" | Run `/find-early-users` |
-| "who should I talk to" | Run `/find-early-users` |
-| "find beta testers" | Run `/find-early-users` |
-| "find feedback" | Run `/find-early-users` |
-| "prospect list" | Run `/find-early-users` |
-| "who's complaining about" | Run `/find-early-users` |
-| "find my first users" | Run `/find-early-users` |
-
-When the user says any of these, **invoke `/constitution`**:
-
-| User says | Action |
-|-----------|--------|
-| "constitution" | Run `/constitution` |
-| "project constraints" | Run `/constitution` |
-| "security rules" | Run `/constitution` |
-| "invariants" | Run `/constitution` |
-| "non-negotiables" | Run `/constitution` |
-| "audit specs" | Run `/constitution --audit` |
-
-When the user says any of these, **invoke `/infer-migrations`**:
-
-| User says | Action |
-|-----|-----|
-| "infer migrations" | Run `/infer-migrations` |
-| "migration strategy" | Run `/infer-migrations` |
-| "migration playbook" | Run `/infer-migrations` |
-| "how do we do migrations" | Run `/infer-migrations` |
-| "document our migrations" | Run `/infer-migrations` |
-| "schema change strategy" | Run `/infer-migrations` |
-
-**Create vs Update**: `/spec-first` auto-detects whether to create or update: searches `.specs/features/` for a matching spec (by path or frontmatter `feature:`). Match found → update existing spec. No match → create new spec. With `--full`, both paths continue through the full Red-Green-Refactor TDD cycle.
-
-**Specs are state, not deltas**: a spec always describes the entire expected behavior of the feature as it exists now — "add three fields to the form" is a commit message, not a spec. Updates rewrite affected scenarios to the new truth (removing superseded ones) instead of appending change notes; the delta lives in git history.
-
-### Full Mode Triggers
-
-If user includes "full", "auto", "no stops", or "don't pause":
-- Add `--full` flag to the command
-- Example: "spec first user auth, full mode" → `/spec-first user auth --full`
-
-## Directory Structure
+Use the Task tool with appropriate subagent types:
 
 ```
-.specs/
-├── strategy.md            # Business strategy (created by /strategy)
-├── constitution.md        # Non-negotiable constraints (created by /constitution)
-├── migrations.md          # Migration playbook (created by /infer-migrations)
-├── personas/              # User personas (inform every spec)
-│   ├── primary.md         # Main user persona
-│   ├── secondary.md       # Second user type (if needed)
-│   ├── anti-persona.md    # Who you're NOT building for
-│   └── _template.md       # Template for new personas
-├── gtm/                   # Go-to-market (created by /gtm and /find-early-users)
-│   ├── gtm.md             # Channel playbook, templates, launch timeline
-│   └── prospects.md       # Specific people/conversations to reach out to
-├── features/              # Gherkin specs with ASCII mockups
-│   └── {domain}/
-│       └── {feature}.feature.md
-├── test-suites/           # Test documentation
-│   └── {mirrors test dir structure}
-├── design-system/         # Design tokens and patterns
-│   ├── tokens.md          # Spec shorthand (personality-driven)
-│   ├── DESIGN.md          # Agent-native design spec (Google DESIGN.md format)
-│   ├── preview.html       # Visual showcase (open in browser)
-│   ├── preview.template.html
-│   ├── references/        # Archetype DESIGN.md examples + getdesign mapping
-│   └── components/        # Component pattern docs
-│       └── {component}.md
-├── learnings/             # Cross-cutting patterns (by category)
-│   ├── index.md           # Summary + recent learnings
-│   ├── testing.md
-│   ├── performance.md
-│   ├── security.md
-│   ├── api.md
-│   ├── design.md
-│   └── general.md
-├── mapping.md             # Links everything together (auto-generated)
-├── codebase-summary.md    # Generated by /spec-init
-├── doc-queue.md           # Documentation queue (created by /spec-init or doc-loop)
-└── needs-review.md        # Files that need manual attention
+# For file reading / exploration
+subagent_type: "explore" with model: "fast"
+
+# For shell commands (build, test, lint)
+subagent_type: "shell" with model: "fast"
+
+# For complex analysis (drift check, code review)
+subagent_type: "generalPurpose"
 ```
 
----
-
-## Project Setup (Once)
-
-These are project-level infrastructure created once and referenced by every feature:
+### Pattern: Parallel Reads Then Sequential Write
 
 ```
-/strategy → creates .specs/strategy.md (business positioning, buying motion, metrics, GTM sketch)
- │
- ├──▶ /vision → creates .specs/vision.md (reads strategy)
- │     │
- │     ├──▶ /personas → creates .specs/personas/ (reads strategy + vision)
- │     │
- │     ├──▶ /constitution → creates .specs/constitution.md (reads strategy + vision)
- │     │
- │     └──▶ /design-tokens → creates tokens.md + DESIGN.md + preview.html
- │          (reads vision + personas to derive personality + values)
- │
- ├──▶ /roadmap → reads strategy for prioritization
- │
- └──▶ /gtm → creates .specs/gtm.md (reads strategy → channels, templates, timeline)
-       │
-       └──▶ /find-early-users → creates .specs/gtm/prospects.md (specific people + conversations)
+1. Fan out: explore subagents read strategy, constitution, personas, tokens, learnings, existing specs
+2. Collect results
+3. Sequential: Write the spec using all gathered context
 ```
 
-All are optional but improve every spec that follows. `/spec-first` will note what's missing and still work without them.
-
-### Ordering: GTM vs Vision
-
-Both `/vision` and `/gtm` read strategy.md and can run independently. The **temporal order** depends on your situation:
-
-**Finding product-market fit** (greenfield, unvalidated idea): GTM before vision. Use `/gtm` and `/find-early-users` to validate the problem with real people. Iterate on `/strategy` until it stabilizes. *Then* write `/vision` grounded in what you learned.
-
-**Known product** (cloning an app, internal tool, experienced domain): Vision first. You already know what to build — go straight to `/vision`, then use `/gtm` for distribution.
+### Pattern: Parallel Validation
 
 ```
-PMF search:    /strategy → /gtm → /find-early-users → conversations → /strategy (update)
-                   ↓ (once stable)
-               /vision → /personas → /roadmap → build
-
-Known product: /strategy → /vision → /personas → /roadmap → build
-                   └──────→ /gtm → /find-early-users (in parallel)
+1. Agent completes implementation
+2. Fan out: shell subagent runs tests, shell subagent runs build, shell subagent runs lint
+3. Collect results
+4. If all pass → continue
+5. If any fail → fix sequentially (failures may be related)
 ```
 
----
+### Pattern: Batch Processing
 
-## The Core Loop (Per Feature — Red-Green-Refactor TDD)
-
+For commands that process multiple items (drift-scan, doc-loop, check-coverage):
 ```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│    SPEC      │ ──▶ │  RED (test)  │ ──▶ │ GREEN (impl) │ ──▶ │  REFACTOR    │
-│              │     │  (failing)   │     │ (until tests │     │ (clean up,   │
-│ Reads:       │     │              │     │  pass)       │     │  tests must  │
-│ - personas   │     │              │     │              │     │  still pass) │
-│ - tokens     │     │              │     │              │     │              │
-│              │     │              │     │              │     │              │
-│ Writes:      │     │              │     │              │     │              │
-│ - Gherkin    │     │              │     │              │     │              │
-│ - mockup     │     │              │     │              │     │              │
-│ - journey    │     │              │     │              │     │              │
-│              │     │              │     │              │     │              │
-│ Then:        │     │              │     │              │     │              │
-│ - persona    │     │              │     │              │     │              │
-│   revision   │     │              │     │              │     │              │
-└──────┬───────┘     └──────────────┘     └──────┬───────┘     └──────┬───────┘
-       │                                         │                     │
-    [PAUSE]                                      ▼                     ▼
-  user approves                          ┌──────────────┐     ┌──────────────┐
-  then /tdd                              │ DRIFT CHECK  │     │ DRIFT CHECK  │
-                                         │ (layer 1)    │     │ (layer 1b)   │
-                                         └──────────────┘     └──────┬───────┘
-                                                                      │
-                                                                      ▼
-                                                               ┌──────────────┐
-                                                               │  COMPOUND    │
-                                                               │ (learnings)  │
-                                                               └──────────────┘
+1. Gather list of items to process
+2. Chunk into batches of PARALLEL_FEATURES (default: 3)
+3. Fan out: one subagent per chunk
+4. Collect and merge results
 ```
 
-### What happens in the SPEC step:
+## Build Loop Integration
 
-1. **Load context** — Read strategy, constitution, personas, design tokens, learnings index
-2. **Write Gherkin** — Scenarios using persona vocabulary, matching patience level
-3. **Write technical design** — Data model, API contracts, state management, key dependencies, program design (files, signatures, call stack), implementation slices (bridges WHAT→HOW)
-4. **Write mockup** — ASCII art referencing design tokens
-5. **Add strategy alignment** — How this feature supports the business strategy (if strategy.md exists)
-6. **Add constitutional compliance** — Which constraints apply and how (if constitution.md exists)
-7. **Add user journey** — Where this feature fits in the user's flow
-8. **Persona revision** — Re-read through persona's eyes, revise, note changes
-9. **Create component stubs** — For any new UI components
-10. **Pause** — Show spec + revision notes, ask "Run `/tdd` when ready"
-
-### What happens in the /tdd step (Red-Green-Refactor):
-
-1. **RED** — Write failing tests from Gherkin scenarios + Technical Design
-2. **GREEN** — Implement vertical slice by vertical slice until all tests pass, verifying and committing each slice (track failure signals: test retries, build failures)
-3. **Drift Check L1** — Self-check spec vs code alignment, including Program Design vs actual structure (track drift as failure signal)
-4. **REFACTOR** — Clean up code, tests must still pass
-5. **Drift Check L1b** — Re-verify after refactoring (track drift as failure signal)
-6. **COMPOUND** — Always runs. Extracts learnings AND failure signals (drift, retries, spec gaps, corrections)
-
----
-
-## Design System
-
-The design system is created once by `/design-tokens` and informed by vision + personas.
-
-### How `/design-tokens` Works
-
-It doesn't stamp a generic template. It:
-1. Reads `.specs/vision.md`, `.specs/personas/`, and `.specs/strategy.md` for context
-2. Reads a matching archetype from `.specs/design-system/references/{personality}.design.md`
-3. Optionally uses [getdesign.md](https://getdesign.md/) inspiration (`npx getdesign@latest add {brand}`)
-4. Writes **DESIGN.md** (Google spec), **tokens.md** (spec shorthand), and **preview.html** (visual review)
-5. Creates `.cursor/rules/design-tokens.mdc`
-
-Agents read **DESIGN.md** for UI; specs use **tokens.md** in ASCII mockups.
-
-### When `/spec-first` Runs on Greenfield
-
-If no design system exists:
-1. Auto-create via `/design-tokens` flow (reads whatever context exists)
-2. Create `.cursor/rules/design-tokens.mdc` cursor rule
-3. Proceed with feature spec
-
-### When a Spec References New Components
-
-If ASCII mockup references a component that doesn't exist in `.specs/design-system/components/`:
-1. Auto-create a **stub** file: `.specs/design-system/components/{component}.md`
-2. Stub includes: name, purpose, "pending implementation" status
-3. After implementation, stub gets filled in (manually or via `/document-component`)
-
----
-
-## Personas
-
-User personas live in `.specs/personas/` and inform every feature spec.
-
-### What They Contain
-- **Context**: How the user spends their day, devices, technical level
-- **Vocabulary**: Their words vs developer words (drives UI labels)
-- **Patience level**: Very Low / Low / Medium / High (drives flow length)
-- **Frustrations**: Interaction patterns to avoid
-- **Success metric**: How they measure if the app works
-
-### How `/spec-first` Uses Them
-
-**Before writing**: Loads persona vocabulary, patience level, and frustrations. This shapes the Gherkin scenarios, mockup labels, and flow complexity from the start.
-
-**After writing**: Re-reads the spec through each persona's eyes. Revises vocabulary, simplifies flows, cuts anti-persona features. Reports what changed at the pause point.
-
-### Creating Personas
-
-Run `/personas` or they're auto-suggested on first `/spec-first` run. Most projects need 2:
-- **Primary**: The main user. Every feature must work for them.
-- **Anti-persona**: Who you're NOT building for. Prevents scope creep.
-
----
-
-## Feature Spec Format (with ASCII Mockup)
-
-Every feature spec in `.specs/features/` should include **YAML frontmatter** that powers the auto-generated mapping:
-
-```markdown
----
-feature: Feature Name
-domain: domain-name
-source: path/to/file.tsx
-tests: []
-components: []
-design_refs: []
-personas: [primary, anti-persona]
-status: stub    # stub → specced → tested → implemented
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
----
-
-# Feature Name
-
-**Source File**: `path/to/file.tsx`
-**Design System**: `.specs/design-system/tokens.md`
-**Personas**: `.specs/personas/primary.md`
-
-## Feature: [Name]
-
-[Brief description — who it's for and what problem it solves]
-
-### Scenario: [Happy path]
-Given [precondition]
-When [action]
-Then [expected result]
-
-### Scenario: [Edge case]
-Given [precondition]
-When [action]
-Then [expected result]
-
-## User Journey
-
-1. [Where user comes from]
-2. **[This feature]**
-3. [Where user goes next]
-
-## Technical Design
-
-### Data Model
-- [Entity]: { [key fields] }
-- Relationships: [how entities connect]
-
-### API Contracts
-<!-- Skip if purely client-side -->
-- `[METHOD] [endpoint]` — [purpose]. Body/Query: { [shape] }. Returns: [shape]. Errors: [codes]
-
-### State Management
-- [What state lives where: URL params, local state, global store, server cache]
-- [Key state transitions]
-
-### Key Dependencies
-- Uses: [existing modules, services, components]
-- Introduces: [new modules this feature creates]
-
-### Program Design
-<!-- The shape of the code: file-tree diff, call stack, key signatures. Kept in sync with reality by drift checks — it is the documentation of how the code is laid out. -->
-- Files: [created / modified, one line each]
-- Call stack: [who calls what, indented tree]
-- Key signatures: [the 3-5 functions/types that matter]
-
-### Implementation Slices
-<!-- M/L features only. 2-4 vertical slices, each ending in a verifiable state (curl, click, or test). GREEN implements one at a time. -->
-1. [Slice] — verify: [how]
-
-## UI Mockup
-
-(ASCII art referencing design tokens, using persona vocabulary)
-
-## Component References
-
-- Button: `.specs/design-system/components/button.md`
-- Card: `.specs/design-system/components/card.md` (stub)
-
-## Learnings
-
-<!-- Updated via /compound -->
-```
-
-### Frontmatter Fields
-
-| Field | Description | When to Update |
-|-------|-------------|----------------|
-| `status` | stub → specced → tested → implemented | Each workflow stage |
-| `tests` | Array of test file paths | After writing tests |
-| `components` | Array of component names | After implementation |
-| `personas` | Array of persona names referenced | Spec creation |
-| `updated` | Last modified date | Any change |
-
----
-
-## Available Slash Commands
-
-### Setup Commands
-
-| Command | Purpose | When to Use |
-|---------|---------|-------------|
-| `/strategy` | Define business strategy, target customer, buying motion | Before /vision for products with users |
-| `/spec-init` | Discover codebase, create doc-queue.md (discovery only) | First time on existing project |
-| `/spec-first` | Create or update spec + mockup (reads strategy + constitution) | Starting or updating any feature |
-| `/spec-first --full` | Spec + full Red-Green-Refactor cycle (no pauses) | Automated builds |
-| `/tdd` | Red-Green-Refactor cycle from approved spec | After reviewing a spec |
-| `/vision` | Create or update vision.md (reads strategy) | Setting app direction |
-| `/personas` | Create or update user personas (reads strategy) | Before first feature (or anytime) |
-| `/constitution` | Define non-negotiable project constraints | Before first feature (or anytime) |
-| `/infer-migrations` | Discover/define DB migration strategy → `.specs/migrations.md` | Before changing the schema (or anytime) |
-| `/design-tokens` | Create or update design tokens | Before first feature (or anytime) |
-
-### GTM Commands (Go-to-Market)
-
-| Command | Purpose |
-|---------|---------|
-| `/gtm` | Create GTM playbook: channels, outreach templates, launch timeline |
-| `/find-early-users` | Find specific people and conversations to reach out to right now |
-
-### Core Workflow Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/document-code` | Generate specs/tests from existing code (reverse TDD) |
-| `/prototype` | Rapid prototyping without specs/tests |
-| `/formalize` | Convert prototype to production code with full specs |
-| `/compound` | Extract learnings + failure signals from session (auto-runs after /tdd) |
-| `/strip-specs` | Strip implementation details from specs for rebuilding in a new project |
-
-### Roadmap Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/roadmap` | Create, add features, reprioritize, or check roadmap status |
-| `/clone-app <url>` | Analyze app → create vision.md + roadmap.md |
-| `/build-next` | Build next pending feature from roadmap |
-| `/roadmap-triage` | Scan Slack/Jira → add to roadmap |
-
-### Design System Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/design-tokens` | Create or update design tokens (personality-driven) |
-| `/design-component` | Document a component pattern (fill in stub) |
-
-### Bug Fixing & Refactoring
-
-| Command | Purpose |
-|---------|---------|
-| `/fix-bug` | Investigate and fix bugs with regression tests |
-| `/refactor` | Refactor code while ensuring tests still pass |
-
-### Documentation & Maintenance
-
-| Command | Purpose |
-|---------|---------|
-| `/check-coverage` | Compare specs against tests to find gaps |
-| `/update-test-docs` | Sync test documentation with actual tests |
-| `/catch-drift` | Detect and reconcile spec ↔ code drift |
-| `/verify-test-counts` | Run tests and reconcile counts vs documentation |
-
-### Ralph Commands (Build Loop Management)
-
-| Command | Purpose |
-|---------|---------|
-| `/ralph-setup` | Interactive wizard: configure .env.local with auto-detection |
-| `/ralph-run` | Show roadmap status, kill dev servers, launch build loop |
-| `/clean-slate` | Kill all processes on dev ports, optionally restart |
-| `/guide` | Generate/update GUIDE.md — living "how to use" guide for the built app |
-
-### Git Workflow
-
-| Command | Purpose |
-|---------|---------|
-| `/start-feature` | Sync with main branch and create new feature branch |
-| `/code-review` | Review code against senior engineering standards |
-
----
-
-## Pause Triggers
-
-If the user says any of these (or similar), create the spec and **STOP** - wait for approval:
-- "let me review first"
-- "write the spec first"
-- "show me the Gherkin"
-- "spec this out"
-- "don't implement yet"
-- "plan this first"
-- "what would this look like?"
-- "before you implement..."
-- "hold on"
-- "wait"
-- "let me see"
-
-**After showing the spec:** "Does this look right? Run `/tdd` when ready, or say 'go ahead' to start the Red-Green-Refactor cycle."
-
----
-
-## Test ID Conventions
-
-When documenting tests, use prefixes for component/module names:
-
-| Prefix | Component/Module |
-|--------|------------------|
-| UT | utils |
-| API | api handlers |
-| SVC | services |
-| CMP | components |
-| PG | pages |
-| HK | hooks |
-
-New components/modules should get a 2-3 letter prefix.
-
----
-
-## File Locations
-
-| Type | Location |
-|------|----------|
-| Business strategy | `.specs/strategy.md` |
-| Project constitution | `.specs/constitution.md` |
-| Migration playbook | `.specs/migrations.md` |
-| User personas | `.specs/personas/*.md` |
-| GTM playbook | `.specs/gtm.md` |
-| Prospect list | `.specs/gtm/prospects.md` |
-| Feature specs | `.specs/features/{domain}/{feature}.feature.md` |
-| Test suite docs | `.specs/test-suites/{mirrors test directory}` |
-| Design tokens | `.specs/design-system/tokens.md` |
-| DESIGN.md (agents) | `.specs/design-system/DESIGN.md` |
-| Design preview | `.specs/design-system/preview.html` |
-| Archetype references | `.specs/design-system/references/` |
-| Component patterns | `.specs/design-system/components/{component}.md` |
-| Mapping | `.specs/mapping.md` **(auto-generated)** |
-| Documentation queue | `.specs/doc-queue.md` (created by `/spec-init` or `doc-loop-local.sh`) |
-| Cross-cutting learnings | `.specs/learnings/` (by category) |
-| Codebase summary | `.specs/codebase-summary.md` |
-
----
-
-## Auto-Generated Mapping
-
-The `.specs/mapping.md` file is **auto-generated** from feature spec YAML frontmatter.
-
-**Do NOT edit mapping.md directly.** Instead:
-1. Update the feature spec's YAML frontmatter
-2. Cursor hook auto-regenerates mapping.md on save
-3. Or run `./scripts/generate-mapping.sh` manually
-
-This prevents merge conflicts when multiple PRs touch different features.
-
----
-
-## Always Mention
-
-When working with specs, always tell the user:
-- Which spec files you're reading
-- Which spec files you're creating/updating
-- Whether strategy.md and constitution.md were loaded
-- Which persona files you're reading
-- Which design system files you're creating/referencing
-- Any gaps between specs and tests
-- Any constitutional compliance conflicts
-- Component stubs that need to be filled in
-
-This helps the user track documentation changes.
-
----
-
-## Component Stub Lifecycle
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│ COMPONENT STUB LIFECYCLE                                                │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  1. /spec-first "user profile"                                          │
-│     └─▶ Mockup references "Card" component                              │
-│     └─▶ Card doesn't exist → CREATE STUB                                │
-│                                                                         │
-│  2. Stub created: .specs/design-system/components/card.md               │
-│     Status: 📝 Stub (pending implementation)                            │
-│     Purpose: [from context]                                             │
-│     Props: _To be documented_                                           │
-│                                                                         │
-│  3. Implementation happens...                                           │
-│                                                                         │
-│  4. /design-component card                                              │
-│     └─▶ Reads actual component code                                     │
-│     └─▶ Fills in props, variants, usage examples                        │
-│     └─▶ Status: ✅ Documented                                           │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
+The `BRANCH_STRATEGY=parallel` mode in `build-loop-local.sh` already handles script-level parallelism (multiple agent processes in separate worktrees). Within each agent process, use the patterns above for command-level parallelism.
 
 ---
 > Source: [AdrianRogowski/auto-sdd](https://github.com/AdrianRogowski/auto-sdd) — distributed by [TomeVault](https://tomevault.io).
