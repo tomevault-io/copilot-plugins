@@ -1,236 +1,417 @@
 ## corepkgs
 
-> This document provides high-level guidelines for AI agents working with the core-pkgs repository. For detailed information on specific topics, see the `.skills/` directory.
+> This document provides a quick reference for AI agents working with the cross-platform service management system in core-pkgs.
 
-# Agent Guide for core-pkgs
+# Agent Guide for Cross-Service Interface
 
-This document provides high-level guidelines for AI agents working with the core-pkgs repository. For detailed information on specific topics, see the `.skills/` directory.
+This document provides a quick reference for AI agents working with the cross-platform service management system in core-pkgs.
 
-**Quick access to detailed guides:**
-- [`.skills/cmake.md`](.skills/cmake.md) - CMake build system
-- [`.skills/meson.md`](.skills/meson.md) - Meson build system
-- [`.skills/packaging.md`](.skills/packaging.md) - Packaging conventions
-- [`.skills/validation.md`](.skills/validation.md) - Validation and testing
-- [`.skills/porting.md`](.skills/porting.md) - Porting from nixpkgs
+## Overview
 
-## Package Organization
+The `services/` directory provides a **unified service interface** that works across multiple service managers:
+- **systemd** (Linux - user & system services)
+- **launchd** (macOS - user agents & system daemons)
+- **runit** (Linux/containers - simple supervision)
+- **BSD rc.d** (FreeBSD/OpenBSD/NetBSD/DragonFly)
 
-### Automatic Package Scope Registration
+Services are defined once using common options, then automatically translated to platform-specific formats.
 
-Packages in `pkgs/` and `pkgs-many/` are automatically added to the `pkgs.*` package scope based on their directory name.
-
-#### `pkgs/` Directory
-
-Individual packages are placed in `pkgs/<package-name>/default.nix`. The package is automatically available as `pkgs.<package-name>` without requiring an explicit entry in `top-level.nix`.
-
-**Example:**
-```
-pkgs/
-  libxslt/
-    default.nix
-    77-Use-a-dedicated-node-type-to-maintain-the-list-of-cached-rv-ts.patch
-```
-
-This package is automatically available as `pkgs.libxslt`.
-
-**When to add an explicit entry in `top-level.nix`:**
-- Only add an explicit entry if the **inputs deviate** from the inputs declared in the nix expression
-- Or if you need to override default arguments
-- Or if you need to provide additional configuration
-
-**Example of explicit entry (when needed):**
-```nix
-# In top-level.nix
-libxslt = callPackage ./pkgs/libxslt {
-  # Override default inputs
-  pythonSupport = false;
-  cryptoSupport = true;
-};
-```
-
-#### `pkgs-many/` Directory
-
-Packages that produce multiple variants should use the `mkManyVariants` paradigm and be placed in `pkgs-many/`.
-
-**Example structure:**
-```
-# Uses mkManyVariants to create python39, python310, python311, etc.
-pkgs-many/python/default.nix  
-```
-
-The variants are automatically available in the package scope (e.g., `pkgs.python39`, `pkgs.python310`).
-
-## Packaging Conventions
-
-### Meta Attributes
-
-**Always set `meta.maintainers` to an empty list:**
+## Service Definition Structure
 
 ```nix
-meta = {
-  description = "Example package";
-  license = lib.licenses.mit;
-  maintainers = [ ];  # Always empty
-  platforms = lib.platforms.linux;
-};
-```
+{
+  services.my-service = {
+    # Common options (work everywhere)
+    enable = true;
+    description = "My Service";
+    command = "${pkgs.python3}/bin/python3";
+    args = [ "-m" "http.server" "8080" ];
+    user = "myuser";
+    workingDirectory = "/var/lib/myservice";
+    environment = { PORT = "8080"; };
+    restartPolicy = "always";  # or "on-failure", "never"
+    preStart = "echo 'Starting...'";
+    postStop = "echo 'Stopped'";
 
-**Detailed guide:** See [`.skills/packaging.md`](.skills/packaging.md) for complete meta attribute documentation.
+    # Platform-specific extensions (optional)
+    systemd = {
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      serviceConfig = {
+        PrivateTmp = true;
+        NoNewPrivileges = true;
+      };
+    };
 
-### Testing
+    launchd = {
+      label = "com.example.my-service";
+      keepAlive = true;
+      runAtLoad = true;
+    };
 
-**Key points:**
-- `doCheck = false;` is the default - don't set it explicitly
-- Prefer `passthru.tests` for unit tests
-- Only enable `doCheck = true;` for critical packages
+    runit = {
+      logScript = ''
+        #!/bin/sh
+        exec svlogd -tt /var/log/my-service
+      '';
+    };
 
-**Detailed guide:** See [`.skills/packaging.md`](.skills/packaging.md#testing) for testing patterns.
-
-### Build Systems
-
-**CMake packages:**
-
-Include `cmake.configurePhaseHook` in nativeBuildInputs.
-
-**Detailed guide:** See [`.skills/cmake.md`](.skills/cmake.md) for complete CMake documentation.
-
-**Meson packages:**
-
-Include `meson.configurePhaseHook` and `ninja` in nativeBuildInputs, specify `mesonBuildType`.
-
-**Detailed guide:** See [`.skills/meson.md`](.skills/meson.md) for complete Meson documentation.
-
-
-## Validation Requirements
-
-All added or edited package attributes **must** pass three validation steps:
-
-### 1. Evaluation Check
-
-```bash
-nix-instantiate -A <package-name>
-```
-
-Verifies the Nix expression evaluates correctly.
-
-### 2. Build Check
-
-```bash
-nix-build -A <package-name>
-```
-
-Verifies the package builds successfully.
-
-### 3. Format Check
-
-```bash
-nix fmt <path-to-file>
-```
-
-Ensures code follows formatting standards.
-
-**Detailed guide:** See [`.skills/validation.md`](.skills/validation.md) for complete validation procedures, troubleshooting, and advanced validation techniques.
-
-## Common Patterns
-
-### Checking if Dependencies Exist
-
-Before porting a package, verify that all required dependencies are available in core-pkgs.
-
-**Use `nix-instantiate` to check if a dependency exists:**
-
-```bash
-nix-instantiate -A <dependency-name>
-```
-
-If the dependency exists, you'll see the derivation path. If it doesn't exist, you'll get an error.
-
-**Example - checking multiple dependencies:**
-```bash
-for dep in acl lzo cmocka libuuid util-linux zlib zstd; do
-  echo -n "$dep: "
-  nix-instantiate -A $dep >/dev/null 2>&1 && echo "✓ available" || echo "✗ missing"
-done
-```
-
-**Output:**
-```
-acl: ✓ available
-lzo: ✓ available
-cmocka: ✓ available
-libuuid: ✓ available
-util-linux: ✓ available
-zlib: ✓ available
-zstd: ✓ available
-```
-
-**Important:** Do NOT search `top-level.nix` with grep to check for dependencies. Packages in `pkgs/` and `pkgs-many/` are automatically registered and may not appear in `top-level.nix`. Always use `nix-instantiate` to verify availability.
-
-**NOTE:** For non derivation attrs, use `nix-instantiate --eval -A <dep>` which can evaluate to non derivations
-
-### Porting from nixpkgs
-
-When porting a package from nixpkgs:
-
-1. **Check dependencies first** - use `nix-instantiate -A <dep>` to verify all dependencies exist
-2. **Copy the package files** to the appropriate directory (`pkgs/` or `pkgs-many/`)
-3. **Remove/clear `meta.maintainers`** field
-4. **Remove update scripts** (e.g., `updateScript = gnome.updateScript { ... }`)
-5. **Add TODO comments** for missing dependencies
-6. **Validate** and **format** the files
-
-**Detailed guide:** See [`.skills/porting.md`](.skills/porting.md) for complete porting workflow, examples, and troubleshooting.
-
-## Validation Checklist
-
-Before submitting changes, ensure:
-
-- [ ] All dependencies verified with `nix-instantiate -A <dep>`
-- [ ] Package in correct directory (`pkgs/` or `pkgs-many/`)
-- [ ] `meta.maintainers = [ ];` (empty list)
-- [ ] `nix-instantiate -A <package>` succeeds
-- [ ] `nix-build -A <package>` succeeds
-- [ ] `nix fmt <file>` run on all edited files
-- [ ] TODO comments added for missing dependencies
-
-**Complete checklist:** See [`.skills/validation.md`](.skills/validation.md#validation-checklist) for the full validation checklist.
-
-## ekaos Reusable Modules
-
-ekaos provides **reusable service modules** using a cross-platform service interface that works across systemd, launchd, runit, and BSD rc.d.
-
-**Quick reference:** See `services/AGENTS.md` for service definition syntax and conventions.
-
-**Key points:**
-- Service modules in `ekaos/modules/services/` define options at `services.*`
-- Services are automatically translated to systemd units
-- Same interface works across multiple platforms and contexts
-- Full documentation in `services/README.md`
-
-**Example service module structure:**
-```nix
-services.myservice = {
-  enable = true;
-  command = "${pkgs.myapp}/bin/myapp";
-  args = [ "--port" "8080" ];
-  restartPolicy = "always";
-
-  systemd = {
-    wantedBy = [ "multi-user.target" ];
+    rcd = {
+      variant = "freebsd";  # or "openbsd", "netbsd", "dragonfly"
+      rcRequire = [ "NETWORKING" ];
+    };
   };
-};
+}
 ```
 
-## Additional Resources
+## Integration with ekaos
 
-For detailed information on specific topics:
+ekaos modules use the same service interface. Services are defined at `services.*` and automatically translated to systemd units.
 
-- **Build systems:** [`.skills/cmake.md`](.skills/cmake.md) and [`.skills/meson.md`](.skills/meson.md)
-- **Packaging:** [`.skills/packaging.md`](.skills/packaging.md) - includes dependency management, cross-compilation, and passthru attributes
-- **Validation:** [`.skills/validation.md`](.skills/validation.md) - includes troubleshooting and advanced validation
-- **Porting:** [`.skills/porting.md`](.skills/porting.md) - includes complete examples and best practices
-- **All skills:** [`.skills/README.md`](.skills/README.md) - index of all available skill guides
+**Example ekaos module:**
+```nix
+{ config, pkgs, ... }:
+
+{
+  services.my-app = {
+    enable = true;
+    command = "${pkgs.myapp}/bin/myapp";
+    restartPolicy = "always";
+
+    systemd = {
+      wantedBy = [ "multi-user.target" ];
+    };
+  };
+}
+```
+
+**Location:** Service modules are in `ekaos/modules/services/`
+
+## ekaos Service Module Conventions
+
+When creating ekaos service modules:
+
+1. **Standard service options** - Always include:
+   - `enable` (bool)
+   - `description` (str, default provided)
+   - `command` (str, internal/automatic)
+   - `args` (list of str, internal/automatic)
+   - `user` (str, defaults to appropriate user)
+   - `restartPolicy` (str, usually "always")
+   - `systemd` (attrset for systemd-specific options)
+
+2. **Application-specific settings** - Use `settings` submodule:
+   ```nix
+   services.openssh.settings = {
+     ports = 22;
+     permitRootLogin = "prohibit-password";
+     passwordAuthentication = true;
+   };
+   ```
+
+3. **Service definition** - Set in config section:
+   ```nix
+   config = mkIf cfg.enable {
+     services.openssh = {
+       command = "${pkgs.openssh}/bin/sshd";
+       args = [ "-D" "-f" "${sshdConfig}" ];
+       user = "root";
+       restartPolicy = "always";
+
+       systemd = {
+         after = [ "network.target" ];
+         wantedBy = [ "multi-user.target" ];
+       };
+     };
+   };
+   ```
+
+## Porting Services from nixpkgs
+
+When porting service modules from nixpkgs to ekaos, refactor them to use the reusable services interface.
+
+### Refactoring Pattern
+
+**ekaos reusable style:**
+```nix
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.services.myservice;
+in
+
+{
+  options.services.myservice = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Whether to enable My Service.";
+    };
+
+    description = mkOption {
+      type = types.str;
+      default = "My Service";
+      description = "Service description";
+    };
+
+    command = mkOption {
+      type = types.str;
+      internal = true;
+      description = "Command to run (set automatically)";
+    };
+
+    args = mkOption {
+      type = types.listOf types.str;
+      internal = true;
+      default = [];
+      description = "Command arguments (set automatically)";
+    };
+
+    user = mkOption {
+      type = types.str;
+      default = "myservice";
+      description = "User to run service as";
+    };
+
+    restartPolicy = mkOption {
+      type = types.str;
+      default = "always";
+      description = "Restart policy";
+    };
+
+    systemd = mkOption {
+      type = types.attrsOf types.anything;
+      default = {};
+      description = "Systemd-specific options";
+    };
+
+    settings = mkOption {
+      type = types.submodule {
+        options = {
+          port = mkOption {
+            type = types.port;
+            default = 8080;
+            description = "Port to listen on";
+          };
+          # Other application-specific options
+        };
+      };
+      default = {};
+      description = "Application-specific configuration";
+    };
+  };
+
+  config = mkIf cfg.enable {
+    # Define using cross-platform interface
+    services.myservice = {
+      command = "${pkgs.myservice}/bin/myservice";
+      args = [ "--port" (toString cfg.settings.port) ];
+      user = cfg.user;
+      restartPolicy = "always";
+
+      systemd = {
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+      };
+    };
+  };
+}
+```
+
+### Key Changes
+
+1. **Add standard service options**:
+   - `description` (str, with default)
+   - `command` (str, internal)
+   - `args` (list of str, internal)
+   - `user` (str, with default)
+   - `restartPolicy` (str, usually "always")
+   - `systemd` (attrset for systemd-specific options)
+
+3. **Nest application-specific options** under `settings`:
+   ```nix
+   # Before:
+   services.myservice.port = 8080;
+
+   # After:
+   services.myservice.settings.port = 8080;
+   ```
+
+4. **Set command/args in config** section (not options):
+   ```nix
+   config = mkIf cfg.enable {
+     services.myservice = {
+       command = "${pkgs.myservice}/bin/myservice";
+       args = [ "--port" (toString cfg.settings.port) ];
+       # ... other options
+     };
+   };
+   ```
+
+5. **Systemd-specific options** in `systemd = {}` block:
+   ```nix
+   services.myservice.systemd = {
+     wantedBy = [ "multi-user.target" ];
+     after = [ "network.target" ];
+     serviceConfig = {
+       PrivateTmp = true;
+     };
+   };
+   ```
+
+### Complete Example: OpenSSH
+
+See `ekaos/modules/services/networking/sshd.nix` for a complete working example showing:
+- Standard service options (enable, description, command, args, user, restartPolicy, systemd)
+- Application-specific `settings` submodule (ports, permitRootLogin, passwordAuthentication, etc.)
+- Config generation (sshd_config file)
+- Service definition using cross-platform interface
+- Activation scripts for host key generation
+
+### Validation Checklist
+
+After porting, ensure:
+- [ ] Standard service options defined (enable, description, command, args, user, restartPolicy, systemd)
+- [ ] Application-specific options nested under `settings` submodule
+- [ ] `command` and `args` set in config section (internal options)
+- [ ] Systemd-specific options moved to `systemd = {}` block
+- [ ] Service definition uses `services.*`
+- [ ] All option references updated (e.g., `cfg.port` → `cfg.settings.port`)
+- [ ] Test that service evaluates: `nix-instantiate -A ekaosTests.myservice`
+
+## Common Options Reference
+
+All platforms support:
+- `enable` - Enable the service
+- `description` - Human-readable description
+- `command` - Main executable path
+- `args` - Command arguments (list)
+- `workingDirectory` - Working directory
+- `user` / `group` - User/group context
+- `environment` - Environment variables (attrset)
+- `path` - Packages to add to PATH (list)
+- `restartPolicy` - Restart behavior
+- `preStart` / `postStart` / `postStop` - Lifecycle hooks
+
+## Platform-Specific Options
+
+Under `systemd = { ... }`:
+- `serviceConfig` - [Service] section options
+- `unitConfig` - [Unit] section options
+- `wants` / `requires` / `after` / `before` - Dependencies
+- `wantedBy` - Installation targets
+
+Under `launchd = { ... }`:
+- `label` - Service identifier
+- `keepAlive` - Restart behavior
+- `runAtLoad` - Start at boot/login
+- `watchPaths` / `queueDirectories` - Event triggers
+- `startCalendarInterval` - Scheduled execution
+
+Under `runit = { ... }`:
+- `logScript` - Logging configuration
+- `extraRunScript` - Additional run script code
+- `extraFinishScript` - Finish script code
+- `timeoutFinish` - Finish script timeout
+
+Under `rcd = { ... }`:
+- `variant` - BSD variant (freebsd/openbsd/netbsd/dragonfly)
+- `rcRequire` - Dependencies
+- `rcKeywords` - Service keywords
+- `pidfile` - PID file location
+
+## Build Functions
+
+Standalone service files can be built using:
+- `services.buildSystemdUserServices serviceConfig`
+- `services.buildSystemdSystemServices serviceConfig`
+- `services.buildLaunchdUserAgents serviceConfig`
+- `services.buildLaunchdDaemons serviceConfig`
+- `services.buildRunitServices serviceConfig`
+- `services.buildRcdServices serviceConfig`
+
+## Validation
+
+Services are validated at build time:
+- **Errors** - Missing required options, invalid values, platform mismatches
+- **Warnings** - Limited platform support, best practice violations
+
+## Testing
+
+**Runit test framework** - Module-based testing in sandbox:
+```nix
+{ pkgs, ... }:
+{
+  name = "my-test";
+  modules = [
+    { services.webserver = { enable = true; command = "..."; }; }
+  ];
+  testScript = ''
+    machine.wait_for_open_port(8080)
+    machine.succeed("curl http://127.0.0.1:8080")
+  '';
+}
+```
+
+**ekaos test framework** - VM-based system testing:
+```nix
+{ pkgs, ... }:
+{
+  name = "service-test";
+  testScript = ''
+    machine.wait_for_unit("my-service.service")
+    machine.succeed("systemctl status my-service")
+  '';
+}
+```
+
+## Directory Structure
+
+```
+services/
+├── lib/
+│   ├── options.nix           # Common service options
+│   ├── systemd-translate.nix # systemd translation
+│   ├── launchd-translate.nix # launchd translation
+│   ├── runit-translate.nix   # runit translation
+│   ├── rcd-translate.nix     # rc.d translation
+│   ├── validate.nix          # Build-time validation
+│   └── service-module.nix    # Core infrastructure
+├── examples/                 # Usage examples
+├── tests/                    # Test suites
+└── README.md                 # Full documentation
+
+ekaos/modules/
+├── services.nix              # Service namespace definition
+├── systemd.nix               # Systemd integration (consumes services.*)
+└── services/                 # Service modules (openssh, dhcpcd, etc.)
+```
+
+## Key Concepts
+
+1. **Cross-platform architecture**:
+   - `services.*` - Cross-platform definitions (translated by service manager)
+
+2. **Automatic translation**:
+   - Common options automatically map to platform-specific formats
+   - Platform-specific options available for advanced features
+
+3. **Validation**:
+   - Build fails on critical errors
+   - Warnings for limited platform support
+
+4. **Module system**:
+   - ekaos uses NixOS-style modules
+   - Services defined once, used everywhere
+
+## Further Reading
+
+- Full documentation: `services/README.md`
+- ekaos documentation: `ekaos/README.md`
+- Design document: `cross-service-plan.md`
+- Examples: `services/examples/`
+- Tests: `services/tests/`
 
 ---
 > Source: [ekala-project/corepkgs](https://github.com/ekala-project/corepkgs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
