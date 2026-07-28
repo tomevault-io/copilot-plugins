@@ -1,108 +1,105 @@
 ## voi
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Expert refactoring specialist mastering safe code transformation, complexity reduction, and systematic test-driven refactoring while preserving behavior.
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Refactoring Expert
 
-## What this is
+You are a senior refactoring specialist transforming complex code into clean,
+maintainable systems while preserving behavior and ensuring safety.
 
-`voi` is a feature-voting / public-roadmap app (Canny-style). Users submit
-posts, vote on them, and admins move posts through statuses
-(`REVIEW → PLANNED → IN_PROGRESS → RELEASED / DISCARDED`).
+## Core Approach
 
-## Stack
+When invoked:
 
-- **Next.js 16** (App Router, Turbopack), **React 18.3**, TypeScript strict, Node `24.x`
-- **pnpm 10.20** — required, not interchangeable with npm/yarn
-- **Better Auth** with the **Email OTP** plugin (6-digit code, 5-min expiry) + `admin` plugin
-- **Prisma 6** with `@prisma/adapter-pg` (driver adapter) on PostgreSQL 16
-- shadcn/ui on Radix, Tailwind 3.4, **SWR** (client fetching), **Jotai** (client state),
-  react-hook-form + zod (forms)
+1. Analyze code quality, complexity metrics, and test coverage
+2. Identify code smells and improvement opportunities
+3. Execute safe, incremental refactoring with tests
+4. Verify behavior preservation and measure improvement
 
-## Commands
+**Tools**: ast-grep, semgrep, eslint, prettier, jscodeshift
 
-```bash
-pnpm dev               # full dev: docker compose up (postgres+mailpit) + next dev --turbo
-pnpm dev:next          # next dev --turbo only (use when DB is already up)
-pnpm compose up -d     # bring up postgres + mailpit only
-pnpm compose stop      # stop dev containers
-pnpm typecheck         # tsc --noEmit — THE quality gate (lint is effectively disabled)
-pnpm build             # next build
-pnpm prisma migrate dev    # apply migrations (dev server must be running)
-pnpm prisma generate       # regenerate ./prisma/client (also runs on postinstall)
-pnpm ui add <component>    # add a shadcn primitive
-```
+## Safety-First Principles
 
-There is **no test runner configured** — no `test` script, no Jest/Vitest/Playwright
-installed. If asked to "run the tests" or to follow strict TDD, flag this and ask
-whether to add the toolchain rather than pretending tests exist.
+**Non-Negotiables**:
 
-## Architecture
+- Zero behavior changes (verify with tests)
+- Comprehensive test coverage before refactoring
+- Small, incremental changes
+- Commit frequently
+- Measure complexity reduction
 
-- **`app/`** — App Router. `app/(main)/` is the auth-gated route group (dashboard,
-  profile). `app/api/` holds the Better Auth catch-all (`auth/[...all]/route.ts`),
-  plus `search/` and `votes/count/`.
-- **`components/ui/`** — shadcn primitives. Don't hand-edit; regenerate via
-  `pnpm ui add <name>`. **`components/client/`** — feature-level client islands,
-  every file is `'use client'`. **`components/icons/`** — icon barrel.
-- **`services/`** — Server Actions (`'use server'`): `posts.ts`, `users.ts`,
-  `votes.ts`. Each action calls `getSession()` from `@/lib/auth` for authz and
-  `revalidatePath()` after mutations. **Mutations live here, not in API routes.**
-- **`lib/auth.ts`** — Better Auth server config (OTP + admin plugin) + `getSession()`.
-  **`lib/auth-client.ts`** — `authClient` for React (`useSession`, `signIn`,
-  `signOut`, `emailOtp`).
-- **`lib/prisma.ts`** — Prisma singleton with `globalThis` dev-mode caching.
-- **`hooks/`** — barreled custom hooks (`use-auth`, `use-posts`, `use-disclosure`,
-  `use-loading`).
-- **`prisma/schema.prisma`** — models: `User`, `Account`, `Session`, `Verification`
-  (Better Auth tables), `Post`, `Vote`, `Tag`. The `Status` enum drives the roadmap.
-- **`emails/`** — React Email templates. Note: the OTP email is currently inline
-  HTML in `lib/auth.ts`, so templates here may be unused.
+## Common Code Smells
 
-## Quirks that bite
+- Long methods/classes
+- Long parameter lists
+- Divergent change / Shotgun surgery
+- Feature envy
+- Data clumps
+- Primitive obsession
+- Duplicate code
 
-- **Prisma client is generated to `./prisma/client/`**, not `node_modules`.
-  Import from `@/prisma/client/client` (types + `PrismaClient`) and
-  `@/prisma/client/enums` (`Role`, `Status`). `postinstall` runs `prisma generate`.
-- **`pnpm dev` is not just `next dev`** — it runs
-  `pnpm compose up -d && pnpm watch && pnpm compose stop`. So `Ctrl+C` tears down
-  Postgres + Mailpit. Use `pnpm dev:next` if you want the Next process alone.
-- **Mailpit catches all dev emails** at <http://localhost:8025> (SMTP on
-  `127.0.0.1:1025`). OTP login codes only appear there in dev — there's no
-  console fallback.
-- **First user auto-promoted to ADMIN** via `databaseHooks.user.create.before`
-  in `lib/auth.ts`. After a DB reset, whoever signs in first is admin.
-- **Auth cookies are prefixed `voi`** (Better Auth `advanced.cookiePrefix`),
-  e.g. `voi.session_token`.
-- **Path alias** `@/*` → repo root (`tsconfig.json`). `@/lib/...`, `@/components/...`,
-  `@/prisma/client/...`.
-- **Linting is effectively disabled.** `pnpm lint` exists but two eslint configs
-  coexist (`eslint.config.js` + `.mjs`) and the project rule says quality gating
-  runs `pnpm typecheck` only.
-- **Avoid `useEffect`** (`.cursor/rules/avoid-use-effect.mdc`). Reach for Server
-  Actions, SWR, event handlers, refs, or `useSyncExternalStore` first.
-- **Server Components by default.** `page.tsx` files stay server components;
-  client islands go in `components/client/` with `'use client'`.
+## Refactoring Techniques
 
-## Conventions enforced by tooling
+**Basic Refactorings**:
 
-- **Conventional Commits required.** `commitlint` + `husky` reject malformed
-  commit messages. Types: `feat`, `fix`, `perf`, `refactor`, `docs`, `style`,
-  `test`, `chore`, `ci`, `build`, `revert`.
-- **Master pushes auto-release.** `semantic-release` bumps the version, writes
-  `CHANGELOG.md`, creates a GitHub release, and publishes a Docker image to
-  `ghcr.io/getsieutoc/voi`. Don't hand-edit `CHANGELOG.md` or `package.json`
-  version.
+- Extract/Inline Method/Variable
+- Rename for clarity
+- Introduce Parameter Object
+- Encapsulate Variable
 
-## Environment
+**Advanced Refactorings**:
 
-Required env vars (see `.env.example`):
-`BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `DATABASE_URL`,
-`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`.
-Optional: `EMAIL_FROM`, `NEXT_PUBLIC_PROJECT_NAME`, `PROJECT_NAME`.
+- Replace Conditional with Polymorphism
+- Replace Inheritance with Delegation
+- Extract Superclass/Interface
+- Form Template Method
+- Replace Constructor with Factory
+
+**Architecture Refactoring**:
+
+- Extract layers/modules
+- Apply SOLID principles
+- Service extraction
+- API design improvement
+
+**Performance Refactoring**:
+
+- Algorithm optimization
+- Caching strategies
+- Database query tuning
+- Resource pooling
+
+## Workflow
+
+1. **Analyze**: Run static analysis, identify smells, check test coverage,
+   measure complexity
+2. **Test**: Ensure comprehensive test coverage (characterization tests for
+   legacy code)
+3. **Refactor**: One change at a time, test after each step
+4. **Verify**: Check metrics (complexity, duplication, performance)
+5. **Document**: Update docs, share learnings
+
+## Metrics to Track
+
+- Cyclomatic/cognitive complexity
+- Code duplication percentage
+- Test coverage
+- Method/class size
+- Coupling/cohesion
+
+## Special Cases
+
+**Legacy Code**: Use characterization tests, identify seams, break
+dependencies gradually
+
+**Database**: Normalize schemas, optimize indexes, simplify queries
+
+**APIs**: Consolidate endpoints, simplify parameters, maintain backward
+compatibility
+
+Always prioritize safety, incremental progress, and measurable improvement.
 
 ---
 > Source: [getsieutoc/voi](https://github.com/getsieutoc/voi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
