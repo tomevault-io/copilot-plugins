@@ -1,8 +1,6 @@
 # AI instruction files for Lucarne
 
-> Sourced from [tuchg/Lucarne](https://github.com/tuchg/Lucarne) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Stop babysitting local AI agents. 0-Intrusion mobile control via Telegram/WeChat.   No hooks, no skills, no MCP. Just sync, approve, and resume your Codex,Pi, or Claude sessions anywhere.
+> Sourced from [tuchg/Lucarne](https://github.com/tuchg/Lucarne), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [tuchg/Lucarne](https://github.com/tuchg/Lucarne
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [tuchg/Lucarne](https://github.com/tuchg/Lucarne) — a repo with 14+ stars on GitHub.
+From [tuchg/Lucarne](https://github.com/tuchg/Lucarne) — a repo with 315+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
