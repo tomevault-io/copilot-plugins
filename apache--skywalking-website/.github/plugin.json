@@ -1,0 +1,9 @@
+{
+  "name": "apache--skywalking-website",
+  "displayName": "skywalking-website",
+  "description": "skywalking-website",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/skywalking-website",
+  "skills": []
+}
