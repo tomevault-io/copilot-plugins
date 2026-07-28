@@ -1,6 +1,8 @@
 # sir-thaddeus
 
-> Tome by [raydeStar](https://github.com/raydeStar/sir-thaddeus) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [raydeStar](https://github.com/raydeStar/sir-thaddeus), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+Private, local-first AI assistant for Windows with permissioned tools, durable memory, and evidence-driven small-model improvements.
 
 ## GitHub Copilot Config
 
