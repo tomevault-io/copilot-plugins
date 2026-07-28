@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--runtime-assets",
+  "displayName": "runtime-assets",
+  "description": "runtime-assets",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/runtime-assets",
+  "skills": []
+}
