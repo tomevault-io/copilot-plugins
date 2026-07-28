@@ -1,0 +1,9 @@
+{
+  "name": "trinodb--trino",
+  "displayName": "trino",
+  "description": "trino",
+  "version": "1.0.0",
+  "author": "trinodb",
+  "homepage": "https://github.com/trinodb/trino",
+  "skills": []
+}
