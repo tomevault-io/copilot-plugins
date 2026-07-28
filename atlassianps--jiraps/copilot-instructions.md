@@ -1,27 +1,25 @@
 ## jiraps
 
-> Copilot should treat `AGENTS.md` as the canonical project rule set.
+> This file applies to all `.ps1` files. It references shared rules.
 
-# GitHub Copilot Entry Point
 
-Copilot should treat `AGENTS.md` as the canonical project rule set.
-Keep this file small to avoid duplicating context.
+# PowerShell File Rules (GitHub Copilot)
 
-## Read First
+This file applies to all `.ps1` files. It references shared rules.
 
-- `../AGENTS.md`
-- `ai-context/powershell-rules.md` for Cloud/Data Center or REST/API changes
-- `instructions/` for Copilot file-pattern rules
+**Canonical source**: [.github/ai-context/powershell-rules.md](../ai-context/powershell-rules.md)
 
-## Critical Rules
+## Quick Reference
 
-- One functionality per commit: code, tests, docs, and green validation.
-- Use `Invoke-Build -Task Build, Test` as the full-suite gate before commit.
-- All behavior changes must work on Jira Cloud and Data Center unless explicitly scoped.
-- Cloud uses `accountId`; Data Center uses `username` or `name`.
-- REST calls must go through `Invoke-JiraMethod`.
-- Public cmdlet help lives in `docs/en-US/commands/*.md`, not comment-based help.
+1. **Cloud AND Data Center** — all changes must work on both Jira deployment types
+2. **User Identity** — `accountId` for Cloud, `username`/`name` for DC
+3. **ADF** — only use `ConvertTo-ADF`/`ConvertFrom-ADF` for Cloud
+4. **REST calls** — always go through `Invoke-JiraMethod`
+5. **Tests required** — every function needs `.Unit.Tests.ps1`
+6. **Single-test loop** — run individual unit tests directly with `Invoke-Pester Tests/**`; use `Invoke-Build -Task Build, Test` for full-suite validation
+
+For full rules, read `.github/ai-context/powershell-rules.md`.
 
 ---
 > Source: [AtlassianPS/JiraPS](https://github.com/AtlassianPS/JiraPS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
