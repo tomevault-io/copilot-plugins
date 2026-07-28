@@ -1,0 +1,9 @@
+{
+  "name": "veeamhub--veeam-healthcheck",
+  "displayName": "veeam-healthcheck",
+  "description": "veeam-healthcheck",
+  "version": "1.0.0",
+  "author": "VeeamHub",
+  "homepage": "https://github.com/VeeamHub/veeam-healthcheck",
+  "skills": []
+}
