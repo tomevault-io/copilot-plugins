@@ -1,0 +1,9 @@
+{
+  "name": "aisecuritylab--hackagent",
+  "displayName": "hackagent",
+  "description": "hackagent",
+  "version": "1.0.0",
+  "author": "AISecurityLab",
+  "homepage": "https://github.com/AISecurityLab/hackagent",
+  "skills": []
+}
