@@ -1,7 +1,7 @@
 {
   "name": "antirez--qwen-asr",
   "displayName": "qwen-asr",
-  "description": "C inference for Qwen3-ASR 0.6b and 1.7b transcriptions models",
+  "description": "qwen-asr",
   "version": "1.0.0",
   "author": "antirez",
   "homepage": "https://github.com/antirez/qwen-asr",
