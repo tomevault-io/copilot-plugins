@@ -1,0 +1,9 @@
+{
+  "name": "kitabisa--docker-slim-action",
+  "displayName": "docker-slim-action",
+  "description": "docker-slim-action",
+  "version": "1.0.0",
+  "author": "kitabisa",
+  "homepage": "https://github.com/kitabisa/docker-slim-action",
+  "skills": []
+}
