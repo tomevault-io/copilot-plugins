@@ -1,6 +1,6 @@
 # AI instruction files for agent-skills
 
-> Sourced from [AsyrafHussin/agent-skills](https://github.com/AsyrafHussin/agent-skills) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [AsyrafHussin/agent-skills](https://github.com/AsyrafHussin/agent-skills), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
