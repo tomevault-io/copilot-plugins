@@ -1,7 +1,7 @@
 {
   "name": "clawdotnet--sharpclawcode",
   "displayName": "SharpClawCode",
-  "description": "C# coding-agent harness (.NET 10, Microsoft Agent Framework) \u2014 sessions, tools, permissions, providers, MCP, plugins",
+  "description": "SharpClawCode",
   "version": "1.0.0",
   "author": "clawdotnet",
   "homepage": "https://github.com/clawdotnet/SharpClawCode",
