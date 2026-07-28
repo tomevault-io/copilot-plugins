@@ -1,219 +1,954 @@
 ## blazwitcher
 
-> Blazwitcher 是一个支持拼音模糊搜索的 Chrome 扩展，可搜索标签页、书签和历史记录，并具备 AI 标签分组功能。项目采用 pnpm workspaces 管理的 monorepo 结构，包含：
+> > This document is mainly for agents and LLMs to follow when maintaining,
 
-# [AGENTS.md](http://AGENTS.md)
+# React Composition Patterns
 
-## 项目概述
+**Version 1.0.0**  
+Engineering  
+January 2026
 
-Blazwitcher 是一个支持拼音模糊搜索的 Chrome 扩展，可搜索标签页、书签和历史记录，并具备 AI 标签分组功能。项目采用 pnpm workspaces 管理的 monorepo 结构，包含：
+> **Note:**  
+> This document is mainly for agents and LLMs to follow when maintaining,  
+> generating, or refactoring React codebases using composition. Humans  
+> may also find it useful, but guidance here is optimized for automation  
+> and consistency by AI-assisted workflows.
 
-- **blazwitcher-extension**: 基于 Plasmo 框架构建的 Chrome 扩展
-- **blazwitcher-doc**: Next.js 文档网站
-- **server**: 用于 AI 标签分组的 NestJS 后端
+---
 
-## 开发命令
+## Abstract
 
-### 初始化
+Composition patterns for building flexible, maintainable React components. Avoid boolean prop proliferation by using compound components, lifting state, and composing internals. These patterns make codebases easier for both humans and AI agents to work with as they scale.
 
-```bash
-pnpm i                                    # 安装依赖
+---
+
+## Table of Contents
+
+1. [Component Architecture](#1-component-architecture) — **HIGH**
+   - 1.1 [Avoid Boolean Prop Proliferation](#11-avoid-boolean-prop-proliferation)
+   - 1.2 [Use Compound Components](#12-use-compound-components)
+2. [State Management](#2-state-management) — **MEDIUM**
+   - 2.1 [Decouple State Management from UI](#21-decouple-state-management-from-ui)
+   - 2.2 [Define Generic Context Interfaces for Dependency Injection](#22-define-generic-context-interfaces-for-dependency-injection)
+   - 2.3 [Lift State into Provider Components](#23-lift-state-into-provider-components)
+3. [Implementation Patterns](#3-implementation-patterns) — **MEDIUM**
+   - 3.1 [Create Explicit Component Variants](#31-create-explicit-component-variants)
+   - 3.2 [Prefer Composing Children Over Render Props](#32-prefer-composing-children-over-render-props)
+4. [React 19 APIs](#4-react-19-apis) — **MEDIUM**
+   - 4.1 [React 19 API Changes](#41-react-19-api-changes)
+
+---
+
+## 1. Component Architecture
+
+**Impact: HIGH**
+
+Fundamental patterns for structuring components to avoid prop
+proliferation and enable flexible composition.
+
+### 1.1 Avoid Boolean Prop Proliferation
+
+**Impact: CRITICAL (prevents unmaintainable component variants)**
+
+Don't add boolean props like `isThread`, `isEditing`, `isDMThread` to customize
+
+component behavior. Each boolean doubles possible states and creates
+
+unmaintainable conditional logic. Use composition instead.
+
+**Incorrect: boolean props create exponential complexity**
+
+```tsx
+function Composer({
+  onSubmit,
+  isThread,
+  channelId,
+  isDMThread,
+  dmId,
+  isEditing,
+  isForwarding,
+}: Props) {
+  return (
+    <form>
+      <Header />
+      <Input />
+      {isDMThread ? (
+        <AlsoSendToDMField id={dmId} />
+      ) : isThread ? (
+        <AlsoSendToChannelField id={channelId} />
+      ) : null}
+      {isEditing ? (
+        <EditActions />
+      ) : isForwarding ? (
+        <ForwardActions />
+      ) : (
+        <DefaultActions />
+      )}
+      <Footer onSubmit={onSubmit} />
+    </form>
+  )
+}
 ```
 
-### 扩展开发
+**Correct: composition eliminates conditionals**
 
-```bash
-pnpm dev                                   # 启动扩展开发服务器
-pnpm package                               # 构建生产环境扩展包
-pnpm --filter blazwitcher dev    # 仅运行扩展开发模式
-pnpm --filter blazwitcher build  # 仅构建扩展
+```tsx
+// Channel composer
+function ChannelComposer() {
+  return (
+    <Composer.Frame>
+      <Composer.Header />
+      <Composer.Input />
+      <Composer.Footer>
+        <Composer.Attachments />
+        <Composer.Formatting />
+        <Composer.Emojis />
+        <Composer.Submit />
+      </Composer.Footer>
+    </Composer.Frame>
+  )
+}
+
+// Thread composer - adds "also send to channel" field
+function ThreadComposer({ channelId }: { channelId: string }) {
+  return (
+    <Composer.Frame>
+      <Composer.Header />
+      <Composer.Input />
+      <AlsoSendToChannelField id={channelId} />
+      <Composer.Footer>
+        <Composer.Formatting />
+        <Composer.Emojis />
+        <Composer.Submit />
+      </Composer.Footer>
+    </Composer.Frame>
+  )
+}
+
+// Edit composer - different footer actions
+function EditComposer() {
+  return (
+    <Composer.Frame>
+      <Composer.Input />
+      <Composer.Footer>
+        <Composer.Formatting />
+        <Composer.Emojis />
+        <Composer.CancelEdit />
+        <Composer.SaveEdit />
+      </Composer.Footer>
+    </Composer.Frame>
+  )
+}
 ```
 
-### 文档站点
+Each variant is explicit about what it renders. We can share internals without
 
-```bash
-pnpm dev:doc                               # 启动文档站点开发服务器
+sharing a single monolithic parent.
+
+### 1.2 Use Compound Components
+
+**Impact: HIGH (enables flexible composition without prop drilling)**
+
+Structure complex components as compound components with a shared context. Each
+
+subcomponent accesses shared state via context, not props. Consumers compose the
+
+pieces they need.
+
+**Incorrect: monolithic component with render props**
+
+```tsx
+function Composer({
+  renderHeader,
+  renderFooter,
+  renderActions,
+  showAttachments,
+  showFormatting,
+  showEmojis,
+}: Props) {
+  return (
+    <form>
+      {renderHeader?.()}
+      <Input />
+      {showAttachments && <Attachments />}
+      {renderFooter ? (
+        renderFooter()
+      ) : (
+        <Footer>
+          {showFormatting && <Formatting />}
+          {showEmojis && <Emojis />}
+          {renderActions?.()}
+        </Footer>
+      )}
+    </form>
+  )
+}
 ```
 
-### 服务端开发
+**Correct: compound components with shared context**
 
-```bash
-pnpm --filter server dev                   # 启动 NestJS 服务器（watch 模式）
-pnpm --filter server build                 # 构建服务器
-pnpm --filter server start:prod            # 启动生产环境服务器
+```tsx
+const ComposerContext = createContext<ComposerContextValue | null>(null)
+
+function ComposerProvider({ children, state, actions, meta }: ProviderProps) {
+  return (
+    <ComposerContext value={{ state, actions, meta }}>
+      {children}
+    </ComposerContext>
+  )
+}
+
+function ComposerFrame({ children }: { children: React.ReactNode }) {
+  return <form>{children}</form>
+}
+
+function ComposerInput() {
+  const {
+    state,
+    actions: { update },
+    meta: { inputRef },
+  } = use(ComposerContext)
+  return (
+    <TextInput
+      ref={inputRef}
+      value={state.input}
+      onChangeText={(text) => update((s) => ({ ...s, input: text }))}
+    />
+  )
+}
+
+function ComposerSubmit() {
+  const {
+    actions: { submit },
+  } = use(ComposerContext)
+  return <Button onPress={submit}>Send</Button>
+}
+
+// Export as compound component
+const Composer = {
+  Provider: ComposerProvider,
+  Frame: ComposerFrame,
+  Input: ComposerInput,
+  Submit: ComposerSubmit,
+  Header: ComposerHeader,
+  Footer: ComposerFooter,
+  Attachments: ComposerAttachments,
+  Formatting: ComposerFormatting,
+  Emojis: ComposerEmojis,
+}
 ```
 
-### 代码质量
+**Usage:**
 
-```bash
-pnpm lint                                  # 使用 Biome 检查 TypeScript 文件
-pnpm format                                # 使用 Biome 格式化代码
-pnpm commit                                # 使用 czg 进行交互式提交
+```tsx
+<Composer.Provider state={state} actions={actions} meta={meta}>
+  <Composer.Frame>
+    <Composer.Header />
+    <Composer.Input />
+    <Composer.Footer>
+      <Composer.Formatting />
+      <Composer.Submit />
+    </Composer.Footer>
+  </Composer.Frame>
+</Composer.Provider>
 ```
 
-### 版本管理与发布
+Consumers explicitly compose exactly what they need. No hidden conditionals. And the state, actions and meta are dependency-injected by a parent provider, allowing multiple usages of the same component structure.
 
-```bash
-pnpm bump_version                          # 使用 changesets 升级版本
-pnpm push_release                          # 推送 release 到 GitHub
-pnpm fetch_releases                        # 获取扩展的 releases
-pnpm bump_and_push                         # 一键升级版本并推送
-pnpm bump_and_push_and_fetch              # 完整的发布流程
+---
+
+## 2. State Management
+
+**Impact: MEDIUM**
+
+Patterns for lifting state and managing shared context across
+composed components.
+
+### 2.1 Decouple State Management from UI
+
+**Impact: MEDIUM (enables swapping state implementations without changing UI)**
+
+The provider component should be the only place that knows how state is managed.
+
+UI components consume the context interface—they don't know if state comes from
+
+useState, Zustand, or a server sync.
+
+**Incorrect: UI coupled to state implementation**
+
+```tsx
+function ChannelComposer({ channelId }: { channelId: string }) {
+  // UI component knows about global state implementation
+  const state = useGlobalChannelState(channelId)
+  const { submit, updateInput } = useChannelSync(channelId)
+
+  return (
+    <Composer.Frame>
+      <Composer.Input
+        value={state.input}
+        onChange={(text) => sync.updateInput(text)}
+      />
+      <Composer.Submit onPress={() => sync.submit()} />
+    </Composer.Frame>
+  )
+}
 ```
 
-## 架构设计
+**Correct: state management isolated in provider**
 
-### 扩展架构（Plasmo 框架）
+```tsx
+// Provider handles all state management details
+function ChannelProvider({
+  channelId,
+  children,
+}: {
+  channelId: string
+  children: React.ReactNode
+}) {
+  const { state, update, submit } = useGlobalChannel(channelId)
+  const inputRef = useRef(null)
 
-**入口点：**
+  return (
+    <Composer.Provider
+      state={state}
+      actions={{ update, submit }}
+      meta={{ inputRef }}
+    >
+      {children}
+    </Composer.Provider>
+  )
+}
 
-- `background/index.ts`: Service worker，管理上下文菜单、标签页操作和 AI 分组
-- `sidepanel/index.tsx`: 主 UI 入口，使用 React + Semi-UI
-- `popup.tsx`: 扩展弹出窗口（最小化）
-- `options/index.tsx`: 扩展选项页面
+// UI component only knows about the context interface
+function ChannelComposer() {
+  return (
+    <Composer.Frame>
+      <Composer.Header />
+      <Composer.Input />
+      <Composer.Footer>
+        <Composer.Submit />
+      </Composer.Footer>
+    </Composer.Frame>
+  )
+}
 
-**核心模块：**
-
-**侧边栏 UI (`packages/blazwitcher-extension/sidepanel/`)：**
-
-- 使用 Jotai atoms 进行状态管理（`atom/` 目录）
-- 主要组件：Search、List、Footer，支持键盘导航
-- 基于 `text-search-engine` 包的模糊搜索
-- 渲染标签页、书签和历史记录，带分隔符和分组
-
-**插件系统 (`packages/blazwitcher-extension/plugins/`)：**
-
-- 基于命令的插件架构，用于过滤器和设置
-- `commands/filters.tsx`: `/b`（书签）、`/h`（历史）、`/t`（标签页）过滤器
-- `commands/setting.tsx`: `/s` 设置命令
-- `ui/setting-panels/`: 模块化设置面板（键盘、搜索、外观、更新日志、联系方式）
-
-**共享工具 (`packages/blazwitcher-extension/shared/`)：**
-
-- `data-processing.ts`: 处理标签页、书签、历史记录数据
-- `utils.ts`: 通用工具函数，包括搜索、排序、分组
-- `constants.ts`: 应用常量
-- `types.ts`: TypeScript 类型定义
-- `releases.json`: 从 GitHub releases 生成
-
-**后台服务：**
-
-- `TabGroupManager` 类处理 AI 标签分组
-- 侧边栏 ↔ background 的消息传递
-- Chrome API 集成（tabs、bookmarks、history、storage、sidePanel）
-
-### 服务端架构（NestJS）
-
-位于 `server/src/`：
-
-- **ark 模块** (`modules/ark/`): AI 服务集成，用于标签分组
-  - `ark.service.ts`: 流式 LLM API 调用，用于标签分类
-  - `ark.controller.ts`: HTTP 端点
-  - `parser.ts`: Prompt 解析工具
-- **prompts** (`prompts/`): AI 标签分组的提示词
-- 使用环境变量配置 API 密钥（ARK_API_KEY、ARK_API_URL、ARK_API_MODEL）
-
-### 文档站点
-
-使用 Next.js 16（App Router）+ Tailwind CSS 构建，位于 `packages/blazwitcher-doc/`：
-
-- 使用 `next-intl` 实现国际化
-- 集成 Vercel Analytics
-- 组件采用 shadcn/ui 模式
-
-## 关键约定
-
-### 代码风格
-
-- **格式化工具**: Biome，使用 tab 缩进（宽度：2）
-- **分号**: 按需使用（非强制）
-- **引号**: JS/TS 使用单引号
-- **行宽**: 120 字符
-- **导入组织**: 由 Biome 自动组织
-- 遵循 `biome.json` 和 `.cursor/rules/rules.mdc` 中的规则
-
-### 路径别名
-
-扩展使用 `~`* 前缀进行导入：
-
-```typescript
-import { searchConfigAtom } from '~sidepanel/atom'
-import { MAIN_WINDOW } from '~shared/constants'
-import plugins from '~plugins'
+// Usage
+function Channel({ channelId }: { channelId: string }) {
+  return (
+    <ChannelProvider channelId={channelId}>
+      <ChannelComposer />
+    </ChannelProvider>
+  )
+}
 ```
 
-### 提交规范
+**Different providers, same UI:**
 
-使用 `pnpm commit` 进行带 emoji 的规范化提交：
+```tsx
+// Local state for ephemeral forms
+function ForwardMessageProvider({ children }) {
+  const [state, setState] = useState(initialState)
+  const forwardMessage = useForwardMessage()
 
-- 如果用户明确要求“提交 / commit / 提交代码”，AI 应优先使用 `pnpm commit`；仅在交互流程不可用或执行失败时，才回退到普通 `git commit`
-- Scope 与 workspace 名称匹配：`blazwitcher-extension`、`blazwitcher-doc`、`server`、`architecture`、`changeset`
-- Type 类型：feat、fix、docs、style、refactor、perf、test、build、ci、chore、revert
+  return (
+    <Composer.Provider
+      state={state}
+      actions={{ update: setState, submit: forwardMessage }}
+    >
+      {children}
+    </Composer.Provider>
+  )
+}
 
-### 状态管理
+// Global synced state for channels
+function ChannelProvider({ channelId, children }) {
+  const { state, update, submit } = useGlobalChannel(channelId)
 
-扩展使用 Jotai 进行状态管理：
-
-- Atoms 定义在 `sidepanel/atom/`：`searchConfigAtom`、`shortcutAtom`、`windowAtom`、`i18nAtom` 等
-- 使用 observable-hooks 集成 RxJS
-
-### Chrome 扩展 Manifest
-
-使用 Manifest V3，具有以下权限：
-
-- tabs、tabGroups、bookmarks、history、storage、windows、favicon、sidePanel、contextMenus、scripting
-- 所有 URL 的主机权限（AI 功能需要）
-- 默认快捷键：Cmd/Ctrl+Shift+K
-
-## 重要说明
-
-### 环境变量
-
-- 根目录的 `.env` 文件包含 `CHANGESET_READ_REPO_TOKEN`，用于 GitHub releases
-- 服务端需要 `ARK_API_KEY`、`ARK_API_URL`、`ARK_API_MODEL` 用于 AI 功能
-
-### 构建流程
-
-- 扩展在 dev/build 前使用 Plasmo 的 prebuild 脚本（`scripts/pre-build.ts`）
-- 服务端启动前需要运行 `bun src/prompts/parse-prompt.ts` 解析提示词
-
-### 测试
-
-- 服务端配置了 Jest（`test:*` 脚本）
-- 扩展使用 Vitest + jsdom，配置位于 `packages/blazwitcher-extension/vitest.config.ts`
-
-**扩展测试命令：**
-
-```bash
-pnpm --filter blazwitcher test            # 运行所有测试
-pnpm --filter blazwitcher test:watch      # 监听模式
-pnpm --filter blazwitcher test:coverage   # 运行并生成覆盖率报告
+  return (
+    <Composer.Provider state={state} actions={{ update, submit }}>
+      {children}
+    </Composer.Provider>
+  )
+}
 ```
 
-**测试结构：**
+The same `Composer.Input` component works with both providers because it only
 
-- 测试文件位于 `packages/blazwitcher-extension/tests/`
-- 全局 Chrome API mock 在 `tests/setup.ts`
-- 覆盖率报告输出到 `packages/blazwitcher-extension/coverage/`
-- 外部依赖（`text-search-engine`、`~shared/promisify`）在各测试文件中按需 mock
+depends on the context interface, not the implementation.
 
-**测试要求：**
+### 2.2 Define Generic Context Interfaces for Dependency Injection
 
-- 新增工具函数（如 `shared/utils.ts`、`shared/data-processing.ts` 等）时，必须补充对应的单元测试
+**Impact: HIGH (enables dependency-injectable state across use-cases)**
 
-### 国际化
+Define a **generic interface** for your component context with three parts:
 
-- 扩展支持 i18n，locales 文件位于 `packages/blazwitcher-extension/locales/`
-- 默认语言：英文（`en`）
-- 文档站点使用 next-intl
+`state`, `actions`, and `meta`. This interface is a contract that any provider
 
-### 发布流程
+can implement—enabling the same UI components to work with completely different
 
-1. 修改代码并使用 `pnpm commit` 提交
-2. 如需要，创建 changeset
-3. 运行 `pnpm bump_and_push_and_fetch` 完成版本升级、发布到 GitHub 并更新扩展
-4. 构建生产包后手动发布到 Chrome Web Store
+state implementations.
+
+**Core principle:** Lift state, compose internals, make state
+
+dependency-injectable.
+
+**Incorrect: UI coupled to specific state implementation**
+
+```tsx
+function ComposerInput() {
+  // Tightly coupled to a specific hook
+  const { input, setInput } = useChannelComposerState()
+  return <TextInput value={input} onChangeText={setInput} />
+}
+```
+
+**Correct: generic interface enables dependency injection**
+
+```tsx
+// Define a GENERIC interface that any provider can implement
+interface ComposerState {
+  input: string
+  attachments: Attachment[]
+  isSubmitting: boolean
+}
+
+interface ComposerActions {
+  update: (updater: (state: ComposerState) => ComposerState) => void
+  submit: () => void
+}
+
+interface ComposerMeta {
+  inputRef: React.RefObject<TextInput>
+}
+
+interface ComposerContextValue {
+  state: ComposerState
+  actions: ComposerActions
+  meta: ComposerMeta
+}
+
+const ComposerContext = createContext<ComposerContextValue | null>(null)
+```
+
+**UI components consume the interface, not the implementation:**
+
+```tsx
+function ComposerInput() {
+  const {
+    state,
+    actions: { update },
+    meta,
+  } = use(ComposerContext)
+
+  // This component works with ANY provider that implements the interface
+  return (
+    <TextInput
+      ref={meta.inputRef}
+      value={state.input}
+      onChangeText={(text) => update((s) => ({ ...s, input: text }))}
+    />
+  )
+}
+```
+
+**Different providers implement the same interface:**
+
+```tsx
+// Provider A: Local state for ephemeral forms
+function ForwardMessageProvider({ children }: { children: React.ReactNode }) {
+  const [state, setState] = useState(initialState)
+  const inputRef = useRef(null)
+  const submit = useForwardMessage()
+
+  return (
+    <ComposerContext
+      value={{
+        state,
+        actions: { update: setState, submit },
+        meta: { inputRef },
+      }}
+    >
+      {children}
+    </ComposerContext>
+  )
+}
+
+// Provider B: Global synced state for channels
+function ChannelProvider({ channelId, children }: Props) {
+  const { state, update, submit } = useGlobalChannel(channelId)
+  const inputRef = useRef(null)
+
+  return (
+    <ComposerContext
+      value={{
+        state,
+        actions: { update, submit },
+        meta: { inputRef },
+      }}
+    >
+      {children}
+    </ComposerContext>
+  )
+}
+```
+
+**The same composed UI works with both:**
+
+```tsx
+// Works with ForwardMessageProvider (local state)
+<ForwardMessageProvider>
+  <Composer.Frame>
+    <Composer.Input />
+    <Composer.Submit />
+  </Composer.Frame>
+</ForwardMessageProvider>
+
+// Works with ChannelProvider (global synced state)
+<ChannelProvider channelId="abc">
+  <Composer.Frame>
+    <Composer.Input />
+    <Composer.Submit />
+  </Composer.Frame>
+</ChannelProvider>
+```
+
+**Custom UI outside the component can access state and actions:**
+
+```tsx
+function ForwardMessageDialog() {
+  return (
+    <ForwardMessageProvider>
+      <Dialog>
+        {/* The composer UI */}
+        <Composer.Frame>
+          <Composer.Input placeholder="Add a message, if you'd like." />
+          <Composer.Footer>
+            <Composer.Formatting />
+            <Composer.Emojis />
+          </Composer.Footer>
+        </Composer.Frame>
+
+        {/* Custom UI OUTSIDE the composer, but INSIDE the provider */}
+        <MessagePreview />
+
+        {/* Actions at the bottom of the dialog */}
+        <DialogActions>
+          <CancelButton />
+          <ForwardButton />
+        </DialogActions>
+      </Dialog>
+    </ForwardMessageProvider>
+  )
+}
+
+// This button lives OUTSIDE Composer.Frame but can still submit based on its context!
+function ForwardButton() {
+  const {
+    actions: { submit },
+  } = use(ComposerContext)
+  return <Button onPress={submit}>Forward</Button>
+}
+
+// This preview lives OUTSIDE Composer.Frame but can read composer's state!
+function MessagePreview() {
+  const { state } = use(ComposerContext)
+  return <Preview message={state.input} attachments={state.attachments} />
+}
+```
+
+The provider boundary is what matters—not the visual nesting. Components that
+
+need shared state don't have to be inside the `Composer.Frame`. They just need
+
+to be within the provider.
+
+The `ForwardButton` and `MessagePreview` are not visually inside the composer
+
+box, but they can still access its state and actions. This is the power of
+
+lifting state into providers.
+
+The UI is reusable bits you compose together. The state is dependency-injected
+
+by the provider. Swap the provider, keep the UI.
+
+### 2.3 Lift State into Provider Components
+
+**Impact: HIGH (enables state sharing outside component boundaries)**
+
+Move state management into dedicated provider components. This allows sibling
+
+components outside the main UI to access and modify state without prop drilling
+
+or awkward refs.
+
+**Incorrect: state trapped inside component**
+
+```tsx
+function ForwardMessageComposer() {
+  const [state, setState] = useState(initialState)
+  const forwardMessage = useForwardMessage()
+
+  return (
+    <Composer.Frame>
+      <Composer.Input />
+      <Composer.Footer />
+    </Composer.Frame>
+  )
+}
+
+// Problem: How does this button access composer state?
+function ForwardMessageDialog() {
+  return (
+    <Dialog>
+      <ForwardMessageComposer />
+      <MessagePreview /> {/* Needs composer state */}
+      <DialogActions>
+        <CancelButton />
+        <ForwardButton /> {/* Needs to call submit */}
+      </DialogActions>
+    </Dialog>
+  )
+}
+```
+
+**Incorrect: useEffect to sync state up**
+
+```tsx
+function ForwardMessageDialog() {
+  const [input, setInput] = useState('')
+  return (
+    <Dialog>
+      <ForwardMessageComposer onInputChange={setInput} />
+      <MessagePreview input={input} />
+    </Dialog>
+  )
+}
+
+function ForwardMessageComposer({ onInputChange }) {
+  const [state, setState] = useState(initialState)
+  useEffect(() => {
+    onInputChange(state.input) // Sync on every change 😬
+  }, [state.input])
+}
+```
+
+**Incorrect: reading state from ref on submit**
+
+```tsx
+function ForwardMessageDialog() {
+  const stateRef = useRef(null)
+  return (
+    <Dialog>
+      <ForwardMessageComposer stateRef={stateRef} />
+      <ForwardButton onPress={() => submit(stateRef.current)} />
+    </Dialog>
+  )
+}
+```
+
+**Correct: state lifted to provider**
+
+```tsx
+function ForwardMessageProvider({ children }: { children: React.ReactNode }) {
+  const [state, setState] = useState(initialState)
+  const forwardMessage = useForwardMessage()
+  const inputRef = useRef(null)
+
+  return (
+    <Composer.Provider
+      state={state}
+      actions={{ update: setState, submit: forwardMessage }}
+      meta={{ inputRef }}
+    >
+      {children}
+    </Composer.Provider>
+  )
+}
+
+function ForwardMessageDialog() {
+  return (
+    <ForwardMessageProvider>
+      <Dialog>
+        <ForwardMessageComposer />
+        <MessagePreview /> {/* Custom components can access state and actions */}
+        <DialogActions>
+          <CancelButton />
+          <ForwardButton /> {/* Custom components can access state and actions */}
+        </DialogActions>
+      </Dialog>
+    </ForwardMessageProvider>
+  )
+}
+
+function ForwardButton() {
+  const { actions } = use(Composer.Context)
+  return <Button onPress={actions.submit}>Forward</Button>
+}
+```
+
+The ForwardButton lives outside the Composer.Frame but still has access to the
+
+submit action because it's within the provider. Even though it's a one-off
+
+component, it can still access the composer's state and actions from outside the
+
+UI itself.
+
+**Key insight:** Components that need shared state don't have to be visually
+
+nested inside each other—they just need to be within the same provider.
+
+---
+
+## 3. Implementation Patterns
+
+**Impact: MEDIUM**
+
+Specific techniques for implementing compound components and
+context providers.
+
+### 3.1 Create Explicit Component Variants
+
+**Impact: MEDIUM (self-documenting code, no hidden conditionals)**
+
+Instead of one component with many boolean props, create explicit variant
+
+components. Each variant composes the pieces it needs. The code documents
+
+itself.
+
+**Incorrect: one component, many modes**
+
+```tsx
+// What does this component actually render?
+<Composer
+  isThread
+  isEditing={false}
+  channelId='abc'
+  showAttachments
+  showFormatting={false}
+/>
+```
+
+**Correct: explicit variants**
+
+```tsx
+// Immediately clear what this renders
+<ThreadComposer channelId="abc" />
+
+// Or
+<EditMessageComposer messageId="xyz" />
+
+// Or
+<ForwardMessageComposer messageId="123" />
+```
+
+Each implementation is unique, explicit and self-contained. Yet they can each
+
+use shared parts.
+
+**Implementation:**
+
+```tsx
+function ThreadComposer({ channelId }: { channelId: string }) {
+  return (
+    <ThreadProvider channelId={channelId}>
+      <Composer.Frame>
+        <Composer.Input />
+        <AlsoSendToChannelField channelId={channelId} />
+        <Composer.Footer>
+          <Composer.Formatting />
+          <Composer.Emojis />
+          <Composer.Submit />
+        </Composer.Footer>
+      </Composer.Frame>
+    </ThreadProvider>
+  )
+}
+
+function EditMessageComposer({ messageId }: { messageId: string }) {
+  return (
+    <EditMessageProvider messageId={messageId}>
+      <Composer.Frame>
+        <Composer.Input />
+        <Composer.Footer>
+          <Composer.Formatting />
+          <Composer.Emojis />
+          <Composer.CancelEdit />
+          <Composer.SaveEdit />
+        </Composer.Footer>
+      </Composer.Frame>
+    </EditMessageProvider>
+  )
+}
+
+function ForwardMessageComposer({ messageId }: { messageId: string }) {
+  return (
+    <ForwardMessageProvider messageId={messageId}>
+      <Composer.Frame>
+        <Composer.Input placeholder="Add a message, if you'd like." />
+        <Composer.Footer>
+          <Composer.Formatting />
+          <Composer.Emojis />
+          <Composer.Mentions />
+        </Composer.Footer>
+      </Composer.Frame>
+    </ForwardMessageProvider>
+  )
+}
+```
+
+Each variant is explicit about:
+
+- What provider/state it uses
+
+- What UI elements it includes
+
+- What actions are available
+
+No boolean prop combinations to reason about. No impossible states.
+
+### 3.2 Prefer Composing Children Over Render Props
+
+**Impact: MEDIUM (cleaner composition, better readability)**
+
+Use `children` for composition instead of `renderX` props. Children are more
+
+readable, compose naturally, and don't require understanding callback
+
+signatures.
+
+**Incorrect: render props**
+
+```tsx
+function Composer({
+  renderHeader,
+  renderFooter,
+  renderActions,
+}: {
+  renderHeader?: () => React.ReactNode
+  renderFooter?: () => React.ReactNode
+  renderActions?: () => React.ReactNode
+}) {
+  return (
+    <form>
+      {renderHeader?.()}
+      <Input />
+      {renderFooter ? renderFooter() : <DefaultFooter />}
+      {renderActions?.()}
+    </form>
+  )
+}
+
+// Usage is awkward and inflexible
+return (
+  <Composer
+    renderHeader={() => <CustomHeader />}
+    renderFooter={() => (
+      <>
+        <Formatting />
+        <Emojis />
+      </>
+    )}
+    renderActions={() => <SubmitButton />}
+  />
+)
+```
+
+**Correct: compound components with children**
+
+```tsx
+function ComposerFrame({ children }: { children: React.ReactNode }) {
+  return <form>{children}</form>
+}
+
+function ComposerFooter({ children }: { children: React.ReactNode }) {
+  return <footer className='flex'>{children}</footer>
+}
+
+// Usage is flexible
+return (
+  <Composer.Frame>
+    <CustomHeader />
+    <Composer.Input />
+    <Composer.Footer>
+      <Composer.Formatting />
+      <Composer.Emojis />
+      <SubmitButton />
+    </Composer.Footer>
+  </Composer.Frame>
+)
+```
+
+**When render props are appropriate:**
+
+```tsx
+// Render props work well when you need to pass data back
+<List
+  data={items}
+  renderItem={({ item, index }) => <Item item={item} index={index} />}
+/>
+```
+
+Use render props when the parent needs to provide data or state to the child.
+
+Use children when composing static structure.
+
+---
+
+## 4. React 19 APIs
+
+**Impact: MEDIUM**
+
+React 19+ only. Don't use `forwardRef`; use `use()` instead of `useContext()`.
+
+### 4.1 React 19 API Changes
+
+**Impact: MEDIUM (cleaner component definitions and context usage)**
+
+> **⚠️ React 19+ only.** Skip this if you're on React 18 or earlier.
+
+In React 19, `ref` is now a regular prop (no `forwardRef` wrapper needed), and `use()` replaces `useContext()`.
+
+**Incorrect: forwardRef in React 19**
+
+```tsx
+const ComposerInput = forwardRef<TextInput, Props>((props, ref) => {
+  return <TextInput ref={ref} {...props} />
+})
+```
+
+**Correct: ref as a regular prop**
+
+```tsx
+function ComposerInput({ ref, ...props }: Props & { ref?: React.Ref<TextInput> }) {
+  return <TextInput ref={ref} {...props} />
+}
+```
+
+**Incorrect: useContext in React 19**
+
+```tsx
+const value = useContext(MyContext)
+```
+
+**Correct: use instead of useContext**
+
+```tsx
+const value = use(MyContext)
+```
+
+`use()` can also be called conditionally, unlike `useContext()`.
+
+---
+
+## References
+
+1. [https://react.dev](https://react.dev)
+2. [https://react.dev/learn/passing-data-deeply-with-context](https://react.dev/learn/passing-data-deeply-with-context)
+3. [https://react.dev/reference/react/use](https://react.dev/reference/react/use)
 
 ---
 > Source: [cjinhuo/blazwitcher](https://github.com/cjinhuo/blazwitcher) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
