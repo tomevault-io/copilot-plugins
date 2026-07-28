@@ -1,0 +1,9 @@
+{
+  "name": "psf--pypistats-org",
+  "displayName": "pypistats.org",
+  "description": "pypistats.org",
+  "version": "1.0.0",
+  "author": "psf",
+  "homepage": "https://github.com/psf/pypistats.org",
+  "skills": []
+}
