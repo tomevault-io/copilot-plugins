@@ -1,0 +1,9 @@
+{
+  "name": "datadog--chaos-controller",
+  "displayName": "chaos-controller",
+  "description": "chaos-controller",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/chaos-controller",
+  "skills": []
+}
