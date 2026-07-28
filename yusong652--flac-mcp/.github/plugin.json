@@ -1,0 +1,9 @@
+{
+  "name": "yusong652--flac-mcp",
+  "displayName": "flac-mcp",
+  "description": "MCP server connecting AI agents to ITASCA FLAC \u2014 run continuum simulations through natural conversation",
+  "version": "1.0.0",
+  "author": "yusong652",
+  "homepage": "https://github.com/yusong652/flac-mcp",
+  "skills": []
+}
