@@ -1,45 +1,107 @@
 ## table-evaluator
 
-> This document defines the standard workflow for AI-assisted development tasks within this project.
+> Process map for VAN QA environment validation
 
-# AI Assistant Development Workflow Guidelines
+# VAN QA: ENVIRONMENT VALIDATION
 
-This document defines the standard workflow for AI-assisted development tasks within this project.
+> **TL;DR:** This component verifies that the build environment is properly set up with required tools and permissions.
 
-## Development Workflow
+## 3️⃣ ENVIRONMENT VALIDATION PROCESS
 
-### Code Changes and Testing
-- **Always run tests** after implementing code changes
-- If no tests exist for modified code, ask whether to create them before proceeding
-- Use `make test` or equivalent project-specific test commands
+```mermaid
+graph TD
+    Start["Environment Validation"] --> CheckEnv["Check Build Environment"]
+    CheckEnv --> VerifyBuildTools["Verify Build Tools"]
+    VerifyBuildTools --> ToolsStatus{"Build Tools<br>Available?"}
 
-### Branch and Worktree Management
-- Verify you're in the correct worktree: `git worktree list`.
-- Verify you're in the correct branch: `git branch`.
-- If no worktree and branch exists for this task, create them.
-- Operate within the appropriate branch worktree for all development tasks
-- Ensure branch isolation for different features/tasks
+    ToolsStatus -->|"Yes"| CheckPerms["Check Permissions<br>and Access"]
+    ToolsStatus -->|"No"| InstallTools["Install Required<br>Build Tools"]
+    InstallTools --> RetryTools["Retry Verification"]
+    RetryTools --> ToolsStatus
 
-### Collaboration and Integration
-1. **Branch Creation**: Check if task branch exists; create if needed
-2. **Code Push**: Push changes to feature branch upon completion
-3. **Pull Request**: Create PR using GitHub CLI (`gh pr create`)
-4. **CI/CD Monitoring**:
-   - Monitor pipeline status: `gh pr checks`
-   - Address failures promptly
-   - Run local equivalents when possible (pre-commit, build, install)
-5. **Quality Gates**: Ensure all checks pass before requesting review
+    CheckPerms --> PermsStatus{"Permissions<br>Sufficient?"}
+    PermsStatus -->|"Yes"| EnvSuccess["Environment Validated<br>✅ PASS"]
+    PermsStatus -->|"No"| FixPerms["Fix Permission<br>Issues"]
+    FixPerms --> RetryPerms["Retry Permission<br>Check"]
+    RetryPerms --> PermsStatus
 
-## Local Development Best Practices
-- Run pre-commit hooks before committing
-- Verify builds/installations locally to catch CI/CD issues early
-- Use project's Makefile targets for standardized operations
+    style Start fill:#4da6ff,stroke:#0066cc,color:white
+    style EnvSuccess fill:#10b981,stroke:#059669,color:white
+    style ToolsStatus fill:#f6546a,stroke:#c30052,color:white
+    style PermsStatus fill:#f6546a,stroke:#c30052,color:white
+```
 
-## Tooling Interaction
+### Environment Validation Implementation:
+```powershell
+# Example: Validate environment for a web project
+function Validate-Environment {
+    $requiredTools = @(
+        @{Name = "git"; Command = "git --version"},
+        @{Name = "node"; Command = "node --version"},
+        @{Name = "npm"; Command = "npm --version"}
+    )
 
-The `replace` tool is currently non-functional. For all file modifications and interactions, utilize the `desktop_commander` tools (e.g., `desktop_commander__read_file`, `desktop_commander__write_file`, `desktop_commander__edit_block`).
+    $missingTools = @()
+    $permissionIssues = @()
+
+    # Check build tools
+    foreach ($tool in $requiredTools) {
+        try {
+            Invoke-Expression $tool.Command | Out-Null
+        } catch {
+            $missingTools += $tool.Name
+        }
+    }
+
+    # Check write permissions in project directory
+    try {
+        $testFile = ".__permission_test"
+        New-Item -Path $testFile -ItemType File -Force | Out-Null
+        Remove-Item -Path $testFile -Force
+    } catch {
+        $permissionIssues += "Current directory (write permission denied)"
+    }
+
+    # Check if port 3000 is available (commonly used for dev servers)
+    try {
+        $listener = New-Object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Loopback, 3000)
+        $listener.Start()
+        $listener.Stop()
+    } catch {
+        $permissionIssues += "Port 3000 (already in use or access denied)"
+    }
+
+    # Display results
+    if ($missingTools.Count -eq 0 -and $permissionIssues.Count -eq 0) {
+        Write-Output "✅ Environment validated successfully"
+        return $true
+    } else {
+        if ($missingTools.Count -gt 0) {
+            Write-Output "❌ Missing tools: $($missingTools -join ', ')"
+        }
+        if ($permissionIssues.Count -gt 0) {
+            Write-Output "❌ Permission issues: $($permissionIssues -join ', ')"
+        }
+        return $false
+    }
+}
+```
+
+## 📋 ENVIRONMENT VALIDATION CHECKPOINT
+
+```
+✓ CHECKPOINT: ENVIRONMENT VALIDATION
+- All required build tools installed? [YES/NO]
+- Project directory permissions sufficient? [YES/NO]
+- Required ports available? [YES/NO]
+
+→ If all YES: Continue to Minimal Build Test.
+→ If any NO: Fix environment issues before continuing.
+```
+
+**Next Step (on PASS):** Load `van-qa-checks/build-test.mdc`.
+**Next Step (on FAIL):** Check `van-qa-utils/common-fixes.mdc` for environment fixes.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Baukebrenninkmeijer)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Baukebrenninkmeijer)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [Baukebrenninkmeijer/table-evaluator](https://github.com/Baukebrenninkmeijer/table-evaluator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
