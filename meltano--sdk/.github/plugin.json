@@ -1,0 +1,9 @@
+{
+  "name": "meltano--sdk",
+  "displayName": "sdk",
+  "description": "sdk",
+  "version": "1.0.0",
+  "author": "meltano",
+  "homepage": "https://github.com/meltano/sdk",
+  "skills": []
+}
