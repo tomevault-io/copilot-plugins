@@ -1,0 +1,9 @@
+{
+  "name": "datadog--build-plugins",
+  "displayName": "build-plugins",
+  "description": "build-plugins",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/build-plugins",
+  "skills": []
+}
