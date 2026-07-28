@@ -2,9 +2,9 @@
   "name": "cli-jaw",
   "owner": "lidge-jun",
   "repo": "cli-jaw",
-  "description": "\ud83e\udd88 2-line install personal AI assistant. 5 engines (Claude, Codex, Gemini, OpenCode, Copilot), 108 skills, zero ban risk.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lidge-jun/cli-jaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T16:44:11Z"
+  "distributed_at": "2026-07-28T18:46:10Z"
 }
