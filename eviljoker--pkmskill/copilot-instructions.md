@@ -1,133 +1,192 @@
-## customization
+## riper-workflow
 
-> CursorRIPER Framework - Customization
+> CursorRIPER Framework - RIPER Workflow
 
 <!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
-# CursorRIPER Framework - Customization
+# CursorRIPER Framework - RIPER Workflow
 # Version 1.0.1
 
 ## AI PROCESSING INSTRUCTIONS
-This file contains user-defined customizations for the CursorRIPER Framework. As an AI assistant, you MUST:
-- Load this file after core framework components if it exists
-- Apply these customizations to override default framework behavior
-- Never modify this file unless explicitly requested by the user
-- Acknowledge the active customizations in your first response of each session
+This file defines the RIPER workflow component of the CursorRIPER Framework. As an AI assistant, you MUST:
+- Load this file when PROJECT_PHASE is "DEVELOPMENT" or "MAINTENANCE"
+- Follow mode-specific instructions for each RIPER mode
+- Always declare your current mode at the beginning of each response
+- Only transition between modes when explicitly commanded
+- Reference memory bank files to maintain context
 
-## USER PREFERENCES
+## THE RIPER-5 MODES
 
-### Response Style
-RESPONSE_VERBOSITY: "BALANCED"
-# Possible values: "CONCISE", "BALANCED", "DETAILED"
-# Controls the level of detail in AI responses
+```mermaid
+flowchart LR
+    R[RESEARCH] --> I[INNOVATE]
+    I --> P[PLAN]
+    P --> E[EXECUTE]
+    E --> Rev[REVIEW]
+    Rev -.-> R
+    
+    style R fill:#e6f3ff,stroke:#0066cc
+    style I fill:#e6ffe6,stroke:#006600
+    style P fill:#fff0e6,stroke:#cc6600
+    style E fill:#ffe6e6,stroke:#cc0000
+    style Rev fill:#f0e6ff,stroke:#6600cc
+```
 
-CODE_STYLE_PREFERENCES: ""
-# Specify coding style preferences (indentation, naming conventions, etc.)
+### MODE 1: RESEARCH
+[MODE: RESEARCH]
+- **Purpose**: Information gathering ONLY
+- **Permitted**: Reading files, asking clarifying questions, understanding code structure
+- **Forbidden**: Suggestions, implementations, planning, or any hint of action
+- **Requirement**: You may ONLY seek to understand what exists, not what could be
+- **Duration**: Until user explicitly signals to move to next mode
+- **Output Format**: Begin with [MODE: RESEARCH], then ONLY observations and questions
+- **Pre-Research Checkpoint**: Confirm which files/components need to be analyzed before starting
 
-EXPLANATION_LEVEL: "MEDIUM"
-# Possible values: "MINIMAL", "MEDIUM", "COMPREHENSIVE"
-# Controls how much explanation is provided with code
+### MODE 2: INNOVATE
+[MODE: INNOVATE]
+- **Purpose**: Brainstorming potential approaches
+- **Permitted**: Discussing ideas, advantages/disadvantages, seeking feedback
+- **Forbidden**: Concrete planning, implementation details, or any code writing
+- **Requirement**: All ideas must be presented as possibilities, not decisions
+- **Duration**: Until user explicitly signals to move to next mode
+- **Output Format**: Begin with [MODE: INNOVATE], then ONLY possibilities and considerations
+- **Decision Documentation**: Capture design decisions with explicit rationales using high relevance scores
 
-### Mode Behavior
-SUGGEST_MODE_TRANSITIONS: true
-# If true, AI can suggest when a mode transition might be appropriate
+### MODE 3: PLAN
+[MODE: PLAN]
+- **Purpose**: Creating exhaustive technical specification
+- **Permitted**: Detailed plans with exact file paths, function names, and changes
+- **Forbidden**: Any implementation or code writing, even "example code"
+- **Requirement**: Plan must be comprehensive enough that no creative decisions are needed during implementation
+- **Planning Process**:
+  1. Deeply reflect upon the changes being asked
+  2. Analyze existing code to map the full scope of changes needed
+  3. Ask 4-6 clarifying questions based on your findings
+  4. Once answered, draft a comprehensive plan of action
+  5. Ask for approval on that plan
+- **Mandatory Final Step**: Convert the entire plan into a numbered, sequential CHECKLIST with each atomic action as a separate item
+- **Checklist Format**:
+```
+IMPLEMENTATION CHECKLIST:
+1. [Specific action 1]
+2. [Specific action 2]
+...
+n. [Final action]
+```
+- **Duration**: Until user explicitly approves plan and signals to move to next mode
+- **Output Format**: Begin with [MODE: PLAN], then ONLY specifications and implementation details
+- **Implementation Dry Run**: Optional step to outline potential side effects of planned changes
 
-AUTO_MODE_TRANSITION: false
-# If true, AI can automatically transition between modes (except to EXECUTE)
-# EXECUTE mode always requires explicit user authorization
+### MODE 4: EXECUTE
+[MODE: EXECUTE]
+- **Purpose**: Implementing EXACTLY what was planned in Mode 3
+- **Permitted**: ONLY implementing what was explicitly detailed in the approved plan
+- **Forbidden**: Any deviation, improvement, or creative addition not in the plan
+- **Entry Requirement**: ONLY enter after explicit "ENTER EXECUTE MODE" command from user
+- **Deviation Handling**: If ANY issue is found requiring deviation, IMMEDIATELY return to PLAN mode
+- **Output Format**: Begin with [MODE: EXECUTE], then ONLY implementation matching the plan
+- **Progress Tracking**: 
+  - Mark items as complete as they are implemented
+  - After completing each phase/step, mention what was just completed
+  - State what the next steps are and phases remaining
+  - Update progress.md and activeContext.md after significant progress
+- **Emergency Rollback Protocol**: Be prepared to restore previous code versions if problems arise
 
-PLAN_QUESTION_COUNT: 5
-# Number of clarifying questions to ask in PLAN mode
+### MODE 5: REVIEW
+[MODE: REVIEW]
+- **Purpose**: Ruthlessly validate implementation against the plan
+- **Permitted**: Line-by-line comparison between plan and implementation
+- **Required**: EXPLICITLY FLAG ANY DEVIATION, no matter how minor
+- **Deviation Format**: ":warning: DEVIATION DETECTED: [description of exact deviation]"
+- **Reporting**: Must report whether implementation is IDENTICAL to plan or NOT
+- **Conclusion Format**: ":white_check_mark: IMPLEMENTATION MATCHES PLAN EXACTLY" or ":cross_mark: IMPLEMENTATION DEVIATES FROM PLAN"
+- **Output Format**: Begin with [MODE: REVIEW], then systematic comparison and explicit verdict
+- **Code Review Templates**: Apply standardized templates aligned with user's code quality standards
 
-### Memory Management
-AUTO_UPDATE_MEMORY: true
-# If true, AI will automatically update memory files after significant changes
+## WORKFLOW DIAGRAMS
 
-MEMORY_UPDATE_FREQUENCY: "AFTER_COMPLETION"
-# Possible values: "AFTER_EVERY_RESPONSE", "AFTER_COMPLETION", "MANUAL_ONLY"
-# Controls when memory files are updated
+### PLAN Mode Workflow
+```mermaid
+flowchart TD
+    Start[Start] --> ReadFiles[Read Memory Bank]
+    ReadFiles --> CheckFiles{Files Complete?}
+    
+    CheckFiles -->|No| Plan[Create Plan]
+    Plan --> Document[Document in Chat]
+    
+    CheckFiles -->|Yes| Verify[Verify Context]
+    Verify --> Strategy[Develop Strategy]
+    Strategy --> Present[Present Approach]
+```
 
-REQUIRED_MEMORY_FILES: ["projectbrief.md", "activeContext.md", "progress.md"]
-# List of memory files that must exist for the framework to function
+### EXECUTE Mode Workflow
+```mermaid
+flowchart TD
+    Start[Start] --> Context[Check Memory Bank]
+    Context --> Update[Update Documentation]
+    Update --> Rules[Update Project Intelligence]
+    Rules --> Execute[Execute Task]
+    Execute --> Document[Document Changes]
+```
 
-### Archive Behavior
-AUTO_ARCHIVE_START_PHASE: true
-# If true, START phase will be automatically archived upon completion
+## MODE TRANSITION SIGNALS
 
-BACKUP_FREQUENCY: "DAILY"
-# Possible values: "NEVER", "DAILY", "WEEKLY", "BEFORE_CHANGES"
-# Controls how often memory bank backups are created
+Mode transitions occur only when user explicitly signals with:
+- "ENTER RESEARCH MODE" or "/research" to enter RESEARCH mode
+- "ENTER INNOVATE MODE" or "/innovate" to enter INNOVATE mode
+- "ENTER PLAN MODE" or "/plan" to enter PLAN mode
+- "ENTER EXECUTE MODE" or "/execute" to enter EXECUTE mode
+- "ENTER REVIEW MODE" or "/review" to enter REVIEW mode
 
-KEEP_BACKUP_COUNT: 5
-# Number of backup sets to retain before deleting oldest
+## MEMORY UPDATES
 
-## ADVANCED CUSTOMIZATION
+After significant progress in any mode:
+1. Update activeContext.md with current focus and recent changes
+2. Update progress.md with completed tasks and current status
+3. Document any important decisions in systemPatterns.md
+4. Record any observed patterns in systemPatterns.md
 
-### Command Aliases
-CUSTOM_COMMANDS: {
-  "/r": "/research",
-  "/i": "/innovate",
-  "/p": "/plan",
-  "/e": "/execute",
-  "/rev": "/review"
-}
-# Custom command shortcuts for mode transitions
+## MODE-SPECIFIC MEMORY BANK UPDATES
 
-### Mode Extensions
-RESEARCH_MODE_EXTENSIONS: []
-# Additional behaviors for RESEARCH mode
+### RESEARCH Mode Updates
+- Update techContext.md with newly discovered technical details
+- Add observed patterns to systemPatterns.md
+- Document current status in activeContext.md
 
-INNOVATE_MODE_EXTENSIONS: []
-# Additional behaviors for INNOVATE mode
+### INNOVATE Mode Updates
+- Document design alternatives considered
+- Record decision rationales with relevance scores
+- Update activeContext.md with potential approaches
 
-PLAN_MODE_EXTENSIONS: []
-# Additional behaviors for PLAN mode
+### PLAN Mode Updates
+- Create implementation plans in chat
+- Update activeContext.md with planned changes
+- Document expected outcomes in progress.md
 
-EXECUTE_MODE_EXTENSIONS: []
-# Additional behaviors for EXECUTE mode
+### EXECUTE Mode Updates
+- Track implementation progress in progress.md
+- Update activeContext.md after each significant step
+- Document any implementation challenges encountered
 
-REVIEW_MODE_EXTENSIONS: []
-# Additional behaviors for REVIEW mode
+### REVIEW Mode Updates
+- Document review findings in progress.md
+- Update activeContext.md with review status
+- Record any patterns or issues for future reference
 
-### Framework Extensions
-CUSTOM_PHASES: []
-# Additional project phases beyond standard ones
+## CONTEXT AWARENESS
 
-CUSTOM_WORKFLOWS: []
-# Custom workflows for specific project types
+The AI should maintain awareness of:
+1. Current project state from state.mdc
+2. Project requirements from projectbrief.md
+3. Technical context from techContext.md
+4. System architecture from systemPatterns.md
+5. Active work from activeContext.md
+6. Progress status from progress.md
 
-## USER DOCUMENTATION PREFERENCES
-
-### Documentation Format
-DOCUMENTATION_STYLE: "MARKDOWN"
-# Format for generated documentation
-
-INCLUDE_CODE_COMMENTS: true
-# Whether to include detailed comments in generated code
-
-CODE_BLOCK_LANGUAGE_TAGS: true
-# Whether to include language tags in code blocks
-
-### AI Output Format
-MODE_DECLARATION_FORMAT: "[MODE: {mode}]"
-# Format string for mode declarations
-
-PROGRESS_INDICATOR_FORMAT: "[{current_step}/{total_steps}]"
-# Format for progress indicators in responses
-
-## CUSTOM PROJECT STRUCTURE
-
-PROJECT_TYPE: "DEFAULT"
-# Identifies the type of project for specialized handling
-
-CUSTOM_FOLDER_STRUCTURE: {}
-# Custom folder structure definitions for project scaffolding
-
-TECHNOLOGY_PRESETS: {}
-# Predefined technology stacks for quick selection
+This context should inform all responses, ensuring continuity and relevance.
 
 ---
 
-*This file contains user-defined customizations for the CursorRIPER Framework. Edit these settings to adjust framework behavior to your preferences.*
+*This file defines the RIPER workflow component of the CursorRIPER Framework.*
 
 ---
 > Source: [EvilJoker/pkmskill](https://github.com/EvilJoker/pkmskill) — distributed by [TomeVault](https://tomevault.io).
