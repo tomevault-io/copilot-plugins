@@ -1,0 +1,31 @@
+## ironplc
+
+> IronPLC steering — read specs/steering and CURSOR.md for full standards
+
+
+# IronPLC
+
+**Entry point:** `CURSOR.md` at the repository root (links to all steering, git workflow, and commands).
+
+**Source of truth:** `specs/steering/` — open the relevant file before substantive edits.
+
+## Read when relevant
+
+- `specs/steering/development-standards.md` — conventions, tests, planning requirement
+- `specs/steering/compiler-architecture.md` — compiler layout and semantic patterns
+- `specs/steering/iec-61131-3-compliance.md` — analyzer / standard compliance
+- `specs/steering/plcopen-xml-module.md` — `compiler/sources/src/xml/`
+- `specs/steering/syntax-support-guide.md` — parser, codegen, plc2plc
+- `specs/steering/problem-code-management.md` — diagnostics, `compiler/problems/`
+- `specs/steering/extension-testing-requirements.md` — `integrations/vscode/`
+- `specs/steering/common-tasks.md` — `just` recipes and CI expectations
+
+## Non-negotiables
+
+- Do not commit or push to `main`; use a feature branch and PR.
+- Non-trivial work: add a plan under `specs/plans/` before implementation (see development standards); skip for trivial/mechanical changes only.
+- Before opening a PR: run `cd compiler && just` and fix failures (compile, coverage, clippy, fmt).
+
+---
+> Source: [ironplc/ironplc](https://github.com/ironplc/ironplc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
