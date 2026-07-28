@@ -1,0 +1,9 @@
+{
+  "name": "delphipackagemanager--dpm",
+  "displayName": "DPM",
+  "description": "DPM",
+  "version": "1.0.0",
+  "author": "DelphiPackageManager",
+  "homepage": "https://github.com/DelphiPackageManager/DPM",
+  "skills": []
+}
