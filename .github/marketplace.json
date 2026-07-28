@@ -1009,6 +1009,121 @@
       "description": "Data-Science-For-Beginners"
     },
     {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
+      "name": "microsoft--data-science-for-beginners",
+      "source": "./microsoft--data-science-for-beginners",
+      "description": "Data-Science-For-Beginners"
+    },
+    {
       "name": "copilotkit--copilotkit",
       "source": "./copilotkit--copilotkit",
       "description": "CopilotKit"
@@ -4039,6 +4154,11 @@
       "description": "rt-thread"
     },
     {
+      "name": "rt-thread--rt-thread",
+      "source": "./rt-thread--rt-thread",
+      "description": "rt-thread"
+    },
+    {
       "name": "rybbit-io--rybbit",
       "source": "./rybbit-io--rybbit",
       "description": "\ud83d\udc38 Rybbit - open-source and privacy-friendly alternative to Google Analytics that is 10x more intuitive."
@@ -5609,6 +5729,11 @@
       "description": "nativewind"
     },
     {
+      "name": "librephotos--librephotos",
+      "source": "./librephotos--librephotos",
+      "description": "librephotos"
+    },
+    {
       "name": "microsoft--mastering-github-copilot-for-paired-programming",
       "source": "./microsoft--mastering-github-copilot-for-paired-programming",
       "description": "Mastering-GitHub-Copilot-for-Paired-Programming"
@@ -5834,6 +5959,16 @@
       "description": "fl_chart"
     },
     {
+      "name": "ericlbuehler--mistral-rs",
+      "source": "./ericlbuehler--mistral-rs",
+      "description": "mistral.rs"
+    },
+    {
+      "name": "ericlbuehler--mistral-rs",
+      "source": "./ericlbuehler--mistral-rs",
+      "description": "mistral.rs"
+    },
+    {
       "name": "samuelclay--newsblur",
       "source": "./samuelclay--newsblur",
       "description": "NewsBlur"
@@ -5847,6 +5982,11 @@
       "name": "ninenines--cowboy",
       "source": "./ninenines--cowboy",
       "description": "cowboy"
+    },
+    {
+      "name": "ericlbuehler--mistral-rs",
+      "source": "./ericlbuehler--mistral-rs",
+      "description": "mistral.rs"
     },
     {
       "name": "ericlbuehler--mistral-rs",
@@ -11299,6 +11439,11 @@
       "description": "FlyEnv"
     },
     {
+      "name": "remix-project-org--remix-project",
+      "source": "./remix-project-org--remix-project",
+      "description": "remix-project"
+    },
+    {
       "name": "oboard--claude-code-rev",
       "source": "./oboard--claude-code-rev",
       "description": "Runnable ClaudeCode source code"
@@ -13434,6 +13579,11 @@
       "description": "three-vue-tres"
     },
     {
+      "name": "datopian--portaljs",
+      "source": "./datopian--portaljs",
+      "description": "portaljs"
+    },
+    {
       "name": "zhom--donutbrowser",
       "source": "./zhom--donutbrowser",
       "description": "Simple Yet Powerful Anti-Detect Browser \ud83c\udf69"
@@ -14637,6 +14787,11 @@
       "name": "pybuilder--pybuilder",
       "source": "./pybuilder--pybuilder",
       "description": "pybuilder"
+    },
+    {
+      "name": "oracle--graaljs",
+      "source": "./oracle--graaljs",
+      "description": "graaljs"
     },
     {
       "name": "oracle--graaljs",
@@ -16039,6 +16194,11 @@
       "description": "go-spring"
     },
     {
+      "name": "roboverseorg--roboverse",
+      "source": "./roboverseorg--roboverse",
+      "description": "RoboVerse"
+    },
+    {
       "name": "linkedin--ambry",
       "source": "./linkedin--ambry",
       "description": "ambry"
@@ -17252,6 +17412,11 @@
       "name": "eugene1g--agent-safehouse",
       "source": "./eugene1g--agent-safehouse",
       "description": "Sandbox your local AI agents so they can read/write only what they need"
+    },
+    {
+      "name": "apache--pekko",
+      "source": "./apache--pekko",
+      "description": "pekko"
     },
     {
       "name": "better-auth-ui--better-auth-ui",
@@ -18712,6 +18877,11 @@
       "name": "timmoth--rackpeek",
       "source": "./timmoth--rackpeek",
       "description": "CLI tool to discover, manage, and document your IT infrastructure and home lab."
+    },
+    {
+      "name": "secretlint--secretlint",
+      "source": "./secretlint--secretlint",
+      "description": "secretlint"
     },
     {
       "name": "covibes--zeroshot",
@@ -20524,6 +20694,66 @@
       "description": "abp-samples"
     },
     {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
+      "name": "abpframework--abp-samples",
+      "source": "./abpframework--abp-samples",
+      "description": "abp-samples"
+    },
+    {
       "name": "the-momentum--open-wearables",
       "source": "./the-momentum--open-wearables",
       "description": "Self-hosted platform to unify wearable health data through one AI-ready API."
@@ -21527,6 +21757,11 @@
       "name": "mvel--mvel",
       "source": "./mvel--mvel",
       "description": "mvel"
+    },
+    {
+      "name": "hivemq--hivemq-community-edition",
+      "source": "./hivemq--hivemq-community-edition",
+      "description": "hivemq-community-edition"
     },
     {
       "name": "gerritcodereview--gerrit",
@@ -24959,6 +25194,16 @@
       "description": "x509-certificate-exporter"
     },
     {
+      "name": "omerbenamram--evtx",
+      "source": "./omerbenamram--evtx",
+      "description": "evtx"
+    },
+    {
+      "name": "omerbenamram--evtx",
+      "source": "./omerbenamram--evtx",
+      "description": "evtx"
+    },
+    {
       "name": "eronred--aso-skills",
       "source": "./eronred--aso-skills",
       "description": "AI agent skills for App Store Optimization (ASO) and app marketing. Built for indie developers, app marketers, and growth teams who want Cursor, Claude Code, or any Agent Skills-compatible AI assistan"
@@ -25382,6 +25627,11 @@
       "name": "jonwiggins--optio",
       "source": "./jonwiggins--optio",
       "description": "Workflow orchestration for AI coding agents, from task to merged PR."
+    },
+    {
+      "name": "open-telemetry--opentelemetry-php",
+      "source": "./open-telemetry--opentelemetry-php",
+      "description": "opentelemetry-php"
     },
     {
       "name": "uzairfarooq--arrive",
@@ -27869,6 +28119,11 @@
       "description": "vtcode"
     },
     {
+      "name": "get-convex--better-auth",
+      "source": "./get-convex--better-auth",
+      "description": "better-auth"
+    },
+    {
       "name": "vercel-labs--ralph-loop-agent",
       "source": "./vercel-labs--ralph-loop-agent",
       "description": "Continuous Autonomy for the AI SDK"
@@ -29402,6 +29657,11 @@
       "name": "cloudflare--speedtest",
       "source": "./cloudflare--speedtest",
       "description": "speedtest"
+    },
+    {
+      "name": "openabdev--openab",
+      "source": "./openabdev--openab",
+      "description": "openab"
     },
     {
       "name": "bigsweetpotatostudio--hyperchat",
@@ -34427,6 +34687,11 @@
       "name": "thomhurst--modularpipelines",
       "source": "./thomhurst--modularpipelines",
       "description": "ModularPipelines"
+    },
+    {
+      "name": "spear-sim--spear",
+      "source": "./spear-sim--spear",
+      "description": "spear"
     },
     {
       "name": "maplibre--maplibre-tile-spec",
@@ -45054,6 +45319,21 @@
       "description": "hackagent"
     },
     {
+      "name": "aisecuritylab--hackagent",
+      "source": "./aisecuritylab--hackagent",
+      "description": "hackagent"
+    },
+    {
+      "name": "aisecuritylab--hackagent",
+      "source": "./aisecuritylab--hackagent",
+      "description": "hackagent"
+    },
+    {
+      "name": "aisecuritylab--hackagent",
+      "source": "./aisecuritylab--hackagent",
+      "description": "hackagent"
+    },
+    {
       "name": "atilladeniz--kubeli",
       "source": "./atilladeniz--kubeli",
       "description": "A modern Kubernetes GUI management desktop app for macOS & Windows. Multi-cluster support, real-time monitoring, AI assistant, terminal access, and more."
@@ -53994,6 +54274,11 @@
       "description": "laravel-ai-translator"
     },
     {
+      "name": "suxess-it--kubrix",
+      "source": "./suxess-it--kubrix",
+      "description": "kubriX"
+    },
+    {
       "name": "komunite--kalfa",
       "source": "./komunite--kalfa",
       "description": "Claude Code i\u00e7in T\u00fcrk\u00e7e profesyonel i\u015fletim sistemi \u2014 10 uzman agent, 22 komut, 993 skill, 6 katmanl\u0131 haf\u0131za"
@@ -54337,6 +54622,11 @@
       "name": "level09--readykit",
       "source": "./level09--readykit",
       "description": "readykit"
+    },
+    {
+      "name": "evilfreelancer--openapi-to-cli",
+      "source": "./evilfreelancer--openapi-to-cli",
+      "description": "openapi-to-cli"
     },
     {
       "name": "kubara-io--kubara",
@@ -59524,6 +59814,11 @@
       "description": "vcspull"
     },
     {
+      "name": "nasa-ammos--mmgis",
+      "source": "./nasa-ammos--mmgis",
+      "description": "MMGIS"
+    },
+    {
       "name": "okx--onchainos-skills",
       "source": "./okx--onchainos-skills",
       "description": "Skills for AI agents to integrate with the OKX OnchainOS API \u2014 Wallet, token discovery, market data, DEX swap, and transaction broadcasting."
@@ -63819,6 +64114,11 @@
       "description": "watch_it"
     },
     {
+      "name": "microsoft--playwright-dev",
+      "source": "./microsoft--playwright-dev",
+      "description": "playwright.dev"
+    },
+    {
       "name": "peiiii--nextclaw",
       "source": "./peiiii--nextclaw",
       "description": "NextClaw: Your omnipotent personal assistant, residing above the digital realm. Basically Ultra-Lightweight OpenClaw Pro Max."
@@ -65854,6 +66154,11 @@
       "description": "SAFE-Chat"
     },
     {
+      "name": "smallrye--smallrye-graphql",
+      "source": "./smallrye--smallrye-graphql",
+      "description": "smallrye-graphql"
+    },
+    {
       "name": "decentpaste--decentpaste",
       "source": "./decentpaste--decentpaste",
       "description": "Universal Clipboard for Every Device"
@@ -66192,6 +66497,11 @@
       "name": "swimlane--soc-faker",
       "source": "./swimlane--soc-faker",
       "description": "soc-faker"
+    },
+    {
+      "name": "dfinity--oisy-wallet",
+      "source": "./dfinity--oisy-wallet",
+      "description": "oisy-wallet"
     },
     {
       "name": "hamza5--file-brain",
@@ -66927,6 +67237,11 @@
       "name": "dumblepy--nim-allographer",
       "source": "./dumblepy--nim-allographer",
       "description": "nim-allographer"
+    },
+    {
+      "name": "lacro59--playnite-howlongtobeat-plugin",
+      "source": "./lacro59--playnite-howlongtobeat-plugin",
+      "description": "playnite-howlongtobeat-plugin"
     },
     {
       "name": "onevcat--argue",
@@ -71462,6 +71777,16 @@
       "name": "iansinnott--full-text-tabs-forever",
       "source": "./iansinnott--full-text-tabs-forever",
       "description": "full-text-tabs-forever"
+    },
+    {
+      "name": "rubenarslan--formr-org",
+      "source": "./rubenarslan--formr-org",
+      "description": "formr.org"
+    },
+    {
+      "name": "rubenarslan--formr-org",
+      "source": "./rubenarslan--formr-org",
+      "description": "formr.org"
     },
     {
       "name": "endevco--aube",
@@ -76292,6 +76617,11 @@
       "name": "fariszr--knocker",
       "source": "./fariszr--knocker",
       "description": "knocker"
+    },
+    {
+      "name": "xchainjs--xchainjs-lib",
+      "source": "./xchainjs--xchainjs-lib",
+      "description": "xchainjs-lib"
     },
     {
       "name": "aitorllj93--obsidian-lovely-bases",
@@ -91814,6 +92144,11 @@
       "description": "onitama"
     },
     {
+      "name": "2211898719--termius-plus",
+      "source": "./2211898719--termius-plus",
+      "description": "termius-plus"
+    },
+    {
       "name": "weaviate--agent-skills",
       "source": "./weaviate--agent-skills",
       "description": "Agent Skills to empower developers building AI applications with Weaviate."
@@ -96909,6 +97244,11 @@
       "description": "hwp"
     },
     {
+      "name": "tryghost--gscan",
+      "source": "./tryghost--gscan",
+      "description": "gscan"
+    },
+    {
       "name": "qtzx06--yolodex",
       "source": "./qtzx06--yolodex",
       "description": "agent skills for autonomous data labeling, winner at openai codex hackathon 2026"
@@ -100252,6 +100592,11 @@
       "name": "butlerlogic--action-autotag",
       "source": "./butlerlogic--action-autotag",
       "description": "action-autotag"
+    },
+    {
+      "name": "papyrine--naiad",
+      "source": "./papyrine--naiad",
+      "description": "Naiad"
     },
     {
       "name": "alibaba--opc-starter",
@@ -112249,6 +112594,11 @@
       "description": "ethers-kt"
     },
     {
+      "name": "vuepress--ecosystem",
+      "source": "./vuepress--ecosystem",
+      "description": "ecosystem"
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -122964,6 +123314,31 @@
       "description": "PdfPig.Rendering.Skia"
     },
     {
+      "name": "abap2ui5--samples",
+      "source": "./abap2ui5--samples",
+      "description": "samples"
+    },
+    {
+      "name": "factset--enterprise-sdk",
+      "source": "./factset--enterprise-sdk",
+      "description": "enterprise-sdk"
+    },
+    {
+      "name": "factset--enterprise-sdk",
+      "source": "./factset--enterprise-sdk",
+      "description": "enterprise-sdk"
+    },
+    {
+      "name": "factset--enterprise-sdk",
+      "source": "./factset--enterprise-sdk",
+      "description": "enterprise-sdk"
+    },
+    {
+      "name": "factset--enterprise-sdk",
+      "source": "./factset--enterprise-sdk",
+      "description": "enterprise-sdk"
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -124327,6 +124702,11 @@
       "name": "emberagi--arbitrum-vibekit",
       "source": "./emberagi--arbitrum-vibekit",
       "description": "arbitrum-vibekit"
+    },
+    {
+      "name": "skuznetsov--adamas-lang",
+      "source": "./skuznetsov--adamas-lang",
+      "description": "adamas-lang"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -128337,6 +128717,16 @@
       "name": "azidopp--stm-c4",
       "source": "./azidopp--stm-c4",
       "description": "STM-C4"
+    },
+    {
+      "name": "seifreed--r2morph",
+      "source": "./seifreed--r2morph",
+      "description": "r2morph"
+    },
+    {
+      "name": "x3zvawq--unluac-rs",
+      "source": "./x3zvawq--unluac-rs",
+      "description": "unluac-rs"
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -142694,6 +143084,46 @@
       "description": "groundwork"
     },
     {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -146227,6 +146657,16 @@
       "name": "theastrelo--claude-pipeline",
       "source": "./theastrelo--claude-pipeline",
       "description": "Claude-Pipeline"
+    },
+    {
+      "name": "ar-io--ar-io-sdk",
+      "source": "./ar-io--ar-io-sdk",
+      "description": "ar-io-sdk"
+    },
+    {
+      "name": "ar-io--ar-io-sdk",
+      "source": "./ar-io--ar-io-sdk",
+      "description": "ar-io-sdk"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -154522,6 +154962,11 @@
       "name": "openshift--sippy",
       "source": "./openshift--sippy",
       "description": "sippy"
+    },
+    {
+      "name": "jupyter-infra--jupyter-deploy",
+      "source": "./jupyter-infra--jupyter-deploy",
+      "description": "jupyter-deploy"
     },
     {
       "name": "r44vc0rp--itui",
