@@ -1,0 +1,9 @@
+{
+  "name": "shopware--storefront",
+  "displayName": "storefront",
+  "description": "storefront",
+  "version": "1.0.0",
+  "author": "shopware",
+  "homepage": "https://github.com/shopware/storefront",
+  "skills": []
+}
