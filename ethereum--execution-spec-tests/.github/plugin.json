@@ -1,0 +1,9 @@
+{
+  "name": "ethereum--execution-spec-tests",
+  "displayName": "execution-spec-tests",
+  "description": "execution-spec-tests",
+  "version": "1.0.0",
+  "author": "ethereum",
+  "homepage": "https://github.com/ethereum/execution-spec-tests",
+  "skills": []
+}
