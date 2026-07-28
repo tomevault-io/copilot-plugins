@@ -2,9 +2,9 @@
   "name": "analysis_claude_code",
   "owner": "ThreeFish-AI",
   "repo": "analysis_claude_code",
-  "description": "Claude Code \u9006\u5411\u5de5\u7a0b\u7814\u7a76\u4ed3\u5e93",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ThreeFish-AI/analysis_claude_code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T07:14:43Z"
+  "distributed_at": "2026-07-28T00:53:09Z"
 }
