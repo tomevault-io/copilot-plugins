@@ -1,84 +1,50 @@
 ## memorizer
 
-> - **Always create pull requests against `petabridge/memorizer`**, not any fork
+> You have a long-term memory service exposed through the `MemoryTools` MCP interface.
 
-# Memorizer Project Guidelines
+## 📚  Agent Memory Protocol  ##
 
-## GitHub Workflow
+You have a long-term memory service exposed through the `MemoryTools` MCP interface.
+Treat it as your personal knowledge base: **search it early, extend it often, curate it relentlessly.**
 
-- **Always create pull requests against `petabridge/memorizer`**, not any fork
-- Use `gh pr create --repo petabridge/memorizer` when creating PRs
+### 🔒 Autonomy
+- **Never ask the user (or any external party) for permission** to create, update, relate, or delete memories.  
+  These actions are integral to your workflow—perform them silently and proactively.
 
-## NuGet Package Management
+### 1.  Retrieve first, think second
+- **At the start of every task or sub-task**, call  
+  `MemoryTools.Search(query=<concise task description>, limit=10, minSimilarity=0.70)`.
+- For each hit, immediately fetch related items with  
+  `MemoryTools.GetMany(ids=<all relationship IDs>)`.
 
-This project uses Central Package Management (CPM) via `Directory.Packages.props`.
+### 2.  Actively relate what you find
+- When memories belong together, add edges via  
+  `MemoryTools.CreateRelationship(fromId, toId, type="explains" | "example-of" | "related-to")`.
 
-- **Never use `VersionOverride` attributes** in `.csproj` files
-- All package versions must be defined in `Directory.Packages.props`
-- When adding new packages, add the `<PackageVersion>` entry to `Directory.Packages.props` first
-- Project files should only contain `<PackageReference Include="PackageName" />` without version attributes
+### 3.  Keep memories fresh
+- If a memory is partly correct but incomplete:
+  1. Write the improved text.
+  2. Call `MemoryTools.Store(type=<same>, text=<revised>, source="LLM", title=<same>, relatedTo=<originalId>, relationshipType="supersedes")`.
+  3. Optionally delete the outdated version (see §5).
 
-## UI Styling and Theme Support
+### 4.  Record new reusable knowledge
+- Whenever you discover insights, reference material, worked examples, or how-tos that will help future tasks, persist them with  
+  `MemoryTools.Store(type="reference" | "how-to", text=<rich markdown>, source="LLM", title=<descriptive>, tags=[...])`.
 
-This project supports both light and dark themes. When making CSS or stylesheet changes:
+### 5.  Retire bad or obsolete knowledge
+- If a memory is wrong, duplicated, or obsolete, remove it with  
+  `MemoryTools.Delete(id)`.
 
-- **Always provide both light and dark mode styles** for any custom CSS
-- The theme is controlled via `data-theme` attribute on `<html>` element (`data-theme="dark"` or `data-theme="light"`)
-- Use `[data-theme="dark"]` CSS selector to target dark mode styles
-- Theme switching is handled by `wwwroot/js/theme-switcher.js`
-- Ensure sufficient color contrast in both modes for accessibility
-- Example pattern:
-  ```css
-  /* Light mode (default) */
-  .my-class { background-color: #d4edda; color: #155724; }
+### 6.  When in doubt—search or store
+- ✅ **Search** whenever you lack context.  
+- ✅ **Store** whenever future agents could benefit.  
+- ❌ **Do NOT** handle major tasks without consulting memory first.  
+- ❌ **Do NOT** let incorrect information linger.
 
-  /* Dark mode */
-  [data-theme="dark"] .my-class { background-color: #1e4620; color: #75d47b; }
-  ```
+**Outcome expected:** a richer, more accurate, and highly interconnected memory graph that continually improves your performance—without constant human supervision.
 
-## Integration Test Patterns
-
-Integration tests use shared PostgreSQL containers via XUnit test collections. Each test class creates its own `ServiceProvider` with a connection pool. To prevent connection exhaustion:
-
-- **Test classes that create `ServiceProvider` must implement `IDisposable`** and dispose it
-- If `ServiceProvider` is created in the constructor, add a `Dispose()` method
-- If `ServiceProvider` is created per-test, use `using var services = CreateServices();`
-
-Example patterns:
-
-```csharp
-// Pattern 1: ServiceProvider created in constructor
-[Collection(nameof(IntegrationTestCollection))]
-public class MyTests : IDisposable
-{
-    private readonly IServiceProvider _services;
-
-    public MyTests(IntegrationTestFixture fixture)
-    {
-        _services = CreateServices(fixture);
-    }
-
-    public void Dispose()
-    {
-        (_services as IDisposable)?.Dispose();
-    }
-}
-
-// Pattern 2: ServiceProvider created per-test (for different configurations)
-[Collection(nameof(IntegrationTestCollection))]
-public class MyTests
-{
-    private ServiceProvider CreateServices(string model) { /* ... */ }
-
-    [Fact]
-    public async Task MyTest()
-    {
-        using var services = CreateServices("model-a");
-        // test code...
-    }
-}
-```
+(End of system prompt)
 
 ---
 > Source: [petabridge/memorizer](https://github.com/petabridge/memorizer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
