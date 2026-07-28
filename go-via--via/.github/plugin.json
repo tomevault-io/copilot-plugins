@@ -1,7 +1,7 @@
 {
   "name": "go-via--via",
   "displayName": "via",
-  "description": "Real-time engine for building reactive web applications in pure Go.",
+  "description": "via",
   "version": "1.0.0",
   "author": "go-via",
   "homepage": "https://github.com/go-via/via",
