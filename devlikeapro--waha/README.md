@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [devlikeapro/waha](https://github.com/devlikeapr
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [devlikeapro/waha](https://github.com/devlikeapro/waha) — a repo with 7056+ stars on GitHub.
+From [devlikeapro/waha](https://github.com/devlikeapro/waha) — a repo with 7059+ stars on GitHub.
 
 ---
 
