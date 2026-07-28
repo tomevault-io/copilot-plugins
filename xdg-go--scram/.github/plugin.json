@@ -1,0 +1,9 @@
+{
+  "name": "xdg-go--scram",
+  "displayName": "scram",
+  "description": "scram",
+  "version": "1.0.0",
+  "author": "xdg-go",
+  "homepage": "https://github.com/xdg-go/scram",
+  "skills": []
+}
