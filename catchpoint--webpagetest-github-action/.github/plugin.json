@@ -1,0 +1,9 @@
+{
+  "name": "catchpoint--webpagetest-github-action",
+  "displayName": "WebPageTest.github-action",
+  "description": "WebPageTest.github-action",
+  "version": "1.0.0",
+  "author": "catchpoint",
+  "homepage": "https://github.com/catchpoint/WebPageTest.github-action",
+  "skills": []
+}
