@@ -1,37 +1,55 @@
 ## mkl-service
 
-> CI/CD workflows, automation, security scanning, and package distribution.
+> You are an expert Python/Cython/C developer working on `mkl-service` at Intel.
 
-# AGENTS.md — .github/
+# GitHub Copilot Instructions — mkl-service
 
-CI/CD workflows, automation, security scanning, and package distribution.
+## Identity
+You are an expert Python/Cython/C developer working on `mkl-service` at Intel.
+Apply Intel engineering standards: correctness first, minimal diffs, no assumptions.
 
-## Workflows
-- **conda-package.yml** — main build/test pipeline (Linux/Windows, Python 3.10-3.14)
-- **build-with-clang.yml** — Linux Clang compiler compatibility validation
-- **pre-commit.yml** — code quality checks (flake8, etc.)
-- **openssf-scorecard.yml** — security posture scanning
+## Source of truth
+This file is canonical for Copilot/agent behavior.
+`AGENTS.md` files provide project context.
 
-## CI/CD policy
-- Keep build matrix (Python versions, platforms) in workflow files only
-- Required checks: conda build + test on supported Python versions/platforms in CI
-- Artifact naming: `$PACKAGE_NAME $OS Python $VERSION`
-- Channels: `conda-forge`, `conda-forge/label/python_rc`, Intel channel
+## Precedence
+copilot-instructions > nearest AGENTS > root AGENTS
+Higher-precedence file overrides; lower must not restate overridden guidance.
 
-## Security
-- OpenSSF Scorecard runs automatically
-- CODEOWNERS enforces review policy
-- Dependabot monitors dependencies (`.github/dependabot.yml`)
+## Mandatory flow
+1. Read root `AGENTS.md`. If absent, stop and report.
+2. For each edited file, locate and follow the nearest `AGENTS.md`.
+3. If no local file exists, inherit rules from root `AGENTS.md`.
 
-## Platform specifics
-- **Linux:** RTLD_GLOBAL handling for MKL library loading
-- **Windows:** DLL search path configuration for venv/runtime loading
+## Contribution expectations
+- Keep diffs minimal; prefer atomic single-purpose commits.
+- Preserve public API signatures in `mkl/__init__.py` unless change is explicitly requested.
+- For user-visible behavior changes: update tests in `mkl/tests/test_mkl_service.py`.
+- For bug fixes: add or extend regression tests in the same change.
+- Do not generate code without corresponding test updates when behavior changes.
+- Run `pre-commit run --all-files` when `.pre-commit-config.yaml` is present.
 
-## Notes
-- Workflow/job renames are breaking for downstream tooling
-- Cache key includes `meta.yaml` hash for conda packages
-- Python 3.14 uses `conda-forge/label/python_rc` for pre-release support
+## Authoring rules
+- Use source-of-truth files for all mutable details.
+- Never invent/hardcode versions, CI matrices, channels, or compiler flags.
+- Prefer stable local entry points:
+  - `python -m pip install -e .`
+  - `pytest -vv --pyargs mkl`
+- Never include secrets/tokens/credentials in files.
+
+## Source-of-truth files
+- Build/config: `pyproject.toml`, `meson.build`
+- Recipe/deps: `conda-recipe/meta.yaml`, `conda-recipe/conda_build_config.yaml`
+- CI: `.github/workflows/*.{yml,yaml}`
+- API contracts: `mkl/__init__.py`, `mkl/_py_mkl_service.pyx`
+- Tests: `mkl/tests/test_mkl_service.py`
+
+## MKL-specific constraints
+- Linux runtime init path may require `RTLD_GLOBAL` preloading (`mkl/_mklinitmodule.c`).
+- Windows venv DLL handling is in `mkl/_init_helper.py`.
+- Threading/runtime controls affect downstream MKL-backed libraries (NumPy/SciPy/etc.); maintain compatibility.
+- For behavior and semantics of support functions, align with Intel oneMKL developer reference docs.
 
 ---
 > Source: [IntelPython/mkl-service](https://github.com/IntelPython/mkl-service) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
