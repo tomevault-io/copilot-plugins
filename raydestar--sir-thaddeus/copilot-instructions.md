@@ -1,31 +1,114 @@
-## sir-thaddeus
+## god-objects
 
-> Testing contract — how to build and run tests in this repo.
+> Use this as a **hard project rule** for Cursor (and for any future AI edits).
 
 
-# Testing Contract
+# Cursor Rule: Prevent God-Objects and Giant Files
 
-## Running Tests
-
-- Do NOT invent test commands. Always use the harness scripts.
-- Run tests via PowerShell from repo root: `./dev/test.ps1`
-- To run a subset: `./dev/test.ps1 -Filter "FullyQualifiedName~MyClass"`
-- Full suite (Release + restore): `./dev/test_all.ps1`
-- First-time setup: `./dev/bootstrap.ps1`
-
-## After Making Changes
-
-- Re-run `./dev/test.ps1` after every code change until it exits 0.
-- If tests fail, read the console output and fix the code.
-- TRX reports are in `./artifacts/test-results/` for detailed inspection.
-
-## Test Discipline
-
-- Do NOT add new tests unless explicitly asked.
-- Do NOT delete or skip existing tests to make the suite pass.
-- If `dotnet` SDK mismatch occurs, check `global.json` and align.
-- If `./dev/test.ps1` does not exist, create it per `README_TESTING.md`.
+Use this as a **hard project rule** for Cursor (and for any future AI edits).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/raydeStar) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+
+## Prime Directive
+
+**Never grow a “god-object” file.**
+
+If a file is becoming a central dumping ground (routing + policy + execution + parsing + state), you must split it into focused modules **before** adding more features.
+
+---
+
+## Hard Limits (non-negotiable)
+
+### 1) File size limit
+
+* **Max target:** 500 lines per file.
+* **Absolute max:** 800 lines.
+
+If a change would push a file over 800 lines, Cursor must:
+
+1. Stop adding features to that file.
+2. Extract new code into a new file/module.
+3. Update the calling file to delegate.
+
+**Exception:** auto-generated files only (must be clearly marked and excluded).
+
+### 2) One responsibility per file
+
+A file may own **exactly one** of these responsibilities:
+
+* Routing / intent classification
+* Policy gating / permissions
+* Tool execution loop
+* Deterministic utilities
+* Memory retrieval / merge
+* Guardrails / reasoning pipeline coordination
+* UI / lifecycle / wiring
+
+If a file begins owning 2+ responsibilities, Cursor must split it.
+
+---
+
+## “God-Object” Smell Tests
+
+If any are true, refactor immediately (no debate):
+
+* The file imports modules from 3+ distinct subsystems (e.g., routing + memory + tool runner + UI).
+* The file contains 3+ distinct sections separated by large comment banners.
+* A single class has 10+ methods or 10+ private fields.
+* The class name contains words like *Orchestrator*, *Manager*, *Coordinator* **and** it implements business logic instead of delegating.
+
+---
+
+## Required Architecture Pattern
+
+### The Orchestrator Rule
+
+The orchestrator/coordinator file must be **thin**:
+
+* It may perform sequencing and response assembly.
+* It may not contain regex heuristics, parsing logic, routing decisions, policy rules, or tool loop mechanics.
+
+All logic must live behind interfaces:
+
+* `IRouter`
+* `IPolicyGate`
+* `IToolLoopExecutor`
+* `IMemoryContextProvider`
+* `IGuardrailsCoordinator`
+* `IDeterministicUtilityEngine`
+
+Orchestrator may only call these modules.
+
+---
+
+## Cursor Execution Instructions
+
+When implementing a new feature:
+
+1. Identify which module owns the responsibility.
+2. Add or extend code **only** in that module.
+3. If no module exists, create one.
+4. Keep changes to the orchestrator limited to wiring + delegation.
+
+---
+
+## Enforcement Checklist (must pass before completing a PR)
+
+* No file exceeded 800 lines (excluding generated).
+* Any file above 500 lines was justified or split.
+* Orchestrator contains no feature logic beyond sequencing.
+* New feature came with module-level unit tests.
+
+---
+
+## The “Stop Work” Clause
+
+If Cursor cannot implement a feature without violating these rules, it must:
+
+* Stop.
+* Propose a split plan (new files + interfaces).
+* Then proceed once the split is done.
+
+---
+> Source: [raydeStar/sir-thaddeus](https://github.com/raydeStar/sir-thaddeus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
