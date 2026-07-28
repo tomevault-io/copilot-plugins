@@ -1,9 +1,58 @@
 {
   "name": "rlacombe--distillate",
   "displayName": "distillate",
-  "description": " AI research agent that reads papers, runs experiments, and tells you what worked!",
+  "description": "distillate",
   "version": "1.0.0",
   "author": "rlacombe",
   "homepage": "https://github.com/rlacombe/distillate",
-  "skills": []
+  "skills": [
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    },
+    {
+      "name": "distillate",
+      "description": ""
+    }
+  ]
 }
