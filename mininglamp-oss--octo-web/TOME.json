@@ -2,9 +2,9 @@
   "name": "octo-web",
   "owner": "Mininglamp-OSS",
   "repo": "octo-web",
-  "description": "Web & desktop (Electron) client for the OCTO open workplace \u2014 one React + TypeScript codebase shipping browser and PC surfaces, with first-class AI agent UX.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mininglamp-OSS/octo-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:48:05Z"
+  "distributed_at": "2026-07-28T14:38:26Z"
 }
