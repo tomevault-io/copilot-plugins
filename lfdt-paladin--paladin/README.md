@@ -1,8 +1,6 @@
 # AI instruction files for paladin
 
-> Sourced from [LFDT-Paladin/paladin](https://github.com/LFDT-Paladin/paladin) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Paladin is a platform for building programmable privacy preserving tokens on EVM, with integrated client and wallet. Support for several privacy frameworks including ZKP tokens, issuer-backed tokens, and private smart contracts.
+> Sourced from [LFDT-Paladin/paladin](https://github.com/LFDT-Paladin/paladin), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
