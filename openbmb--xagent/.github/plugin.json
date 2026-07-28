@@ -1,0 +1,9 @@
+{
+  "name": "openbmb--xagent",
+  "displayName": "XAgent",
+  "description": "XAgent",
+  "version": "1.0.0",
+  "author": "OpenBMB",
+  "homepage": "https://github.com/OpenBMB/XAgent",
+  "skills": []
+}
