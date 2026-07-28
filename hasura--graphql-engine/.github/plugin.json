@@ -1,0 +1,9 @@
+{
+  "name": "hasura--graphql-engine",
+  "displayName": "graphql-engine",
+  "description": "graphql-engine",
+  "version": "1.0.0",
+  "author": "hasura",
+  "homepage": "https://github.com/hasura/graphql-engine",
+  "skills": []
+}
