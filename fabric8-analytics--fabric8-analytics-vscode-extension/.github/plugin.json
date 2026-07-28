@@ -1,0 +1,9 @@
+{
+  "name": "fabric8-analytics--fabric8-analytics-vscode-extension",
+  "displayName": "fabric8-analytics-vscode-extension",
+  "description": "fabric8-analytics-vscode-extension",
+  "version": "1.0.0",
+  "author": "fabric8-analytics",
+  "homepage": "https://github.com/fabric8-analytics/fabric8-analytics-vscode-extension",
+  "skills": []
+}
