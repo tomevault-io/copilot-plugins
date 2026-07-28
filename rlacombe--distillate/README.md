@@ -1,8 +1,6 @@
 # distillate
 
-> Tome by [rlacombe](https://github.com/rlacombe/distillate) — distributed by [TomeVault](https://tomevault.io)
-
- AI research agent that reads papers, runs experiments, and tells you what worked!
+> Tome by [rlacombe](https://github.com/rlacombe/distillate), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,22 @@ Original source: `CLAUDE.md` in [rlacombe/distillate](https://github.com/rlacomb
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rlacombe/distillate](https://github.com/rlacombe/distillate)
+## Bundled Skills (12)
+
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/brew/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/assay/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/steer/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/forage/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/signup/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/survey/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/distill/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/conjure/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/tincture/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/transmute/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/.claude/skills/connectors/SKILL.md)
+- [distillate](https://github.com/rlacombe/distillate/tree/main/distillate/autoresearch/skills/experiment/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/rlacombe/distillate](https://github.com/rlacombe/distillate)
 
 ---
 
