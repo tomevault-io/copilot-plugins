@@ -1,0 +1,9 @@
+{
+  "name": "appwrite--console",
+  "displayName": "console",
+  "description": "console",
+  "version": "1.0.0",
+  "author": "appwrite",
+  "homepage": "https://github.com/appwrite/console",
+  "skills": []
+}
