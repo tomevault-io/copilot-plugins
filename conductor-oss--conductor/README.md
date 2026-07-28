@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [conductor-oss/conductor](https://github.com/conductor-oss/conductor).
+Original source: `CLAUDE.md` in [conductor-oss/conductor](https://github.com/conductor-oss/conductor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [conductor-oss/conductor](https://github.com/conductor-oss/conductor) — a repo with 32027+ stars on GitHub.
+From [conductor-oss/conductor](https://github.com/conductor-oss/conductor) — a repo with 32032+ stars on GitHub.
 
 ---
 
