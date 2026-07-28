@@ -1,0 +1,9 @@
+{
+  "name": "hass-energy--amber-express",
+  "displayName": "amber-express",
+  "description": "amber-express",
+  "version": "1.0.0",
+  "author": "hass-energy",
+  "homepage": "https://github.com/hass-energy/amber-express",
+  "skills": []
+}
