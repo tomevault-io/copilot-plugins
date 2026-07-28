@@ -1,156 +1,45 @@
 ## opencode-lark
 
-> Architecture guide for contributors. Covers module layout, key abstractions, data flow, and how to extend the system.
+> Manages per-session observation for forwarding TUI-initiated events to Feishu. Key API: `observe(sessionId, chatId)` registers a listener for a session, `markOwned(messageId)` marks a Feishu-initiated message to skip during forwarding, `markSessionBusy(sessionId)` / `markSessionFree(sessionId)` controls whether TextDelta/SessionIdle are forwarded (suppressed during active streaming bridge), `getChatForSession(sessionId)` returns the associated chat, and `stop()` cleans up all listeners.
 
-# AGENTS.md — opencode-lark
+# streaming/
 
-Architecture guide for contributors. Covers module layout, key abstractions, data flow, and how to extend the system.
+Parses the raw SSE stream from opencode and distributes typed events to whoever needs them. Both `streaming-card.ts` and `session-observer.ts` send messages and cards to Feishu via the `FeishuApiClient`.
 
-## What This Project Does
+## Files
 
-`opencode-lark` bridges Feishu group chats with opencode TUI sessions. Messages sent in Feishu flow into opencode as if typed in the terminal. Agent replies stream back to Feishu — `StreamingBridge` accumulates `TextDelta` events and queues them into CardKit streaming card updates (with serialized delivery to avoid rate limits), while tool and sub-agent status are shown via separate CardKit cards.
+### `event-processor.ts`
+Parses raw SSE event objects (dispatched by `src/index.ts`) into typed action objects. It does **not** own the SSE connection — `src/index.ts` subscribes to the opencode event stream and dispatches events to per-session listeners via `EventListenerMap`. `EventProcessor.processEvent(raw)` converts a raw event into one of the following typed actions:
 
-```
-Feishu client
-    ↕  WebSocket (long-lived)
-Feishu Open Platform
-    ↕  WebSocket / Webhook
-opencode-lark  (this project)
-    ↕  HTTP API + SSE
-opencode server  (localhost:4096)
-    ↕  stdin/stdout
-opencode TUI
-```
+| Action | Meaning |
+|---|---|
+| `TextDelta` | A chunk of text from the agent |
+| `SessionIdle` | The agent finished responding |
+| `ToolStateChange` | A tool call's state changed (running, completed, error) |
+| `SubtaskDiscovered` | A sub-agent task was spawned |
+| `QuestionAsked` | The agent is asking the user a question |
+| `PermissionRequested` | The agent is requesting permission (file edit, bash, etc.) |
 
----
+`EventProcessor` is a stateful class (tracks `ownedSessions` and reasoning part IDs) but does not manage any connections or listeners itself.
 
-## Module Map
+### `session-observer.ts`
+Manages per-session observation for forwarding TUI-initiated events to Feishu. Key API: `observe(sessionId, chatId)` registers a listener for a session, `markOwned(messageId)` marks a Feishu-initiated message to skip during forwarding, `markSessionBusy(sessionId)` / `markSessionFree(sessionId)` controls whether TextDelta/SessionIdle are forwarded (suppressed during active streaming bridge), `getChatForSession(sessionId)` returns the associated chat, and `stop()` cleans up all listeners.
 
-```
-src/
-├── index.ts         Entry point, 9-phase startup + graceful shutdown
-├── types.ts         Shared type definitions
-├── channel/         ChannelPlugin interface, ChannelManager, FeishuPlugin
-├── feishu/          Feishu REST client, CardKit, WebSocket, message dedup
-├── handler/         MessageHandler (inbound pipeline) + StreamingBridge (SSE → cards)
-├── session/         TUI session discovery, thread→session mapping, progress cards
-├── streaming/       EventProcessor (SSE parsing), SessionObserver, SubAgentTracker
-├── cron/            CronService (scheduled jobs) + HeartbeatService
-└── utils/           Config loader, logger, SQLite init, EventListenerMap, paths helper
-```
+Also handles a secondary path: if a message was sent from the opencode TUI directly (not via Feishu), `SessionObserver` can still forward the resulting events to any active Feishu listener for that session.
 
----
+### `streaming-card.ts`
+Builds and manages a live Feishu streaming card during a session. Uses queue-based update serialization (not debouncing). Key methods: `start()` creates the CardKit streaming card, `setToolStatus(name, state, title?)` adds/updates tool status indicators on the card, `addSubtaskButton(label, actionValue)` adds sub-agent buttons, and `close(finalText?)` sends the final content update and closes streaming mode.
 
-## Key Abstractions
+## Design notes
 
-### ChannelPlugin (`src/channel/types.ts`)
+The split between `EventProcessor` (parses events, stateful but passive) and `SessionObserver` (routes to Feishu chats, manages busy/free state) keeps concerns clean. If you want to add a new consumer of SSE events, register a listener in `EventListenerMap` from `src/index.ts`. If you want to react to TUI-initiated events for a specific session, use `SessionObserver.observe()`.
 
-The core extension contract. Any chat platform (Slack, Discord, etc.) implements this interface to plug into `ChannelManager`.
+## Gotchas
 
-```typescript
-interface ChannelPlugin {
-  id: ChannelId           // e.g. "feishu"
-  meta: ChannelMeta       // label + description
-  config: ChannelConfigAdapter      // list accounts, resolve credentials
-  gateway?: ChannelGatewayAdapter   // start/stop connections
-  messaging?: ChannelMessagingAdapter  // normalize inbound, format outbound
-  outbound?: ChannelOutboundAdapter    // sendText, sendCard
-  streaming?: ChannelStreamingAdapter  // createStreamingSession, coalesceUpdates
-  threading?: ChannelThreadingAdapter  // resolveThread, mapSession, getSession
-}
-```
-
-All adapters except `config` are optional. Implement only what your channel needs.
-
-### EventProcessor (`src/streaming/event-processor.ts`)
-
-Consumes the raw SSE stream from opencode and emits structured events: `TextDelta`, `SessionIdle`, `ToolStart`, `ToolEnd`, etc. Other services subscribe via `EventListenerMap`.
-
-### SessionManager (`src/session/session-manager.ts`)
-
-Discovers live opencode TUI sessions for a working directory. Binds a Feishu thread key (chat ID + thread ID) to a specific session ID, persisting the mapping in SQLite so it survives restarts.
-
-### StreamingBridge (`src/handler/streaming-integration.ts`)
-
-Buffers `TextDelta` events and queues them into CardKit streaming card updates (serialized to avoid rate limits). Sends the final text reply and closes the streaming card when `SessionIdle` fires. Tool and sub-agent status are shown via separate CardKit cards.
-
----
-
-## Data Flow
-
-### Inbound (Feishu → opencode)
-
-```
-Feishu WebSocket
-  → FeishuPlugin.gateway.startAccount()
-    → raw event received
-      → ChannelMessagingAdapter.normalizeInbound()
-        → MessageHandler
-          1. MessageDedup: skip if already seen
-          2. SessionManager: resolve or discover session
-          3. Inject Lark context signature (first message per session)
-          4. HTTP POST to opencode /session/{id}/message
-          5. Register SSE listener for this session
-          6. ProgressTracker: show "thinking..." reaction/card in Feishu
-
-### Outbound (opencode → Feishu)
-
-```
-opencode SSE stream
-  → EventProcessor: parse raw event → typed event
-    → SessionObserver: fan-out to registered listeners
-      → StreamingBridge
-          TextDelta  → accumulate text, queued CardKit update
-          SessionIdle → flush final card to Feishu via CardKitClient
-          ToolStart  → update progress card
-```
----
-
-## Startup Phases (`src/index.ts`)
-
-1. Load config (`opencode-lark.jsonc` or env vars)
-2. Connect to opencode server (exponential-backoff retry, max 10 attempts)
-3. Init SQLite database
-4. Create shared services (SessionManager, EventProcessor, StreamingBridge)
-5. Subscribe to opencode SSE event stream
-6. Instantiate FeishuPlugin + register with ChannelManager
-7. Start channels (WebSocket) + webhook server (card action callbacks)
-8. Start optional CronService + HeartbeatService
-9. Register SIGTERM/SIGINT handlers for graceful shutdown
----
-
-## Extension Points
-
-### Adding a New Channel
-
-1. Create `src/channel/{platform}/` directory.
-2. Implement `ChannelPlugin` from `src/channel/types.ts`. Start with `config` (required), then add `gateway`, `messaging`, `outbound` as needed.
-3. In `src/index.ts` Phase 6, instantiate your plugin and call `channelManager.register(yourPlugin)`.
-4. `ChannelManager.startAll()` will call `gateway.startAccount()` for each configured account automatically.
-### Adding a Cron Job
-
-
-1. Open `src/cron/cron-service.ts`.
-2. Add your job definition to the cron config schema in `src/types.ts`.
-3. Register the new job inside `CronService.start()` with a cron expression and handler function.
-4. Enable it in `opencode-lark.jsonc` under the `cron` key.
-
-### Adding a Heartbeat Check
-
-`src/cron/heartbeat.ts` pings the opencode server and optionally posts a status message to a Feishu chat. Extend `HeartbeatService` to check additional endpoints or post richer status cards via `CardKitClient`.
-
-## Environment Variables
-
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `FEISHU_APP_ID` | yes | | Feishu App ID |
-| `FEISHU_APP_SECRET` | yes | | Feishu App Secret |
-| `OPENCODE_SERVER_URL` | no | `http://localhost:4096` | opencode server URL |
-| `FEISHU_WEBHOOK_PORT` | no | `3001` | Card action callback port |
-| `OPENCODE_CWD` | no | `process.cwd()` | Override session discovery directory |
-
-See `.env.example` and `opencode-lark.example.jsonc` for full reference.
+- `SessionIdle` fires once per agent turn, not once per session lifetime. Multiple idle events are expected in a long conversation.
+- `TextDelta` events can arrive very rapidly. Never write to Feishu on every delta. `streaming-card.ts` serializes updates through an async queue.
+- `EventProcessor` does not manage the SSE connection. Reconnection logic lives in `src/index.ts` where the event stream is subscribed.
 
 ---
 > Source: [guazi04/opencode-lark](https://github.com/guazi04/opencode-lark) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
