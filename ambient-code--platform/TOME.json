@@ -2,9 +2,9 @@
   "name": "platform",
   "owner": "ambient-code",
   "repo": "platform",
-  "description": "Vision/Mission https://ambient-code.ai : Virtual team management and collaboration platform. User guides: https://ambient-code.github.io/platform/",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ambient-code/platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-19T21:30:59Z"
+  "distributed_at": "2026-07-28T11:59:40Z"
 }
