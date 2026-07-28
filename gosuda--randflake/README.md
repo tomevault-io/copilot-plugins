@@ -1,8 +1,6 @@
 # randflake
 
-> Tome by [gosuda](https://github.com/gosuda/randflake) — distributed by [TomeVault](https://tomevault.io)
-
-Randflake ID: a distributed, uniform, unpredictable, unique random ID generator.
+> Tome by [gosuda](https://github.com/gosuda/randflake), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
