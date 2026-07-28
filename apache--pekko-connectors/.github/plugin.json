@@ -1,0 +1,9 @@
+{
+  "name": "apache--pekko-connectors",
+  "displayName": "pekko-connectors",
+  "description": "pekko-connectors",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/pekko-connectors",
+  "skills": []
+}
