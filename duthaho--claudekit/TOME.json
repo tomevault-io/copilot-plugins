@@ -2,9 +2,9 @@
   "name": "claudekit",
   "owner": "duthaho",
   "repo": "claudekit",
-  "description": "The open-source AI dev toolkit for Claude Code. Ship faster with 27+ commands, 7 modes, and 34+ skills. Free forever.",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "django",
-      "path": ".claude/skills/frameworks/django",
-      "github_url": "https://github.com/duthaho/claudekit/tree/main/.claude/skills/frameworks/django",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/duthaho/claudekit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T19:41:19Z"
+  "distributed_at": "2026-07-28T05:09:17Z"
 }
