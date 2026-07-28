@@ -1,15 +1,16 @@
 # V2Drop
 
-> Source: [xuyang-liu16/V2Drop](https://github.com/xuyang-liu16/V2Drop) — distributed by [TomeVault](https://tomevault.io)
+> Source: [xuyang-liu16/V2Drop](https://github.com/xuyang-liu16/V2Drop). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xuyang-liu16/V2Drop](https://github.com/xuyang-liu16/V2Drop).
+Original source: `` in [xuyang-liu16/V2Drop](https://github.com/xuyang-liu16/V2Drop).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -19,6 +20,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
