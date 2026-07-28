@@ -1,0 +1,9 @@
+{
+  "name": "newrelic--newrelic-java-agent",
+  "displayName": "newrelic-java-agent",
+  "description": "newrelic-java-agent",
+  "version": "1.0.0",
+  "author": "newrelic",
+  "homepage": "https://github.com/newrelic/newrelic-java-agent",
+  "skills": []
+}
