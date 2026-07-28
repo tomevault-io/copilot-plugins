@@ -1,7 +1,7 @@
 {
   "name": "skuznetsov--adamas-lang",
   "displayName": "adamas-lang",
-  "description": "Adamas Lang compiler + LSP server with ground-built Crystal Lang compatible parser/type inferrer/compiler, that is LSP friendly and allows to reload individual files without whole tree reparsing.",
+  "description": "adamas-lang",
   "version": "1.0.0",
   "author": "skuznetsov",
   "homepage": "https://github.com/skuznetsov/adamas-lang",
