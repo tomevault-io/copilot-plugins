@@ -5,12 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [ruvnet/sublinear-time-solver](https://github.com/ruvnet/sublinear-time-solver).
+Original source: `AGENTS.md` in [ruvnet/sublinear-time-solver](https://github.com/ruvnet/sublinear-time-solver).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
