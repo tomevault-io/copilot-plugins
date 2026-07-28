@@ -4,12 +4,8 @@
 
 This is a Meta Quest / Horizon OS sample.
 
-Read AGENTS.md. Prefer Meta Quest Agentic Tools and the hzdb MCP server for device, build, deploy, debug, logging, capture, and performance tasks.
-
-Recommended setup:
-
-npx -y @meta-quest/hzdb mcp install windsurf
+Use `AGENTS.md` as the canonical instruction file. Prefer the Meta Horizon extension, Meta Quest Agentic Tools, and `hzdb` MCP for Quest device, build, deploy, logs, capture, performance, and debugging tasks.
 
 ---
 > Source: [meta-quest/Meta-Spatial-SDK-Samples](https://github.com/meta-quest/Meta-Spatial-SDK-Samples) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
