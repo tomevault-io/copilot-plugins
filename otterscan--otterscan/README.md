@@ -1,23 +1,24 @@
-# otterscan
+# AI instruction files for otterscan
 
-> Config by [otterscan](https://github.com/otterscan/otterscan) — distributed by [TomeVault](https://tomevault.io/claim/otterscan)
+> Sourced from [otterscan/otterscan](https://github.com/otterscan/otterscan), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [otterscan/otterscan](https://github.com/otterscan/otterscan).
+Original source: `CLAUDE.md` in [otterscan/otterscan](https://github.com/otterscan/otterscan).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/otterscan](https://tomevault.io/claim/otterscan)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/otterscan/otterscan](https://github.com/otterscan/otterscan)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/otterscan) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-q -->
