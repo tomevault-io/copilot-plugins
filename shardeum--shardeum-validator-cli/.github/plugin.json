@@ -1,0 +1,9 @@
+{
+  "name": "shardeum--shardeum-validator-cli",
+  "displayName": "shardeum-validator-cli",
+  "description": "shardeum-validator-cli",
+  "version": "1.0.0",
+  "author": "shardeum",
+  "homepage": "https://github.com/shardeum/shardeum-validator-cli",
+  "skills": []
+}
