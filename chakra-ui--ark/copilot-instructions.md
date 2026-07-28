@@ -1,0 +1,41 @@
+## ark
+
+> When writing code for Solid.js, follow these rules:
+
+
+When writing code for Solid.js, follow these rules:
+
+- Use `For` when mapping over an array. If it's robust component, consider using `Index` instead.
+
+- Use `Show` to conditionally render a component.
+
+- Use `mergeProps` to merge props from `@zag-js/solid` to merge local props within components.
+
+```ts
+const mergedProps = mergeProps(() => api().getControlProps(), controlProps)
+```
+
+- When splitting props, use `createSplitProps`
+
+```tsx
+import { createSplitProps } from '../../utils/create-split-props'
+
+const [useAvatarProps, localProps] = createSplitProps<UseAvatarProps>()(props, ['id', 'ids', 'onStatusChange'])
+```
+
+- When creating stories, use `storybook-solidjs` to create stories.
+
+```tsx
+import type { Meta } from 'storybook-solidjs-vite'
+const meta: Meta = {
+  title: 'Components / Avatar',
+}
+
+export default meta
+```
+
+- DO NOT destructure `props` in components, use `createSplitProps` or `splitProps` instead.
+
+---
+> Source: [chakra-ui/ark](https://github.com/chakra-ui/ark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
