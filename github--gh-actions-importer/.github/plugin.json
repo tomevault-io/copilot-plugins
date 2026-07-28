@@ -1,0 +1,9 @@
+{
+  "name": "github--gh-actions-importer",
+  "displayName": "gh-actions-importer",
+  "description": "gh-actions-importer",
+  "version": "1.0.0",
+  "author": "github",
+  "homepage": "https://github.com/github/gh-actions-importer",
+  "skills": []
+}
