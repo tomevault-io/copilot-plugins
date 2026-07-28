@@ -1,85 +1,43 @@
 ## evoke
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> CodeGraph MCP usage guide — when to use which tool
 
-# CLAUDE.md
+<!-- CODEGRAPH_START -->
+## CodeGraph
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGraph is a tree-sitter-parsed knowledge graph of every symbol, edge, and file. Reads are sub-millisecond and return structural information grep cannot.
 
-## Project Overview
+### When to prefer codegraph over native search
 
-Evoke is an AI-powered code generation platform that transforms natural language descriptions into working web applications. Users describe what they want to build, and AI agents generate and execute Next.js code in sandboxed environments.
+Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
 
-## Development Commands
+| Question | Tool |
+|---|---|
+| "Where is X defined?" / "Find symbol named X" | `codegraph_search` |
+| "What calls function Y?" | `codegraph_callers` |
+| "What does Y call?" | `codegraph_callees` |
+| "How does X reach/become Y? / trace the flow from X to Y" | `codegraph_trace` (one call = the whole path, incl. callback/React/JSX dynamic hops) |
+| "What would break if I changed Z?" | `codegraph_impact` |
+| "Show me Y's signature / source / docstring" | `codegraph_node` |
+| "Give me focused context for a task/area" | `codegraph_context` |
+| "See several related symbols' source at once" | `codegraph_explore` |
+| "What files exist under path/" | `codegraph_files` |
+| "Is the index healthy?" | `codegraph_status` |
 
-```bash
-# Development
-npm run dev          # Start Next.js dev server
+### Rules of thumb
 
-# Build
-npm run build        # Production build
+- **Answer directly — don't delegate exploration.** For "how does X work" / architecture questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. For a specific **flow** ("how does X reach Y") start with `codegraph_trace` from→to — one call returns the whole path with dynamic hops bridged — then ONE `codegraph_explore` for the bodies; don't rebuild the path with `codegraph_search` + `codegraph_callers`. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
+- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
+- **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
+- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
+- **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
+- **Index lag — check the staleness banner, don't guess a wait.** When a codegraph response starts with "⚠️ Some files referenced below were edited since the last index sync…", the listed files are pending re-index — Read those specific files for accurate content. Files NOT in that banner are fresh and codegraph is authoritative for them. `codegraph_status` also lists pending files under "Pending sync".
 
-# Linting
-npm run lint         # Run ESLint
+### If `.codegraph/` doesn't exist
 
-# Database
-npx prisma generate  # Generate Prisma client (runs automatically postinstall)
-npx prisma db push   # Push schema changes to database
-npx prisma studio    # Open Prisma Studio GUI
-```
-
-## Architecture
-
-### Core Flow
-1. User describes app → tRPC mutation creates project + sends Inngest event
-2. Inngest AI agent generates code using tools (terminal, createOrUpdateFiles, readFiles)
-3. E2B sandbox executes code with hot reload
-4. SSE streams real-time progress to frontend
-5. Fragment saved with generated files and sandbox URL
-
-### Directory Structure
-- `src/modules/` - Feature modules (home, messages, projects, usage). Each module has `server/procedures.ts` for tRPC routes and `ui/` for React components
-- `src/trpc/` - tRPC setup. `init.ts` defines context and auth middleware. Routers combined in `routers/_app.ts`
-- `src/inngest/` - AI agent orchestration. `functions.ts` contains the main code generation agent with tools
-- `src/lib/` - Utilities: `ai-models.ts` (model configs), `sse-manager.ts` (real-time updates), `prisma.ts` (db client)
-- `src/components/ui/` - Shadcn/UI components (pre-installed, import from `@/components/ui/*`)
-- `prisma/schema.prisma` - Database models: Project, Message, Fragment, Usage
-
-### Key Patterns
-
-**tRPC Routers**: Feature modules export routers that are merged in `src/trpc/routers/_app.ts`. Use `protectedProcedure` for authenticated routes.
-
-**AI Models**: Configured in `src/lib/ai-models.ts`. Multiple providers (Silicon, DeepSeek, LongCat, etc.) via OpenAI-compatible APIs. Add new models to `AIModelIdType` and `aiModels` array.
-
-**Inngest Agent**: The code agent in `src/inngest/functions.ts` uses tools for terminal commands, file operations, and sandbox interaction. Agents include code-agent, project-title-generator, fragment-title-generator, and response-generator.
-
-**SSE Events**: Real-time progress updates via `sseManager.sendEvent()`. Frontend uses `use-sse.ts` hook to subscribe to project events.
-
-**Prompt Engineering**: Main agent prompts in `src/prompt.ts`. The system prompt instructs the agent on Next.js environment, Shadcn usage, and file conventions.
-
-### Database Schema
-- `Project` → has many `Message`s
-- `Message` → has one `Fragment` (optional, for assistant responses with generated code)
-- `Fragment` → stores `sandboxUrl`, `title`, and `files` (JSON)
-- `Usage` → credits/points tracking with expiration
-
-## Environment Variables
-
-Required services:
-- `DATABASE_URL` - PostgreSQL connection (Neon)
-- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` / `CLERK_SECRET_KEY` - Auth
-- `E2B_API_KEY` - Code sandbox
-- `INNGEST_EVENT_KEY` / `INNGEST_SIGNING_KEY` - Event processing
-- AI provider keys: `SILICON_API_KEY`, `DEEPSEEK_API_KEY`, `LONG_CAT_API_KEY`, etc. (based on models used)
-
-## Notes
-
-- The dev server runs on port 3000 with hot reload. Generated apps in sandboxes also run on port 3000
-- Shadcn components are pre-installed. Import directly from `@/components/ui/button`, etc. Do not re-install
-- The `cn` utility must be imported from `@/lib/utils`, not from component paths
-- All styling uses Tailwind CSS - no separate CSS/SCSS files
-- The AI agent environment is Next.js 15.3.3 with Tailwind and Shadcn pre-configured
+The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
+<!-- CODEGRAPH_END -->
 
 ---
 > Source: [cheeseburgertony/evoke](https://github.com/cheeseburgertony/evoke) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
