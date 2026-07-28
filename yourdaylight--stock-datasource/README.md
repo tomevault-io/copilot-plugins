@@ -1,8 +1,6 @@
 # stock_datasource
 
-> Source: [Yourdaylight/stock_datasource](https://github.com/Yourdaylight/stock_datasource) — distributed by [TomeVault](https://tomevault.io)
-
-基于tushare构建本地财经数据库。AI原生的多Agent金融分析系统，支持skill拓展Agent能力并自适应生成http接口与mcp调用。支持本地数据库访问的skill对接openclaw进行自主访问
+> Source: [Yourdaylight/stock_datasource](https://github.com/Yourdaylight/stock_datasource). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Yourdaylight/stock_datasource](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Yourdaylight/stock_datasource](https://github.com/Yourdaylight/stock_datasource) — a repo with 109+ stars on GitHub.
+From [Yourdaylight/stock_datasource](https://github.com/Yourdaylight/stock_datasource) — a repo with 168+ stars on GitHub.
 
 ---
 
