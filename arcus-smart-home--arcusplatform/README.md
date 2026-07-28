@@ -5,10 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [arcus-smart-home/arcusplatform](https://github.com/arcus-smart-home/arcusplatform).
+Original source: `` in [arcus-smart-home/arcusplatform](https://github.com/arcus-smart-home/arcusplatform).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
