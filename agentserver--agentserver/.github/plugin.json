@@ -1,0 +1,9 @@
+{
+  "name": "agentserver--agentserver",
+  "displayName": "agentserver",
+  "description": "agentserver",
+  "version": "1.0.0",
+  "author": "agentserver",
+  "homepage": "https://github.com/agentserver/agentserver",
+  "skills": []
+}
