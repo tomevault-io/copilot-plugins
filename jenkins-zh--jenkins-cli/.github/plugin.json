@@ -1,0 +1,9 @@
+{
+  "name": "jenkins-zh--jenkins-cli",
+  "displayName": "jenkins-cli",
+  "description": "jenkins-cli",
+  "version": "1.0.0",
+  "author": "jenkins-zh",
+  "homepage": "https://github.com/jenkins-zh/jenkins-cli",
+  "skills": []
+}
