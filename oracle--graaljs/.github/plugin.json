@@ -1,0 +1,9 @@
+{
+  "name": "oracle--graaljs",
+  "displayName": "graaljs",
+  "description": "graaljs",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/graaljs",
+  "skills": []
+}
