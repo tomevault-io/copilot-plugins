@@ -1,0 +1,50 @@
+## ts-essentials
+
+> The conventions are integral part of the ts-essentials library codebase: they provide a consistent way of development
+
+# Conventions
+
+The conventions are integral part of the ts-essentials library codebase: they provide a consistent way of development
+for both maintainers and engineers that use this library.
+
+## Naming
+
+Consistent naming improves readability and simplifies the maintainability.
+
+Prefixes:
+
+- `Any*` prefix is used for top types for specified subset of types, e.g.
+  [`AnyFunction<Args?, ReturnType?>`](./lib/any-function/) for any possible functions,
+  [`AnyArray<Type?>`](/lib/any-array) for any type of arrays, etc.
+- `Deep*` prefix is used when the type changes are applied to the whole structure recursively.
+  - If you wonder why [`Buildable<Type>`](./lib/buildable/) doesn't include a prefix, it is because it doesn't have
+    direct recursive call
+- `Is*` prefix is used when type expects to return `true` or `false`
+  - ⚠️ Some types don't follow this convention for performance reasons, e.g. [`IsTuple<Type>`](/lib/is-tuple)
+- `Mark*` prefix is used when the partial type changes are applied to a type, e.g. some properties are set to optional
+  in [`MarkOptional<Type, Keys>`](/lib/mark-optional)
+- `Non*` prefix is used when type expects to return `Type` or `never` (although this is not strict)
+  - [`NonEmptyArray<Type>`](/lib/non-empty-array) doesn't return `never` so has to be renamed `AnyNonEmptyArray`
+- `Strict*` prefix is used when the additional generic constraint is applied to a type parameter to constrain its usage,
+  e.g. [`StrictOmit<Type, Keys>`](/lib/strict-omit) adds an additional generic constraint for `Keys extends keyof Type`
+  so only existing keys within `Type` are passed to this utility type.
+  - ⚠️ Inevitably all `Strict*` types lack the support of generic types for the first type parameter `Type` because
+    generic constraints rely on a structure of `Type` which cannot be inferred at declaration. To mitigate it, please
+    use non-`Strict*` analogue of a utility type.
+- ⚠️ [`PublicInterface<Type>`](/lib/public-interface) is an exception to all prefix rules because `Public` refers to the TypeScript visibility modifier (`public`/`private`/`protected`), not a structural transformation pattern. No existing prefix captures this concept.
+
+Body:
+
+- `*Or*` is used for top types for 2 types, e.g. [`AsyncOrSync<Type>`](/lib/async-or-sync) for either asynchronous type
+  (i.e. `PromiseLike`) or a synchronous type.
+  - [`AsyncOrSyncType<Type>`](/lib/async-or-sync-type) is an exception because it serves to unwrap `Type` in
+    `AsyncOrSync<Type>`.
+
+Suffices:
+
+- `*Keys` suffix is used when the names of the properties (i.e. the keys) are returned or manipulated
+- `*Properties` suffix is used when the values of the properties (or simply properties) are returned or manipulated
+
+---
+> Source: [ts-essentials/ts-essentials](https://github.com/ts-essentials/ts-essentials) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
