@@ -1,0 +1,9 @@
+{
+  "name": "containers--gvisor-tap-vsock",
+  "displayName": "gvisor-tap-vsock",
+  "description": "gvisor-tap-vsock",
+  "version": "1.0.0",
+  "author": "containers",
+  "homepage": "https://github.com/containers/gvisor-tap-vsock",
+  "skills": []
+}
