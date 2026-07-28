@@ -1,18 +1,13 @@
 ## coinex-net
 
-> This repository is **CoinEx.Net** - a strongly typed C#/.NET client library for the CoinEx cryptocurrency exchange API. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using CoinEx.Net when working with the CoinEx cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with the CoinEx API.
 
-# Copilot Instructions for CoinEx.Net
 
-This repository is **CoinEx.Net** - a strongly typed C#/.NET client library for the CoinEx cryptocurrency exchange API. It is part of the CryptoExchange.Net ecosystem.
+# CoinEx.Net Conventions
 
-When generating code that consumes CoinEx.Net, follow these conventions:
+This codebase uses **CoinEx.Net** for CoinEx cryptocurrency exchange access. Do not write raw `HttpClient` calls to CoinEx endpoints.
 
-## Use CoinEx.Net, not raw HTTP
-
-Never generate `HttpClient` calls to CoinEx endpoints. Always use `CoinExRestClient` or `CoinExSocketClient`. This preserves request signing, rate limiting, socket reconnection, typed models, and `WebCallResult<T>` / `CallResult<T>` error handling.
-
-## Client setup
+## Client setup pattern
 
 ```csharp
 using CoinEx.Net;
@@ -24,49 +19,89 @@ var restClient = new CoinExRestClient(options =>
 });
 ```
 
-For public market data only, credentials are not required: `new CoinExRestClient()`.
+For public market data only, no credentials are needed: `new CoinExRestClient()`.
 
-## Result handling
+## Result pattern
 
-Methods return `WebCallResult<T>` for REST or `CallResult<T>` for WebSocket subscriptions. Always check `.Success` before reading `.Data`. The error is on `.Error`.
+All methods return `WebCallResult<T>` for REST or `CallResult<T>` for WebSocket. Always check `.Success` before reading `.Data`:
 
-## API structure
+```csharp
+var tickers = await restClient.SpotApiV2.ExchangeData.GetTickersAsync(new[] { "BTCUSDT" });
+if (!tickers.Success) { /* tickers.Error */ return; }
+var price = tickers.Data.First().LastPrice;
+```
 
-- `restClient.SpotApiV2.ExchangeData` - public spot market data
-- `restClient.SpotApiV2.Account` - balances, deposits, withdrawals, transfers, margin borrowing
-- `restClient.SpotApiV2.Trading` - spot and margin orders
-- `restClient.FuturesApi.ExchangeData` - futures market data, funding, index, premium, liquidation history
-- `restClient.FuturesApi.Account` - futures balances, fees, leverage
-- `restClient.FuturesApi.Trading` - futures orders, positions, TP/SL, margin adjustments
-- `socketClient.SpotApiV2` - spot WebSocket streams
-- `socketClient.FuturesApi` - futures WebSocket streams
+## API surface
+
+- `restClient.SpotApiV2.{ExchangeData|Account|Trading}`
+- `restClient.FuturesApi.{ExchangeData|Account|Trading}`
+- `socketClient.SpotApiV2` for spot WebSocket subscriptions
+- `socketClient.FuturesApi` for futures WebSocket subscriptions
+- `restClient.SpotApiV2.SharedClient` and `restClient.FuturesApi.SharedClient`
+- `socketClient.SpotApiV2.SharedClient` and `socketClient.FuturesApi.SharedClient`
 
 ## Order placement
 
-CoinEx order methods accept an optional `clientOrderId`. Omit it unless the caller needs external reconciliation. Spot orders require an `AccountType` such as `AccountType.Spot` or `AccountType.Margin`.
+Spot order placement includes `AccountType`:
+
+```csharp
+var order = await restClient.SpotApiV2.Trading.PlaceOrderAsync(
+    "BTCUSDT", AccountType.Spot, OrderSide.Buy, OrderTypeV2.Limit,
+    quantity: 0.001m, price: 50000m);
+```
+
+Futures order placement does not include `AccountType`:
+
+```csharp
+var order = await restClient.FuturesApi.Trading.PlaceOrderAsync(
+    "ETHUSDT", OrderSide.Buy, OrderTypeV2.Market, quantity: 0.01m);
+```
 
 ## WebSocket pattern
 
-Store the returned `UpdateSubscription` and unsubscribe on shutdown via `socketClient.UnsubscribeAsync(sub.Data)`.
+```csharp
+var socketClient = new CoinExSocketClient();
+var sub = await socketClient.SpotApiV2.SubscribeToTickerUpdatesAsync(
+    new[] { "BTCUSDT" },
+    update => { /* update.Data.First().LastPrice */ });
+if (!sub.Success) { /* sub.Error */ return; }
 
-## Cross-exchange
+await socketClient.UnsubscribeAsync(sub.Data);
+```
 
-For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed through `.SharedClient` properties. CoinEx exposes shared clients on `SpotApiV2` and `FuturesApi`.
+## Multi-exchange code
 
-## Avoid
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
 
-- Legacy `CoinExClient` class names (use `CoinExRestClient`)
-- Generic `ApiCredentials` in examples (use `CoinExCredentials`)
-- Synchronous `.Result` / `.Wait()` (use `await`)
-- Instantiating clients per-request (use DI or reuse instances)
-- Reading `.Data` before checking `.Success`
-- Inventing a `SpotApi` property for V2 examples; the current REST spot API is `SpotApiV2`
-- Binance-style `timeInForce`, USD-M, COIN-M, or testnet examples; CoinEx uses `OrderTypeV2`, `SpotApiV2`, and `FuturesApi`
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new CoinExRestClient().SpotApiV2.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
+```
+
+Shared `ISpotSymbolRestClient` and `IFuturesSymbolRestClient` results include `DisplayName` and base/quote asset type/subtype metadata. Use those fields in `GetSymbolsRequest` to filter symbols. Their `SpotSymbolCatalog` / `FuturesSymbolCatalog` properties are populated only after the corresponding `Get*SymbolsAsync` call succeeds.
+
+## Hard rules
+
+- Never write raw `HttpClient` to CoinEx endpoints
+- Never use `.Result` or `.Wait()`; use async/await
+- Never instantiate clients per-request in production code
+- Never skip checking `WebCallResult.Success`
+- Never use `CoinExClient`; use `CoinExRestClient`
+- Always use `CoinExCredentials("key", "secret")`, not generic `ApiCredentials`
+- Always use `SpotApiV2` for current spot V2 REST examples
+- Always store WebSocket subscriptions and unsubscribe on shutdown
+- Do not copy Binance-only concepts such as `timeInForce`, USD-M/COIN-M split, or Binance testnet environments into CoinEx examples
 
 ## Reference
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, and `llms-full.txt` in the repository root, `docs/ai-api-map.md` for intent-to-method routing, and `Examples/ai-friendly/` for compilable examples.
+- Skill: `AGENTS.md` in repo root has fuller examples
+- AI context: `llms.txt` and `llms-full.txt` in repo root
+- API map: `docs/ai-api-map.md`
+- Examples: `Examples/ai-friendly/`
 
 ---
 > Source: [JKorf/CoinEx.Net](https://github.com/JKorf/CoinEx.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
