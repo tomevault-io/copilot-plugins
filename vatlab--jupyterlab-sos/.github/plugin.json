@@ -1,0 +1,9 @@
+{
+  "name": "vatlab--jupyterlab-sos",
+  "displayName": "jupyterlab-sos",
+  "description": "jupyterlab-sos",
+  "version": "1.0.0",
+  "author": "vatlab",
+  "homepage": "https://github.com/vatlab/jupyterlab-sos",
+  "skills": []
+}
