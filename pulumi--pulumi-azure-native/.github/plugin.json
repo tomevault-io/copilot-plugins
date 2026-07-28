@@ -1,0 +1,9 @@
+{
+  "name": "pulumi--pulumi-azure-native",
+  "displayName": "pulumi-azure-native",
+  "description": "pulumi-azure-native",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-azure-native",
+  "skills": []
+}
