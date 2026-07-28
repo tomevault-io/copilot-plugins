@@ -1,0 +1,14 @@
+{
+  "name": "learn-ukrainian--learn-ukrainian-github-io",
+  "displayName": "learn-ukrainian.github.io",
+  "description": "Free open-source Ukrainian course. A1 to C2. Based on Ukrainian State Standard 2024. \u00ab\u041c\u043e\u0432\u0430 \u2013 \u0434\u0443\u0448\u0430 \u043d\u0430\u0440\u043e\u0434\u0443\u00bb",
+  "version": "1.0.0",
+  "author": "learn-ukrainian",
+  "homepage": "https://github.com/learn-ukrainian/learn-ukrainian.github.io",
+  "skills": [
+    {
+      "name": "local-code-review",
+      "description": ""
+    }
+  ]
+}
