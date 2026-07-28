@@ -1,0 +1,349 @@
+## wowless
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
+
+## Project Overview
+
+Wowless is a headless World of Warcraft client Lua and FrameXML interpreter
+intended for addon testing. It interprets WoW's client Lua code and XML UI
+definitions without requiring the actual game client.
+
+## Build Commands
+
+Development is primarily done via Docker (devcontainer). Native builds are
+also supported.
+
+### Native Build
+
+```sh
+git submodule update --init --depth 1
+cmake --preset default
+cmake --build --preset default
+```
+
+Build output goes to `build/`.
+
+### Running Wowless
+
+```sh
+# Build and run on retail WoW
+bin/run.sh wow
+
+# Run with an addon
+bin/run.sh wow --addondir path/to/YourAddon
+
+# Run directly after building
+build/wowless run -p wow [options]
+```
+
+Products: see `data/products.yaml`
+
+### Running Tests
+
+```sh
+cmake --build --preset default --target test
+```
+
+The test target rebuilds changed sources then runs `build/runtests`.
+A successful run exits with code 0 and produces no output. Tests are also
+run by the `build and test` pre-commit hook, so they execute automatically
+on every commit.
+
+Tests are in `spec/` directory and use luassert. Test specs are defined in
+CMakeLists.txt around line 985. The test addon in `addon/Wowless/` contains
+in-game tests that run inside the simulated WoW environment during `runtests`.
+
+### Linting and Formatting
+
+Pre-commit hooks handle linting. Key tools:
+
+- **luacheck**: Lua linting (config in `.luacheckrc`)
+- **stylua**: Lua formatting (config in `stylua.toml`)
+- **clang-format**: C formatting (config in `.clang-format`)
+- **yamlfmt**: YAML formatting (`build/yamlfmt`)
+
+```sh
+pre-commit run -a  # Run all checks
+```
+
+### C Code Style
+
+clang-format handles most C formatting. One rule it cannot enforce:
+
+- Multiline block comments must have the opening `/*` on its own line with no
+  text after it:
+
+  ```c
+  /* wrong: text on the opening line
+   * more text
+   */
+
+  /*
+   * correct: /* is alone on its line
+   * more text
+   */
+  ```
+
+  Single-line comments (`/* text */`) are unaffected by this rule.
+
+## Architecture
+
+### Core Runtime (`wowless/`)
+
+- `wowless.lua`: Entry point, parses CLI args and invokes runner
+- `runner.lua`: Orchestrates WoW environment simulation (login, events, scripts)
+- `modules.lua`: Dependency injection system loading modules from
+  `wowless/modules/`
+- `modules/`: Individual modules (api, events, loader, security, uiobjects,
+  etc.)
+
+### Module System
+
+Modules are defined in `data/modules.yaml` with explicit dependencies. The
+runtime loads them via topological sort. Each module in `wowless/modules/`
+receives its dependencies as function arguments.
+
+### Data Layer (`data/`)
+
+YAML files define WoW API specifications, converted to Lua at build time:
+
+- `data/products/<product>/`: Per-product API definitions (apis, events,
+  uiobjects, etc.)
+- `data/schemas/`: JSON-schema-like definitions for YAML validation
+- `data/impl.yaml`, `data/uiobjectimpl.yaml`: Stub implementations
+
+### Tools (`tools/`)
+
+Build-time code generators:
+
+- `gentest.lua`: Generates test addon code
+- `prep.lua`: Preprocesses product data
+- `docs.lua`: Documentation generator
+- `yaml2lua.lua`/`lua2yaml.lua`: Format converters
+
+### Test Addon (`addon/Wowless/`)
+
+In-game test addon that runs within the simulated WoW environment to verify
+API behavior.
+
+### C Extensions
+
+- `vendor/elune/`: Custom Lua 5.1 fork with WoW-specific extensions (taint
+  tracking, security)
+- `wowless/*.c`: Native Lua extensions (sqlite, mixin, bubblewrap, ext)
+
+### External Data (`vendor/`)
+
+- `vendor/dbdefs/`: WoW database definitions
+- `vendor/tactless/`: CASC file extraction library
+
+## Key Patterns
+
+### Lua-to-C Compilation
+
+The `lua2c()` CMake function compiles Lua modules into C for static linking.
+This bundles all Lua code into the final executables.
+
+### Product-Specific Data
+
+Each WoW product (retail, classic, beta, etc.) has its own data directory
+under `data/products/<product>/` with API definitions that may differ between
+game versions.
+
+### Security Model
+
+Wowless implements WoW's taint/security system via elune extensions. Framework
+code runs "secure" while addon code is "tainted".
+
+### Userdata Objects
+
+WoW exposes several userdata types (luaobjects, funtainers, uiobjects).
+Key patterns:
+
+- Use `newproxy(true)` to create userdata with custom metatables
+- `__metatable = false` hides the real metatable from `getmetatable()`
+- `bubblewrap()` wraps Lua functions to appear as C functions (fails
+  `coroutine.create`)
+- Methods should be readonly (error on assignment via `__newindex`)
+- Custom fields stored in per-instance tables accessed via
+  `__index`/`__newindex`
+- `__tostring` format: `"TypeName: 0x..."` (use `tostring(table):sub(8)`
+  for address)
+
+### Test Addon Structure (`addon/Wowless/`)
+
+The test addon runs inside the simulated WoW environment. Files load in
+`.toc` order:
+
+- `util.lua`: Assertion helpers (`assertEquals`, `check0`–`check7`, `match`,
+  `retn`) stored on the addon table `G`
+- `statemachine.lua`: `checkStateMachine(states, transitions, init)` for
+  exhaustive state machine testing via BFS traversal of all edge combinations
+- `init.lua`: Sets up `G.testsuite = {}` and `_G.assertEquals`
+- `framework.lua`: Test runner iterator; walks nested tables depth-first,
+  collecting sub-tests returned from test functions
+- Per-domain test files (`uiobjects.lua`, `luaobjects.lua`, `test.lua`,
+  etc.): Each adds an entry to `G.testsuite` (e.g.,
+  `G.testsuite.uiobjects = function() ... end`)
+- `test.lua`: Runs all sync tests via `G.tests()` iterator on `OnUpdate`,
+  budgeted per frame. Also defines async tests (timers, events) that use
+  a `done(check)` callback pattern. Results go to `_G.WowlessTestFailures`.
+
+#### Writing tests
+
+- Test functions return a table of named sub-tests (keys = names,
+  values = functions) for hierarchical organization. Sub-tests can
+  themselves return tables for further nesting.
+- Use `assertEquals(expected, actual)` for assertions
+- Use `checkN(e1, ..., eN, ...)` to assert both return count and values
+- Use `match(k, e1..ek, a1..ak)` to return a table of individual value
+  checks (useful as sub-tests)
+- Use `retn(n, ...)` to assert return count and pass values through
+- Check C functions with `assertEquals(false, pcall(coroutine.create, fn))`
+- Use `checkStateMachine` when testing objects with multiple states and
+  transitions (buttons, visibility, rects, event registration)
+- Guard wowless-only or real-client-only tests with
+  `if _G.__wowless then return end`
+- Pre-compute data tables outside test functions when iterating `WowlessData`
+- Keep test modules focused on type-specific behavior
+
+### C Stubs for API Typechecking
+
+Eligible global API stubs are generated as native C functions rather than Lua
+closures. An API is eligible if it has no `impl` and all input/output types
+are supported. `is_eligible` in `prep.lua` hard-errors on unsupported types.
+
+**Supported input types:** `boolean`, `enum`, `FileAsset` (as string),
+`function`, `number`, `string`, `stringenum`, `structure`, `table`,
+`luaobject`, `uiobject`, `unit`, `unknown`, `arrayof`.
+
+**Supported output types:** `boolean`, `enum`, `FileAsset` (returns `1`),
+`function`, `nil`, `number`, `oneornil`, `string`, `stringenum`, `structure`,
+`table`, `unit`, `unknown`, `luaobject`, `uiobject`, `arrayof`.
+
+Key files:
+
+- `wowless/typecheck.h`: Inline helpers for each supported type, both nilable
+  and non-nilable variants (e.g., `wowless_stubchecknumber`,
+  `wowless_stubchecknilablestringenum`). Complex types (luaobject, uiobject,
+  stringenum) call into the `cgencode` upvalue.
+- `wowless/stubs.h`/`stubs.c`: Loading infrastructure; `wowless_load_stubs()`
+  registers C functions as closures with the `cgencode` module as upvalue.
+- `wowless/modules/cgencode.lua`: Runtime helper module passed as upvalue to
+  C stubs. Provides `CheckStringEnum`, `IsLuaObject`, `IsUiObject`,
+  `CreateLuaObject`, `CreateUiObject`.
+- `prep.lua` emits a per-product `generated/${product}_stubs.c` when
+  `--coutput` is passed; eligible APIs are marked `cstub=true` in the data.
+- CMakeLists wires the generated C file into `datalua_${product}` via
+  `target_sources` and registers it as a cmodule (`build.products.X.stubs=c`)
+  in the `lua2c()` call.
+- `wowless/modules/cstubs.lua` requires `build.products.<product>.stubs`
+  (the generated C module). `env.lua` calls `modules.cstubs.load(modules)`
+  to populate the global environment with all API stubs.
+- To add a C-provided module to a `lua2c()` target, use `modulename=c` in
+  the argument list and add the C source with `target_sources`.
+
+### YAML Parser (`wowapi/cyaml.c`)
+
+The project uses a custom C YAML parser with a few nonstandard behaviors to
+be aware of when reading or writing data files:
+
+- **Scalars**: plain `true`/`false` → Lua boolean; numeric strings → Lua
+  number; everything else (including quoted strings) → Lua string.
+- **Null values**: a key with no value (`key:`) does **not** produce Lua `nil`.
+  It hits the parser's default case and produces an empty table `{}`. This is
+  intentional and used as a sentinel to distinguish "field absent" (Lua `nil`
+  from table lookup) from "field present with no value" (empty table `{}`).
+  For example, `data/types.yaml` uses `c_output:` (no value) to mark types
+  that output nil from C stubs, and `default:` (no value) to mark types whose
+  default output is an empty table.
+- **Empty tables**: when round-tripping through `pprint`, an empty Lua table
+  is emitted as a bare empty scalar (zero-length plain scalar), which parses
+  back as an empty table.
+
+### Data Format Conventions
+
+- Use sets (tables with `key = true`) for collections like method names,
+  not arrays
+- gentest.lua and prep.lua should produce consistent data formats for the
+  same concepts
+- Iterate sets with `pairs()`, not `ipairs()`
+- API input parameters with a `default` field are implicitly nilable (accept
+  nil/missing arguments); use the nilable typecheck variant for them
+
+### Deferred Type Loading
+
+UIObjects and luaobjects use a deferred loading pattern:
+
+- Type registries (`uiobjecttypes`, `luaobjects`) are initialized at module
+  load with empty state
+- Loader methods (`uiobjectloader(modules)`, `luaobjects.LoadTypes(modules)`)
+  process type definitions
+- `runner.lua` invokes loaders inside `withglobaltable()` after sandbox
+  environment is set up
+- This allows type initialization to access the full module graph via the
+  `modules` parameter
+
+### Module Delegate Pattern for C_ APIs
+
+When modules export WoW C_ style functions (like
+`C_FunctionContainers.CreateCallback`):
+
+- Define the function locally with the second part as the name (e.g.,
+  `CreateCallback`)
+- Export with simple table assignment: `CreateCallback = CreateCallback`
+- In `impl.yaml`, use `moduledelegate` with explicit `function` field mapping
+  to the local name:
+
+  ```yaml
+  C_FunctionContainers.CreateCallback:
+    moduledelegate:
+      function: CreateCallback
+      name: funtainer
+  ```
+
+- The `moduledelegate` handler in `prep.lua` generates `return (...)[%q]`
+  which does direct table lookup
+
+### impl.yaml Implementation Types
+
+- `stdlib`: Maps to Lua standard library function
+- `impl`: Inline implementation with optional `modules` and `sqls` dependencies
+- `moduledelegate`: Delegates to a module function (use `function` field for
+  non-default name)
+- `directsql`: Simple SQL query wrapper
+- `luadelegate`: Delegates to a separate Lua module file
+
+## GitHub Issues and PRs
+
+- Add the `claude` label to any issues you create
+- Add the `claude` label to any PRs you create
+- Add a `-- issue #nnn` comment to the line of Lua code most relevant to the
+  issue
+
+## Testing After Code Changes
+
+Always run tests after modifying code:
+
+```sh
+cmake --build --preset default --target test
+```
+
+A successful run exits with code 0 and produces no output. If tests fail,
+fix the issues before considering the task complete.
+
+## Commit Message Style
+
+- Prefix with module name and colon when changes are localized:
+  `luaobjects: description` (no period at end)
+- Always add a `Co-Authored-By: <model name> <noreply@anthropic.com>` trailer
+  using the actual model name (e.g., `Claude Sonnet 4.6`)
+
+---
+> Source: [wowless/wowless](https://github.com/wowless/wowless) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
