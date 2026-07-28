@@ -1,23 +1,21 @@
 # PaperFit
 
-> Tome by [OpenRaiser](https://github.com/OpenRaiser/PaperFit) — distributed by [TomeVault](https://tomevault.io)
-
-📄 Vision-in-the-loop LaTeX typesetting agent — auto-compile, render, diagnose, and fix paper layouts
+> Tome by [OpenRaiser](https://github.com/OpenRaiser/PaperFit), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [OpenRaiser/PaperFit](https://github.com/OpenRaiser/PaperFit).
+Original source: `AGENTS.md` in [OpenRaiser/PaperFit](https://github.com/OpenRaiser/PaperFit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/OpenRaiser/PaperFit](https://github.com/OpenRaiser/PaperFit)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/OpenRaiser/PaperFit](https://github.com/OpenRaiser/PaperFit)
 
 ---
 
