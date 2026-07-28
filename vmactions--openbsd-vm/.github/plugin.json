@@ -1,0 +1,9 @@
+{
+  "name": "vmactions--openbsd-vm",
+  "displayName": "openbsd-vm",
+  "description": "openbsd-vm",
+  "version": "1.0.0",
+  "author": "vmactions",
+  "homepage": "https://github.com/vmactions/openbsd-vm",
+  "skills": []
+}
