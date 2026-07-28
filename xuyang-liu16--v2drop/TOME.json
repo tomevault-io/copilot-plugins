@@ -4,7 +4,7 @@
   "repo": "V2Drop",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xuyang-liu16/V2Drop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T11:05:13Z"
+  "distributed_at": "2026-07-28T17:14:01Z"
 }
