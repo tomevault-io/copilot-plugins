@@ -1,13 +1,25 @@
 ## tower-together
 
-> - This codebase uses progressive disclosure to manage agent context.
+> TS translations of the binary's CS-relative jump tables for family dispatchers. Phase 5a populates them as documentation; Phase 5b wires them in.
 
-- This codebase uses progressive disclosure to manage agent context.
-  - For each package in `src/` and each script in `scripts/`, maintain an `AGENTS.md` outlining each file's functionality and that of any subpackages.
-  - Summaries should be very brief, one or two sentences per file or subpackage. Additional context can be held at the top of the file.
-  - Maintain an overall outline of packages in `CODEBASE.md`.
-- Run `npm run typecheck && node_modules/.bin/biome check . && node_modules/.bin/biome format --write .` after writing code and before committing.
+# families/state-tables/ — Binary dispatch jump tables
+
+TS translations of the binary's CS-relative jump tables for family dispatchers. Phase 5a populates them as documentation; Phase 5b wires them in.
+
+## Files
+
+### `family-prologue.ts`
+0x22-entry table at cs:1c71 mapping `family_code - 3` → prologue handler.
+
+### `office.ts`
+Tables at cs:2005 (refresh), cs:2aac (dispatch), cs:1c51 (prologue).
+
+### `hotel.ts`
+Table at cs:1c41 (shared family 3/4/5 prologue).
+
+### `condo.ts`
+Table at cs:1c2d (family-9 prologue).
 
 ---
 > Source: [phulin/tower-together](https://github.com/phulin/tower-together) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
