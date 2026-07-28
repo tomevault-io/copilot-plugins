@@ -1,0 +1,9 @@
+{
+  "name": "rettend--bun-test-ui",
+  "displayName": "bun-test-ui",
+  "description": "Test runner UI for Bun, similar to Vitest UI",
+  "version": "1.0.0",
+  "author": "Rettend",
+  "homepage": "https://github.com/Rettend/bun-test-ui",
+  "skills": []
+}
