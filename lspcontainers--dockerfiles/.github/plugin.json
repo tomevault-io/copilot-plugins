@@ -1,0 +1,9 @@
+{
+  "name": "lspcontainers--dockerfiles",
+  "displayName": "dockerfiles",
+  "description": "dockerfiles",
+  "version": "1.0.0",
+  "author": "lspcontainers",
+  "homepage": "https://github.com/lspcontainers/dockerfiles",
+  "skills": []
+}
