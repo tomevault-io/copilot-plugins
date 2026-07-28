@@ -5,15 +5,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [photo-cli/photo-cli](https://github.com/photo-cli/photo-cli).
+Original source: `.cursor/rules/*.mdc` in [photo-cli/photo-cli](https://github.com/photo-cli/photo-cli).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [photo-cli/photo-cli](https://github.com/photo-cli/photo-cli) — a repo with 73+ stars on GitHub.
 
