@@ -1,6 +1,6 @@
 # tbdflow
 
-> Source: [cladam/tbdflow](https://github.com/cladam/tbdflow) — distributed by [TomeVault](https://tomevault.io)
+> Source: [cladam/tbdflow](https://github.com/cladam/tbdflow). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,16 +16,19 @@ Original source: `` in [cladam/tbdflow](https://github.com/cladam/tbdflow).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (3)
+## Bundled Skills (6)
 
 - [code-analyzer](https://github.com/cladam/tbdflow/tree/main/.github/skills/code-analyzer)
 - [rust-developer](https://github.com/cladam/tbdflow/tree/main/.github/skills/rust-developer)
 - [tbdflow](https://github.com/cladam/tbdflow/tree/main/.github/skills/tbdflow)
+- [tbdflow](https://github.com/cladam/tbdflow/tree/main/.github/skills/tbdflow/SKILL.md)
+- [tbdflow](https://github.com/cladam/tbdflow/tree/main/.github/skills/code-analyzer/SKILL.md)
+- [tbdflow](https://github.com/cladam/tbdflow/tree/main/.github/skills/rust-developer/SKILL.md)
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/cladam/tbdflow](https://github.com/cladam/tbdflow)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/cladam/tbdflow](https://github.com/cladam/tbdflow)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
