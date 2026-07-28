@@ -1,0 +1,9 @@
+{
+  "name": "naver--notify-pr-review",
+  "displayName": "notify-pr-review",
+  "description": "notify-pr-review",
+  "version": "1.0.0",
+  "author": "naver",
+  "homepage": "https://github.com/naver/notify-pr-review",
+  "skills": []
+}
