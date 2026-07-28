@@ -3,8 +3,8 @@
   "owner": "TencentCloudBase",
   "repo": "CloudBase-AI-Toolkit",
   "description": "Backend for AI coding agents on CloudBase \u2014 database, auth, functions via Plugin, Skills & MCP.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ai-model-web",
+      "path": "config/.claude/skills/ai-model-web",
+      "github_url": "https://github.com/TencentCloudBase/CloudBase-AI-Toolkit/tree/main/config/.claude/skills/ai-model-web",
+      "description": ""
+    },
+    {
+      "name": "web-development",
+      "path": "config/.claude/skills/web-development",
+      "github_url": "https://github.com/TencentCloudBase/CloudBase-AI-Toolkit/tree/main/config/.claude/skills/web-development",
+      "description": ""
+    },
+    {
+      "name": "cloudbase-sites-runtime",
+      "path": "plugin/cloudbase-sites/skills/cloudbase-sites-runtime",
+      "github_url": "https://github.com/TencentCloudBase/CloudBase-AI-Toolkit/tree/main/plugin/cloudbase-sites/skills/cloudbase-sites-runtime",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/TencentCloudBase/CloudBase-AI-Toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T06:33:08Z"
+  "distributed_at": "2026-07-28T18:31:46Z"
 }
