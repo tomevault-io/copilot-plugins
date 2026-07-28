@@ -1,8 +1,6 @@
 # blazwitcher
 
-> Source: [cjinhuo/blazwitcher](https://github.com/cjinhuo/blazwitcher) — distributed by [TomeVault](https://tomevault.io)
-
-A Chrome Extension to blaze through your tabs, bookmarks, and history — with powerful fuzzy Pinyin search and grouping tags by AI. 一款可以全局搜索标签、书签和历史记录的 Chrome 浏览器扩展，支持拼音模糊搜索和 AI 标签分组
+> Source: [cjinhuo/blazwitcher](https://github.com/cjinhuo/blazwitcher). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,15 @@ Original source: `AGENTS.md` in [cjinhuo/blazwitcher](https://github.com/cjinhuo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/cjinhuo/blazwitcher](https://github.com/cjinhuo/blazwitcher)
+## Bundled Skills (5)
+
+- [blazwitcher](https://github.com/cjinhuo/blazwitcher/tree/main/.agents/skills/git-auto-commit/SKILL.md)
+- [blazwitcher](https://github.com/cjinhuo/blazwitcher/tree/main/.agents/skills/release-publisher/SKILL.md)
+- [blazwitcher](https://github.com/cjinhuo/blazwitcher/tree/main/.agents/skills/text-search-engine/SKILL.md)
+- [blazwitcher](https://github.com/cjinhuo/blazwitcher/tree/main/.agents/skills/changeset-generator/SKILL.md)
+- [blazwitcher](https://github.com/cjinhuo/blazwitcher/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/cjinhuo/blazwitcher](https://github.com/cjinhuo/blazwitcher)
 
 ---
 
