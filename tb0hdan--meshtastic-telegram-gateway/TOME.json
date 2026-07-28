@@ -4,7 +4,7 @@
   "repo": "meshtastic-telegram-gateway",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tb0hdan/meshtastic-telegram-gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T17:10:00Z"
+  "distributed_at": "2026-07-28T00:54:13Z"
 }
