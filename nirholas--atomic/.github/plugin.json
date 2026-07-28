@@ -1,0 +1,14 @@
+{
+  "name": "nirholas--atomic",
+  "displayName": "atomic",
+  "description": "Atomic scripts for launching, collecting fees from, and trading pump.fun coins. Built around Jito bundles for atomicity across multiple txs, useful when: You need the create tx's fee payer to differ f",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/atomic",
+  "skills": [
+    {
+      "name": "atomic-grind",
+      "description": ""
+    }
+  ]
+}
