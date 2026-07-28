@@ -1,8 +1,6 @@
 # AI instruction files for FlowCabal
 
-> Sourced from [isirin1131/FlowCabal](https://github.com/isirin1131/FlowCabal) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Editor for writer, Focus on the experience of text work involving AI
+> Sourced from [isirin1131/FlowCabal](https://github.com/isirin1131/FlowCabal), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [isirin1131/FlowCabal](https://github.com/isirin
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [isirin1131/FlowCabal](https://github.com/isirin1131/FlowCabal) — a repo with 43+ stars on GitHub.
+From [isirin1131/FlowCabal](https://github.com/isirin1131/FlowCabal) — a repo with 50+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
