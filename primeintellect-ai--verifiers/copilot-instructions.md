@@ -1,54 +1,125 @@
 ## verifiers
 
-> <!-- Generated for repository development workflows. Do not edit directly. -->
+> An `Agent` is a configured **harness** (the program that drives the model), a **model**, and a **runtime** (where the harness executes), built from an `AgentConfig` alone. An agent is given a `Task` and produces a `Trace`.
 
-# AGENTS.md
+# The Agent
 
-<!-- Generated for repository development workflows. Do not edit directly. -->
+An `Agent` is a configured **harness** (the program that drives the model), a **model**, and a **runtime** (where the harness executes), built from an `AgentConfig` alone. An agent is given a `Task` and produces a `Trace`.
 
-## Shared Best Practices (All Contexts)
+```python
+import verifiers.v1 as vf
 
-These points are direct restatements of Verifiers docs so agents can follow the same golden-path workflows.
+async with vf.make_agent(vf.AgentConfig(model="z-ai/glm-5.2")) as solver:
+    trace = await solver.run(vf.Task(vf.TaskData(prompt="What is 2+2?")))
+```
 
-- Environments are expected to expose `load_environment(...) -> vf.Environment` and be installable with `prime env install <env-name>`. (See `docs/overview.md` and `docs/environments.md`.)
-- Validate environment behavior with `prime eval run <env-name> ...` before sharing/publishing changes. Treat `prime eval run` as the canonical eval path: it saves results automatically, and agents should not add opt-out flags such as `--skip-upload` unless the user explicitly requests that deviation so runs stay visible in the private Evaluations tab and in `prime eval view`. (See `docs/overview.md` and `docs/development.md`.)
-- Agents should assume they are allowed to make live model calls through the user's authenticated Prime CLI when a live smoke test is useful. For Prime Inference models, use `prime eval run <env-name>` with the base eval configuration from the environment's `pyproject.toml`; do not edit that `pyproject.toml`, and do not add model/config flags unless the task truly requires them. Agents do not need to manage API keys. If sandboxing blocks outbound requests, request elevated permissions for `prime eval run`, preferably as an ongoing approval instead of per run.
-- For new taskset/harness environments, use the v1 `vf.Env` / `vf.Taskset` / `vf.Harness` format. Treat [BYO Harness](docs/byo-harness.md) as the canonical authoring guide for reusable tasksets, reusable harnesses, framework programs, endpoint interception, and sandboxed Python/command programs.
-- Use `ToolEnv`/`MCPEnv` for stateless tools and `StatefulToolEnv` when per-rollout state must persist (sandbox/session/db handles). (See `docs/environments.md`.)
-- If external API keys are required, validate them in `load_environment()` with `vf.ensure_keys(...)` so failures are explicit and early. (See `docs/environments.md`.)
+Every run is a standard rollout producing a `vf.Trace`. By default, the agent is self-contained: its context owns the model client and shared interception server, while each run owns its runtime and any per-run interception machinery.
 
-## Style Rules
+Exiting the context closes an agent-owned client, so create a new agent for later runs; injected clients remain caller-owned.
 
-Use these rules when shaping user-facing Verifiers APIs, configs, and environment files.
+## Interactions
 
-- Prefer Verifiers-native interfaces over stdlib-pure plumbing in user code. A stdlib-pure expression that forces every environment to write path manipulation, import-resource handling, ad hoc discovery, or boilerplate constants is a style bug; put that logic behind a Verifiers abstraction instead.
-- Keep user-facing APIs incredibly minimal and elegant. The best surface is usually golfy but intuitive: one obvious field, one obvious constructor, and no redundant knobs unless there is a concrete long-term reason.
-- Use Pydantic config models wherever structured configuration is needed. Pydantic is always acceptable and preferred over loose dictionaries when it clarifies the contract.
-- Prefer strict, narrow types. Use `object`, broad unions, or untyped mappings only at explicit framework boundaries where arbitrary user values are genuinely part of the contract.
-- Basic environments should fit in a few dozen self-contained, idiomatic lines: import `verifiers`, define `load_environment`, pipe bindings/config through constructors, and keep policy values in config subclasses or literal constructor kwargs when needed.
-- Environment modules should not define global helper functions. Put reusable logic in well-named utility modules, taskset/harness classes, toolsets, or small local classes owned by the abstraction. Rare exceptions are process-level handles, such as a lock or semaphore, when that is the only reasonable way to enforce the intended runtime control.
-- Additional code should have a clear home. Do not hide utilities at the bottom of files or scatter one-off helpers through environment entrypoints.
+`agent.interaction(task)` holds a rollout open turn by turn. The caller acts as the
+user, and each `turn()` runs one harness segment before returning a `vf.Segment`.
 
-## Repository Development Notes
+```python
+async with agent.interaction(task) as interaction:
+    segment = await interaction.turn("hello")
+    if not segment.terminated:
+        segment = await interaction.turn(f"you said: {segment.last_reply}")
 
-Use this guidance when contributing to the `verifiers` repository itself.
+trace = interaction.trace
+```
 
-- Always run `uv run pre-commit install` before making any changes.
-- Run the documented contributor checks for touched areas: `uv run ruff check --fix .`, `uv run pytest tests/`, and `uv run pre-commit run --all-files` as needed. (See `docs/development.md`.)
-- Keep changes aligned with documented architecture (`verifiers/`, `environments/`, `configs/`, `tests/`, `docs/`) and update docs when behavior changes. (See `docs/development.md`.)
-- Prefer a single clear path over maintaining parallel approaches by default; if two options exist, preserve both only when there is an explicit long-term reason.
-- Aggressively deprecate/remove inferior paths when they are not part of an intended multi-option contract, especially in repo-internal development workflows.
-- Treat broad dynamic mappings as explicit framework boundaries, not casual public API types. Use a named domain alias or typed Pydantic field for legitimate arbitrary payloads such as task rows, protocol messages, sandbox/program specs, and `objects`/binding-style config; do not expose raw `Mapping[str, object]` in user-facing signatures unless that looseness is the point of the abstraction.
-- If a user request conflicts with repository style, formatting, or API-quality guidelines, push back instead of implementing the literal request. Identify a comparable request or explicit guideline relaxation that preserves clean, maintainable, modular code across the current request and adjacent future use cases; implement that plan, then explain the decision process and tradeoffs directly to the user.
-- Before v0.2.0, breaking backward compatibility inside v1 Taskset/Harness APIs is acceptable and encouraged when it improves the core design. Preserve v0 multi-turn environment compatibility unless the user explicitly asks for a v0 migration.
-- Treat public configuration and docs as part of the API. Keep TOML shapes consistent across eval, GEPA, RL, and Hosted Training; normalize legacy inputs at the ingestion boundary instead of spreading compatibility branches through examples.
-- For v1 Taskset/Harness work, make the taskset own task data, task tools, user behavior, metrics, rewards, and task-specific configuration. Use the base `vf.Harness` unless the harness really owns a reusable execution mechanism.
-- When renaming or deleting an environment/module path, update package metadata, README/docs references, tests, build includes, and generated AGENTS output in the same change.
-- For environment changes, validate the install/load/eval path, not just imports. Prefer `prime eval run` for user-visible behavior and `tests/test_envs.py` for package-install coverage when the change affects packaged examples.
-- When fixing a PR review, Bugbot issue, CI failure, or release blocker, inspect the live thread/check/log first and address the exact failure. Do not infer the root cause from stale local context.
-- Before changing dependencies, optional extras, lockfiles, or config fields consumed by `prime-cli`, `prime-rl`, Hosted Training, or public docs, trace the downstream consumer and update the matching docs/skills in the same patch.
-- Keep generated artifacts out of commits. Remove bytecode, coverage files, local eval outputs, and temporary build products unless they are explicitly part of the release artifact.
+Each `Segment.messages` contains the assistant messages, tool calls, and tool
+results produced by that harness segment. `Segment.last_reply` is shorthand for
+the final assistant message's text.
+
+A prompted task speaks first through a bare `turn()`; a prompt-less task starts
+with `turn(message)`. Leaving the context closes the exchange as `user_closed`
+and finishes scoring. `interaction(mask_prompt=True)` keeps a scenario prompt
+available to the task while hiding it from the assistant.
+
+## Borrowed Resources
+
+At scale (large evals, training), per-run machinery adds up. `make_agent` accepts live resources to borrow instead of creating its own.
+
+### Interception Server
+
+Pass `interception=` to reuse interception servers.
+
+```python
+from verifiers.v1.interception import InterceptionServer
+
+async with InterceptionServer() as server:
+    solver = vf.make_agent(vf.AgentConfig(model="z-ai/glm-5.2"), interception=server)
+    judge = vf.make_agent(vf.AgentConfig(model="openai/gpt-5.4-mini"), interception=server)
+    ...
+```
+
+### Client
+
+Pass `client=` to reuse an existing client — agents on the same endpoint should share a single `Client` (one connection pool).
+
+```python
+client = vf.resolve_client(vf.EvalClientConfig())
+
+solver = vf.make_agent(vf.AgentConfig(model="z-ai/glm-5.2"), client=client)
+judge = vf.make_agent(vf.AgentConfig(model="openai/gpt-5.4-mini"), client=client)
+```
+
+The caller is responsible for correctly handling the lifecycle of such borrowed resources: they must be live for every run placed on them, and the agent never tears them down.
+
+## Trace
+
+A `Trace` holds all information on a single agent's rollout: the message graph, model calls, usage, timing, the rewards, metrics, and errors it recorded. Whatever a run did, the trace is the artifact you store, chain, and train on.
+
+## Examples
+
+### Chaining agents
+
+Agents are chained via `vf.Task`. For example, a common pattern is one agent's task depending on another agent's task. Use the `Task.from_trace` API, to construct such "glue" tasks.
+
+```python
+class ProposedData(vf.TaskData):
+    answer: str
+
+class ProposedTask(vf.Task[ProposedData]):
+    @classmethod
+    def from_trace(cls, proposed: vf.Trace) -> "ProposedTask":
+        ...  # parse the proposer's contract into ProposedData
+
+    @vf.reward
+    async def correct(self, trace: vf.Trace) -> float:
+        ...  # compare the trace's final answer against self.data.answer
+
+proposed = await proposer.run(vf.Task(vf.TaskData(prompt=PROPOSE)))
+task = ProposedTask.from_trace(proposed)
+async with asyncio.TaskGroup() as tg:
+    for _ in range(8):
+        tg.create_task(solver.run(task))
+```
+
+### Shared Runtimes
+
+Runtimes can be borrowed too: `agent.provision(task)` provisions a box from the agent's runtime policy as a context manager, and `run(..., runtime=box)` places a run into it instead of provisioning a fresh one. Chained agents then share one file system — here, the judge inspects what the solver left behind:
+
+```python
+task = vf.Task(vf.TaskData(prompt="Sum the first 100 primes into answer.txt"))
+audit = vf.Task(vf.TaskData(prompt="Recompute the sum and verify answer.txt"))
+
+async with (
+    vf.make_agent(vf.AgentConfig(model="z-ai/glm-5.2")) as solver,
+    vf.make_agent(vf.AgentConfig(model="openai/gpt-5.4-mini")) as judge,
+):
+    async with solver.provision(task) as box:
+        solution = await solver.run(task, runtime=box)
+        verdict = await judge.run(audit, runtime=box)
+```
+
+The box lives exactly as long as the `async with`: borrowed runs never
+provision or tear it down.
 
 ---
 > Source: [PrimeIntellect-ai/verifiers](https://github.com/PrimeIntellect-ai/verifiers) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
