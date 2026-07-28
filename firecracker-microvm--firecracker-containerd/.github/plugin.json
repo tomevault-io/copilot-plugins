@@ -1,0 +1,9 @@
+{
+  "name": "firecracker-microvm--firecracker-containerd",
+  "displayName": "firecracker-containerd",
+  "description": "firecracker-containerd",
+  "version": "1.0.0",
+  "author": "firecracker-microvm",
+  "homepage": "https://github.com/firecracker-microvm/firecracker-containerd",
+  "skills": []
+}
