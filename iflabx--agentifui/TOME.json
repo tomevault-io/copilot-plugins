@@ -1,7 +1,7 @@
 {
-  "name": "agentifui",
-  "owner": "iflabx",
-  "repo": "agentifui",
+  "name": "AgentifUI",
+  "owner": "ifLabX",
+  "repo": "AgentifUI",
   "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/iflabx/agentifui",
+  "source_url": "https://github.com/ifLabX/AgentifUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T02:38:23Z"
+  "distributed_at": "2026-07-28T22:46:30Z"
 }
