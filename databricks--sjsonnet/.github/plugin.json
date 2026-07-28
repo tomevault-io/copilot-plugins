@@ -1,0 +1,9 @@
+{
+  "name": "databricks--sjsonnet",
+  "displayName": "sjsonnet",
+  "description": "sjsonnet",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://github.com/databricks/sjsonnet",
+  "skills": []
+}
