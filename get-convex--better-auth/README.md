@@ -1,8 +1,6 @@
 # better-auth
 
-> Tome by [get-convex](https://github.com/get-convex/better-auth) — distributed by [TomeVault](https://tomevault.io)
-
-Convex + Better Auth 🔥
+> Tome by [get-convex](https://github.com/get-convex/better-auth), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [get-convex/better-auth](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [get-convex/better-auth](https://github.com/get-convex/better-auth) — a repo with 752+ stars on GitHub.
+From [get-convex/better-auth](https://github.com/get-convex/better-auth) — a repo with 764+ stars on GitHub.
 
 ---
 
