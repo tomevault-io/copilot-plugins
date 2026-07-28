@@ -1,0 +1,9 @@
+{
+  "name": "tokens-studio--figma-plugin",
+  "displayName": "figma-plugin",
+  "description": "figma-plugin",
+  "version": "1.0.0",
+  "author": "tokens-studio",
+  "homepage": "https://github.com/tokens-studio/figma-plugin",
+  "skills": []
+}
