@@ -1,17 +1,16 @@
 # Mcp.Net
 
-> Tome by [SamFold](https://github.com/SamFold/Mcp.Net) — distributed by [TomeVault](https://tomevault.io)
-
-A fully featured C# implementation of Anthropic's Model Context Protocol (MCP)
+> Tome by [SamFold](https://github.com/SamFold/Mcp.Net), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SamFold/Mcp.Net](https://github.com/SamFold/Mcp.Net).
+Original source: `` in [SamFold/Mcp.Net](https://github.com/SamFold/Mcp.Net).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
