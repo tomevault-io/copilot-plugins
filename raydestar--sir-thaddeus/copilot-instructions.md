@@ -1,113 +1,137 @@
-## god-objects
+## anti-cheat
 
-> Use this as a **hard project rule** for Cursor (and for any future AI edits).
+> Test Harness Anti-Cheating Ruleset (No Hardcoding / No Answer Rigging)
 
 
-# Cursor Rule: Prevent God-Objects and Giant Files
+Test Harness Anti-Cheating Ruleset (No Hardcoding / No Answer Rigging)
+0) Definition: What counts as “hardcoding” or “rigging”
 
-Use this as a **hard project rule** for Cursor (and for any future AI edits).
+A run is invalid if the agent produces outputs by:
 
----
+Matching on test name, case id, file name, prompt text, gold answer text, or fixture literals
 
-## Prime Directive
+Embedding gold answers or gold-derived strings directly in code or prompt templates
 
-**Never grow a “god-object” file.**
+Returning a result without performing the required reasoning / tool steps (a “teleport answer”)
 
-If a file is becoming a central dumping ground (routing + policy + execution + parsing + state), you must split it into focused modules **before** adding more features.
+Writing conditional logic like:
+if (input contains "CASE_17") return "expected output"
 
----
+Using “memorized” mappings created during the same evaluation session (unless the task explicitly allows learning)
 
-## Hard Limits (non-negotiable)
+1) Behavioral rules for the agent (what it MUST do)
 
-### 1) File size limit
+Solve from first principles: derive outputs from the provided inputs/tools only.
 
-* **Max target:** 500 lines per file.
-* **Absolute max:** 800 lines.
+Be input-driven: output must change appropriately when inputs are perturbed.
 
-If a change would push a file over 800 lines, Cursor must:
+Show minimal provenance (internally): cite which input fields/tools were used to derive each key output.
 
-1. Stop adding features to that file.
-2. Extract new code into a new file/module.
-3. Update the calling file to delegate.
+Respect tool reality: if the solution requires a tool call, it must make the tool call; no invented tool results.
 
-**Exception:** auto-generated files only (must be clearly marked and excluded).
+2) Prohibitions (what it MUST NOT do)
 
-### 2) One responsibility per file
+The agent must not:
 
-A file may own **exactly one** of these responsibilities:
+Use any of the following as decision triggers: test ids, file paths, case names, suite names, line numbers, harness metadata.
 
-* Routing / intent classification
-* Policy gating / permissions
-* Tool execution loop
-* Deterministic utilities
-* Memory retrieval / merge
-* Guardrails / reasoning pipeline coordination
-* UI / lifecycle / wiring
+Search the workspace for “expected”, “golden”, “snapshot”, “fixtures”, or similar to recover answers.
 
-If a file begins owning 2+ responsibilities, Cursor must split it.
+Write to evaluation files (snapshots/goldens) unless the task explicitly asks it to update them (and even then: only through an “approve changes” gate).
 
----
+Add “special-case shortcuts” targeting current tests.
 
-## “God-Object” Smell Tests
+3) Harness-side enforcement (this is the part that actually works)
 
-If any are true, refactor immediately (no debate):
+Implement these non-negotiable controls:
 
-* The file imports modules from 3+ distinct subsystems (e.g., routing + memory + tool runner + UI).
-* The file contains 3+ distinct sections separated by large comment banners.
-* A single class has 10+ methods or 10+ private fields.
-* The class name contains words like *Orchestrator*, *Manager*, *Coordinator* **and** it implements business logic instead of delegating.
+A) Hidden & randomized tests
 
----
+Maintain a public set (developer-visible) and a hidden set (agent-invisible).
 
-## Required Architecture Pattern
+Randomize:
 
-### The Orchestrator Rule
+case order
 
-The orchestrator/coordinator file must be **thin**:
+case IDs (use non-stable GUIDs)
 
-* It may perform sequencing and response assembly.
-* It may not contain regex heuristics, parsing logic, routing decisions, policy rules, or tool loop mechanics.
+superficial prompt phrasing (without changing semantics)
 
-All logic must live behind interfaces:
+B) Metamorphic testing (anti-memorization by design)
+For each test, auto-generate variants:
 
-* `IRouter`
-* `IPolicyGate`
-* `IToolLoopExecutor`
-* `IMemoryContextProvider`
-* `IGuardrailsCoordinator`
-* `IDeterministicUtilityEngine`
+whitespace changes
 
-Orchestrator may only call these modules.
+synonym swaps
 
----
+reordered lists/maps
 
-## Cursor Execution Instructions
+equivalent numeric scales (e.g., seconds vs milliseconds)
 
-When implementing a new feature:
+swapped but logically equivalent parameter names
 
-1. Identify which module owns the responsibility.
-2. Add or extend code **only** in that module.
-3. If no module exists, create one.
-4. Keep changes to the orchestrator limited to wiring + delegation.
+Pass condition: outputs must remain correct across variants.
 
----
+C) “Work proof” requirement (lightweight)
+Require a structured trace object returned alongside the answer, e.g.:
 
-## Enforcement Checklist (must pass before completing a PR)
+derivation_summary (1–3 bullets)
 
-* No file exceeded 800 lines (excluding generated).
-* Any file above 500 lines was justified or split.
-* Orchestrator contains no feature logic beyond sequencing.
-* New feature came with module-level unit tests.
+inputs_used (field names only, not raw content)
 
----
+tools_used (names + timestamps)
 
-## The “Stop Work” Clause
+If tools are required and tools_used is empty → fail.
 
-If Cursor cannot implement a feature without violating these rules, it must:
+D) Static anti-cheat scans (fast and brutal)
+On code changes produced by the agent, fail if:
 
-* Stop.
-* Propose a split plan (new files + interfaces).
-* Then proceed once the split is done.
+new constants match any golden outputs (exact match or high similarity)
+
+new switch/if branches reference test case ids / names
+
+suspicious keywords appear: golden, expected, snapshot, fixture, CASE_, TEST_, answerKey
+
+E) Differential evaluation
+Run the same request twice with:
+
+different IDs
+
+shuffled inputs
+
+slight rephrases
+If output stays identical when it should differ → fail.
+
+F) Permission and sandboxing
+
+Agent has read-only access to goldens/expected outputs by default.
+
+Any attempt to access them triggers:
+
+audit log event
+
+immediate fail (or at least a “probation score”)
+
+This aligns with your “trust surfaces + audit log” philosophy: you want everything inspectable and revocable. 
+
+meaningful_copilot_open_core_vs…
+
+4) Scoring policy (how you punish the behavior)
+
+If cheating indicators trigger → score = 0 for the entire run (not just that test).
+
+If the agent modifies tests/goldens → score = 0, unless explicitly allowed and separately reviewed.
+
+If the agent refuses to provide the trace object → score capped (e.g., max 60%).
+
+5) Suggested contract snippet (System / Developer message)
+
+Use this verbatim if you want:
+
+You are being evaluated on general problem-solving ability, not on test-specific behavior.
+Do not hardcode answers, do not branch on test IDs/names, do not inspect golden outputs, and do not modify tests to match your output.
+Any attempt to infer or retrieve expected answers from the harness, fixture files, snapshots, or test metadata will invalidate the run.
+Solve using only the provided inputs and permitted tools, and return a short derivation trace listing which inputs/tools were used.
 
 ---
 > Source: [raydeStar/sir-thaddeus](https://github.com/raydeStar/sir-thaddeus) — distributed by [TomeVault](https://tomevault.io).
