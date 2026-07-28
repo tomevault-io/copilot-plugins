@@ -1,0 +1,9 @@
+{
+  "name": "shopify--upload-to-release",
+  "displayName": "upload-to-release",
+  "description": "upload-to-release",
+  "version": "1.0.0",
+  "author": "Shopify",
+  "homepage": "https://github.com/Shopify/upload-to-release",
+  "skills": []
+}
