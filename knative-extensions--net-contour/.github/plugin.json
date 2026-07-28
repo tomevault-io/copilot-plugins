@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--net-contour",
+  "displayName": "net-contour",
+  "description": "net-contour",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/net-contour",
+  "skills": []
+}
