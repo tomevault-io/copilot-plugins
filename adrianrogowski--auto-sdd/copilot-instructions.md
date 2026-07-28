@@ -1,163 +1,74 @@
-## compound
+## design-tokens
 
-> Extract and persist learnings from coding sessions
+> Design token usage guidelines
 
 
-# /compound - Extract Session Learnings
+# Design System
 
-When the user says `/compound`, extract learnings from the current session and persist them.
+This project uses a design system with three files:
 
-## Behavior
+| File | When to read |
+|------|--------------|
+| `.specs/design-system/DESIGN.md` | **Before any UI work** — YAML tokens, component variants, Do's/Don'ts |
+| `.specs/design-system/tokens.md` | ASCII mockups in specs, quick token lookup |
+| `.specs/design-system/preview.html` | Human visual review (open in browser) |
 
-### 1. Reflect on This Session
+Archetype references live in `.specs/design-system/references/` (SDD template only).
 
-Review what was accomplished in this session:
-- What patterns worked well?
-- What gotchas or edge cases were discovered?
-- What decisions were made and why?
-- What would be done differently next time?
-- Any bugs encountered and how they were fixed?
+## Agent rule
 
-### 2. Categorize Learnings
+When implementing UI, read `.specs/design-system/DESIGN.md` first. Use token names and component definitions from its YAML frontmatter. Follow Do's and Don'ts in the markdown body.
 
-#### Feature-Specific Learnings
-Learnings that apply to a specific feature go in that feature's spec:
-- Add to the `## Learnings` section of the relevant `.specs/features/{domain}/{feature}.feature.md`
-- Format:
-  ```markdown
-  ### YYYY-MM-DD
-  - **Pattern**: [What worked well]
-  - **Gotcha**: [Edge case or pitfall discovered]
-  - **Decision**: [Choice made and why]
-  ```
+## Token Reference (default names — customize per project)
 
-#### Cross-Cutting Learnings
-Learnings that apply across features go in `.specs/learnings/` by category:
+### Colors
+- `color-primary` - Primary brand color
+- `color-primary-hover` - Hover state
+- `color-background` / `canvas` - Page background
+- `color-surface` - Card/panel backgrounds
+- `color-text` / `ink` - Primary text
+- `color-text-secondary` - Muted text
+- `color-error`, `color-success`, `color-warning` - Semantic
 
-| Category | File |
-|----------|------|
-| Testing patterns | `.specs/learnings/testing.md` |
-| Performance | `.specs/learnings/performance.md` |
-| Security | `.specs/learnings/security.md` |
-| API & Data | `.specs/learnings/api.md` |
-| Design System | `.specs/learnings/design.md` |
-| General | `.specs/learnings/general.md` |
+### Typography
+- `text-sm` through `text-2xl` - Font sizes
+- `font-normal`, `font-medium`, `font-semibold` - Weights
 
-Also add a brief entry to `.specs/learnings/index.md` under "Recent Learnings".
+### Spacing
+- `spacing-1` through `spacing-8` - Spacing scale
 
-### 3. Update Files
+### Border Radius
+- `radius-sm`, `radius-md`, `radius-lg`, `radius-full`
 
-1. **Feature spec(s)**: Add learnings to `## Learnings` section
-2. **Cross-cutting**: Add to the appropriate `.specs/learnings/{category}.md` file
-3. **Index**: Add brief entry to `.specs/learnings/index.md` under "Recent Learnings"
-4. **Frontmatter**: Update `updated:` date in any modified specs
+### Shadows
+- `shadow-sm`, `shadow-lg`
 
-### 4. Commit Changes
+## Implementation
 
-```bash
-git add .specs/
-git commit -m "compound: learnings from [brief session description]"
+Use token names from **this project's** `tokens.md` and `DESIGN.md`, not hardcoded values.
+
+### Tailwind CSS
+```jsx
+<button className="bg-primary text-white rounded-md px-4 py-2">
 ```
 
-### 5. Summarize
-
-Tell the user:
-- How many learnings were captured
-- Which files were updated
-- Which categories were added to
-
----
-
-## Learning Types
-
-| Type | Example | Where to Store |
-|------|---------|----------------|
-| **Pattern** | "Always debounce form validation to avoid API spam" | Feature spec or `learnings/general.md` |
-| **Gotcha** | "Safari autofill doesn't trigger onChange events" | Feature spec |
-| **Decision** | "Using httpOnly cookies for auth (XSS protection)" | `learnings/security.md` |
-| **Bug Fix** | "Fixed race condition by adding loading state check" | Feature spec |
-| **Performance** | "Memoize expensive calculations in useMemo" | `learnings/performance.md` |
-| **Testing** | "Mock timers for debounce tests" | `learnings/testing.md` |
-
----
-
-## Learnings Folder Structure
-
-Learnings are organized by category in `.specs/learnings/`:
-
-```
-.specs/learnings/
-├── index.md        # Summary + recent learnings
-├── testing.md      # Mocking, assertions, test patterns
-├── performance.md  # Optimization, lazy loading, caching
-├── security.md     # Auth, cookies, validation
-├── api.md          # Endpoints, data handling, errors
-├── design.md       # Tokens, components, accessibility
-└── general.md      # Other patterns
+### CSS Variables
+```css
+.button {
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+}
 ```
 
-### Format for Category Files
+## Updates
 
-Add learnings under the appropriate section with a date:
+When tokens change:
+1. Update `.specs/design-system/DESIGN.md` (source of truth)
+2. Sync `.specs/design-system/tokens.md`
+3. Run `/design-tokens preview` or full update to regenerate `preview.html`
+4. Update this rule if token names changed
 
-```markdown
-## [Section Name]
-
-### YYYY-MM-DD
-- **Pattern**: [What worked well]
-- **Gotcha**: [Edge case or pitfall]
-
-### YYYY-MM-DD
-- **Decision**: [Choice made and rationale]
-```
-
-### Format for index.md Recent Learnings
-
-Add brief entries under "Recent Learnings":
-
-```markdown
-## Recent Learnings
-
-### YYYY-MM-DD
-- **Testing**: Mock fetch globally in setupTests.ts
-- **Security**: Use httpOnly cookies for auth tokens
-```
-
----
-
-## When NOT to Compound
-
-- If the session was just reading/exploring (no implementation)
-- If no new learnings were discovered
-- If learnings are already documented
-
----
-
-## Example Output
-
-```markdown
-## Compound Summary
-
-**Session**: Implemented user login feature
-
-### Learnings Captured: 3
-
-#### Feature-Specific (added to login.feature.md)
-- **Gotcha**: Safari autofill requires onBlur handler as backup
-- **Pattern**: Debounce email validation to 300ms
-
-#### Cross-Cutting (added to learnings/)
-- **Testing**: Mock fetch globally in setupTests.ts → `testing.md`
-
-### Files Updated
-- `.specs/features/auth/login.feature.md`
-- `.specs/learnings/testing.md`
-- `.specs/learnings/index.md`
-
----
-
-Consider running `/compound` at the end of significant implementation sessions!
-```
+Validate: `npx @google/design.md lint .specs/design-system/DESIGN.md`
 
 ---
 > Source: [AdrianRogowski/auto-sdd](https://github.com/AdrianRogowski/auto-sdd) — distributed by [TomeVault](https://tomevault.io).
