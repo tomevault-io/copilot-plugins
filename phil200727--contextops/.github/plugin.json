@@ -1,0 +1,9 @@
+{
+  "name": "phil200727--contextops",
+  "displayName": "contextops",
+  "description": "A lightweight, file-based Kanban engine for orchestrating AI coding agents \u2014 plan, assign, and review tasks through a local board, with full context tracking in plain Markdown/YAML files.",
+  "version": "1.0.0",
+  "author": "Phil200727",
+  "homepage": "https://github.com/Phil200727/contextops",
+  "skills": []
+}
