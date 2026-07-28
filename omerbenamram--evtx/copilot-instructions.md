@@ -1,35 +1,54 @@
 ## evtx
 
-> - Build: `cargo build --release`
+> This project uses a **single global React reducer store** defined in
 
-# CLAUDE.md - Rust EVTX Parser
+description:
+globs:
+alwaysApply: true
+---
+# EVTX Viewer – State Architecture Guide
 
-## Build Commands
-- Build: `cargo build --release`
-- Build with fast allocator: `cargo build --release --features fast-alloc`
-- Build with multithreading: `cargo build --release --features multithreading`
-- PGO build (Linux only): `./build_pgo.sh`
+This project uses a **single global React reducer store** defined in
+[`state/rootReducer.ts`](mdc:evtx-wasm/evtx-viewer/src/state/rootReducer.ts) and
+provided via [`state/store.tsx`](mdc:evtx-wasm/evtx-viewer/src/state/store.tsx).
 
-## Test Commands
-- Run all tests: `cargo test`
-- Run specific test: `cargo test test_name`
-- Run tests with logging: `RUST_LOG=debug cargo test`
-- Benchmarks: `cargo bench`
+## Global store (authoritative app-wide data)
+* **Slices live under** `state/<slice>/` – e.g.
+  * `filters/filtersSlice.ts`
+  * `columns/columnsSlice.ts`
+  * `ingest/ingestSlice.ts`
+* `rootReducer.ts` combines slices; `globalInitialState` holds defaults.
+* `GlobalProvider` (exported from `store.tsx`) wraps the React tree and exposes:
+  * `useGlobalState(selector)` – read‐only selector
+  * `useGlobalDispatch()` – dispatch actions
+  * Convenience hooks `useFiltersState`, `useColumnsState`, `useIngestState`.
+* **Put data here if** it is shared by multiple top-level features or must be
+  persisted / serialised (e.g. filters, columns, ingest progress).
 
-## Run Commands
-- Process EVTX file: `evtx_dump [options] <evtx_file>`
-- Output as JSON: `evtx_dump -o json <evtx_file>`
-- Write to file: `evtx_dump -f <output_file> -o json <input_file>`
+## Feature-local state & selectors
+* Hooks that only concern a *single* UI feature stay next to that component,
+  not in `state/`.
+  * Examples in *FilterSidebar*:
+    * [`useFacetCounts.ts`](mdc:evtx-wasm/evtx-viewer/src/components/FilterSidebar/useFacetCounts.ts)
+    * [`useActiveFilterChips.ts`](mdc:evtx-wasm/evtx-viewer/src/components/FilterSidebar/useActiveFilterChips.ts)
+* These hooks pull global slices via the selector helpers, do derivations, and
+  return UI-ready data.  No other feature should import them.
+* **Put logic here if** it is purely presentational or scoped to one feature
+  (collapse toggles, local search terms, derived chip arrays, etc.).
 
-## Code Style
-- Uses standard Rust conventions (snake_case functions, CamelCase types)
-- Forbids unsafe code with `#![forbid(unsafe_code)]`
-- Error handling with thiserror and contextual information
-- Module structure: lib.rs exports public API, internal modules below
-- Imports: std first, then external crates, then internal modules
-- Documentation: Doc comments on public API with examples
-- Tests: Uses insta for snapshot testing
+## Legacy wrapper – `AppStateProvider`
+`AppStateProvider` now simply:
+1. Wraps the tree in `GlobalProvider`.
+2. Seeds initial filters / columns once on mount.
+3. Exposes compatibility hooks (`useAppState`, `useEvtxState`) until all code
+   migrates.
+
+When adding new state:
+1. Ask “is this referenced by more than one feature?”  If *yes* → new slice.
+2. Otherwise co-locate the hook with the feature directory.
+
+This rule helps future threads recognise where to place or fetch stateful logic.
 
 ---
 > Source: [omerbenamram/evtx](https://github.com/omerbenamram/evtx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
