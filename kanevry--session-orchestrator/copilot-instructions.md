@@ -1,128 +1,86 @@
 ## session-orchestrator
 
-> Claude Code plugin for session-level orchestration. This is a **plugin repo** — not an application.
+> <!-- BEGIN MANAGED: parallelism-and-file-discipline -->
 
-# Session Orchestrator Plugin
 
-Claude Code plugin for session-level orchestration. This is a **plugin repo** — not an application.
+<!-- BEGIN MANAGED: parallelism-and-file-discipline -->
+## Parallelism and file discipline
 
-## Structure
+- `isolation:none + enforcement:strict + file-disjoint W2` is the proven default pattern across 15+ consecutive green sessions. Do not deviate without an explicit reason.
+- File-disjoint `allowedPaths` per agent is enforced at the prompt level regardless of worktree isolation mode. When worktree isolation is dropped due to RAM pressure, allowedPaths must still be strictly disjoint.
+- When 2+ planned tasks share >50% file scope, merge them into one agent before W2 dispatch to avoid parallel-write conflicts.
+- When 2 agents both want to edit a shared file, have one localize its changes to a sister file — prefer clean separation over coord-merge work.
+- Do not dispatch concurrent agents to edit CLAUDE.md; collect proposed YAML additions verbatim in agent reports and apply them coord-direct in W5 Finalization.
+<!-- END MANAGED: parallelism-and-file-discipline -->
 
-- `skills/` — 16 skills (bootstrap, session-start, session-plan, wave-executor, session-end, claude-md-drift-check, ecosystem-health, gitlab-ops, quality-gates, discovery, plan, evolve, vault-sync, vault-mirror, daily, docs-orchestrator)
-- `commands/` — 7 commands (/session, /go, /close, /discovery, /plan, /evolve, /bootstrap)
-- `agents/` — 7 agents (code-implementer, test-writer, ui-developer, db-specialist, security-reviewer, session-reviewer, docs-writer)
-- `hooks/` — 6 event matchers covering 7 hook handlers: SessionStart (banner + init), PreToolUse/Edit|Write (scope enforcement), PreToolUse/Bash (destructive-command guard + enforce-commands), PostToolUse (edit validation), Stop (session events), SubagentStop (agent events)
-- `.orchestrator/policy/` — runtime policy files (e.g. `blocked-commands.json`, 13 rules for destructive-command guard)
-- `.claude/rules/` — always-on contributor rules (e.g. `parallel-sessions.md`)
+<!-- BEGIN MANAGED: wave-execution -->
+## Wave execution
 
-## Development
+- 5W structure default: Discovery → Impl-Core → Impl-Polish → Quality → Finalization.
+- Housekeeping sessions: single-wave Express Path, 0-6 agents, coordinator-direct. No multi-wave planning needed.
+- 5W×6A thin-slice epics with shipped substrate: W1 6 parallel Explore, W2 6 file-disjoint code-implementers, W3 typically reduces to 4 after W2 absorption, W4 test-writers + security-reviewer, W5 2-3 agents.
+- Inter-wave Quality-Lite gate after Impl-Core must include `npm test` when production fixes touch files with adjacent test files — typecheck+lint alone is insufficient.
+- When session-reviewer reports BLOCK at end of W2, add the fix as a new agent in W3 (Impl-Polish); do not restart W2.
+- Test-writers must verify both `npm test` (all tests pass) AND `npm run lint` (zero lint errors) before reporting done. Lint-only verification allows stylistic regressions to slip to Full Gate.
+- When a test-writer agent runs tests against production code, then mutates the SUT to a known-broken state and re-runs to observe failure, this falsifiability cycle proves the test catches the regression it claims to cover. Mutation+revert cycles are expected in test delivery.
+- When a wave ships a fix for a recurring anti-pattern, run a pattern-replication audit on the rest of the diff before W4 closes — the agent who just fixed the bug is the most likely to re-introduce it elsewhere in the same change set. A single-agent review misses the recurrence; a multi-reviewer W4 panel catches it. Add a 1-line grep of the diff for other instances of the just-fixed pattern.
+- MEDIUM findings discovered in-session (during W3/W4) should be folded and documented in STATE.md Deviations rather than filed as carryover issues. Exceptions: MEDIUM findings that require redesign (scope change beyond the current agent's file boundary) stay as blockers.
+<!-- END MANAGED: wave-execution -->
 
-Edit skills directly. Test by running `/session feature` in any project repo.
+<!-- BEGIN MANAGED: discovery-and-scope-adjustment -->
+## Discovery and scope adjustment
 
-Skills are loaded by Claude Code from the plugin directory — no build step needed.
+- W1 Discovery findings that warrant scope reduction or expansion must surface via AUQ before W2 dispatch.
+- When Discovery reveals the planned work was already shipped by a prior session, immediately reduce scope rather than re-implementing.
+- For sessions where issue bodies claim external submission status (e.g., "awesome-list"), W1 must web-fetch the upstream list to confirm current state before dispatching W2 work.
+- W1 agents must grep-verify all file-location claims and API-shape assumptions from the issue body before W2 scope takes shape. Pattern: issue claims "function X exported from module Y" → grep Y for the export; issue lists N callsites → grep the repo to verify only those N exist. Pre-dispatch verification catches mismatches (CLI-only vs importable, file renames, missing exports, SUT mis-attribution) before W2 wastes effort. Quote the exact grep pattern, file scope, and result count in the Discovery report.
+- When Discovery grep-verifies that an issue AC is factually impossible or wrong (e.g., AC says "filter in file X" but grep proves file X has 0 references to the filter), the coordinator MUST surface the ambiguity via AUQ BEFORE Impl-Core dispatches against the wrong locus. The agent role is to report the contradiction with evidence; the coordinator decides how to proceed (adapt AC, reduce scope, ask user for clarification). Never let Impl agents silently resolve factual contradictions.
+<!-- END MANAGED: discovery-and-scope-adjustment -->
 
-## Destructive-Command Guard
+<!-- BEGIN MANAGED: architecture-and-code-patterns -->
+## Architecture and code patterns
 
-`hooks/pre-bash-destructive-guard.mjs` blocks destructive shell commands in the main session (alongside subagent waves). Policy lives in `.orchestrator/policy/blocked-commands.json` (13 rules). Bypass per-session via Session Config:
+- When splitting a parent module into child submodules, extract schema/leaf types to a sibling module first. The dependency graph must be unidirectional: schema → io/filters → barrel. A barrel that re-exports children that import from the parent creates a real ESM circular import.
+- The file-conflict matrix (D5 Discovery) checks file overlap, not dependency direction. Architect-reviewer is required to catch circular-import risks from module splits.
+- Production modules that may be `vi.mock`ed in sibling test files must use lazy dynamic imports (`await import(...)`) instead of top-level static imports. Top-level static imports cache the real module in the vitest fork pool, preventing mock interception.
+- `promisify(execFile)` silently ignores `AbortSignal`; use raw `spawn()` with `controller.signal` for genuine cancellation.
+- For ESM SUTs that use default imports (`import fs from 'node:fs'`), test files can intercept calls via `vi.spyOn(fs, 'method')` if the test file also uses the same default import. The key step: capture the original before mocking with `const orig = fs.method.bind(fs)`, then pass-through calls that don't match the fault target via `orig.apply(fs, args)`. The `.bind(fs)` is load-bearing — without it, `this` inside the original implementation may be undefined.
+- `vi.spyOn` on ESM named exports fails with `Cannot redefine property`; use real filesystem error injection (e.g., `chmodSync(dir, 0o555)`) instead.
+- ESLint `eqeqeq` rejects `x == null`; write `x === null || x === undefined` explicitly or use nullish-coalescing.
+- `existsSync(target)` is not an authorization check — it answers "does this path exist", not "is this the RIGHT path". For any write-gate where writing to the wrong target is the failure mode (vault mirror, deploy target, backup destination), guard on an IDENTITY probe (git remote get-url origin, a sentinel marker file, a known UUID) and host-qualify the match (`endsWith('host.tld/org/repo')`) so a same-named repo on a different host is still rejected. Fail closed: any non-zero probe exit OR non-matching identity is a whole-run `exit(2)`, not a per-entry skip. Provide a load-bearing env-var bypass for tests that legitimately target non-canonical tmp dirs, and cover the guard black-box with the bypass off.
+- When wiring automation or telemetry into an existing seam (e.g., post-tool-batch hook), grep for the WRITER of the trigger field across scripts/, skills/, and hooks/, not just the reader. A seam that is tested and read but never written is dormant — distinguish wired from live in your issue tracking.
+<!-- END MANAGED: architecture-and-code-patterns -->
 
-```yaml
-allow-destructive-ops: true
-```
+<!-- BEGIN MANAGED: ci-and-verification -->
+## CI and verification
 
-Rule source of truth: `.claude/rules/parallel-sessions.md` (PSA-003). See issue #155.
+- CI status at session-start is authoritative. Never claim CI green from local `npm test` alone. Phase 4 CI banner is load-bearing.
+- A top-level `process.exit()` during test file import crashes the vitest fork worker. Subsequent test files in the same fork lose their `vi.mock` registry — diagnostic signature is `ERR_MODULE_NOT_FOUND chunks/utils.*.js`. Guard CLI entry points with `if (import.meta.url === pathToFileURL(process.argv[1]).href)` before calling `main()`.
+- Vitest 4 does not fix tinypool worker-exit hang on Linux CI; the timeout wrapper is still required for GitLab/GitHub Ubuntu runners.
+- Integration tests with real fixtures often surface wiring drift that unit-mocks hide (e.g., module-A output shape differs from module-B input contract). Use integration tests to verify cross-module boundaries, not just to repeat unit-test scenarios with different dependencies.
+<!-- END MANAGED: ci-and-verification -->
 
-## Rules
+<!-- BEGIN MANAGED: security-review-integration -->
+## Security review integration
 
-- `.claude/rules/parallel-sessions.md` — PSA-001/002/003/004 parallel-session discipline. Vendored to all consumer repos via bootstrap (issue #155).
+- A W3 cross-spike security-reviewer can catch RCE-class design flaws in PRDs before implementation. Include security-reviewer in W3 when any PRD involves shell execution, subprocess spawning, or user-supplied path/command handling.
+- MEDIUM security findings from reviewers are filed as follow-up issues and do not block session completion. HIGH/BLOCK findings require redesign before W4.
+<!-- END MANAGED: security-review-integration -->
 
-## Key Conventions
+<!-- BEGIN MANAGED: incremental-epic-delivery -->
+## Incremental epic delivery
 
-- Skills use Markdown with YAML frontmatter
-- Commands use `$ARGUMENTS` for user input
-- Agent definitions need `<example>` blocks in description
-- Hooks use the Claude Code hooks.json format
+- Phase A (contract) → Phase B Scaffold → Phase B-N (fill + wire) shipped as distinct sessions over 24h is the proven cadence for v3.x epics. Each session is narrow-scope (1-2 issues), narrow-file.
+- For appetite:2w issues, split at natural seams: pure-function-checkable work now vs wave-executor-signal-dependent work later. This avoids partial-state corruption and enables mid-cycle pivots.
+- PRD → skill scaffold → command stub → vault mirror → narrative → numbered sub-issues for runtime impl is the proven Phase scaffold sequence for new capabilities.
+<!-- END MANAGED: incremental-epic-delivery --><!-- BEGIN MANAGED: crashed-session-recovery -->
+## Crashed session recovery
 
-## Agent Authoring Rules
-
-Agent files live in `agents/` as Markdown with YAML frontmatter. Required fields:
-
-```yaml
----
-name: kebab-case-name          # 3-50 chars, lowercase + hyphens only
-description: Use this agent when [conditions]. <example>Context: ... user: "..." assistant: "..." <commentary>Why this agent is appropriate</commentary></example>
-model: inherit                 # inherit | sonnet | opus | haiku
-color: blue                    # blue | cyan | green | yellow | magenta | red
-tools: Read, Grep, Glob, Bash  # COMMA-SEPARATED STRING, not JSON array!
----
-```
-
-**Critical pitfalls** (cause "agents: Invalid input" validation failure):
-- `tools` MUST be a comma-separated string (`Read, Edit, Write`), NOT a JSON array (`["Read", "Edit"]`)
-- `description` MUST be a single-line inline string, NOT a YAML block scalar (`>` or `|`). Put `<example>` blocks inline.
-- All 4 fields (name, description, model, color) are required. `tools` is optional.
-
-Reference: https://github.com/anthropics/claude-code/blob/main/plugins/plugin-dev/skills/agent-development/SKILL.md
-
-## v3.0 Migration
-
-Bash → Node.js migration for native Windows support. Epic #124 complete:
-foundation (#125–#130, #132), hooks (#137–#142), tests (#143–#145), and legacy
-cleanup (#151). Legacy `.sh` scripts under `hooks/`, `scripts/lib/` (except
-`common.sh`, retained for install tooling), and `scripts/test/` have been
-removed. Entry point is `scripts/parse-config.mjs`.
-
-Development prerequisite: **Node 20+**. Run `npm ci` after cloning. Test with
-`npm test` (vitest). Lint: `npm run lint`.
-
-## v2.0 Features
-
-- Session persistence via STATE.md + session memory files
-- Scope & command enforcement hooks (PreToolUse)
-- Circuit breaker: maxTurns limit + spiral detection
-- Worktree isolation for parallel agent execution
-- 5 new Session Config fields (persistence, enforcement, circuit breaker, worktrees, ecosystem-health)
-- Session metrics tracking with historical trends (sessions.jsonl)
-- Coordinator snapshots: pre-dispatch `git stash create` refs under `refs/so-snapshots/` for crash recovery (#196)
-- CWD-drift guard: `restoreCoordinatorCwd` after every worktree-isolated Agent dispatch (#219)
-- Harness audit scorecard: deterministic 7-category rubric (RUBRIC_VERSION pinned), JSON to stdout + JSONL trend in `.orchestrator/metrics/audit.jsonl`, `/discovery audit` probe, `/harness-audit` command (#210)
-- Docs-orchestrator skill + docs-writer agent: audience-split (User/Dev/Vault) doc generation within sessions. Opt-in via `docs-orchestrator.enabled`. Source-cited only (diff/git-log/session-memory/affected-files); sourceless sections get `<!-- REVIEW: source needed -->`. Canonical four source types with hard abort when ALL absent. Three hook points: session-start Phase 2.5 (audience detection + AskUserQuestion, #233), session-plan Step 1.5/1.8 (Docs role classification + docs-writer auto-match + machine-readable `### Docs Tasks` SSOT emission, #234), session-end Phase 3.2 (per-task ok/partial/gap verification, mode warn/strict/off, #235). Config schema fields documented at `docs/session-config-reference.md § Docs Orchestrator` (#236). Umbrella #229 + foundation #230.
-- Isolation:none default for new-directory waves (#243): `wave-executor/wave-loop.md` Pre-Dispatch New-Directory Detection inspects each agent's file scope — if ANY agent's target parent directory doesn't exist AND `configIsolation: 'auto'`, forces `isolation: 'none'` (NOT worktree). Avoids the Claude Code Agent-tool merge-back regression where new-dir writes silently fail to sync back. Enforcement auto-promotes `warn` → `strict` to keep the scope hook hard. Explicit `isolation: 'worktree'` overrides are honored with a `⚠` warning. 3rd-consecutive-session learning (conf 0.90).
-- Vault-staleness discovery probes: `/discovery vault` activates two `.mjs` probes — `vault-staleness` flags 01-projects with `lastSync` age > 24h; `vault-narrative-staleness` flags `context.md`/`decisions.md`/`people.md` by tier thresholds (top=30d, active=60d, archived=180d). JSONL under `.orchestrator/metrics/vault-*.jsonl` (#232)
-- Vault-backfill CLI (#241): `scripts/vault-backfill.mjs` scans configured GitLab groups (`vault-integration.gitlab-groups`), dry-run by default, `--apply` generates canonical `.vault.yaml` from projects-baseline template per repo, `--yes <manifest>` skips confirmation. Surfaced as `/plan retro` sub-mode via `skills/plan/mode-retro.md` Phase 1.6 (vault-backfill path). Umbrella #229.
-- Session-end Phase 2.3 vault staleness check (#242): opt-in via `vault-staleness.enabled: true`; runs both `vault-staleness` + `vault-narrative-staleness` probes via Node import at close time. `mode: warn` surfaces findings in the Phase 6 Final Report Docs Health line; `mode: strict` blocks session-end with AskUserQuestion override. Umbrella #229.
-- Adaptive wave sizing based on complexity scoring
-- Cross-session learning system with confidence-based intelligence
-- Intelligent agent dispatch: project agents > plugin agents > general-purpose
-- Agent-mapping Session Config for explicit role-to-agent binding
-- Model selection matrix (haiku/sonnet/opus per task type)
-
-## Session Config
-
-persistence: true
-enforcement: warn
-recent-commits: 20
-test-command: npm test
-typecheck-command: npm run typecheck
-lint-command: npm run lint
-stale-branch-days: 7
-plugin-freshness-days: 30
-plan-baseline-path: ~/Projects/projects-baseline
-plan-prd-location: docs/prd
-plan-retro-location: docs/retro
-plan-default-visibility: internal
-vcs: gitlab
-docs-orchestrator:
-  enabled: false           # opt-in; when true, session-start Phase 2.5 runs + docs-writer agent available
-  audiences: [user, dev, vault]
-  mode: warn               # warn | strict | off
-vault-staleness:
-  enabled: false           # opt-in vault-drift probes (runs in /discovery vault)
-  thresholds:
-    top: 30                # days — tier=top narrative staleness threshold
-    active: 60             # days — tier=active
-    archived: 180          # days — tier=archived
-  mode: warn               # warn | strict | off
+- On resuming a crashed session, the STATE.md mission premise may be hallucinated. Before continuing any work, grep-verify the referenced issues and PRDs against the actual issue tracker + code repo. If all referenced issues are CLOSED or unrelated, reground the mission to actual code + learnings before proceeding.
+- The crashed session's `.claude/wave-scope.json` (if present and valid) is the definitive artifact for work planned vs completed. Its `allowedPaths` show which files the wave intended to touch. Diff against working-tree state to identify the gap.
+- After work from a crashed session is verified sound (existing tests green, grep-confirms the code is on-target), the cross-batch watermark tokens (e.g., `last_wave`) are preserved by gating on `semantic_session_id` equality in on-session-start. This prevents double-emission of wave.started on resume.
+<!-- END MANAGED: crashed-session-recovery -->
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
