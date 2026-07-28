@@ -1,0 +1,9 @@
+{
+  "name": "apache--pekko-http",
+  "displayName": "pekko-http",
+  "description": "pekko-http",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/pekko-http",
+  "skills": []
+}
