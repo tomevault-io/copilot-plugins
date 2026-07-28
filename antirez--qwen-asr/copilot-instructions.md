@@ -225,4 +225,4 @@ Do not make code rely on these being present unless guarded by checks.
 
 ---
 > Source: [antirez/qwen-asr](https://github.com/antirez/qwen-asr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
