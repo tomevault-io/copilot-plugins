@@ -1,0 +1,56 @@
+## rsslookup
+
+> RSS Lookup project conventions and patterns
+
+
+# RSS Lookup
+
+RSS Lookup is a TanStack Start + Vite + Cloudflare Workers app that discovers RSS feeds via HTML parsing, common path checking, and site-specific rules.
+
+## Key Directories
+
+- `src/routes/` - File-based routing (TanStack Router)
+- `src/components/` - React functional components
+- `src/lib/rules/` - Site-specific feed discovery rules implementing `SiteRule`
+- `src/lib/types.ts` - Core type definitions (`FeedsMap`, `FeedResult`, etc.)
+- `tests/` - Vitest tests mirroring source structure
+
+## Adding Site Rules
+
+Rules implement the `SiteRule` interface from `src/lib/rules/SiteRule.ts`:
+
+```typescript
+interface SiteRule {
+  name: string;
+  matchesHostname(hostname: string): boolean;
+  extractFeeds(context: RuleContext): void;
+}
+```
+
+For static feed lists, use `StaticFeedRule` from `src/lib/rules/StaticFeedRule.ts`. When adding feeds in dynamic rules, always set `isFromRule: true`:
+
+```typescript
+context.feedsMap.set(feedUrl, { title: "Feed Title", isFromRule: true });
+```
+
+Register new rules in `src/lib/rules/index.ts` and add tests in `tests/lib/rules.test.ts`.
+
+## Code Conventions
+
+- TypeScript with strict typing
+- Functional React components with hooks
+- Import alias: `~/` maps to `src/`
+- Tailwind CSS for styling
+- Run `npm run format` and `npm run lint` before committing
+
+## Commands
+
+- `npm run dev` - Start dev server
+- `npm test` - Run Vitest tests
+- `npm run build` - Production build
+- `npm run deploy` - Deploy to Cloudflare Workers
+- `npx tsc --noEmit` - Type check without emitting files
+
+---
+> Source: [mratmeyer/rsslookup](https://github.com/mratmeyer/rsslookup) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
