@@ -1,0 +1,9 @@
+{
+  "name": "dolthub--dolt",
+  "displayName": "dolt",
+  "description": "dolt",
+  "version": "1.0.0",
+  "author": "dolthub",
+  "homepage": "https://github.com/dolthub/dolt",
+  "skills": []
+}
