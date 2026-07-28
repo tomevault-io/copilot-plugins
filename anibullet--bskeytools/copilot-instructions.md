@@ -104,4 +104,4 @@ CI/Release 相关文件（与 BsRetarget 任务无关，勿混淆）：
 
 ---
 > Source: [AniBullet/BsKeyTools](https://github.com/AniBullet/BsKeyTools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
