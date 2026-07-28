@@ -1,7 +1,7 @@
 {
   "name": "osu-nlp-group--saev",
   "displayName": "saev",
-  "description": "Sparse autoencoders for vision",
+  "description": "saev",
   "version": "1.0.0",
   "author": "OSU-NLP-Group",
   "homepage": "https://github.com/OSU-NLP-Group/saev",
