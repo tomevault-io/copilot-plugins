@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "rohitg00",
   "homepage": "https://github.com/rohitg00/ai-engineering-from-scratch",
-  "skills": [
-    {
-      "name": "ai-engineering-from-scratch",
-      "description": ""
-    },
-    {
-      "name": "ai-engineering-from-scratch",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
