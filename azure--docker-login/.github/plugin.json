@@ -1,0 +1,9 @@
+{
+  "name": "azure--docker-login",
+  "displayName": "docker-login",
+  "description": "docker-login",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/docker-login",
+  "skills": []
+}
