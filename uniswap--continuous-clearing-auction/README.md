@@ -1,8 +1,6 @@
 # AI instruction files for continuous-clearing-auction
 
-> Sourced from [Uniswap/continuous-clearing-auction](https://github.com/Uniswap/continuous-clearing-auction) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Smart contracts for Continuous Clearing Auctions to be used with the Uniswap Liquidity Launcher
+> Sourced from [Uniswap/continuous-clearing-auction](https://github.com/Uniswap/continuous-clearing-auction), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Uniswap/continuous-clearing-auction](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Uniswap/continuous-clearing-auction](https://github.com/Uniswap/continuous-clearing-auction) — a repo with 42+ stars on GitHub.
+From [Uniswap/continuous-clearing-auction](https://github.com/Uniswap/continuous-clearing-auction) — a repo with 45+ stars on GitHub.
 
 ---
 
