@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-php",
+  "displayName": "opentelemetry-php",
+  "description": "opentelemetry-php",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-php",
+  "skills": []
+}
