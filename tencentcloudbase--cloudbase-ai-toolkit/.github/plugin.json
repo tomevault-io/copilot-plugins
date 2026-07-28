@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "TencentCloudBase",
   "homepage": "https://github.com/TencentCloudBase/CloudBase-AI-Toolkit",
-  "skills": []
+  "skills": [
+    {
+      "name": "ai-model-web",
+      "description": ""
+    },
+    {
+      "name": "web-development",
+      "description": ""
+    },
+    {
+      "name": "cloudbase-sites-runtime",
+      "description": ""
+    }
+  ]
 }
