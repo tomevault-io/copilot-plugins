@@ -23,7 +23,7 @@ Original source: `AGENTS.md` in [saadeghi/daisyui](https://github.com/saadeghi/d
 - [daisyui](https://github.com/saadeghi/daisyui/tree/main/skills/daisyui/config/SKILL.md)
 - [daisyui](https://github.com/saadeghi/daisyui/tree/main/skills/daisyui/install/SKILL.md)
 
-From [saadeghi/daisyui](https://github.com/saadeghi/daisyui) — a repo with 41808+ stars on GitHub.
+From [saadeghi/daisyui](https://github.com/saadeghi/daisyui) — a repo with 0+ stars on GitHub.
 
 ---
 
