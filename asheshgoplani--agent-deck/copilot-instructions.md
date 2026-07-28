@@ -1,99 +1,67 @@
 ## agent-deck
 
-> This file is read by Claude Code when working inside the `agent-deck` repo. It lists hard rules for any AI or human contributor.
+> This file contains shared infrastructure knowledge for all watcher instances.
 
-# agent-deck — Repo Instructions for Claude Code
+# Watcher: Shared Knowledge Base
 
-This file is read by Claude Code when working inside the `agent-deck` repo. It lists hard rules for any AI or human contributor.
+This file contains shared infrastructure knowledge for all watcher instances.
+Each watcher has its own identity in its subdirectory and its own LEARNINGS.md.
+Agent sessions inspecting this directory will find the layout and CLI reference below.
 
-## Go Toolchain
+## Layout
 
-Pin to Go 1.24.0 for all builds and tests. Go 1.25 silently breaks macOS TUI rendering.
+The singular watcher root mirrors `~/.agent-deck/conductor/`:
+
+```
+~/.agent-deck/watcher/
+  CLAUDE.md        — this file (shared knowledge base)
+  POLICY.md        — behavior rules (escalation, dedup, retry, health thresholds)
+  LEARNINGS.md     — cross-watcher patterns accumulated over time
+  clients.json     — routing map: sender key -> conductor name
+
+  <name>/          — per-watcher directory (one per registered watcher)
+    meta.json      — watcher registration metadata (type, created_at, expiry)
+    state.json     — latest health snapshot (last_event_ts, error_count, adapter_healthy)
+    task-log.md    — append-only event log (one Markdown heading per event)
+    LEARNINGS.md   — per-watcher patterns (optional, watcher-specific)
+```
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Shared mechanism knowledge. Read by agent sessions to understand watcher infrastructure. |
+| `POLICY.md` | Behavior rules: escalation thresholds, dedup strategy, retry backoff, health thresholds. |
+| `LEARNINGS.md` | Cross-watcher patterns. Add entries as you notice recurring behaviors. |
+| `clients.json` | Routing map loaded by the engine. Key format: `<adapter>:<channel>` or email address. |
+
+## For Agents Inspecting This Directory
+
+To inspect watcher health and list all registered watchers:
 
 ```bash
-export GOTOOLCHAIN=go1.24.0
+agent-deck watcher list --json
+agent-deck watcher status <name>
 ```
 
-## Session persistence: mandatory test coverage
+The `list --json` output includes `last_event_ts`, `error_count`, and `health_status` per watcher.
 
-Agent-deck has a recurring production failure where a single SSH logout on a Linux+systemd host destroys **every** managed tmux session. **As of v1.5.2, this class of bug is permanently test-gated.**
-
-### The eight required tests
-
-Any PR modifying session lifecycle paths MUST run `go test -run TestPersistence_ ./internal/session/... -race -count=1`. In addition, `bash scripts/verify-session-persistence.sh` MUST run end-to-end on a Linux+systemd host.
-
-### Paths under the mandate
-
-- `internal/tmux/**`, `internal/session/instance.go`, `internal/session/userconfig.go`, `internal/session/storage*.go`
-- `cmd/session_cmd.go`, `scripts/verify-session-persistence.sh`, this `CLAUDE.md` section
-
-### Forbidden changes without an RFC
-
-- Flipping `launch_in_user_scope` default back to `false` on Linux
-- Removing any of the eight `TestPersistence_*` tests
-- Adding a code path that starts a Claude session and ignores `Instance.ClaudeSessionID`
-
-## Feedback feature: mandatory test coverage
-
-The in-product feedback feature is covered by 23 tests. All must pass before any PR touching the feedback surface is merged.
-
-```
-go test ./internal/feedback/... ./internal/ui/... ./cmd/agent-deck/... -run "Feedback|Sender_" -race -count=1
-```
-
-Reintroducing `D_PLACEHOLDER` as `feedback.DiscussionNodeID` is a **blocker**. `TestSender_DiscussionNodeID_IsReal` catches this automatically.
-
-## Per-group config: mandatory test coverage
-
-Per-group config dir applies to custom-command sessions too; `TestPerGroupConfig_*` suite enforces this.
-
-## Watcher framework: mandatory test coverage
-
-Any commit touching watcher source code MUST pass:
+To check if a specific sender would be routed:
 
 ```bash
-go test ./internal/watcher/... -race -count=1 -timeout 120s
-go test ./cmd/agent-deck/... -run "Watcher" -race -count=1
+agent-deck watcher test <name>
 ```
 
-### Watcher paths under the mandate
+## Why This Folder Shape
 
-- `internal/watcher/**` (engine, adapters, health bridge, layout, state, event log, router)
-- `cmd/agent-deck/watcher_cmd*.go` (CLI surface)
-- `internal/ui/watcher_panel.go` (TUI watcher panel)
-- `internal/statedb/statedb.go` (watcher rows in SQLite)
-- `cmd/agent-deck/assets/skills/watcher-creator/` (embedded skill)
-- `internal/session/watcher_meta.go` (watcher directory helpers)
+Watcher state mirrors the conductor pattern (`~/.agent-deck/conductor/`) for consistency:
+both subsystems use a singular directory root with shared top-level files and
+per-instance subdirectories. This makes the layout predictable and tooling reusable.
 
-### Watcher structural changes requiring RFC
-
-- Removing or weakening the health bridge (`internal/watcher/health_bridge.go`)
-- Disabling SQLite dedup (INSERT OR IGNORE on `watcher_events`)
-- Weakening HMAC-SHA256 verification on the GitHub adapter
-- Changing the `~/.agent-deck/watcher/` folder layout (REQ-WF-6)
-
-### Skills + docs sync (REQ-WF-7)
-
-Any commit modifying `internal/watcher/layout.go` or `internal/session/watcher_meta.go` MUST also update embedded skills, README, and CHANGELOG. `TestSkillDriftCheck_WatcherCreator` enforces this at build time.
-
-### Integration harness
-
-```bash
-bash scripts/verify-watcher-framework.sh
-```
-
-## --no-verify mandate
-
-**`git commit --no-verify` is FORBIDDEN on source-modifying commits.** Metadata-only commits (`.planning/**`, `docs/**`, non-source `*.md`) MAY use `--no-verify` when hooks would no-op.
-
-## General rules
-
-- **Never `rm`** — use `trash`.
-- **Never commit with Claude attribution** — no "Generated with Claude Code" or "Co-Authored-By: Claude" lines.
-- **Never `git push`, `git tag`, `gh release`, `gh pr create/merge`** without explicit user approval.
-- **TDD always** — the regression test for a bug lands BEFORE the fix.
-- **Simplicity first** — every change minimal, targeted, no speculative refactoring.
+The legacy `~/.agent-deck/watchers/` path is preserved as a relative compatibility
+symlink pointing to `watcher/`. Existing tooling that reads `watchers/` continues
+to work without modification.
 
 ---
 > Source: [asheshgoplani/agent-deck](https://github.com/asheshgoplani/agent-deck) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
