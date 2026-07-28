@@ -1,0 +1,9 @@
+{
+  "name": "meilisearch--demo-movies",
+  "displayName": "demo-movies",
+  "description": "demo-movies",
+  "version": "1.0.0",
+  "author": "meilisearch",
+  "homepage": "https://github.com/meilisearch/demo-movies",
+  "skills": []
+}
