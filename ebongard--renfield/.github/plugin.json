@@ -1,0 +1,14 @@
+{
+  "name": "ebongard--renfield",
+  "displayName": "renfield",
+  "description": "Self-hosted AI assistant with voice satellites, 100+ tool integrations, RAG knowledge base, and full offline capability. Built with FastAPI + React + Ollama.",
+  "version": "1.0.0",
+  "author": "ebongard",
+  "homepage": "https://github.com/ebongard/renfield",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
