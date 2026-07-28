@@ -1,0 +1,9 @@
+{
+  "name": "pytorch--rl",
+  "displayName": "rl",
+  "description": "rl",
+  "version": "1.0.0",
+  "author": "pytorch",
+  "homepage": "https://github.com/pytorch/rl",
+  "skills": []
+}
