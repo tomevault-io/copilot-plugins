@@ -5,7 +5,7 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser).
+Original source: `` in [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser).
 
 ## Also available for
 
@@ -14,6 +14,7 @@ Original source: `.windsurf/rules/*.md` in [redf0x1/camofox-browser](https://git
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — a repo with 334+ stars on GitHub.
 
