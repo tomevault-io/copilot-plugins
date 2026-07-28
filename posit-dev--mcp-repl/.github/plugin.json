@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--mcp-repl",
+  "displayName": "mcp-repl",
+  "description": "mcp-repl",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/mcp-repl",
+  "skills": []
+}
