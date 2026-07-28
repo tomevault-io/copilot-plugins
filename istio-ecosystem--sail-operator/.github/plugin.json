@@ -1,0 +1,9 @@
+{
+  "name": "istio-ecosystem--sail-operator",
+  "displayName": "sail-operator",
+  "description": "sail-operator",
+  "version": "1.0.0",
+  "author": "istio-ecosystem",
+  "homepage": "https://github.com/istio-ecosystem/sail-operator",
+  "skills": []
+}
