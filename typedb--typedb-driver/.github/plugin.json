@@ -1,0 +1,9 @@
+{
+  "name": "typedb--typedb-driver",
+  "displayName": "typedb-driver",
+  "description": "typedb-driver",
+  "version": "1.0.0",
+  "author": "typedb",
+  "homepage": "https://github.com/typedb/typedb-driver",
+  "skills": []
+}
