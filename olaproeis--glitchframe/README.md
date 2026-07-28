@@ -1,8 +1,6 @@
 # Glitchframe
 
-> Tome by [OlaProeis](https://github.com/OlaProeis/Glitchframe) — distributed by [TomeVault](https://tomevault.io)
-
-Local, GPU-accelerated music video generator: upload a track, analyze it, align lyrics, generate stylized backgrounds, composite reactive shaders and kinetic type, and encode with ffmpeg (NVENC on NVIDIA GPUs by default). Examples (progress log, newest = current state): [voidcat on YouTube](https://www.youtube.com/@voidcatalog)
+> Tome by [OlaProeis](https://github.com/OlaProeis/Glitchframe), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
