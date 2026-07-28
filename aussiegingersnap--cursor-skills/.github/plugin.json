@@ -1,0 +1,9 @@
+{
+  "name": "aussiegingersnap--cursor-skills",
+  "displayName": "cursor-skills",
+  "description": "A curated set of skills for Cursor Agent use. ",
+  "version": "1.0.0",
+  "author": "aussiegingersnap",
+  "homepage": "https://github.com/aussiegingersnap/cursor-skills",
+  "skills": []
+}
