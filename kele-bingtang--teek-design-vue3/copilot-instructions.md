@@ -1,32 +1,59 @@
 ## teek-design-vue3
 
-> UI 设计规范
+> 组件结构规范
 
 
-您是一名现代化 UI/UX 设计方面的专家，熟练使用 SCSS 语法。
+您是一位注重文件存放、文件命名、代码规范的前端开发专家。
 
-在编写 CSS 时
+## 文件组织
 
-1. 请使用 `light.scss` 或 `dark.scss` 的 CSS 变量来统一颜色风格，尤其是主色，不建议随意定义一个固定的颜色或者大小值
-2. 当使用项目内置 CSS 变量或者 ElementPlus 变量时，请参考 `function.scss` 使用 `cssVar` 或者 `cssVarEl` 函数
-3. 当在 HTML 元素定义 Class 时，命名请遵循 BEM 规范，且优先使用 use-namespace 函数的来构建，引入时命名为 `ns`，即 `const ns = useNamespace("xxx")`
-4. 样式文件优先使用 `.scss`，且在同级 `.vue` 文件下创建同名的 `.scss` 文件而不是在 `.vue` 组件里使用 `style` 标签，编写样式时请使用 `bem.scss` 的混合宏，与 useNamespace 的方法名对应上
-5. 优先使用项目定义的原子类作为 class 生效，减少重复编写 CSS 样式代码
-6. 当需要卡片风格的代码时，请优先使用 `card.scss` 里定义的卡片原子类
-7. 编写 CSS 样式时，请考虑移动端，且移动端的 SCSS 变量已在 `var.scss` 里定义，如果定义的宽度不符合或需要适配更多布局，请给出更好的建议
+1. 通用组件(components)请放到 `src/components/` 目录下，且按功能分子文件夹，比如 `card/`、`chart/`、`pro/`
+2. 通用可复用逻辑(composables)放在 `src/composables/`
+3. 通用样式放在 `src/common/styles/`
+4. 通用 API 请求相关文件放在 `src/common/api/`
+5. 通用工具函数放在 `src/common/utils/`
+6. Typescript 类型文件请在组件同级目录下创建 `types.ts` 或者 types 目录，且
+7. 上述非通用文件请在组件同级目录创建，如 `src/views/lgoin` 下有 `index.vue`、`components`、`composables`、`api` 等
 
-[light.scss](mdc:src/common/styles/var/light.scss)
-[dark.scss](mdc:src/common/styles/var/dark.scss)
-[card.scss](mdc:src/common/styles/var/card.scss)
-[atomic.scss](mdc:src/common/styles/var/atomic.scss)
-[var.scss](mdc:src/common/styles/common/var.scss)
+## 命名规范
 
-[bem.scss](mdc:src/common/styles/mixins/bem.scss)
-[function.scss](mdc:src/common/styles/mixins/function.scss)
-[mixins.scss](mdc:src/common/styles/mixins/mixins.scss)
-[namespace.scss](mdc:src/common/styles/mixins/namespace.scss)
-[use-namespace.ts](mdc:src/composables/core/use-namespace.ts)
+1. 所有文件请使用 `kebab-case` 风格，如 `pro-table.vue`、`use-table.ts`、`pro-table.scss`
+2. 引入组件的命名为 `Camel-Case`，如 `import ProTable from "pro-table.vue"`
+3. TypeScript 接口和类型用 PascalCase，统一放在同级目录 `types.ts` 或 `types/xx.ts` 文件中，且组件里的 Typescript 类型移到类型文件里，如 `ProTableProps`、`ProTableEmits`
+
+## TypeScript 使用
+
+1. 所有函数参数都要加类型注解，如果返回值可以推导则不需要添加
+2. 全局类型放在 `src/types/`，模块专用类型
+
+## 导入与导出
+
+1. 使用以 `@/` 为根的绝对路径导入（如 `import { ProTable } from '@/components/pro/table'`)，如果是样式文件，则以 `@styles` 代替 `@/common/styles` 目录
+2. 每个组件目录下用 `index.ts` 统一导出，便于批量导入
+
+## 代码结构
+
+1. 新组件统一使用 `<script setup lang="ts">` 语法
+2. props、emits、composables 写在 script 顶部
+3. 使用 defineProps 和 defineEmits 宏定义属性和事件，用法如 `defineProps<{ts 类型}>();`、`defineEmits<{xx: []}>`，这些请用 Typescript 的 `interface` 定义
+4. 不推荐 `props`、`emits`、`响应式变量`、`computed`、`watch`、`function`、`生命周期` 的结构写法，请使用可复用逻辑(composables)写法，即将关联性高的代码放到 `function useXx` 里然后暴露出来使用
+5. 使用 `defineModel` 代替 `props.modelValue`
+6. 适当换行，如变量与函数之间，`script`、`template`、`style` 标签之间必须换行
+
+## 代码规范
+
+1. 使用 ESLint 和 Prettier 保证代码风格统一
+2. 遵循 `eslint.config.js` 中的规则
+
+## 文档规范
+
+1. composable 和函数用 JSDoc 或 TypeScript 注释说明用途
+
+## Git 版本管理
+
+1. 不要提交构建产物和本地环境配置文件
+2. TODO.md 及时记录和更新待办事项
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Kele-Bingtang) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
+> Source: [Kele-Bingtang/teek-design-vue3](https://github.com/Kele-Bingtang/teek-design-vue3) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
