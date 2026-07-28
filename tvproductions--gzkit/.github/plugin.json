@@ -1,0 +1,30 @@
+{
+  "name": "tvproductions--gzkit",
+  "displayName": "gzkit",
+  "description": "GovZero Kit: A Development Covenant for Human-AI Collaboration - gzkit is cognitive infrastructure for extended human-AI collaboration - a protocol that preserves human intent across agent context bou",
+  "version": "1.0.0",
+  "author": "tvproductions",
+  "homepage": "https://github.com/tvproductions/gzkit",
+  "skills": [
+    {
+      "name": "gz-adr-audit",
+      "description": ""
+    },
+    {
+      "name": "gz-adr-autolink",
+      "description": ""
+    },
+    {
+      "name": "gz-adr-create",
+      "description": ""
+    },
+    {
+      "name": "gz-session-handoff",
+      "description": ""
+    },
+    {
+      "name": "gz-validate",
+      "description": ""
+    }
+  ]
+}
