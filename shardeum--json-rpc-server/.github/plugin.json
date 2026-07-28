@@ -1,0 +1,9 @@
+{
+  "name": "shardeum--json-rpc-server",
+  "displayName": "json-rpc-server",
+  "description": "json-rpc-server",
+  "version": "1.0.0",
+  "author": "shardeum",
+  "homepage": "https://github.com/shardeum/json-rpc-server",
+  "skills": []
+}
