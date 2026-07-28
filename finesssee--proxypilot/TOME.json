@@ -2,7 +2,7 @@
   "name": "ProxyPilot",
   "owner": "Finesssee",
   "repo": "ProxyPilot",
-  "description": "Windows-native CLIProxyAPI fork with TUI, system tray, and multi-provider OAuth for AI coding tools - No API key needed",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Finesssee/ProxyPilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T18:50:23Z"
+  "distributed_at": "2026-07-28T16:52:56Z"
 }
