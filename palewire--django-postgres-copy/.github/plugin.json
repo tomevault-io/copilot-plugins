@@ -1,0 +1,9 @@
+{
+  "name": "palewire--django-postgres-copy",
+  "displayName": "django-postgres-copy",
+  "description": "django-postgres-copy",
+  "version": "1.0.0",
+  "author": "palewire",
+  "homepage": "https://github.com/palewire/django-postgres-copy",
+  "skills": []
+}
