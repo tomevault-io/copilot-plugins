@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vdaas/vald](https://github.com/vdaas/vald).
+Original source: `` in [vdaas/vald](https://github.com/vdaas/vald).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [vdaas/vald](https://github.com/vdaas/vald) — a repo with 1710+ stars on GitHub.
+From [vdaas/vald](https://github.com/vdaas/vald) — a repo with 1712+ stars on GitHub.
 
 ---
 
