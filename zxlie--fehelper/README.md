@@ -1,6 +1,6 @@
 # FeHelper
 
-> Tome by [zxlie](https://github.com/zxlie/FeHelper) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [zxlie](https://github.com/zxlie/FeHelper), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [zxlie/FeHelper](https://github.com/zx
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/zxlie/FeHelper](https://github.com/zxlie/FeHelper)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/zxlie/FeHelper](https://github.com/zxlie/FeHelper)
 
 ---
 
