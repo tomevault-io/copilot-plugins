@@ -1,8 +1,6 @@
 # AI instruction files for lumina
 
-> Sourced from [shawnxie94/lumina](https://github.com/shawnxie94/lumina) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-An information management workspace.（信息管理工作台）
+> Sourced from [shawnxie94/lumina](https://github.com/shawnxie94/lumina), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [shawnxie94/lumina](https://github.com/shawnxie9
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/shawnxie94/lumina](https://github.com/shawnxie94/lumina)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/shawnxie94/lumina](https://github.com/shawnxie94/lumina)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
