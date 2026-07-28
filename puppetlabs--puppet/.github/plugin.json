@@ -1,0 +1,9 @@
+{
+  "name": "puppetlabs--puppet",
+  "displayName": "puppet",
+  "description": "puppet",
+  "version": "1.0.0",
+  "author": "puppetlabs",
+  "homepage": "https://github.com/puppetlabs/puppet",
+  "skills": []
+}
