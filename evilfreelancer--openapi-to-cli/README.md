@@ -1,8 +1,6 @@
 # openapi-to-cli
 
-> Tome by [EvilFreelancer](https://github.com/EvilFreelancer/openapi-to-cli) — distributed by [TomeVault](https://tomevault.io)
-
-Turns any OpenAPI/Swagger API into an CLI with set of commands. One CLI command per endpoint.
+> Tome by [EvilFreelancer](https://github.com/EvilFreelancer/openapi-to-cli), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
