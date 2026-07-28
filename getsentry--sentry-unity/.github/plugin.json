@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-unity",
+  "displayName": "sentry-unity",
+  "description": "sentry-unity",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-unity",
+  "skills": []
+}
