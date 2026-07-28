@@ -1,145 +1,88 @@
 ## chief
 
-> - This repo IS the chief-agent framework. Source of truth is `template/`.
+> Use when unit tests aren't enough and you need real-world coverage.
 
-# AGENTS.md
+# Subagents reference
 
-## Project Rules
-
-- This repo IS the chief-agent framework. Source of truth is `template/`.
-- Product changes (agent definitions, skills, AGENTS.md content, .chief/ scaffolding) → MUST edit `template/` first, then sync to root.
-- Dogfooding-only changes (milestone plans, todos, reports) → edit root `.chief/` directly.
-- NEVER let root and template drift without explicit reason.
+Chief ships four subagents. Each has a defined role and clear boundaries — they don't cross into each other's territory.
 
 ---
 
-## Rules Hierarchy
+## chief-agent
 
-1. **Project Rules** above (highest authority)
-2. `.chief/_rules`
-3. `.chief/milestone-X/_goal` (lowest authority)
+**Role:** Planner and orchestrator.
 
-If rules conflict, higher priority wins. Always.
+Reads `AGENTS.md`, `.chief/_rules/`, and the current milestone's goals and contracts. Creates plans, breaks work into tasks, delegates to `builder-agent`, and decides what to do next.
 
-Each milestone is self-contained. Only the active milestone's goals/contracts + global `.chief/_rules/` apply. Previous milestone artifacts are not inherited. To carry forward a decision from a past milestone, promote it to `.chief/_rules/`.
+Does **not** write code.
 
----
-
-## User Interaction Rules
-
-- When asking the user a question, use ask_user with ONE short question only.
-- When presenting a recap, summary, or review:
-  1. Print it as formatted text first (numbered list, table, or markdown block).
-  2. Then ask_user ONCE with a short confirmation, e.g. "Proceed?" or "Any changes?"
-  3. NEVER put recap content inside ask_user.
-- Do NOT ask multiple questions in a row. Make a recommendation, summarize, then confirm once.
+**When to call:**
+- Give it a goal: `"Plan milestone 3"`
+- Ask it for status: `"What's left in milestone 2?"`
+- Change direction mid-milestone: `"Descope the export feature from milestone 1"`
 
 ---
 
-## Agent Behavior Principles
+## builder-agent
 
-### 1. Think Before Acting
+**Role:** Implementer.
 
-- Start with the smallest plausible interpretation of the request.
-- If uncertain, ask ONE clarifying question — don't assume the big interpretation.
-- Surface tradeoffs and push back when a simpler approach exists.
-- When confused, name what's unclear and stop. Don't hide confusion behind a plan.
+Receives a task spec and implements it. Runs unit tests, fixes type and lint errors, and commits. Handles all fast, local, deterministic verification.
 
-### 2. Simplicity First
+Does **not** make architecture decisions. Does **not** run integration tests or UI flows.
 
-- Do the minimum that solves the problem. Nothing speculative.
-- If a task can be done in 1-3 commands, do it directly. Don't delegate trivial work to builder-agent.
-- No features, abstractions, or error handling beyond what was asked.
-- If a plan starts needing an options table, pause — you may not have understood the question.
-
-### 3. Surgical Changes
-
-- Touch only what the request requires. Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken. Match existing style.
-- Every changed line should trace directly to the user's request.
-- Clean up only what YOUR changes made unused. Don't remove pre-existing dead code unless asked.
-
-### 4. Goal-Driven Execution
-
-- Transform vague requests into verifiable goals before starting.
-- Define what "done" looks like. Loop until verified.
-- For multi-step work, state a brief plan with verification at each step.
-- Strong success criteria let agents work independently. Weak criteria require constant clarification.
-
----
-
-## Chief Agent Framework
-
-### Human Responsibilities
-
-- Write and refine this file
-- Maintain `.chief/_rules`
-- Define milestone goals
-
-### AI Responsibilities
-
-- Follow this file strictly
-- Follow `.chief/_rules`
-- Follow milestone goals and contracts
-- Ask for clarification only when multiple valid paths exist
-
-### Directory Structure
-
+**When to call:**
 ```
-.chief/
-├── _rules/
-│   ├── _standard/       # Coding standards, architecture constraints
-│   ├── _contract/       # Data models, API contracts, schemas
-│   ├── _goal/           # High-level goals (shared across milestones)
-│   └── _verification/   # Test commands, build requirements, definition of done
-├── _template/           # Scaffold for new milestones
-└── milestone-X/
-    ├── _goal/           # Milestone-specific goals
-    ├── _contract/       # Milestone-specific contracts
-    ├── _plan/           # _todo.md + task-N.md specs
-    └── _report/         # Reports, investigations, task outputs
+builder-agent: implement task-1 from milestone-1
 ```
 
-### 3-Agent Architecture
-
-| Agent | Role | Does | Does NOT |
-|-------|------|------|----------|
-| **Chief** | Planner/Orchestrator | Plan, delegate, decide, update todo | Implement code |
-| **Builder** | Implementer | Code, unit test, type/lint fix, commit | Integration test, architecture decisions |
-| **Tester** | Verifier | Integration/UI/API/environment testing | Implement code, patch bugs |
-
-### Responsibility Boundary
-
-- **Builder** handles ALL fast, deterministic, local verification: unit tests, type checks, lint, build. Builder MUST run these before committing.
-- **Tester** handles ONLY slow, non-deterministic, real-world verification: integration tests, UI flows, API calls, auth flows, environment-dependent checks.
-- Tester NEVER runs unit tests, lint, build, or reads source files for code review.
-- Tester is ONLY triggered when the user explicitly requests it. Chief MUST NOT auto-delegate to tester.
-
-### Execution Cycle
-
-```
-Human defines direction → Chief plans → Builder builds → Chief decides → Repeat
-```
-
-Tester is injected into the cycle only when the user requests real-world validation.
-
-### Rules for `.chief/_rules` Files
-
-- MUST be concise, structural, clear
-- MUST eliminate ambiguity
-- Include small code examples when useful
-- Anything unclear may lead to incorrect autonomous decisions
-
-### Optional: Review-Plan-Agent
-
-Reviews plans for internal consistency. Catches contradictions and scope leaks. Does not modify plans — reports issues only. Defined in `.agents/agents/review-plan-agent.md`.
+Or via `/chief-autopilot` (called automatically).
 
 ---
 
-## Project Configuration
+## tester-agent
 
-Project-specific details (dev commands, tech stack, architecture) are defined in `.chief/project.md`.
+**Role:** Integration and environment verifier.
+
+Runs integration tests, validates API responses, tests UI flows, checks environment-level behavior. Handles slow, non-deterministic, real-world verification.
+
+Does **not** write code. Does **not** run unit tests, lint, or build.
+
+**Only triggered when you explicitly request it** — chief-agent does not call tester-agent automatically.
+
+**When to call:**
+```
+tester-agent: validate milestone-1
+```
+
+Use when unit tests aren't enough and you need real-world coverage.
+
+---
+
+## answer-verifier-agent
+
+**Role:** Background answer verifier.
+
+Spawned by `/chief-grill` — one instance per question, running in the background while the main grill session continues. Receives only the most recent question and answer as context (not the full session) to stay focused.
+
+Checks whether an answer is grounded in the actual codebase, not just plausible in general. Writes its findings to the grill session file.
+
+**Not called manually.** Triggered automatically by `/chief-grill`.
+
+> This agent replaces `review-plan-agent`, which is deprecated as of v4.
+
+---
+
+## Compatibility
+
+| Coding agent | How subagents are wired |
+|---|---|
+| Claude Code | `.claude/agents/` symlinks → `.agents/agents/` |
+| GitHub Copilot | `.github/agents/` symlinks or copies → `.agents/agents/` |
+| Other agents | Read `.agents/agents/*.md` directly (if supported) |
+
+`/chief-install` handles this wiring automatically for Claude Code and GitHub Copilot.
 
 ---
 > Source: [thaitype/chief](https://github.com/thaitype/chief) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
