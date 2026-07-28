@@ -1,0 +1,9 @@
+{
+  "name": "container-registry--harbor-satellite",
+  "displayName": "harbor-satellite",
+  "description": "harbor-satellite",
+  "version": "1.0.0",
+  "author": "container-registry",
+  "homepage": "https://github.com/container-registry/harbor-satellite",
+  "skills": []
+}
