@@ -1,0 +1,9 @@
+{
+  "name": "xunholy--k8s-gitops",
+  "displayName": "k8s-gitops",
+  "description": "k8s-gitops",
+  "version": "1.0.0",
+  "author": "xunholy",
+  "homepage": "https://github.com/xunholy/k8s-gitops",
+  "skills": []
+}
