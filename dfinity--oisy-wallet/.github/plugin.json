@@ -1,0 +1,9 @@
+{
+  "name": "dfinity--oisy-wallet",
+  "displayName": "oisy-wallet",
+  "description": "oisy-wallet",
+  "version": "1.0.0",
+  "author": "dfinity",
+  "homepage": "https://github.com/dfinity/oisy-wallet",
+  "skills": []
+}
