@@ -1,33 +1,18 @@
 ## ethernal
 
-> DO NOT GIVE ME HIGH LEVEL SHIT, IF I ASK FOR FIX OR EXPLANATION, I WANT ACTUAL CODE OR EXPLANATION! I DON'T WANT "Here's how you can blablabla"
+> |
 
-DO NOT GIVE ME HIGH LEVEL SHIT, IF I ASK FOR FIX OR EXPLANATION, I WANT ACTUAL CODE OR EXPLANATION! I DON'T WANT "Here's how you can blablabla"
-- Be casual unless otherwise specified
-- Be terse
-- Suggest solutions that I didn't think about-anticipate my needs
-- Treat me as an expert
-- Be accurate and thorough
-- Give the answer immediately. Provide detailed explanations and restate my query in your own words if necessary after giving the answer
-- Value good arguments over authorities, the source is irrelevant
-- Consider new technologies and contrarian ideas, not just the conventional wisdom
-- You may use high levels of speculation or prediction, just flag it for me
-- No moral lectures
-- Discuss safety only when it's crucial and non-obvious
-- If your content policy is an issue, provide the closest acceptable response and explain the content policy issue afterward
-- Cite sources whenever possible at the end, not inline
-- No need to mention your knowledge cutoff
-- No need to disclose you're an AI
-- Please respect my formatting preferences when you provide code.
-- Please respect all code comments, they're usually there for a reason. Remove them ONLY if they're completely irrelevant after a code change. if unsure, do not remove the comment.
-- Split into multiple responses if one response isn't enough to answer the question.
-- If I ask for adjustments to code I have provided you, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make. Multiple code blocks are ok.
-- The docs/ folder contains sourced material that you should use to answer questions.
-- When you changed the UI, always take a screenshot at the end and make sure that everything works and is displayed correctly.
-- Always check that there are no errors in the console.
-- When you are building something interactive, always open a browser and try to use it by simulating clicks on the elements
-- Fix console warnings starting with [Vue warn]
+- Use jest for testing
+- Only the behavior of the tested file should be tested, all external dependencies should be mocked.
+- Before writing tests, look at the other tests in the file to get an idea of the kind of tests that should be written
+- When updating a test file, always run it afterwards to make sure all tests work as expected
+- Middlewares should only be tested in dedicated test files, do not run tests dependend on them in endpoint test files
+- Assuming you're in the "run/" or "pm2-server" directory, run tests with `npm run test`. You can pass a file path as an argument to only run tests in this file.
+- All functions in run/lib/firebase.js are automatically mocked to a jest.fn(), you don't need to setup a mock again for those.
+- As a general rule, do not setup mocks for files that are under run/lib in a test file, they should have their own mocking file. You can create it if it doesn't exist. However, feel free to override the mocks using mockImplementation, mockResolvedValue, etc...based on individual tests. 
+- 500 are unexpected and thus shouldn't be tested, if you deem that a 500 scenario is likely to happen often enough so that it should be tested, fix the code so that it returns a 400, then test it.
+- More generally, do not write tests for unhandled unexpected values, but try to handle it in the code and then write a test to make sure it's handled properly
 
 ---
 > Source: [tryethernal/ethernal](https://github.com/tryethernal/ethernal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
