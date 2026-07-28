@@ -1,0 +1,9 @@
+{
+  "name": "base--bridge-sdk",
+  "displayName": "bridge-sdk",
+  "description": "bridge-sdk",
+  "version": "1.0.0",
+  "author": "base",
+  "homepage": "https://github.com/base/bridge-sdk",
+  "skills": []
+}
