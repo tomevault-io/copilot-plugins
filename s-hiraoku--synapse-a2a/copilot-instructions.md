@@ -1,0 +1,29 @@
+## synapse-a2a
+
+> This file provides Gemini-specific guidance. For repository-wide policies, see [AGENTS.md](./AGENTS.md).
+
+# GEMINI.md
+
+This file provides Gemini-specific guidance. For repository-wide policies, see [AGENTS.md](./AGENTS.md).
+
+## Skills
+
+Gemini has access to skills in `.agents/skills/`. Use these skills for specialized tasks:
+
+- **synapse-a2a**: Inter-agent communication using Synapse A2A framework
+
+Skills are automatically loaded when relevant tasks are detected.
+
+## Gemini-Specific Branch Management
+
+- Follow all branch rules in AGENTS.md (no direct commits to `main`, always use PRs)
+- **When creating a new branch for a new task**: Gemini may create the branch without asking for confirmation, as long as it follows the naming conventions
+- **When switching to an existing branch**: Always ask the user for confirmation first
+- Before switching branches, ensure all changes are committed or stashed
+- When sending tasks to other agents, they must work on the same branch
+
+For complete command reference, see [AGENTS.md](./AGENTS.md).
+
+---
+> Source: [s-hiraoku/synapse-a2a](https://github.com/s-hiraoku/synapse-a2a) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
