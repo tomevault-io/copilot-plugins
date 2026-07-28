@@ -1,0 +1,55 @@
+## main-rule
+
+> This is a **skills distribution repository** - a curated collection of skills for Cursor AI agents.
+
+
+## Cursor Skills Repository
+
+This is a **skills distribution repository** - a curated collection of skills for Cursor AI agents.
+
+### Repository Purpose
+
+Users import skills from this repo into their projects via:
+1. **Cursor Settings** (recommended) - Add as Remote Rule from GitHub
+2. **Manual copy** - Clone and copy `skills/` to `.cursor/skills/`
+3. **MCP Server** (advanced) - Global skill access via `mcp/skills_mcp.py`
+
+### When Working in This Repo
+
+**Creating/Editing Skills:**
+- Each skill lives in `skills/{skill-name}/`
+- Skill must have `SKILL.md` with YAML frontmatter
+- Use `skill-creator` for guidance on new skills
+- Optional: `scripts/`, `references/`, `LICENSE.txt`
+
+**Maintaining the Repo:**
+- Standard Cursor behavior - read files, write code, fix bugs
+- Keep README.md updated with new skills
+- Maintain MCP server in `mcp/` for advanced users
+
+### Skill Structure
+
+```
+skills/{name}/
+├── SKILL.md           # Required - Core instructions
+├── scripts/           # Optional - Helper scripts
+├── references/        # Optional - Supporting docs
+└── LICENSE.txt        # Optional - Skill license
+```
+
+### SKILL.md Format
+
+```markdown
+---
+name: skill-name
+description: Brief description for discovery. Explain when to use.
+---
+
+# Skill Name
+
+Detailed instructions for the agent...
+```
+
+---
+> Source: [aussiegingersnap/cursor-skills](https://github.com/aussiegingersnap/cursor-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
