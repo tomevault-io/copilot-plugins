@@ -1,7 +1,7 @@
 {
   "name": "sandwichfarm--hyprlax",
   "displayName": "hyprlax",
-  "description": "buttery smooth parallax wallpaper daemon for wayland compositors",
+  "description": "hyprlax",
   "version": "1.0.0",
   "author": "sandwichfarm",
   "homepage": "https://github.com/sandwichfarm/hyprlax",
