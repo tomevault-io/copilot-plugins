@@ -1,6 +1,6 @@
 # skolmat
 
-> Config by [Kaptensanders](https://github.com/Kaptensanders/skolmat) — distributed by [TomeVault](https://tomevault.io/claim/Kaptensanders)
+> Source: [Kaptensanders/skolmat](https://github.com/Kaptensanders/skolmat). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `AGENTS.md` in [Kaptensanders/skolmat](https://github.com/Kapte
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/Kaptensanders](https://tomevault.io/claim/Kaptensanders)
+From [Kaptensanders/skolmat](https://github.com/Kaptensanders/skolmat) — a repo with 30+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/Kaptensanders) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:d-e-s -->
