@@ -1,129 +1,142 @@
 ## scrython
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This document codifies the rules every test in `tests/usage/` must follow to
 
-# CLAUDE.md
+# USAGE Suite Conventions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This document codifies the rules every test in `tests/usage/` must follow to
+stay honestly black-box and remain maintainable across future seam changes.
 
-## Project Overview
+## 1. Construct via the dotted public path
 
-Scrython is a Python wrapper for the Scryfall API (Magic: The Gathering card database). It provides a clean, Pythonic interface for querying cards, sets, and bulk data from Scryfall's REST API.
+Instantiate endpoint classes using the same dotted path a README user would
+type — not a bare-import alias:
 
-## Development Commands
+```python
+# correct
+import scrython.cards
+card = scrython.cards.Named(exact="Black Lotus")
 
-### Testing
-```bash
-python test.py                  # Run the manual test script
-pytest                          # Run pytest tests (if test suite exists)
+# wrong — bare import couples the test to the internal module layout
+from scrython.cards import Named
+card = Named(exact="Black Lotus")
 ```
 
-### Installation
-```bash
-pip install -e .                # Install in development mode
-python setup.py install         # Install package
+This ensures tests exercise the same surface documented for users and survive
+internal restructuring.
+
+## 2. Assert only on the public API
+
+Assert against public properties and public methods.  The following are
+internal implementation details and must not appear in test bodies:
+
+| Forbidden | Why |
+|---|---|
+| `card.scryfall_data` | Internal parsed-response object |
+| `card._scryfall_data` | Private attribute |
+| `mock_urlopen.calls[0]["url"]` | Request URL — implementation detail of the `urlopen` seam |
+| Patch objects of any kind | Seam internals leak through |
+
+```python
+# correct
+assert card.name == "Black Lotus"
+
+# wrong — asserts against internal state
+assert card.scryfall_data.name == "Black Lotus"
+
+# wrong — inspects the mock seam
+assert "exact=Black+Lotus" in mock_urlopen.calls[0]["url"]
 ```
 
-## Architecture
+## 3. Assert stable identity fields, not volatile ones
 
-### Core Design Pattern: Request Handler + Mixins
+Some fields change between fixture refreshes (prices, `updated_at`, print
+counts).  Assertions must target stable identity fields that do not drift:
 
-The library uses a **base request handler** (`ScrythonRequestHandler`) combined with **mixins** to compose API endpoint classes. This pattern allows different endpoints to share common functionality while maintaining specific behaviors.
+| Stable (assert these) | Volatile (exclude) |
+|---|---|
+| `name`, `mana_cost`, `type_line` | `prices` |
+| `oracle_text`, `set`, `set_name` | `updated_at`, `size` |
+| `id` (when testing a by-ID endpoint) | any field that changes per-printing |
 
-**Key components:**
+A fixture refresh should never redden the suite.
 
-1. **`scrython/base.py`**: Contains `ScrythonRequestHandler` - the base class that handles all HTTP requests to Scryfall API
-   - `_build_path()`: Resolves endpoint path parameters (e.g., `:id`, `:code`)
-   - `_build_params()`: Constructs query parameters
-   - `_fetch()`: Executes HTTP request and handles errors via `ScryfallError`
-   - Path parameters use `:param_name` syntax; optional params end with `?` (e.g., `:lang?`)
+## 4. Arm the seam through an injected payload fixture
 
-2. **Mixins** (in `base_mixins.py` and module-specific `*_mixins.py` files):
-   - `ScryfallListMixin`: For endpoints returning lists (search results, collections)
-   - `ScryfallCatalogMixin`: For endpoints returning catalogs
-   - `CoreFieldsMixin`, `GameplayFieldsMixin`, `PrintFieldsMixin`: Card-specific data accessors
-   - Mixins provide `@property` accessors to `scryfall_data` dictionary
+`stub_response` (defined in `tests/usage/conftest.py`) is the only fixture that
+touches the mock seam. Tests do not call it directly; instead `conftest.py`
+exposes one **payload fixture** per captured fixture — named the same as the
+fixture key — that arms `stub_response` with the right endpoint and payload. A
+test requests that fixture by name and then constructs through the public API:
 
-3. **Factory Classes (routing endpoints)**: `Catalogs`, `Migrations`, `Rulings`, `Symbology`
-   - Use `__new__()` to dynamically instantiate the correct endpoint class based on kwargs
-   - Example: `scrython.catalogs.Catalogs(catalog_type="creature-types")` routes to the matching catalog class
-   - **`cards`, `sets`, and `bulk_data` have no factory** — callers use the endpoint classes directly: `scrython.cards.Named(fuzzy=...)`, `scrython.sets.ByCode(code=...)`, `scrython.bulk_data.ByType(type=...)`
-
-### Module Structure
-
-```
-scrython/
-├── base.py              # ScrythonRequestHandler, ScryfallError
-├── base_mixins.py       # ScryfallListMixin, ScryfallCatalogMixin
-├── rate_limiter.py      # RateLimiter, SlowRateLimiter (per-endpoint tiering)
-├── cache.py             # Request caching with TTL
-├── utils.py             # Utility functions (e.g., to_object_array)
-├── cards/
-│   ├── cards.py         # Card endpoint classes (Named, Search, ById, …); no factory
-│   └── cards_mixins.py  # Card data accessors (CoreFieldsMixin, etc.)
-├── sets/
-│   ├── sets.py          # Set endpoint classes (All, ByCode, ById, …); no factory
-│   └── sets_mixins.py   # Set data accessors
-└── bulk_data/
-    ├── bulk_data.py     # Bulk data endpoint classes (All, ById, ByType); no factory
-    └── bulk_data_mixins.py  # Bulk data accessors
+```python
+def test_named__exact__returns_correct_name(cards_named__black_lotus):
+    card = scrython.cards.Named(exact="Black Lotus")
+    assert card.name == "Black Lotus"
 ```
 
-### How Requests Work
+The fixture parameter is intentionally unreferenced — requesting it is what
+registers the payload (`tests/usage/test_*.py` ignores `ARG001` for this).
+Test bodies must not import or call `mock_urlopen`, `patch`, `urlopen`,
+`stub_response`, or `load_fixture` directly.
 
-1. User instantiates an endpoint class directly: `card = scrython.cards.Named(fuzzy="Black Lotus")`. (For `catalogs`/`migrations`/`rulings`/`symbology`, a factory class routes via `__new__` to the right endpoint first.)
-2. Class inherits from `ScrythonRequestHandler` + relevant mixins
-3. `ScrythonRequestHandler.__init__()` runs:
-   - `_build_path()` resolves endpoint template (e.g., `/cards/named`)
-   - `_build_params()` adds query params (e.g., `?fuzzy=Black+Lotus`)
-   - `_fetch()` makes HTTP request, parses JSON into `scryfall_data`
-4. Mixin properties provide data access: `card.name` → `scryfall_data['name']`
+### Seam-isolation rationale
 
-### Error Handling
+`stub_response` exists so that the entire usage suite can be migrated to the
+`MockConnector` abstraction (issue #169) in a single, mechanical file change.
+When #169 lands, only the body of `stub_response` in `conftest.py` changes
+(swapped to `MockConnector` + `use_connector(...)`). Every test body stays
+identical because no test body knows which seam is in use.
 
-- All Scryfall API errors are wrapped in `ScryfallError` (from `scrython/base.py`)
-- `ScryfallError` exposes: `status`, `code`, `details`, `type`, `warnings`
-- HTTP errors that aren't from Scryfall raise generic `Exception`
+If a test bypasses the payload fixtures and drives the seam directly, it will
+break during that migration and require a rewrite.
 
-## Code Style
+## 5. Name tests and fixtures by `endpoint`, `query`, `scenario`
 
-From Contributing.md:
-- No single character variables (except `f` for files, `i` for iterations)
-- Complex code (regex, etc.) needs explanatory comments
-- Weird/unexpected code needs comments explaining **why** (not just what)
-- 4 spaces for indentation (no tabs)
-- Avoid useless comments
+- **Tests:** `test_<endpoint>__<query>__<scenario>` — double underscore between
+  segments. `endpoint` is the public class lowered (`Named` → `named`, `ById` →
+  `by_id`, `ByCode` → `by_code`); `query` is the selector used (`exact`, `id`,
+  `code`, `rulings`); `scenario` is what is asserted
+  (`returns_correct_name`, `has_saga_layout`).
+- **Fixtures and fixture keys:** `<module>_<endpoint>__<subject>`
+  (`cards_named__black_lotus`, `rulings_by_id__rules_lawyer`). The committed
+  JSON file, the `FIXTURE_MAP` key in `scripts/capture_fixtures.py`, and the
+  injected conftest fixture all share this one name.
 
-## Important Notes
+## 6. Pin the layout corpus by discovered id
 
-- **Built-in rate limiting**: Automatic per-endpoint rate limiting (10/s default, 2/s for search/named/random/collection). See `scrython/rate_limiter.py`. Users can override with `rate_limit_per_second` kwarg or disable with `rate_limit=False`.
-- **No backwards compatibility**: Breaking changes expected as Scryfall API evolves
-- **Python 3.10+ required**: Uses `X | Y` union syntax and `type[X]` annotations throughout
-- **Dependencies**: urllib (standard library), no external HTTP dependencies
-- **Branches**: `main` is stable/PyPI, `develop` is staging
+The layout corpus pins one card per Scryfall `layout`. Each is discovered with
+`is:<layout>` (`t:<layout>` where no `is:` filter exists), ordered
+`released asc` so the first result does not drift as new sets release, and then
+**pinned by id** in `FIXTURE_MAP` (the `discovered_via` note records the query).
+Corpus tests fetch via `scrython.cards.ById` and assert only `layout`.
 
-## Adding New Endpoints
+## Canonical template
 
-1. Add endpoint class in appropriate module (e.g., `scrython/cards/cards.py`)
-2. Set `_endpoint` class variable with path template (use `:param` for path params)
-3. Inherit from `ScrythonRequestHandler` + appropriate mixins
-4. If the module has a factory class (`catalogs`/`migrations`/`rulings`/`symbology`), update its `__new__()` to route to your endpoint; `cards`/`sets`/`bulk_data` have no factory to update
-5. Add new properties to mixin files if Scryfall returns new fields
+`tests/usage/test_cards_named.py` is the copyable template for every new usage
+test:
 
-## Agent skills
+```python
+"""Usage tests for scrython.cards.Named."""
 
-### Issue tracker
+import scrython.cards
 
-GitHub Issues at `NandaScott/Scrython` via the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
-### Triage labels
+def test_named__exact__returns_correct_name(cards_named__black_lotus):
+    card = scrython.cards.Named(exact="Black Lotus")
+    assert card.name == "Black Lotus"
+```
 
-Five canonical roles: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+This demonstrates the full harness path:
 
-### Domain docs
+1. The `cards_named__black_lotus` payload fixture (in `conftest.py`) calls
+   `load_fixture("cards_named__black_lotus")` and arms `stub_response` for the
+   `cards/named` endpoint.
+2. The card is constructed via the dotted public path.
+3. The assertion targets `card.name` — a stable public property.
 
-Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+No internals appear anywhere in the test body.
 
 ---
 > Source: [NandaScott/Scrython](https://github.com/NandaScott/Scrython) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
