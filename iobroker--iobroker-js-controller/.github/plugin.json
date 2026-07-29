@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-js-controller",
+  "displayName": "ioBroker.js-controller",
+  "description": "ioBroker.js-controller",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.js-controller",
+  "skills": []
+}
