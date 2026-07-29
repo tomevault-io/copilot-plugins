@@ -1,42 +1,25 @@
-## supabase
+## trigger
 
-> Supabase conventions (local project, migrations, SSR auth, RLS)
+> Trigger.dev v3 conventions (tasks live in @proxed/jobs)
 
-# Supabase (database + auth)
+# Trigger.dev (v3)
 
-## Repo layout
+## How Trigger is wired in this repo
 
-- Local Supabase project: `packages/supabase/supabase/`
-  - Schemas: `packages/supabase/supabase/schemas/*.sql`
-  - Migrations: `packages/supabase/supabase/migrations/*.sql`
-  - Functions: `packages/supabase/supabase/functions/*`
-- Runtime clients & queries: `packages/supabase/` (import via `@proxed/supabase/*`)
-- Generated types:
-  - Public schema: `packages/supabase/src/types/db.generated.ts` (via `bun run supabase:generate`)
-  - Functions schema (optional): `packages/supabase/src/types/functions.generated.ts` (via `generate-functions` script)
+- Task implementations live in `packages/jobs` (importable as `@proxed/jobs`).
+- Trigger.dev loads from `apps/app/jobs` because `apps/app/trigger.config.ts` has `dirs: ["jobs"]`.
+- Pattern: implement tasks in `packages/jobs`, then re-export them from `apps/app/jobs/*`.
 
-## Commands (run from repo root)
+## Local dev
 
-- Start: `bun run supabase:start`
-- Reset: `bun run supabase:reset`
-- Migrate: `bun run supabase:migrate`
-- New migration: `bun run supabase:migration:create`
-- Typegen: `bun run supabase:generate`
+- From repo root: `bun run dev:trigger`
 
-## Auth (Next.js)
+## Conventions
 
-- Use the shared clients:
-  - Server: `@proxed/supabase/server`
-  - Browser: `@proxed/supabase/client`
-  - Middleware session refresh: `@proxed/supabase/middleware`
-- Do **not** use `@supabase/auth-helpers-nextjs`.
-- Cookie integration must use **only** `getAll` / `setAll` (no `get`/`set`/`remove`).
-
-## DB & RLS guidelines
-
-- Prefer `snake_case` for tables/columns.
-- Enable RLS on new tables and write explicit policies (avoid `FOR ALL`; separate select/insert/update/delete).
-- Default to `security invoker`. If you must use `security definer`, always set an explicit `search_path` and fully-qualify referenced objects.
+- Use `@trigger.dev/sdk/v3` (`task` / `schemaTask`) — never v2 APIs.
+- Always `export` each task and keep `id` unique and stable.
+- Prefer `schemaTask` + Zod schemas for payload validation.
+- Avoid `triggerAndWait` in request/response paths; prefer fire-and-forget with observability.
 
 ---
 > Source: [nech-ai/proxed](https://github.com/nech-ai/proxed) — distributed by [TomeVault](https://tomevault.io).
