@@ -1,33 +1,24 @@
-# claude-code-toolkit
+# AI instruction files for claude-code-toolkit
 
-> Tome by [robertguss](https://github.com/robertguss/claude-code-toolkit) — distributed by [TomeVault](https://tomevault.io/claim/robertguss)
-
-AI instruction files for claude-code-toolkit by robertguss
+> Sourced from [robertguss/claude-code-toolkit](https://github.com/robertguss/claude-code-toolkit), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [robertguss/claude-code-toolkit](https://github.com/robertguss/claude-code-toolkit).
+Original source: `AGENTS.md` in [robertguss/claude-code-toolkit](https://github.com/robertguss/claude-code-toolkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/robertguss](https://tomevault.io/claim/robertguss)
-
-## Bundled Skills (5)
-
-- [book-architect](https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-architect)
-- [book-idea-validator](https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-idea-validator)
-- [book-ideation](https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-ideation)
-- [book-market-research](https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-market-research)
-- [book-research-assistant](https://github.com/robertguss/claude-code-toolkit/tree/main/skills/non-fiction-book-factory/book-research-assistant)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/robertguss/claude-code-toolkit](https://github.com/robertguss/claude-code-toolkit)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/robertguss) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-p -->
