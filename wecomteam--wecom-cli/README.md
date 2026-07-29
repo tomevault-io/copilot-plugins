@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [WecomTeam/wecom-cli](https://github.com/WecomTe
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [WecomTeam/wecom-cli](https://github.com/WecomTeam/wecom-cli) — a repo with 2505+ stars on GitHub.
+From [WecomTeam/wecom-cli](https://github.com/WecomTeam/wecom-cli) — a repo with 2520+ stars on GitHub.
 
 ---
 
