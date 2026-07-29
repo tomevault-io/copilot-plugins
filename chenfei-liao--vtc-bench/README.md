@@ -5,12 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [Chenfei-Liao/VTC-Bench](https://github.com/Chenfei-Liao/VTC-Bench).
+Original source: `AGENTS.md` in [Chenfei-Liao/VTC-Bench](https://github.com/Chenfei-Liao/VTC-Bench).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
