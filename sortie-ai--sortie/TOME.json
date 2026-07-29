@@ -2,9 +2,9 @@
   "name": "sortie",
   "owner": "sortie-ai",
   "repo": "sortie",
-  "description": "Turn tracker tickets into agent sessions",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sortie-ai/sortie",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T19:58:08Z"
+  "distributed_at": "2026-07-29T06:09:36Z"
 }
