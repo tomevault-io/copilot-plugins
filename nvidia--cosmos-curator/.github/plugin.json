@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--cosmos-curator",
+  "displayName": "cosmos-curator",
+  "description": "cosmos-curator",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cosmos-curator",
+  "skills": []
+}
