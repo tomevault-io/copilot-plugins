@@ -1,0 +1,9 @@
+{
+  "name": "v4c38--spectacles-dimensional-os",
+  "displayName": "spectacles-dimensional-os",
+  "description": "Snap Spectacles AR integration with Dimensional OS - contoller for Unitree GO2 and G1 robots.",
+  "version": "1.0.0",
+  "author": "V4C38",
+  "homepage": "https://github.com/V4C38/spectacles-dimensional-os",
+  "skills": []
+}
