@@ -1,0 +1,9 @@
+{
+  "name": "servicecomposer--servicecomposer-aspnetcore",
+  "displayName": "ServiceComposer.AspNetCore",
+  "description": "ServiceComposer.AspNetCore",
+  "version": "1.0.0",
+  "author": "ServiceComposer",
+  "homepage": "https://github.com/ServiceComposer/ServiceComposer.AspNetCore",
+  "skills": []
+}
