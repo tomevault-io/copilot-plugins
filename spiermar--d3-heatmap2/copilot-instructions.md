@@ -1,77 +1,149 @@
 ## d3-heatmap2
 
-> A D3.js-based heatmap visualization library. Renders heatmaps using D3 modules (d3-selection, d3-scale, d3-axis, d3-format, d3-array).
+> **Analysis Date:** 2026-03-07
 
-# AGENTS.md - Agent Coding Guidelines for d3-heatmap2
+# Coding Conventions
 
-## Project Overview
-A D3.js-based heatmap visualization library. Renders heatmaps using D3 modules (d3-selection, d3-scale, d3-axis, d3-format, d3-array).
+**Analysis Date:** 2026-03-07
 
-## Build, Lint, and Test Commands
-- **Install**: `npm install`
-- **Build**: `npm run build` - Uses Vite. Outputs: `dist/d3-heatmap2.es.js`, `dist/d3-heatmap2.umd.js`, `dist/d3-heatmap2.css`. Also builds minified version via `vite.config.min.mjs`
-- **Lint**: `npm run lint` - Runs ESLint on `./src` and `./lib`
-- **Test**: `npm test` - Runs Vitest. Test files use pattern `test/*-test.js`
-- **Single test**: `npx vitest run test/heatmap-color-test.js` (replace with specific test file)
-- **Single test (watch mode)**: `npx vitest test/heatmap-color-test.js`
-- **Dev server**: `npm run dev` - Starts Vite dev server on port 3000
+## Naming Patterns
 
-## Code Style Guidelines
-### Language
-Vanilla JavaScript (ES6+), No TypeScript
+**Files:**
+- Use lowercase with hyphens: `heatmap.js`, `heatmap.css`, `d3-heatmap2.css`
+- Test files: `*-test.js` pattern in `test/` directory
 
-### Formatting
-- 4-space indentation
-- Double quotes for strings
-- No semicolons (StandardJS style)
+**Functions:**
+- camelCase: `clickHandler`, `mouseOver`, `updateHighlight`, `getHighlightFrames`
+- Private helper functions also camelCase: `cantorPair`, `click`, `mouseOver`, `mouseOut`
+
+**Variables:**
+- camelCase: `width`, `margin`, `colorScale`, `gridSize`, `clickHandler`
+- Private variables declared with `var` in closure scope
+
+**Constants:**
+- camelCase (follows StandardJS - no ALL_CAPS)
+- Example from code: `nullValueColor`, `highlightOpacity`
+
+**Types/Classes:**
+- Not applicable (vanilla JS, no classes)
+
+## Code Style
+
+**Formatting:**
+- Tool: StandardJS (ESLint config `"extends": ["standard"]`)
+- 2-space indentation
+- Single quotes for strings
+- No semicolons
 - Trailing commas where appropriate
-- Variable declarations: use `var` for private variables in the closure pattern (see Library Pattern below)
+- Template literals for string interpolation: `` `translate(${legendMargin.left + 8}, ${legendMargin.top})` ``
 
-### Imports
+**Linting:**
+- Tool: ESLint with `eslint-config-standard`
+- Config: `.eslintrc.json` extends "standard"
+- Run via: `gulp lint` or `npm test` (lint runs as part of pretest)
+
+**Key StandardJS Rules Enforced:**
+- No semicolons
+- Single quotes
+- No unused variables
+- Arrow function consistency
+- Import sorting (natural)
+
+## Import Organization
+
+**Order:**
+1. External D3 modules
+2. Local imports (if any)
+
+**Example from `src/heatmap.js`:**
 ```javascript
 import { select } from 'd3-selection'
 import { format } from 'd3-format'
 import { scaleLinear } from 'd3-scale'
 import { range } from 'd3-array'
 import { axisLeft, axisTop, axisBottom } from 'd3-axis'
-import './path/to/styles.css'
 ```
 
-### Project Structure
+**No path aliases configured** - use relative paths from source files.
+
+## Error Handling
+
+**Patterns:**
+- Use `console.log("Error: ...")` for runtime errors
+- Check function types before calling:
+```javascript
+if (typeof clickHandler === 'function') {
+  clickHandler(d, i, j)
+}
 ```
-lib/heatmap.js       # Main library (D3 getter-setter pattern)
-src/main.js          # Demo/entry point
-src/heatmap.css      # Styles
-index.js             # Root entry point
-dist/                # Build output (ES, UMD, CSS)
-test/                # Test files (*-test.js)
-examples/            # Example usage
-public/              # Static assets
-vite.config.mjs      # Vite config for ES/UMD builds
-vite.config.min.mjs  # Vite config for minified build
+- Examples in code:
+  - Line 103: `console.log('Error: Start row is higher than end row. No reverse range highlight.')`
+  - Line 161: `console.log("Error: Can't update highlight. Heatmap was not initialized.")`
+
+**Validation:**
+- Type checking for function handlers
+- Argument length check for getter/setters: `if (!arguments.length) return width`
+
+## Logging
+
+**Framework:** `console.log`
+
+**When to Log:**
+- Error conditions that prevent operation but don't throw
+- Debug information during development
+
+**Patterns:**
+```javascript
+console.log('Error: <descriptive message>')
 ```
 
-### Library Pattern
-The library uses the **D3 getter-setter pattern**:
+## Comments
+
+**When to Comment:**
+- Complex logic sections (e.g., highlight frame calculation)
+- Incomplete implementations (e.g., commented interpolateHcl on line 198)
+- TODO comments not currently found in codebase
+
+**JSDoc/TSDoc:**
+- Not used in this codebase
+
+## Function Design
+
+**Size:**
+- Main heatmap function is large (~400 lines) - accepts this pattern
+- Helper functions are focused: `cantorPair` (3 lines), `click` (4 lines), `getHighlightFrames` (~60 lines)
+
+**Parameters:**
+- Use `arguments` array for getter/setter pattern
+- D3 selection pattern: `function heatmap(selection)`
+
+**Return Values:**
+- Getter/setter methods return the heatmap function for chaining: `return heatmap`
+- Main draw function returns nothing (operates on D3 selection)
+
+## Module Design
+
+**Exports:**
+- Default export for main library: `export default function ()`
+- Named export in index.js: `export {default as heatmap} from './src/heatmap'`
+
+**Barrel Files:**
+- `index.js` serves as re-export barrel
+
+**Library Pattern - D3 Getter/Setter:**
 
 ```javascript
 export default function () {
+  // Private variables
   var width = 960
   var margin = { top: 20, right: 0, bottom: 0, left: 0 }
-  var clickHandler = null
 
-  function click (d, i, j) {
-    if (typeof clickHandler === 'function') {
-      clickHandler(d, i, j)
-    }
-  }
-
+  // Main draw function
   function heatmap (selection) {
     // D3 rendering code here
-    // Use selection.each() to iterate over selections
-    // Use selection.selectAll() to create nested selections
   }
 
+  // Getter/setter methods returning 'heatmap' for chaining
   heatmap.width = function (_) {
     if (!arguments.length) return width
     width = _
@@ -84,100 +156,21 @@ export default function () {
     return heatmap
   }
 
-  heatmap.onClick = function (_) {
-    if (!arguments.length) return clickHandler
-    clickHandler = _
-    return heatmap
-  }
-
   return heatmap
 }
 ```
 
-### Naming Conventions
-- **Functions/variables**: camelCase (`clickHandler`, `colorScale`)
-- **Constants**: camelCase (follows StandardJS - no ALL_CAPS)
-- **CSS classes**: lowercase with hyphens (`.highlight`, `.bordered`, `.legendWrapper`)
-- **Files**: lowercase with hyphens (`heatmap.js`, `d3-heatmap2.css`)
-- **Test files**: `*-test.js` pattern (e.g., `heatmap-color-test.js`)
+**Key Pattern Elements:**
+1. Closure with private variables
+2. Main render function accepting D3 selection
+3. Getter/setter methods with `!arguments.length` check
+4. Methods return the function for chaining
+5. Event handlers checked with `typeof` before invocation
 
-### Error Handling
-- Use `console.log("Error: ...")` for runtime errors (current pattern)
-- Check function types before calling: `if (typeof clickHandler === 'function')`
-- Validate inputs early in public methods
+---
 
-### CSS
-Keep styles in `src/heatmap.css`. Use descriptive class names (e.g., `.legendWrapper`, `.legendRect`, `.title`, `.subtitle`)
-
-### D3 Version
-Uses D3 v5+ modules: d3-selection, d3-scale, d3-axis, d3-format, d3-array
-
-### External Dependencies
-When adding new dependencies:
-1. Add to package.json dependencies or devDependencies
-2. Add to vite.config.mjs `rollupOptions.external` array
-3. Add to `rollupOptions.output.globals` for UMD (maps to global `d3` object)
-4. Add import to source files
-
-## Test Guidelines
-### Test Framework
-Uses Vitest with expect assertions. Test file naming: `test/*-test.js`. Accessibility tests use `vitest-axe` for a11y validation.
-
-### Test Example
-```javascript
-import { describe, it, expect } from 'vitest'
-import { scaleLinear } from 'd3-scale'
-
-describe('feature name', () => {
-  it('should do something specific', () => {
-    const result = someFunction()
-    expect(result).toBe(expectedValue)
-  })
-})
-```
-
-### Running Tests
-- `npm test` - Run all tests
-- `npx vitest run test/heatmap-color-test.js` - Run single test file
-- `npx vitest` - Watch mode
-- `npm run build && npm test` - Build before testing (recommended)
-
-### Accessibility Testing
-Tests in `test/heatmap-accessibility-test.js` use vitest-axe to validate accessibility. Run specifically:
-```bash
-npx vitest run test/heatmap-accessibility-test.js
-```
-
-## Common Tasks
-### Adding a New Configuration Option
-1. Add private variable in the closure
-2. Add getter/setter method returning the function for chaining
-3. Use the variable in the `heatmap` draw function
-
-### Adding a New Event Handler
-1. Add handler variable (`var clickHandler = null`)
-2. Create internal wrapper function checking if handler is a function
-3. Add getter/setter method
-4. Attach event listener in the render code
-
-### Adding a New D3 Dependency
-1. Install: `npm install <package> --save` (or --save-dev)
-2. Add to vite.config.mjs rollupOptions.external
-3. Add to vite.config.mjs rollupOptions.output.globals
-4. Import in relevant source files
-
-## Debugging Tips
-- Use `npm run dev` to start dev server on port 3000
-- Open browser console to see D3 and library logs
-- Check `dist/d3-heatmap2.es.js` for transpiled output
-- Use Vitest watch mode for rapid test iteration: `npx vitest`
-
-## Key Files Reference
-- `lib/heatmap.js` (591 lines) - Main library with all visualization logic
-- `src/main.js` - Demo entry point that uses the heatmap
-- `src/heatmap.css` - All styling including legend, axes, tooltips
-- Test files in `test/` - Unit and accessibility tests
+*Convention analysis: 2026-03-07*
 
 ---
 > Source: [spiermar/d3-heatmap2](https://github.com/spiermar/d3-heatmap2) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
