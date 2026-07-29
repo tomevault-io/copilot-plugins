@@ -1,7 +1,7 @@
 {
   "name": "sqve--grove",
   "displayName": "grove",
-  "description": "A fast, intuitive CLI that makes Git worktrees as simple as switching branches.",
+  "description": "grove",
   "version": "1.0.0",
   "author": "sQVe",
   "homepage": "https://github.com/sQVe/grove",
