@@ -1,0 +1,9 @@
+{
+  "name": "aztfmod--terraform-azurerm-caf",
+  "displayName": "terraform-azurerm-caf",
+  "description": "terraform-azurerm-caf",
+  "version": "1.0.0",
+  "author": "aztfmod",
+  "homepage": "https://github.com/aztfmod/terraform-azurerm-caf",
+  "skills": []
+}
