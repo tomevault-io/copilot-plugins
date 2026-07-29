@@ -1,59 +1,166 @@
 ## nninteractive
 
-> `nnInteractive/` contains the main inference package.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-`nnInteractive/` contains the main inference package.
-- `nnInteractive/inference/`: session-based inference API and CVPR baseline wrapper
-- `nnInteractive/interaction/`: interaction primitives (for example points)
-- `nnInteractive/utils/`: crop, bbox, morphology, and OS utility helpers
-- `nnInteractive/trainer/`: lightweight trainer stub used for checkpoint reconstruction
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Top-level metadata and packaging live in `pyproject.toml`, `setup.py`, and `readme.md`.  
-`nnInteractive/supervoxel/` is an optional subproject with its own `pyproject.toml` and CLI entry points.
+## Project Overview
 
-## Build, Test, and Development Commands
-- `pip install -e .`: editable install for core package development
-- `pip install -e ".[dev]"`: install formatter/linter tooling
-- `black nnInteractive/`: format Python code
-- `ruff check nnInteractive/ --fix`: run lint checks and auto-fix where possible
-- `codespell --skip='.git,*.pdf,*.svg'`: check spelling in source/docs
-- `pre-commit run --all-files`: run all configured hooks locally
+nnInteractive is a 3D interactive medical image segmentation framework. It supports diverse prompt types (points, scribbles, bounding boxes, lasso) using 2D interactions to generate full 3D segmentations. This repository contains the **inference-only** package.
 
-Supervoxel module (optional):
-- `cd nnInteractive/supervoxel/src/sam2 && pip install -e .`
-- `cd nnInteractive/supervoxel && pip install -e .`
+## Build & Development Commands
 
-## Coding Style & Naming Conventions
-Use Python 3.10+ for the main package (`3.9+` in supervoxel).  
-Follow Black formatting defaults (4-space indentation, standardized wrapping) and Ruff guidance before opening a PR.
+```bash
+# Install from source (editable). This repo builds TWO distributions that share the
+# `nnInteractive` namespace (see "Two-distribution layout" below): the torch-free client
+# must be installed first because the full package depends on it.
+pip install -e ./client   # nninteractive-client (torch-free wire client)
+pip install -e .          # nnInteractive (full stack; depends on the client)
 
-Naming patterns in this repository:
-- modules/functions/variables: `snake_case`
-- classes: `PascalCase`
-- constants: `UPPER_SNAKE_CASE`
+# Install with dev tools
+pip install -e ".[dev]"
 
-## Testing Guidelines
-There is currently no dedicated automated test suite in this repository.  
-For changes, add a minimal reproducible validation path:
-- run lint/format commands above
-- run a smoke inference flow using `nnInteractiveInferenceSession` (see `readme.md` example)
-- for supervoxel changes, validate CLI execution with a small sample volume
+# Code formatting
+black nnInteractive/
 
-## Commit & Pull Request Guidelines
-Recent history uses short, imperative commit subjects (for example `fix CPU inference`, `bbox sanity checks`, `bump to 1.1.4`). Prefer:
-- one focused change per commit
-- concise subject line in imperative mood
-- include context in the body for behavior, compatibility, or dependency changes
+# Linting
+ruff check nnInteractive/ --fix
 
-For pull requests, include:
-- what changed and why
-- how to validate (exact commands)
-- related issues/links
-- notes on GPU/PyTorch assumptions when relevant (Torch `<2.9.0` for current compatibility)
+# Spell checking
+codespell --skip='.git,*.pdf,*.svg'
+
+# Pre-commit hooks (after: pre-commit install)
+pre-commit run --all-files
+```
+
+There is no test suite in this repository.
+
+## Architecture
+
+### Two-distribution layout (full package + lightweight client)
+
+The repo builds **two pip distributions** that share the single `nnInteractive` import namespace:
+
+- **`nninteractive-client`** — source under `client/`. Ships *only* `nnInteractive.inference.remote`
+  (the torch-free remote client + the shared wire protocol/serialization). Depends on just
+  `numpy`, `httpx`, `blosc2`. Built from `client/pyproject.toml`.
+- **`nnInteractive`** (full) — source at the repo root. Ships everything else (local engine,
+  server, model management, …) and **depends on `nninteractive-client`**. Built from the root
+  `pyproject.toml`.
+
+How the shared namespace works:
+- `nnInteractive` and `nnInteractive.inference` are **PEP 420 namespace packages** — neither
+  has an `__init__.py`; the two distributions populate disjoint files into the same directory.
+  Both builds therefore use `namespaces = true`, and the full build `exclude`s
+  `nnInteractive.inference.remote*` (client-owned) and `nnInteractive.supervoxel*` (separate
+  package). **Do not add an `__init__.py` to either of those two dirs** — it would make the two
+  distributions ship the same file and break the clean split.
+- Because the layout is layered (disjoint files, full *depends on* client), the two coexist
+  cleanly: `pip install nnInteractive` pulls the client; uninstalling the client leaves the full
+  install intact; a client-only machine upgrades with `pip install nnInteractive` (no uninstall).
+- There is **no `nnInteractive.__version__`** (namespace package has no module to carry it).
+  Read the version via `importlib.metadata.version("nnInteractive")` /
+  `version("nninteractive-client")`. `nnInteractiveInferenceSession.INFERENCE_SESSION_VERSION`
+  does exactly this.
+- Full-only imports from a client-only install raise a friendly "`pip install nnInteractive`"
+  error via a last-resort `sys.meta_path` finder registered in
+  `client/nnInteractive/inference/remote/_full_required.py` (installed when the remote client is
+  imported). It is a no-op when the full package is present.
+- The full server (`server/app.py`) imports the wire serialization from
+  `nnInteractive.inference.remote.serialization`, which is now provided by the client dependency.
+
+### Core Class: `nnInteractiveInferenceSession` (`nnInteractive/inference/inference_session.py`)
+
+Session-based inference engine (~2000 lines) that manages state across multiple predictions. This is the main user-facing API.
+
+**Workflow**: `initialize_from_trained_model_folder()` → `set_image()` → `set_target_buffer()` → `add_*_interaction()` (repeatable)
+
+- **Background threading**: Image preprocessing and interaction initialization run in a ThreadPoolExecutor (max 2 workers) via futures
+- **AutoZoom**: Adaptive patch selection with border change detection; zooms out up to 4x if predictions touch crop boundaries
+- **Refinement**: After coarse prediction, difference maps identify regions needing fine-grained re-prediction
+- **Memory management**: Selective CPU/GPU transfers, pre-allocated tensors, half-precision interactions, pinned memory (disabled on Linux kernel 6.11)
+
+**Important API constraints**:
+- `use_torch_compile` is supported. The session default is `False`, but the **server enables it by default** (disable with `--no-torch-compile`). When enabled, the first prediction is slow (lazy compilation on the first forward pass) but subsequent ones are faster; the one-time compile cost is amortized across the long-lived server process. `nnInteractiveInferenceSession.warmup()` runs a single dummy forward pass at the network's only input shape (`[1, num_input_channels + num_interaction_channels, *patch_size]` — every prediction path uses this shape) to trigger compilation up front; the server calls it at startup so clients never see the first-prediction delay
+- `target_buffer` must be 3D (shape `[X, Y, Z]`), not 4D
+- Scribble and lasso images must match `original_image_shape[1:]` (the original uncropped spatial shape)
+- `add_initial_seg_interaction()` **resets all existing interactions** (see WARNING in its docstring)
+- `reset_interactions()` also clears the target buffer
+- If multiple `add_*_interaction()` calls are made without calling `_predict()`, only the last added interaction center is used for the initial prediction (all centers are queued, but only the last is consumed)
+- Images should **not** be preprocessed (no normalization, no level-window). The session handles all preprocessing internally
+
+### 7-Channel Interaction Tensor Layout
+
+The interaction tensor has shape `[7, D, H, W]` in half precision (but can vary — `num_interaction_channels` is set from `capability['interaction_channels']`):
+| Channel | Content |
+|---------|---------|
+| 0 | Initial segmentation |
+| 1 | Positive bounding box / Lasso |
+| 2 | Negative bounding box / Lasso |
+| 3 | Positive points |
+| 4 | Negative points |
+| 5 | Positive scribble |
+| 6 | Negative scribble |
+
+### Capability / Channel Mapping System
+
+`initialize_from_trained_model_folder()` reads model metadata from:
+1. `inference_info.json` (new format) — contains `supported_interactions`, `channel_mapping`, `interaction_channels`, `interaction_decay`, `point_radius`, etc.
+2. `inference_session_class.json` (legacy format) — falls back to hardcoded defaults
+
+The capability system (`_apply_capability()`) normalizes all channel indices to positive values at load time. Channel mappings use pairs `[pos_channel, neg_channel]` for interactions and a single index for `prev_seg`.
+
+### Model Checkpoint Structure
+
+A trained model folder must contain:
+- `inference_info.json` (or legacy `inference_session_class.json`)
+- `dataset.json`
+- `plans.json`
+- `fold_{N}/checkpoint_final.pth` (or `fold_all/` for ensemble)
+
+A trained model folder may also contain:
+- `LICENSE` — the model's license. **Only the first non-empty line is read** and exposed as `session.license` (a short identifier, e.g. `CC BY-NC-SA 4.0`); any following lines (URL, full license text, …) are for human readers and are ignored. If the file is absent the loader falls back to the official-checkpoint heuristic (`_is_official_checkpoint` → `CC BY-NC-SA 4.0`), otherwise it reports `!!MISSING!!`. The license is printed on load and surfaced over the remote `/capabilities` endpoint so GUIs can display it.
+
+Official weights are hosted on HuggingFace at `MIC-DKFZ/nnInteractive`. The selectable models are enumerated by a `models.json` manifest at the root of that HF repo (not of this git repo); discovery/download is handled by `nnInteractive/model_management.py` (`list_models`, `ensure_model_available`, `get_default_model_id`), which stores models under `$NNINTERACTIVE_MODEL_DIR` (default `~/.nninteractive`). The default model is currently `nnInteractive_v1.0`.
+
+### Key Modules
+
+- **`nnInteractive/interaction/point.py`**: Point interaction with spherical structuring elements and distance transforms. `build_point()` uses `lru_cache` for structuring element reuse.
+- **`nnInteractive/trainer/nnInteractiveTrainer.py`**: Minimal stub extending nnUNetv2. Used only for architecture reconstruction from checkpoints. Adds 7 extra input channels (`num_input_channels + 7`) on top of image channels.
+- **`nnInteractive/utils/crop.py`**: Tensor cropping/padding with boundary handling (`crop_and_pad_into_buffer`, `paste_tensor`, `crop_to_valid`, `pad_cropped`)
+- **`nnInteractive/utils/bboxes.py`**: Greedy set cover algorithm for generating refinement patch bounding boxes from difference maps; falls back to random sampling when recursion depth exceeds `max_depth`
+- **`nnInteractive/utils/erosion_dilation.py`**: `iterative_3x3_same_padding_pool3d` — used for dilation of point/scribble channels before downsampling (zoom-out) and for morphological opening of the diff map
+- **`nnInteractive/utils/checkpoint_cleansing.py`**: Utility to strip optimizer state and trainer class from checkpoints before release
+- **`nnInteractive/inference/cvpr2025_challenge_baseline/predict.py`**: Reference script for the CVPR 2025 challenge baseline (stateless per-call API wrapper around `nnInteractiveInferenceSession`)
+- **`nnInteractive/supervoxel/`**: Optional separate module for SAM-based supervoxel generation (has its own `pyproject.toml` and installation)
+
+### Key Dependencies
+
+- **`nnunetv2`** (>=2.7.0): Provides network architecture, ConfigurationManager, PlansManager, preprocessing pipeline
+- **`torch`** (>=2.1.2, !=2.9.*): PyTorch 2.9 is excluded due to OOM bugs with 3D convolutions
+- **`acvl-utils`** (>=0.2.3, <0.3): Spatial operations (cropping, padding)
+
+### Coordinate System
+
+Images are 4D numpy arrays `[C, X, Y, Z]`. Images are intentionally **not** cropped during preprocessing: interactions, predictions and the target buffer all live in the original image's coordinate space, so all `add_*_interaction()` coordinates are used as-is (the nonzero region is located only to compute normalization statistics).
+
+Bounding box coordinates use `[[x1, x2], [y1, y2], [z1, z2]]` half-open intervals throughout. Current pretrained models only support **2D bounding boxes** (one dimension must have size 1).
+
+### `_predict()` Implementation Notes
+
+The `_predict()` method (decorated with `@torch.inference_mode()`) is highly optimized for minimal VRAM usage. Comments in the code note that the implementation has been extensively tuned and changes should only be made after fully understanding the VRAM/timing implications. The method:
+1. Runs an initial coarse prediction at `zoom_out_factor`
+2. Detects changes at prediction borders (`_detect_change_at_border`) and iteratively zooms out (up to 4x, growth factor 1.5) if needed
+3. If `zoom_out_factor == 1`: directly pastes prediction into interactions and target buffer
+4. If `zoom_out_factor > 1`: computes a diff map, morphologically opens it, then runs refinement patches via `_refine_coarse()`
+
+### Platform Workarounds
+
+- Linux kernel 6.11 detection (`utils/os_shennanigans.py`) disables pinned memory due to a kernel bug
+- `interaction_decay` (default 0.98, legacy 0.9) downweights older interaction channels (all except `prev_seg`) on each prediction cycle
 
 ---
 > Source: [MIC-DKFZ/nnInteractive](https://github.com/MIC-DKFZ/nnInteractive) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
