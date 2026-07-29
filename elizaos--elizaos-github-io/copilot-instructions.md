@@ -1,150 +1,464 @@
 ## elizaos-github-io
 
-> This document provides a comprehensive overview of the Contributor Analytics project for AI agents and human contributors.
+> This document provides a comprehensive guide for an AI agent to effectively write, run, and manage unit and integration tests for a NextJS/TypeScript SDK project using Bun's built-in test runner.
 
-# Contributor Analytics: Agent & Developer Guide
+# AGENTS.md
 
-This document provides a comprehensive overview of the Contributor Analytics project for AI agents and human contributors.
-
-## 1. Project Overview
-
-A sophisticated analytics platform for GitHub repositories that tracks, analyzes, scores, and summarizes contributor activity.
-
-**Core Features:**
-
-- **Data Ingestion**: Fetches PRs, issues, commits, reviews, comments from GitHub API
-- **Scoring System**: Configurable algorithm scoring contributions by type, complexity, impact
-- **AI Summaries**: Daily, weekly, monthly summaries using LLMs (via OpenRouter)
-- **Data Pipelines**: Modular TypeScript pipeline system
-- **Web Interface**: Next.js static site with leaderboards and contributor profiles
-- **Automation**: GitHub Actions for daily processing and deployment
-
-**Tech Stack:**
-
-- Frontend: Next.js 15, React, TypeScript, Tailwind CSS, shadcn/ui
-- Backend/Pipelines: TypeScript, Bun
-- Database: SQLite with Drizzle ORM
-- CI/CD: GitHub Actions
+This document provides a comprehensive guide for an AI agent to effectively write, run, and manage unit and integration tests for a NextJS/TypeScript SDK project using Bun's built-in test runner.
 
 ---
 
-## 2. System Architecture
+## 🚀 Getting Started
 
-### 2.1. Data Pipeline (`src/lib/pipelines/` & `cli/`)
+Bun comes with a built-in, Jest-compatible test runner that's incredibly fast. To start, you don't need to install any extra packages. The test runner is part of the `bun` CLI.
 
-The TypeScript-based pipeline system handles all data operations:
+### File Discovery
 
-- **Entry Point**: `cli/analyze-pipeline.ts`
-- **Orchestration**: Functional composition (`pipe`, `parallel`, `mapStep`)
-- **Configuration**: `config/pipeline.config.ts` reads from `PIPELINE_CONFIG_FILE`
+Bun's test runner automatically finds and executes tests in files that match the following patterns anywhere in your project:
 
-**Pipeline Stages:**
+- `*.test.{js|jsx|ts|tsx}`
+- `*_test.{js|jsx|ts|tsx}`
+- `*.spec.{js|jsx|ts|tsx}`
+- `*_spec.{js|jsx|ts|tsx}`
 
-1. **Ingest**: Fetch from GitHub API → store in SQLite
-2. **Process**: Calculate scores and expertise tags
-3. **Export**: Generate JSON/MD files for frontend
-4. **Summarize**: AI-generated summaries via OpenRouter
+### Test file locations
 
-### 2.2. Database (`src/lib/data/` & `drizzle/`)
+This codebase colocates test files with the code files, so dont put tests in separate **test** directories.
 
-SQLite database as single source of truth:
+### Running Tests
 
-- **Schema**: `src/lib/data/schema.ts` using Drizzle ORM
-- **Tables**: users, repositories, pullRequests, issues, reviews, comments, scores
-- **Migrations**: `drizzle/` directory, managed by Drizzle Kit
+Execute tests using the `bun test` command.
 
-### 2.3. Frontend (`src/app/` & `src/components/`)
+```shell
+# Run all tests in the project
+bun test
 
-Static Next.js 15 application for GitHub Pages:
+# Run all tests within a specific directory (by path fragment)
+bun test <directory_name>
 
-- **SSG**: Server Components query SQLite at build time
-- **Routing**: App Router with dynamic date-based pages
-- **Styling**: Tailwind CSS + shadcn/ui components
+# Run a specific test file (by path fragment)
+bun test <filename_fragment>
 
-### 2.4. Auth Worker (`auth-worker/`)
-
-Cloudflare Worker for GitHub OAuth:
-
-- Exchanges GitHub code for access token
-- Enables wallet linking feature for contributor profiles
-
----
-
-## 3. Automation (`.github/`)
-
-### Workflows
-
-- **`run-pipelines.yml`**: Daily at 23:00 UTC, runs full pipeline chain
-- **`deploy.yml`**: Builds and deploys to GitHub Pages
-- **`pr-checks.yml`**: Linting, type checking, build verification
-
-### Custom Actions
-
-- **`pipeline-data`**: Manages `_data` branch lifecycle via Git worktrees
-- **`restore-db`**: Serializes/deserializes SQLite for version control
-
-### Data Branch Strategy
-
-- `main`: Application code
-- `_data`: Generated data and SQLite dumps
-
----
-
-## 4. Configuration
-
-Pipeline reads from JSON file specified by `PIPELINE_CONFIG_FILE` env var:
-
-```bash
-# Local development
-export PIPELINE_CONFIG_FILE=config/example.json
-```
-
-**Config options** (`config/example.json`):
-
-- `PIPELINE_REPOS`: Repository list to track
-- `PIPELINE_START_DATE`: Contribution tracking start date
-- `PIPELINE_PROJECT_CONTEXT`: AI summary context
-- `PIPELINE_SCORING`: Scoring rules for PRs, issues, reviews
-- `PIPELINE_TAGS`: Area/role/tech tag definitions
-- `PIPELINE_BOT_USERS`: Bot accounts to exclude
-
----
-
-## 5. Development
-
-### Data Sync Utility
-
-Pull production data for local development:
-
-```bash
-bun run data:sync              # Sync from upstream
-bun run data:sync --help       # See all options
-```
-
-### Schema Changes
-
-1. Modify `src/lib/data/schema.ts`
-2. Run `bun run db:generate`
-3. Run `bun run db:migrate`
-
-### Testing Pipelines
-
-```bash
-bun run pipeline --help        # See all options
-bun run pipeline ingest -d 7   # Small date range
-bun run pipeline process -f    # Force reprocess
+# Run a specific test file by its exact path
+bun test ./tests/specific-file.test.ts
 ```
 
 ---
 
-## 6. TypeScript Guidelines
+## ✍️ Writing Tests
 
-- Prefer type inference over manual signatures
-- Never cast to `any` - fix underlying type issues
-- Search for existing types/schemas before creating new ones
-- Avoid comments on self-explanatory code
-- Use `bun:test` for testing
+Bun's test runner is designed to be a drop-in replacement for Jest. It uses a familiar `describe`, `test`, and `expect` API.
+
+### Basic Test Structure
+
+Tests are defined with the `test()` function (or its alias `it()`) and grouped into suites with `describe()`. Assertions are made using `expect()`.
+
+```typescript
+// Import test utilities from bun:test
+import { test, expect, describe } from "bun:test";
+
+describe("SDK Math Utilities", () => {
+  // A simple synchronous test
+  test("should add two numbers correctly", () => {
+    expect(2 + 2).toBe(4);
+  });
+
+  // An asynchronous test using async/await
+  test("should resolve a promise", async () => {
+    const result = await Promise.resolve("hello");
+    expect(result).toEqual("hello");
+  });
+});
+```
+
+### Assertions with `expect`
+
+Bun implements the full Jest `expect` API. Here are some common matchers:
+
+- `.toBe(value)`: Strict equality (`===`).
+- `.toEqual(value)`: Deep equality for objects and arrays.
+- `.toThrow(error?)`: Checks if a function throws an error.
+- `.toHaveBeenCalled()`: For checking if a mock function was called.
+- `.toHaveBeenCalledWith(...args)`: Checks arguments passed to a mock.
+- `.toMatchSnapshot()`: Performs snapshot testing.
+- `.toMatchInlineSnapshot()`: Performs inline snapshot testing.
+
+You can also verify that a certain number of assertions were called, which is useful in asynchronous code.
+
+```typescript
+test("should run a specific number of assertions", () => {
+  expect.hasAssertions(); // Ensures at least one assertion is called
+  expect.assertions(2); // Ensures exactly two assertions are called
+
+  expect(1).toBe(1);
+  expect(true).not.toBe(false);
+});
+```
+
+### Parametrized Tests with `.each`
+
+Run the same test logic with different data using `test.each` or `describe.each`. This is ideal for data-driven testing.
+
+```typescript
+const additionCases = [
+  [1, 2, 3],
+  [0, 0, 0],
+  [-5, 5, 0],
+];
+
+test.each(additionCases)("add(%i, %i) should equal %i", (a, b, expected) => {
+  expect(a + b).toBe(expected);
+});
+```
+
+---
+
+## 🧪 Test Database & Mock Data
+
+For integration tests that involve database queries, the project provides helper functions to ensure a consistent and isolated testing environment.
+
+### Test Database Setup
+
+Use the `setupTestDb` function from `src/__testing__/helpers/db.ts` to create a fresh, in-memory SQLite database for your test suites. This function handles schema migrations automatically.
+
+**Pattern:** Instantiate the database at the beginning of your `describe` block.
+
+```typescript
+import { describe, test, expect } from "bun:test";
+import { setupTestDb } from "@/src/__testing__/helpers/db";
+
+describe("Database-Related Feature", () => {
+  const db = setupTestDb();
+  // ... tests that use db instance
+});
+```
+
+### Mock Data Generation
+
+Use the mock data generators from `src/__testing__/helpers/mock-data.ts` (e.g., `generateMockUsers`, `generateMockPullRequests`) to populate your test database. These functions use `@faker-js/faker` to produce realistic data and allow you to override any fields for specific test cases.
+
+### Complete Test Example
+
+Follow this pattern for writing tests that interact with the database. This ensures that tests are self-contained, repeatable, and easy to understand.
+
+```typescript
+import { describe, test, expect } from "bun:test";
+import { setupTestDb } from "@/src/__testing__/helpers/db";
+import {
+  generateMockUsers,
+  generateMockPullRequests,
+} from "@/src/__testing__/helpers/mock-data";
+import * as schema from "@/lib/data/schema";
+import { getRepositoryContributors } from "./queries"; // The function being tested
+
+describe("Repository Queries", () => {
+  const db = setupTestDb();
+
+  test("should return unique contributors for a given repository", async () => {
+    // 1. Arrange: Insert mock data
+    const users = generateMockUsers([
+      { username: "user-a" },
+      { username: "user-b" },
+    ]);
+    await db.insert(schema.users).values(users);
+
+    const pullRequests = generateMockPullRequests([
+      { author: "user-a", repository: "test-repo" },
+      { author: "user-b", repository: "test-repo" },
+      { author: "user-a", repository: "another-repo" }, // Should be filtered out
+    ]);
+    await db.insert(schema.rawPullRequests).values(pullRequests);
+
+    // 2. Act: Call the function
+    const contributors = await getRepositoryContributors(db, "test-repo");
+
+    // 3. Assert: Verify the result
+    expect(contributors).toHaveLength(2);
+    expect(contributors.map((c) => c.username).sort()).toEqual([
+      "user-a",
+      "user-b",
+    ]);
+  });
+});
+```
+
+---
+
+## 🔬 Advanced Testing Techniques
+
+### Mocking
+
+#### Mocking Functions
+
+Use `mock()` to create a mock function. This allows you to track calls, arguments, and return values.
+
+```typescript
+import { test, expect, mock } from "bun:test";
+
+const getAPIData = mock((id: string) => ({ id, data: "some data" }));
+
+test("API data fetching", () => {
+  const result = getAPIData("user-123");
+
+  expect(getAPIData).toHaveBeenCalled();
+  expect(getAPIData).toHaveBeenCalledTimes(1);
+  expect(getAPIData).toHaveBeenCalledWith("user-123");
+  expect(result.data).toBe("some data");
+});
+```
+
+#### Spying on Methods
+
+Use `spyOn()` to track calls to an existing object's method without replacing its original implementation.
+
+```typescript
+import { test, expect, spyOn } from "bun:test";
+
+const analyticsService = {
+  trackEvent(eventName: string) {
+    console.log(`Event tracked: ${eventName}`);
+  },
+};
+
+test("should track events", () => {
+  const spy = spyOn(analyticsService, "trackEvent");
+
+  analyticsService.trackEvent("sdk_initialized");
+
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith("sdk_initialized");
+});
+```
+
+#### Mocking Modules
+
+To mock an entire module, create a preload script and tell Bun to load it before running tests.
+
+1.  **Create the preload script:**
+
+    ```typescript
+    // mocks/my-module-mock.ts
+    import { mock } from "bun:test";
+
+    mock.module("./path/to/original-module", () => {
+      return {
+        default: () => "mocked function result",
+        someNamedExport: "mocked value",
+      };
+    });
+    ```
+
+2.  **Run tests with the `--preload` flag:**
+    ```shell
+    bun test --preload ./mocks/my-module-mock.ts
+    ```
+3.  **Or configure it in `bunfig.toml`:**
+    ```toml
+    [test]
+    preload = ["./mocks/my-module-mock.ts"]
+    ```
+
+### Snapshot Testing
+
+Snapshot tests are useful for ensuring that large objects or UI components don't change unexpectedly.
+
+```typescript
+import { test, expect } from "bun:test";
+
+test("SDK configuration object snapshot", () => {
+  const config = {
+    apiKey: "key-123",
+    retries: 3,
+    features: {
+      featureA: true,
+      featureB: false,
+    },
+  };
+  // On the first run, this creates a .snap file.
+  // On subsequent runs, it compares the object to the saved snapshot.
+  expect(config).toMatchSnapshot();
+});
+
+test("inline snapshot", () => {
+  // The snapshot is written directly into the test file by Bun.
+  expect({ foo: "bar" }).toMatchInlineSnapshot(`
+      {
+        "foo": "bar",
+      }
+    `);
+});
+```
+
+To update snapshots if the change is intentional:
+
+```shell
+bun test --update-snapshots
+```
+
+### DOM Testing for NextJS Components
+
+For testing NextJS components, you'll need a DOM environment and a testing library.
+
+1.  **Install Dependencies:**
+
+    ```shell
+    bun add -D @happy-dom/global-registrator @testing-library/react @testing-library/jest-dom
+    ```
+
+2.  **Create a Preload Script for Setup:** Create two files to configure the environment.
+
+    ```typescript
+    // tests/setup/happydom.ts
+    import { GlobalRegistrator } from "@happy-dom/global-registrator";
+    GlobalRegistrator.register();
+    ```
+
+    ```typescript
+    // tests/setup/testing-library.ts
+    import { afterEach, expect } from "bun:test";
+    import { cleanup } from "@testing-library/react";
+    import * as matchers from "@testing-library/jest-dom/matchers";
+
+    // Extend Bun's expect with Jest-DOM matchers
+    expect.extend(matchers);
+
+    // Clean up the DOM after each test
+    afterEach(() => {
+      cleanup();
+    });
+    ```
+
+3.  **Configure `bunfig.toml`:**
+
+    ```toml
+    [test]
+    preload = ["./tests/setup/happydom.ts", "./tests/setup/testing-library.ts"]
+    ```
+
+4.  **Write a Component Test:** Now you can write tests for your React components.
+
+    ```tsx
+    // components/MyComponent.test.tsx
+    import { test, expect } from "bun:test";
+    import { render, screen } from "@testing-library/react";
+    import MyComponent from "./MyComponent"; // Your React component
+
+    test("MyComponent should render correctly", () => {
+      render(<MyComponent />);
+      const element = screen.getByText("Hello from Component");
+      expect(element).toBeInTheDocument();
+    });
+    ```
+
+---
+
+## ⚙️ Configuration and CLI
+
+### Controlling Test Execution
+
+- **Run only specific tests:** Use `.only` on `test` or `describe` blocks.
+
+  ```typescript
+  test.only("this test will run", () => {});
+  test("this test will be skipped", () => {});
+  ```
+
+  To run all tests marked with `.only`, use the `--only` flag: `bun test --only`.
+
+- **Skip tests:** Use `.skip` to temporarily disable tests.
+
+  ```typescript
+  test.skip("this test is skipped", () => {});
+  ```
+
+- **Filter by name:** Run tests whose name matches a pattern.
+
+  ```shell
+  bun test -t "should add"
+  ```
+
+- **Bail on failure:** Stop the test run after a certain number of failures.
+
+  ```shell
+  bun test --bail # Stop after the first failure
+  bun test --bail=3 # Stop after 3 failures
+  ```
+
+- **Set timeouts:** Change the default 5-second timeout.
+
+  ```shell
+  # Set timeout via CLI for all tests
+  bun test --timeout 10000 # 10 seconds
+
+  # Set timeout for a specific test
+  test("long running task", async () => {
+    // ...
+  }, 30000); // 30s timeout for this test
+  ```
+
+### Watch Mode
+
+For rapid development, run tests in watch mode to automatically re-run them on file changes.
+
+```shell
+bun test --watch
+```
+
+### Code Coverage
+
+Generate a code coverage report using the `--coverage` flag.
+
+```shell
+bun test --coverage
+```
+
+You can configure coverage options in `bunfig.toml`.
+
+```toml
+[test]
+# Always generate coverage
+coverage = true
+
+# Set a minimum coverage threshold (e.g., 80%)
+# The test run will fail if coverage is below this value.
+coverageThreshold = 0.8
+
+# Exclude test files from the coverage report
+coverageSkipTestFiles = true
+```
+
+---
+
+## 🔄 CI/CD Integration
+
+To integrate Bun tests into a CI pipeline like GitHub Actions, you can use a workflow like this:
+
+```yaml
+# .github/workflows/test.yml
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Run Tests
+        run: bun test
+```
+
+For more detailed reporting in CI systems, you can generate a JUnit XML report.
+
+```shell
+bun test --reporter=junit --reporter-outfile=./junit-report.xml
+```
 
 ---
 > Source: [elizaOS/elizaos.github.io](https://github.com/elizaOS/elizaos.github.io) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
