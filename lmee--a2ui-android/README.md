@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [lmee/A2UI-Android](https://github.com/lmee/A2UI-Android).
+Original source: `AGENTS.md` in [lmee/A2UI-Android](https://github.com/lmee/A2UI-Android).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [lmee/A2UI-Android](https://github.com/lmee/A2UI-Android) — a repo with 69+ stars on GitHub.
