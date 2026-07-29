@@ -1,16 +1,15 @@
 # mobvibe
 
-> Source: [Eric-Song-Nop/mobvibe](https://github.com/Eric-Song-Nop/mobvibe) — distributed by [TomeVault](https://tomevault.io)
-
-Just a open Claude Code Remote Control
+> Source: [Eric-Song-Nop/mobvibe](https://github.com/Eric-Song-Nop/mobvibe). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Eric-Song-Nop/mobvibe](https://github.com/Eric-Song-Nop/mobvibe).
+Original source: `` in [Eric-Song-Nop/mobvibe](https://github.com/Eric-Song-Nop/mobvibe).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
