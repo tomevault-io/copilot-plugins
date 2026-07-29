@@ -1,0 +1,9 @@
+{
+  "name": "gensecaihq--wazuh-mcp-server",
+  "displayName": "Wazuh-MCP-Server",
+  "description": "Wazuh-MCP-Server",
+  "version": "1.0.0",
+  "author": "gensecaihq",
+  "homepage": "https://github.com/gensecaihq/Wazuh-MCP-Server",
+  "skills": []
+}
