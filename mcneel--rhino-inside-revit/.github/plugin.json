@@ -1,0 +1,9 @@
+{
+  "name": "mcneel--rhino-inside-revit",
+  "displayName": "rhino.inside-revit",
+  "description": "rhino.inside-revit",
+  "version": "1.0.0",
+  "author": "mcneel",
+  "homepage": "https://github.com/mcneel/rhino.inside-revit",
+  "skills": []
+}
