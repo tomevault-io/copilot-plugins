@@ -1,30 +1,11 @@
 ## sourcekit-bazel-bsp
 
-> sourcekit-bazel-bsp is a Build Server Protocol (BSP) implementation that bridges sourcekit-lsp (Swift's official Language Server Protocol) with Bazel-based iOS projects. It enables iOS development in alternative IDEs like Cursor and VSCode by providing language server features without requiring the Xcode IDE.
+> This folder contains a VSCode extension that serves as a companion of the BSP two parent folders above. It waits for the BSP to provide a build graph and processes it in order to provide a wide variety of IDE features.
 
 # AGENTS.md
 
-## Project Overview
-
-sourcekit-bazel-bsp is a Build Server Protocol (BSP) implementation that bridges sourcekit-lsp (Swift's official Language Server Protocol) with Bazel-based iOS projects. It enables iOS development in alternative IDEs like Cursor and VSCode by providing language server features without requiring the Xcode IDE.
-
-The project itself is built using Swift Package Manager. There is also a `Example/` folder containing a Bazel iOS application demonstrating the tool's functionality, as well as a `vscode-extension/` containing a helper VSCode/Cursor extension that acts as a companion to the main BSP code.
-
-When adding new CLI flags to Serve.swift, you should also add them to the `rules/setup_sourcekit_bsp.bzl` Bazel equivalent if applicable.
-
-## Common Commands
-
-### Base instructions
-- When done with your changes, always run the linting, formatting, and test commands mentioned below.
-- For Bazel content, always use with `bazelisk` instead of `bazel`.
-
-### For the tool itself
-- **Debug build**: `swift build`
-- **Release build**: `swift build -c release`
-- **Lint**: `swift format lint Sources/ Tests/ Example/ --recursive`
-- **Format**: `swift format Sources/ Tests/ Example/ --recursive --in-place`
-- **Run tests**: `swift test`
+This folder contains a VSCode extension that serves as a companion of the BSP two parent folders above. It waits for the BSP to provide a build graph and processes it in order to provide a wide variety of IDE features.
 
 ---
 > Source: [spotify/sourcekit-bazel-bsp](https://github.com/spotify/sourcekit-bazel-bsp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
