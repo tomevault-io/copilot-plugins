@@ -1,8 +1,6 @@
 # sourcekit-bazel-bsp
 
-> Source: [spotify/sourcekit-bazel-bsp](https://github.com/spotify/sourcekit-bazel-bsp) — distributed by [TomeVault](https://tomevault.io)
-
-iOS Development (and more) in alternative IDEs like Cursor / VSCode, for Bazel projects
+> Source: [spotify/sourcekit-bazel-bsp](https://github.com/spotify/sourcekit-bazel-bsp). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [spotify/sourcekit-bazel-bsp](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [spotify/sourcekit-bazel-bsp](https://github.com/spotify/sourcekit-bazel-bsp) — a repo with 428+ stars on GitHub.
+From [spotify/sourcekit-bazel-bsp](https://github.com/spotify/sourcekit-bazel-bsp) — a repo with 437+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
