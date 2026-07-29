@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-iot",
+  "displayName": "ioBroker.iot",
+  "description": "ioBroker.iot",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.iot",
+  "skills": []
+}
