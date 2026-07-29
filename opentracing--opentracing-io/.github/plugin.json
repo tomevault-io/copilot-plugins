@@ -1,0 +1,9 @@
+{
+  "name": "opentracing--opentracing-io",
+  "displayName": "opentracing.io",
+  "description": "opentracing.io",
+  "version": "1.0.0",
+  "author": "opentracing",
+  "homepage": "https://github.com/opentracing/opentracing.io",
+  "skills": []
+}
