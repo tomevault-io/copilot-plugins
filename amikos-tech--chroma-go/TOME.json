@@ -4,7 +4,7 @@
   "repo": "chroma-go",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amikos-tech/chroma-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T07:57:50Z"
+  "distributed_at": "2026-07-29T08:08:27Z"
 }
