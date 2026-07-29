@@ -7,14 +7,14 @@ Secure AI Integration for iOS Apps
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [nech-ai/proxed](https://github.com/nech-ai/proxed).
+Original source: `.cursor/rules/*.mdc` in [nech-ai/proxed](https://github.com/nech-ai/proxed).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/nech-ai/proxed](https://github.com/nech-ai/proxed)
