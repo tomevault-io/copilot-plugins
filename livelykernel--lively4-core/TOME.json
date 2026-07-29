@@ -4,7 +4,7 @@
   "repo": "lively4-core",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LivelyKernel/lively4-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T14:55:30Z"
+  "distributed_at": "2026-07-29T22:44:37Z"
 }
