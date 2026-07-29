@@ -1,0 +1,9 @@
+{
+  "name": "aws-powertools--powertools-lambda-python",
+  "displayName": "powertools-lambda-python",
+  "description": "powertools-lambda-python",
+  "version": "1.0.0",
+  "author": "aws-powertools",
+  "homepage": "https://github.com/aws-powertools/powertools-lambda-python",
+  "skills": []
+}
