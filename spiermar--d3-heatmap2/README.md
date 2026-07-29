@@ -1,15 +1,16 @@
 # d3-heatmap2
 
-> Tome by [spiermar](https://github.com/spiermar/d3-heatmap2) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [spiermar](https://github.com/spiermar/d3-heatmap2), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [spiermar/d3-heatmap2](https://github.com/spiermar/d3-heatmap2).
+Original source: `` in [spiermar/d3-heatmap2](https://github.com/spiermar/d3-heatmap2).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
