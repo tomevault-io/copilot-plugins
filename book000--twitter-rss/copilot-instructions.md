@@ -1,0 +1,39 @@
+## twitter-rss
+
+> Twitter (X.com) の検索結果から RSS フィードを生成し GitHub Pages へデプロイするツール（TypeScript / Node.js）。以下の観点でプルリクエストをレビューすること。指摘・レビューコメントは日本語で記載する。
+
+# GitHub Copilot コードレビュー指示
+
+Twitter (X.com) の検索結果から RSS フィードを生成し GitHub Pages へデプロイするツール（TypeScript / Node.js）。以下の観点でプルリクエストをレビューすること。指摘・レビューコメントは日本語で記載する。
+
+## 重点的に確認する点
+
+- **型安全性**: `strict` モード前提。`any` の新規使用、不要な型アサーション（`as`）、`skipLibCheck` の追加は指摘する。
+- **エラーハンドリング**: スクレイピング・ネットワーク・ファイル I/O は失敗しうる。握りつぶし（空 catch）や未処理の Promise を指摘する。エラーメッセージは英語であること。
+- **認証情報の扱い**: Twitter 認証情報・プロキシ設定・Cookie は環境変数／`.env`／`data/` で管理する。これらをコードやログに出力・ハードコードしていないか確認する。`data/twitter-cookies.json` や `.env` をコミットに含めていないか確認する。
+- **ファイル名サニタイズ**: RSS ファイル名は `sanitizeFileName()` でパストラバーサル対策を行っている。ファイル名生成やパス結合を変更する PR では、この防御が維持されているか（`..` やパス区切り文字の除去）を確認する。
+- **JSDoc**: 関数・インターフェースには日本語 JSDoc を付ける規約。新規追加時の欠落を指摘する。
+
+## プロジェクト規約（lint/formatter で強制）
+
+- Prettier: **セミコロンなし・シングルクォート**（`semi: false`, `singleQuote: true`）。これに反するスタイルを指摘する。
+- ESLint: `@book000/eslint-config` に準拠。
+- 日本語と英数字の間に半角スペースを入れる（コメント・ドキュメント）。
+- コミットは Conventional Commits、description は日本語。
+
+## フラグすべきでない既知パターン（誤検知回避）
+
+- **テストの不在**: このリポジトリにテストフレームワークは導入されていない。「テストが無い」という指摘は不要。品質は型・Lint と CI で担保する。
+- **`yarn build` がコンパイルしない**: `build` は `ts-node` で `src/main.ts` を直接実行する（＝RSS 生成の実行）。「build なのに tsc を呼んでいない」という指摘は誤り。コンパイルは `yarn compile`。
+- **Cookie の 90 日キャッシュ**: `COOKIE_EXPIRY_DAYS = 90` は意図的な設計（Twitter セッションは数ヶ月有効、CI が毎実行 `savedAt` を更新）。短すぎる／長すぎるという指摘は不要。
+- **JA3 と UserAgent のバージョン差**: JA3（Chrome 120 相当）と UserAgent（Chrome 135 相当）が一致しないのは既知かつ意図的。TLS フィンガープリントと UA は独立しているため不一致を不具合として指摘しない。
+- **`main` / `master` 両対応**: CI が両ブランチを対象にするのは意図的。
+
+## 対象外
+
+- `data/searches.json` の検索クエリ内容（運用データであり、レビュー対象のコード品質ではない）。
+- Renovate が作成した依存更新 PR への追加コミット提案。
+
+---
+> Source: [book000/twitter-rss](https://github.com/book000/twitter-rss) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
