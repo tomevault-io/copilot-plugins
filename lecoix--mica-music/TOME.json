@@ -1,0 +1,44 @@
+{
+  "name": "mica-music",
+  "owner": "lecoix",
+  "repo": "mica-music",
+  "description": "\u4e00\u6b3e\u4ee5\u6781\u7b80\u76f4\u89d2\u4e3a\u8bbe\u8ba1\u8bed\u8a00\u7684\u672c\u5730\u97f3\u4e50\u64ad\u653e\u5668",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lecoix/mica-music",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-29T04:32:38Z"
+}
