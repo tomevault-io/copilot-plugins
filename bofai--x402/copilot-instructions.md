@@ -1,86 +1,56 @@
 ## x402
 
-> This is the rules knowledge base. Every file here is a **self-contained rule sheet** Claude loads on demand when the touched code matches its scope. Rules override defaults; CLAUDE.md at the repo root sets the floor.
+> Target: **Node 20+**. `pnpm >= 11` workspace + `turbo` build graph. All packages ESM-only, published as `@bankofai/x402-*`. See [typescript/CLAUDE.md](../../../typescript/CLAUDE.md) for build/test commands and the full fork/scheme rules — this sheet is the convention floor.
 
-# .claude/rules/ — knowledge base index
+# TypeScript conventions (x402)
 
-This is the rules knowledge base. Every file here is a **self-contained rule sheet** Claude loads on demand when the touched code matches its scope. Rules override defaults; CLAUDE.md at the repo root sets the floor.
+Target: **Node 20+**. `pnpm >= 11` workspace + `turbo` build graph. All packages ESM-only, published as `@bankofai/x402-*`. See [typescript/CLAUDE.md](../../../typescript/CLAUDE.md) for build/test commands and the full fork/scheme rules — this sheet is the convention floor.
 
-The SDK is a **TypeScript-only** pnpm/turbo monorepo under [typescript/](../../typescript/CLAUDE.md). `core` and `mechanisms/evm` are **upstream forks** (keep byte-identical, additions go in overlays); `mechanisms/tron` is in-house. There is no Python in the current SDK. (The previous-generation Python + old TypeScript code lives under `legacy/` and is slated for removal — these rules do **not** cover it.)
+## Tooling
 
-## When Claude reads what
+- **Package manager**: `pnpm` (workspace at `typescript/pnpm-workspace.yaml`). No `npm` / `yarn` lockfiles.
+- **Build**: `turbo run build` per package → `dist/` (**gitignored**). The `examples/` workspace links these packages and builds from source — rebuild after changing SDK source. Don't import from `dist/` in source or tests.
+- **Tests**: `vitest`. Unit in `packages/*/test/unit` (`pnpm test`, offline). Integration in `packages/*/test/integrations/*.nile.test.ts` (real chains, self-skip). See [testing/conventions.md](../testing/conventions.md).
+- **tsconfig**: extend `tsconfig.base.json`. Do not disable `strict`, `noUncheckedIndexedAccess`, or `noImplicitOverride`.
 
-| Scope of the change | Always read | Also read |
-|---|---|---|
-| Any file in the repo | [common/conventions.md](common/conventions.md) | — |
-| TypeScript under `typescript/packages/` | common/ | [typescript/conventions.md](typescript/conventions.md) |
-| Scheme `exact` (ERC-3009 / Permit2) | common/ | [schemes/exact.md](schemes/exact.md) |
-| Scheme `upto` (usage-based) | common/ | [schemes/upto.md](schemes/upto.md) |
-| Scheme `batch-settlement` (payment channels) | common/ | [schemes/batch-settlement.md](schemes/batch-settlement.md) |
-| Scheme `auth-capture` (EVM authorize+capture) | common/ | [schemes/auth-capture.md](schemes/auth-capture.md) |
-| Scheme `exact_gasfree` (TRON GasFree) | common/ | [schemes/exact-gasfree.md](schemes/exact-gasfree.md) + [networks/tron.md](networks/tron.md) |
-| TRON mechanisms (`mechanisms/tron`) | common/ | [networks/tron.md](networks/tron.md) |
-| EVM mechanisms (`mechanisms/evm`) | common/ | [networks/evm.md](networks/evm.md) |
-| Tests (`packages/*/test/**`) | common/ | [testing/conventions.md](testing/conventions.md) |
+## Idioms
 
-When multiple rule files apply, read all of them before editing. Rules are layered, not exclusive.
+- **`"type": "module"` everywhere**. Explicit `.js` suffixes on relative imports (Node ESM resolution).
+- **No default exports** in public API packages. Named exports only.
+- **`BigInt`** for all amounts. `number` only for chainIds, timestamps, loop counters. Serialize with `.toString()` — never re-encode through `Number`.
+- **Typed data via `viem`** (EVM) and the in-tree TIP-712 signer (`mechanisms/tron`). Convert TRON Base58 → 0x-hex with `tronAddressToEvm` / `normalizeAddressForSigning` **before** any typed-data signing.
+- **Errors**: `X402Error` subclasses; preserve facilitator error codes as discriminants.
+- **No `any`** — prefer `unknown` + narrowing. **No `require()`**. **No `console.log` in library code** — accept a logger via options or return data.
 
-## Layout
+## Package structure
 
-```
-.claude/rules/
-├── common/
-│   └── conventions.md      # repo-wide: addressing, amounts, headers, pipeline, commit style
-├── schemes/
-│   ├── exact.md            # ERC-3009 / Permit2 (extra.assetTransferMethod)
-│   ├── upto.md             # usage-based: sign up-to-max, settle actual
-│   ├── batch-settlement.md # payment channels: deposit + off-chain vouchers + refund
-│   ├── auth-capture.md     # EVM authorize then capture
-│   └── exact-gasfree.md    # TRON GasFree custodial + TIP-712 relayer
-├── networks/
-│   ├── evm.md              # eip155:<chainId>, contracts, signing
-│   └── tron.md             # tron:<hexChainId>, TIP-712 hex-address rule, GasFree link
-├── typescript/
-│   └── conventions.md      # pnpm/turbo, ESM, viem/tronweb, fork+overlay, signer factories
-└── testing/
-    └── conventions.md      # vitest unit + integration layout, self-skip, mocking
-```
+Consumers import granular packages directly — there is **no umbrella `@bankofai/x402` package**.
 
-## Authoring a new rule
+- `core` (`@bankofai/x402-core`) — protocol types, client/server/facilitator orchestration, http resource server, chain-agnostic `Wallet` contracts.
+- `mechanisms/{evm,tron}` — per-chain schemes; one workspace package per chain family. **Mechanisms must not cross-import** (`evm` ⊄ `tron`); shared types go in `core`.
+- `extensions` — payload extensions (gas-sponsoring, offer-receipt, sign-in-with-x).
+- `http/{fetch,express,fastify,hono,next,axios}`, `mcp` — transports.
+- `packages/legacy`, `packages/x402-deprecated` — **frozen** back-compat. Do not add new code there.
 
-Add a rule **only when the knowledge is non-obvious and would otherwise be relearned by reading prod incidents**. Rules earn their place by preventing a bug that already happened, or codifying a convention that silently breaks things when ignored.
+## Upstream fork — the load-bearing rule
 
-Structure every rule file:
+`core` and `mechanisms/evm` are **forked from `x402-foundation/x402`**. Keep them **byte-identical to upstream modulo the `@x402/* → @bankofai/x402-*` rename**.
 
-1. **Header** — one line: what scope this covers + pointer to the authoritative source (the package source, or [typescript/CLAUDE.md](../../typescript/CLAUDE.md)).
-2. **When to use** — the decision the rule answers.
-3. **Key invariants** — the short list that must hold.
-4. **Common gotchas** — cite commits. Every bullet should map to a real incident.
-5. **Testing** — where the tests live and what template to reuse.
+- **Put BankofAI additions in NEW overlay files; never edit upstream files.** Overlays live in `core/src/wallets/`, `mechanisms/evm/src/adapters/`, etc.
+- Before changing an upstream-derived file (`signer.ts`, `exact/**`, `upto/**`, `shared/permit2.ts`, …) ask whether it belongs in an overlay. A bug that "looks upstream" is usually the **overlay wiring** — fix it there.
+- `mechanisms/tron` has **no upstream** — owned here; edit directly.
 
-### New scheme
+## Signer factories (adapter layer)
 
-1. New scheme classes per role under `mechanisms/<chain>/src/<scheme>/{client,facilitator,server}` — `<Scheme><Chain>Scheme`, same class name across roles, role = import subpath (see [typescript/CLAUDE.md](../../typescript/CLAUDE.md)).
-2. New rule at `.claude/rules/schemes/<scheme>.md`.
-3. Register the scheme on the client/facilitator with `new + register` (thin pass-through register helpers are not added).
-
-### New network
-
-1. New rule at `.claude/rules/networks/<name>.md` — chain ids, signing rules, RPC defaults, contract table.
-2. If it introduces a new signing flavor (e.g. a TIP-712 analogue), document the conversion helpers.
-
-## Relation to other surfaces
-
-- **[typescript/CLAUDE.md](../../typescript/CLAUDE.md)** — the SDK's own build/test/layout guide and the fork/overlay + signer-factory + scheme-API rules. Rules here cite it; it is the authoritative source for structure.
-- **.claude/agents/** — specialized reviewers (`code-reviewer`, `security-reviewer`) that load the rules relevant to their domain. Payment-path / signing changes route through `security-reviewer`.
-- **.claude/commands/x402/** — slash-command wizards that scaffold code conforming to these rules.
+Wallet → signer adaptation lives in the overlay, not upstream `signer.ts`. Convention:
+**`create<Role><Chain>Signer(wallet, { network, rpcUrl?, apiKey? })`** — Role ∈ {Client, Facilitator, Authorizer}, Chain ∈ {Evm, Tron}. The factory builds the chain client internally from the CAIP-2 `network`; callers pass a structural `Wallet`, not a chain client. Unit-test by mocking the client builder (`createEvmPublicClient` / `buildTronWeb`), not by injecting a chain client.
 
 ## Don'ts
 
-- **No code examples longer than 10 lines** in a rule.
-- **No rule without a scope.** If you can't say which file touches trigger it, it belongs in `CLAUDE.md` instead.
-- **No rules that rot.** Anything citing a specific line number or commit that isn't a historical anchor will drift — prefer filenames and invariants.
+- **No default exports in public packages.** **No `any`.** **No `require()`.** **No `console.log` in library code.**
+- **No cross-mechanism imports.** **No editing upstream-forked files** when an overlay will do.
+- **No thin pass-through `register<Scheme>` helpers** — use `new + register`.
 
 ---
 > Source: [BofAI/x402](https://github.com/BofAI/x402) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
