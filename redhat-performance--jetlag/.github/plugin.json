@@ -1,0 +1,9 @@
+{
+  "name": "redhat-performance--jetlag",
+  "displayName": "jetlag",
+  "description": "jetlag",
+  "version": "1.0.0",
+  "author": "redhat-performance",
+  "homepage": "https://github.com/redhat-performance/jetlag",
+  "skills": []
+}
