@@ -59,4 +59,4 @@ Or run `hana-cli <command> --help` for any specific command.
 
 ---
 > Source: [SAP-samples/cap-hana-exercises-codejam](https://github.com/SAP-samples/cap-hana-exercises-codejam) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
