@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--amazon-transcribe-live-meeting-assistant",
+  "displayName": "amazon-transcribe-live-meeting-assistant",
+  "description": "amazon-transcribe-live-meeting-assistant",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/amazon-transcribe-live-meeting-assistant",
+  "skills": []
+}
