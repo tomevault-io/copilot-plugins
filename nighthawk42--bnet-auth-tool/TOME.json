@@ -4,7 +4,7 @@
   "repo": "bnet_auth_tool",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nighthawk42/bnet_auth_tool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T03:43:55Z"
+  "distributed_at": "2026-07-29T21:51:24Z"
 }
