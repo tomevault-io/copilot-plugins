@@ -1,58 +1,61 @@
 ## unibest
 
-> - 如果返回用户名 → 已登录，继续步骤 2
+> - 使用 Composition API 和 `<script setup>` 语法
 
-# NPM 发布工作流
+# Vue3 + TypeScript 开发规范
 
-## 发布步骤
+## Vue 组件规范
+- 使用 Composition API 和 `<script setup>` 语法
+- 组件文件使用 PascalCase 命名
+- 页面文件放在 `src/pages/` 目录下
+- 全局组件文件放在 `src/components/` 目录下
+- 局部组件文件放在页面的 `/components/` 目录下
 
-### 1. 检查登录状态
-```bash
-npm whoami
-```
-- 如果返回用户名 → 已登录，继续步骤 2
-- 如果返回错误或空 → 未登录，执行 `npm login`
+## Vue SFC 组件规范
+- `<script setup lang="ts">` 标签必须是第一个子元素
+- `<template>` 标签必须是第二个子元素
+- `<style scoped>` 标签必须是最后一个子元素（因为推荐使用原子化类名，所以很可能没有）
 
-### 2. 登录 npm（如果未登录）
-```bash
-npm login
-# 输入用户名、密码，然后等待 OTP 验证码
-```
-- 密码输入不会显示，是正常的
-- OTP 会通过邮箱或 Authenticator app 发送
-- 如果登录失败（如 401），说明会话过期，需要重新登录
+## TypeScript 规范
+- 严格使用 TypeScript，避免使用 `any` 类型
+- 为 API 响应数据定义接口类型
+- 使用 `interface` 定义对象类型，`type` 定义联合类型
+- 导入类型时使用 `import type` 语法
 
-### 3. 升级版本号
-```bash
-cd /path/to/package
-npm version patch --no-git-tag-version
-```
+## 状态管理
+- 使用 Pinia 进行状态管理
+- Store 文件放在 `src/store/` 目录下
+- 使用 `defineStore` 定义 store
+- 支持持久化存储
 
-### 4. 构建项目
-```bash
-pnpm build
-# 或 npm run build
-```
+## 示例代码结构
+```vue
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import type { UserInfo } from '@/types/user'
 
-### 5. 发布到 npm
-```bash
-npm publish --no-workspaces
-```
+const userInfo = ref<UserInfo | null>(null)
 
-### 6. 处理 OTP 验证码
-发布命令可能返回 `EOTP` 错误，要求提供一次性验证码：
-- **首次发布时直接需要 OTP**：询问用户 OTP 后加 `--otp` 参数重试
-- **首次发布不需要 OTP**：等待 npm 返回 EOTP 后再询问
+onMounted(() => {
+  // 初始化逻辑
+})
+</script>
 
-### 7. OTP 验证后重新发布
-```bash
-npm publish --no-workspaces --otp=<验证码>
-```
+<template>
+  <view class="container">
+    <!-- 模板内容 -->
+  </view>
+</template>
 
-## 完整命令序列
-
-```bash
+<style lang="scss" scoped>
+.container {
+  // 样式
+}
+</style>
+---
+globs: *.vue,*.ts,*.tsx
+---
 
 ---
 > Source: [codercup/unibest](https://github.com/codercup/unibest) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
