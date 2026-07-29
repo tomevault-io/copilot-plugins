@@ -5,13 +5,13 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [binbashar/le-ref-architecture-doc](https://github.com/binbashar/le-ref-architecture-doc).
+Original source: `.cursor/rules/*.mdc` in [binbashar/le-ref-architecture-doc](https://github.com/binbashar/le-ref-architecture-doc).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
