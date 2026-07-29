@@ -1,0 +1,9 @@
+{
+  "name": "openiothub--server-go",
+  "displayName": "server-go",
+  "description": "server-go",
+  "version": "1.0.0",
+  "author": "OpenIoTHub",
+  "homepage": "https://github.com/OpenIoTHub/server-go",
+  "skills": []
+}
