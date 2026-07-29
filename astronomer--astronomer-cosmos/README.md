@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [astronomer/astronomer-cosmos](https://github.com/astronomer/astronomer-cosmos).
+Original source: `CLAUDE.md` in [astronomer/astronomer-cosmos](https://github.com/astronomer/astronomer-cosmos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [astronomer/astronomer-cosmos](https://github.com/astronomer/astronomer-cosmos) — a repo with 1232+ stars on GitHub.
+From [astronomer/astronomer-cosmos](https://github.com/astronomer/astronomer-cosmos) — a repo with 1233+ stars on GitHub.
 
 ---
 
