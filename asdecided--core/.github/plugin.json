@@ -1,0 +1,9 @@
+{
+  "name": "asdecided--core",
+  "displayName": "core",
+  "description": "Native deterministic requirements-as-code engine and read-only MCP server.",
+  "version": "1.0.0",
+  "author": "asdecided",
+  "homepage": "https://github.com/asdecided/core",
+  "skills": []
+}
