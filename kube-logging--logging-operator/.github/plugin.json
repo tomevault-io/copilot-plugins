@@ -1,0 +1,9 @@
+{
+  "name": "kube-logging--logging-operator",
+  "displayName": "logging-operator",
+  "description": "logging-operator",
+  "version": "1.0.0",
+  "author": "kube-logging",
+  "homepage": "https://github.com/kube-logging/logging-operator",
+  "skills": []
+}
