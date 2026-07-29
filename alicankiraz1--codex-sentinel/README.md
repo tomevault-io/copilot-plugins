@@ -1,8 +1,6 @@
 # Codex-Sentinel
 
-> Tome by [alicankiraz1](https://github.com/alicankiraz1/Codex-Sentinel) — distributed by [TomeVault](https://tomevault.io)
-
-Stage-aware security skills for Codex that surface planning gaps, offer opt-in reviews, and help teams ship safer code without pretending to certify security.
+> Tome by [alicankiraz1](https://github.com/alicankiraz1/Codex-Sentinel), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [alicankiraz1/Codex-Sentinel](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [alicankiraz1/Codex-Sentinel](https://github.com/alicankiraz1/Codex-Sentinel) — a repo with 74+ stars on GitHub.
+From [alicankiraz1/Codex-Sentinel](https://github.com/alicankiraz1/Codex-Sentinel) — a repo with 78+ stars on GitHub.
 
 ---
 
