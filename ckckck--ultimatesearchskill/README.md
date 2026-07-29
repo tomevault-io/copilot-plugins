@@ -1,6 +1,6 @@
 # AI instruction files for UltimateSearchSkill
 
-> Sourced from [ckckck/UltimateSearchSkill](https://github.com/ckckck/UltimateSearchSkill) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [ckckck/UltimateSearchSkill](https://github.com/ckckck/UltimateSearchSkill), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,10 +16,10 @@ Original source: `` in [ckckck/UltimateSearchSkill](https://github.com/ckckck/Ul
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ckckck/UltimateSearchSkill](https://github.com/ckckck/UltimateSearchSkill)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ckckck/UltimateSearchSkill](https://github.com/ckckck/UltimateSearchSkill)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
