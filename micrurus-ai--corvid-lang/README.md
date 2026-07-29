@@ -1,16 +1,15 @@
 # AI instruction files for Corvid-lang
 
-> Sourced from [Micrurus-Ai/Corvid-lang](https://github.com/Micrurus-Ai/Corvid-lang) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-The programming language that checks your AI before it runs.
+> Sourced from [Micrurus-Ai/Corvid-lang](https://github.com/Micrurus-Ai/Corvid-lang), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Micrurus-Ai/Corvid-lang](https://github.com/Micrurus-Ai/Corvid-lang).
+Original source: `` in [Micrurus-Ai/Corvid-lang](https://github.com/Micrurus-Ai/Corvid-lang).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
@@ -21,6 +20,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
