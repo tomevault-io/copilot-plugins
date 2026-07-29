@@ -1,7 +1,7 @@
 {
   "name": "svnscha--mcp-windbg",
   "displayName": "mcp-windbg",
-  "description": "Model Context Protocol for WinDBG",
+  "description": "mcp-windbg",
   "version": "1.0.0",
   "author": "svnscha",
   "homepage": "https://github.com/svnscha/mcp-windbg",
