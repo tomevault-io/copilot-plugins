@@ -1,0 +1,44 @@
+{
+  "name": "spectacles-dimensional-os",
+  "owner": "V4C38",
+  "repo": "spectacles-dimensional-os",
+  "description": "Snap Spectacles AR integration with Dimensional OS - contoller for Unitree GO2 and G1 robots.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/V4C38/spectacles-dimensional-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-29T23:36:52Z"
+}
