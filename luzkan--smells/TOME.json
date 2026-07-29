@@ -4,7 +4,7 @@
   "repo": "smells",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Luzkan/smells",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T23:37:52Z"
+  "distributed_at": "2026-07-29T10:56:35Z"
 }
