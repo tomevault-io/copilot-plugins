@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nats-rs",
+  "displayName": "nats.rs",
+  "description": "nats.rs",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nats.rs",
+  "skills": []
+}
