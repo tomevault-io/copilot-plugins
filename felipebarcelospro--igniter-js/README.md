@@ -1,8 +1,6 @@
 # AI instruction files for igniter-js
 
-> Sourced from [felipebarcelospro/igniter-js](https://github.com/felipebarcelospro/igniter-js) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Igniter is a modern, type-safe HTTP framework designed to streamline the development of scalable TypeScript applications.
+> Sourced from [felipebarcelospro/igniter-js](https://github.com/felipebarcelospro/igniter-js), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
