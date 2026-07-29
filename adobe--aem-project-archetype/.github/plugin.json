@@ -1,0 +1,9 @@
+{
+  "name": "adobe--aem-project-archetype",
+  "displayName": "aem-project-archetype",
+  "description": "aem-project-archetype",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/aem-project-archetype",
+  "skills": []
+}
