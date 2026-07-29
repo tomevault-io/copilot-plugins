@@ -1,0 +1,9 @@
+{
+  "name": "hapifhir--hapi-fhir",
+  "displayName": "hapi-fhir",
+  "description": "hapi-fhir",
+  "version": "1.0.0",
+  "author": "hapifhir",
+  "homepage": "https://github.com/hapifhir/hapi-fhir",
+  "skills": []
+}
