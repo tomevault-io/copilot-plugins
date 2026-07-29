@@ -1,0 +1,9 @@
+{
+  "name": "ocamllabs--vscode-ocaml-platform",
+  "displayName": "vscode-ocaml-platform",
+  "description": "vscode-ocaml-platform",
+  "version": "1.0.0",
+  "author": "ocamllabs",
+  "homepage": "https://github.com/ocamllabs/vscode-ocaml-platform",
+  "skills": []
+}
