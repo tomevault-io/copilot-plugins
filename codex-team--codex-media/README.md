@@ -1,0 +1,29 @@
+# codex.media
+
+> Tome by [codex-team](https://github.com/codex-team/codex.media), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `` in [codex-team/codex.media](https://github.com/codex-team/codex.media).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/codex-team/codex.media](https://github.com/codex-team/codex.media)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install codex-team/codex.media
+```
+Source: [github.com/codex-team/codex.media](https://github.com/codex-team/codex.media).
+
+<!-- genome:t-i-p -->
