@@ -1,223 +1,279 @@
 ## unifi-toolkit
 
-> FastAPI-based web dashboard for UniFi network management and monitoring. Deployed via Docker (Synology NAS, Unraid, etc.).
+> **Analysis Date:** 2026-03-18
 
-# UniFi Toolkit
+# Coding Conventions
 
-## Overview
-FastAPI-based web dashboard for UniFi network management and monitoring. Deployed via Docker (Synology NAS, Unraid, etc.).
+**Analysis Date:** 2026-03-18
 
-## Tech Stack
-- **Backend:** Python 3.9+, FastAPI, SQLAlchemy (async, SQLite), Alembic migrations, aiohttp (UniFi API)
-- **Frontend:** Jinja2 templates, vanilla JS (main dashboard), Alpine.js (Network Pulse)
-- **Auth:** Optional session-based auth (production mode)
+## Naming Patterns
 
-## Architecture
+**Files:**
+- Use `snake_case.py` for all Python modules: `unifi_client.py`, `unifi_session.py`, `url_validator.py`
+- Test files prefixed with `test_`: `test_auth.py`, `test_cache.py`, `test_crypto.py`
+- Routers named by domain: `auth.py`, `config.py`, `events.py`, `devices.py`, `webhooks.py`
+- Database models in `database.py` (SQLAlchemy) or `models.py` (Pydantic) per tool
+
+**Functions:**
+- Use `snake_case` for all functions: `get_gateway_info()`, `decrypt_password()`, `run_migrations()`
+- Private/internal functions prefixed with underscore: `_repair_schema()`, `_normalize_timestamp()`, `_parse_legacy_ips_event()`, `_add_missing_columns()`, `_is_expired()`
+- Getters use `get_` prefix: `get_settings()`, `get_database()`, `get_scheduler()`, `get_cipher()`
+- Setters use `set_` prefix: `set_gateway_info()`, `set_ips_settings()`
+- Boolean checkers use `is_` prefix: `is_auth_enabled()`, `_is_expired()`
+- Factory functions use `create_` prefix: `create_app()`, `create_session()`
+
+**Variables:**
+- Use `snake_case` for all variables: `gateway_info`, `ips_settings`, `password_hash`
+- Constants use `UPPER_SNAKE_CASE`: `CACHE_TTL_SECONDS`, `DEFAULT_REFRESH_INTERVAL`, `RETENTION_DAYS`, `RATE_LIMIT_WINDOW`
+- Private module-level state prefixed with underscore: `_scheduler`, `_settings`, `_database`, `_cache`, `_sessions`
+
+**Types/Classes:**
+- Use `PascalCase` for classes: `UniFiClient`, `ThreatEvent`, `ToolkitSettings`, `SecurityHeadersMiddleware`
+- SQLAlchemy models are singular nouns: `ThreatEvent`, `UniFiConfig`, `ThreatIgnoreRule`
+- Pydantic models use descriptive suffixes: `ThreatEventResponse`, `WebhookCreate`, `WebhookUpdate`, `IgnoreRuleResponse`
+- Pydantic CRUD pattern: `{Entity}Create`, `{Entity}Update`, `{Entity}Response`, `{Entity}ListResponse`
+
+## Code Style
+
+**Formatting:**
+- Black formatter with line length 100 (configured in `pyproject.toml`)
+- Target Python versions: 3.9, 3.10, 3.11, 3.12
+
+**Linting:**
+- Ruff linter with line length 100, target Python 3.9 (configured in `pyproject.toml`)
+- mypy configured with `warn_return_any = true`, `warn_unused_configs = true`, `disallow_untyped_defs = false`
+
+**Line Length:** 100 characters max
+
+**Quotes:** Double quotes for strings throughout
+
+**Trailing Commas:** Used in multi-line function calls, dicts, and lists
+
+## Import Organization
+
+**Order:**
+1. Standard library imports (`os`, `sys`, `logging`, `datetime`, `pathlib`, `typing`)
+2. Third-party imports (`fastapi`, `sqlalchemy`, `pydantic`, `aiohttp`, `bcrypt`)
+3. Local application imports (`shared.config`, `shared.database`, `tools.threat_watch.models`)
+
+**Path Style:**
+- Absolute imports throughout: `from shared.config import get_settings`
+- No relative imports used
+- Individual items imported by name: `from sqlalchemy import select, func, desc`
+
+**Common Import Patterns:**
+```python
+# Logging setup at module top
+import logging
+logger = logging.getLogger(__name__)
+
+# Type hints from typing
+from typing import Optional, Dict, List, Any, AsyncGenerator
+
+# FastAPI router pattern
+from fastapi import APIRouter, Depends, HTTPException, Query
+router = APIRouter(prefix="/api/events", tags=["events"])
+
+# Database session dependency
+from shared.database import get_db_session
 ```
-app/
-├── main.py              # FastAPI app, /api/system-status endpoint, lifespan
-├── __init__.py          # __version__
-├── routers/             # auth, config endpoints
-├── templates/           # Jinja2 (dashboard.html is the main UI)
-├── static/              # CSS, JS assets
-shared/
-├── unifi_client.py      # UniFi API client (1800+ lines) — core data fetching
-├── unifi_session.py     # Shared singleton session management
-├── database.py          # Async SQLite via SQLAlchemy
-├── cache.py             # In-memory cache with TTL
-├── config.py            # Settings via environment
-├── crypto.py            # Password/API key encryption
-tools/
-├── wifi_stalker/        # Client tracking tool
-├── threat_watch/        # IDS/IPS monitoring
-├── network_pulse/       # Network health dashboard (Alpine.js frontend)
+
+## Module Structure
+
+**Every Python module starts with a docstring:**
+```python
+"""
+Brief description of the module's purpose
+"""
 ```
 
-## Key Patterns
+**Standard module layout:**
+1. Module docstring
+2. Standard library imports
+3. Third-party imports
+4. Local imports
+5. Module-level constants
+6. Module-level logger: `logger = logging.getLogger(__name__)`
+7. Private state variables (prefixed with `_`)
+8. Classes and functions
+9. Singleton getters at bottom
 
-### Version Management
-Version is maintained in THREE files — keep them in sync:
-- `pyproject.toml` → `version = "X.Y.Z"`
-- `app/__init__.py` → `__version__ = "X.Y.Z"`
-- `app/main.py` → `version="X.Y.Z"` (FastAPI constructor)
+## Singleton Pattern
 
-### UniFi API Client (`shared/unifi_client.py`)
-- **UniFi OS only** — legacy standalone controller support was removed in v1.11.0 (aiounifi dependency dropped)
-- All API calls use `/proxy/network/api/` prefix via aiohttp
-- Health endpoint returns subsystems: wan, wan2+, lan, wlan, vpn, www
-- WAN detection is dynamic via `startswith('wan')` — supports N WANs
-- **Signal strength:** UniFi API returns separate `rssi` and `signal` fields — use `signal` (matches console display) with `rssi` fallback
-- **v2 traffic-flows payload:** The v2 endpoint supports a filtered payload format with `pageNumber`/`pageSize`/`timestampFrom`/`timestampTo` and a `policy_type` array for server-side filtering (e.g., `["INTRUSION_PREVENTION"]` for IPS-only events). The old `limit`/`offset`/`timeRange` format returns ALL flows unfiltered. Auto-detection via `_v2_uses_new_payload` flag handles both formats.
+Use module-level private variables with getter functions for singletons:
 
-### Schema Repair (`run.py → _repair_schema()`)
-- Runs on every startup after Alembic migrations
-- Safety net for when `create_all` causes Alembic to stamp-to-head, skipping ADD COLUMN ops
-- Must cover ALL migration-added columns — when adding a new Alembic migration that adds a column, also add it to `_repair_schema()`
-- Uses `_add_missing_columns()` helper — pass table name and dict of `{col_name: col_sql}`
+```python
+# In shared/config.py
+_settings: Optional[ToolkitSettings] = None
 
-### Threat Watch Retention & Purge
-- Events older than 30 days are auto-purged by the scheduler (runs at most once per hour, piggybacks on the 60s refresh cycle)
-- `RETENTION_DAYS` and `PURGE_INTERVAL_SECONDS` constants in `tools/threat_watch/scheduler.py`
-- Frontend defaults to 7-day view via `time_range` filter; backend supports `24h`, `7d`, `30d`
-
-### Debug Info (`/api/debug-info`)
-- Returns non-sensitive system info (versions, deployment, gateway, firmware) for issue reporting
-- Dashboard footer has "Debug Info" link → modal with copy-to-clipboard
-- "Report Issue" link also uses this endpoint to pre-populate GitHub issues
-
-### Firmware Compatibility
-- **Only stable/GA UniFi firmware is supported** — Early Access (EA) firmware frequently changes API endpoints without notice
-- Do NOT suggest users switch firmware channels or attempt to support EA builds
-- When users report API issues, firmware version is the first thing to check (now included in debug info)
-
-### Data Flow (Dashboard)
-```
-UniFi Controller → unifi_client.py (get_health, get_system_info)
-  → /api/system-status endpoint (main.py)
-  → dashboard.html JS (fetches every 60s)
+def get_settings() -> ToolkitSettings:
+    global _settings
+    if _settings is None:
+        _settings = ToolkitSettings()
+    return _settings
 ```
 
-### Threat Watch Data Flow
+This pattern is used consistently for: `get_settings()` in `shared/config.py`, `get_database()` in `shared/database.py`, `get_scheduler()` in scheduler modules, `get_ws_manager()` in `shared/websocket_manager.py`.
+
+## Error Handling
+
+**API Endpoints:**
+- Use `HTTPException` for client errors (400, 404):
+  ```python
+  raise HTTPException(status_code=404, detail="Event not found")
+  raise HTTPException(status_code=400, detail="Either password or api_key must be provided")
+  ```
+- Catch generic exceptions, log with `exc_info=True`, return error detail:
+  ```python
+  except Exception as e:
+      logger.error(f"Failed to save UniFi config: {type(e).__name__}: {e}", exc_info=True)
+      raise HTTPException(status_code=500, detail=f"Failed to save configuration: {type(e).__name__}: {str(e)}")
+  ```
+- Re-raise `HTTPException` before catching generic `Exception`:
+  ```python
+  except HTTPException:
+      raise
+  except Exception as e:
+      ...
+  ```
+
+**Background Tasks / Schedulers:**
+- Log errors and continue (don't crash the scheduler):
+  ```python
+  except Exception as e:
+      logger.error(f"Error delivering webhook: {e}", exc_info=True)
+      return False
+  ```
+
+**Startup Errors:**
+- Print to stdout with banner formatting and `sys.exit(1)`:
+  ```python
+  print("=" * 70)
+  print("ERROR: ENCRYPTION_KEY not set in .env file!")
+  print("=" * 70)
+  sys.exit(1)
+  ```
+
+**Connection Errors:**
+- Return structured error responses (not exceptions) for UniFi connection issues:
+  ```python
+  return {"configured": True, "connected": False, "error": "Failed to connect"}
+  ```
+
+## Logging
+
+**Framework:** Python `logging` module via `logging.getLogger(__name__)`
+
+**Patterns:**
+- Use `logger.info()` for significant state changes (startup, config saved, scheduler started)
+- Use `logger.debug()` for cache hits, intermediate steps, diagnostic info
+- Use `logger.warning()` for recoverable issues (update check failed, migration sync)
+- Use `logger.error()` for failures, with `exc_info=True` for stack traces
+- Use f-strings in log messages: `logger.info(f"Cached gateway info: {data.get('gateway_name')}")`
+
+**Log Format:** `%(asctime)s - %(name)s - %(levelname)s - %(message)s`
+
+## Comments
+
+**When to Comment:**
+- Explain WHY, not WHAT: `# is_unifi_os is auto-detected during connection, default to False for storage`
+- Note deprecated fields: `# Deprecated: is_unifi_os is now auto-detected during connection`
+- Document API quirks: `# inner_alert_signature`, `# inner_alert_category / catname`
+- Mark known issues or workarounds
+
+**Docstrings:**
+- Use triple-double-quote docstrings on all public functions and classes
+- Google-style format with Args/Returns/Yields sections:
+  ```python
+  def encrypt_password(password: str) -> bytes:
+      """
+      Encrypt a password using Fernet symmetric encryption
+
+      Args:
+          password: Plain text password to encrypt
+
+      Returns:
+          Encrypted password as bytes
+      """
+  ```
+- Short one-line docstrings for simple functions: `"""Get the global settings instance (singleton pattern)"""`
+
+## Function Design
+
+**Size:** Most functions are 10-40 lines. Endpoint handlers can be longer (50-100 lines) when building complex queries.
+
+**Parameters:**
+- Use type hints on all function parameters and return types
+- Use `Optional[str]` for nullable parameters, not `str | None` (Python 3.9 compat)
+- Use Pydantic `Field()` for request model validation with `description`, `ge`, `le`
+- Use FastAPI `Query()` for endpoint query parameters with descriptions and validation
+
+**Return Values:**
+- Return Pydantic model instances from API endpoints
+- Return `dict` from internal data-fetching functions
+- Return `bool` from webhook delivery functions
+- Return `Optional[T]` from cache getters (None when not cached or expired)
+
+## Pydantic Models
+
+**Request/Response Pattern:**
+- `{Entity}Create` for POST request bodies
+- `{Entity}Update` for PATCH/PUT with all fields `Optional`
+- `{Entity}Response` for single-item responses with `class Config: from_attributes = True`
+- `{Entity}ListResponse` for paginated lists with `total`, `page`, `page_size`, `has_more`
+
+**DateTime Serialization:**
+- Use custom `serialize_datetime()` helper for ISO format with `Z` suffix
+- Apply via `@field_serializer('timestamp')` on datetime fields
+
+**Generic Responses:**
+- `SuccessResponse(success: bool, message: Optional[str])`
+- `ErrorResponse(error: str, details: Optional[str])`
+
+## Database Patterns
+
+**SQLAlchemy Models:**
+- Inherit from `shared.models.base.Base`
+- Define `__tablename__` explicitly
+- Use `Column()` with explicit `nullable`, `default`, `index` params
+- Add composite indexes via `__table_args__`
+- Include `__repr__` method
+
+**Session Usage (async):**
+- Use FastAPI `Depends(get_db_session)` for endpoint injection
+- Use `get_database().get_session()` in scheduler/background tasks
+- Always use `select()` with `await db.execute()` — never use `db.query()`
+
+**Common Query Pattern:**
+```python
+result = await db.execute(select(Model).where(Model.id == value))
+item = result.scalar_one_or_none()
 ```
-UniFi Controller → get_traffic_flows() → _normalize_v2_event() (flattens to legacy field names)
-  → get_ips_events() returns normalized events
-  → scheduler.parse_unifi_event() → _parse_legacy_ips_event() (single parser for both v2 and legacy)
-  → ThreatEvent DB model
+
+## Router Patterns
+
+**Router Definition:**
+```python
+router = APIRouter(prefix="/api/events", tags=["events"])
 ```
-All v2 events are normalized before the scheduler sees them — the scheduler only has one parser.
 
-### Network Pulse
-- Uses its own scheduler for background polling
-- Alpine.js for reactive frontend
-- Models in `tools/network_pulse/models.py`
-- Extra WANs stored in `NetworkHealth.extra_wans` dict
+**Endpoint Signatures:**
+- Use `response_model` for typed responses
+- Use `Depends(get_db_session)` for database access
+- Use `Query()` with descriptions for query parameters
+- Use Pydantic models for request bodies
 
-## Completed Work
+## Version Management
 
-### v1.11.2
-- Fix Network Pulse chart panels not resizing responsively (#96) — `min-width: 0` on `.chart-card` and `overflow: hidden` on `.chart-container` fix CSS Grid min-width:auto gotcha that prevented canvas-based chart cards from shrinking on narrow viewports
-- Remove legacy standalone controller references from README and INSTALLATION.md (#97) — added UniFi OS requirement callout, removed port 8443 examples, lifted Python 3.13 restriction, reordered auth to lead with API key
+Keep version in sync across three files:
+- `pyproject.toml` -> `version = "X.Y.Z"`
+- `app/__init__.py` -> `__version__ = "X.Y.Z"`
+- `app/main.py` -> `version="X.Y.Z"` (FastAPI constructor)
 
-### v1.11.1
-- Fix Threat Watch missing geo/category data from v2 API (#79) — `source.region` mapped to country code (was looking for nonexistent `source.country`), `ips.category_name` mapped to category (was using `ips.ips_category` which only exists in `policies[]`)
-- Document that `unifi.ui.com` cloud access is not supported — controller URL must be a local IP/hostname (README.md and INSTALLATION.md)
-- Merged Dependabot PRs #93 (docker/metadata-action v5 → v6) and #94 (docker/build-push-action v6 → v7)
-- Remove dead `_parse_v2_traffic_flow()` from Threat Watch scheduler — was unreachable since v2 events are pre-normalized to legacy format by `_normalize_v2_event()` before reaching the scheduler
+---
 
-### v1.11.0
-- Drop legacy standalone controller support (#92) — removed aiounifi dependency entirely, all API calls now use direct aiohttp requests to UniFi OS endpoints
-- Remove Python 3.13 version block from `setup.sh` — the aiounifi constraint was the only reason for the block
-- Simplify `shared/unifi_client.py` — removed all `if self.is_unifi_os:` URL conditionals and legacy `else` branches
-- Update Dependabot config — removed aiounifi ignore rules and Python version pinning
-
-### v1.10.3
-- Fix UAP-AC-LR model mapping (#89) — `U7LR` model code was incorrectly mapped to "U7 LR" (WiFi 7 product); corrected to "UAP AC LR" and added `G7LR` → "U7 LR" for the actual WiFi 7 U7 Long-Range AP
-- Add access point model codes to debug info — `/api/debug-info` now includes AP names, raw model codes, and display names; shown in Debug Info modal and Report Issue template for faster diagnosis
-- Closed #85 (all reporters confirmed on EA firmware — not supported)
-
-### v1.10.2
-- Enhance Threat Watch test-fetch diagnostics (#85) — test both v2 payload formats independently, capture rejection body, total flow count, sample flow keys, and nested structure for faster remote debugging
-- Add gateway firmware version to debug info — `get_gateway_info()`, `/api/debug-info` endpoint, Debug Info modal, and Report Issue template
-- Closed #90 (shipped in v1.10.1)
-- #85 root cause identified for one reporter: Early Access firmware (UniFi OS 5.0.16, Network 10.2.78) — EA not supported, v2 traffic-flows endpoint doesn't exist on EA builds
-
-### v1.10.1
-- Add `_FILE` env var support for Docker Swarm secrets (#86) — reads secret values from files (e.g., `ENCRYPTION_KEY_FILE=/run/secrets/key`) for orchestrators that mount secrets as files
-- Supported vars: `ENCRYPTION_KEY`, `AUTH_USERNAME`, `AUTH_PASSWORD_HASH`, `DATABASE_URL`, `UNIFI_PASSWORD`, `UNIFI_API_KEY`
-- `_FILE` takes precedence if both `VAR` and `VAR_FILE` are set
-- Resolved at startup in `run.py` before `.env` loading, so all downstream code (pydantic-settings, `os.getenv()`) works without modification
-- Merged Dependabot PR #88 (actions/stale v9 → v10)
-- Fix Express in AP-only mode missing from Network Pulse AP detail list (#90) — `get_ap_details()` now includes `device_mode_override=mesh` check matching `get_access_points()` and `get_system_info()`
-- Remove UI Product Selector card from dashboard (service shut down) — info cards moved to dedicated full-width `.info-row` for balanced 3+2 layout
-
-### v1.10.0
-- Add multi-WAN support to Network Pulse (#83) — per-WAN IP (click-to-reveal), throughput tabs, latency, and uptime for dual/multi-WAN setups
-- WAN tab selector in Current Throughput section (hidden for single-WAN, zero visual change)
-- Extra WAN entries in WAN Status card and Network Health panel with availability and latency
-- Fix Threat Watch external links not opening (#79) — `@click.prevent` modifier was unconditionally blocking navigation on AbuseIPDB, VirusTotal, and Shodan links
-- Closed #71 (shipped in v1.9.21), #78 (acknowledged, closed as not planned), #83 (shipped), #80 (moved to Discussions)
-- #79 partially fixed (links); geo/category data issues pending reporter feedback on raw API response
-
-### v1.9.21
-- Fix UniFi Express in AP-only mode not detected as AP (#71) — Express reports `type: "udm"` with `device_mode_override: "mesh"` when in AP mode
-- Skip Express with `device_mode_override: "mesh"` as gateway candidate in `get_system_info()`, `get_gateway_info()`, and `has_gateway()`
-- Count Express in AP mode as AP in device counts and `get_access_points()`
-- Merged PR #68 (greenlet dependency), closed PR #69 (auto dark mode — not needed after v1.9.19 theme fix)
-- Closed #55 (user resolved), #75 (shipped in v1.9.20), #77 (shipped in v1.9.20)
-
-### v1.9.20
-- Add Threat Watch time range dropdown — 24h / 7d (default) / 30d filter in filter bar, scopes both events table and stat cards (#75)
-- Add `time_range` query param to `/api/events` and `/api/events/stats` endpoints
-- Auto-purge threat events older than 30 days — runs hourly via scheduler to keep DB size in check
-- Fix Threat Watch webhook delivery — scheduler was calling WiFi Stalker's `deliver_webhook` instead of `deliver_threat_webhook`, causing `custom_message` kwarg error on real alerts while test webhooks worked fine (#77)
-- Closed #66 (feature request — not planned), #73 (shipped in v1.9.19), #74 (shipped in v1.9.19)
-
-### v1.9.19
-- Remove placeholder text from form inputs for accessibility — users with cognitive disabilities may confuse placeholders with filled-in fields (#73)
-- Replace format-hint placeholders with visible `<small>` hint text below inputs; add `aria-describedby` for screen readers
-- Keep search box placeholders (standard UX pattern); remove all others across dashboard, login, WiFi Stalker, and Threat Watch
-- Add "update available" notification badge in dashboard header (#74)
-- New `/api/update-check` endpoint fetches latest GitHub release, compares against running version, caches result for 1 hour
-- Badge appears left of theme toggle with version number and links to GitHub release page
-- Graceful failure: badge silently hidden if GitHub is unreachable, network is isolated, or no GitHub releases exist yet
-- Fix Network Pulse theme default — was defaulting to dark mode instead of matching dashboard's light default
-
-### v1.9.18
-- Fix Threat Watch getting 0 IPS events — use correct v2 traffic-flows payload format with server-side `policy_type: ["INTRUSION_PREVENTION"]` filtering instead of paginating all flows and filtering client-side (#63)
-- Pass scheduler timestamps through to v2 API (previously hardcoded to `timeRange: "24h"`)
-- Add backward-compatible fallback (`_v2_uses_new_payload` flag) for older firmware that may not support the filtered payload format
-- Add `payload_format` diagnostic field to debug endpoint
-- Fix WiFi Stalker table overflow — long hostnames no longer push delete button off-screen (#72)
-- Add `curl` dependency check to `upgrade.sh` preflight (#70)
-- Responded to #71 (Express in AP mode) requesting debug info from reporter
-
-### v1.9.17
-- Fix WiFi Stalker signal strength mismatch — use UniFi API `signal` field instead of `rssi` to match console display (#60)
-- `get_clients()` now captures both `signal` and `rssi` fields; scheduler and client summary prefer `signal` with `rssi` fallback
-- Closed #58, #62, #65 with v1.9.16 fixes confirmed
-
-### v1.9.16
-- Fix dashboard gateway detection: prioritize dedicated gateways over Express devices in AP mode (#58)
-- Add `UDMA69B` as UX7 actual API model code — confirmed by reporter in #62
-- Move `EXPRESS_MODEL_CODES` to module level in `unifi_client.py` for shared use between `get_system_info()` and `get_gateway_info()`
-- Fix Network Pulse accessibility contrast — bumped `--text-muted` and `--text-secondary` to meet WCAG AA (#65)
-- Add stale issues GitHub Actions workflow (7d stale warning, 7d auto-close)
-
-### v1.9.15
-- Fix schema repair to cover all 18 migration-added columns — existing users upgrading were hitting missing column errors (#64)
-- Add UniFi Express 7 (UX7) IDS/IPS support — model code added to supported gateways (#62)
-- Add "Debug Info" modal to dashboard footer — one-click copy of system info for issue reporting
-
-### v1.9.14
-- WiFi Stalker: display radio band (2.4/5/6 GHz) in Signal/Type column (#60 partial)
-- Added `current_radio` column to TrackedDevice + Alembic migration
-- Signal mismatch part of #60 resolved in v1.9.17
-
-### v1.9.13
-- Fix Threat Watch column sorting — wired up sort/sort_direction params from frontend to backend API (#61)
-
-### v1.9.12
-- Dynamic multi-WAN support for 3+ WAN interfaces (#59)
-- Version sync across all three version files
-
-## Troubleshooting UniFi API
-
-### Reverse-Engineering Undocumented Endpoints
-The UniFi v2 API is largely undocumented by Ubiquiti. When an endpoint isn't behaving as expected or you need to discover supported parameters:
-
-1. Open the UniFi Network web UI in **Chrome**
-2. Right-click → **Inspect** → **Network** tab
-3. Navigate to the relevant page in the UI (e.g., Insights → Flows → Threats tab)
-4. Find the POST request to the endpoint in the Network tab
-5. Click it → **Payload** tab to see the exact JSON body the console sends
-
-This is how we discovered the v2 `traffic-flows` filtered payload format (`policy_type`, `timestampFrom`/`timestampTo`, `pageNumber`/`pageSize`) — the console sends a completely different payload than what was publicly known.
-
-### Known API Quirks
-- The legacy `stat/ips/event` endpoint returns 0 on Network 10.x+ — effectively deprecated
-- Express in AP-only mode reports `type: "udm"` (not `uap` or `ux`) with `device_mode_override: "mesh"` and `model: "UX"` — detect via `device_mode_override` field
-- The `rssi` and `signal` fields are separate values; the console displays `signal`
+*Convention analysis: 2026-03-18*
 
 ---
 > Source: [Crosstalk-Solutions/unifi-toolkit](https://github.com/Crosstalk-Solutions/unifi-toolkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
