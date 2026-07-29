@@ -1,0 +1,9 @@
+{
+  "name": "scality--cloudserver",
+  "displayName": "cloudserver",
+  "description": "cloudserver",
+  "version": "1.0.0",
+  "author": "scality",
+  "homepage": "https://github.com/scality/cloudserver",
+  "skills": []
+}
