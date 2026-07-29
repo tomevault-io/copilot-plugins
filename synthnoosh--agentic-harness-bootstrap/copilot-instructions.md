@@ -1,89 +1,174 @@
 ## agentic-harness-bootstrap
 
-> You are a harness engineering agent. You make a target repository AI-native by generating tailored harness artifacts (`CLAUDE.md`, `AGENTS.md`, `ARCHITECTURE.md`, CI integration, etc.) from this bootstrap repo into the target.
+> <!-- Keep in sync with AGENTS.md and .github/copilot-instructions.md -->
 
-# Bootstrap Agent Instructions
+# Storefront
 
-## Identity
+<!-- Keep in sync with AGENTS.md and .github/copilot-instructions.md -->
 
-You are a harness engineering agent. You make a target repository AI-native by generating tailored harness artifacts (`CLAUDE.md`, `AGENTS.md`, `ARCHITECTURE.md`, CI integration, etc.) from this bootstrap repo into the target.
+Laravel e-commerce application. Handles product catalog, shopping cart, checkout, and order management. Uses MySQL for persistence, Redis for sessions and cache, and Stripe for payments.
 
-## Invocation
+## Build & Run
 
-The engineer supplies a target repo path:
+```bash
+# Install dependencies
+composer install
+npm install
+
+# Build frontend assets
+npm run build
+
+# Dev server with hot reload
+npm run dev     # Vite dev server (assets)
+php artisan serve  # Laravel dev server (API/pages)
+
+# Generate application key (first-time setup)
+php artisan key:generate
+
+# Run migrations
+php artisan migrate
+
+# Seed database
+php artisan db:seed
+```
+
+## Test
+
+```bash
+# Run all tests
+php artisan test
+
+# Run a specific test class
+php artisan test --filter=OrderTest
+
+# Run a specific test method
+php artisan test --filter=OrderTest::test_checkout_creates_order
+
+# Run only unit tests
+php artisan test --testsuite=Unit
+
+# Run only feature tests
+php artisan test --testsuite=Feature
+
+# Run with coverage
+php artisan test --coverage --min=80
+```
+
+## Lint & Format
+
+```bash
+# Fix code style (Laravel Pint — PSR-12 + Laravel preset)
+./vendor/bin/pint
+
+# Check style without fixing
+./vendor/bin/pint --test
+
+# Static analysis
+./vendor/bin/phpstan analyse
+
+# Full check (style + static analysis)
+./vendor/bin/pint --test && ./vendor/bin/phpstan analyse
+
+# Run all checks (pint, phpstan, test) in order
+make check
+
+# Validate harness integrity
+make verify  # or ./scripts/verify-harness.sh
+```
+
+## Pre-commit Hooks
+
+GrumPHP runs Pint and PHPStan on staged files before each commit (configured in `grumphp.yml`).
+
+## Architecture
 
 ```
-Bootstrap /path/to/my-project
-TARGET_REPO=/path/to/my-project
+app/
+  Http/
+    Controllers/       # Handle HTTP requests, delegate to services, return responses
+    Middleware/         # HTTP middleware (auth, CORS, rate limiting)
+    Requests/          # Form request validation classes
+  Models/              # Eloquent models — relationships, scopes, accessors
+  Services/            # Business logic — checkout flow, inventory, pricing
+  Repositories/        # Complex query builders, reporting queries
+  Events/              # Domain events (OrderPlaced, PaymentReceived)
+  Listeners/           # Event handlers (SendConfirmationEmail, UpdateInventory)
+  Policies/            # Authorization policies (OrderPolicy, ProductPolicy)
+  Providers/           # Service providers — dependency binding
+resources/
+  views/               # Blade templates
+  js/                  # Frontend JavaScript (Vue/Alpine components)
+  css/                 # Stylesheets (Tailwind CSS)
+routes/
+  web.php              # Web routes (session-based)
+  api.php              # API routes (token-based)
+database/
+  migrations/          # Schema migrations (timestamped)
+  factories/           # Model factories for testing
+  seeders/             # Database seeders
+tests/
+  Unit/                # Unit tests — isolated, no HTTP, no DB
+  Feature/             # Feature tests — full HTTP request lifecycle
+config/                # Configuration files (per-environment via .env)
 ```
 
-Prompt for a path if none is given. Never run against the bootstrap repo itself.
+### Layer Rules
 
-## Workflow
+- **Controllers** call Services — never contain business logic directly
+- **Services** call Repositories and Models — never touch HTTP request/response
+- **Repositories** encapsulate complex Eloquent queries — simple queries stay on the Model
+- **Models** define relationships, scopes, and accessors — no business logic
+- **Form Requests** handle all input validation — controllers don't validate manually
+- **Events/Listeners** handle side effects (email, notifications) — services dispatch events
 
-Execute four playbooks in order. Read each file before executing — do not improvise.
+## Conventions
 
-1. `playbooks/00-discover.md` — Scan the target repo. Detect languages, frameworks, build tools, CI, tests. Output the repo profile.
-2. `playbooks/01-analyze.md` — Deepen analysis using the repo profile. Map modules, entry points, abstractions, and architecture.
-3. `playbooks/02-generate.md` — Generate harness artifacts using `templates/`. Fill with repo profile and analysis data.
-4. `playbooks/03-verify.md` — Validate syntax, consistency, and that referenced commands work.
-
-Carry the repo profile through every phase.
-
-## Repo Profile Schema
-
-Discovery produces this structured profile used by all subsequent phases:
-
-- **project_name** — From package manifest or directory name
-- **languages** — All detected languages (e.g., `["TypeScript", "Python"]`)
-- **primary_language** — Dominant language by file count
-- **framework** — Primary framework (Next.js, FastAPI, Spring Boot, etc.)
-- **package_manager** — npm, pnpm, yarn, pip, cargo, etc.
-- **build_cmd** — Build command (e.g., `npm run build`)
-- **test_cmd** — Test command (e.g., `pytest`, `npm test`)
-- **lint_cmd** — Lint command (e.g., `npm run lint`)
-- **ci_provider** — CI system (github-actions, circleci, jenkins, etc.)
-- **modules** — Top-level modules with descriptions
-- **greenfield** — Boolean; true if minimal history and few files
-- **monorepo** — Boolean; true if multiple packages detected
-- **test_framework** — jest, pytest, JUnit, etc.
-- **entry_points** — Key entry points or main files
-
-## Idempotency
-
-Before writing any file in the target repo: check if it exists, read it if so, preserve user content, merge new sections after existing ones. Never overwrite or remove user customizations.
+- **PSR-12** coding standard, enforced by Laravel Pint
+- **PascalCase** for classes, **camelCase** for methods and variables, **snake_case** for database columns and config keys
+- **Form Requests** for all input validation (`StoreOrderRequest`, `UpdateProductRequest`)
+- **Service layer** for business logic — controllers are thin
+- **Repositories** only for complex queries — simple CRUD uses Eloquent directly
+- **Resource classes** for API response formatting (`OrderResource`, `ProductResource`)
+- **Config over constants** — use `config()` helper, not hardcoded values
+- **Typed properties** and return types on all new code
+- **Enums** (PHP 8.1+) for status fields (`OrderStatus::Pending`)
 
 ## Boundaries
 
+### Always (do without asking)
+- Run `make check` (or equivalent) before committing
+- Run `php artisan test` before committing
+- Run `./vendor/bin/pint` to fix code style
+- Run `./vendor/bin/phpstan analyse` and fix issues
+- Write Feature tests for new endpoints, Unit tests for services
+- Update ARCHITECTURE.md when adding new directories or layers
+
+### Ask first
+- Adding Composer or npm packages
+- Creating or modifying migrations (irreversible in production)
+- Changing route definitions or URL structure
+- Modifying authentication or authorization logic
+- Adding new service providers
+
 ### Never
+- Skip pre-commit hooks with `--no-verify`
+- Edit compiled/built assets (`public/build/`)
+- Modify `vendor/` — it is gitignored and managed by Composer
+- Write raw SQL outside of Repository classes or migrations
+- Put business logic in Controllers — delegate to Services
+- Use `env()` outside of config files — always use `config()` helper
+- Commit `.env` files — use `.env.example` as the template
+- Skip Pint or PHPStan to "fix later"
 
-- Delete source code in the target repo
-- Change business logic
-- Modify dependencies without permission
-- Overwrite user customizations in existing harness files
-- Push changes without explicit permission
-- Disable or modify existing tests
+## Harness Maintenance
 
-### Always
-
-- Read each playbook before executing it
-- Carry the repo profile through all phases
-- Use `templates/` for structure — do not improvise
-- Report what was created, updated, and skipped
-- Confirm before any destructive action
-
-## Reference
-
-- `reference/harness-principles.md` — Five harness engineering principles
-- `reference/lint-remediation-guide.md` — Linter configuration and remediation guidance
-
-## Tips
-
-- Start discovery with root manifests: `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Makefile`, `Dockerfile`, CI configs.
-- For monorepos, discover each sub-package and merge profiles.
-- Set undetermined fields to `null` and note them in the summary.
-- Keep generated artifacts practical — avoid boilerplate developers will delete.
+When the project structure changes in ways that affect this file:
+- **New directory added under app/**: Add it to the Architecture section with its purpose
+- **New artisan command**: Document in Build & Run if it is part of the dev workflow
+- **New convention adopted**: Add to Conventions section
+- **Layer boundary changed**: Update Layer Rules
+- Keep command examples runnable — verify against the actual `composer.json` and `artisan` commands
 
 ---
 > Source: [synthnoosh/agentic-harness-bootstrap](https://github.com/synthnoosh/agentic-harness-bootstrap) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
