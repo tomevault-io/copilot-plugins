@@ -2,14 +2,12 @@
 
 > 2-3 sentences describing what this project does, who it's for, and what
 
-# Research note: The official Windsurf rules filename was verified against
-# community documentation and the Codeium blog — `.windsurfrules` is the
-# established convention for the repository root and continues to be supported.
-# Newer Windsurf versions also introduced a directory-based system at
-# `.windsurf/rules/` where rules are defined as named markdown files with
-# activation modes (always on, manual, glob, model decision). Verify the
-# current recommendation in the official documentation at https://docs.windsurf.com/
-# before deploying, as Windsurf's tooling evolves frequently.
+# Research note: The official Cline rules filename was verified against
+# https://github.com/cline/cline and community documentation — `.clinerules`
+# is the established convention Cline uses at the repository root to load
+# project-specific rules and context for autonomous coding sessions.
+# Confirm the current recommendation in the official documentation before
+# deploying, as Cline's tooling evolves frequently.
 
 # Agent Context — [Your Project Name]
 
@@ -17,8 +15,8 @@
 
 <!--
   2-3 sentences describing what this project does, who it's for, and what
-  problem it solves. Helps Cascade understand the domain and make
-  appropriate design decisions.
+  problem it solves. Helps Cline understand the domain and make
+  appropriate autonomous decisions.
 
   Example:
   "A REST API for inventory management used by warehouse operations teams.
@@ -59,8 +57,8 @@ project-root/
 ## Coding Conventions
 
 <!--
-  Rules Cascade should follow when generating or modifying code.
-  Be explicit — the AI has no way to infer unwritten conventions.
+  Rules Cline should follow when generating or modifying code.
+  Be explicit — the agent has no way to infer unwritten conventions.
 -->
 
 - **Formatting:** [e.g., Prettier with default config; Black + isort for Python]
@@ -103,7 +101,7 @@ project-root/
 
 <!--
   Branch strategy, commit message format, PR requirements,
-  and anything Cascade should know when helping with git or CI tasks.
+  and anything Cline should know when helping with git or CI tasks.
 -->
 
 - **Branches:** [e.g., `feature/<ticket>-<slug>`, `fix/<ticket>-<slug>`]
@@ -118,7 +116,7 @@ project-root/
 
 <!--
   How work should be divided when multiple agents or tasks run concurrently.
-  Prevents conflicts when AI agents work in parallel across the codebase.
+  Prevents conflicts when Cline and other agents work in parallel across the codebase.
 -->
 
 - [e.g., "Each agent works in its own git worktree — never share a working directory"]
@@ -128,10 +126,49 @@ project-root/
 
 ---
 
+## Autonomy Guidelines
+
+<!--
+  Bounds for Cline's autonomous behavior. Cline can execute commands, write files,
+  and take multi-step actions without manual approval at each step — these guidelines
+  define what it may do freely, what requires confirmation, and what is off-limits.
+
+  Example:
+  "Cline may autonomously: run tests, install dev dependencies, create and edit source files,
+  run linters and formatters, and make git commits on feature branches."
+
+  "Cline must ask before: installing new production dependencies, modifying CI/CD configuration,
+  changing environment variable definitions, or running database migrations."
+
+  "Cline must never: push directly to main or production branches, delete non-generated files
+  without confirmation, expose credentials or secrets in any file, or run commands that affect
+  production infrastructure."
+-->
+
+- **Cline may autonomously:**
+  - [e.g., "Run tests, linters, and formatters"]
+  - [e.g., "Create and edit source files within the described architecture"]
+  - [e.g., "Install dev dependencies listed in this file"]
+  - [e.g., "Make git commits on feature branches"]
+
+- **Cline must ask before:**
+  - [e.g., "Installing new production dependencies"]
+  - [e.g., "Modifying CI/CD configuration"]
+  - [e.g., "Changing environment variable definitions or `.env` files"]
+  - [e.g., "Running database migrations or schema changes"]
+
+- **Cline must never:**
+  - [e.g., "Push directly to main, master, or production branches"]
+  - [e.g., "Delete files outside generated or temporary directories without confirmation"]
+  - [e.g., "Expose secrets, credentials, or API keys in any tracked file"]
+  - [e.g., "Run commands that affect shared or production infrastructure"]
+
+---
+
 ## What Not to Do
 
 <!--
-  Explicit anti-patterns. Cascade will follow these as hard rules.
+  Explicit anti-patterns. Cline will follow these as hard rules.
 -->
 
 - [e.g., "Do not use `any` type in TypeScript — use `unknown` and narrow explicitly"]
@@ -142,4 +179,4 @@ project-root/
 
 ---
 > Source: [microsoft/agentic-agile-template](https://github.com/microsoft/agentic-agile-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
