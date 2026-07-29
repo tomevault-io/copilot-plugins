@@ -1,33 +1,57 @@
 ## teleop-xr
 
-> - Python backend lives in `teleop_xr/`.
+> React components for dashboard, settings, and XR scene integration.
 
-# Copilot Instructions
+# webxr/src/components/ — UI Components
 
-## Project overview
+React components for dashboard, settings, and XR scene integration.
 
-- Python backend lives in `teleop_xr/`.
-- WebXR frontend lives in `webxr/` (Next.js + TypeScript).
+## OVERVIEW
+Next.js App Router components. Split between dashboard (2D UI) and XR (3D scene).
 
-## Setup
+## STRUCTURE
+```
+components/
+├── dashboard/               # 2D UI panels (React)
+│   ├── TeleopPanel.tsx
+│   ├── RobotSettingsPanel.tsx
+│   └── CameraSettingsPanel.tsx
+├── ui/                      # Radix UI + Tailwind components
+│   ├── button.tsx
+│   ├── slider.tsx
+│   └── switch.tsx
+└── xr/                      # XR scene wrapper
+    └── XRScene.tsx
+```
 
-- Python dependencies: `uv sync`
-- WebXR dependencies: `cd webxr && npm install`
+## WHERE TO LOOK
 
-## Build & test
+| Task | File | Notes |
+|------|------|-------|
+| Add dashboard panel | `dashboard/` | Use Radix UI components |
+| Modify UI primitives | `ui/` | Tailwind + class-variance-authority |
+| Integrate XR scene | `xr/XRScene.tsx` | Calls `initWorld()` |
 
-- Python tests: `python -m pytest`
-- WebXR lint: `cd webxr && npm run lint`
-- WebXR tests: `cd webxr && npm run test`
-- WebXR build: `cd webxr && npm run build`
+## CONVENTIONS
 
-## Repository notes
+### Styling
+- **Tailwind**: All styling via utility classes
+- **No `<style>` blocks**: Except state classes
+- **cn()**: Merge classes with `webxr/src/lib/utils.ts`
 
-- Keep changes minimal and focused.
-- Follow existing patterns and file layout.
-- If you touch `.sisyphus/` plan or notepad files,
-  commit them together with your changes.
+### State Management
+- **Zustand**: `webxr/src/lib/store.ts`
+- **Selectors**: Use specific slices (avoid global)
+
+## ANTI-PATTERNS (components)
+
+- ❌ NEVER use `<style>` blocks (new UI)
+- ✅ ALWAYS use `cn()` for conditional classes
+
+## NOTES
+
+**Fragmented Tests**: Tests in `dashboard/`, `ui/`, and `xr/` (not consolidated)
 
 ---
 > Source: [qrafty-ai/teleop_xr](https://github.com/qrafty-ai/teleop_xr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
