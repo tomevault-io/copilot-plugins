@@ -1,0 +1,9 @@
+{
+  "name": "sap--sap-btp-service-operator",
+  "displayName": "sap-btp-service-operator",
+  "description": "sap-btp-service-operator",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/sap-btp-service-operator",
+  "skills": []
+}
