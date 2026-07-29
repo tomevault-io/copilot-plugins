@@ -1,0 +1,9 @@
+{
+  "name": "esipfed--science-on-schema-org",
+  "displayName": "science-on-schema.org",
+  "description": "science-on-schema.org",
+  "version": "1.0.0",
+  "author": "ESIPFed",
+  "homepage": "https://github.com/ESIPFed/science-on-schema.org",
+  "skills": []
+}
