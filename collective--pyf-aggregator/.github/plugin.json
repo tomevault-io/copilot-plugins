@@ -1,0 +1,9 @@
+{
+  "name": "collective--pyf-aggregator",
+  "displayName": "pyf.aggregator",
+  "description": "pyf.aggregator",
+  "version": "1.0.0",
+  "author": "collective",
+  "homepage": "https://github.com/collective/pyf.aggregator",
+  "skills": []
+}
