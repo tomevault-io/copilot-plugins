@@ -1,0 +1,9 @@
+{
+  "name": "datadog--helm-charts",
+  "displayName": "helm-charts",
+  "description": "helm-charts",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/helm-charts",
+  "skills": []
+}
