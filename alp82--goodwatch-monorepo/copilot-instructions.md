@@ -1,26 +1,24 @@
 ## goodwatch-monorepo
 
-> - Use types fully and extensively
+> - use Remix loaders for prepopulated data via SSR
 
+# Data Fetching
+- use Remix loaders for prepopulated data via SSR
+- use TanStack Query for dynamic data fetching
+    - do not add custom `staleTime`, prefer the globally set options
 
-## TypeScript Coding Guidelines
-- Use types fully and extensively
-- Don't use `any`. If you must, use `unknown` and explain why
-- Avoid enums, use maps instead - use `as const` for literals that never change
-- Use `readonly` for immutable properties
-- Prefer interfaces over types
-- Use functional and declarative programming patterns - avoid classes
-- Use higher-order functions (map, filter, reduce) to simplify logic
-- Use arrow functions for simple cases (less than 3 instructions), named functions otherwise
+# SEO
+- use `seededRandom*` methods instead of `Math.random()` to avoid hydration errors
+- verify lighthouse score for significant changes
+- use proper meta tags and Open Graph tags
+- use proper hreflang tags
+- use proper canonical tags
 
-## React / Remix
-- Follow Remix and React Router best practices
-- Use Tanstack Query for data management
-- Use Tailwind CSS for styling
-- Keep components each in their separate files
-- Keep collections of custom hooks in separate hook files
-- Always wrap useEffect with a well-named custom hook to improve readability
+# QA & Testing
+- The dev server is always running under http://localhost:3003/, don't run it yourself
+- Use Chrome Devtools MCP and use the browser to test UI changes and analyze lighthouse scores
+- Don't write automated tests
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/alp82) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [alp82/goodwatch-monorepo](https://github.com/alp82/goodwatch-monorepo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
