@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [smart-lty/Claude-Team](https://github.com/smart-lty/Claude-Team).
+Original source: `AGENTS.md` in [smart-lty/Claude-Team](https://github.com/smart-lty/Claude-Team).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/smart-lty/Claude-Team](https://github.com/smart-lty/Claude-Team)
