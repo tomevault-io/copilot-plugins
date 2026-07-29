@@ -1,8 +1,6 @@
 # p3a
 
-> Tome by [fabkury](https://github.com/fabkury/p3a) — distributed by [TomeVault](https://tomevault.io)
-
-Pixel art player built on ESP32-P4
+> Tome by [fabkury](https://github.com/fabkury/p3a), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [fabkury/p3a](https://github.com/fabkury/p3a).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/fabkury/p3a](https://github.com/fabkury/p3a)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/fabkury/p3a](https://github.com/fabkury/p3a)
 
 ---
 
