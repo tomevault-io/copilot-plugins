@@ -1,0 +1,9 @@
+{
+  "name": "abhishek-performdigital--spiderbrain-v3",
+  "displayName": "Spiderbrain-V3",
+  "description": "SpiderBrain v3 is a multi-platform skill/framework to reduce token usage and AI hallucinations across Claude, Cursor, and other AI tools.",
+  "version": "1.0.0",
+  "author": "abhishek-performdigital",
+  "homepage": "https://github.com/abhishek-performdigital/Spiderbrain-V3",
+  "skills": []
+}
