@@ -1,0 +1,9 @@
+{
+  "name": "gradle--common-custom-user-data-gradle-plugin",
+  "displayName": "common-custom-user-data-gradle-plugin",
+  "description": "common-custom-user-data-gradle-plugin",
+  "version": "1.0.0",
+  "author": "gradle",
+  "homepage": "https://github.com/gradle/common-custom-user-data-gradle-plugin",
+  "skills": []
+}
