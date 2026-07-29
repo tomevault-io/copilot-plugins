@@ -1,16 +1,15 @@
 # AI instruction files for better-auth
 
-> Sourced from [kriasoft/better-auth](https://github.com/kriasoft/better-auth) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-18 enterprise plugins for Better Auth - cloud storage, security, analytics & more (work-in-progress)
+> Sourced from [kriasoft/better-auth](https://github.com/kriasoft/better-auth), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kriasoft/better-auth](https://github.com/kriasoft/better-auth).
+Original source: `` in [kriasoft/better-auth](https://github.com/kriasoft/better-auth).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
