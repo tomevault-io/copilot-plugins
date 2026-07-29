@@ -1,43 +1,20 @@
 ## ghostty-pixel-scroll
 
-> A file for [guiding coding agents](https://agents.md/).
+> The inspector is a feature of Ghostty that works similar to a
 
+# Inspector Subsystem
 
+The inspector is a feature of Ghostty that works similar to a
+browser's developer tools. It allows the user to inspect and modify the
+terminal state.
 
-A file for [guiding coding agents](https://agents.md/).
-
-## Commands
-
-- **Build:** `zig build`
-- **Test (Zig):** `zig build test`
-- **Test filter (Zig)**: `zig build test -Dtest-filter=<test name>`
-- **Formatting (Zig)**: `zig fmt .`
-- **Formatting (other)**: `prettier -w .`
-
-## Directory Structure
-
-- Shared Zig core: `src/`     
-- C API: `include`
-- macOS app: `macos/`
-- GTK (Linux and FreeBSD) app: `src/apprt/gtk`
-
-
-## libghostty-vt
-
-- Build: `zig build lib-vt`
-- Build Wasm Module: `zig build lib-vt -Dtarget=wasm32-freestanding`
-- Test: `zig build test-lib-vt`
-- Test filter: `zig build test-lib-vt -Dtest-filter=<test name>`
-- When working on libghostty-vt, do not build the full app.
-- For C only changes, don't run the Zig tests. Build all the examples.
-
-## macOS App
-
-- Do not use `xcodebuild`
-- Use `zig build` to build the macOS app and any shared Zig code
-- Use `zig build run` to build and run the macOS app
-- Run Xcode tests using `zig build test`
+- See the full C API by finding `dcimgui.h` in the `.zig-cache` folder
+  in the root: `find . -type f -name dcimgui.h`. Use the newest version.
+- See full examples of how to use every widget by loading this file:
+  <https://raw.githubusercontent.com/ocornut/imgui/refs/heads/master/imgui_demo.cpp>
+- On macOS, run builds with `-Demit-macos-app=false` to verify API usage.
+- There are no unit tests in this package.
 
 ---
 > Source: [parkers0405/ghostty-pixel-scroll](https://github.com/parkers0405/ghostty-pixel-scroll) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
