@@ -4,7 +4,7 @@
   "repo": "smob",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tada5hi/smob",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T19:25:54Z"
+  "distributed_at": "2026-07-29T07:21:16Z"
 }
