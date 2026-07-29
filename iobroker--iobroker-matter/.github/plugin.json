@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-matter",
+  "displayName": "ioBroker.matter",
+  "description": "ioBroker.matter",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.matter",
+  "skills": []
+}
