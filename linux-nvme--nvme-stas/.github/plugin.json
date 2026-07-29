@@ -1,0 +1,9 @@
+{
+  "name": "linux-nvme--nvme-stas",
+  "displayName": "nvme-stas",
+  "description": "nvme-stas",
+  "version": "1.0.0",
+  "author": "linux-nvme",
+  "homepage": "https://github.com/linux-nvme/nvme-stas",
+  "skills": []
+}
