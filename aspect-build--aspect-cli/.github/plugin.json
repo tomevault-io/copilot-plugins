@@ -1,0 +1,9 @@
+{
+  "name": "aspect-build--aspect-cli",
+  "displayName": "aspect-cli",
+  "description": "aspect-cli",
+  "version": "1.0.0",
+  "author": "aspect-build",
+  "homepage": "https://github.com/aspect-build/aspect-cli",
+  "skills": []
+}
