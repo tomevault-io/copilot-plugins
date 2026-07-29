@@ -2,8 +2,8 @@
   "name": "gemini-cli-best-practice",
   "owner": "shanraisshan",
   "repo": "gemini-cli-best-practice",
-  "description": "from vibe coding to agentic engineering - practice makes gemini perfect",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "GEMINI.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "gemini-cli-best-practice",
+      "path": ".gemini/skills/weather-svg-creator/SKILL.md",
+      "github_url": "https://github.com/shanraisshan/gemini-cli-best-practice/tree/main/.gemini/skills/weather-svg-creator/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/shanraisshan/gemini-cli-best-practice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T02:32:00Z"
+  "distributed_at": "2026-07-29T18:50:35Z"
 }
