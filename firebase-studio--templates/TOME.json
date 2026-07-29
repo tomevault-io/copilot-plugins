@@ -2,9 +2,9 @@
   "name": "templates",
   "owner": "firebase-studio",
   "repo": "templates",
-  "description": "The official library of starter templates for Firebase Studio",
+  "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/firebase-studio/templates",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T21:36:32Z"
+  "distributed_at": "2026-07-29T07:24:09Z"
 }
