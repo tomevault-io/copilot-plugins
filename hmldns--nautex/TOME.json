@@ -2,9 +2,9 @@
   "name": "nautex",
   "owner": "hmldns",
   "repo": "nautex",
-  "description": "MCP server for guiding Coding Agents via end-to-end requirements to implementation plan pipeline",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hmldns/nautex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T09:08:32Z"
+  "distributed_at": "2026-07-29T08:22:24Z"
 }
