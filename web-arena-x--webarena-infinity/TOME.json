@@ -2,9 +2,9 @@
   "name": "webarena-infinity",
   "owner": "web-arena-x",
   "repo": "webarena-infinity",
-  "description": "An approach to utomatically generating browser environment with verifiable tasks",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/web-arena-x/webarena-infinity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T11:25:03Z"
+  "distributed_at": "2026-07-29T09:16:15Z"
 }
