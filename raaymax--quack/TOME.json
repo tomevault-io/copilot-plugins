@@ -4,7 +4,7 @@
   "repo": "quack",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raaymax/quack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T15:05:37Z"
+  "distributed_at": "2026-07-29T03:09:01Z"
 }
