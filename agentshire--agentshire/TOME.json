@@ -2,7 +2,7 @@
   "name": "Agentshire",
   "owner": "Agentshire",
   "repo": "Agentshire",
-  "description": "OpenClaw / QClaw  plugin that visualizes AI agents as 3D NPCs in a game town \u2014 with social simulation, a map editor, and a character workshop.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Agentshire/Agentshire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T23:47:28Z"
+  "distributed_at": "2026-07-29T06:43:04Z"
 }
