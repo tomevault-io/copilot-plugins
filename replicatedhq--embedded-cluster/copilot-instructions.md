@@ -1,23 +1,129 @@
 ## embedded-cluster
 
-> This file provides guidance to Gemini when working with code in this repository.
+> For comprehensive architecture and package structure details, see [api/README.md](mdc:../api/README.md).
 
-# GEMINI.md
+# Go Embedded Cluster API Implementation Guidelines
 
-This file provides guidance to Gemini when working with code in this repository.
+For comprehensive architecture and package structure details, see [api/README.md](mdc:../api/README.md).
 
-## Documentation Reference
+## Essential Implementation Patterns
 
-For comprehensive development guidance, coding standards, and project architecture, refer to the detailed documentation in the `.cursor/rules/` directory, including but not limited to:
+### Error Handling
 
-- **[Project Overview](file://.cursor/rules/project-overview.mdc)** - Complete project description, technology stack, and architecture
-- **[Go Best Practices](file://.cursor/rules/go-best-practices.mdc)** - Go coding standards, patterns, and conventions
-- **[Go Testing](file://.cursor/rules/go-testing.mdc)** - Testing patterns, mock usage, and test organization
-- **[Go API Architecture](file://.cursor/rules/go-ec-api-architecture.mdc)** - API implementation guidelines and patterns
-- **[Frontend Rules](file://.cursor/rules/frontend-rules.mdc)** - React/TypeScript standards and testing patterns
-- **[Clean Code](file://.cursor/rules/clean-code.mdc)** - Code formatting and comment standards
-- **[Code Quality Checks](file://.cursor/rules/code-quality-checks.mdc)** - Essential quality checks to run after changes
+#### Structured API Errors
+
+Use structured error types for APIs that need to return detailed error information:
+
+```go
+type APIError struct {
+    StatusCode int         `json:"status_code,omitempty"`
+    Message    string      `json:"message"`
+    Field      string      `json:"field,omitempty"`
+    Errors     []*APIError `json:"errors,omitempty"`
+    err        error       `json:"-"`
+}
+```
+
+#### Error Constructor Functions
+
+Create constructor functions for common API error types.
+
+#### API Error Handling Patterns
+
+- Always log errors with context: `a.logError(r, err, "descriptive message")`
+- Use structured errors: `types.NewBadRequestError(err)`, `types.NewInternalServerError(err)`
+- Wrap errors with context: `fmt.Errorf("operation failed: %w", err)`
+
+#### Specific API Error Types
+
+- **Use specific API error types**: Always use `NewBadRequestError`, `NewInternalServerError`, etc. instead of generic errors for proper HTTP status codes
+  ```go
+  return NewBadRequestError(errors.New("invalid input"))  // Good
+  return errors.New("invalid input")                      // Bad
+  ```
+
+- **Return consistent HTTP status codes**: Use appropriate APIError types for different error conditions
+  ```go
+  return NewBadRequestError(errors.New("invalid input"))        // 400
+  return NewForbiddenError(errors.New("access denied"))         // 403
+  return NewInternalServerError(errors.New("database failed"))  // 500
+  ```
+
+### HTTP Handler Patterns
+
+- Use dedicated Handler structs with HTTP method prefixed names: `func (h *Handler) PostConfigureInstallation(w http.ResponseWriter, r *http.Request) {}`
+- Include HTTP method in handler names: `Get*`, `Post*`, `Put*`, `Delete*`
+- Use helper methods for common operations: `utils.BindJSON`, `utils.JSON`, `utils.JSONError`
+- Always validate input and handle errors appropriately
+
+### Request/Response
+
+- Use `a.bindJSON(w, r, &struct)` for parsing JSON requests
+- Use `a.json(w, r, statusCode, payload)` for success responses
+- Use `a.jsonError(w, r, err)` for error responses
+
+### JSON Tags and Serialization
+
+- Use appropriate JSON tags: `json:"field_name,omitempty"`
+- Use `json:"-"` for fields that shouldn't be serialized
+- Handle both marshaling and unmarshaling in your types
+
+### Dependencies
+
+- Use functional options pattern for initialization
+- Define interfaces for all external dependencies
+- Inject dependencies via constructors
+
+### Manager Architecture (API-Specific)
+
+- **Never inject managers into other managers**: Pass data/config between managers via controller
+- **Controller orchestration**: Controllers read from one manager and pass data to another
+- **Semantic option naming**: Use `WithConfigFile()` for paths, `WithConfigData()` for actual data
+- **Independent testing**: Mock managers separately, test controller orchestration logic independently
+
+```go
+// ✅ CORRECT: Pass data through controller
+configData, err := controller.managerA.GetData()
+controller.managerB = NewManagerB(WithConfigData(configData))
+
+// ❌ INCORRECT: Manager-to-manager injection
+controller.managerB = NewManagerB(WithManagerA(controller.managerA))
+```
+
+### API Documentation
+
+Add Swagger annotations to all handlers for API documentation.
+
+#### Swagger/OpenAPI Requirements
+
+- Use Swagger annotations for HTTP handlers
+- Document request/response structures
+- Include error response documentation
+- Document authentication requirements
+
+## Implementation Quick Reference
+
+### Adding New Functionality
+
+- **New endpoint**: Add handler → create/update controller → define types
+- **New business logic**: Add to appropriate controller or create new manager
+- **New types**: Add to `api/types/` with proper JSON tags
+- **New utilities**: Add to `api/internal/`
+
+### File Naming Conventions
+
+- Handlers: `api/{domain}.go` (e.g., `install.go`, `auth.go`)
+- Controllers: `api/controllers/{domain}/controller.go`
+- Managers: `api/internal/managers/{domain}/manager.go`
+- Types: `api/types/{domain}.go`
+
+### Testing Requirements
+
+- Unit tests: `*_test.go` alongside source files
+- Integration tests: `api/integration/*_test.go`
+- Use table-driven tests with `testify/assert`
+- Mock all external dependencies
 
 ---
 > Source: [replicatedhq/embedded-cluster](https://github.com/replicatedhq/embedded-cluster) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
