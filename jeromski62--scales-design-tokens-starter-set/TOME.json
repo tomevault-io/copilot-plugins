@@ -4,7 +4,7 @@
   "repo": "SCALES-Design-Tokens-Starter-Set",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jeromski62/SCALES-Design-Tokens-Starter-Set",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T00:00:15Z"
+  "distributed_at": "2026-07-29T09:21:36Z"
 }
