@@ -5,10 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AbianS/prisma-generate-uml](https://github.com/AbianS/prisma-generate-uml).
+Original source: `` in [AbianS/prisma-generate-uml](https://github.com/AbianS/prisma-generate-uml).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
