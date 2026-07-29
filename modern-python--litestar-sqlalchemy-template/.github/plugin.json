@@ -1,0 +1,9 @@
+{
+  "name": "modern-python--litestar-sqlalchemy-template",
+  "displayName": "litestar-sqlalchemy-template",
+  "description": "litestar-sqlalchemy-template",
+  "version": "1.0.0",
+  "author": "modern-python",
+  "homepage": "https://github.com/modern-python/litestar-sqlalchemy-template",
+  "skills": []
+}
