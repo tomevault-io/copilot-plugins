@@ -1,0 +1,9 @@
+{
+  "name": "spiffe--helm-charts-hardened",
+  "displayName": "helm-charts-hardened",
+  "description": "helm-charts-hardened",
+  "version": "1.0.0",
+  "author": "spiffe",
+  "homepage": "https://github.com/spiffe/helm-charts-hardened",
+  "skills": []
+}
