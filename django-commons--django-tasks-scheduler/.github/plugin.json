@@ -1,0 +1,9 @@
+{
+  "name": "django-commons--django-tasks-scheduler",
+  "displayName": "django-tasks-scheduler",
+  "description": "django-tasks-scheduler",
+  "version": "1.0.0",
+  "author": "django-commons",
+  "homepage": "https://github.com/django-commons/django-tasks-scheduler",
+  "skills": []
+}
