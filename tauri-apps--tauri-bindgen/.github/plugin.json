@@ -1,0 +1,9 @@
+{
+  "name": "tauri-apps--tauri-bindgen",
+  "displayName": "tauri-bindgen",
+  "description": "tauri-bindgen",
+  "version": "1.0.0",
+  "author": "tauri-apps",
+  "homepage": "https://github.com/tauri-apps/tauri-bindgen",
+  "skills": []
+}
