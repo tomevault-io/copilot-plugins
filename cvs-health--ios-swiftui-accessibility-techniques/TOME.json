@@ -4,7 +4,7 @@
   "repo": "ios-swiftui-accessibility-techniques",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cvs-health/ios-swiftui-accessibility-techniques",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T18:42:40Z"
+  "distributed_at": "2026-07-29T07:14:46Z"
 }
