@@ -4,7 +4,7 @@
   "repo": "agent-harness-skills",
   "description": "Turn real software repos into agent-ready engineering environments with entrypoints, validation, evidence, and delivery records.",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/yfge/agent-harness-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T01:38:24Z"
+  "distributed_at": "2026-07-29T03:51:38Z"
 }
