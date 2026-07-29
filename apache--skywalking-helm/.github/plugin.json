@@ -1,0 +1,9 @@
+{
+  "name": "apache--skywalking-helm",
+  "displayName": "skywalking-helm",
+  "description": "skywalking-helm",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/skywalking-helm",
+  "skills": []
+}
