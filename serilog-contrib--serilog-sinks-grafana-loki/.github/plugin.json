@@ -1,0 +1,9 @@
+{
+  "name": "serilog-contrib--serilog-sinks-grafana-loki",
+  "displayName": "serilog-sinks-grafana-loki",
+  "description": "serilog-sinks-grafana-loki",
+  "version": "1.0.0",
+  "author": "serilog-contrib",
+  "homepage": "https://github.com/serilog-contrib/serilog-sinks-grafana-loki",
+  "skills": []
+}
