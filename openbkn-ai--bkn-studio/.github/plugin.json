@@ -1,0 +1,9 @@
+{
+  "name": "openbkn-ai--bkn-studio",
+  "displayName": "bkn-studio",
+  "description": "Web console for OpenBKN \u2014 build, manage, and collaborate on business knowledge networks. React + TypeScript frontend for the platform's admin UIs and workspaces.",
+  "version": "1.0.0",
+  "author": "openbkn-ai",
+  "homepage": "https://github.com/openbkn-ai/bkn-studio",
+  "skills": []
+}
