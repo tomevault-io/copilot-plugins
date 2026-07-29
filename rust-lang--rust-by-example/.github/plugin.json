@@ -1,0 +1,9 @@
+{
+  "name": "rust-lang--rust-by-example",
+  "displayName": "rust-by-example",
+  "description": "rust-by-example",
+  "version": "1.0.0",
+  "author": "rust-lang",
+  "homepage": "https://github.com/rust-lang/rust-by-example",
+  "skills": []
+}
