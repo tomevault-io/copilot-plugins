@@ -4,7 +4,7 @@
   "repo": "openclaw-command-center",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jontsai/openclaw-command-center",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T22:53:20Z"
+  "distributed_at": "2026-07-29T19:20:22Z"
 }
