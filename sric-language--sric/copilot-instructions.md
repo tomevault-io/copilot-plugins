@@ -1,0 +1,28 @@
+## sric
+
+> - 模块名、函数名、变量名使用小写驼峰式命名。
+
+## 代码约定
+
+### 源文件
+源文件使用UTF-8编码。
+
+### 缩进
+使用4空格缩进，例如：
+```
+    if (cond) {
+        doTrue
+    }
+    else {
+        doFalse
+    }
+```
+
+### 命名
+- 类型名使用Pascal命名法
+- 模块名、函数名、变量名使用小写驼峰式命名。
+- 从来不要用全大写："FOO_BAR"
+
+---
+> Source: [sric-language/sric](https://github.com/sric-language/sric) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
