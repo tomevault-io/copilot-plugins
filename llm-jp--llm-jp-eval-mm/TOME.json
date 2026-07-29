@@ -2,7 +2,7 @@
   "name": "llm-jp-eval-mm",
   "owner": "llm-jp",
   "repo": "llm-jp-eval-mm",
-  "description": "A lightweight framework for evaluating visual-language models.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/llm-jp/llm-jp-eval-mm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T20:37:40Z"
+  "distributed_at": "2026-07-29T12:00:17Z"
 }
