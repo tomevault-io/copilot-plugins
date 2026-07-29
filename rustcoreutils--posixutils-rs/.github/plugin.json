@@ -1,0 +1,9 @@
+{
+  "name": "rustcoreutils--posixutils-rs",
+  "displayName": "posixutils-rs",
+  "description": "posixutils-rs",
+  "version": "1.0.0",
+  "author": "rustcoreutils",
+  "homepage": "https://github.com/rustcoreutils/posixutils-rs",
+  "skills": []
+}
