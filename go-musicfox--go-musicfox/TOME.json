@@ -4,7 +4,7 @@
   "repo": "go-musicfox",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/go-musicfox/go-musicfox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T21:52:06Z"
+  "distributed_at": "2026-07-29T23:56:23Z"
 }
