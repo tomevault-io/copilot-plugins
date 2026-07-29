@@ -1,0 +1,9 @@
+{
+  "name": "open-mmlab--mmdetection",
+  "displayName": "mmdetection",
+  "description": "mmdetection",
+  "version": "1.0.0",
+  "author": "open-mmlab",
+  "homepage": "https://github.com/open-mmlab/mmdetection",
+  "skills": []
+}
