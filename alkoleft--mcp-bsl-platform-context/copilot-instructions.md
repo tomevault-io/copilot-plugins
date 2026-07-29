@@ -1,131 +1,107 @@
-## kotlin
+## mcp-bsl-platform-context
 
-> You are a Senior Kotlin programmer with experience in the Android framework and a preference for clean programming and design patterns.
+> Process map for VAN QA environment validation
 
+# VAN QA: ENVIRONMENT VALIDATION
 
-You are a Senior Kotlin programmer with experience in the Android framework and a preference for clean programming and design patterns.
+> **TL;DR:** This component verifies that the build environment is properly set up with required tools and permissions.
 
-Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+## 3️⃣ ENVIRONMENT VALIDATION PROCESS
 
-## Kotlin General Guidelines
+```mermaid
+graph TD
+    Start["Environment Validation"] --> CheckEnv["Check Build Environment"]
+    CheckEnv --> VerifyBuildTools["Verify Build Tools"]
+    VerifyBuildTools --> ToolsStatus{"Build Tools<br>Available?"}
+    
+    ToolsStatus -->|"Yes"| CheckPerms["Check Permissions<br>and Access"]
+    ToolsStatus -->|"No"| InstallTools["Install Required<br>Build Tools"]
+    InstallTools --> RetryTools["Retry Verification"]
+    RetryTools --> ToolsStatus
+    
+    CheckPerms --> PermsStatus{"Permissions<br>Sufficient?"}
+    PermsStatus -->|"Yes"| EnvSuccess["Environment Validated<br>✅ PASS"]
+    PermsStatus -->|"No"| FixPerms["Fix Permission<br>Issues"]
+    FixPerms --> RetryPerms["Retry Permission<br>Check"]
+    RetryPerms --> PermsStatus
+    
+    style Start fill:#4da6ff,stroke:#0066cc,color:white
+    style EnvSuccess fill:#10b981,stroke:#059669,color:white
+    style ToolsStatus fill:#f6546a,stroke:#c30052,color:white
+    style PermsStatus fill:#f6546a,stroke:#c30052,color:white
+```
 
-### Basic Principles
+### Environment Validation Implementation:
+```powershell
+# Example: Validate environment for a web project
+function Validate-Environment {
+    $requiredTools = @(
+        @{Name = "git"; Command = "git --version"},
+        @{Name = "node"; Command = "node --version"},
+        @{Name = "npm"; Command = "npm --version"}
+    )
+    
+    $missingTools = @()
+    $permissionIssues = @()
+    
+    # Check build tools
+    foreach ($tool in $requiredTools) {
+        try {
+            Invoke-Expression $tool.Command | Out-Null
+        } catch {
+            $missingTools += $tool.Name
+        }
+    }
+    
+    # Check write permissions in project directory
+    try {
+        $testFile = ".__permission_test"
+        New-Item -Path $testFile -ItemType File -Force | Out-Null
+        Remove-Item -Path $testFile -Force
+    } catch {
+        $permissionIssues += "Current directory (write permission denied)"
+    }
+    
+    # Check if port 3000 is available (commonly used for dev servers)
+    try {
+        $listener = New-Object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Loopback, 3000)
+        $listener.Start()
+        $listener.Stop()
+    } catch {
+        $permissionIssues += "Port 3000 (already in use or access denied)"
+    }
+    
+    # Display results
+    if ($missingTools.Count -eq 0 -and $permissionIssues.Count -eq 0) {
+        Write-Output "✅ Environment validated successfully"
+        return $true
+    } else {
+        if ($missingTools.Count -gt 0) {
+            Write-Output "❌ Missing tools: $($missingTools -join ', ')"
+        }
+        if ($permissionIssues.Count -gt 0) {
+            Write-Output "❌ Permission issues: $($permissionIssues -join ', ')"
+        }
+        return $false
+    }
+}
+```
 
-- Use English for all code and documentation.
-- Always declare the type of each variable and function (parameters and return value).
-  - Avoid using any.
-  - Create necessary types.
-- Don't leave blank lines within a function.
+## 📋 ENVIRONMENT VALIDATION CHECKPOINT
 
-### Nomenclature
+```
+✓ CHECKPOINT: ENVIRONMENT VALIDATION
+- All required build tools installed? [YES/NO]
+- Project directory permissions sufficient? [YES/NO]
+- Required ports available? [YES/NO]
 
-- Use PascalCase for classes.
-- Use camelCase for variables, functions, and methods.
-- Use underscores_case for file and directory names.
-- Use UPPERCASE for environment variables.
-  - Avoid magic numbers and define constants.
-- Start each function with a verb.
-- Use verbs for boolean variables. Example: isLoading, hasError, canDelete, etc.
-- Use complete words instead of abbreviations and correct spelling.
-  - Except for standard abbreviations like API, URL, etc.
-  - Except for well-known abbreviations:
-    - i, j for loops
-    - err for errors
-    - ctx for contexts
-    - req, res, next for middleware function parameters
+→ If all YES: Continue to Minimal Build Test.
+→ If any NO: Fix environment issues before continuing.
+```
 
-### Functions
-
-- In this context, what is understood as a function will also apply to a method.
-- Write short functions with a single purpose. Less than 20 instructions.
-- Name functions with a verb and something else.
-  - If it returns a boolean, use isX or hasX, canX, etc.
-  - If it doesn't return anything, use executeX or saveX, etc.
-- Avoid nesting blocks by:
-  - Early checks and returns.
-  - Extraction to utility functions.
-- Use higher-order functions (map, filter, reduce, etc.) to avoid function nesting.
-  - Use arrow functions for simple functions (less than 3 instructions).
-  - Use named functions for non-simple functions.
-- Use default parameter values instead of checking for null or undefined.
-- Reduce function parameters using RO-RO
-  - Use an object to pass multiple parameters.
-  - Use an object to return results.
-  - Declare necessary types for input arguments and output.
-- Use a single level of abstraction.
-
-### Data
-
-- Use data classes for data.
-- Don't abuse primitive types and encapsulate data in composite types.
-- Avoid data validations in functions and use classes with internal validation.
-- Prefer immutability for data.
-  - Use readonly for data that doesn't change.
-  - Use as val for literals that don't change.
-
-### Classes
-
-- Follow SOLID principles.
-- Prefer composition over inheritance.
-- Declare interfaces to define contracts.
-- Write small classes with a single purpose.
-  - Less than 200 instructions.
-  - Less than 10 public methods.
-  - Less than 10 properties.
-
-### Exceptions
-
-- Use exceptions to handle errors you don't expect.
-- If you catch an exception, it should be to:
-  - Fix an expected problem.
-  - Add context.
-  - Otherwise, use a global handler.
-
-### Testing
-
-- Follow the Arrange-Act-Assert convention for tests.
-- Name test variables clearly.
-  - Follow the convention: inputX, mockX, actualX, expectedX, etc.
-- Write unit tests for each public function.
-  - Use test doubles to simulate dependencies.
-    - Except for third-party dependencies that are not expensive to execute.
-- Write acceptance tests for each module.
-  - Follow the Given-When-Then convention.
-
-## Specific to Android
-
-### Basic Principles
-
-- Use clean architecture
-  - see repositories if you need to organize code into repositories
-- Use repository pattern for data persistence
-  - see cache if you need to cache data
-- Use MVI pattern to manage state and events in viewmodels and trigger and render them in activities / fragments
-  - see keepAlive if you need to keep the state alive
-- Use Auth Activity to manage authentication flow
-  - Splash Screen
-  - Login
-  - Register
-  - Forgot Password
-  - Verify Email
-- Use Navigation Component to manage navigation between activities/fragments
-- Use MainActivity to manage the main navigation
-  - Use BottomNavigationView to manage the bottom navigation
-  - Home
-  - Profile
-  - Settings
-  - Patients
-  - Appointments
-- Use ViewBinding to manage views
-- Use Flow / LiveData to manage UI state
-- Use xml and fragments instead of jetpack compose
-- Use Material 3 for the UI
-- Use ConstraintLayout for layouts
-### Testing
-
-- Use the standard widget testing for flutter
-- Use integration tests for each api module.   
+**Next Step (on PASS):** Load `van-qa-checks/build-test.mdc`.
+**Next Step (on FAIL):** Check `van-qa-utils/common-fixes.mdc` for environment fixes. 
 
 ---
 > Source: [alkoleft/mcp-bsl-platform-context](https://github.com/alkoleft/mcp-bsl-platform-context) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
