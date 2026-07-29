@@ -1,0 +1,9 @@
+{
+  "name": "robertdebock--ansible-role-logrotate",
+  "displayName": "ansible-role-logrotate",
+  "description": "ansible-role-logrotate",
+  "version": "1.0.0",
+  "author": "robertdebock",
+  "homepage": "https://github.com/robertdebock/ansible-role-logrotate",
+  "skills": []
+}
