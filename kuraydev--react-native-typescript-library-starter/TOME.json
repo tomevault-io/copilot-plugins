@@ -4,7 +4,7 @@
   "repo": "react-native-typescript-library-starter",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kuraydev/react-native-typescript-library-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T00:30:48Z"
+  "distributed_at": "2026-07-29T11:22:29Z"
 }
