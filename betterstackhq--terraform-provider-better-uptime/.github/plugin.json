@@ -1,0 +1,9 @@
+{
+  "name": "betterstackhq--terraform-provider-better-uptime",
+  "displayName": "terraform-provider-better-uptime",
+  "description": "terraform-provider-better-uptime",
+  "version": "1.0.0",
+  "author": "BetterStackHQ",
+  "homepage": "https://github.com/BetterStackHQ/terraform-provider-better-uptime",
+  "skills": []
+}
