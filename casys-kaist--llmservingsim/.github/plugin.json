@@ -1,7 +1,7 @@
 {
   "name": "casys-kaist--llmservingsim",
   "displayName": "LLMServingSim",
-  "description": "LLMServingSim 2.0: A Unified Simulator for Heterogeneous and Disaggregated LLM Serving Infrastructure",
+  "description": "LLMServingSim",
   "version": "1.0.0",
   "author": "casys-kaist",
   "homepage": "https://github.com/casys-kaist/LLMServingSim",
