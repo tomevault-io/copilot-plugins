@@ -1,27 +1,183 @@
 ## nilai
 
-> The workspace uses `uv` to link several Python packages. Core web APIs live in `nilai-api/src/nilai_api`, model runtimes are under `nilai-models/src/nilai_models`, and shared utilities sit in `packages/nilai-common/src/nilai_common`. Authentication helpers are split between `nilai-auth/nilai-auth-server` and `nilai-auth/nilai-auth-client`. Integration data and infrastructure assets reside in `docker/`, `devops/`, and `scripts/`, while end-to-end, integration, and unit suites are grouped under `tests/`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-The workspace uses `uv` to link several Python packages. Core web APIs live in `nilai-api/src/nilai_api`, model runtimes are under `nilai-models/src/nilai_models`, and shared utilities sit in `packages/nilai-common/src/nilai_common`. Authentication helpers are split between `nilai-auth/nilai-auth-server` and `nilai-auth/nilai-auth-client`. Integration data and infrastructure assets reside in `docker/`, `devops/`, and `scripts/`, while end-to-end, integration, and unit suites are grouped under `tests/`.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-Run `uv sync` from the repo root to install workspace dependencies. Start the FastAPI gateway in hot-reload mode with `uv run fastapi dev nilai-api/src/nilai_api/__main__.py`, or launch a production-like instance with `uv run fastapi run ... --port 8080`. Model services follow the same pattern, e.g. `uv run fastapi dev nilai-models/src/nilai_models/models/llama_1b_cpu/__init__.py`. For full-stack experimentation, compose services with `python3 scripts/docker-composer.py --dev -o development-compose.yml` and `docker compose -f development-compose.yml up -d`.
+## Commands
 
-## Coding Style & Naming Conventions
-Target Python 3.12 with four-space indentation and descriptive snake_case identifiers. Before submitting changes, execute `uv run ruff check .`, `uv run black .`, and `uv run isort .` to align with the project’s linting stack; type hints should satisfy `uv run pyright`. Shared abstractions belong in `nilai_common`, API routers in `nilai_api/api`, and model adapters in dedicated folders within `nilai_models/models`.
+### Development Setup
+```bash
+# Install dependencies (uses uv for dependency management)
+uv sync
 
-## Testing Guidelines
-The project standardizes on `pytest`; run targeted suites with commands like `uv run pytest tests/unit` or `uv run pytest tests/e2e -m smoke`. Place new tests beside the code they validate, naming files `test_<feature>.py` and parametrizing scenarios where possible. When introducing cross-service flows, add coverage in `tests/integration` or `tests/functional_tests`, and capture fixture updates in `tests/conftest.py`.
+# Install with development dependencies
+uv sync --group dev
+```
 
-## Commit & Pull Request Guidelines
-Commit messages follow Conventional Commit prefixes (`feat:`, `fix:`, `refactor:`, etc.) as seen in `git log`. Group related changes per commit, reference issue IDs when available, and keep bodies focused on the observable behavior change. Pull requests should summarize intent, list manual or automated test results, and highlight any configuration updates (new env vars, Docker tags, or migrations). Include screenshots or logs only when they clarify the change.
+### Testing
+```bash
+# Run all tests
+uv run pytest
 
-## Security & Configuration Tips
-Never commit real secrets; use `.env.sample` as the template and keep private keys under the packaged `private_key.key.lock` mechanism. When working locally, prefer ephemeral Hugging Face tokens and rotate them before sharing demo environments. Review Dockerfiles for pinned bases before pushing production builds.
+# Run tests with coverage
+uv run pytest --cov=nilai_py --cov-report=term-missing
+
+# Run specific test file
+uv run pytest tests/test_server.py
+
+# Run specific test class
+uv run pytest tests/test_server.py::TestDelegationTokenServer -v
+
+# Run specific test method
+uv run pytest tests/test_server.py::TestDelegationTokenServer::test_create_delegation_token_success -v
+```
+
+### Code Quality
+```bash
+# Run linter and formatter
+uv run ruff check
+uv run ruff format
+```
+
+### Running Examples
+```bash
+# Examples are located in the examples/ directory
+python examples/0-api_key_mode.py
+python examples/1-delegation_token_mode.py
+python examples/2-streaming_mode.py
+python examples/3-advanced_streaming.py
+python examples/4-concurrent-streaming.py
+python examples/5-nildb-prompt-storage.py
+python examples/6-nildb-stored-prompt.py
+python examples/7-web-search.py
+```
+
+## Architecture
+
+### Core Components
+
+**Client (`src/nilai_py/client.py`)**
+- OpenAI-compatible client extending `openai.Client`
+- Supports two authentication modes: API_KEY and DELEGATION_TOKEN
+- Handles NUC token creation and Nilai-specific authentication headers
+- Manages root tokens (API key mode) and delegation tokens automatically
+
+**DelegationTokenServer (`src/nilai_py/server.py`)**
+- Server-side component for creating delegation tokens
+- Manages root token lifecycle with automatic refresh on expiration
+- Creates time-limited delegation tokens with configurable usage limits
+- Handles NilAuth integration for secure token generation
+
+**NilDB Prompt Manager (`src/nilai_py/nildb/__init__.py`)**
+- Document management system for handling prompts in NilDB
+- User setup and key management with SecretVaults integration
+- CRUD operations for documents with delegation token authentication
+
+### Authentication Flow
+
+1. **API Key Mode**: Direct authentication using API key from nilpay.vercel.app
+   - Client initializes with API key, creates root token via NilAuth
+   - Root token is cached and auto-refreshed when expired
+   - Invocation tokens created from root token for each request
+
+2. **Delegation Token Mode**: Server-side token generation for enhanced security
+   - Client generates temporary keypair and requests delegation
+   - Server creates delegation token using its root token
+   - Client uses delegation token to create invocation tokens for requests
+
+### Key Dependencies
+
+- `nuc`: NUC token creation and envelope handling
+- `openai`: Base OpenAI client functionality
+- `secretvaults`: Secure key storage for NilDB operations
+- `httpx`: HTTP client for Nilai API communication
+- `pydantic`: Data validation and serialization
+
+### Configuration
+
+**Environment Variables**
+- `API_KEY`: API key for direct authentication mode
+- `PRIVATE_KEY`: Server private key for delegation token creation
+
+**NilAuth Instances**
+- `SANDBOX`: https://nilauth.sandbox.app-cluster.sandbox.nilogy.xyz
+- `PRODUCTION`: https://nilauth-cf7f.nillion.network/
+
+### Testing Structure
+
+- `tests/unit/`: Unit tests for individual components
+- `tests/e2e/`: End-to-end integration tests
+- Test coverage focused on DelegationTokenServer (100% coverage) and core functionality
+
+### Examples Structure
+
+The examples directory demonstrates various SDK capabilities:
+
+- `examples/0-api_key_mode.py`: Basic API key authentication
+- `examples/1-delegation_token_mode.py`: Delegation token flow
+- `examples/2-streaming_mode.py`: Basic streaming responses
+- `examples/3-advanced_streaming.py`: Advanced streaming with error handling
+- `examples/4-concurrent-streaming.py`: Multiple concurrent streaming requests
+- `examples/5-nildb-prompt-storage.py`: Storing prompts in NilDB with delegation
+- `examples/6-nildb-stored-prompt.py`: Using stored prompts with complex delegation chains
+- `examples/7-web-search.py`: Web search capabilities
+
+### NilDB Integration
+
+The SDK includes a complete document management system (`src/nilai_py/nildb/`) for handling prompts:
+
+- **Document Operations**: Create, list, and manage prompt documents
+- **User Management**: Automatic user setup with SecretVaults integration
+- **Delegation Chain**: Complex delegation token flows for document access
+- **Key Components**:
+  - `NilDBPromptManager`: Main interface for document operations
+  - `UserSetupResult`: User configuration and key management
+  - `DocumentReference`: Document metadata and access control
+
+### Streaming Support
+
+Both authentication modes support real-time streaming responses with:
+- Real-time chunk processing
+- Progress tracking and monitoring
+- Error handling and retry logic
+- Concurrent streaming capabilities
+
+## Development Patterns
+
+### File Structure Conventions
+- Core functionality in `src/nilai_py/`: Client, server, and type definitions
+- NilDB subsystem in `src/nilai_py/nildb/`: Document management and user operations
+- Examples in `examples/`: Numbered examples with specific use cases
+- Tests split between `tests/unit/` and `tests/e2e/`
+
+### Authentication Architecture
+The SDK uses a two-tier authentication system:
+1. **Root Tokens**: Long-lived server credentials (API key or private key)
+2. **Delegation/Invocation Tokens**: Short-lived request tokens
+
+**Token Flow**:
+- Server creates root token using NilAuth
+- Root token generates delegation tokens with configurable expiration/usage limits
+- Client uses delegation tokens to create invocation tokens for each API request
+- All tokens automatically refresh when expired
+
+### NilDB Document Flow
+Complex delegation chains for document access:
+1. **Subscription Owner Server**: Controls API access using API key
+2. **Prompt Data Owner Server**: Controls document access using private key
+3. **Client**: Makes requests using chained delegation tokens
+
+This enables fine-grained access control where document owners can delegate access independently of API subscription owners.
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
 
 ---
 > Source: [NillionNetwork/nilAI](https://github.com/NillionNetwork/nilAI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
