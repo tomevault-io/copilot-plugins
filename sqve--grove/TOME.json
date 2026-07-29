@@ -2,9 +2,9 @@
   "name": "grove",
   "owner": "sQVe",
   "repo": "grove",
-  "description": "A fast, intuitive CLI that makes Git worktrees as simple as switching branches.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sQVe/grove",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T09:18:29Z"
+  "distributed_at": "2026-07-29T08:45:07Z"
 }
