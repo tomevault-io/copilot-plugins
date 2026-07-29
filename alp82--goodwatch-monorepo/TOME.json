@@ -4,7 +4,7 @@
   "repo": "goodwatch-monorepo",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/alp82",
+  "source_url": "https://github.com/alp82/goodwatch-monorepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T01:45:48Z"
+  "distributed_at": "2026-07-29T11:38:21Z"
 }
