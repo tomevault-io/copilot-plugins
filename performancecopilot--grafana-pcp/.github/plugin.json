@@ -1,0 +1,9 @@
+{
+  "name": "performancecopilot--grafana-pcp",
+  "displayName": "grafana-pcp",
+  "description": "grafana-pcp",
+  "version": "1.0.0",
+  "author": "performancecopilot",
+  "homepage": "https://github.com/performancecopilot/grafana-pcp",
+  "skills": []
+}
