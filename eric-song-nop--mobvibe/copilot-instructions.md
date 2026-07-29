@@ -1,184 +1,120 @@
 ## mobvibe
 
-> 本指南面向自动化编码代理，重点提供构建/格式化/检查/测试命令与代码风格约束。
+> **Analysis Date:** 2026-05-12
 
-# Mobvibe 代码仓库（Agent 指南）
+# Coding Conventions
 
-本指南面向自动化编码代理，重点提供构建/格式化/检查/测试命令与代码风格约束。
+**Analysis Date:** 2026-05-12
 
-## 仓库结构概览
+## Naming Patterns
 
-```
-mobvibe/
-├── apps/
-│   ├── gateway/      # Express + Socket.io 网关（端口 3005）
-│   ├── webui/        # React 19 + Vite 前端
-│   └── mobvibe-cli/  # Bun CLI 守护进程
-├── packages/
-│   ├── shared/       # 共享 TypeScript 类型
-│   └── core/         # 共享 stores/hooks/utils
-├── docs/             # 设计/实现文档（中文）
-└── biome.json        # 代码格式与 lint 规则
-```
+**Files:**
+- Use `kebab-case` for TypeScript source files across apps and packages, e.g. `apps/gateway/src/services/session-router.ts`, `apps/webui/src/lib/chat-store.ts`, `apps/mobvibe-cli/src/config-loader.ts`, and `packages/shared/src/types/socket-events.ts`.
+- React component implementation files may use `PascalCase.tsx` when the component is the file boundary, e.g. `apps/webui/src/components/app/ChatFooter.tsx` and `apps/webui/src/components/app/AppSidebar.tsx`.
+- Store files use `*-store.ts`, e.g. `apps/webui/src/lib/chat-store.ts`, `apps/webui/src/lib/ui-store.ts`, and `apps/webui/src/lib/machines-store.ts`.
+- Test files use `*.test.ts` / `*.test.tsx` for unit and component tests, and Playwright E2E specs use `*.spec.ts`, e.g. `apps/webui/tests/e2e/session-restore.spec.ts`.
 
-说明：当前仓库没有 `apps/mobile/` 目录，以实际目录为准。
+**Functions:**
+- Use `camelCase` for functions and helpers, e.g. `normalizeBackendIds` in `apps/webui/src/hooks/useSessionQueries.ts`, `requestJsonWithTimeout` in `apps/webui/src/lib/api.ts`, and `createMockSessionSummary` in `apps/gateway/src/services/__tests__/session-router.test.ts`.
+- React hooks must use `useX` naming and live under `apps/webui/src/hooks/`, e.g. `useSessionQueries` and `useDiscoverSessionsMutation` in `apps/webui/src/hooks/useSessionQueries.ts`.
+- Type guard helpers should use `isX`, e.g. `isPromptImageFile` in `apps/webui/src/components/app/ChatFooter.tsx` and `isAbortError` in `apps/webui/src/lib/api.ts`.
+- Factory/test helpers should use `createX` or `buildX`, e.g. `createFallbackError` in `apps/webui/src/lib/error-utils.ts`, `buildRequestValidationError` in `apps/gateway/src/routes/sessions.ts`, and `createImageBlock` in `packages/shared/tests/prompt-images.test.ts`.
 
-## 通用约束
+**Variables:**
+- Use `camelCase` for locals and parameters, e.g. `backendCapabilities`, `lastError`, and `hasExplicitBackendSelection` in `apps/webui/src/hooks/useSessionQueries.ts`.
+- Use `UPPER_SNAKE_CASE` for module-level constants with fixed configuration values, e.g. `SEND_MESSAGE_TIMEOUT_MS` and `SESSION_LOAD_TIMEOUT_MS` in `apps/webui/src/lib/api.ts`, and `RPC_TIMEOUT` in `apps/gateway/src/services/session-router.ts`.
+- Prefix intentionally unused destructured props/parameters with `_`, e.g. `_size` in `apps/webui/src/components/app/__tests__/ChatFooter.test.tsx`.
 
-- 使用 `pnpm`，不要使用 `npm`。
-- 缩进与格式化交给 Biome；不要手改导入顺序。
-- 提交前运行 `pnpm format && pnpm lint`，修复 lint 错误。
-- 提交前运行 `pnpm build`，确保整个项目都可以正常构建。
-- 与webui相关提交前使用 React Best Practice 检查。
-- 与webui相关提交前使用 Web Design Guideline 检查。
+**Types:**
+- Use `PascalCase` for exported types, classes, and React props, e.g. `ChatSession`, `ChatMessage`, and `SessionListEntry` in `apps/webui/src/lib/chat-store.ts`, `ApiError` in `apps/webui/src/lib/api.ts`, and `SessionRouter` in `apps/gateway/src/services/session-router.ts`.
+- Prefer explicit discriminated unions for state and messages, e.g. `ChatMessage` and message `kind` variants in `apps/webui/src/lib/chat-store.ts`.
+- Use `unknown` for untrusted error/input values and narrow before use, e.g. `normalizeError(error: unknown, ...)` in `apps/webui/src/lib/error-utils.ts` and `getErrorMessage(error: unknown)` in `apps/gateway/src/routes/sessions.ts`.
 
-## 根目录常用命令
+## Code Style
 
-```bash
-pnpm install          # 安装依赖
-pnpm dev              # Turbo 启动所有包（通常已在跑，除非明确要求否则不要启动）
-pnpm build            # 构建所有包
-pnpm format           # Biome 格式化
-pnpm lint             # Biome 检查（含自动修复）
-pnpm test             # Vitest watch（不建议在 agent/CI 场景用）
-pnpm test:run         # Vitest 单次运行
-```
+**Formatting:**
+- Tool: Biome 2.3.11 configured in `biome.json` and package overrides such as `packages/ui/biome.json`.
+- Use tabs for indentation (`biome.json` line 14) and double quotes for JavaScript/TypeScript strings (`biome.json` line 24).
+- Do not manually organize imports; Biome source action `organizeImports` is enabled in `biome.json` and `packages/ui/biome.json`.
+- Keep TypeScript strict. `strict: true` is enabled in `apps/webui/tsconfig.app.json`, `apps/gateway/tsconfig.json`, `apps/mobvibe-cli/tsconfig.json`, and `packages/shared/tsconfig.json`.
 
-## 分包命令
+**Linting:**
+- Tool: Biome check. Root scripts are `pnpm format`, `pnpm lint`, `pnpm format:check`, and `pnpm lint:check` in `package.json`.
+- Package scripts run `biome check --write .` and `biome format --write .`, e.g. `apps/webui/package.json`, `apps/gateway/package.json`, `apps/mobvibe-cli/package.json`, `packages/shared/package.json`, and `packages/ui/package.json`.
+- `packages/ui/biome.json` keeps recommended rules but warns on accessibility and disables `suspicious` and `style`; UI package changes should still follow root conventions unless this override is intentional.
 
-gateway（`apps/gateway`）
-```bash
-pnpm -C apps/gateway dev
-pnpm -C apps/gateway build
-pnpm -C apps/gateway start
-pnpm -C apps/gateway start:migrate
-pnpm -C apps/gateway format
-pnpm -C apps/gateway lint
-pnpm -C apps/gateway test
-pnpm -C apps/gateway test:run
-pnpm -C apps/gateway db:generate
-pnpm -C apps/gateway db:migrate
-pnpm -C apps/gateway db:push
-pnpm -C apps/gateway db:studio
-```
+## Import Organization
 
-webui（`apps/webui`）
-```bash
-pnpm -C apps/webui dev
-pnpm -C apps/webui build
-pnpm -C apps/webui preview
-pnpm -C apps/webui format
-pnpm -C apps/webui lint
-pnpm -C apps/webui test
-pnpm -C apps/webui test:run
-pnpm -C apps/webui dev:tauri
-pnpm -C apps/webui build:tauri
-pnpm -C apps/webui android:dev
-pnpm -C apps/webui ios:dev
-```
+**Order:**
+1. Node built-ins and external packages, e.g. `node:crypto`, `@mobvibe/shared`, `socket.io`, `@tanstack/react-query` in `apps/gateway/src/services/session-router.ts` and `apps/webui/src/components/app/ChatFooter.tsx`.
+2. Workspace packages such as `@mobvibe/shared` and `@mobvibe/ui/*`, e.g. `apps/webui/src/components/app/ChatFooter.tsx` and `apps/webui/src/pages/LegalPage.tsx`.
+3. App aliases, e.g. `@/components/*`, `@/hooks/*`, and `@/lib/*` in `apps/webui/src/components/app/ChatFooter.tsx`.
+4. Relative imports from the same package/module, e.g. `../services/session-router.js` in `apps/gateway/src/services/__tests__/session-router.test.ts` and `./error-utils` in `apps/webui/src/lib/api.ts`.
 
-mobvibe-cli（`apps/mobvibe-cli`）
-```bash
-pnpm -C apps/mobvibe-cli dev # same as pnpm -C apps/mobvibe-cli start start --foreground
-pnpm -C apps/mobvibe-cli build
-pnpm -C apps/mobvibe-cli build:bin
-pnpm -C apps/mobvibe-cli start
-pnpm -C apps/mobvibe-cli format
-pnpm -C apps/mobvibe-cli lint
-pnpm -C apps/mobvibe-cli test    # Bun test
-```
+**Path Aliases:**
+- WebUI uses `@/*` for `apps/webui/src/*`, configured in `apps/webui/tsconfig.json`, `apps/webui/tsconfig.app.json`, and `apps/webui/vitest.config.ts`.
+- NodeNext packages use explicit `.js` extensions for relative TypeScript source imports that emit to ESM, e.g. `../lib/logger.js` in `apps/gateway/src/services/session-router.ts` and `./types/errors.js` in `packages/shared/src/index.ts`.
+- Package public imports should use workspace package names and subpath exports, e.g. `@mobvibe/ui/button` and `@mobvibe/shared` in `apps/webui/src/components/app/ChatFooter.tsx`.
 
-core / shared（`packages/core`, `packages/shared`）
-```bash
-pnpm -C packages/core build
-pnpm -C packages/core dev
-pnpm -C packages/core format
-pnpm -C packages/core lint
-pnpm -C packages/shared build
-pnpm -C packages/shared dev
-pnpm -C packages/shared format
-pnpm -C packages/shared lint
-```
+## Error Handling
 
-## 单个测试的运行方式（重点）
+**Patterns:**
+- Normalize unknown errors before surfacing them. Use `normalizeError` and `createFallbackError` from `apps/webui/src/lib/error-utils.ts` for WebUI user-facing errors.
+- HTTP client failures should throw `ApiError` with structured `ErrorDetail`, as implemented in `apps/webui/src/lib/api.ts`; avoid throwing raw response payloads.
+- Gateway routes should return structured `{ error: ErrorDetail }` responses through helpers such as `respondError`, `buildRequestValidationError`, and `buildAuthorizationError` in `apps/gateway/src/routes/sessions.ts`.
+- Backend services and routes should log caught errors with structured context before returning generic internal errors, e.g. `logger.error({ err: error, userId }, "session_create_error")` in `apps/gateway/src/routes/sessions.ts`.
+- Use `Promise.allSettled` when partial failure is acceptable, then explicitly decide whether to throw or continue, e.g. multi-backend discovery in `apps/webui/src/hooks/useSessionQueries.ts` and bulk archive logic in `apps/gateway/src/services/session-router.ts`.
+- Do not silently catch errors. If a catch intentionally ignores a recoverable failure, include a comment explaining why, e.g. backend discovery fallback in `apps/webui/src/hooks/useSessionQueries.ts`.
 
-Vitest（gateway/webui/core）
-```bash
-pnpm -C apps/gateway test:run -- src/socket/__tests__/session-router.test.ts
-pnpm -C apps/webui test:run -- src/__tests__/app.test.tsx
-pnpm -C apps/webui test:run -- -t "session list"
-```
+## Logging
 
-Bun test（mobvibe-cli）
-```bash
-pnpm -C apps/mobvibe-cli test -- src/acp/__tests__/session-manager.test.ts
-```
+**Framework:** pino for gateway and CLI runtime services; browser WebUI uses limited `console.*` logging.
 
-workspace 过滤运行
-```bash
-pnpm -F webui test:run -- src/__tests__/app.test.tsx
-```
+**Patterns:**
+- Gateway logging should import `logger` from `apps/gateway/src/lib/logger.ts`; CLI daemon/service logging should import `logger` from `apps/mobvibe-cli/src/lib/logger.ts`.
+- Use structured log objects as the first pino argument and a stable event name as the message, e.g. `logger.info({ userId, backendId, machineId }, "session_create_request")` in `apps/gateway/src/routes/sessions.ts`.
+- Do not log secrets. Both pino loggers redact `authorization`, `cookie`, `x-api-key`, `apiKey`, and `token` fields in `apps/gateway/src/lib/logger.ts` and `apps/mobvibe-cli/src/lib/logger.ts`.
+- CLI command UI output may use `console.log` / `console.error` for user-facing messages in `apps/mobvibe-cli/src/index.ts` and `apps/mobvibe-cli/src/auth/login.ts`.
+- WebUI operational warnings currently use `console.warn` / `console.error` in files such as `apps/webui/src/lib/e2ee.ts`, `apps/webui/src/lib/socket.ts`, and `apps/webui/src/hooks/use-qr-scanner.ts`; keep these concise and never include tokens or secrets.
 
-## 代码风格与规范
+## Comments
 
-格式化与缩进
-- Biome 为唯一格式化与 lint 依据（`biome.json` 已配置）。
-- 缩进使用 tabs，字符串使用双引号。
-- 不要手动整理 import 顺序；交给 Biome 的 organizeImports。
+**When to Comment:**
+- Comment security-sensitive or non-obvious control flow, e.g. authorization-preserving lookup comments in `apps/gateway/src/services/session-router.ts` and branch injection validation in `apps/gateway/src/routes/sessions.ts`.
+- Comment test-only simulations and captured callbacks, e.g. RPC response simulation in `apps/gateway/src/services/__tests__/session-router.test.ts` and `sessionUpdateCallback` in `apps/mobvibe-cli/src/acp/__tests__/session-manager.test.ts`.
+- Avoid comments that restate obvious code; prefer descriptive function and variable names.
 
-导入与模块
-- 使用 ESM（所有包均为 `"type": "module"`）。
-- 新增公共类型或工具时，更新对应入口（例如 `packages/shared/src/index.ts`）。
-- 优先保持导入路径简洁；不要引入未使用依赖。
+**JSDoc/TSDoc:**
+- Use JSDoc for exported helpers, hooks, and API methods where the contract is important, e.g. `createFallbackError` and `normalizeError` in `apps/webui/src/lib/error-utils.ts`, route descriptions in `apps/gateway/src/routes/sessions.ts`, and `SessionRouter` methods in `apps/gateway/src/services/session-router.ts`.
+- Inline object fields may use short doc comments for persisted/runtime state, e.g. `provisional`, `failed`, and `e2eeStatus` in `apps/webui/src/lib/chat-store.ts`.
 
-类型与命名
-- 禁止 `any`，未知类型用 `unknown` 并做类型收窄。
-- 函数尽量保持 50 行以内，逻辑分层明确。
-- 文件名 `kebab-case`；组件/类 `PascalCase`；函数/变量 `camelCase`；Hooks 使用 `useX`。
+## Function Design
 
-错误处理
-- 不要静默捕获异常；必须记录日志或显式处理。
-- 网关/CLI 日志优先使用现有 pino 体系，避免长期使用 `console.log`。
+**Size:** Keep functions focused and prefer extracting pure helpers when logic grows. Examples include small helpers in `apps/webui/src/components/app/ChatFooter.tsx` (`isEditorContentBlock`, `getImageContentBlocks`, `hasSendablePromptContent`) and `apps/gateway/src/routes/sessions.ts` (`normalizeRelativeCwd`, `buildAuthorizationError`).
 
-React/UI（webui）
-- 组件保持小而清晰；避免过度抽象。
-- Tailwind 与现有 UI 结构保持一致，新组件遵循现有目录布局。
+**Parameters:**
+- Prefer typed object parameters for multi-field operations and API calls, e.g. `DiscoverSessionsVariables` in `apps/webui/src/hooks/useSessionQueries.ts` and session route payload parsing in `apps/gateway/src/routes/sessions.ts`.
+- Use explicit return types on exported functions, hooks, classes, and public API helpers, e.g. `useSessionQueries(): UseSessionQueriesReturn` in `apps/webui/src/hooks/useSessionQueries.ts` and `setApiBaseUrl(...): void` in `apps/webui/src/lib/api.ts`.
 
-数据库与配置（gateway）
-- 新增 env 变量需同步文档说明，禁止提交密钥。
+**Return Values:**
+- Return typed domain objects or discriminated unions rather than loose objects, e.g. `SessionListEntry` from `toSessionListEntry` in `apps/webui/src/lib/chat-store.ts` and `PromptImageValidationResult` from shared prompt image validators in `packages/shared/src/prompt-images.ts`.
+- Use `Promise<T>` for async service boundaries, e.g. `createSession(...): Promise<SessionSummary>` in `apps/gateway/src/services/session-router.ts`.
 
-## 测试与目录约定
+## Module Design
 
-- gateway/core/cli 测试放在 `src/**/__tests__/`，命名 `*.test.ts`。
-- webui 测试在 `src/__tests__/` 或 `tests/`，命名 `*.test.ts(x)`。
-- 行为变更应补测试或在说明中写清理由。
+**Exports:**
+- Shared package exports must be surfaced through `packages/shared/src/index.ts` when adding public types or utilities.
+- UI package exports must be added to both `packages/ui/src/index.ts` and `packages/ui/package.json` subpath exports when adding public components.
+- WebUI local modules generally export named functions/types instead of default exports, e.g. `apps/webui/src/lib/api.ts`, `apps/webui/src/lib/error-utils.ts`, and `apps/webui/src/hooks/useSessionQueries.ts`.
 
-## 环境变量速览（常用）
+**Barrel Files:**
+- Use package-level barrel files for public workspace APIs: `packages/shared/src/index.ts` and `packages/ui/src/index.ts`.
+- Avoid deep app-wide barrel files inside `apps/webui/src`; import direct module paths such as `@/lib/chat-store` and `@/components/app/ChatFooter`.
 
-- gateway: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `GATEWAY_CORS_ORIGINS`, `REDIS_URL`。
-- webui: `VITE_GATEWAY_URL`。
-- mobvibe-cli: `MOBVIBE_GATEWAY_URL`, `MOBVIBE_MASTER_SECRET`。
+---
 
-## 部署
-
-- Gateway: Fly.io (`fly.toml`，仓库根目录)
-- WebUI: Netlify (`apps/webui/netlify.toml`) → app.mobvibe.net
-- Website: Netlify (`apps/website/netlify.toml`) → mobvibe.net
-- 数据库: Neon PostgreSQL (us-west-2)
-- DNS: Cloudflare (静态站点使用 DNS Only 模式)
-- Gateway 域名: api.mobvibe.net
-- CI/CD: `.github/workflows/deploy-fly.yml` (Gateway 自动部署)
-- 遗留: `render.yaml` 仍保留 Gateway 和数据库配置（迁移过渡期）
-
-## 其他说明
-
-- 不要提交 `node_modules/`, `.venv/`, `__pycache__/`, `.DS_Store`。
-- 参考文档：`CLAUDE.md` 与 `docs/`。
-
-## Cursor/Copilot 规则
-
-- 未发现 `.cursor/rules/`、`.cursorrules` 或 `.github/copilot-instructions.md`。
+*Convention analysis: 2026-05-12*
 
 ---
 > Source: [Eric-Song-Nop/mobvibe](https://github.com/Eric-Song-Nop/mobvibe) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
