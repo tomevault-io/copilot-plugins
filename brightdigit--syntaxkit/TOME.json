@@ -2,9 +2,9 @@
   "name": "SyntaxKit",
   "owner": "brightdigit",
   "repo": "SyntaxKit",
-  "description": "Generate Swift code programmatically with declarative syntax.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brightdigit/SyntaxKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T17:39:39Z"
+  "distributed_at": "2026-07-29T03:39:46Z"
 }
