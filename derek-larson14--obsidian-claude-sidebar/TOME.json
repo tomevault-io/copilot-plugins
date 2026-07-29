@@ -4,7 +4,7 @@
   "repo": "obsidian-claude-sidebar",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/derek-larson14/obsidian-claude-sidebar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T06:03:11Z"
+  "distributed_at": "2026-07-29T22:22:00Z"
 }
