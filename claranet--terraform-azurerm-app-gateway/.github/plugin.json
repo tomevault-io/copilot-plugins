@@ -1,0 +1,9 @@
+{
+  "name": "claranet--terraform-azurerm-app-gateway",
+  "displayName": "terraform-azurerm-app-gateway",
+  "description": "terraform-azurerm-app-gateway",
+  "version": "1.0.0",
+  "author": "claranet",
+  "homepage": "https://github.com/claranet/terraform-azurerm-app-gateway",
+  "skills": []
+}
