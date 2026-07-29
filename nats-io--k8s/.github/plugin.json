@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--k8s",
+  "displayName": "k8s",
+  "description": "k8s",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/k8s",
+  "skills": []
+}
