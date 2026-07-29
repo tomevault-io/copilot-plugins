@@ -2,9 +2,9 @@
   "name": "claude-bedrock",
   "owner": "iurykrieger",
   "repo": "claude-bedrock",
-  "description": "Second Brain automation for Obsidian vaults \u2014 entity management, ingestion, compression, and sync via Claude Code skills",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iurykrieger/claude-bedrock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T01:47:21Z"
+  "distributed_at": "2026-07-29T06:49:45Z"
 }
