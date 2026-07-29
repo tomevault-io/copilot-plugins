@@ -1,0 +1,9 @@
+{
+  "name": "robertdebock--ansible-role-dns",
+  "displayName": "ansible-role-dns",
+  "description": "ansible-role-dns",
+  "version": "1.0.0",
+  "author": "robertdebock",
+  "homepage": "https://github.com/robertdebock/ansible-role-dns",
+  "skills": []
+}
