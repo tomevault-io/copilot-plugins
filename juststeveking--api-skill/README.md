@@ -1,6 +1,6 @@
 # api-skill
 
-> Tome by [JustSteveKing](https://github.com/JustSteveKing/api-skill) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [JustSteveKing](https://github.com/JustSteveKing/api-skill), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,7 +16,7 @@ Original source: `` in [JustSteveKing/api-skill](https://github.com/JustSteveKin
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/JustSteveKing/api-skill](https://github.com/JustSteveKing/api-skill)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/JustSteveKing/api-skill](https://github.com/JustSteveKing/api-skill)
 
 ---
 
