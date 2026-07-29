@@ -1,8 +1,6 @@
 # Agentshire
 
-> Tome by [Agentshire](https://github.com/Agentshire/Agentshire) — distributed by [TomeVault](https://tomevault.io)
-
-OpenClaw / QClaw  plugin that visualizes AI agents as 3D NPCs in a game town — with social simulation, a map editor, and a character workshop.
+> Tome by [Agentshire](https://github.com/Agentshire/Agentshire), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [Agentshire/Agentshire](https://github.com/Agent
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Agentshire/Agentshire](https://github.com/Agentshire/Agentshire)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Agentshire/Agentshire](https://github.com/Agentshire/Agentshire)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
