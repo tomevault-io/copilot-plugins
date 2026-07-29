@@ -1,8 +1,6 @@
 # AI instruction files for swag-store
 
-> Sourced from [sanity-io/swag-store](https://github.com/sanity-io/swag-store) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Hydrogen Powered Sanity Swag Store
+> Sourced from [sanity-io/swag-store](https://github.com/sanity-io/swag-store), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [sanity-io/swag-store](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sanity-io/swag-store](https://github.com/sanity-io/swag-store) — a repo with 40+ stars on GitHub.
+From [sanity-io/swag-store](https://github.com/sanity-io/swag-store) — a repo with 42+ stars on GitHub.
 
 ---
 
