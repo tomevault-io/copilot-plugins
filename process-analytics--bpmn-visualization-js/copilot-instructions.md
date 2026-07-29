@@ -1,0 +1,284 @@
+## bpmn-visualization-js
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+`bpmn-visualization` is a TypeScript library for visualizing process execution data on BPMN diagrams. It parses BPMN 2.0 XML, builds an internal model, and renders interactive diagrams using mxGraph with extensive customization capabilities.
+
+## Common Development Commands
+
+### Setup and Development
+```bash
+npm install                    # Install dependencies
+npm run dev                    # Start dev server at http://localhost:10001/dev/public/index.html
+npm run all                    # Full check: clean, lint, build, test (run before PRs)
+```
+
+### Building
+```bash
+npm run build                  # TypeScript compilation check (no output)
+npm run build-bundles          # Create distribution bundles (ESM, IIFE)
+npm run prepack                # Full build: generate types + bundles (runs before npm pack)
+```
+
+### Testing
+```bash
+npm test                       # Run all tests (unit + integration + e2e)
+npm run test:unit              # Jest unit tests (parsers, converters, utilities)
+npm run test:unit:coverage     # Unit tests with coverage
+npm run test:unit:watch        # Watch mode for unit tests
+npm run test:integration       # Integration tests (parser → renderer)
+npm run test:e2e               # Playwright E2E with visual regression
+npm run test:e2e:verbose       # E2E tests with debug output
+npm run test:perf              # Performance benchmarks
+npm run test:bundles           # Validate distribution bundles
+```
+
+To run a single test file:
+```bash
+# Unit test
+npx jest test/unit/path/to/test-file.test.ts --config=./test/unit/jest.config.cjs
+
+# Integration test
+npx jest test/integration/path/to/test-file.test.ts --config=./test/integration/jest.config.cjs
+
+# E2E test
+npx jest test/e2e/path/to/test-file.test.ts --config=./test/e2e/jest.config.cjs
+```
+
+### Linting and Code Quality
+```bash
+npm run lint                   # Auto-fix linting issues
+npm run lint-check             # Check linting without fixing
+```
+
+### JSDoc Guidelines
+
+When writing or updating code, follow these JSDoc practices:
+
+**Public API Documentation:**
+- **REQUIRED**: All public classes, methods, interfaces, and types must have JSDoc comments
+- **REQUIRED**: All new public API elements must include the `@since` tag with the version number
+  - Infer the next version from `package.json` (current: `0.47.0-post` → next: `0.48.0`)
+  - Always confirm the target version with the user once per session before using it
+- Include description, `@param` for parameters, `@return` for return values
+- Document exceptions with `@throws` when applicable
+- Use `@example` for complex APIs to show usage patterns
+- Mark experimental APIs with `@experimental` tag
+- Mark deprecated APIs with `@deprecated` and provide migration guidance
+
+**Internal Code Documentation:**
+- **OPTIONAL**: Internal/private code may have JSDoc but it's not required
+- Prefer self-documenting code with clear naming over excessive comments
+- Add JSDoc for complex internal logic where the "why" isn't obvious
+- Use inline comments for non-trivial implementation details
+
+**JSDoc Best Practices:**
+- Keep descriptions concise but complete
+- Use TypeScript types; avoid redundant type information in JSDoc (rely on `@param {Type}` when TypeScript inference isn't sufficient)
+- Link to related types/methods using `{@link ClassName}` or `{@link methodName}`
+- Document parameter constraints and valid ranges
+- Specify units for numeric parameters (e.g., "duration in milliseconds")
+
+**Example:**
+```typescript
+/**
+ * Loads and renders a BPMN diagram from XML.
+ *
+ * @param xml The BPMN 2.0 XML content to parse and render
+ * @param options Optional configuration for rendering behavior
+ * @returns The loaded model information
+ * @throws {Error} If the XML is invalid or cannot be parsed
+ * @since 0.48.0
+ * @example
+ * const bpmnVisualization = new BpmnVisualization({ container: 'diagram' });
+ * bpmnVisualization.load('<definitions>...</definitions>');
+ */
+public load(xml: string, options?: LoadOptions): LoadResult {
+  // implementation
+}
+```
+
+### Documentation
+```bash
+npm run docs                   # Generate all documentation
+npm run docs:user              # Generate user documentation
+npm run docs:api               # Generate API documentation with typedoc
+```
+
+## Architecture Overview
+
+The library follows a **3-layer pipeline architecture** with clear separation of concerns:
+
+```
+BpmnVisualization.load(xml)
+  ├─ 1. Parse:    XML → BpmnModel (internal representation)
+  ├─ 2. Register: BpmnModel → RenderedModel (prepare for rendering)
+  └─ 3. Render:   RenderedModel → mxGraph cells (visual display)
+```
+
+### 1. Parsing Layer (`src/component/parser/`)
+
+**Two-stage parsing:**
+- **Stage 1:** `BpmnXmlParser` converts BPMN XML to JSON using `fast-xml-parser`
+- **Stage 2:** `BpmnJsonParser` orchestrates converters to build `BpmnModel`
+
+**Key Converters** (in `src/component/parser/json/converter/`):
+- `ProcessConverter` - Activities, events, gateways, sequence flows
+- `CollaborationConverter` - Pools, lanes, message flows
+- `DiagramConverter` - Visual information (shapes, edges, bounds, labels)
+- `EventDefinitionConverter` - Event definitions (timer, message, error, etc.)
+
+**Critical Pattern:** Converters populate a shared `ConvertedElements` registry during semantic parsing, then `DiagramConverter` links visual bounds/waypoints to semantic elements.
+
+### 2. Model Layer (`src/model/bpmn/internal/`)
+
+**Core types:**
+- `BpmnModel` - Top-level container (pools, lanes, flowNodes, edges)
+- `Shape` - Combines `ShapeBpmnElement` (semantic) + `Bounds` (visual) + `Label`
+- `Edge` - Combines `EdgeBpmnElement` (semantic) + waypoints (visual) + `Label`
+- `ShapeBpmnElement` hierarchy - Rich type system with markers, event definitions, subprocess kinds
+
+**Important:** The model is **mxGraph-independent** - pure domain model of BPMN.
+
+### 3. Rendering Layer (`src/component/mxgraph/`)
+
+**Initialization chain:**
+```
+GraphConfigurator
+  ├─ Creates BpmnGraph (extends mxGraph)
+  ├─ StyleConfigurator.configureStyles()
+  ├─ registerShapes() - Custom mxShape implementations
+  └─ registerEdgeMarkers() - Custom edge markers
+```
+
+**BpmnRenderer:**
+- Converts `RenderedModel` to mxGraph cells via `insertVertex()`/`insertEdge()`
+- Uses `StyleComputer` to generate mxGraph style strings
+- Uses `CoordinatesTranslator` for coordinate transformations (BPMN uses absolute coords, mxGraph uses relative-to-parent)
+- Inserts in order: pools → lanes → subprocesses → flow nodes → boundary events → edges
+
+**Custom Shapes** (`src/component/mxgraph/shape/`):
+- Each BPMN element has custom `mxShape` subclass (EventShape, TaskShape, GatewayShape)
+- `IconPainter` renders BPMN-specific icons (event definitions, task markers)
+- `BpmnCanvas` extends mxGraph canvas with BPMN primitives
+
+### 4. Registry System (`src/component/registry/`)
+
+`BpmnElementsRegistry` provides the public API, aggregating:
+- `BpmnModelRegistry` - Semantic model access via `getBpmnSemantic(id)`
+- `HtmlElementRegistry` - Query DOM elements by ID or kind
+- `StyleRegistry` - Update mxGraph cell styles dynamically
+- `CssClassesRegistry` - Manage CSS classes on DOM elements
+- `OverlaysRegistry` - Add/remove overlays on elements
+
+**Key insight:** Bridges semantic model with rendered DOM/mxGraph, enabling runtime manipulation without re-parsing.
+
+## Testing Architecture
+
+**Multi-layer approach:**
+- **Unit** (`test/unit/`) - Jest with jsdom, tests parsers/converters in isolation
+- **Integration** (`test/integration/`) - Tests parser → renderer with real BPMN files
+- **E2E** (`test/e2e/`) - Playwright visual regression with image snapshots
+- **Performance** (`test/performance/`) - Load/render benchmarks
+- **Bundles** (`test/bundles/`) - Validates ESM/IIFE distributions
+
+**E2E Pattern:** Heavy use of image snapshots (in `__image_snapshots__/`) to verify visual rendering correctness across features.
+
+### E2E Visual Regression Thresholds
+
+E2E tests compare a freshly rendered screenshot against a reference image snapshot using `jest-image-snapshot` (SSIM comparison). A test fails when the measured difference exceeds its allowed `failureThreshold` (a percentage of differing pixels). Because rendering differs slightly by browser engine and OS (mostly font rendering, a few pixels, not visible to a human), thresholds are configured per browser family and per platform.
+
+**How thresholds are resolved** (see `test/e2e/helpers/visu/image-snapshot-config.ts`):
+- `MultiBrowserImageSnapshotThresholds` holds a default per browser family (`chromium`, `firefox`, `webkit`), passed to `super({ chromium, firefox, webkit })`.
+- Each test file subclasses it and overrides `getChromiumThresholds()` / `getFirefoxThresholds()` / `getWebkitThresholds()` to return a `Map` of per-snapshot overrides.
+- Each map entry is keyed by the snapshot identifier (the BPMN diagram name, sometimes with a suffix like `.ignored` / `.not-ignored`) and holds per-platform values: `{ linux?, macos?, windows? }`.
+- At runtime, the browser family selects the map, `getSimplePlatformName()` selects the platform key, and the value found there wins. If there is no dedicated entry or no matching platform key, the browser-family default is used.
+- On CI, macOS runs the `webkit` family, so webkit macOS thresholds come from the `macos` key inside `getWebkitThresholds()`.
+
+**Threshold value convention:**
+- Values are written as `X / 100` (a percentage expressed as a fraction), for example `macos: 0.53 / 100`.
+- Add a trailing comment with the actual observed diff percentage from the report, for example `macos: 0.53 / 100, // 0.5228413635451014%`. The fit test file prefixes it with `max` because one entry covers several test variations sharing the snapshot key.
+- Set the value by rounding the observed diff UP to 2 decimals (ceil), so the threshold sits just above the observed diff.
+- Keep entries ordered by snapshot key to match the surrounding file.
+
+**Updating thresholds from a CI test-results report** (recurring task):
+1. The report bundle (downloaded artifact) contains `index-single-page.html` (jest-html-reporters) and a `__diff_output__/` folder with `<snapshot>-diff.png` per failure.
+2. Parse `index-single-page.html`. Each failed block contains: the suite/title, `was <actual>% different from snapshot ... Failure threshold was set to <old>%`, and a `__diff_output__/<relative-path>-diff.png` link. The relative path (minus `-diff.png`) identifies the snapshot; note some names contain hyphens (`.not-ignored`) and the fit tests live in nested subfolders, so capture the full path up to `-diff.png`.
+3. Group by snapshot key and keep the MAX actual diff (several test variations can share one threshold key, e.g. `with.outside.labels` in the fit tests).
+4. For each failing snapshot, locate the matching entry in the relevant test file's `getWebkitThresholds()` (or the correct browser/platform) and set `macos: ceil2(actual) / 100, // <actual>%`. If no entry exists (the failure was against the browser-family default), add one in key order.
+5. Files that currently carry webkit macOS thresholds: `bpmn.rendering.test.ts`, `bpmn.rendering.ignore.options.test.ts`, `bpmn.colors.test.ts`, `diagram.navigation.fit.test.ts`, `style.api.test.ts` (a test file may hold several threshold subclasses, one per configurator).
+6. Reporting: flag any entry where the increase (`new threshold - old threshold`) exceeds 0.3 percentage points. A large jump usually signals a real rendering change or regression worth a human look, not just pixel noise.
+
+Note (from the class JSDoc): prefer NOT adding a threshold for a new test until it actually fails on CI. Discrepancies mostly come from labels; if labels are not part of what the test verifies, remove labels from the BPMN diagram instead of raising a threshold.
+
+## Key Architectural Patterns
+
+### Converter Pattern
+Multiple specialized converters (`ProcessConverter`, `DiagramConverter`) each handle BPMN subdomains, all populating a shared `ConvertedElements` registry. This allows semantic and visual information to be processed separately then linked.
+
+### Coordinate Translation
+`CoordinatesTranslator` is critical because:
+- BPMN XML uses absolute coordinates
+- mxGraph uses relative-to-parent coordinates
+- Parent-child relationships (pools → lanes → flow nodes) require careful coordinate conversion
+- Labels have special offset calculations
+
+### Parent-Child Relationships
+Rendering order matters:
+1. Parents must be rendered before children
+2. Order: pools → lanes → subprocesses → flow nodes → boundary events → edges
+3. Managed through `parentId` references in the model
+
+### mxGraph Encapsulation
+mxGraph is an **implementation detail** - fully wrapped by `BpmnElementsRegistry`. Public API never exposes mxGraph types (except experimental `graph` property). This enables potential future replacement.
+
+## Adding a New BPMN Element Type
+
+1. **Add enum value** to `ShapeBpmnElementKind` in `src/model/bpmn/internal/shape/kinds.ts`
+2. **Extend model** - Add class in `ShapeBpmnElement.ts` if new semantic properties needed
+3. **Update converter** - Add parsing logic in `ProcessConverter` or relevant converter
+4. **Create shape class** - Extend `mxShape` in `src/component/mxgraph/shape/`
+5. **Register shape** - Add to `registerShapes()` in `register-style-definitions.ts`
+6. **Add styles** - Configure in `StyleConfigurator.ts`
+7. **Add tests** - Unit (parser), integration (parse→render), E2E (visual)
+
+## Understanding Data Flow
+
+Trace how a BPMN task flows through the system:
+1. BPMN XML `<task>` → `BpmnXmlParser` → JSON object
+2. JSON → `ProcessConverter.parseTask()` → creates `ShapeBpmnElement`
+3. Stored in `ConvertedElements` registry
+4. `DiagramConverter` finds matching `<BPMNShape>` → creates `Shape` (semantic + visual)
+5. `BpmnRenderer.insertShape()` → `graph.insertVertex()` with computed style
+6. `BpmnElementsRegistry` enables runtime access via ID or kind lookup
+
+## Requirements
+
+- **Node.js**: Version in `.nvmrc` file (run `nvm use` if using nvm)
+- **npm**: Version associated with Node.js version
+- **Supported OS**: Windows, Linux, macOS
+
+## Pre-commit Hooks
+
+The project uses Husky for pre-commit linting. If using a Node Version Manager and getting "Command not found" errors, create `~/.config/husky/init.sh` with:
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+
+## Pull Request Guidelines
+
+- External contributions only accepted for issues marked "PR Accepted"
+- Run `npm run all` before opening PR (builds, checks, tests everything)
+- PR title becomes the commit message (commits are squashed)
+- First PR requires signing the Contributor License Agreement
+
+---
+> Source: [process-analytics/bpmn-visualization-js](https://github.com/process-analytics/bpmn-visualization-js) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
