@@ -1,8 +1,6 @@
 # AI instruction files for nvim-redraft
 
-> Sourced from [jim-at-jibba/nvim-redraft](https://github.com/jim-at-jibba/nvim-redraft) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Fast inline AI edits
+> Sourced from [jim-at-jibba/nvim-redraft](https://github.com/jim-at-jibba/nvim-redraft), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [jim-at-jibba/nvim-redraft](https://github.com/j
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jim-at-jibba/nvim-redraft](https://github.com/jim-at-jibba/nvim-redraft) — a repo with 33+ stars on GitHub.
+From [jim-at-jibba/nvim-redraft](https://github.com/jim-at-jibba/nvim-redraft) — a repo with 32+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
