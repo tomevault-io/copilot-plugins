@@ -1,0 +1,9 @@
+{
+  "name": "go-pay--wechat-sdk",
+  "displayName": "wechat-sdk",
+  "description": "wechat-sdk",
+  "version": "1.0.0",
+  "author": "go-pay",
+  "homepage": "https://github.com/go-pay/wechat-sdk",
+  "skills": []
+}
