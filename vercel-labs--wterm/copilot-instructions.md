@@ -1,21 +1,18 @@
-## avoid-useeffect
+## wterm
 
-> Avoid useEffect in React/Next.js components
+> <!-- BEGIN:nextjs-agent-rules -->
 
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
-# Avoid useEffect
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
 
-Do not use `useEffect` unless absolutely necessary. Modern React and Next.js provide better alternatives for nearly every case:
+## Dependencies
 
-- **Data fetching** → Server Components, `use()`, or React Query
-- **Derived state** → Compute during render or use `useMemo`
-- **Responding to events** → Handle in event handlers directly
-- **Subscribing to external stores** → `useSyncExternalStore`
-- **Resetting state on prop change** → Use a `key` prop on the component
-- **DOM refs / imperative setup** → `useRef` with callback refs
-
-If `useEffect` truly cannot be avoided (e.g., initializing a non-React library that requires DOM access), document why with a comment.
+- Always use the latest stable version of npm packages. Do not pin to older versions.
+- When adding a new dependency, use the package manager (e.g. `pnpm add <pkg>`) to fetch the latest version. Do not manually write version numbers.
 
 ---
 > Source: [vercel-labs/wterm](https://github.com/vercel-labs/wterm) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
