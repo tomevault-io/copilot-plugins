@@ -1,28 +1,104 @@
 ## api-skill
 
-> Provides opinionated best practices and patterns for building production-ready REST APIs using Laravel. Use this skill when designing API endpoints, implementing resource controllers, or structuring JSON responses in a Laravel environment.
+> This document covers folder structure, naming conventions, and complete worked examples for the API skill.
 
+# Conventions Reference
 
-# API Skill for Laravel Developers
-
-This skill defines the exact patterns and rules for building scalable, reliable, and modern REST APIs in Laravel. All guidance here is prescriptive. When in doubt, follow the rule.
+This document covers folder structure, naming conventions, and complete worked examples for the API skill.
 
 ---
 
-## 1. Route Organisation
-
-Standalone APIs have **no `api` prefix** on any route. Routes live under `routes/api/` as follows:
+## Folder Structure
 
 ```
+app/
+  Actions/
+    Posts/
+      StorePostAction.php
+      UpdatePostAction.php
+      DestroyPostAction.php
+  Http/
+    Controllers/
+      Auth/
+        V1/
+          LoginController.php
+          LogoutController.php
+          RegisterController.php
+      Posts/
+        V1/
+          IndexController.php
+          ShowController.php
+          StoreController.php
+          UpdateController.php
+          DestroyController.php
+    Middleware/
+      ForceJsonResponse.php
+      Sunset.php
+    Payloads/
+      Posts/
+        StorePayload.php
+        UpdatePayload.php
+      Auth/
+        RegisterUserPayload.php
+    Requests/
+      Auth/
+        V1/
+          LoginRequest.php
+          RegisterRequest.php
+      Posts/
+        V1/
+          StoreRequest.php
+          UpdateRequest.php
+    Resources/
+      PostResource.php
+      UserResource.php
+    Responses/
+      ProblemResponse.php
+  Jobs/
+    Posts/
+      StorePostJob.php
+  Policies/
+    PostPolicy.php
 routes/
   api/
-    routes.php       ← entry point, requires all resource files
+    routes.php
     auth.php
-    posts.php        ← one file per resource
-    users.php
+    posts.php
+tests/
+  Feature/
+    Auth/
+      V1/
+        LoginTest.php
+        RegisterTest.php
+    Posts/
+      V1/
+        IndexTest.php
+        ShowTest.php
+        StoreTest.php
+        UpdateTest.php
+        DestroyTest.php
 ```
 
-`routes/api/routes.php` loads in each resource using a prefix and naming:
+---
+
+## Naming Conventions
+
+| Layer | Convention | Example |
+|---|---|---|
+| Controller | `{Action}Controller` | `StoreController`, `DestroyController` |
+| Action | `{Action}{Resource}Action` | `StorePostAction`, `UpdatePostAction` |
+| Payload (DTO) | `{Action}Payload` | `StorePayload` |
+| Form Request | `{Action}Request` | `StoreRequest` |
+| API Resource | `{Resource}Resource` | `PostResource` |
+| Job | `{Action}{Resource}Job` | `StorePostJob` |
+| Route name | `{resource}:{version}:{action}` | `posts:v1:store` |
+| Test file | `{Action}Test` in the matching path | `StoreTest.php` |
+
+---
+
+## Route Files
+
+### `routes/api/routes.php`
 
 ```php
 <?php
@@ -40,7 +116,27 @@ Route::as('posts:')->group(base_path(
 ));
 ```
 
-Each resource file owns its own version prefix. This keeps versioning explicit and debuggable per resource:
+### `routes/api/auth.php`
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('v1/auth')->middleware('throttle:api')->group(function (): void {
+    Route::post('/register', Auth\V1\RegisterController::class)->name('v1:register');
+    Route::post('/login', Auth\V1\LoginController::class)->name('v1:login');
+
+    Route::middleware('auth:sanctum')->group(function (): void {
+        Route::delete('/logout', Auth\V1\LogoutController::class)->name('v1:logout');
+    });
+});
+```
+
+### `routes/api/posts.php`
 
 ```php
 <?php
@@ -59,69 +155,76 @@ Route::prefix('v1/posts')->middleware(['auth:sanctum', 'throttle:api'])->group(f
 });
 ```
 
-- Always version from day one.
-- Always use named routes, namespaced to their version (e.g. `posts:v1:index` and `posts:v1:store`).
-- The `throttle:api` middleware must always be present.
-
 ---
 
-## 2. Single-Action Invokable Controllers
+## Model — ULID Primary Keys
 
-Every controller is a `final` single-action invokable class. No resourceful controllers. No multiple methods per class. Just an invokable action and a constructor for any dependency injection.
-
-Controllers live under `app/Http/Controllers/{Resource}/{Version}/`:
-
-```
-app/Http/Controllers/Posts/V1/
-  IndexController.php
-  ShowController.php
-  StoreController.php
-  UpdateController.php
-  DestroyController.php
-```
-
-Dependencies are always injected via the constructor. Never use Facades, `app()`, or `resolve()` inside a controller. The `__invoke` method handles the request and returns a response:
+All API-facing models use `HasUlids`. The migration column must be `ulid`:
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Posts\V1;
+namespace App\Models;
 
-use App\Actions\Posts\StorePostAction;
-use App\Http\Requests\Posts\V1\StoreRequest;
-use App\Http\Resources\PostResource;
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Model;
 
-final class StoreController
+final class Post extends Model
 {
-    public function __construct(
-        private readonly StorePostAction $action,
-    ) {}
+    use HasUlids;
 
-    public function __invoke(StoreRequest $request): JsonResponse
+    protected function casts(): array
     {
-        $post = $this->action->handle(
-            payload: $request->payload(),
-        );
-
-        return new JsonResponse(
-            data: new PostResource($post),
-            status: Response::HTTP_CREATED,
-        );
+        return [
+            'published_at' => 'datetime',
+        ];
     }
 }
 ```
 
+Migration:
+
+```php
+$table->ulid('id')->primary();
+```
+
+Never use `$table->id()` (auto-increment) on a model that is exposed through an API endpoint.
+
 ---
 
-## 3. Form Requests and Payloads (DTOs)
+## Complete Worked Example — Storing a Post
 
-Every state-mutating endpoint uses a **Form Request**. Form Requests live under `app/Http/Requests/{Resource}/{Version}/`.
+### Payload
 
-The Form Request **must** expose a `payload()` method that returns a typed DTO from `app/Http/Payloads/`. This keeps controllers free of array handling and makes the data contract explicit:
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Payloads\Posts;
+
+final class StorePayload
+{
+    public function __construct(
+        public readonly string $title,
+        public readonly string $content,
+        public readonly string $userId,
+    ) {}
+
+    public function toArray(): array
+    {
+        return [
+            'title'   => $this->title,
+            'content' => $this->content,
+            'user_id' => $this->userId,
+        ];
+    }
+}
+```
+
+### Form Request
 
 ```php
 <?php
@@ -159,164 +262,7 @@ final class StoreRequest extends FormRequest
 }
 ```
 
-**Payloads (DTOs)** are plain PHP objects. They have a typed constructor and a `toArray()` method that returns what Eloquent expects. They live in `app/Http/Payloads/`:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Http\Payloads\Posts;
-
-final class StorePayload
-{
-    public function __construct(
-        public readonly string $title,
-        public readonly string $content,
-        public readonly string $userId,
-    ) {}
-
-    public function toArray(): array
-    {
-        return [
-            'title'   => $this->title,
-            'content' => $this->content,
-            'user_id' => $this->userId,
-        ];
-    }
-}
-```
-
----
-
-## 4. API Resources
-
-Always use Laravel's Eloquent API Resources to transform model data. Generate them with the `--json-api` CLI flag:
-
-```bash
-php artisan make:resource PostResource --json-api
-```
-
-Resources live under `app/Http/Resources/`. They define the contract for what consumers receive. Never return raw models or plain arrays from a controller.
-
-Call `JsonResource::withoutWrapping()` in `AppServiceProvider::boot()` to disable the automatic `data` envelope globally. This ensures resources serialise consistently whether returned directly from a controller or encoded inside a `JsonResponse`:
-
-```php
-use Illuminate\Http\Resources\Json\JsonResource;
-
-public function boot(): void
-{
-    JsonResource::withoutWrapping();
-}
-```
-
----
-
-## 5. HTTP Status Codes
-
-Always use Symfony's `Response::HTTP_*` constants. Never use bare integers. This makes intent readable at a glance:
-
-| Scenario | Constant |
-|---|---|
-| Successful read | `Response::HTTP_OK` |
-| Resource created | `Response::HTTP_CREATED` |
-| Accepted for background processing | `Response::HTTP_ACCEPTED` |
-| Successful delete (no body) | `Response::HTTP_NO_CONTENT` |
-| Validation failed | `Response::HTTP_UNPROCESSABLE_ENTITY` |
-| Unauthenticated | `Response::HTTP_UNAUTHORIZED` |
-| Forbidden | `Response::HTTP_FORBIDDEN` |
-| Not found | `Response::HTTP_NOT_FOUND` |
-| Server error | `Response::HTTP_INTERNAL_SERVER_ERROR` |
-
-Import: `use Symfony\Component\HttpFoundation\Response;`
-
----
-
-## 6. Error Handling — RFC 9457 Problem Details
-
-All error responses follow [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457). The response shape is:
-
-```json
-{
-    "type": "https://example.com/problems/validation-error",
-    "title": "Validation Error",
-    "status": 422,
-    "detail": "The given data was invalid.",
-    "errors": {
-        "title": ["The title field is required."]
-    }
-}
-```
-
-RFC 9457 also requires responses to be served with `Content-Type: application/problem+json`, not `application/json`. Enforce both the shape and the header through a single `ProblemResponse` class that implements Laravel's `Responsable` interface, living at `app/Http/Responses/ProblemResponse.php`. Every exception handler closure returns a `ProblemResponse` — no raw arrays, no ad-hoc `JsonResponse` construction:
-
-```php
-return new ProblemResponse(
-    type:   'https://example.com/problems/not-found',
-    title:  'Not Found',
-    status: Response::HTTP_NOT_FOUND,
-    detail: 'The requested resource could not be found.',
-);
-```
-
-The exception handler in `bootstrap/app.php` is responsible for rendering **all** exceptions. No exception should ever produce an HTML response on an API route. At minimum, the following must be handled explicitly:
-
-| Exception | Status | Problem type slug |
-|---|---|---|
-| `ValidationException` | `422` | `validation-error` |
-| `AuthenticationException` | `401` | `unauthenticated` |
-| `AuthorizationException` | `403` | `forbidden` |
-| `ModelNotFoundException` | `404` | `not-found` |
-| `Throwable` (catch-all) | `500` | `server-error` |
-
-The catch-all ensures nothing falls through to Laravel's default HTML error page. See [references/CONVENTIONS.md](references/CONVENTIONS.md) for the full `ProblemResponse` implementation and handler.
-
----
-
-## 7. Authentication — Laravel Sanctum (Stateless Tokens)
-
-All API routes are protected with Laravel Sanctum using stateless API tokens. Never use session-based authentication for API routes.
-
-- Middleware: `auth:sanctum`
-- Token abilities/scopes are used to restrict what a token can do
-- Registration and login flows are synchronous — token issuance must complete in the same request
-
-```php
-// Protecting routes
-Route::middleware(['auth:sanctum', 'throttle:api'])->group(function (): void {
-    // ...
-});
-
-// Checking abilities in a controller/action
-$request->user()->tokenCan('posts:create');
-```
-
----
-
-## 8. Authorization — Policies
-
-Authentication (section 7) confirms who the user is. Authorization confirms what they can do. Use **Laravel Policies** for resource-level access control.
-
-Authorization belongs in the Form Request's `authorize()` method — not in the controller, not in the Action:
-
-```php
-public function authorize(): bool
-{
-    return $this->user()->can('update', $this->route('post'));
-}
-```
-
-Policies live in `app/Policies/`. A failed authorization throws an `AuthorizationException`, which the exception handler (section 6) renders as a `403 Forbidden` Problem Details response.
-
-Actions operate on data that has already been validated and authorized. Never put policy checks inside an Action.
-
----
-
-## 9. The Action Pattern
-
-All business logic lives in **Action classes** under `app/Actions/{Resource}/`. Controllers orchestrate, Actions execute. One action per operation.
-
-Actions are injected into controllers via the constructor. They receive a DTO and return a model or value:
+### Action
 
 ```php
 <?php
@@ -346,13 +292,46 @@ final class StorePostAction
 }
 ```
 
-Every action that writes to the database **must** be wrapped in `$this->database->transaction()` using the injected `DatabaseManager`.
+### Controller
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Posts\V1;
+
+use App\Actions\Posts\StorePostAction;
+use App\Http\Requests\Posts\V1\StoreRequest;
+use App\Http\Resources\PostResource;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+final class StoreController
+{
+    public function __construct(
+        private readonly StorePostAction $action,
+    ) {}
+
+    public function __invoke(StoreRequest $request): JsonResponse
+    {
+        $post = $this->action->handle(
+            payload: $request->payload(),
+        );
+
+        return new JsonResponse(
+            data: new PostResource($post),
+            status: Response::HTTP_CREATED,
+        );
+    }
+}
+```
 
 ---
 
-## 10. Background Jobs — Non-Blocking Requests
+## Complete Worked Example — Deleting a Post (Background Job)
 
-Prefer non-blocking API responses. When an operation can be deferred, dispatch a job and return `202 Accepted`:
+### Action
 
 ```php
 <?php
@@ -361,27 +340,30 @@ declare(strict_types=1);
 
 namespace App\Actions\Posts;
 
-use App\Http\Payloads\Posts\StorePayload;
-use App\Jobs\Posts\StorePostJob;
+use App\Jobs\Posts\DestroyPostJob;
+use App\Models\Post;
 
-final class StorePostAction
+final class DestroyPostAction
 {
-    public function handle(StorePayload $payload): void
+    public function handle(Post $post): void
     {
-        dispatch(new StorePostJob($payload));
+        dispatch(new DestroyPostJob($post));
     }
 }
 ```
 
-```php
-// Controller
-return new JsonResponse(status: Response::HTTP_ACCEPTED);
-```
-
-When a job receives an Eloquent model, use the `SerializesModels` trait alongside `Queueable`. This stores the model's class and key on the queue rather than the full serialized object, and re-fetches it fresh when the job runs. Because the trait restores model properties via `__wakeup()`, model constructor properties must not be `readonly`:
+### Job
 
 ```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Jobs\Posts;
+
+use App\Models\Post;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\SerializesModels;
 
@@ -393,73 +375,17 @@ final class DestroyPostJob implements ShouldQueue
     public function __construct(
         private Post $post, // not readonly — SerializesModels rehydrates via __wakeup()
     ) {}
+
+    public function handle(DatabaseManager $database): void
+    {
+        $database->transaction(
+            callback: fn (): bool => $this->post->delete(),
+        );
+    }
 }
 ```
 
-**Exceptions to non-blocking:**
-- User registration — the user needs a token immediately.
-- Login / token issuance — must be synchronous.
-- Any operation where the response body is needed by the client to proceed.
-
-Use judgement. If the client cannot function without the result, make it synchronous.
-
----
-
-## 11. Dependency Injection
-
-Always inject dependencies via the constructor. Never use:
-
-- `Facades` (unless there is no alternative.)
-- `app()` helper
-- `resolve()` helper
-
-If you know you need a class, declare it in the constructor. Laravel's container will resolve it automatically.
-
-```php
-// Correct
-final class StoreController
-{
-    public function __construct(
-        private readonly StorePostAction $action,
-    ) {}
-}
-
-// Wrong — never do this inside a method
-public function __invoke(): JsonResponse
-{
-    $action = app(StorePostAction::class); // ❌
-}
-```
-
----
-
-## 12. Pagination
-
-Always use `simplePaginate()`. It avoids the expensive `COUNT(*)` query of `paginate()` and keeps the response lean:
-
-```php
-Post::query()->simplePaginate(perPage: 15);
-```
-
-Never use `paginate()` on API endpoints.
-
----
-
-## 13. Rate Limiting
-
-Every API route group must have `throttle:api` middleware. No endpoint is ever unthrottled. Define rate limiters in `App\Providers\AppServiceProvider` (or a dedicated `RateLimitServiceProvider`):
-
-```php
-RateLimiter::for('api', function (Request $request): Limit {
-    return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-});
-```
-
----
-
-## 14. Query Filtering — Spatie Laravel Query Builder
-
-Use [Spatie Laravel Query Builder](https://github.com/spatie/laravel-query-builder) for all filterable list endpoints. Never build raw query strings manually:
+### Controller
 
 ```php
 <?php
@@ -468,65 +394,291 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Posts\V1;
 
-use App\Http\Resources\PostResource;
+use App\Actions\Posts\DestroyPostAction;
 use App\Models\Post;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-final class IndexController
+final class DestroyController
 {
-    public function __invoke(): AnonymousResourceCollection
-    {
-        $posts = QueryBuilder::for(Post::class)
-            ->allowedFilters([
-                AllowedFilter::exact('status'),
-                AllowedFilter::partial('title'),
-            ])
-            ->allowedSorts(['created_at', 'title'])
-            ->simplePaginate(perPage: 15);
+    public function __construct(
+        private readonly DestroyPostAction $action,
+    ) {}
 
-        return PostResource::collection($posts);
+    public function __invoke(Post $post): JsonResponse
+    {
+        $this->action->handle(post: $post);
+
+        return new JsonResponse(
+            status: Response::HTTP_ACCEPTED,
+        );
     }
 }
 ```
 
 ---
 
-## 15. Testing
+## Complete Worked Example — Registration (Synchronous)
 
-Test from the **outside in**. Drive tests through HTTP — assert on the response, not on internals. Cover both the happy path and the unhappy paths.
+Registration is always synchronous. The user needs a token immediately.
+
+The `RegisterUserPayload::toArray()` returns the password as plain text. This is safe because the `User` model must cast the `password` attribute to `hashed`, which Laravel (12+) handles automatically on assignment:
 
 ```php
-it('creates a post and returns 201', function (): void {
-    $user = User::factory()->create();
+// app/Models/User.php
+protected function casts(): array
+{
+    return [
+        'password' => 'hashed',
+    ];
+}
+```
 
-    $this->actingAs($user)->postJson('/v1/posts', [
-        'title'   => 'Hello World',
-        'content' => 'This is the content.',
-    ])->assertStatus(
-        Response::HTTP_CREATED,
-    )->assertJsonPath('title', 'Hello World');
-});
+Without this cast, the password will be stored unhashed. Never rely on the action to hash it manually.
 
-it('returns 422 when title is missing', function (): void {
-    $user = User::factory()->create();
+### Payload
 
-    $this->actingAs($user)->postJson('/v1/posts', [
-        'content' => 'Missing title.',
-    ])->assertStatus(
-        Response::HTTP_UNPROCESSABLE_ENTITY,
-    )->assertJsonPath('status', 422)->assertJsonPath('title', 'Validation Error');
-});
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Payloads\Auth;
+
+final class RegisterUserPayload
+{
+    public function __construct(
+        public readonly string $name,
+        public readonly string $email,
+        public readonly string $password,
+    ) {}
+
+    public function toArray(): array
+    {
+        return [
+            'name'     => $this->name,
+            'email'    => $this->email,
+            'password' => $this->password,
+        ];
+    }
+}
+```
+
+### Action
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Actions\Auth;
+
+use App\Http\Payloads\Auth\RegisterUserPayload;
+use App\Models\User;
+use Illuminate\Database\DatabaseManager;
+
+final class RegisterUserAction
+{
+    public function __construct(
+        private readonly DatabaseManager $database,
+    ) {}
+
+    public function handle(RegisterUserPayload $payload): array
+    {
+        return $this->database->transaction(function () use ($payload): array {
+            $user = User::query()->create($payload->toArray());
+
+            $token = $user->createToken(name: 'api')->plainTextToken;
+
+            return compact('user', 'token');
+        });
+    }
+}
+```
+
+### Controller
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Auth\V1;
+
+use App\Actions\Auth\RegisterUserAction;
+use App\Http\Requests\Auth\V1\RegisterRequest;
+use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+final class RegisterController
+{
+    public function __construct(
+        private readonly RegisterUserAction $action,
+    ) {}
+
+    public function __invoke(RegisterRequest $request): JsonResponse
+    {
+        [
+            'user' => $user,
+            'token' => $token,
+        ] = $this->action->handle(
+            payload: $request->payload(),
+        );
+
+        return new JsonResponse(
+            data: [
+                'user'  => new UserResource($user),
+                'token' => $token,
+            ],
+            status: Response::HTTP_CREATED,
+        );
+    }
+}
 ```
 
 ---
 
-## 16. API Versioning — Sunset Middleware
+## ProblemResponse
 
-When a versioned endpoint is scheduled for removal, signal this to consumers using the `Sunset` HTTP header ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)). This gives clients advance warning to migrate before the endpoint disappears.
+`app/Http/Responses/ProblemResponse.php` — implements `Responsable` so it can be returned directly from any exception handler closure. Sets `Content-Type: application/problem+json` as required by RFC 9457, and uses `array_filter` to omit the `errors` key when not present:
 
-Create a `Sunset` middleware at `app/Http/Middleware/Sunset.php`:
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Responses;
+
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+final class ProblemResponse implements Responsable
+{
+    public function __construct(
+        private readonly string $type,
+        private readonly string $title,
+        private readonly int    $status,
+        private readonly string $detail,
+        private readonly array  $errors = [],
+    ) {}
+
+    public function toResponse($request): JsonResponse
+    {
+        return new JsonResponse(
+            data: array_filter([
+                'type'   => $this->type,
+                'title'  => $this->title,
+                'status' => $this->status,
+                'detail' => $this->detail,
+                'errors' => $this->errors ?: null,
+            ]),
+            status:  $this->status,
+            headers: ['Content-Type' => 'application/problem+json'],
+        );
+    }
+}
+```
+
+---
+
+## RFC 9457 Problem Details — Exception Handler
+
+Register this in `bootstrap/app.php`. Every exception handler closure returns a `ProblemResponse` — no raw arrays, no ad-hoc `JsonResponse` construction:
+
+```php
+use App\Http\Responses\ProblemResponse;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
+
+->withExceptions(function (Exceptions $exceptions): void {
+    $exceptions->render(function (ValidationException $e, Request $request): ProblemResponse {
+        return new ProblemResponse(
+            type:   'https://example.com/problems/validation-error',
+            title:  'Validation Error',
+            status: Response::HTTP_UNPROCESSABLE_ENTITY,
+            detail: 'The given data was invalid.',
+            errors: $e->errors(),
+        );
+    });
+
+    $exceptions->render(function (AuthenticationException $e, Request $request): ProblemResponse {
+        return new ProblemResponse(
+            type:   'https://example.com/problems/unauthenticated',
+            title:  'Unauthenticated',
+            status: Response::HTTP_UNAUTHORIZED,
+            detail: 'You are not authenticated.',
+        );
+    });
+
+    $exceptions->render(function (AuthorizationException $e, Request $request): ProblemResponse {
+        return new ProblemResponse(
+            type:   'https://example.com/problems/forbidden',
+            title:  'Forbidden',
+            status: Response::HTTP_FORBIDDEN,
+            detail: 'You are not authorised to perform this action.',
+        );
+    });
+
+    $exceptions->render(function (ModelNotFoundException $e, Request $request): ProblemResponse {
+        return new ProblemResponse(
+            type:   'https://example.com/problems/not-found',
+            title:  'Not Found',
+            status: Response::HTTP_NOT_FOUND,
+            detail: 'The requested resource could not be found.',
+        );
+    });
+
+    $exceptions->render(function (\Throwable $e, Request $request): ProblemResponse {
+        return new ProblemResponse(
+            type:   'https://example.com/problems/server-error',
+            title:  'Server Error',
+            status: Response::HTTP_INTERNAL_SERVER_ERROR,
+            detail: 'An unexpected error occurred.',
+        );
+    });
+})
+```
+
+---
+
+## AppServiceProvider — Boot Configuration
+
+Both the rate limiter and the resource wrapping setting belong in `AppServiceProvider::boot()`:
+
+```php
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\RateLimiter;
+
+public function boot(): void
+{
+    Model::shouldBeStrict();
+
+    JsonResource::withoutWrapping();
+
+    RateLimiter::for('api', function (Request $request): Limit {
+        return Limit::perMinute(60)->by(
+            key: $request->user()?->id ?: $request->ip(),
+        );
+    });
+}
+```
+
+`JsonResource::withoutWrapping()` disables the automatic `data` envelope on all API resources globally, so resources serialise consistently whether returned directly or wrapped in a `JsonResponse`.
+
+---
+
+## Sunset Middleware
+
+Create `app/Http/Middleware/Sunset.php` to attach the `Sunset` header ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)) to deprecated route groups:
 
 ```php
 <?php
@@ -557,27 +709,7 @@ final class Sunset
 }
 ```
 
-Apply it per route group in the resource file when v1 has a known deprecation date:
-
-```php
-Route::prefix('v1/posts')
-    ->middleware(['auth:sanctum', 'throttle:api', 'sunset:2026-12-31'])
-    ->group(function (): void {
-        // v1 routes — sunset date is communicated on every response
-    });
-```
-
-The v2 routes live in the same resource file without the middleware:
-
-```php
-Route::prefix('v2/posts')
-    ->middleware(['auth:sanctum', 'throttle:api'])
-    ->group(function (): void {
-        // v2 routes
-    });
-```
-
-Register the middleware alias in `bootstrap/app.php`:
+Register the alias in `bootstrap/app.php`:
 
 ```php
 ->withMiddleware(function (Middleware $middleware): void {
@@ -587,13 +719,33 @@ Register the middleware alias in `bootstrap/app.php`:
 })
 ```
 
+Apply to a versioned route group when a deprecation date is known. Both versions coexist in the same resource file:
+
+```php
+// routes/api/posts.php
+
+Route::prefix('v1/posts')
+    ->middleware(['auth:sanctum', 'throttle:api', 'sunset:2026-12-31'])
+    ->group(function (): void {
+        Route::get('/', Posts\V1\IndexController::class)->name('v1:index');
+        // ...
+    });
+
+Route::prefix('v2/posts')
+    ->middleware(['auth:sanctum', 'throttle:api'])
+    ->group(function (): void {
+        Route::get('/', Posts\V2\IndexController::class)->name('v2:index');
+        // ...
+    });
+```
+
+Consumers receive a `Sunset: Wed, 31 Dec 2026 00:00:00 GMT` header on every v1 response, giving them a clear migration deadline.
+
 ---
 
-## 17. Forcing JSON Responses
+## ForceJsonResponse Middleware
 
-Laravel's exception handler only returns JSON when `$request->expectsJson()` is true — which checks for the `Accept: application/json` header. If a client omits it, some exceptions (particularly those thrown before the handler fires, such as middleware failures) can still return HTML.
-
-Fix this with a `ForceJsonResponse` middleware at `app/Http/Middleware/ForceJsonResponse.php` that sets the header on every inbound request:
+`app/Http/Middleware/ForceJsonResponse.php` — ensures `$request->expectsJson()` returns `true` for all API requests, which guarantees the exception handler always returns Problem Details JSON rather than HTML:
 
 ```php
 <?php
@@ -617,18 +769,7 @@ final class ForceJsonResponse
 }
 ```
 
-Register it as the first middleware on all API routes in `bootstrap/app.php`:
-
-```php
-->withMiddleware(function (Middleware $middleware): void {
-    $middleware->alias([
-        'sunset'            => \App\Http\Middleware\Sunset::class,
-        'force.json'        => \App\Http\Middleware\ForceJsonResponse::class,
-    ]);
-})
-```
-
-Apply it at the top of every resource route group:
+Apply as the first entry in every route group's middleware stack so it fires before `auth:sanctum` and `throttle:api`:
 
 ```php
 Route::prefix('v1/posts')
@@ -640,18 +781,15 @@ Route::prefix('v1/posts')
 
 ---
 
-## 18. CORS
+## CORS Configuration
 
-A standalone API will be called from origins other than its own domain. Laravel includes `HandleCors` middleware out of the box, backed by `config/cors.php`.
-
-For a standalone API, set `paths` to `['*']` — there is no web prefix to protect:
+`config/cors.php` — for a standalone API, `paths` must be `['*']` (no web prefix exists):
 
 ```php
-// config/cors.php
 return [
     'paths'                    => ['*'],
     'allowed_methods'          => ['*'],
-    'allowed_origins'          => ['*'], // lock this down per environment
+    'allowed_origins'          => explode(',', env('CORS_ALLOWED_ORIGINS', '*')),
     'allowed_origins_patterns' => [],
     'allowed_headers'          => ['*'],
     'exposed_headers'          => [],
@@ -660,132 +798,79 @@ return [
 ];
 ```
 
-In production, replace `allowed_origins: ['*']` with an explicit list of trusted origins. Drive it from an environment variable so it can vary across environments without a code change:
+Add to `.env` per environment:
 
-```php
-'allowed_origins' => explode(',', env('CORS_ALLOWED_ORIGINS', '*')),
+```
+CORS_ALLOWED_ORIGINS=https://app.example.com,https://admin.example.com
 ```
 
-`HandleCors` is applied globally by Laravel's default middleware stack, so no per-route changes are needed.
+`HandleCors` is part of Laravel's global middleware stack — no per-route changes are needed.
 
 ---
 
-## 19. Code Quality Standards
+## Anti-patterns
 
-Every PHP file in the project must meet these standards without exception:
+Quick reference for what to avoid and why:
 
-- **`declare(strict_types=1)`** on every file, always the first statement after the opening tag
-- **`final`** on every class — controllers, actions, payloads, jobs, middleware, resources — unless explicitly designed for extension
-- **`match`** over `if/elseif` chains and nested ternaries wherever a value is being selected
-- **Named arguments** on constructor calls and method calls with multiple parameters — this is already demonstrated throughout the examples and is required, not optional
-- **Full type coverage** — typed properties, typed parameters, typed return types on every method
-- **PSR-12** naming and formatting conventions throughout
-
-```php
-<?php // ✓
-
-declare(strict_types=1); // ✓ always first
-
-namespace App\Actions\Posts;
-
-final class StorePostAction // ✓ final
-{
-    public function handle(StorePayload $payload): Post // ✓ fully typed
-    {
-        return $this->database->transaction(
-            callback: fn (): Post => Post::query()->create( // ✓ named argument
-                attributes: $payload->toArray(),
-            ),
-        );
-    }
-}
-```
+| Anti-pattern | Correct approach |
+|---|---|
+| `$table->id()` on API models | `$table->ulid('id')->primary()` + `HasUlids` trait |
+| Business logic in models | Move to an Action class under `app/Actions/` |
+| Resourceful or multi-method controllers | One `final` invokable controller per operation |
+| Returning `$model->toArray()` or raw `array` from a controller | Return an API Resource |
+| `app(Foo::class)` or `resolve(Foo::class)` inside a method | Declare `private readonly Foo $foo` in the constructor |
+| `DB::transaction()` Facade in an Action | Inject `DatabaseManager` and call `$this->database->transaction()` |
+| `paginate()` on any list endpoint | `simplePaginate()` — no `COUNT(*)` |
+| A route group without `throttle:api` | Always include `throttle:api`, including on auth routes |
+| Any exception producing an HTML response | `ForceJsonResponse` middleware + full exception handler |
+| A PHP file without `declare(strict_types=1)` | First statement after `<?php`, always |
+| `if/elseif` chains selecting a single value | `match` expression |
+| Policy or gate checks inside an Action | Authorize in `FormRequest::authorize()` only |
 
 ---
 
-## 20. Model Identifiers — ULIDs
+## Testing Conventions
 
-Never use auto-increment integer IDs on API-facing models. Integer IDs expose record counts, enable enumeration attacks, and create ordering assumptions consumers should not rely on.
-
-Always use Laravel's `HasUlids` trait:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Illuminate\Database\Eloquent\Model;
-
-final class Post extends Model
-{
-    use HasUlids;
-}
-```
-
-Laravel handles ULID generation automatically. No migration changes beyond defining the primary key column as `string` (26 characters) are required:
+- Test files mirror the controller structure under `tests/Feature/` (e.g. `tests/Feature/Posts/V1/StoreTest.php`).
+- Use Pest PHP.
+- Every endpoint has at minimum: one happy path test and one unhappy path test.
+- Assert on the HTTP status code and the JSON structure.
+- Use `actingAs()` with a factory-created user for authenticated endpoints.
+- Assert Problem Details shape on error responses.
 
 ```php
-$table->ulid('id')->primary();
+uses(RefreshDatabase::class);
+
+it('stores a post and returns 201', function (): void {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->postJson('/v1/posts', [
+            'title'   => 'Hello World',
+            'content' => 'Body text.',
+        ])
+        ->assertStatus(Response::HTTP_CREATED)
+        ->assertJsonPath('title', 'Hello World');
+});
+
+it('returns problem details when title is missing', function (): void {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->postJson('/v1/posts', ['content' => 'Body text.'])
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        ->assertJsonPath('status', 422)
+        ->assertJsonPath('title', 'Validation Error')
+        ->assertJsonStructure(['type', 'title', 'status', 'detail', 'errors']);
+});
+
+it('returns 401 when unauthenticated', function (): void {
+    $this->postJson('/v1/posts', [])
+        ->assertStatus(Response::HTTP_UNAUTHORIZED)
+        ->assertJsonPath('title', 'Unauthenticated');
+});
 ```
-
----
-
-## 21. Model Strictness
-
-Call `Model::shouldBeStrict()` in `AppServiceProvider::boot()`. This enables three protections simultaneously:
-
-- **Prevents lazy loading** — any unloaded relationship accessed outside of `with()` throws immediately, surfacing N+1 queries during development
-- **Prevents silently discarded attributes** — assigning an attribute not in `$fillable` throws rather than silently ignoring it
-- **Prevents accessing missing attributes** — reading an attribute that doesn't exist on the model throws rather than returning `null`
-
-```php
-use Illuminate\Database\Eloquent\Model;
-
-public function boot(): void
-{
-    Model::shouldBeStrict();
-
-    JsonResource::withoutWrapping();
-
-    RateLimiter::for('api', function (Request $request): Limit {
-        return Limit::perMinute(60)->by(
-            key: $request->user()?->id ?: $request->ip(),
-        );
-    });
-}
-```
-
-These are development-time errors by design. Fix the underlying issue — don't suppress the exception.
-
----
-
-## 22. Anti-patterns
-
-The following are explicitly prohibited. If you find yourself reaching for any of these, stop and apply the correct pattern instead.
-
-| Anti-pattern | Why | What to do instead |
-|---|---|---|
-| Auto-increment integer primary keys | Exposes record counts, enables enumeration | Use `HasUlids` (section 20) |
-| Business logic in models (scopes excluded) | Violates single responsibility, untestable in isolation | Use Actions (section 9) |
-| Multi-method or resourceful controllers | Obscures intent, harder to locate logic | Single-action invokable controllers (section 2) |
-| Returning raw models or arrays from controllers | Leaks schema, no transformation layer | Always use API Resources (section 4) |
-| `app()`, `resolve()`, or Facades in controllers/actions | Hides dependencies, harder to test | Constructor injection (section 11) |
-| `DB::transaction()` Facade | Same as above — hides the dependency | Inject `DatabaseManager` (section 9) |
-| `paginate()` on list endpoints | Runs an expensive `COUNT(*)` | Always `simplePaginate()` (section 12) |
-| Unthrottled routes | Exposes all endpoints to brute force and abuse | Always `throttle:api` (section 13) |
-| HTML error responses on API routes | Breaks every API client | `ForceJsonResponse` + full exception handler (sections 6, 17) |
-| Skipping `declare(strict_types=1)` | Silent type coercion bugs | Required on every file (section 19) |
-| Authorization checks in Actions | Actions receive already-authorized data | Authorize in Form Request `authorize()` (section 8) |
-
----
-
-## References
-
-For detailed folder structure and naming conventions, see [references/CONVENTIONS.md](references/CONVENTIONS.md).
 
 ---
 > Source: [JustSteveKing/api-skill](https://github.com/JustSteveKing/api-skill) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
