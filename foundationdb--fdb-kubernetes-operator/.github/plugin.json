@@ -1,0 +1,9 @@
+{
+  "name": "foundationdb--fdb-kubernetes-operator",
+  "displayName": "fdb-kubernetes-operator",
+  "description": "fdb-kubernetes-operator",
+  "version": "1.0.0",
+  "author": "FoundationDB",
+  "homepage": "https://github.com/FoundationDB/fdb-kubernetes-operator",
+  "skills": []
+}
