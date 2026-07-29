@@ -1,8 +1,6 @@
 # teleop_xr
 
-> Source: [qrafty-ai/teleop_xr](https://github.com/qrafty-ai/teleop_xr) — distributed by [TomeVault](https://tomevault.io)
-
-Transforms your VR/AR headset into a powerful, precise robot controller
+> Source: [qrafty-ai/teleop_xr](https://github.com/qrafty-ai/teleop_xr). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
