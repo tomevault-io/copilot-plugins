@@ -1,196 +1,71 @@
 ## addon-netbird
 
-> file_location: root_directory
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Project Configuration
-file_location: root_directory
-file_name: .cursorrules
+# CLAUDE.md
 
-# AI Developer Profile
-ai_persona:
-  role: Senior Java Developer
-  principles:
-    - SOLID
-    - DRY
-    - KISS
-    - YAGNI
-    - OWASP
-    - DOP
-    - FP
-    - DDD
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Technical Stack
-tech_stack:
-  framework: none
-  build_tool: Maven
-  java_version: 24
-  dependencies:
-    - Eclipse Collections
-    - Commons Lang3
-    - Guava
-    - VAVR
-    - Junit5
-    - JQwik
-    - JMH
-  language: English
-  code_comments: English
+## Project Overview
 
-# Development Guidelines
-effective_java_notes:
-  chapter_2:
-    title: "Creating and Destroying Objects"
-    items:
-      - "Consider static factory methods instead of constructors"
-      - "Consider a builder when faced with many constructor parameters"
-      - "Enforce the singleton property with a private constructor or an enum type"
-      - "Enforce noninstantiability with a private constructor"
-      - "Prefer dependency injection to hardwiring resources"
-      - "Avoid creating unnecessary objects"
-      - "Eliminate obsolete object references"
-      - "Avoid finalizers and cleaners"
-      - "Prefer try-with-resources to try-finally"
+This is a Home Assistant add-on for NetBird, a WireGuard-based mesh VPN client. The add-on packages the NetBird client binary into a Home Assistant Supervisor add-on container.
 
-  chapter_3:
-    title: "Methods Common to All Objects"
-    items:
-      - "Obey the general contract when overriding equals"
-      - "Always override hashCode when you override equals"
-      - "Always override toString"
-      - "Override clone judiciously"
-      - "Consider implementing Comparable"
+## Repository Structure
 
-  chapter_4:
-    title: "Classes and Interfaces"
-    items:
-      - "Minimize the accessibility of classes and members"
-      - "In public classes, use accessor methods, not public fields"
-      - "Minimize mutability"
-      - "Favor composition over inheritance"
-      - "Design and document for inheritance or else prohibit it"
-      - "Prefer interfaces to abstract classes"
-      - "Design interfaces for posterity"
-      - "Use interfaces only to define types"
-      - "Prefer class hierarchies to tagged classes"
-      - "Favor static member classes over nonstatic"
-      - "Limit source files to a single top-level class"
+```
+addon-netbird/
+├── netbird/                  # Add-on directory
+│   ├── config.yaml           # Add-on configuration schema
+│   ├── build.yaml            # Build configuration (base images per architecture)
+│   ├── Dockerfile            # Multi-stage build pulling from netbirdio/netbird
+│   ├── DOCS.md               # User documentation
+│   ├── rootfs/               # Container filesystem overlay
+│   │   └── etc/s6-overlay/s6-rc.d/netbird/
+│   │       ├── run           # Main service script (netbird up)
+│   │       └── finish        # Service exit handler
+│   └── translations/en.yaml  # UI translations
+├── repository.json           # Home Assistant add-on repository metadata
+└── .github/workflows/
+    ├── builder.yaml          # CI build workflow
+    └── lint.yaml             # Add-on linting workflow
+```
 
-  chapter_5:
-    title: "Generics"
-    items:
-      - "Don't use raw types"
-      - "Eliminate unchecked warnings"
-      - "Prefer lists to arrays"
-      - "Favor generic types"
-      - "Favor generic methods"
-      - "Use bounded wildcards to increase API flexibility"
-      - "Combine generics and varargs judiciously"
-      - "Consider typesafe heterogeneous containers"
+## Build System
 
-  chapter_6:
-    title: "Enums and Annotations"
-    items:
-      - "Use enums instead of int constants"
-      - "Use instance fields instead of ordinals"
-      - "Use EnumSet instead of bit fields"
-      - "Use EnumMap instead of ordinal indexing"
-      - "Emulate extensible enums with interfaces"
-      - "Prefer annotations to naming patterns"
-      - "Consistently use the Override annotation"
-      - "Use marker interfaces to define types"
+The add-on uses the Home Assistant Builder system. Builds are triggered automatically via GitHub Actions when changes are pushed to `main` affecting monitored files: `build.yaml`, `config.yaml`, `Dockerfile`, or `rootfs/`.
 
-  chapter_7:
-    title: "Lambdas and Streams"
-    items:
-      - "Prefer lambdas to anonymous classes"
-      - "Prefer method references to lambdas"
-      - "Favor the use of standard functional interfaces"
-      - "Use streams judiciously"
-      - "Prefer side-effect-free functions in streams"
-      - "Prefer Collection to Stream as a return type"
-      - "Use caution when making streams parallel"
+### Local Testing
 
-  chapter_8:
-    title: "Methods"
-    items:
-      - "Check parameters for validity"
-      - "Make defensive copies when needed"
-      - "Design method signatures carefully"
-      - "Use overloading judiciously"
-      - "Use varargs judiciously"
-      - "Return empty collections or arrays, not nulls"
-      - "Return optionals judiciously"
-      - "Write doc comments for all exposed API elements"
+There is no local build command. The CI system uses `home-assistant/builder` action. For testing, push to a PR branch - the workflow builds with `--test` flag on PRs and publishes on merge to main.
 
-  chapter_9:
-    title: "General Programming"
-    items:
-      - "Minimize the scope of local variables"
-      - "Prefer for-each loops to traditional for loops"
-      - "Know and use the libraries"
-      - "Avoid float and double if exact answers are required"
-      - "Prefer primitive types to boxed primitives"
-      - "Avoid strings where other types are more appropriate"
-      - "Beware the performance of string concatenation"
-      - "Refer to objects by their interfaces"
-      - "Prefer interfaces to reflection"
-      - "Use native methods judiciously"
-      - "Optimize judiciously"
-      - "Adhere to generally accepted naming conventions"
+## Key Files
 
-  chapter_10:
-    title: "Exceptions"
-    items:
-      - "Use exceptions only for exceptional conditions"
-      - "Use checked exceptions for recoverable conditions and runtime exceptions for programming errors"
-      - "Avoid unnecessary use of checked exceptions"
-      - "Favor the use of standard exceptions"
-      - "Throw exceptions appropriate to the abstraction"
-      - "Document all exceptions thrown by each method"
-      - "Include failure-capture information in detail messages"
-      - "Strive for failure atomicity"
-      - "Don't ignore exceptions"
+- **netbird/config.yaml**: Defines add-on metadata, supported architectures, required privileges (NET_ADMIN, SYS_ADMIN, etc.), and user-configurable options schema
+- **netbird/Dockerfile**: Copies `netbird` binary from upstream `netbirdio/netbird` image into `hassio-addons/base` image
+- **netbird/rootfs/etc/s6-overlay/s6-rc.d/netbird/run**: Service startup script using bashio for config parsing, runs `netbird up` with options from Home Assistant config
 
-  chapter_11:
-    title: "Concurrency"
-    items:
-      - "Synchronize access to shared mutable data"
-      - "Avoid excessive synchronization"
-      - "Prefer executors, tasks, and streams to threads"
-      - "Prefer concurrency utilities to wait and notify"
-      - "Document thread safety"
-      - "Use lazy initialization judiciously"
-      - "Don't depend on the thread scheduler"
+## Configuration Options
 
-  chapter_12:
-    title: "Serialization"
-    items:
-      - "Prefer alternatives to Java serialization"
-      - "Implement Serializable with great caution"
-      - "Consider using a custom serialized form"
-      - "Write readObject methods defensively"
-      - "For instance control, prefer enum types to readResolve"
-      - "Consider serialization proxies instead of serialized instances"
+User-configurable options (defined in config.yaml schema):
+- `admin_url` / `management_url`: Custom NetBird server URLs
+- `setup_key`: Registration key (optional if using login URL from logs)
+- `hostname`: Custom peer hostname
+- `rosenpass` / `rosenpass_permissive`: Post-quantum encryption settings
+- `env_vars`: Additional `NB_*` environment variables
+- `log_level`: trace/debug/info/notice/warning/error/fatal
 
-# Best Practices
-concurrency_guidelines:
-  - "Try to not maintain state in the class"
+## Linting
 
-functional_programming_guidelines:
-  - "Try to use immutable objects"
-  - "Try to not mutate the state of the objects"
+The CI runs `frenck/action-addon-linter` on all add-on directories. YAML linting follows rules in `.yamllint`.
 
-data_oriented_programming_pillars:
-  - "Separate code from data"
-  - "Represent data with generic data structures"
-  - "Data should be immutable"
-  - "Use pure functions to manipulate data"
-  - "Keep data flat and denormalized"
-  - "Keep data generic until it needs to be specific"
-  - "Data integrity is maintained through validation functions"
-  - "Data access should be flexible and generic"
-  - "Data transformation should be explicit and traceable"
-  - "Data flow should be unidirectional"
+## Version Updates
+
+NetBird version is pinned in two places that must stay in sync:
+1. `netbird/config.yaml` - `version` field
+2. `netbird/Dockerfile` - `FROM netbirdio/netbird:<version>` tag
+
+Renovate bot handles automated version updates via `.github/renovate.json`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/netbirdio) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [netbirdio/addon-netbird](https://github.com/netbirdio/addon-netbird) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
