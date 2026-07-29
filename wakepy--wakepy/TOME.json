@@ -4,7 +4,7 @@
   "repo": "wakepy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wakepy/wakepy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T10:19:22Z"
+  "distributed_at": "2026-07-29T08:02:57Z"
 }
