@@ -1,17 +1,15 @@
 # AI instruction files for sortie
 
-> Sourced from [sortie-ai/sortie](https://github.com/sortie-ai/sortie) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Turn tracker tickets into agent sessions
+> Sourced from [sortie-ai/sortie](https://github.com/sortie-ai/sortie), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sortie-ai/sortie](https://github.com/sortie-ai/sortie).
+Original source: `CLAUDE.md` in [sortie-ai/sortie](https://github.com/sortie-ai/sortie).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
