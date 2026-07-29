@@ -1,0 +1,9 @@
+{
+  "name": "clipboard-history-io--extension",
+  "displayName": "extension",
+  "description": "extension",
+  "version": "1.0.0",
+  "author": "clipboard-history-io",
+  "homepage": "https://github.com/clipboard-history-io/extension",
+  "skills": []
+}
