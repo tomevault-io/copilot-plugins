@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--geoip2-ruby",
+  "displayName": "GeoIP2-ruby",
+  "description": "GeoIP2-ruby",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/GeoIP2-ruby",
+  "skills": []
+}
