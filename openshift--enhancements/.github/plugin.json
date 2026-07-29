@@ -1,0 +1,9 @@
+{
+  "name": "openshift--enhancements",
+  "displayName": "enhancements",
+  "description": "enhancements",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/enhancements",
+  "skills": []
+}
