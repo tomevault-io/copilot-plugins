@@ -4,7 +4,7 @@
   "repo": "claude-leverage",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Filip-Podstavec/claude-leverage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T14:58:30Z"
+  "distributed_at": "2026-07-29T03:42:36Z"
 }
