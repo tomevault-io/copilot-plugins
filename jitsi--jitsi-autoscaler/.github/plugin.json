@@ -1,0 +1,9 @@
+{
+  "name": "jitsi--jitsi-autoscaler",
+  "displayName": "jitsi-autoscaler",
+  "description": "jitsi-autoscaler",
+  "version": "1.0.0",
+  "author": "jitsi",
+  "homepage": "https://github.com/jitsi/jitsi-autoscaler",
+  "skills": []
+}
