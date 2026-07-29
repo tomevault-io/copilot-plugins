@@ -1,0 +1,9 @@
+{
+  "name": "cloudamqp--amqp-client-js",
+  "displayName": "amqp-client.js",
+  "description": "amqp-client.js",
+  "version": "1.0.0",
+  "author": "cloudamqp",
+  "homepage": "https://github.com/cloudamqp/amqp-client.js",
+  "skills": []
+}
