@@ -1,0 +1,9 @@
+{
+  "name": "membrane--api-gateway",
+  "displayName": "api-gateway",
+  "description": "api-gateway",
+  "version": "1.0.0",
+  "author": "membrane",
+  "homepage": "https://github.com/membrane/api-gateway",
+  "skills": []
+}
