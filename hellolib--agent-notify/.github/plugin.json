@@ -1,0 +1,9 @@
+{
+  "name": "hellolib--agent-notify",
+  "displayName": "agent-notify",
+  "description": "agent-notify",
+  "version": "1.0.0",
+  "author": "hellolib",
+  "homepage": "https://github.com/hellolib/agent-notify",
+  "skills": []
+}
