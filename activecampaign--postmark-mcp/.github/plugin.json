@@ -1,0 +1,9 @@
+{
+  "name": "activecampaign--postmark-mcp",
+  "displayName": "postmark-mcp",
+  "description": "postmark-mcp",
+  "version": "1.0.0",
+  "author": "ActiveCampaign",
+  "homepage": "https://github.com/ActiveCampaign/postmark-mcp",
+  "skills": []
+}
