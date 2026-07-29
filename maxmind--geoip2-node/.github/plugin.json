@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--geoip2-node",
+  "displayName": "GeoIP2-node",
+  "description": "GeoIP2-node",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/GeoIP2-node",
+  "skills": []
+}
