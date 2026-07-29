@@ -1,13 +1,11 @@
-# AI instruction files for deeplx
+# DeepLX
 
-> Sourced from [xixu-me/deeplx](https://github.com/xixu-me/deeplx) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Best serverless implementation of DeepLX
+> Source: [xixu-me/DeepLX](https://github.com/xixu-me/DeepLX). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [xixu-me/deeplx](https://github.com/xixu-me/deeplx).
+Original source: `CLAUDE.md` in [xixu-me/DeepLX](https://github.com/xixu-me/DeepLX).
 
 ## Also available for
 
@@ -17,14 +15,10 @@ Original source: `CLAUDE.md` in [xixu-me/deeplx](https://github.com/xixu-me/deep
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [xixu-me/deeplx](https://github.com/xixu-me/deeplx) — a repo with 268+ stars on GitHub.
+From [xixu-me/DeepLX](https://github.com/xixu-me/DeepLX) — a repo with 288+ stars on GitHub.
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install xixu-me/deeplx
-```
-Source: [github.com/xixu-me/deeplx](https://github.com/xixu-me/deeplx).
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-i-s -->
+<!-- genome:d-c-s -->
