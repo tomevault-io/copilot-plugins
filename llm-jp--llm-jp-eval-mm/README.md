@@ -1,8 +1,6 @@
 # AI instruction files for llm-jp-eval-mm
 
-> Sourced from [llm-jp/llm-jp-eval-mm](https://github.com/llm-jp/llm-jp-eval-mm) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A lightweight framework for evaluating visual-language models.
+> Sourced from [llm-jp/llm-jp-eval-mm](https://github.com/llm-jp/llm-jp-eval-mm), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
