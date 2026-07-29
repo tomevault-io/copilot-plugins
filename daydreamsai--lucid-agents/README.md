@@ -1,8 +1,6 @@
 # lucid-agents
 
-> Source: [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents) — distributed by [TomeVault](https://tomevault.io)
-
-Lucid Agents Commerce SDK. Bootstrap AI agents in 60 seconds that can pay, sell, and participate in agentic commerce supply chains. Our protocol agnostic SDK provides CLI-generated templates and drop-in adapters for Hono, Express, Next.js, and TanStack, giving you instant access to crypto/fiat payment rails (AP2, A2A, x402, ERC8004).
+> Source: [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [daydreamsai/lucid-agents](https://github.com/da
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents) — a repo with 182+ stars on GitHub.
+From [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents) — a repo with 192+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
