@@ -1,0 +1,9 @@
+{
+  "name": "open-cluster-management-io--policy-generator-plugin",
+  "displayName": "policy-generator-plugin",
+  "description": "policy-generator-plugin",
+  "version": "1.0.0",
+  "author": "open-cluster-management-io",
+  "homepage": "https://github.com/open-cluster-management-io/policy-generator-plugin",
+  "skills": []
+}
