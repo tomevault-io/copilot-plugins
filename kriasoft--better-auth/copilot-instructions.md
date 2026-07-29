@@ -1,62 +1,66 @@
 ## better-auth
 
-> **Website:**: https://kriasoft.com/better-auth/
+> - Import the client plugin from `better-auth-feature-flags/client`.
 
-# Better Auth Plugins
+# Packaging & Import Conventions
 
-**Website:**: https://kriasoft.com/better-auth/
-**GitHub**: https://github.com/kriasoft/better-auth
-**What:** 18 modular Better Auth plugins (security, compliance, integrations, user mgmt, analytics)  
-**Structure:** `plugins/*/` → TypeScript → tsup → npm | Bun workspaces | Independent versioning
+## Decision: Client import path
 
-## Architecture
+- Import the client plugin from `better-auth-feature-flags/client`.
+- Import the server plugin from `better-auth-feature-flags`.
 
-**Stack:** TypeScript 5.9+ | Bun runtime & workspaces | tsup build | VitePress docs
+## Decision: Separate Admin Client Bundle
 
-```text
-better-auth-plugins/
-├── plugins/                # 18 standalone plugins
-│   ├── abuse-detection/    ├── analytics/         ├── audit-log/
-│   ├── backup-codes/       ├── compliance/        ├── connect/
-│   ├── consent/            ├── feature-flags/     ├── fraud-detection/
-│   ├── impersonation/      ├── mcp/               ├── notifications/
-│   ├── onboarding/         ├── rate-limit/        ├── session-management/
-│   ├── storage/            ├── subscription/      └── webhooks/
-├── apps/playground/        # Dev environment
-├── docs/                   # Documentation site
-├── test/                   # Test suites
-└── vendor/                 # Submodules for reference
-    ├── better-auth/        # Better Auth core - plugin patterns & APIs
-    └── zod/                # Zod validation library - schema patterns
+- Import the admin client plugin from `better-auth-feature-flags/admin` and add it only to admin surfaces.
+- Do NOT include the admin client in public bundles by default. Keep public bundles lean and avoid shipping admin-only routes.
 
-Plugin structure: src/{index,client,plugin,schema,types}.ts → tsup → dist/
+### Rationale
+
+- Mirrors Better Auth guidance (see vendor/better-auth docs for the Admin plugin) where admin capabilities are a dedicated client plugin.
+- Improves tree-shaking and reduces risk by not exposing admin code in public apps.
+
+### Usage
+
+```ts
+import { createAuthClient } from "better-auth/client";
+import { featureFlagsClient } from "better-auth-feature-flags/client";
+import { featureFlagsAdminClient } from "better-auth-feature-flags/admin";
+
+// Public surfaces
+createAuthClient({ plugins: [featureFlagsClient()] });
+
+// Admin surfaces
+createAuthClient({
+  plugins: [featureFlagsClient(), featureFlagsAdminClient()],
+});
 ```
 
-## Commands
+Notes
 
-```bash
-bun install        # Install all dependencies
-bun run build      # Build all packages
-bun run dev        # Watch mode
-bun run typecheck  # Type checking
-bun test           # Run all tests
+- Admin endpoints enforce authorization on the server; splitting the client does not relax server checks.
+- Avoid setting `SERVER_ONLY: true` on endpoints intended to be exposed via the admin client; enforce access with roles/middleware.
 
-# Plugin-specific
-bun run --filter 'better-auth-*' build        # Build matching plugins
-bun run --filter 'better-auth-storage' test   # Test single plugin
-cd plugins/storage && bun add zod             # Add dependency (idiomatic)
-bun --cwd=plugins/storage add -d @types/node  # Add dev dependency (alternative)
+### Rationale
+
+- Aligns with Better Auth’s conventions in `vendor/better-auth/`:
+  - Core client SDK imports use `better-auth/client`.
+  - External plugin client imports use the `/client` suffix (e.g., `@better-auth/stripe/client`).
+- Keeps server and client bundles clearly separated and tree‑shakeable.
+
+### Usage
+
+```ts
+// Server (register plugin)
+import { featureFlags } from "better-auth-feature-flags";
+
+// Client (public runtime)
+import { featureFlagsClient } from "better-auth-feature-flags/client";
 ```
 
-## Conventions
+Notes
 
-**TypeScript:** Strict mode | Export all types | `type` imports | Interfaces > type aliases  
-**Security:** Encrypt tokens | Rate limit endpoints | Zod validation | CSRF protection | Verify webhooks  
-**Performance:** Lazy load | Cache data | Batch DB ops | Async/await | ESM tree-shaking  
-**Testing:** `bun:test` | Unit + integration tests | Test before publish
-**Debug:** `betterAuth({ debug: true })` | `storagePlugin({ debug: true })`
-**Philosophy:** Ideal architecture > backwards compatibility | Refactor when needed | TypeScript-first | Tree-shakeable plugins
+- This file is the canonical place for packaging/import requirements for this plugin. Add similar requirements here as they are decided.
 
 ---
 > Source: [kriasoft/better-auth](https://github.com/kriasoft/better-auth) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
