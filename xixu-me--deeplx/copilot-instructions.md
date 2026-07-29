@@ -211,5 +211,5 @@ Set `DEBUG_MODE=true` in wrangler.jsonc to enable the `/debug` endpoint for requ
 - Cache key collision: verify `generateCacheKey()` produces unique keys for different inputs
 
 ---
-> Source: [xixu-me/deeplx](https://github.com/xixu-me/deeplx) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+> Source: [xixu-me/DeepLX](https://github.com/xixu-me/DeepLX) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
