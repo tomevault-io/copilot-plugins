@@ -1,0 +1,9 @@
+{
+  "name": "auth0--auth0-deploy-cli",
+  "displayName": "auth0-deploy-cli",
+  "description": "auth0-deploy-cli",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/auth0-deploy-cli",
+  "skills": []
+}
