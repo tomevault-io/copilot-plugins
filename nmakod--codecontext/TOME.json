@@ -4,7 +4,7 @@
   "repo": "codecontext",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nmakod/codecontext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T09:13:31Z"
+  "distributed_at": "2026-07-29T12:02:59Z"
 }
