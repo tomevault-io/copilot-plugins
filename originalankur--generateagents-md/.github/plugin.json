@@ -1,7 +1,7 @@
 {
   "name": "originalankur--generateagents-md",
   "displayName": "GenerateAgents.md",
-  "description": "Automated generation of comprehensive Agents.md for LLMs, driven by the DSPy Recursive language model implementation.",
+  "description": "GenerateAgents.md",
   "version": "1.0.0",
   "author": "originalankur",
   "homepage": "https://github.com/originalankur/GenerateAgents.md",
