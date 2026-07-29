@@ -1,83 +1,62 @@
 ## unifi
 
-> This is **github.com/unpoller/unifi/v5**: a Go library that connects to a Ubiquiti UniFi controller and **pulls** data (clients, devices, sites, alarms, events, etc.). It does **not** update or change controller settings by design.
+> UniFi API reference - local controller and remote Site Manager APIs
 
-# UniFi Go Library - Development Context
 
-## Project Overview
+# UniFi API Reference
 
-This is **github.com/unpoller/unifi/v5**: a Go library that connects to a Ubiquiti UniFi controller and **pulls** data (clients, devices, sites, alarms, events, etc.). It does **not** update or change controller settings by design.
+This library uses **two different UniFi APIs**:
 
-**Entry point**: `unifi.NewUnifi(config *Config)` → authenticated `*Unifi` client.
+## Local UniFi Controller API (Primary)
 
-**Typical usage flow**: `Config` → `NewUnifi(config)` → `GetSites()` → `GetClients(sites)` / `GetDevices(sites)`. Optionally `GetAlarms`, `GetEvents`, `GetAnomalies`, etc.
+**Base URL**: Your controller URL (e.g., `https://192.168.1.1:8443`)
 
-**Returns**: `[]*Site`, `[]*Client`, `*Devices` (with `UAPs`, `USWs`, `USGs`, `UDMs`, `UXGs`, `PDUs`, `UBBs`, `UCIs`), plus alarms, events, DPI, traffic. Data is unmarshaled into large structs for consumption.
+**Authentication**:
+- Cookie-based: POST to `/api/login` with `{"username":"...","password":"..."}` (standard controllers)
+- UDM Pro/UCG Max: `/api/auth/login` endpoint
+- Session cookie returned and reused for subsequent requests
+- Alternative: API key via `X-API-Key` header (newer controllers)
 
-## Go Coding Standards
+**Endpoint pattern**: `/api/s/{site}/...` where `{site}` is typically `"default"`
 
-- **Linter**: `.golangci.yaml` – `nlreturn`, `revive`, `tagalign`, `testpackage`, `wsl_v5`. Max issues 0; `fix: true`.
-- **wsl_v5**: Use blank lines between logical blocks; keep `if`/`for` bodies short.
-- **Tests**: Use `package unifi` with `// nolint: testpackage` where needed. Prefer `t.Parallel()`, `assert`/`require` from `github.com/stretchr/testify`. Mock via `UnifiClient` and `mocks.MockUnifi`.
-- **Errors**: Wrap with `fmt.Errorf("context: %w", err)`. Use package sentinels (`ErrAuthenticationFailed`, etc.).
-- **Imports**: Group stdlib, then third-party.
+**UDM Pro difference**: All endpoints must be prefixed with `/proxy/network` (e.g., `/proxy/network/api/s/default/stat/device`)
 
-Run `golangci-lint run` and `go test ./...` before committing.
+**Response format**: `{"data": [...], "meta": {"rc": "ok"}}`. Errors: `{"data": [], "meta": {"msg": "api.err.LoginRequired", "rc": "error"}}`. Large datasets may include `"meta": {"count": 4818, "rc": "ok"}` when truncated.
 
-## UniFi API Patterns
-
-### Local UniFi Controller API (Primary)
-
-**Authentication**: Cookie-based via `/api/login` (standard) or `/api/auth/login` (UDM Pro). Alternative: API key via `X-API-Key` header. Library handles both via `Config.User`/`Config.Pass` or `Config.APIKey`.
-
-**Endpoint pattern**: `/api/s/{site}/...` where `{site}` is typically `"default"`. UDM Pro requires `/proxy/network` prefix.
-
-**Response format**: `{"data": [...], "meta": {"rc": "ok"}}`. Errors: `{"data": [], "meta": {"msg": "api.err.LoginRequired", "rc": "error"}}`. Handle `meta.count` for truncated results.
-
-**Key endpoints** (constants in `types.go`):
-- `/api/s/{site}/stat/device` - Devices
+**Key endpoints** (see `types.go` constants):
+- `/api/s/{site}/stat/device` - Devices (UAPs, USWs, USGs, UDMs, UXGs, PDUs, UBBs, UCIs)
 - `/api/s/{site}/stat/sta` - Active clients
-- `/api/s/{site}/stat/event` - Events
+- `/api/s/{site}/stat/event` - Events (3000 limit)
 - `/api/s/{site}/list/alarm` - Alarms
 - `/api/s/{site}/stat/stadpi` - Client DPI stats
 - `/api/s/{site}/stat/sitedpi` - Site DPI stats
 - `/api/s/{site}/stat/anomalies` - Anomalies
+- `/api/stat/sites` - List all sites
+- `/v2/api/site/{site}/system-log/all` - System logs (v2)
+- `/v2/api/site/{site}/traffic?...` - Traffic stats (v2)
 
-**Code patterns**:
-- Use `u.GetData(apiPath, &response)` for GET requests
-- API paths use `fmt.Sprintf(APIDevicePath, site.Name)` etc.
-- Most fetches are per-site: `GetSites()` first, then loop `GetDevices(sites)`, `GetClients(sites)`, etc.
-- Single-site helpers like `GetUAPs(site)` also exist
-- `GetDevices` returns `*Devices` with device slices (UAPs, USWs, USGs, UDMs, UXGs, PDUs, UBBs, UCIs)
-- Parsing uses `parseDevices` with `json.RawMessage` and type detection
+**References**: [Ubiquiti Community Wiki](https://ubntwiki.com/products/software/unifi-controller/api)
 
-### Remote Site Manager API (Cloud)
+## Remote Site Manager API (Cloud)
 
 **Base URL**: `https://api.ui.com/v1/`
 
-**Authentication**: API key in `X-API-Key` header. Currently **read-only**.
+**Authentication**: API key in `X-API-Key` header. Obtain from unifi.ui.com → Settings → API Keys (EA) or API section (GA). Currently **read-only**.
 
-**Rate limits**: Early Access (EA): 100 requests/minute; v1 stable: 10,000 requests/minute.
+**Rate limits**:
+- Early Access (EA): 100 requests/minute
+- v1 stable: 10,000 requests/minute
+- Exceeding returns `429 Too Many Requests` with `Retry-After` header
+
+**Key endpoints**:
+- `GET /v1/hosts` - List consoles/hosts
+- `GET /v1/hosts/{id}` - Get host by ID
+- `GET /v1/sites` - List sites (via console)
 
 **Implementation**: See `remote.go` (`RemoteAPIClient`). Used for discovering consoles and sites managed via UniFi Site Manager (cloud).
 
-## Architecture
-
-- **Package layout**: Single package `unifi` for core logic. `main/` for CLI. `mocks/` implements `UnifiClient` for testing.
-- **UnifiClient**: Interface in `types.go`; both `*Unifi` and `mocks.MockUnifi` implement it. Use it for dependency injection.
-- **Config**: `Config` has `URL`, `User`, `Pass`, optional `APIKey`, `ErrorLog`/`DebugLog`, `SSLCert`, `VerifySSL`.
-- **Logger**: `ErrorLog` / `DebugLog` accept `(format, args...)`; use `log.Printf` or custom.
-
-## Adding Features
-
-When adding features:
-- Follow existing patterns (e.g. `GetDevices` / `GetClients`)
-- Use `GetData` for HTTP requests
-- Add tests following existing test patterns
-- For new device/client types: extend `Devices` and `parseDevices`, add getters following `GetUAPs`/`GetUSWs` style, and update mocks
-- Implement all `UnifiClient` interface methods when adding mocks or new client types
-- Check with `var _ unifi.UnifiClient = &YourClient{}`
+**References**: [UniFi Developer Docs](https://developer.ui.com/site-manager/v1.0.0/gettingstarted)
 
 ---
 > Source: [unpoller/unifi](https://github.com/unpoller/unifi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
