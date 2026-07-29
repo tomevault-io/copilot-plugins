@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [microsoft/AI-For-Beginners](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) — a repo with 52489+ stars on GitHub.
+From [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) — a repo with 52519+ stars on GitHub.
 
 ---
 
