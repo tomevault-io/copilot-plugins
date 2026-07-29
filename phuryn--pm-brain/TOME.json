@@ -3,7 +3,7 @@
   "owner": "phuryn",
   "repo": "pm-brain",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phuryn/pm-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T05:22:08Z"
+  "distributed_at": "2026-07-29T14:58:48Z"
 }
