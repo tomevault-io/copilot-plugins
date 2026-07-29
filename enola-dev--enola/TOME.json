@@ -4,7 +4,7 @@
   "repo": "enola",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/enola-dev/enola",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T20:16:16Z"
+  "distributed_at": "2026-07-29T20:40:56Z"
 }
