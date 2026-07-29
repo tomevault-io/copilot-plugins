@@ -1,9 +1,34 @@
 {
   "name": "ajanraj--openchat",
   "displayName": "OpenChat",
-  "description": "Every AI model, one blazing fast workspace - see how they think, schedule what you need",
+  "description": "OpenChat",
   "version": "1.0.0",
   "author": "ajanraj",
   "homepage": "https://github.com/ajanraj/OpenChat",
-  "skills": []
+  "skills": [
+    {
+      "name": "OpenChat",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "description": ""
+    }
+  ]
 }
