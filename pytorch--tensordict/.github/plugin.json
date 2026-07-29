@@ -1,0 +1,9 @@
+{
+  "name": "pytorch--tensordict",
+  "displayName": "tensordict",
+  "description": "tensordict",
+  "version": "1.0.0",
+  "author": "pytorch",
+  "homepage": "https://github.com/pytorch/tensordict",
+  "skills": []
+}
