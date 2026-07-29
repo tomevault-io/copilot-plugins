@@ -1,63 +1,37 @@
 ## openclaw-command-center
 
-> Mission control dashboard for OpenClaw - real-time session monitoring, LLM usage tracking, cost intelligence, and system vitals. View all your AI agents in one place.
+> **DO NOT COMMIT** the following files — they contain user-specific data:
 
+# public/data/ — User-Specific Data
 
-# OpenClaw Command Center
+**DO NOT COMMIT** the following files — they contain user-specific data:
 
-Mission control for your AI workforce.
+| File                    | Purpose                          | Template                        |
+| ----------------------- | -------------------------------- | ------------------------------- |
+| `operators.json`        | User/operator info from sessions | `operators.json.example`        |
+| `privacy-settings.json` | Hidden topics/sessions for demos | `privacy-settings.json.example` |
 
-## Quick Start
+## Why?
 
-```bash
-npx clawhub@latest install command-center
-cd skills/command-center
-node lib/server.js
-```
+These files are generated at runtime and contain:
 
-Dashboard runs at **http://localhost:3333**
+- User IDs and usernames
+- Session counts and activity
+- Privacy preferences (what the user hides)
 
-## Features
+Committing them would leak user data to the public repo.
 
-- **Session Monitoring** — Real-time view of all AI sessions with live updates
-- **LLM Fuel Gauges** — Track Claude, Codex, and other model usage
-- **System Vitals** — CPU, Memory, Disk, Temperature
-- **Cron Jobs** — View and manage scheduled tasks
-- **Cerebro Topics** — Automatic conversation organization
-- **Cost Tracking** — Per-session costs, projections, savings estimates
-- **Privacy Controls** — Hide sensitive topics for demos
+## For New Installations
 
-## Configuration
-
-The dashboard auto-detects your OpenClaw workspace. Set `OPENCLAW_WORKSPACE` to override.
-
-### Authentication
-
-| Mode         | Use Case          |
-| ------------ | ----------------- |
-| `none`       | Local development |
-| `token`      | Remote access     |
-| `tailscale`  | Team VPN          |
-| `cloudflare` | Public deployment |
+Copy the `.example` files to get started:
 
 ```bash
-DASHBOARD_AUTH_MODE=tailscale node lib/server.js
+cp operators.json.example operators.json
+cp privacy-settings.json.example privacy-settings.json
 ```
 
-## API
-
-| Endpoint          | Description                  |
-| ----------------- | ---------------------------- |
-| `GET /api/state`  | All dashboard data (unified) |
-| `GET /api/events` | SSE stream for live updates  |
-| `GET /api/health` | Health check                 |
-
-## Links
-
-- [GitHub](https://github.com/jontsai/openclaw-command-center)
-- [ClawHub](https://www.clawhub.ai/jontsai/command-center)
-- [Documentation](https://github.com/jontsai/openclaw-command-center#readme)
+The dashboard will populate these automatically on first run.
 
 ---
 > Source: [jontsai/openclaw-command-center](https://github.com/jontsai/openclaw-command-center) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
