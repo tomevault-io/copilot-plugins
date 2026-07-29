@@ -2,9 +2,9 @@
   "name": "mcp-logic",
   "owner": "angrysky56",
   "repo": "mcp-logic",
-  "description": "Fully functional AI Logic Calculator utilizing Prover9/Mace4 via Python based Model Context Protocol (MCP-Server)- tool for Windows, Linux, Claude App etc",
+  "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/angrysky56/mcp-logic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T18:34:05Z"
+  "distributed_at": "2026-07-29T04:46:20Z"
 }
