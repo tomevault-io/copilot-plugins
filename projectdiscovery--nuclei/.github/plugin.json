@@ -1,0 +1,9 @@
+{
+  "name": "projectdiscovery--nuclei",
+  "displayName": "nuclei",
+  "description": "nuclei",
+  "version": "1.0.0",
+  "author": "projectdiscovery",
+  "homepage": "https://github.com/projectdiscovery/nuclei",
+  "skills": []
+}
