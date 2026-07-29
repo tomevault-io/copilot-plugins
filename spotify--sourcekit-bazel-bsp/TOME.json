@@ -2,7 +2,7 @@
   "name": "sourcekit-bazel-bsp",
   "owner": "spotify",
   "repo": "sourcekit-bazel-bsp",
-  "description": "iOS Development (and more) in alternative IDEs like Cursor / VSCode, for Bazel projects",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spotify/sourcekit-bazel-bsp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T04:43:18Z"
+  "distributed_at": "2026-07-29T07:38:55Z"
 }
