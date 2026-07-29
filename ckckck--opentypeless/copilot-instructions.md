@@ -1,30 +1,21 @@
 ## opentypeless
 
-> <!-- BEGIN: GLOABAL -->
+> <!-- llmdoc:auto:conventions:start -->
 
-<!-- BEGIN: GLOABAL -->
-# 全局规则
+# 约定与参考
 
-## 语言与输出
+- 代码风格：
+- 分支策略：
+- 提交流程：
 
-- 回复、文档、工具参数、思考过程均使用中文；
-- 代码、文件路径、技术术语可保留原文。
-
-
-## 危险操作（需用户确认）
-
-执行以下操作前，必须主动说明风险并征得用户明确同意：
-
-- **删除**：删除文件、目录、数据库记录
-- **破坏性命令**：`rm -rf`、格式化、清空等
-- **敏感配置**：修改 `.env`、密钥、凭据相关文件
-- **系统级修改**：修改系统配置、PATH、hosts 等
-- **版本控制**：`git push --force`、修改 `.git` 目录、重置历史
-- **批量操作**：大规模重命名、批量替换、批量删除
-- **不可逆操作**：数据库迁移、DROP TABLE、清空生产数据
-
-<!-- END: GLOABAL -->
+## 自动扫描摘要
+<!-- llmdoc:auto:conventions:start -->
+- 扫描时间：2026-02-28 16:20:58
+- 当前分支：`main`
+- 自动化约定：本区块由脚本维护，可手动扩展其余内容。
+- 命令：`~/.codex/skills/llmdoc-update-doc/scripts/llmdoc_update_doc.sh`
+<!-- llmdoc:auto:conventions:end -->
 
 ---
 > Source: [ckckck/OpenTypeless](https://github.com/ckckck/OpenTypeless) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
