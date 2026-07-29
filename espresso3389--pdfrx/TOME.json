@@ -4,7 +4,7 @@
   "repo": "pdfrx",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/espresso3389/pdfrx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T05:08:13Z"
+  "distributed_at": "2026-07-29T04:44:45Z"
 }
