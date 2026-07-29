@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--connect-rust",
+  "displayName": "connect-rust",
+  "description": "connect-rust",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/connect-rust",
+  "skills": []
+}
