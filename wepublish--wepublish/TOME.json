@@ -4,7 +4,7 @@
   "repo": "wepublish",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/wepublish",
+  "source_url": "https://github.com/wepublish/wepublish",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T18:46:06Z"
+  "distributed_at": "2026-07-29T22:37:10Z"
 }
