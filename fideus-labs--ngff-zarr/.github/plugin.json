@@ -1,0 +1,9 @@
+{
+  "name": "fideus-labs--ngff-zarr",
+  "displayName": "ngff-zarr",
+  "description": "ngff-zarr",
+  "version": "1.0.0",
+  "author": "fideus-labs",
+  "homepage": "https://github.com/fideus-labs/ngff-zarr",
+  "skills": []
+}
