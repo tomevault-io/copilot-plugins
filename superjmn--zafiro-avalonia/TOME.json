@@ -4,7 +4,7 @@
   "repo": "Zafiro.Avalonia",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SuperJMN/Zafiro.Avalonia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T09:20:10Z"
+  "distributed_at": "2026-07-29T06:34:35Z"
 }
