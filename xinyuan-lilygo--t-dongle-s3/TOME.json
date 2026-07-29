@@ -4,7 +4,7 @@
   "repo": "T-Dongle-S3",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Xinyuan-LilyGO/T-Dongle-S3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T03:27:04Z"
+  "distributed_at": "2026-07-29T07:19:15Z"
 }
