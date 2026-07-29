@@ -1,0 +1,9 @@
+{
+  "name": "internalfav--terraform-provider-lambdalabs",
+  "displayName": "terraform-provider-lambdalabs",
+  "description": "terraform-provider-lambdalabs",
+  "version": "1.0.0",
+  "author": "internalfav",
+  "homepage": "https://github.com/internalfav/terraform-provider-lambdalabs",
+  "skills": []
+}
