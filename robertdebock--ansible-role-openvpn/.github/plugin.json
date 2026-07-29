@@ -1,0 +1,9 @@
+{
+  "name": "robertdebock--ansible-role-openvpn",
+  "displayName": "ansible-role-openvpn",
+  "description": "ansible-role-openvpn",
+  "version": "1.0.0",
+  "author": "robertdebock",
+  "homepage": "https://github.com/robertdebock/ansible-role-openvpn",
+  "skills": []
+}
