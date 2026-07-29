@@ -1,0 +1,9 @@
+{
+  "name": "owncloud--ocis",
+  "displayName": "ocis",
+  "description": "ocis",
+  "version": "1.0.0",
+  "author": "owncloud",
+  "homepage": "https://github.com/owncloud/ocis",
+  "skills": []
+}
