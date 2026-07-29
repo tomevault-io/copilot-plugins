@@ -2,9 +2,9 @@
   "name": "kuberocketai",
   "owner": "KubeRocketCI",
   "repo": "kuberocketai",
-  "description": "Declarative agentic framework for AI-driven software development. Define, validate, and orchestrate AI agents as code\u2014transparent, auditable, and CI/CD-ready. Run your SDLC as Code today",
+  "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KubeRocketCI/kuberocketai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T17:27:48Z"
+  "distributed_at": "2026-07-29T18:44:56Z"
 }
