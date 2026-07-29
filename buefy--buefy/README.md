@@ -1,15 +1,14 @@
 # buefy
 
-> Source: [buefy/buefy](https://github.com/buefy/buefy) — distributed by [TomeVault](https://tomevault.io)
+> Source: [buefy/buefy](https://github.com/buefy/buefy). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [buefy/buefy](https://github.com/buefy/buefy).
+Original source: `CLAUDE.md` in [buefy/buefy](https://github.com/buefy/buefy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
