@@ -1,8 +1,6 @@
 # AI instruction files for jolt
 
-> Sourced from [jordond/jolt](https://github.com/jordond/jolt) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-⚡️A terminal-based battery and energy monitor for macOS and Linux.
+> Sourced from [jordond/jolt](https://github.com/jordond/jolt), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [jordond/jolt](https://github.com/jordond/jolt).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jordond/jolt](https://github.com/jordond/jolt)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/jordond/jolt](https://github.com/jordond/jolt)
 
 ---
 
