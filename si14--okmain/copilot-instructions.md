@@ -1,49 +1,41 @@
 ## okmain
 
-> Extract dominant colors from images. Ships as a Rust crate (`okmain` on crates.io) and Python package (`okmain` on PyPI, built with maturin/PyO3).
+> Translates between Rust types and Python-friendly types. Contains **no business logic**.
 
-# okmain — Dominant Color Extraction
+# PyO3 Wrapper — `okmain_py`
 
-Extract dominant colors from images. Ships as a Rust crate (`okmain` on crates.io) and Python package (`okmain` on PyPI, built with maturin/PyO3).
+Translates between Rust types and Python-friendly types. Contains **no business logic**.
 
-## Workspace layout
+## Constraints
 
-```
-okmain/
-├── crates/okmain/      # Pure Rust library (published to crates.io)
-├── crates/okmain_py/   # PyO3 wrapper (never published to crates.io)
-└── python/             # Python package (published to PyPI)
-```
+- One file only: `src/lib.rs`. No sub-modules, no algorithm code.
+- Never published to crates.io (`publish = false`).
+- All symbols exported to Python use a `_` prefix (e.g., `_colors_debug`, `_ScoredCentroid`, `_DebugInfo`) to signal
+  they are internal to `okmain._core`.
 
-## Invariants — never break these
+## Type translation rules
 
-- `crates/okmain` has **zero PyO3 knowledge**. All Python bindings live in `crates/okmain_py/`.
-- `crates/okmain_py/src/lib.rs` is a **thin translation layer only** — no business logic.
-- Input validation for Python callers (e.g., RGBA rejection) lives in `python/okmain/__init__.py`, not in Rust.
+| Rust                         | Python (in `_core.pyi`)                                |
+|------------------------------|--------------------------------------------------------|
+| Named struct (e.g., `Oklab`) | Plain tuple (e.g., `tuple[float, float, float]`)       |
+| `Vec<T>`                     | `list[T]`                                              |
+| `Result<_, E>`               | Raise `PyValueError` with the error's `Display` string |
 
-## Commands
+The Python layer (`python/okmain/__init__.py`) is responsible for wrapping raw tuples into typed frozen dataclasses.
 
-```sh
-just test         # all tests (Rust + Python)
-just lint         # all linters (Rust + Python)
-just develop      # rebuild maturin extension (required before Python tests after any Rust change)
-just fmt          # auto-format everything
-```
+## Update checklist
 
-Individual targets: `just test-rust`, `just test-python`, `just lint-rust`, `just lint-python`.
-Run `uv sync`, `uv run pytest`, etc. from the **repo root** (uv workspace).
+When changing the Rust interface:
 
-## Settings
+1. Edit `src/lib.rs`.
+2. Update `python/okmain/_core.pyi` to match — this is what mypy checks.
+3. Update `python/okmain/__init__.py` if new data needs wrapping.
+4. `just develop && just test-python`
 
-- **Rust edition:** 2024 · **MSRV:** 1.93 · **resolver:** 3 · **license:** MIT OR Apache-2.0
-- **Python:** ≥3.12 · **mypy:** strict · **line length:** 99
+## Lint notes
 
-## Sub-guides
-
-- [`crates/okmain/AGENTS.md`](crates/okmain/AGENTS.md) — Core Rust crate
-- [`crates/okmain_py/AGENTS.md`](crates/okmain_py/AGENTS.md) — PyO3 wrapper
-- [`python/AGENTS.md`](python/AGENTS.md) — Python package
+`#[allow(clippy::too_many_arguments)]` is expected on functions mirroring the `colors_with_config` signature.
 
 ---
 > Source: [si14/okmain](https://github.com/si14/okmain) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
