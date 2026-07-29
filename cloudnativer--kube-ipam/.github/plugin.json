@@ -1,0 +1,9 @@
+{
+  "name": "cloudnativer--kube-ipam",
+  "displayName": "kube-ipam",
+  "description": "kube-ipam",
+  "version": "1.0.0",
+  "author": "cloudnativer",
+  "homepage": "https://github.com/cloudnativer/kube-ipam",
+  "skills": []
+}
