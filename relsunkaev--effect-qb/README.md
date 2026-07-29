@@ -1,21 +1,21 @@
 # effect-qb
 
-> Source: [relsunkaev/effect-qb](https://github.com/relsunkaev/effect-qb) — distributed by [TomeVault](https://tomevault.io)
+> Source: [relsunkaev/effect-qb](https://github.com/relsunkaev/effect-qb). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [relsunkaev/effect-qb](https://github.com/relsunkaev/effect-qb).
+Original source: `CLAUDE.md` in [relsunkaev/effect-qb](https://github.com/relsunkaev/effect-qb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [relsunkaev/effect-qb](https://github.com/relsunkaev/effect-qb) — a repo with 113+ stars on GitHub.
+From [relsunkaev/effect-qb](https://github.com/relsunkaev/effect-qb) — a repo with 189+ stars on GitHub.
 
 ---
 
