@@ -1,0 +1,9 @@
+{
+  "name": "robertdebock--ansible-role-bootstrap",
+  "displayName": "ansible-role-bootstrap",
+  "description": "ansible-role-bootstrap",
+  "version": "1.0.0",
+  "author": "robertdebock",
+  "homepage": "https://github.com/robertdebock/ansible-role-bootstrap",
+  "skills": []
+}
