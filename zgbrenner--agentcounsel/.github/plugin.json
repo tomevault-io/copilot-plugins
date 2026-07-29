@@ -1,0 +1,9 @@
+{
+  "name": "zgbrenner--agentcounsel",
+  "displayName": "agentcounsel",
+  "description": "Open-source, AI-agnostic skills for legal teams.",
+  "version": "1.0.0",
+  "author": "zgbrenner",
+  "homepage": "https://github.com/zgbrenner/agentcounsel",
+  "skills": []
+}
