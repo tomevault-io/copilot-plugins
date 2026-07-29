@@ -2,7 +2,7 @@
   "name": "parchi",
   "owner": "0xSero",
   "repo": "parchi",
-  "description": "Your AI friend right in your browser",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xSero/parchi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T02:56:02Z"
+  "distributed_at": "2026-07-29T08:27:53Z"
 }
