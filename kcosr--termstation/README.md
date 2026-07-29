@@ -1,8 +1,6 @@
 # termstation
 
-> Tome by [kcosr](https://github.com/kcosr/termstation) — distributed by [TomeVault](https://tomevault.io)
-
-A web-based terminal session manager.
+> Tome by [kcosr](https://github.com/kcosr/termstation), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [kcosr/termstation](https://github.com/kcosr/ter
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/kcosr/termstation](https://github.com/kcosr/termstation)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/kcosr/termstation](https://github.com/kcosr/termstation)
 
 ---
 
