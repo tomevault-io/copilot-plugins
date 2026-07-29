@@ -1,277 +1,242 @@
 ## kebo
 
-> This document provides essential information for AI coding agents working in the Kebo codebase.
+> This document provides essential information for AI coding agents working in the Kebo shared package.
 
-# AGENTS.md - Kebo Codebase Guide
+# AGENTS.md - Kebo Shared Package
 
-This document provides essential information for AI coding agents working in the Kebo codebase.
+This document provides essential information for AI coding agents working in the Kebo shared package.
 
-## Intent Layer
+## Overview
 
-**Before modifying code in a subdirectory, read its AGENTS.md first** to understand local patterns and invariants.
+The shared package contains **TypeScript types and constants** used across both the web and mobile apps. It has no runtime dependencies and exports TypeScript source directly.
 
-- **API**: `apps/api/AGENTS.md` — Hono REST API with Drizzle ORM, deployed to Vercel
-- **Dashboard**: `apps/dashboard/AGENTS.md` — Next.js financial dashboard with TanStack Query + Supabase realtime
-- **Marketing**: `apps/marketing/AGENTS.md` — Next.js marketing site with i18n (es/en/pt)
-- **Mobile**: `apps/mobile/AGENTS.md` — Expo/React Native app with React Query + Hono RPC
-- **Shared**: `packages/shared/AGENTS.md` — Shared TypeScript types and constants
+| Attribute | Value |
+|-----------|-------|
+| Package Name | `@kebo/shared` |
+| Language | TypeScript |
+| Build | None (source exported directly) |
+| Consumers | `apps/dashboard`, `apps/mobile` |
 
-### Global Invariants
-
-- All apps share Supabase as the backend (auth + database)
-- Shared types live in `@kebo/shared` — never duplicate type definitions across apps
-- Biome for linting/formatting everywhere — never use ESLint or Prettier
-- Environment variables: `NEXT_PUBLIC_` (web), `EXPO_PUBLIC_` (mobile), plain (API)
-
-## Project Overview
-
-Kebo is a personal finance app with a mobile app, web dashboard, API, and marketing website. It's a **Turborepo monorepo** using **Bun** as the package manager.
-
-| App | Path | Framework | Description |
-|-----|------|-----------|-------------|
-| API | `apps/api` | Hono + Drizzle ORM | REST API (Vercel serverless) |
-| Dashboard | `apps/dashboard` | Next.js 16 + React 19 | Authenticated financial dashboard |
-| Marketing | `apps/marketing` | Next.js 16 + React 19 | Public marketing/landing website |
-| Mobile | `apps/mobile` | Expo SDK 54 + React Native | Main mobile application (React Query + Hono RPC) |
-| Shared | `packages/shared` | TypeScript | Shared types and constants |
-
-## Build/Lint/Test Commands
-
-### Root Commands (run from monorepo root)
+## Commands
 
 ```bash
-bun run dev          # Start all dev servers
-bun run build        # Build all packages
-bun run lint         # Check code with Biome
-bun run lint:fix     # Auto-fix linting issues
-bun run format       # Format code with Biome
-bun run typecheck    # TypeScript type checking across all packages
-bun run clean        # Clean build artifacts and node_modules
+bun run shared typecheck   # Type check the package
 ```
 
-### App-Specific Commands
+## Directory Structure
 
-```bash
-# Dashboard app
-bun run dashboard dev          # Start Next.js dev server (port 3000)
-bun run dashboard dev:turbo    # Start with Turbopack (faster)
-bun run dashboard build        # Production build
-bun run dashboard typecheck    # Type check dashboard app only
-
-# Marketing app
-bun run marketing dev          # Start Next.js dev server (port 3001)
-bun run marketing dev:turbo    # Start with Turbopack (faster)
-bun run marketing build        # Production build
-bun run marketing typecheck    # Type check marketing app only
-
-# Mobile app
-bun run mobile start     # Start Expo dev server (clears cache)
-bun run mobile ios       # Run on iOS simulator
-bun run mobile android   # Run on Android emulator
-bun run mobile typecheck # Type check mobile app only
+```
+packages/shared/
+├── package.json
+├── tsconfig.json
+└── src/
+    ├── index.ts           # Main entry point (re-exports all)
+    ├── types/
+    │   ├── index.ts       # Types barrel export
+    │   ├── transaction.ts # Transaction-related types
+    │   └── banner.ts      # Banner/UI types
+    └── constants/
+        └── index.ts       # App-wide constants
 ```
 
-### Testing
+## Importing
 
-No test framework is currently configured. When tests are added, update this section.
-
-### Local Supabase Commands
-
-```bash
-bun run supabase:start   # Start local Supabase (Docker required)
-bun run supabase:stop    # Stop local Supabase
-bun run supabase:status  # Show status and local URLs/keys
-bun run supabase:reset   # Reset database and apply migrations + seed
-bun run supabase:diff    # Generate migration from schema changes
-bun run supabase:push    # Push migrations to remote database
-```
-
-## Code Style Guidelines
-
-### Formatter: Biome
-
-This project uses **Biome** (not ESLint/Prettier) for linting and formatting.
-
-```bash
-bun run lint         # Check for issues
-bun run lint:fix     # Auto-fix issues
-bun run format       # Format all files
-```
-
-### Formatting Rules
-
-- **Indentation**: 2 spaces (not tabs)
-- **Quotes**: Double quotes (`"`)
-- **Semicolons**: Only when needed (ASI)
-- **Imports**: Auto-organized by Biome
-
-### TypeScript
-
-- **Strict mode** is enabled across all packages
-- Path aliases available:
-  - `@/*` maps to `./src/*` (within each app)
-  - `@kebo/shared` for shared package imports (dashboard only)
-- Allowed (linter rules disabled):
-  - Non-null assertions (`!`)
-  - Explicit `any` types
-
-### Naming Conventions
-
-| Type | Convention | Example |
-|------|------------|---------|
-| Files (components) | PascalCase | `HomeScreen.tsx`, `CustomButton.tsx` |
-| Files (utilities) | camelCase | `logger.ts`, `supabase.ts` |
-| Components | PascalCase | `Hero`, `TransactionItem` |
-| Functions/Variables | camelCase | `fetchTransactions`, `userBalance` |
-| Hooks | `use` prefix | `useAnalytics`, `useStores` |
-| Types/Interfaces | PascalCase | `Transaction`, `UserProfile` |
-| Constants | UPPER_SNAKE_CASE or PascalCase | `API_URL`, `TransactionType` |
-| MobX Models | `*Model` suffix | `CategoryStoreModel`, `ProfileModel` |
-| Services | `*Service` suffix (class) | `TransactionService`, `AuthService` |
-| Screens | `*Screen` suffix | `HomeScreen`, `SettingsScreen` |
-
-### Import Order
-
-Biome auto-organizes imports. Follow this order:
-1. External libraries (`react`, `mobx-react-lite`)
-2. Internal absolute imports (`@/components`, `@kebo/shared`)
-3. Relative imports (`./AppShowcase`, `../utils`)
-4. Type imports (can be inline or grouped at end)
-
-### Error Handling
-
-Use try-catch with the centralized logger:
+The package supports multiple import paths:
 
 ```typescript
-import { logger } from "@/utils/logger"
+// Import everything
+import { TransactionType, APP_NAME } from "@kebo/shared"
 
-static async fetchData() {
-  try {
-    const { data, error } = await supabase.from("table").select()
-    if (error) throw error
-    return data
-  } catch (error) {
-    logger.error("Failed to fetch data:", error)
-    throw error
+// Import types only
+import { Budget, BudgetLine } from "@kebo/shared/types"
+
+// Import constants only
+import { APP_NAME, APP_VERSION } from "@kebo/shared/constants"
+```
+
+## Exported Types
+
+### Transaction Types (`src/types/transaction.ts`)
+
+**Enums:**
+
+```typescript
+enum TransactionType {
+  EXPENSE = "Expense",
+  INCOME = "Income",
+  TRANSFER = "Transfer",
+}
+
+enum RecurrenceType {
+  NEVER = "Never",
+  DAILY = "Daily",
+  WEEKLY = "Weekly",
+  MONTHLY = "Monthly",
+  YEARLY = "Yearly",
+}
+
+enum RecurrenceCadenceEnum {
+  NEVER = "never",
+  DAILY = "daily",
+  WEEKLY = "weekly",
+  MONTHLY = "monthly",
+  YEARLY = "yearly",
+}
+```
+
+**Mapping Objects:**
+
+```typescript
+// Maps enum values to i18n translation keys
+const recurrenceDisplayMap: Record<RecurrenceType, string>
+// e.g., RecurrenceType.DAILY -> "transactionScreen:daily"
+
+// Reverse mapping from i18n keys to enum values
+const recurrenceDisplayValueMap: Record<string, RecurrenceType>
+```
+
+**Interfaces:**
+
+| Interface | Purpose |
+|-----------|---------|
+| `TransactionFormValues` | Form state for transaction creation/editing |
+| `Budget` | Budget entity from database |
+| `BudgetLine` | Individual budget line item with spending metrics |
+| `TotalMetrics` | Aggregated budget metrics |
+| `BudgetResponse` | API response structure for budget data |
+
+### Banner Types (`src/types/banner.ts`)
+
+| Interface | Purpose |
+|-----------|---------|
+| `Asset` | Media asset reference (url, type) |
+| `CTA` | Call-to-action button (link, text) |
+| `BannerSlide` | Single slide in a banner carousel |
+| `Banner` | Full banner configuration |
+| `DynamicBanner` | Banner with unique identifier |
+| `BannerContent` | Specialized banner content (new version announcements) |
+
+## Exported Constants
+
+```typescript
+export const APP_NAME = "Kebo"
+export const APP_VERSION = "1.0.0"
+```
+
+## Adding New Types
+
+1. Create or edit the appropriate file in `src/types/`
+2. Export from `src/types/index.ts`
+3. Types are automatically available via `@kebo/shared`
+
+**Example:**
+
+```typescript
+// src/types/account.ts
+export interface Account {
+  id: string
+  name: string
+  balance: number
+  currency: string
+}
+
+// src/types/index.ts
+export * from "./transaction"
+export * from "./banner"
+export * from "./account"  // Add this line
+```
+
+## Adding New Constants
+
+1. Add to `src/constants/index.ts`
+2. Constants are automatically available via `@kebo/shared`
+
+```typescript
+// src/constants/index.ts
+export const APP_NAME = "Kebo"
+export const APP_VERSION = "1.0.0"
+export const NEW_CONSTANT = "value"  // Add here
+```
+
+## Conventions
+
+### Enum Naming
+
+- Keys: `UPPER_SNAKE_CASE`
+- Values: `PascalCase` (human-readable strings)
+
+```typescript
+enum TransactionType {
+  EXPENSE = "Expense",      // Key: EXPENSE, Value: "Expense"
+  INCOME = "Income",
+  TRANSFER = "Transfer",
+}
+```
+
+### i18n Integration
+
+Use `namespace:key` format for translation keys:
+
+```typescript
+const recurrenceDisplayMap = {
+  [RecurrenceType.NEVER]: "transactionScreen:never",
+  [RecurrenceType.DAILY]: "transactionScreen:daily",
+  // ...
+}
+```
+
+### Database-Aligned Types
+
+Include database metadata fields when mirroring Supabase tables:
+
+```typescript
+interface Budget {
+  id: string
+  user_id: string
+  // ... business fields
+  created_at: string
+  updated_at: string
+  deleted_at: string | null
+  is_deleted: boolean
+}
+```
+
+### Optional Fields
+
+Use TypeScript optional syntax for nullable/optional fields:
+
+```typescript
+interface TransactionFormValues {
+  account: string
+  from_account?: string      // Optional for transfers
+  to_account?: string        // Optional for transfers
+  category?: string          // Optional
+}
+```
+
+## Configuration
+
+### package.json
+
+```json
+{
+  "name": "@kebo/shared",
+  "private": true,
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types/index.ts",
+    "./constants": "./src/constants/index.ts"
   }
 }
 ```
 
-## Architecture Patterns
+### tsconfig.json
 
-### Dashboard App (Next.js)
-
-- **App Router** with internationalization (`/[lang]/app/...`)
-- **Supported languages**: `es`, `en`, `pt`
-- **UI Components**: shadcn/ui pattern with Radix primitives
-- **Styling**: Tailwind CSS with `cn()` utility for class merging
-- **State**: React Query for server state
-- **Auth**: Supabase Auth with SSR middleware
-- **Client components**: Use `"use client"` directive
-
-### Marketing App (Next.js)
-
-- **App Router** with internationalization (`/[lang]/...`)
-- **Supported languages**: `es`, `en`, `pt`
-- **i18n**: JSON dictionaries for translations
-- **UI Components**: Minimal shadcn/ui (button, sheet)
-- **Styling**: Tailwind CSS with Framer Motion animations
-- **No auth** — public pages only
-
-### Mobile App (React Native/Expo)
-
-- **Server State**: TanStack Query v5 + Hono RPC typed client (same pattern as Dashboard)
-- **UI State**: MobX-State-Tree (form state, UI selections — NOT server data)
-- **Navigation**: expo-router (file-based) with native tabs and sheets
-- **Styling**: twrnc (Tailwind for React Native)
-- **i18n**: i18next with `translate()` function
-
-```typescript
-// Screen component pattern — React Query hooks for data, observer for UI state
-import { observer } from "mobx-react-lite"
-import { useTransactions, useDeleteTransaction } from "@/lib/api/hooks"
-import { useQueryClient } from "@tanstack/react-query"
-
-export const HomeScreen = observer(() => {
-  const { data: txResponse } = useRecentTransactions(5)
-  const { data: balance } = useBalance()
-  const deleteTransaction = useDeleteTransaction()
-  // ...
-})
-```
-
-### API Layer (Mobile — `lib/api/`)
-
-Same architecture as Dashboard — Hono RPC typed client with TanStack Query:
-
-```
-lib/api/
-  rpc.ts              — Hono typed client singleton + unwrap<T>() helper
-  client.ts           — Auth token management (getAccessToken, ApiError)
-  types.ts            — TypeScript interfaces matching API response shapes
-  keys.ts             — Query key factory (queryKeys.transactions.list(), etc.)
-  query-config.ts     — Per-resource staleTime / gcTime
-  hooks/              — useTransactions, useAccounts, useBudgets, etc.
-  providers/          — QueryProvider (wraps app in QueryClientProvider)
-lib/realtime/
-  realtime-provider.tsx    — Supabase realtime subscriptions
-  invalidation-tracker.ts  — markMutationSettled() deduplication
-```
-```
-
-## Project Structure
-
-```
-kebo/
-├── apps/
-│   ├── dashboard/src/
-│   │   ├── app/[lang]/app/   # Dashboard pages (auth + dashboard routes)
-│   │   ├── components/
-│   │   │   ├── app/          # Dashboard-specific components
-│   │   │   └── ui/           # shadcn/ui components
-│   │   └── lib/              # Utilities, auth, API hooks
-│   │
-│   ├── marketing/src/
-│   │   ├── app/[lang]/       # Marketing pages (landing, blog, FAQs, legal)
-│   │   ├── components/       # Marketing components (Header, Hero, etc.)
-│   │   ├── i18n/             # Translations
-│   │   └── lib/              # Utilities (cn, etc.)
-│   │
-│   └── mobile/
-│       ├── app/              # expo-router file-based routes
-│       ├── components/       # UI components
-│       ├── screens/          # Screen components
-│       ├── lib/api/          # React Query hooks + Hono RPC client
-│       ├── lib/realtime/     # Supabase realtime sync
-│       ├── models/           # MobX-State-Tree (UI state only)
-│       ├── services/         # Legacy service classes (being phased out)
-│       ├── hooks/            # Custom React hooks
-│       ├── i18n/             # i18next translations
-│       ├── theme/            # Colors, typography
-│       └── utils/            # Utility functions
-│
-└── packages/shared/src/      # Shared types and constants
-```
-
-## Environment Variables
-
-- **Dashboard**: Prefix with `NEXT_PUBLIC_` for client-side access. Also uses `NEXT_PUBLIC_MARKETING_URL` for cross-links.
-- **Marketing**: Prefix with `NEXT_PUBLIC_` for client-side access. Uses `RESEND_API_KEY` for email.
-- **Mobile**: Prefix with `EXPO_PUBLIC_` for client-side access
-- Required: Supabase URL/key, PostHog key
-
-## Key Dependencies
-
-| Purpose | Dashboard | Marketing | Mobile |
-|---------|-----------|-----------|--------|
-| Backend | Supabase | Supabase (waitlist) | Supabase |
-| Styling | Tailwind CSS | Tailwind CSS | twrnc |
-| UI | Radix UI, shadcn/ui | Minimal shadcn/ui | Custom components |
-| State | React Query | React state | React Query + MST (UI) |
-| Analytics | Vercel Analytics | Vercel Analytics | PostHog |
-| i18n | — | Custom dictionary | i18next |
-| Animation | — | Framer Motion | — |
+- Extends root `tsconfig.json`
+- Strict mode enabled
+- No build step (source exported directly)
 
 ---
 > Source: [kebo-ai/kebo](https://github.com/kebo-ai/kebo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
