@@ -4,7 +4,7 @@
   "repo": "EDKit.jl",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jayren3996/EDKit.jl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T18:28:24Z"
+  "distributed_at": "2026-07-29T03:34:05Z"
 }
