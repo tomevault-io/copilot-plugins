@@ -1,0 +1,9 @@
+{
+  "name": "milvus-io--milvus-sdk-node",
+  "displayName": "milvus-sdk-node",
+  "description": "milvus-sdk-node",
+  "version": "1.0.0",
+  "author": "milvus-io",
+  "homepage": "https://github.com/milvus-io/milvus-sdk-node",
+  "skills": []
+}
