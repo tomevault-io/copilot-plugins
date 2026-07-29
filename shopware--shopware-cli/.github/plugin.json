@@ -1,0 +1,9 @@
+{
+  "name": "shopware--shopware-cli",
+  "displayName": "shopware-cli",
+  "description": "shopware-cli",
+  "version": "1.0.0",
+  "author": "shopware",
+  "homepage": "https://github.com/shopware/shopware-cli",
+  "skills": []
+}
