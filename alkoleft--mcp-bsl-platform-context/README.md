@@ -1,8 +1,6 @@
 # mcp-bsl-platform-context
 
-> Tome by [alkoleft](https://github.com/alkoleft/mcp-bsl-platform-context) — distributed by [TomeVault](https://tomevault.io)
-
-MCP сервер для AI-ассистентов (справка по синтаксису и объектной модели 1С:Предприятие)
+> Tome by [alkoleft](https://github.com/alkoleft/mcp-bsl-platform-context), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [alkoleft/mcp-bsl-platform-context](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/alkoleft/mcp-bsl-platform-context](https://github.com/alkoleft/mcp-bsl-platform-context)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/alkoleft/mcp-bsl-platform-context](https://github.com/alkoleft/mcp-bsl-platform-context)
 
 ---
 
