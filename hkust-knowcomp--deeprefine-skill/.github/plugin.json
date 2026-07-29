@@ -1,0 +1,9 @@
+{
+  "name": "hkust-knowcomp--deeprefine-skill",
+  "displayName": "DeepRefine-Skill",
+  "description": "An agent skill to evolve the quality of LLM-Wiki (Graphify) at test time.",
+  "version": "1.0.0",
+  "author": "HKUST-KnowComp",
+  "homepage": "https://github.com/HKUST-KnowComp/DeepRefine-Skill",
+  "skills": []
+}
