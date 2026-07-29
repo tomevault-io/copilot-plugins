@@ -1,0 +1,28 @@
+## flutter-mobile-project-template
+
+> 本リポジトリのアーキテクチャ詳細・ディレクトリ構成・依存関係の原則は [ARCHITECTURE.md](mdc:docs/ARCHITECTURE.md) にまとめられています。
+
+# アーキテクチャルールガイド
+
+本リポジトリのアーキテクチャ詳細・ディレクトリ構成・依存関係の原則は [ARCHITECTURE.md](mdc:docs/ARCHITECTURE.md) にまとめられています。
+
+## アーキテクチャの原則
+- 各ディレクトリ・パッケージは責務ごとに明確に分離されています。
+- 依存関係は一方向（上位レイヤー→下位レイヤー）となるようにし、逆方向の依存や循環参照は禁止です。
+- ドメインロジックは必ず Domain Layer に実装し、Presentation Layer や Infrastructure Layer に直接記述しないこと。
+- データ取得や外部連携は Infrastructure Layer に実装し、他レイヤーからはインターフェース経由で利用すること。
+- 依存性注入や初期化処理は CompositionRoot Layer で行うこと。
+
+## 守るべきルール
+
+- コード修正・追加時は、必ず各レイヤー・パッケージの責務に従って実装してください。
+- 既存の依存関係を崩さないように注意してください。
+- 依存関係や責務分離に迷った場合は [ARCHITECTURE.md](mdc:docs/ARCHITECTURE.md) を確認してください。
+
+## 詳細
+
+アーキテクチャの詳細・ディレクトリ構成・依存関係の原則については [ARCHITECTURE.md](mdc:docs/ARCHITECTURE.md) を参照してください。
+
+---
+> Source: [ymm-oss/flutter-mobile-project-template](https://github.com/ymm-oss/flutter-mobile-project-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
