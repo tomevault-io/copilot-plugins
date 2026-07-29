@@ -1,10 +1,10 @@
 ## nspox
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -117,4 +117,4 @@ poetry run pytest tests/ -k "test_name" -v     # Run single test by name
 
 ---
 > Source: [nspox-project/nspox](https://github.com/nspox-project/nspox) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
