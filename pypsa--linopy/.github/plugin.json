@@ -1,0 +1,9 @@
+{
+  "name": "pypsa--linopy",
+  "displayName": "linopy",
+  "description": "linopy",
+  "version": "1.0.0",
+  "author": "PyPSA",
+  "homepage": "https://github.com/PyPSA/linopy",
+  "skills": []
+}
