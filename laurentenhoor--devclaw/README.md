@@ -1,23 +1,21 @@
 # devclaw
 
-> Tome by [laurentenhoor](https://github.com/laurentenhoor/devclaw) — distributed by [TomeVault](https://tomevault.io)
-
-Multi-project dev/qa pipeline orchestration plugin for OpenClaw
+> Tome by [laurentenhoor](https://github.com/laurentenhoor/devclaw), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [laurentenhoor/devclaw](https://github.com/laurentenhoor/devclaw).
+Original source: `AGENTS.md` in [laurentenhoor/devclaw](https://github.com/laurentenhoor/devclaw).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [laurentenhoor/devclaw](https://github.com/laurentenhoor/devclaw) — a repo with 194+ stars on GitHub.
+From [laurentenhoor/devclaw](https://github.com/laurentenhoor/devclaw) — a repo with 212+ stars on GitHub.
 
 ---
 
