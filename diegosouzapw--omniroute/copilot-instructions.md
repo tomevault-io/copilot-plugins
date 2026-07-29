@@ -1,58 +1,232 @@
 ## omniroute
 
-> > **適用範圍：** 基於 Gemini 的代理規則。若為 Claude Code，請見 `CLAUDE.md`。若為其他 AI 助手，請見 `AGENTS.md`。
+> > Status: normative. Source: `_tasks/features-v3.8.0/cli/fase-0-preparacao/0.3-definir-convencoes.md`.
 
-# AI 助手的安全與整潔規則
+# OmniRoute CLI — Internal Conventions
 
-> **適用範圍：** 基於 Gemini 的代理規則。若為 Claude Code，請見 `CLAUDE.md`。若為其他 AI 助手，請見 `AGENTS.md`。
+> Status: normative. Source: `_tasks/features-v3.8.0/cli/fase-0-preparacao/0.3-definir-convencoes.md`.
+> This file is the authoritative reference for every new or migrated CLI command.
+> If reality diverges from this document, fix the code first; only edit this file
+> after the discrepancy has been justified in a PR.
 
-## 1. 檔案放置與組織
+## 1. Subcommand style
 
-- **測試檔案**：所有單元測試、整合測試、生態系測試或 Vitest 檔案，**必須**嚴格放置在 `tests/` 目錄內（例如 `tests/unit/`、`tests/integration/`）。**嚴禁**在專案根目錄（`/`）建立測試檔案。
-- **腳本與工具**：所有維護、除錯、產生或實驗性腳本（`.cjs`、`.mjs`、`.js`、`.ts`）**必須**嚴格放置在 `scripts/` 子資料夾之一（`build/`、`dev/`、`check/`、`docs/`、`i18n/`、`ad-hoc/`）。一次性或實驗性程式碼請置於 `scripts/ad-hoc/` 下。**嚴禁**將腳本任意散落在專案根目錄（`/`）或 `scripts/` 頂層資料夾。
+**Standard**: `git`-style nested verbs.
 
-**專案根目錄僅能包含：**
+```
+omniroute keys add openai sk-xxx
+omniroute combo switch fastest
+omniroute memory search "react hooks"
+```
 
-- 設定檔（`vitest.config.ts`、`next.config.mjs`、`eslint.config.mjs`、`tsconfig*.json`、`playwright.config.ts`、`prettier.config.mjs`、`postcss.config.mjs`、`sonar-project.properties`、`fly.toml`、`docker-compose*.yml`、`Dockerfile`）
-- 相依性檔案（`package.json`、`package-lock.json`）
-- 文件檔案（`README.md`、`CHANGELOG.md`、`LICENSE`、`AGENTS.md`、`CLAUDE.md`、`GEMINI.md`、`CONTRIBUTING.md`、`SECURITY.md`、`CODE_OF_CONDUCT.md`、`llm.txt`、`Tuto_Qdrant.md`）
-- CI/CD 檔案與忽略定義（`.gitignore`、`.dockerignore`、`.npmignore`、`.npmrc`、`.node-version`、`.nvmrc`、`.env.example`）
+**Not allowed**:
 
-當建立**任何**驗證測試或一次性邏輯腳本時，請根據您的目標預設使用 `scripts/ad-hoc/` 或 `tests/unit/` 目錄。請勿汙染 `／` 根目錄上下文。
+```
+omniroute --add-key openai sk-xxx     # ❌ flag-as-verb
+omniroute add-key openai sk-xxx       # ❌ hyphen at the top level
+```
 
-## 2. 嚴格規則（與 `CLAUDE.md` 對應）
+## 2. Flags
 
-1. **絕不提交機密或憑證。** 使用 `.env`（從 `.env.example` 自動產生）或密碼保管庫。密碼、OAuth 密鑰、API 金鑰和 Cookie 值**不得**出現在已提交的檔案中。
-2. **絕不向 `src/lib/localDb.ts` 添加邏輯。** 該檔案僅作為重新匯出的統合點（barrel）。
-3. **絕不使用 `eval()`、`new Function()` 或任何隱含的 eval。** ESLint 已強制執行此規則。
-4. **絕不直接提交至 `main`。** 請使用 `feat/`、`fix/`、`refactor/`、`docs/`、`test/` 或 `chore/` 分支。
-5. **絕不在路由中撰寫原始 SQL** — 一律透過 `src/lib/db/` 領域模組操作。
-6. **絕不靜默吞沒 SSE 串流中的錯誤** — 應傳遞錯誤或乾淨地中止串流。
-7. **絕不繞過 Husky 鉤子**（`--no-verify`、`--no-gpg-sign`），除非獲得操作人員明確許可。
-8. **一律使用 `src/shared/validation/schemas.ts` 中的 Zod 綱要驗證輸入。**
-9. **修改生產程式碼（`src/`、`open-sse/`、`electron/`、`bin/`）時，一律同時添加測試。**
-10. **覆蓋率必須維持** ≥ 75% 陳述式 / 75% 行 / 75% 函式 / 70% 分支（實際測量值約 82%）。
+- Only `--long` and `-s` shorts (one-letter shorts reserved for very common
+  flags: `-h`, `-v`, `-o`, `-q`, `--no-open`).
+- Format: `--api-key sk-xxx` (space). `=` accepted for parity but doc uses space.
+- Naming: kebab-case (`--api-key`, `--non-interactive`, `--max-tokens`).
+- Booleans: `--no-foo` (negative) and `--foo` (positive). Default `false` unless
+  documented.
+- Multi-value: repeat the flag (`--header X-A=1 --header X-B=2`).
 
-## 3. 程式碼庫導航
+## 3. Output (`--output`)
 
-| 任務                     | 請先閱讀此文件                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 理解程式碼庫             | `docs/architecture/REPOSITORY_MAP.md`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 架構概覽                 | `docs/architecture/ARCHITECTURE.md`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| 工程參考                 | `docs/architecture/CODEBASE_DOCUMENTATION.md`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| 添加功能                 | `CONTRIBUTING.md` + 對應的 `docs/<領域>.md`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| 各領域深入探索           | `docs/frameworks/SKILLS.md`、`docs/frameworks/MEMORY.md`、`docs/frameworks/EVALS.md`、`docs/security/GUARDRAILS.md`、`docs/security/COMPLIANCE.md`、`docs/frameworks/CLOUD_AGENT.md`、`docs/frameworks/MCP-SERVER.md`、`docs/frameworks/A2A-SERVER.md`、`docs/architecture/AUTHZ_GUIDE.md`、`docs/architecture/RESILIENCE_GUIDE.md`、`docs/routing/AUTO-COMBO.md`、`docs/frameworks/WEBHOOKS.md`、`docs/routing/REASONING_REPLAY.md`、`docs/security/STEALTH_GUIDE.md`、`docs/ops/TUNNELS_GUIDE.md`、`docs/guides/ELECTRON_GUIDE.md`、`docs/reference/PROVIDER_REFERENCE.md` |
-| 發布流程                 | `docs/ops/RELEASE_CHECKLIST.md`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Value   | Use case                                     |
+| ------- | -------------------------------------------- |
+| `table` | default human-readable                       |
+| `json`  | single JSON object, pretty-printed           |
+| `jsonl` | streamed objects, one per line (logs, lists) |
+| `csv`   | spreadsheet ingestion                        |
 
-## 4. 本地開發環境存取
+Related flags:
 
-儀表板可透過操作人員選擇的 URL／連接埠存取（預設 `http://localhost:20128`）。憑證為操作人員專屬：
+- `--quiet` / `-q` — suppress headers/spinners (pipe-friendly).
+- `--no-color` — force ANSI off (auto-detected if `!stdout.isTTY`).
 
-- **初始管理員密碼**取自首次安裝時的 `INITIAL_PASSWORD` 環境變數（`.env.example` 中預設為 `CHANGEME`；請在首次登入後立即更換）。
-- **本地 VPS／共享開發環境**：請向操作人員索取 URL 與當前憑證——這些資訊保存在操作人員的個人密碼保管庫中，**不在**此儲存庫內。
+Helper: `emit(rows, opts)` from `bin/cli/output.mjs` handles all four formats.
 
-> 若本檔案舊版中曾出現任何憑證，均為非正式環境的示範值；請將其視為已洩漏，切勿重複使用。
+## 4. Exit codes
+
+| Code  | Meaning                           |
+| ----- | --------------------------------- |
+| `0`   | success                           |
+| `1`   | generic error (uncaught, runtime) |
+| `2`   | invalid argument / misuse         |
+| `3`   | server offline (when required)    |
+| `4`   | auth / permission (401/403)       |
+| `5`   | rate limit / quota (429)          |
+| `124` | timeout                           |
+
+Helper: `exitWith(code, message?)` from `bin/cli/exit.mjs` (added under
+`output.mjs` if needed) — always uses these constants. **Never** raw
+`process.exit(N)` in command code.
+
+## 5. HTTP errors + retry/backoff
+
+All API calls go through `apiFetch(path, opts)` (`bin/cli/api.mjs`), which:
+
+- Reads base URL from `OMNIROUTE_BASE_URL` env or `~/.omniroute/config.json`
+  (active profile).
+- Injects `Authorization: Bearer ${OMNIROUTE_API_KEY}` when available.
+- Injects `x-omniroute-cli-token` when applicable (see task 8.12).
+- Applies a per-attempt timeout (`--timeout 30000`, default 30s).
+- Maps status → exit code (401→4, 429→5, 5xx→1, etc.).
+- Never exposes `err.stack` (CLAUDE.md hard rule #12).
+- Applies exponential backoff with jitter on retryable statuses.
+
+### Retry defaults
+
+```js
+export const RETRY_DEFAULTS = {
+  maxAttempts: 3, // 1 initial + 2 retries
+  baseMs: 500,
+  maxMs: 8000, // jitter can slightly exceed
+  jitter: true, // ±25%
+  retryableStatuses: [408, 425, 429, 502, 503, 504],
+  retryableErrorCodes: [
+    "ECONNRESET",
+    "ECONNREFUSED",
+    "ETIMEDOUT",
+    "ENOTFOUND",
+    "EAI_AGAIN",
+    "EPIPE",
+  ],
+};
+```
+
+### Global flags wired
+
+- `--retry` (default on) / `--no-retry`
+- `--retry-max <n>` (default 3) — total attempts
+- `--timeout <ms>` (default 30000) — per attempt
+- `--retry-on <csv>` — extra retryable statuses (e.g. `--retry-on 500`)
+
+### Method semantics
+
+- Mutations (`POST`/`PUT`/`DELETE`) retry **only** on idempotent-ish statuses
+  (`502`/`503`/`504`/`408`/network), never `409`/`422`. This avoids duplicate
+  side-effects.
+- `GET` retries all `RETRY_DEFAULTS.retryableStatuses`.
+- SSE / streaming does **not** auto-retry (operator decides).
+- Optional `--idempotency-key <uuid>` for extra-safe mutations.
+
+### Status → exit code map
+
+| Status          | Exit | Retry?                         |
+| --------------- | ---- | ------------------------------ |
+| 200–299         | 0    | n/a                            |
+| 400             | 2    | no                             |
+| 401             | 4    | no                             |
+| 403             | 4    | no                             |
+| 404             | 2    | no                             |
+| 408             | 124  | **yes**                        |
+| 409             | 1    | no (mutations)                 |
+| 422             | 2    | no                             |
+| 425             | 1    | **yes**                        |
+| 429             | 5    | **yes** (respects Retry-After) |
+| 500             | 1    | configurable (default no)      |
+| 502 / 503 / 504 | 1    | **yes**                        |
+| Network errors  | 1    | **yes**                        |
+| Timeout         | 124  | **yes**                        |
+
+## 6. Internationalization
+
+- Every user-facing string goes through `t("module.key", vars)`.
+- Catalogs live in `bin/cli/locales/{locale}.json` (nested objects).
+  42 files ship out-of-the-box: `en`, `pt-BR`, and 40 additional locales.
+  11 locales are scaffold-only (empty `{}`); all keys fall back to `en` automatically.
+- Detection order: `--lang` flag → `OMNIROUTE_LANG` env → `LC_ALL` → `LC_MESSAGES` → `LANG` → `en`.
+- Locale persisted via `config lang set <code>` — saves `OMNIROUTE_LANG` to `~/.omniroute/.env`.
+- Missing keys return the key itself (no crash).
+- PRs that add new strings **must** update `en.json` and `pt-BR.json`.
+  Other locale files are best-effort; missing keys silently fall back to `en`.
+- `normalize()` in `i18n.mjs` validates locale codes via `/^[a-zA-Z0-9-]+$/` to
+  prevent path traversal — never pass raw filesystem paths.
+- Canonical locale list: `config/i18n.json` — source of truth used by both CLI and
+  dashboard i18n pipelines.
+
+### Adding a new locale file
+
+1. Add entry to `config/i18n.json` with `code`, `english`, `native`, `flag`.
+2. Run `node bin/cli/scripts/generate-locales.mjs` — creates `bin/cli/locales/{code}.json`.
+3. Fill in translations (or leave as `{}` for en-fallback scaffold).
+4. The pre-commit hook `check-cli-i18n` will verify all `t()` keys exist in `en.json`.
+
+## 7. Logs / output channels
+
+- `stdout` — useful output (parseable when `--output json|jsonl|csv`).
+- `stderr` — progress, warnings, errors, spinners.
+- `--verbose` / `-V` — extra detail on stderr.
+- `--debug` — stack traces, request bodies (dev-mode only; redacts secrets).
+
+## 8. Server-first / DB-fallback
+
+Single helper:
+
+```js
+import { withRuntime } from "./runtime.mjs";
+
+await withRuntime(async ({ kind, api, db }) => {
+  if (kind === "http")
+    return api("/api/combos", { retry: false, timeout: 5000, acceptNotOk: true });
+  return db.combos.getCombos();
+});
+```
+
+- `kind: "http"` when server is up (preferred). `api` is `apiFetch` bound to
+  the current profile/base-URL.
+- `kind: "db"` when server is offline. `db` exposes typed module exports:
+  - `db.combos` → `src/lib/db/combos.ts` (getCombos, getComboByName, createCombo,
+    deleteComboByName, setActiveCombo, …)
+  - `db.recovery` → `src/lib/db/recovery.ts` (countEncryptedCredentials,
+    resetEncryptedColumns)
+- Mutations that require server **must** error with exit code `3` when the
+  server is down, never silently fall back.
+- **Never** write raw SQL in commands — always go through `src/lib/db/` modules.
+  The Semgrep rule at `.semgrep/rules/cli-no-sqlite.yaml` enforces this at commit time.
+
+## 9. Audit of destructive actions
+
+Commands that mutate state (delete, reset, `--force`) **must**:
+
+- Ask for interactive confirmation (skipped with `--yes`).
+- POST to `/api/compliance/audit-log` when the server is up.
+- Support `--dry-run` (preview without effect).
+
+## 10. Secrets
+
+- **Never** log secrets. Mask as `sk-***-xxx` via `maskSecret()` from
+  `bin/cli/output.mjs`.
+- **Never** accept a secret via positional without warning. Prefer:
+  - env (`OMNIROUTE_*_API_KEY`)
+  - stdin (`--api-key-stdin`)
+  - interactive `askSecret()` (echo off — already implemented in `io.mjs`)
+- Secrets must not appear in `--verbose` / `--debug` output.
+
+## 11. Testing baseline
+
+- Every new command ships with at least one smoke test (happy path + one
+  error path).
+- Use `tests/unit/cli-*.test.ts` naming. Prefer `node:test` for CLI suites
+  (no extra deps).
+- Coverage target: ≥60% for `bin/cli/commands/`, ≥75% for `bin/cli/` overall
+  after Fase 8.
+
+## 12. References
+
+- CLAUDE.md hard rules — especially #11 (publicCreds), #12 (error
+  sanitization), #13 (shell injection).
+- `docs/security/ERROR_SANITIZATION.md` — the only acceptable error shapes.
+- `tests/unit/cli-tools-i18n.test.ts` — current i18n infrastructure (pre-`t()`).
+- Commander.js docs — Options & subcommand patterns.
 
 ---
 > Source: [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
