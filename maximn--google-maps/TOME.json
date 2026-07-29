@@ -4,7 +4,7 @@
   "repo": "google-maps",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maximn/google-maps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T18:57:19Z"
+  "distributed_at": "2026-07-29T23:38:39Z"
 }
