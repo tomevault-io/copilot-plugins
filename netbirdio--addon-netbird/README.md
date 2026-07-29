@@ -1,24 +1,24 @@
-# addon-netbird — distributed by TomeVault
+# addon-netbird
 
-> Originally from [netbirdio/addon-netbird](https://github.com/netbirdio/addon-netbird). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [netbirdio/addon-netbird](https://github.com/netbirdio/addon-netbird). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [netbirdio/addon-netbird](https://github.com/netbirdio/addon-netbird).
+Original source: `CLAUDE.md` in [netbirdio/addon-netbird](https://github.com/netbirdio/addon-netbird).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/netbirdio)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/netbirdio/addon-netbird](https://github.com/netbirdio/addon-netbird)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/netbirdio) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
