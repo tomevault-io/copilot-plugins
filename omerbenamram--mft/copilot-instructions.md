@@ -1,25 +1,86 @@
 ## mft
 
-> The crate root lives in `src/lib.rs` with supporting modules in `src/attribute`, `src/mft.rs`, and `src/utils.rs`. CLI code for the `mft_dump` binary sits in `src/bin/mft_dump.rs`. Reusable fixtures used by unit tests live in `src/tests`, while integration tests belong under `tests/`. Sample MFT images and large fixtures live in `samples/` and `testdata/`; keep new assets small and explain their origin in PR descriptions. README snippets are kept in sync via `tests/readme.rs` and the `doc-comment` harness.
+> When writing code or debugging issues, YOU MUST compare with original libewf implementation AND SPEC.
 
-# Repository Guidelines
 
-## Project Structure & Module Organization
-The crate root lives in `src/lib.rs` with supporting modules in `src/attribute`, `src/mft.rs`, and `src/utils.rs`. CLI code for the `mft_dump` binary sits in `src/bin/mft_dump.rs`. Reusable fixtures used by unit tests live in `src/tests`, while integration tests belong under `tests/`. Sample MFT images and large fixtures live in `samples/` and `testdata/`; keep new assets small and explain their origin in PR descriptions. README snippets are kept in sync via `tests/readme.rs` and the `doc-comment` harness.
+# Spec driven development
 
-## Build, Test, and Development Commands
-Run `cargo build --all-targets` for a full local compile, and `cargo test --all-features` before pushing to mirror CI. Use `cargo bench --bench benchmark` when touching performance-critical code paths. `cargo fmt` and `cargo clippy --all-targets --all-features` should produce a clean workspace; address new lints or explain why they cannot be resolved.
-To catch formatting issues before CI, install the repo's pre-commit hook (`pre-commit install`) after installing `pre-commit`.
+When writing code or debugging issues, YOU MUST compare with original libewf implementation AND SPEC.
+AVOID using web search/firecrawl to find sources from libewf! you must use local sources.
 
-## Coding Style & Naming Conventions
-Follow Rust 2024 idioms and let `rustfmt` enforce four-space indentation and line wrapping. Favour descriptive snake_case for modules, functions, and test names, and PascalCase for types and enums. Prefer early returns with `?`, explicit error types via `thiserror`, and structured logging through the `log` macros. Keep public API additions documented with concise doc comments.
+If you are running in a worktree - you can clone the libewf as specified by the commit hash in the external/refs/repos/libyal__libewf.commit file.
 
-## Testing Guidelines
-Add focused unit tests beside the code they cover inside `#[cfg(test)]` modules, and author end-to-end scenarios under `tests/` using the CLI or parser APIs. Use fixture builders in `src/tests/fixtures.rs` and shared disk images under `testdata/` to avoid duplication. Name tests after the behaviour under test (for example `test_parse_index_root_handles_resident_entries`). Verify benchmarks when modifying parsing hot paths.
+When accessing resources from libewf local sources, your built- grep tool may not be able to find the sources.
+Instead prefer using ripgrep (--no-ignore) to search the local sources.
 
-## Commit & Pull Request Guidelines
-Craft short, imperative commit subjects that describe the observable change (e.g., `Add resident index entry parser`). Commits should compile and pass tests independently. Pull requests need a summary of the change, a checklist of local commands run, and links to related issues. Include screenshots or sample output when altering CLI behaviour, and flag any changes to binary compatibility or minimum supported Rust version.
+Reference:
+- libewf implementation: `external/libewf/`
+- libewf specification:
+  - `external/libewf/documentation/Expert Witness Compression Format (EWF).asciidoc`
+  - `external/libewf/documentation/Expert Witness Compression Format 2 (EWF2).asciidoc`
+
+# Rust style
+
+Prefer storing structs in:
+
+  - 'src/ewf1/...'
+  - 'src/ewf2/...'
+
+generally:
+  - modules should have documentation that explains reference to spec.
+  - all public functions, and struct members should have documentation outline that explain their purpose, and provenance.
+  - prefer attaching methods/parsing to their structs, rather than having "c-style" free floating functions.
+
+
+## Binary parsing
+
+We strive to maintain symmetry between the reader and writer implementations.
+We use binrw to parse and write binary data.
+
+DO use binrw methods to make parser declerative and self describing.
+```
+/// EWF2 container kind (Ex01 vs Lx01).
+///
+/// The kind is encoded in the file header signature.
+#[binrw]
+#[brw(little)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum Ewf2Kind {
+    /// EWF2-Ex01 (`EVF2\r\n\x81\x00`)
+    #[brw(magic = b"EVF2\r\n\x81\0")]
+    Ex01,
+    /// EWF2-Lx01 (`LEF2\r\n\x81\x00`)
+    #[brw(magic = b"LEF2\r\n\x81\0")]
+    Lx01,
+}
+
+impl Ewf2Kind {
+    pub(crate) fn signature(self) -> [u8; 8] {
+        match self {
+            Self::Ex01 => EWF2_EVF_SIGNATURE,
+            Self::Lx01 => EWF2_LEF_SIGNATURE,
+        }
+    }
+}
+
+#[binrw]
+#[brw(little)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) struct Ewf2FileHeader {
+    pub(crate) kind: Ewf2Kind,
+    #[br(assert(
+        major == EWF2_VERSION_MAJOR,
+        "unsupported EWF2 major version: {}",
+        major
+    ))]
+    pub(crate) major: u8,
+    pub(crate) minor: u8,
+    pub(crate) compression_method: u16,
+    pub(crate) segment_number: u32,
+    pub(crate) set_id: [u8; 16],
+}
+```
 
 ---
 > Source: [omerbenamram/mft](https://github.com/omerbenamram/mft) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
