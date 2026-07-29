@@ -2,9 +2,9 @@
   "name": "hyprlax",
   "owner": "sandwichfarm",
   "repo": "hyprlax",
-  "description": "buttery smooth parallax wallpaper daemon for wayland compositors",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sandwichfarm/hyprlax",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T12:14:04Z"
+  "distributed_at": "2026-07-29T06:08:46Z"
 }
