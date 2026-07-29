@@ -1,0 +1,9 @@
+{
+  "name": "arkmq-org--arkmq-org-broker-operator",
+  "displayName": "arkmq-org-broker-operator",
+  "description": "arkmq-org-broker-operator",
+  "version": "1.0.0",
+  "author": "arkmq-org",
+  "homepage": "https://github.com/arkmq-org/arkmq-org-broker-operator",
+  "skills": []
+}
