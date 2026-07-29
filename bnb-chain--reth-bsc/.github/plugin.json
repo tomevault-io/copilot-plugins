@@ -1,0 +1,9 @@
+{
+  "name": "bnb-chain--reth-bsc",
+  "displayName": "reth-bsc",
+  "description": "reth-bsc",
+  "version": "1.0.0",
+  "author": "bnb-chain",
+  "homepage": "https://github.com/bnb-chain/reth-bsc",
+  "skills": []
+}
