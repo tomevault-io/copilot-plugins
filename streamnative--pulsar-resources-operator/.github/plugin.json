@@ -1,0 +1,9 @@
+{
+  "name": "streamnative--pulsar-resources-operator",
+  "displayName": "pulsar-resources-operator",
+  "description": "pulsar-resources-operator",
+  "version": "1.0.0",
+  "author": "streamnative",
+  "homepage": "https://github.com/streamnative/pulsar-resources-operator",
+  "skills": []
+}
