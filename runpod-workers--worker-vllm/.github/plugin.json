@@ -1,0 +1,9 @@
+{
+  "name": "runpod-workers--worker-vllm",
+  "displayName": "worker-vllm",
+  "description": "worker-vllm",
+  "version": "1.0.0",
+  "author": "runpod-workers",
+  "homepage": "https://github.com/runpod-workers/worker-vllm",
+  "skills": []
+}
