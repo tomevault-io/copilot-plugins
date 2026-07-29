@@ -2,7 +2,7 @@
   "name": "nvim-redraft",
   "owner": "jim-at-jibba",
   "repo": "nvim-redraft",
-  "description": "Fast inline AI edits",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jim-at-jibba/nvim-redraft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T17:11:52Z"
+  "distributed_at": "2026-07-29T09:03:39Z"
 }
