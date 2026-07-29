@@ -1,79 +1,119 @@
 ## learn-opencode-agent
 
-> - `docs/project-map.md`
+> - Markdown 章节目录使用编号 + kebab-case，例如 `docs/14-testing-quality/index.md`
 
-# Repository Guidelines
+# 编码约定
 
-## Read First
+**分析日期：** 2026-04-13
 
-- `docs/project-map.md`
-- `docs/testing.md`
-- `docs/dangerous-areas.md`
-- `docs/debugging.md`
-- `.context/prefs/coding-style.md`
-- `.context/prefs/workflow.md`
+## 命名模式
 
-## Default Agent Workflow
+**文件：**
+- Markdown 章节目录使用编号 + kebab-case，例如 `docs/14-testing-quality/index.md`
+- 实践代码使用 `pNN-topic.ts`，例如 `practice/p10-react-loop.ts`
+- Vue 组件使用 PascalCase，例如 `.vitepress/theme/components/PracticeProjectGuide.vue`
+- 校验脚本统一使用 `check-*.mjs`
 
-1. Understand the task and check current workspace state.
-2. Search for relevant files before editing.
-3. Make the smallest safe change.
-4. Add or update tests/checks when behavior changes.
-5. Run `./scripts/check.sh` or the narrower verified command listed in `docs/testing.md`.
-6. Report changed files, validation results, and remaining risks.
+**函数：**
+- 普通函数使用 camelCase，例如 `parseFrontmatter()`、`buildSearchPrelude()`
+- 带“构建/解析/规范化”语义的函数前缀比较稳定，如 `build*`、`parse*`、`normalize*`、`resolve*`
+- 组件内事件/辅助函数一般也是 camelCase，例如 `difficultyLabel()`
 
-## Do Not
+**变量与常量：**
+- 局部变量使用 camelCase
+- 常量与枚举样式集合常用 UPPER_SNAKE_CASE，例如 `CONTENT_TYPES`、`SECTION_ORDER`
+- 配置对象常用全大写常量名 + `satisfies` 约束
 
-- Edit generated files directly.
-- Modify secrets or local environment files.
-- Change deployment, infrastructure, permissions, public API examples, navigation contracts, or generated/cache artifacts without calling out the risk.
-- Hide failing or skipped checks.
+**类型：**
+- 类型别名、接口统一 PascalCase，例如 `LearningContentFrontmatter`、`PracticeProjectDefinition`
+- 不使用 `I` 前缀接口命名
 
-## Large or High-Risk Changes
+## 代码风格
 
-Use `docs/agent-plan-template.md` before editing. Stop after the plan for high-risk areas and ask for human review.
+**格式：**
+- 2 空格缩进
+- 单引号
+- 省略分号
+- 对象/数组/链式调用格式较紧凑，延续 Vite/Vue 社区常见风格
 
-## Project Structure & Module Organization
+**类型风格：**
+- 广泛使用 TypeScript 字面量联合、`as const`、`satisfies`
+- 主题数据模块倾向先声明类型，再声明数据常量
 
-This repository is a VitePress-based book site. Main content lives in `docs/`, with chapter folders such as `docs/01-agent-basics/`, practice lessons in `docs/practice/`, and intermediate chapters in `docs/intermediate/`. Interactive source examples live in `practice/` as runnable TypeScript entry files like `p01-minimal-agent.ts`. Theme code and UI components live under `.vitepress/`, especially `.vitepress/theme/components/` and `.vitepress/theme/data/`. Validation and release checks are script-driven from `scripts/check-*.mjs`.
+## 导入组织
 
-## Build, Test, and Development Commands
+**顺序习惯：**
+1. 外部包
+2. 类型导入或框架导入
+3. 本地相对路径导入
+4. 样式导入通常放在组件导入之后
 
-- `bun install`: install dependencies.
-- `bun run dev`: start the local VitePress dev server.
-- `bun run build`: build the static site.
-- `bun run preview`: preview the built site locally.
-- `bun run typecheck`: run TypeScript checks for `.vitepress/`.
-- `bun run check:content`: validate document structure and required metadata.
-- `bun run check:practice`: verify practice entry pages.
-- `bun run build:strict`: run the full validation pipeline before release.
+**路径策略：**
+- 当前主要使用相对路径
+- 未看到统一别名如 `@/`
 
-## Coding Style & Naming Conventions
+## 错误处理
 
-Follow the existing style in nearby files: TypeScript and Vue use single quotes, no semicolons, and compact 2-space indentation. Keep Vue components in PascalCase, for example `ReActLoopDemo.vue`. Keep validation scripts named `check-*.mjs`. New theory chapters should follow `docs/NN-topic/index.md`; practice chapters should follow `docs/practice/pNN-topic/index.md`. Preserve frontmatter fields and existing Chinese copy style in docs pages.
+**脚本层：**
+- 校验脚本倾向“收集问题后统一失败”
+- 常见模式：累积 `issues`，最后 `console.error(...)` 并 `process.exit(1)`
 
-## Testing Guidelines
+**主题数据层：**
+- 对不应发生的缺失值直接抛错，例如 `discovery-content.ts` 中未找到内容时 `throw new Error`
 
-This repo relies on validation scripts rather than a dedicated unit test framework. Run targeted checks while editing, then finish with `bun run typecheck` and `bun run build:strict` for broad verification. If you change navigation, metadata, practice routes, or learning-path content, run the matching `check:*` script before opening a PR.
+**实践示例：**
+- 命名上已把错误处理作为独立主题，例如 `practice/p04-error-handling.ts`
+- 说明仓库鼓励把错误恢复机制作为教学内容显式呈现
 
-## Commit & Pull Request Guidelines
+## 日志与输出
 
-Recent history follows Conventional Commits with scopes, such as `feat(practice): add ReActLoopDemo component for P10` and `chore(scripts): remove obsolete migration and test files`. Use the same pattern: `feat(scope): ...`, `fix(scope): ...`, `chore(scope): ...`. PRs should include a short summary, affected routes or files, and screenshots or GIFs when changing `.vitepress/theme/` UI behavior. Call out any skipped checks explicitly.
+**脚本：**
+- 使用 `console.log` 报成功
+- 使用 `console.error` 报失败明细
 
-## Release & Content Notes
+**站点层：**
+- 未见统一日志库
+- 交互组件更偏展示型，不依赖后端日志体系
 
-Before merging content-heavy changes, review `docs/release-checklist.md`. Prefer small, traceable edits that keep homepage, reading map, practice entries, and chapter metadata in sync.
+## 注释
 
-## .context Project Context
+**总体习惯：**
+- 注释相对克制，更多依赖命名表达意图
+- 需要时更偏解释“为什么”，例如 `.vitepress/config.mts` 中对 `lottie-web` 的 `eval` 告警做解释性注释
 
-> This project uses `.context/` to manage development decision context.
+**文档注释：**
+- 面向读者的中文说明非常充分
+- 代码文件中中文注释并不泛滥，但仓库整体中文语境很强
 
-- Coding style: `.context/prefs/coding-style.md`
-- Workflow rules: `.context/prefs/workflow.md`
-- Decision history: `.context/history/commits.md`
+## 函数与模块设计
 
-**Rule**: Read prefs/ before modifying code. Log decisions per workflow.md rules.
+**函数设计：**
+- 倾向小函数拆分，便于在脚本中顺序组合
+- 纯函数较多，尤其出现在 frontmatter 解析、数据转换与标签构建场景
+
+**模块设计：**
+- 数据模块负责声明式配置与派生逻辑
+- 组件模块主要负责表现层
+- 校验脚本模块直接面向任务，无额外服务层抽象
+
+## 导出约定
+
+- 数据模块多使用具名导出，同时保留 `default` 导出供 VitePress data loader 消费
+- 主题入口文件使用默认导出 `Theme`
+- Vue 组件由 `.vitepress/theme/index.ts` 统一全局注册
+
+## 风格锚点文件
+
+- `.vitepress/config.mts`
+- `.vitepress/theme/index.ts`
+- `.vitepress/theme/data/content-meta.ts`
+- `scripts/check-content.mjs`
+- `.vitepress/theme/components/PracticeProjectGuide.vue`
+
+---
+*约定分析：2026-04-13*
+*新增 lint/format 工具或切换代码风格后应更新*
 
 ---
 > Source: [qqzhangyanhua/learn-opencode-agent](https://github.com/qqzhangyanhua/learn-opencode-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-08 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
