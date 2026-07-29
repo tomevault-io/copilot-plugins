@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--undici-thread-interceptor",
+  "displayName": "undici-thread-interceptor",
+  "description": "undici-thread-interceptor",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/undici-thread-interceptor",
+  "skills": []
+}
