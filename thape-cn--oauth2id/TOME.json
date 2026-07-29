@@ -4,7 +4,7 @@
   "repo": "oauth2id",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thape-cn/oauth2id",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T12:42:52Z"
+  "distributed_at": "2026-07-29T05:24:42Z"
 }
