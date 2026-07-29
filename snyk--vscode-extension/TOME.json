@@ -4,7 +4,7 @@
   "repo": "vscode-extension",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/snyk/vscode-extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T04:02:21Z"
+  "distributed_at": "2026-07-29T03:41:23Z"
 }
