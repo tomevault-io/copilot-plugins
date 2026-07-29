@@ -1,0 +1,9 @@
+{
+  "name": "google-deepmind--acme",
+  "displayName": "acme",
+  "description": "acme",
+  "version": "1.0.0",
+  "author": "google-deepmind",
+  "homepage": "https://github.com/google-deepmind/acme",
+  "skills": []
+}
