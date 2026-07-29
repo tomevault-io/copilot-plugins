@@ -4,7 +4,7 @@
   "repo": "NoteWizard",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jetyu/NoteWizard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T12:52:47Z"
+  "distributed_at": "2026-07-29T10:55:24Z"
 }
