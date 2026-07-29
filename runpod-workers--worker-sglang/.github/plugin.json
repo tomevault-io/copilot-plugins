@@ -1,0 +1,9 @@
+{
+  "name": "runpod-workers--worker-sglang",
+  "displayName": "worker-sglang",
+  "description": "worker-sglang",
+  "version": "1.0.0",
+  "author": "runpod-workers",
+  "homepage": "https://github.com/runpod-workers/worker-sglang",
+  "skills": []
+}
