@@ -1,0 +1,9 @@
+{
+  "name": "labstack--echo",
+  "displayName": "echo",
+  "description": "echo",
+  "version": "1.0.0",
+  "author": "labstack",
+  "homepage": "https://github.com/labstack/echo",
+  "skills": []
+}
