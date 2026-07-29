@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--aspire-plugin",
+  "displayName": "aspire-plugin",
+  "description": "aspire-plugin",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/aspire-plugin",
+  "skills": []
+}
