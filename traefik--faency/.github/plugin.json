@@ -1,0 +1,9 @@
+{
+  "name": "traefik--faency",
+  "displayName": "faency",
+  "description": "faency",
+  "version": "1.0.0",
+  "author": "traefik",
+  "homepage": "https://github.com/traefik/faency",
+  "skills": []
+}
