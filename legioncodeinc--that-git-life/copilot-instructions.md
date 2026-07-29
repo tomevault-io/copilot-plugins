@@ -1,24 +1,31 @@
-## pr-conflict-check
+## respect-agent-work-boundaries
 
-> Always check for and resolve merge conflicts before declaring a PR shippable
+> Never modify or delete another agent's active work
 
 
-# PR Conflict Check
+# Respect agent work boundaries
 
-Before opening a PR or declaring a branch shippable, always:
+Never modify, delete, move, rename, or overwrite files that are part of another agent's active work. This is a hard rule.
 
-1. Fetch the latest main: `git fetch origin main`
-2. Check mergeability: `gh pr view <number> --json mergeable,mergeStateStatus`
-   - Or before the PR exists: `git merge-tree $(git merge-base HEAD origin/main) HEAD origin/main`
-3. If `mergeable: "CONFLICTING"`, rebase onto main: `git rebase origin/main`
-4. Resolve every conflict file manually - keep both sides when content is additive (e.g. two execution ledgers in the same file), take the correct version when one side is stale
-5. `git add <resolved>` then `GIT_EDITOR=true git rebase --continue`
-6. `git push --force-with-lease` to update the remote branch
-7. Re-check `gh pr view --json mergeable` until it returns `"MERGEABLE"`
+"Another agent's active work" includes anything you did not create yourself in the current task: files produced by parallel subagents, other Cursor sessions, separate worktrees, background jobs, or a human working alongside you. Recently created or untracked files are NOT evidence that a file is yours to remove.
 
-## Never skip this step
+## What to do instead
 
-A PR opened with `mergeStateStatus: "DIRTY"` cannot be merged and blocks the team. Always resolve conflicts before handing off for review.
+- Touch only the files your own assigned task owns. Stay inside that scope.
+- If you find unexpected, unfamiliar, incomplete, or "stray-looking" files (broken links, missing siblings, off-topic content), assume they belong to someone else's in-progress work. Leave them exactly as they are.
+- Surface the observation to the user and let them decide. Do not act on the assumption that they are garbage.
+- Only delete or rewrite another agent's files when the user explicitly and specifically authorizes that file's removal.
+
+## Scope claims (numbered artifacts)
+
+When working with numbered or named series (PRDs, migrations, ADRs, issues, tickets), claim only the numbers or names you were explicitly told to create. Do not reclaim, renumber, or repurpose an identifier another agent already used, even if its content looks unrelated to your task.
+
+## Examples
+
+- BAD: A parallel run leaves a `prd-032/` folder with broken links and off-topic content; you delete it as cleanup. (It was another agent's active work.)
+- GOOD: You notice the unexpected `prd-032/`, leave it untouched, and tell the user: "I see a prd-032 I did not create; it looks mid-build. Want me to leave it, or is it safe to remove?"
+- BAD: You `rm -rf` or overwrite a file you did not author because it conflicts with your output.
+- GOOD: You report the conflict and ask how to proceed.
 
 ---
 > Source: [legioncodeinc/that-git-life](https://github.com/legioncodeinc/that-git-life) — distributed by [TomeVault](https://tomevault.io).
