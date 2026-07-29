@@ -1,8 +1,6 @@
 # ralph-loop-optimizer
 
-> Tome by [haoran-ni](https://github.com/haoran-ni/ralph-loop-optimizer) — distributed by [TomeVault](https://tomevault.io)
-
-Ralph Loop Optimizer: an AI-driven framework that turns any evaluatable codebase into a self-improving optimization loop for strategies, models, prompts, and workflows
+> Tome by [haoran-ni](https://github.com/haoran-ni/ralph-loop-optimizer), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [haoran-ni/ralph-loop-optimizer](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/haoran-ni/ralph-loop-optimizer](https://github.com/haoran-ni/ralph-loop-optimizer)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/haoran-ni/ralph-loop-optimizer](https://github.com/haoran-ni/ralph-loop-optimizer)
 
 ---
 
