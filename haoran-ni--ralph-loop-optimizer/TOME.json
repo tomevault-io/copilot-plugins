@@ -2,7 +2,7 @@
   "name": "ralph-loop-optimizer",
   "owner": "haoran-ni",
   "repo": "ralph-loop-optimizer",
-  "description": "Ralph Loop Optimizer: an AI-driven framework that turns any evaluatable codebase into a self-improving optimization loop for strategies, models, prompts, and workflows",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haoran-ni/ralph-loop-optimizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:46:53Z"
+  "distributed_at": "2026-07-29T03:45:52Z"
 }
