@@ -4,7 +4,7 @@
   "repo": "external-dns",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kubernetes-sigs/external-dns",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T15:02:16Z"
+  "distributed_at": "2026-07-29T10:57:53Z"
 }
