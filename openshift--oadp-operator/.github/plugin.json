@@ -1,0 +1,9 @@
+{
+  "name": "openshift--oadp-operator",
+  "displayName": "oadp-operator",
+  "description": "oadp-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/oadp-operator",
+  "skills": []
+}
