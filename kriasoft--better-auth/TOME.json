@@ -2,9 +2,9 @@
   "name": "better-auth",
   "owner": "kriasoft",
   "repo": "better-auth",
-  "description": "18 enterprise plugins for Better Auth - cloud storage, security, analytics & more (work-in-progress)",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kriasoft/better-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T05:39:25Z"
+  "distributed_at": "2026-07-29T12:05:39Z"
 }
