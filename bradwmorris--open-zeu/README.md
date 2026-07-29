@@ -1,6 +1,6 @@
 # open-zeu
 
-> Tome by [bradwmorris](https://github.com/bradwmorris/open-zeu) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [bradwmorris](https://github.com/bradwmorris/open-zeu), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
