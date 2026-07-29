@@ -1,0 +1,9 @@
+{
+  "name": "minio--blog-assets",
+  "displayName": "blog-assets",
+  "description": "blog-assets",
+  "version": "1.0.0",
+  "author": "minio",
+  "homepage": "https://github.com/minio/blog-assets",
+  "skills": []
+}
