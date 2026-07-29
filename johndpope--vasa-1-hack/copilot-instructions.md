@@ -1,256 +1,427 @@
 ## vasa-1-hack
 
-> **Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+> Guide for using Taskmaster to manage task-driven development workflows
 
-# Claude Code Instructions
 
-## Task Master AI Instructions
-**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
-@./.taskmaster/CLAUDE.md
+# Taskmaster Development Workflow
 
-## Documentation
+This guide outlines the standard process for using Taskmaster to manage software development projects. It is written as a set of instructions for you, the AI agent.
 
-All project documentation is stored in the `/docs` folder. Key documents include:
-- `docs/AUDIT_TOOL_README.md` - Expression audit tool documentation
-- `docs/LOSS_AUDIT.md` - Loss function audit and configuration
-- `docs/LOSS_CLEANUP_SUMMARY.md` - Loss cleanup history
-- `docs/vasa_model_documentation.md` - VASA model architecture docs
-- `docs/vasa-prd.md` - Product requirements document
+- **Your Default Stance**: For most projects, the user can work directly within the `master` task context. Your initial actions should operate on this default context unless a clear pattern for multi-context work emerges.
+- **Your Goal**: Your role is to elevate the user's workflow by intelligently introducing advanced features like **Tagged Task Lists** when you detect the appropriate context. Do not force tags on the user; suggest them as a helpful solution to a specific need.
 
-When creating new documentation, place `.md` files in `/docs` folder (except README.md and CLAUDE.md which stay in root).
+## The Basic Loop
+The fundamental development cycle you will facilitate is:
+1.  **`list`**: Show the user what needs to be done.
+2.  **`next`**: Help the user decide what to work on.
+3.  **`show <id>`**: Provide details for a specific task.
+4.  **`expand <id>`**: Break down a complex task into smaller, manageable subtasks.
+5.  **Implement**: The user writes the code and tests.
+6.  **`update-subtask`**: Log progress and findings on behalf of the user.
+7.  **`set-status`**: Mark tasks and subtasks as `done` as work is completed.
+8.  **Repeat**.
 
-## VASA-1 Project Status and Findings
+All your standard command executions should operate on the user's current task context, which defaults to `master`.
 
-### Current Training Status
-- **Overfitting Training**: Successfully running with wandb logging
-  - Loss decreased from 40+ to ~1.2-1.3 showing good convergence
-  - Using WindowSequenceSampler for temporal context preservation
-  - Caching optimization working (source embeddings computed once per batch)
-  - Wandb project: https://wandb.ai/snoozie/vasa-overfitting
+---
 
-### Key Fixes Applied
+## Standard Development Workflow Process
 
-#### 1. DataLoader Issues (FIXED)
-- **Problem**: VASAIntegratedDataset.__len__() returned video count (6) instead of window count (316)
-- **Solution**: Fixed to return len(self.windows) and implemented WindowSequenceSampler
-- **Files**: vasa_dataset.py, vasa_sampler.py, train_overfit.py, vasa_trainer.py
+### Simple Workflow (Default Starting Point)
 
-#### 2. Temporal Context Handling (FIXED)
-- **Problem**: Breaking prev_context mechanism when changing __getitem__
-- **Solution**: Custom WindowSequenceSampler maintains sequences of 4 consecutive windows
-- **Implementation**: create_window_sequence_collate_fn adds prev_context to batches
+For new projects or when users are getting started, operate within the `master` tag context:
 
-#### 3. CUDA Multiprocessing (FIXED)
-- **Problem**: "Cannot re-initialize CUDA in forked subprocess"
-- **Solution**: Set num_workers=0 in DataLoader
+-   Start new projects by running `initialize_project` tool / `task-master init` or `parse_prd` / `task-master parse-prd --input='<prd-file.txt>'` (see @`taskmaster.mdc`) to generate initial tasks.json with tagged structure
+-   Configure rule sets during initialization with `--rules` flag (e.g., `task-master init --rules cursor,windsurf`) or manage them later with `task-master rules add/remove` commands  
+-   Begin coding sessions with `get_tasks` / `task-master list` (see @`taskmaster.mdc`) to see current tasks, status, and IDs
+-   Determine the next task to work on using `next_task` / `task-master next` (see @`taskmaster.mdc`)
+-   Analyze task complexity with `analyze_project_complexity` / `task-master analyze-complexity --research` (see @`taskmaster.mdc`) before breaking down tasks
+-   Review complexity report using `complexity_report` / `task-master complexity-report` (see @`taskmaster.mdc`)
+-   Select tasks based on dependencies (all marked 'done'), priority level, and ID order
+-   View specific task details using `get_task` / `task-master show <id>` (see @`taskmaster.mdc`) to understand implementation requirements
+-   Break down complex tasks using `expand_task` / `task-master expand --id=<id> --force --research` (see @`taskmaster.mdc`) with appropriate flags like `--force` (to replace existing subtasks) and `--research`
+-   Implement code following task details, dependencies, and project standards
+-   Mark completed tasks with `set_task_status` / `task-master set-status --id=<id> --status=done` (see @`taskmaster.mdc`)
+-   Update dependent tasks when implementation differs from original plan using `update` / `task-master update --from=<id> --prompt="..."` or `update_task` / `task-master update-task --id=<id> --prompt="..."` (see @`taskmaster.mdc`)
 
-#### 4. Redundant Computations (FIXED)
-- **Problem**: Source embeddings computed repeatedly for same identity image
-- **Solution**: Improved caching with stable tensor-based keys instead of id()
+---
 
-### Audio Context Implementation
+## Leveling Up: Agent-Led Multi-Context Workflows
 
-#### JoyVASA Approach (from paper):
-- Uses frozen wav2vec2 encoder for audio features
-- Includes both past audio features A_{-w_prev, w_prev} and current motion
-- Concatenates past speech with current noisy motion in diffusion
+While the basic workflow is powerful, your primary opportunity to add value is by identifying when to introduce **Tagged Task Lists**. These patterns are your tools for creating a more organized and efficient development environment for the user, especially if you detect agentic or parallel development happening across the same session.
 
-#### Our Implementation:
-- ✅ Using wav2vec2 for audio features (768 dimensions)
-- ✅ Including prev_context with previous motion parameters
-- ✅ Including previous audio features in context
-- ⚠️ May need to adjust concatenation strategy to match JoyVASA
+**Critical Principle**: Most users should never see a difference in their experience. Only introduce advanced workflows when you detect clear indicators that the project has evolved beyond simple task management.
 
-### Expression Audit Tool
+### When to Introduce Tags: Your Decision Patterns
 
-#### Purpose
-Diagnose training issues by comparing ground truth expressions vs model predictions frame-by-frame.
+Here are the patterns to look for. When you detect one, you should propose the corresponding workflow to the user.
 
-#### Quick Start
-```bash
-./audit.sh  # Interactive menu
+#### Pattern 1: Simple Git Feature Branching
+This is the most common and direct use case for tags.
+
+- **Trigger**: The user creates a new git branch (e.g., `git checkout -b feature/user-auth`).
+- **Your Action**: Propose creating a new tag that mirrors the branch name to isolate the feature's tasks from `master`.
+- **Your Suggested Prompt**: *"I see you've created a new branch named 'feature/user-auth'. To keep all related tasks neatly organized and separate from your main list, I can create a corresponding task tag for you. This helps prevent merge conflicts in your `tasks.json` file later. Shall I create the 'feature-user-auth' tag?"*
+- **Tool to Use**: `task-master add-tag --from-branch`
+
+#### Pattern 2: Team Collaboration
+- **Trigger**: The user mentions working with teammates (e.g., "My teammate Alice is handling the database schema," or "I need to review Bob's work on the API.").
+- **Your Action**: Suggest creating a separate tag for the user's work to prevent conflicts with shared master context.
+- **Your Suggested Prompt**: *"Since you're working with Alice, I can create a separate task context for your work to avoid conflicts. This way, Alice can continue working with the master list while you have your own isolated context. When you're ready to merge your work, we can coordinate the tasks back to master. Shall I create a tag for your current work?"*
+- **Tool to Use**: `task-master add-tag my-work --copy-from-current --description="My tasks while collaborating with Alice"`
+
+#### Pattern 3: Experiments or Risky Refactors
+- **Trigger**: The user wants to try something that might not be kept (e.g., "I want to experiment with switching our state management library," or "Let's refactor the old API module, but I want to keep the current tasks as a reference.").
+- **Your Action**: Propose creating a sandboxed tag for the experimental work.
+- **Your Suggested Prompt**: *"This sounds like a great experiment. To keep these new tasks separate from our main plan, I can create a temporary 'experiment-zustand' tag for this work. If we decide not to proceed, we can simply delete the tag without affecting the main task list. Sound good?"*
+- **Tool to Use**: `task-master add-tag experiment-zustand --description="Exploring Zustand migration"`
+
+#### Pattern 4: Large Feature Initiatives (PRD-Driven)
+This is a more structured approach for significant new features or epics.
+
+- **Trigger**: The user describes a large, multi-step feature that would benefit from a formal plan.
+- **Your Action**: Propose a comprehensive, PRD-driven workflow.
+- **Your Suggested Prompt**: *"This sounds like a significant new feature. To manage this effectively, I suggest we create a dedicated task context for it. Here's the plan: I'll create a new tag called 'feature-xyz', then we can draft a Product Requirements Document (PRD) together to scope the work. Once the PRD is ready, I'll automatically generate all the necessary tasks within that new tag. How does that sound?"*
+- **Your Implementation Flow**:
+    1.  **Create an empty tag**: `task-master add-tag feature-xyz --description "Tasks for the new XYZ feature"`. You can also start by creating a git branch if applicable, and then create the tag from that branch.
+    2.  **Collaborate & Create PRD**: Work with the user to create a detailed PRD file (e.g., `.taskmaster/docs/feature-xyz-prd.txt`).
+    3.  **Parse PRD into the new tag**: `task-master parse-prd .taskmaster/docs/feature-xyz-prd.txt --tag feature-xyz`
+    4.  **Prepare the new task list**: Follow up by suggesting `analyze-complexity` and `expand-all` for the newly created tasks within the `feature-xyz` tag.
+
+#### Pattern 5: Version-Based Development
+Tailor your approach based on the project maturity indicated by tag names.
+
+- **Prototype/MVP Tags** (`prototype`, `mvp`, `poc`, `v0.x`):
+  - **Your Approach**: Focus on speed and functionality over perfection
+  - **Task Generation**: Create tasks that emphasize "get it working" over "get it perfect"
+  - **Complexity Level**: Lower complexity, fewer subtasks, more direct implementation paths
+  - **Research Prompts**: Include context like "This is a prototype - prioritize speed and basic functionality over optimization"
+  - **Example Prompt Addition**: *"Since this is for the MVP, I'll focus on tasks that get core functionality working quickly rather than over-engineering."*
+
+- **Production/Mature Tags** (`v1.0+`, `production`, `stable`):
+  - **Your Approach**: Emphasize robustness, testing, and maintainability
+  - **Task Generation**: Include comprehensive error handling, testing, documentation, and optimization
+  - **Complexity Level**: Higher complexity, more detailed subtasks, thorough implementation paths
+  - **Research Prompts**: Include context like "This is for production - prioritize reliability, performance, and maintainability"
+  - **Example Prompt Addition**: *"Since this is for production, I'll ensure tasks include proper error handling, testing, and documentation."*
+
+### Advanced Workflow (Tag-Based & PRD-Driven)
+
+**When to Transition**: Recognize when the project has evolved (or has initiated a project which existing code) beyond simple task management. Look for these indicators:
+- User mentions teammates or collaboration needs
+- Project has grown to 15+ tasks with mixed priorities
+- User creates feature branches or mentions major initiatives
+- User initializes Taskmaster on an existing, complex codebase
+- User describes large features that would benefit from dedicated planning
+
+**Your Role in Transition**: Guide the user to a more sophisticated workflow that leverages tags for organization and PRDs for comprehensive planning.
+
+#### Master List Strategy (High-Value Focus)
+Once you transition to tag-based workflows, the `master` tag should ideally contain only:
+- **High-level deliverables** that provide significant business value
+- **Major milestones** and epic-level features
+- **Critical infrastructure** work that affects the entire project
+- **Release-blocking** items
+
+**What NOT to put in master**:
+- Detailed implementation subtasks (these go in feature-specific tags' parent tasks)
+- Refactoring work (create dedicated tags like `refactor-auth`)
+- Experimental features (use `experiment-*` tags)
+- Team member-specific tasks (use person-specific tags)
+
+#### PRD-Driven Feature Development
+
+**For New Major Features**:
+1. **Identify the Initiative**: When user describes a significant feature
+2. **Create Dedicated Tag**: `add_tag feature-[name] --description="[Feature description]"`
+3. **Collaborative PRD Creation**: Work with user to create comprehensive PRD in `.taskmaster/docs/feature-[name]-prd.txt`
+4. **Parse & Prepare**: 
+   - `parse_prd .taskmaster/docs/feature-[name]-prd.txt --tag=feature-[name]`
+   - `analyze_project_complexity --tag=feature-[name] --research`
+   - `expand_all --tag=feature-[name] --research`
+5. **Add Master Reference**: Create a high-level task in `master` that references the feature tag
+
+**For Existing Codebase Analysis**:
+When users initialize Taskmaster on existing projects:
+1. **Codebase Discovery**: Use your native tools for producing deep context about the code base. You may use `research` tool with `--tree` and `--files` to collect up to date information using the existing architecture as context.
+2. **Collaborative Assessment**: Work with user to identify improvement areas, technical debt, or new features
+3. **Strategic PRD Creation**: Co-author PRDs that include:
+   - Current state analysis (based on your codebase research)
+   - Proposed improvements or new features
+   - Implementation strategy considering existing code
+4. **Tag-Based Organization**: Parse PRDs into appropriate tags (`refactor-api`, `feature-dashboard`, `tech-debt`, etc.)
+5. **Master List Curation**: Keep only the most valuable initiatives in master
+
+The parse-prd's `--append` flag enables the user to parse multiple PRDs within tags or across tags. PRDs should be focused and the number of tasks they are parsed into should be strategically chosen relative to the PRD's complexity and level of detail.
+
+### Workflow Transition Examples
+
+**Example 1: Simple → Team-Based**
+```
+User: "Alice is going to help with the API work"
+Your Response: "Great! To avoid conflicts, I'll create a separate task context for your work. Alice can continue with the master list while you work in your own context. When you're ready to merge, we can coordinate the tasks back together."
+Action: add_tag my-api-work --copy-from-current --description="My API tasks while collaborating with Alice"
 ```
 
-Or direct:
-```bash
-python audit_expressions.py \
-    --video junk/videovideoeI2V8Bd5X9s-scene6_scene1.mp4 \
-    --identity ./data/IMG_1.png \
-    --config overfit_config.yaml \
-    --checkpoint checkpoints_overfit/best_checkpoint.pt \
-    --output-dir expression_audit
+**Example 2: Simple → PRD-Driven**
+```
+User: "I want to add a complete user dashboard with analytics, user management, and reporting"
+Your Response: "This sounds like a major feature that would benefit from detailed planning. Let me create a dedicated context for this work and we can draft a PRD together to ensure we capture all requirements."
+Actions: 
+1. add_tag feature-dashboard --description="User dashboard with analytics and management"
+2. Collaborate on PRD creation
+3. parse_prd dashboard-prd.txt --tag=feature-dashboard
+4. Add high-level "User Dashboard" task to master
 ```
 
-#### What It Analyzes
-1. **Expression L2 Distance** - Per-frame difference in expression embeddings
-   - Target: < 1.0 for good overfitting
-   - Current: ~5.5 (model NOT overfitting yet)
-
-2. **Theta L2 Distance** - Per-frame head pose difference
-   - Target: < 0.3 for good overfitting
-   - Current: ~1.5 (poor pose matching)
-
-3. **Audio Alignment** - Verifies identical audio features used
-   - Should be: 0.000000 ✅
-   - Confirms audio preprocessing is correct
-
-#### Current Findings (Epoch 226)
-- ❌ **Model is NOT overfitting** despite 226 epochs
-- ❌ Expression L2: 5.54 (should be < 1.0)
-- ❌ Theta L2: 1.50 (should be < 0.3)
-- ✅ Audio features identical (preprocessing correct)
-
-**Root causes**:
-1. Model capacity too small (12.5M vs 29M target)
-2. Loss weights may need tuning
-3. Learning rate may be too high
-4. Need more training epochs
-
-#### Output Files
-- `expression_comparison.png` - Visualization with 3 subplots showing L2 distances over time
-- `expression_metrics.csv` - Per-frame metrics for detailed analysis
-
-See `docs/AUDIT_TOOL_README.md` for full documentation.
-
-### Known Issues
-
-#### 1. Wandb Visualization
-- `disentangle/frame_j` visualization broken due to shape mismatches
-- Occurs when generated_frames has different shape than expected
-- Non-critical - doesn't affect training
-
-#### 2. Batch Size Optimization
-- Currently using 4 windows per batch (7GB/32GB VRAM)
-- Could increase to 16 windows but shape mismatch in collate function needs debugging
-
-### Training Scripts
-
-#### For Overfitting Test:
-```bash
-./train.sh  # Select option 1 for overfitting
-# OR directly:
-python train_overfit.py
+**Example 3: Existing Project → Strategic Planning**
+```
+User: "I just initialized Taskmaster on my existing React app. It's getting messy and I want to improve it."
+Your Response: "Let me research your codebase to understand the current architecture, then we can create a strategic plan for improvements."
+Actions:
+1. research "Current React app architecture and improvement opportunities" --tree --files=src/
+2. Collaborate on improvement PRD based on findings
+3. Create tags for different improvement areas (refactor-components, improve-state-management, etc.)
+4. Keep only major improvement initiatives in master
 ```
 
-#### For Full Training:
-```bash
-./train.sh  # Select option 2 for full training
-# OR directly:
-python vasa_trainer.py --config vasa_config.yaml
-```
+---
 
-### Important Configuration
+## Primary Interaction: MCP Server vs. CLI
 
-#### overfit_config.yaml:
-- learning_rate: 5e-3
-- gradient_accumulation_steps: 2
-- num_epochs: 1000
-- resume_from: "checkpoints_overfit/best_checkpoint.pt"
+Taskmaster offers two primary ways to interact:
 
-#### vasa_config.yaml:
-- resume_from: "" (set to checkpoint path to resume)
-- Similar settings but for full dataset
+1.  **MCP Server (Recommended for Integrated Tools)**:
+    - For AI agents and integrated development environments (like Cursor), interacting via the **MCP server is the preferred method**.
+    - The MCP server exposes Taskmaster functionality through a set of tools (e.g., `get_tasks`, `add_subtask`).
+    - This method offers better performance, structured data exchange, and richer error handling compared to CLI parsing.
+    - Refer to @`mcp.mdc` for details on the MCP architecture and available tools.
+    - A comprehensive list and description of MCP tools and their corresponding CLI commands can be found in @`taskmaster.mdc`.
+    - **Restart the MCP server** if core logic in `scripts/modules` or MCP tool/direct function definitions change.
+    - **Note**: MCP tools fully support tagged task lists with complete tag management capabilities.
 
-### JoyVASA Reference
-- Location: /media/12TB/JoyVASA
-- Uses wav2vec2 model with linear interpolation for audio features
-- Different architecture than VASA-1 (uses LivePortrait wrapper)
+2.  **`task-master` CLI (For Users & Fallback)**:
+    - The global `task-master` command provides a user-friendly interface for direct terminal interaction.
+    - It can also serve as a fallback if the MCP server is inaccessible or a specific function isn't exposed via MCP.
+    - Install globally with `npm install -g task-master-ai` or use locally via `npx task-master-ai ...`.
+    - The CLI commands often mirror the MCP tools (e.g., `task-master list` corresponds to `get_tasks`).
+    - Refer to @`taskmaster.mdc` for a detailed command reference.
+    - **Tagged Task Lists**: CLI fully supports the new tagged system with seamless migration.
 
-### Loss Function Management
+## How the Tag System Works (For Your Reference)
 
-#### Loss Monitoring System
-The project uses `loss_monitor.py` to track loss values and warn when they're outside healthy ranges.
+- **Data Structure**: Tasks are organized into separate contexts (tags) like "master", "feature-branch", or "v2.0".
+- **Silent Migration**: Existing projects automatically migrate to use a "master" tag with zero disruption.
+- **Context Isolation**: Tasks in different tags are completely separate. Changes in one tag do not affect any other tag.
+- **Manual Control**: The user is always in control. There is no automatic switching. You facilitate switching by using `use-tag <name>`.
+- **Full CLI & MCP Support**: All tag management commands are available through both the CLI and MCP tools for you to use. Refer to @`taskmaster.mdc` for a full command list.
 
-**IMPORTANT**: When adding or removing losses in `vasa_losses.py`, you MUST update `loss_monitor.py`:
+---
 
-1. **Adding a new loss**:
-   - Add entry to `LossRangeMonitor.LOSS_RANGES` dict in `loss_monitor.py`
-   - Define healthy range (min, max), warning threshold, and critical threshold
-   - Include description of what the loss measures
-   - Example:
-   ```python
-   'my_new_loss': {
-       'healthy': (0.001, 0.1),  # Expected range during good training
-       'warning': 0.2,            # Warn if loss exceeds this
-       'critical': 0.5,           # Critical if loss exceeds this
-       'description': 'What this loss measures and why it matters'
-   }
-   ```
+## Task Complexity Analysis
 
-2. **Removing a loss**:
-   - Remove or comment out the entry in `LOSS_RANGES`
-   - Update any documentation in `docs/LOSS_AUDIT.md` if it exists
+-   Run `analyze_project_complexity` / `task-master analyze-complexity --research` (see @`taskmaster.mdc`) for comprehensive analysis
+-   Review complexity report via `complexity_report` / `task-master complexity-report` (see @`taskmaster.mdc`) for a formatted, readable version.
+-   Focus on tasks with highest complexity scores (8-10) for detailed breakdown
+-   Use analysis results to determine appropriate subtask allocation
+-   Note that reports are automatically used by the `expand_task` tool/command
 
-3. **Finding healthy ranges**:
-   - Run training and observe typical values in WandB
-   - Set healthy range to cover 90% of observed values
-   - Set warning threshold at ~2x healthy max
-   - Set critical threshold at ~5x healthy max
-   - For accuracy metrics (should be high), invert: healthy = (0.7, 1.0), warning = 0.5, critical = 0.3
+## Task Breakdown Process
 
-#### Recent Loss Changes
+-   Use `expand_task` / `task-master expand --id=<id>`. It automatically uses the complexity report if found, otherwise generates default number of subtasks.
+-   Use `--num=<number>` to specify an explicit number of subtasks, overriding defaults or complexity report recommendations.
+-   Add `--research` flag to leverage Perplexity AI for research-backed expansion.
+-   Add `--force` flag to clear existing subtasks before generating new ones (default is to append).
+-   Use `--prompt="<context>"` to provide additional context when needed.
+-   Review and adjust generated subtasks as necessary.
+-   Use `expand_all` tool or `task-master expand --all` to expand multiple pending tasks at once, respecting flags like `--force` and `--research`.
+-   If subtasks need complete replacement (regardless of the `--force` flag on `expand`), clear them first with `clear_subtasks` / `task-master clear-subtasks --id=<id>`.
 
-**Audio-Lip Refactor (2025-10-03)**:
-- Moved audio-lip correlation from early section to control losses (after landmark extraction)
-- Now uses extracted lips from generated frames instead of dataset targets
-- Also updated mouth_openness_direct to use extracted lips
-- See `docs/AUDIO_LIP_REFACTOR_PLAN.md` for details
+## Implementation Drift Handling
 
-**Blink Loss Implementation (2025-10-03)**:
-- Implemented previously stubbed `_compute_blink_loss()` function
-- Computes eye openness loss (channels 1-2) and blink phase loss (channel 0)
-- Extracts blink states from generated frames using MediaPipe
-- See `docs/BLINK_LOSS_IMPLEMENTATION.md` for details
+-   When implementation differs significantly from planned approach
+-   When future tasks need modification due to current implementation choices
+-   When new dependencies or requirements emerge
+-   Use `update` / `task-master update --from=<futureTaskId> --prompt='<explanation>\nUpdate context...' --research` to update multiple future tasks.
+-   Use `update_task` / `task-master update-task --id=<taskId> --prompt='<explanation>\nUpdate context...' --research` to update a single specific task.
 
-**Loss Cleanup (Previous)**:
-- Disabled conflicting losses (L1 vs L2, redundant smoothness losses)
-- Reduced conflicting weights (audio_expr_coupling, audio_lip)
-- Added real-time monitoring with warnings/critical alerts
-- See `docs/LOSS_CLEANUP_SUMMARY.md` and `docs/LOSS_AUDIT.md` for details
+## Task Status Management
 
-**Temporal Stabilization (2025-10-03)**:
-- Added Gaussian smoothing to motion parameters before frame generation
-- Fixes severe geometric distortions (warping, shearing, tilting) in generated frames
-- Applied automatically for sequences with 4+ frames (sigma=1.0 default)
-- See `docs/TEMPORAL_STABILIZATION.md` for details
+-   Use 'pending' for tasks ready to be worked on
+-   Use 'done' for completed and verified tasks
+-   Use 'deferred' for postponed tasks
+-   Add custom status values as needed for project-specific workflows
 
+## Task Structure Fields
 
+- **id**: Unique identifier for the task (Example: `1`, `1.1`)
+- **title**: Brief, descriptive title (Example: `"Initialize Repo"`)
+- **description**: Concise summary of what the task involves (Example: `"Create a new repository, set up initial structure."`)
+- **status**: Current state of the task (Example: `"pending"`, `"done"`, `"deferred"`)
+- **dependencies**: IDs of prerequisite tasks (Example: `[1, 2.1]`)
+    - Dependencies are displayed with status indicators (✅ for completed, ⏱️ for pending)
+    - This helps quickly identify which prerequisite tasks are blocking work
+- **priority**: Importance level (Example: `"high"`, `"medium"`, `"low"`)
+- **details**: In-depth implementation instructions (Example: `"Use GitHub client ID/secret, handle callback, set session token."`) 
+- **testStrategy**: Verification approach (Example: `"Deploy and call endpoint to confirm 'Hello World' response."`) 
+- **subtasks**: List of smaller, more specific tasks (Example: `[{"id": 1, "title": "Configure OAuth", ...}]`) 
+- Refer to task structure details (previously linked to `tasks.mdc`).
 
-In the context of the VASA-1 paper and its reference to the MegaPortraits codebase (which builds on 3D-aided facial reenactment frameworks like those in [19], likely referring to Drobyshev et al.'s MegaPortraits work), rigid and non-rigid 3D warping are key steps in decomposing a facial image into a canonical (neutral, standardized) 3D appearance volume \( V^{app} \). This process enables disentangled representations for high-fidelity face reenactment, where appearance, identity, pose, and dynamics are separated for tasks like generating nuanced facial animations from a single source image.
+## Configuration Management (Updated)
 
-### Overview of the Process
-To extract \( V^{app} \) from an input face image:
-1. First, a **posed 3D volume** is estimated directly from the image. This represents the face in its observed orientation and configuration, capturing the raw 3D geometry (e.g., using a 3D morphable model or volumetric reconstruction network).
-2. This posed volume is then transformed back to a **canonical 3D volume** (a front-facing, neutral-pose representation) via a combination of **rigid** and **non-rigid 3D warping**. Warping here refers to deforming or mapping the 3D voxels/features from the posed space to the canonical space, ensuring the intrinsic appearance (e.g., texture, shape details like eye shape or skin tone) is isolated from extrinsic factors like head orientation or expression.
+Taskmaster configuration is managed through two main mechanisms:
 
-This inverse warping (from posed to canonical) is the reverse of the forward process used during reconstruction, where the canonical volume is warped to match a target pose/expression. The MegaPortraits codebase implements this in its encoding pipeline (e.g., via networks for pose estimation and deformation fields), often leveraging voxel-based or feature volume representations for megapixel-resolution outputs.
+1.  **`.taskmaster/config.json` File (Primary):**
+    *   Located in the project root directory.
+    *   Stores most configuration settings: AI model selections (main, research, fallback), parameters (max tokens, temperature), logging level, default subtasks/priority, project name, etc.
+    *   **Tagged System Settings**: Includes `global.defaultTag` (defaults to "master") and `tags` section for tag management configuration.
+    *   **Managed via `task-master models --setup` command.** Do not edit manually unless you know what you are doing.
+    *   **View/Set specific models via `task-master models` command or `models` MCP tool.**
+    *   Created automatically when you run `task-master models --setup` for the first time or during tagged system migration.
 
-### What Rigid 3D Warping Means
-- **Definition**: Rigid warping applies a global, isometric transformation to the entire 3D volume without altering its internal structure, distances, or proportions. It preserves the shape and size of the face while only changing its position, orientation, or scale in 3D space.
-- **How it works in this context**: 
-  - Uses the estimated **head pose** parameters (e.g., \( z^{pose} \), typically 6 degrees of freedom: 3 for rotation via Euler angles or quaternion, and 3 for translation).
-  - This is akin to applying a rigid-body transformation matrix to align the posed volume's overall head orientation to a canonical (e.g., zero-rotation, front-facing) pose.
-  - Mathematically, for a 3D point \( \mathbf{p} \) in the posed volume, the rigid warp is \( \mathbf{p}' = R \mathbf{p} + \mathbf{t} \), where \( R \) is the rotation matrix and \( \mathbf{t} \) is the translation vector derived from inverting the head pose.
-- **Purpose**: Handles large-scale head movements (e.g., turning the head left/right or tilting), ensuring the canonical volume isn't distorted by global rotations. Without this, reenactment would fail for off frontal views, as the decoder couldn't align features properly.
-- **Why rigid?** It models the skull/jaw as a semi-rigid structure, avoiding deformation of core facial proportions during pose correction.
+2.  **Environment Variables (`.env` / `mcp.json`):**
+    *   Used **only** for sensitive API keys and specific endpoint URLs.
+    *   Place API keys (one per provider) in a `.env` file in the project root for CLI usage.
+    *   For MCP/Cursor integration, configure these keys in the `env` section of `.cursor/mcp.json`.
+    *   Available keys/variables: See `assets/env.example` or the Configuration section in the command reference (previously linked to `taskmaster.mdc`).
 
-### What Non-Rigid 3D Warping Means
-- **Definition**: Non-rigid warping applies local, deformable transformations to specific parts of the 3D volume, allowing stretching, bending, or shearing while rigid warping handles the global alignment. It does not preserve all distances or angles, enabling fine-grained adjustments.
-- **How it works in this context**:
-  - Builds on the rigid-warped volume and uses **facial dynamics** parameters (e.g., \( z^{dyn} \), which encode expression via blendshapes, landmarks, or deformation fields from models like FLAME or EMOCA).
-  - Involves estimating a dense deformation field (e.g., per-voxel displacements or a warp grid) to "undo" expression-specific deformations, mapping the posed/expressive face back to a neutral canonical state.
-  - In MegaPortraits-style implementations, this often uses a neural network (e.g., a U-Net or flow predictor) to regress non-rigid fields based on facial landmarks or emotional cues, ensuring subtle details like cheek puffs or lip curls are normalized.
-  - Mathematically, it extends the rigid transform with a displacement field \( \Delta \mathbf{p} \), so \( \mathbf{p}'' = R (\mathbf{p} + \Delta \mathbf{p}) + \mathbf{t} \), where \( \Delta \mathbf{p} \) varies spatially (e.g., higher around the mouth/eyes).
-- **Purpose**: Captures deformable facial movements (e.g., smiling, frowning, or eye squinting) that rigid transforms can't handle. This disentangles dynamics from appearance, allowing the latent generator to focus on nuanced expressions during reenactment without contaminating identity.
-- **Why non-rigid?** Faces aren't perfectly rigid; soft tissues deform independently of the head's global motion, so this step ensures the canonical volume truly represents a "neutral" identity without expression artifacts.
+3.  **`.taskmaster/state.json` File (Tagged System State):**
+    *   Tracks current tag context and migration status.
+    *   Automatically created during tagged system migration.
+    *   Contains: `currentTag`, `lastSwitched`, `migrationNoticeShown`.
 
-### Why Both Are Needed Together
-- **Sequential application**: Rigid warping first corrects the global pose (coarse alignment), followed by non-rigid warping for local expression normalization (fine-tuning). This two-stage approach, as in MegaPortraits, prevents error propagation and enables robust disentanglement.
-- **Benefits for reenactment**: The resulting canonical \( V^{app} \) can then be re-warped forward (rigid + non-rigid in the opposite direction) using target pose/dynamics to generate new videos with preserved high-quality details (e.g., megapixel textures). Without this, 2D-only methods suffer from artifacts in 3D views, while pure rigid methods ignore expressions.
-- **Implementation note**: In the MegaPortraits codebase (and hacks like those on GitHub), this is encoded in modules like pose estimators (e.g., based on ResNet for landmarks) and warp generators (e.g., for deformation fields). Training uses reconstruction losses to supervise the warps, ensuring photometric fidelity.
+**Important:** Non-API key settings (like model selections, `MAX_TOKENS`, `TASKMASTER_LOG_LEVEL`) are **no longer configured via environment variables**. Use the `task-master models` command (or `--setup` for interactive configuration) or the `models` MCP tool.
+**If AI commands FAIL in MCP** verify that the API key for the selected provider is present in the `env` section of `.cursor/mcp.json`.
+**If AI commands FAIL in CLI** verify that the API key for the selected provider is present in the `.env` file in the root of the project.
 
-This framework draws from prior works like EMOCA (for emotional 3D reconstruction) and general 3D face models (e.g., FLAME), emphasizing explicit 3D control over implicit 2D warping for better generalization in one-shot scenarios.
+## Rules Management
+
+Taskmaster supports multiple AI coding assistant rule sets that can be configured during project initialization or managed afterward:
+
+- **Available Profiles**: Claude Code, Cline, Codex, Cursor, Roo Code, Trae, Windsurf (claude, cline, codex, cursor, roo, trae, windsurf)
+- **During Initialization**: Use `task-master init --rules cursor,windsurf` to specify which rule sets to include
+- **After Initialization**: Use `task-master rules add <profiles>` or `task-master rules remove <profiles>` to manage rule sets
+- **Interactive Setup**: Use `task-master rules setup` to launch an interactive prompt for selecting rule profiles
+- **Default Behavior**: If no `--rules` flag is specified during initialization, all available rule profiles are included
+- **Rule Structure**: Each profile creates its own directory (e.g., `.cursor/rules`, `.roo/rules`) with appropriate configuration files
+
+## Determining the Next Task
+
+- Run `next_task` / `task-master next` to show the next task to work on.
+- The command identifies tasks with all dependencies satisfied
+- Tasks are prioritized by priority level, dependency count, and ID
+- The command shows comprehensive task information including:
+    - Basic task details and description
+    - Implementation details
+    - Subtasks (if they exist)
+    - Contextual suggested actions
+- Recommended before starting any new development work
+- Respects your project's dependency structure
+- Ensures tasks are completed in the appropriate sequence
+- Provides ready-to-use commands for common task actions
+
+## Viewing Specific Task Details
+
+- Run `get_task` / `task-master show <id>` to view a specific task.
+- Use dot notation for subtasks: `task-master show 1.2` (shows subtask 2 of task 1)
+- Displays comprehensive information similar to the next command, but for a specific task
+- For parent tasks, shows all subtasks and their current status
+- For subtasks, shows parent task information and relationship
+- Provides contextual suggested actions appropriate for the specific task
+- Useful for examining task details before implementation or checking status
+
+## Managing Task Dependencies
+
+- Use `add_dependency` / `task-master add-dependency --id=<id> --depends-on=<id>` to add a dependency.
+- Use `remove_dependency` / `task-master remove-dependency --id=<id> --depends-on=<id>` to remove a dependency.
+- The system prevents circular dependencies and duplicate dependency entries
+- Dependencies are checked for existence before being added or removed
+- Task files are automatically regenerated after dependency changes
+- Dependencies are visualized with status indicators in task listings and files
+
+## Task Reorganization
+
+- Use `move_task` / `task-master move --from=<id> --to=<id>` to move tasks or subtasks within the hierarchy
+- This command supports several use cases:
+  - Moving a standalone task to become a subtask (e.g., `--from=5 --to=7`)
+  - Moving a subtask to become a standalone task (e.g., `--from=5.2 --to=7`) 
+  - Moving a subtask to a different parent (e.g., `--from=5.2 --to=7.3`)
+  - Reordering subtasks within the same parent (e.g., `--from=5.2 --to=5.4`)
+  - Moving a task to a new, non-existent ID position (e.g., `--from=5 --to=25`)
+  - Moving multiple tasks at once using comma-separated IDs (e.g., `--from=10,11,12 --to=16,17,18`)
+- The system includes validation to prevent data loss:
+  - Allows moving to non-existent IDs by creating placeholder tasks
+  - Prevents moving to existing task IDs that have content (to avoid overwriting)
+  - Validates source tasks exist before attempting to move them
+- The system maintains proper parent-child relationships and dependency integrity
+- Task files are automatically regenerated after the move operation
+- This provides greater flexibility in organizing and refining your task structure as project understanding evolves
+- This is especially useful when dealing with potential merge conflicts arising from teams creating tasks on separate branches. Solve these conflicts very easily by moving your tasks and keeping theirs.
+
+## Iterative Subtask Implementation
+
+Once a task has been broken down into subtasks using `expand_task` or similar methods, follow this iterative process for implementation:
+
+1.  **Understand the Goal (Preparation):**
+    *   Use `get_task` / `task-master show <subtaskId>` (see @`taskmaster.mdc`) to thoroughly understand the specific goals and requirements of the subtask.
+
+2.  **Initial Exploration & Planning (Iteration 1):**
+    *   This is the first attempt at creating a concrete implementation plan.
+    *   Explore the codebase to identify the precise files, functions, and even specific lines of code that will need modification.
+    *   Determine the intended code changes (diffs) and their locations.
+    *   Gather *all* relevant details from this exploration phase.
+
+3.  **Log the Plan:**
+    *   Run `update_subtask` / `task-master update-subtask --id=<subtaskId> --prompt='<detailed plan>'`.
+    *   Provide the *complete and detailed* findings from the exploration phase in the prompt. Include file paths, line numbers, proposed diffs, reasoning, and any potential challenges identified. Do not omit details. The goal is to create a rich, timestamped log within the subtask's `details`.
+
+4.  **Verify the Plan:**
+    *   Run `get_task` / `task-master show <subtaskId>` again to confirm that the detailed implementation plan has been successfully appended to the subtask's details.
+
+5.  **Begin Implementation:**
+    *   Set the subtask status using `set_task_status` / `task-master set-status --id=<subtaskId> --status=in-progress`.
+    *   Start coding based on the logged plan.
+
+6.  **Refine and Log Progress (Iteration 2+):**
+    *   As implementation progresses, you will encounter challenges, discover nuances, or confirm successful approaches.
+    *   **Before appending new information**: Briefly review the *existing* details logged in the subtask (using `get_task` or recalling from context) to ensure the update adds fresh insights and avoids redundancy.
+    *   **Regularly** use `update_subtask` / `task-master update-subtask --id=<subtaskId> --prompt='<update details>\n- What worked...\n- What didn't work...'` to append new findings.
+    *   **Crucially, log:**
+        *   What worked ("fundamental truths" discovered).
+        *   What didn't work and why (to avoid repeating mistakes).
+        *   Specific code snippets or configurations that were successful.
+        *   Decisions made, especially if confirmed with user input.
+        *   Any deviations from the initial plan and the reasoning.
+    *   The objective is to continuously enrich the subtask's details, creating a log of the implementation journey that helps the AI (and human developers) learn, adapt, and avoid repeating errors.
+
+7.  **Review & Update Rules (Post-Implementation):**
+    *   Once the implementation for the subtask is functionally complete, review all code changes and the relevant chat history.
+    *   Identify any new or modified code patterns, conventions, or best practices established during the implementation.
+    *   Create new or update existing rules following internal guidelines (previously linked to `cursor_rules.mdc` and `self_improve.mdc`).
+
+8.  **Mark Task Complete:**
+    *   After verifying the implementation and updating any necessary rules, mark the subtask as completed: `set_task_status` / `task-master set-status --id=<subtaskId> --status=done`.
+
+9.  **Commit Changes (If using Git):**
+    *   Stage the relevant code changes and any updated/new rule files (`git add .`).
+    *   Craft a comprehensive Git commit message summarizing the work done for the subtask, including both code implementation and any rule adjustments.
+    *   Execute the commit command directly in the terminal (e.g., `git commit -m 'feat(module): Implement feature X for subtask <subtaskId>\n\n- Details about changes...\n- Updated rule Y for pattern Z'`).
+    *   Consider if a Changeset is needed according to internal versioning guidelines (previously linked to `changeset.mdc`). If so, run `npm run changeset`, stage the generated file, and amend the commit or create a new one.
+
+10. **Proceed to Next Subtask:**
+    *   Identify the next subtask (e.g., using `next_task` / `task-master next`).
+
+## Code Analysis & Refactoring Techniques
+
+- **Top-Level Function Search**:
+    - Useful for understanding module structure or planning refactors.
+    - Use grep/ripgrep to find exported functions/constants:
+      `rg "export (async function|function|const) \w+"` or similar patterns.
+    - Can help compare functions between files during migrations or identify potential naming conflicts.
+
+---
+*This workflow provides a general guideline. Adapt it based on your specific project needs and team practices.*
 
 ---
 > Source: [johndpope/VASA-1-hack](https://github.com/johndpope/VASA-1-hack) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
