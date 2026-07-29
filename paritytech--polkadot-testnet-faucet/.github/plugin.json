@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--polkadot-testnet-faucet",
+  "displayName": "polkadot-testnet-faucet",
+  "description": "polkadot-testnet-faucet",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/polkadot-testnet-faucet",
+  "skills": []
+}
