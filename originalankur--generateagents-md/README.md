@@ -1,8 +1,6 @@
 # GenerateAgents.md
 
-> Source: [originalankur/GenerateAgents.md](https://github.com/originalankur/GenerateAgents.md) — distributed by [TomeVault](https://tomevault.io)
-
-Automated generation of comprehensive Agents.md for LLMs, driven by the DSPy Recursive language model implementation.
+> Source: [originalankur/GenerateAgents.md](https://github.com/originalankur/GenerateAgents.md). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
