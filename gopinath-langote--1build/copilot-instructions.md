@@ -1,119 +1,136 @@
 ## 1build
 
-> This file is guidance for agentic coding tools working in this repo.
+> **1build** is a Go-based CLI tool that provides project-local command aliases for automation. It allows developers to configure simple, memorable commands for project-specific build tools and tasks via a `1build.yaml` configuration file.
 
-# AGENTS
+# 1build - Copilot Instructions
 
-This file is guidance for agentic coding tools working in this repo.
-It consolidates build, lint, and test commands plus style conventions.
-It also includes existing Copilot instructions verbatim where possible.
+## Project Overview
 
-## Project snapshot
-- Language: Go (module `github.com/gopinath-langote/1build`)
-- Product: CLI tool that runs project-local command aliases (`1build`)
-- CLI framework: Cobra, config via Viper and YAML
-- Tests: end-to-end style that builds a temp binary and runs fixtures
+**1build** is a Go-based CLI tool that provides project-local command aliases for automation. It allows developers to configure simple, memorable commands for project-specific build tools and tasks via a `1build.yaml` configuration file.
 
-## Must-read external rules
-### Copilot instructions (.github/copilot-instructions.md)
-- Build: `go build`
-- Tests (full suite): `go test -v -cover github.com/gopinath-langote/1build/testing -run .`
-- Tests with coverage cache off: `go test -v -cover github.com/gopinath-langote/1build/testing -run . GOCACHE=off`
-- Lint: `go list ./... | xargs -L1 golint` (requires `golint` install)
-- Project uses `1build` itself: `1build test`, `1build lint`, `1build build`
-- CI uses Go 1.22, module go 1.12, release via goreleaser
+## Build & Test Commands
 
-## Build, lint, test
 ### Build
-- `go build` (builds binary in current directory)
-- `go build -v .` (matches CI)
+```bash
+go build
+```
+Builds the binary in the current directory.
+
+### Run Tests
+```bash
+# Full test suite
+go test -v -cover github.com/gopinath-langote/1build/testing -run .
+
+# With coverage output captured
+go test -v -cover github.com/gopinath-langote/1build/testing -run . GOCACHE=off
+```
 
 ### Lint
-- `go list ./... | xargs -L1 golint`
-- `go get -u golang.org/x/lint/golint` (install lint tool)
-- CI also runs golangci-lint with reviewdog: `reviewdog/action-golangci-lint` (enable-all)
+```bash
+go list ./... | xargs -L1 golint
+```
+Requires `golint` to be installed first:
+```bash
+go get -u golang.org/x/lint/golint
+```
 
-### Tests
-- Full suite (recommended):
-  `go test -v -cover github.com/gopinath-langote/1build/testing -run .`
-- With coverage cache off:
-  `go test -v -cover github.com/gopinath-langote/1build/testing -run . GOCACHE=off`
+### Using 1build Commands (for this project)
+The project itself uses 1build:
+```bash
+1build test        # Run tests
+1build lint        # Run linter
+1build build       # Build the binary
+```
 
-### Single test
-- Run specific test by name:
-  `go test -v github.com/gopinath-langote/1build/testing -run TestAll`
-- Run by subtest name (fixture-based):
-  `go test -v github.com/gopinath-langote/1build/testing -run "TestAll/\.:\.<feature>\.:\.<name>"`
-- If needed, run an individual package test file locally:
-  `go test -v ./testing -run TestAll`
+## Architecture
 
-### 1build shortcuts (project local)
-From `1build.yaml` in repo root:
-- `1build build`
-- `1build lint`
-- `1build test`
+### Command Structure (Cobra-based)
+- **Root Command** (`cmd/root.go`): Entry point that orchestrates all subcommands. If no args provided, shows command list. Otherwise executes commands via `exec.ExecutePlan()`.
+- **Subcommands** in `cmd/`:
+  - `exec/` - Executes configured commands with before/after hooks
+  - `list/` - Lists available commands from config
+  - `initialize/` - Creates new `1build.yaml` file
+  - `set/` - Adds or updates command definitions
+  - `unset/` - Removes command definitions
+  - `del/` - Deletes entire command configurations (force flag available)
+  - `config/` - Loads and parses `1build.yaml`
+  - `models/` - Data structures for commands and configuration
+  - `utils/` - Helper functions (styling, exit codes)
 
-## Code style and conventions
-### Formatting
-- Use `gofmt` for all Go files. Keep formatting stable and idiomatic.
-- Keep lines reasonably short; docs lint allows up to 190 chars.
+### Configuration System
+- **File**: `1build.yaml` (path can be overridden with `-f` flag)
+- **Key Fields**:
+  - `project` - Project name
+  - `commands` - List of command definitions (name → shell command mapping)
+  - `before` - Optional hook executed before all commands
+  - `after` - Optional hook executed after all commands
+  - `beforeAll` / `afterAll` - Project-level hooks (separate from per-command hooks)
+- **Loading**: `config.LoadOneBuildConfiguration()` validates existence and parses YAML
 
-### Imports
-- Group imports in standard Go order:
-  1) standard library
-  2) third party
-  3) local module (`github.com/gopinath-langote/1build/...`)
-- Avoid unused imports; keep import names short.
+### Execution Flow
+1. `ExecutePlan()` in `exec/exec.go` orchestrates command execution
+2. Global `beforeAll` hook runs if defined
+3. For each command argument:
+   - Find command definition
+   - Execute `before` hook if defined
+   - Execute main command (captures output, handles exit codes)
+   - Execute `after` hook if defined
+4. Stops on first failure (unless `--quiet` flag suppresses output)
 
-### Package structure
-- CLI commands live under `cmd/` with Cobra commands per folder.
-- Command execution logic in `cmd/exec` and configuration in `cmd/config`.
-- Tests in `testing/` package and fixtures in `testing/fixtures`.
+### Testing
+- **Location**: `testing/` package
+- **Test Framework**: Standard Go testing with fixtures-based approach
+- **Fixtures**: `testing/fixtures/` contains test cases with setup, command args, assertions, and teardown
+- **Execution**: Tests build a temporary `1build` binary and run it against test directories
+- **Coverage**: Tests exercise CLI behavior end-to-end by simulating user commands
 
-### Naming
-- Use Go standard naming: PascalCase for exported, camelCase for local.
-- Command names are lowercase CLI tokens (`set`, `unset`, `exec`).
-- Keep error and log messages user-facing and consistent.
+## Key Conventions
 
-### Types and data flow
-- Prefer explicit struct types for command/config models.
-- Follow existing `models.CommandContext` usage for execution phases.
-- When adding fields, update YAML parsing and validation accordingly.
+### Command-Line Flags
+- `-q` / `--quiet`: Suppress command output, only show SUCCESS/FAILURE
+- `-f` / `--file`: Custom path to config file (default: `1build.yaml`)
+- `--before`, `--after`: Hooks for individual commands (via `set` command)
+- `--beforeAll`, `--afterAll`: Project-level hooks
 
-### Error handling
-- Follow existing pattern: print error, then `utils.ExitError()` or `ExitWithCode`.
-- For CLI errors, prefer exit code 1 or specific code (127 for missing command).
-- Avoid panics; use returned errors and explicit exits.
+### Error Handling
+- Non-zero exit codes from commands stop execution unless `--quiet` is used
+- `utils.ExitError()` and `utils.ExitWithCode()` standardize exit behavior
+- Missing commands show config and exit with code 127
 
-### Logging and output
-- Use `utils.CPrint`/`utils.CPrintln` for styled output.
-- Respect `--quiet` flag; when quiet, suppress logs and only print success/failure.
-- When executing commands, show phase banners and command labels.
+### Module & Dependency Management
+- Uses Go modules (`go.mod`)
+- Key dependencies:
+  - `github.com/spf13/cobra` - CLI framework
+  - `github.com/spf13/viper` - Config parsing
+  - `github.com/codeskyblue/go-sh` - Shell command execution
+  - `gopkg.in/yaml.v3` - YAML parsing
+  - `github.com/logrusorgru/aurora` - Colored terminal output
+  - `github.com/stretchr/testify` - Testing assertions
 
-### Tests and fixtures
-- Tests build a temporary `1build` binary and run it against fixture dirs.
-- Fixtures are defined in `testing/fixtures` and consumed by `fixtures.GetFixtures()`.
-- Subtests are named with pattern `".:.<feature>.:.<name>"`.
+### Release Process
+- Uses `goreleaser` for multi-platform builds (Linux, macOS, Windows)
+- Triggered by git tags (semantic versioning): `git tag v1.x.x && git push origin --tags`
+- Runs `goreleaser` command to build and create release
 
-### Dependencies and modules
-- Use Go modules; keep `go.mod` and `go.sum` updated.
-- Key deps: cobra, viper, go-sh, yaml.v3, aurora, testify.
+### Styling & Output
+- `utils.Style` provides colored output (RED, BOLD, etc.)
+- `utils.CPrintln()` prints styled messages
+- Used to highlight errors and status messages in terminal
 
-## Repo hygiene
-- Do not commit build artifacts in `dist/` or binary `1build`.
-- Keep `1build.yaml` in repo (explicitly unignored).
+## Go Version
 
-## Notes for agents
-- CI runs on ubuntu and macOS with Go 1.22.
-- Module target is go 1.12; avoid features requiring newer language version.
-- If you add docs, keep Markdown consistent with `.remarkrc.yaml`.
+Go 1.12+ (specified in go.mod); workflows test with Go 1.22
 
-## Pointers
-- Main entry: `cmd/root.go`
-- Execution flow: `cmd/exec/exec.go`
-- Config parsing: `cmd/config/parse.go`
-- Tests: `testing/cli_test.go`
+## Development Setup
+
+```bash
+git clone https://github.com/gopinath-langote/1build
+cd 1build
+go build
+```
+
+Ensure `go.sum` is up-to-date after modifying dependencies. CI runs on both ubuntu-latest and macos-latest.
 
 ---
 > Source: [gopinath-langote/1build](https://github.com/gopinath-langote/1build) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
