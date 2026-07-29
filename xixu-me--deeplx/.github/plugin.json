@@ -1,9 +1,9 @@
 {
   "name": "xixu-me--deeplx",
-  "displayName": "deeplx",
-  "description": "Best serverless implementation of DeepLX",
+  "displayName": "DeepLX",
+  "description": "DeepLX",
   "version": "1.0.0",
   "author": "xixu-me",
-  "homepage": "https://github.com/xixu-me/deeplx",
+  "homepage": "https://github.com/xixu-me/DeepLX",
   "skills": []
 }
