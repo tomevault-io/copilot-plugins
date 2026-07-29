@@ -2,7 +2,7 @@
   "name": "teleop_xr",
   "owner": "qrafty-ai",
   "repo": "teleop_xr",
-  "description": "Transforms your VR/AR headset into a powerful, precise robot controller",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qrafty-ai/teleop_xr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:18:30Z"
+  "distributed_at": "2026-07-29T07:49:08Z"
 }
