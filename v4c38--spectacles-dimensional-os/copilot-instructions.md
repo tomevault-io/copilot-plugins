@@ -1,15 +1,44 @@
-## lens-studio-scene-edits
+## pre-commit-ci
 
-> Lens Studio scene edits must go through the user-lens-studio MCP, not raw Scene.scene writes
+> Run local CI before any agent git commit
 
 
-# Lens Studio scene edits
+# Pre-commit CI gate
 
-Do **not** write or edit `lens-studio/Assets/Scene.scene` (or other `.scene` files) directly.
+Before creating any git commit, the agent **must** run the local CI script from the
+repo root and confirm it passes:
 
-Use the **`user-lens-studio` MCP tools** for all scene-object investigation and manipulation (create/move/rename objects, wire components, inspect hierarchy).
+```bash
+./launcher/scripts/run-ci.sh
+```
 
-Raw scene-file edits are not allowed. If the MCP cannot express a change, stop and ask the user rather than patching `Scene.scene` by hand.
+This reproduces GitHub Actions (`.github/workflows/ci.yml`): dimos-ar (ruff, mypy,
+pytest) and lens-studio-tests (Vitest).
+
+## Workflow
+
+1. Finish the code changes.
+2. Run `./launcher/scripts/run-ci.sh` from the repository root.
+3. If it fails, fix the failures and re-run until it passes.
+4. Only then stage and commit.
+
+## Exceptions
+
+- Do **not** commit if CI is still failing unless the user explicitly asks to commit
+  anyway (e.g. WIP, CI fix in progress).
+- If the user only asked for a commit of files that cannot affect CI (e.g. docs-only),
+  still run CI unless the user explicitly waives the check.
+
+## Notes
+
+- Run from repo root: `spectacles-dimensional-os/`, not `dimos-ar/` or `lens-studio/`.
+- Optional env vars: `CI_PYTHON`, `CI_VENV` (see script header).
+- CI may take several minutes; wait for completion before committing.
+- **Must run outside the Cursor agent sandbox.** DimOS logging writes under
+  `~/.local/state/dimos/logs/`; a sandboxed run fails collection with
+  `PermissionError: [Errno 1] Operation not permitted`. Request unrestricted /
+  `all` permissions (or run the script in a normal terminal) — do not treat a
+  sandbox permission failure as a test failure.
 
 ---
 > Source: [V4C38/spectacles-dimensional-os](https://github.com/V4C38/spectacles-dimensional-os) — distributed by [TomeVault](https://tomevault.io).
