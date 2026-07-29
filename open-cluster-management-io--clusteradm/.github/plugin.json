@@ -1,0 +1,9 @@
+{
+  "name": "open-cluster-management-io--clusteradm",
+  "displayName": "clusteradm",
+  "description": "clusteradm",
+  "version": "1.0.0",
+  "author": "open-cluster-management-io",
+  "homepage": "https://github.com/open-cluster-management-io/clusteradm",
+  "skills": []
+}
