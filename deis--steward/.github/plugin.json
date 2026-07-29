@@ -1,0 +1,9 @@
+{
+  "name": "deis--steward",
+  "displayName": "steward",
+  "description": "steward",
+  "version": "1.0.0",
+  "author": "deis",
+  "homepage": "https://github.com/deis/steward",
+  "skills": []
+}
