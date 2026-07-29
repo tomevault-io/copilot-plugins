@@ -1,15 +1,16 @@
 # quilt
 
-> Tome by [lemonmade](https://github.com/lemonmade/quilt) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [lemonmade](https://github.com/lemonmade/quilt), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lemonmade/quilt](https://github.com/lemonmade/quilt).
+Original source: `` in [lemonmade/quilt](https://github.com/lemonmade/quilt).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
