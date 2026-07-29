@@ -1,0 +1,9 @@
+{
+  "name": "getindata--kedro-vertexai",
+  "displayName": "kedro-vertexai",
+  "description": "kedro-vertexai",
+  "version": "1.0.0",
+  "author": "getindata",
+  "homepage": "https://github.com/getindata/kedro-vertexai",
+  "skills": []
+}
