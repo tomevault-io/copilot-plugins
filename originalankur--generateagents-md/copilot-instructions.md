@@ -1,286 +1,345 @@
 ## generateagents-md
 
-> `GenerateAgents.md` is a Python command-line tool that automates the creation of a comprehensive `AGENTS.md` file for any public GitHub or local code repository. It acts as an automated codebase analyst and technical writer, using the `dspy` framework to programmatically interface with LLMs. The tool clones and analyzes a target codebase to produce a standardized blueprint, enabling AI coding agents to rapidly understand a project's architecture, conventions, and data flow. The primary language is Python (>=3.12).
+> Flagsmith is an open-source feature flagging and remote configuration management tool. It allows teams to manage feature releases, perform A/B testing, and toggle application functionality without deploying new code. The tech stack is centered around a Python/Django backend API and a TypeScript/React single-page application frontend, designed to be self-hosted with Docker or used as a SaaS product.
 
-# AGENTS.md — AutogenerateAgentsMD.md
+# AGENTS.md — flagsmith
 
 ## Project Overview
 
-`GenerateAgents.md` is a Python command-line tool that automates the creation of a comprehensive `AGENTS.md` file for any public GitHub or local code repository. It acts as an automated codebase analyst and technical writer, using the `dspy` framework to programmatically interface with LLMs. The tool clones and analyzes a target codebase to produce a standardized blueprint, enabling AI coding agents to rapidly understand a project's architecture, conventions, and data flow. The primary language is Python (>=3.12).
+Flagsmith is an open-source feature flagging and remote configuration management tool. It allows teams to manage feature releases, perform A/B testing, and toggle application functionality without deploying new code. The tech stack is centered around a Python/Django backend API and a TypeScript/React single-page application frontend, designed to be self-hosted with Docker or used as a SaaS product.
 
 ## Tech Stack
 
-*   **Primary Language:** Python (>=3.12)
-*   **Core AI Framework:** `dspy`
-*   **LLM Abstraction Layer:** `litellm`
-*   **Dependency Management:** `uv`
-*   **CLI Framework:** `argparse` (standard library)
-*   **Configuration:** `python-dotenv`
-*   **Version Control Interaction:** `git` (via `subprocess`)
-*   **Testing:** `pytest`
+-   **Languages**: Python, TypeScript
+-   **Frameworks**: Django, Django REST Framework, React, Redux Toolkit
+-   **Database**: PostgreSQL
+-   **Dependency Management**: Poetry (Backend), npm (Frontend)
+-   **Testing**: `pytest` (Backend Unit & Integration), Jest (Frontend Unit), TestCafe (Frontend E2E)
+-   **Formatting & Linting**: `black`, `isort` (Backend); Prettier, ESLint (Frontend)
+-   **DevOps & Infrastructure**: Docker, Docker Compose
+-   **Error Monitoring**: Sentry, Prometheus
 
 ## Architecture
 
-The application follows a modular, stateless pipeline pattern orchestrated by the main CLI entry point.
+The project uses a monorepo structure, separating the backend, frontend, and documentation into distinct top-level directories. It follows a client-server model with a monolithic Django API and a React Single-Page Application (SPA).
 
-*   `src/autogenerateagentsmd/cli.py`: The command-line interface entry point. It parses arguments and orchestrates the entire analysis and generation pipeline via the `run_agents_md_pipeline` function.
-*   `src/autogenerateagentsmd/modules.py`: Contains the core `dspy.Module` classes (`CodebaseConventionExtractor`, `AgentsMdCreator`, `AntiPatternExtractor`). These modules encapsulate the primary LLM-driven logic for analyzing code and synthesizing the final document.
-*   `src/autogenerateagentsmd/signatures.py`: Defines the contracts for LLM interactions using `dspy.Signature`. These signatures specify the expected inputs (e.g., source code) and outputs (e.g., extracted conventions) for each LLM-powered step.
-*   `src/autogenerateagentsmd/model_config.py`: Centralizes the configuration for supported LLMs, making it easy to switch between models like Gemini, Claude, and OpenAI.
-*   `src/autogenerateagentsmd/utils.py`: Contains helper functions for non-LLM tasks, such as cloning Git repositories, loading files into memory, and other file system operations.
-*   `tests/`: The test suite, containing end-to-end and unit tests.
-*   `pyproject.toml`: Defines project metadata, dependencies, and the `autogenerateagentsmd` console script entry point.
+-   `api/`: The monolithic Django backend.
+    -   `api/features/`, `api/organisations/`, `api/users/`: Modular Django apps, each containing its own models, views, and serializers, promoting separation of concerns.
+    -   `api/tests/`: Contains all backend tests, subdivided into `unit/` and `integration/`.
+    -   `api/pyproject.toml`: Defines all Python dependencies managed by Poetry.
+-   `frontend/`: The React SPA frontend.
+    -   `frontend/web/`: Main source code for the application.
+    -   `frontend/web/components/`: Reusable React components form the core of the UI.
+    -   `frontend/common/`: Contains shared logic, including state management.
+    -   `frontend/common/store.ts`: The central Redux Toolkit store configuration.
+    -   `frontend/common/service.ts`: The single RTK Query service definition that handles all API communication.
+    -   `frontend/e2e/`: End-to-end tests written with TestCafe.
+    -   `frontend/package.json`: Defines all frontend dependencies managed by npm.
+-   `docs/`: Project documentation built with Docusaurus.
+-   `docker-compose.yml`: The entry point for setting up the entire local development environment.
 
 ## Code Style
 
-The project enforces a strict and consistent Python coding style.
+The codebase maintains a strict and consistent style through automated formatters and linters.
 
-*   **Type Hinting**: Type hints are strictly mandatory for all function parameters and return values.
+**Backend (Python):**
+-   **Formatting**: Code is formatted with `black` and imports are sorted with `isort`. These tools are configured in `api/pyproject.toml` and must be run before committing.
+-   **Naming**: Follows standard Python PEP 8 conventions (e.g., `snake_case` for variables and functions, `PascalCase` for classes).
+-   **Views**: Class-based views are used, inheriting from Django REST Framework's `APIView`. Business logic should not reside in the view itself but be abstracted into model methods or service functions.
 
-    ```python
-    # Good
-    def load_source_tree(repo_path: str) -> dict[str, str]:
-        # ...
+Example of a backend view (`api/audit/views.py`):
+```python
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from audit.models import AuditLog
 
-    # Bad
-    def load_source_tree(repo_path):
-        # ...
-    ```
+class AuditLogCount(APIView):
+    def get(self, request, *args, **kwargs):
+        count = AuditLog.objects.count()
+        return Response({'count': count})
+```
 
-*   **Naming Conventions**:
-    *   `snake_case` for functions, methods, and variables (e.g., `run_agents_md_pipeline`).
-    *   `PascalCase` for all classes (e.g., `CodebaseConventionExtractor`).
-    *   `ALL_CAPS_WITH_UNDERSCORES` for module-level constants.
+**Frontend (TypeScript/React):**
+-   **Formatting**: Code is automatically formatted using **Prettier**.
+-   **Linting**: **ESLint** is used to enforce code quality and best practices.
+-   **Components**: Functional components with Hooks are standard.
+-   **Data Fetching**: All data fetching is done via auto-generated RTK Query hooks.
 
-*   **Import Ordering**: Imports must be grouped at the top of each file in the following order: 1) Standard library, 2) Third-party libraries, 3) Local application imports.
+Example of a frontend component (`frontend/web/components/AuditLogCounter.tsx`):
+```typescript
+import React from 'react';
+import { useGetAuditLogCountQuery } from 'common/service';
 
-    ```python
-    # Good
-    import argparse
-    import logging
-    from pathlib import Path
+export const AuditLogCounter = () => {
+    const { data, isLoading, error } = useGetAuditLogCountQuery({});
 
-    import dspy
-    from dotenv import load_dotenv
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error fetching count!</div>;
 
-    from .modules import AgentsMdCreator, CodebaseConventionExtractor
-    from .utils import clone_repo, load_source_tree
-    ```
-
-*   **Formatting**: Use 4-space indentation and maintain a line length between 80-100 characters.
+    return <h1>Total Audit Logs: {data?.count}</h1>;
+};
+```
 
 ## Anti-Patterns & Restrictions
 
-*   **NEVER use on private codebases**: The tool sends the full source code to third-party LLM APIs. Using it on private, proprietary, or sensitive codebases is a significant security risk. It is designed **exclusively** for public, open-source repositories.
-*   **NEVER commit secrets**: Do not commit the `.env` file or any other file containing API keys or secrets to version control.
-*   **DO NOT introduce new LLM frameworks**: The project architecture is tightly coupled to `dspy`. Avoid introducing other orchestration frameworks like LangChain or LlamaIndex.
-*   **AVOID new end-to-end tests**: E2E tests are slow and costly due to live API calls. Prioritize mocked unit tests for new functionality unless there is a strong justification for an E2E test.
+To maintain architectural integrity and code quality, the following rules must be strictly followed:
+
+-   **Frontend:**
+    -   **NEVER** make direct API calls from components using `fetch` or `axios`. **ALWAYS** use the RTK Query service layer defined in `frontend/common/service.ts`.
+    -   **NEVER** introduce a new global state management library. All global state must be managed via the existing Redux Toolkit store (`frontend/common/store.ts`).
+
+-   **Backend:**
+    -   **NEVER** bypass the Django ORM for database operations unless it is for a critical, well-documented performance optimization.
+    -   **AVOID** placing complex business logic directly within Django views (`views.py`). This logic should be abstracted into separate service functions or model methods to keep views lean and focused on handling the HTTP request/response cycle.
 
 ## Database & State Management
 
-The application is entirely **stateless**. It does not use a database or any form of persistent storage between runs. All configuration is loaded at runtime from command-line arguments and the `.env` file. The application's state exists only for the duration of a single execution, primarily as an in-memory dictionary (`source_tree`) holding the target repository's code. The only output is the generated `AGENTS.md` file.
+The application manages state and data flow differently on the backend and frontend.
+
+**Backend (Database):**
+-   The primary database is **PostgreSQL**.
+-   All database interactions are handled exclusively through the **Django ORM**. Direct SQL queries are forbidden except in rare, documented cases.
+-   Database schemas are defined as Django models within each app's `models.py` file (e.g., `api/features/models.py`).
+-   Schema changes must be managed through Django's migration system. New migrations are created with `poetry run python manage.py makemigrations` and applied with `poetry run python manage.py migrate`.
+
+**Frontend (State):**
+-   **Server State & Caching**: All interactions with the backend API (fetching, creating, updating, deleting data) are managed by **RTK Query**. The API service definition is located in `frontend/common/service.ts`. This provides hooks that handle the entire data lifecycle, including caching, invalidation, and optimistic updates.
+-   **Global UI State**: Global state that is not persisted on the server (e.g., modal visibility, UI themes) is managed by **Redux Toolkit**. The store is configured in `frontend/common/store.ts`. New state is added by creating a new "slice" with `createSlice`.
 
 ## Error Handling & Logging
 
-*   **Error Handling**: Application logic within modules and utilities should raise specific exceptions (e.g., `FileNotFoundError`, `subprocess.CalledProcessError`). Generic `except Exception` blocks should be avoided. A single global `try...except Exception` block exists in `src/autogenerateagentsmd/cli.py` to catch any unhandled exceptions at the top level and provide a clean exit with a user-friendly error message.
-*   **Logging**: The standard `logging` module is used for progress reporting. It is configured in `cli.py` to print `INFO`-level messages to the console, informing the user about the current stage of the pipeline (e.g., "Cloning repository...", "Extracting conventions...").
+-   **Backend**:
+    -   **Logging**: Uses Python's standard `logging` module, configured in `api/app/settings/common.py`. Logs should be used to record important events and debug issues.
+    -   **Error Reporting**: In production, unhandled exceptions are captured and reported to **Sentry**. The Sentry integration is configured via environment variables.
+
+-   **Frontend**:
+    -   **Error Reporting**: Unhandled client-side exceptions are captured and sent to **Sentry**.
+    -   **Error Boundaries**: Components that have a high chance of failing or depend on fragile data should be wrapped in React **Error Boundaries**. This prevents a component-level error from crashing the entire application and allows a fallback UI to be displayed.
 
 ## Testing Commands
 
-*   **Install dependencies for testing:**
+-   **Run the full application stack (API, Frontend, DB):**
     ```bash
-    uv sync --extra dev
+    docker-compose up
     ```
-*   **Run all tests (excluding slow E2E tests):**
+-   **Build and run the stack from scratch:**
     ```bash
-    pytest
+    docker-compose up --build
     ```
-*   **Run only the end-to-end (E2E) tests:**
+-   **Run backend tests:**
     ```bash
-    pytest -m e2e
+    cd api
+    poetry run pytest
     ```
-*   **Run tests for a specific file:**
+-   **Run frontend linter:**
     ```bash
-    pytest tests/test_utils.py
+    cd frontend
+    npm run lint
+    ```
+-   **Run frontend dev server (with Hot Module Replacement):**
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
     ```
 
 ## Testing Guidelines
 
-The project uses `pytest` for testing. The testing strategy is two-pronged:
+**Backend (`pytest`):**
+-   All test files are located in the `api/tests/` directory.
+-   Test files should be named following the `test_*.py` pattern.
+-   **Unit Tests**: Located in `api/tests/unit/`. These tests should focus on a single function or class and mock external dependencies (like database or network calls) where necessary.
+-   **Integration Tests**: Located in `api/tests/integration/`. These tests verify the interaction between different components of the backend, often involving database access.
+-   Fixtures are heavily used to set up test data and clients. For example, `admin_client` provides an authenticated API client.
 
-*   **End-to-End (E2E) Tests**:
-    *   Located in `tests/test_e2e_pipeline.py`.
-    *   These tests validate the entire pipeline by cloning real public repositories and making live LLM API calls.
-    *   They are marked with `@pytest.mark.e2e` and are run sparingly due to their cost and long execution time.
-    *   They serve as the ultimate validation that the integrated system works as expected.
+Example backend test (`api/tests/unit/audit/test_views.py`):
+```python
+def test_get_audit_log_count(admin_client):
+    # When
+    response = admin_client.get("/api/v1/audit/count/")
+    # Then
+    assert response.status_code == 200
+    assert response.json()["count"] >= 0
+```
 
-*   **Unit Tests**:
-    *   This is the preferred method for testing new contributions.
-    *   Focus on testing individual functions in `src/autogenerateagentsmd/utils.py`.
-    *   For `dspy` modules in `src/autogenerateagentsmd/modules.py`, tests should use mocking to avoid actual LLM API calls. This ensures tests are fast, deterministic, and free of cost.
+**Frontend (`Jest` & `TestCafe`):**
+-   **Unit/Component Tests (`Jest`)**: Test files should be co-located with the components they are testing (e.g., `Component.tsx` and `Component.test.tsx`). These tests should verify component rendering and behavior in isolation.
+-   **End-to-End Tests (`TestCafe`)**: E2E test scripts are located in the `frontend/e2e/` directory. These tests simulate real user workflows by interacting with the application in a browser.
 
 ## Security & Compliance
 
-*   **API Key Management**: All API keys and other secrets **must** be stored in a `.env` file at the project root. This file is explicitly listed in `.gitignore` and must never be committed to version control.
-*   **Data Handling and Privacy**: The tool's core function involves sending the entire source code of a target repository to external, third-party LLM APIs. This is a critical security consideration. **NEVER** run this tool on any repository containing proprietary code, sensitive data, secrets, or personally identifiable information (PII). It is intended for use only on publicly available, open-source software.
+-   **Secrets Management**: **NEVER** hard-code secrets (API keys, passwords, tokens) in the source code. All secrets must be managed through environment variables. The `docker-compose.yml` file serves as a reference for required variables in local development.
+-   **Authentication**: The API uses a built-in authentication system to protect endpoints.
+-   **Authorization**: Permissions are managed using a Role-Based Access Control (RBAC) model to ensure users can only access resources appropriate for their role.
+-   **Vulnerability Reporting**: Any discovered security vulnerabilities must be reported privately to `support[at]flagsmith[dot]com`. Do not disclose them publicly in GitHub issues.
 
 ## Dependencies & Environment
 
-*   **Dependency Management**: Dependencies are managed with `uv` and are defined in `pyproject.toml`.
-    *   Production dependencies are under `[project.dependencies]`.
-    *   Development dependencies (like `pytest`) are under `[project.optional-dependencies]dev`.
-*   **Installation**: To install all required dependencies for development and testing, run the following command from the project root:
-    ```bash
-    uv sync --extra dev
-    ```
-*   **Environment Variables**: The application requires API keys for the desired LLM providers. Create a `.env` file in the project root and add the necessary keys.
-    ```bash
-    # Example .env file
-    OPENAI_API_KEY="sk-..."
-    ANTHROPIC_API_KEY="..."
-    GEMINI_API_KEY="..."
-    ```
-*   **Runtime Version**: The project requires Python version 3.12 or newer.
+The entire development environment is containerized with Docker to ensure consistency.
+
+-   **Runtime Environment**: The primary way to run the project is via Docker. `docker-compose up` will start all required services (backend, frontend, database).
+-   **Backend Dependencies (Python)**:
+    -   Managed by **Poetry**.
+    -   Defined in `api/pyproject.toml`.
+    -   To install: `cd api && poetry install`
+    -   To add a new dependency: `cd api && poetry add <package-name>`
+-   **Frontend Dependencies (JavaScript/TypeScript)**:
+    -   Managed by **npm**.
+    -   Defined in `frontend/package.json`.
+    -   To install: `cd frontend && npm install`
+    -   To add a new dependency: `cd frontend && npm install <package-name>`
+-   **Environment Variables**: The application is configured using environment variables. See `docker-compose.yml` for a list of variables needed for local development.
 
 ## PR & Git Rules
 
-The project uses Git for version control. The repository includes a standard Python `.gitignore` file to exclude common artifacts like `__pycache__`, virtual environments (`.venv`), build directories, and the `.env` file containing secrets. No specific branch naming conventions or commit message formats are formally documented.
+The project follows a standard GitHub feature-branch workflow.
+
+-   **Branch Naming**: Branch names should be descriptive and prefixed with a type, such as `feature/`, `bugfix/`, or `chore/`. Example: `feature/new-audit-log-export`.
+-   **Commit Messages**: Commits should be atomic and have clear, descriptive messages explaining the "what" and "why" of the change.
+-   **Workflow**:
+    1.  First, create a GitHub Issue to discuss the proposed change.
+    2.  Create a feature branch from an up-to-date `main` branch.
+        ```bash
+        git checkout main
+        git pull origin main
+        git checkout -b feature/my-new-feature
+        ```
+    3.  Implement changes and add corresponding tests.
+    4.  Ensure all code is formatted and linted correctly.
+    5.  Push the branch to your fork and open a Pull Request (PR) against the `flagsmith/flagsmith:main` branch.
+    6.  The PR must be linked to the issue it resolves and must pass all Continuous Integration (CI) checks before it can be considered for merging.
 
 ## Documentation Standards
 
-*   **User Documentation**: The `README.md` file serves as the primary user-facing guide. It contains the project's purpose, installation instructions, and command-line usage examples.
-*   **Agent/Developer Documentation**: The `AGENTS.md` file (which this tool generates for itself) is the definitive technical guide for developers and AI agents. It provides a deep, structured overview of the architecture, conventions, and patterns.
-*   **In-Code Documentation**:
-    *   **Type Hints**: Mandatory for all function signatures.
-    *   **Docstrings**: Public modules and complex functions should have descriptive docstrings explaining their purpose, arguments, and return values.
+-   **System & User Documentation**: The public-facing documentation for users and administrators is maintained in the `/docs` directory and built with **Docusaurus**. Significant changes to functionality should be accompanied by updates to this documentation.
+-   **Code Documentation**:
+    -   **Python**: Use **docstrings** for public modules, classes, and functions to explain their purpose, arguments, and return values.
+    -   **TypeScript/React**: Use **TSDoc** comments (`/** ... */`) to document complex components, props, and functions.
 
 ## Common Patterns
 
-*   **Stateless Pipeline Pattern**: The entire application is orchestrated as a linear, stateless pipeline in `src/autogenerateagentsmd/cli.py`. Data flows from one stage to the next (e.g., `load_source_tree` -> `CodebaseConventionExtractor` -> `AgentsMdCreator`) without persisting state between executions.
-*   **DSPy Modules for LLM Logic**: All direct interactions with large language models are encapsulated within `dspy.Module` classes (e.g., `AgentsMdCreator`). This separates the prompt engineering and LLM logic from the main application orchestration code.
-*   **Strict Type Hinting**: ALWAYS add type hints to all function parameters and return values. This is a non-negotiable standard for code clarity and static analysis.
+-   **Backend: Service Layer Abstraction**: Avoid putting business logic directly in Django views. Abstract complex operations into service functions or model methods. This keeps views thin and focused on HTTP concerns.
     ```python
-    # ALWAYS do this
-    def clone_repo(github_url: str, target_dir: Path) -> None:
-        ...
-    ```
-*   **Specific Exception Handling**: NEVER use a generic `except Exception:` in application modules. ALWAYS catch specific, anticipated exceptions to handle errors gracefully and avoid masking unknown bugs.
-    ```python
-    # Good
-    try:
-        # some file operation
-    except FileNotFoundError:
-        logger.error("Could not find the specified file.")
+    # Good: Logic is in the model/manager
+    class AuditLogCount(APIView):
+        def get(self, request, *args, **kwargs):
+            # The 'how' is hidden from the view
+            count = AuditLog.objects.get_total_count()
+            return Response({'count': count})
 
-    # Bad
-    try:
-        # some file operation
-    except Exception as e:
-        logger.error(f"An unknown error occurred: {e}")
+    # Bad: Logic is coupled to the view
+    class AuditLogCount(APIView):
+        def get(self, request, *args, **kwargs):
+            # Complex filtering and counting logic here...
+            count = AuditLog.objects.filter(is_archived=False).count()
+            return Response({'count': count})
     ```
+-   **Frontend: Declarative Data Fetching**: **ALWAYS** use the RTK Query service for all API interactions. This pattern centralizes data fetching logic, provides automatic caching, and simplifies component code by using hooks.
+    ```typescript
+    // In frontend/common/service.ts
+    getAuditLogCount: builder.query<{ count: number }, {}>({
+        query: () => ({ url: `audit/count/` }),
+    }),
+
+    // In a React component
+    import { useGetAuditLogCountQuery } from 'common/service';
+
+    const MyComponent = () => {
+      // The hook handles loading, error, and data states automatically
+      const { data } = useGetAuditLogCountQuery({});
+      return <div>Count: {data?.count}</div>;
+    }
+    ```
+-   **Full-Stack Development**: New features typically require coordinated changes in both the `api/` and `frontend/` directories. This involves adding a DRF endpoint, serializing data, adding the endpoint to the RTK Query service, and creating a React component to consume it.
 
 ## Agent Workflow / SOP
 
-When tasked with modifying or extending this codebase, follow this standard operating procedure:
+When approaching a task, follow this Standard Operating Procedure (SOP):
 
-1.  **Understand the Goal**: Clarify the specific change required. Is it adding a new analysis capability, supporting a new LLM, or fixing a bug in the file processing?
-2.  **Locate Relevant Code**:
-    *   For CLI changes (new arguments): `src/autogenerateagentsmd/cli.py`.
-    *   For new LLM-driven analysis: Define a new `dspy.Signature` in `signatures.py` and a new `dspy.Module` in `modules.py`.
-    *   For general helper functions (e.g., file handling): `src/autogenerateagentsmd/utils.py`.
-    *   For model configuration: `src/autogenerateagentsmd/model_config.py`.
-3.  **Implement the Change**: Adhere strictly to the coding conventions:
-    *   Add mandatory type hints for all new functions.
-    *   Use `snake_case` for functions/variables and `PascalCase` for classes.
-    *   Isolate LLM logic within a `dspy.Module`.
-4.  **Write Tests**:
-    *   For changes in `utils.py`, add a new unit test to the appropriate file in the `tests/` directory.
-    *   For a new `dspy.Module`, write a unit test that mocks the LLM call to verify the module's behavior without making a real API request.
-5.  **Verify**: Run the local test suite using `pytest` to ensure your changes have not introduced any regressions.
-6.  **Document**: If you've added a new user-facing feature (like a new CLI flag), update the `README.md`. The `AGENTS.md` is auto-generated and does not need manual updates.
+1.  **Analyze the Request**: Determine if the task is backend-only, frontend-only, or full-stack.
+2.  **Identify Key Files**:
+    -   **Backend**: Locate the relevant Django app in `api/`. Changes will likely involve `models.py`, `serializers.py`, `views.py`, and `urls.py`. Tests will be in `api/tests/`.
+    -   **Frontend**: For UI changes, find the component in `frontend/web/components/`. For data/state changes, the primary files are `frontend/common/service.ts` (API interaction) and `frontend/common/store.ts` (global UI state).
+3.  **Implement Backend Changes (if required)**:
+    -   Modify the Django model in `models.py` and create a migration (`poetry run python manage.py makemigrations`).
+    -   Create or update a serializer in `serializers.py` to control the JSON representation.
+    -   Create or update the view in `views.py`. Keep business logic out of the view.
+    -   Register the URL route in `urls.py`.
+    -   Write unit or integration tests in `api/tests/` to cover the new logic.
+4.  **Implement Frontend Changes (if required)**:
+    -   If a new API endpoint is involved, add it to the `builder` in `frontend/common/service.ts`.
+    -   In the relevant React component, use the auto-generated RTK Query hook (e.g., `useGetMyDataQuery`) to fetch or mutate data.
+    -   **Strictly avoid** using `fetch()` or `axios()` directly in components.
+    -   Update or create React components to display the new data or provide new functionality.
+    -   Add Jest unit tests for new components or complex logic.
+5.  **Format and Lint**: Before finalizing, run the formatters and linters to ensure code style compliance.
+    -   Backend: `black .` and `isort .` within the `api/` directory.
+    -   Frontend: `npm run lint` within the `frontend/` directory.
+6.  **Verify Locally**: Use `docker-compose up --build` to run the entire application and manually verify that your changes work as expected end-to-end.
 
 ## Few-Shot Examples
 
-### 1. Type Hinting
+### Good: Following the RTK Query Pattern for Data Fetching
 
-*   **Good**: Mandatory type hints for parameters and return values.
-    ```python
-    from pathlib import Path
+This example correctly uses the centralized RTK Query service to fetch data and display it in a component.
 
-    def save_markdown_file(content: str, output_path: Path) -> None:
-        """Saves the given content to a file."""
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(content, encoding="utf-8")
-    ```
+**1. Define the endpoint in `frontend/common/service.ts`:**
+```typescript
+// Good: The endpoint definition is centralized and declarative.
+getAuditLogCount: builder.query<{ count: number }, {}>({
+    query: () => ({
+        url: `audit/count/`,
+    }),
+}),
+```
 
-*   **Bad**: Missing type hints.
-    ```python
-    def save_markdown_file(content, output_path):
-        """Saves the given content to a file."""
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(content, encoding="utf-8")
-    ```
+**2. Use the generated hook in `frontend/web/components/AuditLogCounter.tsx`:**
+```typescript
+import React from 'react';
+import { useGetAuditLogCountQuery } from 'common/service';
 
-### 2. Import Ordering
+// Good: The component is simple, declarative, and leverages the hook for all async logic.
+export const AuditLogCounter = () => {
+    const { data, isLoading, error } = useGetAuditLogCountQuery({});
 
-*   **Good**: Imports are correctly grouped (standard library, third-party, local).
-    ```python
-    import logging
-    import subprocess
-    from pathlib import Path
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error fetching count!</div>;
 
-    from git.repo import Repo # Hypothetical third-party library
+    return <h1>Total Audit Logs: {data?.count}</h1>;
+};
+```
 
-    from .exceptions import GitCloneError
-    ```
+### Bad: Bypassing the RTK Query Service Layer
 
-*   **Bad**: Imports are mixed together without logical grouping.
-    ```python
-    from pathlib import Path
-    from .exceptions import GitCloneError
-    import logging
-    from git.repo import Repo
-    import subprocess
-    ```
+This example violates the core architectural rule by making a direct API call from a component.
 
-### 3. Error Handling
+**`frontend/web/components/AuditLogCounter.tsx`:**
+```typescript
+import React, { useEffect, useState } from 'react';
 
-*   **Good**: Catching a specific, expected exception.
-    ```python
-    import subprocess
+// Bad: This component violates the rule against direct API calls.
+// It manually handles loading, error, and data states, which is redundant
+// and inconsistent with the rest of the application.
+export const AuditLogCounter = () => {
+    const [data, setData] = useState<{ count: number } | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
 
-    def run_git_command(command: list[str]) -> str:
-        try:
-            result = subprocess.run(
-                command,
-                check=True,
-                capture_output=True,
-                text=True
-            )
-            return result.stdout
-        except subprocess.CalledProcessError as e:
-            logging.error(f"Git command failed: {e.stderr}")
-            raise
-    ```
+    useEffect(() => {
+        // DO NOT DO THIS. Use the RTK Query service instead.
+        fetch('http://localhost:8000/api/v1/audit/count/')
+            .then(res => res.json())
+            .then(setData)
+            .catch(setError)
+            .finally(() => setIsLoading(false));
+    }, []);
 
-*   **Bad**: Using a generic `except Exception` which can hide other bugs.
-    ```python
-    import subprocess
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error fetching count!</div>;
 
-    def run_git_command(command: list[str]) -> str:
-        try:
-            result = subprocess.run(
-                command,
-                check=True,
-                capture_output=True,
-                text=True
-            )
-            return result.stdout
-        except Exception as e: # This is too broad
-            logging.error(f"An unexpected error occurred: {e}")
-            raise
-    
+    return <h1>Total Audit Logs: {data?.count}</h1>;
+};
 
 ---
 > Source: [originalankur/GenerateAgents.md](https://github.com/originalankur/GenerateAgents.md) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
