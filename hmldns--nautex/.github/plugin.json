@@ -1,7 +1,7 @@
 {
   "name": "hmldns--nautex",
   "displayName": "nautex",
-  "description": "MCP server for guiding Coding Agents via end-to-end requirements to implementation plan pipeline",
+  "description": "nautex",
   "version": "1.0.0",
   "author": "hmldns",
   "homepage": "https://github.com/hmldns/nautex",
