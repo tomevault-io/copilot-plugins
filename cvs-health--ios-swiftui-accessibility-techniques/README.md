@@ -1,22 +1,21 @@
 # ios-swiftui-accessibility-techniques
 
-> Tome by [cvs-health](https://github.com/cvs-health/ios-swiftui-accessibility-techniques) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [cvs-health](https://github.com/cvs-health/ios-swiftui-accessibility-techniques), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [cvs-health/ios-swiftui-accessibility-techniques](https://github.com/cvs-health/ios-swiftui-accessibility-techniques).
+Original source: `CLAUDE.md` in [cvs-health/ios-swiftui-accessibility-techniques](https://github.com/cvs-health/ios-swiftui-accessibility-techniques).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cvs-health/ios-swiftui-accessibility-techniques](https://github.com/cvs-health/ios-swiftui-accessibility-techniques) — a repo with 363+ stars on GitHub.
+From [cvs-health/ios-swiftui-accessibility-techniques](https://github.com/cvs-health/ios-swiftui-accessibility-techniques) — a repo with 365+ stars on GitHub.
 
 ---
 
