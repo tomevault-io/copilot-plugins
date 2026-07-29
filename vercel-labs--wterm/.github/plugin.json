@@ -1,7 +1,7 @@
 {
   "name": "vercel-labs--wterm",
   "displayName": "wterm",
-  "description": "A terminal emulator for the web",
+  "description": "wterm",
   "version": "1.0.0",
   "author": "vercel-labs",
   "homepage": "https://github.com/vercel-labs/wterm",
