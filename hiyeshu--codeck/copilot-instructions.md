@@ -1,78 +1,100 @@
 ## codeck
 
-> codeck outputs a **single HTML file**, built by `build-html.sh` wrapping `assemble.sh`:
+> [INPUT]: Depends on the codeck skill tree and Anthropic skill packaging conventions.
 
-# codeck — AI presentation skill
+# codeck skill authoring conventions
+<!--
+[INPUT]: Depends on the codeck skill tree and Anthropic skill packaging conventions.
+[OUTPUT]: Provides shared authoring rules for codeck skills and room protocol.
+[POS]: skills module policy file; constrains every SKILL.md under this directory.
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
 
-## Architecture
+Aligned with [anthropic/skills](https://github.com/anthropics/skills) standard. Adapted for codeck's multi-role pipeline.
 
-codeck outputs a **single HTML file**, built by `build-html.sh` wrapping `assemble.sh`:
+## Frontmatter
 
-| Author | File | Role |
-|--------|------|------|
-| Human (fixed) | `engine.js` + `engine.css` + `build-html.sh` | Navigation, fragments, overview, speaker mode, progress bar, final HTML validation |
-| AI (per deck) | `custom.css` | `:root` variables + layout primitives + per-page styles + mobile |
-| AI (per deck) | `slides.html` | `<section class="slide" data-notes="...">` free HTML |
+Required fields plus the `version` extension. codeck-aligned skills all carry a `version` so the changelog in `skills/CLAUDE.md` lines up with each lane's released state.
 
-Engine code is fixed. AI handles content and visuals only.
-
-## Deck room
-
-```
-/codeck opens ~/.codeck/projects/{slug}/
-  ↓
-MEMORY.md + channel/ + tasks/ + threads/ + roles/
-  ↓
-Decision Ask records live in threads/ before any runtime question
-  ↓
-@outline → deck.md
-  ↓
-@design → DESIGN.md + custom.css + slides.html → build-html.sh → single HTML
-  ↓
-@review → export (PDF/PPTX) / speech
+```yaml
+---
+name: codeck-xxx
+version: 2.x.y
+description: |
+  {what it does}. {trigger scenarios}.
+---
 ```
 
-Core idea: fixed role lanes own artifacts; dynamic people from diagnosis.md shape the judgment inside those lanes. The room is the durable scope; necessary asks are decision records first and UI questions second.
+- `name` (required): skill identifier. codeck sub-skills use `codeck-` prefix.
+- `description` (required): function + trigger scenarios, pushy style (see below).
+- `version` (required for codeck lanes): semver-ish string. Bump when SKILL.md protocol changes.
 
-Room documents have rank:
-- Current truth: MEMORY.md, deck.md, DESIGN.md, custom.css, slides.html, latest assembled HTML, speech.md when present.
-- Work state: diagnosis.md, active tasks, open threads plus the Decision Ask ledger, roles/*.md, latest valid review.md.
-- Audit trail: channel/YYYY-MM-DD.md, legacy PROJECT.md, legacy design-notes.md, superseded reviews, and old previews. Audit never overrides current truth.
+Other non-standard fields (allowed-tools, triggers, etc.) still go in body comments:
 
-## Three diagnostic signals
+```markdown
+<!-- codeck metadata
+triggers: /codeck
+-->
+```
 
-1. **Domain** — determines outline role
-2. **Expression challenge** — determines design role
-3. **Audience starting point** — determines review role (inverse: listener most likely to struggle)
+## Description — pushy style
+
+Claude tends to under-trigger skills. The description is the main trigger mechanism. Be aggressive.
+
+**Template:**
+```
+{one-sentence function}. {output}. Use whenever the user says {trigger words},
+or wants to {user intent} — even if they don't explicitly mention "{skill name}".
+```
+
+**Rules:**
+1. Cover both Chinese and English trigger words
+2. List 4-6 specific trigger phrases in quotes
+3. End with a catch-all: "even if they don't explicitly mention X"
+4. Write scenarios, not just features
 
 ## Directory structure
 
-Skills install into the active runtime's skills directory. codeck scripts probe these locations in order: `~/.agents/skills/codeck*/`, `~/.codex/skills/codeck*/`, `~/.claude/skills/codeck*/`. The first match wins, so the same SKILL.md works under Cursor agents, Codex CLI, and Claude.
-
-Two directories at runtime:
-- **cwd** — the user's project. codeck reads materials here, writes final deliverables here (HTML, PDF, PPTX).
-- **`~/.codeck/projects/{slug}/`** — codeck's deck room. Reads and writes MEMORY.md, channel/tasks/threads/roles, diagnosis.md, deck.md, DESIGN.md, custom.css, slides.html, review.md, and speech.md. Legacy outline.md is audit-only when found.
-
-## Repository
-
 ```
-codeck/
-├── CLAUDE.md         # mirror of AGENTS.md for Claude runtime
-├── AGENTS.md         # this file; agents/codex runtime entry
-├── skills/
-│   ├── CLAUDE.md      # Member list + changelog
-│   ├── CONVENTIONS.md # Skill authoring conventions
-│   ├── codeck/        # Entry dashboard
-│   │   ├── CLAUDE.md  # Entry lane map
-│   │   └── scripts/   # Room bootstrap + probes
-│   ├── codeck-outline/
-│   ├── codeck-design/
-│   ├── codeck-review/
-│   ├── codeck-export/
-│   └── codeck-speech/
-└── README.md
+skill-name/
+├── SKILL.md          # required, < 500 lines
+├── references/       # optional, detailed reference material
+├── scripts/          # optional, executable scripts
+└── assets/           # optional, templates/icons/fonts
 ```
+
+## Progressive disclosure
+
+1. **Metadata** (name + description) — always in context, ~100 words
+2. **SKILL.md body** — loaded when skill triggers, < 500 lines
+3. **Bundled resources** — loaded on demand, no limit
+
+When SKILL.md approaches 500 lines, move details to references/ and note when to read them.
+
+## Instruction style
+
+- Imperatives ("read the file" not "you should read the file")
+- Explain why, don't stack MUSTs ("the user may not have looked at the screen for 20 minutes, so re-ground first" beats "MUST re-ground")
+- Give examples, especially for output formats
+- Theory of mind: imagine how the model reads your instruction, write so it naturally does the right thing
+
+## codeck conventions
+
+- `/codeck` is the user-facing entry. Sub-skills may exist as internal modules, but user handoffs point back to `/codeck`.
+- A skill is a channel: an addressable role with a write boundary, durable room files, and a handoff protocol.
+- codeck is a deck room, not a linear wizard. `MEMORY.md` is the room index; `channel/`, `tasks/`, `threads/`, and `roles/` hold the collaboration state.
+- Fixed role lanes are `@orchestrator`, `@outline`, `@design`, `@review`, `@speech`, and `@export`.
+- Each lane has a write boundary. Cross-lane changes go to `threads/threads.md` as proposals.
+- Task claiming is a work ticket, not a hard lock: owner, status, artifact, handoff.
+- Decision Ask appears only at allowed decision moments: Project Init, Deck Intent, Design Direction, Export Format, Speech Style.
+- Each `/codeck` run has a hard cap of 2 Decision Ask rounds. Infer first, default second, ask only when the answer changes the deck.
+- Decision Ask is semantic state, not UI. Record it in `threads/threads.md` before rendering through AskUser UI, plain text pause, or assumed default.
+- Rendered ask shape: Re-ground, Current read, Recommendation, 2-3 mutually exclusive options.
+- Record answers and assumed defaults in `MEMORY.md`; record deck-shaping choices in `deck.md`.
+- Upstream/downstream data passes through `~/.codeck/projects/{slug}/`, not direct skill-to-skill calls
+- Each stage activates a dynamic role via diagnosis.md recommendations
+- Skills and all internal documentation are in English
 
 ---
 > Source: [hiyeshu/codeck](https://github.com/hiyeshu/codeck) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
