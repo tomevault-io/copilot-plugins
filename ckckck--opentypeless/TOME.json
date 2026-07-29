@@ -2,9 +2,9 @@
   "name": "OpenTypeless",
   "owner": "ckckck",
   "repo": "OpenTypeless",
-  "description": "\u4e00\u4e2a\u5c06\u8c46\u5305 ASR \u80fd\u529b\u5c01\u88c5\u4e3a OpenAI \u517c\u5bb9\u63a5\u53e3\u7684\u5c0f\u9879\u76ee\uff0c\u652f\u6301 Docker \u542f\u52a8\uff0c\u5e76\u63d0\u4f9b\u4e00\u4efd\u53ef\u914d\u5408 Spokenly \u4f7f\u7528\u7684\u53c2\u8003\u4fee\u6b63\u63d0\u793a\u8bcd\uff0c\u5b9e\u73b0\u548c Typeless \u7c7b\u4f3c\u7684\u8bed\u97f3\u4fee\u6b63\u6548\u679c\u3002",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ckckck/OpenTypeless",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T05:12:20Z"
+  "distributed_at": "2026-07-29T10:44:28Z"
 }
