@@ -1,8 +1,6 @@
 # davinci-resolve-mcp
 
-> Tome by [apvlv](https://github.com/apvlv/davinci-resolve-mcp) — distributed by [TomeVault](https://tomevault.io)
-
-A Model Context Protocol (MCP) server for interacting with DaVinci Resolve and Fusion
+> Tome by [apvlv](https://github.com/apvlv/davinci-resolve-mcp), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
