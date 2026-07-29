@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--nanotron",
+  "displayName": "nanotron",
+  "description": "nanotron",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/nanotron",
+  "skills": []
+}
