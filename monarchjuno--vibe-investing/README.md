@@ -1,8 +1,6 @@
 # vibe-investing
 
-> Source: [monarchjuno/vibe-investing](https://github.com/monarchjuno/vibe-investing) — distributed by [TomeVault](https://tomevault.io)
-
-Vibe Investing Skill Library
+> Source: [monarchjuno/vibe-investing](https://github.com/monarchjuno/vibe-investing). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [monarchjuno/vibe-investing](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [monarchjuno/vibe-investing](https://github.com/monarchjuno/vibe-investing) — a repo with 53+ stars on GitHub.
+From [monarchjuno/vibe-investing](https://github.com/monarchjuno/vibe-investing) — a repo with 284+ stars on GitHub.
 
 ---
 
