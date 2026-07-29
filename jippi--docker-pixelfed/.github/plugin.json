@@ -1,0 +1,9 @@
+{
+  "name": "jippi--docker-pixelfed",
+  "displayName": "docker-pixelfed",
+  "description": "docker-pixelfed",
+  "version": "1.0.0",
+  "author": "jippi",
+  "homepage": "https://github.com/jippi/docker-pixelfed",
+  "skills": []
+}
