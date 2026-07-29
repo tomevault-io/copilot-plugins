@@ -1,0 +1,28 @@
+# rentemester
+
+> Source: [mikkelkrogsholm/rentemester](https://github.com/mikkelkrogsholm/rentemester). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [mikkelkrogsholm/rentemester](https://github.com/mikkelkrogsholm/rentemester).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [mikkelkrogsholm/rentemester](https://github.com/mikkelkrogsholm/rentemester) — a repo with 91+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install mikkelkrogsholm/rentemester
+```
+Source: [github.com/mikkelkrogsholm/rentemester](https://github.com/mikkelkrogsholm/rentemester).
+
+<!-- genome:d-i-s -->
