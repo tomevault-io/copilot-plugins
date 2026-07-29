@@ -4,7 +4,7 @@
   "repo": "d3-heatmap2",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spiermar/d3-heatmap2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T16:40:52Z"
+  "distributed_at": "2026-07-29T06:52:07Z"
 }
