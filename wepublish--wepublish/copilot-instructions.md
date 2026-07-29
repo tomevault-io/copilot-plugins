@@ -1,82 +1,200 @@
 ## wepublish
 
-> Align all code suggestions, architecture recommendations, and technical solutions with this stack unless explicitly requested otherwise.
+> Every domain module follows this pattern:
 
-# We.Publish Tech Stack
+# We.Publish Coding Conventions
 
-Align all code suggestions, architecture recommendations, and technical solutions with this stack unless explicitly requested otherwise.
+## NestJS Backend Patterns
 
-## Frontend
+### Module Structure
 
-- **Next.js 15** with TypeScript (Pages Router, not App Router)
-- **React 18**
-- **Material UI (MUI)** as UI component library — styling via `styled()` with tagged template literals (`@emotion/styled`)
-- **Apollo Client** for GraphQL communication (with generated hooks via GraphQL Code Generator)
-- **React Hook Form** for forms
-- **Zod** for schema validation
-- **React Icons** for icons
-- **react-i18next** for internationalization
-- **Storybook** for component development and documentation
-- **React Router v6** for client-side routing in the editor app
+Every domain module follows this pattern:
 
-## Backend
+```typescript
+@Module({
+  imports: [PrismaModule, /* other domain modules */],
+  providers: [MyService, MyResolver, MyDataloaderService],
+  exports: [MyService, MyDataloaderService],
+})
+export class MyModule {}
+```
 
-- **NestJS 11** as the server framework
-- **PostgreSQL 17** as the database
-- **Prisma 5** as ORM — schema at `libs/api/prisma/schema.prisma`
-- **Apollo Server** for GraphQL API (code-first approach with NestJS decorators)
-- **Pino** for structured logging
-- **Sentry** for error tracking
+### Service Pattern
 
-## Monorepo & Build
+Services are `@Injectable()` and inject `PrismaClient` directly. Use `@PrimeDataLoader()` to populate the dataloader cache on service calls:
 
-- **Nx 20** as the monorepo build system
-- **Webpack** for bundling
-- **Babel / SWC** for transpilation
-- **Node.js 22** runtime
+```typescript
+@Injectable()
+export class ArticleService {
+  constructor(
+    private prisma: PrismaClient,
+    private trackingPixelService: TrackingPixelService
+  ) {}
 
-## API Communication
+  @PrimeDataLoader(ArticleDataloaderService)
+  async getArticleBySlug(slug: string) {
+    return this.prisma.article.findFirst({ where: { slug } });
+  }
+}
+```
 
-- **GraphQL** is the standard for all API communication
-- Schema is generated code-first from NestJS decorators (`@Resolver`, `@Query`, `@Mutation`, `@ResolveField`)
-- GraphQL Code Generator produces TypeScript types and React hooks for the frontend
-- REST APIs are only used for external CMS connections
+### Resolver Pattern
 
-## Testing
+Resolvers use NestJS GraphQL decorators with auth/permission decorators:
 
-- **Jest 29** as the test runner
-- **@nestjs/testing** for backend service/resolver unit tests
-- **Testing Library** for frontend component tests
-- Test commands: `npm run test`, `npm run test-backend`, `npm run test-website`
+```typescript
+@Resolver(() => Article)
+export class ArticleResolver {
+  constructor(
+    private articleDataloader: ArticleDataloaderService,
+    private articleService: ArticleService
+  ) {}
 
-## Cloud & Hosting
+  @Public()
+  @Query(() => Article)
+  async article(@Args('id', { nullable: true }) id?: string) { ... }
 
-- **OpenShift** (self-hosted Kubernetes)
-- **Helm** charts for deployment configuration
-- **Argo CD / Flux** for GitOps-based deployments
+  @Permissions(CanCreateArticle)
+  @Mutation(() => Article)
+  async createArticle(
+    @Args() input: CreateArticleInput,
+    @CurrentUser() user: UserSession | undefined
+  ) { ... }
 
-## CI/CD
+  @ResolveField(() => [Tag])
+  async tags(@Parent() parent: PArticle) { ... }
+}
+```
 
-- **GitHub Actions** for all build, test, and deployment pipelines
-- Review environments deployed per PR
-- Docker images pushed to GitHub Container Registry (GHCR)
+### Dataloader Pattern
 
-## Containerization
+Every entity that is resolved as a field should have a dataloader to prevent N+1 queries:
 
-- **Docker** for local development (`docker-compose.yml`)
-- Multi-stage Dockerfile for all production builds (API, editor, website, media, migration, storybook)
-- **MinIO** as S3-compatible object storage for media in local dev
+```typescript
+@Injectable()
+export class ArticleDataloaderService {
+  constructor(private prisma: PrismaClient) {}
+  // Batches multiple IDs into a single query
+}
+```
 
-## Infrastructure as Code
+### GraphQL Models
 
-- **Terraform** for infrastructure management
+Models use `@ObjectType()`, `@Field()`, and `@InputType()` decorators. Input validation uses class-validator or Zod. Args classes use `@ArgsType()`:
 
-## Payments & External Services
+```typescript
+@ObjectType()
+export class Article {
+  @Field() id!: string;
+  @Field() title!: string;
+}
 
-- Payment providers: **Stripe**, **Mollie**, **Payrexx**, **Bexio**
-- Email: **Mailgun**, **Mailchimp**, custom providers
-- Media: S3-compatible storage with image transformation server
+@ArgsType()
+export class ArticleListArgs {
+  @Field(() => Int, { nullable: true }) take?: number;
+  @Field({ nullable: true }) cursorId?: string;
+}
+```
+
+### Auth Decorators
+
+- `@Public()` — endpoint requires no authentication
+- `@CurrentUser()` — injects the current `UserSession` (or undefined)
+- `@Permissions(CanCreateArticle)` — requires specific permission
+- `@PreviewMode()` — checks if the user has preview access
+
+## React Frontend Patterns
+
+### Component Structure
+
+Components use MUI with Emotion styled components:
+
+```typescript
+import { Button as MuiButton } from '@mui/material';
+import { ComponentProps, PropsWithChildren } from 'react';
+
+export type ButtonProps = PropsWithChildren<ComponentProps<typeof MuiButton>>;
+
+export function Button({ children, variant = 'contained', ...props }: ButtonProps) {
+  return <MuiButton {...props} variant={variant}>{children}</MuiButton>;
+}
+```
+
+### Styling
+
+Use `@emotion/styled` with tagged template literals for custom styling:
+
+```typescript
+import styled from '@emotion/styled';
+
+const Wrapper = styled('div')`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing(2)};
+`;
+```
+
+Do NOT use CSS files or CSS modules. All styling is CSS-in-JS via Emotion.
+
+### GraphQL Integration
+
+Use Apollo Client with generated hooks from GraphQL Code Generator:
+
+```typescript
+import { useArticleQuery, useCreateArticleMutation } from '@wepublish/editor/api';
+
+function ArticlePage({ id }: { id: string }) {
+  const { data, loading } = useArticleQuery({ variables: { id } });
+  const [createArticle] = useCreateArticleMutation();
+}
+```
+
+### Forms
+
+Use React Hook Form with Zod for validation:
+
+```typescript
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const schema = z.object({ title: z.string().min(1) });
+const { register, handleSubmit } = useForm({ resolver: zodResolver(schema) });
+```
+
+### i18n
+
+Use `react-i18next` for translations:
+
+```typescript
+import { useTranslation } from 'react-i18next';
+const { t } = useTranslation();
+```
+
+## File Naming Conventions
+
+- NestJS files: `<name>.module.ts`, `<name>.service.ts`, `<name>.resolver.ts`, `<name>.model.ts`
+- Test files: `<name>.spec.ts` (co-located with source)
+- React components: PascalCase function names, kebab-case file names
+- Storybook: `<name>.stories.tsx`
+
+## Import Conventions
+
+Always use `@wepublish/` path aliases, never relative imports across library boundaries:
+
+```typescript
+// Correct
+import { ArticleModule } from '@wepublish/article/api';
+
+// Wrong — never cross lib boundaries with relative imports
+import { ArticleModule } from '../../../article/api/src';
+```
+
+## Error Handling
+
+- Backend: throw NestJS exceptions (`NotFoundException`, `BadRequestException`) or custom error classes
+- Frontend: Apollo Client error handling via `onError` link and per-query error states
+- Sentry integration for error tracking in both frontend and backend
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/wepublish) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [wepublish/wepublish](https://github.com/wepublish/wepublish) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
