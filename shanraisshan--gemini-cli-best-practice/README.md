@@ -1,8 +1,6 @@
 # AI instruction files for gemini-cli-best-practice
 
-> Sourced from [shanraisshan/gemini-cli-best-practice](https://github.com/shanraisshan/gemini-cli-best-practice) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-from vibe coding to agentic engineering - practice makes gemini perfect
+> Sourced from [shanraisshan/gemini-cli-best-practice](https://github.com/shanraisshan/gemini-cli-best-practice), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,11 @@ Original source: `GEMINI.md` in [shanraisshan/gemini-cli-best-practice](https://
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/shanraisshan/gemini-cli-best-practice](https://github.com/shanraisshan/gemini-cli-best-practice)
+## Bundled Skills (1)
+
+- [gemini-cli-best-practice](https://github.com/shanraisshan/gemini-cli-best-practice/tree/main/.gemini/skills/weather-svg-creator/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/shanraisshan/gemini-cli-best-practice](https://github.com/shanraisshan/gemini-cli-best-practice)
 
 ---
 
