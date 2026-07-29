@@ -2,9 +2,9 @@
   "name": "egolens",
   "owner": "egolens",
   "repo": "egolens",
-  "description": "Browser-based 3D perception explorer for Waymo, nuScenes, and Argoverse 2 ",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/egolens/egolens",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T22:23:51Z"
+  "distributed_at": "2026-07-29T07:18:40Z"
 }
