@@ -1,0 +1,9 @@
+{
+  "name": "robertdebock--ansible-role-update",
+  "displayName": "ansible-role-update",
+  "description": "ansible-role-update",
+  "version": "1.0.0",
+  "author": "robertdebock",
+  "homepage": "https://github.com/robertdebock/ansible-role-update",
+  "skills": []
+}
