@@ -4,7 +4,7 @@
   "repo": "addon-netbird",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/netbirdio",
+  "source_url": "https://github.com/netbirdio/addon-netbird",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T23:47:01Z"
+  "distributed_at": "2026-07-29T20:44:15Z"
 }
