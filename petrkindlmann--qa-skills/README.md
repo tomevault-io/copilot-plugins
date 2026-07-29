@@ -1,17 +1,17 @@
 # AI instruction files for qa-skills
 
-> Sourced from [petrkindlmann/qa-skills](https://github.com/petrkindlmann/qa-skills) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [petrkindlmann/qa-skills](https://github.com/petrkindlmann/qa-skills), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 50 QA and test-automation skills for Claude Code, Codex, Cursor, and any Agent Skills Standard runtime.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [petrkindlmann/qa-skills](https://github.com/petrkindlmann/qa-skills).
+Original source: `AGENTS.md` in [petrkindlmann/qa-skills](https://github.com/petrkindlmann/qa-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
