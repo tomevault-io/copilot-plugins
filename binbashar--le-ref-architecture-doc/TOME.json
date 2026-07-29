@@ -4,7 +4,7 @@
   "repo": "le-ref-architecture-doc",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/binbashar/le-ref-architecture-doc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T16:49:14Z"
+  "distributed_at": "2026-07-29T05:04:42Z"
 }
