@@ -4,7 +4,7 @@
   "repo": "qa-skills",
   "description": "50 QA and test-automation skills for Claude Code, Codex, Cursor, and any Agent Skills Standard runtime.",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/petrkindlmann/qa-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T18:30:25Z"
+  "distributed_at": "2026-07-29T12:16:33Z"
 }
