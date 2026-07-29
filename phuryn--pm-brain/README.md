@@ -1,6 +1,6 @@
 # AI instruction files for pm-brain
 
-> Sourced from [phuryn/pm-brain](https://github.com/phuryn/pm-brain) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [phuryn/pm-brain](https://github.com/phuryn/pm-brain), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [phuryn/pm-brain](https://github.com/phuryn/pm-b
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [phuryn/pm-brain](https://github.com/phuryn/pm-brain) — a repo with 12+ stars on GitHub.
+From [phuryn/pm-brain](https://github.com/phuryn/pm-brain) — a repo with 0+ stars on GitHub.
 
 ---
 
