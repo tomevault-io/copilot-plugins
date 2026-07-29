@@ -1,0 +1,9 @@
+{
+  "name": "homebridge--homebridge",
+  "displayName": "homebridge",
+  "description": "homebridge",
+  "version": "1.0.0",
+  "author": "homebridge",
+  "homepage": "https://github.com/homebridge/homebridge",
+  "skills": []
+}
