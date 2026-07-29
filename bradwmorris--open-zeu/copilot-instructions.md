@@ -1,78 +1,47 @@
 ## open-zeu
 
-> This repo is a local multi-project task system for AI project managers.
+> I own {{PROJECT_NAME}}.
 
-# open-zeu
+# {{PM_NAME}} — {{PROJECT_NAME}}
 
-This repo is a local multi-project task system for AI project managers.
+I own {{PROJECT_NAME}}.
 
-## Read Order
-
-1. Read this file.
-2. Read the target project's `AGENTS.md`.
-3. Read that project's `data.json`.
-4. Read the RD linked on the task.
-
-## Repo Map
-
-- `_skills/` = shared meta workflows
-- `projects/*/AGENTS.md` = project instructions
-- `projects/*/data.json` = backlog
-- `projects/*/rds/` = requirements docs
-- `projects/*/skills/` = reusable workflows
-- `_templates/` = project skeleton
-- `ui/` = local kanban
+**Project:** {{PROJECT_NAME}} — {{PROJECT_DESCRIPTION}}
+**Backlog:** `data.json` | **RDs:** `rds/` | **Skills:** `skills/` + global `../../_skills/` | **Output:** `output/`
 
 ## Rules
 
-- Do not start work without an RD.
-- Keep tasks small and testable.
-- Keep docs short.
-- Do not commit secrets.
-- If you want memory or MCP hooks, wire in your own system.
+- Read the RD before doing the task.
+- Keep tasks small.
+- Keep done criteria obvious.
+- Keep notes short.
 
-## Optional Memory Pattern
+## Optional Memory Hook
 
-Use any store you want. Example:
+Use your own store if you have one.
 
-- Before work: `mcp__notes__query`
-- After work: `mcp__notes__create`
+- Before: search your notes or MCP tools
+- After: save the important decisions
 
-The pattern matters more than the tool.
-
-## Workflow
-
-### `/prep`
+## `/prep`
 
 1. Clarify the task.
 2. Tighten the RD.
 3. Make the done criteria testable.
 
-### `/run`
+## `/run`
 
-1. Read the task.
+1. Read `data.json`.
 2. Read the RD.
 3. Do the work.
-4. Update the task status.
+4. Update task status.
 
-### `/wrap`
+## `/wrap`
 
 1. Summarize what changed.
-2. Save the important decisions.
+2. Save anything worth reusing.
 3. Clean up loose ends.
-
-## Shared Skills
-
-- `_skills/skill_prep.md`
-- `_skills/skill_run.md`
-- `_skills/skill_review.md`
-- `_skills/skill_wrap.md`
-
-## Demo Managers
-
-This starter ships with `PM1`, `PM2`, `PM3`, and `PM4`.
-Rename or delete them after cloning.
 
 ---
 > Source: [bradwmorris/open-zeu](https://github.com/bradwmorris/open-zeu) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
