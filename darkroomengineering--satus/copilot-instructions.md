@@ -1,17 +1,14 @@
 ## satus
 
-> Engineering standards for this repo live in [AGENTS.md](./AGENTS.md). Read it first.
+> The canonical engineering standards for this repo are in [`/AGENTS.md`](/AGENTS.md). Follow it for all code changes.
 
-# Satus - AI Agent Guide
 
-Engineering standards for this repo live in [AGENTS.md](./AGENTS.md). Read it first.
+# Satus Project Guidelines
 
-`AGENTS.md` covers: enforced rules (Biome + TypeScript CI), house style conventions, code patterns, React 19 / Next.js 16 / Tailwind v4 specifics, integrations, and commands.
+The canonical engineering standards for this repo are in [`/AGENTS.md`](/AGENTS.md). Follow it for all code changes.
 
-## Claude Code Notes
-
-No Claude-Code-specific overrides at this time. All standards are in `AGENTS.md`.
+`AGENTS.md` covers: enforced Biome + TypeScript rules, house style conventions, component patterns, React 19 / Next.js 16 / Tailwind v4 specifics, integrations, and commands.
 
 ---
 > Source: [darkroomengineering/satus](https://github.com/darkroomengineering/satus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
