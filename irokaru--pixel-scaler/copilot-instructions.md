@@ -1,45 +1,53 @@
 ## pixel-scaler
 
-> Pixel Scaler — A client-side pixel art upscaling PWA/Tauri app using xBR and Nearest Neighbor algorithms. All processing runs offline for user privacy.
+> - Strict mode is enabled. All code must pass strict type checking.
 
-# AGENTS.md
+# Coding Conventions
 
-Pixel Scaler — A client-side pixel art upscaling PWA/Tauri app using xBR and Nearest Neighbor algorithms. All processing runs offline for user privacy.
+## TypeScript
 
-## Tech Stack
+- Strict mode is enabled. All code must pass strict type checking.
+- Avoid `any`. Use proper types or `unknown` when the type is truly unknown.
+- For TypeScript/JavaScript module imports, prefer `@/*` path aliases (e.g., `@/core/services/fooService`). Avoid relative paths like `../../`. Styles and test fixtures may use valid relative paths where appropriate.
+- JSDoc is **not required**. Code should be self-documenting through clear naming.
 
-Vue 3 (Composition API) / TypeScript (strict) / Vite / Pinia / Vitest / Tauri
+## Vue Components
 
-## Commands
+- Use `<script setup lang="ts">` for all components.
+- Keep component logic minimal; delegate to composables or stores.
 
-- `bun install` — Install dependencies
-- `bun run dev` — Start dev server
-- `bun run test` — Run unit tests
-- `bun run build` — Production build
+## Internationalization (i18n)
 
-## Architecture (Mandatory Rules)
+- UI text must **never** be hardcoded in components.
+- Add translation keys to `src/core/config/i18n/en.json` (and `ja.json` when possible).
+- Use `t('key.path')` in templates and scripts via `vue-i18n`.
 
-Dependency direction: **Component → Composable → Store → Service**
+## Styling
 
-- Services (`src/core/services/`) are pure TypeScript. They **MUST NOT** depend on Vue or Pinia.
-- Stores (`src/stores/`) use services for state management but contain no complex business logic.
-- Composables (`src/composables/`) use stores and provide Vue-specific reactivity.
-- Components (`src/components/`) use composables/stores only — no direct service calls.
-- Circular dependencies are strictly prohibited.
+- Use `<style lang="scss" scoped>`.
+- Use CSS variables for all colors (e.g., `var(--color-text-primary)`) to support dark/light themes.
+- Do not hardcode hex colors in components.
 
-## Key Conventions (Apply to Every Task)
+## Testing
 
-- All UI text must go through `vue-i18n` translation keys (defined in `src/core/config/i18n/`). Never hardcode user-facing strings.
-- Use `<style lang="scss" scoped>` with CSS variables (`var(--color-text-primary)`) for theming. No hardcoded hex colors.
-- Use `@/*` path aliases for all internal imports. Avoid relative paths like `../../`.
-- When modifying logic, you **must** add or update corresponding tests. Tests in `tests/unit/` mirror the `src/` structure.
-- Commit messages: concise one-liner in English. Linting/formatting runs automatically via lint-staged/husky.
+- When modifying logic, you **must** add or update corresponding tests.
+- Prefer data-driven tests with `test.each` for efficient multi-scenario coverage.
+- Tests live in `tests/unit/` and mirror the `src/` directory structure.
+- Run tests: `bun run test`
 
-## Detailed Guidelines
+## Comments
 
-- Architecture & directory details: see `docs/ARCHITECTURE.md`
-- Coding conventions & patterns: see `docs/CONVENTIONS.md`
+- `// NOTE: ...` — Explain intentional but non-obvious implementations or historical decisions.
+- `// TODO: ...` — Mark items for future consideration or implementation.
+
+## Git Workflow
+
+1. Identify which layer (Service / Store / Composable / Component) needs changes.
+2. Implement following the architecture rules in `docs/ARCHITECTURE.md`.
+3. Run `bun run test` to verify correctness.
+4. Commit — lint-staged and husky handle formatting automatically.
+5. Commit message: concise one-liner in English.
 
 ---
 > Source: [irokaru/pixel-scaler](https://github.com/irokaru/pixel-scaler) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
