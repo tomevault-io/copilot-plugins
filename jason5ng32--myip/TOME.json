@@ -4,7 +4,7 @@
   "repo": "MyIP",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jason5ng32/MyIP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T08:43:04Z"
+  "distributed_at": "2026-07-29T07:54:18Z"
 }
