@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [epam/Indigo](https://github.com/epam/Indigo).
+Original source: `CLAUDE.md` in [epam/Indigo](https://github.com/epam/Indigo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
