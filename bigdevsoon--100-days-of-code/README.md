@@ -1,8 +1,6 @@
 # 100-days-of-code
 
-> Tome by [bigdevsoon](https://github.com/bigdevsoon/100-days-of-code) — distributed by [TomeVault](https://tomevault.io)
-
-100 Days of Code | Daily Challenges | Beautifully Crafted Designs | Created for Full-stack/Frontend/Web Developers - Vibe Code with AI.
+> Tome by [bigdevsoon](https://github.com/bigdevsoon/100-days-of-code), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
