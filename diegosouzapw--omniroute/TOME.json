@@ -4,7 +4,7 @@
   "repo": "OmniRoute",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/diegosouzapw/OmniRoute",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T22:57:52Z"
+  "distributed_at": "2026-07-29T22:59:30Z"
 }
