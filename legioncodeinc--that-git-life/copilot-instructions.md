@@ -1,57 +1,24 @@
-## plan-construction-protocol
+## pr-conflict-check
 
-> Mandatory structure, model routing, and ship gate for every multi-step plan
+> Always check for and resolve merge conflicts before declaring a PR shippable
 
 
-# Plan Construction Protocol
+# PR Conflict Check
 
-Every plan you produce MUST follow this structure. No exceptions.
+Before opening a PR or declaring a branch shippable, always:
 
-## Step 1 (always first): branch off main
+1. Fetch the latest main: `git fetch origin main`
+2. Check mergeability: `gh pr view <number> --json mergeable,mergeStateStatus`
+   - Or before the PR exists: `git merge-tree $(git merge-base HEAD origin/main) HEAD origin/main`
+3. If `mergeable: "CONFLICTING"`, rebase onto main: `git rebase origin/main`
+4. Resolve every conflict file manually - keep both sides when content is additive (e.g. two execution ledgers in the same file), take the correct version when one side is stale
+5. `git add <resolved>` then `GIT_EDITOR=true git rebase --continue`
+6. `git push --force-with-lease` to update the remote branch
+7. Re-check `gh pr view --json mergeable` until it returns `"MERGEABLE"`
 
-The first step is always to pick a worktree of `main` and create a new feature branch (e.g. `git worktree add ../<feature> -b feature/<slug> main`). All subsequent work happens on that branch, never on `main`.
+## Never skip this step
 
-## Model routing (every step after step 1)
-
-For each task and sub-agent in the plan, name the best-fit model based on the scored rubric and routing heuristic in `legion-shared/model-comparison-matrix.md`. Match the task profile (reasoning depth, code quality, tool use, cost, speed, context, multimodal) to the model. State the chosen model inline with each step and a one-line justification tied to the matrix.
-
-Always use the most recent relevant version of each model. Map the matrix routing choice to one of these current spawnable slugs:
-
-- IDE-bound agentic coding: `composer-2.5` (or `composer-2.5-fast` for tight loops)
-- Deep reasoning / autonomous multi-file refactor: `claude-opus-4-8-thinking-high`
-- Broad agentic generalist (no single specialty dominant): `gpt-5.5-medium`
-- Balanced daily-driver: `claude-4.6-sonnet-medium-thinking`
-- High-throughput, cost-conscious agentic + multimodal: `gemini-3.5-flash`
-- CLI / terminal / DevOps automation: `gpt-5.3-codex-high`
-- Long-form creative / narrative: `claude-fable-5-thinking-high`
-- Open-weight / self-hosted / math-research swarms: `kimi-k2.5`
-- Build / scaffold automation: `grok-build-0.1`
-
-## Execution on /loop
-
-All plans operate execution on `/loop`. Drive each step in the loop until it completes before advancing.
-
-## Watchdog timers
-
-Spawn watchdog timers to monitor agent progress. If an agent is stalled for a reasonable amount of time, terminate it and respawn with the work distributed across agents (distributed task load). Keep doing this until the current step completes.
-
-## Second-to-last step (always): security
-
-Run `/security-worker-bee`, then remediate every flagged issue of medium severity or higher. Do not advance until all medium+ findings are fixed.
-
-## Last step (always): quality gate
-
-Run `/quality-worker-bee` in a loop, fixing any outstanding issues of medium importance or higher, until the QA report passes cleanly to that standard. Only when it passes cleanly may you declare the branch shippable.
-
-## Ship: commit, push, PR, notify
-
-Once shippable:
-
-1. Commit and push all changes to the feature branch.
-2. Open a pull request.
-3. Notify the user by returning a message containing:
-   - A link to the pull request.
-   - A summary of work completed, including the security and QA remediation steps taken.
+A PR opened with `mergeStateStatus: "DIRTY"` cannot be merged and blocks the team. Always resolve conflicts before handing off for review.
 
 ---
 > Source: [legioncodeinc/that-git-life](https://github.com/legioncodeinc/that-git-life) — distributed by [TomeVault](https://tomevault.io).
