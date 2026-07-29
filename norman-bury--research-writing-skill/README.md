@@ -1,17 +1,15 @@
 # AI instruction files for research-writing-skill
 
-> Sourced from [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-科研写作助手 (Research Writing Assistant)
+> Sourced from [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill).
+Original source: `CLAUDE.md` in [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
