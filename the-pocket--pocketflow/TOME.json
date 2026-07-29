@@ -4,7 +4,7 @@
   "repo": "PocketFlow",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Pocket/PocketFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T20:58:09Z"
+  "distributed_at": "2026-07-29T08:57:02Z"
 }
