@@ -1,8 +1,6 @@
 # AI instruction files for nilAI
 
-> Sourced from [NillionNetwork/nilAI](https://github.com/NillionNetwork/nilAI) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-nilAI is the core offering of Nillion SecretLLM a TEE-based AI inference service.
+> Sourced from [NillionNetwork/nilAI](https://github.com/NillionNetwork/nilAI), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
