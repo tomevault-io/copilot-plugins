@@ -1,7 +1,7 @@
 {
   "name": "nillionnetwork--nilai",
   "displayName": "nilAI",
-  "description": "nilAI is the core offering of Nillion SecretLLM a TEE-based AI inference service.",
+  "description": "nilAI",
   "version": "1.0.0",
   "author": "NillionNetwork",
   "homepage": "https://github.com/NillionNetwork/nilAI",
