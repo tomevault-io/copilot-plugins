@@ -1,97 +1,71 @@
 ## antd-admin
 
-> This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. Vite+ is distinct from Vite, but it invokes Vite through `vp dev` and `vp build`.
+> Use when adding a new CRUD resource (roles, tenants, etc.). Keywords: add resource, new resource, scaffold, CRUD page.
 
-# Using Vite+, the Unified Toolchain for the Web
 
-This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. Vite+ is distinct from Vite, but it invokes Vite through `vp dev` and `vp build`.
+# Add Resource Recipe
 
-## Vite+ Workflow
+Add a list CRUD flow in `apps/with-lingui` that mirrors **Users** (TanStack Router + Query + MSW + Lingui). There is **no** codegen script: **copy and adapt by hand** using the steps below, or have an Agent follow this checklist. Primary references: `src/routes/_auth/users/` and the matching `e2e/*.spec.ts` files.
 
-`vp` is a global binary that handles the full development lifecycle. Run `vp help` to print a list of commands and `vp <command> --help` for information about a specific command.
+## 0. Verification commands (after your changes)
 
-### Start
+```bash
+cd apps/with-lingui
+pnpm run build             # refresh TanStack routeTree when routes change
+pnpm exec vp check --no-fmt
+pnpm run test:e2e -- e2e/<slug>.spec.ts
+```
 
-- create - Create a new project from a template
-- migrate - Migrate an existing project to Vite+
-- config - Configure hooks and agent integration
-- staged - Run linters on staged files
-- install (`i`) - Install dependencies
-- env - Manage Node.js versions
+## 1. Zod and types (`src/api/schemas.ts`)
 
-### Develop
+- Define `<Entity>Schema`, `Create<Entity>RequestSchema`, `Update<Entity>RequestSchema` (`Update` = `Create.partial()`).
+- Reuse `PaginatedResponseSchema(<Entity>Schema)` for list responses.
+- Export `type <Entity> = z.infer<typeof ...>`.
 
-- dev - Run the development server
-- check - Run format, lint, and TypeScript type checks
-- lint - Lint code
-- fmt - Format code
-- test - Run tests
+## 2. Endpoint constants (`src/api/<slug>.ts`)
 
-### Execute
+- Export `<SLUG_UPPER>_ENDPOINTS`: `list` / `create` / `update(id)` / `delete(id)` with paths like `/api/<slug>`.
 
-- run - Run monorepo tasks
-- exec - Execute a command from local `node_modules/.bin`
-- dlx - Execute a package binary without installing it as a dependency
-- cache - Manage the task cache
+## 3. Mock data (`src/mocks/data.ts`)
 
-### Build
+- Append a `MOCK_<ENTITIES>` array. For **admin** users, `permissions` must include `<slug>:view` (and create/edit/delete if you add writes), aligned with `GET /api/auth/permissions`.
 
-- build - Build for production
-- pack - Build libraries
-- preview - Preview production build
+## 4. MSW (`src/mocks/handlers/<slug>.ts` + `handlers/index.ts`)
 
-### Manage Dependencies
+- Follow `handlers/user.ts`: paginated `GET` + optional `keyword`, `POST` / `PUT` / `DELETE`; use `successWithSchema` / `paginatedWithSchema` / `successWithNullBody` for success and `errorResponse` for errors.
+- Register `...<slug>Handlers` in `handlers/index.ts`.
 
-Vite+ automatically detects and wraps the underlying package manager such as pnpm, npm, or Yarn through the `packageManager` field in `package.json` or package manager-specific lockfiles.
+## 5. Route page (`src/routes/_auth/<slug>/`)
 
-- add - Add packages to dependencies
-- remove (`rm`, `un`, `uninstall`) - Remove packages from dependencies
-- update (`up`) - Update packages to latest versions
-- dedupe - Deduplicate dependencies
-- outdated - Check for outdated packages
-- list (`ls`) - List installed packages
-- why (`explain`) - Show why a package is installed
-- info (`view`, `show`) - View package information from the registry
-- link (`ln`) / unlink - Manage local package links
-- pm - Forward a command to the package manager
+- `createFileRoute("/_auth/<slug>/")`, wiring `useResourceCRUD` (recommended: `optimistic: { update: true, delete: true }`), `useCrudToasts`, `useUrlSearchState`, `useTableFitHeight` (see `users/` for splitting `-Toolbar` / `-FormModal`).
+- **Lingui**: run `pnpm run i18n:extract && pnpm run i18n:compile` for new copy (or `vp exec lingui …`).
 
-### Maintain
+## 6. Menu and permissions (`src/utils/appMenu.ts`)
 
-- upgrade - Update `vp` itself to the latest version
+- Add a menu entry to `APP_MENU_TREE`: `path: "/<slug>"`, `permissions: ["<slug>:view"]`, `icon` using a Sidebar-registered key (see existing `IconLucide*` entries in `Sidebar`).
+- Keep behavior consistent with `canAccessPath` / 403.
 
-These commands map to their corresponding tools. For example, `vp dev --port 3000` runs Vite's dev server and works the same as Vite. `vp test` runs JavaScript tests through the bundled Vitest. The version of all tools can be checked using `vp --version`. This is useful when researching documentation, features, and bugs.
+## 6b. Sidebar labels and icons (`src/components/Layout/Sidebar/index.tsx`)
 
-## Common Pitfalls
+- In `MENU_LABELS`, add a Lingui `msg` entry for the menu item `name` (must match the `name` string from `appMenu`).
+- In `MENU_ICON_MAP`, map the new `icon` key to a `lucide-react` icon and add the matching `import`.
+- Then run `pnpm run i18n:extract && pnpm run i18n:compile` and fill in `zh` (and other locale) translations.
 
-- **Using the package manager directly:** Do not use pnpm, npm, or Yarn directly. Vite+ can handle all package manager operations.
-- **Always use Vite commands to run tools:** Don't attempt to run `vp vitest` or `vp oxlint`. They do not exist. Use `vp test` and `vp lint` instead.
-- **Running scripts:** Vite+ commands take precedence over `package.json` scripts. If there is a `test` script defined in `scripts` that conflicts with the built-in `vp test` command, run it using `vp run test`.
-- **Do not install Vitest, Oxlint, Oxfmt, or tsdown directly:** Vite+ wraps these tools. They must not be installed directly. You cannot upgrade these tools by installing their latest versions. Always use Vite+ commands.
-- **Use Vite+ wrappers for one-off binaries:** Use `vp dlx` instead of package-manager-specific `dlx`/`npx` commands.
-- **Import JavaScript modules from `vite-plus`:** Instead of importing from `vite` or `vitest`, all modules should be imported from the project's `vite-plus` dependency. For example, `import { defineConfig } from 'vite-plus';` or `import { expect, test, vi } from 'vite-plus/test';`. You must not install `vitest` to import test utilities.
-- **Type-Aware Linting:** There is no need to install `oxlint-tsgolint`, `vp lint --type-aware` works out of the box.
+## 7. E2E (`e2e/<slug>.spec.ts`)
 
-## Review Checklist for Agents
+- Copy structure from `users.spec.ts`: `loginAsAdmin` → `goto /<slug>`, assert headers / search placeholder, etc.
 
-- Run `vp install` after pulling remote changes and before getting started.
-- Run `vp check` and `vp test` to validate changes.
+## 8. Verification
 
-## Monorepo git hooks
+- `pnpm exec vp check --no-fmt`
+- `pnpm run test:e2e:core` (if you add the new spec to core) or `pnpm exec playwright test e2e/<slug>.spec.ts`
+- `pnpm run build` and watch chunk sizes in the log
 
-When this app lives under a monorepo, `git config core.hooksPath` may point at `.vite-hooks/_` here while commits run with the **repository root** as cwd. The checked-in `.vite-hooks/pre-commit` script dispatches `vp staged` into `apps/with-lingui` and `apps/basic` based on staged paths (and runs `pnpm --dir packages/create run check-types` for matching `packages/create` sources) so each app’s `vite.config.ts` is found.
+## Notes
 
-## AI Instruction Files
-
-This repository also uses scoped AI instruction files in `.github/instructions/`.
-
-- `frontend.instructions.md` for UI/routes/components/style work
-- `testing.instructions.md` for Playwright/MSW/test updates
-- `api.instructions.md` for API/schema/handler changes
-- `refactor.instructions.md` for behavior-preserving cleanup
-- `add-resource.instructions.md` for adding a new CRUD resource (checklist; mirror `users`)
-
-See `.github/instructions/README.md` for usage and authoring rules.
+- Before adding or renaming files, confirm nothing already exists at that path so you do not overwrite hand-written code.
+- After manual schema edits, treat the diff as source of truth; there is no automatic merge.
 
 ---
 > Source: [zuiidea/antd-admin](https://github.com/zuiidea/antd-admin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
