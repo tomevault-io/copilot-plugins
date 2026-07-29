@@ -1,0 +1,9 @@
+{
+  "name": "pwndbg--pwndbg",
+  "displayName": "pwndbg",
+  "description": "pwndbg",
+  "version": "1.0.0",
+  "author": "pwndbg",
+  "homepage": "https://github.com/pwndbg/pwndbg",
+  "skills": []
+}
