@@ -26,17 +26,11 @@ This file is the canonical guardrails + pointers for Codex work in this repo.
 - `docs/design/config-flow-contract.md`
 - `docs/design/calendar-contract.md`
 - `docs/design/sensor-contract.md`
+- `docs/design/card-contract.md`
 
 ## Context for Codex
-- `docs/context.md`
 - `docs/decisions.md`
 - `test/fixtures/usecases.json` (UC catalog)
-
-## Legacy references
-- `docs/resume_prompt.txt` (legacy backup)
-- `docs/design/filtering-design-checkpoint.md` (legacy backup)
-- `docs/design/filtering-config-flow-design.md` (legacy backup)
-- `docs/vibe/context.md` (legacy, empty)
 
 ## Project file structure (in-file)
 - `custom_components/skolmat/`: Home Assistant integration code.
@@ -52,6 +46,12 @@ This file is the canonical guardrails + pointers for Codex work in this repo.
 - Bootstraps HA `.storage` from `.devcontainer/ha_config_bootstrap/.storage`.
 - Ports: 8123 (HA) and 5678 (debugpy).
 
+## Home Assistant system model
+- `/home/vscode/ha_config/`: Home Assistant configuration dir
+- `/home/vscode/ha_core/`: Home Assistant Core repository and installation dir
+- `/workspace/skolmat`: Repo mount dir
+- `/workspace/skolmat/.devcontainer/`: devcontainer setup dir. Usefull for understanding system setup and installation procedure
+
 ## Generic guardrails (in-file)
 - Do not modify design contracts unless explicitly requested.
 - Treat `test/fixtures/usecases.json` as ground truth. All implemented logic should be represented in this file. Suggest updates when neccesary.
@@ -65,8 +65,8 @@ This file is the canonical guardrails + pointers for Codex work in this repo.
 - Avoid editing legacy backups unless explicitly asked.
 - Use UTF-8 when Swedish terms or data require it; do not force ASCII where it harms clarity.
 - Log important decisions in `docs/decisions.md` without waiting for confirmation.
+- Dont overengineer things, keep it simple when possible
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Kaptensanders)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Kaptensanders)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [Kaptensanders/skolmat](https://github.com/Kaptensanders/skolmat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
