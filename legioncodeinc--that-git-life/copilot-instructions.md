@@ -1,45 +1,57 @@
-## no-em-dashes
+## plan-construction-protocol
 
-> Never use em dashes (or en dashes) in prose written for the user
+> Mandatory structure, model routing, and ship gate for every multi-step plan
 
 
-# No em dashes
+# Plan Construction Protocol
 
-Do not use em dashes (`—`, U+2014) or en dashes (`–`, U+2013) in any prose written for the user. This applies to chat responses, documentation, commit messages, PR descriptions, code comments, and any other content authored on the user's behalf. Regular hyphens (`-`, U+002D) are fine.
+Every plan you produce MUST follow this structure. No exceptions.
 
-## What to use instead
+## Step 1 (always first): branch off main
 
-Pick the punctuation that matches the relationship between the clauses:
+The first step is always to pick a worktree of `main` and create a new feature branch (e.g. `git worktree add ../<feature> -b feature/<slug> main`). All subsequent work happens on that branch, never on `main`.
 
-- **Comma** — brief pause or parenthetical
-  - BAD: `Legion is fast — and signed.`
-  - GOOD: `Legion is fast, and signed.`
+## Model routing (every step after step 1)
 
-- **Colon** — elaboration or definition
-  - BAD: `Legion has one job — find leaks.`
-  - GOOD: `Legion has one job: find leaks.`
+For each task and sub-agent in the plan, name the best-fit model based on the scored rubric and routing heuristic in `legion-shared/model-comparison-matrix.md`. Match the task profile (reasoning depth, code quality, tool use, cost, speed, context, multimodal) to the model. State the chosen model inline with each step and a one-line justification tied to the matrix.
 
-- **Parentheses** — aside
-  - BAD: `Legion — a senior team in a box — signs everything.`
-  - GOOD: `Legion (a senior team in a box) signs everything.`
+Always use the most recent relevant version of each model. Map the matrix routing choice to one of these current spawnable slugs:
 
-- **Period** — two independent thoughts
-  - BAD: `Connect your repo — get a signed report in minutes.`
-  - GOOD: `Connect your repo. Get a signed report in minutes.`
+- IDE-bound agentic coding: `composer-2.5` (or `composer-2.5-fast` for tight loops)
+- Deep reasoning / autonomous multi-file refactor: `claude-opus-4-8-thinking-high`
+- Broad agentic generalist (no single specialty dominant): `gpt-5.5-medium`
+- Balanced daily-driver: `claude-4.6-sonnet-medium-thinking`
+- High-throughput, cost-conscious agentic + multimodal: `gemini-3.5-flash`
+- CLI / terminal / DevOps automation: `gpt-5.3-codex-high`
+- Long-form creative / narrative: `claude-fable-5-thinking-high`
+- Open-weight / self-hosted / math-research swarms: `kimi-k2.5`
+- Build / scaffold automation: `grok-build-0.1`
 
-- **Semicolon** — two related independent clauses
-  - BAD: `Scanners run in isolation — every container self-destructs.`
-  - GOOD: `Scanners run in isolation; every container self-destructs.`
+## Execution on /loop
 
-## Exceptions
+All plans operate execution on `/loop`. Drive each step in the loop until it completes before advancing.
 
-- Preserve em or en dashes inside verbatim user quotes.
-- Preserve em or en dashes inside code, regex, JSON, or any literal data being matched or processed.
-- Do not rewrite em or en dashes in pre-existing file content that is outside the scope of the current edit.
+## Watchdog timers
 
-## Self-check before sending
+Spawn watchdog timers to monitor agent progress. If an agent is stalled for a reasonable amount of time, terminate it and respawn with the work distributed across agents (distributed task load). Keep doing this until the current step completes.
 
-Before sending any response or saving any file, scan the output for `—` and `–`. If found in newly authored prose, replace per the substitution table above.
+## Second-to-last step (always): security
+
+Run `/security-worker-bee`, then remediate every flagged issue of medium severity or higher. Do not advance until all medium+ findings are fixed.
+
+## Last step (always): quality gate
+
+Run `/quality-worker-bee` in a loop, fixing any outstanding issues of medium importance or higher, until the QA report passes cleanly to that standard. Only when it passes cleanly may you declare the branch shippable.
+
+## Ship: commit, push, PR, notify
+
+Once shippable:
+
+1. Commit and push all changes to the feature branch.
+2. Open a pull request.
+3. Notify the user by returning a message containing:
+   - A link to the pull request.
+   - A summary of work completed, including the security and QA remediation steps taken.
 
 ---
 > Source: [legioncodeinc/that-git-life](https://github.com/legioncodeinc/that-git-life) — distributed by [TomeVault](https://tomevault.io).
