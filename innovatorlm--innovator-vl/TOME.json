@@ -4,7 +4,7 @@
   "repo": "Innovator-VL",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/InnovatorLM/Innovator-VL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T21:03:29Z"
+  "distributed_at": "2026-07-29T17:14:19Z"
 }
