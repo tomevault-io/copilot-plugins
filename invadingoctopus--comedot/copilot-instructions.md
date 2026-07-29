@@ -1,0 +1,207 @@
+## comedot
+
+> 1. Underscores == ugly
+
+# Comedot Coding Conventions & Design Guidelines
+
+## Axioms of Goom
+
+1. Underscores == ugly
+
+2. Tabs > Spaces
+
+3. camelCase == bestCase
+
+This is the Truth of the Universe.
+
+----
+
+
+> [!TIP]
+> Most of this is the opinion of the sole maintainer @ShinryakuTako on GitHub but if you're smart it should be yours too.
+
+I come from Swift and I love it so this framework attempts to mimic the Swift API Design Guidelines unless when it's highly inconvenient within Godot: https://www.swift.org/documentation/api-design-guidelines/
+
+
+## Voidspace
+
+* Tabs instead of Spaces
+	- Because GDScript is an indentation-based language :)
+	- A single missing or extra space could cause errors.
+	- Visual representation can be customized per user and easier to view with visible tabs etc.
+	- Easier to navigate.
+	- Fewer bytes to store.
+
+* 2 empty lines between functions and different regions of code, such as parameters, signals, state properties etc.
+	- This is what the default Godot script templates start with.
+	- Adds more clear visual separation between distinct sections.
+
+
+## Case
+
+* NO underscores whenever possible!
+	- Less clutter
+	- Fewer keystrokes  
+	(Thanks Stannis!)
+
+* camelCase for everything, even constants.
+	- No extra SHIFT press needed to start autocomplete etc.
+
+* Capitalized names for Types only.
+
+* Short acronyms may be fully capitalized.
+	- Examples: UINode, HUDColor
+
+* Text names/IDs such as for node groups, input actions and animations should be camelCase, to match the convention of enums: `GlobalInput.Actions.yeet = &"yeet"`
+
+
+## Names
+
+* Names should make grammatical sense wherever possible.
+
+* Booleans should start with `is`, `has`, `should` etc.
+	- This may make autocompletion easier by listing all booleans together.
+	- Avoid ambiguity with "verbs" e.g.`showDebugInfo` could be a function name.
+	- `bool` parameters in function/methods calls may be named as verbs/commands to match the function convention e.g. `skipEmptyCells` in `randomizeTileMapCells()`
+
+* Components that manage a collection of a certain Resource may pluralize the name of that resource, such as `StatsComponent` because `StatComponent` may be ambiguous and imply that it is a certain specific single stat (such as `HealthComponent` which specifically names the state).
+
+
+### Functions & Methods
+
+* Function names should read like a verb/command/action: e.g. `doSomething()` or `checkValidity()`
+
+* Functions that perform a quick & "cheap" retrieval operation, like returning a member from an Array or Dictionary, should be named starting with `get`: e.g. `getComponent(…)`
+
+* Functions that need to do a slower _search_ operation, like scanning a list of all child nodes, should be named starting with `find`: e.g. `findComponent(…)`
+
+* Functions that add an _existing_ object to a parent, container or list, should be named starting with `add`: e.g. `addText(…)`
+
+* Functions that _create_ a new object and then add it to a parent, should be named starting with `create`: e.g. `createLabel(…)`
+
+* Godot is a dummy about not having argument labels, so some arguments like `true`/`false` may be mysterious and ambiguous at the call point; add labels manually in a trailing comment: e.g. `doSomeAction(someObject, true, false) # logResult, skipCooldown`
+
+
+### Signals
+
+* Signals should generally be named in this form: {object/category}{tense}{event} e.g. `healthDidDecrease`
+* or, if the ACTION is the focus: {action}{object} e.g. `didSpawnEntity`
+* or, if the OBJECT is the focus: {object}{action} e.g. `entityDidSpawn`
+* Signal names should begin with a `did` or `will` wherever it makes sense.
+	- This allows the event handlers to know exactly at what point the effects of their code will occur.
+	- This ensure consistency in words by reducing English jankery: `didDecrease` vs `decreased`, `didRunOut` vs `ranOut`
+	- `ammoInsufficient` does not make sense in a past or future tense, so it is exempt.
+	- If there are no "did" or "will" variants the tense can be omitted, e.g. `onCollide`.
+
+_Examples:_
+```
+signal healthDidZero
+signal didFire(bullet: Entity)
+signal didSpawn(newSpawn: Node2D, parent: Node2D)
+signal willRemoveFromEntity
+```
+
+* Functions that handle signals should be named in this form: `on[ObjectThatEmittedSignal]_[signal]`
+	- If the script is attached to the node which emits the signal, then simply: `on[Signal]`
+	- If the object name is a short single word, then the _ underscore may be omitted: `onAreaEntered` instead of `onArea_entered`
+	- Yes, this is the ONLY place where underscores are tolerated, because we can't use a — dash etc. :')
+
+_Examples:_
+```
+func onCollectibleComponent_didCollideCollector(…)
+func onGunComponent_didDepleteAmmo()
+func onHealthChanged(…)
+func onTimeout() # in the script of a Timer node
+```
+
+### Files
+
+* Filenames should be clear and precise. 
+* Add suffixes like `Entity` and `Component` to assist referencing and searching etc.: `MonsterEntity.gd`, `MonsterAttackComponent.gd` etc.
+	- There may be exceptions for brevity for certain resources such as `Health.gd` instead of `HealthStat.gd` unless there is ambiguity.
+* Filenames should be _concise_ but they don't have to be _short:_ e.g. `TurnBasedTileBasedPlatformerControlComponent` :')
+* Standalone scripts that are not for an entity or component, should be named as a verb describing the action if applicable, e.g. `Spin.gd` and `SnapToMouse.gd`.
+* Game-specific files should generally start with the short form of the game's name or codename, e.g. `EldenPlayerEntity.gd` or `ERPlayerEntity.gd` if the game's name is "Elden Ring", or `InvadersMonsterEntity.gd` if the game's codename is "Invaderslike".
+
+
+## Resources
+
+* Resources like [Stat] and [Upgrade] should ONLY CONTAIN INFORMATION and validation functions.
+* Resources should NOT contain WHERE THEY ARE USED; an Upgrade should NOT hold a reference to the [UpgradesComponent] where it's "installed"; that should be the job of the component.
+* "Passing" Resources that are supposed to stay "unique" between different "owners", like a special Upgrade between 2 UpgradesComponents, should be done via a "request" flow.
+	- Example: An "UltimaSword" of which there is only one in the world. Instead of directly setting `previousOwner.removeItem(&"ultimasword")` and `newOwner.addItem(&"ultimasword")`, consider `newOwner.request(previousOwner, &"ultimasword")`
+	- Signals may be helpful such as `didTransferItem.emit(item, previousOwner, newOwner)`
+
+
+## Comments
+
+* Comments don't use BBCode. It's ugly and just dumb in 2025. Waiting for Godot to just implement Markdown already.
+
+* Comments may begin with tags for marking stuff to watch out for. Most such as TODO & FIXME are self-explanatory.
+	- TBD: (To Be Decided) or CHECK: Something that is an uncertain solution, may not be the ideal and could change in the future, but works for now.
+	- DESIGN: Explanation for decisions behind code that may seem weird or when its reason may not be immediately apparent.
+	- DEBUG: Code that is only there to aid debugging and should be commented out or removed before committing, exporting or release.
+	- FIXED/SOLVED/DONTTOUCH or similar: Code that has already solved a tricky problem and should not be messed with, otherwise the problem might resurface.
+	- WORKAROUND: Code that temporarily solves a bug in Godot etc. and may be removed after the bug has been eradicated.
+	- CREDIT: For people/sources who created certain code or resources, such as other open-source projects/contributors or third-party asset providers.
+	- THANKS: For people/sources who suggested or were the inspiration behind an idea or solution.
+
+
+## Order
+
+* Comedot generally maintains a consistent order for the common code sections in each script file:
+	1. Header: The documentation comment about what that file/class is for.
+	2. `class_name` and `extends`
+	3. Parameters: The list of `@exports` should come first because it's the external "interface".
+	4. State: The internal state that may also be relevant and accessible externally.
+	5. Signals
+	6. Dependencies
+	7. Life Cycle: `_enter_tree()`, `_ready()`, `_exit_tree()` etc. in the order that Godot calls them.
+	8. Any other functions
+	9. Debugging functions and temporary experimental code
+* The different sections may be enclosed with `#region` and `#endregion` unless they are very short, e.g. fewer than 4 lines.
+
+
+## Design
+
+* The ultimate goal is to minimize the time and effort between braining a new gameplay idea and seeing it on screen. And be easy to modify/iterate later. The focus is on 2D games.
+
+* The core of this project is the library of components: Everything else is just scaffolding to support a component-based workflow (or conveniences like UI).
+
+* HOW components are actually implemented behind-the-scenes may always keep changing, but the components themselves will always be present: e.g. there will always be a HealthComponent, a DamageComponent, a DamageReceivingComponent and so on.
+
+* Try to design from the "outside-in": i.e. first decide on what the front-end "interface" or USAGE should look like. Components should work similar to how the rest of Godot works out of the box: Creating nodes, scripts, and throwing them together and putting numbers in the Inspector sidebar.
+
+* Components are created based on abstractions in terms of _gameplay_ NOT coding abstractions, as in, how the actual play of most games can be broken down into distinct events and behaviors that could be reused even in different genres.
+
+* General over Specific: Components and scripts in Comedot's library should be designed for customization and reusability in as many different games and situations as convenient. Specialized single-purpose components should be a private part of a game project (i.e. not a shared framework). Examples:
+	* `ModifyOnCollisionComponent` instead of a RemovalOnCollisionComponent.
+	* `TreeSearchBox` instead of a search feature built into ComponentsDock.
+	* Wiring multiple components via signals: Using `ModifyOnCollisionComponent` to add a `ModifyOnTimerComponent` and connecting them to implement arrows which get stuck in walls then automatically removed, instead of creating a separate ArrowComponent.
+	* Try to solve shit using existing properties & parameters before creating new variables: TextInteractionComponent using `InteractionComponent.text` & `.isAutomatic` to resolve the visibility of the initial message, instead of adding specialized flags.
+
+* You don't HAVE to break your game into small modular components: You can have large "monolithic" components like a `PlayerComponent` and `MonsterComponent` and put all your game-specific logic in a single script.
+
+
+## Avoid
+
+* "Oversimplifying" components is NOT a goal: Each component should stick to a well-defined task, and subclasses should be used to add distinct layers of extra functionality, such as `InteractionComponent` → `InteractionWithCooldownComponent`, *but* they DON'T HAVE to always minimize the number of features, parameters or functions: Each component in the shared library should be powerful and usable in different games, and be easy to wire with each other via signals.
+
+* Premature Optimization is Poo / "Correctness" before Performance: Don't try to simplify validation checks by skipping on ifs/guards etc.: Bugs may be harder to track down and fix than performance issues! 
+
+* Try not to add too many new features before stabilizing the existing stuff!
+
+
+## Miscellaneous
+
+* Do not try to use `-1` etc as an indicator of whether some numerical value is invalid or should be ignored. It complicates ALL other calculations down the road. Just use a separate flag.
+	- e.g. `allowInfiniteLevels = true` instead of `maxLevel = -1`
+
+
+## Git Workflow
+
+* TBD: The `develop` branch should be merged into `main` only on a weekend, I guess?
+
+---
+> Source: [InvadingOctopus/comedot](https://github.com/InvadingOctopus/comedot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
