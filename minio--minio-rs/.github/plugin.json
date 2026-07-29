@@ -1,0 +1,9 @@
+{
+  "name": "minio--minio-rs",
+  "displayName": "minio-rs",
+  "description": "minio-rs",
+  "version": "1.0.0",
+  "author": "minio",
+  "homepage": "https://github.com/minio/minio-rs",
+  "skills": []
+}
