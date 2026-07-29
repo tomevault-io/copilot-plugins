@@ -1,7 +1,7 @@
 {
   "name": "apvlv--davinci-resolve-mcp",
   "displayName": "davinci-resolve-mcp",
-  "description": "A Model Context Protocol (MCP) server for interacting with DaVinci Resolve and Fusion",
+  "description": "davinci-resolve-mcp",
   "version": "1.0.0",
   "author": "apvlv",
   "homepage": "https://github.com/apvlv/davinci-resolve-mcp",
