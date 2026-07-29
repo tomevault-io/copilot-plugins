@@ -1,7 +1,7 @@
 {
   "name": "firebase-studio--templates",
   "displayName": "templates",
-  "description": "The official library of starter templates for Firebase Studio",
+  "description": "templates",
   "version": "1.0.0",
   "author": "firebase-studio",
   "homepage": "https://github.com/firebase-studio/templates",
