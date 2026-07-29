@@ -1,0 +1,9 @@
+{
+  "name": "robertdebock--ansible-role-rsyslog",
+  "displayName": "ansible-role-rsyslog",
+  "description": "ansible-role-rsyslog",
+  "version": "1.0.0",
+  "author": "robertdebock",
+  "homepage": "https://github.com/robertdebock/ansible-role-rsyslog",
+  "skills": []
+}
