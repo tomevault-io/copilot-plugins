@@ -1,17 +1,15 @@
 # AI instruction files for nnInteractive
 
-> Sourced from [MIC-DKFZ/nnInteractive](https://github.com/MIC-DKFZ/nnInteractive) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-nnInteractive is a framework for 3D interactive segmentation, supporting intuitive prompts like points, scribbles, bounding boxes, and lasso. Trained on 120+ diverse 3D datasets, it sets a new standard in accuracy, usability, and adaptability for clinical and research applications.
+> Sourced from [MIC-DKFZ/nnInteractive](https://github.com/MIC-DKFZ/nnInteractive), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MIC-DKFZ/nnInteractive](https://github.com/MIC-DKFZ/nnInteractive).
+Original source: `CLAUDE.md` in [MIC-DKFZ/nnInteractive](https://github.com/MIC-DKFZ/nnInteractive).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
