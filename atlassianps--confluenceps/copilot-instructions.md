@@ -1,32 +1,25 @@
 ## confluenceps
 
-> GitHub Copilot should treat these files as canonical:
+> This file applies to all `.ps1` files. It references shared rules.
 
-# GitHub Copilot Entry Point
 
-GitHub Copilot should treat these files as canonical:
+# PowerShell File Rules (GitHub Copilot)
 
-- Project rules: [../AGENTS.md](../AGENTS.md)
-- PowerShell rules: [ai-context/powershell-rules.md](ai-context/powershell-rules.md)
+This file applies to all `.ps1` files. It references shared rules.
+
+**Canonical source**: [.github/ai-context/powershell-rules.md](../ai-context/powershell-rules.md)
 
 ## Quick Reference
 
-1. One functionality per commit (code + tests + docs + changelog).
-2. Route command-level HTTP interactions through `Invoke-Method`.
-3. Preserve Cloud/Data Center compatibility and existing cmdlet contracts (`/wiki` for Cloud `Set-Info -BaseUri`).
-4. Instruction-only changes may be skipped by CI path filters; run local validation anyway.
-5. During iteration, run targeted tests directly (for example `Invoke-Pester -Path 'Tests/Functions/Public/Invoke-Method.Unit.Tests.ps1'`).
-6. Before finalizing, run `Invoke-Build -Task Lint` and full `Invoke-Build -Task Build, Test`.
-7. For behavior changes, update targeted tests in `Tests/` and docs in `docs/en-US/`.
+1. **Cloud AND Data Center** — keep command behavior compatible unless the task explicitly scopes one deployment type.
+2. **Cloud Base URI** — for Cloud tenants, `Set-Info -BaseUri` requires `/wiki` (for example `https://tenant.atlassian.net/wiki`).
+3. **Page body format** — keep page payloads in `body.storage.value` with `representation = 'storage'`.
+4. **Content conversion** — use `ConvertTo-StorageFormat` for wiki-style content conversion.
+5. **REST calls** — route command-level HTTP interactions through `Invoke-Method`.
+6. **Tests required** — during iteration run targeted `Invoke-Pester` (for example `Invoke-Pester -Path 'Tests/Functions/Public/Invoke-Method.Unit.Tests.ps1'`); before finalizing run `Invoke-Build -Task Lint` plus full `Invoke-Build -Task Build, Test`.
 
-## File Locations
-
-- Public functions: `ConfluencePS/Public/`
-- Private functions: `ConfluencePS/Private/`
-- REST wrapper: `ConfluencePS/Public/Invoke-Method.ps1`
-- Tests: `Tests/*.Tests.ps1`, `Tests/Functions/Public/*.Unit.Tests.ps1`, `Tests/Functions/Private/*.Unit.Tests.ps1`
-- Docs: `docs/en-US/commands/`, `docs/en-US/classes/`
+For full rules, read `.github/ai-context/powershell-rules.md`.
 
 ---
 > Source: [AtlassianPS/ConfluencePS](https://github.com/AtlassianPS/ConfluencePS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
