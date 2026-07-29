@@ -1,88 +1,315 @@
 ## get-shit-done-gemini
 
-> Always Pull latest GSD updates from updates from https://github.com/glittercowboy/get-shit-done and overwrite local
+> Template for `.planning/codebase/CONVENTIONS.md` - captures coding style and patterns.
 
-Always Pull latest GSD updates from updates from https://github.com/glittercowboy/get-shit-done and overwrite local
+# Coding Conventions Template
 
-# Gemini CLI Configuration (GSD)
+Template for `.planning/codebase/CONVENTIONS.md` - captures coding style and patterns.
 
-You can now simply ask me to "sync upstream files" or "update gemini config", and I will automatically execute the standardized conversion procedure.
+**Purpose:** Document how code is written in this codebase. Prescriptive guide for Gemini to match existing style.
 
-## Maintenance: Gemini Conversion Protocol
+---
 
-This project maintains a conversion script to synchronize with upstream changes (originally from a Gemini-based repository) while enforcing Gemini branding and structure.
+## File Template
 
-**To run the conversion manually:**
+```markdown
+# Coding Conventions
 
-```bash
-node scripts/gemini-convert.js
+**Analysis Date:** [YYYY-MM-DD]
+
+## Naming Patterns
+
+**Files:**
+- [Pattern: e.g., "kebab-case for all files"]
+- [Test files: e.g., "*.test.ts alongside source"]
+- [Components: e.g., "PascalCase.tsx for React components"]
+
+**Functions:**
+- [Pattern: e.g., "camelCase for all functions"]
+- [Async: e.g., "no special prefix for async functions"]
+- [Handlers: e.g., "handleEventName for event handlers"]
+
+**Variables:**
+- [Pattern: e.g., "camelCase for variables"]
+- [Constants: e.g., "UPPER_SNAKE_CASE for constants"]
+- [Private: e.g., "_prefix for private members" or "no prefix"]
+
+**Types:**
+- [Interfaces: e.g., "PascalCase, no I prefix"]
+- [Types: e.g., "PascalCase for type aliases"]
+- [Enums: e.g., "PascalCase for enum name, UPPER_CASE for values"]
+
+## Code Style
+
+**Formatting:**
+- [Tool: e.g., "Prettier with config in .prettierrc"]
+- [Line length: e.g., "100 characters max"]
+- [Quotes: e.g., "single quotes for strings"]
+- [Semicolons: e.g., "required" or "omitted"]
+
+**Linting:**
+- [Tool: e.g., "ESLint with eslint.config.js"]
+- [Rules: e.g., "extends airbnb-base, no console in production"]
+- [Run: e.g., "npm run lint"]
+
+## Import Organization
+
+**Order:**
+1. [e.g., "External packages (react, express, etc.)"]
+2. [e.g., "Internal modules (@/lib, @/components)"]
+3. [e.g., "Relative imports (., ..)"]
+4. [e.g., "Type imports (import type {})"]
+
+**Grouping:**
+- [Blank lines: e.g., "blank line between groups"]
+- [Sorting: e.g., "alphabetical within each group"]
+
+**Path Aliases:**
+- [Aliases used: e.g., "@/ for src/, @components/ for src/components/"]
+
+## Error Handling
+
+**Patterns:**
+- [Strategy: e.g., "throw errors, catch at boundaries"]
+- [Custom errors: e.g., "extend Error class, named *Error"]
+- [Async: e.g., "use try/catch, no .catch() chains"]
+
+**Error Types:**
+- [When to throw: e.g., "invalid input, missing dependencies"]
+- [When to return: e.g., "expected failures return Result<T, E>"]
+- [Logging: e.g., "log error with context before throwing"]
+
+## Logging
+
+**Framework:**
+- [Tool: e.g., "console.log, pino, winston"]
+- [Levels: e.g., "debug, info, warn, error"]
+
+**Patterns:**
+- [Format: e.g., "structured logging with context object"]
+- [When: e.g., "log state transitions, external calls"]
+- [Where: e.g., "log at service boundaries, not in utils"]
+
+## Comments
+
+**When to Comment:**
+- [e.g., "explain why, not what"]
+- [e.g., "document business logic, algorithms, edge cases"]
+- [e.g., "avoid obvious comments like // increment counter"]
+
+**JSDoc/TSDoc:**
+- [Usage: e.g., "required for public APIs, optional for internal"]
+- [Format: e.g., "use @param, @returns, @throws tags"]
+
+**TODO Comments:**
+- [Pattern: e.g., "// TODO(username): description"]
+- [Tracking: e.g., "link to issue number if available"]
+
+## Function Design
+
+**Size:**
+- [e.g., "keep under 50 lines, extract helpers"]
+
+**Parameters:**
+- [e.g., "max 3 parameters, use object for more"]
+- [e.g., "destructure objects in parameter list"]
+
+**Return Values:**
+- [e.g., "explicit returns, no implicit undefined"]
+- [e.g., "return early for guard clauses"]
+
+## Module Design
+
+**Exports:**
+- [e.g., "named exports preferred, default exports for React components"]
+- [e.g., "export from index.ts for public API"]
+
+**Barrel Files:**
+- [e.g., "use index.ts to re-export public API"]
+- [e.g., "avoid circular dependencies"]
+
+---
+
+*Convention analysis: [date]*
+*Update when patterns change*
 ```
 
-This script automates:
-1.  **Renaming**: Updates `package.json`, `bin/install.js` and other core files to `get-shit-done-gemini`.
-2.  **Restructuring**: Moves `rules/` and `.toml` commands to the root for correct distribution.
-3.  **Branding**: Replaces "Gemini" references with "Gemini" across all documentation and templates.
-4.  **Tag Cleanup**: Removes `` tags used for status indicators to keep the CLI output clean.
-5.  **Path Correction**: Updates paths from `~/.gemini` to `~/.gemini`.
-6.  **Feature Stripping**: Removes unsupported features like `hooks/` and `settings.json` integration to ensure a clean Gemini CLI experience.
+<good_examples>
+```markdown
+# Coding Conventions
 
-Use this whenever you pull updates from the upstream repository.
+**Analysis Date:** 2025-01-20
 
-- **Sync History**: Successfully pulled latest from glittercowboy/get-shit-done (upstream/main), resolved merge conflicts by prioritizing upstream changes (while preserving .planning/ state), and re-applied Gemini branding via the conversion script on 2026-01-17.
+## Naming Patterns
 
-## Slash Command Support
+**Files:**
+- kebab-case for all files (command-handler.ts, user-service.ts)
+- *.test.ts alongside source files
+- index.ts for barrel exports
 
-The following GSD commands are available. When a command is invoked (e.g., `/gsd:help`), the corresponding definition file in `.gemini/commands/gsd/` should be read and followed as a system instruction.
+**Functions:**
+- camelCase for all functions
+- No special prefix for async functions
+- handleEventName for event handlers (handleClick, handleSubmit)
 
-### Available Commands
+**Variables:**
+- camelCase for variables
+- UPPER_SNAKE_CASE for constants (MAX_RETRIES, API_BASE_URL)
+- No underscore prefix (no private marker in TS)
 
-- `/gsd:new-project` - Initialize a new project with a brief
-- `/gsd:create-roadmap` - Create a roadmap and phase breakdown
-- `/gsd:map-codebase` - Map an existing codebase (brownfield)
-- `/gsd:plan-phase <N>` - Create an execution plan for Phase N
-- `/gsd:execute-plan <path>` - Execute a specific PLAN.md file
-- `/gsd:execute-phase <N>` - Execute all plans in Phase N in parallel
-- `/gsd:status` - Check the status of background agents
-- `/gsd:progress` - Check project status and next actions
-- `/gsd:verify-work <N>` - Perform User Acceptance Testing for Phase N
-- `/gsd:plan-fix <plan>` - Plan fixes for issues found during verification
-- `/gsd:complete-milestone` - Archive the current milestone and prep for the next
-- `/gsd:discuss-milestone` - Brainstorm goals for the next milestone
-- `/gsd:new-milestone <name>` - Create a new milestone with phases
-- `/gsd:add-phase <desc>` - Add a phase to the end of the roadmap
-- `/gsd:insert-phase <N> <desc>` - Insert a phase at a specific position
-- `/gsd:remove-phase <N>` - Remove a future phase
-- `/gsd:discuss-phase <N>` - Gather context for Phase N
-- `/gsd:research-phase <N>` - Perform deep research for Phase N
-- `/gsd:list-phase-assumptions <N>` - Surface assumptions before planning
-- `/gsd:pause-work` - Create a handoff file when stopping
-- `/gsd:resume-work` - Restore context from a previous session
-- `/gsd:resume-task <id>` - Resume an interrupted subagent task
-- `/gsd:consider-issues` - Review deferred issues and enhancements
-- `/gsd:add-todo [desc]` - Capture a todo from the conversation
-- `/gsd:check-todos [area]` - List and work on pending todos
-- `/gsd:help` - Show the command reference
+**Types:**
+- PascalCase for interfaces, no I prefix (User, not IUser)
+- PascalCase for type aliases (UserConfig, ResponseData)
+- PascalCase for enum names, UPPER_CASE for values (Status.PENDING)
 
-## Implementation Guide for Gemini Agents
+## Code Style
 
-When you see a command starting with `/gsd:`, follow these steps:
+**Formatting:**
+- Prettier with .prettierrc
+- 100 character line length
+- Single quotes for strings
+- Semicolons required
+- 2 space indentation
 
-1.  **Locate the Command Definition:**
-    - Look in `.gemini/commands/gsd/[command-name].md` (local install)
-    - If not found locally, check `~/.gemini/commands/gsd/[command-name].md` (global install)
+**Linting:**
+- ESLint with eslint.config.js
+- Extends @typescript-eslint/recommended
+- No console.log in production code (use logger)
+- Run: npm run lint
 
-2.  **Read the Definition:**
-    - Parse the `<objective>`, `<reference>`, and any other instructional blocks.
-    - If the command references workflows (e.g., `@~/.gemini/get-shit-done/workflows/...`), read those files as well to understand the full procedure.
+## Import Organization
 
-3.  **Execute the Instructions:**
-    - Follow the workflow precisely.
-    - Use the specified templates from `.gemini/get-shit-done/templates/` or `~/.gemini/get-shit-done/templates/`.
-    - Adhere to the principles in `.gemini/get-shit-done/references/` or `~/.gemini/get-shit-done/references/`.
+**Order:**
+1. External packages (react, express, commander)
+2. Internal modules (@/lib, @/services)
+3. Relative imports (./utils, ../types)
+4. Type imports (import type { User })
 
-4.  **Confirm Completion:**
-    - Once the command's objective is met, inform the user and suggest next steps as defined in the GSD system.
+**Grouping:**
+- Blank line between groups
+- Alphabetical within each group
+- Type imports last within each group
+
+**Path Aliases:**
+- @/ maps to src/
+- No other aliases defined
+
+## Error Handling
+
+**Patterns:**
+- Throw errors, catch at boundaries (route handlers, main functions)
+- Extend Error class for custom errors (ValidationError, NotFoundError)
+- Async functions use try/catch, no .catch() chains
+
+**Error Types:**
+- Throw on invalid input, missing dependencies, invariant violations
+- Log error with context before throwing: logger.error({ err, userId }, 'Failed to process')
+- Include cause in error message: new Error('Failed to X', { cause: originalError })
+
+## Logging
+
+**Framework:**
+- pino logger instance exported from lib/logger.ts
+- Levels: debug, info, warn, error (no trace)
+
+**Patterns:**
+- Structured logging with context: logger.info({ userId, action }, 'User action')
+- Log at service boundaries, not in utility functions
+- Log state transitions, external API calls, errors
+- No console.log in committed code
+
+## Comments
+
+**When to Comment:**
+- Explain why, not what: // Retry 3 times because API has transient failures
+- Document business rules: // Users must verify email within 24 hours
+- Explain non-obvious algorithms or workarounds
+- Avoid obvious comments: // set count to 0
+
+**JSDoc/TSDoc:**
+- Required for public API functions
+- Optional for internal functions if signature is self-explanatory
+- Use @param, @returns, @throws tags
+
+**TODO Comments:**
+- Format: // TODO: description (no username, using git blame)
+- Link to issue if exists: // TODO: Fix race condition (issue #123)
+
+## Function Design
+
+**Size:**
+- Keep under 50 lines
+- Extract helpers for complex logic
+- One level of abstraction per function
+
+**Parameters:**
+- Max 3 parameters
+- Use options object for 4+ parameters: function create(options: CreateOptions)
+- Destructure in parameter list: function process({ id, name }: ProcessParams)
+
+**Return Values:**
+- Explicit return statements
+- Return early for guard clauses
+- Use Result<T, E> type for expected failures
+
+## Module Design
+
+**Exports:**
+- Named exports preferred
+- Default exports only for React components
+- Export public API from index.ts barrel files
+
+**Barrel Files:**
+- index.ts re-exports public API
+- Keep internal helpers private (don't export from index)
+- Avoid circular dependencies (import from specific files if needed)
+
+---
+
+*Convention analysis: 2025-01-20*
+*Update when patterns change*
+```
+</good_examples>
+
+<guidelines>
+**What belongs in CONVENTIONS.md:**
+- Naming patterns observed in the codebase
+- Formatting rules (Prettier config, linting rules)
+- Import organization patterns
+- Error handling strategy
+- Logging approach
+- Comment conventions
+- Function and module design patterns
+
+**What does NOT belong here:**
+- Architecture decisions (that's ARCHITECTURE.md)
+- Technology choices (that's STACK.md)
+- Test patterns (that's TESTING.md)
+- File organization (that's STRUCTURE.md)
+
+**When filling this template:**
+- Check .prettierrc, .eslintrc, or similar config files
+- Examine 5-10 representative source files for patterns
+- Look for consistency: if 80%+ follows a pattern, document it
+- Be prescriptive: "Use X" not "Sometimes Y is used"
+- Note deviations: "Legacy code uses Y, new code should use X"
+- Keep under ~150 lines total
+
+**Useful for phase planning when:**
+- Writing new code (match existing style)
+- Adding features (follow naming patterns)
+- Refactoring (apply consistent conventions)
+- Code review (check against documented patterns)
+- Onboarding (understand style expectations)
+
+**Analysis approach:**
+- Scan src/ directory for file naming patterns
+- Check package.json scripts for lint/format commands
+- Read 5-10 files to identify function naming, error handling
+- Look for config files (.prettierrc, eslint.config.js)
+- Note patterns in imports, comments, function signatures
+</guidelines>
 
 ---
 > Source: [Cars-10/get-shit-done-gemini](https://github.com/Cars-10/get-shit-done-gemini) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
