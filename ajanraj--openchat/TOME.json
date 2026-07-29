@@ -2,9 +2,9 @@
   "name": "OpenChat",
   "owner": "ajanraj",
   "repo": "OpenChat",
-  "description": "Every AI model, one blazing fast workspace - see how they think, schedule what you need",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "OpenChat",
+      "path": ".agents/skills/convex/SKILL.md",
+      "github_url": "https://github.com/ajanraj/OpenChat/tree/main/.agents/skills/convex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "path": ".agents/skills/convex-quickstart/SKILL.md",
+      "github_url": "https://github.com/ajanraj/OpenChat/tree/main/.agents/skills/convex-quickstart/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "path": ".agents/skills/convex-setup-auth/SKILL.md",
+      "github_url": "https://github.com/ajanraj/OpenChat/tree/main/.agents/skills/convex-setup-auth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "path": ".agents/skills/convex-migration-helper/SKILL.md",
+      "github_url": "https://github.com/ajanraj/OpenChat/tree/main/.agents/skills/convex-migration-helper/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "path": ".agents/skills/convex-create-component/SKILL.md",
+      "github_url": "https://github.com/ajanraj/OpenChat/tree/main/.agents/skills/convex-create-component/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OpenChat",
+      "path": ".agents/skills/convex-performance-audit/SKILL.md",
+      "github_url": "https://github.com/ajanraj/OpenChat/tree/main/.agents/skills/convex-performance-audit/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/ajanraj/OpenChat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T06:15:38Z"
+  "distributed_at": "2026-07-29T00:45:06Z"
 }
