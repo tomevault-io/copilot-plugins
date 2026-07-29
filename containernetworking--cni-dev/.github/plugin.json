@@ -1,0 +1,9 @@
+{
+  "name": "containernetworking--cni-dev",
+  "displayName": "cni.dev",
+  "description": "cni.dev",
+  "version": "1.0.0",
+  "author": "containernetworking",
+  "homepage": "https://github.com/containernetworking/cni.dev",
+  "skills": []
+}
