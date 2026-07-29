@@ -1,0 +1,9 @@
+{
+  "name": "statamic--eloquent-driver",
+  "displayName": "eloquent-driver",
+  "description": "eloquent-driver",
+  "version": "1.0.0",
+  "author": "statamic",
+  "homepage": "https://github.com/statamic/eloquent-driver",
+  "skills": []
+}
