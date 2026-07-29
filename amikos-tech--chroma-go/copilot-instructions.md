@@ -1,137 +1,126 @@
 ## chroma-go
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> **Analysis Date:** 2026-03-18
 
-# CLAUDE.md
+# Coding Conventions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+**Analysis Date:** 2026-03-18
 
-## Commands
+## Naming Patterns
 
-### Build and Test
-```bash
-# Build all packages
-make build
+**Files:**
+- lowercase Go filenames by concern (`client.go`, `collection.go`, `configuration.go`)
+- provider packages usually use `<provider>.go` plus `option.go` and `*_test.go`
+- examples and docs directories are feature-oriented (`examples/v2/search`, `docs/docs/embeddings.md`)
 
-# Run tests by category (use build tags)
-make test          # V2 API tests (basicv2 tag)
-make test-cloud    # Cloud integration tests (requires CHROMA_CLOUD_* env vars)
-make test-ef       # Embedding function tests
-make test-rf       # Reranking function tests
+**Functions:**
+- Constructors use `New...` (`NewHTTPClient`, `NewPersistentClient`, `NewOpenAIEmbeddingFunction`)
+- Options use `With...` consistently across clients, collections, providers, and rerankers
+- Validation helpers and request builders are explicit and verb-oriented (`PrepareAndValidateCollectionRequest`, `BuildEmbeddingFunctionFromConfig`)
 
-# Run specific test
-go test -tags=basicv2 -run TestCollectionAdd ./test/client_v2/...
+**Variables:**
+- camelCase for locals and fields
+- exported constants/types use Go-standard PascalCase / ALL_CAPS where appropriate
+- env-var names are explicit string constants in many provider packages
 
-# Linting
-make lint          # Check for linting issues
-make lint-fix      # Auto-fix linting issues
+**Types:**
+- interfaces for public contracts (`Client`, `Collection`, `EmbeddingFunction`, `RerankingFunction`)
+- request/response structs tend to be package-local and JSON-oriented
+- op structs capture option state before execution (`CreateCollectionOp`, `GetCollectionOp`)
 
-# Local development server
-make server        # Start Docker Chroma server on port 8000
-```
+## Code Style
 
-### Environment Variables
-The codebase heavily relies on environment variables for configuration:
-- `CHROMA_URL` - Chroma server URL (default: http://localhost:8000)
-- `CHROMA_CLOUD_API_KEY` - Cloud API key
-- `CHROMA_CLOUD_HOST` - Cloud host
-- `CHROMA_CLOUD_TENANT` - Cloud tenant ID
-- `CHROMA_CLOUD_DATABASE` - Cloud database ID
-- `CHROMAGO_ONNX_RUNTIME_PATH` - Absolute path to ONNX Runtime library file (overrides auto-download)
-- `CHROMAGO_ONNX_RUNTIME_VERSION` - ONNX Runtime version for auto-download (default: 1.23.1)
-- `GITHUB_TOKEN` / `GH_TOKEN` - Optional token to avoid GitHub API rate limits during ONNX bootstrap checksum resolution
+**Formatting:**
+- `gofmt` baseline
+- `gci` import ordering via `.golangci.yml`
+- standard Go comment and spacing conventions
 
-## Architecture
+**Linting:**
+- `golangci-lint` is the canonical linter entry point
+- repo enables `dupword`, `ginkgolinter`, `gocritic`, `mirror`, and full `staticcheck`
+- examples are excluded from linting/formatting enforcement
 
-### API Structure
-The codebase maintains two API versions:
-- **V2 API** (`/pkg/api/v2/`) - Current primary API, all new features go here
-- **V1 API** (`/pkg/api/v1/`, root files) - Legacy, maintained for backward compatibility
+## Import Organization
 
-### Core Components
-- **Client**: Main entry point in `/pkg/api/v2/client.go` for V2, `/chroma.go` for V1
-- **Collections**: Vector collection management with embedding/query operations
-- **Embeddings**: Modular embedding functions in `/pkg/embeddings/` supporting 12+ providers
-- **Metadata**: Rich filtering capabilities with type-safe metadata handling
-- **Authentication**: Multiple auth methods (Basic, Bearer, X-Chroma-Token)
+**Order:**
+1. Standard library
+2. Third-party packages
+3. Repository-local imports with `github.com/amikos-tech/chroma-go/...`
 
-### Testing Strategy
-Tests are segregated by build tags to run specific test suites:
-- `basic` - V1 tests
-- `basicv2` - V2 tests
-- `cloud` - Cloud integration
-- `ef` - Embedding functions
-- `rf` - Reranking functions
+**Grouping:**
+- blank lines between groups
+- import order is enforced by `gci`
 
-Integration tests use `testcontainers-go` for Docker-based testing against real Chroma instances.
+## Error Handling
 
-### Key Patterns
-- **Functional Options**: Client initialization uses option functions pattern
-- **Context Propagation**: All API methods accept context for cancellation/timeout
-- **Interface-based Design**: Clean interfaces for testability and extensibility
-- **Build Tags**: Feature segregation to avoid unnecessary dependencies
+**Patterns:**
+- return errors instead of panicking in runtime paths
+- wrap errors with context using `github.com/pkg/errors`
+- validate inputs early, especially in option setters and request-prep methods
 
-## Development Guidelines
+**Error Types:**
+- most code uses wrapped generic errors rather than custom error types
+- validation messages are direct and user-readable
+- nil/empty/invalid state checks are common before I/O
 
-### Adding New Features
-1. New features should target V2 API (`/pkg/api/v2/`)
-2. Add corresponding tests with appropriate build tags
-3. Update examples in `/examples/v2/` if applicable
-4. Ensure backward compatibility for V1 if modifying shared components
+## Logging
 
-### Testing Requirements
-- Write tests with appropriate build tags
-- Use `testify` for assertions
-- Integration tests should use testcontainers
-- Run `make lint` before committing
+**Framework:**
+- logger abstraction in `pkg/logger`
+- Zap bridge support exists for structured logging use cases
 
-### Panic Prevention Guidelines
-**IMPORTANT**: As a library, this codebase should NEVER panic in production code. Panics provide terrible user experience and can crash applications.
+**Patterns:**
+- logging is injected/configurable rather than hard-coded across the API surface
+- tests often use quiet mocks or test loggers instead of production logging
 
-#### Rules for Production Code:
-1. **Never use `Must*` functions** (e.g., `regexp.MustCompile`, `ulid.MustNew`)
-   - Use the non-Must variant and handle errors properly
-   - If API constraints prevent error returns, use defer/recover with fallback
+## Comments
 
-2. **Add panic recovery where necessary**:
-   - ID generators should have defer/recover blocks with fallbacks
-   - Sanitization functions should recover and return partial results
+**When to Comment:**
+- exported API surfaces are documented heavily with Go doc comments and examples
+- comments explain behavior, compatibility, or API caveats rather than trivial code mechanics
+- deprecations are explicitly documented in comments
 
-3. **Avoid risky operations**:
-   - Check slice/array bounds before access
-   - Verify map keys exist using comma-ok idiom
-   - Check for nil pointers before dereferencing
-   - Use type switches with default cases
+**TODO Comments:**
+- plain `// TODO ...` comments are used for follow-ups and gaps
+- there are also explicit `Deprecated:` doc comments across compatibility layers
 
-4. **Safe patterns to follow**:
-   ```go
-   // Instead of: regexp.MustCompile(pattern)
-   re, err := regexp.Compile(pattern)
-   if err != nil { /* handle error */ }
+## Function Design
 
-   // Safe ID generation with panic recovery
-   func Generate() (result string) {
-       defer func() {
-           if r := recover(); r != nil {
-               result = fallbackID()
-           }
-       }()
-       // ID generation logic
-   }
-   ```
+**Size:**
+- public surface files are broad, but behavior is still decomposed into option setters, helper methods, and provider-specific types
 
-5. **Test code exceptions**: `Must*` functions and `log.Fatal` are acceptable in test files
+**Parameters:**
+- functional options are preferred over large parameter lists
+- context is threaded through nearly all I/O-facing methods
 
-### Common Tasks
-- **Adding Embedding Provider**: Implement in `/pkg/embeddings/`, follow existing provider patterns
-- **Modifying Client**: V2 changes in `/pkg/api/v2/client.go`, ensure collection caching logic is maintained
-- **Updating Authentication**: Modify `/pkg/api/v2/openapi/configuration.go` and auth middleware
-- **Working with Metadata**: Use `/pkg/api/v2/metadata/` utilities for type conversions
+**Return Values:**
+- constructors usually return `(*Type, error)` or `(Interface, error)`
+- collection and provider methods generally return typed results plus `error`
 
-### Version Compatibility
-The client is tested against Chroma versions 0.6.3 to 1.5.5. Ensure changes maintain compatibility across this range.
-- Always lint before commiting or pushing code
+## Module Design
+
+**Exports:**
+- public APIs live in top-level package files with exported interfaces/types
+- provider packages expose their own constructors/options directly
+
+**Patterns Reused Across Repo:**
+- functional options
+- interface-driven provider abstraction
+- build-tag partitioned tests
+- env-var-backed config persistence for remote providers
+
+## Project-Specific Guidance
+
+- Prefer V2 API changes in `pkg/api/v2/`
+- Add colocated tests with the correct build tags
+- Avoid `Must*` patterns and runtime panics in production code; this is explicitly called out in `CLAUDE.md`
+- When adding providers, match existing provider package layout and config round-trip behavior
+
+---
+
+*Convention analysis: 2026-03-18*
+*Update when lint rules, option patterns, or public API style changes*
 
 ---
 > Source: [amikos-tech/chroma-go](https://github.com/amikos-tech/chroma-go) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
