@@ -4,7 +4,7 @@
   "repo": "shortlink",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shortlink-org/shortlink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T14:54:53Z"
+  "distributed_at": "2026-07-29T04:45:49Z"
 }
