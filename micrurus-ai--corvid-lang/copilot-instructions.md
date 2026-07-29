@@ -1,85 +1,103 @@
 ## corvid-lang
 
-> Rules that apply to every piece of work in this repo. Machine-enforceable where possible; otherwise honored by convention.
+> - `snake_case` — file names, identifiers, effect names, agent names,
 
-# Project guidance
+# Project conventions
 
-Rules that apply to every piece of work in this repo. Machine-enforceable where possible; otherwise honored by convention.
+## Naming
 
-## File responsibility discipline
+- `snake_case` — file names, identifiers, effect names, agent names,
+  prompt names, tool names.
+- `PascalCase` — type names, sum-type variants, struct names,
+  `approve` action names.
+- `SCREAMING_SNAKE_CASE` — constants.
+- Effect names suffix-with `_effect`: `refund_effect`,
+  `retrieval_effect`, `email_effect`.
 
-**Every source file holds exactly one responsibility.** Line count is a *heuristic for where to look* — it is not the rule.
+## File organization
 
-A file fails this discipline when any of these hold:
+- One agent per file is a good default.
+- Multi-agent files are fine when agents share state or test surface.
+- `tests/` mirrors `src/` directory structure.
+- Examples under `examples/`, benchmarks under `benches/`,
+  reference apps top-level (`refund_bot.cor`, `rag_qa_bot.cor`).
+- Per-feature docs live under `docs/` next to the source they document.
 
-1. It mixes unrelated top-level concepts (parsing + lexing; checking + IR lowering; dispatch + recording).
-2. It has 2+ public items representing unrelated domains.
-3. It has 2+ internal sections that share no state.
+## Commit messages
 
-A 3,000-line file that does one thing cleanly is fine. A 400-line grab bag is not.
+Slice numbers (`20m-A`, `33J2`) appear only in commit messages,
+`ROADMAP.md`, `dev-log.md`, `learnings.md`, and phase-specific docs.
+Source code, doc comments, and docstrings use behavioral names for
+features.
 
-**Three explicit carve-outs (these still count as one responsibility):**
+## Pre-phase chat
 
-1. **Inline `#[cfg(test)] mod tests`** — co-located unit tests for the file's own type/concept are part of that responsibility, not a second one. Extract the tests when they grow past ~300 lines OR when they cover sibling-module concerns rather than this file's own concept.
-2. **A type and its inherent + canonical-derive trait impls** — `struct Foo`, `impl Foo`, `impl Clone for Foo`, `impl Drop for Foo`, `impl PartialEq for Foo` are one responsibility ("the Foo type"). Cross-cutting trait impls implemented for many types (e.g. a `Render` trait implemented for ten record types) get their own file per impl-cluster.
-3. **A facade module** that exists to compose siblings is itself one responsibility — "the facade." Re-exports + a thin orchestrator struct + a small dispatcher all count as one concern, even though they're three syntactic items.
+A slice does not start writing code until both sides have agreed on
+its scope. Decomposition plans for refactors get the same treatment.
 
-**When a file fails the rubric:**
+## Slice closure
 
-- If you are already modifying the file for a feature, split it in the same branch but as a separate commit that precedes the feature commit.
-- If the file is untouched by your current work, file it as a Phase 20i/j/k audit candidate and move on — do not refactor pre-emptively.
+A slice is not done until its commit is on `main`. The dev log + git
+history + ROADMAP checklist all agree before the next slice starts.
 
-**When splitting:**
+## Updating learnings
 
-- One commit per file extraction. No batching.
-- Validation gate between every commit: `cargo check --workspace` + targeted `cargo test -p <crate> --lib` + `cargo run -q -p corvid-cli -- verify --corpus tests/corpus` (must still exit `1` only on the two deliberate fixtures).
-- Push before starting the next extraction.
-- Wait for acknowledgement at slice boundaries in parallel work — no autonomous chaining.
-- Zero semantic changes during a refactor commit. Move code, add `pub use` re-exports to preserve the public API, nothing else. Bugs spotted mid-refactor get a separate branch.
-- Commit message: `refactor(<crate>): extract <responsibility> from <file>` — body names which rubric criterion failed and how the split resolves it.
+Doc-and-feature land together. No drift between shipped behavior and
+the learnings record.
 
-## No shortcuts
+## Following ROADMAP order
 
-The hardest rule. No shortcuts anywhere. If a shipped surface conflicts with the spec, fix the surface rather than softening the spec (see `memory/project_phase_20_closed.md` for the canonical example).
+Work proceeds in the defined sequence. Skipping ahead requires an
+explicit pre-phase chat that amends the ROADMAP first.
 
-## Invention shipping contract
+---
 
-Every new invention ships with public proof at the same time as the code. A feature counts as an invention when it is a Corvid-specific language/runtime capability that we would name in the README, site, launch material, or HN discussion.
+# Implementation notes for the website build (33J2)
 
-Before an invention slice is complete, it must include:
+These are not docs pages — they are notes for whoever wires up the
+docs site rendering pipeline.
 
-- A README catalog entry or an explicit update explaining why the existing entry already covers it.
-- A `corvid tour --topic <name>` demo whose source compiles through the normal driver pipeline.
-- A `docs/reference/inventions.md` proof-matrix row with shipped status, runnable command, test coverage, spec link, and explicit non-scope.
-- A spec or reference-doc link that defines the behavior.
-- Tests that validate the behavior named in the catalog entry.
+## Source format
 
-Do not ship hidden inventions. If the feature is important enough to make Corvid extraordinary, it is important enough to be discoverable, runnable, and test-backed.
+Each `# Page:` heading starts a new page. The fields immediately under
+each heading (`slug:`, `nav:`, `section:`) are the page's frontmatter.
+The build pipeline reads them, strips them, and renders the rest as
+the page body.
 
-## Pre-phase chat mandatory
+## Cross-link convention
 
-Never start code on a phase or slice until we've chatted and both sides understand the scope. This applies to refactor slices too — a decomposition plan gets agreed before any file moves.
+Internal cross-links use `/docs/<slug>` form. The build pipeline
+resolves these against the slug map. External links to the corvid
+GitHub repo use full URLs to
+`https://github.com/Micrurus-Ai/Corvid-lang/blob/main/<path>`.
 
-## Commit at slice boundaries
+## Code-block highlighting
 
-A slice is not done until its commit is on `main`. Dev-log + git history + ROADMAP checklist must all agree before the next slice starts.
+Corvid code blocks use the language tag ```corvid```. The website's
+syntax highlighter (Prism + a Corvid grammar contributed in 33J2)
+recognizes the tag.
 
-## Professional names in source
+## Drift gate
 
-Code, doc comments, and docstrings use behavioral names for features. Slice numbers (`20h slice G`, `slice 17f`) appear only in commit messages, `ROADMAP.md`, `dev-log.md`, `learnings.md`, and phase-specific doc files.
+A drift-gate test in CI compares this file's headline guarantee list
+against the registry's `Static` rows. The build refuses if a guarantee
+mentioned here doesn't exist in the registry, or if a Static
+guarantee in the registry isn't mentioned here. Same shape as
+Phase 35V's other drift gates.
 
-## Track deferred work in ROADMAP
+## Open work for 33J2 (docs site rendering)
 
-In-progress phases carry slice-by-slice `- [ ]` checklists so deferred work never falls through the cracks.
+This file is the source content. Still TODO under slice 33J2:
 
-## Update `learnings.md` per user-visible slice
-
-Doc-and-feature land together. No drift between shipped behavior and the learnings record.
-
-## Follow ROADMAP order strictly
-
-Work proceeds in the defined sequence. Never skip ahead or reorder without an explicit pre-phase chat that amends the ROADMAP first.
+- Pick the static-site framework (Astro Starlight is the obvious
+  choice; one pre-phase-chat away).
+- Wire the build pipeline (parse this file, render each page, emit
+  the docs site under `docs/` on the website repo).
+- Write the Corvid syntax grammar for Prism.
+- Write the drift-gate CI test.
+- Add a left-nav structure file derived from `nav:` and `section:`.
+- Decide search behavior (Algolia DocSearch vs. local Lunr).
 
 ---
 > Source: [Micrurus-Ai/Corvid-lang](https://github.com/Micrurus-Ai/Corvid-lang) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
