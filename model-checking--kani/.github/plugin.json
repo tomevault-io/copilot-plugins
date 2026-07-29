@@ -1,0 +1,9 @@
+{
+  "name": "model-checking--kani",
+  "displayName": "kani",
+  "description": "kani",
+  "version": "1.0.0",
+  "author": "model-checking",
+  "homepage": "https://github.com/model-checking/kani",
+  "skills": []
+}
