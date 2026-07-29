@@ -1,21 +1,21 @@
 # AI instruction files for okmain
 
-> Sourced from [si14/okmain](https://github.com/si14/okmain) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [si14/okmain](https://github.com/si14/okmain), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [si14/okmain](https://github.com/si14/okmain).
+Original source: `AGENTS.md` in [si14/okmain](https://github.com/si14/okmain).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [si14/okmain](https://github.com/si14/okmain) — a repo with 141+ stars on GitHub.
+From [si14/okmain](https://github.com/si14/okmain) — a repo with 144+ stars on GitHub.
 
 ---
 
