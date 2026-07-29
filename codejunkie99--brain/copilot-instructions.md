@@ -1,0 +1,45 @@
+## brain
+
+> Portable brain via agentic-stack. Read .agent/ first.
+
+
+# Agentic-stack brain
+
+This project uses a portable brain in `.agent/`. Treat it as authoritative.
+
+## Before acting
+1. Read `.agent/AGENTS.md` (the map).
+2. Read `.agent/memory/personal/PREFERENCES.md` (how the user works).
+3. Read `.agent/memory/semantic/LESSONS.md` (what we've learned).
+4. Read `.agent/protocols/permissions.md` (what you can and cannot do).
+
+## Recall before acting
+For any task involving deploy, ship, release, migration, schema change,
+timestamp / timezone / date, failing test, debug, investigate, or refactor,
+FIRST run:
+
+```bash
+python3 .agent/tools/recall.py "<short description of the task>"
+```
+
+If it surfaces lessons, show them in a `Consulted lessons before acting:`
+block and obey them. Without this, graduated lessons stay invisible and the
+brain stops compounding.
+
+## While working
+- Check `.agent/skills/_index.md`; load full skills only when triggers match.
+- Update `.agent/memory/working/WORKSPACE.md` as the task evolves.
+- After significant actions, run:
+  `python3 .agent/tools/memory_reflect.py <skill> <action> <outcome>`
+- Quick state: `python3 .agent/tools/show.py`.
+- Teach a rule in one shot:
+  `python3 .agent/tools/learn.py "<rule>" --rationale "<why>"`.
+
+## Hard rules
+- Never force push to protected branches.
+- Never delete memory entries; archive only.
+- Never modify `.agent/protocols/permissions.md`.
+
+---
+> Source: [codejunkie99/brain](https://github.com/codejunkie99/brain) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
