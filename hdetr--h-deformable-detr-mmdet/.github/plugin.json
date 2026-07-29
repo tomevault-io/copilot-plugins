@@ -1,0 +1,9 @@
+{
+  "name": "hdetr--h-deformable-detr-mmdet",
+  "displayName": "H-Deformable-DETR-mmdet",
+  "description": "H-Deformable-DETR-mmdet",
+  "version": "1.0.0",
+  "author": "HDETR",
+  "homepage": "https://github.com/HDETR/H-Deformable-DETR-mmdet",
+  "skills": []
+}
