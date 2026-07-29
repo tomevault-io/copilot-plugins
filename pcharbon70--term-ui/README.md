@@ -1,23 +1,21 @@
 # term_ui
 
-> Tome by [pcharbon70](https://github.com/pcharbon70/term_ui) — distributed by [TomeVault](https://tomevault.io)
-
-A framework for writing terminal user interfaces in Elixir
+> Tome by [pcharbon70](https://github.com/pcharbon70/term_ui), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pcharbon70/term_ui](https://github.com/pcharbon70/term_ui).
+Original source: `AGENTS.md` in [pcharbon70/term_ui](https://github.com/pcharbon70/term_ui).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/pcharbon70/term_ui](https://github.com/pcharbon70/term_ui)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/pcharbon70/term_ui](https://github.com/pcharbon70/term_ui)
 
 ---
 
