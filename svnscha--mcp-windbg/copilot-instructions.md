@@ -1,249 +1,130 @@
 ## mcp-windbg
 
-> This document describes the repository structure, development workflows, and release process for the mcp-windbg project.
+> A [Model Context Protocol](https://modelcontextprotocol.io/) server that lets AI models
 
-# mcp-windbg Development Guide
+# mcp-windbg
 
-This document describes the repository structure, development workflows, and release process for the mcp-windbg project.
+A [Model Context Protocol](https://modelcontextprotocol.io/) server that lets AI models
+analyze Windows crash dumps and drive live or remote debugging through WinDbg/CDB. It is a
+Python wrapper around `cdb.exe`: the model calls MCP tools, the server runs the matching
+debugger commands and returns the text output. Windows-only (needs CDB). The single entry
+point is `mcp-windbg`, which speaks MCP over stdio or streamable-http.
 
-## Repository Structure
+## Build / test / run
 
-```
-mcp-windbg/
-├── src/mcp_windbg/           # Main source code
-│   ├── __init__.py           # Entry point, CLI argument parsing
-│   ├── __main__.py           # Module entry point
-│   ├── server.py             # MCP server implementation
-│   ├── cdb_session.py        # CDB/WinDbg session management
-│   ├── prompts/              # Prompt templates for AI assistants
-│   │   └── dump-triage.prompt.md
-│   └── tests/                # Test suite
-│       ├── test_cdb.py       # Core CDB functionality tests
-│       ├── test_remote_debugging.py  # Remote debugging tests
-│       └── dumps/            # Test crash dump files (Git LFS)
-├── scripts/                  # Utility scripts
-│   └── check-version-consistency.ps1  # Validates version sync
-├── examples/                 # Example crash programs (C++)
-│   ├── build.ps1             # Build script for examples
-│   └── *.cpp                 # Various crash scenarios
-├── .github/
-│   ├── workflows/            # CI/CD pipelines
-│   │   ├── ci.yml            # Main CI entry point
-│   │   ├── build-and-test.yml # Build and test workflow
-│   │   └── publish-mcp.yml   # PyPI publishing workflow
-│   ├── dependabot.yml        # Automated dependency updates
-│   └── prompts/              # GitHub Copilot prompt files
-├── pyproject.toml            # Python project configuration
-├── server.json               # MCP server manifest
-├── CHANGELOG.md              # Version history
-└── README.md                 # User documentation
-```
-
-## Version Management
-
-**Critical**: Version numbers must be synchronized across three files:
-
-| File | Location |
-|------|----------|
-| [pyproject.toml](pyproject.toml) | `version = "X.Y.Z"` |
-| [server.json](server.json) | `"version": "X.Y.Z"` and `"packages[0].version": "X.Y.Z"` |
-| [CHANGELOG.md](CHANGELOG.md) | `## [X.Y.Z] - YYYY-MM-DD` |
-
-Run the version consistency check before committing:
-```powershell
-.\scripts\check-version-consistency.ps1
-```
-
-Run the server.json schema validation:
-```powershell
-uv run python scripts/validate-server-schema.py
-```
-
-Both checks also run automatically in CI.
-
-## Making a New Release
-
-### 1. Update Version Numbers
-
-Update all three files with the new version:
+Python 3.10+ with the `uv` package manager. CDB must be installed for the live tests (WinDbg
+from the Microsoft Store, or the Windows SDK).
 
 ```powershell
-# Example: Updating to version 0.13.0
-# Edit pyproject.toml: version = "0.13.0"
-# Edit server.json: "version": "0.13.0" (both places)
-# Edit CHANGELOG.md: ## [0.13.0] - 2025-XX-XX
+uv sync --dev                                                       # install incl. dev deps
+uv run pytest src/mcp_windbg/tests/ -v                             # full test suite
+uv run pytest src/mcp_windbg/tests/ -v -m "not live"              # hermetic subset (no CDB)
+uv run python -m mcp_windbg --verbose                              # run the server (stdio)
+uv run python -m mcp_windbg --transport streamable-http --port 8000   # HTTP transport
 ```
 
-### 2. Update CHANGELOG.md
+### Coverage
 
-Follow [Keep a Changelog](https://keepachangelog.com/) format:
+The code under test runs in **two** processes, and both must be measured or the number lies:
 
-```markdown
-## [0.13.0] - 2025-01-15
+- the hosted server subprocess, where tool dispatch executes. Set `MCP_WINDBG_COVERAGE` so the
+  harness launches it under `coverage run --parallel-mode`.
+- the pytest process itself, where the hermetic unit tests (`tests/test_*.py`) run. This needs
+  `coverage run -m pytest`, not plain `pytest`. Miss this and every unit test reads as dead
+  code: that is how `kd_session.py` once reported 34% while fully tested.
 
-### Added
-- New feature description
-
-### Changed
-- Modified behavior description
-
-### Fixed
-- Bug fix description
-```
-
-### 3. Verify and Commit
+Both write parallel-mode data files that `coverage combine` merges:
 
 ```powershell
-# Verify versions are in sync
-.\scripts\check-version-consistency.ps1
-
-# Run tests locally
-uv run pytest src/mcp_windbg/tests/ -v
-
-# Commit changes
-git add pyproject.toml server.json CHANGELOG.md
-git commit -m "chore: bump version to 0.13.0"
+uv run coverage erase
+$env:MCP_WINDBG_COVERAGE = "1"
+uv run coverage run -m pytest src/mcp_windbg/tests/     # measures pytest AND the server
+$env:MCP_WINDBG_COVERAGE = $null
+uv run coverage combine                 # merge the per-process .coverage.* files
+uv run coverage report                  # or: uv run coverage html  ->  htmlcov/
 ```
 
-### 4. Create Release Tag
+CI runs exactly this and gates on `--fail-under=88`. To reproduce CI's number, leave
+`MCP_WINDBG_KERNEL_CONNECTION` unset so the kernel scenarios skip as they do there. Run it with
+the variable set for the honest local number, which covers `kd_session.py` against a real
+target rather than a fake process.
+
+### Test suite
+
+The suite is a declarative end-to-end harness: each `tests/scenarios/*.yaml` file is run
+against a real `python -m mcp_windbg` server hosted over stdio and driven by a real MCP client
+(only the LLM is faked, by the scripted tool calls). Scenarios that need a debugger carry the
+`live` (and `remote` / `kernel`) marker and `pytest.skip` cleanly when `cdb.exe` or the Git LFS
+dump is absent, so `-m "not live"` always runs and stays green off-Windows. See
+`src/mcp_windbg/tests/e2e/README.md` for the scenario format. Test dumps live in
+`src/mcp_windbg/tests/dumps/` via Git LFS (`git lfs pull`).
+
+**Kernel scenarios.** `kernel_session.yaml` drives a real kernel target through `kd.exe`. CI has
+no target machine, so it skips there; locally, point it at a debuggable VM or box and it runs:
 
 ```powershell
-git tag v0.13.0
-git push origin main
-git push origin v0.13.0
+$env:MCP_WINDBG_KERNEL_CONNECTION = "net:port=50005,key=1.2.3.4"   # the -k connection string
+uv run pytest src/mcp_windbg/tests/ -m kernel -v
 ```
 
-The `publish-mcp.yml` workflow triggers on `v*` tags and:
-- Runs full test suite
-- Builds the package
-- Publishes to PyPI
-- Creates a GitHub Release
+Kernel code paths that CI cannot reach are held up by the hermetic fake-`kd.exe` tests in
+`tests/test_kd_session.py`. Treat those as the CI floor, not as proof the feature works: before
+shipping a kernel change, run the `kernel` marker against a real target.
 
-## Running Tests
+## Layout
 
-### Prerequisites
+```
+src/mcp_windbg/
+  __init__.py        main(): CLI argument parsing, picks the transport
+  __main__.py        module entry point
+  server.py          MCP server: tool param models + list_tools + call_tool dispatch
+  cdb_session.py     CDBSession: spawns cdb.exe, sends commands, reads output
+  filter_script.py   --filter-script loader and tool content hooks
+  prompts/           prompt templates (dump-triage.prompt.md)
+  tests/             e2e harness: e2e/ (runner + harness), scenarios/*.yaml, dumps/ (Git LFS)
+scripts/             check-version-consistency.ps1, validate-server-schema.py, Format-Docs.ps1
+examples/            small C++ programs that crash, for generating test dumps
+docs/                MkDocs user guide (Material), deployed to GitHub Pages
+.github/workflows/   ci.yml -> build-and-test.yml (tests), publish-mcp.yml (PyPI on v* tags),
+                     pages.yml (docs deploy)
+pyproject.toml       project + dependency config         server.json   MCP registry manifest
+```
 
-- Windows with WinDbg/CDB installed (via Microsoft Store or SDK)
-- Python 3.10+ with `uv` package manager
+## Conventions
 
-### Install Development Dependencies
+Topic-scoped conventions live in `.claude/rules/` and load automatically when you read a
+matching file:
+
+- `markdown.md` - Markdown typography for every `*.md`: plain hyphens (no em/en dashes), no
+  emojis. Run `pwsh scripts/Format-Docs.ps1`. (`**/*.md`)
+- `documentation.md` - authoring style for the `docs/` user guide (scenario-first, link to
+  the reference, sentence-case). (`docs/**`)
+
+Tool and CLI facts come from `src/mcp_windbg/server.py` (tool schemas) and
+`src/mcp_windbg/__init__.py` (command-line options). Keep `docs/reference/` in sync with them.
+
+## Versioning and release
+
+The version lives in three places that must agree: `pyproject.toml` (`version`), `server.json`
+(top-level `version` and every `packages[*].version`), and the top `## [x.y.z]` heading in
+`CHANGELOG.md`. Day-to-day work lands under a `## [Unreleased]` heading; the version-
+consistency check (`scripts/check-version-consistency.ps1`) only runs on release builds, so
+`main` may sit at `[Unreleased]`.
+
+To release: bump all three to the new version, set the CHANGELOG date, then tag `vX.Y.Z` and
+push. `publish-mcp.yml` runs the tests, builds, publishes to PyPI, and creates the GitHub
+release; that workflow runs the consistency check (it calls build-and-test with
+`check-version: true`).
+
+## Docs
 
 ```powershell
-uv sync --dev
+pip install -r requirements-docs.txt
+python -m mkdocs serve                  # live preview at http://127.0.0.1:8000
+python -m mkdocs build --strict         # what Pages builds; links must resolve
+pwsh scripts/Format-Docs.ps1            # markdown typography
 ```
-
-### Run All Tests
-
-```powershell
-uv run pytest src/mcp_windbg/tests/ -v
-```
-
-### Run Specific Test Files
-
-```powershell
-# Core CDB tests
-uv run pytest src/mcp_windbg/tests/test_cdb.py -v
-
-# Remote debugging tests
-uv run pytest src/mcp_windbg/tests/test_remote_debugging.py -v
-```
-
-### Test Requirements
-
-- Tests require a working CDB installation (auto-detected from common paths)
-- Test dump files are stored in `src/mcp_windbg/tests/dumps/` via Git LFS
-- Remote debugging tests may take longer due to server setup/teardown
-
-## Development Workflow
-
-### Local Development
-
-```powershell
-# Install in development mode
-uv sync --dev
-
-# Run the server locally (stdio mode)
-uv run python -m mcp_windbg --verbose
-
-# Run with HTTP transport
-uv run python -m mcp_windbg --transport streamable-http --port 8000
-```
-
-### Code Quality
-
-The project uses:
-- `pytest` for testing
-- Type hints throughout the codebase
-- Pydantic for data validation
-
-### Adding New Features
-
-1. Create/modify code in `src/mcp_windbg/`
-2. Add corresponding tests in `src/mcp_windbg/tests/`
-3. Update CHANGELOG.md with the new feature
-4. Run tests locally before pushing
-
-## CI/CD Pipeline
-
-### Workflows
-
-| Workflow | Trigger | Purpose |
-|----------|---------|---------|
-| `ci.yml` | Push/PR to main | Runs build-and-test |
-| `build-and-test.yml` | Called by other workflows | Tests on Python 3.10-3.14 |
-| `publish-mcp.yml` | Tag `v*` | Publishes to PyPI |
-
-### CI Steps
-
-1. Install WinDbg from Microsoft Store
-2. Set up Python via `uv`
-3. Install dependencies
-4. Run pytest test suite
-5. Verify CLI entry point
-6. Check version consistency
-7. Build and verify package
-
-## Dependencies
-
-### Runtime Dependencies (pyproject.toml)
-
-- `mcp` - Model Context Protocol SDK
-- `pydantic` - Data validation
-- `starlette` - HTTP transport support
-- `uvicorn` - ASGI server
-
-### Development Dependencies
-
-- `pytest` - Testing framework
-- `twine` - Package verification
-
-### Updating Dependencies
-
-Dependabot automatically creates PRs for dependency updates weekly. Review and merge as appropriate.
-
-## Troubleshooting
-
-### CDB Not Found
-
-The server looks for CDB in these locations:
-- `C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\cdb.exe`
-- `C:\Program Files\Debugging Tools for Windows\cdb.exe`
-- Microsoft Store WinDbg location
-
-Set `CDB_PATH` environment variable to use a custom path.
-
-### Tests Skipped
-
-If tests are skipped:
-- Ensure CDB is installed and accessible
-- Check that test dump files exist (run `git lfs pull`)
-
-### Version Mismatch Errors
-
-If CI fails on version consistency:
-- Run `.\scripts\check-version-consistency.ps1` locally
-- Ensure all three version locations are updated
 
 ---
 > Source: [svnscha/mcp-windbg](https://github.com/svnscha/mcp-windbg) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
