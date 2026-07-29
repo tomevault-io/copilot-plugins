@@ -1,0 +1,9 @@
+{
+  "name": "consensus-shipyard--ipc",
+  "displayName": "ipc",
+  "description": "ipc",
+  "version": "1.0.0",
+  "author": "consensus-shipyard",
+  "homepage": "https://github.com/consensus-shipyard/ipc",
+  "skills": []
+}
