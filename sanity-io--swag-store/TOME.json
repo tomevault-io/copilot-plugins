@@ -2,7 +2,7 @@
   "name": "swag-store",
   "owner": "sanity-io",
   "repo": "swag-store",
-  "description": "Hydrogen Powered Sanity Swag Store",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sanity-io/swag-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:33:13Z"
+  "distributed_at": "2026-07-29T10:46:26Z"
 }
