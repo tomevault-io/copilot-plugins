@@ -4,7 +4,7 @@
   "repo": "terraform-azurerm-regions",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/claranet/terraform-azurerm-regions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T02:12:52Z"
+  "distributed_at": "2026-07-29T21:44:04Z"
 }
