@@ -1,0 +1,9 @@
+{
+  "name": "skills--create-applications-with-the-copilot-cli",
+  "displayName": "create-applications-with-the-copilot-cli",
+  "description": "create-applications-with-the-copilot-cli",
+  "version": "1.0.0",
+  "author": "skills",
+  "homepage": "https://github.com/skills/create-applications-with-the-copilot-cli",
+  "skills": []
+}
