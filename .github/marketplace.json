@@ -7199,6 +7199,11 @@
       "description": "Google Suite CLI: Gmail, GCal, GDrive, GContacts."
     },
     {
+      "name": "open-gsd--gsd-core",
+      "source": "./open-gsd--gsd-core",
+      "description": "gsd-core"
+    },
+    {
       "name": "iofficeai--officecli",
       "source": "./iofficeai--officecli",
       "description": "OfficeCLI"
@@ -8162,6 +8167,11 @@
       "name": "containernetworking--cni",
       "source": "./containernetworking--cni",
       "description": "cni"
+    },
+    {
+      "name": "elastic--go-elasticsearch",
+      "source": "./elastic--go-elasticsearch",
+      "description": "go-elasticsearch"
     },
     {
       "name": "thesysdev--openui",
@@ -10577,6 +10587,11 @@
       "name": "facebookincubator--velox",
       "source": "./facebookincubator--velox",
       "description": "velox"
+    },
+    {
+      "name": "pydata--xarray",
+      "source": "./pydata--xarray",
+      "description": "xarray"
     },
     {
       "name": "pydata--xarray",
@@ -15247,6 +15262,11 @@
       "name": "lcomplete--huntly",
       "source": "./lcomplete--huntly",
       "description": "huntly"
+    },
+    {
+      "name": "datopian--portaljs",
+      "source": "./datopian--portaljs",
+      "description": "portaljs"
     },
     {
       "name": "academysoftwarefoundation--openimageio",
@@ -21229,6 +21249,11 @@
       "description": "nx-console"
     },
     {
+      "name": "sandeco--reversa",
+      "source": "./sandeco--reversa",
+      "description": "reversa"
+    },
+    {
       "name": "edwardkim--rhwp",
       "source": "./edwardkim--rhwp",
       "description": "\uc544\ub798\ud55c\uae00 hwp viewer and editor by rust and wasm"
@@ -24669,6 +24694,16 @@
       "description": "gdUnit4"
     },
     {
+      "name": "thedakshjaitly--mex",
+      "source": "./thedakshjaitly--mex",
+      "description": "mex"
+    },
+    {
+      "name": "thedakshjaitly--mex",
+      "source": "./thedakshjaitly--mex",
+      "description": "mex"
+    },
+    {
       "name": "remorses--critique",
       "source": "./remorses--critique",
       "description": "TUI for reviewing git changes"
@@ -25177,6 +25212,11 @@
       "name": "microsoft--mssql-jdbc",
       "source": "./microsoft--mssql-jdbc",
       "description": "mssql-jdbc"
+    },
+    {
+      "name": "datadog--integrations-core",
+      "source": "./datadog--integrations-core",
+      "description": "integrations-core"
     },
     {
       "name": "cybercog--laravel-ban",
@@ -27034,9 +27074,19 @@
       "description": "enhanced-resolve"
     },
     {
+      "name": "typefully--minimal-twitter",
+      "source": "./typefully--minimal-twitter",
+      "description": "minimal-twitter"
+    },
+    {
       "name": "railwayapp--railpack",
       "source": "./railwayapp--railpack",
       "description": "Zero-config application builder that automatically analyzes and turns your code into an image"
+    },
+    {
+      "name": "nvidia--cuopt",
+      "source": "./nvidia--cuopt",
+      "description": "cuopt"
     },
     {
       "name": "norish-recipes--norish",
@@ -37789,6 +37839,11 @@
       "description": "backpack"
     },
     {
+      "name": "miguelsolorio--vscode-symbols",
+      "source": "./miguelsolorio--vscode-symbols",
+      "description": "vscode-symbols"
+    },
+    {
       "name": "lijigang--ljg-skill-xray-paper",
       "source": "./lijigang--ljg-skill-xray-paper",
       "description": "\u8bba\u6587X\u5149\u673a \u2014 Claude Code Skill\uff0c\u89e3\u6784\u5b66\u672f\u8bba\u6587\uff0c\u63d0\u70bc\u9910\u5dfe\u7eb8\u516c\u5f0f"
@@ -38107,6 +38162,11 @@
       "name": "butterbase-ai--butterbase-plugin",
       "source": "./butterbase-ai--butterbase-plugin",
       "description": "butterbase-plugin"
+    },
+    {
+      "name": "tonykipkemboi--ollama-pdf-rag",
+      "source": "./tonykipkemboi--ollama-pdf-rag",
+      "description": "ollama_pdf_rag"
     },
     {
       "name": "win4r--lossless-claw-enhanced",
@@ -43164,6 +43224,11 @@
       "description": "simonwillisonblog"
     },
     {
+      "name": "signalk--signalk-server",
+      "source": "./signalk--signalk-server",
+      "description": "signalk-server"
+    },
+    {
       "name": "wevm--incur",
       "source": "./wevm--incur",
       "description": "CLI framework for agents and humans"
@@ -46102,6 +46167,11 @@
       "name": "dingmyu--davit",
       "source": "./dingmyu--davit",
       "description": "davit"
+    },
+    {
+      "name": "bitwize-music-studio--claude-ai-music-skills",
+      "source": "./bitwize-music-studio--claude-ai-music-skills",
+      "description": "claude-ai-music-skills"
     },
     {
       "name": "mimurchison--claude-chief-of-staff",
@@ -50132,6 +50202,11 @@
       "name": "greenart7c3--amber",
       "source": "./greenart7c3--amber",
       "description": "Amber"
+    },
+    {
+      "name": "automagik-dev--genie",
+      "source": "./automagik-dev--genie",
+      "description": "genie"
     },
     {
       "name": "timwuhaotian--the-pair",
@@ -58484,6 +58559,16 @@
       "description": "astra"
     },
     {
+      "name": "brightdigit--mistkit",
+      "source": "./brightdigit--mistkit",
+      "description": "MistKit"
+    },
+    {
+      "name": "brightdigit--mistkit",
+      "source": "./brightdigit--mistkit",
+      "description": "MistKit"
+    },
+    {
       "name": "zxkane--aws-skills",
       "source": "./zxkane--aws-skills",
       "description": "Claude Agent Skills for AWS"
@@ -62337,6 +62422,16 @@
       "name": "executablebooks--sphinx-design",
       "source": "./executablebooks--sphinx-design",
       "description": "sphinx-design"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
     },
     {
       "name": "helm--helm-www",
@@ -73769,6 +73864,11 @@
       "description": "lumina"
     },
     {
+      "name": "spiffe--spike",
+      "source": "./spiffe--spike",
+      "description": "spike"
+    },
+    {
       "name": "azure-samples--python-mcp-demos",
       "source": "./azure-samples--python-mcp-demos",
       "description": "python-mcp-demos"
@@ -74777,6 +74877,11 @@
       "name": "namecheap--terraform-provider-namecheap",
       "source": "./namecheap--terraform-provider-namecheap",
       "description": "terraform-provider-namecheap"
+    },
+    {
+      "name": "lance-format--lance-graph",
+      "source": "./lance-format--lance-graph",
+      "description": "lance-graph"
     },
     {
       "name": "jduncan-rva--skill-porter",
@@ -85559,6 +85664,11 @@
       "description": "eloquent-driver"
     },
     {
+      "name": "coder--vscode-coder",
+      "source": "./coder--vscode-coder",
+      "description": "vscode-coder"
+    },
+    {
       "name": "alfredolopez80--multi-agent-ralph-loop",
       "source": "./alfredolopez80--multi-agent-ralph-loop",
       "description": "Autonomous orchestration framework for Claude Code with MemPalace-inspired memory (4-layer stack, 818-token wake-up), parallel-first Agent Teams (6 teammates), Aristotle First Principles methodology, "
@@ -88062,6 +88172,11 @@
       "name": "sap--terraform-provider-btp",
       "source": "./sap--terraform-provider-btp",
       "description": "terraform-provider-btp"
+    },
+    {
+      "name": "skenetechnologies--skene",
+      "source": "./skenetechnologies--skene",
+      "description": "skene"
     },
     {
       "name": "interfacex-co-jp--genshijin",
@@ -93554,6 +93669,11 @@
       "description": "DSL"
     },
     {
+      "name": "jamal-wia--paginator",
+      "source": "./jamal-wia--paginator",
+      "description": "Paginator"
+    },
+    {
       "name": "lidr-academy--ai-specs",
       "source": "./lidr-academy--ai-specs",
       "description": "This repository contains a comprehensive set of development rules, standards, and AI agent configurations designed to work seamlessly with multiple AI coding copilots. The setup is portable and can be"
@@ -95342,6 +95462,11 @@
       "name": "namtuanly--mtl-tabnet",
       "source": "./namtuanly--mtl-tabnet",
       "description": "MTL-TabNet"
+    },
+    {
+      "name": "leaningtech--browsercode",
+      "source": "./leaningtech--browsercode",
+      "description": "browsercode"
     },
     {
       "name": "khanhnam-nathan--pyneat",
@@ -102019,6 +102144,31 @@
       "description": "workflows"
     },
     {
+      "name": "caido-community--workflows",
+      "source": "./caido-community--workflows",
+      "description": "workflows"
+    },
+    {
+      "name": "caido-community--workflows",
+      "source": "./caido-community--workflows",
+      "description": "workflows"
+    },
+    {
+      "name": "caido-community--workflows",
+      "source": "./caido-community--workflows",
+      "description": "workflows"
+    },
+    {
+      "name": "caido-community--workflows",
+      "source": "./caido-community--workflows",
+      "description": "workflows"
+    },
+    {
+      "name": "caido-community--workflows",
+      "source": "./caido-community--workflows",
+      "description": "workflows"
+    },
+    {
       "name": "jjongguet--oh-my-product",
       "source": "./jjongguet--oh-my-product",
       "description": "oh-my-product"
@@ -106129,6 +106279,11 @@
       "description": "gsd-plugin"
     },
     {
+      "name": "jnuyens--gsd-plugin",
+      "source": "./jnuyens--gsd-plugin",
+      "description": "gsd-plugin"
+    },
+    {
       "name": "databricks--databricks-agent-skills",
       "source": "./databricks--databricks-agent-skills",
       "description": "databricks-agent-skills"
@@ -107747,6 +107902,76 @@
       "name": "wsargent--groundedllm",
       "source": "./wsargent--groundedllm",
       "description": "groundedllm"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
     },
     {
       "name": "sonarsource--sonarqube-agent-plugins",
@@ -111364,6 +111589,11 @@
       "description": "hivit"
     },
     {
+      "name": "d7omdev--clipse-gui",
+      "source": "./d7omdev--clipse-gui",
+      "description": "clipse-gui"
+    },
+    {
       "name": "pproenca--agent-tui",
       "source": "./pproenca--agent-tui",
       "description": "TUI automation for AI agents. Control any terminal app from code."
@@ -114122,6 +114352,121 @@
       "name": "kylehowells--swift-justhtml",
       "source": "./kylehowells--swift-justhtml",
       "description": "swift-justhtml"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
     },
     {
       "name": "bigdevsoon--100-days-of-code",
@@ -128664,6 +129009,11 @@
       "description": "LOCE"
     },
     {
+      "name": "yasserstudio--gpc",
+      "source": "./yasserstudio--gpc",
+      "description": "gpc"
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -133599,6 +133949,26 @@
       "description": "agentguard"
     },
     {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -137852,6 +138222,11 @@
       "name": "researchmm--wsod2",
       "source": "./researchmm--wsod2",
       "description": "WSOD2"
+    },
+    {
+      "name": "mrz1836--go-sanitize",
+      "source": "./mrz1836--go-sanitize",
+      "description": "go-sanitize"
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -145314,6 +145689,16 @@
       "description": "ziti-doc"
     },
     {
+      "name": "openziti--ziti-doc",
+      "source": "./openziti--ziti-doc",
+      "description": "ziti-doc"
+    },
+    {
+      "name": "openziti--ziti-doc",
+      "source": "./openziti--ziti-doc",
+      "description": "ziti-doc"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -148882,6 +149267,46 @@
       "name": "spiffe--helm-charts-hardened",
       "source": "./spiffe--helm-charts-hardened",
       "description": "helm-charts-hardened"
+    },
+    {
+      "name": "drmikecrowe--mbfcext",
+      "source": "./drmikecrowe--mbfcext",
+      "description": "mbfcext"
+    },
+    {
+      "name": "londonaicentre--flip",
+      "source": "./londonaicentre--flip",
+      "description": "FLIP"
+    },
+    {
+      "name": "londonaicentre--flip",
+      "source": "./londonaicentre--flip",
+      "description": "FLIP"
+    },
+    {
+      "name": "londonaicentre--flip",
+      "source": "./londonaicentre--flip",
+      "description": "FLIP"
+    },
+    {
+      "name": "londonaicentre--flip",
+      "source": "./londonaicentre--flip",
+      "description": "FLIP"
+    },
+    {
+      "name": "londonaicentre--flip",
+      "source": "./londonaicentre--flip",
+      "description": "FLIP"
+    },
+    {
+      "name": "londonaicentre--flip",
+      "source": "./londonaicentre--flip",
+      "description": "FLIP"
+    },
+    {
+      "name": "londonaicentre--flip",
+      "source": "./londonaicentre--flip",
+      "description": "FLIP"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -158409,6 +158834,11 @@
       "description": "gh-mcp"
     },
     {
+      "name": "ciscodevnet--meraki-magic-mcp-community",
+      "source": "./ciscodevnet--meraki-magic-mcp-community",
+      "description": "meraki-magic-mcp-community"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -164754,6 +165184,21 @@
       "description": "twitter-rss"
     },
     {
+      "name": "routup--routup",
+      "source": "./routup--routup",
+      "description": "routup"
+    },
+    {
+      "name": "go-openapi--errors",
+      "source": "./go-openapi--errors",
+      "description": "errors"
+    },
+    {
+      "name": "routup--routup",
+      "source": "./routup--routup",
+      "description": "routup"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -169662,6 +170107,11 @@
       "name": "d-cent--stonecutter",
       "source": "./d-cent--stonecutter",
       "description": "stonecutter"
+    },
+    {
+      "name": "oppkey--fastopp",
+      "source": "./oppkey--fastopp",
+      "description": "fastopp"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -201029,6 +201479,16 @@
       "description": "Magento 2 - Performance review module"
     },
     {
+      "name": "chasen-liao--pi-agent-desktop",
+      "source": "./chasen-liao--pi-agent-desktop",
+      "description": "Pi Agent Desktop \u2014 \u57fa\u4e8e Electron \u7684 Pi \u7f16\u7a0b\u667a\u80fd\u4f53\u684c\u9762\u5ba2\u6237\u7aef (\u884d\u751f\u81ea pi-web)"
+    },
+    {
+      "name": "chasen-liao--pi-agent-desktop",
+      "source": "./chasen-liao--pi-agent-desktop",
+      "description": "Pi Agent Desktop \u2014 \u57fa\u4e8e Electron \u7684 Pi \u7f16\u7a0b\u667a\u80fd\u4f53\u684c\u9762\u5ba2\u6237\u7aef (\u884d\u751f\u81ea pi-web)"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -229479,6 +229939,41 @@
       "description": "browser-use-wasm"
     },
     {
+      "name": "pdufour--browser-use-wasm",
+      "source": "./pdufour--browser-use-wasm",
+      "description": "browser-use-wasm"
+    },
+    {
+      "name": "pdufour--browser-use-wasm",
+      "source": "./pdufour--browser-use-wasm",
+      "description": "browser-use-wasm"
+    },
+    {
+      "name": "pdufour--browser-use-wasm",
+      "source": "./pdufour--browser-use-wasm",
+      "description": "browser-use-wasm"
+    },
+    {
+      "name": "pdufour--browser-use-wasm",
+      "source": "./pdufour--browser-use-wasm",
+      "description": "browser-use-wasm"
+    },
+    {
+      "name": "pdufour--browser-use-wasm",
+      "source": "./pdufour--browser-use-wasm",
+      "description": "browser-use-wasm"
+    },
+    {
+      "name": "pdufour--browser-use-wasm",
+      "source": "./pdufour--browser-use-wasm",
+      "description": "browser-use-wasm"
+    },
+    {
+      "name": "evan-kim2028--agent-fleet",
+      "source": "./evan-kim2028--agent-fleet",
+      "description": "Agent fleet \u2014 pluggable personas, repo-scoped dispatch, Hermes integration"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -242679,6 +243174,61 @@
       "description": "squiral"
     },
     {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
+      "name": "kyungseo--ai-workflow-harness",
+      "source": "./kyungseo--ai-workflow-harness",
+      "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -250877,6 +251427,11 @@
       "name": "pramoddutta--advanceplaywrightframework1x",
       "source": "./pramoddutta--advanceplaywrightframework1x",
       "description": "AdvancePlaywrightFramework1x"
+    },
+    {
+      "name": "byh3071-cpu--vhk",
+      "source": "./byh3071-cpu--vhk",
+      "description": "VHK \u2014 AI \ucf54\ub529 \uc138\uc158\uc744 \ubaa9\ud45c\u00b7\uc99d\uac70\u00b7\uae30\uc5b5\u00b7\uaddc\uce59\uc73c\ub85c \ubb36\ub294 \ud55c\uad6d\uc5b4 CLI. \uaddc\uce59 \ub3d9\uae30\ud654, MCP 35 tools, verify/review/preflight \uac8c\uc774\ud2b8."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -260672,6 +261227,11 @@
       "name": "thaitop--esp32-claude-quota",
       "source": "./thaitop--esp32-claude-quota",
       "description": "A desk display for Claude Code's two usage windows, plus a few ambient readouts, running on the \"Cheap Yellow Display\""
+    },
+    {
+      "name": "mackding--andrej-karpathy-skills-zh",
+      "source": "./mackding--andrej-karpathy-skills-zh",
+      "description": "Claude Code / Codex / Cursor AI \u7f16\u7a0b\u89c4\u5219\uff1aKarpathy \u7f16\u7801\u51c6\u5219\u4e2d\u6587\u7248\uff0c\u51cf\u5c11\u9519\u8bef\u5047\u8bbe\u3001\u8fc7\u5ea6\u5de5\u7a0b\u5316\u548c\u65e0\u5173\u6539\u52a8"
     },
     {
       "name": "lightninglabs--lnget",
