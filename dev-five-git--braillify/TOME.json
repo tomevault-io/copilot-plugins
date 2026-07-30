@@ -2,7 +2,7 @@
   "name": "braillify",
   "owner": "dev-five-git",
   "repo": "braillify",
-  "description": "\uc810\uc5ed, \uc5ed\uc810\uc5ed \ub77c\uc774\ube0c\ub7ec\ub9ac",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dev-five-git/braillify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T10:21:36Z"
+  "distributed_at": "2026-07-30T19:12:14Z"
 }
