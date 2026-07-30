@@ -20,27 +20,30 @@ pip install -e .
 bandsox init --rootfs-url ./bandsox-base.ext4
 
 # Start the server (auth is off unless auth.json exists)
-sudo python3 -m bandsox.cli serve --host 0.0.0.0 --port 8000
+bandsox serve --host 0.0.0.0 --port 8000
 
 # Enable auth (off by default, creates auth.json)
-sudo bandsox auth init --storage /var/lib/sandbox
+bandsox auth init --storage /var/lib/sandbox
 
 # Manage auth
-sudo bandsox auth set-password --storage /var/lib/sandbox
+bandsox auth set-password --storage /var/lib/sandbox
 bandsox auth create-key my-key
 bandsox auth list-keys
 bandsox auth revoke-key bsx_k_<id>
 
 # Create a VM
-sudo python3 -m bandsox.cli create ubuntu:latest --name my-vm
+bandsox create ubuntu:latest --name my-vm
 
 # Open terminal to a VM
-sudo python3 -m bandsox.cli terminal <vm_id>
+bandsox terminal <vm_id>
 
-# Verification tests (require sudo)
-sudo python3 verification/verify_bandsox.py
-sudo python3 verification/verify_file_ops.py
-sudo python3 verification/verify_internet.py
+# Unit tests
+uv run pytest
+
+# Smoke scripts (boot real microVMs; may prompt for sudo during networking setup)
+python3 tests/smoke_bandsox.py
+python3 tests/smoke_go_agent.py
+python3 tests/smoke_internet.py
 ```
 
 ## Architecture
@@ -49,7 +52,8 @@ sudo python3 verification/verify_internet.py
 
 - **core.py**: `BandSox` class -- VM lifecycle, storage, snapshots
 - **vm.py**: `MicroVM` class -- wraps Firecracker process, config, networking, console multiplexing
-- **agent.py**: lightweight Python agent inside guest VMs on ttyS0, runs commands via JSON protocol
+- **agent/main.go**: static Go guest agent inside VMs on ttyS0, runs commands/file ops via JSON protocol (+ vsock fast paths)
+- **agent.py**: legacy Python agent kept for compatibility/testing (not required in guest images)
 - **auth.py**: authentication -- API keys (SHA-256 hashed), HMAC-signed session tokens, rate-limited login, FastAPI dependency. All persistent state in `auth.json`.
 - **server.py**: FastAPI web server with REST API, dashboard, and auth middleware
 - **cli.py**: command-line interface including `auth` subcommands
@@ -64,20 +68,16 @@ sudo python3 verification/verify_internet.py
 
 ### Authentication
 
-Auth is off by default. Enable it with `bandsox auth init`, which creates `auth.json` in the storage directory. When `auth.json` exists, all endpoints require auth. When it doesn't, everything is open.
-
-Two auth mechanisms, checked by a single FastAPI dependency:
-
-1. **API keys**: `Authorization: Bearer <key>` header. For CLI, SDK, and direct API calls. Keys stored as SHA-256 hashes in `{storage_dir}/auth.json`.
-2. **Session cookies**: `bandsox_session` cookie. For the browser dashboard. Created via `/api/auth/login` with the admin password. Sessions are HMAC-signed tokens (expiry timestamp + SHA-256 signature), so they survive server restarts. The signing secret is in `auth.json`.
-
-WebSocket terminal uses a `token=` query parameter since browser WebSocket API can't send custom headers.
+See [AUTHENTICATION.md](AUTHENTICATION.md) for the full model. TL;DR: off by
+default, enable with `bandsox auth init`, two mechanisms (Bearer API keys
+and HMAC-signed session cookies) checked by a single FastAPI dependency,
+WebSocket terminal uses a `token=` query parameter.
 
 CLI credentials are stored at `~/.bandsox/credentials`.
 
 ### Host-guest communication
 
-The agent (`agent.py`) runs inside each VM and talks to the host over serial console (ttyS0) using a JSON protocol. Commands are sent as JSON messages with types like `exec`, `read_file`, `write_file`, and the agent responds with structured results.
+The Go guest agent (`bandsox-agent`, built from `agent/main.go`) runs inside each VM and talks to the host over serial console (ttyS0) using a JSON protocol, with vsock for bulk I/O and PTY data. Commands are sent as JSON messages with types like `exec`, `read_file`, `write_file`, and the agent responds with structured results.
 
 ### Networking
 
@@ -102,7 +102,7 @@ Large artifacts (vmlinux kernel, CNI binaries, rootfs images) are downloaded by 
 - Linux with KVM support
 - Firecracker binary at `/usr/bin/firecracker`
 - Python 3.8+
-- sudo access (required for TAP device setup)
+- sudo for TAP/NAT when networking is enabled (prompted as needed)
 - Docker (for building rootfs from images)
 
 ## Code style
@@ -111,4 +111,4 @@ Follow PEP 8. Use `black` for formatting.
 
 ---
 > Source: [HACKE-RC/Bandsox](https://github.com/HACKE-RC/Bandsox) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
