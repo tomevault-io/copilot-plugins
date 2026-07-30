@@ -1,64 +1,135 @@
 ## cuopt
 
-> AI agent skills for NVIDIA cuOpt optimization engine. Skills live in **`skills/`** (repo root) and use a **flat layout**: per domain, a concept skill (formulation / problem types) plus implementation skills — typically one per interface (Python, C, CLI, server), or consolidated when the content is shared across interfaces (e.g. installation). Skills evolve through agent interactions — see `skills/skill-evolution/` for the evolution workflow.
+> Read this for cuOpt code style: naming, file extensions, include order, error handling, memory management, and test impact.
 
-# AGENTS.md — cuOpt AI Agent Entry Point
+# Coding Conventions, Error Handling, and Memory Management
 
-AI agent skills for NVIDIA cuOpt optimization engine. Skills live in **`skills/`** (repo root) and use a **flat layout**: per domain, a concept skill (formulation / problem types) plus implementation skills — typically one per interface (Python, C, CLI, server), or consolidated when the content is shared across interfaces (e.g. installation). Skills evolve through agent interactions — see `skills/skill-evolution/` for the evolution workflow.
+Read this for cuOpt code style: naming, file extensions, include order, error handling, memory management, and test impact.
 
-> **🔒 MANDATORY — Ambiguity:** When the problem could be read more than one way, you MUST either **ask the user to clarify** or **solve every plausible interpretation and report all outcomes**. Never pick one interpretation silently.
+## C++ Naming
 
-## Skills directory (flat)
+| Element | Convention | Example |
+|---------|------------|---------|
+| Variables | `snake_case` | `num_locations` |
+| Functions | `snake_case` | `solve_problem()` |
+| Classes | `snake_case` | `data_model` |
+| Test cases | `PascalCase` | `SolverTest` |
+| Device data | `d_` prefix | `d_locations_` |
+| Host data | `h_` prefix | `h_data_` |
+| Template params | `_t` suffix | `value_t` |
+| Private members | `_` suffix | `n_locations_` |
 
-### Rules
-- `skills/cuopt-user-rules/` — Base rules for end users calling cuOpt (routing, LP, MILP, QP, install, server). Not for cuOpt internals — see `skills/cuopt-developer/`. Read first for user-facing tasks; choose skills from the index below by task and interface.
-- `skills/cuopt-developer/` — Modify, build, test, debug, and contribute to cuOpt internals (C++/CUDA, Python, server, CI). Use for solver internals, PRs, DCO, and code conventions.
-- `skills/skill-evolution/` — Skill evolution: after solving a non-trivial problem, propose skill updates to capture generalizable learnings.
+## File Extensions
 
-### Common (concepts only; no API code)
-- `skills/numerical-optimization-formulation/` — LP / MILP / QP: concepts + problem parsing + common formulation patterns
-- `skills/routing-formulation/` — Routing: VRP, TSP, PDP (problem types, data)
-- `skills/cuopt-server-common/` — Server: capabilities, workflow
+| Extension | Usage |
+|-----------|-------|
+| `.hpp` | C++ headers |
+| `.cpp` | C++ source |
+| `.cu` | CUDA source (nvcc required) |
+| `.cuh` | CUDA headers with device code |
 
-### Installation
-- `skills/cuopt-install/` — User install for Python, C, and server (pip, conda, Docker, verification). For building cuOpt from source, see `skills/cuopt-developer/`.
+## Include Order
 
-### API (implementation; one interface per skill)
-- `skills/cuopt-numerical-optimization-api-python/` (LP, MILP, QP)
-- `skills/cuopt-numerical-optimization-api-c/` (LP, MILP, QP)
-- `skills/cuopt-numerical-optimization-api-cli/` (LP, MILP, QP)
-- `skills/cuopt-routing-api-python/`
-- `skills/cuopt-server-api-python/` (deploy + client)
+1. Local headers
+2. RAPIDS headers
+3. Related libraries
+4. Dependencies
+5. STL
 
-## Skill evolution
+## C++ Implementation Style
 
-Skills improve through agent interactions. When you solve a problem and discover a generalizable fix, gotcha, or pattern, follow `skills/skill-evolution/SKILL.md` to propose a skill update. All proposals go through the same CI validation as manual edits.
+- Prefer direct loops or named helpers for performance-critical traversal logic. Reserve lambdas for
+  short predicates and callbacks; large local lambdas obscure control flow and can lead to repeated
+  scans.
 
-### Post-correction hook (mandatory)
+## Python Style
 
-After completing any task where one of these occurred, you MUST read `skills/skill-evolution/SKILL.md` and evaluate whether to propose a skill update:
-- The user corrected your output or approach
-- Your initial solution failed and you had to retry with a different approach
-- You discovered undocumented API behavior or a non-obvious gotcha
-- You used a workaround not described in any existing skill
+- Follow PEP 8
+- Use type hints
+- Tests use pytest
 
-Finish solving the problem first, then evaluate. Not every correction warrants a proposal — only generalizable learnings that would help future interactions.
+## Error Handling
 
-## Resources
+### Runtime Assertions
 
-### Documentation
-- [cuOpt User Guide](https://docs.nvidia.com/cuopt/user-guide/latest/introduction.html)
-- [API Reference](https://docs.nvidia.com/cuopt/user-guide/latest/api.html)
+```cpp
+CUOPT_EXPECTS(condition, "Error message");
+CUOPT_FAIL("Unreachable code reached");
+```
 
-### Examples
-- [cuopt-examples repo](https://github.com/NVIDIA/cuopt-examples)
-- [Google Colab notebooks](https://colab.research.google.com/github/nvidia/cuopt-examples/)
+### Assert-only variables
 
-### Support
-- [File a Bug](https://github.com/NVIDIA/cuopt/issues/new?template=bug_report.md)
-- [Ask a Question](https://github.com/NVIDIA/cuopt/issues/new?template=submit-question.md)
-- [All Issues](https://github.com/NVIDIA/cuopt/issues)
+A variable used only inside `cuopt_assert` (or any assertion that compiles out in
+release builds) triggers an unused-variable warning when asserts are disabled.
+Mark it `[[maybe_unused]]` at the declaration — do **not** suppress the warning
+with `static_cast<void>(var);` (or `(void)var;`) statements after the asserts.
+
+```cpp
+// ❌ WRONG — trailing void-casts to silence the warning
+const f_t lower_bound = lower_bounds[var_idx];
+const f_t upper_bound = upper_bounds[var_idx];
+cuopt_assert(lower_bound >= -bound_tol, "...");
+cuopt_assert(upper_bound <= 1 + bound_tol, "...");
+static_cast<void>(lower_bound);
+static_cast<void>(upper_bound);
+
+// ✅ CORRECT — annotate at the declaration
+[[maybe_unused]] const f_t lower_bound = lower_bounds[var_idx];
+[[maybe_unused]] const f_t upper_bound = upper_bounds[var_idx];
+cuopt_assert(lower_bound >= -bound_tol, "...");
+cuopt_assert(upper_bound <= 1 + bound_tol, "...");
+```
+
+### Container indexing — no gratuitous `static_cast<size_t>`
+
+Index with the bare signed type (`i_t`, `int`, loop counters); don't wrap
+subscripts in `static_cast<size_t>(...)`. The build uses `-Werror` but not
+`-Wsign-conversion`/`-Wconversion`, and there's no `.clang-tidy`, so `v[i]` emits
+no warning — the cast is pure noise and inconsistent with the rest of `cpp/src`.
+
+```cpp
+perm[static_cast<size_t>(cursor[r])] = static_cast<i_t>(k);  // ❌ noise
+perm[cursor[r]] = k;                                         // ✅
+```
+
+Cast only when it changes the value or guards real overflow — e.g. sizing from a
+signed subtraction (`std::vector<i_t> v(static_cast<size_t>(hi - lo) + 2, 0)`), or
+the narrowing `size_t`→`i_t` in `static_cast<i_t>(x.size())` (established style;
+keep it)
+
+### CUDA Error Checking
+
+```cpp
+RAFT_CUDA_TRY(cudaMemcpy(...));
+```
+
+## Memory Management
+
+```cpp
+// ❌ WRONG
+int* data = new int[100];
+
+// ✅ CORRECT - use RMM
+rmm::device_uvector<int> data(100, stream);
+```
+
+- All operations should accept `cuda_stream_view`
+- Views (`*_view` suffix) are non-owning
+
+Read existing code in `cpp/src/` for real examples of RMM allocation, stream-ordering, RAFT utilities, and kernel launch patterns.
+
+## Test Impact Check
+
+**Before any behavioral change, ask:**
+
+1. What scenarios must be covered?
+2. What's the expected behavior contract?
+3. Where should tests live?
+   - C++ gtests: `cpp/tests/`
+   - Python pytest: `python/.../tests/`
+
+**Add at least one regression test for new behavior.**
 
 ---
 > Source: [NVIDIA/cuopt](https://github.com/NVIDIA/cuopt) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
