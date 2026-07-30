@@ -1,8 +1,6 @@
 # AI instruction files for MotrixLab
 
-> Sourced from [Motphys/MotrixLab](https://github.com/Motphys/MotrixLab) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A general-purpose machine learning architecture designed for robot training
+> Sourced from [Motphys/MotrixLab](https://github.com/Motphys/MotrixLab), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
