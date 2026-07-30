@@ -1,76 +1,75 @@
 ## fusio
 
-> - Rust workspace; primary crates live in `fusio*/` directories.
+> Backend-agnostic, append-only manifest store providing serializable snapshot isolation for key-value metadata.
 
-# Agents Handbook
+# fusio-manifest
 
-## Workspace Map
-- Rust workspace; primary crates live in `fusio*/` directories.
-- Examples in `examples/`; WASM demo under `examples/opfs/`.
-- Benchmarks in `benches/`; integration tests live in each crate's `tests/` folder.
-- CI configuration sits in `.github/workflows/`.
+Backend-agnostic, append-only manifest store providing serializable snapshot isolation for key-value metadata.
 
-## Build & Test
-- Default build: `cargo build --workspace`.
-- Feature builds: `cargo build -p fusio --features tokio,aws,tokio-http` | `monoio` | `tokio-uring` (Linux).
-- Common test runs:
-  - `cargo test -p fusio --features tokio,aws,tokio-http`
-  - `cargo test -p fusio-parquet --features tokio`
-  - `cargo test -p fusio-log --no-default-features --features aws,bytes,monoio,monoio-http`
-- Cache variants: `cargo check -p fusio-manifest --no-default-features --features std` and `cargo test -p fusio-manifest --lib --no-default-features --features std`
-- Optional WASM checks: `wasm-pack test --chrome --headless fusio[ -parquet ]` with appropriate features.
+## Architecture
 
-## Linting & Formatting
-- Format before commits: `cargo +nightly fmt --all`
-- **IMPORTANT:** `--workspace --all-features` does NOT work due to mutually exclusive runtime features (`tokio` vs `monoio`/`tokio-uring`/`opfs` which enable `no-send`).
-- Run clippy per-package with appropriate feature combinations:
-  ```bash
-  cargo clippy -p fusio-core --all-features -- -D warnings
-  cargo clippy -p fusio --features tokio,aws,tokio-http -- -D warnings
-  cargo clippy -p fusio --features monoio,aws,monoio-http -- -D warnings
-  cargo clippy -p fusio-manifest -- -D warnings
-  cargo clippy -p fusio-parquet --features tokio -- -D warnings
-  cargo clippy -p fusio-opendal --all-features -- -D warnings
-  cargo clippy -p fusio-object-store --all-features -- -D warnings
-  cargo clippy -p examples --features tokio -- -D warnings
-  ```
-- For CI or pre-commit, test the runtime you're actively developing against.
+```
+Manifest<K,V> → ReadSession / WriteSession
+                         ↓
+    ┌──────────┬──────────────┬─────────────────┬─────────────┐
+    │ HeadStore│ SegmentStore │ CheckpointStore │ LeaseStore  │
+    │ (CAS)    │ (immutable)  │ (merged KV)     │ (TTL-based) │
+    └──────────┴──────────────┴─────────────────┴─────────────┘
+                         ↓
+              ManifestContext (backoff, retention, executor, cache)
+```
 
-## Pre-commit Hook
-- Enable tracked hooks once per clone: `git config core.hooksPath .githooks`.
-- Hook runs the full local suite and requires the nightly toolchain (`rustup toolchain install nightly`): `cargo +nightly fmt --all -- --check`, `cargo check --workspace --all-targets`, `cargo check -p fusio-manifest --no-default-features --features std`, the clippy matrix (`fusio-core`, `fusio` with tokio + monoio features, `fusio-manifest` with default features *and* `--no-default-features --features std`, `fusio-parquet`, `fusio-opendal`, `fusio-object-store`), and `cargo test -p fusio --features tokio,aws,tokio-http`, `cargo test -p fusio-parquet --features tokio`, plus `cargo test -p fusio-manifest --lib --no-default-features --features std`.
-- If rustfmt rewrites files, re-stage and re-commit after running `cargo fmt`; clippy is lint-only.
-- Add a wasm sanity check: `cargo build --target wasm32-unknown-unknown -p fusio --no-default-features --features "aws,opfs,web-http"`; the hook will install `wasm32-unknown-unknown` via rustup if it's missing.
+## Key Components
 
-## Style Expectations
-- Rust 2021 with rustfmt (max width 100); grouped imports.
-- Idiomatic naming: modules/functions snake_case, types CamelCase, constants SCREAMING_SNAKE_CASE.
-- Minimize `#[allow]`; justify any unavoidable allowances inline.
+- **`Manifest<K,V>`**: Main facade for sessions and one-shot operations
+- **`ReadSession`/`WriteSession`**: Lease-protected snapshot views with staged operations
+- **`HeadStore`**: CAS-based HEAD pointer (`HeadStoreImpl` uses `FsCas`)
+- **`SegmentIo`**: Immutable segment storage with `put_next`, `get`, `list_from`
+- **`CheckpointStore`**: Merged key-value snapshots for read optimization
+- **`LeaseStore`**: TTL-based leases protecting snapshots from GC
+- **`Compactor`**: Headless compaction/GC with three-phase distributed GC
 
-## Testing Discipline
-- Pair unit tests with code; use crate `tests/` for integration coverage.
-- Exercise new backends across runtimes (`tokio`, `monoio`) and include `aws` feature for S3 logic.
-- Gate browser/WASM behavior behind `opfs`/`web` features.
-- `fusio-manifest` supports in-memory + S3.
+## Build/Test Commands
 
-## Change Management
-- Conventional commits (`feat:`, `fix:`, etc.) with optional scope and PR references.
-- PRs should explain rationale, touched crates, feature flags tested, and test results. Update docs/examples when behavior shifts.
-- Pre-push checklist: fmt, clippy, relevant `cargo test` invocations.
+```bash
+# Build (requires tokio runtime via fusio dependency)
+cargo build -p fusio-manifest
 
-## Security & Config
-- Never commit credentials; export AWS keys/region locally when needed.
-- Prefer `--no-default-features` plus explicit flags for minimal surfaces.
-- `AmazonS3Builder::new` understands access point ARNs and switches to virtual-host mode automatically.
+# Test
+cargo test -p fusio-manifest
 
-## Tooling Quick Reference
-- Use `ast-grep` for Rust-aware search (e.g. `ast-grep run -l rust -p 'Manifest' -r .`).
-- Add `--json=stream` for scripted consumption or `-A/-B` for context.
-- `--globs` helps include/exclude paths; simplify patterns if you see "Pattern contains an ERROR node".
+# Build with moka cache
+cargo build -p fusio-manifest --features cache-moka
+```
 
-## Final Note
-- Backward compatibility is flexible—prioritize clean, well-explained implementations.
+## Usage Pattern
+
+```rust
+// Create manifest with S3 backend
+let manifest: S3Manifest<String, String, _> = s3::Builder::new("bucket")
+    .prefix("my-manifest")
+    .credential(cred)
+    .build()
+    .into();
+
+// Write session
+let mut write = manifest.session_write().await?;
+write.put("key".into(), "value".into());
+write.commit().await?;
+
+// Read session (lease-protected)
+let reader = manifest.session_read().await?;
+let value = reader.get(&"key".to_string()).await?;
+reader.end().await?;
+```
+
+## Concurrency Model
+
+- CAS-based HEAD updates ensure serializable commits
+- Sessions acquire leases; GC respects watermarks from active leases
+- Orphan recovery handles durable-but-unpublished segments
+- Loom-based deterministic tests verify concurrency correctness
 
 ---
 > Source: [tonbo-io/fusio](https://github.com/tonbo-io/fusio) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
