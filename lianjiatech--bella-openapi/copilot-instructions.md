@@ -8,170 +8,138 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Bella OpenAPI is an AI API gateway that provides unified access to multiple AI services (chat completion, embeddings, ASR, TTS, image generation). It's a production-grade system serving 150M+ daily API calls at Beike (KE Holdings). The project consists of a Java Spring Boot backend (api/) and a Next.js frontend (web/), deployed via Docker.
+This is **Bella OpenAPI Web** - a Next.js 14 web application that serves as an API management and testing console for OpenAPI endpoints. It provides a comprehensive interface for testing, monitoring, and managing various AI/ML APIs including chat completions, audio processing, and embeddings.
 
-## Common Development Commands
+## Common Commands
 
-### Docker Deployment (Recommended)
+### Development
 ```bash
-# Start all services with Docker
-./start.sh
-
-# Start with specific configurations
-./start.sh --build                    # Rebuild services
-./start.sh --rebuild                  # Force rebuild without cache
-./start.sh --nginx-port 8080         # Use custom port
-./start.sh --server https://domain.com  # Set server domain
-./start.sh --skip-auth               # Skip admin authorization
-
-# OAuth configuration
-./start.sh --github-oauth CLIENT_ID:SECRET --google-oauth CLIENT_ID:SECRET
-
-# Stop services
-./stop.sh
-```
-
-### Backend API Development (Java/Maven)
-```bash
-cd api/
-
-# Build the project
-mvn clean compile
-mvn clean package -DskipTests
-
-# Generate jOOQ code from database
-mvn jooq:generate -pl server
-
-# Build script (compiles and prepares release)
-./build.sh
-
-# Run locally with optimized JVM settings
-./run.sh
-```
-
-### Frontend Web Development (Next.js)
-```bash
-cd web/
-
-# Development
-npm run dev          # Start dev server (http://localhost:3000)
+npm run dev          # Start development server (http://localhost:3000)
 npm run build        # Build for production
 npm run start        # Start production server
-npm run lint         # Run linting
+npm run lint         # Run ESLint linting
+```
+
+### Docker (Multi-stage build with optimizations)
+```bash
+# Build with build args for API host
+docker build --build-arg NEXT_PUBLIC_API_HOST=your-api-host -t bella-openapi-web .
+docker run -p 3000:3000 bella-openapi-web
+
+# Development with volume mounting
+docker run -v $(pwd):/app/web -p 3000:3000 bella-openapi-web
 ```
 
 ## Architecture Overview
 
-### Multi-Module Maven Structure
-- **api/sdk/**: Protocol definitions, DTOs, client interfaces
-- **api/spi/**: Authentication and session management (OAuth, CAS)
-- **api/server/**: Main Spring Boot application with REST endpoints
+### Technology Stack
+- **Framework**: Next.js 14 with App Router and React Server Components
+- **Language**: TypeScript with strict type checking
+- **Styling**: Tailwind CSS + shadcn/ui components (New York style)
+- **State Management**: React Context API with custom providers
+- **HTTP Client**: Axios with custom interceptors and authentication
+- **Forms**: React Hook Form with resolvers
+- **Data Tables**: TanStack React Table
+- **Charts**: Recharts for data visualization
 
-### Protocol Adapter Pattern
-The core uses **AdaptorManager** to route requests to different AI providers:
-- `IProtocolAdaptor` interface for each provider (OpenAI, AWS Bedrock, Alibaba Cloud, etc.)
-- Adapters organized by endpoint type (completion, embedding, tts, asr)
-- Channel-based routing with load balancing and cost optimization
+### Key Directory Structure
+```
+/src
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes (logs, metrics, config)
+│   ├── playground/v1/     # API testing interfaces
+│   │   ├── audio/         # Audio processing APIs
+│   │   ├── chat/          # Chat completion APIs
+│   │   └── embeddings/    # Embedding APIs
+│   ├── apikey/            # API key management
+│   ├── monitor/           # Monitoring dashboard
+│   ├── meta/              # API metadata & main console
+│   └── logs/              # Logging interface
+├── components/            # React components (feature-organized)
+├── lib/                   # Utilities and configurations
+│   ├── api/              # API client functions
+│   ├── context/          # React contexts (UserProvider, etc.)
+│   └── types/            # TypeScript definitions
+└── hooks/                # Custom React hooks
+```
 
-### Key Request Flow
-1. **Endpoint Controller** receives HTTP request
-2. **Interceptors** handle auth, quotas, safety checks, concurrent limits
-3. **Channel Router** selects provider based on load balancing/cost
-4. **Protocol Adapter** transforms request to provider format
-5. **Cost Handler** calculates and records usage metrics
-6. **Response Processing** handles streaming/non-streaming responses
+### Core Features
+- **API Console**: Browse and test OpenAPI endpoints via `/meta`
+- **Playground**: Interactive testing for Chat, Audio, and Embedding APIs
+- **API Key Management**: Create and manage API keys with quotas
+- **Real-time Monitoring**: Metrics dashboard and comprehensive logging
+- **Multi-tenant Architecture**: Configurable tenant and workflow support
 
-### Database & Caching
-- **jOOQ** for database access with code generation
-- **Multi-level caching**: Local (Caffeine) + Distributed (Redis/Redisson)
-- **High-performance logging**: Disruptor-based async processing
-- **Distributed rate limiting**: Redis + Lua scripts with sliding window
+### Configuration & Environment
+The application uses Next.js standalone output mode and requires these environment variables:
 
-## Key Configuration Files
+**Public (Build-time)**:
+- `NEXT_PUBLIC_API_HOST` - Backend API host
+- `NEXT_PUBLIC_APIKEY_QUOTA_APPLY_URL` - URL for API key quota applications
+- `NEXT_PUBLIC_SAFETY_APPLY_URL` - URL for safety feature applications
+- `NEXT_PUBLIC_AGENT_URL` - Agent service URL
 
-- `api/server/src/main/resources/application.yml` - Main backend config
-- `web/src/config.ts` - Frontend API configuration
-- `docker-compose.yml` - Multi-service orchestration
-- Database initialization: `api/server/sql/*.sql`
+**Server-side (Runtime)**:
+- `WORKFLOW_URL`, `WORKFLOW_API_KEY` - Workflow service configuration
+- `ES_URL`, `ES_API_KEY` - ElasticSearch for logging
+- `TENANT_ID` - Multi-tenant identifier
+- `METRICS_WORKFLOW_ID`, `LOGS_TRACE_WORKFLOW_ID`, `SERVICE_WORKFLOW_ID` - Workflow identifiers
 
-## Important Directories
+### Key Patterns
+- **Provider Pattern**: Global state via UserProvider and ThemeProvider contexts
+- **Custom Axios Instance**: Centralized API client with authentication and error handling interceptors  
+- **Feature-based Components**: Components organized by feature area (apikey/, meta/, playground/, etc.)
+- **Type-safe APIs**: Comprehensive TypeScript types for all API interactions
+- **shadcn/ui Integration**: Consistent design system with Radix UI primitives (New York style)
+- **Standalone Output**: Docker-optimized production builds with PM2 process management
 
-### Backend
-- `api/server/src/main/java/com/ke/bella/openapi/endpoints/` - REST controllers
-- `api/server/src/main/java/com/ke/bella/openapi/protocol/` - Provider adapters
-- `api/server/src/main/java/com/ke/bella/openapi/intercept/` - Request interceptors
-- `api/server/src/main/resources/lua/` - Redis Lua scripts for rate limiting
+### Key Architecture Components
 
-### Frontend
-- `web/src/app/` - Next.js App Router pages
-- `web/src/app/playground/v1/` - API testing interfaces (chat, audio, embeddings)
-- `web/src/components/` - React components (feature-organized)
-- `web/src/lib/api/` - API client functions
+**Authentication Flow**:
+- `src/lib/context/user-context.tsx` - Global user state management
+- `src/lib/api/openapi.ts` - Axios instance with 401 redirect handling
+- `X-BELLA-CONSOLE` header for backend identification
 
-## Multi-tenant Architecture
+**API Client Structure**:
+- `src/lib/api/openapi.ts` - Main HTTP client with interceptors
+- `src/lib/api/meta.ts` - Metadata and model management APIs
+- `src/lib/api/apikey.ts` - API key management functions
+- `src/lib/api/workflow.ts` - Workflow service integration
 
-- **Spaces**: Provide tenant isolation with separate API keys and configurations
-- **API Keys**: Hierarchical structure with quotas and permissions
-- **Models**: Define available AI models per provider with feature capabilities
-- **Channels**: Provider instances with specific configurations
+**Component Organization**:
+- Feature-based: `components/apikey/`, `components/meta/`, `components/playground/`
+- UI primitives: `components/ui/` (shadcn/ui components)
+- Business logic: Audio processing classes in `components/playground/`
+
+### Path Aliases
+- `@/*` maps to `./src/*` for clean imports
 
 ## Development Notes
 
-### Adding New AI Providers
-1. Implement `IProtocolAdaptor` interface in `api/server/src/main/java/com/ke/bella/openapi/protocol/`
-2. Add protocol-specific DTOs in `api/sdk/src/main/java/com/ke/bella/openapi/protocol/`
-3. Register adapter with `AdaptorManager`
-4. Update frontend components in `web/src/components/` if needed
+### Key Routes & Pages
+- Root (`/`) redirects to `/meta` - the main API console interface
+- `/playground/v1/` - Interactive API testing interfaces (chat, audio, embeddings)  
+- `/apikey/` - API key management and quota tracking
+- `/monitor/` - Real-time metrics and monitoring dashboard
+- `/logs/` - Comprehensive logging interface with trace capabilities
 
-### Testing & Quality
-Backend tests need to connect mysql database to run tests, so can't run backend tests in claude.
-```bash
-# Run backend tests
-cd api/
-mvn test                           # Run all tests
-mvn test -pl server               # Run server module tests only
-mvn test -Dtest=ChatControllerTest # Run specific test class
+### Audio Processing Architecture
+- Real-time audio processing with WebSocket connections
+- Multiple recorder implementations: `RealtimeAudioRecorder`, `FlashAudioRecorder`
+- PCM audio playback and device selection utilities
+- Voice synthesis and ASR (Automatic Speech Recognition) support
 
-# Run frontend tests
-cd web/
-npm run lint                      # Run ESLint linting
-```
-- API tests in `api/server/src/test/resources/`
-- Test configuration: `api/server/src/test/resources/application-ut.yml`
-- Mock implementations available for each protocol adapter
+### API Response Handling
+- Standardized response format with `code: 200` success indicator
+- Automatic login redirect on 401 responses via `X-Redirect-Login` header
+- Error boundary handling throughout the application
 
-### Environment Management
-- Supports dev/test/prod environments with profile-specific configs
-- Apollo configuration center integration (optional)
-- Extensive proxy and OAuth configuration options
-
-## Database & Code Generation
-
-### jOOQ Code Generation
-```bash
-cd api/
-mvn jooq:generate -pl server       # Generate jOOQ code from database schema
-```
-- Generated POJOs and Records in `api/server/src/codegen/java/`
-- Database schema initialization scripts in `api/server/sql/`
-- Re-run code generation after database schema changes
-
-## Debugging & Troubleshooting
-
-### Common Issues
-- **Protocol Adapter Problems**: Check `AdaptorManager` registration and provider-specific logs
-- **Rate Limiting Issues**: Examine Redis Lua script execution in `api/server/src/main/resources/lua/`
-- **Database Connection Issues**: Verify Docker MySQL container health and connection settings
-- **Frontend Development Mode**: Use `cd web/ && npm run dev` for hot reload (avoid Docker dev mode)
-
-### Useful Debugging Settings
-```yaml
-# In application.yml for debugging
-logging.level.org.jooq.tools.LoggerListener: DEBUG  # SQL logging
-logging.level.com.ke.bella.openapi.intercept: DEBUG # Request/Response logging
-jetcache.statIntervalMinutes: 1                     # Cache statistics
-```
+### Deployment Features
+- Multi-stage Docker build with Chinese mirror optimizations
+- PM2 process management in production
+- Standalone Next.js output for optimized Docker images
+- Timezone configuration (Asia/Shanghai) in containers
 
 ---
 > Source: [LianjiaTech/bella-openapi](https://github.com/LianjiaTech/bella-openapi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
