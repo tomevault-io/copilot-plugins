@@ -1,61 +1,107 @@
-## typescript
+## simple-proxy
 
-> TypeScript coding standards and best practices for modern web development
+> Process map for VAN QA environment validation
 
+# VAN QA: ENVIRONMENT VALIDATION
 
-# TypeScript Best Practices
+> **TL;DR:** This component verifies that the build environment is properly set up with required tools and permissions.
 
-## Type System
-- Prefer interfaces over types for object definitions
-- Use type for unions, intersections, and mapped types
-- Avoid using `any`, prefer `unknown` for unknown types
-- Use strict TypeScript configuration
-- Leverage TypeScript's built-in utility types
-- Use generics for reusable type patterns
+## 3️⃣ ENVIRONMENT VALIDATION PROCESS
 
-## Naming Conventions
-- Use PascalCase for type names and interfaces
-- Use camelCase for variables and functions
-- Use UPPER_CASE for constants
-- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
-- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
+```mermaid
+graph TD
+    Start["Environment Validation"] --> CheckEnv["Check Build Environment"]
+    CheckEnv --> VerifyBuildTools["Verify Build Tools"]
+    VerifyBuildTools --> ToolsStatus{"Build Tools<br>Available?"}
 
-## Code Organization
-- Keep type definitions close to where they're used
-- Export types and interfaces from dedicated type files when shared
-- Use barrel exports (index.ts) for organizing exports
-- Place shared types in a `types` directory
-- Co-locate component props with their components
+    ToolsStatus -->|"Yes"| CheckPerms["Check Permissions<br>and Access"]
+    ToolsStatus -->|"No"| InstallTools["Install Required<br>Build Tools"]
+    InstallTools --> RetryTools["Retry Verification"]
+    RetryTools --> ToolsStatus
 
-## Functions
-- Use explicit return types for public functions
-- Use arrow functions for callbacks and methods
-- Implement proper error handling with custom error types
-- Use function overloads for complex type scenarios
-- Prefer async/await over Promises
+    CheckPerms --> PermsStatus{"Permissions<br>Sufficient?"}
+    PermsStatus -->|"Yes"| EnvSuccess["Environment Validated<br>✅ PASS"]
+    PermsStatus -->|"No"| FixPerms["Fix Permission<br>Issues"]
+    FixPerms --> RetryPerms["Retry Permission<br>Check"]
+    RetryPerms --> PermsStatus
 
-## Best Practices
-- Enable strict mode in tsconfig.json
-- Use readonly for immutable properties
-- Leverage discriminated unions for type safety
-- Use type guards for runtime type checking
-- Implement proper null checking
-- Avoid type assertions unless necessary
+    style Start fill:#4da6ff,stroke:#0066cc,color:white
+    style EnvSuccess fill:#10b981,stroke:#059669,color:white
+    style ToolsStatus fill:#f6546a,stroke:#c30052,color:white
+    style PermsStatus fill:#f6546a,stroke:#c30052,color:white
+```
 
-## Error Handling
-- Create custom error types for domain-specific errors
-- Use Result types for operations that can fail
-- Implement proper error boundaries
-- Use try-catch blocks with typed catch clauses
-- Handle Promise rejections properly
+### Environment Validation Implementation:
+```powershell
+# Example: Validate environment for a web project
+function Validate-Environment {
+    $requiredTools = @(
+        @{Name = "git"; Command = "git --version"},
+        @{Name = "node"; Command = "node --version"},
+        @{Name = "npm"; Command = "npm --version"}
+    )
 
-## Patterns
-- Use the Builder pattern for complex object creation
-- Implement the Repository pattern for data access
-- Use the Factory pattern for object creation
-- Leverage dependency injection
-- Use the Module pattern for encapsulation
+    $missingTools = @()
+    $permissionIssues = @()
+
+    # Check build tools
+    foreach ($tool in $requiredTools) {
+        try {
+            Invoke-Expression $tool.Command | Out-Null
+        } catch {
+            $missingTools += $tool.Name
+        }
+    }
+
+    # Check write permissions in project directory
+    try {
+        $testFile = ".__permission_test"
+        New-Item -Path $testFile -ItemType File -Force | Out-Null
+        Remove-Item -Path $testFile -Force
+    } catch {
+        $permissionIssues += "Current directory (write permission denied)"
+    }
+
+    # Check if port 3000 is available (commonly used for dev servers)
+    try {
+        $listener = New-Object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Loopback, 3000)
+        $listener.Start()
+        $listener.Stop()
+    } catch {
+        $permissionIssues += "Port 3000 (already in use or access denied)"
+    }
+
+    # Display results
+    if ($missingTools.Count -eq 0 -and $permissionIssues.Count -eq 0) {
+        Write-Output "✅ Environment validated successfully"
+        return $true
+    } else {
+        if ($missingTools.Count -gt 0) {
+            Write-Output "❌ Missing tools: $($missingTools -join ', ')"
+        }
+        if ($permissionIssues.Count -gt 0) {
+            Write-Output "❌ Permission issues: $($permissionIssues -join ', ')"
+        }
+        return $false
+    }
+}
+```
+
+## 📋 ENVIRONMENT VALIDATION CHECKPOINT
+
+```
+✓ CHECKPOINT: ENVIRONMENT VALIDATION
+- All required build tools installed? [YES/NO]
+- Project directory permissions sufficient? [YES/NO]
+- Required ports available? [YES/NO]
+
+→ If all YES: Continue to Minimal Build Test.
+→ If any NO: Fix environment issues before continuing.
+```
+
+**Next Step (on PASS):** Load `van-qa-checks/build-test.mdc`.
+**Next Step (on FAIL):** Check `van-qa-utils/common-fixes.mdc` for environment fixes.
 
 ---
 > Source: [tyrchen/simple-proxy](https://github.com/tyrchen/simple-proxy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
