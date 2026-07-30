@@ -1,45 +1,26 @@
 ## filterlists
 
-> These instructions are for GitHub Copilot cloud agent sessions started from GitHub issue assignment or pull request comments.
+> - JSON seed data under `services/Directory/data/` is the source of truth for directory content.
 
-# FilterLists Cloud Agent Instructions
 
-These instructions are for GitHub Copilot cloud agent sessions started from GitHub issue assignment or pull request comments.
+## Directory Data Files
 
-## Directory Data Workflow
+- JSON seed data under `services/Directory/data/` is the source of truth for directory content.
+- Keep object ordering stable by running `services/Directory/data/lint.sh` after changing any JSON file.
+- New IDs must be unique and monotonic within each file.
+- Keep all foreign keys valid across the junction and relationship tables.
+- `FilterList.name` must stay unique and in title case.
+- `FilterListViewUrl` rows are only for mirrors or multi-part segments, not different list flavors.
+- If upstream research shows a filter list is fully dead and all published URLs are gone, remove the dead `FilterList` rows and dependent seed data instead of keeping discontinued placeholders.
+- Every JSON change must ship with a generated migration under `services/Directory/FilterLists.Directory.Infrastructure.Migrations/Migrations/`.
+- URL fields must stay valid absolute URIs, including the protocol.
 
-If the assigned issue has the `directory-data` label, or the issue body explicitly says `Task type: directory-data`, treat it as a directory data maintenance task and follow this workflow. For all other issues, follow the repository baseline instructions and ignore the specialized workflow below.
+## Migration Files
 
-1. If the issue is minimal and directs Copilot to finish an already-open pull request, inspect the referenced pull request first. When the existing commits implement the requested JSON or migration work cleanly, prefer `git cherry-pick -x` of the contributor's commits over reimplementing the change so the original author keeps commit authorship and the new branch records where the work came from.
-2. Start with fresh research before editing JSON. Validate the issue against current public sources such as the list home page, source repository, README, release notes, maintainers, license files, and related documentation.
-3. Use the FilterLists wiki as the schema reference: https://github.com/collinbarrett/FilterLists/wiki. Fill in as many supported fields and relationships as the sources justify, not just the fields explicitly requested in the issue.
-4. If live research is blocked by firewall rules, missing MCP tools, or missing credentials, state that limitation in the session and pull request. Do not invent facts.
-5. Update only the JSON files under `services/Directory/data/` plus the required EF Core migration files. Never create or edit JSON data files outside that directory.
-6. Keep identifiers and constraints valid before committing any data changes:
-   - new numeric IDs must be unique and greater than the current maximum in their file
-   - `FilterList.name` must remain unique and title case
-   - `FilterListViewUrl` must remain unique by (`filterListId`, `segmentNumber`, `primariness`)
-   - all foreign keys must reference existing rows
-   - distinct list flavors belong in separate `FilterList` rows; use extra `FilterListViewUrl` rows only for mirrors or multi-part lists
-7. After JSON edits, run `./lint.sh` from `services/Directory/data/`.
-8. Always generate an EF Core migration from `services/Directory/` with this exact command:
-
-   ```bash
-   dotnet ef migrations add <MigrationName> -p FilterLists.Directory.Infrastructure.Migrations -s FilterLists.Directory.Api
-   ```
-
-9. Review the generated migration to confirm it captures only the intended data changes.
-10. Run a focused validation step for the touched Directory slice before handing the pull request back.
-11. Summarize the external sources used, any cherry-picked commits, and the key data-model additions in the pull request or final session message.
-12. If current upstream research shows a filter list is fully dead and all published URLs are gone, prefer removing the dead `FilterList` rows and their dependent seed data instead of keeping discontinued placeholder entries.
-
-## Guardrails
-
-- Prefer minimal, targeted data changes over unrelated cleanup.
-- Do not modify the web app or unrelated backend code unless the data task directly requires it.
-- When an issue asks for a new variant of an existing list, verify whether it is a mirror, a multi-part list, or a distinct flavor before adding `FilterListViewUrl` rows.
-- If cherry-picking from an existing contributor pull request is feasible, prefer that over recreating the same JSON changes manually.
+- Generate migrations from `services/Directory/` with `dotnet ef migrations add <MigrationName> -p FilterLists.Directory.Infrastructure.Migrations -s FilterLists.Directory.Api`.
+- Review the generated `Up` and `Down` methods for unintended insert, update, or delete churn before finishing.
+- Do not hand-edit generated timestamps or designer files unless the tooling output is clearly wrong and you understand the correction.
 
 ---
 > Source: [collinbarrett/FilterLists](https://github.com/collinbarrett/FilterLists) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
