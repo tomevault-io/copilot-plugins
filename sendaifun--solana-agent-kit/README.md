@@ -1,8 +1,6 @@
 # solana-agent-kit
 
-> Tome by [sendaifun](https://github.com/sendaifun/solana-agent-kit) — distributed by [TomeVault](https://tomevault.io)
-
-connect any ai agents to solana protocols
+> Tome by [sendaifun](https://github.com/sendaifun/solana-agent-kit), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [sendaifun/solana-agent-kit](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sendaifun/solana-agent-kit](https://github.com/sendaifun/solana-agent-kit) — a repo with 1687+ stars on GitHub.
+From [sendaifun/solana-agent-kit](https://github.com/sendaifun/solana-agent-kit) — a repo with 1704+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
