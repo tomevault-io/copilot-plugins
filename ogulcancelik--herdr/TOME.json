@@ -2,7 +2,7 @@
   "name": "herdr",
   "owner": "ogulcancelik",
   "repo": "herdr",
-  "description": "supervise multiple coding agents in one terminal.",
+  "description": "",
   "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
@@ -61,9 +61,27 @@
       "path": "vendor/libghostty-vt/.agents/skills/writing-commit-messages/SKILL.md",
       "github_url": "https://github.com/ogulcancelik/herdr/tree/main/vendor/libghostty-vt/.agents/skills/writing-commit-messages/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "herdr",
+      "path": ".agents/skills/triage/SKILL.md",
+      "github_url": "https://github.com/ogulcancelik/herdr/tree/main/.agents/skills/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herdr",
+      "path": ".agents/skills/herdr-throwaway-repro/SKILL.md",
+      "github_url": "https://github.com/ogulcancelik/herdr/tree/main/.agents/skills/herdr-throwaway-repro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "herdr",
+      "path": ".agents/skills/herdr-pre-release-audit/SKILL.md",
+      "github_url": "https://github.com/ogulcancelik/herdr/tree/main/.agents/skills/herdr-pre-release-audit/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/ogulcancelik/herdr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T07:58:10Z"
+  "distributed_at": "2026-07-30T20:17:02Z"
 }
