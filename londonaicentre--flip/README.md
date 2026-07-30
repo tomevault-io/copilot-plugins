@@ -1,8 +1,6 @@
 # FLIP
 
-> Source: [londonaicentre/FLIP](https://github.com/londonaicentre/FLIP) — distributed by [TomeVault](https://tomevault.io)
-
-Federated Learning Interoperability Platform
+> Source: [londonaicentre/FLIP](https://github.com/londonaicentre/FLIP). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [londonaicentre/FLIP](https://github.com/londona
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/londonaicentre/FLIP](https://github.com/londonaicentre/FLIP)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/londonaicentre/FLIP](https://github.com/londonaicentre/FLIP)
 
 ---
 
