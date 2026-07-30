@@ -2,9 +2,9 @@
   "name": "phpvm",
   "owner": "Thavarshan",
   "repo": "phpvm",
-  "description": "\ud83d\udcdf Simple PHP version manager for MacOS and Linux.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Thavarshan/phpvm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T08:01:38Z"
+  "distributed_at": "2026-07-30T19:13:29Z"
 }
