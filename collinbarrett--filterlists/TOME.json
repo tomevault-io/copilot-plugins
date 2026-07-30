@@ -4,7 +4,7 @@
   "repo": "FilterLists",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/collinbarrett/FilterLists",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-20T23:52:57Z"
+  "distributed_at": "2026-07-30T13:33:39Z"
 }
