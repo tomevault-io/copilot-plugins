@@ -4,7 +4,7 @@
   "repo": "Unity-FirstHand",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oculus-samples/Unity-FirstHand",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T16:39:30Z"
+  "distributed_at": "2026-07-30T19:11:43Z"
 }
