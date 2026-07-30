@@ -2,7 +2,7 @@
   "name": "ro",
   "owner": "samber",
   "repo": "ro",
-  "description": "\ud83c\udfce\ufe0f Streams & Reactive Programming paradigm for Go: declarative and composable API for event-driven applications",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/samber/ro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T20:43:40Z"
+  "distributed_at": "2026-07-30T21:15:59Z"
 }
