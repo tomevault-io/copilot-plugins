@@ -1,25 +1,24 @@
 # AI instruction files for web-design
 
-> Sourced from [KAOPU-XiaoPu/web-design](https://github.com/KAOPU-XiaoPu/web-design) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [KAOPU-XiaoPu/web-design](https://github.com/KAOPU-XiaoPu/web-design), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [KAOPU-XiaoPu/web-design](https://github.com/KAOPU-XiaoPu/web-design).
+Original source: `CLAUDE.md` in [KAOPU-XiaoPu/web-design](https://github.com/KAOPU-XiaoPu/web-design).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [KAOPU-XiaoPu/web-design](https://github.com/KAOPU-XiaoPu/web-design) — a repo with 448+ stars on GitHub.
+From [KAOPU-XiaoPu/web-design](https://github.com/KAOPU-XiaoPu/web-design) — a repo with 594+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
