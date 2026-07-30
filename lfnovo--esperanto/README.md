@@ -1,6 +1,6 @@
 # esperanto
 
-> Tome by [lfnovo](https://github.com/lfnovo/esperanto) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [lfnovo](https://github.com/lfnovo/esperanto), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
