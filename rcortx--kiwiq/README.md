@@ -1,8 +1,6 @@
 # AI instruction files for kiwiq
 
-> Sourced from [rcortx/kiwiq](https://github.com/rcortx/kiwiq) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Production-grade multi-agent orchestration platform - JSON-defined agents, multi-tier memory, and built-in observability. Battle-tested on 200+ enterprise AI agents. Now fully open-sourced (prod at https://kiwiq.ai).
+> Sourced from [rcortx/kiwiq](https://github.com/rcortx/kiwiq), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [rcortx/kiwiq](https://github.com/rcortx/kiwiq).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rcortx/kiwiq](https://github.com/rcortx/kiwiq) — a repo with 1055+ stars on GitHub.
+From [rcortx/kiwiq](https://github.com/rcortx/kiwiq) — a repo with 994+ stars on GitHub.
 
 ---
 
