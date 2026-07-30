@@ -1,23 +1,21 @@
 # fusio
 
-> Source: [tonbo-io/fusio](https://github.com/tonbo-io/fusio) — distributed by [TomeVault](https://tomevault.io)
-
-Fusio provides file operations on multiple storages across various async runtimes.
+> Source: [tonbo-io/fusio](https://github.com/tonbo-io/fusio). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tonbo-io/fusio](https://github.com/tonbo-io/fusio).
+Original source: `CLAUDE.md` in [tonbo-io/fusio](https://github.com/tonbo-io/fusio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [tonbo-io/fusio](https://github.com/tonbo-io/fusio) — a repo with 393+ stars on GitHub.
+From [tonbo-io/fusio](https://github.com/tonbo-io/fusio) — a repo with 400+ stars on GitHub.
 
 ---
 
