@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nv-config-manager",
+  "displayName": "nv-config-manager",
+  "description": "NVIDIA Switch Infrastructure - Config Manager",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nv-config-manager",
+  "skills": []
+}
