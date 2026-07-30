@@ -1,30 +1,52 @@
-## capture-no-demo-hacks
+## client-side-only
 
-> Capture pipeline must stay generic — no fixture or ShopDemo tuning
+> Everything runs in the browser — no server-side inference or app logic
 
 
-# Capture: no demo hacks
+# Client-side only (non-negotiable)
 
-SnapDOM capture must match **any** website in `#capture-target`. Fixes belong in the **generic capture pipeline only** (`src/snapdom/capture.ts`, `src/snapdom/encode-worker.ts`, `examples/operator/ui/main.js` capture path, display sizing) — not the page under capture.
+**The product runs entirely in the user’s browser.** Capture, model load, VLA grounding, coordinate parsing, and the click overlay all execute **client-side** — main thread or **Web Workers** (`wllama/worker.js`, `snapdom/encode-worker.js`). There is no backend that runs the app for the user.
+
+## Runs in the browser (required)
+
+| Concern | Where |
+|--------|--------|
+| Page capture | Main thread — SnapDOM (`examples/operator/ui/main.js`) |
+| VLA load + inference | **Browser WASM** — `src/wllama/worker.js` + `@wllama/wllama` |
+| PNG encode | `src/snapdom/encode-worker.ts` |
+| Grounding prompts / parse | Imported into worker; **never** Node |
+| GGUF weights | **Pre-cached** in `.model-cache/` via `npm run cache:model` (Node); browser prefers `/model-cache/`, or downloads public registry HF URLs on demand (still client-side) |
+| `wllama.wasm` | Same-origin `/wllama/wllama.wasm` (Vite serves from `node_modules`) |
+
+Serve the app with **`npm run dev`** or **`npm run preview`** so COOP/COEP headers apply. Open in **Chrome or Edge** (WebGPU + JSPI). **Not** `file://`.
+
+## Node.js is dev tooling only — not the product runtime
+
+Node may appear in the repo **only** for:
+
+- **Vite** — static dev server + headers (`vite.config.js`)
+- **`npm run cache:model`** — download GGUFs into `.model-cache/` (no inference)
+- **Playwright** — drive real Chrome to validate the **client** app (`npm run test`)
+
+**Never** run wllama, llama.cpp, or VLA grounding inside Node (`node -e`, Express API, child_process to CLI as the app path). **Never** suggest “run inference on the server and return coords to the client.”
 
 ## Forbidden
 
-- Edits to `examples/operator/fixtures/shop-demo/` or captured site HTML/CSS to fix alignment
-- Demo-specific tuning: ShopDemo, checkout layout, button names, or matrix winners valid only on the built-in sample
-- `CAPTURE_HEIGHT_FUDGE_PX`, `+1` height fudge, `zoom: 1.001`, mirror canvas overlays to fake live/snapshot match
+- Python / PyTorch / FastAPI / Gradio / remote inference APIs for grounding
+- Node servers that load GGUF or call wllama for user requests
+- SSR or edge functions that run the model
+- DOM-derived grounding coords — see `no-dom-grounding.mdc`
+- Registry models — see `vla-registry.mdc`
 
-## Allowed (generic pipeline)
+## If something “only works in Node”
 
-- `#capture-target` measurement and clip
-- SnapDOM params
-- Viewport lock (integer CSS px on the measured box)
-- 1:1 canvas display on the screenshot panel
+That is a bug. Fix browser WASM/worker config (`wllama/browser-shim.js`, `ENVIRONMENT_IS_NODE=false` patch, load params in `config/vl.js` / per-model registry) — do not move inference off the client.
 
-Must work for any website — not just the built-in sample page.
+## Related rules
 
-## Visual-diff overfitting
-
-Grid winners on the built-in fixture must not become global capture hacks (fixture-only vs generic-candidate — the experiment tooling is retired, archived notes in `docs/archive/`).
+- `wllama-only.mdc` — VLA models via wllama in a worker
+- `no-dom-grounding.mdc` — coords from screenshot inference only
+- `blackbox-e2e.mdc` — prove it in real Chrome, not Node unit tests
 
 ---
 > Source: [pdufour/browser-use-wasm](https://github.com/pdufour/browser-use-wasm) — distributed by [TomeVault](https://tomevault.io).
