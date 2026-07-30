@@ -2,9 +2,9 @@
   "name": "dedalus-mcp-python",
   "owner": "dedalus-labs",
   "repo": "dedalus-mcp-python",
-  "description": "A simple and performant Model Context Protocol framework for Python.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dedalus-labs/dedalus-mcp-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:12:36Z"
+  "distributed_at": "2026-07-30T06:48:38Z"
 }
