@@ -1,23 +1,21 @@
 # AI instruction files for OpenCanvas
 
-> Sourced from [genmini-ai/OpenCanvas](https://github.com/genmini-ai/OpenCanvas) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Generate stunning presentations from any topic or PDF in minutes - with AI evaluation and self-evolution
+> Sourced from [genmini-ai/OpenCanvas](https://github.com/genmini-ai/OpenCanvas), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [genmini-ai/OpenCanvas](https://github.com/genmini-ai/OpenCanvas).
+Original source: `AGENTS.md` in [genmini-ai/OpenCanvas](https://github.com/genmini-ai/OpenCanvas).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [genmini-ai/OpenCanvas](https://github.com/genmini-ai/OpenCanvas) — a repo with 46+ stars on GitHub.
+From [genmini-ai/OpenCanvas](https://github.com/genmini-ai/OpenCanvas) — a repo with 47+ stars on GitHub.
 
 ---
 
