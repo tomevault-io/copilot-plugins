@@ -1,40 +1,39 @@
-## vla-registry
+## wllama-only
 
-> Multi-model GUI/VL registry — browser wllama grounding (ShowUI-2B is default + E2E gate)
+> VLA models via wllama in the browser only — never Node/Python inference
 
 
-# VLA model registry (browser)
+# wllama in the browser only
 
-**Runs client-side in the browser** — see `.cursor/rules/client-side-only.mdc`.
+**All inference is client-side.** See `.cursor/rules/client-side-only.mdc`.
 
-This app is a **VLA click finder**: SnapDOM capture → **GGUF vision-language models** in `src/config/models/registry.js` via wllama (WASM worker). Users pick a model in the UI; weights are pre-cached in `.model-cache/`.
+Registry **GUI/VL models** (default ShowUI-2B) use `@wllama/wllama` (llama.cpp **WASM** inside a **dedicated Web Worker**). The main thread only does UI + SnapDOM; it never calls `createChatCompletion`.
 
-## Default and CI
+## Required (browser worker)
 
-- **Default model:** `ShowUI-2B` (`src/config/models/ShowUI-2B.js` card + `src/config/vl.js` shared defaults).
-- **E2E gate:** `ShowUI-2B` only (green circle) — see `.cursor/rules/blackbox-e2e.mdc`. Other models are manual/experimental until tuned.
-
-## Registry models
-
-- Add/edit entries in `src/config/models/*.js` and `src/config/models/registry.js`.
-- Cache: `npm run cache:model -- --model <id>`, `npm run cache:public`, or `cache:all` with `HF_TOKEN`.
-- Browser prefers **same-origin `/model-cache/`**; public models may **download from registry HF URLs on demand** (`src/wllama/model-sources.ts`). Gated models and `?e2e=1` / `?cacheOnly=1` stay cache-only.
-
-## UI and naming
-
-- Use each model’s **registry `label`** in status, errors, and logs — not a generic “ShowUI only” message.
-- For ShowUI-branded weights, prefer **ShowUI** in user-facing copy (not “Qwen2-VL chat”).
-- Mark non–E2E-validated models **(experimental)** in the switcher.
+- Inference **only** in `src/wllama/worker.js` — import `./wllama-browser-shim.js` first
+- RPC from main thread via `src/wllama/client.js` (`Worker`, not Node `worker_threads`)
+- WASM URL: `/wllama/wllama.wasm` (same-origin; Vite `vite.wllama-wasm.js`)
+- Vite forces `ENVIRONMENT_IS_NODE=false` in `@wllama/wllama` so llama.cpp never uses Node pthreads
+- Load: per-model `n_ctx`, `image_min_tokens` / `image_max_tokens`, `n_gpu_layers` from `src/config/models/*.js` (shared defaults in `config/vl.js`), `n_threads: 1`
+- Default ShowUI-2B navigation layout (card-verbatim `_NAV_SYSTEM` → task → image) in `src/actions/navigation.ts`; worker stays generic (`completion()` only)
+- Weights: **pre-cached** in `.model-cache/` (`npm run cache:model`); browser loads `/model-cache/` only — Node downloads, not runtime HF fetch on Load
 
 ## Forbidden
 
-- Python / server-side VL inference for grounding
-- DOM-derived coordinates — see `no-dom-grounding.mdc`
-- Removing the model registry or pretending the app is single-model only
+- **Node wllama / llama.cpp** for user-facing grounding (no `require('@wllama/wllama')` in `scripts/` for inference)
+- Python inference sidecars — see `client-side-only.mdc`
+- Server-side or Python VL inference — see `vla-registry.mdc` and `client-side-only.mdc`
+- DOM grounding cheats — see `no-dom-grounding.mdc`
+- Main-thread `new Wllama()` for production inference
 
 ## Validation
 
-`npm run test` — ShowUI-2B ×3 E2E in real Chrome.
+`npm run test` (one E2E in real Chrome) — see `blackbox-e2e.mdc`. CLI `llama-mtmd-cli` is debug-only, not a product path.
+
+## If grounding fails
+
+Fix browser worker/WASM/template/vision tokens — **not** Node or Python offload.
 
 ---
 > Source: [pdufour/browser-use-wasm](https://github.com/pdufour/browser-use-wasm) — distributed by [TomeVault](https://tomevault.io).
