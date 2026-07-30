@@ -1,49 +1,21 @@
 ## claude-code-rules
 
-> This file provides guidance to Claude Code when working with the Claude Code Handbook monorepo.
+> - Source docs in `website/docs/`
 
 # CLAUDE.md
 
-This file provides guidance to Claude Code when working with the Claude Code Handbook monorepo.
+- Source docs in `website/docs/`
+- Configuration in `website/docusaurus.config.js`
+- Build and deploy via standard Docusaurus commands
 
-## Repository Overview
 
-This is a Claude Code plugin monorepo containing multiple distributable plugins and a marketplace. It provides practical techniques, tools, and extensions to enhance AI-assisted development workflows.
+Docusaurus-based documentation site deployed at [nikiforovall.blog/claude-code-rules](https://nikiforovall.blog/claude-code-rules)
 
-## Repo Structure
+## Guidelines
 
-```
-claude-code-rules/                    # Root monorepo
-├── plugins/                          # All plugins (run discover script for full inventory)
-│   └── <plugin-name>/
-│       ├── .claude-plugin/plugin.json  # Manifest (name, version, description)
-│       ├── skills/                     # Skills (SKILL.md per skill)
-│       ├── agents/                     # Agent definitions (.md)
-│       ├── commands/                   # Slash commands (.md)
-│       ├── hooks/hooks.json            # Event hooks
-│       ├── .mcp.json                   # MCP servers
-│       └── .lsp.json                   # LSP servers
-├── .claude-plugin/
-│   └── marketplace.json              # Catalogs all plugins (marketplace: "cc-handbook")
-├── website/                          # Docusaurus documentation site
-├── BEST-PRACTICES.md
-├── TIPS-AND-TRICKS.md
-├── CHANGELOG.md
-└── README.md
-```
-
-To list all plugins with components and install status:
-```bash
-python plugins/handbook-discover/skills/handbook-discover/scripts/discover.py --detailed
-```
-
-## Website
-
-This repository includes a Docusaurus-based documentation site located in the `website/` folder. The site serves as the primary source of truth for the Claude Code Handbook content.
-
-## IMPORTANT
-**Do not modify:** `TIPS-AND-TRICKS.md` and `BEST-PRACTICES.md` (obsolete, website is source of truth)
+* When updating the location of documentation files, ensure referential integrity by updating all relevant links within the repository to point to the new locations. This includes links in markdown files, configuration files, and any other references that may exist throughout the codebase as part of `website` folder.
+* Use `npm run build` to verify that the Docusaurus site builds successfully after making changes.
 
 ---
 > Source: [NikiforovAll/claude-code-rules](https://github.com/NikiforovAll/claude-code-rules) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
