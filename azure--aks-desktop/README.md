@@ -1,8 +1,6 @@
 # AI instruction files for aks-desktop
 
-> Sourced from [Azure/aks-desktop](https://github.com/Azure/aks-desktop) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-AKS desktop delivers an application focused experience for deploying and managing workloads on Azure Kubernetes Service.
+> Sourced from [Azure/aks-desktop](https://github.com/Azure/aks-desktop), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Azure/aks-desktop](https://github.com/Azure/aks
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Azure/aks-desktop](https://github.com/Azure/aks-desktop)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Azure/aks-desktop](https://github.com/Azure/aks-desktop)
 
 ---
 
