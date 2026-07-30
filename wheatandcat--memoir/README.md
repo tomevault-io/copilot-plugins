@@ -1,17 +1,17 @@
 # memoir
 
-> Tome by [wheatandcat](https://github.com/wheatandcat/memoir) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [wheatandcat](https://github.com/wheatandcat/memoir), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wheatandcat/memoir](https://github.com/wheatandcat/memoir).
+Original source: `.cursor/rules/*.mdc` in [wheatandcat/memoir](https://github.com/wheatandcat/memoir).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
