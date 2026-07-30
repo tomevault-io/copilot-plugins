@@ -1,229 +1,271 @@
 ## llml
 
-> Read .cursor/rules/spec.mdc
+> INHERITS: ../.cursor/rules/spec.mdc.
 
-# LLML Project - Claude AI Documentation
+INHERITS: ../.cursor/rules/spec.mdc.
 
-## Core LLML Specification
+# TypeScript LLML Specification
 
-Read .cursor/rules/spec.mdc
+## Custom Formatters
 
-## Coding Rules
+The TypeScript implementation supports custom formatters for domain-specific value transformation. Formatters allow you to customize how specific types are serialized into the LLML output.
 
-Reference .cursor/rules/{language = ["py", "ts", "go", "rs"]}.mdc
+### Formatter Type Definition
 
-## Project Overview
-
-LLML (Lightweight Language Markup Language) is **React for Prompts** - a multi-language compositional primitive that revolutionizes AI context engineering. Just as React transformed web development by making complex UIs composable and maintainable, LLML transforms AI development by making complex contexts composable and maintainable.
-
-The project provides identical functionality across four programming languages: Python, TypeScript/JavaScript, Rust, and Go, converting nested data structures into human-readable, XML-like markup optimized for AI model attention.
-
-### Core Purpose
-- **Compositional Context Engineering**: Build complex AI contexts from simple, reusable components
-- **Declarative AI Interactions**: Describe what your prompt should contain, not how to format it
-- **Maintainable AI Systems**: Replace brittle string concatenation with robust data composition
-- **Structured Document Creation**: Generate documents with clear hierarchy from data structures
-- **Data Serialization**: Convert data into more readable format than JSON/YAML for AI applications
-
-### Key Benefits
-- **Component-Like Composition**: Build complex prompts from simple, reusable pieces
-- **Declarative Approach**: Focus on what you want, not how to format it
-- **Maintainable & Robust**: Changes to data automatically propagate without breaking
-- **Zero Configuration**: Works out-of-the-box with sensible defaults
-- **Consistent Output**: Identical results across all language implementations
-- **LLM-Optimized**: Structured format reduces AI model cognitive load and improves performance
-- **Developer Experience**: Type-safe, predictable, debuggable context engineering
-- **Extensible Formatters**: Customizable formatter system like React's component system
-
-## Project Structure
-
-```
-/Users/knrz/Git/zenbase-ai/llml/
-├── README.md                 # Main project documentation
-├── justfile                  # Cross-language task runner
-├── py/                       # Python implementation
-│   ├── README.md
-│   ├── pyproject.toml
-│   ├── src/
-│   │   └── zenbase_llml/
-│   │       ├── llml.py      # Main implementation
-│   │       └── formatters/  # Formatter system
-│   │           ├── base/    # Base type formatters
-│   │           └── vibe_xml/ # VibeXML formatters
-│   └── tests/
-├── ts/                       # TypeScript implementation
-│   ├── README.md
-│   ├── package.json
-│   ├── src/
-│   │   ├── index.ts         # Main implementation
-│   │   └── formatters/      # Formatter system
-│   │       ├── base/        # Base type formatters
-│   │       └── vibe-xml/    # VibeXML formatters
-│   └── tests/
-├── rs/                       # Rust implementation
-│   ├── README.md
-│   ├── Cargo.toml
-│   ├── src/
-│   │   ├── lib.rs           # Main implementation
-│   │   └── formatters.rs    # Core formatting logic
-│   └── tests/
-└── go/                       # Go implementation
-    ├── README.md
-    ├── go.mod
-    ├── pkg/llml/
-    │   └── llml.go          # Main implementation
-    └── tests/
-```
-
-Each language implementation is completely self-contained with its own:
-- Source code and utilities
-- Dependency management files
-- Comprehensive test suites
-- Language-specific documentation
-
-## Development Environment
-
-### Task Runner: Just
-The project uses `just` as a cross-platform task runner for coordinating commands across all implementations.
-
-#### Key Commands
-```bash
-# Run tests for all languages
-just test
-
-# Language-specific commands
-just py <command>    # Run command in Python environment (uv)
-just ts <command>    # Run command in TypeScript environment (bun)
-just go <command>    # Run command in Go environment (go)
-just rs <command>    # Run command in Rust environment (cargo)
-
-# AI commands
-just claude
-just claude -p "your prompt here"      # Run Claude Code CLI
-just gemini
-just gemini -a -p "your prompt here"   # Run Gemini CLI
-```
-
-### CLI Tools
-
-- Instead of `find`, use `fd`
-- Instead of `grep`, use `rg`
-- Instead of `sed`, use `rg+(awk|sed)` or ast-grep: `ast-grep -p '$A && $A()' -r '$A?.()'`
-
-### Development Tools by Language
-- **Python**: `uv` for dependency management, `pytest` for testing, `ruff` for linting
-- **TypeScript**: `bun` for runtime and package management, `vitest` for testing
-- **Rust**: `cargo` for dependency management and testing
-- **Go**: Standard Go toolchain (`go test`, `go mod`)
-
-### Configuration Options
-- **Custom Formatters**: Extensible formatter system for specialized data types (like React components)
-- **Formatter Composition**: Combine and override default formatters for custom behavior
-- **Type-Specific Processing**: Define custom formatting logic for any data type
-- **Component-Like Reusability**: Build libraries of reusable prompt components
-
-For a deep dive into the React analogy and compositional patterns, see [REACT.md](REACT.md).
-
-## Testing & Quality Assurance
-
-### Cross-Language Consistency
-The test suites ensure that all four implementations produce identical output for the same input data, maintaining consistency across the entire project.
-
-## Usage Examples
-
-### 1. Compositional Context Engineering
-```python
-# Python - Build prompts like React components
-role_component = "Senior Developer"
-task_component = "Code review the following function"
-criteria_component = ["Performance", "Readability", "Best practices"]
-context_component = {"language": "Python", "framework": "FastAPI"}
-
-# Compose them together
-prompt = llml({
-    "role": role_component,
-    "task": task_component,
-    "criteria": criteria_component,
-    "context": context_component
-})
-```
-
-### 2. Reusable Configuration Components
 ```typescript
-// TypeScript - Compose configurations from reusable parts
-const dbConfig = { host: "localhost", port: 5432 }
-const featureSet = ["logging", "caching", "monitoring"]
-const envSettings = { environment: "production", region: "us-east-1" }
-
-const config = llml({
-    database: dbConfig,
-    features: featureSet,
-    deployment: envSettings
-});
+type Formatter<T = unknown> = [
+  predicate: (value: unknown) => value is T,
+  format: (value: T) => string
+]
 ```
 
-### 3. Composable RAG Context
-```rust
-// Rust - Build RAG context from reusable components
-let system_prompt = "You are a helpful documentation assistant";
-let retrieved_docs = [
-    {"title": "API Guide", "content": "...", "relevance": 0.95},
-    {"title": "Rate Limits", "content": "...", "relevance": 0.82}
-];
-let user_query = "How do I authenticate?";
-let instructions = ["Use only provided documents", "Cite sources"];
+### SwagXMLOptions Extension
 
-let rag_context = llml(&json!({
-    "system": system_prompt,
-    "documents": retrieved_docs,
-    "query": user_query,
-    "instructions": instructions
-}));
+```typescript
+interface SwagXMLOptions {
+  indent?: string
+  prefix?: string
+  formatters?: Formatter[]
+}
 ```
 
-### 4. Component-Based Agent Workflows
-```go
-// Go - Compose agent prompts from workflow components
-roleComponent := "DevOps Agent"
-deployWorkflow := []any{
-    "Run health checks",
-    "Create backup", 
-    "Deploy to canary",
-    "Monitor metrics"
-}
-safetyRules := []any{
-    "Never skip health checks",
-    "Always maintain 99.9% uptime SLA"
-}
-contextData := map[string]any{
-    "environment": "production",
-    "region": "us-east-1"
+### Usage Examples
+
+#### Basic Custom Formatter
+
+```typescript
+class MyDomainType {
+  constructor(public myDomainField: string) {}
 }
 
-agentPrompt := llml.Sprintf(map[string]any{
-    "role": roleComponent,
-    "context": contextData,
-    "workflows": map[string]any{"deploy": deployWorkflow},
-    "safety": safetyRules
+const customRenderer = createSwagXMLRenderer({
+  formatters: [
+    [
+      (v): v is MyDomainType => v instanceof MyDomainType,
+      (v) => `${v.myDomainField}.......`
+    ]
+  ]
 })
+
+const data = {
+  user: new MyDomainType("alice"),
+  count: 42
+}
+
+llml(data, { renderer: customRenderer })
+// Output:
+// <user>alice.......</user>
+// <count>42</count>
 ```
 
-## Best Practices for Development
+#### Multiple Formatters
 
-1. **Testing**: Always run `just test` or `just test {rs|py|ts|go}` before committing changes
-2. **Consistency**: Ensure all language implementations produce identical output
-3. **Documentation**: Update README.md, CLAUDE.md, and language-specific README.mds when adding features
-4. **Type Safety**: Leverage each language's type system for better reliability
-5. **Performance**: Consider memory efficiency for large data structures
+```typescript
+class User {
+  constructor(public name: string, public email: string) {}
+}
 
-## Future Considerations
+class Product {
+  constructor(public id: string, public name: string, public price: number) {}
+}
 
-- **Streaming Support**: For very large data structures
-- **Schema Validation**: Optional validation against predefined schemas
-- **Output Formats**: Additional output formats beyond XML-like markup
-- **Performance Optimization**: Further optimization for formatter lookup and execution
-- **Formatter Registry**: Centralized registry for sharing custom formatters across projects
+const renderer = createSwagXMLRenderer({
+  formatters: [
+    [
+      (v): v is User => v instanceof User,
+      (v) => `${v.name} <${v.email}>`
+    ],
+    [
+      (v): v is Product => v instanceof Product,
+      (v) => `${v.name} ($${v.price})`
+    ]
+  ]
+})
+
+const data = {
+  customer: new User("Alice", "alice@example.com"),
+  item: new Product("p1", "Widget", 29.99),
+  quantity: 2
+}
+
+llml(data, { renderer })
+// Output:
+// <customer>Alice <alice@example.com></customer>
+// <item>Widget ($29.99)</item>
+// <quantity>2</quantity>
+```
+
+#### Date Formatting
+
+```typescript
+const renderer = createSwagXMLRenderer({
+  formatters: [
+    [
+      (v): v is Date => v instanceof Date,
+      (v) => v.toISOString().split('T')[0] // YYYY-MM-DD format
+    ]
+  ]
+})
+
+const data = {
+  created: new Date('2025-07-01T10:30:00Z'),
+  name: "Test Event"
+}
+
+llml(data, { renderer })
+// Output:
+// <created>2025-07-01</created>
+// <name>Test Event</name>
+```
+
+#### URL Formatting
+
+```typescript
+const renderer = createSwagXMLRenderer({
+  formatters: [
+    [
+      (v): v is URL => v instanceof URL,
+      (v) => v.toString()
+    ]
+  ]
+})
+
+const data = {
+  homepage: new URL('https://example.com'),
+  title: "My Website"
+}
+
+llml(data, { renderer })
+// Output:
+// <homepage>https://example.com</homepage>
+// <title>My Website</title>
+```
+
+### Formatter Processing Rules
+
+1. **Order Matters**: Formatters are processed in the order they appear in the array
+2. **First Match Wins**: The first formatter whose predicate returns `true` is used
+3. **Type Safety**: The predicate must be a proper type guard for TypeScript type safety
+4. **Fallback**: If no formatter matches, the default serialization is used
+5. **Recursive Application**: Formatters are applied recursively to nested objects and arrays
+
+### Complex Type Formatting
+
+```typescript
+interface APIResponse<T> {
+  data: T
+  status: number
+  timestamp: Date
+}
+
+class APIResponseWrapper<T> implements APIResponse<T> {
+  constructor(
+    public data: T,
+    public status: number,
+    public timestamp: Date = new Date()
+  ) {}
+}
+
+const renderer = createSwagXMLRenderer({
+  formatters: [
+    [
+      (v): v is APIResponseWrapper<any> => v instanceof APIResponseWrapper,
+      (v) => `Status: ${v.status}, Data: ${JSON.stringify(v.data)}`
+    ],
+    [
+      (v): v is Date => v instanceof Date,
+      (v) => v.toISOString()
+    ]
+  ]
+})
+
+const response = new APIResponseWrapper({ message: "Hello" }, 200)
+const data = {
+  api_result: response,
+  processed_at: new Date()
+}
+
+llml(data, { renderer })
+// Output:
+// <api_result>Status: 200, Data: {"message":"Hello"}</api_result>
+// <processed_at>2025-07-01T10:30:00.000Z</processed_at>
+```
+
+### Array and Object Handling with Formatters
+
+Formatters are applied to individual values within arrays and objects:
+
+```typescript
+class Money {
+  constructor(public amount: number, public currency: string) {}
+}
+
+const renderer = createSwagXMLRenderer({
+  formatters: [
+    [
+      (v): v is Money => v instanceof Money,
+      (v) => `${v.amount} ${v.currency}`
+    ]
+  ]
+})
+
+const data = {
+  prices: [
+    new Money(100, 'USD'),
+    new Money(85, 'EUR'),
+    new Money(120, 'GBP')
+  ],
+  total: new Money(305, 'USD')
+}
+
+llml(data, { renderer })
+// Output:
+// <prices>
+//   <prices-1>100 USD</prices-1>
+//   <prices-2>85 EUR</prices-2>
+//   <prices-3>120 GBP</prices-3>
+// </prices>
+// <total>305 USD</total>
+```
+
+### Implementation Requirements
+
+1. **Type Guards**: Predicates must be proper TypeScript type guards
+2. **Pure Functions**: Formatters should be pure functions without side effects
+3. **Error Handling**: Invalid formatters should not crash the renderer
+4. **Performance**: Formatters should be efficient for large datasets
+5. **Consistency**: Formatted output should be deterministic
+
+### Error Handling
+
+```typescript
+// Invalid formatter - will be skipped
+const badFormatter: Formatter = [
+  (v): v is string => typeof v === 'string',
+  (v) => { throw new Error('Bad formatter') } // This will cause issues
+]
+
+// Safe formatter with error handling
+const safeFormatter: Formatter<MyType> = [
+  (v): v is MyType => v instanceof MyType,
+  (v) => {
+    try {
+      return v.toString()
+    } catch {
+      return '[Error formatting value]'
+    }
+  }
+]
+```
+
+### Best Practices
+
+1. **Specific Predicates**: Use precise type guards to avoid conflicts
+2. **Simple Formatters**: Keep formatting logic simple and focused
+3. **Test Coverage**: Test formatters with various input types
+4. **Documentation**: Document custom formatters for team members
+5. **Consistent Style**: Follow consistent formatting patterns across formatters
 
 ---
 > Source: [zenbase-ai/llml](https://github.com/zenbase-ai/llml) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
