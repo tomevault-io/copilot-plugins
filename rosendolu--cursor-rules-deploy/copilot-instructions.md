@@ -1,103 +1,81 @@
-## lib
+## cursor-rules-deploy
 
-> This rule enforces the use of specific library versions and their features as defined in package.json. It ensures code consistency and optimal usage of library capabilities while maintaining version compatibility. This rule should be applied when: (1) Implementing new features, (2) Modifying existing code, (3) Importing libraries, or (4) Using library-specific features.
+> - 🔒 Lock all direct dependency versions to specific versions or exact ranges to ensure reproducible builds
 
-# Library Version and Feature Constraints
+# 📦 Dependency and Version Constraints
 
-## Required Node Version
-- Node.js version must be >= 22.14.0 as specified in package.json
+## Critical Rules
 
-## Core Dependencies
-Use these specific versions and their features:
+- 🔒 Lock all direct dependency versions to specific versions or exact ranges to ensure reproducible builds
+- 🚫 Never use loose version constraints (e.g., ^, ~, >=, >) in production dependencies
+- ⚡ Specify Node.js version constraints in package.json using the engines field
+- 🔄 Keep all dependencies up to date with security patches while maintaining version locks
+- 🏗️ Separate devDependencies from production dependencies in Node.js projects
+- 📝 Document any specific version requirements or compatibility issues in README.md
+- 🧪 Test the application with the exact versions specified in lock files
+- 🔍 Review all transitive dependencies for security vulnerabilities
+- 📊 Maintain compatibility with the following version constraints:
+  - Node.js: >= 18.x (LTS)
+  - Python: >= 3.8
+  - .NET Core: >= 6.0
+  - Java: >= 11
+  - Ruby: >= 3.0
+- 🚨 Flag any dependencies that require specific OS or architecture support
 
-### CLI and Utility Libraries
-- `commander` (^11.0.0)
-  - Use for command-line interface implementation
-  - Prefer declarative command definitions
-  - Utilize built-in option validation
+## Examples
 
-- `chalk` (^5.3.0)
-  - Use for terminal text styling
-  - Prefer template literals with chalk
-  - Use consistent color schemes for different message types
+<example>
+  # package.json
+  {
+    "name": "my-app",
+    "version": "1.0.0",
+    "engines": {
+      "node": ">=18.0.0"
+    },
+    "dependencies": {
+      "express": "4.18.2",
+      "react": "18.2.0",
+      "typescript": "5.0.4"
+    },
+    "devDependencies": {
+      "jest": "29.5.0",
+      "eslint": "8.40.0"
+    }
+  }
 
-- `inquirer` (^9.2.12)
-  - Use for interactive command-line prompts
-  - Prefer async/await syntax with prompts
-  - Utilize built-in validation features
+  # requirements.txt
+  fastapi==0.95.2
+  sqlalchemy==2.0.15
+  pydantic==1.10.7
 
-- `ora` (^8.0.1)
-  - Use for loading spinners
-  - Implement with async operations
-  - Use consistent spinner styles
+  # pom.xml
+  <properties>
+    <java.version>11</java.version>
+    <spring.boot.version>2.7.11</spring.boot.version>
+  </properties>
+</example>
 
-### File System Operations
-- `fs-extra` (^11.2.0)
-  - Prefer fs-extra methods over native fs
-  - Use promise-based API
-  - Utilize built-in error handling
+<example type="invalid">
+  # package.json
+  {
+    "dependencies": {
+      "express": "^4.18.2",
+      "react": "~18.2.0",
+      "typescript": ">=5.0.0"
+    }
+  }
 
-### Development Tools
-- `eslint` (^8.56.0)
-  - Follow project's ESLint configuration
-  - Address all ESLint warnings and errors
+  # requirements.txt
+  fastapi>=0.95.2
+  sqlalchemy
+  pydantic>=1.10.0
 
-- `prettier` (^3.2.5)
-  - Maintain consistent code formatting
-  - Use project's Prettier configuration
-
-## Best Practices
-1. Always use the latest features available in the specified versions
-2. Prefer built-in functionality over custom implementations
-3. Use TypeScript types when available
-4. Handle version-specific features gracefully
-
-## Version Upgrade Guidelines
-1. Document any version-specific changes
-2. Test compatibility when upgrading dependencies
-3. Update related code when library versions change
-4. Maintain backward compatibility where possible
-
-## Code Examples
-
-### Command Line Interface (commander)
-```ts
-// Preferred
-program
-  .name('cursor-rules-deploy')
-  .description('Deploy Cursor AI rules and templates')
-  .version('1.0.0');
-
-// Avoid
-if (process.argv.includes('--version')) {
-  console.log('1.0.0');
-}
-```
-
-### Logging (chalk)
-```ts
-// Preferred - Always use Logger class with chalk
-Logger.info(chalk.blue('Processing'), chalk.green(filename));
-Logger.error(chalk.red('Error:'), chalk.yellow(errorMessage));
-Logger.warn(chalk.yellow('Warning:'), chalk.dim(warningMessage));
-Logger.debug(chalk.gray('Debug:'), chalk.dim(debugInfo));
-
-// Avoid
-console.log('Processing', filename);
-console.error('Error:', errorMessage);
-console.warn('Warning:', warningMessage);
-console.debug('Debug:', debugInfo);
-```
-
-### File Operations (fs-extra)
-```ts
-// Preferred
-await fs.copy(sourcePath, targetPath, { overwrite: true });
-
-// Avoid
-fs.copyFileSync(sourcePath, targetPath);
-```
+  # pom.xml
+  <properties>
+    <spring.boot.version>LATEST</spring.boot.version>
+  </properties>
+</example> 
 
 ---
 > Source: [rosendolu/cursor-rules-deploy](https://github.com/rosendolu/cursor-rules-deploy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
