@@ -1,0 +1,9 @@
+{
+  "name": "grafana--writers-toolkit",
+  "displayName": "writers-toolkit",
+  "description": "writers-toolkit",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/writers-toolkit",
+  "skills": []
+}
