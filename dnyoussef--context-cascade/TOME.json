@@ -2,9 +2,9 @@
   "name": "context-cascade",
   "owner": "DNYoussef",
   "repo": "context-cascade",
-  "description": "Context Cascade - Nested Plugin Architecture for Claude Code Official Claude Code Plugin | Version 3.1.0 | Last updated: 2026-01-09 (see docs/COMPONENT-COUNTS.json for source counts)  Context-saving nested architecture: Playbooks -> Skills -> Agents -> Commands. Load only what you need, saving 90%+ context space.  ",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DNYoussef/context-cascade",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T03:57:49Z"
+  "distributed_at": "2026-07-30T06:56:57Z"
 }
