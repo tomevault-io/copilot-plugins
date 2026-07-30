@@ -2,7 +2,7 @@
   "name": "mcp-portal-transparencia",
   "owner": "dutradotdev",
   "repo": "mcp-portal-transparencia",
-  "description": "MCP para orquestra\u00e7\u00e3o automatizada de chamadas \u00e0 API do Portal da Transpar\u00eancia do Governo Federal brasileiro",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dutradotdev/mcp-portal-transparencia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T05:09:21Z"
+  "distributed_at": "2026-07-30T13:51:07Z"
 }
