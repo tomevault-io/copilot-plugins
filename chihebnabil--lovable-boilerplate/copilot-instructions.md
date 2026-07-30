@@ -1,129 +1,386 @@
 ## lovable-boilerplate
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - Components over 300 lines
 
-# CLAUDE.md
+# Code Architecture & Reusability Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## CRITICAL ARCHITECTURE RULES
 
-## Development Commands
+### NEVER CREATE:
+- Components over 300 lines
+- Duplicate logic across components
+- Inline API calls in UI components
+- Mixed concerns (UI + business logic + API)
+- Copy-pasted code blocks
 
-### Core Development
-- `npm run dev` - Start development server on port 8080
-- `npm run build` - Create production build
-- `npm run build:dev` - Create development build
-- `npm run lint` - Run ESLint linter
-- `npm run preview` - Preview production build locally
+### ALWAYS CREATE:
+- Single-responsibility components (20-100 lines)
+- Custom hooks for reusable logic
+- Service layer for API calls
+- Shared types in `lib/types.ts`
+- Composition patterns from smaller components
 
-### Package Management
-- `npm install` - Install dependencies (or use `bun install` for faster installs)
+## Component Composition Over Monoliths
 
-## Architecture & Structure
+**NEVER create large, monolithic components that handle multiple concerns:**
+**Avoid**: Single components or page that exceed 300 lines or handle multiple responsibilities
+**Avoid**: Pages that contain all logic inline instead of using smaller components
+**Avoid**: Components that mix UI rendering, business logic, and API calls
 
-### Framework Stack
-- **React 18.3.1** with TypeScript for UI
-- **Vite 5.4.1** as build tool with SWC for fast compilation
-- **shadcn/ui** component library built on Radix UI primitives
-- **Tailwind CSS 3.4.11** for styling with custom design system
-- **React Router DOM v6** for client-side routing
-- **TanStack Query** for server state management
-- **React Hook Form + Zod** for form handling and validation
+**ALWAYS break down complex functionality into smaller, reusable pieces:**
+**Create**: Focused components with single responsibilities (20-100 lines)
+**Create**: Composition patterns using multiple small components 
+**Create**: Custom hooks for reusable logic extraction
+**Create**: Separate layers for data fetching, business logic, and presentation
 
-### Key Architecture Patterns
+## Component Organization Strategy
 
-#### Component Organization & Structure
-- `src/components/ui/` - Pre-built shadcn/ui components (40+ available, READ-ONLY)
-- `src/components/common/` - Reusable components (20-100 lines each)
-- `src/components/forms/` - Form-specific components
-- `src/components/features/` - Feature-specific components
-- `src/pages/` - Route-level page components
-- `src/hooks/` - Custom React hooks including `use-mobile.tsx` and `use-toast.ts`
-- `src/lib/utils.ts` - Utility functions with Tailwind class merging via `cn()` function
-- `src/lib/types.ts` - Shared TypeScript types and interfaces
-- `src/lib/constants.ts` - Application constants
-- `src/lib/validations/` - Zod validation schemas
-
-#### Critical Architecture Rules
-- **Component Size Limit**: Never exceed 300 lines per component
-- **Composition Over Complexity**: Build complex UI from smaller, focused components
-- **Single Responsibility**: Each component should have one clear purpose
-- **Extract Reusable Logic**: Use custom hooks instead of duplicating code
-- **Service Layer Pattern**: No inline API calls in components - use service layer in `src/lib/`
-
-#### Import Aliases (configured in vite.config.ts)
-- `@/` maps to `./src/`
-- `@/components` for components
-- `@/lib` for utilities
-- `@/hooks` for custom hooks
-
-#### Routing Structure
-Routes are defined in `src/App.tsx`. Add new routes above the catch-all `*` route:
+### 1. Feature-Based Organization
 ```tsx
-<Routes>
-  <Route path="/" element={<Index />} />
-  {/* ADD NEW ROUTES HERE */}
-  <Route path="*" element={<NotFound />} />
-</Routes>
+// Wrong: Everything in one file
+const Dashboard = () => {
+  // 300+ lines of mixed logic
+  return <div>{/* massive JSX */}</div>
+}
+
+// ✅ Correct: Composed from focused components
+const Dashboard = () => (
+  <DashboardLayout>
+    <DashboardHeader />
+    <DashboardStats />
+    <DashboardCharts />
+    <DashboardActivity />
+  </DashboardLayout>
+)
 ```
 
-### Design System Integration
+### 2. Reusable Component Patterns
+```tsx
+// ✅ Base components for consistent UI patterns
+const Card = ({ children, className, ...props }) => (
+  <div className={cn("rounded-lg border bg-card", className)} {...props}>
+    {children}
+  </div>
+)
 
-This project uses a sophisticated design system based on comprehensive instructions in `.github/instructions/` and `.cursor/rules/`. Key principles:
+// ✅ Composite components for complex patterns  
+const StatsCard = ({ title, value, change, icon: Icon }) => (
+  <Card className="p-6">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-muted-foreground">{title}</p>
+        <p className="text-2xl font-bold">{value}</p>
+        <p className="text-sm text-green-600">{change}</p>
+      </div>
+      <Icon className="h-8 w-8 text-muted-foreground" />
+    </div>
+  </Card>
+)
+```
 
-#### shadcn/ui Components
-Over 40 pre-built components available in `src/components/ui/`:
-- **Layout**: `card`, `separator`, `sheet`, `sidebar`, `tabs`, `accordion`
-- **Forms**: `button`, `input`, `form`, `select`, `checkbox`, `radio-group`
-- **Overlays**: `dialog`, `alert-dialog`, `drawer`, `popover`, `tooltip`
-- **Data Display**: `table`, `badge`, `avatar`, `chart`, `carousel`
+### 3. Logic Extraction Patterns
+```tsx
+// ✅ Custom hooks for reusable stateful logic
+const useLocalStorage = (key: string, initialValue: any) => {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key)
+      return item ? JSON.parse(item) : initialValue
+    } catch (error) {
+      return initialValue
+    }
+  })
 
-#### Styling Conventions & Quality Standards
-- Use Tailwind classes following the project's design system
-- Generous spacing: `py-16 lg:py-24` for sections
-- Consistent rhythm: `space-y-4 lg:space-y-6` for content
-- Mobile-first responsive design approach
-- Premium, sophisticated visual hierarchy with purposeful color psychology
-- **Accessibility**: Maintain WCAG 2.1 AA contrast ratios (4.5:1 minimum)
-- **Never ship** without running `npm run lint` - must pass without errors
-- **Industry-specific designs**: Adapt visual identity, emotional tone, and color psychology to target audience
-- **Design Philosophy**: Create unique, custom-crafted interfaces that feel premium and engaging
-- **Color Strategy**: Use colors intentionally to evoke the right emotions and enhance user experience
+  const setValue = (value: any) => {
+    try {
+      setStoredValue(value)
+      window.localStorage.setItem(key, JSON.stringify(value))
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-### Configuration Files
+  return [storedValue, setValue]
+}
 
-- `vite.config.ts` - Vite configuration with path aliases and port 8080
-- `components.json` - shadcn/ui configuration with default style and slate base color
-- `tailwind.config.ts` - Tailwind configuration with dark mode support
-- `tsconfig.json` - TypeScript configuration with strict mode
+// ✅ Service layer for API interactions
+export const userService = {
+  async getUser(id: string) {
+    const response = await fetch(`/api/users/${id}`)
+    return response.json()
+  },
+  
+  async updateUser(id: string, data: Partial<User>) {
+    const response = await fetch(`/api/users/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    return response.json()
+  }
+}
+```
 
-### Environment Variables
-⚠️ **Security**: This is a client-side application. Only use `VITE_` prefixed environment variables for public configuration. Never expose sensitive data like API secrets.
+## File Organization Best Practices
 
-### Testing & Quality
-- ESLint configured with React and TypeScript rules
-- No test framework currently configured - determine testing approach from codebase if tests are needed
+### 1. Component File Structure
+```tsx
+// ComponentName/index.ts - Export barrel
+export { ComponentName } from './ComponentName'
+export type { ComponentNameProps } from './ComponentName'
 
-### Development Patterns & Best Practices
+// ComponentName/ComponentName.tsx - Main component
+interface ComponentNameProps {
+  // Props definition
+}
 
-#### Code Organization
-- Use TypeScript interfaces for type safety - define shared types in `src/lib/types.ts`
-- Implement responsive design mobile-first
-- Follow React Hook Form patterns with Zod validation for forms
-- Use TanStack Query for API state management
-- Import UI components from `@/components/ui/`
-- Use the toast system via `use-toast` hook for notifications
+export const ComponentName = ({ ...props }: ComponentNameProps) => {
+  // Component implementation
+}
 
-#### Cursor Rules Integration
-This project includes comprehensive Cursor rules in `.cursor/rules/` that auto-apply based on file context:
-- **Core Rules** (`core.mdc`) - Always active architecture and quality rules
-- **Component Rules** (`components.mdc`) - Auto-loads when editing `src/components/**`
-- **Design Rules** (`design.mdc`) - Auto-loads when editing UI/styling files
-- **Form Rules** (`forms.mdc`) - Auto-loads when editing form components
-- **Hook Rules** (`hooks.mdc`) - Auto-loads when editing `src/hooks/**`
-- **Service Rules** (`services.mdc`) - Auto-loads when editing `src/lib/**`
+// ComponentName/ComponentName.stories.tsx - Storybook stories (if used)
+// ComponentName/ComponentName.test.tsx - Tests (if used)
+```
 
-Reference with `@rule-name` in prompts (e.g., `@quality` for quality checklist)
+### 2. Shared Type Definitions
+```tsx
+// lib/types.ts - Shared application types
+export interface User {
+  id: string
+  email: string
+  name: string
+  avatar?: string
+}
+
+export interface ApiResponse<T> {
+  data: T
+  message: string
+  success: boolean
+}
+
+export type Theme = 'light' | 'dark' | 'system'
+export type UserRole = 'admin' | 'user' | 'guest'
+```
+
+### 3. Utility Function Organization
+```tsx
+// lib/utils.ts - General utilities (keep existing cn function)
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+export function formatDate(date: Date | string, format?: string): string {
+  // Date formatting utility
+}
+
+export function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  // Debounce utility
+}
+
+// lib/constants.ts - Application constants
+export const API_ENDPOINTS = {
+  USERS: '/api/users',
+  POSTS: '/api/posts',
+  AUTH: '/api/auth'
+} as const
+
+export const QUERY_KEYS = {
+  USERS: 'users',
+  POSTS: 'posts',
+  USER_PROFILE: 'user-profile'
+} as const
+```
+
+## Custom Hook Patterns for Reusability
+
+### 1. Data Fetching Hooks
+```tsx
+// hooks/useUsers.ts
+export const useUsers = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.USERS],
+    queryFn: () => userService.getAllUsers()
+  })
+}
+
+export const useUser = (id: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.USERS, id],
+    queryFn: () => userService.getUser(id),
+    enabled: !!id
+  })
+}
+```
+
+### 2. Form Handling Hooks
+```tsx
+// hooks/useUserForm.ts
+export const useUserForm = (initialData?: Partial<User>) => {
+  const form = useForm<UserFormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      name: initialData?.name || '',
+      email: initialData?.email || '',
+      // ... other fields
+    }
+  })
+
+  const { mutate: saveUser, isPending } = useMutation({
+    mutationFn: userService.updateUser,
+    onSuccess: () => {
+      toast.success('User updated successfully')
+    }
+  })
+
+  return { form, saveUser, isPending }
+}
+```
+
+### 3. UI State Hooks
+```tsx
+// hooks/useDisclosure.ts
+export const useDisclosure = (initialState = false) => {
+  const [isOpen, setIsOpen] = useState(initialState)
+  
+  const open = useCallback(() => setIsOpen(true), [])
+  const close = useCallback(() => setIsOpen(false), [])
+  const toggle = useCallback(() => setIsOpen(prev => !prev), [])
+  
+  return { isOpen, open, close, toggle }
+}
+```
+
+## Validation Schema Reusability
+
+### 1. Shared Zod Schemas
+```tsx
+// lib/validations/common.ts
+export const emailSchema = z.string().email('Invalid email address')
+export const phoneSchema = z.string().regex(/^\+?[\d\s-()]+$/, 'Invalid phone number')
+
+// lib/validations/user.ts
+export const userSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: emailSchema,
+  phone: phoneSchema.optional(),
+  role: z.enum(['admin', 'user', 'guest'])
+})
+
+export type UserFormData = z.infer<typeof userSchema>
+```
+
+## Component Composition Patterns
+
+### 1. Compound Components
+```tsx
+// components/common/DataTable/DataTable.tsx
+const DataTable = ({ children }: { children: React.ReactNode }) => (
+  <div className="border rounded-lg overflow-hidden">
+    {children}
+  </div>
+)
+
+const DataTableHeader = ({ children }: { children: React.ReactNode }) => (
+  <div className="bg-muted p-4 border-b">
+    {children}
+  </div>
+)
+
+const DataTableBody = ({ children }: { children: React.ReactNode }) => (
+  <div className="divide-y">
+    {children}
+  </div>
+)
+
+// Usage: Flexible composition
+<DataTable>
+  <DataTableHeader>
+    <h3>Users</h3>
+  </DataTableHeader>
+  <DataTableBody>
+    {users.map(user => <UserRow key={user.id} user={user} />)}
+  </DataTableBody>
+</DataTable>
+```
+
+### 2. Render Props Pattern
+```tsx
+// components/common/DataLoader.tsx
+interface DataLoaderProps<T> {
+  data: T[] | undefined
+  isLoading: boolean
+  error: Error | null
+  children: (data: T[]) => React.ReactNode
+  loadingComponent?: React.ReactNode
+  errorComponent?: (error: Error) => React.ReactNode
+  emptyComponent?: React.ReactNode
+}
+
+export const DataLoader = <T,>({
+  data,
+  isLoading,
+  error,
+  children,
+  loadingComponent = <div>Loading...</div>,
+  errorComponent = (err) => <div>Error: {err.message}</div>,
+  emptyComponent = <div>No data found</div>
+}: DataLoaderProps<T>) => {
+  if (isLoading) return <>{loadingComponent}</>
+  if (error) return <>{errorComponent(error)}</>
+  if (!data || data.length === 0) return <>{emptyComponent}</>
+  return <>{children(data)}</>
+}
+```
+
+## CRITICAL RULES FOR CODE ORGANIZATION
+
+1. **Single Responsibility**: Each component should have one clear purpose
+2. **Composition Over Inheritance**: Build complex UIs by combining simple components
+3. **Extract Logic**: Move reusable logic into custom hooks, not copy-paste
+4. **Shared Types**: Define interfaces once, import everywhere
+5. **Service Layer**: Keep API calls separate from UI components
+6. **Consistent Patterns**: Use the same patterns across the entire application
+7. **Import Organization**: Group imports by type (React, libraries, local)
+
+## Project Structure
+```
+/
+├── src/
+│   ├── components/
+│   │   ├── ui/              # shadcn/ui components (pre-built)
+│   │   ├── common/          # Reusable components (Header, Footer, Layout)
+│   │   ├── forms/           # Form-specific components
+│   │   └── features/        # Feature-specific component groups
+│   ├── hooks/               # Custom React hooks (reusable logic)
+│   ├── integrations/
+│   │   └── supabase/        # Supabase client configuration
+│   │       ├── client.ts    # Supabase client instance
+│   │       └── types.ts     # Auto-generated database types
+│   ├── lib/
+│   │   ├── utils.ts         # General utility functions
+│   │   ├── constants.ts     # App constants and enums
+│   │   ├── types.ts         # Shared TypeScript types
+│   │   └── validations/     # Zod schemas and form validations
+│   ├── pages/               # Route components (composition only)
+│   ├── services/            # API calls and external service integrations
+│   ├── context/             # React context providers
+│   ├── App.tsx              # Main app component with routing
+│   ├── main.tsx             # Entry point
+│   └── index.css            # Global styles
+├── supabase/                # Supabase local development
+│   ├── config.toml          # Supabase CLI configuration
+│   └── migrations/          # Database migrations (auto-generated)
+├── public/                  # Static assets
+├── package.json             # Dependencies and scripts
+├── vite.config.ts           # Vite configuration (@ → ./src, port 8080)
+├── tailwind.config.ts       # Tailwind configuration (dark mode support)
+├── components.json          # shadcn/ui configuration
+└── tsconfig.json            # TypeScript configuration
+```
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
