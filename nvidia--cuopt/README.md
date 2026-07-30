@@ -1,23 +1,22 @@
 # cuopt
 
-> Tome by [NVIDIA](https://github.com/NVIDIA/cuopt) — distributed by [TomeVault](https://tomevault.io)
-
-GPU accelerated decision optimization 
+> Tome by [NVIDIA](https://github.com/NVIDIA/cuopt), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NVIDIA/cuopt](https://github.com/NVIDIA/cuopt).
+Original source: `` in [NVIDIA/cuopt](https://github.com/NVIDIA/cuopt).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [NVIDIA/cuopt](https://github.com/NVIDIA/cuopt) — a repo with 876+ stars on GitHub.
+From [NVIDIA/cuopt](https://github.com/NVIDIA/cuopt) — a repo with 984+ stars on GitHub.
 
 ---
 
