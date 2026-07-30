@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [gohugoio/hugo](https://github.com/gohugoio/hugo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [gohugoio/hugo](https://github.com/gohugoio/hugo) — a repo with 89036+ stars on GitHub.
+From [gohugoio/hugo](https://github.com/gohugoio/hugo) — a repo with 89048+ stars on GitHub.
 
 ---
 
