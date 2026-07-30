@@ -1,0 +1,9 @@
+{
+  "name": "sandwichfarm--nostr-watch",
+  "displayName": "nostr-watch",
+  "description": "nostr-watch",
+  "version": "1.0.0",
+  "author": "sandwichfarm",
+  "homepage": "https://github.com/sandwichfarm/nostr-watch",
+  "skills": []
+}
