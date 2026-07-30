@@ -2,9 +2,9 @@
   "name": "gpc",
   "owner": "yasserstudio",
   "repo": "gpc",
-  "description": "Google Play Console CLI \u2014 217 API endpoints, preflight scanner, rollout monitoring, RTDN, vitals gates. Ship Android apps from your terminal.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yasserstudio/gpc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T15:04:23Z"
+  "distributed_at": "2026-07-30T01:41:35Z"
 }
