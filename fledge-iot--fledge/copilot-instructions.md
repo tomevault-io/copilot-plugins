@@ -1,386 +1,288 @@
 ## fledge
 
-> description: "Cursor AI rules for Fledge documentation - covers reStructuredText, Sphinx, file naming, and content guidelines"
+> Python unit testing rules for Fledge - test organization, framework, execution, and coverage
 
 
----
-description: "Cursor AI rules for Fledge documentation - covers reStructuredText, Sphinx, file naming, and content guidelines"
-globs: 
-  - "docs/**/*"
-  - "*.rst"
-alwaysApply: false
-author: "Ashish Jabble"
----
+# Python Unit Testing Guidelines
 
-# Documentation Directory Cursor Rules
-
-## Overview
-This file contains specific rules for working with documentation in the `/docs` directory of the Fledge project. These rules supplement the main project cursor rules and focus on documentation-specific patterns and conventions.
-
-## Documentation Framework
-- **Format**: reStructuredText (.rst) format exclusively
-- **Build System**: Sphinx documentation generator
-- **Theme**: sphinx_rtd_theme (Read the Docs theme)
-- **Configuration**: All settings in `docs/conf.py`
-
-## 🚫 "Fledge" Branding Guidelines - MINIMIZE USAGE
-
-**CRITICAL RULE: Avoid "Fledge" in naming wherever possible**
-
-### What to Avoid:
-- ❌ Image files: `fledge_architecture.png`
-- ❌ Directory names: `fledge_authentication/`
-- ❌ File names: `fledge_configuration.rst`
-- ❌ Headings: "Fledge Authentication Setup"
-- ❌ Repetitive content: "Fledge does this... Fledge provides that..."
-
-### What to Use Instead:
-- ✅ Image files: `architecture_overview.png`, `auth_flow.png`
-- ✅ Directory names: `authentication/`, `configuration/`, `monitoring/`
-- ✅ File names: `authentication.rst`, `configuration.rst`
-- ✅ Headings: "Authentication Setup", "Configuration Guide"
-- ✅ Content alternatives: "the platform", "the system", "this feature"
-
-### When "Fledge" IS Appropriate:
-- Main title pages and introductory content
-- External references and comparisons
-- Installation package names
-- API endpoint references where it's part of the actual name
-
-## File Organization
+## Test Organization & Structure
 
 ### Directory Structure
-- `/docs/` - Main documentation root
-- `/docs/_static/` - Static assets (CSS, images that aren't content)
-- `/docs/_templates/` - Custom Sphinx templates
-- `/docs/images/` - Documentation images and screenshots
-- `/docs/quick_start/` - Getting started guides
-- `/docs/plugin_developers_guide/` - Plugin development documentation
-- `/docs/rest_api_guide/` - REST API documentation
-- `/docs/building_fledge/` - Build and installation guides
-- `/docs/monitoring/` - System monitoring documentation
-- `/docs/fledge-rule-DataAvailability/` - Built-in Data Availability rule plugin docs
-- `/docs/fledge-rule-Threshold/` - Built-in Threshold rule plugin docs
-- `/docs/fledge-north-OMF.rst` - Built-in OMF north plugin documentation
-- `/docs/keywords/` - Plugin categorization keywords and mappings
-- `/docs/fledge_plugins.rst` - Master plugin list with conditional hyperlinks
+- **Unit Tests**: Located in [tests/unit/python/](mdc:tests/unit/python/) 
+- **Test Instructions**: Follow detailed guidelines in [tests/README.rst](mdc:tests/README.rst)
+- **File Structure**: Tests should mirror the component structure under `tests/unit/python/fledge/<component>`
+- **Template**: Use [tests/unit/python/__template__.py](mdc:tests/unit/python/__template__.py) as starting point
 
-**DIRECTORY NAMING GUIDELINES:**
-- **AVOID "fledge" in new directory names** - use functional descriptions
-- Use topic-based naming: `authentication/` instead of `fledge_authentication/`
-- Keep directory names lowercase with underscores
-- Focus on the purpose/feature rather than product branding
+### Test File Conventions
+- **Naming**: Test files must begin with `test_` for pytest auto-discovery
+- **Pattern**: `test_<module_name>.py`
+- **Location**: Place tests in correct directory matching component structure
+- **Imports**: Follow Fledge import patterns and avoid circular dependencies
+- **Docstrings**: Include Pydoc-compatible docstrings for test classes and methods
 
-### File Naming Conventions
-- Use lowercase with underscores: `file_name.rst`
-- Index files: `index.rst` for each directory
-- Numbered files for version/download info: `91_version_history.rst`, `92_downloads.rst`
-- Descriptive names reflecting content: `securing.rst`, `troubleshooting_pi_server_integration.rst`
-- **AVOID "fledge" in filenames** - use functional descriptions: `authentication.rst` instead of `fledge_authentication.rst`
-- Focus on the topic/feature being documented
+### Test Class & Method Organization
+- Group related tests in classes using `TestClassName` pattern
+- Use descriptive test method names: `test_should_return_success_when_valid_input`
+- Organize tests logically: happy path, edge cases, error conditions
+- Use pytest fixtures for common setup and teardown
+- Keep tests focused and atomic - one assertion per test when possible
 
-## reStructuredText Style Guidelines
+## Testing Framework & Dependencies
 
-### Heading Hierarchy
-Follow this exact hierarchy for consistency:
-```rst
-***************
-Document Title (Level 1)
-***************
+### Primary Framework
+- **Framework**: pytest (version specified in [python/requirements-test.txt](mdc:python/requirements-test.txt))
+- **Dependencies**: All testing dependencies are managed in requirements-test.txt
+- **Dependency Management**: Reference requirements-test.txt for current versions - do not hardcode versions in documentation
 
-===============
-Major Section (Level 2)
-===============
+### Core Testing Dependencies
+Key testing packages (see [python/requirements-test.txt](mdc:python/requirements-test.txt) for current versions):
+- `pytest` - Main testing framework
+- `pytest-asyncio` - For async testing support
+- `pytest-mock` - Mocking framework integration
+- `pytest-cov` - Code coverage reporting
+- `pytest-aiohttp` - aiohttp testing utilities
+- `pylint` - Code quality and linting
 
-Minor Section (Level 3)
------------------------
+### Additional Testing Dependencies
+- `requests` - For HTTP client testing
+- `pyserial` - For RTU serial testing
+- `pytz` - Timezone handling in tests
+- `aiohttp` and `yarl` - Keep versions synchronized with main requirements
 
-Subsection (Level 4)
-^^^^^^^^^^^^^^^^^^^^
+## Test Configuration
 
-Sub-subsection (Level 5)
-"""""""""""""""""""""""""
-```
+### pytest Configuration
+- **Configuration File**: [tests/unit/python/.pytest.ini](mdc:tests/unit/python/.pytest.ini)
+- **Minimum Version**: Check requirements-test.txt for current pytest version
+- **Excluded Directories**: Plugin directories excluded from test recursion
+- **Test Discovery**: Automatic discovery of test_*.py files
 
-**IMPORTANT NAMING CONVENTIONS:**
-- **AVOID "Fledge" in headings** unless absolutely necessary for context
-- Use descriptive, functional titles: "Authentication Configuration" instead of "Fledge Authentication Configuration"
-- Focus on the feature/functionality rather than the product name
-- Keep headings concise and user-focused
+### Coverage Configuration
+- **Configuration File**: [tests/unit/python/.coveragerc](mdc:tests/unit/python/.coveragerc)
+- **Omitted Files**: 
+  - `__init__.py` and `__template__.py` files
+  - Setup files and plugin directories
+  - Test directories themselves
+- **Coverage Scope**: Focus on core Fledge components, exclude plugin frameworks
 
-### Document Structure
-1. **Title**: Use level 1 heading with asterisks above and below
-2. **Introduction**: Brief overview of the document's purpose
-3. **Table of Contents**: Use `.. toctree::` for sections with multiple pages
-4. **Main Content**: Organized with appropriate heading levels
-5. **Cross-references**: Link to related documentation
+## Test Execution
 
-### Code Blocks
-```rst
-.. code-block:: language
-   :linenos:
-   :emphasize-lines: 2,3
+### Basic pytest Commands
+Refer to [tests/README.rst](mdc:tests/README.rst) for complete instructions:
 
-   code here
-```
-
-### Common Directives
-- `.. note::` - Important information
-- `.. warning::` - Critical warnings
-- `.. code-block::` - Code examples
-- `.. image::` - Images with proper alt text
-- `.. toctree::` - Table of contents trees
-
-### Images and Media
-- Store images in `/docs/images/` directory
-- Use descriptive filenames: `architecture_overview.png` (avoid "fledge_" prefix)
-- **AVOID "Fledge" in image filenames** - use descriptive terms like `architecture_overview.png` instead of `fledge_architecture_overview.png`
-- Always include alt text: `.. image:: images/filename.png :alt: Description`
-- Optimize images for web (reasonable file sizes)
-- Use subdirectories in images/ for organization by topic
-- Keep image names concise and topic-focused
-
-### Cross-References and Links
-- Internal references: `:doc:`filename`` or `:ref:`label``
-- External links: `Link text <URL>`_
-- API references: Follow existing patterns for REST API documentation
-
-## Content Guidelines
-
-### Writing Style
-- Use clear, concise language suitable for technical documentation
-- Write in active voice when possible
-- Use present tense for current functionality
-- Include step-by-step instructions for procedures
-- Provide context and examples
-- **MINIMIZE use of "Fledge" in content** - focus on functionality and features
-- Use "the platform", "the system", or specific feature names instead of repetitive "Fledge" references
-
-### Code Examples
-- Include complete, runnable examples when possible
-- Show both input and expected output
-- Use realistic data that represents actual Fledge usage
-- Comment code examples appropriately
-- Test code examples to ensure they work
-
-### API Documentation
-- Document all public APIs, parameters, and return values
-- Include HTTP status codes for REST APIs
-- Provide curl examples for API endpoints
-- Show JSON request/response examples
-- Document error conditions and responses
-
-### Configuration Documentation
-- Show complete configuration examples
-- Explain all configuration parameters
-- Provide default values where applicable
-- Include configuration validation rules
-- Link to related configuration sections
-
-## Sphinx Configuration
-
-### Extensions
-- Keep extensions minimal and focused
-- Document any new extensions added
-- Ensure extensions are available in build environment
-
-### Build Process
-- Use `make html` for local builds
-- Check for build warnings and errors
-- Test documentation locally before committing
-- Verify all links work correctly
-
-### Documentation Generation Scripts
-- **Location**: `/scripts/` directory contains documentation generation utilities
-- **Plugin Discovery**: Scripts automatically scan plugin repositories for `docs/` directories
-- **Content Aggregation**: Pulls documentation from external plugin repos during build
-- **Branch Management**: Handles DOCBRANCH parameter for version-specific documentation
-- **Integration**: Merges external plugin docs with core Fledge documentation seamlessly
-
-### Keywords and Categorization System
-- **Keywords Directory**: `/docs/keywords/` contains category definition files
-- **Category Mapping**: Each keyword file defines a plugin category (e.g., `Augmentation`, `Cleansing`, `Cloud`)
-- **Plugin Keywords**: Plugin repositories contain keyword files that reference category keywords
-- **Automatic Categorization**: Build scripts match plugin keywords with category definitions
-- **Dynamic Organization**: Plugin list automatically organized into categorical sections
-- **Conditional Display**: Categories only appear if plugins with matching keywords exist
-
-### Version Management
-- Version information managed in `conf.py`
-- DOCBRANCH parameter for plugin documentation
-- Update version info during releases
-
-### DOCBRANCH System
-- **Purpose**: Generates documentation from both core Fledge and external plugin repositories
-- **Core Documentation**: Always included from the main Fledge repository
-- **Plugin Documentation**: Pulled from individual plugin repositories if they have a `docs/` directory
-- **Branch Control**: Uses `DOCBRANCH='develop'` parameter (set to actual version during releases)
-- **Auto-Discovery**: Only includes plugins that have documentation - ignores repos without `docs/` directory
-- **Generation Scripts**: Located in `/scripts/` directory handle the plugin documentation aggregation
-- **Build Command**: `subprocess.run(["make generated DOCBRANCH='develop'"], shell=True, check=True)` in `conf.py`
-
-## Plugin Documentation
-
-### Plugin Repository Documentation
-- **External Plugins**: Each plugin repository can have its own `docs/` directory
-- **Auto-Discovery**: Build system automatically includes plugin docs if `docs/` directory exists
-- **Repository Requirement**: Plugin repos without `docs/` directory are ignored during documentation generation
-- **Branch Synchronization**: Uses same DOCBRANCH parameter as core documentation
-- **Integration**: Plugin docs are seamlessly integrated into the main documentation site
-
-### Built-in Plugins (In Core Repository)
-The following plugins have documentation included directly in the core Fledge repository:
-- **`fledge-rule-DataAvailability/`** - Data availability rule plugin documentation
-- **`fledge-rule-Threshold/`** - Threshold rule plugin documentation  
-- **`fledge-north-OMF.rst`** - OMF north plugin documentation
-
-### Plugin Documentation Standards
-- Each plugin should have its own documentation section
-- Follow the pattern established in existing plugin docs
-- Include installation, configuration, and usage instructions
-- Provide troubleshooting sections
-- Use the same reStructuredText format and style guidelines
-
-### Auto-Generated Content
-- Plugin lists and references may be auto-generated by scripts in `/scripts/` directory
-- Don't manually edit generated content
-- Use the build system's generation capabilities
-- Generated content includes plugin discovery from external repositories
-
-### Plugin Listing System (`fledge_plugins.rst`)
-- **Master List**: All plugins are listed with name and description in `fledge_plugins.rst`
-- **Smart Hyperlinking**: 
-  - ✅ **With Documentation**: Plugin names become hyperlinks if `docs/` directory exists in plugin repo
-  - ❌ **Without Documentation**: Plugin names remain as plain text (no hyperlink)
-- **Automatic Detection**: Build system checks for documentation availability during generation
-- **Comprehensive Coverage**: Includes all available Fledge plugins regardless of documentation status
-
-### Plugin Categorization System
-- **Keyword-Based Organization**: Plugins organized by categories using keyword mapping
-- **Keywords Directory**: `/docs/keywords/` contains category definitions and mappings
-- **Plugin Keywords**: Each plugin repository can have a keywords file defining its categories
-- **Categorical Display**: Plugins grouped and displayed under appropriate category sections
-- **Dynamic Categorization**: Categories are automatically generated based on available keywords
-
-### Plugin Documentation Sources
-- **Core Repository Plugins**: Documentation in `/docs/` for built-in plugins
-- **External Plugin Repos**: Each plugin repository can maintain its own `docs/` directory
-- **Plugin Directory Reference**: All Fledge-based plugins available in main `plugins/` directory
-- **Detailed Documentation**: Comprehensive plugin docs when `docs/` directory exists in plugin repo
-
-### Plugin Documentation Workflow
-1. **Plugin Discovery**: Build system scans all available Fledge plugin repositories
-2. **Documentation Check**: Determines if plugin repo has `docs/` directory
-3. **List Generation**: All plugins added to `fledge_plugins.rst` with name and description
-4. **Hyperlink Decision**: 
-   - Plugins WITH docs → Name becomes clickable hyperlink
-   - Plugins WITHOUT docs → Name remains as plain text
-5. **Category Organization**: Plugins grouped by keywords into categorical sections
-6. **Integration**: Plugin docs seamlessly integrated into main documentation site
-
-## Quality Standards
-
-### Content Review
-- Ensure accuracy of all technical information
-- Verify code examples work with current Fledge version
-- Check that screenshots are current and accurate
-- Review for clarity and completeness
-
-### Accessibility
-- Use proper heading hierarchy for screen readers
-- Include alt text for all images
-- Ensure good color contrast in custom CSS
-- Test with accessibility tools
-
-### Maintenance
-- Update documentation when features change
-- Remove or update deprecated information
-- Keep external links current
-- Regular review of troubleshooting sections
-
-## Build and Deployment
-
-### Local Testing
 ```bash
-cd docs
-make html
-# Check _build/html/index.html in browser
+# Execute all tests in specific file
+pytest test_filename.py
+
+# Execute specific test class
+pytest test_filename.py::TestClass
+
+# Execute specific test method
+pytest test_filename.py::TestClass::test_case
+
+# Verbose output with detailed information
+pytest -s -vv
+
+# Run tests with coverage
+pytest --cov=. --cov-report=html
 ```
 
-### Build Warnings
-- Address all Sphinx build warnings
-- Fix broken internal references
-- Verify external links periodically
-- Check image references
+### Advanced Test Execution
+```bash
+# Run tests with full coverage report
+pytest -s -vv tests/unit/python/fledge/ --cov=. --cov-report=html --cov-config tests/unit/python/.coveragerc
 
-### Dependencies
-- Document build dependencies in `requirements.txt`
-- Keep Sphinx version constraints appropriate
-- Test builds in clean environments
+# Run tests with XML coverage for CI/CD
+pytest --cov=. --cov-report html:coverage_html --cov-report xml:coverage.xml
 
-## Documentation Contribution Guidelines
+# Run specific test patterns
+pytest -k "test_pattern_name"
 
-### New Documentation
-- Create comprehensive documentation for new features
-- Follow existing patterns and conventions
-- Include in appropriate toctree structures
-- Add cross-references to related content
+```
 
-### Plugin Documentation Contributions
-- **Adding Plugin Docs**: Create `docs/` directory in plugin repository with proper structure
-- **Hyperlink Generation**: Plugin names in `fledge_plugins.rst` automatically become hyperlinks when docs exist
-- **Keywords Assignment**: Add appropriate keyword files to enable categorical organization
-- **Content Standards**: Follow same reStructuredText standards as core documentation
-- **Testing**: Verify plugin documentation builds correctly with main documentation site
+## Code Coverage
 
-### Updates
-- Update documentation when code changes
-- Maintain backwards compatibility information
-- Add migration guides for breaking changes
-- Update version history appropriately
+### Coverage Configuration
+- **Tool**: pytest-cov framework integration
+- **Config File**: [tests/unit/python/.coveragerc](mdc:tests/unit/python/.coveragerc)
+- **Output Formats**: HTML, XML, and terminal reports
+- **Exclusions**: Configured to omit template files, plugins, and test directories
 
-### Review Process
-- Technical accuracy review
-- Editorial review for clarity
-- Build verification
-- Link checking
+### Coverage Commands
 
-## Common Patterns
+#### Basic Coverage Reports
+```bash
+# Terminal coverage report (default)
+pytest --cov=. --cov-report=term
 
-### Getting Started Guides
-- Step-by-step instructions
-- Prerequisites clearly stated
-- Expected outcomes described
-- Troubleshooting section included
+# Terminal with missing lines shown
+pytest --cov=. --cov-report=term-missing
 
-### Reference Documentation
-- Comprehensive parameter listings
-- Example configurations
-- Default values documented
-- Related settings cross-referenced
+# HTML coverage report (recommended for development)
+pytest --cov=. --cov-report=html
 
-### Tutorial Content
-- Progressive complexity
-- Complete working examples
-- Clear learning objectives
-- Summary and next steps
+# JSON coverage report for tools integration
+pytest --cov=. --cov-report=json
 
-## Troubleshooting Documentation
+# XML coverage report for CI/CD systems
+pytest --cov=. --cov-report=xml
+```
 
-### Error Messages
-- Include exact error message text
-- Provide context for when errors occur
-- Give specific resolution steps
-- Link to related configuration
+#### Comprehensive Coverage Commands
+```bash
+# Full coverage with HTML and XML (for CI/CD)
+pytest --cov=. --cov-report=html:coverage_html --cov-report=xml:coverage.xml --cov-config=tests/unit/python/.coveragerc
 
-### Common Issues
-- Document frequently reported problems
-- Provide multiple solution approaches
-- Include preventive measures
-- Reference community resources
+# Coverage with specific source directory and custom config
+pytest tests/unit/python/fledge/ --cov=fledge --cov-report=html --cov-config=tests/unit/python/.coveragerc
 
-This documentation should be treated as living guidelines that evolve with the project's needs while maintaining consistency and quality standards.
+# Coverage with minimum percentage threshold (fail if below)
+pytest --cov=. --cov-report=term --cov-fail-under=80
+
+# Coverage with detailed terminal output and HTML
+pytest --cov=. --cov-report=term-missing --cov-report=html:htmlcov
+
+# Coverage for specific modules only
+pytest --cov=fledge.services.core --cov=fledge.common --cov-report=html
+```
+
+#### Coverage Report Analysis
+```bash
+# Generate coverage report after test run
+coverage report
+
+# Generate detailed HTML report
+coverage html
+
+# Show missing lines for specific file
+coverage report --show-missing
+
+# Coverage report with branch coverage
+pytest --cov=. --cov-branch --cov-report=html
+```
+
+### Coverage Best Practices
+
+#### Coverage Targets & Thresholds
+- **Meaningful Coverage**: Aim for meaningful test coverage, not just high numbers
+- **Minimum Thresholds**: Set reasonable minimum coverage (e.g., 80% for core modules)
+- **Critical Paths**: Require higher coverage (90%+) for business logic and critical code paths
+- **New Code**: Ensure new code has high test coverage before merging
+- **Branch Coverage**: Include branch coverage for conditional logic testing
+
+#### Coverage Configuration
+- **Exclude Appropriately**: Use .coveragerc to exclude boilerplate and framework code
+- **Include Patterns**: Focus coverage on source code, exclude tests and third-party code
+- **Source Directories**: Specify source directories to avoid including test files in coverage
+- **Precision**: Set appropriate precision for coverage reporting (e.g., 1 decimal place)
+
+#### Coverage Monitoring & Reporting
+- **Regular Monitoring**: Track coverage trends over time in CI/CD
+- **Coverage Reports**: Generate reports for code review processes
+- **Failed Builds**: Fail builds if coverage drops below threshold
+- **Coverage Badges**: Display coverage status in repository README
+- **Trend Analysis**: Monitor coverage changes across commits and releases
+
+#### Coverage Quality Guidelines
+- **Test Quality Over Quantity**: High coverage with poor tests is worse than lower coverage with good tests
+- **Uncovered Code Review**: Regularly review uncovered code to determine if tests are needed
+- **Coverage Gaps**: Identify and address significant coverage gaps in critical modules
+- **Integration vs Unit**: Distinguish between unit test coverage and integration test coverage
+- **Documentation**: Document rationale for excluding files from coverage
+
+#### Coverage Anti-Patterns to Avoid
+- **Coverage Gaming**: Writing tests just to increase coverage percentage
+- **Shallow Testing**: Tests that call code but don't verify behavior
+- **Ignoring Branches**: Only testing happy paths without error conditions
+- **Over-Mocking**: Mocking so extensively that tests don't verify real behavior
+- **Coverage-Only Metrics**: Using coverage as the only quality metric
+
+#### Coverage Integration Examples
+
+##### CI/CD Pipeline Integration
+```bash
+# In GitHub Actions, GitLab CI, etc.
+pytest --cov=fledge --cov-report=xml --cov-report=html --cov-fail-under=80
+```
+
+##### Coverage with Multiple Output Formats
+```bash
+# Generate multiple report formats simultaneously
+pytest --cov=. \
+  --cov-report=term-missing \
+  --cov-report=html:htmlcov \
+  --cov-report=xml:coverage.xml \
+  --cov-report=json:coverage.json \
+  --cov-fail-under=80
+```
+
+##### Coverage Configuration in pytest.ini
+```ini
+[tool:pytest]
+addopts = --cov=fledge --cov-report=term-missing --cov-report=html --cov-fail-under=80
+```
+
+##### Coverage Badge Generation
+```bash
+# Generate coverage badge (requires coverage-badge package)
+coverage-badge -o coverage.svg
+```
+
+## Unit Testing Best Practices
+
+### Test Design Principles
+- **Isolation**: Each test should be independent and not rely on other tests
+- **Repeatability**: Tests should produce consistent results across runs
+- **Fast Execution**: Keep unit tests fast for quick feedback loops (performance is not the focus, but speed aids development)
+- **Clear Assertions**: Use descriptive assertion messages
+- **Focused Scope**: Test one behavior per test method
+- **Deterministic**: Tests should not rely on random data or external timing
+- **Self-Contained**: Tests should set up their own data and clean up afterwards
+
+### Mocking & Fixtures
+- **External Dependencies**: Mock all external dependencies (databases, APIs, file system)
+- **pytest-mock**: Use pytest-mock for integration with pytest fixtures
+- **Fixture Scope**: Use appropriate fixture scopes (function, class, module, session)
+- **Test Data**: Create reusable test data through fixtures
+- **Cleanup**: Ensure proper cleanup of resources and mocks
+
+### Async Testing
+- **pytest-asyncio**: Use pytest-asyncio for testing async functions
+- **Event Loops**: Properly handle event loop lifecycle in tests
+- **Async Fixtures**: Use async fixtures for async setup/teardown
+- **Timeout Handling**: Set appropriate timeouts for async operations
+- **Mock Async**: Properly mock async functions and coroutines
+
+### Error Testing
+- **Exception Testing**: Test both success and failure scenarios
+- **Error Messages**: Verify error messages and types
+- **Edge Cases**: Test boundary conditions and edge cases
+- **Input Validation**: Test invalid inputs and malformed data
+- **Resource Exhaustion**: Test behavior under resource constraints
+
+## Platform & Version Testing
+
+### Python Version Compatibility
+- **Target Versions**: Test across Python 3.8.10 through 3.12
+- **Version-Specific**: Use version markers in requirements-test.txt for compatibility
+- **CI/CD Integration**: Use matrices to validate multiple Python versions
+- **Version Checks**: Use `sys.version_info` for version-specific test behavior
+
+### Platform Testing Guidelines
+- **Ubuntu Testing**: Primary development platform (LTS 20.04+)
+- **Raspberry Pi**: ARM architecture testing for deployment compatibility
+- **Cross-Architecture**: Validate functionality on x86_64, aarch64, and armv7l
+- **Dependency Availability**: Ensure test dependencies install correctly across platforms
+- **Functional Validation**: Focus on correctness, not performance characteristics
+
+### Architecture-Specific Testing
+- **x86_64**: Standard Ubuntu development and production
+- **aarch64**: Ubuntu ARM64 and Raspberry Pi OS 64-bit
+- **armv7l**: Raspberry Pi OS 32-bit
+- **Dependencies**: Ensure test dependencies are available across platforms
+- **Compatibility**: Verify unit tests pass consistently across architectures
+- **Environment Differences**: Account for platform-specific behaviors in mocks and fixtures
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/fledge-iot) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [fledge-iot/fledge](https://github.com/fledge-iot/fledge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
