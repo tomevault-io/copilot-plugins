@@ -2,7 +2,7 @@
   "name": "databasus",
   "owner": "databasus",
   "repo": "databasus",
-  "description": "Database backup tool (PostgreSQL, MySQL\\MariaDB and MongoDB)",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/databasus/databasus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T16:48:40Z"
+  "distributed_at": "2026-07-30T13:32:06Z"
 }
