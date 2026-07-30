@@ -1,7 +1,7 @@
 {
   "name": "rosendolu--cursor-rules-deploy",
   "displayName": "cursor-rules-deploy",
-  "description": "CLI tool for deploying Cursor AI rules and templates",
+  "description": "cursor-rules-deploy",
   "version": "1.0.0",
   "author": "rosendolu",
   "homepage": "https://github.com/rosendolu/cursor-rules-deploy",
