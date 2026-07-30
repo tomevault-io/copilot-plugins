@@ -1,8 +1,6 @@
 # AI instruction files for axi
 
-> Sourced from [kunchenguid/axi](https://github.com/kunchenguid/axi) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Design principles for agent ergonomics. Higher accuracy with lower token cost than both MCP and regular CLI.
+> Sourced from [kunchenguid/axi](https://github.com/kunchenguid/axi), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,11 @@ Original source: `AGENTS.md` in [kunchenguid/axi](https://github.com/kunchenguid
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/kunchenguid/axi](https://github.com/kunchenguid/axi)
+## Bundled Skills (1)
+
+- [gh-axi](https://github.com/kunchenguid/axi/tree/main/skills/gh-axi/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/kunchenguid/axi](https://github.com/kunchenguid/axi)
 
 ---
 
