@@ -1,0 +1,9 @@
+{
+  "name": "sirmarkz--staff-engineer-mode",
+  "displayName": "staff-engineer-mode",
+  "description": "Staff-level engineering judgment for coding agents, from design to production.",
+  "version": "1.0.0",
+  "author": "sirmarkz",
+  "homepage": "https://github.com/sirmarkz/staff-engineer-mode",
+  "skills": []
+}
