@@ -5,12 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [EvolvingLMMs-Lab/LLaVA-OneVision-1.5-RL](https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5-RL).
+Original source: `AGENTS.md` in [EvolvingLMMs-Lab/LLaVA-OneVision-1.5-RL](https://github.com/EvolvingLMMs-Lab/LLaVA-OneVision-1.5-RL).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
