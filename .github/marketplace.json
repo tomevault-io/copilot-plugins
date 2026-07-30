@@ -1244,6 +1244,26 @@
       "description": "jest"
     },
     {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
       "name": "cli--cli",
       "source": "./cli--cli",
       "description": "cli"
@@ -3172,6 +3192,16 @@
       "name": "krayin--laravel-crm",
       "source": "./krayin--laravel-crm",
       "description": "laravel-crm"
+    },
+    {
+      "name": "agentskills--agentskills",
+      "source": "./agentskills--agentskills",
+      "description": "agentskills"
+    },
+    {
+      "name": "agentskills--agentskills",
+      "source": "./agentskills--agentskills",
+      "description": "agentskills"
     },
     {
       "name": "pubkey--rxdb",
@@ -7647,6 +7677,171 @@
       "name": "apache--storm",
       "source": "./apache--storm",
       "description": "storm"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
     },
     {
       "name": "microsoft--security-101",
@@ -15074,6 +15269,41 @@
       "description": "shippie"
     },
     {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
+      "name": "oldwinter--knowledge-garden",
+      "source": "./oldwinter--knowledge-garden",
+      "description": "knowledge-garden"
+    },
+    {
       "name": "exceptionless--exceptionless",
       "source": "./exceptionless--exceptionless",
       "description": "Exceptionless"
@@ -21747,6 +21977,11 @@
       "name": "coder--agentapi",
       "source": "./coder--agentapi",
       "description": "HTTP API for Claude Code, Goose, Aider, Gemini, Amp, and Codex"
+    },
+    {
+      "name": "sandeco--reversa",
+      "source": "./sandeco--reversa",
+      "description": "reversa"
     },
     {
       "name": "cloudai-x--claude-workflow-v2",
@@ -29534,6 +29769,11 @@
       "description": "harness-experimental"
     },
     {
+      "name": "blopker--codebook",
+      "source": "./blopker--codebook",
+      "description": "codebook"
+    },
+    {
       "name": "nexus-jpf--note-companion",
       "source": "./nexus-jpf--note-companion",
       "description": "note-companion"
@@ -30627,6 +30867,11 @@
       "name": "zhaoj9014--anti-uav",
       "source": "./zhaoj9014--anti-uav",
       "description": "Anti-UAV"
+    },
+    {
+      "name": "openvanilla--mcbopomofo",
+      "source": "./openvanilla--mcbopomofo",
+      "description": "McBopomofo"
     },
     {
       "name": "miantiao-me--ssh-ai-chat",
@@ -39799,6 +40044,11 @@
       "description": "kstatemachine"
     },
     {
+      "name": "hashrocket--tilex",
+      "source": "./hashrocket--tilex",
+      "description": "tilex"
+    },
+    {
       "name": "rebornix--agmente",
       "source": "./rebornix--agmente",
       "description": "iOS client for coding agents via ACP or Codex app-server"
@@ -41067,6 +41317,16 @@
       "name": "maibornwolff--codecharta",
       "source": "./maibornwolff--codecharta",
       "description": "codecharta"
+    },
+    {
+      "name": "b310-digital--teammapper",
+      "source": "./b310-digital--teammapper",
+      "description": "teammapper"
+    },
+    {
+      "name": "b310-digital--teammapper",
+      "source": "./b310-digital--teammapper",
+      "description": "teammapper"
     },
     {
       "name": "b310-digital--teammapper",
@@ -43644,6 +43904,21 @@
       "description": "jenkins-cli"
     },
     {
+      "name": "newlifex--antjob",
+      "source": "./newlifex--antjob",
+      "description": "AntJob"
+    },
+    {
+      "name": "newlifex--antjob",
+      "source": "./newlifex--antjob",
+      "description": "AntJob"
+    },
+    {
+      "name": "newlifex--antjob",
+      "source": "./newlifex--antjob",
+      "description": "AntJob"
+    },
+    {
       "name": "hoangnguyen0403--agent-skills-standard",
       "source": "./hoangnguyen0403--agent-skills-standard",
       "description": "A collection of Agent Skills Standard and Best Practice for Programming Languages, Frameworks that help our AI Agent follow best practies on frameworks and programming laguages"
@@ -44634,6 +44909,11 @@
       "description": "bevy_cli"
     },
     {
+      "name": "python-caldav--caldav",
+      "source": "./python-caldav--caldav",
+      "description": "caldav"
+    },
+    {
       "name": "carlos-algms--agentic-nvim",
       "source": "./carlos-algms--agentic-nvim",
       "description": "Agentic Chat Interface directly in Neovim with ACP providers from Claude-Code, Gemini, Codex, OpenCode, and Cursor-agent"
@@ -45344,6 +45624,11 @@
       "description": "trident"
     },
     {
+      "name": "tonbo-io--fusio",
+      "source": "./tonbo-io--fusio",
+      "description": "fusio"
+    },
+    {
       "name": "agentic-box--memora",
       "source": "./agentic-box--memora",
       "description": "Give your AI agents persistent memory."
@@ -45467,6 +45752,11 @@
       "name": "allthingsida--qscripts",
       "source": "./allthingsida--qscripts",
       "description": "qscripts"
+    },
+    {
+      "name": "isographlabs--isograph",
+      "source": "./isographlabs--isograph",
+      "description": "isograph"
     },
     {
       "name": "mmaher88--logitune",
@@ -46434,6 +46724,11 @@
       "description": "NetEngine"
     },
     {
+      "name": "xiweicheng--tms",
+      "source": "./xiweicheng--tms",
+      "description": "tms"
+    },
+    {
       "name": "aniruddha-adhikary--mrt-buddy",
       "source": "./aniruddha-adhikary--mrt-buddy",
       "description": "Check the Balance of your Dhaka MRT Pass or Rapid Pass"
@@ -47102,6 +47397,11 @@
       "name": "jbohnslav--opencv-transforms",
       "source": "./jbohnslav--opencv-transforms",
       "description": "opencv_transforms"
+    },
+    {
+      "name": "sous-chefs--postgresql",
+      "source": "./sous-chefs--postgresql",
+      "description": "postgresql"
     },
     {
       "name": "opencowai--opencow",
@@ -51682,6 +51982,11 @@
       "name": "glowxq--glowxq-oj",
       "source": "./glowxq--glowxq-oj",
       "description": "glowxq-oj"
+    },
+    {
+      "name": "muneebhashone--typescript-backend-toolkit",
+      "source": "./muneebhashone--typescript-backend-toolkit",
+      "description": "typescript-backend-toolkit"
     },
     {
       "name": "imbue-ai--bouncer",
@@ -63759,6 +64064,16 @@
       "description": "developer-tools"
     },
     {
+      "name": "mcity--terasim",
+      "source": "./mcity--terasim",
+      "description": "TeraSim"
+    },
+    {
+      "name": "mcity--terasim",
+      "source": "./mcity--terasim",
+      "description": "TeraSim"
+    },
+    {
       "name": "xorbitsai--xagent",
       "source": "./xorbitsai--xagent",
       "description": "A production-ready platform for dynamic AI agents \u2014 plan, use tools, and complete real work without hardcoded workflows."
@@ -64572,6 +64887,21 @@
       "name": "zxpsuper--qrcode-with-logos",
       "source": "./zxpsuper--qrcode-with-logos",
       "description": "qrcode-with-logos"
+    },
+    {
+      "name": "newlifex--newlife-rocketmq",
+      "source": "./newlifex--newlife-rocketmq",
+      "description": "NewLife.RocketMQ"
+    },
+    {
+      "name": "newlifex--newlife-rocketmq",
+      "source": "./newlifex--newlife-rocketmq",
+      "description": "NewLife.RocketMQ"
+    },
+    {
+      "name": "newlifex--newlife-rocketmq",
+      "source": "./newlifex--newlife-rocketmq",
+      "description": "NewLife.RocketMQ"
     },
     {
       "name": "dmmulroy--overseer",
@@ -72199,6 +72529,11 @@
       "description": "mcp-bsl-platform-context"
     },
     {
+      "name": "changxingjiang--metasequoia-sql",
+      "source": "./changxingjiang--metasequoia-sql",
+      "description": "metasequoia-sql"
+    },
+    {
       "name": "liangdabiao--claude-data-analysis-ultra-main",
       "source": "./liangdabiao--claude-data-analysis-ultra-main",
       "description": "\u8ba9\u5c0f\u767d\u90fd\u53ef\u4ee5\u4e00\u952e\u8fdb\u884c\u6570\u636e\u5206\u6790\uff0c\u641e\u4e92\u8054\u7f51\u7684\uff0c\u641e\u7535\u5546\u7684\uff0c\u641e\u5404\u79cd\u5404\u6837\u7684\uff0c\u90a3\u4e48\u5176\u5b9e\u5c31\u4f1a\u7528\u5230 \u4e92\u8054\u7f51\u7684\u6570\u636e\u5206\u6790\uff0c \u4f8b\u5982\u4e92\u8054\u7f51\u4f1a\u5173\u5fc3 \u62c9\u65b0\uff0c\u7559\u5b58\uff0c\u4fc3\u6d3b\uff0c\u63a8\u8350\uff0c\u8f6c\u5316\uff0cA/B test, \u7528\u6237\u5206\u6790 \u7b49\u7b49\u5f88\u591a\u6709\u7528\u7684\u6570\u636e\u5206\u6790\u3002 \u547d\u4ee4\u5c31\u662f\u201c/do-more\u201d."
@@ -72814,6 +73149,11 @@
       "description": "lyftr"
     },
     {
+      "name": "logue--vite-vuetify-ts-starter",
+      "source": "./logue--vite-vuetify-ts-starter",
+      "description": "vite-vuetify-ts-starter"
+    },
+    {
       "name": "nexxeln--opencode-config",
       "source": "./nexxeln--opencode-config",
       "description": "my opencode config"
@@ -73204,6 +73544,11 @@
       "description": "TechnicSolder"
     },
     {
+      "name": "microsoft--vscode-python-debugger",
+      "source": "./microsoft--vscode-python-debugger",
+      "description": "vscode-python-debugger"
+    },
+    {
       "name": "maslennikov-ig--claude-code-orchestrator-kit",
       "source": "./maslennikov-ig--claude-code-orchestrator-kit",
       "description": "\ud83c\udfbc Turn Claude Code into a production powerhouse. 33+ AI agents automate bug fixing, security scanning,   and dependency management. 19 slash commands, 6 MCP configs (600-5000 tokens), quality gates, a"
@@ -73437,6 +73782,11 @@
       "name": "sean1832--pinterest-dl",
       "source": "./sean1832--pinterest-dl",
       "description": "pinterest-dl"
+    },
+    {
+      "name": "microsoft--multi-agent-marketplace",
+      "source": "./microsoft--multi-agent-marketplace",
+      "description": "multi-agent-marketplace"
     },
     {
       "name": "cmu-l3--gym-anything",
@@ -78089,6 +78439,11 @@
       "description": "hash4j"
     },
     {
+      "name": "googlecloudplatform--genai-for-developers",
+      "source": "./googlecloudplatform--genai-for-developers",
+      "description": "genai-for-developers"
+    },
+    {
       "name": "xmihura--kanvas",
       "source": "./xmihura--kanvas",
       "description": "Manage projects visually with humans and AI agents using Obsidian Canvas."
@@ -78577,6 +78932,11 @@
       "name": "rhyssullivan--fastergh",
       "source": "./rhyssullivan--fastergh",
       "description": "fastergh"
+    },
+    {
+      "name": "wvlet--wvlet",
+      "source": "./wvlet--wvlet",
+      "description": "wvlet"
     },
     {
       "name": "cnighswonger--claude-code-cache-fix",
@@ -84564,6 +84924,46 @@
       "description": "js-analyzer"
     },
     {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
       "name": "skywind3000--gamelib",
       "source": "./skywind3000--gamelib",
       "description": "Single-header C++ Game Library for Beginners \u2014 no SDL/DirectX/OpenGL, no setup, just include and play."
@@ -88514,6 +88914,21 @@
       "description": "AlephBFT"
     },
     {
+      "name": "semianalysisai--microbench-blackwell",
+      "source": "./semianalysisai--microbench-blackwell",
+      "description": "microbench-blackwell"
+    },
+    {
+      "name": "semianalysisai--microbench-blackwell",
+      "source": "./semianalysisai--microbench-blackwell",
+      "description": "microbench-blackwell"
+    },
+    {
+      "name": "semianalysisai--microbench-blackwell",
+      "source": "./semianalysisai--microbench-blackwell",
+      "description": "microbench-blackwell"
+    },
+    {
       "name": "anthaathi--pico",
       "source": "./anthaathi--pico",
       "description": "A web, mobile and desktop client for pi"
@@ -91104,6 +91519,11 @@
       "description": "experiments"
     },
     {
+      "name": "vcnoc--claude-code-zen-mcp-skill-work",
+      "source": "./vcnoc--claude-code-zen-mcp-skill-work",
+      "description": "Claude-Code-Zen-mcp-Skill-Work"
+    },
+    {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
       "source": "./iusztinpaul--designing-real-world-ai-agents-workshop",
       "description": "Hands-on workshop: Build a multi-agent AI system from scratch \u2014 Deep Research Agent + Writing Workflow served as MCP servers. Includes code, slides, and video (coming soon)"
@@ -91457,6 +91877,26 @@
       "name": "opentracing--opentracing-io",
       "source": "./opentracing--opentracing-io",
       "description": "opentracing.io"
+    },
+    {
+      "name": "unclecatvn--agent-skills",
+      "source": "./unclecatvn--agent-skills",
+      "description": "agent-skills"
+    },
+    {
+      "name": "unclecatvn--agent-skills",
+      "source": "./unclecatvn--agent-skills",
+      "description": "agent-skills"
+    },
+    {
+      "name": "unclecatvn--agent-skills",
+      "source": "./unclecatvn--agent-skills",
+      "description": "agent-skills"
+    },
+    {
+      "name": "unclecatvn--agent-skills",
+      "source": "./unclecatvn--agent-skills",
+      "description": "agent-skills"
     },
     {
       "name": "jetxu-llm--docmason",
@@ -95957,6 +96397,11 @@
       "name": "devartifex--copilot-unleashed",
       "source": "./devartifex--copilot-unleashed",
       "description": "copilot-unleashed"
+    },
+    {
+      "name": "myissue-studio--vue-website-page-builder",
+      "source": "./myissue-studio--vue-website-page-builder",
+      "description": "vue-website-page-builder"
     },
     {
       "name": "aws-samples--sample-kolya-br-proxy",
@@ -100879,6 +101324,11 @@
       "description": "aspire-plugin"
     },
     {
+      "name": "schamane--node-syslog",
+      "source": "./schamane--node-syslog",
+      "description": "node-syslog"
+    },
+    {
       "name": "xiashao--kaiyantool",
       "source": "./xiashao--kaiyantool",
       "description": "\u5f00\u6f14AI \u5c06\u5f71\u89c6\u521b\u4f5c\u5168\u6d41\u7a0b\u6574\u5408\u5230\u4e00\u4e2a\u5f3a\u5927\u7684\u5e73\u53f0\u4e2d\u3002\u4ece\u5267\u672c\u521b\u4f5c\u5230\u89c6\u9891\u5236\u4f5c\uff0c\u6211\u4eec\u7684AI\u5de5\u5177\u5e2e\u52a9\u521b\u4f5c\u8005\u66f4\u5feb\u5730\u5c06\u6545\u4e8b\u53d8\u4e3a\u73b0\u5b9e\u3002  \u6838\u5fc3\u4f18\u52bf\uff1a  \ud83c\udfaf \u4e00\u7ad9\u5f0f\u89e3\u51b3\u65b9\u6848 - \u5267\u672c\u3001\u5206\u955c\u3001\u56fe\u50cf\u3001\u89c6\u9891\u4e00\u7ad9\u5f0f\u5b8c\u6210 \ud83e\udd16 AI\u9a71\u52a8 - \u667a\u80fd\u89e3\u6790\u3001\u751f\u6210\u548c\u4f18\u5316 \u26a1 \u6781\u901f\u521b\u4f5c - \u79d2\u7ea7\u751f\u6210\u5206\u955c\uff0c\u544a\u522b\u7e41\u7410\u5de5\u4f5c \ud83c\udfa8 \u4e13\u4e1a\u54c1\u8d28 - \u7535\u5f71\u7ea7\u8f93\u51fa\u8d28\u91cf"
@@ -101517,6 +101967,16 @@
       "name": "conduit-cli--conduit",
       "source": "./conduit-cli--conduit",
       "description": "conduit"
+    },
+    {
+      "name": "unicistech--unicis-platform-ce",
+      "source": "./unicistech--unicis-platform-ce",
+      "description": "unicis-platform-ce"
+    },
+    {
+      "name": "unicistech--unicis-platform-ce",
+      "source": "./unicistech--unicis-platform-ce",
+      "description": "unicis-platform-ce"
     },
     {
       "name": "nickcirv--engram",
@@ -102372,6 +102832,16 @@
       "name": "supermodeltools--cli",
       "source": "./supermodeltools--cli",
       "description": "cli"
+    },
+    {
+      "name": "qforge-dev--torque",
+      "source": "./qforge-dev--torque",
+      "description": "torque"
+    },
+    {
+      "name": "qforge-dev--torque",
+      "source": "./qforge-dev--torque",
+      "description": "torque"
     },
     {
       "name": "freepeak--leankg",
@@ -104662,6 +105132,21 @@
       "name": "osiris-devworks--smart-citizen",
       "source": "./osiris-devworks--smart-citizen",
       "description": "smart-citizen"
+    },
+    {
+      "name": "snowplow--snowplow-ios-tracker",
+      "source": "./snowplow--snowplow-ios-tracker",
+      "description": "snowplow-ios-tracker"
+    },
+    {
+      "name": "snowplow--snowplow-ios-tracker",
+      "source": "./snowplow--snowplow-ios-tracker",
+      "description": "snowplow-ios-tracker"
+    },
+    {
+      "name": "snowplow--snowplow-ios-tracker",
+      "source": "./snowplow--snowplow-ios-tracker",
+      "description": "snowplow-ios-tracker"
     },
     {
       "name": "peteromallet--vibecomfy",
@@ -113704,6 +114189,11 @@
       "description": "clipse-gui"
     },
     {
+      "name": "selfagency--opilot",
+      "source": "./selfagency--opilot",
+      "description": "opilot"
+    },
+    {
       "name": "pproenca--agent-tui",
       "source": "./pproenca--agent-tui",
       "description": "TUI automation for AI agents. Control any terminal app from code."
@@ -115547,6 +116037,16 @@
       "name": "cobra91--better-ccusage",
       "source": "./cobra91--better-ccusage",
       "description": "better-ccusage"
+    },
+    {
+      "name": "hacke-rc--bandsox",
+      "source": "./hacke-rc--bandsox",
+      "description": "Bandsox"
+    },
+    {
+      "name": "hyp3r00t--celestialdocs",
+      "source": "./hyp3r00t--celestialdocs",
+      "description": "CelestialDocs"
     },
     {
       "name": "ersinkoc--fluidflow",
@@ -118489,6 +118989,26 @@
       "description": "Seamlessly log your AI-powered coding conversations. This command-line interface (CLI) tool captures your terminal   interactions with AI models like Gemini and Claude, saving entire sessions as clean"
     },
     {
+      "name": "tibel--caliburn-light",
+      "source": "./tibel--caliburn-light",
+      "description": "Caliburn.Light"
+    },
+    {
+      "name": "tibel--caliburn-light",
+      "source": "./tibel--caliburn-light",
+      "description": "Caliburn.Light"
+    },
+    {
+      "name": "tibel--caliburn-light",
+      "source": "./tibel--caliburn-light",
+      "description": "Caliburn.Light"
+    },
+    {
+      "name": "tibel--caliburn-light",
+      "source": "./tibel--caliburn-light",
+      "description": "Caliburn.Light"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -120192,6 +120712,21 @@
       "name": "link2004--novim",
       "source": "./link2004--novim",
       "description": "novim"
+    },
+    {
+      "name": "jendat--fb2k-components-mac-suite",
+      "source": "./jendat--fb2k-components-mac-suite",
+      "description": "fb2k-components-mac-suite"
+    },
+    {
+      "name": "jendat--fb2k-components-mac-suite",
+      "source": "./jendat--fb2k-components-mac-suite",
+      "description": "fb2k-components-mac-suite"
+    },
+    {
+      "name": "vtxf--mcp-all-in-one",
+      "source": "./vtxf--mcp-all-in-one",
+      "description": "mcp-all-in-one"
     },
     {
       "name": "0xranx--agentbrief",
@@ -123874,6 +124409,11 @@
       "description": "githru-vscode-ext"
     },
     {
+      "name": "seth-schultz--orchestr8",
+      "source": "./seth-schultz--orchestr8",
+      "description": "orchestr8"
+    },
+    {
       "name": "dykyi-roman--awesome-claude-code",
       "source": "./dykyi-roman--awesome-claude-code",
       "description": "PHP Architecture Toolkit for Claude Code                                                                                                                                (DDD, CQRS, Event Sourcing, Hexa"
@@ -124942,6 +125482,11 @@
       "name": "automattic--vip-cli",
       "source": "./automattic--vip-cli",
       "description": "vip-cli"
+    },
+    {
+      "name": "huahua132--skynet-fly-demo",
+      "source": "./huahua132--skynet-fly-demo",
+      "description": "skynet_fly_demo"
     },
     {
       "name": "jdiegosierra--contributor-report",
@@ -128502,6 +129047,66 @@
       "name": "talesmud--talesmud",
       "source": "./talesmud--talesmud",
       "description": "talesmud"
+    },
+    {
+      "name": "nsxdavid--anthropic-max-router",
+      "source": "./nsxdavid--anthropic-max-router",
+      "description": "anthropic-max-router"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
+    },
+    {
+      "name": "hass-energy--haeo",
+      "source": "./hass-energy--haeo",
+      "description": "haeo"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -133034,6 +133639,31 @@
       "description": "nostria"
     },
     {
+      "name": "lirantal--agent-rules",
+      "source": "./lirantal--agent-rules",
+      "description": "agent-rules"
+    },
+    {
+      "name": "greatsumini--nanobanana-api-mcp",
+      "source": "./greatsumini--nanobanana-api-mcp",
+      "description": "nanobanana-api-mcp"
+    },
+    {
+      "name": "lirantal--agent-rules",
+      "source": "./lirantal--agent-rules",
+      "description": "agent-rules"
+    },
+    {
+      "name": "lirantal--agent-rules",
+      "source": "./lirantal--agent-rules",
+      "description": "agent-rules"
+    },
+    {
+      "name": "lirantal--agent-rules",
+      "source": "./lirantal--agent-rules",
+      "description": "agent-rules"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -136697,6 +137327,66 @@
       "name": "otavia-projects--otavia",
       "source": "./otavia-projects--otavia",
       "description": "otavia"
+    },
+    {
+      "name": "enisn--abpdevtools",
+      "source": "./enisn--abpdevtools",
+      "description": "AbpDevTools"
+    },
+    {
+      "name": "enisn--abpdevtools",
+      "source": "./enisn--abpdevtools",
+      "description": "AbpDevTools"
+    },
+    {
+      "name": "enisn--abpdevtools",
+      "source": "./enisn--abpdevtools",
+      "description": "AbpDevTools"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
+    },
+    {
+      "name": "array2d--deepx",
+      "source": "./array2d--deepx",
+      "description": "deepx"
     },
     {
       "name": "anhtester--antigravity-testing-kit",
@@ -141069,6 +141759,11 @@
       "description": "show-us-your-agent-skills"
     },
     {
+      "name": "evolvinglmms-lab--llava-onevision-1-5-rl",
+      "source": "./evolvinglmms-lab--llava-onevision-1-5-rl",
+      "description": "LLaVA-OneVision-1.5-RL"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
@@ -142512,6 +143207,21 @@
       "name": "requestly--interceptor",
       "source": "./requestly--interceptor",
       "description": "Open-Source HTTP Interceptor & Mocking Tool"
+    },
+    {
+      "name": "e3sm-project--e3sm-diags",
+      "source": "./e3sm-project--e3sm-diags",
+      "description": "e3sm_diags"
+    },
+    {
+      "name": "gc-victor--sxo",
+      "source": "./gc-victor--sxo",
+      "description": "sxo"
+    },
+    {
+      "name": "kyrptonaughtmc--inventory-sorter",
+      "source": "./kyrptonaughtmc--inventory-sorter",
+      "description": "Inventory-Sorter"
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -144044,6 +144754,31 @@
       "description": "trustclaw"
     },
     {
+      "name": "jaxionproject--jaxion",
+      "source": "./jaxionproject--jaxion",
+      "description": "jaxion"
+    },
+    {
+      "name": "techdebtgpt--codewave",
+      "source": "./techdebtgpt--codewave",
+      "description": "codewave"
+    },
+    {
+      "name": "mangome--cybird-watching",
+      "source": "./mangome--cybird-watching",
+      "description": "cybird-watching"
+    },
+    {
+      "name": "mangome--cybird-watching",
+      "source": "./mangome--cybird-watching",
+      "description": "cybird-watching"
+    },
+    {
+      "name": "mangome--cybird-watching",
+      "source": "./mangome--cybird-watching",
+      "description": "cybird-watching"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -145497,6 +146232,16 @@
       "name": "moonbitlang--moonllvm",
       "source": "./moonbitlang--moonllvm",
       "description": "MoonLLVM"
+    },
+    {
+      "name": "godmakereth--vibe-coding-tw",
+      "source": "./godmakereth--vibe-coding-tw",
+      "description": "vibe-coding-tw"
+    },
+    {
+      "name": "godmakereth--vibe-coding-tw",
+      "source": "./godmakereth--vibe-coding-tw",
+      "description": "vibe-coding-tw"
     },
     {
       "name": "rudrankriyam--foundation-models-framework-cli",
@@ -148599,6 +149344,11 @@
       "description": "Oscar"
     },
     {
+      "name": "takenet--blip-ds",
+      "source": "./takenet--blip-ds",
+      "description": "blip-ds"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -150407,6 +151157,236 @@
       "name": "goosefx1--gfx-web-app",
       "source": "./goosefx1--gfx-web-app",
       "description": "gfx-web-app"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
     },
     {
       "name": "alkoleft--bsl-graph",
@@ -152282,6 +153262,11 @@
       "name": "likeadmin-likeshop--likeadmin-php-saas",
       "source": "./likeadmin-likeshop--likeadmin-php-saas",
       "description": "likeadmin_php_saas"
+    },
+    {
+      "name": "linroid--ketch",
+      "source": "./linroid--ketch",
+      "description": "Ketch"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -154202,6 +155187,81 @@
       "name": "namastexlabs--murmurai",
       "source": "./namastexlabs--murmurai",
       "description": "murmurai"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid-management-agent",
+      "source": "./ruaan-deysel--ha-unraid-management-agent",
+      "description": "ha-unraid-management-agent"
     },
     {
       "name": "janbjorge--rekal",
@@ -158212,6 +159272,21 @@
       "name": "containers--selinuxd",
       "source": "./containers--selinuxd",
       "description": "selinuxd"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
     },
     {
       "name": "yoloshii--mcp-code-execution-enhanced",
@@ -168324,6 +169399,11 @@
       "description": "usdl"
     },
     {
+      "name": "sgwozdz--jenkinsfile-support",
+      "source": "./sgwozdz--jenkinsfile-support",
+      "description": "jenkinsfile-support"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -170859,6 +171939,11 @@
       "description": "azure-devops-yaml-schema"
     },
     {
+      "name": "lucafoscili--lf-nodes",
+      "source": "./lucafoscili--lf-nodes",
+      "description": "lf-nodes"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -173249,6 +174334,16 @@
       "description": "fastopp"
     },
     {
+      "name": "boschresearch--diffvla",
+      "source": "./boschresearch--diffvla",
+      "description": "DiffVLA"
+    },
+    {
+      "name": "shisa-ai--shisa-v2",
+      "source": "./shisa-ai--shisa-v2",
+      "description": "shisa-v2"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -175617,6 +176712,16 @@
       "name": "seatgeek--buildkit-operator",
       "source": "./seatgeek--buildkit-operator",
       "description": "buildkit-operator"
+    },
+    {
+      "name": "mattv8--ragtime",
+      "source": "./mattv8--ragtime",
+      "description": "ragtime"
+    },
+    {
+      "name": "mattv8--ragtime",
+      "source": "./mattv8--ragtime",
+      "description": "ragtime"
     },
     {
       "name": "skywind3000--gamesample",
@@ -319997,6 +321102,11 @@
       "name": "ali--claude-colab",
       "source": "./ali--claude-colab",
       "description": "claude-colab"
+    },
+    {
+      "name": "ari-os--ari",
+      "source": "./ari-os--ari",
+      "description": "ARI \u2014 Artificial Reasoning Intelligence. Personal AI operating system with 7-layer architecture, three-pillar cognition (LOGOS/ETHOS/PATHOS), constitutional governance, and tamper-evident SHA-256 audi"
     },
     {
       "name": "ocrbase-hq--ocrbase",
