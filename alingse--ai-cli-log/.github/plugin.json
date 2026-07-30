@@ -1,0 +1,9 @@
+{
+  "name": "alingse--ai-cli-log",
+  "displayName": "ai-cli-log",
+  "description": "Seamlessly log your AI-powered coding conversations. This command-line interface (CLI) tool captures your terminal   interactions with AI models like Gemini and Claude, saving entire sessions as clean",
+  "version": "1.0.0",
+  "author": "alingse",
+  "homepage": "https://github.com/alingse/ai-cli-log",
+  "skills": []
+}
