@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [alibaba/MNN](https://github.com/alibaba/MNN).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [alibaba/MNN](https://github.com/alibaba/MNN) — a repo with 15694+ stars on GitHub.
+From [alibaba/MNN](https://github.com/alibaba/MNN) — a repo with 15699+ stars on GitHub.
 
 ---
 
