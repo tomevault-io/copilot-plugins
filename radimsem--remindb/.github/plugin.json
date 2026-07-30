@@ -1,9 +1,54 @@
 {
   "name": "radimsem--remindb",
   "displayName": "remindb",
-  "description": "An agentic memory database that cuts session tokens by 75\u201399%. One portable SQLite file \u2014 your agent's memory, anywhere.",
+  "description": "remindb",
   "version": "1.0.0",
   "author": "radimsem",
   "homepage": "https://github.com/radimsem/remindb",
-  "skills": []
+  "skills": [
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    },
+    {
+      "name": "remindb",
+      "description": ""
+    }
+  ]
 }
