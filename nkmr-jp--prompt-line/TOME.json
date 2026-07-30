@@ -2,7 +2,7 @@
   "name": "prompt-line",
   "owner": "nkmr-jp",
   "repo": "prompt-line",
-  "description": "Prompt Line is a macOS app developed to improve the prompt input experience in the terminal for CLI-based AI coding agents such as Claude Code, Codex CLI, and Gemini CLI.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nkmr-jp/prompt-line",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T17:16:17Z"
+  "distributed_at": "2026-07-30T00:56:25Z"
 }
