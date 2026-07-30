@@ -1,7 +1,7 @@
 {
   "name": "noodlemctwoodle--sentinel-as-code",
   "displayName": "Sentinel-As-Code",
-  "description": "An automation framework for deploying Microsoft Sentinel environments using pipelines. This project combines infrastructure-as-code (Bicep) with PowerShell automation to streamline the deployment of S",
+  "description": "Sentinel-As-Code",
   "version": "1.0.0",
   "author": "noodlemctwoodle",
   "homepage": "https://github.com/noodlemctwoodle/Sentinel-As-Code",
