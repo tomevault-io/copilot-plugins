@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--cf-networking-release",
+  "displayName": "cf-networking-release",
+  "description": "cf-networking-release",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/cf-networking-release",
+  "skills": []
+}
