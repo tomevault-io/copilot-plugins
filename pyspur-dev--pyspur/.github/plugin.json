@@ -1,9 +1,9 @@
 {
   "name": "pyspur-dev--pyspur",
-  "displayName": "pyspur",
-  "description": "A visual playground for agentic workflows: Iterate over your agents 10x faster",
+  "displayName": "PySpur",
+  "description": "PySpur",
   "version": "1.0.0",
   "author": "PySpur-Dev",
-  "homepage": "https://github.com/PySpur-Dev/pyspur",
+  "homepage": "https://github.com/PySpur-Dev/PySpur",
   "skills": []
 }
