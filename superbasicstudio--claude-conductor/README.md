@@ -1,8 +1,6 @@
 # claude-conductor
 
-> Source: [superbasicstudio/claude-conductor](https://github.com/superbasicstudio/claude-conductor) — distributed by [TomeVault](https://tomevault.io)
-
-Claude Conductor - a simple Claude Code framework
+> Source: [superbasicstudio/claude-conductor](https://github.com/superbasicstudio/claude-conductor). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
