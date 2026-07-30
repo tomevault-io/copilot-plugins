@@ -1,6 +1,6 @@
-# zerocopy
+# AI instruction files for zerocopy
 
-> Tome by [google](https://github.com/google/zerocopy) — distributed by [TomeVault](https://tomevault.io/claim/google)
+> Sourced from [google/zerocopy](https://github.com/google/zerocopy), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `AGENTS.md` in [google/zerocopy](https://github.com/google/zero
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/google](https://tomevault.io/claim/google)
+From [google/zerocopy](https://github.com/google/zerocopy) — a repo with 2518+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/google) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:a-e-s -->
