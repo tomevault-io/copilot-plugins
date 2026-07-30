@@ -4,7 +4,7 @@
   "repo": "agentdb",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -269,5 +269,5 @@
   ],
   "source_url": "https://github.com/ruvnet/agentdb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T13:42:27Z"
+  "distributed_at": "2026-07-30T19:06:26Z"
 }
