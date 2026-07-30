@@ -1,8 +1,6 @@
 # AI instruction files for liquid-cache
 
-> Sourced from [XiangpengHao/liquid-cache](https://github.com/XiangpengHao/liquid-cache) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Pushdown cache for DataFusion
+> Sourced from [XiangpengHao/liquid-cache](https://github.com/XiangpengHao/liquid-cache), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
