@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/skills",
+  "skills": []
+}
