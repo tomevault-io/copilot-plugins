@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chroma-core/chroma](https://github.com/chroma-core/chroma).
+Original source: `AGENTS.md` in [chroma-core/chroma](https://github.com/chroma-core/chroma).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [chroma-core/chroma](https://github.com/chroma-core/chroma) — a repo with 28853+ stars on GitHub.
+From [chroma-core/chroma](https://github.com/chroma-core/chroma) — a repo with 28841+ stars on GitHub.
 
 ---
 
