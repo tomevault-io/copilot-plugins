@@ -2,7 +2,7 @@
   "name": "ai-harness-template",
   "owner": "studioKjm",
   "repo": "ai-harness-template",
-  "description": "AI Harness Engineering Template \u2014 guardrails, gates, and boundaries for AI coding agents. One-command install. Zero dependencies.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/studioKjm/ai-harness-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:39:13Z"
+  "distributed_at": "2026-07-30T17:09:47Z"
 }
