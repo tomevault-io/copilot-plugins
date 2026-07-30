@@ -2,7 +2,7 @@
   "name": "acdc",
   "owner": "nlopes",
   "repo": "acdc",
-  "description": "Toolkit for AsciiDoc\u2122 in rust",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nlopes/acdc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T00:36:46Z"
+  "distributed_at": "2026-07-30T15:32:33Z"
 }
