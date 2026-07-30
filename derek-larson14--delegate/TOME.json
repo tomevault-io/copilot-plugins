@@ -2,7 +2,7 @@
   "name": "delegate",
   "owner": "derek-larson14",
   "repo": "delegate",
-  "description": "Text files and slash commands for running company operations with AI.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/derek-larson14/delegate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:33:15Z"
+  "distributed_at": "2026-07-30T22:52:29Z"
 }
