@@ -1,60 +1,49 @@
-## behavior-principles
+## coding
 
-> Global behavioral principles for all AI-assisted work in this repository. Covers thinking before coding, simplicity, surgical changes, goal-driven execution, and communication standards.
+> Core coding behavior for this repository. Always prefer cautious, minimal, reversible changes.
 
 
-# Behavior Principles
+# Core Coding Rules
 
-Global behavior principles. Conflict priority: **these principles -> `docs/AGENT-WORKFLOW.md` -> tool-specific settings**.
+Instruction priority:
 
-**Core principle:** Prefer caution and stability over speed, while allowing autonomous judgment for trivial tasks.
+1. `CLAUDE.md` — global principles
+2. `docs/AGENT-WORKFLOW.md` — project operating rules
+3. `.cursor/rules/*` — tool-specific rules
 
-Canonical source: `docs/BEHAVIOR-PRINCIPLES.md`
+MUST:
 
----
+- Read the relevant project context before editing.
+- Use `docs/STATUS.md` as the dashboard pointer view for active work.
+- Follow the workflow state machine: `INIT -> PLAN -> APPROVAL -> EXECUTE -> VALIDATE -> CHECKPOINT -> END`.
+- Request explicit user approval before editing `docs/STATUS.md`; report the Approval Matrix state-change proposal first.
+- Use `docs/BOOTSTRAP.md` only when `docs/STATUS.md` Next Actions point to scaffold bootstrap/onboarding.
+- Use `docs/backlog/PRODUCT.md` for Product track candidate work (optional phasing: `PRODUCT-P{n}.md`).
+- Use `docs/backlog/HARNESS.md` for harness, command/rule, and workflow hardening candidate work.
+- Include scope, files, verification, risk, and reversal cost before implementation.
+- Before expanding approved scope to additional files, docs, or settings, report the added scope, reason, and verification plan, then wait for approval.
+- Use Work files for large tasks: `docs/works/{category}/{ID}-{lowercase-topic}.md` (spec: DR-013).
+- When creating a new `docs/troubleshooting/` or `docs/retrospectives/` file, apply the DR-027 frontmatter spec defined in each directory's `README.md`.
+- Treat Work files as the task SSoT and `docs/STATUS.md` as the dashboard pointer view.
+- Use Quick Mode for small Product track L1 changes that do not need Work file tracking; close with final summary, validation, and commit history. Treat harness/workflow surface changes as L2.
+- Do not reuse task IDs for different meanings.
+- Use path-mirrored locations under `docs/archive/` only for historical detail.
+- State assumptions before implementation when the task is ambiguous.
+- Keep every change SURGICAL, MINIMAL, and REVERSIBLE.
+- Follow the existing package structure, naming, formatting, and coding conventions.
+- Remove unused imports, variables, functions, and test fixtures introduced by your own change.
 
-## 1. Think Before Coding
+NEVER:
 
-- State assumptions before implementation.
-- Ask when uncertainty affects the result, scope, or risk.
-- Present options instead of choosing unilaterally when interpretations differ.
-- Suggest simpler approaches when available, and push back on over-engineering when needed.
-- Stop and name the ambiguity when the task is unclear.
+- Add unrequested features.
+- Refactor unrelated code.
+- Expand approved scope silently.
+- Implement before plan approval when the change is non-trivial or user-facing.
+- Rewrite adjacent code only for style preference.
+- Introduce a new framework, dependency, or architectural layer without explicit justification and approval.
+- Load long historical documents by default when the current state file is enough.
 
-## 2. Simplicity First
-
-Apply together with the Prioritize section in `role-harness-maintainer.mdc`.
-
-- Do not add unrequested features.
-- Do not add unnecessary abstractions for single-use code.
-- Do not design for unrequested flexibility or configurability.
-- Do not overbuild exception handling for impossible scenarios.
-- Before adding a long conditional procedure or checklist to a core document, judge whether it is only needed in specific situations; if so, consider a separate document with a conditional pointer instead.
-
-## 3. Surgical Changes
-
-Apply together with the Prioritize section in `role-harness-maintainer.mdc`.
-
-- Do not casually improve adjacent code, comments, or formatting.
-- Do not refactor code that is not broken.
-- Report unrelated dead code instead of deleting it directly.
-- Remove unused imports, variables, functions, and fixtures introduced by your own change.
-
-## 4. Goal-Driven Execution
-
-Apply together with the response structure in `output-format.mdc`.
-
-- Convert every task into a verifiable goal.
-- For multi-step work, present a concise plan before implementation.
-
-## 5. Communication Standards
-
-`output-format.mdc` already defines conclusion-first responses, reversal cost, and explicit assumptions. Additional principles:
-
-- **Critical view:** Prefer objective data over emotional reassurance, and point out design blind spots.
-- **Visualization:** Use tables, bullet points, or ASCII diagrams for complex structures.
-- **Next action:** When work reaches a clear handoff point with an obvious remaining lifecycle action, do not end silently — briefly suggest the next action (e.g. commit, PR, merge, archive, deploy, next review round). Do not attach one out of habit when the next step is unclear, unnecessary, or could pressure the user.
-- If a more specific command, prompt, or artifact output contract exists, follow that format while preserving conclusion, verification, and risk where possible.
+STOP AND ASK when requirements are unclear, multiple interpretations are possible, or the safer path depends on user intent.
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
