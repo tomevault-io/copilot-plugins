@@ -2,8 +2,8 @@
   "name": "axi",
   "owner": "kunchenguid",
   "repo": "axi",
-  "description": "Design principles for agent ergonomics. Higher accuracy with lower token cost than both MCP and regular CLI.",
-  "type": "config",
+  "description": "",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "gh-axi",
+      "path": "skills/gh-axi/SKILL.md",
+      "github_url": "https://github.com/kunchenguid/axi/tree/main/skills/gh-axi/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/kunchenguid/axi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T09:37:59Z"
+  "distributed_at": "2026-07-30T19:18:07Z"
 }
