@@ -1,6 +1,6 @@
 # AI instruction files for dotfiles
 
-> Sourced from [meain/dotfiles](https://github.com/meain/dotfiles) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [meain/dotfiles](https://github.com/meain/dotfiles), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [meain/dotfiles](https://github.com/meain/dotfil
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (26)
+## Bundled Skills (33)
 
 - [dotfiles](https://github.com/meain/dotfiles/tree/main/.claude/skills/commit/SKILL.md)
 - [dotfiles](https://github.com/meain/dotfiles/tree/main/.claude/skills/whats-new/SKILL.md)
@@ -43,8 +43,15 @@ Original source: `AGENTS.md` in [meain/dotfiles](https://github.com/meain/dotfil
 - [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/refactorability/SKILL.md)
 - [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/grill-with-docs/SKILL.md)
 - [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/my-weekly-report/SKILL.md)
+- [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/vibediff/SKILL.md)
+- [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/vibediff-explain/SKILL.md)
+- [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/android-adb-connect/SKILL.md)
+- [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/optimize-skill/SKILL.md)
+- [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/memory-review/SKILL.md)
+- [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/codebase-query/SKILL.md)
+- [dotfiles](https://github.com/meain/dotfiles/tree/main/agents/.agents/skills/vibediff-review/SKILL.md)
 
-From [meain/dotfiles](https://github.com/meain/dotfiles) — a repo with 279+ stars on GitHub.
+From [meain/dotfiles](https://github.com/meain/dotfiles) — a repo with 0+ stars on GitHub.
 
 ---
 
