@@ -2,9 +2,9 @@
   "name": "who-to-bother-at-on-x",
   "owner": "kulterryan",
   "repo": "who-to-bother-at-on-x",
-  "description": "Find the right people to reach out to at your favorite tech companies",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kulterryan/who-to-bother-at-on-x",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T08:00:18Z"
+  "distributed_at": "2026-07-30T17:18:27Z"
 }
