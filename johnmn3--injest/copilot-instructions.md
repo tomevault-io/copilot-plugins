@@ -1,87 +1,47 @@
 ## injest
 
-> Instructions for Claude Code when working with this repository.
+> This is a Clojure project that provides command-line tools to improve the Clojure development experience with an AI coding assistant called "Claude Code". The main features are automatic delimiter fixing and an nREPL evaluation tool.
 
-# CLAUDE.md
+# Project Overview
 
-Instructions for Claude Code when working with this repository.
+This is a Clojure project that provides command-line tools to improve the Clojure development experience with an AI coding assistant called "Claude Code". The main features are automatic delimiter fixing and an nREPL evaluation tool.
 
-## Project Overview
+The project is built using Babashka, a Clojure scripting environment, and it has dependencies on `edamame` for parsing Clojure code, `cheshire` for JSON handling, `tools.cli` for command-line argument parsing, and `nrepl/bencode` for nREPL communication.
 
-clojure-mcp-light provides CLI tooling for Clojure development in Claude Code:
-- **clj-paren-repair-claude-hook** - Auto-fixes delimiter errors in Clojure files via hooks
-- **clj-nrepl-eval** - nREPL evaluation with automatic delimiter repair
+The project provides two command-line tools:
 
-## Essential Commands
+*   `clj-paren-repair-claude-hook`: A hook for "Claude Code" that automatically fixes delimiter errors in Clojure files.
+*   `clj-nrepl-eval`: A command-line nREPL client that can be used to evaluate Clojure code.
+
+# Building and Running
+
+The project is built using Babashka. The `bb.edn` file defines the project's dependencies and tasks.
+
+To run the tests, use the following command:
 
 ```bash
-# Run tests
 bb test
-
-# Lint
-clj-kondo --lint src --lint test --lint scripts
-
-# Install locally
-bbin install .
-bbin install . --as clj-nrepl-eval --main-opts '["-m" "clojure-mcp-light.nrepl-eval"]'
-
-# Test hook manually
-echo '{"hook_event_name":"PreToolUse","tool_name":"Write","tool_input":{"file_path":"test.clj","content":"(def x 1)"}}' | bb -m clojure-mcp-light.hook
-echo '{"hook_event_name":"PreToolUse","tool_name":"Write","tool_input":{"file_path":"test.clj","content":"(def x 1)"}}' | bb -m clojure-mcp-light.hook -- --cljfmt --stats
-
-# Show help
-bb -m clojure-mcp-light.hook -- --help
-
-# Quick eval/testing with bb and heredoc
-bb <<'EOF'
-(require '[edamame.core :as e])
-(println (e/parse-string "{1 2 #?@(:cljs [3 4])}" {:all true :features #{:cljs} :read-cond :allow}))
-EOF
 ```
 
-## Core Modules
+The `bb.edn` file also defines two binaries, `clj-paren-repair-claude-hook` and `clj-nrepl-eval`. These can be installed using `bbin`, the Babashka package manager.
 
-**delimiter_repair.clj** - Detects and repairs delimiter errors using edamame parser. Uses parinfer-rust when available, falls back to parinferish (pure Clojure)
+# Development Conventions
 
-**hook.clj** - Intercepts Write/Edit operations to auto-fix delimiter errors. For Write: fixes before writing. For Edit: creates backup, fixes after edit, restores if unfixable. Optional `--cljfmt` flag for formatting. Supports `--stats` for tracking delimiter events.
+The project uses `cljfmt` for code formatting. The `clj-paren-repair-claude-hook` tool has an option to automatically format the code with `cljfmt` after fixing delimiter errors.
 
-**nrepl_eval.clj** - nREPL client with timeout handling, persistent sessions, and delimiter repair. Use `--connected-ports` to discover connections, `--port` to specify target.
+# Parenthesis Repair
 
-**tmp.clj** - Session-scoped temp file management with automatic cleanup via SessionEnd hook.
+The command `clj-paren-repair` is currently installed on your path.
 
-## Key Details
+**IMPORTANT:** You SHOULD NOT try to manually repair parenthesis errors. If you encounter a file with unbalanced parentheses or delimiters, run the `clj-paren-repair` tool on that file instead of attempting to fix the delimiters yourself. IF the tool doesn't work report to the user that they need to fix the delimiter error.
 
-- Hook processes Clojure files by extension: `.clj`, `.cljs`, `.cljc`, `.bb`, `.edn`, `.lpy` (case-insensitive)
-- Hook also detects Babashka scripts via shebang (`#!/usr/bin/env bb` or `#!/usr/bin/bb`)
-- `delimiter-error?` only detects delimiter errors, not general syntax errors
-- Logging enabled via `CML_ENABLE_LOGGING=true`, writes to `.clojure-mcp-light-hooks.log`
-- Stats tracked in `~/.clojure-mcp-light/stats.log` when using `--stats` flag
-- nREPL sessions persist per target in session-scoped temp dirs
+### `clj-paren-repair` Tool Behavior
 
-## Dependencies
+The `clj-paren-repair` tool exhibits the following behavior:
 
-External tools:
-- **parinfer-rust** (optional, recommended) - Faster delimiter repair when on PATH; falls back to parinferish if not available
-- **cljfmt** (optional) - For `--cljfmt` flag
-- **babashka** - For running scripts
-- **bbin** - For installation
-
-Clojure deps (bb.edn): edamame, cheshire, tools.cli, nrepl/bencode, parinferish
-
-## Heredoc for Bash Tool Evaluation
-
-Prefer heredocs with a single-quoted delimiter when evaluating code to avoid shell escaping issues:
-
-```bash
-clj-nrepl-eval -p <PORT> <<'EOF'
-(swap! my-atom inc)
-EOF
-
-bb <<'EOF'
-(println "hello!")
-EOF
-```
+*   **Delimiter Repair:** It successfully identifies and fixes common delimiter errors, such as unbalanced parentheses.
+*   **Code Formatting (`cljfmt`):** The tool automatically formats files using `cljfmt` whenever it processes them, regardless of whether a delimiter error was fixed or not.
 
 ---
 > Source: [johnmn3/injest](https://github.com/johnmn3/injest) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
