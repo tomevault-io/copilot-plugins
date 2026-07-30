@@ -1,50 +1,102 @@
 ## codexbar
 
-> - `Sources/CodexBar`: Swift 6 menu bar app (usage/credits probes, icon renderer, settings). Keep changes small and reuse existing helpers.
+> Gemini uses the Gemini CLI OAuth credentials and private quota APIs. No browser cookies.
 
-# Repository Guidelines
 
-## Project Structure & Modules
-- `Sources/CodexBar`: Swift 6 menu bar app (usage/credits probes, icon renderer, settings). Keep changes small and reuse existing helpers.
-- `Tests/CodexBarTests`: XCTest coverage for usage parsing, status probes, icon patterns; mirror new logic with focused tests.
-- `Scripts`: build/package helpers (`package_app.sh`, `sign-and-notarize.sh`, `make_appcast.sh`, `build_icon.sh`, `compile_and_run.sh`).
-- `docs`: release notes and process (`docs/RELEASING.md`, screenshots). Root-level zips/appcast are generated artifacts—avoid editing except during releases.
+# Gemini provider
 
-## Build, Test, Run
-- Dev loop: `./Scripts/compile_and_run.sh` kills old instances, runs `swift build` + `swift test`, packages, relaunches `CodexBar.app`, and confirms it stays running.
-- Quick build/test: `swift build` (debug) or `swift build -c release`; `swift test` for the full XCTest suite.
-- Package locally: `./Scripts/package_app.sh` to refresh `CodexBar.app`, then restart with `pkill -x CodexBar || pkill -f CodexBar.app || true; cd /Users/steipete/Projects/codexbar && open -n /Users/steipete/Projects/codexbar/CodexBar.app`.
-- Release flow: `./Scripts/sign-and-notarize.sh` (arm64 notarized zip) and `./Scripts/make_appcast.sh <zip> <feed-url>`; follow validation steps in `docs/RELEASING.md`.
+Gemini uses the Gemini CLI OAuth credentials and private quota APIs. No browser cookies.
 
-## Coding Style & Naming
-- Enforce SwiftFormat/SwiftLint: run `swiftformat Sources Tests` and `swiftlint --strict`. 4-space indent, 120-char lines, explicit `self` is intentional—do not remove.
-- Favor small, typed structs/enums; maintain existing `MARK` organization. Use descriptive symbols; match current commit tone.
+## Data sources + fallback order
 
-## Testing Guidelines
-- Add/extend XCTest cases under `Tests/CodexBarTests/*Tests.swift` (`FeatureNameTests` with `test_caseDescription` methods).
-- Always run `swift test` (or `./Scripts/compile_and_run.sh`) before handoff; add fixtures for new parsing/formatting scenarios.
-- After any code change, run `pnpm check` and fix all reported format/lint issues before handoff.
-- macOS CI is brittle around headless AppKit status/menu tests. Prefer covering menu behavior through stable state/model seams (`MenuDescriptor`, `ProvidersPane`, `CodexAccountsSectionState`, etc.) instead of constructing live `NSStatusBar`/`NSMenu` flows unless the AppKit wiring itself is the thing under test.
+1) **OAuth-backed quota API** (only path used in `fetch()`)
+   - Reads auth type from `~/.gemini/settings.json`.
+   - Supported: `oauth-personal` (or unknown → try OAuth creds).
+   - Unsupported: `api-key`, `vertex-ai` (hard error).
 
-## Commit & PR Guidelines
-- Commit messages: short imperative clauses (e.g., “Improve usage probe”, “Fix icon dimming”); keep commits scoped.
-- PRs/patches should list summary, commands run, screenshots/GIFs for UI changes, and linked issue/reference when relevant.
+2) **Legacy CLI parsing** (parser exists but not used in current fetch path)
+   - `GeminiStatusProbe.parse(text:)` can parse `/stats` output.
 
-## Agent Notes
-- Use the provided scripts and package manager (SwiftPM); avoid adding dependencies or tooling without confirmation.
-- Validate behavior against the freshly built bundle; restart via the pkill+open command above to avoid running stale binaries.
-- To guarantee the right bundle is running after a rebuild, use: `pkill -x CodexBar || pkill -f CodexBar.app || true; cd /Users/steipete/Projects/codexbar && open -n /Users/steipete/Projects/codexbar/CodexBar.app`.
-- After any code change that affects the app, always rebuild with `Scripts/package_app.sh` and restart the app using the command above before validating behavior.
-- If you edited code, run `scripts/compile_and_run.sh` before handoff; it kills old instances, builds, tests, packages, relaunches, and verifies the app stays running.
-- Per user request: after every edit (code or docs), rebuild and restart using `./Scripts/compile_and_run.sh` so the running app reflects the latest changes.
-- Release script: keep it in the foreground; do not background it—wait until it finishes.
-- Release keys: find in `~/.profile` if missing (Sparkle + App Store Connect).
-- Prefer modern SwiftUI/Observation macros: use `@Observable` models with `@State` ownership and `@Bindable` in views; avoid `ObservableObject`, `@ObservedObject`, and `@StateObject`.
-- Favor modern macOS 15+ APIs over legacy/deprecated counterparts when refactoring (Observation, new display link APIs, updated menu item styling, etc.).
-- Keep provider data siloed: when rendering usage or account info for a provider (Claude vs Codex), never display identity/plan fields sourced from a different provider.***
-- Claude CLI status line is custom + user-configurable; never rely on it for usage parsing.
-- Cookie imports: default Chrome-only when possible to avoid other browser prompts; override via browser list when needed.
+## OAuth credentials
+- File: `~/.gemini/oauth_creds.json`.
+- Required fields: `access_token`, `refresh_token` (optional), `id_token`, `expiry_date`.
+- If access token is expired, we refresh via Google OAuth using client ID/secret extracted
+  from the Gemini CLI install (see below).
+
+## OAuth client ID/secret extraction
+- Resolution order:
+  1. `GEMINI_OAUTH_CLIENT_ID` + `GEMINI_OAUTH_CLIENT_SECRET` environment override.
+  2. `GEMINI_OAUTH2_JS_PATH` pointing at a readable `oauth2.js` file.
+  3. Installed Gemini CLI package (`oauth2.js` / bundle regex extraction).
+  4. Known global Gemini CLI install paths (Homebrew npm prefix layouts, then
+     Homebrew Cellar/`opt` `libexec` package roots when the GUI cannot resolve
+     the `gemini` binary).
+- We locate the installed `gemini` binary, then search for:
+  - Homebrew nested path:
+    - `.../libexec/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/oauth2.js`
+  - Homebrew Cellar/opt package root (no-binary fallback):
+    - `/opt/homebrew/Cellar/gemini-cli/<version>/libexec/lib/node_modules/@google/gemini-cli`
+    - `/opt/homebrew/opt/gemini-cli/libexec/lib/node_modules/@google/gemini-cli`
+    - same under `/usr/local`
+  - Bun/npm sibling path:
+    - `.../node_modules/@google/gemini-cli-core/dist/src/code_assist/oauth2.js`
+- Regex extraction:
+  - `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` from `oauth2.js` or Homebrew bundle chunks.
+
+## API endpoints
+- Quota:
+  - `POST https://cloudcode-pa.googleapis.com/v1internal:retrieveUserQuota`
+  - Body: `{ "project": "<projectId>" }` (or `{}` if unknown)
+  - Header: `Authorization: Bearer <access_token>`
+- Project discovery (quota project ID):
+  - Primary: `cloudaicompanionProject` from `loadCodeAssist`.
+  - Fallback: `GET https://cloudresourcemanager.googleapis.com/v1/projects`
+    - Picks `gen-lang-client*` or label `generative-language`.
+- Tier detection:
+  - `POST https://cloudcode-pa.googleapis.com/v1internal:loadCodeAssist`
+  - Body: `{ "metadata": { "ideType": "GEMINI_CLI", "pluginType": "GEMINI" } }`
+- Token refresh:
+  - `POST https://oauth2.googleapis.com/token`
+  - Form body: `client_id`, `client_secret`, `refresh_token`, `grant_type=refresh_token`.
+
+## Parsing + mapping
+- Quota buckets:
+  - `remainingFraction`, `resetTime`, `modelId`.
+  - For each model, lowest `remainingFraction` wins.
+  - `percentLeft = remainingFraction * 100`.
+- Reset:
+  - `resetTime` parsed as ISO-8601, formatted as "Resets in Xh Ym".
+- UI mapping:
+  - Primary: Pro models (lowest percent left).
+  - Secondary: Flash models (lowest percent left).
+
+## Plan detection
+- Tier from `loadCodeAssist`:
+  - `paidTier.name` → paid subscription label from Google, preferred whenever present
+  - `standard-tier` → "Paid" (fallback when `paidTier.name` is absent)
+  - `free-tier` + `hd` claim → "Workspace" (fallback when `paidTier.name` is absent)
+  - `free-tier` → "Free"
+  - `legacy-tier` → "Legacy"
+- Email from `id_token` JWT claims.
+
+## Consumer-tier migration (June 2026)
+- [Google stopped serving](https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals)
+  Gemini CLI OAuth for individual, AI Pro, and Ultra accounts on 2026-06-18. Standard and Enterprise
+  subscriptions remain supported; paid API-key access is outside CodexBar's OAuth-backed Gemini provider.
+- When quota, `loadCodeAssist`, or token-refresh responses include Google's unsupported-client
+  migration signal (`UNSUPPORTED_CLIENT`, `IneligibleTierError`, or Antigravity migration copy),
+  CodexBar surfaces `consumerTierDeprecated` with guidance to use the Antigravity provider.
+- Settings shows an **Enable Antigravity provider** action only after CodexBar observes
+  `consumerTierDeprecated` during a Gemini refresh (typed sentinel state, not user-facing text matching).
+- The action is explicit: CodexBar never automatically enables Antigravity or falls back to it.
+- Ordinary Gemini login, `notLoggedIn`, and Antigravity setup errors remain unchanged. CodexBar does not
+  capture Terminal `gemini` OAuth output, so Terminal-only failures cannot activate the migration action.
+- Workspace and education Google accounts are outside the June 2026 consumer shutdown; keep using the
+  Gemini provider. Antigravity remains the consumer replacement path for individual, AI Pro, and Ultra.
+
+## Key files
+- `Sources/CodexBarCore/Providers/Gemini/GeminiStatusProbe.swift`
 
 ---
 > Source: [steipete/CodexBar](https://github.com/steipete/CodexBar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
