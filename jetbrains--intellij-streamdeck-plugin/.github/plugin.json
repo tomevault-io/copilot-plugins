@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--intellij-streamdeck-plugin",
+  "displayName": "intellij-streamdeck-plugin",
+  "description": "intellij-streamdeck-plugin",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/intellij-streamdeck-plugin",
+  "skills": []
+}
