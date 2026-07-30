@@ -1,0 +1,9 @@
+{
+  "name": "bonzo81--netbox-librenms-plugin",
+  "displayName": "netbox-librenms-plugin",
+  "description": "netbox-librenms-plugin",
+  "version": "1.0.0",
+  "author": "bonzo81",
+  "homepage": "https://github.com/bonzo81/netbox-librenms-plugin",
+  "skills": []
+}
