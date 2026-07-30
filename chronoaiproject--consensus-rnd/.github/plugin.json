@@ -1,0 +1,9 @@
+{
+  "name": "chronoaiproject--consensus-rnd",
+  "displayName": "consensus-rnd",
+  "description": "\u901a\u7528\u5171\u8bc6\u5f0f\u7814\u53d1 skills \u5e93 \u2014 \u53ef\u88ab\u4efb\u610f host \u6ce8\u5165\u7684\u591a\u89d2\u5ea6\u5171\u8bc6\u6784\u5efa\u5f15\u64ce",
+  "version": "1.0.0",
+  "author": "ChronoAIProject",
+  "homepage": "https://github.com/ChronoAIProject/consensus-rnd",
+  "skills": []
+}
