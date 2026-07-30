@@ -1,7 +1,7 @@
 {
   "name": "xiangpenghao--liquid-cache",
   "displayName": "liquid-cache",
-  "description": "Pushdown cache for DataFusion",
+  "description": "liquid-cache",
   "version": "1.0.0",
   "author": "XiangpengHao",
   "homepage": "https://github.com/XiangpengHao/liquid-cache",
