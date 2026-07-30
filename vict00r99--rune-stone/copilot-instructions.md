@@ -1,178 +1,111 @@
 ## rune-stone
 
-> Copy this file to your project and adapt it. It teaches any AI tool how to work with RUNE specifications.
+> - **Language:** Python 3.11
 
-# AGENTS.md — Runestone
+# AGENTS.md — Online Bookstore
 
-Copy this file to your project and adapt it. It teaches any AI tool how to work with RUNE specifications.
+## Project Context
 
----
+- **Language:** Python 3.11
+- **Framework:** FastAPI
+- **Testing:** pytest
+- **Architecture:** Service layer with dependency injection
 
-## What is RUNE
+## Conventions
 
-RUNE is a specification pattern for defining function behavior before implementation. A RUNE spec is a contract: it defines a function's signature, behavior rules, edge cases, and tests. Any AI tool generates code with consistent behavior from the same contract.
-
-Specs can be written as **YAML `.rune` files** or as **Markdown sections** in this file.
-
-## Skills
-
-Runestone provides 7 skills. Each is a `SKILL.md` file inside its own directory, following the [Anthropic Skills format](https://github.com/anthropics/skills). Load only the ones you need.
-
-### Core
-
-| Skill | File | When to use |
-|-------|------|-------------|
-| **Writer** | `skills/rune-writer/SKILL.md` | Create specs from requirements. Implement code from specs. |
-| **Validator** | `skills/rune-validator/SKILL.md` | Check if a spec is complete and well-formed. |
-
-### Quality
-
-| Skill | File | When to use |
-|-------|------|-------------|
-| **Refiner** | `skills/rune-refiner/SKILL.md` | Improve a valid spec: find missing tests, uncovered edge cases, ambiguous rules. |
-| **Test Generator** | `skills/rune-test-generator/SKILL.md` | Generate runnable test files (any framework) from a spec's TESTS section. |
-
-### Lifecycle
-
-| Skill | File | When to use |
-|-------|------|-------------|
-| **Diff** | `skills/rune-diff/SKILL.md` | Compare a spec against its implementation to detect drift. |
-| **From Code** | `skills/rune-from-code/SKILL.md` | Reverse-engineer a spec from an existing function. |
-| **Multi-Lang** | `skills/rune-multi-lang/SKILL.md` | Generate implementations in multiple languages from one spec. |
-
-## Workflow
-
-```
-          ┌─────────────┐
-          │ Requirements │
-          └──────┬──────┘
-                 ▼
-          ┌─────────────┐
-          │   Writer     │  Create spec from requirements
-          └──────┬──────┘
-                 ▼
-          ┌─────────────┐
-          │  Validator   │  Check structure and rules
-          └──────┬──────┘
-                 ▼
-          ┌─────────────┐
-          │   Refiner    │  Suggest improvements
-          └──────┬──────┘
-                 ▼
-    ┌────────────┴────────────┐
-    ▼                         ▼
-┌─────────┐          ┌──────────────┐
-│ Writer   │          │Test Generator │
-│(implement)│          │(test files)  │
-└────┬─────┘          └──────┬───────┘
-     └────────┬──────────────┘
-              ▼
-       ┌─────────────┐
-       │    Diff      │  Audit spec vs code over time
-       └─────────────┘
-```
-
-**Adopting RUNE on existing code:**
-```
-Existing function → From Code → spec → Validator → Refiner → done
-```
-
-**Multi-language projects:**
-```
-Spec (language: any) → Multi-Lang → implementations + tests in N languages
-```
-
-## Spec Format
-
-### Required fields
-
-Every RUNE spec must have:
-
-- **SIGNATURE** — exact function declaration in the target language's syntax
-- **INTENT** — 1-3 sentences describing purpose (no implementation details)
-- **BEHAVIOR** — logic rules in WHEN/THEN/OTHERWISE format, evaluated top to bottom
-- **TESTS** — minimum 3: happy path, boundary, error
-
-### Optional fields
-
-CONSTRAINTS, EDGE_CASES, DEPENDENCIES, EXAMPLES, COMPLEXITY.
-
-### YAML format (`.rune` files)
-
-```yaml
----
-meta:
-  name: function_name
-  language: python
-  version: 1.0
----
-RUNE: function_name
-
-SIGNATURE: |
-  def function_name(param: type) -> return_type
-
-INTENT: |
-  What it does. 1-3 sentences.
-
-BEHAVIOR:
-  - WHEN condition THEN action
-  - OTHERWISE default_action
-
-TESTS:
-  - "function_name(input) == expected"
-  - "function_name(boundary) == expected"
-  - "function_name(invalid) raises error"
-```
-
-### Markdown format (embedded in this file or any `.md`)
-
-```markdown
-### function_name
-
-**SIGNATURE:** `def function_name(param: type) -> return_type`
-
-**INTENT:** What it does. 1-3 sentences.
-
-**BEHAVIOR:**
-- WHEN condition THEN action
-- OTHERWISE default_action
-
-**TESTS:**
-- `function_name(input) == expected`
-- `function_name(boundary) == expected`
-- `function_name(invalid) raises error`
-```
-
-## Project Conventions
-
-Adapt this section to your project:
-
-- **Language:** (your language here)
-- **Test framework:** (your framework here)
-- **Spec location:** `specs/` directory or embedded in this file
-- **Naming:** follow the target language's conventions
+- All monetary values as `float`, rounded to 2 decimal places
+- All dates as ISO 8601 strings (`YYYY-MM-DD`)
+- Error messages must be specific (never generic "invalid input")
+- All public functions must have type hints and docstrings
 
 ## Function Specifications
 
-Add your RUNE specs below as Markdown sections, or reference `.rune` files:
+The following specs define the contracts for the order processing module.
 
-<!-- Example:
-### my_function
+---
 
-**SIGNATURE:** `def my_function(x: int) -> str`
+### calculate_order_total
 
-**INTENT:** Describe what it does.
+**SIGNATURE:** `def calculate_order_total(items: list[dict], tax_rate: float) -> float`
+
+**INTENT:** Calculates the total cost of an order including tax. Each item has a price and quantity. Returns the final total rounded to 2 decimal places.
 
 **BEHAVIOR:**
-- WHEN x < 0 THEN raise error "x cannot be negative"
-- OTHERWISE return str(x)
+- WHEN items is empty THEN return 0.00
+- WHEN any item has price <= 0 THEN raise ValueError("Item price must be positive")
+- WHEN any item has quantity <= 0 THEN raise ValueError("Item quantity must be positive")
+- WHEN tax_rate < 0 THEN raise ValueError("Tax rate cannot be negative")
+- WHEN tax_rate > 25 THEN raise ValueError("Tax rate cannot exceed 25%")
+- CALCULATE subtotal = sum of (price * quantity) for each item
+- CALCULATE total = subtotal + (subtotal * tax_rate / 100)
+- RETURN round(total, 2)
 
 **TESTS:**
-- `my_function(42) == "42"`
-- `my_function(0) == "0"`
-- `my_function(-1) raises error`
--->
+- `calculate_order_total([{'price': 15.99, 'quantity': 2}, {'price': 24.50, 'quantity': 1}], 8.5) == 61.28`
+- `calculate_order_total([], 8.5) == 0.00`
+- `calculate_order_total([{'price': 100.0, 'quantity': 1}], 0) == 100.00`
+- `calculate_order_total([{'price': -5.0, 'quantity': 1}], 8.5) raises ValueError`
+- `calculate_order_total([{'price': 10.0, 'quantity': 0}], 8.5) raises ValueError`
+
+**EDGE_CASES:**
+- Empty cart: returns 0.00
+- Zero tax: total equals subtotal
+- Single item with quantity 1: total equals price + tax
+
+---
+
+### validate_coupon
+
+**SIGNATURE:** `def validate_coupon(code: str, active_coupons: list[dict], current_date: str) -> tuple[bool, dict | str]`
+
+**INTENT:** Validates a coupon code against active coupons. Case-insensitive matching. Returns (True, coupon_data) if valid, (False, error_message) if not.
+
+**BEHAVIOR:**
+- WHEN code is empty THEN return (False, "Coupon code cannot be empty")
+- WHEN code not found (case-insensitive) THEN return (False, "Coupon code not found")
+- WHEN matching coupon has expired THEN return (False, "Coupon has expired")
+- WHEN discount value is invalid THEN return (False, "Invalid discount value")
+- OTHERWISE return (True, matching_coupon)
+
+**TESTS:**
+- `validate_coupon('SAVE10', [coupon_save10], '2025-01-15')[0] == True`
+- `validate_coupon('save10', [coupon_save10], '2025-01-15')[0] == True` (case-insensitive)
+- `validate_coupon('INVALID', [coupon_save10], '2025-01-15')[0] == False`
+- `validate_coupon('OLD', [expired_coupon], '2025-01-15')[0] == False`
+- `validate_coupon('', [], '2025-01-15')[0] == False`
+
+**EDGE_CASES:**
+- Case mismatch (SAVE10 vs save10): should match
+- Expires today: still valid
+- Empty coupons list: returns "not found"
+
+---
+
+### check_free_shipping
+
+**SIGNATURE:** `def check_free_shipping(subtotal: float, is_loyalty_member: bool, is_promo_period: bool = False) -> tuple[bool, str]`
+
+**INTENT:** Determines if an order qualifies for free shipping based on subtotal, loyalty status, and promotional period.
+
+**BEHAVIOR:**
+- WHEN subtotal < 0 THEN raise ValueError("Subtotal cannot be negative")
+- WHEN is_loyalty_member is True THEN return (True, "Loyalty program member")
+- WHEN is_promo_period is True AND subtotal >= 30 THEN return (True, "Promotional free shipping")
+- WHEN subtotal >= 50 THEN return (True, "Order over $50")
+- OTHERWISE return (False, "Minimum not met")
+
+**TESTS:**
+- `check_free_shipping(10.00, True) == (True, "Loyalty program member")`
+- `check_free_shipping(50.00, False) == (True, "Order over $50")`
+- `check_free_shipping(49.99, False) == (False, "Minimum not met")`
+- `check_free_shipping(30.00, False, True) == (True, "Promotional free shipping")`
+- `check_free_shipping(-1.00, False) raises ValueError`
+
+**EDGE_CASES:**
+- Loyalty member with $0 order: still eligible
+- Exactly at $50 threshold: eligible
+- Promo period with $29.99: not eligible
 
 ---
 > Source: [vict00r99/Rune-stone](https://github.com/vict00r99/Rune-stone) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
