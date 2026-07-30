@@ -1,8 +1,6 @@
 # delegate
 
-> Source: [derek-larson14/delegate](https://github.com/derek-larson14/delegate) — distributed by [TomeVault](https://tomevault.io)
-
-Text files and slash commands for running company operations with AI.
+> Source: [derek-larson14/delegate](https://github.com/derek-larson14/delegate). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [derek-larson14/delegate](https://github.com/der
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/derek-larson14/delegate](https://github.com/derek-larson14/delegate)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/derek-larson14/delegate](https://github.com/derek-larson14/delegate)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
