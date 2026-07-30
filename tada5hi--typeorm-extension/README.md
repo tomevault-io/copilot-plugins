@@ -1,14 +1,15 @@
 # typeorm-extension
 
-> Source: [tada5hi/typeorm-extension](https://github.com/tada5hi/typeorm-extension) — distributed by [TomeVault](https://tomevault.io)
+> Source: [tada5hi/typeorm-extension](https://github.com/tada5hi/typeorm-extension). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tada5hi/typeorm-extension](https://github.com/tada5hi/typeorm-extension).
+Original source: `` in [tada5hi/typeorm-extension](https://github.com/tada5hi/typeorm-extension).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
