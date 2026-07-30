@@ -1,10 +1,10 @@
 ## loftlyy
 
-> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Commands
 
@@ -194,4 +194,4 @@ Most formatting and common issues are automatically fixed by Oxlint + Oxfmt. Run
 
 ---
 > Source: [preetsuthar17/loftlyy](https://github.com/preetsuthar17/loftlyy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
