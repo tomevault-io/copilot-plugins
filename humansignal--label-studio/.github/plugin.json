@@ -1,0 +1,9 @@
+{
+  "name": "humansignal--label-studio",
+  "displayName": "label-studio",
+  "description": "label-studio",
+  "version": "1.0.0",
+  "author": "HumanSignal",
+  "homepage": "https://github.com/HumanSignal/label-studio",
+  "skills": []
+}
