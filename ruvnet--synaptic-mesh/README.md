@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [ruvnet/Synaptic-Mesh](https://github.com/ruvnet
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ruvnet/Synaptic-Mesh](https://github.com/ruvnet/Synaptic-Mesh) — a repo with 0+ stars on GitHub.
+From [ruvnet/Synaptic-Mesh](https://github.com/ruvnet/Synaptic-Mesh) — a repo with 76+ stars on GitHub.
 
 ---
 
