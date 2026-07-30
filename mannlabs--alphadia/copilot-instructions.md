@@ -1,146 +1,153 @@
 ## alphadia
 
-> This file provides guidance to AI coding agents when working with code in this repository.
+> This is a parallel, multi-step proteomics analysis pipeline designed for HPC systems with Slurm. It distributes raw file processing across multiple nodes while maintaining the biological validity of the staged workflow. Note that this is unrelated to the multi-step transfer learning search (https://github.com/MannLabs/alphadia/blob/main/docs/guides/transfer-dimethyl.md). The distributed search described here only works without transfer learning and is solely meant for parallelizing the processing of large studies using HPCL resources.
 
-# AGENTS.md
+# Distributed AlphaDIA Search Pipeline
 
-This file provides guidance to AI coding agents when working with code in this repository.
+## Overview
 
-## Project Overview
+This is a parallel, multi-step proteomics analysis pipeline designed for HPC systems with Slurm. It distributes raw file processing across multiple nodes while maintaining the biological validity of the staged workflow. Note that this is unrelated to the multi-step transfer learning search (https://github.com/MannLabs/alphadia/blob/main/docs/guides/transfer-dimethyl.md). The distributed search described here only works without transfer learning and is solely meant for parallelizing the processing of large studies using HPCL resources.
 
-alphaDIA is a proteomics search engine for DIA (Data-Independent Acquisition) mass spectrometry data. It supports empirical and predicted spectral library searches with transfer learning capabilities. Part of the AlphaPept ecosystem from Mann Labs.
+## Directory Structure
 
-Key features:
-- Spectral library search (empirical and predicted)
-- Transfer learning for RT, mobility, and MS2 models
-- Label-free quantification (directLFQ, QuantSelect)
-- Multi-step search (transfer → library → MBR)
+```
+distributed_search/
+├── outer.sh                    # Main orchestration script
+├── inner.sh                    # Worker script for each chunk
+├── parse_parameters.py         # Splits raw files into chunks, generates configs
+├── speclib_config.py           # Library prediction config generator
+├── discover_project_files.py   # Raw file discovery utility
+├── search.config               # Main configuration file (user edits this)
+├── first_config.yaml           # First search parameters template
+├── second_config.yaml          # Second search/MBR/LFQ parameters template
+└── README.md                   # Setup documentation
+```
 
-## Build and Development Commands
+## 5-Stage Workflow
 
-### Environment Setup
+```
+1. PREDICT LIBRARY    (optional, single task) - generates spectral library from FASTA
+        ↓
+2. FIRST SEARCH       (parallelized into concurrent single tasks) - initial search across N chunks
+        ↓
+3. MBR LIBRARY BUILD  (single task) - aggregates first search, builds focused MBR library
+        ↓
+4. SECOND SEARCH      (parallelized into concurrent single tasks) - search with MBR library across N chunks
+        ↓
+5. LFQ QUANTIFICATION (single task) - final protein/precursor quantification
+```
+
+## Script Interactions
+
+### outer.sh (Orchestrator)
+- Reads `search.config` for paths and settings
+- Creates output directory structure: `search_<name>/1_speclib_prediction/`, `2_first_search/`, `3_mbr_library/`, `4_second_search/`, `5_lfq/`
+- Submits each stage as Slurm jobs with `--wait` to ensure sequential execution
+- Passes environment variables to inner.sh (target_directory, quant_dir, N_CPUS)
+
+### parse_parameters.py (Chunk Generator)
+- Calculates `chunk_size = ceil(num_rawfiles / num_nodes)`
+- Creates `chunk_N/` directories with chunk-specific `config.yaml`
+- Copies spectral library to each chunk (avoids concurrent read issues)
+- Returns number of chunks (used for Slurm array size)
+- Key args: `--nnodes`, `--reuse_quant`, `--library_path`
+
+### inner.sh (Worker)
+- Executed by each Slurm array element
+- Uses `SLURM_ARRAY_TASK_ID` to find its chunk directory
+- Runs `alphadia --config config.yaml` with thread count from `N_CPUS`
+- Optionally aggregates quant outputs to `quant_dir`
+
+### speclib_config.py
+- Generates config for library prediction from FASTA
+- Disables raw file processing, enables `library_prediction.enabled: True`
+
+### discover_project_files.py
+- Utility to find raw files matching regex patterns
+- Outputs 2-column CSV: project | filepath
+
+## Usage
+
 ```bash
-conda create -n alphadia python=3.11 -y
-conda activate alphadia
-pip install -e ".[stable,development]"
+# Basic usage with 45 parallel nodes (--files is required)
+sbatch outer.sh --files file_list.csv --nnodes 45 --cpus 12 --mem 250G
+
+# Skip library prediction (use existing library)
+sbatch outer.sh --files file_list.csv --nnodes 45 --predict_library 0
+
+# Only run first search
+sbatch outer.sh --files file_list.csv --nnodes 45 --mbr_library 0 --second_search 0 --lfq 0
 ```
 
-### Running Tests
+### Command-Line Parameters
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--files` | (required) | CSV file with raw file paths |
+| `--search_config` | search.config | Search configuration file |
+| `--nnodes` | 1 | Number of parallel nodes |
+| `--cpus` | 32 | CPUs per task (thread_count) |
+| `--mem` | '250G' | RAM per task |
+| `--predict_library` | 1 | Enable library prediction |
+| `--first_search` | 1 | Enable first search |
+| `--mbr_library` | 1 | Enable MBR library building |
+| `--second_search` | 1 | Enable second search |
+| `--lfq` | 1 | Enable LFQ quantification |
+
+## Configuration
+
+### search.config (Main Config)
 ```bash
-# All unit and integration tests (from tests/ directory)
-cd tests && pytest
-
-# Unit tests only
-cd tests && pytest unit_tests
-
-# Integration tests only
-cd tests && pytest integration_tests
-
-# Single test file
-cd tests && pytest unit_tests/test_cli.py
-
-# Single test function
-cd tests && pytest unit_tests/test_cli.py::test_function_name
-
-# Skip slow tests
-cd tests && pytest -k "not slow"
-
-# With coverage
-cd tests && coverage run --source=../alphadia -m pytest && coverage html
-
-# End-to-end tests (these take several minutes)
-cd tests && ./run_e2e_tests.sh basic <name of conda environment>
+input_directory="/path/to/configs"        # Where config files live
+target_directory="/path/to/output"        # Output directory
+library_path="/path/to/speclib.hdf"       # Spectral library
+fasta_path="/path/to/proteins.fasta"      # For library prediction
+first_search_config_filename="first_config.yaml"
+second_search_config_filename="second_config.yaml"
 ```
 
-### Linting and Type Checking
-```bash
-# Run pre-commit hooks (ruff format, ruff lint, ty type check)
-pre-commit run --all-files
+Note: The input CSV file is now specified via `--files` command-line argument instead of in search.config.
 
-# Install pre-commit hooks (once)
-pre-commit install
+### Input CSV Format
+Two columns: project name and absolute path to raw file
+```
+project,filepath
+MyProject,/absolute/path/to/file1.raw
+MyProject,/absolute/path/to/file2.raw
 ```
 
-The project uses:
-- **ruff** for formatting and linting
-- **ty** (Astral's type checker) for type checking (some directories excluded, see pyproject.toml)
+### YAML Config Templates
+- `second_config.yaml`: Must have `inference_strategy: library`, `target_num_candidates: 5`, `mbr_step_enabled: false`
 
-### Running alphaDIA
-```bash
-# Check installation
-alphadia --check
-
-# Run search
-alphadia --config path/to/config.yaml --output /path/to/output
-
-# Command help
-alphadia -h
-```
-
-## Architecture Overview
-
-### Entry Points
-- `alphadia/cli.py` - CLI entry point, parses arguments and launches `SearchPlan`
-- `alphadia = "alphadia.cli:run"` - Package entry point defined in pyproject.toml
-
-### Core Search Pipeline
+## Output Structure
 
 ```
-SearchPlan (search_plan.py)
-    └── orchestrates multi-step searches (transfer → library → MBR)
-    └── SearchStep (search_step.py)
-            └── owns config, spectral library, raw file list
-            └── PeptideCentricWorkflow (workflow/peptidecentric/)
-                    └── per-raw-file workflow execution
-                    └── calibration, optimization, extraction, FDR
+search_<basename>/
+├── 1_speclib_prediction/
+│   └── speclib.hdf
+├── 2_first_search/
+│   ├── chunk_0/
+│   ├── chunk_1/
+│   └── ...
+├── 3_mbr_library/
+│   └── chunk_0/
+│       └── speclib.mbr.hdf
+├── 4_second_search/
+│   ├── chunk_0/
+│   └── ...
+└── 5_lfq/
+    └── chunk_0/
+        ├── precursor_table.csv
+        └── protein_table.csv
 ```
 
-**SearchPlan**: Top-level orchestrator for single or multi-step searches. Handles step sequencing and passing optimized parameters between steps.
+## Key Implementation Details
 
-**SearchStep**: Manages a single search step. Owns library loading/building, config initialization, and iterates over raw files.
-
-**WorkflowBase** (workflow/base.py): Base class for per-file workflows. Manages calibration_manager, optimization_manager, timing_manager, and raw data loading.
-
-### Key Modules
-
-- `alphadia/libtransform/` - Library transformation pipeline (loading, prediction, decoys, flattening)
-- `alphadia/search/` - Core search algorithms (python version, the rust version is imported from `alphadia_search_rs`)
-  - `search/scoring/` - Candidate scoring and feature extraction
-  - `search/selection/` - Candidate selection using FFT-based methods
-  - `search/jitclasses/` - Numba JIT-compiled data structures
-- `alphadia/fdr/` - FDR control and classifiers
-- `alphadia/calibration/` - RT, m/z, mobility calibration
-- `alphadia/outputtransform/` - Output processing and quantification
-- `alphadia/workflow/managers/` - Workflow component managers (calibration, optimization, FDR, timing)
-- `alphadia/constants/` - Default config (`default.yaml`), keys, settings
-
-### Configuration System
-
-Config is hierarchical with override order:
-1. `alphadia/constants/default.yaml` (base defaults)
-2. User config file (`--config`)
-3. CLI parameters (`--file`, `--library`, etc.)
-4. Extra config (for multi-step orchestration)
-
-Config class in `workflow/config.py` handles merging and validation.
-
-### External Dependencies
-
-Core scientific stack from AlphaPept ecosystem (https://github.com/MannLabs):
-- **alphabase** - Base spectral library classes (`SpecLibBase`, `SpecLibFlat`)
-- **alpharaw** - Raw file reading
-- **alphapeptdeep** - Deep learning models for property prediction
-- **directlfq** - Label-free quantification
-
-## Test Structure
-
-- `tests/unit_tests/` - Fast unit tests mirroring `alphadia/` structure
-- `tests/integration_tests/` - Integration tests requiring test data
-- `tests/e2e_tests/` - End-to-end tests with real data
-- `tests/performance_tests/` - Performance benchmarks
-
-pytest marker: `@pytest.mark.slow` for slow tests
+1. **Parallelization**: First and second searches run as Slurm array jobs; MBR and LFQ are single-node aggregation steps
+2. **Library copying**: Library is copied to each chunk directory to avoid concurrent HDF5 read issues
+3. **Quant aggregation**: `quant_dir` environment variable directs quantification outputs to shared location for MBR/LFQ stages
+4. **Chunk balancing**: `parse_parameters.py` ensures balanced distribution of raw files across nodes
+5. **Environment**: Requires a mamba/conda environment with mono and alphadia installed activated when launching the shell scripts.
 
 ---
 > Source: [MannLabs/alphadia](https://github.com/MannLabs/alphadia) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
