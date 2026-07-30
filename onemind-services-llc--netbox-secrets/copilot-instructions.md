@@ -1,43 +1,206 @@
 ## netbox-secrets
 
-> - Source: `netbox_secrets/` (Django/NetBox plugin code: models, views, API, GraphQL, forms).
+> Guide GitHub Copilot to perform comprehensive pull request reviews by comparing the PR branch against the base branch and generating actionable feedback on code quality, functionality, and maintainability.
 
-# Repository Guidelines
+# Copilot Code Review Instructions
 
-## Project Structure & Module Organization
-- Source: `netbox_secrets/` (Django/NetBox plugin code: models, views, API, GraphQL, forms).
-- Tests: `netbox_secrets/tests/` (Django TestCase-based; files like `test_*.py`).
-- Frontend assets: `netbox_secrets/templates/netbox_secrets/inc/secrets_inline_js.html` (inline JS; no build step).
-- Docs: `docs/` (models and REST usage), images in `assets/`.
-- Sample config for local NetBox testing: `testing_configuration/configuration.py`.
+## Purpose
+Guide GitHub Copilot to perform comprehensive pull request reviews by comparing the PR branch against the base branch and generating actionable feedback on code quality, functionality, and maintainability.
 
-## Build, Test, and Development Commands
-- Install (editable): `pip install -e .`
-- Python formatting/lint (pre-commit): `pre-commit run -a`.
-- Frontend: no build step; inline JS is served via templates.
-- Run tests (inside a NetBox env): `python manage.py test netbox_secrets`
-  - Use `testing_configuration/configuration.py` for a quick local setup, or mirror CI’s NetBox version.
+## Review Scope
 
-## Coding Style & Naming Conventions
-- Python: Black (line length 120), isort (profile black), Pylint (120). Run via `pre-commit run -a`.
-- Types: Pyright for type checks (`pyproject.toml`).
-- Naming: modules/functions `snake_case`, classes `PascalCase`, tests `test_*.py` mirroring target module names.
+When reviewing pull requests, analyze:
 
-## Testing Guidelines
-- Framework: Django TestCase; tests live in `netbox_secrets/tests/`.
-- Conventions: group by area (`test_models.py`, `test_views.py`, etc.); isolate DB state with fixtures/factories.
-- Coverage: include tests for new models, filters, API, and permissions. Add minimal, focused assertions.
+- **Code Changes**: Modified, added, and removed files and functions
+- **API Surface**: Public interfaces, endpoints, and type definitions
+- **Behavioral Changes**: Logic modifications, algorithm updates, default value changes
+- **Test Coverage**: New, modified, and removed tests; coverage deltas
+- **Documentation**: README updates, inline comments, changelog entries
+- **Dependencies**: Package additions, upgrades, downgrades, and license changes
+- **CI/CD**: Workflow modifications, pipeline changes
+- **Configuration**: Environment variables, feature flags, runtime config
+- **Performance**: Algorithmic or I/O changes affecting performance
+- **Security**: Input validation, authentication changes, secrets handling, CVE risks
+- **Deprecations**: Removed APIs, deprecated features, migration paths
 
-## Commit & Pull Request Guidelines
-- Commits: imperative mood; reference Jira when applicable (e.g., `OMS-1234 short summary`). Conventional types like `feat:`, `fix:`, `chore:` are welcome.
-- PRs: target `dev` unless directed otherwise; link issues/Jira; include a clear description, testing notes, and screenshots for UI changes. Follow `.github/pull_request_template.md`.
-- CI: GitHub Actions runs pre-commit and NetBox plugin tests against a pinned NetBox version.
+## Review Process
 
-## Security & Configuration Tips
-- Never commit secrets or private keys. Use the plugin’s key workflow (see `docs/` and README).
-- Validate key sizes and crypto via existing utilities in `netbox_secrets/utils/`.
-- For local NetBox testing, register the plugin in NetBox settings and keep `PLUGINS_CONFIG['netbox_secrets']` minimal unless a test requires overrides.
+1. Compare PR branch against base branch at file and semantic levels
+2. Run configured static analysis and linters
+3. Execute test suites and record failures, flaky tests, coverage changes
+4. Inspect dependency and CI workflow modifications
+5. Generate structured review using the format below
+
+## Review Output Format
+
+Structure your review comment with these sections:
+
+### Summary
+- **PR Title**: One-line summary of changes
+- **Scope**: High-level areas affected (e.g., authentication, payments, UI)
+- **Verdict**: Overall assessment - "Approved with suggestions", "Changes requested", or "Approved"
+
+### Key Changes
+
+| Area | Change Type | Impact | Description |
+|------|-------------|--------|-------------|
+| Code | Enhancement/Bugfix/Feature | High/Medium/Low | Brief summary |
+
+### Enhancements
+List improvements with:
+- File(s) affected
+- Description of enhancement
+- Benefit/impact
+- Suggested follow-up (if any)
+
+**Example**: `auth/token.go` refactored to use caching; reduces DB calls and improves login latency by ~30ms. Consider adding cache invalidation strategy.
+
+### Bugs and Regressions
+Document issues with:
+- Reproduction steps or failing test name
+- Affected files/lines
+- Severity (Critical/High/Medium/Low)
+- Recommended fix
+
+**Example**: `payments/charge_test.go` failing due to outdated mock. Update mock to match new gateway API signature.
+
+### New Features
+Describe additions with:
+- Public API changes
+- Usage examples
+- Migration notes for consumers
+
+### Breaking Changes and Deprecations
+List with:
+- What changed or was deprecated
+- Replacement/migration path
+- Timeline (if specified)
+
+**Example**: `api/v1/user` endpoint removed `email` field. Clients should use `api/v2/user` which includes `email` in nested `profile` object. Deprecation effective Q2 2026.
+
+### Maintainability and Code Health
+Note:
+- Code complexity concerns
+- Duplication or unclear abstractions
+- Missing test coverage
+- Technical debt added or reduced
+- Suggested refactorings with priority
+
+**Example**: `utils/helpers.go` has grown to 400 lines. Recommend splitting into domain-specific modules (auth-helpers, data-helpers) in follow-up PR.
+
+### Tests and Coverage
+Summarize:
+- Test results: pass/fail counts, flaky tests
+- Coverage delta (% change)
+- Action items for acceptable coverage
+
+### Security and Compliance
+Flag security-sensitive changes:
+- Authentication/authorization modifications
+- Input validation gaps
+- Secrets or credentials handling
+- Dependency CVEs
+- License changes
+
+Recommend actions like dependency pinning, vulnerability patches, or security team review.
+
+### CI and Deployment
+List:
+- CI/CD pipeline changes
+- Build or deployment impacts
+- Required pipeline updates or rollback plans
+
+### Documentation
+Identify missing or outdated docs:
+- README updates needed
+- API documentation gaps
+- Changelog entries required
+- Migration guides for breaking changes
+
+### Suggested Labels
+Recommend labels: `enhancement`, `bug`, `breaking-change`, `security`, `docs`, `tests`, `dependencies`
+
+### Suggested Reviewers
+List appropriate reviewers by expertise: backend team, frontend team, security team, DevOps
+
+### Merge Conditions
+
+**Must Fix (Blockers)**:
+- Critical issues preventing merge
+
+**Should Fix**:
+- Recommended before merge
+
+**Optional**:
+- Nice-to-have improvements for future PRs
+
+## Severity Definitions
+
+- **Critical**: Production-breaking, security vulnerability, data loss risk
+- **High**: Major regression, failing core tests, breaking API changes
+- **Medium**: Functional bug with workaround, missing tests, performance degradation
+- **Low**: Cosmetic issues, minor performance, documentation-only
+
+## Review Best Practices
+
+- **Be Specific**: Include file paths, line numbers, and code snippets
+- **Be Actionable**: Provide concrete fix suggestions or next steps
+- **Prioritize**: Address blockers first, then high/medium/low severity
+- **Link Context**: Reference tests, docs, or CI logs when relevant
+- **Stay Constructive**: Maintain neutral, helpful tone
+
+## Comment Templates
+
+### Minor Changes (Approval)
+```
+**Summary**: Minor enhancements and documentation updates. All tests pass.
+**Verdict**: Approved
+**Action**: Safe to merge after squash
+```
+
+### Changes Requested
+```
+**Summary**: Contains breaking API change and failing tests
+**Verdict**: Changes requested
+
+**Must Fix**:
+- Restore backward-compatible API or add comprehensive migration guide
+- Fix failing test: `payments/charge_test.go`
+
+**Should Fix**:
+- Add deprecation warnings to legacy endpoints
+- Update API documentation with migration examples
+
+**Suggested Reviewers**: @backend-team @api-platform-team
+```
+
+### Security Block
+```
+**Summary**: Introduces unvalidated user input in authentication flow
+**Verdict**: Blocked
+
+**Critical Issue**: Potential SQL injection in `auth/login.go:45`
+**Action Required**:
+1. Add parameterized queries or ORM
+2. Implement input sanitization
+3. Re-run security scan
+4. Request security team review
+
+**Blocker**: Cannot merge until security issues resolved
+```
+
+## Automation Integration
+
+When available:
+- Attach linter output, test logs, and coverage diffs
+- Include code snippets for suggested fixes
+- Provide exact replacement code for deprecations
+- Link to relevant documentation or architectural decisions
+
+---
+
+**Note**: Always end your review with a clear next steps list and overall merge readiness assessment.
 
 ---
 > Source: [Onemind-Services-LLC/netbox-secrets](https://github.com/Onemind-Services-LLC/netbox-secrets) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
