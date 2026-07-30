@@ -2,9 +2,9 @@
   "name": "llml",
   "owner": "zenbase-ai",
   "repo": "llml",
-  "description": "Compose data structures, serialize them to prompts.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zenbase-ai/llml",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T13:49:02Z"
+  "distributed_at": "2026-07-30T11:17:27Z"
 }
