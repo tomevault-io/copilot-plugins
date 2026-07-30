@@ -1,13 +1,14 @@
 ## kubevirt-tekton-tasks
 
-> **CRITICAL**: Before any work, read **AGENTS.md** at the project root. It contains the project guide, documentation index, structure, common commands, and links to all detailed docs (including the **mandatory** AI Workflow Rules in docs/ai-workflow.md).
+> Always read the AGENTS.md project guide before starting any task
 
-# Cursor AI Instructions
 
-**CRITICAL**: Before any work, read **AGENTS.md** at the project root. It contains the project guide, documentation index, structure, common commands, and links to all detailed docs (including the **mandatory** AI Workflow Rules in docs/ai-workflow.md).
+# Read AGENTS.md First
 
-Do not proceed without reading AGENTS.md first.
+Before doing any work in this repository, **always** read the file `AGENTS.md` at the project root first. It contains the project guide, required AI workflow rules, documentation index, project structure, and common commands.
+
+This is mandatory for every conversation - do not skip it, even if you think you already know the project layout.
 
 ---
 > Source: [kubevirt/kubevirt-tekton-tasks](https://github.com/kubevirt/kubevirt-tekton-tasks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
