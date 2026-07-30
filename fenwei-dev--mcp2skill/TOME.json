@@ -4,7 +4,7 @@
   "repo": "mcp2skill",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fenwei-dev/mcp2skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T07:30:38Z"
+  "distributed_at": "2026-07-30T07:38:25Z"
 }
