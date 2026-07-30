@@ -1,0 +1,9 @@
+{
+  "name": "grafana--alloy",
+  "displayName": "alloy",
+  "description": "alloy",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/alloy",
+  "skills": []
+}
