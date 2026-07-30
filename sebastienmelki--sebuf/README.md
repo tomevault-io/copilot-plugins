@@ -1,23 +1,22 @@
 # sebuf
 
-> Source: [SebastienMelki/sebuf](https://github.com/SebastienMelki/sebuf) — distributed by [TomeVault](https://tomevault.io)
-
-Comprehensive Go protobuf toolkit for building type-safe HTTP APIs with automatic validation, OpenAPI docs, and low number of dependencies
+> Source: [SebastienMelki/sebuf](https://github.com/SebastienMelki/sebuf). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SebastienMelki/sebuf](https://github.com/SebastienMelki/sebuf).
+Original source: `` in [SebastienMelki/sebuf](https://github.com/SebastienMelki/sebuf).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [SebastienMelki/sebuf](https://github.com/SebastienMelki/sebuf) — a repo with 116+ stars on GitHub.
+From [SebastienMelki/sebuf](https://github.com/SebastienMelki/sebuf) — a repo with 122+ stars on GitHub.
 
 ---
 
