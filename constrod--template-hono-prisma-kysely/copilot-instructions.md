@@ -1,139 +1,149 @@
 ## template-hono-prisma-kysely
 
-> These rules define the standard patterns for working with Prisma-generated schemas and integrating them with the application's type system. The guidelines ensure consistent handling of database types across the codebase.
+> These guidelines define the standard patterns for implementing tests for the data access layer. The testing approach varies based on whether data access is via database or API.
 
-# Guidelines for Prisma Schema Integration
+# Guidelines for Testing the Data Access Layer
 
 ## Purpose & Overview
-These rules define the standard patterns for working with Prisma-generated schemas and integrating them with the application's type system. The guidelines ensure consistent handling of database types across the codebase.
+These guidelines define the standard patterns for implementing tests for the data access layer. The testing approach varies based on whether data access is via database or API.
 
-## Schema Integration Pattern
+## Core Testing Approaches
 
-### Type Override Pattern
-Follow this pattern for overriding Prisma-generated types to ensure consistent handling of fields:
+### Database Access Testing
+Database tests use transaction rollbacks to ensure test isolation and reset state between tests.
 
+#### Key Components
+- `testWithDbClient`: Provides isolated transaction wrappers that automatically roll back
+- `makeFake[Entity]`: Creates fake entity instances with realistic test data
+- `createTest[Entity]sInDB`: Sets up test data in the database
+- `setupTestData`: Helper function to prepare test data for each test case
+
+#### Example Test Pattern for Data Access Layer via Database 
 ```typescript
-/**
- * Utility type to override specific field types from database tables:
- * - DATE fields: converted to `Date | string` if not null else do `Date | string | null`
- * - JSON fields: specific type overrides
- * - w/ DEFAULT fields: any field with a default value
- * @example
- * type SampleTable = {
- *   id: Generated<string>; // w/o DEFAULT
- *   name: string; // w/o DEFAULT
- *   created_at: Generated<Timestamp>; // w/ DEFAULT
- *   updated_at: Generated<Timestamp>; // w/ DEFAULT
- *   deleted_at: Timestamp | null; // w/o DEFAULT
- *   status: Generated<UserStatusType>; // w/ DEFAULT
- *   json: unknown; // w/o DEFAULT
- *   is_active: Generated<boolean>; // w/ DEFAULT
- * };
- *
- * type OverrideSampleTable = Omit<OverrideCommonFields<SampleTable>, 'status'> & {
- *   status: UserStatusType;
- *   json: SomeJsonType;
- *   is_active: boolean;
- * };
- */
-type OverrideCommonFields<TTable> = Omit<
-  TTable,
-  'id' | 'created_at' | 'updated_at' | 'deleted_at'
-> & {
-  id: string;
-  created_at: Date | string;
-  updated_at: Date | string;
-  deleted_at: Date | string | null;
+import { type DbClient } from '@/db/create-db-client';
+import { type User, type Product } from '@/db/schema';
+import { createProductData } from './create-product';
+import { createTestProductsInDB, makeProduct } from './__test-utils__/make-fake-product';
+import { createTestUsersInDB, makeFakeUser } from '../users/__test-utils__/make-fake-user';
+import { testWithDbClient } from '../__test-utils__/test-with-db-client';
+
+// Essential test setup pattern for DB tests
+const setupTestData = async ({
+  dbClient,
+  users, 
+  products
+  // or other entities
+}: {
+  dbClient: DbClient;
+  users: Partial<User>[];
+  products: Partial<Product>[];
+  // or other entities
+}) => {
+  await createTestUsersInDB({ dbClient, values: users });
+  await createTestProductsInDB({ dbClient, values: products });
+  // or other entities
 };
+
+const mockUser = makeFakeUser();
+
+describe('Create Product', () => {
+  testWithDbClient('should create a user', async ({ dbClient }) => {
+    const mockProduct = makeFakeProduct({ user_id: mockUser.id }) // w/ Foreign Keys
+
+    const createdProduct = await createProductData({ dbClient, values: mockProduct });
+
+    expect(createdProduct).toBeDefined();
+    expect(createdProduct?.id).toBeDefined();
+    expect(createdProduct?.price).toEqual(mockProduct.price);
+    expect(createdProduct?.user_id).toEqual(mockProduct.user_id);
+    expect(createdProduct?.created_at).toBeDefined();
+    expect(createdProduct?.updated_at).toBeDefined();
+
+    const currentProducts = await dbClient.selectFrom('products').selectAll().execute();
+
+    expect(currentProducts.length).toBe(1);
+  });
+
+  // ... more tests
+});
 ```
 
-### Field-Specific Overrides
-For fields requiring specific types beyond common fields:
+### API Access Testing
+API tests use mocking to isolate from external dependencies.
 
+#### Key Components
+- API mocking libraries (MSW, Nock, or similar)
+- Response fixtures
+- Network isolation
 
+#### Example Test Pattern for Data Access Layer via API
 ```typescript
-type OverrideEntityName = Omit<OverrideCommonFields<entity_name>, 'specific_field'> & {
-  specific_field: SpecificType;
-};
+// Essential test setup pattern for API tests
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import { makeFakeUser } from './__test-utils__/make-fake-user';
 
-export type EntityName = OverrideEntityName;
+// Mock server setup
+const server = setupServer(
+  rest.get('https://api.example.com/users/:id', (req, res, ctx) => {
+    return res(ctx.json(makeFakeUser));
+  }),
+  // Additional endpoint mocks
+);
+
+beforeAll(() => server());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+describe('Get User', () => {
+  test('should get a user by ID', async () => {
+    // Execute the function under test
+    const user = await getUserData({ id: 'mock-id' });
+    
+    // Assert results
+    expect(user.id).toBe('mock-id');
+    expect(user.name).toBe('John Doe');
+  });
+  
+  test('should handle API errors', async () => {
+    // Override the mock for this test
+    server.use(
+      rest.get('https://api.example.com/users/:id', (req, res, ctx) => {
+        return res(ctx.status(404));
+      })
+    );
+    
+    // Execute and assert
+    await expect(getUserData({ id: 'non-existent' }))
+      .rejects.toThrow('User not found');
+  });
+});
 ```
 
-## When to Override Types
-
-1. **Common Fields**:
-   - `id`: Always override to remove `Generated<>` wrapper
-   - `created_at`, `updated_at`: Always override to allow both `Date` and `string` types
-   - `deleted_at`: Always override to allow `Date`, `string`, or `null`
-
-2. **Specific Fields**:
-   - **Enum Fields**: Override to use the explicit enum type instead of the Prisma-generated type
-   - **JSON Fields**: Override with a properly typed structure rather than `unknown`
-   - **Fields with Defaults**: Override to remove the `Generated<>` wrapper
-
-3. **Relation Fields**:
-   - For relation fields, override with the proper entity type
-
-## Example Implementation
-
-For a table with the following Prisma schema:
-
-```prisma
-model Entity {
-  id          String      @id @default(uuid())
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
-  deleted_at  DateTime?   
-  status      Status      @default(ACTIVE)
-  metadata    Json?
-  // Relations
-  related     Related[]
-}
-```
-
-After creation of Prisma Schema model make sure to also update the `src/db/schema.ts` to make it reusable for zod schemas in the `Data Access Layer's Schema`:
-
-```typescript
-// src/db/schema.ts
-import { type entity, type Status } from './types';
-
-type OverrideEntity = Omit<OverrideCommonFields<entity>, 'status' | 'metadata'> & {
-  status: Status;
-  metadata: EntityMetadata | null;
-};
-
-type EntityMetadata = {
-  key1: string;
-  key2: number;
-  // Other metadata fields
-};
-
-export type Entity = OverrideEntity;
-```
+## Important Note
+- Don't forget to run the `pnpm test <file_or_folder_path>` after the creation of tests.
 
 ## Best Practices
 
-1. **Consistency**: Follow the same pattern for all entity types
-2. **Type Safety**: Ensure proper typing for JSON fields to leverage TypeScript type checking
-3. **Documentation**: Document any complex type overrides with comments
-4. **Minimalism**: Only override fields that need specific typing beyond the Prisma defaults
-5. **Exports**: Export the final overridden types for use throughout the application
+1. **Isolation**: Each test should be independent with its own setup
+2. **Focused Testing**: Test only one aspect of functionality per test
+3. **Realistic Data**: Use realistic fake data that resembles production
+4. **Error Handling**: Test both success and error cases
+5. **Mock Responses**: For API tests, mock responses that match production API format
 
-## Type Export Convention
+## Key Test Scenarios
 
-Follow this naming convention for exported types:
+### DB Specific Scenarios
+- **Transaction Handling**: Test transaction commit/rollback behavior
+- **Database Constraints**: Test uniqueness and referential integrity constraints
+- **Soft Delete**: Test behavior with both active and archived records
 
-```typescript
-// Original Prisma-generated type: users
-// Exported type name: User (singular, PascalCase)
-
-export type User = OverrideUsers;
-``` 
-
-## Important Note
-1. Create the Prisma Schema Model
-2. Add the newly added Prisma Schema Model in `src/db/schema.ts`
+### API Specific Scenarios
+- **Network Failures**: Test timeouts and connection errors
+- **Rate Limiting**: Test handling of rate limit responses
+- **Authentication**: Test token expiry and invalid credentials
+- **Pagination Headers**: Test handling of cursor-based or header-based pagination 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/constROD) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
+> Source: [constROD/template-hono-prisma-kysely](https://github.com/constROD/template-hono-prisma-kysely) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
