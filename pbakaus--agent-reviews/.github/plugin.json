@@ -1,9 +1,22 @@
 {
   "name": "pbakaus--agent-reviews",
   "displayName": "agent-reviews",
-  "description": "Token efficient, automated Github review workflows and bug fixing.",
+  "description": "agent-reviews",
   "version": "1.0.0",
   "author": "pbakaus",
   "homepage": "https://github.com/pbakaus/agent-reviews",
-  "skills": []
+  "skills": [
+    {
+      "name": "agent-reviews",
+      "description": ""
+    },
+    {
+      "name": "agent-reviews",
+      "description": ""
+    },
+    {
+      "name": "agent-reviews",
+      "description": ""
+    }
+  ]
 }
