@@ -1,0 +1,9 @@
+{
+  "name": "puemos--hls-downloader",
+  "displayName": "hls-downloader",
+  "description": "hls-downloader",
+  "version": "1.0.0",
+  "author": "puemos",
+  "homepage": "https://github.com/puemos/hls-downloader",
+  "skills": []
+}
