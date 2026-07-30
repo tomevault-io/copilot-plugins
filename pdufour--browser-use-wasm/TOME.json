@@ -4,7 +4,7 @@
   "repo": "browser-use-wasm",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pdufour/browser-use-wasm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T23:38:02Z"
+  "distributed_at": "2026-07-30T01:03:14Z"
 }
