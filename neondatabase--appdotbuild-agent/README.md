@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent).
+Original source: `CLAUDE.md` in [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent) — a repo with 763+ stars on GitHub.
+From [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent) — a repo with 765+ stars on GitHub.
 
 ---
 
