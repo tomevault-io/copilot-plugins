@@ -1,8 +1,6 @@
 # AI instruction files for TeraSim
 
-> Sourced from [mcity/TeraSim](https://github.com/mcity/TeraSim) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Discover Unknown Unsafe Events via Generative Simulation
+> Sourced from [mcity/TeraSim](https://github.com/mcity/TeraSim), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [mcity/TeraSim](https://github.com/mcity/TeraSim
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/mcity/TeraSim](https://github.com/mcity/TeraSim)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/mcity/TeraSim](https://github.com/mcity/TeraSim)
 
 ---
 
