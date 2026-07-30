@@ -1,50 +1,45 @@
 ## trimmy
 
-> - `Sources/Trimmy`: Swift 6 macOS menu-bar app (clipboard watcher, command detector, settings panes; entry `TrimmyApp.swift`).
+> - `Sources/Trimmy`: SwiftUI/macOS app code (clipboard monitoring, command detection, settings panes, telemetry, entry point `TrimmyApp.swift`).
+
 
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `Sources/Trimmy`: Swift 6 macOS menu-bar app (clipboard watcher, command detector, settings panes; entry `TrimmyApp.swift`).
-- `Tests/TrimmyTests`: Swift Testing suites (e.g., `ClipboardMonitorTests`, `AggressivenessPreviewExamplesTests`) covering heuristics and pasteboard safety.
-- `Scripts`: helper shell scripts; prefer them over ad-hoc build/run/sign steps.
-- `docs/`: contributor notes (spec, release, prefs). Keep `CHANGELOG.md` Trimmy-only. Assets and project files live at the root (`Trimmy.xcodeproj`, `Info*.plist`, icons, `appcast.xml`).
+- `Sources/Trimmy`: SwiftUI/macOS app code (clipboard monitoring, command detection, settings panes, telemetry, entry point `TrimmyApp.swift`).
+- `Tests/TrimmyTests`: XCTest suites covering clipboard behavior, aggressiveness previews, and edge-case pasteboard handling.
+- `Scripts`: automation helpers; prefer these over ad-hoc commands. `compile_and_run.sh` for day-to-day dev, `package_app.sh` for release bundles, `sign-and-notarize.sh` for distribution.
+- `docs`: contributor docs (this file and feature notes). Keep `CHANGELOG.md` Trimmy-only.
+- Assets and project metadata live at repository root (`Trimmy.xcodeproj`, `Info.plist`, icons, Sparkle feed `appcast.xml`).
 
 ## Build, Test, and Development Commands
-- `./Scripts/compile_and_run.sh` — clean rebuild and launch the dev app; run after code changes to avoid stale bundles.
-- `swift build` / `swift build -c release` — package builds for macOS 15+/Swift 6.2.
-- `./Scripts/package_app.sh [debug|release]` — produce `Trimmy.app`; run before validation.
-- `./Scripts/sign-and-notarize.sh` — ship-ready signing + notarization.
-- `swift test [--filter …]` — executes Swift Testing/XCTest suite.
-- `swiftformat .` then `swiftlint lint --fix` (or `swiftlint lint`) — enforce formatting and linting.
-- After any code change, run `pnpm check` and fix all reported format/lint issues before handoff.
+- Dev build & launch: `./Scripts/compile_and_run.sh` (re-run after code changes; avoids launching stale app bundles).
+- Swift build: `swift build` (debug) or `swift build -c release` for production binaries.
+- Package app: `./Scripts/package_app.sh release` → `Trimmy.app`; follow with `./Scripts/sign-and-notarize.sh` when shipping.
+- Tests: `swift test` (use `--filter` to target a suite). Run before push/PR.
+- Format & lint: `swiftformat .` then `swiftlint lint --fix` (or `swiftlint lint`). Fix reported issues before committing.
 
 ## Coding Style & Naming Conventions
-- SwiftFormat config: 4-space indent, LF, max width 120, before-first wrapping for args/params, explicit `self` inserted for concurrency correctness.
-- SwiftLint: analyzer checks for unused code/imports; warnings on `force_cast`/`force_try`; file length warning at 1500 lines—extract helpers early.
-- Follow existing names like `Settings*Pane`, `*Monitor`, `CommandDetector`; favor small, focused types and functions.
+- SwiftFormat config: 4-space indent, LF line endings, max width 120, arguments/parameters wrapped before-first, explicit `self` inserted for Swift 6 concurrency. Do not hand-format differently.
+- SwiftLint config favors strictness: keep imports sorted by formatter, avoid force casts/tries (warnings), respect length thresholds, and leave single-letter identifiers only when local. Analyzer rules flag unused code.
+- Prefer small, focused types and functions; extract helpers instead of letting files grow past soft limits (file warning 1500 lines).
+- Use descriptive names for settings panes and clipboard helpers; follow existing `Settings*Pane` and `*Monitor` patterns.
 
 ## Testing Guidelines
-- Tests live in `Tests/TrimmyTests`; add Swift Testing suites with `@Suite`/`@Test` and `#expect`.
-- Mirror current naming (`ClipboardMonitorTests`, `AggressivenessPreviewExamplesTests`) and cover new heuristics, pasteboard fallbacks, and regressions.
-- Maintain or improve coverage; do not skip `swift test` before PRs.
+- Add/extend XCTest cases under `Tests/TrimmyTests`; mirror naming like `ClipboardMonitorTests` and `AggressivenessPreviewExamplesTests`.
+- Cover new clipboard parsing branches and regression fixes with explicit inputs/expected outputs; favor deterministic tests over UI snapshots.
+- Maintain or increase coverage; do not skip `swift test` in CI-equivalent workflows.
 
 ## Commit & Pull Request Guidelines
-- Commit style mirrors history: lowercase, scoped prefixes when useful (`docs:`, `refactor:`, `fix:`) and imperative summaries.
-- Before a PR: run `swiftformat .`, `swiftlint lint --fix`, `swift test`, and `./Scripts/compile_and_run.sh`; refresh `Trimmy.app` from the new build.
-- Update `CHANGELOG.md` for user-visible changes; include concise description, linked issue, and screenshots for UI tweaks.
-- Avoid new dependencies/tooling without approval; keep edits focused and avoid duplicate files.
+- Commit messages: short, imperative, and scoped (e.g., “Fix Sparkle feed URL”, “Add settings height animation guard”).
+- Before opening a PR: run `swiftformat .`, `swiftlint lint --fix`, `swift test`, and `./Scripts/compile_and_run.sh` to verify the app boots cleanly.
+- Include a concise summary, linked issue (if applicable), repro steps, and before/after notes or screenshots for UI-touching changes.
+- Update `CHANGELOG.md` for user-visible adjustments; keep entries Trimmy-specific. Avoid introducing new tooling or dependencies without prior approval.
 
-## Release & Validation Notes
-- Package with `./Scripts/package_app.sh release`, sign/notarize via `./Scripts/sign-and-notarize.sh`, then verify (`spctl`, `stapler`) per README checklist.
-- Do not edit generated bundles directly—regenerate via scripts. Preserve per-tab settings animation behavior when touching settings views.
-- Releases must only be performed when explicitly requested in the current prompt; permission is one-time and does not persist to future sessions.
-
-# Building Trimmy
-- Preferred workflow: run `Scripts/compile_and_run.sh` after code changes. It kills any running instance, runs build + tests, packages a debug app, and relaunches the menu bar app.
-- Use `Scripts/package_app.sh release` + `Scripts/sign-and-notarize.sh` only when preparing a signed release build.
-- Settings tabs once animated per tab (spring + `contentHeight`/`preferredHeight`); restore from pre-2025-11-19 ~18:40 commit if needed.
+## Release & Maintenance Notes
+- Follow the release checklist from `README.md` (format/lint/test, package, sign/notarize, stapler validation).
+- Do not edit bundled artifacts directly; regenerate via scripts. Preserve per-tab settings animations (`contentHeight`/`preferredHeight`) when touching settings views.
 
 ---
 > Source: [steipete/Trimmy](https://github.com/steipete/Trimmy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
