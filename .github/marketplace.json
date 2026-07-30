@@ -8799,6 +8799,11 @@
       "description": "The fastest and the most accurate file search toolkit for AI agents, Neovim, Rust, C, and NodeJS"
     },
     {
+      "name": "pyspur-dev--pyspur",
+      "source": "./pyspur-dev--pyspur",
+      "description": "PySpur"
+    },
+    {
       "name": "google--clasp",
       "source": "./google--clasp",
       "description": "clasp"
@@ -16397,6 +16402,11 @@
       "name": "observal--observal",
       "source": "./observal--observal",
       "description": "Observal is a local registry and analytics platform for your AI components.  Setup Observal, define the scope and share your Skills, MCPs and Agents."
+    },
+    {
+      "name": "cjo4m06--mcp-shrimp-task-manager",
+      "source": "./cjo4m06--mcp-shrimp-task-manager",
+      "description": "mcp-shrimp-task-manager"
     },
     {
       "name": "openmeterio--openmeter",
@@ -27009,6 +27019,11 @@
       "description": "Dashboard"
     },
     {
+      "name": "autonomousvision--navsim",
+      "source": "./autonomousvision--navsim",
+      "description": "navsim"
+    },
+    {
       "name": "boyter--cs",
       "source": "./boyter--cs",
       "description": "cs"
@@ -36759,6 +36774,11 @@
       "description": "Conformer"
     },
     {
+      "name": "cluster444--agentic",
+      "source": "./cluster444--agentic",
+      "description": "agentic"
+    },
+    {
       "name": "awslabs--agent-plugins",
       "source": "./awslabs--agent-plugins",
       "description": "Agent Plugins for AWS equip AI coding agents with the skills to help you architect, deploy, and operate on AWS."
@@ -39039,6 +39059,11 @@
       "description": "saga-reader"
     },
     {
+      "name": "romanvm--python-web-pdb",
+      "source": "./romanvm--python-web-pdb",
+      "description": "python-web-pdb"
+    },
+    {
       "name": "lee-to--ai-factory",
       "source": "./lee-to--ai-factory",
       "description": "You want to build with AI, but setting up the right context, prompts, and workflows takes time. AI Factory handles all of that so you can focus on what matters \u2014 shipping quality code."
@@ -39767,6 +39792,11 @@
       "name": "secops-7--mikrodash",
       "source": "./secops-7--mikrodash",
       "description": "MikroDash"
+    },
+    {
+      "name": "jimliu--claude-agent-kit",
+      "source": "./jimliu--claude-agent-kit",
+      "description": "claude-agent-kit"
     },
     {
       "name": "redis--mcp-redis",
@@ -43377,6 +43407,26 @@
       "name": "devopness--devopness",
       "source": "./devopness--devopness",
       "description": "devopness"
+    },
+    {
+      "name": "luckyyyyy--miu2d",
+      "source": "./luckyyyyy--miu2d",
+      "description": "miu2d"
+    },
+    {
+      "name": "luckyyyyy--miu2d",
+      "source": "./luckyyyyy--miu2d",
+      "description": "miu2d"
+    },
+    {
+      "name": "luckyyyyy--miu2d",
+      "source": "./luckyyyyy--miu2d",
+      "description": "miu2d"
+    },
+    {
+      "name": "luckyyyyy--miu2d",
+      "source": "./luckyyyyy--miu2d",
+      "description": "miu2d"
     },
     {
       "name": "sxhxliang--agent-studio",
@@ -50609,6 +50659,26 @@
       "description": "mise-action"
     },
     {
+      "name": "sergeymakeev--excaliburhash",
+      "source": "./sergeymakeev--excaliburhash",
+      "description": "ExcaliburHash"
+    },
+    {
+      "name": "sergeymakeev--excaliburhash",
+      "source": "./sergeymakeev--excaliburhash",
+      "description": "ExcaliburHash"
+    },
+    {
+      "name": "sergeymakeev--excaliburhash",
+      "source": "./sergeymakeev--excaliburhash",
+      "description": "ExcaliburHash"
+    },
+    {
+      "name": "sergeymakeev--excaliburhash",
+      "source": "./sergeymakeev--excaliburhash",
+      "description": "ExcaliburHash"
+    },
+    {
       "name": "yuri-nagasaki--cattopic",
       "source": "./yuri-nagasaki--cattopic",
       "description": "ImageFlow Serverless Version"
@@ -50947,6 +51017,21 @@
       "name": "langchain-ai--langchain-aws",
       "source": "./langchain-ai--langchain-aws",
       "description": "langchain-aws"
+    },
+    {
+      "name": "sergeymakeev--slotmap",
+      "source": "./sergeymakeev--slotmap",
+      "description": "SlotMap"
+    },
+    {
+      "name": "sergeymakeev--slotmap",
+      "source": "./sergeymakeev--slotmap",
+      "description": "SlotMap"
+    },
+    {
+      "name": "sergeymakeev--slotmap",
+      "source": "./sergeymakeev--slotmap",
+      "description": "SlotMap"
     },
     {
       "name": "serkanyersen--dotstate",
@@ -54772,6 +54857,16 @@
       "name": "sap--fundamental-ngx",
       "source": "./sap--fundamental-ngx",
       "description": "fundamental-ngx"
+    },
+    {
+      "name": "pixijs--pixijs-skills",
+      "source": "./pixijs--pixijs-skills",
+      "description": "pixijs-skills"
+    },
+    {
+      "name": "pixijs--pixijs-skills",
+      "source": "./pixijs--pixijs-skills",
+      "description": "pixijs-skills"
     },
     {
       "name": "spool-lab--spool",
@@ -60792,6 +60887,66 @@
       "name": "zksha--alma",
       "source": "./zksha--alma",
       "description": "alma"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
+    },
+    {
+      "name": "ruaan-deysel--ha-unraid",
+      "source": "./ruaan-deysel--ha-unraid",
+      "description": "ha-unraid"
     },
     {
       "name": "codefactory-co--kimoring-ai-skills",
@@ -73359,6 +73514,16 @@
       "description": "minectl"
     },
     {
+      "name": "tesslateai--tframex",
+      "source": "./tesslateai--tframex",
+      "description": "TFrameX"
+    },
+    {
+      "name": "tesslateai--tframex",
+      "source": "./tesslateai--tframex",
+      "description": "TFrameX"
+    },
+    {
       "name": "arcadia-1--virtuoso-bridge-lite",
       "source": "./arcadia-1--virtuoso-bridge-lite",
       "description": "Bridge between LLM-Agent and Cadence Virtuoso. A new infrastructure for Agentic Analog and Mixed-Signal Design. "
@@ -74187,6 +74352,11 @@
       "name": "kstenerud--yoloai",
       "source": "./kstenerud--yoloai",
       "description": "yoloai"
+    },
+    {
+      "name": "avoidwork--tenso",
+      "source": "./avoidwork--tenso",
+      "description": "tenso"
     },
     {
       "name": "decentpaste--decentpaste",
@@ -75322,6 +75492,11 @@
       "name": "cloudwalk--stratus",
       "source": "./cloudwalk--stratus",
       "description": "stratus"
+    },
+    {
+      "name": "dagster-io--mdsfest-opensource-mds",
+      "source": "./dagster-io--mdsfest-opensource-mds",
+      "description": "mdsfest-opensource-mds"
     },
     {
       "name": "onevcat--argue",
@@ -82059,6 +82234,11 @@
       "description": "bayesianbandits"
     },
     {
+      "name": "murf-ai--ten-days-of-voice-agents-2025",
+      "source": "./murf-ai--ten-days-of-voice-agents-2025",
+      "description": "ten-days-of-voice-agents-2025"
+    },
+    {
       "name": "chernistry--bernstein",
       "source": "./chernistry--bernstein",
       "description": "Deterministic orchestrator for 18 CLI AI coding agents. Git worktree isolation, HMAC audit trail, MCP server mode."
@@ -84922,6 +85102,106 @@
       "name": "chennlang--js-analyzer",
       "source": "./chennlang--js-analyzer",
       "description": "js-analyzer"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
+    },
+    {
+      "name": "tikitribe--claude-secure-coding-rules",
+      "source": "./tikitribe--claude-secure-coding-rules",
+      "description": "claude-secure-coding-rules"
     },
     {
       "name": "tikitribe--claude-secure-coding-rules",
@@ -89904,6 +90184,16 @@
       "description": "Hindsight"
     },
     {
+      "name": "zichenwen1--dart",
+      "source": "./zichenwen1--dart",
+      "description": "DART"
+    },
+    {
+      "name": "zichenwen1--dart",
+      "source": "./zichenwen1--dart",
+      "description": "DART"
+    },
+    {
       "name": "tiangzlab--omicsclaw",
       "source": "./tiangzlab--omicsclaw",
       "description": "Conversational & memory-enabled AI research partner for multi-omics analysis. From biological idea to full research paper."
@@ -92272,6 +92562,11 @@
       "name": "aws-samples--meta-llama-on-aws",
       "source": "./aws-samples--meta-llama-on-aws",
       "description": "Meta-Llama-on-AWS"
+    },
+    {
+      "name": "nowledge-co--openkl",
+      "source": "./nowledge-co--openkl",
+      "description": "OpenKL"
     },
     {
       "name": "macrocosm-os--dataverse-cli",
@@ -95012,6 +95307,11 @@
       "name": "dr4gon123--flasi",
       "source": "./dr4gon123--flasi",
       "description": "flasi"
+    },
+    {
+      "name": "genocs--clean-architecture-template",
+      "source": "./genocs--clean-architecture-template",
+      "description": "clean-architecture-template"
     },
     {
       "name": "productdevbook--sumak",
@@ -104494,6 +104794,21 @@
       "description": "termimg"
     },
     {
+      "name": "vincentlaucsb--experiencer",
+      "source": "./vincentlaucsb--experiencer",
+      "description": "experiencer"
+    },
+    {
+      "name": "vincentlaucsb--experiencer",
+      "source": "./vincentlaucsb--experiencer",
+      "description": "experiencer"
+    },
+    {
+      "name": "vincentlaucsb--experiencer",
+      "source": "./vincentlaucsb--experiencer",
+      "description": "experiencer"
+    },
+    {
       "name": "jjongguet--oh-my-product",
       "source": "./jjongguet--oh-my-product",
       "description": "oh-my-product"
@@ -105132,6 +105447,11 @@
       "name": "osiris-devworks--smart-citizen",
       "source": "./osiris-devworks--smart-citizen",
       "description": "smart-citizen"
+    },
+    {
+      "name": "snowplow--snowplow-ios-tracker",
+      "source": "./snowplow--snowplow-ios-tracker",
+      "description": "snowplow-ios-tracker"
     },
     {
       "name": "snowplow--snowplow-ios-tracker",
@@ -107417,6 +107737,41 @@
       "name": "robertguss--bmad-automated",
       "source": "./robertguss--bmad-automated",
       "description": "bmad_automated"
+    },
+    {
+      "name": "obviousworks--vibe-coding-ai-rules",
+      "source": "./obviousworks--vibe-coding-ai-rules",
+      "description": "vibe-coding-ai-rules"
+    },
+    {
+      "name": "obviousworks--vibe-coding-ai-rules",
+      "source": "./obviousworks--vibe-coding-ai-rules",
+      "description": "vibe-coding-ai-rules"
+    },
+    {
+      "name": "obviousworks--vibe-coding-ai-rules",
+      "source": "./obviousworks--vibe-coding-ai-rules",
+      "description": "vibe-coding-ai-rules"
+    },
+    {
+      "name": "obviousworks--vibe-coding-ai-rules",
+      "source": "./obviousworks--vibe-coding-ai-rules",
+      "description": "vibe-coding-ai-rules"
+    },
+    {
+      "name": "obviousworks--vibe-coding-ai-rules",
+      "source": "./obviousworks--vibe-coding-ai-rules",
+      "description": "vibe-coding-ai-rules"
+    },
+    {
+      "name": "obviousworks--vibe-coding-ai-rules",
+      "source": "./obviousworks--vibe-coding-ai-rules",
+      "description": "vibe-coding-ai-rules"
+    },
+    {
+      "name": "obviousworks--vibe-coding-ai-rules",
+      "source": "./obviousworks--vibe-coding-ai-rules",
+      "description": "vibe-coding-ai-rules"
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -110442,6 +110797,16 @@
       "name": "ulex--windows-defender-performance-tool",
       "source": "./ulex--windows-defender-performance-tool",
       "description": "windows_defender_performance_tool"
+    },
+    {
+      "name": "heilingbrunner--tiaportal-mcp",
+      "source": "./heilingbrunner--tiaportal-mcp",
+      "description": "tiaportal-mcp"
+    },
+    {
+      "name": "heilingbrunner--tiaportal-mcp",
+      "source": "./heilingbrunner--tiaportal-mcp",
+      "description": "tiaportal-mcp"
     },
     {
       "name": "sonarsource--sonarqube-agent-plugins",
@@ -116049,6 +116414,51 @@
       "description": "CelestialDocs"
     },
     {
+      "name": "hyp3r00t--celestialdocs",
+      "source": "./hyp3r00t--celestialdocs",
+      "description": "CelestialDocs"
+    },
+    {
+      "name": "instructa--constructa-starter-min",
+      "source": "./instructa--constructa-starter-min",
+      "description": "constructa-starter-min"
+    },
+    {
+      "name": "hyp3r00t--celestialdocs",
+      "source": "./hyp3r00t--celestialdocs",
+      "description": "CelestialDocs"
+    },
+    {
+      "name": "instructa--constructa-starter-min",
+      "source": "./instructa--constructa-starter-min",
+      "description": "constructa-starter-min"
+    },
+    {
+      "name": "instructa--constructa-starter-min",
+      "source": "./instructa--constructa-starter-min",
+      "description": "constructa-starter-min"
+    },
+    {
+      "name": "instructa--constructa-starter-min",
+      "source": "./instructa--constructa-starter-min",
+      "description": "constructa-starter-min"
+    },
+    {
+      "name": "instructa--constructa-starter-min",
+      "source": "./instructa--constructa-starter-min",
+      "description": "constructa-starter-min"
+    },
+    {
+      "name": "woxihuanjiangguo--ztrs",
+      "source": "./woxihuanjiangguo--ztrs",
+      "description": "ZTRS"
+    },
+    {
+      "name": "talkpython--agentic-ai-for-python-course",
+      "source": "./talkpython--agentic-ai-for-python-course",
+      "description": "agentic-ai-for-python-course"
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -118254,6 +118664,11 @@
       "description": "modern-data-architecture-accelerator"
     },
     {
+      "name": "zenbase-ai--llml",
+      "source": "./zenbase-ai--llml",
+      "description": "llml"
+    },
+    {
       "name": "motoya0118--pavlok-cli-agent",
       "source": "./motoya0118--pavlok-cli-agent",
       "description": "CLI agent\u306bpavlok\u3092\u4f7f\u7528\u3055\u305b\u305f\u3089\u3069\u3046\u306a\u308b\u304b\u81ea\u50b7\u5b9f\u9a13"
@@ -119707,6 +120122,16 @@
       "name": "logosroboticsgroup--seerdrive",
       "source": "./logosroboticsgroup--seerdrive",
       "description": "SeerDrive"
+    },
+    {
+      "name": "yuzheng14--valype",
+      "source": "./yuzheng14--valype",
+      "description": "valype"
+    },
+    {
+      "name": "yuzheng14--valype",
+      "source": "./yuzheng14--valype",
+      "description": "valype"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -126837,6 +127262,16 @@
       "name": "encounter1997--fp-detr",
       "source": "./encounter1997--fp-detr",
       "description": "FP-DETR"
+    },
+    {
+      "name": "agentsea--documentor",
+      "source": "./agentsea--documentor",
+      "description": "documentor"
+    },
+    {
+      "name": "pekkah--tanka-graphql",
+      "source": "./pekkah--tanka-graphql",
+      "description": "tanka-graphql"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -153269,6 +153704,21 @@
       "description": "Ketch"
     },
     {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -167334,6 +167784,16 @@
       "description": "Hubitat-Drivers"
     },
     {
+      "name": "mdnmdn--asimeow",
+      "source": "./mdnmdn--asimeow",
+      "description": "asimeow"
+    },
+    {
+      "name": "ruvnet--code-mesh",
+      "source": "./ruvnet--code-mesh",
+      "description": "code-mesh"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -171942,6 +172402,86 @@
       "name": "lucafoscili--lf-nodes",
       "source": "./lucafoscili--lf-nodes",
       "description": "lf-nodes"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
+    },
+    {
+      "name": "bio-xyz--bioagentseliza",
+      "source": "./bio-xyz--bioagentseliza",
+      "description": "BioAgentsEliza"
     },
     {
       "name": "r44vc0rp--itui",
@@ -179009,6 +179549,21 @@
       "description": "context-cascade"
     },
     {
+      "name": "umass-embodied-agi--budgetguidance",
+      "source": "./umass-embodied-agi--budgetguidance",
+      "description": "BudgetGuidance"
+    },
+    {
+      "name": "umass-embodied-agi--budgetguidance",
+      "source": "./umass-embodied-agi--budgetguidance",
+      "description": "BudgetGuidance"
+    },
+    {
+      "name": "umass-embodied-agi--budgetguidance",
+      "source": "./umass-embodied-agi--budgetguidance",
+      "description": "BudgetGuidance"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -181562,6 +182117,11 @@
       "name": "fosk06--dagster-sqlmesh",
       "source": "./fosk06--dagster-sqlmesh",
       "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "sutt--agro",
+      "source": "./sutt--agro",
+      "description": "agro"
     },
     {
       "name": "compozy--kb",
