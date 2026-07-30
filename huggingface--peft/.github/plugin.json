@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--peft",
+  "displayName": "peft",
+  "description": "peft",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/peft",
+  "skills": []
+}
