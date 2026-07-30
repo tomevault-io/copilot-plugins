@@ -1,8 +1,6 @@
 # AI instruction files for embodied-claude
 
-> Sourced from [lifemate-ai/embodied-claude](https://github.com/lifemate-ai/embodied-claude) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Claudeに身体性を与えるMCP群
+> Sourced from [lifemate-ai/embodied-claude](https://github.com/lifemate-ai/embodied-claude), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [lifemate-ai/embodied-claude](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lifemate-ai/embodied-claude](https://github.com/lifemate-ai/embodied-claude)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/lifemate-ai/embodied-claude](https://github.com/lifemate-ai/embodied-claude)
 
 ---
 
