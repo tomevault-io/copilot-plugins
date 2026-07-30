@@ -4,7 +4,7 @@
   "repo": "marketing",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -269,5 +269,5 @@
   ],
   "source_url": "https://github.com/ruvnet/marketing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T18:51:03Z"
+  "distributed_at": "2026-07-30T19:03:23Z"
 }
