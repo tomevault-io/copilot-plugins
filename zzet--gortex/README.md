@@ -1,23 +1,21 @@
 # AI instruction files for gortex
 
-> Sourced from [zzet/gortex](https://github.com/zzet/gortex) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-High-performance code intelligence engine that indexes repositories into an in-memory knowledge graph and exposes it via CLI, MCP Server, and web UI.  Built for AI coding agents - expose only needed information - one get_editing_context call replaces 5-10 file reads, cutting token usage by ~94%.
+> Sourced from [zzet/gortex](https://github.com/zzet/gortex), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zzet/gortex](https://github.com/zzet/gortex).
+Original source: `AGENTS.md` in [zzet/gortex](https://github.com/zzet/gortex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/zzet/gortex](https://github.com/zzet/gortex)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/zzet/gortex](https://github.com/zzet/gortex)
 
 ---
 
