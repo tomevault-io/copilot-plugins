@@ -1,7 +1,7 @@
 {
   "name": "fcakyon--claude-codex-settings",
   "displayName": "claude-codex-settings",
-  "description": "My personal Claude Code and OpenAI Codex setup with battle-tested skills, plugins, hooks and agents that I use daily.",
+  "description": "claude-codex-settings",
   "version": "1.0.0",
   "author": "fcakyon",
   "homepage": "https://github.com/fcakyon/claude-codex-settings",
