@@ -1,0 +1,14 @@
+{
+  "name": "tabooharmony--roblox-brain",
+  "displayName": "roblox-brain",
+  "description": "Give your AI coding agent a Roblox brain. Curated skills for Roblox Studio development.",
+  "version": "1.0.0",
+  "author": "TabooHarmony",
+  "homepage": "https://github.com/TabooHarmony/roblox-brain",
+  "skills": [
+    {
+      "name": "roblox-code-review",
+      "description": ""
+    }
+  ]
+}
