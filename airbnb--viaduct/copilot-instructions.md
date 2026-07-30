@@ -1,39 +1,57 @@
 ## viaduct
 
-> This is the Viaduct Open Source Software (OSS) root directory.
+> The ViaductSchema library provides a unified abstraction layer for working with GraphQL schemas within the Viaduct ecosystem. It defines a comprehensive type-safe interface for accessing and manipulating GraphQL schema elements (types, fields, directives, etc.) independent of the underlying schema representation.
 
-This is the Viaduct Open Source Software (OSS) root directory.
+# ViaductSchema Library
 
-Viaduct is an opinionated GraphQL server.
+## Purpose
 
-A systems builder wanting to embed Viaduct into their web server would create an instance of [`viaduct.service.api.Viaduct`](service/api/src/main/kotlin/viaduct/service/api/Viaduct.kt) and create a route that would call the `Viaduct.execute` method.  This method, under the covers, calls [`viaduct.engine.api.Engine.execute`](engine/api/src/main/kotlin/viaduct/engine/api/Engine.kt).
+The ViaductSchema library provides a unified abstraction layer for working with GraphQL schemas within the Viaduct ecosystem. It defines a comprehensive type-safe interface for accessing and manipulating GraphQL schema elements (types, fields, directives, etc.) independent of the underlying schema representation.
 
-For an end-to-end example of a service that embeds Viaduct, see the demonstration applications in `demoapps`, especially `demoapps/starwars`.
+**Key capabilities:**
 
-For more information on constructing a `Viaduct` object see `service/AGENTS.md`.
+- **Schema navigation**: Navigate and query GraphQL type systems programmatically
+- **Schema projections**: Filter schemas based on custom rules
+- **Cross-representation compatibility**: Abstract away differences between schema representations
+- **Contract validation**: Ensure different representations conform to abstraction's contract
 
-For more information about the details of how Viaduct executes GraphQL operations, you can look at `engine/AGENTS.md`, although it is often helpful to start with `service/AGENTS.md` to understand how `viaduct.engine.api.Engine` instances get configured.
+## Documentation
 
-## Navigating the Gradle build
-
-- [`impldocs/gradle-build-architecture.md`](impldocs/gradle-build-architecture.md) - Documents Viaduct's included-build architecture.
-- [`impldocs/e2e-snapshot-test.md`](impldocs/e2e-snapshot-test.md) - Test publication process using a snapshot (good to use when you've changes the Gradle artifact logic)
-
-## Navigating the Shared Libraries
-
-The `shared/` directory contains libraries used across the Viaduct engine and tenant APIs:
-
-- **`shared/codegen/`** — Bytecode generation library used to compile tenant field resolvers into JVM bytecode at startup. See `shared/codegen/AGENTS.md` for details.
-- **`shared/viaductschema/`** — Unified abstraction layer for working with GraphQL schemas. See `shared/viaductschema/AGENTS.md` for details.
-- **`shared/apiannotations/`** — Annotations used in the Viaduct public API.
-- **`tenant/`** — The Tenant API, which application developers use to write resolvers. See `tenant/api/module.md` for package-level descriptions.
+* [for-library-users.md](impldocs/for-library-users.md) This file is for developers who use ViaductSchema to work with GraphQL schemas in their applications.
+* [for-csv-users.md](impldocs/for-csv-users.md) This file is for developers who want to use the `schema2csv` command to explore GraphQL schemas.
+* [for-implementers.md](impldocs/for-implementers.md) This file is for developers who want to create their own `ViaductSchema` implementation backed by a different underlying representation.
+* [for-maintainers.md](impldocs/for-maintainers.md) This file is for developers who maintain or extend the ViaductSchema library itself.
+* [testing.md](impldocs/testing.md) — Testing strategy for contributors: how to write and run tests for ViaductSchema implementations.
+* [test-fixtures.md](impldocs/test-fixtures.md) — Test fixture utilities available to implementations and consumers for constructing test schemas.
 
 ## Implementation Documentation
 
-- [`core/shared/errors/impldocs/executor-error-boundaries.md`](core/shared/errors/impldocs/executor-error-boundaries.md) — Exception hierarchy (`PassthroughException`, `TenantException`), the two-boundary wrapping pattern on executor SPI entry points, `InvocationTargetException` unwrapping, and how attributed exceptions surface in GraphQL error responses.
-- [`impldocs/modern-access-check.md`](impldocs/modern-access-check.md) — Access check architecture: `CheckerExecutorFactory` SPI, QueryPlan RSS embedding, the OER multi-slot pattern, and how checker results flow through completion.
-- [`impldocs/subquery-execution.md`](impldocs/subquery-execution.md) — Cross-cutting documentation about the `ExecutionHandle` abstraction and how `ctx.query()`/`ctx.mutation()` drive subquery execution across the engine.
+- [`impldocs/binary-encoding.md`](impldocs/binary-encoding.md) — Binary encoding format specification for compact schema serialization.
+
+## Goals and Non-Goals
+
+### Goals
+
+1. **Unified Interface**: Provide a single, consistent API for working with GraphQL schemas regardless of their underlying representation (parsed SDL, validated schema, filtered view, etc.)
+
+2. **Navigability**: References "up" (e.g., `containingDef`) and "across" (e.g., `baseTypeDef`) the schema AST as well as "down" (e.g., `fields`)
+
+3. **Immutability**: All schema representations are immutable to enable safe sharing and caching
+
+4. **Performance**: Support efficient schema operations through efficient construction, lazy evaluation and careful memory management
+
+5. **Extensibility**: Allow new schema flavors to be added without changing consuming code
+
+6. **Testability**: Provide contract-based tests that validate implementation correctness
+
+### Non-Goals
+
+1. **Schema Execution**: This library does NOT execute GraphQL queries. It provides an abstraction for schema representations only.
+
+2. **GraphQL Parsing**: This library does NOT provide a parser for GraphQL SDL (it does provide a bridge to graphql-java's `TypeDefinitionRegistry`).
+
+3. **Schema Validation Logic**: This library does NOT implement GraphQL schema validation (it does provide a bridge to graphql-java's validated `GraphQLSchema`).
 
 ---
 > Source: [airbnb/viaduct](https://github.com/airbnb/viaduct) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
