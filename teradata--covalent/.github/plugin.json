@@ -1,0 +1,9 @@
+{
+  "name": "teradata--covalent",
+  "displayName": "covalent",
+  "description": "covalent",
+  "version": "1.0.0",
+  "author": "Teradata",
+  "homepage": "https://github.com/Teradata/covalent",
+  "skills": []
+}
