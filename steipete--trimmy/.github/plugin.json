@@ -1,7 +1,7 @@
 {
   "name": "steipete--trimmy",
   "displayName": "Trimmy",
-  "description": "\"Paste once, run once.\" \u2014 Trimmy flattens those multi-line shell snippets you copy so they actually paste and run.",
+  "description": "Trimmy",
   "version": "1.0.0",
   "author": "steipete",
   "homepage": "https://github.com/steipete/Trimmy",
