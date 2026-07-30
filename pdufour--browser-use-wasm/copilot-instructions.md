@@ -1,22 +1,30 @@
-## no-src-css-mod
+## vision-only-execution
 
-> Strictly avoid modifying the source document's CSS or injecting any styles (including `<style>` tags) into the capture target or its clones.
+> Tool execution acts at the model's grounded point — no label-text DOM lookup
 
-# No Source Document CSS Modification
 
-Strictly avoid modifying the source document's CSS or injecting any styles (including `<style>` tags) into the capture target or its clones.
+# Vision-only execution (act at the grounded point)
 
-## Critical Mandates
-- **Never** modify the fixture's CSS files (e.g., `examples/operator/fixtures/shop-demo/fixture.css`) to fix rendering issues.
-- **Never** inject `<style>` tags or inline styles into the live document before or during capture.
-- **Never** use SnapDOM plugins that inject styles into cloned nodes.
-- **Never** perform recursive normalization passes that loop through all elements to lock dimensions or fonts.
+Grounding gives a point; **execution must use that point.** Every tool/action that touches the live page (click, type, select, toggle, clear, focus, blur) resolves its element via **`elementFromPoint` at the model's grounded `[x, y]`** — the `controlAtNorm` / `triggerActionAtNorm` path in `src/browser-tools/dom-actions.ts`.
 
-## Acceptable Approaches
-- Use SnapDOM's built-in options and configuration.
-- Adjust the *container* of the capture target (e.g., the viewport or iframe container) only if necessary and if it doesn't affect the site's own rendering.
-- Optimize the rendering pipeline (canvas handling, bitmapping) without touching the DOM.
-- Ensure the environment (DPR, viewport size) is stable and integer-aligned using non-destructive means.
+## Required
+
+- One ShowUI inference → capture-norm point → element at that point → act on it.
+- A label→control hop is fine **only** when the point itself lands on the field's `<label>` (point-derived), as is `closest('input,textarea,select,[contenteditable]')`.
+- If the grounded point doesn't resolve to a suitable control, the tool **fails honestly** (`ok: false`). The user re-captures or rephrases.
+
+## Forbidden (product code)
+
+- Finding controls by **label text, placeholder, aria-label, visible text, or selectors** in the live DOM (`findControl`-style helpers, `querySelector('[placeholder=…]')`, label-text scans).
+- Applying a value via DOM lookup while the grounded point is only used for the marker/cursor — the vision coordinate must be **load-bearing**, never decorative.
+- Label-lookup **fallbacks** when grounding misses.
+
+Capture sizing exceptions (`offsetWidth`/`offsetHeight` for SnapDOM resolution) per `no-dom-grounding.mdc` remain allowed.
+
+## Related
+
+- `no-dom-grounding.mdc` — coords come only from the VLA on the screenshot
+- `wllama-only.mdc`, `client-side-only.mdc`
 
 ---
 > Source: [pdufour/browser-use-wasm](https://github.com/pdufour/browser-use-wasm) — distributed by [TomeVault](https://tomevault.io).
