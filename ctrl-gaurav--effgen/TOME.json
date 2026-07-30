@@ -4,7 +4,7 @@
   "repo": "effGen",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ctrl-gaurav/effGen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T01:21:27Z"
+  "distributed_at": "2026-07-30T00:17:52Z"
 }
