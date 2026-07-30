@@ -1,0 +1,9 @@
+{
+  "name": "automation-development-office--ado",
+  "displayName": "ado",
+  "description": "This repository will house the Automation Development Office Ansible collection",
+  "version": "1.0.0",
+  "author": "Automation-Development-Office",
+  "homepage": "https://github.com/Automation-Development-Office/ado",
+  "skills": []
+}
