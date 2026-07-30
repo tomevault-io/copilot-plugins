@@ -2,9 +2,9 @@
   "name": "vane",
   "owner": "canmi21",
   "repo": "vane",
-  "description": "A compact programmable proxy engine.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/canmi21/vane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:59:01Z"
+  "distributed_at": "2026-07-30T03:44:47Z"
 }
