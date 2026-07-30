@@ -1,23 +1,21 @@
 # neuron-ai
 
-> Tome by [neuron-core](https://github.com/neuron-core/neuron-ai) — distributed by [TomeVault](https://tomevault.io)
-
-The PHP Agentic Framework to build production-ready AI driven applications. Connect components (LLMs, vector DBs, memory) to agents that can interact with your data.
+> Tome by [neuron-core](https://github.com/neuron-core/neuron-ai), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [neuron-core/neuron-ai](https://github.com/neuron-core/neuron-ai).
+Original source: `AGENTS.md` in [neuron-core/neuron-ai](https://github.com/neuron-core/neuron-ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/neuron-core/neuron-ai](https://github.com/neuron-core/neuron-ai)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/neuron-core/neuron-ai](https://github.com/neuron-core/neuron-ai)
 
 ---
 
