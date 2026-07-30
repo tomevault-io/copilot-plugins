@@ -1,142 +1,119 @@
 ## gotask
 
-> GoTask is a sophisticated asynchronous task management framework for Go that implements an "Everything is a Task" philosophy. It provides OS-like task manager capabilities with precise control over different granularity levels of system components.
+> GoTask is an asynchronous task management framework based on Go language, providing precise control capabilities similar to an operating system task manager. The core philosophy is "Everything is a Task" - breaking down complex business logic into manageable task units.
 
-# Claude AI Rules for GoTask Project
+# GoTask Project Rules for Cursor AI
 
-## Project Understanding
-GoTask is a sophisticated asynchronous task management framework for Go that implements an "Everything is a Task" philosophy. It provides OS-like task manager capabilities with precise control over different granularity levels of system components.
+## Project Overview
+GoTask is an asynchronous task management framework based on Go language, providing precise control capabilities similar to an operating system task manager. The core philosophy is "Everything is a Task" - breaking down complex business logic into manageable task units.
 
-## Core Architectural Principles
+## Core Architecture Principles
 
-### 1. Single Goroutine Event Loop (Fundamental Rule)
-- **CRITICAL**: All child tasks execute sequentially in the parent task's goroutine
-- This eliminates race conditions and ensures predictable execution
-- Never create goroutines directly in task implementations
-- Use `parent.AddTask(child)` instead of `go func()`
-
-### 2. Task Hierarchy and Lifecycle
-- Tasks form a tree structure with parent-child relationships
+### 1. Task Hierarchy and Lifecycle
+- All tasks must implement the `ITask` interface
+- Use `RootManager` as the root task manager for signal handling and graceful shutdown
+- Tasks are managed in a tree structure with parent-child relationships
 - Each task has a unique ID for tracking and management
-- Use `RootManager` as the root task manager for signal handling
-- Implement proper `Start()`, `Run()`, and `Dispose()` methods
 
-### 3. Resource Management Philosophy
+### 2. Single Goroutine Event Loop
+- **CRITICAL**: All child tasks execute sequentially in the parent task's goroutine
+- Never create goroutines directly in task implementations
+- Use `AddTask()` to add child tasks, not direct goroutine creation
+- EventLoop uses lazy loading - only creates goroutines when needed
+
+### 3. Graceful Resource Management
+- Implement proper `Start()`, `Run()`, and `Dispose()` methods
+- Use `OnStop()` and `OnDispose()` hooks for resource cleanup
 - Framework handles cascading disposal automatically
-- Use `OnStop()` and `OnDispose()` hooks for cleanup
-- Implement graceful shutdown patterns
 - Never call `Start()` directly - it must be called by the parent task
 
-## Task Type System
+## Code Patterns and Best Practices
 
-### task.Task (Base Task)
-- Use for simple, single-purpose tasks
-- Basic task implementation with lifecycle methods
-
-### task.Job (Container Task)
-- Can contain child tasks
-- Ends when all child tasks complete
-- Use for task coordinators and containers
-
-### task.Work (Persistent Task)
-- Similar to Job but continues after children complete
-- Use for background workers and long-running services
-
-### task.TickTask (Periodic Task)
-- Executes at regular intervals
-- Implement `GetTickInterval() time.Duration`
-- Use for timers, heartbeats, cleanup tasks
-
-### task.ChannelTask (Event-Driven Task)
-- Custom signal-based tasks
-- Override `GetSignal()` method
-- Use for event-driven and reactive tasks
-
-## Implementation Patterns
-
-### Standard Task Template
+### Task Implementation Template
 ```go
 type MyTask struct {
-    task.Task  // Choose appropriate type
-    // Task-specific fields
-    Name        string
-    Config      map[string]interface{}
-    Resources   []Resource
+    task.Task  // or task.Job, task.Work, task.TickTask, etc.
+    // Add your fields here
 }
 
 func (t *MyTask) Start() error {
     // Resource initialization
-    t.Info("Task starting", "name", t.Name, "taskId", t.GetID())
-    
-    // Add resource dependencies
-    t.Using(t.Resources...)
-    
-    // Set cleanup hooks
-    t.OnStop(func() {
-        // Immediate cleanup
-    })
-    
+    t.Info("Task started", "field", value)
     return nil
 }
 
 func (t *MyTask) Run() error {
     // Main task logic (blocking)
-    for !t.IsStopped() {
-        // Do work
-        if err := t.doWork(); err != nil {
-            return err
-        }
-    }
-    return t.StopReason()
+    return nil
 }
 
 func (t *MyTask) Dispose() {
     // Resource cleanup
-    t.Info("Task disposing", "name", t.Name)
-    for _, resource := range t.Resources {
-        resource.Close()
-    }
+    t.Info("Task disposed")
 }
 ```
 
-### RootManager Setup
+### RootManager Usage
 ```go
-type TaskManager = task.RootManager[uint32, *MyTask]
+type TaskItem struct {
+    task.ITask
+}
+
+func (ti *TaskItem) GetKey() uint32 {
+    return ti.GetTaskID()
+}
+
+type TaskManager = task.RootManager[uint32, *TaskItem]
 
 func main() {
-    // Create root manager
     root := &TaskManager{}
     root.Init()
     
-    // Add tasks
-    myTask := &MyTask{Name: "Example"}
-    root.AddTask(myTask)
-    
-    // Wait for completion or handle signals
-    myTask.WaitStopped()
+    myTask := &MyTask{}
+    root.AddTask(&TaskItem{myTask})
     
     // Graceful shutdown
     root.Shutdown()
 }
 ```
 
+## Task Types and When to Use
+
+### task.Task
+- Basic task implementation
+- Use for simple, single-purpose tasks
+
+### task.Job
+- Can contain child tasks
+- Job ends when all child tasks complete
+- Use for task containers and coordinators
+
+### task.Work
+- Similar to Job but continues after child tasks complete
+- Use for background workers
+
+### task.TickTask
+- Periodic execution tasks
+- Implement `GetTickInterval() time.Duration`
+- Use for timers, heartbeats, cleanup tasks
+
+### task.ChannelTask
+- Custom signal-based tasks
+- Override `GetSignal()` method
+- Use for event-driven tasks
+
 ## Error Handling and Resilience
 
-### Panic Management
-- Default mode: `go build` (captures panics, converts to errors)
-- Debug mode: `go build -tags taskpanic` (panics throw directly)
+### Panic Handling
+- Use conditional compilation: `go build -tags taskpanic` for development
+- Default mode captures panics and converts to errors
 - Always implement proper error handling in `Run()` methods
 
-### Retry Configuration
+### Retry Mechanism
 ```go
 func (t *MyTask) Start() error {
-    // Configure retry strategy
-    t.SetRetry(3, 5*time.Second)  // maxRetry, retryInterval
-    
-    // Retry logic:
-    // - Start failures: retry Start() until success
-    // - Run/Go failures: call Dispose(), then retry Start()
-    // - Stop conditions: ErrStopByUser, ErrExit, ErrTaskComplete
+    // Configure retry: maxRetry, retryInterval
+    t.SetRetry(3, 5*time.Second)
     return nil
 }
 ```
@@ -145,13 +122,12 @@ func (t *MyTask) Start() error {
 ```go
 func (t *MyTask) Start() error {
     // Add resource dependencies
-    t.Using(database, cache, httpClient)
+    t.Using(resource1, resource2)
     
     // OnStop: 用于关闭阻塞性资源（如端口监听、网络连接）
     t.OnStop(func() {
         // 关闭阻塞性资源，如 server.Close(), conn.Close()
         server.Close()
-        database.Close()
     })
     
     // OnDispose: 用于清理非阻塞性资源
@@ -159,7 +135,6 @@ func (t *MyTask) Start() error {
         // 清理其他资源，如缓存、文件句柄等
         cache.Flush()
     })
-    
     return nil
 }
 ```
@@ -171,156 +146,43 @@ func (t *MyTask) Start() error {
 - **Not Suitable**: 不适合多个子任务并行处理的场景
 - **Stop Method**: Stop()不能传入nil，必须提供停止原因
 
-## Common Use Cases and Patterns
-
-### 1. Network Service Management
-```go
-type HTTPService struct {
-    task.Job
-    Port     int
-    Server   *http.Server
-    Handlers map[string]http.HandlerFunc
-}
-
-func (h *HTTPService) Start() error {
-    h.Server = &http.Server{
-        Addr:    fmt.Sprintf(":%d", h.Port),
-        Handler: h.createMux(),
-    }
-    
-    h.OnStop(func() {
-        ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-        defer cancel()
-        h.Server.Shutdown(ctx)
-    })
-    
-    return nil
-}
-
-func (h *HTTPService) Run() error {
-    return h.Server.ListenAndServe()
-}
-```
-
-### 2. Periodic Maintenance Tasks
-```go
-type MaintenanceTask struct {
-    task.TickTask
-    Interval    time.Duration
-    CleanupFunc func() error
-}
-
-func (m *MaintenanceTask) GetTickInterval() time.Duration {
-    return m.Interval
-}
-
-func (m *MaintenanceTask) Run() error {
-    if err := m.CleanupFunc(); err != nil {
-        m.Error("Maintenance failed", "err", err)
-        return err
-    }
-    m.Info("Maintenance completed")
-    return nil
-}
-```
-
-### 3. Data Processing Pipeline
-```go
-type DataProcessor struct {
-    task.Task
-    Input     chan Data
-    Output    chan ProcessedData
-    Processor func(Data) ProcessedData
-}
-
-func (d *DataProcessor) Run() error {
-    for {
-        select {
-        case data, ok := <-d.Input:
-            if !ok {
-                return nil
-            }
-            if d.IsStopped() {
-                return d.StopReason()
-            }
-            
-            processed := d.Processor(data)
-            select {
-            case d.Output <- processed:
-            case <-d.Context().Done():
-                return d.Context().Err()
-            }
-            
-        case <-d.Context().Done():
-            return d.Context().Err()
-        }
-    }
-}
-```
-
-### 4. Service Health Monitoring
-```go
-type HealthMonitor struct {
-    task.TickTask
-    Services  []Service
-    Interval  time.Duration
-    Threshold time.Duration
-}
-
-func (h *HealthMonitor) GetTickInterval() time.Duration {
-    return h.Interval
-}
-
-func (h *HealthMonitor) Run() error {
-    for _, service := range h.Services {
-        if err := h.checkHealth(service); err != nil {
-            h.Warn("Service unhealthy", "service", service.Name(), "err", err)
-            // Trigger recovery or alerting
-        }
-    }
-    return nil
-}
-```
-
 ## Dashboard Integration
 
-### Backend Service (dashboard/server)
-- Go-based management service using GoTask
+### Backend (dashboard/server)
+- Go-based management service
 - Provides RESTful APIs for task monitoring
-- Manages HTTP server lifecycle with GoTask
+- Uses GoTask for HTTP server lifecycle management
 
-### Frontend Interface (dashboard/web)
-- React + TypeScript management interface
+### Frontend (dashboard/web)
+- React + TypeScript interface
 - Real-time task monitoring and control
-- Task tree visualization and history tracking
+- Supports task tree visualization
 
 ## Development Guidelines
 
 ### File Organization
-- Core framework in root directory
+- Core task logic in root directory
 - Dashboard components in `dashboard/` subdirectory
 - Utility functions in `util/` directory
-- Tests alongside source files
 
-### Logging Best Practices
-```go
-// Use structured logging with context
-t.Info("Task started", "name", t.Name, "taskId", t.GetID())
-t.Error("Operation failed", "err", err, "attempt", attempt)
-t.Debug("Processing data", "count", len(data), "type", dataType)
-```
+### Testing
+- Use `task_test.go` for task framework testing
+- Test task lifecycle and error scenarios
+- Verify graceful shutdown behavior
+
+### Logging
+- Use task's built-in logging methods: `Info()`, `Error()`, `Debug()`, `Warn()`
+- Include task ID and relevant context in log messages
+- Use structured logging with key-value pairs
 
 ### Performance Monitoring
-```go
-func (t *MyTask) Dispose() {
-    duration := t.GetDuration()
-    t.Info("Task completed", "duration", duration, "taskId", t.GetID())
-}
-```
+- Framework automatically measures task execution time
+- Use `GetDuration()` to access execution metrics
+- Implement performance monitoring in critical tasks
 
-## Anti-Patterns to Avoid
+## Common Anti-Patterns to Avoid
 
-1. **Direct goroutine creation in tasks**
+1. **Never create goroutines directly in tasks**
    ```go
    // WRONG
    go func() { /* task logic */ }()
@@ -329,7 +191,7 @@ func (t *MyTask) Dispose() {
    parent.AddTask(childTask)
    ```
 
-2. **Calling Start() directly**
+2. **Never call Start() directly**
    ```go
    // WRONG
    task.Start()
@@ -338,71 +200,53 @@ func (t *MyTask) Dispose() {
    parent.AddTask(task)
    ```
 
-3. **Ignoring resource cleanup**
+3. **Don't ignore resource cleanup**
    ```go
    // WRONG
    func (t *MyTask) Dispose() {
        // Empty implementation
    }
-   ```
-
-4. **Using global variables for task state**
-   ```go
-   // WRONG
-   var globalState map[string]interface{}
    
    // CORRECT
-   type MyTask struct {
-       task.Task
-       State map[string]interface{}
+   func (t *MyTask) Dispose() {
+       if t.conn != nil {
+           t.conn.Close()
+       }
    }
    ```
 
-5. **Blocking operations without checking IsStopped()**
-   ```go
-   // WRONG
-   for {
-       // Do work without checking stop condition
-   }
-   
-   // CORRECT
-   for !t.IsStopped() {
-       // Do work
-   }
-   ```
+4. **Don't use global variables for task state**
+   - Use task fields and proper initialization
+   - Leverage task's description system for metadata
 
 ## Build and Deployment
 
 ### Build Tags
-- Production: `go build` (panic handling enabled)
+- Default: `go build` (production mode, panic handling)
 - Development: `go build -tags taskpanic` (direct panic throwing)
 
 ### Dependencies
 - Go 1.23+ required
-- Use `go mod tidy` for dependency management
+- Use `go mod tidy` to manage dependencies
 - Dashboard frontend uses pnpm for package management
 
-## Key API Methods
+## API Reference Quick Guide
 
-### Task Management
+### Essential Task Methods
 - `AddTask(t ITask)` - Add child task
 - `Stop(error)` - Stop task gracefully
-- `WaitStarted()` / `WaitStopped()` - Wait for state changes
-- `IsStopped()` - Check stop condition
-- `StopReason()` - Get stop reason
-
-### Resource Management
-- `Using(resources...)` - Add resource dependencies
+- `WaitStarted()` / `WaitStopped()` - Wait for task state changes
+- `SetRetry(max, interval)` - Configure retry behavior
 - `OnStop(callback)` - Set stop cleanup (用于关闭阻塞性资源)
 - `OnDispose(callback)` - Set dispose cleanup (用于清理非阻塞性资源)
 
-### Configuration
-- `SetRetry(max, interval)` - Configure retry behavior
-- `SetDescriptions(desc)` - Set task metadata
-- `GetDuration()` - Get execution time
+### State Management
+- `GetState()` - Get current task state
+- `IsStopped()` - Check if task is stopped
+- `StopReason()` - Get reason for task stop
 
-Remember: GoTask provides predictable execution, proper resource management, and comprehensive observability. Always follow the single-goroutine principle and implement proper lifecycle methods for robust, maintainable code.
+Remember: GoTask is designed to make complex asynchronous systems manageable by providing predictable execution, proper resource management, and comprehensive observability. Always follow the single-goroutine principle and implement proper lifecycle methods.
 
 ---
 > Source: [langhuihui/gotask](https://github.com/langhuihui/gotask) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
