@@ -4,7 +4,7 @@
   "repo": "codeck",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hiyeshu/codeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T07:01:27Z"
+  "distributed_at": "2026-07-30T12:42:10Z"
 }
