@@ -2,9 +2,9 @@
   "name": "spike",
   "owner": "spiffe",
   "repo": "spike",
-  "description": "SPIKE is a lightweight secrets store that uses SPIFFE as its identity control plane. It protects your secrets and helps your ops, SREs, and sysadmins manage sensitive data securely with minimal overhead.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spiffe/spike",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T22:11:25Z"
+  "distributed_at": "2026-07-30T02:02:45Z"
 }
