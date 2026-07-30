@@ -2,9 +2,9 @@
   "name": "distr",
   "owner": "distr-sh",
   "repo": "distr",
-  "description": "The Open Source control plane for self-managed, BYOC, and on-prem deployments. Everything you need to distribute applications to self-managed customers out of the box. Supporting Docker Compose, Docker Swarm and Helm based applications.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/distr-sh/distr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T09:02:04Z"
+  "distributed_at": "2026-07-30T19:02:13Z"
 }
