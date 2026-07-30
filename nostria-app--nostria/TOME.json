@@ -2,9 +2,9 @@
   "name": "nostria",
   "owner": "nostria-app",
   "repo": "nostria",
-  "description": "Nostria: Your Social Network. Built for human connections. See your friends again. Nostria is social without the noise.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nostria-app/nostria",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T23:25:26Z"
+  "distributed_at": "2026-07-30T07:49:31Z"
 }
