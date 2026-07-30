@@ -4,7 +4,7 @@
   "repo": "mxcli",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/mendixlabs",
+  "source_url": "https://github.com/mendixlabs/mxcli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T14:58:16Z"
+  "distributed_at": "2026-07-30T01:18:11Z"
 }
