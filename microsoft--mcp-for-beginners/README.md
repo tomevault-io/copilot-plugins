@@ -1,8 +1,6 @@
 # AI instruction files for mcp-for-beginners
 
-> Sourced from [microsoft/mcp-for-beginners](https://github.com/microsoft/mcp-for-beginners) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, TypeScript, JavaScript, Rust and Python. Designed for developers, it focuses on practical techniques for building modular, scalable, and secure AI workflows from session setup to service orchestration.
+> Sourced from [microsoft/mcp-for-beginners](https://github.com/microsoft/mcp-for-beginners), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [microsoft/mcp-for-beginners](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [microsoft/mcp-for-beginners](https://github.com/microsoft/mcp-for-beginners) — a repo with 16120+ stars on GitHub.
+From [microsoft/mcp-for-beginners](https://github.com/microsoft/mcp-for-beginners) — a repo with 16803+ stars on GitHub.
 
 ---
 
