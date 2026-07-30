@@ -1,0 +1,9 @@
+{
+  "name": "rapidsai--cuml",
+  "displayName": "cuml",
+  "description": "cuml",
+  "version": "1.0.0",
+  "author": "rapidsai",
+  "homepage": "https://github.com/rapidsai/cuml",
+  "skills": []
+}
