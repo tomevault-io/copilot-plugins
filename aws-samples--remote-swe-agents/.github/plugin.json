@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--remote-swe-agents",
+  "displayName": "remote-swe-agents",
+  "description": "remote-swe-agents",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/remote-swe-agents",
+  "skills": []
+}
