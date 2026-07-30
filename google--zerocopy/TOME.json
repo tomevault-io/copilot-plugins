@@ -3,7 +3,7 @@
   "owner": "google",
   "repo": "zerocopy",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/google",
+  "source_url": "https://github.com/google/zerocopy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:57:56Z"
+  "distributed_at": "2026-07-30T13:58:41Z"
 }
