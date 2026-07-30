@@ -2,7 +2,7 @@
   "name": "sxo",
   "owner": "gc-victor",
   "repo": "sxo",
-  "description": "SXO is a multi-runtime server-side JSX tool for Node.js, Bun, Deno, and Cloudflare Workers. It includes SXOUI, a framework-agnostic UI library inspired by shadcn/ui",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gc-victor/sxo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:48:08Z"
+  "distributed_at": "2026-07-30T09:44:11Z"
 }
