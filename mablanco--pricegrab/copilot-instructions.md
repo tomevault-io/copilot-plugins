@@ -1,43 +1,23 @@
-## project-status
+## specify-rules
 
-> PriceGrab shipped state and product backlog (read first)
+> <!-- SPECKIT START -->
 
 
-# PriceGrab — status & backlog (agent memory)
+<!-- SPECKIT START -->
+For additional context about the active feature, technologies, project
+structure, shell commands, and other important information:
 
-Full detail: [`docs/project-status.md`](../../docs/project-status.md). Refresh that
-file when shipping or parking work. Summary below (as of **2026-07-19**).
+1. Read the active feature pointer: [`.specify/feature.json`](../../.specify/feature.json)
+   (currently `specs/008-richer-result-card`).
+2. Open the active plan:
+   [`specs/008-richer-result-card/plan.md`](../../specs/008-richer-result-card/plan.md)
+   (and sibling `spec.md`, `research.md`, `tasks.md`).
+3. For shipped state and the product backlog, read
+   [`docs/project-status.md`](../../docs/project-status.md).
 
-## Now
-
-- **Shipped**: **v0.1.8** / `versionCode` **9** — up to **3** offers; savings name
-  the **second-cheapest** offer; launcher art `ART_SCALE=0.72`,
-  `ART_OFFSET_X=-17`, `ART_OFFSET_Y=-45`.
-- **Dist**: F-Droid **Mode B** + GitHub Releases; no Play Store.
-- **Open ops**: F-Droid still has **0.1.7** as `disable: not repro` — **do not
-  re-tag 0.1.7**; let **0.1.8** auto-update. Investigate with `diffoscope` only
-  if 0.1.8 also fails.
-- **Active feature pointer**: `.specify/feature.json` →
-  `specs/005-multi-offer-compare`. Next Spec Kit letters start **after W**.
-
-## Features shipped
-
-001 compare two → 002 reset/undo → 003 visual polish → 004 quantity units →
-005 multi-offer (max 3).
-
-## Backlog (deferred — pick via new Spec Kit feature)
-
-- Spec Out of Scope: 4+ offers; density g↔ml; US units; currency/FX; buy-N;
-  history; splash; settings/Material You; custom font; motion; tablet;
-  Reset confirm; deeper Undo; F-Droid 0.1.7 repro (if 0.1.8 also fails)
-- Ideas (not specified yet): favorites/templates; copy result; widget/shortcut;
-  pack-vs-loose; free-text offer labels; richer % + €/kg hero; export/share
-
-## Conventions (pointers)
-
-- Chat: Spanish with Marco. Artifacts: English. UI/store: ES+EN.
-- Never push/merge `main`. Cadence: planning → impl → release-prep → tag after QA.
-- Playbooks: `docs/release.md`, `docs/fdroid.md`. Ledger: `specs/001-…/tasks.md`.
+When `feature.json` is missing or stale after a release, default to the latest
+`specs/<nnn-*>/` directory and confirm with Marco before starting new work.
+<!-- SPECKIT END -->
 
 ---
 > Source: [mablanco/pricegrab](https://github.com/mablanco/pricegrab) — distributed by [TomeVault](https://tomevault.io).
