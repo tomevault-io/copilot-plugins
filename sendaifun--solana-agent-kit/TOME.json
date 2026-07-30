@@ -2,7 +2,7 @@
   "name": "solana-agent-kit",
   "owner": "sendaifun",
   "repo": "solana-agent-kit",
-  "description": "connect any ai agents to solana protocols",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sendaifun/solana-agent-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T19:45:03Z"
+  "distributed_at": "2026-07-30T12:40:16Z"
 }
