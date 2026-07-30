@@ -1,7 +1,7 @@
 {
   "name": "unilabsim--unilab",
   "displayName": "UniLab",
-  "description": "UniLab: A Heterogeneous Architecture for Robot RL Beyond GPU-Dominant Paradigms",
+  "description": "UniLab",
   "version": "1.0.0",
   "author": "unilabsim",
   "homepage": "https://github.com/unilabsim/UniLab",
