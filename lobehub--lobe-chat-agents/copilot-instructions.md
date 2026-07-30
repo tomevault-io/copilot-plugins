@@ -1,100 +1,122 @@
 ## lobe-chat-agents
 
-> This project uses an optimized, modular scripts directory structure for better maintainability and clear separation of concerns.
+> This project implements an intelligent translation system with incremental detection and language validation.
 
-# Scripts Directory Structure Guide
+# I18n Translation System Guide
 
-This project uses an optimized, modular scripts directory structure for better maintainability and clear separation of concerns.
+This project implements an intelligent translation system with incremental detection and language validation.
 
-## 📁 Directory Structure Overview
+## 🌍 Translation Workflow
 
-The [scripts/](mdc:scripts) directory is organized into the following modules:
+### Core Components
+- **[scripts/processors/i18n-processor.ts](mdc:scripts/processors/i18n-processor.ts)** - Handles OpenAI-based translation
+- **[scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts)** - Manages incremental translation logic
+- **[scripts/validators/language-validator.ts](mdc:scripts/validators/language-validator.ts)** - Validates translation quality
 
-### Core Module (`scripts/core/`)
-- **[scripts/core/constants.ts](mdc:scripts/core/constants.ts)** - Central configuration and constants
-- **[scripts/core/model.ts](mdc:scripts/core/model.ts)** - OpenAI model configuration
+### Translation Process Flow
+1. **Source Detection**: Extract translatable fields from source files
+2. **Incremental Check**: Compare with existing translations to detect changes
+3. **Translation**: Use OpenAI to translate only new/changed content
+4. **Merge**: Combine new translations with existing ones
+5. **Validation**: Verify translation language matches expected locale
+6. **Format**: Apply formatting and save results
 
-### Utility Modules (`scripts/utils/`)
-- **[scripts/utils/file.ts](mdc:scripts/utils/file.ts)** - File operations (read, write, directory management)
-- **[scripts/utils/common.ts](mdc:scripts/utils/common.ts)** - General utility functions (string processing, arrays)
+## 🔄 Incremental Translation Logic
 
-### Processing Modules
-- **[scripts/parsers/agent-parser.ts](mdc:scripts/parsers/agent-parser.ts)** - Parse Agent configuration files
-- **[scripts/processors/category-processor.ts](mdc:scripts/processors/category-processor.ts)** - AI-powered category assignment
-- **[scripts/processors/i18n-processor.ts](mdc:scripts/processors/i18n-processor.ts)** - Internationalization and translation
-- **[scripts/validators/agent-validator.ts](mdc:scripts/validators/agent-validator.ts)** - Schema validation and formatting
+### Key Method: `getIncrementalData()`
+Located in [scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts):
 
-### Build System
-- **[scripts/builders/agent-builder.ts](mdc:scripts/builders/agent-builder.ts)** - Build all language versions of Agent files
-- **[scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts)** - Format and process Agent configurations
-
-### Command Line Tools (`scripts/commands/`)
-- **[scripts/commands/build.ts](mdc:scripts/commands/build.ts)** - Main build command
-- **[scripts/commands/format.ts](mdc:scripts/commands/format.ts)** - Format Agent files
-- **[scripts/commands/test.ts](mdc:scripts/commands/test.ts)** - Validation tests
-- **[scripts/commands/test-locale.ts](mdc:scripts/commands/test-locale.ts)** - Multi-language validation
-- **[scripts/commands/update-awesome.ts](mdc:scripts/commands/update-awesome.ts)** - Update README
-- **[scripts/commands/auto-submit.ts](mdc:scripts/commands/auto-submit.ts)** - GitHub automation
-
-### Schema Definitions (`scripts/schema/`)
-- **[scripts/schema/agentMeta.ts](mdc:scripts/schema/agentMeta.ts)** - Agent metadata schema definitions
-- **[scripts/schema/llm.ts](mdc:scripts/schema/llm.ts)** - LLM-related type definitions
-
-## 🔄 Common Workflows
-
-### Adding New Functionality
-1. **Core logic**: Add to appropriate module in `processors/`, `validators/`, or `builders/`
-2. **Utilities**: Add to `utils/file.ts` or `utils/common.ts`
-3. **CLI commands**: Create new command in `commands/` directory
-4. **Types**: Update schemas in `schema/` directory
-
-### Import Patterns
 ```typescript
-// Core configurations
-import { config, agentsDir } from '../core/constants';
-import { model } from '../core/model';
+private getIncrementalData = (sourceData: any, existingData: any) => {
+  const needsTranslation = {};
+  let hasUpdates = false;
 
-// Utilities
-import { writeJSON, checkDir } from '../utils/file';
-import { split, findDuplicates } from '../utils/common';
+  for (const key of config.selectors) {
+    const sourceValue = get(sourceData, key);
+    const existingValue = get(existingData, key);
 
-// Processing
-import { AgentParser } from '../parsers/agent-parser';
-import { addCategory } from '../processors/category-processor';
-import { formatAgentJSON } from '../validators/agent-validator';
+    if (sourceValue && !isEqual(sourceValue, existingValue)) {
+      set(needsTranslation, key, sourceValue);
+      hasUpdates = true;
+    }
+  }
+
+  return { hasUpdates, needsTranslation };
+};
 ```
 
-### Running Commands
-Use the npm scripts defined in [package.json](mdc:package.json):
-- `pnpm run build` - Build all Agent files
-- `pnpm run format` - Format Agent configurations
-- `pnpm run test` - Run validation tests
-- `pnpm run test:locale` - Test multi-language files
+### Translation Strategy
+- **Full Translation**: When no existing translation file exists
+- **Incremental Translation**: When changes detected in source content
+- **Skip Translation**: When no changes detected (content unchanged)
+- **Merge Results**: Combine new translations with existing using `lodash.merge`
 
-## 📝 Code Standards
+## 🛡️ Language Validation
 
-### Comments
-- All functions have comprehensive Chinese comments
-- Parameter types and return values are documented
-- Business logic is explained in detail
+### Validation Process
+Uses `@yutengjing/eld` library for language detection:
 
-### Module Responsibilities
-- **Single Responsibility**: Each module has one clear purpose
-- **Dependency Direction**: Commands depend on builders/formatters, which depend on processors/validators
-- **Shared Utilities**: Common functions are centralized in utils/
+```typescript
+import { validateTranslationLanguage } from '../validators/language-validator';
 
-### File Naming
-- Use kebab-case for file names
-- Include module type in name (e.g., `agent-parser.ts`, `category-processor.ts`)
-- Commands are simple action names (e.g., `build.ts`, `format.ts`)
+const validationResult = validateTranslationLanguage(
+  translatedData,
+  expectedLocale,
+  fileName
+);
+```
 
-## 🚨 Important Notes
+### Validation Command
+Use [scripts/commands/validate-language.ts](mdc:scripts/commands/validate-language.ts):
 
-- Always import from the correct module - utilities are split between `utils/file.ts` and `utils/common.ts`
-- Constants and configuration should always come from `core/constants.ts`
-- Schema definitions are in `schema/` - update these when changing data structures
-- All command-line tools are in `commands/` directory and are executable
+```bash
+pnpm run validate:lang                    # Validate all files
+pnpm run validate:lang --delete           # Validate and delete invalid files
+pnpm run validate:lang <file_path>        # Validate single file
+```
+
+## 📋 Configuration
+
+### Translation Fields
+Defined in [scripts/core/constants.ts](mdc:scripts/core/constants.ts) as `config.selectors`:
+- `meta.title`
+- `meta.description`
+- `meta.tags`
+- `config.systemRole`
+- `summary`
+- `examples`
+- `config.openingMessage`
+- `config.openingQuestions`
+
+### Supported Locales
+Available in `config.outputLocales`:
+- `zh-CN`, `en-US`, `ja-JP`, `ko-KR`
+- `fr-FR`, `de-DE`, `es-ES`, `pt-BR`
+- `ru-RU`, `it-IT`, `nl-NL`, `pl-PL`
+- `ar`, `tr-TR`, `vi-VN`, `ms-MY`
+- `th-TH`, `hi-IN`, `bg-BG`, `cs-CZ`
+- `da-DK`, `fi-FI`, `he-IL`, `hu-HU`
+- `id-ID`, `no-NO`, `ro-RO`, `sk-SK`
+- `sl-SI`, `sv-SE`, `uk-UA`
+
+## 🚀 Best Practices
+
+### OpenAI Translation Prompts
+- Preserve role fields (`user`, `assistant`, `system`, `function`)
+- Translate only content fields, not structural elements
+- Maintain JSON structure and format
+- Follow BCP 47 language standards
+
+### Error Handling
+- Use dirty-json as fallback for malformed JSON responses
+- Log translation failures with detailed error information
+- Gracefully handle API rate limits and timeouts
+
+### File Management
+- Create locale directories as needed
+- Use consistent file naming: `agent-id.locale.json`
+- Clean up empty JSON files automatically
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/lobehub) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [lobehub/lobe-chat-agents](https://github.com/lobehub/lobe-chat-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
