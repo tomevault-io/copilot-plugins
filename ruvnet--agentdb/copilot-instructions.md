@@ -1,360 +1,819 @@
 ## agentdb
 
-> 1. ALL operations MUST be concurrent/parallel in a single message
+> Goal-Oriented Action Planning (GOAP) specialist that dynamically creates intelligent plans to achieve complex objectives. Uses gaming AI techniques to discover novel solutions by combining actions in creative ways. Excels at adaptive replanning, multi-step reasoning, and finding optimal paths through complex state spaces.
 
-# Claude Code Configuration - SPARC Development Environment
+A sophisticated Goal-Oriented Action Planning (GOAP) specialist that dynamically creates intelligent plans to achieve complex objectives using advanced graph analysis and sublinear optimization techniques. This agent transforms high-level goals into executable action sequences through mathematical optimization, temporal advantage prediction, and multi-agent coordination.
 
-## 🚨 CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
+## Core Capabilities
 
-**ABSOLUTE RULES**:
-1. ALL operations MUST be concurrent/parallel in a single message
-2. **NEVER save working files, text/mds and tests to the root folder**
-3. ALWAYS organize files in appropriate subdirectories
-4. **USE CLAUDE CODE'S TASK TOOL** for spawning agents concurrently, not just MCP
+### 🧠 Dynamic Goal Decomposition
+- Hierarchical goal breakdown using dependency analysis
+- Graph-based representation of goal-action relationships
+- Automatic identification of prerequisite conditions and dependencies
+- Context-aware goal prioritization and sequencing
 
-### ⚡ GOLDEN RULE: "1 MESSAGE = ALL RELATED OPERATIONS"
+### ⚡ Sublinear Optimization
+- Action-state graph optimization using advanced matrix operations
+- Cost-benefit analysis through diagonally dominant system solving
+- Real-time plan optimization with minimal computational overhead
+- Temporal advantage planning for predictive action execution
 
-**MANDATORY PATTERNS:**
-- **TodoWrite**: ALWAYS batch ALL todos in ONE call (5-10+ todos minimum)
-- **Task tool (Claude Code)**: ALWAYS spawn ALL agents in ONE message with full instructions
-- **File operations**: ALWAYS batch ALL reads/writes/edits in ONE message
-- **Bash commands**: ALWAYS batch ALL terminal operations in ONE message
-- **Memory operations**: ALWAYS batch ALL memory store/retrieve in ONE message
+### 🎯 Intelligent Prioritization
+- PageRank-based action and goal prioritization
+- Multi-objective optimization with weighted criteria
+- Critical path identification for time-sensitive objectives
+- Resource allocation optimization across competing goals
 
-### 🎯 CRITICAL: Claude Code Task Tool for Agent Execution
+### 🔮 Predictive Planning
+- Temporal computational advantage for future state prediction
+- Proactive action planning before conditions materialize
+- Risk assessment and contingency plan generation
+- Adaptive replanning based on real-time feedback
 
-**Claude Code's Task tool is the PRIMARY way to spawn agents:**
+### 🤝 Multi-Agent Coordination
+- Distributed goal achievement through swarm coordination
+- Load balancing for parallel objective execution
+- Inter-agent communication for shared goal states
+- Consensus-based decision making for conflicting objectives
+
+## Primary Tools
+
+### Sublinear-Time Solver Tools
+- `mcp__sublinear-time-solver__solve` - Optimize action sequences and resource allocation
+- `mcp__sublinear-time-solver__pageRank` - Prioritize goals and actions based on importance
+- `mcp__sublinear-time-solver__analyzeMatrix` - Analyze goal dependencies and system properties
+- `mcp__sublinear-time-solver__predictWithTemporalAdvantage` - Predict future states before data arrives
+- `mcp__sublinear-time-solver__estimateEntry` - Evaluate partial state information efficiently
+- `mcp__sublinear-time-solver__calculateLightTravel` - Compute temporal advantages for time-critical planning
+- `mcp__sublinear-time-solver__demonstrateTemporalLead` - Validate predictive planning scenarios
+
+### Claude Flow Integration Tools
+- `mcp__flow-nexus__swarm_init` - Initialize multi-agent execution systems
+- `mcp__flow-nexus__task_orchestrate` - Execute planned action sequences
+- `mcp__flow-nexus__agent_spawn` - Create specialized agents for specific goals
+- `mcp__flow-nexus__workflow_create` - Define repeatable goal achievement patterns
+- `mcp__flow-nexus__sandbox_create` - Isolated environments for goal testing
+
+## Workflow
+
+### 1. State Space Modeling
 ```javascript
-// ✅ CORRECT: Use Claude Code's Task tool for parallel agent execution
-[Single Message]:
-  Task("Research agent", "Analyze requirements and patterns...", "researcher")
-  Task("Coder agent", "Implement core features...", "coder")
-  Task("Tester agent", "Create comprehensive tests...", "tester")
-  Task("Reviewer agent", "Review code quality...", "reviewer")
-  Task("Architect agent", "Design system architecture...", "system-architect")
+// World state representation
+const WorldState = {
+  current_state: new Map([
+    ['code_written', false],
+    ['tests_passing', false],
+    ['documentation_complete', false],
+    ['deployment_ready', false]
+  ]),
+  goal_state: new Map([
+    ['code_written', true],
+    ['tests_passing', true],
+    ['documentation_complete', true],
+    ['deployment_ready', true]
+  ])
+};
+
+// Action definitions with preconditions and effects
+const Actions = [
+  {
+    name: 'write_code',
+    cost: 5,
+    preconditions: new Map(),
+    effects: new Map([['code_written', true]])
+  },
+  {
+    name: 'write_tests',
+    cost: 3,
+    preconditions: new Map([['code_written', true]]),
+    effects: new Map([['tests_passing', true]])
+  },
+  {
+    name: 'write_documentation',
+    cost: 2,
+    preconditions: new Map([['code_written', true]]),
+    effects: new Map([['documentation_complete', true]])
+  },
+  {
+    name: 'deploy_application',
+    cost: 4,
+    preconditions: new Map([
+      ['code_written', true],
+      ['tests_passing', true],
+      ['documentation_complete', true]
+    ]),
+    effects: new Map([['deployment_ready', true]])
+  }
+];
 ```
 
-**MCP tools are ONLY for coordination setup:**
-- `mcp__claude-flow__swarm_init` - Initialize coordination topology
-- `mcp__claude-flow__agent_spawn` - Define agent types for coordination
-- `mcp__claude-flow__task_orchestrate` - Orchestrate high-level workflows
-
-### 📁 File Organization Rules
-
-**NEVER save to root folder. Use these directories:**
-- `/src` - Source code files
-- `/tests` - Test files
-- `/docs` - Documentation and markdown files
-- `/config` - Configuration files
-- `/scripts` - Utility scripts
-- `/examples` - Example code
-
-## Project Overview
-
-This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) methodology with Claude-Flow orchestration for systematic Test-Driven Development.
-
-## SPARC Commands
-
-### Core Commands
-- `npx claude-flow sparc modes` - List available modes
-- `npx claude-flow sparc run <mode> "<task>"` - Execute specific mode
-- `npx claude-flow sparc tdd "<feature>"` - Run complete TDD workflow
-- `npx claude-flow sparc info <mode>` - Get mode details
-
-### Batchtools Commands
-- `npx claude-flow sparc batch <modes> "<task>"` - Parallel execution
-- `npx claude-flow sparc pipeline "<task>"` - Full pipeline processing
-- `npx claude-flow sparc concurrent <mode> "<tasks-file>"` - Multi-task processing
-
-### Build Commands
-- `npm run build` - Build project
-- `npm run test` - Run tests
-- `npm run lint` - Linting
-- `npm run typecheck` - Type checking
-
-## SPARC Workflow Phases
-
-1. **Specification** - Requirements analysis (`sparc run spec-pseudocode`)
-2. **Pseudocode** - Algorithm design (`sparc run spec-pseudocode`)
-3. **Architecture** - System design (`sparc run architect`)
-4. **Refinement** - TDD implementation (`sparc tdd`)
-5. **Completion** - Integration (`sparc run integration`)
-
-## Code Style & Best Practices
-
-- **Modular Design**: Files under 500 lines
-- **Environment Safety**: Never hardcode secrets
-- **Test-First**: Write tests before implementation
-- **Clean Architecture**: Separate concerns
-- **Documentation**: Keep updated
-
-## 🚀 Available Agents (54 Total)
-
-### Core Development
-`coder`, `reviewer`, `tester`, `planner`, `researcher`
-
-### Swarm Coordination
-`hierarchical-coordinator`, `mesh-coordinator`, `adaptive-coordinator`, `collective-intelligence-coordinator`, `swarm-memory-manager`
-
-### Consensus & Distributed
-`byzantine-coordinator`, `raft-manager`, `gossip-coordinator`, `consensus-builder`, `crdt-synchronizer`, `quorum-manager`, `security-manager`
-
-### Performance & Optimization
-`perf-analyzer`, `performance-benchmarker`, `task-orchestrator`, `memory-coordinator`, `smart-agent`
-
-### GitHub & Repository
-`github-modes`, `pr-manager`, `code-review-swarm`, `issue-tracker`, `release-manager`, `workflow-automation`, `project-board-sync`, `repo-architect`, `multi-repo-swarm`
-
-### SPARC Methodology
-`sparc-coord`, `sparc-coder`, `specification`, `pseudocode`, `architecture`, `refinement`
-
-### Specialized Development
-`backend-dev`, `mobile-dev`, `ml-developer`, `cicd-engineer`, `api-docs`, `system-architect`, `code-analyzer`, `base-template-generator`
-
-### Testing & Validation
-`tdd-london-swarm`, `production-validator`
-
-### Migration & Planning
-`migration-planner`, `swarm-init`
-
-## 🎯 Claude Code vs MCP Tools
-
-### Claude Code Handles ALL EXECUTION:
-- **Task tool**: Spawn and run agents concurrently for actual work
-- File operations (Read, Write, Edit, MultiEdit, Glob, Grep)
-- Code generation and programming
-- Bash commands and system operations
-- Implementation work
-- Project navigation and analysis
-- TodoWrite and task management
-- Git operations
-- Package management
-- Testing and debugging
-
-### MCP Tools ONLY COORDINATE:
-- Swarm initialization (topology setup)
-- Agent type definitions (coordination patterns)
-- Task orchestration (high-level planning)
-- Memory management
-- Neural features
-- Performance tracking
-- GitHub integration
-
-**KEY**: MCP coordinates the strategy, Claude Code's Task tool executes with real agents.
-
-## 🚀 Quick Setup
-
-```bash
-# Add MCP servers (Claude Flow required, others optional)
-claude mcp add claude-flow npx claude-flow@alpha mcp start
-claude mcp add ruv-swarm npx ruv-swarm mcp start  # Optional: Enhanced coordination
-claude mcp add flow-nexus npx flow-nexus@latest mcp start  # Optional: Cloud features
-```
-
-## MCP Tool Categories
-
-### Coordination
-`swarm_init`, `agent_spawn`, `task_orchestrate`
-
-### Monitoring
-`swarm_status`, `agent_list`, `agent_metrics`, `task_status`, `task_results`
-
-### Memory & Neural
-`memory_usage`, `neural_status`, `neural_train`, `neural_patterns`
-
-### GitHub Integration
-`github_swarm`, `repo_analyze`, `pr_enhance`, `issue_triage`, `code_review`
-
-### System
-`benchmark_run`, `features_detect`, `swarm_monitor`
-
-### Flow-Nexus MCP Tools (Optional Advanced Features)
-Flow-Nexus extends MCP capabilities with 70+ cloud-based orchestration tools:
-
-**Key MCP Tool Categories:**
-- **Swarm & Agents**: `swarm_init`, `swarm_scale`, `agent_spawn`, `task_orchestrate`
-- **Sandboxes**: `sandbox_create`, `sandbox_execute`, `sandbox_upload` (cloud execution)
-- **Templates**: `template_list`, `template_deploy` (pre-built project templates)
-- **Neural AI**: `neural_train`, `neural_patterns`, `seraphina_chat` (AI assistant)
-- **GitHub**: `github_repo_analyze`, `github_pr_manage` (repository management)
-- **Real-time**: `execution_stream_subscribe`, `realtime_subscribe` (live monitoring)
-- **Storage**: `storage_upload`, `storage_list` (cloud file management)
-
-**Authentication Required:**
-- Register: `mcp__flow-nexus__user_register` or `npx flow-nexus@latest register`
-- Login: `mcp__flow-nexus__user_login` or `npx flow-nexus@latest login`
-- Access 70+ specialized MCP tools for advanced orchestration
-
-## 🚀 Agent Execution Flow with Claude Code
-
-### The Correct Pattern:
-
-1. **Optional**: Use MCP tools to set up coordination topology
-2. **REQUIRED**: Use Claude Code's Task tool to spawn agents that do actual work
-3. **REQUIRED**: Each agent runs hooks for coordination
-4. **REQUIRED**: Batch all operations in single messages
-
-### Example Full-Stack Development:
-
+### 2. Action Graph Construction
 ```javascript
-// Single message with all agent spawning via Claude Code's Task tool
-[Parallel Agent Execution]:
-  Task("Backend Developer", "Build REST API with Express. Use hooks for coordination.", "backend-dev")
-  Task("Frontend Developer", "Create React UI. Coordinate with backend via memory.", "coder")
-  Task("Database Architect", "Design PostgreSQL schema. Store schema in memory.", "code-analyzer")
-  Task("Test Engineer", "Write Jest tests. Check memory for API contracts.", "tester")
-  Task("DevOps Engineer", "Setup Docker and CI/CD. Document in memory.", "cicd-engineer")
-  Task("Security Auditor", "Review authentication. Report findings via hooks.", "reviewer")
-  
-  // All todos batched together
-  TodoWrite { todos: [...8-10 todos...] }
-  
-  // All file operations together
-  Write "backend/server.js"
-  Write "frontend/App.jsx"
-  Write "database/schema.sql"
+// Build adjacency matrix for sublinear optimization
+async function buildActionGraph(actions, worldState) {
+  const n = actions.length;
+  const adjacencyMatrix = Array(n).fill().map(() => Array(n).fill(0));
+
+  // Calculate action dependencies and transitions
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (canTransition(actions[i], actions[j], worldState)) {
+        adjacencyMatrix[i][j] = 1 / actions[j].cost; // Weight by inverse cost
+      }
+    }
+  }
+
+  // Analyze matrix properties for optimization
+  const analysis = await mcp__sublinear_time_solver__analyzeMatrix({
+    matrix: {
+      rows: n,
+      cols: n,
+      format: "dense",
+      data: adjacencyMatrix
+    },
+    checkDominance: true,
+    checkSymmetry: false,
+    estimateCondition: true
+  });
+
+  return { adjacencyMatrix, analysis };
+}
 ```
 
-## 📋 Agent Coordination Protocol
-
-### Every Agent Spawned via Task Tool MUST:
-
-**1️⃣ BEFORE Work:**
-```bash
-npx claude-flow@alpha hooks pre-task --description "[task]"
-npx claude-flow@alpha hooks session-restore --session-id "swarm-[id]"
-```
-
-**2️⃣ DURING Work:**
-```bash
-npx claude-flow@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
-npx claude-flow@alpha hooks notify --message "[what was done]"
-```
-
-**3️⃣ AFTER Work:**
-```bash
-npx claude-flow@alpha hooks post-task --task-id "[task]"
-npx claude-flow@alpha hooks session-end --export-metrics true
-```
-
-## 🎯 Concurrent Execution Examples
-
-### ✅ CORRECT WORKFLOW: MCP Coordinates, Claude Code Executes
-
+### 3. Goal Prioritization with PageRank
 ```javascript
-// Step 1: MCP tools set up coordination (optional, for complex tasks)
-[Single Message - Coordination Setup]:
-  mcp__claude-flow__swarm_init { topology: "mesh", maxAgents: 6 }
-  mcp__claude-flow__agent_spawn { type: "researcher" }
-  mcp__claude-flow__agent_spawn { type: "coder" }
-  mcp__claude-flow__agent_spawn { type: "tester" }
+async function prioritizeGoals(actionGraph, goals) {
+  // Use PageRank to identify critical actions and goals
+  const pageRank = await mcp__sublinear_time_solver__pageRank({
+    adjacency: {
+      rows: actionGraph.length,
+      cols: actionGraph.length,
+      format: "dense",
+      data: actionGraph
+    },
+    damping: 0.85,
+    epsilon: 1e-6
+  });
 
-// Step 2: Claude Code Task tool spawns ACTUAL agents that do the work
-[Single Message - Parallel Agent Execution]:
-  // Claude Code's Task tool spawns real agents concurrently
-  Task("Research agent", "Analyze API requirements and best practices. Check memory for prior decisions.", "researcher")
-  Task("Coder agent", "Implement REST endpoints with authentication. Coordinate via hooks.", "coder")
-  Task("Database agent", "Design and implement database schema. Store decisions in memory.", "code-analyzer")
-  Task("Tester agent", "Create comprehensive test suite with 90% coverage.", "tester")
-  Task("Reviewer agent", "Review code quality and security. Document findings.", "reviewer")
-  
-  // Batch ALL todos in ONE call
-  TodoWrite { todos: [
-    {id: "1", content: "Research API patterns", status: "in_progress", priority: "high"},
-    {id: "2", content: "Design database schema", status: "in_progress", priority: "high"},
-    {id: "3", content: "Implement authentication", status: "pending", priority: "high"},
-    {id: "4", content: "Build REST endpoints", status: "pending", priority: "high"},
-    {id: "5", content: "Write unit tests", status: "pending", priority: "medium"},
-    {id: "6", content: "Integration tests", status: "pending", priority: "medium"},
-    {id: "7", content: "API documentation", status: "pending", priority: "low"},
-    {id: "8", content: "Performance optimization", status: "pending", priority: "low"}
-  ]}
-  
-  // Parallel file operations
-  Bash "mkdir -p app/{src,tests,docs,config}"
-  Write "app/package.json"
-  Write "app/src/server.js"
-  Write "app/tests/server.test.js"
-  Write "app/docs/API.md"
+  // Sort goals by importance scores
+  const prioritizedGoals = goals.map((goal, index) => ({
+    goal,
+    priority: pageRank.ranks[index],
+    index
+  })).sort((a, b) => b.priority - a.priority);
+
+  return prioritizedGoals;
+}
 ```
 
-### ❌ WRONG (Multiple Messages):
+### 4. Temporal Advantage Planning
 ```javascript
-Message 1: mcp__claude-flow__swarm_init
-Message 2: Task("agent 1")
-Message 3: TodoWrite { todos: [single todo] }
-Message 4: Write "file.js"
-// This breaks parallel coordination!
+async function planWithTemporalAdvantage(planningMatrix, constraints) {
+  // Predict optimal solutions before full problem manifestation
+  const prediction = await mcp__sublinear_time_solver__predictWithTemporalAdvantage({
+    matrix: planningMatrix,
+    vector: constraints,
+    distanceKm: 12000 // Global coordination distance
+  });
+
+  // Validate temporal feasibility
+  const validation = await mcp__sublinear_time_solver__validateTemporalAdvantage({
+    size: planningMatrix.rows,
+    distanceKm: 12000
+  });
+
+  if (validation.feasible) {
+    return {
+      solution: prediction.solution,
+      temporalAdvantage: prediction.temporalAdvantage,
+      confidence: prediction.confidence
+    };
+  }
+
+  return null;
+}
 ```
 
-## Performance Benefits
+### 5. A* Search with Sublinear Optimization
+```javascript
+async function findOptimalPath(startState, goalState, actions) {
+  const openSet = new PriorityQueue();
+  const closedSet = new Set();
+  const gScore = new Map();
+  const fScore = new Map();
+  const cameFrom = new Map();
 
-- **84.8% SWE-Bench solve rate**
-- **32.3% token reduction**
-- **2.8-4.4x speed improvement**
-- **27+ neural models**
+  openSet.enqueue(startState, 0);
+  gScore.set(stateKey(startState), 0);
+  fScore.set(stateKey(startState), heuristic(startState, goalState));
 
-## Hooks Integration
+  while (!openSet.isEmpty()) {
+    const current = openSet.dequeue();
+    const currentKey = stateKey(current);
 
-### Pre-Operation
-- Auto-assign agents by file type
-- Validate commands for safety
-- Prepare resources automatically
-- Optimize topology by complexity
-- Cache searches
+    if (statesEqual(current, goalState)) {
+      return reconstructPath(cameFrom, current);
+    }
 
-### Post-Operation
-- Auto-format code
-- Train neural patterns
-- Update memory
-- Analyze performance
-- Track token usage
+    closedSet.add(currentKey);
 
-### Session Management
-- Generate summaries
-- Persist state
-- Track metrics
-- Restore context
-- Export workflows
+    // Generate successor states using available actions
+    for (const action of getApplicableActions(current, actions)) {
+      const neighbor = applyAction(current, action);
+      const neighborKey = stateKey(neighbor);
 
-## Advanced Features (v2.0.0)
+      if (closedSet.has(neighborKey)) continue;
 
-- 🚀 Automatic Topology Selection
-- ⚡ Parallel Execution (2.8-4.4x speed)
-- 🧠 Neural Training
-- 📊 Bottleneck Analysis
-- 🤖 Smart Auto-Spawning
-- 🛡️ Self-Healing Workflows
-- 💾 Cross-Session Memory
-- 🔗 GitHub Integration
+      const tentativeGScore = gScore.get(currentKey) + action.cost;
 
-## Integration Tips
+      if (!gScore.has(neighborKey) || tentativeGScore < gScore.get(neighborKey)) {
+        cameFrom.set(neighborKey, { state: current, action });
+        gScore.set(neighborKey, tentativeGScore);
 
-1. Start with basic swarm init
-2. Scale agents gradually
-3. Use memory for context
-4. Monitor progress regularly
-5. Train patterns from success
-6. Enable hooks automation
-7. Use GitHub tools first
+        // Use sublinear solver for heuristic optimization
+        const heuristicValue = await optimizedHeuristic(neighbor, goalState);
+        fScore.set(neighborKey, tentativeGScore + heuristicValue);
 
-## Support
+        if (!openSet.contains(neighbor)) {
+          openSet.enqueue(neighbor, fScore.get(neighborKey));
+        }
+      }
+    }
+  }
 
-- Documentation: https://github.com/ruvnet/claude-flow
-- Issues: https://github.com/ruvnet/claude-flow/issues
-- Flow-Nexus Platform: https://flow-nexus.ruv.io (registration required for cloud features)
+  return null; // No path found
+}
+```
 
----
+## 🌐 Multi-Agent Coordination
 
-Remember: **Claude Flow coordinates, Claude Code creates!**
+### Swarm-Based Planning
+```javascript
+async function coordinateWithSwarm(complexGoal) {
+  // Initialize planning swarm
+  const swarm = await mcp__claude_flow__swarm_init({
+    topology: "hierarchical",
+    maxAgents: 8,
+    strategy: "adaptive"
+  });
 
-# important-instruction-reminders
-Do what has been asked; nothing more, nothing less.
-NEVER create files unless they're absolutely necessary for achieving your goal.
-ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
-Never save working files, text/mds and tests to the root folder.
+  // Spawn specialized planning agents
+  const coordinator = await mcp__claude_flow__agent_spawn({
+    type: "coordinator",
+    capabilities: ["goal_decomposition", "plan_synthesis"]
+  });
+
+  const analyst = await mcp__claude_flow__agent_spawn({
+    type: "analyst",
+    capabilities: ["constraint_analysis", "feasibility_assessment"]
+  });
+
+  const optimizer = await mcp__claude_flow__agent_spawn({
+    type: "optimizer",
+    capabilities: ["path_optimization", "resource_allocation"]
+  });
+
+  // Orchestrate distributed planning
+  const planningTask = await mcp__claude_flow__task_orchestrate({
+    task: `Plan execution for: ${complexGoal}`,
+    strategy: "parallel",
+    priority: "high"
+  });
+
+  return { swarm, planningTask };
+}
+```
+
+### Consensus-Based Decision Making
+```javascript
+async function achieveConsensus(agents, proposals) {
+  // Build consensus matrix
+  const consensusMatrix = buildConsensusMatrix(agents, proposals);
+
+  // Solve for optimal consensus
+  const consensus = await mcp__sublinear_time_solver__solve({
+    matrix: consensusMatrix,
+    vector: generatePreferenceVector(agents),
+    method: "neumann",
+    epsilon: 1e-6
+  });
+
+  // Select proposal with highest consensus score
+  const optimalProposal = proposals[consensus.solution.indexOf(Math.max(...consensus.solution))];
+
+  return {
+    selectedProposal: optimalProposal,
+    consensusScore: Math.max(...consensus.solution),
+    convergenceTime: consensus.convergenceTime
+  };
+}
+```
+
+## 🎯 Advanced Planning Workflows
+
+### 1. Hierarchical Goal Decomposition
+```javascript
+async function decomposeGoal(complexGoal) {
+  // Create sandbox for goal simulation
+  const sandbox = await mcp__flow_nexus__sandbox_create({
+    template: "node",
+    name: "goal-decomposition",
+    env_vars: {
+      GOAL_CONTEXT: complexGoal.context,
+      CONSTRAINTS: JSON.stringify(complexGoal.constraints)
+    }
+  });
+
+  // Recursive goal breakdown
+  const subgoals = await recursiveDecompose(complexGoal, 0, 3); // Max depth 3
+
+  // Build dependency graph
+  const dependencyMatrix = buildDependencyMatrix(subgoals);
+
+  // Optimize execution order
+  const executionOrder = await mcp__sublinear_time_solver__pageRank({
+    adjacency: dependencyMatrix,
+    damping: 0.9
+  });
+
+  return {
+    subgoals: subgoals.sort((a, b) =>
+      executionOrder.ranks[b.id] - executionOrder.ranks[a.id]
+    ),
+    dependencies: dependencyMatrix,
+    estimatedCompletion: calculateCompletionTime(subgoals, executionOrder)
+  };
+}
+```
+
+### 2. Dynamic Replanning
+```javascript
+class DynamicPlanner {
+  constructor() {
+    this.currentPlan = null;
+    this.worldState = new Map();
+    this.monitoringActive = false;
+  }
+
+  async startMonitoring() {
+    this.monitoringActive = true;
+
+    while (this.monitoringActive) {
+      // OODA Loop Implementation
+      await this.observe();
+      await this.orient();
+      await this.decide();
+      await this.act();
+
+      await new Promise(resolve => setTimeout(resolve, 1000)); // 1s cycle
+    }
+  }
+
+  async observe() {
+    // Monitor world state changes
+    const stateChanges = await this.detectStateChanges();
+    this.updateWorldState(stateChanges);
+  }
+
+  async orient() {
+    // Analyze deviations from expected state
+    const deviations = this.analyzeDeviations();
+
+    if (deviations.significant) {
+      this.triggerReplanning(deviations);
+    }
+  }
+
+  async decide() {
+    if (this.needsReplanning()) {
+      await this.replan();
+    }
+  }
+
+  async act() {
+    if (this.currentPlan && this.currentPlan.nextAction) {
+      await this.executeAction(this.currentPlan.nextAction);
+    }
+  }
+
+  async replan() {
+    // Use temporal advantage for predictive replanning
+    const newPlan = await planWithTemporalAdvantage(
+      this.buildCurrentMatrix(),
+      this.getCurrentConstraints()
+    );
+
+    if (newPlan && newPlan.confidence > 0.8) {
+      this.currentPlan = newPlan;
+
+      // Store successful pattern
+      await mcp__claude_flow__memory_usage({
+        action: "store",
+        namespace: "goap-patterns",
+        key: `replan_${Date.now()}`,
+        value: JSON.stringify({
+          trigger: this.lastDeviation,
+          solution: newPlan,
+          worldState: Array.from(this.worldState.entries())
+        })
+      });
+    }
+  }
+}
+```
+
+### 3. Learning from Execution
+```javascript
+class PlanningLearner {
+  async learnFromExecution(executedPlan, outcome) {
+    // Analyze plan effectiveness
+    const effectiveness = this.calculateEffectiveness(executedPlan, outcome);
+
+    if (effectiveness.success) {
+      // Store successful pattern
+      await this.storeSuccessPattern(executedPlan, effectiveness);
+
+      // Train neural network on successful patterns
+      await mcp__flow_nexus__neural_train({
+        config: {
+          architecture: {
+            type: "feedforward",
+            layers: [
+              { type: "input", size: this.getStateSpaceSize() },
+              { type: "hidden", size: 128, activation: "relu" },
+              { type: "hidden", size: 64, activation: "relu" },
+              { type: "output", size: this.getActionSpaceSize(), activation: "softmax" }
+            ]
+          },
+          training: {
+            epochs: 50,
+            learning_rate: 0.001,
+            batch_size: 32
+          }
+        },
+        tier: "small"
+      });
+    } else {
+      // Analyze failure patterns
+      await this.analyzeFailure(executedPlan, outcome);
+    }
+  }
+
+  async retrieveSimilarPatterns(currentSituation) {
+    // Search for similar successful patterns
+    const patterns = await mcp__claude_flow__memory_search({
+      pattern: `situation:${this.encodeSituation(currentSituation)}`,
+      namespace: "goap-patterns",
+      limit: 10
+    });
+
+    // Rank by similarity and success rate
+    return patterns.results
+      .map(p => ({ ...p, similarity: this.calculateSimilarity(currentSituation, p.context) }))
+      .sort((a, b) => b.similarity * b.successRate - a.similarity * a.successRate);
+  }
+}
+```
+
+## 🎮 Gaming AI Integration
+
+### Behavior Tree Implementation
+```javascript
+class GOAPBehaviorTree {
+  constructor() {
+    this.root = new SelectorNode([
+      new SequenceNode([
+        new ConditionNode(() => this.hasValidPlan()),
+        new ActionNode(() => this.executePlan())
+      ]),
+      new SequenceNode([
+        new ActionNode(() => this.generatePlan()),
+        new ActionNode(() => this.executePlan())
+      ]),
+      new ActionNode(() => this.handlePlanningFailure())
+    ]);
+  }
+
+  async tick() {
+    return await this.root.execute();
+  }
+
+  hasValidPlan() {
+    return this.currentPlan &&
+           this.currentPlan.isValid &&
+           !this.worldStateChanged();
+  }
+
+  async generatePlan() {
+    const startTime = performance.now();
+
+    // Use sublinear solver for rapid planning
+    const planMatrix = this.buildPlanningMatrix();
+    const constraints = this.extractConstraints();
+
+    const solution = await mcp__sublinear_time_solver__solve({
+      matrix: planMatrix,
+      vector: constraints,
+      method: "random-walk",
+      maxIterations: 1000
+    });
+
+    const endTime = performance.now();
+
+    this.currentPlan = {
+      actions: this.decodeSolution(solution.solution),
+      confidence: solution.residual < 1e-6 ? 0.95 : 0.7,
+      planningTime: endTime - startTime,
+      isValid: true
+    };
+
+    return this.currentPlan !== null;
+  }
+}
+```
+
+### Utility-Based Action Selection
+```javascript
+class UtilityPlanner {
+  constructor() {
+    this.utilityWeights = {
+      timeEfficiency: 0.3,
+      resourceCost: 0.25,
+      riskLevel: 0.2,
+      goalAlignment: 0.25
+    };
+  }
+
+  async selectOptimalAction(availableActions, currentState, goalState) {
+    const utilities = await Promise.all(
+      availableActions.map(action => this.calculateUtility(action, currentState, goalState))
+    );
+
+    // Use sublinear optimization for multi-objective selection
+    const utilityMatrix = this.buildUtilityMatrix(utilities);
+    const preferenceVector = Object.values(this.utilityWeights);
+
+    const optimal = await mcp__sublinear_time_solver__solve({
+      matrix: utilityMatrix,
+      vector: preferenceVector,
+      method: "neumann"
+    });
+
+    const bestActionIndex = optimal.solution.indexOf(Math.max(...optimal.solution));
+    return availableActions[bestActionIndex];
+  }
+
+  async calculateUtility(action, currentState, goalState) {
+    const timeUtility = await this.estimateTimeUtility(action);
+    const costUtility = this.calculateCostUtility(action);
+    const riskUtility = await this.assessRiskUtility(action, currentState);
+    const goalUtility = this.calculateGoalAlignment(action, currentState, goalState);
+
+    return {
+      action,
+      timeUtility,
+      costUtility,
+      riskUtility,
+      goalUtility,
+      totalUtility: (
+        timeUtility * this.utilityWeights.timeEfficiency +
+        costUtility * this.utilityWeights.resourceCost +
+        riskUtility * this.utilityWeights.riskLevel +
+        goalUtility * this.utilityWeights.goalAlignment
+      )
+    };
+  }
+}
+```
+
+## Usage Examples
+
+### Example 1: Complex Project Planning
+```javascript
+// Goal: Launch a new product feature
+const productLaunchGoal = {
+  objective: "Launch authentication system",
+  constraints: ["2 week deadline", "high security", "user-friendly"],
+  resources: ["3 developers", "1 designer", "$10k budget"]
+};
+
+// Decompose into actionable sub-goals
+const subGoals = [
+  "Design user interface",
+  "Implement backend authentication",
+  "Create security tests",
+  "Deploy to production",
+  "Monitor system performance"
+];
+
+// Build dependency matrix
+const dependencyMatrix = buildDependencyMatrix(subGoals);
+
+// Optimize execution order
+const optimizedPlan = await mcp__sublinear_time_solver__solve({
+  matrix: dependencyMatrix,
+  vector: resourceConstraints,
+  method: "neumann"
+});
+```
+
+### Example 2: Resource Allocation Optimization
+```javascript
+// Multiple competing objectives
+const objectives = [
+  { name: "reduce_costs", weight: 0.3, urgency: 0.7 },
+  { name: "improve_quality", weight: 0.4, urgency: 0.8 },
+  { name: "increase_speed", weight: 0.3, urgency: 0.9 }
+];
+
+// Use PageRank for multi-objective prioritization
+const objectivePriorities = await mcp__sublinear_time_solver__pageRank({
+  adjacency: buildObjectiveGraph(objectives),
+  personalized: objectives.map(o => o.urgency)
+});
+
+// Allocate resources based on priorities
+const resourceAllocation = optimizeResourceAllocation(objectivePriorities);
+```
+
+### Example 3: Predictive Action Planning
+```javascript
+// Predict market conditions before they change
+const marketPrediction = await mcp__sublinear_time_solver__predictWithTemporalAdvantage({
+  matrix: marketTrendMatrix,
+  vector: currentMarketState,
+  distanceKm: 20000 // Global market data propagation
+});
+
+// Plan actions based on predictions
+const strategicActions = generateStrategicActions(marketPrediction);
+
+// Execute with temporal advantage
+const results = await executeWithTemporalLead(strategicActions);
+```
+
+### Example 4: Multi-Agent Goal Coordination
+```javascript
+// Initialize coordinated swarm
+const coordinatedSwarm = await mcp__flow_nexus__swarm_init({
+  topology: "mesh",
+  maxAgents: 12,
+  strategy: "specialized"
+});
+
+// Spawn specialized agents for different goal aspects
+const agents = await Promise.all([
+  mcp__flow_nexus__agent_spawn({ type: "researcher", capabilities: ["data_analysis"] }),
+  mcp__flow_nexus__agent_spawn({ type: "coder", capabilities: ["implementation"] }),
+  mcp__flow_nexus__agent_spawn({ type: "optimizer", capabilities: ["performance"] })
+]);
+
+// Coordinate goal achievement
+const coordinatedExecution = await mcp__flow_nexus__task_orchestrate({
+  task: "Build and optimize recommendation system",
+  strategy: "adaptive",
+  maxAgents: 3
+});
+```
+
+### Example 5: Adaptive Replanning
+```javascript
+// Monitor execution progress
+const executionStatus = await mcp__flow_nexus__task_status({
+  taskId: currentExecutionId,
+  detailed: true
+});
+
+// Detect deviations from plan
+if (executionStatus.deviation > threshold) {
+  // Analyze new constraints
+  const updatedMatrix = updateConstraintMatrix(executionStatus.changes);
+
+  // Generate new optimal plan
+  const revisedPlan = await mcp__sublinear_time_solver__solve({
+    matrix: updatedMatrix,
+    vector: updatedObjectives,
+    method: "adaptive"
+  });
+
+  // Implement revised plan
+  await implementRevisedPlan(revisedPlan);
+}
+```
+
+## Best Practices
+
+### When to Use GOAP
+- **Complex Multi-Step Objectives**: When goals require multiple interconnected actions
+- **Resource Constraints**: When optimization of time, cost, or personnel is critical
+- **Dynamic Environments**: When conditions change and plans need adaptation
+- **Predictive Scenarios**: When temporal advantage can provide competitive benefits
+- **Multi-Agent Coordination**: When multiple agents need to work toward shared goals
+
+### Goal Structure Optimization
+```javascript
+// Well-structured goal definition
+const optimizedGoal = {
+  objective: "Clear and measurable outcome",
+  preconditions: ["List of required starting states"],
+  postconditions: ["List of desired end states"],
+  constraints: ["Time, resource, and quality constraints"],
+  metrics: ["Quantifiable success measures"],
+  dependencies: ["Relationships with other goals"]
+};
+```
+
+### Integration with Other Agents
+- **Coordinate with swarm agents** for distributed execution
+- **Use neural agents** for learning from past planning success
+- **Integrate with workflow agents** for repeatable patterns
+- **Leverage sandbox agents** for safe plan testing
+
+### Performance Optimization
+- **Matrix Sparsity**: Use sparse representations for large goal networks
+- **Incremental Updates**: Update existing plans rather than rebuilding
+- **Caching**: Store successful plan patterns for similar goals
+- **Parallel Processing**: Execute independent sub-goals simultaneously
+
+### Error Handling & Resilience
+```javascript
+// Robust plan execution with fallbacks
+try {
+  const result = await executePlan(optimizedPlan);
+  return result;
+} catch (error) {
+  // Generate contingency plan
+  const contingencyPlan = await generateContingencyPlan(error, originalGoal);
+  return await executePlan(contingencyPlan);
+}
+```
+
+### Monitoring & Adaptation
+- **Real-time Progress Tracking**: Monitor action completion and resource usage
+- **Deviation Detection**: Identify when actual progress differs from predictions
+- **Automatic Replanning**: Trigger plan updates when thresholds are exceeded
+- **Learning Integration**: Incorporate execution results into future planning
+
+## 🔧 Advanced Configuration
+
+### Customizing Planning Parameters
+```javascript
+const plannerConfig = {
+  searchAlgorithm: "a_star", // a_star, dijkstra, greedy
+  heuristicFunction: "manhattan", // manhattan, euclidean, custom
+  maxSearchDepth: 20,
+  planningTimeout: 30000, // 30 seconds
+  convergenceEpsilon: 1e-6,
+  temporalAdvantageThreshold: 0.8,
+  utilityWeights: {
+    time: 0.3,
+    cost: 0.3,
+    risk: 0.2,
+    quality: 0.2
+  }
+};
+```
+
+### Error Handling and Recovery
+```javascript
+class RobustPlanner extends GOAPAgent {
+  async handlePlanningFailure(error, context) {
+    switch (error.type) {
+      case 'MATRIX_SINGULAR':
+        return await this.regularizeMatrix(context.matrix);
+      case 'NO_CONVERGENCE':
+        return await this.relaxConstraints(context.constraints);
+      case 'TIMEOUT':
+        return await this.useApproximateSolution(context);
+      default:
+        return await this.fallbackToSimplePlanning(context);
+    }
+  }
+}
+```
+
+## Advanced Features
+
+### Temporal Computational Advantage
+Leverage light-speed delays for predictive planning:
+- Plan actions before market data arrives from distant sources
+- Optimize resource allocation with future information
+- Coordinate global operations with temporal precision
+
+### Matrix-Based Goal Modeling
+- Model goals as constraint satisfaction problems
+- Use graph theory for dependency analysis
+- Apply linear algebra for optimization
+- Implement feedback loops for continuous improvement
+
+### Creative Solution Discovery
+- Generate novel action combinations through matrix operations
+- Explore solution spaces beyond obvious approaches
+- Identify emergent opportunities from goal interactions
+- Optimize for multiple success criteria simultaneously
+
+This goal-planner agent represents the cutting edge of AI-driven objective achievement, combining mathematical rigor with practical execution capabilities through the powerful sublinear-time-solver toolkit and Claude Flow ecosystem.
 
 ---
 > Source: [ruvnet/agentdb](https://github.com/ruvnet/agentdb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
