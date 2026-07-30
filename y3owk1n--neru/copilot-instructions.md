@@ -1,65 +1,213 @@
 ## neru
 
-> Neru is a keyboard-driven navigation tool for macOS built with Go and Objective-C.
+> - Use short, lowercase, single-word names when possible
 
-# AGENTS.md - Neru Development Guide
+# Go Conventions
 
-Neru is a keyboard-driven navigation tool for macOS built with Go and Objective-C.
+## Package Organization
 
-## Domain Concepts
+### Package Names
 
-- **Mode**: Navigation context (hints, grid, scroll, action)
-- **Bridge**: Objective-C macOS integration layer
-- **Adapter**: Port implementation for external systems
-- **Port**: Interface definition for system capabilities (e.g., [accessibility.go](file:///Users/kylewong/Dev/neru/internal/core/ports/accessibility.go))
+- Use short, lowercase, single-word names when possible
+- Avoid underscores, hyphens, or mixed caps
 
-## Architecture & Cross-Platform
+```go
+package hints
+package grid
+package config
+```
 
-Neru follows a **Hexagonal Architecture (Ports and Adapters)**. All OS-specific code is strictly isolated.
+### Package Documentation
 
-### The "One Rule"
+Every package should have a `doc.go` file with package-level documentation:
 
-**Non-darwin-tagged code must never import `internal/core/infra/platform/darwin`.** This is enforced by `golangci-lint` using `depguard`.
+```go
+// Package hints provides hint generation and management for the Neru application.
+package hints
+```
 
-### File Organization for Platforms
+## File Structure
 
-- **Ports**: [internal/core/ports/](file:///Users/kylewong/Dev/neru/internal/core/ports/)
-- **Infrastructure**: [internal/core/infra/](file:///Users/kylewong/Dev/neru/internal/core/infra/)
-- **Platform Factory**: [internal/core/infra/platform/factory.go](file:///Users/kylewong/Dev/neru/internal/core/infra/platform/factory.go) and build-tagged siblings.
-- **Platform Implementations**: [internal/core/infra/platform/darwin/](file:///Users/kylewong/Dev/neru/internal/core/infra/platform/darwin/), `linux/`, `windows/`.
+1. Package declaration
+2. Imports (organized by `goimports`)
+3. Constants
+4. Type definitions
+5. Constructor functions
+6. Methods (grouped by receiver type)
+7. Helper functions
 
-## AI Assistant Exploration Tips
+## Imports
 
-### Finding the "Source of Truth"
+Organized by `goimports` into three groups:
 
-- **App Startup**: [app_initialization.go](file:///Users/kylewong/Dev/neru/internal/app/app_initialization.go)
-- **Navigation Logic**: [internal/app/modes/](file:///Users/kylewong/Dev/neru/internal/app/modes/)
-- **Coordinate Conversion**: [conversion.go](file:///Users/kylewong/Dev/neru/internal/ui/coordinates/conversion.go)
-- **Error Definitions**: [errors.go](file:///Users/kylewong/Dev/neru/internal/core/errors/errors.go)
-- **Native macOS Logic**: [internal/core/infra/platform/darwin/](file:///Users/kylewong/Dev/neru/internal/core/infra/platform/darwin/)
+1. Standard library
+2. External packages
+3. Internal packages
 
-### Contextual Shortcuts
+Use aliases for packages with common names:
 
-- To understand **Mode** behavior: Read `internal/app/modes/base.go` and `handler.go`.
-- To understand **Accessibility**: Read `internal/core/ports/accessibility.go` (Port) and `internal/core/infra/accessibility/adapter.go` (Adapter).
-- To understand **Overlay** rendering: Read `internal/core/ports/overlay.go` and `internal/app/components/overlayutil/factory_darwin.go`.
+```go
+import (
+  "context"
 
-## Documentation
+  "github.com/y3owk1n/neru/internal/core/domain"
+  "go.uber.org/zap"
+)
+```
 
-Documentation is progressively disclosed. Start here, then navigate to detailed docs:
+## Naming
 
-- [System Architecture](./docs/ARCHITECTURE.md) - Comprehensive architecture overview
-- [Development Guide](./docs/DEVELOPMENT.md) - Build, testing, architecture
-- [Coding Standards](./docs/CODING_STANDARDS.md) - Go & Objective-C conventions
-- [CLI Usage](./docs/CLI.md) - Command-line interface
-- [Configuration](./docs/CONFIGURATION.md) - Configuration reference
+- Packages: lowercase, short, descriptive
+- Variables: camelCase local, PascalCase exported
+- Constants: PascalCase exported, camelCase unexported
+- Receiver names: consistent single-letter (e.g., `a` for `App`, `c` for `Config`)
 
-## Resources
+## Function Parameters
 
-- [Go](https://golang.org/doc/) | [Just](https://github.com/casey/just) | [Cobra](https://github.com/spf13/cobra)
+- `context.Context` first parameter (always if present)
+- Required parameters
+- Optional parameters (or use functional options pattern)
 
-> **Tip**: Docs may become outdated. When in doubt, read the code directly.
+```go
+func (s *Service) Process(ctx context.Context, id string, opts ...Option) error
+```
+
+## Return Values
+
+- Return errors as the last value
+- Use named return values sparingly
+
+```go
+func (s *Service) Get(id string) (*Item, error) {
+  item, err := s.fetch(id)
+  if err != nil {
+    return nil, err
+  }
+  return item, nil
+}
+```
+
+## Error Handling
+
+Use the `derrors` package for structured errors:
+
+```go
+import derrors "github.com/y3owk1n/neru/internal/core/errors"
+
+// Create new error
+return derrors.New(derrors.CodeInvalidConfig, "config validation failed")
+
+// Wrap existing error
+return derrors.Wrap(err, derrors.CodeIPCFailed, "failed to start IPC server")
+```
+
+## Context
+
+- Always accept `context.Context` as first parameter for cancellable operations
+- Pass context through the call stack
+- Don't store context in structs
+
+```go
+func (s *Service) Process(ctx context.Context, data []byte) error {
+  select {
+  case <-ctx.Done():
+    return ctx.Err()
+  default:
+    return s.doProcess(ctx, data)
+  }
+}
+```
+
+## Concurrency
+
+### Mutex Usage
+
+- Use `sync.RWMutex` for read-heavy workloads
+- Use `sync.Mutex` for write-heavy or simple cases
+- Always defer unlock immediately after lock
+
+```go
+func (s *Service) Get(id string) (*Item, error) {
+  s.mu.RLock()
+  defer s.mu.RUnlock()
+  return s.cache[id], nil
+}
+
+func (s *Service) Set(id string, item *Item) {
+  s.mu.Lock()
+  defer s.mu.Unlock()
+  s.cache[id] = item
+}
+```
+
+## Comments
+
+- Comment public APIs and exported symbols
+- Use complete sentences with proper punctuation
+- Explain _why_ for non-obvious code, not _what_
+
+```go
+// Pre-allocate slice capacity to avoid reallocations during hint generation.
+// Typical hint count is 50-200 elements.
+hints := make([]Hint, 0, 100)
+```
+
+## Performance
+
+### Pre-allocation
+
+```go
+hints := make([]Hint, 0, expectedCount)
+cache := make(map[string]*Item, expectedSize)
+```
+
+### String Building
+
+```go
+var b strings.Builder
+b.WriteString("prefix")
+b.WriteString(value)
+b.WriteString("suffix")
+return b.String()
+```
+
+## Cross-Platform Conventions
+
+### Build Tags
+
+Use Go build tags for OS-specific code. Always include a blank line after the tag.
+
+```go
+//go:build darwin
+
+package platform
+```
+
+### Platform Isolation
+
+- **The One Rule**: Non-darwin-tagged code must **never** import `internal/core/infra/platform/darwin`.
+- Use **Ports** ([internal/core/ports/](../../internal/core/ports/)) to define platform-agnostic interfaces.
+- Use **Adapters** ([internal/core/infra/](../../internal/core/infra/)) to implement those interfaces for specific platforms.
+
+### OS-Specific File Naming
+
+- `*_darwin.go`: macOS-specific code
+- `*_linux.go`: Linux-specific code
+- `*_linux_common.go`: Shared Linux wrapper/fallback code
+- `*_linux_x11.go`: Linux X11 backend slot
+- `*_linux_wayland.go`: Linux Wayland backend slot
+- `*_windows.go`: Windows-specific code
+- `*_other.go`: No-op or unsupported implementations for non-target platforms.
+
+### Platform Factory
+
+The `internal/core/infra/platform/` package uses build-tagged `factory_<os>.go` files to return the correct implementation of `ports.SystemPort`.
+
+## See Also
+
+- [TESTING_PATTERNS.md](../testing/TESTING_PATTERNS.md)
+- [OBJECTIVE_C.md](./OBJECTIVE_C.md)
 
 ---
 > Source: [y3owk1n/neru](https://github.com/y3owk1n/neru) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
