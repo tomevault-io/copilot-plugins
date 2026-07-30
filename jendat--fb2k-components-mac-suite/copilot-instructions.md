@@ -1,170 +1,160 @@
 ## fb2k-components-mac-suite
 
-> Determine the component from the git branch name:
+> **Revision:** 2.0 (Post-Architecture Review)
 
-# foobar2000 macOS Components
+# foo_jl_queue_manager - Claude Code Context
 
-## Identifying the Current Component
+**Revision:** 2.0 (Post-Architecture Review)
 
-Determine the component from the git branch name:
-- Branch `dev/simplaylist` -> component `simplaylist`, directory `foo_jl_simplaylist_mac`
-- Branch `dev/scrobble` -> component `scrobble`, directory `foo_jl_scrobble_mac`
-- Branch `main` -> no specific component (repo root)
+## Project Overview
 
-Pattern: branch `dev/<name>` maps to `extensions/foo_jl_<name>_mac/`.
+foobar2000 macOS component providing a visual Queue Manager - a playlist-like interface for managing the playback queue. This functionality exists in Windows foobar2000 but is missing on macOS.
 
-## Naming Convention
-| Item | Pattern | Example |
-|------|---------|---------|
-| Branch | dev/\<name\> | dev/simplaylist |
-| Directory | foo_jl_\<name\>_mac | foo_jl_simplaylist_mac |
-| Component file | foo_jl_\<name\>.fb2k-component | foo_jl_simplaylist.fb2k-component |
+**Status:** Phase 1 (MVP) complete - basic table view, live updates, status bar, empty state.
 
-## Git Workflow
-- **Branch**: `dev/<name>` for each component
-- **Merge strategy**: FAST-FORWARD ONLY (no merge commits)
-- **Before merging**: Always rebase onto main first
+## Documentation
 
-## Merge to Main
-1. Ensure all changes committed
-2. Run: `git fetch origin && git rebase origin/main`
-3. From main repo: `./Scripts/ff-merge.sh <name>`
+- `docs/01_FOUNDATION.md` - Complete design document (v2.0, post-review)
+- `docs/02_SDK_NOTES.md` - SDK API discoveries and patterns (v2.0)
 
-## Build & Test (CRITICAL)
+## Critical Implementation Notes
 
-**ALWAYS use the component's Scripts/ folder. NEVER call xcodebuild directly.**
+### 1. Memory Safety (CRITICAL)
+```objc
+// WRONG - causes memory corruption
+@property (nonatomic, assign) metadb_handle_ptr handle;
 
-```bash
-# From the component directory (extensions/foo_jl_<name>_mac/):
-
-# Standard build + install:
-./Scripts/build.sh --install
-
-# Clean rebuild:
-./Scripts/build.sh --clean --install
-
-# If new source files were added:
-./Scripts/build.sh --regenerate --install
+// CORRECT - use C++ member variable
+@interface QueueItemWrapper : NSObject {
+    metadb_handle_ptr _handle;
+}
 ```
 
-**Options:**
-- `--debug` / `--release` - Configuration (default: Release)
-- `--clean` - Clean before building
-- `--regenerate` - Regenerate Xcode project (after adding/removing files)
-- `--install` - Install to foobar2000 after building
-
-**NEVER run xcodebuild directly** - it outputs to DerivedData instead of local build/, causing install to copy stale binaries.
-
-## Build Verification (CRITICAL)
-
-The build script prints an unambiguous banner on completion:
-- `BUILD SUCCEEDED` — safe to proceed
-- `BUILD FAILED` — STOP. Do NOT tell the user the build succeeded. Read the error output and fix the issue.
-
-**NEVER assume a build succeeded without seeing `BUILD SUCCEEDED` in the output.** If the build output is unclear or you did not see the banner, re-run the build or check the log file at `build/build.log`.
-
-## Changelog (IMPORTANT)
-
-Two changelogs exist:
-1. **Extension CHANGELOG** (`extensions/foo_jl_<name>_mac/CHANGELOG.md`) — detailed, per-component
-2. **Global CHANGELOG** (`CHANGELOG.md` at repo root) — summary of all components
-
-**When updating a component's CHANGELOG, always also append the same entry to the global CHANGELOG** under the matching component section. Keep the global entries concise (skip Technical subsections).
-
-## Backlog Management
-**At session start:** Check BACKLOG.md to see current state.
-
-**During session:**
-- Move task to "In Progress" when starting work
-- Add "Started" date
-- If task is too complex or deferred, add to "Pending" with priority
-- On completion, move to "Completed" with date
-
-**Complex tasks:** If a task emerges that's too large for this session, add it to BACKLOG.md Pending section immediately with notes about scope.
-
-## Knowledge Base
-**Before making changes:**
-- Check `docs/` for existing patterns and conventions
-- Check `CONTRIBUTING.md` for workflow rules
-- Review similar implementations in other components
-
-**After solving complex problems:**
-- Create or update `docs/<topic>.md` with findings
-- Document API quirks, SDK gotchas, or non-obvious solutions
-- This helps future Claude sessions avoid re-discovering the same issues
-
-## Release Process
-
-**Before releasing, rebase onto main** to pick up the latest shared code, build scripts, and this CLAUDE.md:
-```bash
-# Follow the Safe Worktree Rebase Procedure below, then:
-./Scripts/release_component.sh <name>
+### 2. Callback Manager Pattern (HIGH)
+Use `QueueCallbackManager` singleton, not direct service factory:
+```cpp
+class QueueCallbackManager {
+    static QueueCallbackManager& instance();
+    void registerController(QueueManagerController* ctrl);
+    void unregisterController(QueueManagerController* ctrl);
+    void onQueueChanged(t_change_origin origin);
+};
 ```
 
-**ALWAYS use the release script.** Never manually:
-- Create tags
-- Build release packages
-- Update version numbers outside version.h
-
-The script handles: version reading, building, packaging, tagging, GitHub release.
-
-## Worktree Safety (CRITICAL)
-
-Worktrees are **active development environments** with uncommitted work. NEVER use destructive git commands on them.
-
-### Forbidden Commands on Worktrees
-
-| Command | Why Dangerous |
-|---------|---------------|
-| `git checkout --theirs <file>` | Replaces local file with main's version, discarding all local changes |
-| `git rebase -X theirs` | Auto-resolves all conflicts in favor of main, discarding local changes |
-| `git stash drop` | Permanently deletes stashed changes |
-| `git reset --hard` | Destroys all uncommitted changes |
-
-### Safe Worktree Rebase Procedure
-
-**ZERO DATA LOSS policy: No uncommitted work may ever be lost during rebase. If any step fails, ROLLBACK and STOP.**
-
-**Step-by-step procedure (mandatory for every rebase):**
-
-```bash
-# Step 1: Check for uncommitted changes
-git status
-
-# Step 2: If changes exist, stash them
-git stash push -m "pre-rebase: $(date +%Y%m%d-%H%M%S)"
-
-# Step 3: Perform rebase
-git fetch origin && git rebase origin/main
-
-# Step 4: If rebase FAILS (conflicts with committed code):
-#   ROLLBACK: git rebase --abort
-#   RESTORE: git stash pop
-#   STOP and report which commits conflict with main
-
-# Step 5: If rebase succeeds, restore stashed changes
-git stash pop
-
-# Step 6: If stash pop FAILS (uncommitted work conflicts with rebased code):
-#   The stash is PRESERVED (git does not drop it on conflict)
-#   CLEAN working tree: git checkout -- .
-#   STOP and report to user:
-#     - Which files from the stash conflict
-#     - The stash ref (so user can manually resolve)
-#     - Suggest: git stash show to inspect, git stash pop to retry manually
+### 3. Reorder Debouncing (HIGH)
+Flush-and-rebuild triggers N+1 callbacks. Use debounce flag:
+```objc
+@property (nonatomic) BOOL isReorderingInProgress;
 ```
 
-**CRITICAL RULES:**
-- NEVER use `git rebase -X theirs` or any auto-resolution strategy
-- NEVER drop or delete a stash
-- NEVER proceed past a failed step
-- If no uncommitted changes exist (step 1 clean), skip steps 2/5/6
-- On ANY unexpected error: STOP immediately and report to user
+### 4. Stale Reference Validation
+Always validate queue items before play/show-in-playlist:
+```cpp
+bool isQueueItemValid(const t_playback_queue_item& item);
+```
 
-### Why This Matters
+## Key SDK APIs
 
-Incident 2026-01-13: Automated rebase with `-X theirs` destroyed uncommitted work in simplaylist worktree. User had to recover from another commit. Conflicts require human judgment, not automation.
+```cpp
+// Queue operations (from playlist_manager)
+queue_get_count()
+queue_get_contents(pfc::list_base_t<t_playback_queue_item>& out)
+queue_add_item_playlist(t_size playlist, t_size item)  // Use this normally
+queue_add_item(metadb_handle_ptr item)                  // Creates orphan
+queue_remove_mask(const bit_array& mask)
+queue_flush()
+
+// Callback
+class playback_queue_callback : public service_base {
+    void on_changed(t_change_origin origin);
+};
+```
+
+## Component Identity
+
+- **Name:** Queue Manager
+- **Subclass:** `ui_element_subclass_utility`
+- **Min size:** 150 x 100 pixels
+
+### match_name() Required
+```cpp
+bool match_name(const char* name) override {
+    return strcmp(name, "Queue Manager") == 0 ||
+           strcmp(name, "queue_manager") == 0 ||
+           strcmp(name, "foo_jl_queue_manager") == 0 ||
+           // ... more variations
+}
+```
+
+## Implementation Phases
+
+1. **Phase 1 (MVP):** Table view, live updates, status bar, empty state, accessibility
+2. **Phase 2:** Interaction (delete, context menu, double-click play)
+3. **Phase 3:** Internal drag & drop with debouncing
+4. **Phase 4:** Column system, external drag research
+5. **Phase 5:** Polish, dark mode, performance
+
+**Deferred:** Custom column dialog, undo support
+
+## File Structure
+
+```
+src/
+  Core/
+    ConfigHelper.h           # fb2k::configStore wrapper
+    QueueConfig.h            # Configuration constants
+    QueueOperations.h/cpp    # SDK queue operations wrapper
+  Integration/
+    Main.mm                  # UI element registration
+    QueueCallbackManager.h/mm  # Singleton callback dispatcher
+    QueueCallback.mm         # playback_queue_callback service
+  UI/
+    QueueManagerController.h/mm  # Main NSViewController
+    QueueItemWrapper.h/mm    # Safe wrapper for t_playback_queue_item
+Scripts/
+  generate_xcode_project.rb  # Xcode project generator
+  install.sh                 # Component installer
+Resources/
+  Info.plist                 # Bundle info
+```
+
+## Build Commands
+
+```bash
+ruby Scripts/generate_xcode_project.rb
+xcodebuild -project foo_jl_queue_manager.xcodeproj -configuration Release
+./Scripts/install.sh
+```
+
+## Risk Mitigations
+
+| Risk | Mitigation |
+|------|------------|
+| Drag from playlist unsupported | "Add Selection to Queue" menu item |
+| Memory leaks in wrapper | C++ member, not ObjC property |
+| Reorder flicker | Debounce callbacks |
+| Large queue performance | Virtualization if > 100 items |
+
+## Install Path
+
+```
+~/Library/foobar2000-v2/user-components/foo_jl_queue_manager/foo_jl_queue_manager.component
+```
+
+## Debug
+
+```bash
+pkill -x foobar2000; /Applications/foobar2000.app/Contents/MacOS/foobar2000
+```
+
+Shows console::info/error messages in terminal.
+
+## Reference Projects
+
+- `../foo_jl_wave_seekbar_mac/` - Working macOS component patterns
+- `../../knowledge_base/08_SETTINGS_AND_UI_PATTERNS.md`
+- `../../knowledge_base/04_UI_ELEMENT_IMPLEMENTATION.md`
 
 ---
 > Source: [JendaT/fb2k-components-mac-suite](https://github.com/JendaT/fb2k-components-mac-suite) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
