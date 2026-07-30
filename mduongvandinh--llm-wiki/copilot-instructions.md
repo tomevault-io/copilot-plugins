@@ -1,203 +1,161 @@
 ## llm-wiki
 
-> You are maintaining a personal knowledge base using the LLM Wiki pattern.
+> > Extends the base CLAUDE.md schema with competitive intelligence entity types.
 
-# LLM Wiki — GitHub Copilot Instructions
+# Competitive Intelligence Wiki — Schema Extensions
 
-You are maintaining a personal knowledge base using the LLM Wiki pattern.
-The wiki builds itself from raw sources. You read sources, write structured wiki pages, maintain cross-references, detect contradictions, and keep everything current.
-The human only reads the wiki and asks questions.
+> Extends the base CLAUDE.md schema with competitive intelligence entity types.
+> Merged automatically by: /llm-wiki setup competitive-intel
 
-## Architecture
+## Additional Entity Types
 
-```
-raw/        → Raw sources — READ ONLY, never modify these files
-wiki/       → Wiki you write and maintain entirely
-outputs/    → Query results, reports, battlecards, briefs
-config.yaml → Topics, feeds, schedule settings
-```
+### competitor (wiki/entities/)
 
-## Core Rules
-
-1. **Never modify files in raw/**. This is the immutable source of truth.
-2. **One .md file per entity/concept**. Filename: kebab-case.md
-3. **Cross-reference** with `[[filename]]` wiki links. Every page needs ≥2 links.
-4. **Update wiki/INDEX.md** every time you create or delete a wiki page.
-5. **Log everything** to wiki/LOG.md: format `## [YYYY-MM-DD HH:mm] action | description`
-6. **Never fabricate** — only write what's supported by raw sources. Cite everything.
-
-## Ingest Workflow
-
-When asked to ingest or process new sources:
-
-1. Read this file + config.yaml for schema and settings
-2. Check .discoveries/history.json for already-processed files
-3. Find new files in raw/ not in history
-4. For each new file:
-   - Create source summary in wiki/sources/
-   - Extract entities → create/update pages in wiki/entities/
-   - Extract concepts → create/update pages in wiki/concepts/
-   - Add [[cross-references]] to related existing pages
-   - Flag contradictions with existing content (note both versions, don't delete old)
-5. Update wiki/INDEX.md
-6. Append entry to wiki/LOG.md
-7. Add processed files to .discoveries/history.json
-
-## Query Workflow
-
-When asked a question about the wiki:
-
-1. Read wiki/INDEX.md to find relevant pages
-2. Read those pages (read enough for full context)
-3. Synthesize answer with [[citations]] to wiki pages
-4. If the answer is analytical or comparative → save to wiki/syntheses/ or outputs/
-5. Append to wiki/LOG.md
-
-Answer ONLY from wiki content. If wiki lacks info, say so and suggest what to discover.
-
-## Lint Workflow
-
-When asked to check wiki health:
-
-1. Scan all files in wiki/
-2. Check for: contradictions, orphan pages (nobody links to them), broken [[links]], stale claims, knowledge gaps
-3. Save report to outputs/lint-YYYY-MM-DD.md
-4. Update .discoveries/gaps.json with identified gaps
-5. Append to wiki/LOG.md
-
-## Discover Workflow
-
-When asked to find new sources:
-
-1. Read config.yaml → topics, keywords, feeds
-2. Read .discoveries/gaps.json → knowledge gaps to fill
-3. Read .discoveries/history.json → avoid duplicates
-4. Search for relevant sources
-5. Save fetched content to raw/articles/YYYY-MM-DD-slug.md with frontmatter:
-   ```yaml
-   ---
-   title: "Title"
-   url: "https://..."
-   discovered: YYYY-MM-DD
-   topic: "topic name"
-   ---
-   ```
-6. Run ingest on newly discovered files
-
-## Wiki Page Formats
-
-### Entity (wiki/entities/name.md)
 ```markdown
 ---
 type: entity
-category: person | organization | tool | project
+category: competitor
+website: "https://..."
+founded: YYYY
+stage: seed | series-a | series-b | public
+size: "1-10" | "11-50" | "51-200" | "201-500" | "500+"
+last_updated: YYYY-MM-DD
+change_detected: false
 created: YYYY-MM-DD
-updated: YYYY-MM-DD
-sources: [raw-file-1.md]
----
-
-# Entity Name
-
-One-line description.
-
-## Overview
-[Details]
-
-## Key Points
-- [Points]
-
-## Links
-- [[related-concept]]
-- [[related-entity]]
-
-## Sources
-- [Source name](../raw/articles/filename.md)
-```
-
-### Concept (wiki/concepts/name.md)
-```markdown
----
-type: concept
-domain: ai | engineering | business | science | other
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
 sources: []
 ---
 
-# Concept Name
+# Competitor Name
 
-One-line description.
+One-line positioning statement (their words or our summary).
 
-## Definition
-[Clear explanation]
+## Company Overview
+- **Founded:** YYYY
+- **HQ:** [City, Country]
+- **Size:** [Employee count estimate]
+- **Funding:** [Total raised / Stage]
+- **Target market:** [Who they sell to]
 
-## How It Works
-[Details]
+## Positioning
+[How they describe themselves — from their website/marketing]
 
-## Examples
-[Concrete examples]
+## Pricing
+| Tier | Price | Key Features | Limits |
+|------|-------|-------------|--------|
+| Free | $0 | [features] | [limits] |
+| Pro | $X/mo | [features] | [limits] |
+| Enterprise | Custom | [features] | — |
 
-## Links
-- [[related-concept]]
+## Top Features
+- [Feature 1]: [Description]
+- [Feature 2]: [Description]
+- [Feature 3]: [Description]
 
-## Sources
-- [Source](../raw/articles/filename.md)
+## Known Weaknesses (from reviews & Reddit)
+- [Weakness 1 — with source]
+- [Weakness 2 — with source]
+
+## Recent Moves
+- [YYYY-MM-DD]: [Change/announcement]
+- [YYYY-MM-DD]: [Change/announcement]
+
+## Job Postings Signal
+[What roles they're hiring for → implies roadmap direction]
+
+## Liên kết
+- [[market-position-name]]
+- [[related-competitor]]
+
+## Nguồn
+- [Source 1](../raw/articles/competitor-name-pricing.md)
+- [Source 2](../raw/articles/competitor-name-reviews.md)
 ```
 
-### Source Summary (wiki/sources/name.md)
+### change_log (wiki/changes/)
+
 ```markdown
 ---
-type: source
-format: article | paper | note | book | video | podcast
-raw_path: raw/articles/filename.md
-ingested: YYYY-MM-DD
+type: change_log
+entity: competitor-name
+detected: YYYY-MM-DD
+field: pricing | features | positioning | jobs | funding
+severity: major | minor
 ---
 
-# Source Title
+# Change Detected: [Competitor Name] — YYYY-MM-DD
 
-## Summary
-[2-3 paragraph summary]
+## What Changed
+[Clear description of the change]
 
-## Key Takeaways
-- [Most important points]
+## Previous State
+[What it was before]
 
-## Entities Mentioned
-- [[entity-name]]
+## New State
+[What it is now]
 
-## Concepts Mentioned
-- [[concept-name]]
+## Significance
+[Why this matters — competitive implication]
 
-## Notable Quotes
-> "Important quote"
+## Source
+[URL or file where change was detected]
 ```
 
-## Variant-Specific Behavior
+### market_position (wiki/concepts/)
 
-### book-companion (config: book_mode: true)
-- Check `chapter: N` in raw file frontmatter before ingesting
-- Skip files where N > config.yaml `current_chapter` (spoiler protection)
-- Extract: characters, locations, factions, events, quotes, themes
-- "book-summary" command: generate cast table, timeline, themes, open questions
+```markdown
+---
+type: concept
+domain: market_position
+created: YYYY-MM-DD
+sources: []
+---
 
-### competitive-intel (config: change_detection: true)
-- On re-ingest: compare new content vs existing wiki page
-- If changed: create wiki/changes/YYYY-MM-DD-name.md, mark page ⚡ CHANGED
-- "competitive-brief [name]": generate battlecard (positioning, pricing, features, weaknesses, recent moves)
+# [Market Segment / Position Name]
 
-### job-search
-- "interview-prep [company]": generate 1-pager (overview, culture, process, compensation, questions to ask)
+## Who Plays Here
+- [[competitor-1]] — [brief positioning]
+- [[competitor-2]] — [brief positioning]
 
-## Example Prompts
+## Key Differentiators in This Segment
+- [Differentiator 1]
+- [Differentiator 2]
+
+## Our Position
+[How we compare / where we fit]
+
+## Liên kết
+- [[competitor-1]]
+- [[competitor-2]]
+```
+
+## Ingest Rules (competitive-intel)
+
+1. **Source categorization:** Tag each raw file with `competitor: "name"` in frontmatter
+2. **Pricing detection:** When ingesting pricing pages, always extract into structured table in competitor page
+3. **Change detection:** On re-ingest of known source, compare with existing wiki page — flag differences
+4. **Job postings:** Extract open roles → add to competitor's "Job Postings Signal" section
+5. **Review aggregation:** From G2, Glassdoor, Reddit reviews → add to "Known Weaknesses" with source attribution
+6. **Change log:** When change detected → create `wiki/changes/YYYY-MM-DD-competitor.md`
+
+## Change Detection Trigger Words
+
+When ingesting, flag as change if these patterns appear vs previous state:
+- Pricing: "new pricing", "price change", "now $", "starting at $", "free plan"
+- Features: "launching", "new feature", "now available", "introducing", "releasing"
+- Strategy: "pivoting", "focusing on", "discontinuing", "sunsetting", "acquired"
+- Funding: "raised", "series", "funding", "acquired", "IPO", "merger"
+
+## Sample File Naming
 
 ```
-"Read CLAUDE.md then ingest all new files in raw/articles/ into the wiki"
-"Read CLAUDE.md and answer: what do we know about [topic]?"
-"Read CLAUDE.md and run lint — check for contradictions and orphan pages"
-"Read CLAUDE.md and generate a book-summary for the current wiki"
-"Read CLAUDE.md and create a competitive-brief for Linear"
-"Read CLAUDE.md and generate an interview-prep 1-pager for Stripe"
+raw/articles/
+├── competitor-linear-pricing-2026.md
+├── competitor-linear-reviews-g2.md
+├── competitor-notion-changelog-q1.md
+├── competitor-asana-job-postings.md
+└── market-pm-tools-overview.md
 ```
 
 ---
 > Source: [mduongvandinh/llm-wiki](https://github.com/mduongvandinh/llm-wiki) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
