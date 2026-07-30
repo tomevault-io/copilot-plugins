@@ -1,173 +1,171 @@
 ## opencode-mobile
 
-> **Generated:** 2026-01-08 | **Commit:** 6e613bc | **Branch:** main
+> **Generated:** 2026-01-08 | **Files:** 34 | **Role:** Tauri desktop app (macOS)
 
-# OpenChamber - AI Agent & Contributor Reference
+# Desktop Package - AI Agent Reference
 
-**Generated:** 2026-01-08 | **Commit:** 6e613bc | **Branch:** main
+**Generated:** 2026-01-08 | **Files:** 34 | **Role:** Tauri desktop app (macOS)
 
 ## Overview
 
-Web, desktop, and mobile interface for [OpenCode](https://opencode.ai) AI coding agent. Monorepo with 6 packages targeting 4 runtimes (web, desktop, VS Code, mobile).
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| **UI** | React 19.1.1, Tailwind CSS v4, Radix UI, Zustand 5.0.8 |
-| **Web** | Vite 7.1.2, Express 5.1.0, node-pty |
-| **Desktop** | Tauri 2.9.4, Rust, portable-pty |
-| **Mobile** | Expo 54, React Native 0.81, Expo Router |
-| **VS Code** | Extension API, esbuild, Vite webview |
-| **SDK** | @opencode-ai/sdk with SSE streaming |
+Native macOS app using Tauri (Rust backend + Vite frontend). Manages OpenCode CLI lifecycle, provides native terminal (PTY), file system access, and Git operations.
 
 ## Structure
 
 ```
-packages/
-├── ui/          # Shared React components, stores, hooks (273 files)
-├── web/         # Express server + CLI (27 files)
-├── desktop/     # Tauri app with Rust backend (34 files)
-├── vscode/      # VS Code extension (24 files)
-├── mobile/      # Expo/React Native iOS app (209 files)
-└── shared/      # Themes, typography, spacing (13 files)
-heroui-native/   # Embedded React Native UI library (external)
+src/                        # TypeScript frontend
+├── main.tsx               # Bootstrap, bridge setup, API injection
+├── lib/
+│   ├── bridge.ts          # Fetch/EventSource patching for IPC
+│   └── tauriCallbackManager.ts  # IPC lifecycle management
+└── api/                   # Runtime API adapters
+    ├── index.ts           # Factory function
+    ├── terminal.ts        # PTY via Tauri commands
+    ├── git.ts             # Git via Tauri commands
+    └── files.ts           # FS via Tauri commands
+
+src-tauri/                 # Rust backend
+├── src/
+│   ├── main.rs           # App setup, menu, HTTP proxy (84k lines)
+│   ├── opencode_manager.rs  # OpenCode CLI process manager
+│   ├── commands/         # Tauri command modules
+│   │   ├── terminal.rs   # PTY sessions (portable-pty)
+│   │   ├── git.rs        # Git operations
+│   │   ├── files.rs      # File system ops
+│   │   └── permissions.rs # macOS directory access
+│   └── *.rs              # Other modules
+├── tauri.conf.json       # App configuration
+└── Cargo.toml            # Rust dependencies
 ```
 
-## Where to Look
+## Adding Tauri Commands
 
-| Task | Location | Notes |
-|------|----------|-------|
-| Add UI component | `packages/ui/src/components/` | Auto-available to all runtimes |
-| Add Zustand store | `packages/ui/src/stores/` | Use `persist()` middleware if needed |
-| Add custom hook | `packages/ui/src/hooks/` | Prefix with `use*` |
-| Modify themes | `packages/shared/src/themes/` | CSS vars generated automatically |
-| Add API endpoint | `packages/web/server/index.js` | Express routes (84 total) |
-| Add Tauri command | `packages/desktop/src-tauri/src/commands/` | Rust → TS adapter in `src/api/` |
-| Add VS Code command | `packages/vscode/src/extension.ts` | Register in `package.json` |
-| Add mobile screen | `packages/mobile/app/` | Expo Router file-based routing |
+### 1. Rust side (`src-tauri/src/commands/`)
 
-## Architecture
-
-### Runtime Adapter Pattern
-
-Each runtime implements `RuntimeAPIs` interface from `packages/ui/src/lib/api/types.ts`:
-
-```
-packages/web/src/api/       → HTTP fetch to Express
-packages/desktop/src/api/   → Tauri IPC commands
-packages/vscode/webview/api/→ Extension bridge messages
-packages/mobile/src/api/    → HTTP fetch to remote server
+```rust
+// In appropriate module (terminal.rs, git.rs, files.rs, etc.)
+#[tauri::command]
+pub async fn my_command(
+    param: String,
+    state: tauri::State<'_, DesktopRuntime>,
+) -> Result<MyResponse, String> {
+    // Implementation
+    Ok(MyResponse { ... })
+}
 ```
 
-UI components access via `useRuntimeAPIs()` hook - platform-agnostic.
+### 2. Register in `main.rs`
 
-### State Management
+```rust
+.invoke_handler(tauri::generate_handler![
+    // ... existing commands
+    commands::my_module::my_command,
+])
+```
 
-30+ Zustand stores in `packages/ui/src/stores/`:
-- **Persisted**: contextStore, sessionStore, messageStore, useConfigStore, useAgentsStore
-- **Global access**: `window.__zustand_*_store__` for cross-component access
-- **Circular dep avoidance**: Dynamic imports or window globals
+### 3. TypeScript adapter (`src/api/`)
 
-### Streaming Architecture
+```typescript
+// In appropriate adapter file
+export async function myCommand(param: string): Promise<MyResponse> {
+  return safeInvoke('my_command', { param });
+}
+```
 
-SDK-managed SSE with AsyncGenerator:
-- 2 retry attempts, 500ms→8s exponential backoff
-- Temp→real session ID swap (optimistic UI)
-- `pendingAssistantParts` buffering
-- Memory management: LRU eviction, viewport windowing
+### 4. Add to RuntimeAPIs (`src/api/index.ts`)
 
-## Commands
+```typescript
+export function createDesktopAPIs(): RuntimeAPIs {
+  return {
+    // ... existing
+    myFeature: { myCommand },
+  };
+}
+```
+
+## Key Patterns
+
+### IPC Bridge (`lib/bridge.ts`)
+
+Patches `fetch` and `EventSource` to route through HTTP proxy:
+```typescript
+// Rewrites: /api/sessions → http://127.0.0.1:<port>/api/sessions
+window.__OPENCHAMBER_DESKTOP_SERVER__ = { port, apiPrefix };
+```
+
+### Safe Invoke (`lib/tauriCallbackManager.ts`)
+
+Wraps Tauri `invoke()` with timeout and cleanup:
+```typescript
+const result = await safeInvoke('command_name', { params }, 30000);
+```
+
+### OpenCode Manager (`opencode_manager.rs`)
+
+- Spawns `opencode serve --port <port>` as child process
+- Detects port from stdout via regex
+- Health checks `/config` endpoint
+- Graceful shutdown: SIGTERM → 3s wait → SIGKILL
+
+### Terminal PTY (`commands/terminal.rs`)
+
+- Uses `portable-pty` for cross-platform PTY
+- SSE events via `app_handle.emit("terminal://<id>", data)`
+- Resize support, force kill
+
+### macOS Specifics
+
+- **Private API**: Enabled for window effects (`macOSPrivateApi: true`)
+- **Traffic lights**: Custom positioning for title bar
+- **Menu bar**: Native menu with keyboard shortcuts
+- **Vibrancy**: Sidebar material with corner radius
+
+## Rust Dependencies
+
+| Crate | Purpose |
+|-------|---------|
+| `tauri` | App framework |
+| `portable-pty` | PTY sessions |
+| `axum` | HTTP proxy server |
+| `tokio` | Async runtime |
+| `serde` | JSON serialization |
+| `reqwest` | HTTP client |
+
+## Commands Reference
+
+| Command | Module | Purpose |
+|---------|--------|---------|
+| `create_terminal_session` | terminal | Start PTY |
+| `terminal_input` | terminal | Send input to PTY |
+| `terminal_resize` | terminal | Resize PTY |
+| `git_status` | git | Get repo status |
+| `git_commit` | git | Create commit |
+| `list_directory` | files | List directory |
+| `search_files` | files | Search files |
+| `request_directory_access` | permissions | macOS picker |
+
+## Development
 
 ```bash
-bun run dev:web              # Web dev server
-bun run desktop:dev          # Desktop with OpenCode CLI
-bun run vscode:dev           # VS Code extension watch
-bun run mobile:start         # Expo dev server
-
-bun run build                # Build all packages
-bun run type-check           # TypeScript validation
-bun run lint                 # ESLint checks
+bun run desktop:dev    # Tauri dev mode (hot reload)
+bun run desktop:build  # Production build (DMG)
 ```
 
-## Anti-Patterns (FORBIDDEN)
+### Debugging
 
-| Pattern | Why |
+- **Rust logs**: `~/Library/Logs/ai.opencode.openchamber/openchamber.log`
+- **Devtools**: Cmd+Option+I (enabled in production)
+- **IPC stats**: `getTauriCallbackManager().getStats()`
+
+## Anti-Patterns
+
+| Pattern | Fix |
 |---------|-----|
-| `as any`, `@ts-ignore`, `@ts-expect-error` | Type safety is mandatory |
-| Hardcoded font sizes | Use semantic typography classes |
-| Empty catch blocks | Always handle or log errors |
-| Direct store imports causing circular deps | Use `window.__zustand_*` or dynamic imports |
-| Config updates with directory param | Config is global scope |
-| Awaiting model execution in multi-run | Blocks UI - only await infrastructure |
-
-## Conventions
-
-### Typography (CRITICAL)
-Always use semantic classes - never hardcoded sizes:
-- `typography-markdown`, `typography-code`, `typography-ui-label`
-- CSS vars: `--text-markdown`, `--text-code`, `--text-meta`, `--text-micro`
-
-### Tailwind CSS v4
-Use `@import "tailwindcss"` syntax (not `@tailwind` directives).
-
-### TypeScript
-- `verbatimModuleSyntax: true` - explicit `import type` required
-- `moduleResolution: "bundler"`
-- Strict mode enabled
-
-### Component Patterns
-- Functional components only (no classes)
-- `React.memo` for performance-critical components
-- `cn()` utility for className composition (clsx + tailwind-merge)
-- Settings sections use shared boilerplate in `packages/ui/src/components/sections/shared/`
-
-## Complexity Hotspots
-
-| File | Lines | Purpose |
-|------|-------|---------|
-| `ui/stores/messageStore.ts` | 2542 | Streaming, memory management, deduplication |
-| `ui/components/chat/ModelControls.tsx` | 2338 | Model/agent selection with permissions |
-| `ui/hooks/useEventStream.ts` | 1821 | SSE handling, reconnection, status tracking |
-| `vscode/src/bridge.ts` | 1353 | API proxy, file/git operations |
-| `ui/components/chat/ChatInput.tsx` | 1344 | Autocomplete, attachments, queue mode |
-| `ui/lib/opencode/client.ts` | 1341 | OpenCode SDK wrapper |
-
-## Dev Guidelines
-
-### Before Committing
-```bash
-bun run type-check && bun run lint
-```
-
-### Adding Runtime-Specific Features
-1. Extend `RuntimeAPIs` interface in `packages/ui/src/lib/api/types.ts`
-2. Implement in each runtime's `api/` directory
-3. Access via `useRuntimeAPIs()` hook
-
-### Theme Changes
-1. Modify `packages/shared/src/themes/`
-2. CSS vars generated automatically by `cssGenerator.ts`
-3. Test both light and dark themes
-
-### Testing
-No test infrastructure exists. Quality gates:
-- TypeScript type checking
-- ESLint rules
-- Build-time compilation
-
-## Notes
-
-- **heroui-native/**: External React Native UI library embedded at root (not in packages/)
-- **Web server is JavaScript**: `packages/web/server/index.js` is 4273 lines of JS (not TS)
-- **Mobile doesn't share UI**: Separate implementation, uses @openchamber/shared for themes only
-- **No CI/CD**: All builds are manual, see `scripts/` for release workflows
-
-See package-specific AGENTS.md files for detailed documentation:
-- `packages/ui/AGENTS.md` - Components, stores, hooks
-- `packages/desktop/AGENTS.md` - Tauri/Rust patterns
-- `packages/mobile/AGENTS.md` - Expo/React Native patterns
+| Blocking main thread | Use `tokio::spawn` for async |
+| Hardcoded paths | Use `expand_tilde_path()` |
+| Missing cleanup | Use `CloseRequested` event |
+| IPC without timeout | Use `safeInvoke()` wrapper |
 
 ---
 > Source: [Shahfarzane/opencode-mobile](https://github.com/Shahfarzane/opencode-mobile) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
