@@ -1,0 +1,9 @@
+{
+  "name": "envoyproxy--ai-gateway",
+  "displayName": "ai-gateway",
+  "description": "ai-gateway",
+  "version": "1.0.0",
+  "author": "envoyproxy",
+  "homepage": "https://github.com/envoyproxy/ai-gateway",
+  "skills": []
+}
