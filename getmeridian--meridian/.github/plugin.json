@@ -1,7 +1,7 @@
 {
   "name": "getmeridian--meridian",
   "displayName": "meridian",
-  "description": "One command deploys a censorship-resistant VLESS+Reality proxy server. Perfectly configured out-of-the-box. Relay nodes supported.",
+  "description": "meridian",
   "version": "1.0.0",
   "author": "getmeridian",
   "homepage": "https://github.com/getmeridian/meridian",
