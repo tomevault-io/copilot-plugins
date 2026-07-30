@@ -2,7 +2,7 @@
   "name": "claude-token-efficient",
   "owner": "drona23",
   "repo": "claude-token-efficient",
-  "description": "One CLAUDE.md file. Keeps Claude responses terse. Reduces output verbosity on heavy workflows. Drop-in, no code changes.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drona23/claude-token-efficient",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:18:57Z"
+  "distributed_at": "2026-07-30T22:39:04Z"
 }
