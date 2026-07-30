@@ -1,72 +1,41 @@
 ## grafana-google-analytics-datasource
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> End-to-end tests using `@grafana/plugin-e2e` + Playwright. Configured in `playwright.config.ts` at the repo root with three projects: `auth` (provided by `@grafana/plugin-e2e`, writes admin storage state), then `config` and `query` which depend on it. CI runs the suite in `.github/workflows/playwright.yml` against a matrix of Grafana versions.
 
-# CLAUDE.md
+# tests/ — Playwright e2e
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+End-to-end tests using `@grafana/plugin-e2e` + Playwright. Configured in `playwright.config.ts` at the repo root with three projects: `auth` (provided by `@grafana/plugin-e2e`, writes admin storage state), then `config` and `query` which depend on it. CI runs the suite in `.github/workflows/playwright.yml` against a matrix of Grafana versions.
 
-A Grafana datasource plugin for **Google Analytics 4** (GA4). The plugin is split into a TypeScript/React frontend (`src/`) and a Go backend (`pkg/`); a CLAUDE.md in each subdirectory has the details for that side.
-
-- `src/CLAUDE.md` — frontend (ConfigEditor, QueryEditor, DataSource resource calls)
-- `pkg/CLAUDE.md` — Go backend (auth, GA4 client, query/transform pipeline)
-- `tests/CLAUDE.md` — Playwright e2e (provisioned datasource, JWT upload race, modal quirks)
-
-The legacy GA3 / Universal Analytics datasource was removed in commit `e5bee9a`; only the GA4 path remains.
-
-## Big picture
-
-```
-Grafana ──► Frontend (src/)                 Backend (pkg/)
-            DataSource.ts ──HTTP─►          datasource.go (resource handlers
-            QueryEditorGA4.tsx                + QueryData → analytics.go)
-            ConfigEditor.tsx                       │
-                                                   ▼
-                                             gav4/ ──► Google APIs
-                                             (admin v1beta, data v1beta)
-                                                   ▲
-                                             auth/Resolve  ──► tokenprovider
-                                             (privateKey OR legacy jwt blob)
-```
-
-Resource endpoints registered in `pkg/datasource.go` (`/account-summaries`, `/dimensions`, `/metrics`, `/realtime-dimensions`, `/realtime-metrics`, `/profile/timezone`, `/property/service-level`) are how the frontend populates cascaders and async selects — keep names and shapes in sync between `src/DataSource.ts` and `pkg/datasource.go` when adding endpoints.
-
-## Commands
-
-Frontend (yarn 1.22, Node 20 — see `.nvmrc`):
+## Running locally
 
 ```bash
-yarn install                  # postinstall runs patch-package
-yarn dev                      # webpack --watch (writes to ./dist)
-yarn build                    # production build
-yarn typecheck                # tsc --noEmit
-yarn lint                     # eslint with cache
-yarn test                     # jest --watch --onlyChanged
-yarn test:ci                  # jest --passWithNoTests --maxWorkers 4
-yarn e2e                      # playwright (requires Grafana on :3000 — see tests/CLAUDE.md)
-yarn server                   # docker compose up --build (Grafana with plugin mounted)
+docker compose up -d   # Grafana on :3000 with the plugin and provisioning mounted
+yarn run e2e           # headless
+yarn run e2e:ui        # Playwright UI mode (good for debugging selectors)
 ```
 
-Backend (Go 1.24+, mage):
+The tests load datasources via `readProvisionedDataSource({ fileName: 'datasources.yml' })`, which reads `provisioning/datasources/datasources.yml` — this file is mounted into the dev container by `docker-compose.yaml`.
 
-```bash
-mage -v                       # build for linux/darwin/windows (default = build:All)
-mage -l                       # list mage targets
-mage build:linux              # single-OS build (used in CI for e2e)
-mage coverage                 # backend tests with coverage (CI uses this)
-go test ./pkg/...             # run all backend tests
-go test -run TestName ./pkg/auth   # single test
-```
+## Credentials
 
-Local dev loop: `docker compose up` brings up Grafana 10.4 (override with `GRAFANA_VERSION=…`) with `./dist` mounted as the plugin and `./provisioning` as Grafana provisioning. Rebuild frontend with `yarn dev`, backend with `mage`, then `docker restart blackcowmoo-googleanalytics-datasource`.
+`tests/credentials/grafana-success.json` and `grafana-fail.json` are gitignored service-account JSONs. CI restores them from base64-encoded GitHub secrets (`GOOGLE_AUTH_JSON`, `GOOGLE_AUTH_FAIL_JSON`). Locally you have to drop your own files at those paths before the suite will pass — `grafana-success.json` must point at a service account with read access to a GA4 property; `grafana-fail.json` should be a JSON that fails CheckHealth (e.g. valid format, no GA permissions).
 
-## Repo-specific things to remember
+## Two non-obvious quirks (`tests/utils.ts`, `tests/config/configEditor.spec.ts`)
 
-- **Plugin ID** is `blackcowmoo-googleanalytics-datasource` — appears in `src/plugin.json`, docker-compose, Magefile output, and resource paths. Don't rename casually.
-- **Grafana version floor**: `>=9.3.0` per `plugin.json`. Frontend pins `@grafana/data|runtime|ui` at `10.2.2`; bumping these requires checking the Grafana support matrix.
-- **Provisioning** under `./provisioning` is mounted into the dev Grafana container — `provisioning/datasources/datasources.yml` is what the e2e tests load via `readProvisionedDataSource`.
-- CI runs **typecheck + frontend build + `mage coverage` + `mage buildAll` + plugin-validator** on every PR (`.github/workflows/ci.yaml`); a separate matrix workflow (`playwright.yml`) runs e2e against multiple Grafana versions. Lint and unit tests are currently commented out in CI — local `yarn lint` / `yarn test:ci` is the only gate.
+Both are explained at length in inline comments — read them before changing the helpers, because they encode race conditions that have already bitten the suite.
+
+1. **Grafana 13+ "What's new" modal** — mounts a viewport-sized scrim that intercepts pointer events. Any click before dismissal silently times out. Always call `dismissWhatsNewModal(page)` after navigating to a config/query page. The helper returns quickly on older Grafana versions where the dialog isn't rendered.
+
+2. **JWT upload race** — `<ConnectionConfig />`'s FileDropzone fires `setInputFiles`, but the SDK's `FileReader → onOptionsChange → React rerender` chain is async. If you `saveAndTest()` immediately, the save races the credential update and CheckHealth returns 400. The `uploadJWT` helper waits for `dropzone` to become **hidden** (proof the JWT was accepted into `secureJsonData`) before returning. If a previous test left credentials behind, the SDK shows a `Reset` button instead of the dropzone — `uploadJWT` clicks it first.
+
+## Backwards-compat tests
+
+`configEditor.spec.ts` includes a `legacy v3 datasource config loads without crashing` test. The provisioning file has a `Google Analytics (legacy v3)` entry with `jsonData.version = "v3"` left over from the old GA3 datasource — the assertion is that the config page mounts without crashing, since the version field is now ignored and only the GA4 path runs. Don't delete this case without removing the corresponding datasource from `provisioning/datasources/datasources.yml`.
+
+## Adding new specs
+
+Put them in `tests/config/` or `tests/query/`. The project dependency chain (`auth` → `config` → `query`) means `query` specs run after `config` specs and reuse the same admin storage state. If you need a clean datasource per test, use `createDataSourceConfigPage({ ..., deleteDataSourceAfterTest: true })` instead of `gotoDataSourceConfigPage`.
 
 ---
 > Source: [blackcowmoo/grafana-google-analytics-datasource](https://github.com/blackcowmoo/grafana-google-analytics-datasource) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
