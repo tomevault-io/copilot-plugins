@@ -1,0 +1,9 @@
+{
+  "name": "kyungseo--ai-workflow-harness",
+  "displayName": "ai-workflow-harness",
+  "description": "A manual-first, approval-gated AI workflow harness for Claude Code, Codex, Antigravity, and Cursor. (\uacc4\ud68d\u00b7\uc2b9\uc778\u00b7\uac80\uc99d\u00b7\uae30\ub85d\uc73c\ub85c \uc774\uc5b4\uc9c0\ub294 AI \uac1c\ubc1c \ud558\ub124\uc2a4)",
+  "version": "1.0.0",
+  "author": "kyungseo",
+  "homepage": "https://github.com/kyungseo/ai-workflow-harness",
+  "skills": []
+}
