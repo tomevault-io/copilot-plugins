@@ -1,8 +1,6 @@
 # AI instruction files for mcp-portal-transparencia
 
-> Sourced from [dutradotdev/mcp-portal-transparencia](https://github.com/dutradotdev/mcp-portal-transparencia) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-MCP para orquestração automatizada de chamadas à API do Portal da Transparência do Governo Federal brasileiro
+> Sourced from [dutradotdev/mcp-portal-transparencia](https://github.com/dutradotdev/mcp-portal-transparencia), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [dutradotdev/mcp-portal-transparencia]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dutradotdev/mcp-portal-transparencia](https://github.com/dutradotdev/mcp-portal-transparencia) — a repo with 218+ stars on GitHub.
+From [dutradotdev/mcp-portal-transparencia](https://github.com/dutradotdev/mcp-portal-transparencia) — a repo with 221+ stars on GitHub.
 
 ---
 
