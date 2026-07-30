@@ -1,160 +1,97 @@
 ## githru-vscode-ext
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> description: "Testing rules (Jest + RTL + Playwright)"
 
-# CLAUDE.md
+## <!-- .cursor/rules/test.playwright.mdc -->
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
-
-githru-vscode-ext is a VSCode extension that provides Git visualization and analytics. It's a monorepo with three main packages:
-
-- **analysis-engine**: Core Git analysis engine that parses git logs and GitHub data
-- **view**: React-based UI components for visualization (uses D3.js, Material-UI)
-- **vscode**: VSCode extension wrapper that bridges the engine and view
-
-## Development Commands
-
-### Root Level
-```bash
-# Install dependencies for all packages
-npm install
-
-# Build all packages
-npm run build:all
-
-# Test all packages
-npm run test:all
-
-# Lint all packages
-npm run lint
-npm run lint:fix
-
-# Format code
-npm run prettier
-npm run prettier:fix
-```
-
-### Package-Specific Commands
-
-#### Analysis Engine (packages/analysis-engine)
-```bash
-# Build with type declarations
-npm run build
-
-# Run specific tests
-npm run test:stem
-npm run test
-
-# Lint
-npm run lint
-```
-
-#### View (packages/view)
-```bash
-# Start development server
-npm run start
-
-# Build for production
-npm run build
-
-# Run tests
-npm run test
-
-# Run E2E tests
-npm run test:e2e
-```
-
-#### VSCode Extension (packages/vscode)
-```bash
-# Build extension (also builds view package)
-npm run build
-
-# Watch mode for development
-npm run watch
-
-# Package extension
-npm run package
-
-# Debug: F5 in VSCode or Run > Start Debugging
-```
-
-### Debugging the Extension
-1. Run `npm run build:all` from root
-2. Open the `packages/vscode` folder in VSCode
-3. Press F5 or use Run > Start Debugging
-4. In the Extension Development Host, use Command Palette > "Open Githru View"
-
-## Architecture
-
-### Data Flow
-1. **VSCode Extension** captures git repository context
-2. **Analysis Engine** processes git log and GitHub API data:
-   - Parses raw git commits (`parser.ts`)
-   - Builds commit dictionary (`commit.util.ts`)
-   - Creates stem/branch structure (`stem.ts`)
-   - Generates cluster summary map (`csm.ts`)
-3. **View** renders interactive visualizations using the processed data
-
-### Key Components
-
-#### Analysis Engine Core Classes
-- `AnalysisEngine`: Main orchestrator class
-- `PluginOctokit`: GitHub API integration with retry/throttling
-- Dependency injection using `tsyringe`
-
-#### View Architecture
-- **State Management**: Zustand stores in `src/store/`
-- **Components**: Modular React components with D3.js integration
-- **IDE Adapter Pattern**: `VSCodeIDEAdapter` bridges VSCode API
-- Component structure: `ComponentName/index.ts` exports, separate `.const.ts`, `.type.ts`, `.util.ts` files
-
-#### VSCode Extension
-- Extension activation on git repositories
-- Webview integration for React UI
-- Command palette integration
-- GitHub authentication management
-
-## Code Conventions
-
-### Commit Messages
-Follow conventional commits with these scopes:
-- `feat(engine)`: Analysis engine features
-- `feat(view)`: UI/visualization features
-- `feat(vscode)`: VSCode extension features
-- `fix(scope)`: Bug fixes
-- `refactor(scope)`: Code refactoring
-
-### Code Style
-- ESLint configuration with Prettier
-- TypeScript strict mode
-- 2-space indentation, 120 character line width
-- Single quotes disabled, trailing commas on ES5
-
-### Testing
-- Jest for unit testing
-- Playwright for E2E testing (view package)
-- Test files: `*.spec.ts` or `*.test.ts`
-
-## Development Environment Setup
-
-### Prerequisites
-- Node.js >= 16
-- npm >= 8
-- VSCode with ESLint extension
-
-### TypeScript Configuration
-In VSCode, activate workspace TypeScript:
-1. Open a TypeScript file
-2. Ctrl/Cmd + Shift + P
-3. "Select TypeScript Version"
-4. "Use Workspace Version"
-
-### Package Structure
-The project uses npm workspaces. Each package has its own dependencies and build configuration but shares root-level linting and formatting rules.
+description: "Testing rules (Jest + RTL + Playwright)"
+globs: ["**/*.{ts,tsx}"]
+alwaysApply: true
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/githru)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/githru)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+# Testing Rules
+
+## General
+
+- File naming: `*.test.ts(x)` for unit/component, `*.spec.ts(x)` for integration/E2E.
+- Co-locate tests with code when small; otherwise keep under `/tests`.
+- Aim for high-value coverage (core logic ~80%+). Skip trivial one-liners.
+- Naming: `describe(Component)` + `it('renders …')` with full-sentence style.
+- **Comments must be in English** for international collaboration and maintainability.
+- **Keep comments minimal and concise** - only add comments when they provide essential context or explain non-obvious behavior.
+
+## Unit/Component (Jest + React Testing Library)
+
+- Test **public behavior** (render, interaction, output). Avoid testing internals.
+- Each critical component should include:
+  - Render snapshot (basic mount),
+  - Interaction (click, input, keyboard),
+  - a11y basics (role/label presence, keyboard navigation),
+  - Store selector correctness (mock store when needed).
+- Prefer `screen.getByRole` over `getByTestId` unless no semantic alternative.
+- Use `@testing-library/jest-dom` matchers for DOM assertions.
+
+## Store (Zustand slices)
+
+- Test actions:
+  - Initial state correctness,
+  - Success/error branches,
+  - Immutable updates.
+- Async actions: mock API calls, assert `isLoading/error/data` transitions.
+- Test persistence middleware behavior when applicable.
+
+## E2E (Playwright)
+
+- Cover only critical flows:
+  - Happy path: load → interact → result,
+  - Core regressions: auth, filters, CRUD happy path.
+- Store screenshots/videos on CI for failed runs.
+- Prefer deterministic locators (role, label, data-testid) over CSS selectors.
+- Use `page.waitForSelector` for dynamic content loading.
+
+## Package-Specific Rules
+
+### View Package
+
+- Test React components with Jest + RTL
+- Test Zustand stores (theme, branch, data, loading, etc.)
+- E2E tests for webview interactions
+- Mock VSCode API calls appropriately
+
+### Analysis Engine Package
+
+- Test core logic with Jest (Node environment)
+- Mock external dependencies (GitHub API, file system)
+- Test parsing and analysis algorithms
+
+### VSCode Extension Package
+
+- Test extension commands and utilities
+- Mock VSCode extension API
+- Test webview communication
+
+## Iterative Test Refinement
+
+- When a test fails, analyze the provided error log to identify the root cause.
+- **Priority 1: Locators.** If an element is not found, correct the Playwright locator first. Prefer `getByRole`, `getByText`, `data-testid` in that order.
+- **Priority 2: Timing.** If the locator is correct but the element is not ready, add or adjust `page.waitForSelector` or other appropriate `waitFor` functions. Do not use fixed `page.waitForTimeout()`.
+- **Priority 3: Assertions.** Ensure the assertion (`expect()`) matches the actual state of the application described in the error log.
+- Modify the minimum necessary code to fix the specific error. Do not refactor unrelated code.
+
+## Accessibility
+
+- Include basic accessibility checks (role/label presence, keyboard navigation).
+- Ensure focus management in modals/menus is tested.
+
+## Misc
+
+- Keep tests fast/deterministic. Avoid real timeouts/network.
+- Use Jest's timer mocking (`jest.useFakeTimers`) if time-dependent.
+- Mock D3.js and other heavy dependencies appropriately.
+- Use `testPathIgnorePatterns` to exclude build artifacts.
+- Ensure focus management in modals/menus is tested.
+
+---
+> Source: [githru/githru-vscode-ext](https://github.com/githru/githru-vscode-ext) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
