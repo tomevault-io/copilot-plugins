@@ -1,23 +1,22 @@
 # cli-continues
 
-> Tome by [yigitkonur](https://github.com/yigitkonur/cli-continues) — distributed by [TomeVault](https://tomevault.io)
-
-resume any AI coding session in another tool — Claude Code, Copilot, Gemini, Codex, Cursor
+> Tome by [yigitkonur](https://github.com/yigitkonur/cli-continues), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yigitkonur/cli-continues](https://github.com/yigitkonur/cli-continues).
+Original source: `` in [yigitkonur/cli-continues](https://github.com/yigitkonur/cli-continues).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [yigitkonur/cli-continues](https://github.com/yigitkonur/cli-continues) — a repo with 1059+ stars on GitHub.
+From [yigitkonur/cli-continues](https://github.com/yigitkonur/cli-continues) — a repo with 1387+ stars on GitHub.
 
 ---
 
