@@ -1,0 +1,51 @@
+{
+  "name": "roblox-brain",
+  "owner": "TabooHarmony",
+  "repo": "roblox-brain",
+  "description": "Give your AI coding agent a Roblox brain. Curated skills for Roblox Studio development.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "roblox-code-review",
+      "path": "skills/roblox-code-review",
+      "github_url": "https://github.com/TabooHarmony/roblox-brain/tree/main/skills/roblox-code-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TabooHarmony/roblox-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-30T00:31:57Z"
+}
