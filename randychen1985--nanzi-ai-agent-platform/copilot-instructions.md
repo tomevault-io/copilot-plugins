@@ -1,0 +1,17 @@
+## code-merged-sync
+
+> 用户说「代码已合」时只做 git 同步，不执行 ./dev.sh
+
+
+# 代码已合：仅本地 git 同步
+
+当用户说「代码已合」「PR 合了」「已合并」等时：
+
+1. **立即执行 git 同步**，不要只口头确认。
+2. 按 `AGENTS.md`：`fetch` → 更新 `main` → `dev-agentscope` merge/rebase `main` → 必要时 `push` → 汇报两侧最新 commit 是否与远程一致。
+3. **禁止**执行 `./dev.sh`（与平时改代码相同：一律由用户在控制台手动跑）。
+4. 同步完成后提醒用户自行执行 `./dev.sh`。
+
+---
+> Source: [RandyChen1985/nanzi-ai-agent-platform](https://github.com/RandyChen1985/nanzi-ai-agent-platform) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
