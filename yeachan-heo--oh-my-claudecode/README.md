@@ -1,8 +1,6 @@
 # oh-my-claudecode
 
-> Tome by [Yeachan-Heo](https://github.com/Yeachan-Heo/oh-my-claudecode) — distributed by [TomeVault](https://tomevault.io)
-
-Teams-first Multi-agent orchestration for Claude Code
+> Tome by [Yeachan-Heo](https://github.com/Yeachan-Heo/oh-my-claudecode), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [Yeachan-Heo/oh-my-claudecode](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
