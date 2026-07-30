@@ -1,73 +1,62 @@
-## monorepo-organization
+## flarekit
 
-> Monorepo organization and development patterns for Flarekit
+> Backend-specific development patterns for Hono API routes
 
 
-# Monorepo Organization Patterns
+# Backend-Specific Development Patterns
 
-When working with the Flarekit monorepo:
+When working in the Flarekit backend:
 
-## Project Structure
-```
-flarekit/
-├── apps/
-│   ├── backend/     # Cloudflare Worker API (Hono)
-│   └── web/         # Frontend application (Astro)
-├── packages/
-│   └── database/    # Shared database layer (Drizzle)
-├── scripts/         # Utility scripts
-└── .github/         # CI/CD workflows
-```
+## Route Registration Pattern
+- Each route file exports a single endpoint function
+- Route directories have an `index.ts` that exports an array of endpoints
+- Main routes index imports and spreads all route arrays
 
-## Package Dependencies
-- Use workspace references: `"@flarekit/database": "*"`
-- Shared packages should be built before dependent apps
-- Use TurboRepo for efficient builds and caching
+## File Naming Conventions
+- Route files: `[resource][Action].route.ts` (e.g., `userCreate.route.ts`)
+- Schema files: `[resource].schema.ts`
+- Handler files: `[purpose].handler.ts`
+- Utility files: `[purpose].util.ts`
 
-## Development Workflow
-- Start all services: `npm run dev` (from root)
-- Individual services: `npm run dev --filter="@flarekit/backend"`
-- Database migrations: `npx flarekit migrate:d1:local`
+## Import Aliases
+Use these path aliases consistently:
+- `@/` - src root
+- `@utils/` - src/utils
+- `@/schemas/` - src/schemas
+- `@/classes/` - src/classes
+- `@/handlers/` - src/handlers
 
-## Shared Code Patterns
-- Database schemas and services in `packages/database`
-- Utility functions should be in appropriate packages
-- Type definitions shared across apps
-- Common configurations in root or shared packages
+## API Versioning
+- All API routes start with `/api/v1/`
+- Group related endpoints under resource paths
+- Use RESTful conventions where possible
 
-## Build Process
-- Database package builds first (dependency for backend)
-- Backend and web can build in parallel
-- Use `turbo.json` for build orchestration
-- Generate migrations before building database package
+## Schema Organization
+- Request/Response schemas in `/schemas/[resource].schema.ts`
+- Include OpenAPI examples in all schemas
+- Use descriptive schema names with suffixes: `CreateRequest`, `SuccessResponse`
 
-## Environment Management
-- Each app has its own `.dev.vars` for local secrets
-- Shared environment variables in root `.env`
-- Use `wrangler.json` for Cloudflare-specific config
-- Different persistence paths for different environments
+## Database Integration
+- Always initialize DB with: `const db = initDBInstance(c.env, c.env)`
+- Use service methods from BaseService
+- Handle pagination with range parameters: `[start, end]`
+- Include total count in list responses via headers
 
-## Testing Strategy
-- Unit tests in each package/app
-- Integration tests for database operations
-- E2E tests for full application flows
-- Use Vitest with Cloudflare Workers pool
+## Validation Patterns
+- Use Zod schemas for all input validation
+- Validate file uploads with size and type constraints
+- Provide detailed field-level error messages
+- Parse JSON query parameters safely
 
-## Deployment
-- Database migrations run first
-- Backend and frontend deploy independently
-- Use GitHub Actions for automated deployment
-- Environment-specific configurations
+## Response Headers
+- Set CORS headers appropriately
+- Include `Content-Range` for paginated responses
+- Expose necessary headers with `Access-Control-Expose-Headers`
+- Add caching headers when appropriate
 
-## Code Sharing Best Practices
-- Export types from packages for use in apps
-- Keep business logic in appropriate layers
-- Avoid circular dependencies between packages
-- Use path aliases for clean imports (`@/`, `@utils/`)
-
-@turbo.json
-@package.json
+@src/routes/v1/storage/storageList.route.ts
+@src/utils/api-builder.util.ts
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
