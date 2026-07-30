@@ -1,8 +1,6 @@
 # Rune-stone
 
-> Tome by [vict00r99](https://github.com/vict00r99/Rune-stone) — distributed by [TomeVault](https://tomevault.io)
-
-A specification pattern for consistent AI code generation.
+> Tome by [vict00r99](https://github.com/vict00r99/Rune-stone), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [vict00r99/Rune-stone](https://github.com/vict00
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/vict00r99/Rune-stone](https://github.com/vict00r99/Rune-stone)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/vict00r99/Rune-stone](https://github.com/vict00r99/Rune-stone)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
