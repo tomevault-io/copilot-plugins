@@ -1,0 +1,9 @@
+{
+  "name": "microsoftdocs--azure-devops-yaml-schema",
+  "displayName": "azure-devops-yaml-schema",
+  "description": "azure-devops-yaml-schema",
+  "version": "1.0.0",
+  "author": "MicrosoftDocs",
+  "homepage": "https://github.com/MicrosoftDocs/azure-devops-yaml-schema",
+  "skills": []
+}
