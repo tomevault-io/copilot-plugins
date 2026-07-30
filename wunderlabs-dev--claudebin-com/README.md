@@ -1,8 +1,6 @@
 # claudebin.com
 
-> Tome by [wunderlabs-dev](https://github.com/wunderlabs-dev/claudebin.com) — distributed by [TomeVault](https://tomevault.io)
-
-Claudebin is a minimalistic tool for publishing and sharing Claude coding sessions
+> Tome by [wunderlabs-dev](https://github.com/wunderlabs-dev/claudebin.com), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [wunderlabs-dev/claudebin.com](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [wunderlabs-dev/claudebin.com](https://github.com/wunderlabs-dev/claudebin.com) — a repo with 63+ stars on GitHub.
+From [wunderlabs-dev/claudebin.com](https://github.com/wunderlabs-dev/claudebin.com) — a repo with 66+ stars on GitHub.
 
 ---
 
