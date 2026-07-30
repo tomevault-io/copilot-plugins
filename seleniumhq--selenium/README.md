@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [SeleniumHQ/selenium](https://github.com/Seleniu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [SeleniumHQ/selenium](https://github.com/SeleniumHQ/selenium) — a repo with 34304+ stars on GitHub.
+From [SeleniumHQ/selenium](https://github.com/SeleniumHQ/selenium) — a repo with 34303+ stars on GitHub.
 
 ---
 
