@@ -1,0 +1,9 @@
+{
+  "name": "rdeangel--rda-msg-board",
+  "displayName": "rda_msg_board",
+  "description": "A message board / clock / more for ESP8266 and ESP32 boards",
+  "version": "1.0.0",
+  "author": "rdeangel",
+  "homepage": "https://github.com/rdeangel/rda_msg_board",
+  "skills": []
+}
