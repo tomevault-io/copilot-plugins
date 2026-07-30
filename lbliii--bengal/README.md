@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lbliii/bengal](https://github.com/lbliii/bengal).
+Original source: `AGENTS.md` in [lbliii/bengal](https://github.com/lbliii/bengal).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lbliii/bengal](https://github.com/lbliii/bengal) — a repo with 40+ stars on GitHub.
+From [lbliii/bengal](https://github.com/lbliii/bengal) — a repo with 0+ stars on GitHub.
 
 ---
 
