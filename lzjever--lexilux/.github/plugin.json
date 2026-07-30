@@ -1,7 +1,7 @@
 {
   "name": "lzjever--lexilux",
   "displayName": "lexilux",
-  "description": "Unified LLM API client library for Python. Simple API for Chat, Embedding, Rerank, and Tokenizer. OpenAI-compatible with streaming support and unified usage tracking.",
+  "description": "lexilux",
   "version": "1.0.0",
   "author": "lzjever",
   "homepage": "https://github.com/lzjever/lexilux",
