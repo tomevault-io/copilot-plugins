@@ -2,9 +2,9 @@
   "name": "Glyphs-mcp",
   "owner": "thierryc",
   "repo": "Glyphs-mcp",
-  "description": "Glyphs app mcp server",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thierryc/Glyphs-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T10:18:28Z"
+  "distributed_at": "2026-07-30T17:03:44Z"
 }
