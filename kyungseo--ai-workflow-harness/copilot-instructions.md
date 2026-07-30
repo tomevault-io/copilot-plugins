@@ -1,69 +1,45 @@
-## git-commit
+## java-spring
 
-> Use this when the user asks for a git commit, commit message, or commit command.
+> Optional Spring Boot example-pack coding rules. Apply only when editing an adopted project or spring-boot profile output.
 
 
-# Git Commit Rules
+# Optional Spring Boot Example Rules
 
-## Pre-Commit Process
-
-If the current directory is not a git repository (bootstrap initial state), report the steps below as `Not Applicable` and proceed with document/file validation only.
-
-Before committing, always run in this order:
-
-1. `git status` — confirm full working tree state (unstaged + untracked)
-2. `git add <files>` — stage intended files
-3. `git status` — verify nothing is missed before committing
-4. `git diff --cached` — review staged content
-
-NEVER use `git diff --cached` alone as the only pre-commit check.
-It does not show unstaged modifications or untracked files.
-
-## Commit Approval
+These rules are not part of the generic AI Workflow Harness core. They are kept
+as an optional example/profile surface for projects that adopt the harness with
+Spring Boot backend code.
 
 MUST:
 
-- Commit only after validation is complete or the remaining risk is explicitly accepted.
-- Before committing, follow the Approval Matrix: report validation result, diff summary, and proposed commit message, then wait for explicit user approval.
-- Before committing or opening a PR, report STATUS Finalization: whether `docs/STATUS.md` update is needed, why, and the required Approval Matrix proposal if needed.
-- Before committing or opening a PR, report Tracking Finalization: whether backlog/Work/DR tracker updates are needed, why, and which tracker files changed if any.
-- If `docs/STATUS.md` needs to change before commit, provide the Approval Matrix state-change proposal and wait for explicit user approval before editing it. Phase/focus/recent decision changes still require a full `STATUS Update Proposal`.
-- If not committing after a completed task, record the reason and remaining risk in the session summary.
+- Follow the Java and Spring conventions already present in the adopted project.
+- Keep package names aligned with the adopted project's namespace.
+- Use the adopted project's declared build tool and verification commands.
+- Use MyBatis `#{}` parameters. Use `${}` only with whitelist validation and an explanatory comment.
+- Use Lombok intentionally: prefer `@Getter`, `@Builder`, `@RequiredArgsConstructor`, and `@Slf4j`; do not use `@Data`.
+- Keep annotation processor order consistent with the adopted project.
+- Keep shared exception and response handling in the adopted project's established shared module.
 
-## Commit Message
+NEVER:
 
-MUST use Conventional Commits with Bilingual Rules (per `docs/decisions/DR-007-language-policy.md`):
+- Add service-specific domain logic to `common-core`.
+- Add default secret values for `JWT_SECRET`, `DB_PASSWORD`, or similar sensitive settings.
+- Log full tokens, passwords, or `Authorization` header values.
 
-**Type prefix** — always in English: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `style`, `ci`, `config`, `perf`, `build`, `revert`
-
-**Subject line** — Korean primary; English for technical terms and identifiers.
-
-- Use Korean verbs and sentence endings.
-- Keep English for proper nouns, tool names, file paths, IDs (e.g., `DR-007`, `STATUS.md`).
-- Example: `docs: [Korean subject using DR-007 and Bilingual Rules identifiers]`
-
-**Body** — Korean primary with English technical terms inline; explain *why*, not *what*.
-
-**PR body** — same DR-007 language policy as commit messages: Korean primary + Bilingual Rules.
+## Comments
 
 MUST:
 
-- Keep the message specific to the staged or requested change.
-- Avoid claiming work that is not included in the diff.
+- Add class-level Javadoc only for: architecture boundaries, security-sensitive logic, complex state.
+  Skip for DTOs, mappers, and standard CRUD controllers.
+- Use `// Korean reason — English technical term` for inline comments. Explain WHY, not WHAT.
+- Let `@Operation`, `@Schema`, and `@DisplayName` serve as documentation in their contexts.
 
-NEVER include metadata:
+NEVER:
 
-- `--trailer`
-- `Co-authored-by`
-- `Signed-off-by`
+- Add comments that repeat what the code already expresses.
+- Add file headers (no-header policy; LICENSE file covers the project).
 
-When the user asks ONLY for a commit command, output ONLY:
-
-```bash
-git commit -m "type: [Korean subject]"
-```
-
-Do not include explanations, multiple commands, or metadata in that case.
+Full reference: `docs/HARNESS-MAINTAINER-GUIDE.md`
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
