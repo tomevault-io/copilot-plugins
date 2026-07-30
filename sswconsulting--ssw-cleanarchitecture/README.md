@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [SSWConsulting/SSW.CleanArchitecture](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [SSWConsulting/SSW.CleanArchitecture](https://github.com/SSWConsulting/SSW.CleanArchitecture) — a repo with 194+ stars on GitHub.
+From [SSWConsulting/SSW.CleanArchitecture](https://github.com/SSWConsulting/SSW.CleanArchitecture) — a repo with 195+ stars on GitHub.
 
 ---
 
