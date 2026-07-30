@@ -1,17 +1,15 @@
 # wreckit
 
-> Source: [mikehostetler/wreckit](https://github.com/mikehostetler/wreckit) — distributed by [TomeVault](https://tomevault.io)
-
-Wreck it Ralph Wiggum - My code is in danger!
+> Source: [mikehostetler/wreckit](https://github.com/mikehostetler/wreckit). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mikehostetler/wreckit](https://github.com/mikehostetler/wreckit).
+Original source: `AGENTS.md` in [mikehostetler/wreckit](https://github.com/mikehostetler/wreckit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
