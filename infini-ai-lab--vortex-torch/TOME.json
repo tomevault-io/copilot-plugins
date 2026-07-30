@@ -4,7 +4,7 @@
   "repo": "vortex_torch",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Infini-AI-Lab/vortex_torch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T13:54:07Z"
+  "distributed_at": "2026-07-30T00:33:00Z"
 }
