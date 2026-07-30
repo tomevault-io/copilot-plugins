@@ -1,49 +1,30 @@
-## coding
+## debugging
 
-> Core coding behavior for this repository. Always prefer cautious, minimal, reversible changes.
+> Use this when debugging failures, broken tests, runtime errors, or unexpected behavior.
 
 
-# Core Coding Rules
+# Debugging Rules
 
-Instruction priority:
+MUST follow this sequence:
 
-1. `CLAUDE.md` — global principles
-2. `docs/AGENT-WORKFLOW.md` — project operating rules
-3. `.cursor/rules/*` — tool-specific rules
+1. Reproduce or clearly describe the failing condition.
+2. Narrow the cause using actual code, logs, stack traces, tests, or runtime output.
+3. Fix the ROOT CAUSE with the smallest reasonable change.
+4. Re-run the same scenario or test that exposed the issue.
 
-MUST:
+MUST NOT:
 
-- Read the relevant project context before editing.
-- Use `docs/STATUS.md` as the dashboard pointer view for active work.
-- Follow the workflow state machine: `INIT -> PLAN -> APPROVAL -> EXECUTE -> VALIDATE -> CHECKPOINT -> END`.
-- Request explicit user approval before editing `docs/STATUS.md`; report the Approval Matrix state-change proposal first.
-- Use `docs/BOOTSTRAP.md` only when `docs/STATUS.md` Next Actions point to scaffold bootstrap/onboarding.
-- Use `docs/backlog/PRODUCT.md` for Product track candidate work (optional phasing: `PRODUCT-P{n}.md`).
-- Use `docs/backlog/HARNESS.md` for harness, command/rule, and workflow hardening candidate work.
-- Include scope, files, verification, risk, and reversal cost before implementation.
-- Before expanding approved scope to additional files, docs, or settings, report the added scope, reason, and verification plan, then wait for approval.
-- Use Work files for large tasks: `docs/works/{category}/{ID}-{lowercase-topic}.md` (spec: DR-013).
-- When creating a new `docs/troubleshooting/` or `docs/retrospectives/` file, apply the DR-027 frontmatter spec defined in each directory's `README.md`.
-- Treat Work files as the task SSoT and `docs/STATUS.md` as the dashboard pointer view.
-- Use Quick Mode for small Product track L1 changes that do not need Work file tracking; close with final summary, validation, and commit history. Treat harness/workflow surface changes as L2.
-- Do not reuse task IDs for different meanings.
-- Use path-mirrored locations under `docs/archive/` only for historical detail.
-- State assumptions before implementation when the task is ambiguous.
-- Keep every change SURGICAL, MINIMAL, and REVERSIBLE.
-- Follow the existing package structure, naming, formatting, and coding conventions.
-- Remove unused imports, variables, functions, and test fixtures introduced by your own change.
+- Guess the cause without evidence.
+- Mask a failure by weakening assertions, deleting tests, or broadening exception handling.
+- Change unrelated behavior while debugging.
 
-NEVER:
+When a test fails, explain:
 
-- Add unrequested features.
-- Refactor unrelated code.
-- Expand approved scope silently.
-- Implement before plan approval when the change is non-trivial or user-facing.
-- Rewrite adjacent code only for style preference.
-- Introduce a new framework, dependency, or architectural layer without explicit justification and approval.
-- Load long historical documents by default when the current state file is enough.
+- The failing scenario.
+- The most likely root cause.
+- The verification command or scenario used after the fix.
 
-STOP AND ASK when requirements are unclear, multiple interpretations are possible, or the safer path depends on user intent.
+When a non-trivial issue is fully resolved (environment mismatch, hidden constraint, non-obvious root cause, tool version incompatibility), record it in `docs/troubleshooting/` using the symptom → cause → action format. Apply the DR-027 frontmatter spec (symptom/track/category/environment/status/related_dr). Link from `docs/HARNESS-MAINTAINER-GUIDE.md` if the issue affects local setup.
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
