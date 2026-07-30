@@ -1,91 +1,179 @@
 ## semanticworkbench
 
-> **Generate comprehensive codebase context for development:**
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Semantic Workbench Developer Guidelines
+# CLAUDE.md
 
-## AI Context System
-**Generate comprehensive codebase context for development:**
-* `make ai-context-files` - Generate AI context files for all components
-* Files created in `ai_context/generated/` organized by logical boundaries:
-  - **Python Libraries** (by functional group):
-    - `PYTHON_LIBRARIES_CORE.md` - Core API model, assistant framework, events
-    - `PYTHON_LIBRARIES_AI_CLIENTS.md` - Anthropic, OpenAI, LLM clients
-    - `PYTHON_LIBRARIES_EXTENSIONS.md` - Assistant/MCP extensions, content safety
-    - `PYTHON_LIBRARIES_SPECIALIZED.md` - Guided conversation, assistant drive
-    - `PYTHON_LIBRARIES_SKILLS.md` - Skills library with patterns and routines
-  - **Assistants** (by individual implementation):
-    - `ASSISTANTS_OVERVIEW.md` - Common patterns and all assistant summaries
-    - `ASSISTANT_PROJECT.md` - Project assistant (most complex)
-    - `ASSISTANT_DOCUMENT.md` - Document processing assistant
-    - `ASSISTANT_CODESPACE.md` - Development environment assistant
-    - `ASSISTANT_NAVIGATOR.md` - Workbench navigation assistant
-    - `ASSISTANT_PROSPECTOR.md` - Advanced agent with artifact creation
-    - `ASSISTANTS_OTHER.md` - Explorer, guided conversation, skill assistants
-  - **Platform Components**:
-    - `WORKBENCH_FRONTEND.md` - React app components and UI patterns
-    - `WORKBENCH_SERVICE.md` - Backend API, database, and service logic
-    - `MCP_SERVERS.md` - Model Context Protocol server implementations
-    - `DOTNET_LIBRARIES.md` - .NET libraries and connectors
-  - **Supporting Files**:
-    - `EXAMPLES.md` - Sample code and getting-started templates
-    - `TOOLS.md` - Build scripts and development utilities
-    - `CONFIGURATION.md` - Root-level configs and project setup
-    - `ASPIRE_ORCHESTRATOR.md` - Container orchestration setup
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Using AI Context for Development:**
-* **New developers**: Read `CONFIGURATION.md` + `PYTHON_LIBRARIES_CORE.md` for project overview
-* **Building assistants**: 
-  - Start with `ASSISTANTS_OVERVIEW.md` for common patterns
-  - Use specific assistant files (e.g., `ASSISTANT_PROJECT.md`) as implementation templates
-* **Working on specific assistants**: Load the relevant `ASSISTANT_*.md` file for focused context
-* **Library development**: Choose appropriate `PYTHON_LIBRARIES_*.md` file by functional area
-* **Frontend work**: Study component patterns in `WORKBENCH_FRONTEND.md`
-* **API development**: Follow service patterns from `WORKBENCH_SERVICE.md`
-* **MCP servers**: Use existing servers in `MCP_SERVERS.md` as templates
-* **AI tools**: Provide relevant context files for better code generation and debugging
-* **Code reviews**: Reference context files to understand cross-component impacts
+# Knowledge Transfer Assistant
 
-## Common Commands
-* Build/Install: `make install` (recursive for all subdirectories)
-* Format: `make format` (runs ruff formatter)
-* Lint: `make lint` (runs ruff linter)
-* Type-check: `make type-check` (runs pyright)
-* Test: `make test` (runs pytest)
-* Single test: `uv run pytest tests/test_file.py::test_function -v`
-* Frontend: `cd workbench-app && pnpm dev` (starts dev server)
-* Workbench service: `cd workbench-service && python -m semantic_workbench_service.start`
+A sophisticated dual-mode assistant that facilitates collaborative knowledge sharing between Coordinators (knowledge creators) and Team members (knowledge receivers) within the Semantic Workbench platform.
 
-## Code Style
-### Python
-* Indentation: 4 spaces
-* Line length: 120 characters
-* Imports: stdlib → third-party → local, alphabetized within groups
-* Naming: `snake_case` for functions/variables, `CamelCase` for classes, `UPPER_SNAKE_CASE` for constants
-* Types: Use type annotations consistently; prefer Union syntax (`str | None`) for Python 3.10+
-* Documentation: Triple-quote docstrings with param/return descriptions
+## Core Architecture
 
-### C# (.NET)
-* Naming: `PascalCase` for classes/methods/properties, `camelCase` for parameters/local variables, `_camelCase` for private fields
-* Error handling: Use try/catch with specific exceptions, `ConfigureAwait(false)` with async
-* Documentation: XML comments for public APIs
-* Async: Use async/await consistently with cancellation tokens
+### Dual-Mode Operation
+The assistant operates in two distinct modes with role-specific capabilities:
 
-### TypeScript/React (Frontend)
-* Component files: Use PascalCase for component names and files (e.g., `MessageHeader.tsx`)
-* Hooks: Prefix with 'use' (e.g., `useConversationEvents.ts`)
-* CSS: Use Fluent UI styling with mergeStyle and useClasses pattern
-* State management: Redux with Redux Toolkit and RTK Query
-* Models: Define strong TypeScript interfaces/types
+1. **Coordinator Mode**: Creates and manages knowledge packages, responds to information requests, shares files
+2. **Team Mode**: Accesses shared knowledge, requests information, tracks learning progress
 
-## Tools
-* Python: Uses uv for environment/dependency management
-* Linting/Formatting: Ruff (Python), ESLint (TypeScript)
-* Type checking: Pyright (Python), TypeScript compiler
-* Testing: pytest (Python), React Testing Library (Frontend)
-* Frontend: React, Fluent UI v9, Fluent Copilot components
-* Package management: uv (Python), pnpm (Frontend)
+### Cross-Conversation Communication
+The system manages three types of conversations:
+- **Coordinator Conversation**: Personal workspace for knowledge creation
+- **Shareable Team Conversation**: Template conversation (never directly used)
+- **Team Conversation(s)**: Individual conversations for each team member
+
+### Key Components
+
+- **Knowledge Transfer Manager** (`assistant/domain/`): Orchestrates the entire knowledge transfer lifecycle
+- **Share Manager** (`assistant/files.py`): Handles file synchronization across conversations
+- **Storage System** (`assistant/storage.py`, `assistant/storage_models.py`): Persistent state management
+- **UI Tabs** (`assistant/ui-tabs/`): Real-time visual dashboards showing transfer status
+- **Notification System** (`assistant/notifications.py`): Cross-conversation communication
+
+### Core Artifacts
+- **Knowledge Brief**: Introductory overview for team members
+- **Knowledge Digest**: Auto-updating LLM-generated information repository
+- **Learning Objectives**: Structured goals with specific outcomes
+- **Information Requests**: Team member questions with priority levels
+
+## Development Commands
+
+### Basic Operations
+```bash
+# Install dependencies
+make install
+
+# Run all tests
+make test
+
+# Run specific test with verbose output
+uv run pytest tests/test_file.py::test_function -v
+
+# Manual inspector test
+python tests/test_inspector.py
+
+# Type checking
+make type-check
+
+# Code quality
+make lint
+make format
+```
+
+### Assistant Management
+```bash
+# Start assistant service
+make start
+
+# Docker operations
+make docker-build
+make docker-run-local
+```
+
+## Project Structure
+
+### Core Implementation (`/assistant/`)
+- `assistant.py`: Main assistant with dual-role event handling
+- `config.py`: Role-specific prompt templates and configuration
+- `storage.py` & `storage_models.py`: Persistent state management
+- `conversation_share_link.py`: Cross-conversation linking and synchronization
+- `files.py`: File synchronization via ShareFilesManager
+- `respond.py`: Response generation logic
+- `common.py`: Role detection and common utilities
+
+### Agentic (`/assistant/agentic/`)
+- `team_welcome.py`: Team welcome message generation
+- `coordinator_support.py`: Coordinator guidance and support
+- `analysis.py`: Analysis functionality
+
+### Domain Logic (`/assistant/domain/`)
+- `share_manager.py`: Share creation, joining, and cross-conversation coordination (`ShareManager` class)
+- `knowledge_brief_manager.py`: Brief creation and management (`KnowledgeBriefManager` class)
+- `knowledge_digest_manager.py`: Auto-updating digest system (`KnowledgeDigestManager` class)
+- `learning_objectives_manager.py`: Learning goal tracking (`LearningObjectivesManager` class)
+- `information_request_manager.py`: Team question handling (`InformationRequestManager` class)
+- `audience_manager.py`: Audience definition and management (`AudienceManager` class)
+
+### Tools (`/assistant/tools/`)
+- `information_requests.py`: Information request handling
+- `learning_objectives.py`: Learning objective management
+- `learning_outcomes.py`: Outcome tracking
+- `progress_tracking.py`: Transfer progress monitoring
+- `share_setup.py`: Share link creation
+
+### UI Tabs (`/assistant/ui-tabs/`)
+- `brief.py`: Knowledge transfer status dashboard
+- `learning.py`: Learning objectives tracking
+- `sharing.py`: Sharing status monitoring
+- `debug.py`: Debug information panel
+
+### Configuration (`/assistant/text_includes/`)
+Role-specific prompts and instruction templates:
+- `coordinator_role.txt` & `coordinator_instructions.txt`: Coordinator mode configuration
+- `team_role.txt` & `team_instructions.txt`: Team mode configuration
+- `knowledge_digest_prompt.txt`: LLM prompts for digest generation
+
+## Key Dependencies
+
+- `semantic-workbench-assistant`: Core assistant framework
+- `assistant-extensions[attachments]`: File attachment support with dashboard cards
+- `content-safety`: Content moderation capabilities
+- `openai-client`: LLM integration for knowledge digest generation
+
+## Development Guidelines
+
+### Code Philosophy
+The project follows a "wabi-sabi" philosophy emphasizing:
+- Ruthless simplicity with minimal abstractions
+- Present-moment focus rather than future-proofing
+- Trust in emergence from simple, well-defined components
+- Direct library integration with minimal wrappers
+
+### Code Style
+- Use 4 spaces for indentation
+- Maximum line length: 120 characters
+- Follow PEP 8 naming conventions
+- Use type annotations consistently
+- Write docstrings for functions and classes
+
+### Quality Assurance
+Always run the full quality check before submitting changes:
+```bash
+make lint && make type-check && make test
+```
+
+### Important Development Notes
+- Use `uv` for all Python script execution to ensure correct environment
+- Keep ConversationRole enum consistent across all files
+- Use Optional typing for parameters that might be None
+- Update tests when changing functionality - never skip or remove tests
+- Access logs in `.data/logs/` directory (timestamped, latest sorted last)
+- Never make git commits - leave that to QA review process
+
+## Testing
+
+The test suite covers:
+- Artifact loading and management (`test_artifact_loading.py`)
+- Inspector functionality (`test_inspector.py`)
+- File sharing and synchronization (`test_share_manager.py`)
+- Storage system operations (`test_share_storage.py`)
+- Tool functionality (`test_share_tools.py`)
+- Team mode operations (`test_team_mode.py`)
+
+Run tests with:
+```bash
+# All tests
+make test
+
+# Specific test file
+uv run pytest tests/test_share_manager.py -v
+
+# Single test function
+uv run pytest tests/test_share_manager.py::test_file_sync -v
+```
 
 ---
 > Source: [microsoft/semanticworkbench](https://github.com/microsoft/semanticworkbench) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
