@@ -1,8 +1,6 @@
 # dish-ai-commit
 
-> Source: [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit) — distributed by [TomeVault](https://tomevault.io)
-
-Vibe Coding!!! 🤖 AI-Powered VSCode extension for generating standardized Git/SVN commit messages. ✨ Supports multiple AI services: OpenAI, ChatGPT, Ollama, Zhipu, DashScope, Doubao, Gemini and VS Code built-in AI. 🌍 Multi-language support (EN/CN/JP/KR/Other). 📊 Auto-generate weekly reports.
+> Source: [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [littleCareless/dish-ai-commit](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit) — a repo with 155+ stars on GitHub.
+From [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit) — a repo with 160+ stars on GitHub.
 
 ---
 
