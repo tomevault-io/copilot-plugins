@@ -1,23 +1,21 @@
 # AI instruction files for mcp-context-forge
 
-> Sourced from [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-An AI Gateway, registry, and proxy that sits in front of any MCP, A2A, or REST/gRPC APIs, exposing a unified endpoint with centralized discovery, guardrails and management. Optimizes Agent & Tool calling, and supports plugins.
+> Sourced from [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge).
+Original source: `AGENTS.md` in [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge) — a repo with 3655+ stars on GitHub.
+From [IBM/mcp-context-forge](https://github.com/IBM/mcp-context-forge) — a repo with 4117+ stars on GitHub.
 
 ---
 
