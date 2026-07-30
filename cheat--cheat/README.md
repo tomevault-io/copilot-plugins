@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cheat/cheat](https://github.com/cheat/cheat).
+Original source: `AGENTS.md` in [cheat/cheat](https://github.com/cheat/cheat).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
