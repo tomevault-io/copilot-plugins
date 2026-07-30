@@ -2,7 +2,7 @@
   "name": "buildkit-operator",
   "owner": "seatgeek",
   "repo": "buildkit-operator",
-  "description": "An operator for managing BuildKit instances on Kubernetes",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seatgeek/buildkit-operator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T08:49:48Z"
+  "distributed_at": "2026-07-30T05:01:03Z"
 }
