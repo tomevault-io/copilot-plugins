@@ -1,31 +1,71 @@
 ## radzionkit
 
-> Trust TS-defined values – avoid optional chaining and fallbacks when types guarantee presence
+> Prefer writing self-documenting, readable code over adding explanatory comments. Add comments only when absolutely necessary for complex business logic or non-obvious decisions.
 
 
-## Trust TypeScript – No Fallbacks for Defined Values
+# Readable Code Over Comments
 
-When a value's type is non-optional, use it directly. Do not add optional chaining or fallback values.
+## Principle
 
-Do:
+Write self-documenting, readable code instead of adding explanatory comments. Add comments only when absolutely necessary.
 
-```ts
-const { requestOrigin } = usePopupContext()
-useIt(requestOrigin)
+## When Comments Are Necessary
+
+- Complex business logic that isn't obvious from the code
+- Non-obvious algorithmic decisions or optimizations
+- Public API documentation
+- Temporary workarounds or TODOs with context
+- Legal notices or license headers
+
+## When Comments Are Unnecessary
+
+- Explaining what the code does (code should be self-explanatory)
+- Restating variable or function names
+- Obvious operations or standard patterns
+- Redundant information already clear from types
+
+## Examples
+
+<example>
+```typescript
+// Good: Self-documenting code
+const isActiveUser = user.status === 'active'
+const userEmail = user.contactInfo.email
+const processedData = transformUserData(user, options)
 ```
+</example>
 
-Don't:
-
-```ts
-const ctx = usePopupContext()
-useIt(ctx?.requestOrigin || '')
+<example type="invalid">
+```typescript
+// Bad: Useless comments
+// Check if user is active
+const isActiveUser = user.status === 'active'
+// Get user's email address
+const userEmail = user.contactInfo.email
+// Process the user data
+const processedData = transformUserData(user, options)
 ```
+</example>
 
-Notes:
+<example>
+```typescript
+// Good: Comment for non-obvious business logic
+// Use base64 encoding for data transmission to ensure compatibility with legacy systems
+// that don't support binary data in JSON payloads
+return {
+  encoding: 'base64',
+  data: encodeToBase64(processedData)
+}
+```
+</example>
 
-- If a value may be missing, validate earlier and fail fast (e.g., assertions in @rules).
-- Do not silence type guarantees with `?.`, `||`, or `??` when the type is non-optional.
+## Guidelines
+
+- Use descriptive variable and function names
+- Extract complex logic into well-named functions
+- Prefer clear code structure over explanatory comments
+- Use TypeScript types to document interfaces and contracts
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/radzionc) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [radzionc/radzionkit](https://github.com/radzionc/radzionkit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
