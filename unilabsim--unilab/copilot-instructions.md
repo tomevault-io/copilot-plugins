@@ -1,107 +1,255 @@
 ## unilab
 
-> **Always use `uv run`, not python**.
+> 这个文件规范 agent 在 `docs/sphinx/` 下撰写和修改文档内容的行为。仓库顶层
 
-# UniLab Agent Principles
+# docs/sphinx Agent Guide
 
-**Always use `uv run`, not python**.
+这个文件规范 agent 在 `docs/sphinx/` 下撰写和修改文档内容的行为。仓库顶层
+`AGENTS.md` / `CLAUDE.md` 仍然优先适用于代码、配置、测试和 PR 流程；本文件只补充
+Sphinx 文档写作规则。
 
-UniLab 是一个 **高性能、模块化、contract 驱动** 的 RL infrastructure 仓库。
+## Ground Truth
+
+- 文档基础设施、构建和部署：`docs/sphinx/README.md`
+- 本地完整构建并发布到 UniLab-doc：`docs/sphinx/README.md#本地发布到-unilab-doc`
+- Sphinx 配置：`docs/sphinx/source/conf.py`
+- 架构标准：`docs/sphinx/source/zh_CN/4-developer_guide/0-index.md`
+- ADR：`docs/sphinx/source/adr/ADR-0000-index.md`
+- 术语表：`docs/sphinx/source/glossary.md`
+- 文档检查：`tests/scripts/doc_checks.py`、`tests/scripts/test_check_docs.py`
+
+## Source Structure
+
+```text
+source/
+├── index.md                 # root redirect → en/0-index.html (no language picker)
+├── en/                      # English tree (site root, shown in sidebar nav)
+├── zh_CN/                   # Chinese tree (hidden from sidebar, via switcher only)
+├── adr/                     # shared ADR, one set
+├── api_reference/           # shared autodoc output from src/ docstrings
+├── glossary.md
+├── changelog.md
+├── _static/
+└── _templates/
+    ├── sidebar/
+    │   └── lang_switcher.html   # language dropdown in sidebar
+    └── autosummary/
+```
+
+`source/en/` is the **default site root**. Visitors land on `/en/0-index.html`
+directly (root `index.md` is a redirect). The sidebar navigation tree only
+shows the **active language root subtree** — when viewing an English page the
+sidebar contains only `en/...` pages; when viewing a Chinese page it contains
+only `zh_CN/...`. Shared resources (`adr/`, `api_reference/`, `glossary.md`,
+`changelog.md`) **do not appear directly in the sidebar** because they live
+outside both language roots.
+
+`source/en/` and `source/zh_CN/` are parallel language roots, but they are
+**not currently a strict 1:1 path mirror**. Both roots use numbered section
+directories and numbered Markdown files, while some sections exist only in one
+language. The language switcher uses an explicit path map in `conf.py`
+(`_LANGUAGE_PATH_FORWARD`) to handle the mismatch — **when adding a new English
+page, add a corresponding entry to that map** so the switcher lands somewhere
+sensible (or omit the entry to fall back to the zh_CN index).
+
+Do not add per-page language button blocks or hand-written cross-language
+navigation. The sidebar language switcher handles language changes globally.
+
+### Section indexes and shared resources
+
+Every multi-page section under a language root has a section index page that
+introduces the section and contains a hidden toctree of its sibling pages.
+Existing unnumbered sections use `index.md` recursively:
+`en/3-deployment/0-index.md`, `en/3-deployment/1-sim_to_real/0-index.md`,
+`en/4-developer_guide/1-architecture/0-index.md`, `en/2-user_guide/7-tooling/0-index.md`,
+etc. Ordered sections may use numbered filenames, such as
+`en/1-getting_started/0-index.md`, `1-quick_demo.md`, and `2-installation.md`.
+When a section uses numbered filenames, keep the file numbers and toctree order
+aligned. Adding a new section means adding its section index page and including
+the section in the parent index's toctree.
+
+Shared resources are reached through **language-local wrapper pages**, not by
+including the shared docs directly in a language toctree. Example: instead of
+
+```markdown
+<!-- BAD: would pull /glossary into the sidebar tree -->
+```{toctree}
+/glossary
+```
+```
+
+the English reference section uses
+
+```markdown
+<!-- GOOD: links via {doc} without inserting the shared page into the
+     sidebar subtree -->
+- {doc}`Shared glossary </glossary>`
+```
+
+See `en/5-reference/4-adr.md`, `en/5-reference/2-glossary.md`, `en/5-reference/3-changelog.md`
+for the established pattern. The wrapper page is what shows up in the
+language sidebar; the actual shared content remains accessible via the
+language-independent absolute path.
 
 ## Core Principles
 
-1. **Contract first**: 不为了一次通过绕过 env / backend / runner contract。
-2. **Fix at owner layer**: `scripts/` 只组装流程，不承载长期业务规则。
-3. **Config first**: task / reward / backend 优先通过 Hydra + registry 表达。
-4. **Backend isolation**: MuJoCo / Motrix 差异留在 backend 适配层和配置层。
-5. **Evidence only**: support claim 只写仓库里已有的注册、配置、测试或 benchmark 事实。
-6. **Validate near risk**: 在最接近风险的边界补验证，不只跑顶层命令。
-7. **Cold-path asset access only**: asset/XML/model metadata 只允许在 init / materialization / cache 等低频路径处理；热路径不能解析 asset，也不能靠 `getattr` / `hasattr` 探测 backend 私有能力。
+1. **Evidence only**: only document facts that can be verified in `src/`,
+   `conf/`, `tests/`, `scripts/`, ADRs, or generated support data.
+2. **Code is the source of truth**: names, signatures, defaults, Hydra keys, and
+   commands follow the repository, not memory.
+3. **Owner layer first**: scripts assemble; contracts live in backend, env,
+   registry/config, runner/IPC, or algorithm owner layers.
+4. **Link, do not duplicate**: English developer pages should summarize and link
+   to ADRs or the development standard instead of copying the full Chinese
+   standard.
+5. **Config first**: backend/task/reward behavior belongs in Hydra owner YAMLs
+   and registries where possible.
+6. **API reference is autodoc**: `source/api_reference/` pages should contain
+   autodoc/autosummary directives. Improve API prose in `src/unilab/**/*.py`
+   docstrings.
+7. **Use canonical commands**: user-facing examples use the top-level CLI:
+   `uv run train --algo <algo> --task <task> --sim <backend>`,
+   `uv run eval ...`, or `uv run demo`. Script paths such as
+   `scripts/train_rsl_rl.py` may be named as implementation evidence, but they
+   are not the primary command shape for docs readers.
 
-## High-Risk Areas
+## Before Writing
 
-| 区域 | 不可破坏的不变量 |
-|------|----------------|
-| Env  | `NpEnvState.obs` 必须是 dict；`reset()` 返回 `(obs_dict, info_dict)`；`obs_groups_spec` 影响 wrapper 和 learner 维度。 |
-| Config / Reward | reward 通过 Hydra 注入；后端切换必须通过 `task=<task>/<backend>` 选择 owner YAML，`training.sim_backend` 只是 owner YAML 的身份字段，不能单独 override 来切后端。算法超参数直接走 YAML compose，不经 Python 层解释。 |
-| Backend | backend-specific 逻辑留在 backend / env 适配层，不向训练脚本扩散。env 层只能调用 `SimBackend`（`base.py`）中已声明的方法；若某方法只在 MuJoCo 或 Motrix 中存在，必须先将其加入 `SimBackend` 抽象接口（可抛 `NotImplementedError`），禁止直接在 env 里调用 backend 子类的私有方法（即"功能泄漏/feature leakage"）。新增 backend 专有能力时，需同步更新 `SimBackend`。 |
-| Asset / Metadata | `ASSETS_ROOT_PATH`、`model_file`、XML / asset 元数据只允许在 init / materialization / cache 等低频路径访问；`step/reset/domain randomization` 等热路径不得解析 asset 或基于 asset 元数据做运行时分支。 |
-| Asset / XML structure | `<keyframe>` 必须放在 task-level XML（`scene_*.xml` 或 `locomotion_task.xml` 等 fragment），**禁止放进 robot.xml**。robot.xml 是纯机器人描述（body / joint / actuator / sensor），跟 task / 场景无关；keyframe 是 task 起始姿态，属于场景或 task 资源。motrix 后端需要 keyframe 时通过 `scene.fragment_files` 引用 fragment XML。 |
-| Async | 不绕开 runner lifecycle，也不另起 collector / learner 同步协议。 |
-| Sim2Sim 契约 | 跨后端 play 时，影响策略 I/O / 网络结构的字段必须跨后端一致；不一致即 `CrossBackendIncompatibleError`。详见下方 Sim2Sim 章节。 |
+1. Decide the language root: `source/en/` or `source/zh_CN/`.
+2. Locate the topic in `user_guide`, `developer_guide`, `transfer`, or `agents`.
+3. Search first with `rg` / `rg --files`; update an existing page instead of
+   creating a duplicate.
+4. Gather evidence near the claim:
+   - algorithms and tasks: `conf/`, `scripts/train_*.py`, `src/unilab/algos/`
+   - env contract: `src/unilab/base/np_env.py`, `src/unilab/training/rsl_rl.py`
+   - backend contract: `src/unilab/base/backend/base.py`
+   - registry: `src/unilab/base/registry.py`
+   - runner/IPC: `src/unilab/ipc/`, `src/unilab/training/run.py`
+   - architecture: ADRs and `development-standard.md`
+5. Check the other language for a related topic, but do not force path mirroring
+   or mass renames.
+6. If adding or deleting a page, update the relevant toctree.
 
-## Sim2Sim 跨后端配置契约
+## Navigation Rules
 
-`src/unilab/training/sim2sim.py` 按 dotted path 维护三类字段：
+- **English pages**: do not hand-write `## Navigation`, `Previous`, or `Next`
+  sections. Furo/Sphinx prev-next navigation comes from toctree order. If an
+  English page in your edit scope still has a manual navigation block, remove it.
+- **Chinese pages**: same rule as English — do not hand-write a `## Navigation`,
+  `Previous`, or `Next` block, and do not add a `语言: 简体中文` language line.
+  Furo's sidebar + prev/next handles navigation; the sidebar language switcher
+  indicates the language. (These manual footers were removed; there is no longer
+  a `check_zh_cn_doc_shape` contract.)
+- **Root/language switching**: route language changes through the root landing and
+  language switcher. Do not add ordinary-page language button pickers.
 
-- **DENYLIST**（差异即 `CrossBackendIncompatibleError`）：`algo.obs_groups`、`env.control_config.action_scale`、`algo.policy.actor_hidden_dims` / `critic_hidden_dims`、`algo.empirical_normalization` / `algo.obs_normalization`、`env.sampling_mode`。`env.*` 子集对**任一方向**的不对称出现也 fail-closed；`algo` 专属字段目标缺省时按设计跳过（跨算法合法）。
-- **WARNING_LIST**：`reward.*`、`env.control_config.simulate_action_latency`、`env.ctrl_dt`。
-- **ALLOWLIST**（自由覆盖）：`training.sim_backend`、`env.scene`、`training.play_steps`、`env.domain_rand`、`env.noise_config`、`env.commands.vel_limit`。
+## Link And Path Rules
 
-训练时 `ExperimentTracker.start()` 把上述字段写入 `run_config.json` 的 `contract_snapshot`（不改 checkpoint 格式，旧 run 无 snapshot 时 fallback + warning）；五个 play 入口在建 env 前调用 `resolve_sim2sim_config` 校验，并用 `policy_load_dim_guard` 包裹 checkpoint 加载以把维度不匹配的隐晦报错重抛为显式诊断。设 `training.sim2sim_strict=false` 可把 DENYLIST 差异降级为 warning（默认 `true`）。DENYLIST 字段应通过 task 的 `base.yaml` 共享（范例：`conf/ppo/task/g1_walk_flat/{base,mujoco,motrix}.yaml`）；跨后端契约审计见 `scripts/audit_sim2sim_contracts.py`。
+| Scenario | Use |
+| --- | --- |
+| Same-language doc link | MyST `{doc}` relative path, such as `{doc}`algorithms/ppo`` |
+| Shared ADR or root-level page | Absolute `{doc}` path, such as `{doc}`/adr/ADR-0003-task-owner-and-config-compose-contract`` |
+| Cross-language canonical link | Absolute `{doc}` path, such as `{doc}`/zh_CN/4-developer_guide/0-index`` |
+| Source/config/test path in prose | Backticks: `src/unilab/base/np_env.py` |
+| GitHub source link | Full GitHub URL to an existing file when a clickable source link is needed |
 
-## Pointers
+Avoid old paths such as `docs/users/`, `docs/developers/`, and
+`../../README.md` from Sphinx source pages.
 
-- PPO: `scripts/train_rsl_rl.py`
-- MLX PPO: `scripts/train_mlx_ppo.py`
-- APPO: `scripts/train_appo.py`
-- SAC / TD3: `scripts/train_offpolicy.py`
-- env contract: `src/unilab/base/np_env.py`
-- backend contract: `src/unilab/base/backend/base.py`
-- training run helpers: `src/unilab/training/run.py`
-- visualization helpers: `src/unilab/visualization/`
-- env shared numeric helpers: `src/unilab/envs/common/rotation.py`, `src/unilab/envs/common/math.py`
-- MLX rotation helpers: `src/unilab/algos/mlx/common/rotation.py`
-- config schema: `src/unilab/structured_configs.py`
-- async runner: `src/unilab/ipc/async_runner.py`
-- sim2sim 跨后端契约: `src/unilab/training/sim2sim.py`
+## zh_CN Shape
 
-## GitHub CLI (gh) 速查
+Every `source/zh_CN/**.md` page uses the same minimal shape as its English
+mirror — title, then body. Do not add a `语言: 简体中文` language line or a
+manual `## Navigation` footer (both removed; Furo handles navigation):
 
-### Issue 查看
-```bash
-gh issue view <number>
-gh api repos/<owner>/<repo>/issues/<number> --jq '.body'
+```markdown
+# <标题>
+
+<正文>
 ```
 
-### PR 创建与管理
+Do not paste English prose into a Chinese placeholder; a short honest Chinese
+placeholder is better than a fake translation.
+
+## ADR Rules
+
+ADR files live in `source/adr/` and are shared across languages.
+
+- New ADR names use `ADR-NNNN-kebab-title.md`.
+- Use `source/adr/ADR-TEMPLATE.md`.
+- Required fields: `- Status:`, `- Date:`, `- Owners:`, `- Supersedes:`,
+  `- Superseded by:`, `## Alternatives Considered`, `## Evidence In Repo`,
+  `## Related Documents`.
+- Link ADRs from developer docs with absolute `{doc}` paths.
+- ADR text is currently Chinese-first to avoid governance drift; English pages
+  can summarize and link.
+
+## Support Matrix
+
+`source/zh_CN/5-reference/5-support_matrix.md` has a
+generated block owned by `scripts/generate_support_matrix.py`.
+
+After task/backend support changes, run:
+
 ```bash
-gh pr create --title "标题" --body "内容" --base main
-gh pr list
-gh pr view
+uv run scripts/generate_support_matrix.py --write
 ```
 
-### PR Gate
+Do not hand-edit the generated block.
 
-创建或更新 PR 前必须满足：
+## Toctree Rules
 
-1. 最终提交已经完成，且 `git status --short --branch` 确认工作树干净。
-2. 最终提交已经通过 `make test-all`。
-3. 如果用户明确说明已经跑过 `make test-all`，不要重复跑；但必须在 PR body 的 Validation 里记录 `make test-all` 已完成。
-4. 如果 `make test-all` 未通过且用户没有明确 override，不要创建或更新 PR。
+- Add pages to the relevant language section's `index.md` toctree (e.g.
+  `en/2-user_guide/7-tooling/0-index.md` for a new tooling page). Then add the
+  section to its parent index if it is a new section.
+- **Do not put shared pages (`/adr/...`, `/api_reference/...`, `/glossary`,
+  `/changelog`) into a language toctree.** That would re-insert them into
+  the sidebar subtree. Use the wrapper-page pattern in `en/5-reference/`
+  (plain `{doc}` link, no toctree).
+- English toctrees should only reference English pages (`en/...`).
+- Chinese toctrees may keep legacy numbered paths for compatibility.
+- Adding a new English page also means adding a `_LANGUAGE_PATH_FORWARD`
+  entry in `conf.py` if there is a Chinese equivalent worth pointing the
+  switcher to.
+- Deleting or renaming a page requires `rg` for all `{doc}` and toctree
+  references **and** for `_LANGUAGE_PATH_FORWARD` entries. Avoid renames
+  unless the migration is explicitly in scope.
 
-### CI 工作流查看
+## Concrete Anti-Patterns
+
+- Marketing claims without benchmark evidence.
+- "Coming soon", roadmap promises, or unsupported feature claims.
+- Backend support claims that are not backed by registry/config/test data.
+- `training.sim_backend=...` as a standalone backend switch. Use the
+  argparse-style flags on the top-level CLI:
+  `uv run train --algo <algo> --task <task> --sim <backend>`
+  (and the matching `uv run eval` / `uv run demo` forms). Do not teach
+  `task=<task>/<backend>` Hydra overrides as user-facing CLI examples.
+- Env hot paths that parse assets/XML or probe backend private methods.
+- Hand-written API signatures in `source/api_reference/`.
+- Manual `## Navigation` / `Previous` / `Next` blocks or `语言: 简体中文` lines on any page (en or zh).
+
+## Validation
+
+For docs-only changes, run:
+
 ```bash
-gh run list
-gh run list --workflow=<workflow-name>
-gh run view <run-id>
-gh run list --status=failure
+uv run pytest tests/scripts/test_check_docs.py -q
+cd docs/sphinx
+UNILAB_DOCS_SKIP_AUTODOC=1 uv run --no-project --with-requirements requirements.txt sphinx-build -b html -n source build/html
 ```
 
-### 常用组合
-```bash
-gh api repos/unilabsim/UniLab/issues/174 --jq '.title, .body'
-git push -u origin fix/issue-174-mlx-ppo-config-alignment
-gh pr create --title "fix: xxx" --body "Fixes #174" --base main
-```
+If you changed generated support data, run the generator first. If you changed
+`src/unilab/**/*.py` or training behavior, follow the top-level repo validation
+rules instead of treating the change as docs-only.
 
-## Context
+Before reporting success, confirm:
 
-- 架构标准与验证详情：[docs/sphinx/source/zh_CN/4-developer_guide/0-index.md](docs/sphinx/source/zh_CN/4-developer_guide/0-index.md)
-- 协作流程与 PR 规范：[docs/sphinx/source/zh_CN/4-developer_guide/5-contributing_workflow.md](docs/sphinx/source/zh_CN/4-developer_guide/5-contributing_workflow.md)
-- 开发者入口（环境、命令、提交规范）：[CONTRIBUTING.md](CONTRIBUTING.md)
-- 文档本地构建与发布到 UniLab-doc：[docs/sphinx/README.md#本地发布到-unilab-doc](docs/sphinx/README.md#本地发布到-unilab-doc)
+- all cited `src/`, `conf/`, `tests/`, and `scripts/` paths exist;
+- English pages in scope have no manual navigation block;
+- root, `en/0-index.md`, and `zh_CN/0-index.md` remain included in toctrees;
+- any warnings from Sphinx are understood and not introduced by the current edit.
 
 ---
 > Source: [unilabsim/UniLab](https://github.com/unilabsim/UniLab) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
