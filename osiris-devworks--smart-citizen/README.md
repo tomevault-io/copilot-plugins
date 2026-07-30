@@ -1,8 +1,6 @@
 # AI instruction files for smart-citizen
 
-> Sourced from [Osiris-DevWorks/smart-citizen](https://github.com/Osiris-DevWorks/smart-citizen) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A UI-based Star Citizen localization editor extended ExoAE's and Mr. Kraken's language pack work
+> Sourced from [Osiris-DevWorks/smart-citizen](https://github.com/Osiris-DevWorks/smart-citizen), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
