@@ -1,72 +1,87 @@
 ## axi
 
-> This file provides guidance to AI agents when working with code in this repository.
+> **Always invoke the relevant skill before writing or modifying compositions.** Skills encode framework-specific patterns (e.g., `window.__timelines` registration, `data-*` attribute semantics, shader-compatible CSS rules) that are NOT in generic web docs. Skipping them produces broken compositions.
 
-# AGENTS.md
+# HyperFrames Composition Project
 
-This file provides guidance to AI agents when working with code in this repository.
+## Skills — Use These First
 
-## What This Project Is
+**Always invoke the relevant skill before writing or modifying compositions.** Skills encode framework-specific patterns (e.g., `window.__timelines` registration, `data-*` attribute semantics, shader-compatible CSS rules) that are NOT in generic web docs. Skipping them produces broken compositions.
 
-AXI (Agent eXperience Interface) defines 10 ergonomic principles for building CLI tools that AI agents use via shell execution. This repo contains:
+| Skill               | Command            | When to use                                                                                       |
+| ------------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
+| **hyperframes**     | `/hyperframes`     | Creating or editing HTML compositions, captions, TTS, audio-reactive animation, marker highlights |
+| **hyperframes-cli** | `/hyperframes-cli` | CLI commands: init, lint, preview, render, transcribe, tts                                        |
+| **gsap**            | `/gsap`            | GSAP animations for HyperFrames — tweens, timelines, easing, performance                          |
 
-- **`bench-github/`** — Benchmark harness that compares gh-axi vs gh CLI vs GitHub MCP across 17 agent tasks, graded by an LLM judge.
-- **`bench-browser/`** — Benchmark harness that compares browser automation tools (agent-browser, pinchtab, chrome-devtools-mcp) across 16 browsing tasks.
-- **`.agents/skills/axi/SKILL.md`** — The AXI skill definition (installable via `npx skills add kunchenguid/axi`).
-- **`docs/`** — Static website (axi.md).
+> **Skills not available?** Ask the user to run `npx hyperframes skills` and restart their
+> agent session, or install manually: `npx skills add heygen-com/hyperframes`.
 
-The reference AXI implementation (`gh-axi`) lives in a separate repo: [kunchenguid/gh-axi](https://github.com/kunchenguid/gh-axi).
+## Commands
 
-## Development Commands
-
-### Benchmark harness (GitHub)
-
-```sh
-cd bench-github
-npm install
-npm run bench -- run --condition axi --task merged_pr_ci_audit --repeat 5 --agent claude
-npm run bench -- matrix --repeat 5 --agent claude
-npm run bench -- report
-npm test           # Run bench tests (vitest)
+```bash
+npx hyperframes preview         # preview in browser (studio editor)
+npx hyperframes render          # render to MP4
+npx hyperframes lint            # validate compositions (errors + warnings)
+npx hyperframes lint --verbose  # include info-level findings
+npx hyperframes lint --json     # machine-readable output for CI
+npx hyperframes docs <topic>    # reference docs in terminal
 ```
 
-### Benchmark harness (Browser)
+## Project Structure
 
-```sh
-cd bench-browser
-npm install
-npm run bench -- run --condition agent-browser --task read_static_page --repeat 5
-npm run bench -- matrix --repeat 5    # full run: all conditions × all tasks × 5 repeats
-npm run bench -- report
-npm test           # Run bench tests (vitest)
+- `index.html` — main composition (root timeline)
+- `compositions/` — sub-compositions referenced via `data-composition-src`
+- `assets/` — media files (video, audio, images)
+- `meta.json` — project metadata (id, name)
+- `transcript.json` — whisper word-level transcript (if generated)
+
+## Linting — Always Run After Changes
+
+After creating or editing any `.html` composition, **always** run the linter before considering the task complete:
+
+```bash
+npx hyperframes lint
 ```
 
-### Social video rendering
+Fix all errors before presenting the result. Warnings are informational and usually safe to ignore.
 
-```sh
-cd bench-browser
-npm run render:social   # Render social/index.html via HyperFrames to docs/social/rendered/race.mp4
+## Key Rules
+
+1. Every timed element needs `data-start`, `data-duration`, and `data-track-index`
+2. Elements with timing **must** have `class="clip"` — the framework uses this for visibility control
+3. GSAP timelines must be paused and registered on `window.__timelines`:
+   ```js
+   window.__timelines = window.__timelines || {};
+   window.__timelines["composition-id"] = gsap.timeline({ paused: true });
+   ```
+4. Videos use `muted` with a separate `<audio>` element for the audio track
+5. Sub-compositions use `data-composition-src="compositions/file.html"` to reference other HTML files
+6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
+
+## Documentation
+
+**For quick reference**, use the local CLI docs command (no network required):
+
+```bash
+npx hyperframes docs <topic>
 ```
 
-The source composition is `bench-browser/social/` (a HyperFrames project). Edit `social/index.html` for content/animation; see `social/DESIGN.md` for the visual identity. Use the `/hyperframes` skill when modifying the composition.
+Topics: `data-attributes`, `gsap`, `compositions`, `rendering`, `examples`, `troubleshooting`
 
-Requires Node.js >= 20 and `gh` CLI installed and authenticated.
+**For full documentation**, start at https://hyperframes.heygen.com/introduction and discover further pages via the machine-readable index — do NOT guess URLs:
 
-## Architecture
+```
+https://hyperframes.heygen.com/llms.txt
+```
 
-### Benchmark (GitHub)
+## Maintaining this file
 
-`bench-github/src/runner.ts` orchestrates runs: clones a test repo, writes condition-specific AGENTS.md, invokes the agent (codex or claude), parses JSONL usage, and runs the LLM grader. Conditions are defined in `bench-github/config/conditions.yaml`, tasks in `bench-github/config/tasks.yaml`. Results go to `bench-github/results/`, published results in `bench-github/published-results/`.
-
-### Benchmark (Browser)
-
-`bench-browser/src/runner.ts` orchestrates browser benchmark runs: creates a workspace with condition-specific CLAUDE.md, manages browser daemon lifecycle, invokes Claude with `--bare` isolation, parses JSONL usage, and grades results. Conditions are defined in `bench-browser/config/conditions.yaml`, tasks in `bench-browser/config/tasks.yaml`.
-
-## Conventions
-
-- Packages use ES modules (`"type": "module"`) with TypeScript targeting ES2022/Node16.
-- Tests are colocated in `test/` directories mirroring `src/` structure and use vitest.
+Keep this file for knowledge useful to almost every future agent session in this directory.
+Do not repeat what the codebase already shows; point to the authoritative file or command instead.
+Prefer rewriting or pruning existing entries over appending new ones.
+When updating this file, preserve this bar for all agents and keep entries concise.
 
 ---
 > Source: [kunchenguid/axi](https://github.com/kunchenguid/axi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
