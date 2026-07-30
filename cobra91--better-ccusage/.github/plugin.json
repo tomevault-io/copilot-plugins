@@ -1,7 +1,7 @@
 {
   "name": "cobra91--better-ccusage",
   "displayName": "better-ccusage",
-  "description": "Analyze your Claude Code/Droid/OpenCode and all providers that use Claude Code or Droid token usage and costs from local JSONL files with multi-provider support \u2014 incredibly fast and informative!",
+  "description": "better-ccusage",
   "version": "1.0.0",
   "author": "cobra91",
   "homepage": "https://github.com/cobra91/better-ccusage",
