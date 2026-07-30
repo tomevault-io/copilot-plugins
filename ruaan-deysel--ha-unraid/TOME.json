@@ -2,9 +2,9 @@
   "name": "ha-unraid",
   "owner": "ruaan-deysel",
   "repo": "ha-unraid",
-  "description": "Monitor and control your Unraid server directly from Home Assistant. Track system metrics (CPU, RAM, disk usage), manage VMs and Docker containers, monitor UPS status, and receive real-time alerts. Features automated discovery and an easy-to-use interface for seamless integration with your smart home.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ruaan-deysel/ha-unraid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T05:53:17Z"
+  "distributed_at": "2026-07-30T10:58:44Z"
 }
