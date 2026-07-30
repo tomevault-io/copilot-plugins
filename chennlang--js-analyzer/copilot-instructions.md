@@ -1,0 +1,166 @@
+## js-analyzer
+
+> JS-Analyzer 是一个专业的 JavaScript 代码分析工具，用于可视化展示和分析 JavaScript 项目的依赖关系、导入导出情况以及代码结构。该工具能帮助开发人员更好地理解复杂 JavaScript 项目的架构，优化代码结构，提高代码质量。
+
+# JS-Analyzer Web
+
+## 项目概述
+
+JS-Analyzer 是一个专业的 JavaScript 代码分析工具，用于可视化展示和分析 JavaScript 项目的依赖关系、导入导出情况以及代码结构。该工具能帮助开发人员更好地理解复杂 JavaScript 项目的架构，优化代码结构，提高代码质量。
+
+## 功能介绍
+
+### 1. 代码关系图（Chart）
+- **文件依赖关系可视化**：直观展示项目中文件之间的导入导出关系
+- **文件夹结构视图**：展示项目的文件夹结构和组织方式
+- **交互式节点**：点击节点查看详细信息，双击切换视图
+- **文件详情展示**：展示文件的基本信息、被引用次数及导出变量使用情况
+
+### 2. 包管理（Packages）
+- **包依赖关系分析**：分析并展示项目中使用的第三方包
+- **包使用频率统计**：统计每个包的引用次数和使用情况
+- **包引用详情**：查看包在项目中的具体使用位置和方式
+
+### 3. 热词分析（Words）
+- **代码热词统计**：统计并展示项目中频繁使用的关键词
+- **词云可视化**：以词云形式展示代码中的热词分布
+- **代码规范指导**：通过热词分析辅助代码规范和命名规范的建立
+
+### 4. 隐式引用分析（Unknowns）
+- **隐式依赖检测**：识别项目中的隐式依赖和潜在问题
+- **未使用引用分析**：发现项目中未使用的导入，帮助清理冗余代码
+
+## 核心技术
+
+### 前端技术栈
+- **框架**：Vue 3 + TypeScript
+- **构建工具**：Vite
+- **UI组件**：自定义组件 + Vue JSON Pretty
+- **样式**：Less + TailwindCSS
+- **可视化**：ECharts（图表可视化）+ WordCloud（词云展示）
+- **状态管理**：Vue Composition API
+- **路由**：Vue Router
+- **代码高亮**：Highlight.js
+
+### 后端/核心技术
+- **代码分析引擎**：@js-analyzer/core
+- **支持多语言**：内置多语言切换功能
+- **主题切换**：支持明暗主题切换
+
+## API接口说明
+
+### 1. 文件数据接口
+
+#### 获取所有文件列表
+- **请求路径**：`/data/files.json`
+- **方法**：GET
+- **响应格式**：`string[]` - 项目所有文件路径的字符串数组
+
+#### 获取导入文件信息
+- **请求路径**：`/data/import-files.json`
+- **方法**：GET
+- **响应格式**：`ImportDeps` 类型
+```typescript
+{
+  [path: string]: {
+    num: number,        // 引用次数
+    using: UsingItem[]  // 使用该文件的详细信息数组
+  }
+}
+
+// UsingItem 类型定义
+interface UsingItem {
+    source: string,     // 导入源
+    vars: string,       // 导入的变量名
+    fullPath?: string,  // 完整文件路径
+    loc: SourceLocation // 代码位置信息
+}
+```
+
+#### 获取导出信息
+- **请求路径**：`/data/export.json`
+- **方法**：GET
+- **响应格式**：`ExportDeps` 类型
+```typescript
+{
+  [path: string]: {
+    [vars: string]: {
+      num: number,      // 变量被使用次数
+      using: string[]   // 使用该变量的文件路径列表
+    }
+  }
+}
+```
+
+#### 获取包导入信息
+- **请求路径**：`/data/import-package.json`
+- **方法**：GET
+- **响应格式**：`ImportDeps` 类型 - 与导入文件信息格式相同，但记录的是第三方包的引用信息
+
+#### 获取未知引用信息
+- **请求路径**：`/data/import-unknown.json`
+- **方法**：GET
+- **响应格式**：`ImportDeps` 类型 - 与导入文件信息格式相同，但记录的是无法解析的引用
+
+#### 获取名称列表
+- **请求路径**：`/data/names.json`
+- **方法**：GET
+- **响应格式**：项目中的标识符名称列表
+
+### 2. 文件操作接口
+
+#### 打开文件
+- **请求路径**：`/launch/?file=文件路径`
+- **方法**：GET
+- **响应格式**：JSON对象，包含文件打开状态信息
+
+#### 获取文件内容
+- **请求路径**：`/code/?file=文件路径`
+- **方法**：GET
+- **响应格式**：文件的原始内容（文本格式）
+
+### 3. 配置接口
+
+#### 获取配置
+- **请求路径**：`/config`
+- **方法**：GET
+- **响应格式**：包含以下字段的配置对象
+```typescript
+{
+  root: string,            // 项目根目录
+  ignore?: (string | RegExp)[],  // 忽略的文件/目录
+  extensions?: string[],   // 支持的文件扩展名
+  alias?: Record<string, string>, // 路径别名
+  path?: string,           // 自定义路径
+  outputPath?: string,     // 输出路径
+  plugins?: Plugin[],      // 自定义插件
+  ide?: string             // 集成开发环境
+}
+```
+
+#### 更新配置
+- **请求路径**：`/config`
+- **方法**：PUT
+- **请求体**：与获取配置接口格式相同的配置对象
+- **响应格式**：更新后的配置对象
+
+## 使用说明
+
+1. 启动开发服务器：`npm run dev`
+2. 构建生产版本：`npm run build`
+3. 构建演示版本：`npm run build:demo`
+4. 预览构建结果：`npm run serve`
+
+## 系统特色
+
+1. **多视图展示**：提供多种视角分析代码结构和依赖关系
+2. **交互式体验**：通过点击、拖拽等交互方式直观操作
+3. **主题定制**：支持明暗两种主题，适应不同使用场景
+4. **多语言支持**：内置多语言切换功能，适应国际化需求
+5. **项目配置管理**：提供配置界面，灵活管理分析项目
+
+JS-Analyzer 是帮助开发者理解复杂 JavaScript 项目结构，优化代码质量和依赖关系的利器，为大型前端项目的维护和重构提供了强有力的支持。
+
+---
+> Source: [chennlang/js-analyzer](https://github.com/chennlang/js-analyzer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
