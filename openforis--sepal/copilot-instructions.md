@@ -1,59 +1,33 @@
 ## sepal
 
-> Maintains scene metadata database for Landsat and Sentinel-2 satellite imagery. Background worker only - no HTTP routes.
+> Node.js replacement for the Java `user` module. Owns users and their credentials
 
-# CLAUDE.md - modules/scene-metadata
+# user-node
 
-Maintains scene metadata database for Landsat and Sentinel-2 satellite imagery. Background worker only - no HTTP routes.
+Node.js replacement for the Java `user` module. Owns users and their credentials
+(password hashes, SSH public keys) in the `sepal_user` MySQL database. Replaces LDAP.
 
-## Commands
+POSIX identity is **stored**, not derived: `sepal_user` has `uid` and `gid` columns.
+For users migrated from LDAP they hold the real `uidNumber` and per-user-group
+`gidNumber` (each allocated from an independent ldapscripts sequence, so they differ
+from each other and from `sepal_user.id`; on-disk files are owned by these numbers).
+Users created by user-node get `uid = gid = id`, which is collision-free because the
+LDAP migration bumps the table `AUTO_INCREMENT` past every existing uid/gid. There is
+no shared group model — the only file-owning shared group, `sepal` (gid 9999), is a
+local OS group.
 
-```bash
-npm test              # Jest (no test files currently exist)
-npm run testWatch     # Jest watch mode
-```
+> Note: this reverses design decision **D8** (which assumed `uid = gid = id`).
+> Production data showed `id ≠ uidNumber` for many users, so uid/gid are now stored.
 
-## Key Architecture
+See the design spec: `docs/superpowers/specs/2026-06-16-ldap-removal-user-node-design.md`.
 
-### Entry Point
-`src/main.js` - **No HTTP server**. Background worker that:
-1. Initializes Redis and MySQL on startup
-2. Downloads initial CSV files from USGS (if not previously initialized)
-3. Loads data into database
-4. Schedules periodic STAC-based updates via RxJS `timer()` + `exhaustMap()`
+## Schema ownership
 
-### Data Pipeline
-Two-phase approach:
-- **Initial load**: Downloads CSV files from USGS, parses, loads into MySQL and Redis
-- **Incremental updates**: Queries Earth Search STAC API for changed scenes at configurable interval (default: 60 min)
-
-### Satellite Support
-
-**Landsat** (`src/landsat.js`, `src/landsatCsv.js`, `src/landsatStac.js`):
-- `DATASET_BY_PREFIX` maps scene ID prefixes to dataset names
-- Filters by collection category and cloud cover
-- Adjusts cloud cover for Landsat 7 (+22%)
-
-**Sentinel-2** (`src/sentinel2.js`, `src/sentinel2Csv.js`, `src/sentinel2Stac.js`):
-- Similar pipeline structure to Landsat
-
-### Database
-MySQL (`sdms` schema):
-- Table: `scene_meta_data` with scene properties and indexes
-- **Atomic database switching**: Creates new DB, populates, then renames current->old and new->current
-
-### State Tracking (Redis)
-- `getInitialized()`/`setInitialized()` - Tracks if initial CSV load completed
-- `getLastUpdate()`/`setLastUpdate()` - Tracks per-collection STAC update timestamps
-
-## Non-Obvious Conventions
-
-- **No HTTP server** - purely a background data pipeline
-- **MIN_HOURS_PUBLISHED**: Only loads scenes published at least 24 hours ago (configurable)
-- **Timer with initial delay**: 10 seconds before first update cycle
-- **Parallel loading**: `Promise.all()` for Landsat and Sentinel-2 operations
-- **`exhaustMap()`**: Drops overlapping update requests
+`user-node` migrates `sepal_user` via Postgrator using the default history table
+`schema_version`. The Java `user` module's previous Flyway history table has been
+renamed to `schema_version_old`. It waits for the base `sepal_user` table to exist
+before migrating.
 
 ---
 > Source: [openforis/sepal](https://github.com/openforis/sepal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
