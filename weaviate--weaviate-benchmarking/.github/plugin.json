@@ -1,0 +1,9 @@
+{
+  "name": "weaviate--weaviate-benchmarking",
+  "displayName": "weaviate-benchmarking",
+  "description": "weaviate-benchmarking",
+  "version": "1.0.0",
+  "author": "weaviate",
+  "homepage": "https://github.com/weaviate/weaviate-benchmarking",
+  "skills": []
+}
