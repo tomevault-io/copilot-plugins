@@ -1,17 +1,15 @@
 # vibe-coding-tw
 
-> Source: [godmakereth/vibe-coding-tw](https://github.com/godmakereth/vibe-coding-tw) — distributed by [TomeVault](https://tomevault.io)
-
-🌏 Vibe Coding 至尊超級終極無敵指南 - 繁體中文版 | Traditional Chinese version based on https://github.com/tukuaiai/vibe-coding-cn
+> Source: [godmakereth/vibe-coding-tw](https://github.com/godmakereth/vibe-coding-tw). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [godmakereth/vibe-coding-tw](https://github.com/godmakereth/vibe-coding-tw).
+Original source: `AGENTS.md` in [godmakereth/vibe-coding-tw](https://github.com/godmakereth/vibe-coding-tw).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
