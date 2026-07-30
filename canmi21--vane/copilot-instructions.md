@@ -1,70 +1,69 @@
 ## vane
 
-> Rust workspace targeting stable. Async runtime: `tokio`. HTTP stack: `hyper` / `h3` / `quinn`. TLS: `rustls`. WASM: `wasmtime`. Concrete crate layout, module boundaries, and trait shapes are proposed in [`spec/architecture/`](spec/architecture/) — start with [`spec/architecture/README.md`](spec/architecture/README.md).
+> Chat: Simplified Chinese. Code, commits, in-repo docs: English.
 
-# CLAUDE.md
+# Conventions
 
-## Stack
+## Language
 
-Rust workspace targeting stable. Async runtime: `tokio`. HTTP stack: `hyper` / `h3` / `quinn`. TLS: `rustls`. WASM: `wasmtime`. Concrete crate layout, module boundaries, and trait shapes are proposed in [`spec/architecture/`](spec/architecture/) — start with [`spec/architecture/README.md`](spec/architecture/README.md).
+Chat: Simplified Chinese. Code, commits, in-repo docs: English.
 
-A Nix flake (`flake.nix`) provides a reproducible dev shell — `nix develop` lands you in an environment with the rust toolchain (read from `rust-toolchain.toml`), `cargo-nextest`, `just`, `bun`, `nixfmt`, and the musl cross-toolchain, all pinned via `flake.lock`. `nix fmt` formats `.nix` files. Optional — system rustup / brew works equivalently.
+## Naming
 
-## Quality gates
+- **Filenames**: `snake_case.rs` for Rust source. kebab-case for configs, markdown, shell scripts.
+- **Identifiers**: `snake_case` for modules / functions / fields; `PascalCase` for types / traits / enums; `SCREAMING_SNAKE_CASE` for constants and statics; short lowercase for lifetimes (`'a`, `'ctx`).
+- **Names describe what the thing does, not which vendor provides it.** `handle_error`, not `handle_sentry`. Vendor names appear only in edge modules — the integration boundary where vane meets a dep. Internal logic stays brand-free.
 
-Everything that can be mechanical is mechanical — treat the gate as authoritative, don't re-check by hand.
+rustfmt and clippy enforce most of this. Match their output.
 
-Gates run on commit via lefthook:
+## Comments
 
-- `cargo fmt --all -- --check` — formatting (rustfmt config in `rustfmt.toml`)
-- `cargo clippy --workspace --all-targets -- -D warnings` — lint
-- `commitlint` — conventional commit format, 72-char header, lower-case subject
+- English, declarative, compact. State the non-obvious _why_ — the constraint, the invariant, the workaround. Never the obvious _what_.
+- One or two lines. A block over three lines usually means the function is under-named or over-scoped — fix the code.
+- Public items get `///` doc comments. Module-level overviews go in `//!` at the top of the file.
+- URLs in comments stay through any compression — they carry context the prose around them does not.
+- No separator lines (`// ---`, `// ===`, `/* === */`, ASCII art rules). If a section needs a heading, the function or module boundary already is the heading.
+- No commit/PR/issue references in source. Those live in git metadata.
 
-Test baseline is `cargo nextest run --workspace` (or `just test`); `cargo test --workspace` (or `just test-cargo`) is the bypass for doctests and runner-suspect debugging. Tests are not gated on commit. `just gate` runs lint + test as the pre-push bundle.
+## Testing
 
-When the gate flags formatting or lint issues, **let the toolchain fix what it can mechanically before touching anything by hand**:
+`cargo nextest run --workspace` (or `just test`) is the canonical runner. `cargo test --workspace` (`just test-cargo`) is the bypass for doctests and runner-suspect debugging.
 
-- `cargo fmt --all` (without `-- --check`) writes rustfmt's output in place — fixes every formatting issue rustfmt is willing to fix.
-- `cargo clippy --workspace --all-targets --fix --allow-dirty --allow-staged` applies clippy's machine-applicable suggestions in place — fixes a substantial fraction of common lint hits.
+- **Local dev target**: `aarch64-apple-darwin`. Cross-target coverage is CI's job.
+- **Coverage floor**: 95 % line coverage on tested modules. I/O error branches with no observable behavior may sit below — document the exemption in-module.
+- **What to cover**: every public function gets a unit test covering the correct paths plus one representative error path. Exhaustive negative testing is not worth its maintenance cost.
+- **Redundancy rule**: if `C` orchestrates `A` and `B`, and `A` / `B` have their own tests, `C`'s tests cover orchestration only. Don't re-verify `A`'s logic through `C`.
+- **Anti-over-testing**: don't re-test `PredicateInst::test` inside executor tests; don't re-test hyper's H1 encoding inside terminator tests; don't enumerate the 9-cell HTTP version matrix end-to-end (cover H1↔H1, H2↔H1, H1↔H2, trust hyper for the rest); don't assert hash-cons cache hits in `test()` calls.
 
-Run those two before reading the gate output and editing manually. Manually fix only what remains after the auto-pass. Hand-editing whitespace, import ordering, or `format!` argument capture is wasted time when rustfmt + clippy will do it for you.
+### Timing and readiness
 
-## Conventions
+`tokio::time::sleep` as a happens-before barrier is flake fuel. Gate on observable state.
 
-- **Chat:** Simplified Chinese. **Code / commits / docs-in-repo:** English.
-- **Naming:** see [spec/naming.md](spec/naming.md).
-- **Comments:** see [spec/comments.md](spec/comments.md).
-- **Testing:** see [spec/testing.md](spec/testing.md).
-- When the user says "commit this" without a message, write one that passes commitlint.
+- **Push channel** (broadcast, replay-less mpsc) — loop the trigger; each retry hits whatever subscriber state is current.
+- **Pull channel** (mgmt verb, file probe) — loop the observation; the producer fires once.
+- **Negative-space assertion** (system did _not_ X within `N`) — generous window, polled positive-invariant inside so a regression panics at first divergence.
 
-## Git
+Short sleeps inside a polling loop (50 ms cadence) are backoff, not barriers.
 
-Conventional Commits (see `commitlint.config.js`). Subject ≤ 72 chars, lower-case. No AI co-authorship unless the assistant contributed original design or code beyond following direct instructions.
+### Sub-agent test protocol
 
-Prefer the un-scoped `type: subject` form. Use a `(scope)` only when the change touches a non-obvious crate / area and the reader genuinely needs the disambiguation — e.g. `fix(panel): …` when a same-named file exists in multiple crates. Default `feat: …` / `fix: …` / `test: …` over `feat(core): …` etc.; the diff already shows the scope. A rough target: most subjects are scope-less, scopes appear occasionally and only when they earn their keep.
+The agent that writes feature `F` does not write tests for `F`. Tests are written by a sub-agent with spec-only context. The asymmetry catches assumptions the implementation agent would otherwise ratify.
 
-Do **not** reference internal identifiers of any kind in commit subjects or bodies — no stage labels (`Stage 1`, `Stage 2`), no feature IDs (`S1-NN`, `S2-NN`), no chunk identifiers (`C-NN`, `C13.5`), no range shorthand (`S1-28 – S1-30`). Describe what the commit does in plain objective terms: what changed, what it enables. The link between a commit and the spec feature it implements lives in `spec/roadmap.md` or in the surrounding code's doc comments. Deferral notes belong in `// TODO(<short-tag>):` source comments or in spec files, not in commit messages.
+1. Implementation agent commits feature on a branch.
+2. Sub-agent receives only the relevant spec sections, public type signatures, and `conventions.md`. It writes failing tests, commits on a sub-branch, does not run them.
+3. Implementation agent runs `cargo nextest run`, classifies failures (test bug / impl bug / spec ambiguity), fixes accordingly. Spec-first when both diverge.
+4. Merge commit records both authors via `Co-Authored-By` lines.
 
-## Workflow boundaries
+Pure-derive round-trip tests on `#[derive(Serialize, Deserialize)]` structs with no custom impls are exempt — there is no behavior beyond the derive.
 
-- Do **not** propose `/schedule` (or any other Claude Code background-agent invocation) in chunk reports, commit messages, or in-source comments. This project does not use Claude Code's scheduling features. Future-work suggestions belong in `// TODO(<tag>):` source comments or in the relevant `spec/*.md` file.
+### Test surface by binary kind
 
-## Spec index
+- **`vaned`** — full sub-agent automation. Daemon E2E tests spawn `vaned` directly via `assert_cmd` / `std::process::Command` (the shared `vane-testutil::VanedFixture` helper is documentation-only today). Readiness: poll the listener port with `TcpStream::connect_timeout`; never parse stderr (`tracing-subscriber` `fmt` is block-buffered when stderr is not a TTY).
+- **`vane` CLI** — full automation. `--json` emits the verb's `result` verbatim; default pretty output auto-disables under `!isatty(stdout)`. Test via `assert_cmd` + `predicates`.
+- **`vane` TUI** — partial, when the views land. The current `vane tui` is a lifecycle scaffold only — see [`tui.md`](tui.md) and the `TODO(tui-views)` in `crates/cli/src/tui.rs`. Once the view set is implemented, automation covers the pure layer beneath the UI (data adapters, view state machine, input mapping); rendering and crossterm side-effects stay interactively verified.
 
-Each file below is the authoritative source for its topic. Edit there, not here.
-
-- [spec/architecture/](spec/architecture/) — system architecture (start with `architecture/README.md`)
-- [spec/roadmap.md](spec/roadmap.md) — 3-stage implementation plan, feature IDs (S1-NN / S2-NN / S3-NN), dependency ordering
-- [spec/naming.md](spec/naming.md) — identifier and filename conventions
-- [spec/comments.md](spec/comments.md) — when and how to write comments
-- [spec/testing.md](spec/testing.md) — test structure, coverage, sub-agent testing protocol
-
-## Keeping the spec honest
-
-When the toolchain or a project-wide design convention changes, update this file **and** the relevant `spec/*.md` in the **same commit** as the tooling / code change. A rule that contradicts the running code is worse than no rule.
-
-Keep each file tight. If a section starts accumulating step-by-step instructions, war stories, or "don't forget to…" reminders, that is a signal to mechanize it — add a lefthook job, a clippy lint, or a test assertion — and delete the prose. Only project-scope, evergreen rules belong here; everything else either becomes code or gets deleted.
+Fixtures live in `vane-testutil`. Add helpers there, never in individual test files.
 
 ---
 > Source: [canmi21/vane](https://github.com/canmi21/vane) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
