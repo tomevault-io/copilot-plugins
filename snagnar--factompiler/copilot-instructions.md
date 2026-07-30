@@ -1,198 +1,239 @@
 ## factompiler
 
-> The compiler transforms Facto source code into Factorio blueprint strings through a 5-stage pipeline:
+> Validates type compatibility:
 
-# General Agent Guidelines
+# Semantic Analysis Module
 
-# Compiler Architecture Overview
+## Purpose
+Performs type checking, symbol resolution, and semantic validation on the AST. Ensures program correctness before lowering to IR.
 
-The compiler transforms Facto source code into Factorio blueprint strings through a 5-stage pipeline:
+## Files
+
+### analyzer.py
+**Main Semantic Analyzer**
+- `SemanticAnalyzer`: Visitor that traverses AST to validate semantics
+  - Type inference for all expressions
+  - Symbol table management (variables, functions, entities)
+  - Type checking for assignments and operations
+  - Function call validation (argument count, types)
+  - Memory operation validation
+  - Entity property validation
+  - Scope management for functions and loops
+
+**Key Methods**:
+- `visit(node)`: Main visitor dispatcher
+- `infer_expr_type(expr)`: Type inference for expressions
+- `visit_decl_stmt`, `visit_assign_stmt`: Statement validation
+- `check_type_compatibility`: Type checking between values
+- `_infer_*_type` methods: Specialized type inference
+
+### type_system.py
+**Type Definitions**
+- `ValueInfo`: Base class for all types
+- `IntValue`: Integer type (untyped numeric values)
+- `SignalValue`: Signal type with specific signal type (e.g., "iron-plate", "signal-A")
+  - `SignalTypeInfo`: Metadata about signal type (name, category, icon)
+- `EntityValue`: Entity type (placed Factorio entities)
+- `BundleValue`: Bundle type (collection of signals)
+  - `DynamicBundleValue`: Bundle with runtime-determined signal types (e.g., chest contents)
+- `MemoryValue`: Memory cell type
+- `FunctionValue`: Function type with parameter and return types
+
+**Type Categories**:
+- **Scalar types**: `IntValue`, `SignalValue`
+- **Composite types**: `BundleValue`, `EntityValue`
+- **Special types**: `MemoryValue`, `FunctionValue`
+
+### symbol_table.py
+**Symbol Management**
+- `Symbol`: Represents a named entity with type and metadata
+  - `symbol_type`: Enum (VARIABLE, FUNCTION, ENTITY, MEMORY, PARAMETER)
+  - `value_type`: The ValueInfo type of the symbol
+  - `metadata`: Additional info (entity prototype, function params, etc.)
+
+- `SymbolTable`: Scoped symbol storage
+  - Supports nested scopes (functions, loops)
+  - `define(name, symbol)`: Add symbol to current scope
+  - `lookup(name)`: Find symbol in current or parent scopes
+  - `push_scope`, `pop_scope`: Scope management
+
+## Information Flow
 
 ```
-Source (.facto) → Parser → Semantic Analyzer → AST Lowerer → Layout Planner → Blueprint Emitter → Blueprint
+AST (from parsing)
+    ↓
+[analyzer.py] - Main semantic analysis
+    ↓
+├─ [symbol_table.py] - Track definitions and scopes
+│      ↓
+│   Symbol resolution (names → types)
+│
+├─ [type_system.py] - Type checking and inference
+│      ↓
+│   Type validation (operations, assignments)
+│
+└─ Error/Warning collection via diagnostics
+    ↓
+Validated AST + Symbol information
+    ↓
+→ lowering/lowerer.py (for IR generation)
 ```
 
-## Directory Structure
+## Key Features
 
-```
-dsl_compiler/
-├── grammar/
-│   └── facto.lark              # Lark grammar definition for Facto
-├── src/
-│   ├── ast/                    # AST node definitions
-│   │   ├── base.py             # Base AST node class with source location
-│   │   ├── expressions.py      # Expression nodes (binary ops, function calls, etc.)
-│   │   ├── literals.py         # Literal nodes (numbers, signals, etc.)
-│   │   └── statements.py       # Statement nodes (assignments, memory, etc.)
-│   │
-│   ├── parsing/                # Stage 1: Source → AST
-│   │   ├── parser.py           # Main parser using Lark, entry: DSLParser.parse()
-│   │   ├── preprocessor.py     # Import resolution and preprocessing
-│   │   └── transformer.py      # Lark tree → AST node transformation
-│   │
-│   ├── semantic/               # Stage 2: Type checking & validation
-│   │   ├── analyzer.py         # Main analyzer, entry: SemanticAnalyzer.visit()
-│   │   ├── symbol_table.py     # Symbol table for variable tracking
-│   │   └── type_system.py      # Type definitions and type checking logic
-│   │
-│   ├── lowering/               # Stage 3: AST → IR
-│   │   ├── lowerer.py          # Main lowerer, entry: ASTLowerer.lower_program()
-│   │   ├── expression_lowerer.py  # Expression to IR translation
-│   │   ├── statement_lowerer.py   # Statement to IR translation
-│   │   ├── memory_lowerer.py   # Memory operations to IR
-│   │   └── constant_folder.py  # Compile-time constant evaluation
-│   │
-│   ├── ir/                     # Intermediate Representation
-│   │   ├── nodes.py            # IR node definitions (IROperation, etc.)
-│   │   ├── builder.py          # IRBuilder for constructing IR
-│   │   └── optimizer.py        # CSE and constant propagation optimizers
-│   │
-│   ├── layout/                 # Stage 4: IR → Physical Layout
-│   │   ├── planner.py          # Main planner, entry: LayoutPlanner.plan_layout()
-│   │   ├── layout_plan.py      # LayoutPlan data structure
-│   │   ├── entity_placer.py    # Entity placement algorithms
-│   │   ├── connection_planner.py  # Wire connection planning
-│   │   ├── memory_builder.py   # Memory cell layout construction
-│   │   ├── wire_router.py      # Wire routing and MST optimization
-│   │   ├── signal_analyzer.py  # Signal flow analysis
-│   │   ├── signal_graph.py     # Signal dependency graph
-│   │   ├── power_planner.py    # Power pole placement
-│   │   └── tile_grid.py        # 2D grid management
-│   │
-│   ├── emission/               # Stage 5: Layout → Blueprint
-│   │   ├── emitter.py          # Main emitter, entry: BlueprintEmitter.emit_from_plan()
-│   │   └── entity_emitter.py   # Entity-specific emission logic
-│   │
-│   └── common/                 # Shared utilities
-│       ├── constants.py        # Compiler configuration constants
-│       ├── diagnostics.py      # Error/warning collection
-│       ├── entity_data.py      # Factorio entity definitions
-│       ├── signal_registry.py  # Signal type registry
-│       ├── signals.py          # Signal utilities
-│       └── source_location.py  # Source code location tracking
+### Type Inference
+The analyzer infers types for expressions:
+```facto
+Signal a = 10;           # IntValue → converted to SignalValue
+Signal b = a * 2;        # SignalValue (inferred from a)
+Signal c = b | "copper"; # SignalValue with type "copper-plate"
 ```
 
-## Key Entry Points
+Type inference rules:
+- Literals: `10` → `IntValue`, `("iron", 5)` → `SignalValue`
+- Operations: Result type from operands (signals dominate)
+- Projections: Target type from `|` operator
+- Function calls: Return type from function signature
+- Entity properties: Type from entity definition
 
-- **compile.py** - CLI tool, orchestrates the full pipeline
-- **DSLParser.parse(source, filename)** - Parse source to AST
-- **SemanticAnalyzer.visit(ast)** - Type check and validate
-- **ASTLowerer.lower_program(ast)** - Lower AST to IR
-- **LayoutPlanner.plan_layout(ir_ops)** - Plan physical layout
-- **BlueprintEmitter.emit_from_plan(plan)** - Emit blueprint
+### Type Checking
+Validates type compatibility:
+- Assignment: RHS type must be compatible with LHS declared type
+- Operations: Operands must have compatible types
+- Function arguments: Must match parameter types
+- Memory operations: Value must match memory cell type
 
-## Minimal Pipeline Example
+**Compatibility Rules**:
+- `IntValue` can be assigned to `SignalValue` (auto-converted)
+- `SignalValue` types must match or be projectable
+- `BundleValue` operations require matching bundle structures
+
+### Symbol Resolution
+Tracks all named entities:
+- Variables (Signal, Int, Bundle)
+- Functions (with parameter types)
+- Entities (with placement info)
+- Memory cells (with signal types)
+- Loop iterators (function parameters)
+
+**Scoping**:
+- Global scope: Top-level declarations
+- Function scope: Parameters and local variables
+- Loop scope: Iterator variables
+
+### Special Validations
+
+**Entity Property Access**:
+- Only valid properties allowed (e.g., `entity.output`, `lamp.enable`)
+- Type checking based on entity prototype
+- Read vs write properties enforced
+
+**Memory Operations**:
+- Memory cells must be declared before use
+- Read/write type consistency
+- Latch operations (set/reset) validated
+
+**Function Calls**:
+- Argument count matches parameters
+- Argument types compatible with parameters
+- Recursive calls detected (future: allow with tail call optimization)
+
+**Bundle Operations**:
+- Bundle literals validate signal types
+- Bundle selection checks signal existence (for static bundles)
+- Dynamic bundles (entity.output) allow any signal type
+
+### Projection Simplification
+Analyzer optimizes projections at semantic stage:
+```facto
+Signal a = 10 | "iron-plate";        # Simplified to signal literal
+Signal b = (10 | "iron") | "copper"; # Nested projection simplified
+```
+
+## Usage Example
 
 ```python
-#!/usr/bin/env python3
-"""Minimal example of running the compilation pipeline."""
-from pathlib import Path
-from dsl_compiler.src.parsing.parser import DSLParser
-from dsl_compiler.src.semantic.analyzer import SemanticAnalyzer
-from dsl_compiler.src.lowering.lowerer import ASTLowerer
-from dsl_compiler.src.layout.planner import LayoutPlanner
-from dsl_compiler.src.emission.emitter import BlueprintEmitter
-from dsl_compiler.src.common.diagnostics import ProgramDiagnostics
+from semantic.analyzer import SemanticAnalyzer
+from parsing.parser import DSLParser
+from common.diagnostics import ProgramDiagnostics
 
-def compile_source(source: str) -> str:
-    """Compile Facto source code to blueprint string.""""
-    diagnostics = ProgramDiagnostics()
-    
-    # Stage 1: Parse
-    parser = DSLParser()
-    ast = parser.parse(source, "<string>")
-    
-    # Stage 2: Semantic Analysis
-    analyzer = SemanticAnalyzer(diagnostics=diagnostics)
-    analyzer.visit(ast)
-    
-    # Stage 3: Lower to IR
-    lowerer = ASTLowerer(analyzer, diagnostics)
-    ir_ops = lowerer.lower_program(ast)
-    
-    # Stage 4: Plan Layout
-    planner = LayoutPlanner(
-        lowerer.ir_builder.signal_type_map,
-        diagnostics=diagnostics,
-        signal_refs=lowerer.signal_refs,
-        referenced_signal_names=lowerer.referenced_signal_names,
-    )
-    layout = planner.plan_layout(ir_ops)
-    
-    # Stage 5: Emit Blueprint
-    emitter = BlueprintEmitter(diagnostics, lowerer.ir_builder.signal_type_map)
-    blueprint = emitter.emit_from_plan(layout)
-    
-    return blueprint.to_string()
+# Parse code
+parser = DSLParser()
+ast = parser.parse("Signal x = 10;", "test.facto")
 
-# Example usage:
-# source = Path("example_programs/01_basic_arithmetic.facto").read_text()
-# print(compile_source(source))
+# Analyze
+diagnostics = ProgramDiagnostics()
+analyzer = SemanticAnalyzer(diagnostics)
+analyzer.visit(ast)
+
+# Check for errors
+if diagnostics.has_errors():
+    for msg in diagnostics.get_messages():
+        print(msg)
+else:
+    # Access symbol information
+    symbol = analyzer.symbol_table.lookup("x")
+    print(f"Variable x has type: {symbol.value_type}")
 ```
 
----
+## Error Detection
 
-# running bash programs
+The analyzer catches:
+- **Type errors**: Incompatible types in operations, assignments
+- **Name errors**: Undefined variables, functions, entities
+- **Scope errors**: Variable redefinition, shadowing
+- **Operation errors**: Invalid operations on types (e.g., bundle + bundle)
+- **Function errors**: Wrong argument count/types, undefined functions
+- **Entity errors**: Invalid entity types, unknown properties
+- **Memory errors**: Undefined memory cells, type mismatches
 
-When running programs, be aware that there is a venv in the factompiler directory that needs to be activated first to access the required dependencies. You can activate it by running once:
+## Type System Details
 
-```bash
-source /path/to/factompiler/venv/bin/activate
+### Signal Types
+Signals have explicit types matching Factorio signal types:
+- **Items**: "iron-plate", "copper-cable", "electronic-circuit"
+- **Fluids**: "water", "crude-oil", "petroleum-gas"
+- **Virtual signals**: "signal-A", "signal-B", ..., "signal-0", "signal-1", ...
+- **Special**: "signal-each", "signal-anything", "signal-everything"
+
+### Dynamic Types
+Some expressions have runtime-determined types:
+- `entity.output`: `DynamicBundleValue` (contents unknown until runtime)
+- Function parameters: Type from call site
+
+### Type Widening
+`IntValue` automatically widens to `SignalValue` when needed:
+```facto
+Signal x = 10;  # 10 (IntValue) → SignalValue with implicit type
 ```
 
-# draftsman
+## Testing
 
-The compiler emits draftsman code for the designs. Draftsman is a Python library for creating DXF files. You can find more information about Draftsman and its usage in the [Draftsman documentation](https://draftsman.readthedocs.io/en/latest/).
+Tests verify:
+- Type inference correctness
+- Type error detection
+- Symbol resolution
+- Scope management
+- Entity validation
+- Memory operation validation
+- Function analysis
+- Edge cases and error messages
 
-Its source code is available in the directory ../draftsman relative to the factompiler directory.
-But be aware that this is just for reference, and you should use the installed version in the venv.
+## Performance
 
-# sample programs
+- Single-pass analysis
+- Lazy type inference (cached)
+- Efficient symbol table lookups
+- Minimal memory allocation
 
-There is a collection of sample programs available in the `example_programs` directory within the factompiler repository. These programs denote what we want to be able to compile. You can refer to these samples for guidance on how to structure your own programs. They should only be changed if we remove or add new features to the language.
+## Future Extensions
 
-
-# language spec
-
-The `Language_SPEC.md` file in the factompiler repository contains the complete specification of the Facto programming language. This document outlines the syntax, semantics, and features of the language. It serves as a reference for understanding how to write programs in Facto and how the compiler should interpret them.
-
-# coding guidelines
-
-THIS PACKAGE IS NOT RELEASED YET. Ergo, you may never ever need to keep backward compability in mind and in the code. If I tell you to change something, change it and do not regard anything that was there before.
-
-When writing code, please follow these guidelines:
-- Write clear and concise code with appropriate comments.
-- Follow the existing coding style and conventions used in the project.
-- Write unit tests for new features or bug fixes to ensure code quality.
-- Do not use defensive programming unless explicitly told to do so.
-- Letting things fail/throw exceptions is often better than trying to handle every possible error case.
-
-# Testing stuff:
-
-- please make yourself aware of the compile script arguments:
-Usage: compile.py [OPTIONS] INPUT_FILE
-
-  Compile Facto source files to blueprint format.
-
-Options:
-  -o, --output PATH               Output file for the blueprint (default:
-                                  stdout)
-  --name TEXT                     Blueprint name (default: derived from input
-                                  filename)
-  --log-level [debug|info|warning|error]
-                                  Set the logging level
-  --no-optimize                   Disable IR optimizations
-  --power-poles TEXT              Add power poles
-                                  (small/medium/big/substation, defaults to
-                                  medium if no value)
-  --json                          Output blueprint in JSON format
-  --help                          Show this message and exit.
-
-- also, when you want to test things, do not execute python in a cli command with python -c! Instead, create a temporary script file and run that. This way, the venv dependencies will be correctly picked up and you can iterate on that file.
-- all temporary scripts and files you create should be placed into the temp/ directory in the factompiler repo root. This directory is gitignored, so you don't have to worry about cleaning up after yourself.
-
-Also when running pytest, always append -n auto to make use of the xdist extension and run the tests in parallel.
+- Flow-sensitive typing (track value changes)
+- More sophisticated type inference
+- Generic functions
+- Type aliases
+- Const/readonly tracking
 
 ---
 > Source: [Snagnar/Factompiler](https://github.com/Snagnar/Factompiler) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
