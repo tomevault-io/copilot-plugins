@@ -1,0 +1,9 @@
+{
+  "name": "czarnak--tia-git-addin",
+  "displayName": "tia-git-addin",
+  "description": "TIA Portal V21 Add-In eabling comfortable work with TIA Portal Version Control.",
+  "version": "1.0.0",
+  "author": "Czarnak",
+  "homepage": "https://github.com/Czarnak/tia-git-addin",
+  "skills": []
+}
