@@ -2,7 +2,7 @@
   "name": "cursor-rules-deploy",
   "owner": "rosendolu",
   "repo": "cursor-rules-deploy",
-  "description": "CLI tool for deploying Cursor AI rules and templates",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rosendolu/cursor-rules-deploy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T05:21:06Z"
+  "distributed_at": "2026-07-30T19:53:07Z"
 }
