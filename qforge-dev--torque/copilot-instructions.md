@@ -1,114 +1,78 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## torque
 
-> Use Bun instead of Node.js, npm, pnpm, or vite.
+> - Provide LLM-assisted scoring (`scoreDataset`) and pairwise comparisons (`compareDatasets`) for Torque-generated datasets.
 
+# @qforge/torque-eval Agent Guide
 
-Default to using Bun instead of Node.js.
+## Purpose
+- Provide LLM-assisted scoring (`scoreDataset`) and pairwise comparisons (`compareDatasets`) for Torque-generated datasets.
+- Support both file-based `.json/.jsonl` inputs and in-memory `IDatasetRow[]` payloads with optional deterministic sampling.
+- Output aggregated scores, rationales, and winner tallies suitable for dashboards or regression tracking.
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+## Code Map
+- `src/evaluator.ts`: public API, orchestrates loading, sampling, prompt construction, judge invocation, and aggregation.
+- `src/loaders.ts`: file + JSON parsing helpers; must remain streaming-friendly and side-effect free.
+- `src/sampling.ts`: Mulberry32 deterministic shuffle; never swap RNGs without design review.
+- `src/prompts.ts`: single vs. pairwise rubric builders; ensure instructions stay judge-model-agnostic.
+- `src/parsers.ts`: strict JSON response parsing + fallback heuristics; expand cautiously to avoid silent failures.
+- `src/types.ts`: shared option/result interfaces consumed by dependents.
 
-## APIs
+## Implementation Guardrails
+1. **Deterministic sampling** – Always pass `seed` through to `shuffleAndSample`; document behavior when fewer rows than `sampleSize` exist.
+2. **Side-effect boundaries** – Loading is the only place that touches the filesystem; everything else should operate on plain data.
+3. **Prompt clarity** – Keep rubric wording concise; note why any new criteria are added and ensure both single + pairwise modes stay aligned.
+4. **Judge abstraction** – Support both `LanguageModel` instances and `(prompt) => Promise<string>` fallbacks; never assume OpenAI-specific fields.
+5. **Robust parsing** – Treat malformed judge responses as recoverable errors with actionable messages (`parsers.ts`); emit enough context for debugging but strip secrets.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+## Testing & Verification
+- Run targeted tests: `bun test packages/torque-eval` (covers evaluator, sampling, parsing).
+- Type check/build: `bun run --filter @qforge/torque-eval build`.
+- When adding loaders or prompt changes, include fixtures in `tests/` or inline snapshots that assert phrasing + token counts.
+- For AI SDK-dependent flows (https://ai-sdk.dev/docs/ai-sdk-core/testing), replace real judge models with `MockLanguageModelV2` from `ai/test` so `generateText` receives deterministic responses:
 
-## Testing
+```ts
+import { MockLanguageModelV2 } from "ai/test";
+import { scoreDataset } from "./evaluator";
 
-Use `bun test` to run tests.
+const mockJudge = new MockLanguageModelV2({
+  doGenerate: async () => ({
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify({
+          quality: 8,
+          coherence: 8,
+          adherence: 9,
+          notes: "rubric satisfied",
+        }),
+      },
+    ],
+    finishReason: "stop",
+    usage: { inputTokens: 0, outputTokens: 0, totalTokens: 0 },
+    warnings: [],
+  }),
+});
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
-
-test("hello world", () => {
-  expect(1).toBe(1);
+const result = await scoreDataset({
+  dataset,
+  sampleSize: 1,
+  judgeModel: mockJudge,
 });
 ```
 
-## Frontend
+- For judge integrations you cannot exercise locally, provide mock implementations in tests and document manual verification steps in PR notes.
 
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+## When to Escalate to a Human
+- Adding support for new file formats, third-party judge APIs, or long-running background jobs.
+- Changing scoring rubrics, aggregation math, or any public return shape.
+- Introducing persistence, telemetry, or secrets storage requirements.
 
-Server:
-
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
-
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
-
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
-
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-
-// import .css files directly and it works
-import './index.css';
-
-import { createRoot } from "react-dom/client";
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
-
-```sh
-bun --hot ./index.ts
-```
-
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+## Definition of Done
+- Deterministic sampling verified by tests (fixed seed expectations).
+- Error messages link the failing row/id whenever possible.
+- README examples reflect new behaviors or options.
+- Outputs remain serializable (JSON-safe) and backwards compatible.
 
 ---
 > Source: [qforge-dev/torque](https://github.com/qforge-dev/torque) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
