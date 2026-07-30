@@ -1,7 +1,7 @@
 {
   "name": "ruaan-deysel--ha-unifi-insights",
   "displayName": "ha-unifi-insights",
-  "description": "A comprehensive Home Assistant custom integration for monitoring and controlling your UniFi Network and UniFi Protect infrastructure using the official UniFi APIs.",
+  "description": "ha-unifi-insights",
   "version": "1.0.0",
   "author": "ruaan-deysel",
   "homepage": "https://github.com/ruaan-deysel/ha-unifi-insights",
