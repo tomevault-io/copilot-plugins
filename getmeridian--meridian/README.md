@@ -1,8 +1,6 @@
 # meridian
 
-> Tome by [getmeridian](https://github.com/getmeridian/meridian) — distributed by [TomeVault](https://tomevault.io)
-
-One command deploys a censorship-resistant VLESS+Reality proxy server. Perfectly configured out-of-the-box. Relay nodes supported.
+> Tome by [getmeridian](https://github.com/getmeridian/meridian), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [getmeridian/meridian](https://github.com/getmer
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [getmeridian/meridian](https://github.com/getmeridian/meridian) — a repo with 299+ stars on GitHub.
+From [getmeridian/meridian](https://github.com/getmeridian/meridian) — a repo with 474+ stars on GitHub.
 
 ---
 
