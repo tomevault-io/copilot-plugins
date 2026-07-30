@@ -1,17 +1,15 @@
 # viaduct
 
-> Source: [airbnb/viaduct](https://github.com/airbnb/viaduct) — distributed by [TomeVault](https://tomevault.io)
-
-Viaduct is a GraphQL-based system that provides a unified interface for accessing and interacting with any data source.
+> Source: [airbnb/viaduct](https://github.com/airbnb/viaduct). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [airbnb/viaduct](https://github.com/airbnb/viaduct).
+Original source: `AGENTS.md` in [airbnb/viaduct](https://github.com/airbnb/viaduct).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
