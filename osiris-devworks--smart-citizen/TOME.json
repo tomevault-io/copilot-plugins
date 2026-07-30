@@ -2,7 +2,7 @@
   "name": "smart-citizen",
   "owner": "Osiris-DevWorks",
   "repo": "smart-citizen",
-  "description": "A UI-based Star Citizen localization editor extended ExoAE's and Mr. Kraken's language pack work",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Osiris-DevWorks/smart-citizen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:04:21Z"
+  "distributed_at": "2026-07-30T03:35:51Z"
 }
