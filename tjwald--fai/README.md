@@ -1,8 +1,6 @@
 # FAI
 
-> Tome by [tjwald](https://github.com/tjwald/FAI) — distributed by [TomeVault](https://tomevault.io)
-
-Fast ML Inference Building Blocks Library in C#
+> Tome by [tjwald](https://github.com/tjwald/FAI), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [tjwald/FAI](https://github.com/tjwald/FAI).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tjwald/FAI](https://github.com/tjwald/FAI)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/tjwald/FAI](https://github.com/tjwald/FAI)
 
 ---
 
