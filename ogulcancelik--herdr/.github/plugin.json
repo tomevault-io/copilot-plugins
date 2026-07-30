@@ -1,11 +1,23 @@
 {
   "name": "ogulcancelik--herdr",
   "displayName": "herdr",
-  "description": "supervise multiple coding agents in one terminal.",
+  "description": "herdr",
   "version": "1.0.0",
   "author": "ogulcancelik",
   "homepage": "https://github.com/ogulcancelik/herdr",
   "skills": [
+    {
+      "name": "herdr",
+      "description": ""
+    },
+    {
+      "name": "herdr",
+      "description": ""
+    },
+    {
+      "name": "herdr",
+      "description": ""
+    },
     {
       "name": "herdr",
       "description": ""
