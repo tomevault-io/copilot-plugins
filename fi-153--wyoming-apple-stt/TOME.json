@@ -2,7 +2,7 @@
   "name": "wyoming-apple-stt",
   "owner": "FI-153",
   "repo": "wyoming-apple-stt",
-  "description": "STT component for Home Assistant using Apple's on-device STT models and Wyoming protocol. Great performance, full privacy, always available",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FI-153/wyoming-apple-stt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T08:49:49Z"
+  "distributed_at": "2026-07-30T22:43:38Z"
 }
