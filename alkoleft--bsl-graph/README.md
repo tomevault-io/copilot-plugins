@@ -1,8 +1,6 @@
 # AI instruction files for bsl-graph
 
-> Sourced from [alkoleft/bsl-graph](https://github.com/alkoleft/bsl-graph) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-BSL Graph: Анализатор и визуализатор конфигураций 1С: Предприятие
+> Sourced from [alkoleft/bsl-graph](https://github.com/alkoleft/bsl-graph), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
