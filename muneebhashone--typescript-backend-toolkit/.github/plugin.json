@@ -1,7 +1,7 @@
 {
   "name": "muneebhashone--typescript-backend-toolkit",
   "displayName": "typescript-backend-toolkit",
-  "description": "Production-ready Express.js/TypeScript framework with auto-generated OpenAPI, Artisan-style CLI, plugin system, JWT/sessions, BullMQ, React Email, Socket.io, Django-style admin, multi-provider storage",
+  "description": "typescript-backend-toolkit",
   "version": "1.0.0",
   "author": "muneebhashone",
   "homepage": "https://github.com/muneebhashone/typescript-backend-toolkit",
