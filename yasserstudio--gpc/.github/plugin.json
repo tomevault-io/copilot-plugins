@@ -1,7 +1,7 @@
 {
   "name": "yasserstudio--gpc",
   "displayName": "gpc",
-  "description": "Google Play Console CLI \u2014 217 API endpoints, preflight scanner, rollout monitoring, RTDN, vitals gates. Ship Android apps from your terminal.",
+  "description": "gpc",
   "version": "1.0.0",
   "author": "yasserstudio",
   "homepage": "https://github.com/yasserstudio/gpc",
