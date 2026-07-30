@@ -1,0 +1,44 @@
+{
+  "name": "cradle-app",
+  "owner": "wibus-wee",
+  "repo": "cradle-app",
+  "description": "\ud83d\udd27 One layer above your AI tools. Your AI coding tools are brilliant. Managing them is a mess. :electron: Cradle is the command center that coordinates all of them.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wibus-wee/cradle-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-30T00:48:51Z"
+}
