@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [cloudwego/volo](https://github.com/cloudwego/vo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cloudwego/volo](https://github.com/cloudwego/volo) — a repo with 2606+ stars on GitHub.
+From [cloudwego/volo](https://github.com/cloudwego/volo) — a repo with 2607+ stars on GitHub.
 
 ---
 
