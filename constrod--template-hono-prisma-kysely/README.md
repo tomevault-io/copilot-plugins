@@ -1,6 +1,6 @@
 # template-hono-prisma-kysely
 
-> Source: [constROD/template-hono-prisma-kysely](https://github.com/constROD/template-hono-prisma-kysely) — distributed by [TomeVault](https://tomevault.io)
+> Source: [constROD/template-hono-prisma-kysely](https://github.com/constROD/template-hono-prisma-kysely). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [constROD/template-hono-prisma-kysely]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [constROD/template-hono-prisma-kysely](https://github.com/constROD/template-hono-prisma-kysely) — a repo with 0+ stars on GitHub.
+From [constROD/template-hono-prisma-kysely](https://github.com/constROD/template-hono-prisma-kysely) — a repo with 61+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
