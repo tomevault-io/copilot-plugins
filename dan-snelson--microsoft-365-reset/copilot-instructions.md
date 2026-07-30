@@ -1,85 +1,63 @@
 ## microsoft-365-reset
 
-> Respond terse like smart caveman. All technical substance stay. Only fluff die. Active every response unless user says `stop caveman` or `normal mode`.
+> Release-scope rules for version alignment, changelog discipline, syntax validation, and safe validation of Microsoft-365-Reset before shipping.
 
-# Repository Guidance
 
-## Caveman Mode
+# Release Preparation
 
-Respond terse like smart caveman. All technical substance stay. Only fluff die. Active every response unless user says `stop caveman` or `normal mode`.
+**Priority Order**: 1. Release Scope Discipline → 2. Version Alignment → 3. Syntax Validation → 4. Self-Service and Silent Validation
 
-- Drop articles, filler, pleasantries, hedging.
-- Fragments OK. Short synonyms preferred. Technical terms and code exact.
-- Pattern: `[thing] [action] [reason]. [next step].`
-- Switch levels with `/caveman lite | full | ultra | wenyan`.
-- Drop caveman style for security warnings, irreversible actions, or user confusion; resume after clear part done.
-- Code, commits, PRs, explanations stay normal when clarity matters.
+## 1. Release Scope Discipline (Non-Negotiable)
 
-### Mission
+- Update **only** files explicitly included in the release scope.
+- Treat `Microsoft-365-Reset.zsh` as the primary runtime artifact.
+- Leave generated `Resources/*_self-extracting-*.sh` wrappers unchanged unless a packaging refresh is explicitly requested.
+- Do not modify `Resources/` release artifacts, workflow semantics, or CLI defaults during release prep unless the release scope explicitly requires it.
+- If a file outside the allowed extensions (`.zsh`, `.md`, `.txt`) is encountered in the release scope, exclude it from the release and log a warning.
 
-Microsoft 365 Reset should provide safe, clear, swiftDialog-driven workflow to repair, reset, or remove Microsoft 365 components on macOS while preserving parity with original package workflows where intended.
+## 2. Version Alignment
 
-### Product Boundaries
+- Keep `scriptVersion` in `Microsoft-365-Reset.zsh`, `VERSION.txt`, and the top entry in `CHANGELOG.md` aligned when preparing a release.
+- If version markers drift, stop release preparation immediately and correct the mismatch before continuing.
+- Update `CHANGELOG.md` only for shipped behavior. Do not document speculative or deferred work.
 
-- In scope: Microsoft 365 reset, repair, removal workflows on macOS.
-- In scope: swiftDialog-driven `self-service`, `test`, and `debug` flows.
-- In scope: `silent` automation flow, deterministic operation ordering, dependency resolution, structured logging, predictable exit codes.
-- Out of scope: non-macOS support.
-- Out of scope: broad architectural rewrites unless user explicitly requests them.
-- Out of scope: new production dependencies without explicit user approval.
-- Out of scope: operation semantic changes unless documented and confirmed.
+## 3. Syntax Validation (Required After Zsh Edits)
 
-### Implementation Priorities
+- After editing `Microsoft-365-Reset.zsh`, run `zsh -n Microsoft-365-Reset.zsh`.
+- After editing `scripts/mofa-consult.zsh`, run `zsh -n scripts/mofa-consult.zsh`.
+- Run `zsh -n` against **every** modified `.zsh` file that is in release scope.
+- Treat syntax validation as mandatory even for small behavioral changes.
+- If `zsh -n` fails for a file that is **not explicitly listed** above, investigate the error. Determine whether the file should be excluded from scope or corrected before proceeding.
 
-1. Treat current MOFA behavior as primary parity baseline for reset and removal workflows.
-2. Use package-era reference to preserve chooser logic, dependency relationships, and legacy coverage where MOFA lacks current equivalent.
-3. Preserve operator and end-user clarity in dialog text and warnings.
-4. Keep changes minimal, targeted, safe.
-5. Maintain deterministic execution and reliable failure handling.
-6. Keep docs synchronized with script behavior.
+## 4. Self-Service and Silent Validation
 
-### Behavior Precedence
+- Validate both `self-service` and `silent` expectations before release.
+- Confirm that `silent` mode remains independent of dialog UI and that no UI-only behavior has leaked into automation paths.
+- Ensure `self-service` and `silent` have identical behavior for:
+  - Deterministic operation ordering
+  - Dependency handling
+  - Exit behavior
+- If release changes touch parity-sensitive behavior, verify that MOFA remains the primary baseline and document any intentional divergence.
 
-- Prefer MOFA behavior over package-era behavior by default.
-- Use `Resources/Microsoft_Office_Reset_2.0.0b1_expanded/` as secondary context unless MOFA does not cover behavior.
-- Treat `scripts/mofa-consult.zsh` package-era report coverage as optional maintainer context when local expanded reference is unavailable.
-- Keep divergence from MOFA only for defensible product, safety, platform, or workflow reason.
-- When behavior diverges from MOFA, document reason in `README.md` and call out parity impact in change notes or review summary.
+## 5. Failure Handling
 
-### Scripting Style
+- A version mismatch **blocks** release preparation.
+- A failed `zsh -n` syntax check **blocks** release preparation.
+- Any validation result that breaks `self-service` or `silent` alignment **blocks** release preparation.
+- If release prep uncovers unintended wrapper churn, revert that churn from scope unless a packaging refresh was explicitly requested.
 
-- Maintain established style of `Microsoft-365-Reset.zsh` unless user explicitly requests different style.
-- Preserve section headers and separator style: `####################################################################################################`
-- Keep function declaration style consistent: `function xyz() { ... }`
-- Use explicit quoting like `${var}` pattern already present in script, preserving current variable naming style.
-- Keep comments concise, practical, and in existing voice.
-- Prefer ASCII punctuation in script text and logs unless clear reason exists.
-- Route operational logs through helper wrappers: `preFlight`, `notice`, `info`, `warning`, `errorOut`, `fatal`.
-- Keep log format consistent: `<script name> (<version>): <timestamp>  [LEVEL] <message>`
-- Keep elapsed-time format consistent: `Elapsed Time: %dh:%dm:%ds`
-- Keep dialog conventions consistent, including global `fontSize` with `--messagefont "size=${fontSize}"`.
-- Do not add or remove CLI parameters unless explicitly requested.
-- Keep client log path hard-coded as `scriptLog="/var/log/org.churchofjesuschrist.log"` unless explicitly requested otherwise.
+## 6. Post-Edit Checklist
 
-### Validation And Docs
+- [ ] Release scope stayed limited to the requested files only.
+- [ ] `scriptVersion`, `VERSION.txt`, and `CHANGELOG.md` are aligned (when version changes were in scope).
+- [ ] `zsh -n Microsoft-365-Reset.zsh` ran after main script edits.
+- [ ] `zsh -n scripts/mofa-consult.zsh` ran after MOFA helper edits.
+- [ ] `self-service` and `silent` expectations were reviewed together.
+- [ ] Generated self-extracting wrappers were left unchanged unless explicitly requested.
+- [ ] Files outside allowed extensions were excluded with a warning logged.
 
-- Run `zsh -n` against every modified Zsh file.
-- At minimum, run `zsh -n Microsoft-365-Reset.zsh` after modifying main script and `zsh -n scripts/mofa-consult.zsh` after modifying MOFA helper.
-- Verify behavior-sensitive changes against `self-service` and `silent` flow assumptions.
-- When changing `scripts/mofa-consult.zsh`, preserve clean report generation both with and without local expanded package reference.
-- Update `README.md` when behavior, parameters, or examples change.
-- Update `CHANGELOG.md` for meaningful user-visible behavior changes.
-- Do not add new production dependencies without explicit user confirmation.
-
-### Change Discipline
-
-- Prefer minimal, targeted edits over broad rewrites.
-- Avoid hidden behavior changes during refactors.
-- Call out parity impact explicitly when operation behavior changes.
-- For maintainer-only reporting changes, prefer warning-and-skip behavior over aborting when optional local reference artifacts are missing.
-- Treat generated `*_self-extracting-*.sh` wrappers as build artifacts; leave untracked unless user explicitly asks to commit one.
-- Keep naming, formatting, and copy consistent with existing script patterns.
+**Reference**: For all release scope decisions, resolve ambiguity by consulting `AGENTS.md`. If `AGENTS.md` is silent on the matter, defer to the current repo behavior in `Microsoft-365-Reset.zsh`.
 
 ---
 > Source: [dan-snelson/Microsoft-365-Reset](https://github.com/dan-snelson/Microsoft-365-Reset) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
