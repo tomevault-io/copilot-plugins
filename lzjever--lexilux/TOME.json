@@ -2,9 +2,9 @@
   "name": "lexilux",
   "owner": "lzjever",
   "repo": "lexilux",
-  "description": "Unified LLM API client library for Python. Simple API for Chat, Embedding, Rerank, and Tokenizer. OpenAI-compatible with streaming support and unified usage tracking.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lzjever/lexilux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:58:25Z"
+  "distributed_at": "2026-07-30T03:58:06Z"
 }
