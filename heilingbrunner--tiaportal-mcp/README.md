@@ -1,8 +1,6 @@
 # AI instruction files for tiaportal-mcp
 
-> Sourced from [heilingbrunner/tiaportal-mcp](https://github.com/heilingbrunner/tiaportal-mcp) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A Visual Studio Code extension to connect to Siemens TIA Portal and interact with TIA Portal projects directly from VS Code with GitHub Copilot.
+> Sourced from [heilingbrunner/tiaportal-mcp](https://github.com/heilingbrunner/tiaportal-mcp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [heilingbrunner/tiaportal-mcp](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [heilingbrunner/tiaportal-mcp](https://github.com/heilingbrunner/tiaportal-mcp) — a repo with 54+ stars on GitHub.
+From [heilingbrunner/tiaportal-mcp](https://github.com/heilingbrunner/tiaportal-mcp) — a repo with 81+ stars on GitHub.
 
 ---
 
