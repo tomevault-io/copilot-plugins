@@ -1,135 +1,219 @@
 ## agentsight
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> AgentSight works with any process that makes TLS-encrypted API calls. This page covers agent-specific setup and quirks.
 
-# CLAUDE.md
+# Supported Agents
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+AgentSight works with any process that makes TLS-encrypted API calls. This page covers agent-specific setup and quirks.
 
-## Overview
+For general usage and the `record` command, see the [README](https://github.com/eunomia-bpf/agentsight#quick-start).
 
-AgentSight is an eBPF-based observability framework for monitoring AI agent behavior through SSL/TLS traffic interception and process monitoring. It captures unencrypted request/response data at the kernel level without requiring any code changes to target applications.
+## Zero-Config: `record`
 
-## Build & Test Commands
+`record` is the simplest way to trace an agent. Put the command you want to run
+after `record --`; AgentSight handles everything else:
 
 ```bash
-# Full build (eBPF + Rust collector + frontend)
-make build
-
-# Individual components
-make build-bpf                          # eBPF C programs only
-cd collector && cargo build --release   # Rust collector only
-cd frontend && npm install && npm run build  # Frontend only
-
-# Tests
-cd bpf && make test              # 60 C unit tests
-cd collector && cargo test       # 89+ Rust tests
-cd frontend && npm run lint      # Frontend linting
-
-# Run a single Rust test
-cd collector && cargo test test_name
-
-# Debug builds with AddressSanitizer
-cd bpf && make debug
-cd bpf && make sslsniff-debug
-
-# Install system dependencies (Ubuntu/Debian)
-make install
+sudo ./agentsight record -- claude
+sudo ./agentsight record -- claude -p "review my last commit"
+sudo ./agentsight record -- python my_agent.py
+sudo ./agentsight record -- node ./cli.js
 ```
 
-## Running
+What `record -- <command>` does automatically:
+
+1. **Discovers the SSL binary** — resolves the command via `$PATH`, follows
+   symlinks (e.g. `claude` → `~/.local/share/claude/versions/2.1.150`), and
+   chases shebang wrappers (e.g. a `#!/usr/bin/env node` script → the real
+   `node` ELF) so uprobes attach to the correct executable.
+2. **Derives the `--comm` process filter** from the command name.
+3. **Launches the agent** with your terminal attached (its TUI/REPL works
+   normally) while SSL + process + system monitoring runs quietly in the
+   background.
+4. **Stops automatically** when the agent process exits.
+
+> **`sudo` note**: under `sudo`, `record` still finds *your* user-local installs
+> (it reads `$SUDO_USER`'s home for `~/.local/bin`, `~/bin`, and `~/.nvm`), so
+> `sudo ./agentsight record -- claude` traces the claude in your home directory,
+> not a different one on root's `$PATH`.
+
+Useful flags: `--binary-path <path>` to override auto-discovery, `--no-server`
+to disable the web UI, and `--server-port <port>`.
+
+## Claude Code
+
+Claude Code is a Bun-based application with BoringSSL statically linked and
+symbols stripped. AgentSight auto-detects BoringSSL functions via byte-pattern
+matching when `--binary-path` is provided:
 
 ```bash
-# Record Claude Code (requires --binary-path for statically-linked BoringSSL)
-sudo ./agentsight record -c claude --binary-path ~/.local/share/claude/versions/<version>
+# Find the Claude binary version
+CLAUDE_BIN=~/.local/share/claude/versions/$(claude --version | head -1)
 
-# Record Python AI tools
-sudo ./agentsight record -c python
+# Record all Claude activity with web UI
+sudo ./agentsight record -c claude --binary-path "$CLAUDE_BIN"
+# Open http://127.0.0.1:7395 to view timeline
 
-# Record with NVM Node.js (statically-linked OpenSSL)
+# Advanced: full trace with custom filters
+sudo ./agentsight debug trace --comm claude \
+  --binary-path "$CLAUDE_BIN" --server --server-port 8080
+```
+
+This captures:
+- **Conversation API**: `POST /v1/messages` requests with full prompt/response SSE streaming
+- **Telemetry**: heartbeat, event logging, Datadog logs
+- **Process activity**: file operations, subprocess executions
+
+> **Note**: All SSL traffic in Claude flows through an internal "HTTP Client"
+> thread, not the main "claude" thread. When `--binary-path` is specified,
+> the `--comm` filter is automatically skipped for SSL monitoring (but still
+> applied for process monitoring) to ensure traffic is captured correctly.
+
+## Python AI Tools (aider, open-interpreter, etc.)
+
+```bash
+# Monitor aider, open-interpreter, or any Python-based AI tool
+sudo ./agentsight record -c "python"
+
+# Custom web UI port
+sudo ./agentsight record -c "python" --server-port 8080
+```
+
+## Node.js AI Tools (Gemini CLI, etc.)
+
+> **Important**: Node.js (both NVM and system installs) **statically links
+> OpenSSL into the `node` binary** — there is no system `libssl.so` to hook.
+> SSL capture therefore requires pointing sslsniff at the `node` binary itself.
+
+The easiest way is `record -- <command>`, which discovers the `node` binary automatically:
+
+```bash
+# Gemini CLI runs on Node — record finds the right binary and traces it
+sudo ./agentsight record -- gemini
+```
+
+With `record`, AgentSight now auto-discovers the Node binary from `-c node`
+(it detects that Node embeds OpenSSL and attaches to the binary instead of a
+system library), so this just works without `--binary-path`:
+
+```bash
+# Monitor Gemini CLI or other Node.js AI tools — binary auto-discovered
+sudo ./agentsight record -c node
+
+# Pin the binary explicitly if auto-discovery picks the wrong Node install
 sudo ./agentsight record -c node --binary-path ~/.nvm/versions/node/v20.0.0/bin/node
+```
 
-# Direct eBPF program usage
-sudo ./bpf/sslsniff --binary-path <path>
+> **Behind an HTTP/HTTPS proxy?** Traffic is still TLS-encrypted inside the
+> Node process (the proxy only tunnels it), so AgentSight captures it the same
+> way — at the `SSL_read`/`SSL_write` calls before encryption.
+
+## Containers and Kubernetes Pods
+
+For an agent running inside a Docker container, pass the container to
+`--binary-path` with the `docker://` scheme. AgentSight resolves the container's
+process tree and attaches sslsniff to the right binary automatically:
+
+```bash
+# OpenClaw is a Node.js agent that runs in a container — works out of the box
+sudo ./agentsight record -c node --binary-path docker://openclaw
+
+# Accepts a container name or ID; supported by record, debug trace, and debug ssl
+sudo ./agentsight debug trace --binary-path docker://openclaw --server
+```
+
+`docker inspect` reports the container's *init* process (often `tini`), which
+has no SSL code. AgentSight walks the descendant process tree and attaches to the
+first process whose binary actually embeds SSL (the `node` process). See
+[docs/openclaw.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/experiment/openclaw.md) for the full walkthrough.
+
+For a Kubernetes Pod, run AgentSight on the node that hosts the Pod and pass a
+`k8s://` reference. AgentSight uses `kubectl` to read the Pod's `containerID`,
+then uses Docker or CRI (`crictl`) to find the host PID before scanning the
+container process tree:
+
+```bash
+# Single-container Pod in the default namespace
+sudo ./agentsight record -c node --binary-path k8s://openclaw
+
+# Pod in a namespace
+sudo ./agentsight record -c node --binary-path k8s://agents/openclaw
+
+# Multi-container Pod; specify the container name
+sudo ./agentsight record -c node --binary-path k8s://agents/openclaw/gateway
+
+# Supported by debug trace and debug ssl too
+sudo ./agentsight debug trace --binary-path k8s://agents/openclaw/gateway --server
+```
+
+The accepted forms are `k8s://pod`, `k8s://namespace/pod`, and
+`k8s://namespace/pod/container` (`kubernetes://` works as an alias). For
+containerd or CRI-O clusters, `crictl` must be installed and configured on that
+node. For Docker-backed clusters, Docker inspection is used directly. When
+running under `sudo`, AgentSight falls back to the invoking user's
+`~/.kube/config` if `KUBECONFIG` is not set; use `sudo -E` if you rely on a
+custom `KUBECONFIG`.
+
+## Browser Plaintext Capture
+
+For browser-specific plaintext capture, use the standalone `browsertrace` BPF
+tool instead of `sslsniff`:
+
+```bash
+# Chrome / Chromium
+sudo ./bpf/browsertrace --binary-path /opt/google/chrome/chrome
+
+# Firefox on Ubuntu Snap
+sudo ./bpf/browsertrace --binary-path /snap/firefox/current/usr/lib/firefox/firefox
+```
+
+> **Note**: On Ubuntu, `/usr/bin/firefox` is often a wrapper script rather than
+> the real browser ELF. Point `browsertrace` at the actual Firefox binary.
+
+## Local MCP over stdio
+
+For local MCP servers that communicate over `stdio` instead of HTTP/TLS, use
+the standalone `stdiocap` BPF tool:
+
+```bash
+# Capture stdin/stdout/stderr payloads for a local MCP server process
+sudo ./bpf/stdiocap -p <mcp_server_pid>
+```
+
+AgentSight also includes a minimal MCP fixture for local testing under
+[`docs/mcp-test/README.md`](https://github.com/eunomia-bpf/agentsight/blob/master/docs/experiment/mcp-test/README.md). It provides both `stdio`
+and HTTP test modes so you can generate predictable MCP traffic before wiring
+it into the Rust collector.
+
+## Advanced Monitoring
+
+```bash
+# Combined SSL and process monitoring with web interface
+sudo ./agentsight debug trace --server
+
+# Custom web UI port
+sudo ./agentsight record -c "python" --server-port 8080
+```
+
+## Direct eBPF Program Usage
+
+```bash
+# Run sslsniff directly on Claude binary
+sudo ./bpf/sslsniff --binary-path ~/.local/share/claude/versions/2.1.39
+
+# Run sslsniff on NVM Node.js
+sudo ./bpf/sslsniff --binary-path ~/.nvm/versions/node/v20.0.0/bin/node --verbose
+
+# Run browsertrace directly on Chrome
+sudo ./bpf/browsertrace --binary-path /opt/google/chrome/chrome
+
+# Run stdiocap directly on a local MCP server PID
+sudo ./bpf/stdiocap -p 12345
+
+# Run process tracer
 sudo ./bpf/process -c python
-
-# Web UI available at http://127.0.0.1:7395 when using record/trace with --server
 ```
-
-## Architecture
-
-```
-eBPF Programs (kernel) → JSON stdout → Rust Runners → Analyzer Chain → Output/Frontend/Files
-```
-
-### Key Components
-
-- **`bpf/`** — C eBPF programs. `sslsniff` hooks SSL_read/SSL_write via uprobes; `process` tracks process lifecycle via tracepoints. Both emit JSON to stdout.
-- **`collector/src/framework/`** — Rust streaming framework:
-  - `runners/` — Execute eBPF binaries and parse their JSON output into event streams (SslRunner, ProcessRunner, SystemRunner, FakeRunner)
-  - `analyzers/` — Pluggable stream processors: ChunkMerger, SSEProcessor, HTTPParser, SSLFilter, HTTPFilter, FileLogger, AuthHeaderRemover
-  - `core/events.rs` — Standardized `Event` struct with JSON payloads
-  - `binary_extractor.rs` — Extracts embedded eBPF binaries to temp files at runtime
-- **`collector/src/main.rs`** — CLI entry point. Subcommands: `ssl`, `process`, `trace` (most flexible), `record` (optimized defaults)
-- **`collector/src/server/`** — Hyper-based embedded web server serving frontend assets and `/api/events`
-- **`frontend/`** — Next.js/React/TypeScript visualization with timeline, process tree, and log views
-
-### Data Flow
-
-Runners use a fluent builder pattern: `SslRunner::new().with_args(&args).add_analyzer(Box::new(HTTPParser::new())).run().await`
-
-Each Runner produces an `EventStream` (async Stream of Events). Analyzers transform streams in sequence. The `AgentRunner` orchestrates multiple runners concurrently via `RunnerOrchestrator`.
-
-### Timestamp Convention
-
-All timestamps are nanoseconds since boot (`bpf_ktime_get_ns()`). `Event::datetime()` converts to wall-clock time using boot time from `/proc/stat`.
-
-## Critical: `--binary-path` and `--comm` Interaction
-
-Applications that statically link SSL (Claude/Bun uses BoringSSL, NVM Node.js uses OpenSSL) require `--binary-path` because there's no system `libssl.so` to hook. When `--binary-path` is specified:
-
-1. sslsniff tries symbol lookup first, then falls back to **BoringSSL byte-pattern detection** for stripped binaries
-2. The `--comm` filter is **NOT passed to sslsniff** (only to the process runner) — because `bpf_get_current_comm()` returns the thread name, not the process name. Claude's SSL traffic runs on an "HTTP Client" thread, so `-c claude` would filter out all SSL traffic.
-
-This logic is in `run_trace()` in `collector/src/main.rs` (around line 485).
-
-## Development Patterns
-
-### Adding a New Analyzer
-
-1. Implement `Analyzer` trait in `collector/src/framework/analyzers/`
-2. Core method: `async fn analyze(&self, events: EventStream) -> EventStream`
-3. Export in `analyzers/mod.rs`
-4. Attach via `.add_analyzer(Box::new(MyAnalyzer::new()))` on any runner
-
-### Adding a New Runner
-
-1. Implement `Runner` trait in `collector/src/framework/runners/`
-2. Use `BinaryExecutor` for running external binaries and parsing JSON output
-3. Use fluent builder pattern for configuration
-4. Export in `runners/mod.rs`
-
-### Adding a New eBPF Program
-
-1. Create `name.bpf.c` (kernel) and `name.c` (userspace) in `bpf/`
-2. Add to `APPS` variable in `bpf/Makefile`
-3. Use CO-RE pattern with architecture-specific `vmlinux.h` from `vmlinux/`
-4. Output JSON to stdout; debug info to stderr
-
-## CLI Subcommands
-
-- **`record`** — Optimized agent recording with predefined filters. Always enables SSL + process + system monitoring and web server on port 7395. `--comm` is required.
-- **`trace`** — Most flexible. Toggle `--ssl`, `--process`, `--server` independently. Supports `--ssl-filter`, `--http-filter`, `--binary-path`.
-- **`ssl`** — Raw SSL events only. Passes extra args directly to sslsniff after `--`.
-- **`process`** — Process events only.
-
-## Common Issues
-
-- **No SSL capture from Claude/Bun**: Must use `--binary-path` pointing to the actual binary. BoringSSL is statically linked and stripped.
-- **`--comm` filter drops all SSL events**: SSL runs on "HTTP Client" thread, not the process name thread. Fixed: `--comm` is auto-skipped for sslsniff when `--binary-path` is set.
-- **eBPF permission errors**: Requires `sudo` or `CAP_BPF` + `CAP_SYS_ADMIN`.
-- **Port 7395 conflict**: Default web server port. Change with `--server-port`.
 
 ---
 > Source: [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
