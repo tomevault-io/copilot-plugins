@@ -1,6 +1,6 @@
 # hollama
 
-> Tome by [fmaclen](https://github.com/fmaclen/hollama) — distributed by [TomeVault](https://tomevault.io/claim/fmaclen)
+> Tome by [fmaclen](https://github.com/fmaclen/hollama), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [fmaclen/hollama](https://github.com/f
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/fmaclen)
+From [fmaclen/hollama](https://github.com/fmaclen/hollama) — a repo with 1169+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install fmaclen/hollama
 ```
-Or browse all formats at [https://tomevault.io/claim/fmaclen](https://tomevault.io/claim/fmaclen).
+Source: [github.com/fmaclen/hollama](https://github.com/fmaclen/hollama).
 
 <!-- genome:t-i-s -->
