@@ -1,120 +1,164 @@
 ## twd
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This page covers the TWD prompts and context files that help any AI coding assistant (Claude, Cursor, Copilot, Windsurf, etc.) generate correct TWD test code. These prompts work with all AI tools.
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# AI Context & Prompts
 
-## Project Overview
+This page covers the TWD prompts and context files that help any AI coding assistant (Claude, Cursor, Copilot, Windsurf, etc.) generate correct TWD test code. These prompts work with all AI tools.
 
-TWD (Testing Web Development) is an in-browser testing library that runs tests directly in the browser with a sidebar UI for instant visual feedback. It's designed for SPAs with deterministic, client-side UI testing - not suitable for SSR-first architectures (Next.js App Router, server-side features).
+::: tip Claude Code users
+For the full autonomous experience — where Claude writes tests, runs them, and fixes failures automatically — see the [Claude Code Plugin](/claude-plugin) page.
+:::
 
-## Common Commands
+## Quick Start: Agent Skills (Recommended)
 
-```bash
-# Development
-npm run dev                    # Vite dev server
-
-# Build (outputs to dist/)
-npm run build                  # Full build: vite + service worker + bundle
-
-# Testing with Vitest
-npm test                       # Run tests in watch mode
-npm run test:ci                # Run tests with coverage (CI mode)
-npm test src/tests/ui/twdSidebar.spec.tsx  # Run specific test file
-
-# Documentation (VitePress)
-npm run docs:dev               # Dev documentation server
-npm run docs:build             # Build documentation
-```
-
-## Architecture
-
-### Entry Points
-
-- **`src/index.ts`** - Main public API exporting `twd`, `expect`, `userEvent`, `screenDom`
-- **`src/twd.ts`** - Core TWD API (element selection, assertions, mocking, navigation)
-- **`src/runner.ts`** - Test execution engine (`describe`, `it`, `beforeEach`, `afterEach`)
-- **`src/bundled.tsx`** - Preact-based bundled version for framework-agnostic use (Vue, Angular, Solid)
-- **`src/runner-ci.ts`** - CI/headless execution with results reporting
-- **`src/vite-plugin.ts`** - Vite plugin utilities for HMR and mock service worker
-
-### Key Modules
-
-- **`src/asserts/`** - Assertion implementations (`have.text`, `be.visible`, `have.class`, etc.)
-- **`src/commands/`** - Test commands (`mockBridge.ts` for MSW, `visit.ts` for navigation)
-- **`src/ui/`** - Preact components for the sidebar UI (`TWDSidebar.tsx`, `TestList.tsx`)
-- **`src/proxies/`** - Wrappers for `@testing-library/user-event` and `@testing-library/dom`
-- **`src/initializers/`** - Test and sidebar initialization logic
-- **`src/cli/`** - CLI tool for service worker installation (`npx twd-js init public`)
-
-### Package Exports
-
-```
-twd-js           → Main API
-twd-js/runner    → Test runner (describe, it, hooks)
-twd-js/bundled   → Framework-agnostic Preact bundle
-twd-js/runner-ci → CI execution
-twd-js/vite-plugin → Vite plugin
-twd-js/ui        → UI components (includes MockedComponent)
-```
-
-## Key Concepts
-
-### Two Setup Approaches
-- **Bundled (recommended)**: `initTWD()` from `twd-js/bundled` - handles React dependencies, auto-initializes mocking. Required for non-React frameworks.
-- **Standard (React only)**: Manual `initTests()` with `TWDSidebar` component for full control.
-
-### Element Selection
-- **Testing Library (recommended)**: `screenDom` for scoped queries excluding sidebar, `screenDomGlobal` for portal-rendered elements (modals)
-- **TWD Native**: `twd.get(selector)` returns TWDElemAPI with chainable `.should()` method
-
-### Mocking Patterns
-- **API Mocking**: `twd.mockRequest()` with Mock Service Worker. Must call `npx twd-js init public` to set up service worker.
-- **Component Mocking**: Wrap with `MockedComponent` from `twd-js/ui`, then mock with `twd.mockComponent()`
-- **Module Mocking**: Use Sinon library. Hooks must be exported as object properties (not named exports) due to ESM limitations.
-
-### Important Gotchas
-- `twd.initRequestMocking()` only needs to be called ONCE in main entry (bundled does this automatically)
-- Always `twd.clearRequestMockRules()` and `twd.clearComponentMocks()` in `beforeEach` for test isolation
-- Mock requests/components BEFORE visiting the page that uses them
-- Use `twd.setInputValue()` only for special inputs (range, color, date) - use `userEvent` for text inputs
-- If tests duplicate on HMR, add `twdHmr()` plugin to Vite config
-
-### CI Execution
-- Use `twd-cli` package or custom Puppeteer script with `twd-js/runner-ci`
-- Configure via `twd.config.json` in repo root
-- Puppeteer 24+ requires explicit browser install: `npx puppeteer browsers install chrome`
-
-## Testing
-
-Tests use Vitest with jsdom environment. Test files are in `src/tests/` mirroring the source structure. Setup file at `src/tests/setup.ts` configures Testing Library jest-dom matchers.
-
-## Development Workflow
-
-For testing changes in a real app context, use `examples/twd-test-app/`:
+The easiest way to give your AI assistant TWD context — no copy-pasting needed:
 
 ```bash
-cd examples/twd-test-app
-npm install
-npm run dev
+npx skills add BRIKEV/twd-ai
 ```
 
-Test files in that app import directly from source (`../../../../src/`), so changes are immediately reflected.
+This installs TWD skills directly into your AI agent. Works with Cursor, Codex, and [35+ more agents](https://github.com/vercel-labs/skills#available-agents).
 
-## Release Process
+For **Claude Code**, use the plugin instead for the full autonomous agent experience:
 
-When releasing a new version, update the following files:
+```bash
+claude plugin install BRIKEV/twd-ai
+```
 
-1. **`package.json`** - Update the `"version"` field
-2. **`src/constants/version.ts`** - Update `TWD_VERSION` constant
-3. **`src/constants/version_cli.js`** - Update `TWD_VERSION` constant
-4. **Run `npm install`** - Updates `package-lock.json`
-5. **`CHANGELOG.md`** - Add new version entry at the top with changes since the previous version
+See the [AI Integration overview](/ai-overview) for details.
 
-Use `git log v<previous-version>..HEAD --oneline` to see commits since the last release.
+## Alternative: Manual Setup
+
+If you prefer manual configuration, copy the comprehensive prompt from:
+
+**[`ai-guides/TWD_PROMPT.md`](https://github.com/brikev/twd/blob/main/ai-guides/TWD_PROMPT.md)**
+
+This file contains everything your AI needs to write TWD tests correctly.
+
+### How to Use
+
+| Tool | Instructions |
+|------|-------------|
+| **Claude Code** | Add to your project's `CLAUDE.md` file |
+| **Cursor** | Paste into Settings > Rules for AI or `.cursorrules` |
+| **GitHub Copilot** | Add to `.github/copilot-instructions.md` |
+| **Windsurf** | Add to your AI context configuration |
+
+---
+
+## Compact Prompt
+
+For quick copy-paste, here's a condensed version with the essentials:
+
+```text
+# TWD (Test While Developing) Context
+
+## Overview
+TWD is an in-browser test runner. Tests run in the browser (not Node.js). Syntax is similar to Jest/Cypress.
+
+## Core Rules
+
+1. Imports — use in every TWD test file:
+   import { twd, userEvent, screenDom, expect } from "twd-js";
+   import { describe, it, beforeEach, afterEach } from "twd-js/runner";
+
+2. File naming: *.twd.test.ts or *.twd.test.tsx
+
+3. Async/Await:
+   - twd.get() and twd.getAll() are async. Always await them.
+   - userEvent methods (click, type) are async. Always await them.
+   - Test functions passed to it() should be async.
+
+4. Assertions:
+   - Use .should(assertion, value) on elements from twd.get().
+   - Common: "have.text", "contain.text", "be.visible", "have.value", "have.class", "be.disabled", "have.attr".
+   - Use Chai expect for non-element assertions.
+
+## Common Patterns
+
+### Basic test structure
+   import { twd, userEvent, screenDom, expect } from "twd-js";
+   import { describe, it, beforeEach } from "twd-js/runner";
+
+   describe("Feature Name", () => {
+     beforeEach(() => {
+       twd.clearRequestMockRules();
+       twd.clearComponentMocks();
+     });
+     it("should perform an action", async () => { /* test logic */ });
+   });
+
+### Selecting elements
+   Preferred: screenDom (Testing Library)
+     const heading = screenDom.getByRole("heading", { name: "Welcome" });
+     const submitBtn = screenDom.getByRole("button", { name: "Submit" });
+     const emailInput = screenDom.getByLabelText("Email Address");
+     // For modals/portals: use screenDomGlobal instead
+
+   Fallback: twd.get() with CSS selectors
+     const container = await twd.get(".custom-container");
+
+### Interactions (userEvent)
+   const user = userEvent.setup();
+   await user.click(btn);
+   await user.type(input, "text");
+   // With twd.get(): use .el for raw DOM — await user.click(rawBtn.el);
+
+### Navigation
+   await twd.visit("/path");
+
+### Assertions
+   message.should("have.text", "Success");
+   message.should("contain.text", "saved");
+   message.should("be.visible"); message.should("not.be.visible");
+   input.should("have.value", "test@example.com");
+   message.should("have.class", "success-alert");
+   button.should("be.disabled"); button.should("be.enabled");
+   checkbox.should("be.checked");
+   element.should("have.attr", "type", "submit");
+   await twd.url().should("contain.url", "/dashboard");
+
+### Mocking requests
+   Define mocks BEFORE the action that triggers the request.
+   await twd.mockRequest("getUser", { method: "GET", url: "/api/user", response: { id: 1, name: "John" }, status: 200 });
+   await twd.waitForRequest("getUser");
+
+### Component mocking
+   // In component: wrap with <MockedComponent name="Chart"><Chart /></MockedComponent>
+   // In test:
+   twd.mockComponent("Chart", () => <div>Mocked</div>);
+
+### Module stubbing (Sinon)
+   Tests run in the browser, so use Sinon for stubs/spies.
+   ESM constraint: named exports (export const foo = ...) are IMMUTABLE and CANNOT be stubbed.
+   Solution: wrap in an object and export as default.
+
+   // hooks/useAuth.ts — CORRECT (stubbable)
+   import { useAuth0 } from "@auth0/auth0-react";
+   const useAuth = () => useAuth0();
+   export default { useAuth };
+
+   // hooks/useAuth.ts — WRONG (not stubbable)
+   export const useAuth = () => useAuth0();
+
+   // In test:
+   import authSession from '../hooks/useAuth';
+   import Sinon from 'sinon';
+   Sinon.stub(authSession, 'useAuth').returns({ isAuthenticated: true, ... });
+   // Clean up in beforeEach: Sinon.restore();
+
+## Do's and Don'ts
+   DO: await twd.get(); await userEvent actions; use .el when passing twd.get() result to userEvent.
+   DO: Clear mocks in beforeEach: twd.clearRequestMockRules(); twd.clearComponentMocks();
+   DO: Mock requests BEFORE twd.visit() or triggering the request.
+   DON'T: use cy.get or cy.visit (not Cypress); use global describe/it — always import from "twd-js/runner".
+   DON'T: assume Node.js (fs, path) is available — tests run in browser.
+   DON'T: try to stub named exports (export const fn = ...) — ESM makes them immutable. Wrap in an object and export default.
+   DO: use Sinon for module stubs/spies. Always call Sinon.restore() in beforeEach.
+```
 
 ---
 > Source: [BRIKEV/twd](https://github.com/BRIKEV/twd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
