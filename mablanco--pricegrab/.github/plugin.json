@@ -1,0 +1,9 @@
+{
+  "name": "mablanco--pricegrab",
+  "displayName": "pricegrab",
+  "description": "Android app that compares two prices with different quantities and tells you which one is cheaper per unit. Modern UI, accessible, bilingual (ES/EN), offline-first.",
+  "version": "1.0.0",
+  "author": "mablanco",
+  "homepage": "https://github.com/mablanco/pricegrab",
+  "skills": []
+}
