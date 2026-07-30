@@ -2,9 +2,9 @@
   "name": "claude-code-training",
   "owner": "kousen",
   "repo": "claude-code-training",
-  "description": "Slides and demos for a training course on Claude Code",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,27 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "api-documentation-skill",
-      "path": "skills-and-plugins/api-documentation-skill",
-      "github_url": "https://github.com/kousen/claude-code-training/tree/main/skills-and-plugins/api-documentation-skill",
-      "description": ""
-    },
-    {
-      "name": "security-review-skill",
-      "path": "skills-and-plugins/security-review-skill",
-      "github_url": "https://github.com/kousen/claude-code-training/tree/main/skills-and-plugins/security-review-skill",
-      "description": ""
-    },
-    {
-      "name": "spring-boot-skill",
-      "path": "skills-and-plugins/spring-boot-skill",
-      "github_url": "https://github.com/kousen/claude-code-training/tree/main/skills-and-plugins/spring-boot-skill",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/kousen/claude-code-training",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T20:41:32Z"
+  "distributed_at": "2026-07-30T19:40:34Z"
 }
