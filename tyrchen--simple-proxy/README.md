@@ -1,8 +1,6 @@
 # simple-proxy
 
-> Source: [tyrchen/simple-proxy](https://github.com/tyrchen/simple-proxy) — distributed by [TomeVault](https://tomevault.io)
-
-Simple http reverse proxy using pingora
+> Source: [tyrchen/simple-proxy](https://github.com/tyrchen/simple-proxy). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [tyrchen/simple-proxy](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tyrchen/simple-proxy](https://github.com/tyrchen/simple-proxy)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/tyrchen/simple-proxy](https://github.com/tyrchen/simple-proxy)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
