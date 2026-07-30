@@ -4,7 +4,7 @@
   "repo": "gsd-core",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-gsd/gsd-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T19:08:23Z"
+  "distributed_at": "2026-07-30T02:10:40Z"
 }
