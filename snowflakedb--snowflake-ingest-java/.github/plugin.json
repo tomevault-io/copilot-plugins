@@ -1,0 +1,9 @@
+{
+  "name": "snowflakedb--snowflake-ingest-java",
+  "displayName": "snowflake-ingest-java",
+  "description": "snowflake-ingest-java",
+  "version": "1.0.0",
+  "author": "snowflakedb",
+  "homepage": "https://github.com/snowflakedb/snowflake-ingest-java",
+  "skills": []
+}
