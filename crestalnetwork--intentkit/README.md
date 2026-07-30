@@ -1,23 +1,21 @@
 # intentkit
 
-> Tome by [crestalnetwork](https://github.com/crestalnetwork/intentkit) — distributed by [TomeVault](https://tomevault.io)
-
-IntentKit is an open-source, self-hosted cloud agent cluster that manages a collaborative team of AI agents for you.
+> Tome by [crestalnetwork](https://github.com/crestalnetwork/intentkit), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit).
+Original source: `AGENTS.md` in [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit) — a repo with 6497+ stars on GitHub.
+From [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit) — a repo with 6504+ stars on GitHub.
 
 ---
 
