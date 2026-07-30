@@ -1,9 +1,162 @@
 {
   "name": "ruvnet--midstream",
   "displayName": "midstream",
-  "description": "MidStream is a powerful platform that makes AI conversations smarter and more responsive. Instead of waiting for an AI to finish speaking before understanding what it's saying, MidStream analyzes resp",
+  "description": "midstream",
   "version": "1.0.0",
   "author": "ruvnet",
   "homepage": "https://github.com/ruvnet/midstream",
-  "skills": []
+  "skills": [
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "description": ""
+    }
+  ]
 }
