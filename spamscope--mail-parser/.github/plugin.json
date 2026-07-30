@@ -1,0 +1,9 @@
+{
+  "name": "spamscope--mail-parser",
+  "displayName": "mail-parser",
+  "description": "mail-parser",
+  "version": "1.0.0",
+  "author": "SpamScope",
+  "homepage": "https://github.com/SpamScope/mail-parser",
+  "skills": []
+}
