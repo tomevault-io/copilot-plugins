@@ -1,0 +1,9 @@
+{
+  "name": "docker--compose-for-agents",
+  "displayName": "compose-for-agents",
+  "description": "compose-for-agents",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/compose-for-agents",
+  "skills": []
+}
