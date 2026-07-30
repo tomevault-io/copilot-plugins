@@ -1,121 +1,80 @@
 ## vibecosystem
 
-> **AI Software Team** -- 138 agents, 295 skills, 73 hooks, 20 rules
+> - `agent-assignment-matrix.md` → Hangi task hangi agent'a gider
 
-# vibecosystem
+# Agent Orchestration
 
-**AI Software Team** -- 138 agents, 295 skills, 73 hooks, 20 rules
+## Ilgili Kurallar
+- `agent-assignment-matrix.md` → Hangi task hangi agent'a gider
+- `qa-loop.md` → Dev-QA dongusu, retry logic, escalation
+- `skills/handoff-templates/SKILL.md` → Agent arasi mesaj sablonlari
 
-This file is for **Codex CLI** (OpenAI). If you're using Claude Code, see `CLAUDE.md` or just run `./install.sh`.
+## Available Agents
 
-## What is this?
+Located in `~/.claude/agents/`:
 
-vibecosystem turns your AI coding assistant into a full software team. Specialized agents plan, build, review, test, and learn from every mistake. No configuration needed.
+| Agent | Purpose | When to Use |
+|-------|---------|-------------|
+| planner | Implementation planning | Complex features, refactoring |
+| architect | System design | Architectural decisions |
+| tdd-guide | Test-driven development | New features, bug fixes |
+| code-reviewer | Code review | After writing code |
+| security-reviewer | Security analysis | Before commits |
+| build-error-resolver | Fix build errors | When build fails |
+| e2e-runner | E2E testing | Critical user flows |
+| refactor-cleaner | Dead code cleanup | Code maintenance |
+| doc-updater | Documentation | Updating docs |
+| self-learner | Hatalardan ogrenim | Her hata sonrasi |
+| verifier | Son quality gate | "Bitti" demeden once |
+| janitor | Tech debt & code hygiene | Codebase temizlik, dead code, file size |
+| migrator | Dependency upgrade & migration | CVE scan, breaking change, rollback planning |
+| compass | Session context recovery | Nerede kaldik, decision log, thread tracking |
+| shipper | Release & deploy lifecycle | Pre-deploy checklist, changelog, smoke test |
+| catalyst | Scaffold & boilerplate | Pattern scan, tutarli kod uretimi |
+| coroner | Post-mortem & pattern propagation | Bug fix sonrasi ayni hatayi baska yerde bul |
+| mocksmith | Test data & fixture | Type'dan mock data, edge case, fixture library |
+| replay | Bug reproduction & flaky test | %100 reproduce adimlari, flaky test analizi |
 
-## Setup (Codex CLI)
+## Immediate Agent Usage
 
-```bash
-./install-codex.sh
-```
+No user prompt needed:
+1. Complex feature requests - Use **planner** agent
+2. Code just written/modified - Use **code-reviewer** agent
+3. Bug fix or new feature - Use **tdd-guide** agent
+4. Architectural decision - Use **architect** agent
+5. Hata yapildiginda - Use **self-learner** agent
+6. Is tamamlandiginda - Use **verifier** agent
+7. Tech debt/cleanup - Use **janitor** agent
+8. Dependency upgrade - Use **migrator** agent
+9. Session baslangici/context - Use **compass** agent
+10. Release/deploy - Use **shipper** agent
+11. Bug fix sonrasi propagation - Use **coroner** agent
+12. Test data lazim - Use **mocksmith** agent
+13. Bug reproduce edilemiyor - Use **replay** agent
 
-This copies all skills to `~/.codex/skills/` where Codex CLI auto-discovers them.
+## Dev-QA Loop (ZORUNLU)
 
-## Available Skills
+Her task implement edildikten sonra:
+1. Developer agent implement eder
+2. @code-reviewer + @verifier QA yapar
+3. PASS → sonraki task | FAIL → developer'a feedback, retry (max 3)
+4. 3x FAIL → escalation (reassign, parcala, ertele)
+Detay: `qa-loop.md`
 
-All 295 skills in `skills/` follow the standard SKILL.md format. Key categories:
+## Parallel Task Execution
 
-| Category | Examples |
-|----------|---------|
-| Development | coding-standards, backend-patterns, frontend-patterns, fullstack-dev |
-| Testing | tdd-workflow, test-strategy, e2e, python-testing, golang-testing |
-| Security | security-review, secret-patterns, supply-chain-security, concurrency-security |
-| Architecture | api-patterns, graphql-patterns, event-driven-patterns, cqrs-expert |
-| DevOps | docker-ops, kubernetes-patterns, terraform-patterns, ci-cd-pipeline |
-| Database | postgres-patterns, mongodb-patterns, redis-patterns, elasticsearch-patterns |
-| Cloud | aws-patterns, gcp-patterns, azure-patterns |
-| Performance | load-testing-patterns, caching-patterns, observability, tracing-patterns |
-| Compliance | kvkk-compliance, compliance-patterns |
-| AI/ML | prompt-engineering, rag-patterns, vector-db-patterns, llm-tuning-patterns |
+ALWAYS use parallel Task execution for independent operations.
+Bagimsiz task'lari farkli agent'lara AYNI ANDA ver.
 
-## Key Rules
+## Multi-Perspective Analysis
 
-### Immutability
-Never mutate objects. Create new ones:
-```javascript
-// Wrong
-user.name = name
-// Right
-return { ...user, name }
-```
-
-### Error Handling
-Every function that can fail must have try/catch. Every data can be null -- check it. Every API can timeout -- add retry.
-
-### Input Validation
-Validate at system boundaries. Use schema validation (Zod, JSON Schema, etc.).
-
-### Code Organization
-- 200-400 lines per file (800 max)
-- Functions under 50 lines
-- No more than 4 levels of nesting
-- Feature/domain-based organization
-
-### Testing
-- TDD: write test first (RED), implement (GREEN), refactor (IMPROVE)
-- Target 80%+ coverage
-- Unit tests for functions, integration for APIs, E2E for critical flows
-
-### Security Checklist
-- No hardcoded secrets (use environment variables)
-- Validate user input
-- Use parameterized queries (no SQL injection)
-- Prevent XSS
-- Error messages must not leak sensitive data
-
-### API Response Format
-```typescript
-interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
-  meta?: { total: number; page: number; limit: number }
-}
-```
-
-### Git Conventions
-- Commit format: `<type>: <description>`
-- Types: feat, fix, refactor, docs, test, chore, perf, ci
-- Keep commits atomic and focused
-
-## Agent-like Skills
-
-Since Codex CLI uses a single-agent model, vibecosystem agents are available as skills. Use them by referencing:
-
-- `coding-standards` -- universal code quality
-- `security-review` -- security audit checklist
-- `tdd-workflow` -- test-driven development
-- `backend-patterns` -- API design, database, server-side
-- `frontend-patterns` -- React, Next.js, state management
-- `docker-ops` -- container best practices
-- `postgres-patterns` -- database optimization
-- `api-patterns` -- REST/GraphQL design
-
-## Philosophy
-
-```
-Hooks are sensors -- observe, filter, signal.
-Agents are muscles -- build, produce, fix.
-The bridge between them: context injection.
-Implicit coordination through context.
-```
-
-## Links
-
-- GitHub: https://github.com/vibeeval/vibecosystem
-- Full docs: See `docs/` directory
-- Claude Code setup: `./install.sh`
-- Codex CLI setup: `./install-codex.sh`
+For complex problems, use split role sub-agents:
+- Factual reviewer
+- Senior engineer
+- Security expert
+- Consistency reviewer
+- Redundancy checker
 
 ---
 > Source: [vibeeval/vibecosystem](https://github.com/vibeeval/vibecosystem) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
