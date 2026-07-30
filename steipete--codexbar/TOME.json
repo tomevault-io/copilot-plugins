@@ -4,7 +4,7 @@
   "repo": "CodexBar",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/steipete/CodexBar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T19:38:02Z"
+  "distributed_at": "2026-07-30T19:38:43Z"
 }
