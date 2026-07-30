@@ -2,9 +2,9 @@
   "name": "neo-svelte",
   "owner": "dvcol",
   "repo": "neo-svelte",
-  "description": "Neomorphic ui library for svelte 5",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dvcol/neo-svelte",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T10:40:16Z"
+  "distributed_at": "2026-07-30T20:09:33Z"
 }
