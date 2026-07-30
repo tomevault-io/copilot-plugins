@@ -1,8 +1,6 @@
 # rustzen-admin
 
-> Source: [idaibin/rustzen-admin](https://github.com/idaibin/rustzen-admin) — distributed by [TomeVault](https://tomevault.io)
-
-A structured monorepo for Rust full-stack admin systems, with an Axum backend, React frontend, and clear architecture boundaries.
+> Source: [idaibin/rustzen-admin](https://github.com/idaibin/rustzen-admin). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
