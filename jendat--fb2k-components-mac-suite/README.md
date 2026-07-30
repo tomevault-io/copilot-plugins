@@ -1,8 +1,6 @@
 # fb2k-components-mac-suite
 
-> Source: [JendaT/fb2k-components-mac-suite](https://github.com/JendaT/fb2k-components-mac-suite) — distributed by [TomeVault](https://tomevault.io)
-
-foobar2000 macOS components: SimPlaylist, Playlist Organizer, Waveform Seekbar, Last.fm Scrobbler
+> Source: [JendaT/fb2k-components-mac-suite](https://github.com/JendaT/fb2k-components-mac-suite). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
