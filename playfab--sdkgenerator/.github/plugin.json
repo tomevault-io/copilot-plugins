@@ -1,0 +1,9 @@
+{
+  "name": "playfab--sdkgenerator",
+  "displayName": "SDKGenerator",
+  "description": "SDKGenerator",
+  "version": "1.0.0",
+  "author": "PlayFab",
+  "homepage": "https://github.com/PlayFab/SDKGenerator",
+  "skills": []
+}
