@@ -1,0 +1,9 @@
+{
+  "name": "cockroachdb--docs",
+  "displayName": "docs",
+  "description": "docs",
+  "version": "1.0.0",
+  "author": "cockroachdb",
+  "homepage": "https://github.com/cockroachdb/docs",
+  "skills": []
+}
