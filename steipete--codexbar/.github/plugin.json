@@ -1,9 +1,14 @@
 {
   "name": "steipete--codexbar",
   "displayName": "CodexBar",
-  "description": "Show usage stats for OpenAI Codex and Claude Code, without having to login.",
+  "description": "CodexBar",
   "version": "1.0.0",
   "author": "steipete",
   "homepage": "https://github.com/steipete/CodexBar",
-  "skills": []
+  "skills": [
+    {
+      "name": "summarize",
+      "description": ""
+    }
+  ]
 }
