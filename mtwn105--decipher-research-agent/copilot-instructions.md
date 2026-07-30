@@ -33,4 +33,4 @@ Here are some best practices and rules you must follow:
 
 ---
 > Source: [mtwn105/decipher-research-agent](https://github.com/mtwn105/decipher-research-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
