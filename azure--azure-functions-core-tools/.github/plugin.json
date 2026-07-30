@@ -1,0 +1,9 @@
+{
+  "name": "azure--azure-functions-core-tools",
+  "displayName": "azure-functions-core-tools",
+  "description": "azure-functions-core-tools",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/azure-functions-core-tools",
+  "skills": []
+}
