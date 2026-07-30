@@ -1,7 +1,7 @@
 {
   "name": "justrach--codedb",
   "displayName": "codedb",
-  "description": "Zig code intelligence server and MCP toolset for AI agents. Fast tree, outline, symbol, search, read, edit, deps, snapshot, and remote GitHub repo queries.",
+  "description": "codedb",
   "version": "1.0.0",
   "author": "justrach",
   "homepage": "https://github.com/justrach/codedb",
