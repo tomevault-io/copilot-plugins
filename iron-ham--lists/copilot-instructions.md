@@ -1,156 +1,85 @@
 ## lists
 
-> > **This file is the source of truth.** `CLAUDE.md` is a symlink to this file.
+> > `CLAUDE.md` is a symlink to this file. Always edit `AGENTS.md`.
 
-# ListKit — Agent Instructions
+# ListKit Module — Agent Instructions
 
-> **This file is the source of truth.** `CLAUDE.md` is a symlink to this file.
-> Agents should create and update `AGENTS.md` files (never edit `CLAUDE.md` directly — it's a symlink).
-> When creating a new `AGENTS.md`, always create a corresponding `CLAUDE.md` symlink:
-> `ln -s AGENTS.md CLAUDE.md`
+> `CLAUDE.md` is a symlink to this file. Always edit `AGENTS.md`.
 
-## Project Overview
+## Module Purpose
 
-ListKit is a high-performance, type-safe UICollectionView framework for iOS, organized as two Swift modules in a single package:
+ListKit is the low-level diffing and data source engine. It provides:
 
-- **ListKit** (`Sources/ListKit/`) — Low-level diffing engine. Drop-in replacement for `UICollectionViewDiffableDataSource` with an O(n) Heckel diff algorithm.
-- **Lists** (`Sources/Lists/`) — High-level declarative API built on ListKit. Provides ViewModel-driven data sources, result-builder DSL, pre-built configurations, and SwiftUI wrappers.
+- A fast O(n) Heckel diff algorithm
+- `DiffableDataSourceSnapshot` — a value-type replacement for Apple's `NSDiffableDataSourceSnapshot`
+- `DiffableDataSourceSectionSnapshot` — hierarchical parent-child snapshot
+- `CollectionViewDiffableDataSource` — API-compatible replacement for `UICollectionViewDiffableDataSource`
 
-Lists depends on ListKit. External consumers import either `ListKit` (low-level) or `Lists` (high-level; must also `import ListKit` separately if using its types directly).
+This module has **zero dependencies** beyond UIKit/Foundation.
 
-## Architecture
+## Directory Structure
 
 ```
-SwiftUI Wrappers (SimpleListView, GroupedListView, OutlineListView)
-        ↓
-Pre-Built Configurations (SimpleList, GroupedList, OutlineList)
-        ↓
-Data Sources (ListDataSource, MixedListDataSource)
-        ↓
-Builder DSL + Protocols (CellViewModel, SnapshotBuilder, AnyItem)
-        ↓
-ListKit Core (Snapshot, HeckelDiff, SectionedDiff, CollectionViewDiffableDataSource)
+ListKit/
+├── Algorithm/
+│   ├── HeckelDiff.swift          — O(n) diff producing inserts/deletes/moves
+│   ├── SectionedDiff.swift       — Per-section diffing with cross-section move reconciliation
+│   └── StagedChangeset.swift     — Batches changes into safe UICollectionView update groups
+├── DataSource/
+│   └── CollectionViewDiffableDataSource.swift — Drop-in replacement for Apple's diffable data source
+├── Snapshot/
+│   ├── DiffableDataSourceSnapshot.swift        — Flat snapshot (sections + items)
+│   └── DiffableDataSourceSectionSnapshot.swift — Hierarchical snapshot (parent-child trees)
+└── ListKit.docc/                 — DocC documentation catalog
 ```
 
-## Build & Test
+## Key Design Decisions
 
-**Always use the Makefile** for building, testing, formatting, and other project tasks. The Makefile wraps complex `xcodebuild` invocations with the correct workspace, scheme, destination, and derived data paths. Do not invoke `xcodebuild` or `swift build` directly — use `make` targets instead.
-
-| Command | Description |
-|---|---|
-| `make setup` | First-time setup (install Tuist, generate project, install hooks) |
-| `make build` | Build both frameworks |
-| `make test` | Run all tests |
-| `make test-listkit` | Run ListKit tests only |
-| `make test-lists` | Run Lists tests only |
-| `make benchmark` | Run comparative benchmarks |
-| `make format` | Format code with SwiftFormat |
-| `make lint` | Lint code with SwiftFormat |
-| `make docs` | Generate DocC documentation |
-| `make open` | Open in Xcode |
-
-Tests require an iOS Simulator destination. The Makefile defaults to `iPhone 17 Pro`.
-
-## Code Style
-
-- **`// ABOUTME:` comments** — Every `.swift` file must begin with a `// ABOUTME:` comment block (before imports). This is a 1-2 line summary of what the file contains. Format:
-  ```swift
-  // ABOUTME: Short description of this file's purpose.
-  // ABOUTME: Optional second line with additional context.
-  ```
-  Rules:
-  - Place at the very top of the file (line 1), before any `import` statements
-  - Use `// ABOUTME:` prefix on each line (not `///` or `/* */`)
-  - Keep each line under 100 characters
-  - First line: what the file defines or provides
-  - Optional second line: key relationships, constraints, or non-obvious details
-  - When creating or modifying a file, ensure it has an `// ABOUTME:` comment
-- **Swift 6** strict concurrency — all public types must be `Sendable`
-- **SwiftFormat** with Airbnb-based config (see `.swiftformat`)
-  - 2-space indentation
-  - Max line width: 130 (recommend ≤100)
-  - `--self remove` (no explicit `self`)
-  - Trailing commas on multi-element collections only
-  - `organizeDeclarations` is enabled — declaration order matters
-- Run `make format` before committing
-- Run `make lint` to check without modifying
+- **Parallel array storage**: Snapshots store `sectionIdentifiers: [SectionIdentifierType]` and `sectionItemArrays: [[ItemIdentifierType]]` as parallel arrays, with a `sectionIndex` dictionary for O(1) section-to-position lookups. This avoids Foundation overhead.
+- **Lazy reverse map**: The `sectionIndex` dictionary (section ID → position) is eagerly rebuilt on section mutations. The `_itemToSection` reverse map (item → containing section) is built lazily on first use by mutation methods, avoiding construction cost in the common build-then-diff path.
+- **Staged changesets**: `StagedChangeset` groups all computed diffs (section/item deletes, inserts, moves, reloads, reconfigures) into a single value type. `CollectionViewDiffableDataSource.performApply()` applies these in the correct order within `performBatchUpdates` to satisfy UICollectionView's constraints.
+- **Generic constraints**: `SectionIdentifierType: Hashable & Sendable`, `ItemIdentifierType: Hashable & Sendable`.
 
 ## Performance
 
-**Performance is the #1 priority for the ListKit module.** ListKit exists because Apple's implementation is too slow — every change to `Sources/ListKit/` must preserve or improve performance.
+**Performance is the #1 priority for this module.** ListKit exists because Apple's implementation is too slow. Every change must preserve or improve performance.
+
+Current baselines:
+- Snapshot construction is ~752x faster than Apple's `NSDiffableDataSourceSnapshot`
+- Diff computation is ~2.8x faster than IGListKit at 10k items
+- The Heckel algorithm is O(n) average case (vs unknown complexity for Apple's diff)
+
+Benchmarks live in `Tests/Benchmarks/`.
+
+### Performance workflow
 
 Any change that could affect performance **must**:
 1. Run `make benchmark` before and after the change
 2. Compare results to confirm no regression
 3. Update the README with new numbers if baselines change
 
-Do not merge changes that regress benchmark numbers without explicit approval. See [`Sources/ListKit/AGENTS.md`](Sources/ListKit/AGENTS.md) for current baselines and details.
+Do not merge changes that regress benchmark numbers without explicit approval.
 
-## Changelog
+## Background Diff Offloading
 
-**ALL pull requests MUST include a changelog entry.** The project maintains a [`CHANGELOG.md`](CHANGELOG.md) following the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format.
+`performApply()` uses a threshold-based branch for diff computation:
+- **< 1,000 items**: Diff runs inline on the main thread (avoids thread-hop overhead)
+- **≥ 1,000 items**: Diff runs on a background thread via `Task.detached(priority: .userInitiated)`
 
-When submitting a PR:
-1. Add an entry under the `## [Unreleased]` section at the top of `CHANGELOG.md` (create the section if it doesn't exist)
-2. Use the appropriate subsection: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, or `Security`
-3. Write a concise, user-facing description of the change
-4. PRs without a changelog entry should not be merged
+This is safe because snapshots and changesets are all `Sendable` value types, and `SectionedDiff.diff()` is a pure static function. The `applyTask` serialization chain still works: `performApply()` awaits the detached task before applying UIKit mutations, so the next queued apply waits on it. A post-diff `guard !Task.isCancelled` check handles cancellations that occurred during the background diff window.
 
-## Documentation
+The threshold constant is `backgroundDiffThreshold` (a computed property on the data source). It uses `max(old.numberOfItems, new.numberOfItems)` to account for shrinking lists (e.g., 5k→10 items).
 
-The project uses **DocC** to generate API documentation, hosted as static files in the `docs/` directory (checked into the repo). Run `make docs` to regenerate.
+## When Modifying This Module
 
-**You MUST run `make docs`** and commit the updated `docs/` output when any of the following change:
-
-- **Public API** in `Sources/ListKit/` or `Sources/Lists/` — adding, removing, or renaming any `public` type, method, property, or protocol requirement
-- **Doc comments** (`///`) on public symbols
-- **DocC catalog content** — anything under `Sources/ListKit/ListKit.docc/` or `Sources/Lists/Lists.docc/` (articles, tutorials, media, symbol extensions)
-
-If unsure whether your change affects generated docs, run `make docs` and check `git diff docs/` — if there are changes, include them in the commit.
-
-## Key Conventions
-
-- **`CellViewModel` protocol** is the core abstraction in Lists. Requires `Hashable` + `Sendable`. Optionally conform to `Identifiable` to get free `Hashable`/`Equatable` from `id`.
-- **Value types everywhere** — snapshots, changesets, and section models are all structs.
-- **No runtime introspection** — everything is resolved at compile time via generics and protocols.
-- **`@MainActor` isolation** — data sources and configurations are `@MainActor`-bound.
-- **Parallel array storage** — snapshots use a flat `[Section]` array alongside a parallel `[[Item]]` (items-per-section) array, avoiding dictionary overhead.
-
-## File Organization
-
-Each directory with an `AGENTS.md` has module-specific instructions:
-
-- [`Sources/ListKit/AGENTS.md`](Sources/ListKit/AGENTS.md) — Diffing engine internals
-- [`Sources/Lists/AGENTS.md`](Sources/Lists/AGENTS.md) — High-level API, SwiftUI, DSL
-- [`Tests/AGENTS.md`](Tests/AGENTS.md) — Testing patterns and benchmarks
-- [`Example/AGENTS.md`](Example/AGENTS.md) — Demo app conventions
-
-## Updating These Instructions
-
-Agents are **encouraged** to create and update `AGENTS.md` files as they learn about the codebase. When doing so:
-
-1. Always edit `AGENTS.md` (never `CLAUDE.md` — it's a symlink)
-2. When creating a new `AGENTS.md` in a subdirectory, also create the symlink:
-   ```sh
-   ln -s AGENTS.md CLAUDE.md
-   ```
-3. Keep instructions factual, concise, and specific to the directory's scope
-4. Update instructions when code patterns change (e.g., new conventions, renamed types)
-5. Don't duplicate information from parent `AGENTS.md` — child files inherit parent context
-
-### Pre-Commit Documentation Check
-
-**Before every commit**, pause and ask yourself:
-
-> *Have I learned something new about this codebase — a convention, a gotcha, an architectural decision, a non-obvious dependency — that isn't already captured in an `AGENTS.md` file?*
-
-If yes:
-- **Update** the nearest relevant `AGENTS.md` with the new information
-- **Create** a new `AGENTS.md` (+ `CLAUDE.md` symlink) in the directory where the knowledge is most scoped, if no suitable file exists yet
-- Include the documentation update in the same commit as the code change
-
-This ensures institutional knowledge grows naturally alongside the code, rather than being lost between sessions.
+- Changes to the diff algorithm must not break `StagedChangeset` output ordering
+- Snapshot mutations must invalidate lazy index caches
+- All public types must conform to `Sendable`
+- `CollectionViewDiffableDataSource` must remain API-compatible with Apple's `UICollectionViewDiffableDataSource`
+- Run `make test-listkit` to verify correctness
+- Run `make benchmark` to verify performance (see Performance section above)
+- Run `make docs` if you changed any public API, doc comments (`///`), or files under `ListKit.docc/` — commit the updated `docs/` output
 
 ---
 > Source: [Iron-Ham/Lists](https://github.com/Iron-Ham/Lists) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
