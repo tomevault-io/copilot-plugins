@@ -1,23 +1,22 @@
 # ha-unifi-insights
 
-> Tome by [ruaan-deysel](https://github.com/ruaan-deysel/ha-unifi-insights) — distributed by [TomeVault](https://tomevault.io)
-
-A comprehensive Home Assistant custom integration for monitoring and controlling your UniFi Network and UniFi Protect infrastructure using the official UniFi APIs.
+> Tome by [ruaan-deysel](https://github.com/ruaan-deysel/ha-unifi-insights), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ruaan-deysel/ha-unifi-insights](https://github.com/ruaan-deysel/ha-unifi-insights).
+Original source: `` in [ruaan-deysel/ha-unifi-insights](https://github.com/ruaan-deysel/ha-unifi-insights).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ruaan-deysel/ha-unifi-insights](https://github.com/ruaan-deysel/ha-unifi-insights) — a repo with 31+ stars on GitHub.
+From [ruaan-deysel/ha-unifi-insights](https://github.com/ruaan-deysel/ha-unifi-insights) — a repo with 35+ stars on GitHub.
 
 ---
 
