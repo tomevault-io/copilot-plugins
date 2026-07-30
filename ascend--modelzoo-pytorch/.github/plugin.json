@@ -1,0 +1,9 @@
+{
+  "name": "ascend--modelzoo-pytorch",
+  "displayName": "ModelZoo-PyTorch",
+  "description": "ModelZoo-PyTorch",
+  "version": "1.0.0",
+  "author": "Ascend",
+  "homepage": "https://github.com/Ascend/ModelZoo-PyTorch",
+  "skills": []
+}
