@@ -1,30 +1,43 @@
-## debugging
+## execution
 
-> Use this when debugging failures, broken tests, runtime errors, or unexpected behavior.
+> Repository execution and verification commands.
 
 
-# Debugging Rules
+# Execution Rules
 
-MUST follow this sequence:
+Default verification commands:
 
-1. Reproduce or clearly describe the failing condition.
-2. Narrow the cause using actual code, logs, stack traces, tests, or runtime output.
-3. Fix the ROOT CAUSE with the smallest reasonable change.
-4. Re-run the same scenario or test that exposed the issue.
+- `git diff --check`
+- `bash -n scripts/create-harness.sh`
+- `./scripts/create-harness.sh --dry-run --profile generic <name> <target-dir>`
 
-MUST NOT:
+MUST:
 
-- Guess the cause without evidence.
-- Mask a failure by weakening assertions, deleting tests, or broadening exception handling.
-- Change unrelated behavior while debugging.
+- Choose the narrowest verification command that proves the change.
+- Report any command you could not run and why.
+- Check the Active Work pointer in `docs/STATUS.md` and the target Work file's Verification/Checkpoints before broader validation.
+- Follow any verification scope defined in the active plan or relevant backlog.
+- Use `docs/backlog/HARNESS.md` for harness/workflow verification scope.
+- Treat failed verification as `FAIL -> RECOVER -> PLAN`; do not proceed to checkpoint until the failure is reported and resolved or explicitly accepted.
 
-When a test fails, explain:
+NEVER:
 
-- The failing scenario.
-- The most likely root cause.
-- The verification command or scenario used after the fix.
+- Run destructive commands without explicit approval.
+- Run privileged commands.
+- Assume a Java, Gradle, Docker, database, or application runtime exists in this repository.
+- Use alternate build tools unless the repository explicitly requires them.
 
-When a non-trivial issue is fully resolved (environment mismatch, hidden constraint, non-obvious root cause, tool version incompatibility), record it in `docs/troubleshooting/` using the symptom → cause → action format. Apply the DR-027 frontmatter spec (symptom/track/category/environment/status/related_dr). Link from `docs/HARNESS-MAINTAINER-GUIDE.md` if the issue affects local setup.
+## CI Trigger Structure
+
+- `pull_request` targeting `main` or `develop`: docs, prompts, tool rules, scaffold, and workflow changes run lightweight validation.
+- `push` to `main`: same lightweight validation for release-bound changes.
+- develop branch push: no CI trigger unless explicitly added later.
+
+## Verification Commands
+
+- `git diff --check` — whitespace and patch hygiene
+- `bash -n scripts/create-harness.sh` — scaffold shell syntax
+- `./scripts/create-harness.sh --dry-run --profile generic sample /tmp/sample` — generic scaffold plan check
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
