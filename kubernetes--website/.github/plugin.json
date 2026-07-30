@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes--website",
+  "displayName": "website",
+  "description": "website",
+  "version": "1.0.0",
+  "author": "kubernetes",
+  "homepage": "https://github.com/kubernetes/website",
+  "skills": []
+}
