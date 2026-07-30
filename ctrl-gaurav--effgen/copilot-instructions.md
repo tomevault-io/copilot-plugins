@@ -1,254 +1,183 @@
 ## effgen
 
-> The `GeminiAdapter` calls Google's Generative Language API. effGen ships
+> effGen is a large framework, but it follows a small set of consistent
 
-# Gemini & Gemma in effGen
+# API Conventions
 
-The `GeminiAdapter` calls Google's Generative Language API. effGen ships
-a small registry of free / cheap text-out models so you can pick one
-without leaving the framework.
+effGen is a large framework, but it follows a small set of consistent
+conventions. Learn these once and the rest of the surface is predictable.
 
-## Quick start
+## Importing
 
-```python
-from effgen.models.gemini_adapter import GeminiAdapter
-from effgen.models.base import GenerationConfig
-
-model = GeminiAdapter(model_name="gemini-3.1-flash-lite")
-model.load()
-result = model.generate(
-    "Summarise the second law of thermodynamics in one sentence.",
-    config=GenerationConfig(max_tokens=64, temperature=0.2),
-)
-print(result.text)
-```
-
-The adapter reads `GOOGLE_API_KEY` from `~/.effgen/.env` (or the project's
-`.env`) automatically when `python-dotenv` has been initialized; you can
-also pass `api_key=...` explicitly.
-
-## Recommended models (text-out only)
+The common entry points live at the top level:
 
 ```python
-import effgen
-
-# Models that are reliably callable on the free tier today.
-for m in effgen.gemini_recommended_models(tier="free"):
-    print(m["id"], m["family"], "RPM=", m["rpm"], "RPD=", m["rpd"])
-
-# All registered models (free + premium):
-effgen.gemini_recommended_models(tier="all")
-
-# Inspect a single model:
-effgen.gemini_model_info("gemini-3.1-flash-lite")  # alias resolves
+from effgen import Agent, AgentConfig, load_model, create_agent, list_presets
+from effgen import tool, Tool          # low-boilerplate tool authoring
+from effgen.tools.builtin import Calculator, WebSearch  # built-in tools
 ```
 
-| Model                                | Family       | Tier    | RPM | TPM     | RPD    | Tools | Thinking | Grounding |
-|--------------------------------------|--------------|---------|-----|---------|--------|-------|----------|-----------|
-| `gemini-3.1-flash-lite`              | flash-lite   | free    | 15  | 250 K   | 500    | yes   | yes      | no¹       |
-| `gemini-3-flash-preview`             | flash        | free    | 5   | 250 K   | 20     | yes   | yes      | yes       |
-| `gemini-3-pro-preview`               | pro          | premium | —   | —       | —      | yes   | yes      | yes       |
-| `gemini-3.1-pro-preview`             | pro          | premium | —   | —       | —      | yes   | yes      | yes       |
-| `gemini-2.5-flash-lite`              | flash-lite   | free    | 10  | 250 K   | 20     | yes   | no       | yes       |
-| `gemini-2.5-flash`                   | flash        | free    | 5   | 250 K   | 20     | yes   | no       | yes       |
-| `gemini-2.5-pro`                     | pro          | premium | —   | —       | —      | yes   | yes      | yes       |
-| `gemini-2.0-flash`                   | flash        | premium | —   | —       | —      | yes   | no       | yes       |
-| `gemini-2.0-flash-lite`              | flash-lite   | premium | —   | —       | —      | yes   | no       | yes       |
-| `gemma-4-26b-a4b-it` / `gemma-4-31b-it` | gemma     | free    | 15  | unlim.  | 1 500  | no    | no       | no        |
+`import effgen` is lazy — names resolve on first access, so importing the
+package is cheap even though the public surface is large.
 
-¹ Google Search grounding hits quota on the free-tier for `gemini-3.1-flash-lite`. Use `gemini-2.5-flash` or higher for grounding.
+## Creating an agent
 
-Limits reflect Google's free-tier defaults as of 2026-04-25 — check
-[ai.google.dev/gemini-api/docs/rate-limits](https://ai.google.dev/gemini-api/docs/rate-limits)
-for the current numbers.
-
-## Thinking budget (extended reasoning)
-
-Gemini 2.5-Pro and the full Gemini 3.x family support an optional internal
-reasoning step ("thinking") before producing an answer. You can control it
-via two `GenerationConfig` fields:
-
-| Field | Type | Default | Meaning |
-|---|---|---|---|
-| `thinking_budget` | `int \| None` | `None` | `None` = field not sent (model decides). `0` = disabled. `> 0` = token budget for reasoning. |
-| `include_thoughts` | `bool` | `False` | When `True`, the reasoning trace is surfaced in `result.metadata["thinking"]`. |
+There are two equivalent paths; pick whichever reads better for you:
 
 ```python
-from effgen.models.gemini_adapter import GeminiAdapter
-from effgen.models.base import GenerationConfig
+# Preset + model id (shortest):
+agent = create_agent("math", "gpt-5-nano")
 
-model = GeminiAdapter(model_name="gemini-3.1-flash-lite")
-model.load()
-
-result = model.generate(
-    "A train travels 120 km in 1.5 hours. What is its average speed?",
-    config=GenerationConfig(
-        thinking_budget=8192,
-        include_thoughts=True,
-        max_tokens=512,
-    ),
-)
-print("Thinking:", result.metadata.get("thinking", "(none)"))
-print("Answer:", result.text)
-print("Thinking tokens:", result.metadata["thoughts_token_count"])
+# Explicit config (full control):
+agent = Agent(AgentConfig(name="my-agent", model="gpt-5-nano", tools=[...]))
 ```
 
-**Notes:**
-- Models that don't support thinking (Gemma, Gemini 2.5-Flash-Lite, Gemini 2.0)
-  silently ignore `thinking_budget`. No error is raised.
-- `include_thoughts=False` (default) still uses the thinking budget internally
-  but doesn't return the trace, saving output tokens.
-- The thinking trace can be long. Set `include_thoughts=True` only when you
-  need to inspect reasoning.
+A `model` is always **required** — effGen never silently picks a paid cloud
+model. Pass a model id (string) or a loaded model instance. To choose a default
+once, set the `EFFGEN_DEFAULT_MODEL` environment variable.
 
-### Models with thinking support
+## Models and providers
 
-| Model | Thinking | Notes |
-|---|---|---|
-| `gemini-3.1-flash-lite` | yes | Free tier, 15 RPM / 500 RPD |
-| `gemini-3-flash-preview` | yes | Free tier, 5 RPM / 20 RPD |
-| `gemini-3-pro-preview` | yes | Paid only |
-| `gemini-2.5-pro` | yes | Paid only |
-| `gemini-2.5-flash` | no | Free tier |
-| `gemini-2.5-flash-lite` | no | Free tier |
-| `gemma-*` | no | Open weights, generous free-tier RPD |
+Model ids are strings. When an id is unambiguous it routes automatically;
+otherwise prefix it with the provider:
 
-## Google Search grounding
+```
+"gpt-5-nano"                     # routes to OpenAI
+"openai:gpt-5-nano"              # explicit provider prefix
+"Qwen/Qwen2.5-1.5B-Instruct"     # local (Transformers/vLLM)
+```
 
-When `GenerationConfig.grounding=True` and the model supports it, the adapter
-activates Gemini's built-in Google Search tool. The model fetches live web
-results and attributes its answer to real URLs returned in
-`result.metadata["grounding_chunks"]`.
+You can also pass `provider=` to `AgentConfig` / `load_model`, or `--provider`
+on the CLI. A wrong id fails closed with a "did you mean…/available now…" hint —
+run `effgen models list` to browse and `effgen doctor` to see which providers
+are usable.
+
+## Results
+
+Every `agent.run(...)` returns an `AgentResponse`:
 
 ```python
-from effgen.models.gemini_adapter import GeminiAdapter
-from effgen.models.base import GenerationConfig
+result = agent.run("What is 17% of 250?")
 
-model = GeminiAdapter(model_name="gemini-2.5-flash")
-model.load()
-
-result = model.generate(
-    "What's a major news headline from this week?",
-    config=GenerationConfig(grounding=True, max_tokens=512),
-)
-print(result.text)
-for chunk in result.metadata["grounding_chunks"]:
-    print("Source URL:", chunk["url"])
-    print("Title:     ", chunk["title"])
-model.unload()
+print(result)            # the answer (str) — __str__ returns result.output
+result.output            # the answer string
+result.text              # read-only alias of .output
+result.content           # read-only alias of .output
+result.success           # bool — never True with an empty answer
+result.tokens_used       # int
+result.execution_time    # float seconds
+result.to_dict()         # full structured detail (trace, cost, metadata)
 ```
 
-**Notes:**
-- Only `gemini-2.5-flash` and higher reliably support grounding on free-tier
-  keys. The lite model (`gemini-3.1-flash-lite`) hits quota on the
-  grounding endpoint.
-- `grounding=False` (default): `metadata["grounding_chunks"]` is always
-  an empty list.
-- Grounding and user-supplied `tools=` cannot be combined in the same call
-  (Google restriction). Use one or the other.
+On failure, `success` is `False`, the message is clear and redacted, and
+`result.metadata["error"]` is a structured `{type, category, provider, model,
+message, retryable}` dict — identical whether the failure came from the direct
+or the tool path.
 
-## Files API (upload + reference)
+## Streaming
 
-The `upload_file()` helper wraps the Gemini Files API, returning a `FileRef`
-that you can pass directly to `generate()` via the `files=` argument. The
-model can then read the file content before answering your prompt.
+`agent.stream(task)` yields successive **answer-text** `str` chunks; joining them
+reconstructs the (sanitized) answer. The iterator ending is the "done" signal; a
+provider failure raises a typed error rather than silently ending the stream.
 
 ```python
-from effgen.models.gemini_files import upload_file
-from effgen.models.gemini_adapter import GeminiAdapter
-from effgen.models.base import GenerationConfig
-
-# Upload once, reuse in multiple calls
-ref = upload_file("paper.pdf")          # auto-detects MIME type
-# ref = upload_file("report.txt", mime_type="text/plain", display_name="Q1 Report")
-
-model = GeminiAdapter(model_name="gemini-3.1-flash-lite")
-model.load()
-
-result = model.generate(
-    "Summarise the key findings of this document in three bullet points.",
-    config=GenerationConfig(max_tokens=256),
-    files=[ref],
-)
-print(result.text)
-model.unload()
+for chunk in agent.stream("Write a haiku about the sea"):
+    print(chunk, end="", flush=True)
 ```
 
-`FileRef` fields:
-
-| Field | Type | Description |
-|---|---|---|
-| `uri` | `str` | `https://generativelanguage.googleapis.com/…` URI |
-| `mime_type` | `str` | MIME type (auto-detected or overridden) |
-| `display_name` | `str` | Human-readable label (defaults to file name) |
-| `raw` | `Any` | Raw SDK file object for low-level access |
-
-**Limits:**
-- 2 GB per file (Google hard limit).
-- Uploaded files are stored server-side for **48 hours**.
-- Supported types: `text/plain`, `application/pdf`, `image/*`, `audio/*`,
-  `video/*`, and others listed in Google's Files API docs.
-- Files are owned by the API key — the same key can list/delete them via
-  `client.files.list()` / `client.files.delete(name=...)` if needed.
-
-## Rate-limit handling
-
-`GeminiAdapter` honors the `retry_delay` Google attaches to 429
-`ResourceExhausted` errors. If you trip the per-minute quota the adapter
-sleeps for the duration the SDK suggested, retries up to
-`MAX_RATE_LIMIT_RETRIES` (default 5), and only then re-raises. Transient
-5xx / `DEADLINE_EXCEEDED` errors fall back to exponential backoff.
-
-For tight free-tier loops, prefer Gemma models (30 RPM, 14 400 RPD) or
-batch your work with longer sleeps between bursts.
-
-## Tool calling
-
-Native function calling works end-to-end for Gemini 2.0+ and Gemini 3.x.
-Gemma models do **not** support function calling; pair them with the
-ReAct strategy or no tools.
+This holds for **tool-using agents** too: the default text stream is the answer
+only — the internal ReAct scaffolding (`Thought:` / `Action:` / `Observation:` /
+`Final Answer:`) is never part of the text payload. To observe the steps as they
+happen, either pass the `on_thought` / `on_tool_call` / `on_observation`
+callbacks, or opt into typed events:
 
 ```python
-from effgen.core.agent import Agent, AgentConfig
-from effgen.models.gemini_adapter import GeminiAdapter
-from effgen.tools.builtin import Calculator
-
-model = GeminiAdapter(model_name="gemini-3.1-flash-lite")
-model.load()
-agent = Agent(config=AgentConfig(
-    name="GeminiAgent",
-    model=model,
-    tools=[Calculator()],
-    max_iterations=6,
-))
-print(agent.run("Use the calculator to compute (137 * 248) - 1024.").output)
+for event in agent.stream(task, include_events=True):
+    if event.kind == "answer":
+        print(event.text, end="", flush=True)
+    elif event.kind == "tool_call":
+        print(f"\n[calling {event.tool}]")
 ```
 
-Under the hood the adapter:
+`include_events=True` yields `StreamEvent` objects with a `kind` of `answer`,
+`thought`, `tool_call`, `observation`, `status`, or `usage`; concatenating the
+`answer` events still reconstructs the final answer. For the best tool-use
+quality on capable models, `agent.run(task)` (which uses native function-calling
+where available) is recommended over streaming.
 
-1. Converts effGen tool specs (OpenAI dict format) into Gemini
-   `FunctionDeclaration` objects, stripping JSON-Schema fields Google
-   doesn't accept (`minLength`, `maximum`, etc.).
-2. Re-emits Gemini's structured `function_call` parts as Qwen-style
-   `<tool_call>{...}</tool_call>` tokens so the agent's native parser
-   can dispatch them with no Gemini-specific code path.
+### Usage after a stream
 
-## Model aliases
+The last event of an `include_events=True` stream is a `usage` event carrying
+what the run cost, and the same dict is on `agent.last_stream_usage` after any
+stream — including text mode — so a streamed turn can be tallied without running
+the prompt a second time:
 
-These short forms resolve to the canonical ID in the registry:
+```python
+chunks = list(agent.stream(task))
+usage = agent.last_stream_usage
+print(usage["total_tokens"], usage["cost_usd"], usage["ttft_ms"])
+```
 
-| Alias                              | Canonical                       |
-|------------------------------------|---------------------------------|
-| `gemini-3.1-flash-lite-preview`¹   | `gemini-3.1-flash-lite`         |
-| `gemini-3-flash-lite`              | `gemini-3.1-flash-lite`         |
-| `gemini-3-flash`                   | `gemini-3-flash-preview`        |
-| `gemini-3-pro`                     | `gemini-3-pro-preview`          |
-| `gemini-3.1-pro`                   | `gemini-3.1-pro-preview`        |
-| `gemini-flash-lite-latest`         | `gemini-3.1-flash-lite`         |
+The keys are `prompt_tokens`, `completion_tokens`, `total_tokens`, `cost_usd`
+(`None` for a model with no published price), `latency_ms`, `ttft_ms` (time to
+the first answer token), `model_calls` (above one on a tool-using run), and
+`estimated` — `True` when the token counts were counted locally because the
+backend reported none, as local engines do.
 
-¹ The older `-preview` flash-lite ID was retired by Google (returns 404); it is
-kept as a backward-compatible alias that resolves to the GA `gemini-3.1-flash-lite`.
+Over the OpenAI-compatible server the same numbers arrive on the final
+`stream_options.include_usage` chunk, whose `effgen` object carries `cost_usd`
+alongside the standard `usage` block.
+
+## Tools
+
+The recommended way to author a tool is the `@tool` decorator (it wraps the full
+`BaseTool` machinery for you):
+
+```python
+from effgen import tool
+
+@tool
+def word_count(text: str) -> int:
+    """Count the words in a piece of text."""
+    return len(text.split())
+```
+
+The decorated object is a real tool instance — drop it into
+`AgentConfig(tools=[...])` and it works with provider-native function-calling
+too. `Tool.from_function(fn)` is the non-decorator equivalent. For rich
+validation or lifecycle hooks, subclass `BaseTool` directly (see
+[Custom Tools](../tutorials/custom-tools.md)). Multi-action built-in tools take
+a canonical `operation` selector and accept common synonyms (`action`, and
+natural verbs) so the obvious call works.
+
+## Errors
+
+User-facing errors are typed and actionable: a one-line cause plus how to fix
+it. Unknown preset, model, or tool names raise typed errors with a fuzzy "did
+you mean?" suggestion instead of a bare `KeyError`.
+
+## Type hints
+
+effGen ships a `py.typed` marker, so your editor and `mypy`/`pyright` see effGen's
+annotations on the public surface (`from effgen import ...`). The public surface
+is checked two ways in CI: a deterministic gate ensures every advertised name
+resolves with an introspectable signature, and an advisory `mypy` lane
+type-checks the public modules. Internal modules carry best-effort annotations
+that may still tighten over time; rely on the documented public surface.
+
+## Counts (tools, presets, providers, models)
+
+The headline counts drift as the framework grows, so they are **generated**, not
+hand-maintained. Get the exact current numbers from the live package:
+
+```bash
+python scripts/gen_counts.py           # human-readable table
+python scripts/gen_counts.py --json    # machine-readable
+```
+
+This is the single source of truth for "how many tools/presets/providers/models
+does effGen ship".
 
 ---
 > Source: [ctrl-gaurav/effGen](https://github.com/ctrl-gaurav/effGen) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
