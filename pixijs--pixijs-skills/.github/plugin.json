@@ -1,7 +1,7 @@
 {
   "name": "pixijs--pixijs-skills",
   "displayName": "pixijs-skills",
-  "description": "Official AI skills for PixiJS. These skills teach AI coding agents how to correctly use PixiJS",
+  "description": "pixijs-skills",
   "version": "1.0.0",
   "author": "pixijs",
   "homepage": "https://github.com/pixijs/pixijs-skills",
