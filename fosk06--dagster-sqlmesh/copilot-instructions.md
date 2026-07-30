@@ -1,260 +1,536 @@
 ## dagster-sqlmesh
 
-> Architecture Patterns for dg-sqlmesh module
+> Documentation Workflow and Deployment Guide
 
 
-# Architecture Patterns for dg-sqlmesh
+# Documentation Workflow and Deployment Guide
 
-## Individual Asset Pattern
+This rule explains how to update, build, and deploy documentation for the dg-sqlmesh project.
 
-### Overview
+## 📚 Documentation Structure
 
-Each SQLMesh model becomes a separate Dagster asset for granular control and better UI experience.
+The documentation is built using **MkDocs** with the **Material theme** and is located in the `docs/` directory:
 
-### Implementation
+- `docs/index.md` - Homepage with project overview
+- `docs/getting-started/` - Installation and setup guides
+- `docs/user-guide/` - Core concepts and architecture
+- `docs/examples/` - Code examples and usage patterns
+- `docs/development/` - Contributing guidelines
 
-```python
-# In [src/dg_sqlmesh/factory.py](mdc:src/dg_sqlmesh/factory.py)
-def create_model_asset(current_model_name, current_asset_spec, current_model_checks):
-    @asset(
-        key=current_asset_spec.key,
-        description=f"SQLMesh model: {current_model_name}",
-        group_name=current_asset_spec.group_name,
-        metadata=current_asset_spec.metadata,
-        deps=current_asset_spec.deps,
-        check_specs=current_model_checks,
-        tags={
-            **(current_asset_spec.tags or {}),
-            "dagster/max_retries": "0",
-            "dagster/retry_on_asset_or_op_failure": "false"
-        },
-    )
-    def model_asset(context: AssetExecutionContext, sqlmesh: SQLMeshResource, sqlmesh_results: SQLMeshResultsResource):
-        # Shared execution logic
-        pass
+## 🚀 Local Development
+
+### Start Development Server
+
+```bash
+make docs-serve
 ```
 
-### Benefits
+This starts MkDocs on `http://localhost:8000` with live reload.
 
-- **Granular Control**: Each model can succeed/fail independently
-- **Better UI**: Individual assets visible in Dagster UI
-- **Selective Materialization**: Can materialize specific models
-- **Proper Dependencies**: Dagster's native dependency resolution
+### Build Documentation Locally
 
-## Shared SQLMesh Execution Pattern
-
-### Overview
-
-Single SQLMesh execution per Dagster run, shared between all selected assets via `SQLMeshResultsResource`.
-
-### Implementation
-
-```python
-class SQLMeshResultsResource(ConfigurableResource):
-    """Resource pour partager les résultats SQLMesh entre les assets d'un même run."""
-
-    def store_results(self, run_id: str, results: Dict[str, Any]) -> None:
-        """Stocke les résultats SQLMesh pour un run donné."""
-        self._results[run_id] = results
-
-    def get_results(self, run_id: str) -> Optional[Dict[str, Any]]:
-        """Récupère les résultats SQLMesh pour un run donné."""
-        return self._results.get(run_id)
-
-    def has_results(self, run_id: str) -> bool:
-        """Vérifie si des résultats existent pour un run donné."""
-        return run_id in self._results
+```bash
+make docs-build
 ```
 
-### Execution Logic
+Builds the documentation site in the `site/` directory.
 
-```python
-# Check if SQLMesh already executed for this run
-if not sqlmesh_results.has_results(context.run_id):
-    # First asset in run - execute SQLMesh for all selected assets
-    selected_asset_keys = context.selected_asset_keys
-    models_to_materialize = get_models_to_materialize(selected_asset_keys, ...)
-    plan = sqlmesh.materialize_assets_threaded(models_to_materialize)
+### Clean Build Artifacts
 
-    # Store results for other assets
-    results = {
-        "failed_check_results": sqlmesh._process_failed_models_events(),
-        "skipped_models_events": sqlmesh._console.get_skipped_models_events(),
-        "evaluation_events": sqlmesh._console.get_evaluation_events(),
-    }
-    sqlmesh_results.store_results(context.run_id, results)
-else:
-    # Use existing results from this run
-    results = sqlmesh_results.get_results(context.run_id)
+```bash
+make docs-clean
 ```
 
-### Benefits
+Removes the `site/` directory and build artifacts.
 
-- **Respects SQLMesh Dependencies**: Natural upstream/downstream skipping
-- **Single Execution**: One SQLMesh run per Dagster run
-- **Consistent State**: All assets see same SQLMesh results
-- **Better Performance**: Single SQLMesh context and execution
+### Full Documentation Workflow
 
-## Event-Driven Status Pattern
-
-### Overview
-
-Asset and check status determined from SQLMesh events captured by custom console.
-
-### Implementation
-
-```python
-# In [src/dg_sqlmesh/sqlmesh_event_console.py](mdc:src/dg_sqlmesh/sqlmesh_event_console.py)
-class SQLMeshEventCaptureConsole(IntrospectingConsole):
-    def _handle_log_failed_models(self, event: LogFailedModels) -> None:
-        """Capture failed model events for asset check creation."""
-        self.failed_models_events.append(event)
-
-    def _handle_log_skipped_models(self, event: LogSkippedModels) -> None:
-        """Capture skipped model events for dependency logic."""
-        self.skipped_models_events.append(event)
-
-    def _handle_update_snapshot_evaluation(self, event: UpdateSnapshotEvaluationProgress) -> None:
-        """Capture evaluation progress for audit results."""
-        self.evaluation_events.append(event)
+```bash
+make docs
 ```
 
-### Status Determination
+Runs: clean → build → validation check
 
-```python
-# Check if model was skipped due to upstream failure
-if model_was_skipped:
-    raise Exception(f"Model {model_name} was skipped due to upstream failures")
+## 🔧 Make Commands
 
-# Check if model materialized but audits failed
-elif model_has_audit_failures:
-    # Asset materializes successfully but with failed checks
-    return MaterializeResult(
-        asset_key=asset_key,
-        check_results=[AssetCheckResult(passed=False, ...)]
-    )
-else:
-    # Full success - materialization and audits passed
-    return MaterializeResult(
-        asset_key=asset_key,
-        check_results=[AssetCheckResult(passed=True, ...)]
-    )
+The [Makefile](mdc:Makefile) provides several documentation-related commands:
+
+- **`docs-serve`** - Start development server on localhost:8000
+- **`docs-build`** - Build documentation site
+- **`docs-clean`** - Clean build artifacts
+- **`docs-deploy`** - Prepare for deployment (clean + build)
+- **`docs-quality`** - Check documentation quality and links
+- **`docs`** - Complete workflow (clean + build + check)
+
+## 🌐 GitHub Pages Deployment
+
+### Automatic Deployment
+
+Documentation is automatically deployed to GitHub Pages via the [GitHub Actions workflow](mdc:.github/workflows/docs.yml).
+
+**Triggers:**
+
+- Push to `main` branch
+- Changes to `docs/**`, `mkdocs.yml`, or `.github/workflows/docs.yml`
+- Manual workflow dispatch
+
+**Deployment URL:** `https://fosk06.github.io/dagster-sqlmesh/`
+
+### Workflow Steps
+
+1. **Build** - Installs dependencies and builds MkDocs site
+2. **Setup Pages** - Configures GitHub Pages with `enablement: true`
+3. **Upload** - Uploads built site as artifact
+4. **Deploy** - Deploys to GitHub Pages (only on `main` branch)
+
+## 📝 Updating Documentation
+
+### 1. Make Changes
+
+Edit files in the `docs/` directory or `mkdocs.yml`
+
+### 2. Test Locally
+
+```bash
+make docs-serve  # View changes in browser
+make docs-build  # Verify build works
 ```
 
-## Tag Convention Pattern
+### 3. Commit and Push
 
-### Overview
-
-Use `dagster:property_name:value` convention to pass SQLMesh model properties to Dagster assets.
-
-### Implementation
-
-```python
-# In [src/dg_sqlmesh/translator.py](mdc:src/dg_sqlmesh/translator.py)
-def _get_dagster_property_from_tags(self, model, property_name: str) -> Optional[str]:
-    """
-    Parse SQLMesh tags to extract Dagster properties.
-    Convention: "dagster:property_name:value"
-    """
-    tags = getattr(model, "tags", set())
-
-    for tag in tags:
-        if tag.startswith("dagster:"):
-            parts = tag.split(":")
-            if len(parts) >= 3 and parts[1] == property_name:
-                return parts[2]
-
-    return None
+```bash
+git add docs/ mkdocs.yml
+git commit -m "docs: update [description of changes]"
+git push origin main
 ```
 
-### Usage
+### 4. Automatic Deployment
 
-```sql
--- SQLMesh model with Dagster properties
-MODEL (
-    name my_model,
-    tags [
-        "dagster:group_name:custom_group",
-        "dagster:owner:data_team",
-        "dagster:description:Custom model description",
-        "production",  -- Regular SQLMesh tag
-        "critical"     -- Regular SQLMesh tag
-    ]
-)
+The GitHub Actions workflow will automatically:
+
+- Build the documentation
+- Deploy to GitHub Pages
+- Update the live site
+
+## ⚠️ Important Notes
+
+- **No manual deployment needed** - GitHub Actions handles everything
+- **Only deploys from `main`** - PRs only build, don't deploy
+- **Live reload** - Use `make docs-serve` for development
+- **Build validation** - Use `make docs-quality` to check for issues
+
+## 🐛 Troubleshooting
+
+### Build Fails
+
+```bash
+make docs-clean  # Clean artifacts
+make docs-build  # Try building again
 ```
 
-## No Retry Pattern
+### Development Server Issues
 
-### Overview
-
-Force no retries via Dagster tags to prevent infinite loops on persistent SQLMesh audit failures.
-
-### Implementation
-
-```python
-# In asset definition
-@asset(
-    # ... other parameters
-    tags={
-        **(current_asset_spec.tags or {}),
-        "dagster/max_retries": "0",
-        "dagster/retry_on_asset_or_op_failure": "false"
-    },
-)
-def model_asset():
-    pass
-
-# In job definition
-sqlmesh_job = define_asset_job(
-    name="sqlmesh_job",
-    selection=sqlmesh_assets,
-    tags={
-        "dagster/max_retries": "0",
-        "dagster/retry_on_asset_or_op_failure": "false"
-    }
-)
+```bash
+# Kill any existing processes
+pkill -f mkdocs
+# Start fresh
+make docs-serve
 ```
 
-### Benefits
+### GitHub Pages Not Updating
 
-- **Prevents Infinite Loops**: No retries on persistent SQLMesh audit failures
-- **Module-Level Control**: Works regardless of user configuration
-- **Resource Efficient**: No wasted CPU/memory on failed retries
-- **Clear UI**: Single failed run instead of multiple retries
+- Check GitHub Actions workflow status
+- Verify changes are on `main` branch
+- Wait a few minutes for deployment to complete
 
-## Version Mapping Pattern
+## 📋 Best Practices
 
-### Overview
+1. **Always test locally** with `make docs-serve` before pushing
+2. **Use descriptive commit messages** starting with `docs:`
+3. **Keep documentation in sync** with code changes
+4. **Validate builds** with `make docs-quality`
+5. **Check deployment** after pushing to `main`
 
-Map SQLMesh `data_hash` to Dagster `code_version` and SQLMesh snapshot version to Dagster `data_version`.
+## 🔗 Related Files
 
-### Implementation
+- [mkdocs.yml](mdc:mkdocs.yml) - MkDocs configuration
+- [.github/workflows/docs.yml](mdc:.github/workflows/docs.yml) - Deployment workflow
+- [Makefile](mdc:Makefile) - Build commands
+- [docs/](mdc:docs/) - Documentation source files
 
-```python
-# Code version from SQLMesh data_hash
-code_version = str(getattr(model, "data_hash", "")) if hasattr(model, "data_hash") and getattr(model, "data_hash") else None
+## 📖 Documentation Content Guidelines
 
-# Data version from SQLMesh snapshot version
-snapshot = assetkey_to_snapshot.get(asset_key)
-if snapshot:
-    snapshot_version = getattr(snapshot, "version", None)
-    data_version = DataVersion(str(snapshot_version)) if snapshot_version else None
+### Writing Style
+
+- Use clear, concise language
+- Include code examples where helpful
+- Use emojis sparingly but effectively
+- Maintain consistent formatting
+
+### Code Examples
+
+- Use proper syntax highlighting
+- Include complete, runnable examples
+- Show both simple and advanced use cases
+- Test all code examples locally
+
+### Structure
+
+- Start with overview and quick start
+- Progress from basic to advanced concepts
+- Include troubleshooting sections
+- Provide clear navigation between sections
+
+## 🎨 MkDocs Configuration
+
+### Theme Settings
+
+The documentation uses Material for MkDocs with:
+
+- **Navigation**: Sidebar with search
+- **Responsive design**: Mobile and desktop optimized
+- **Code highlighting**: Syntax highlighting for all languages
+- **Search**: Full-text search across documentation
+
+### Plugins
+
+- **git-revision-date-localized**: Shows last update dates
+- **minify**: Optimizes HTML output
+- **search**: Full-text search functionality
+
+## 🚀 Advanced Features
+
+### Custom CSS/JS
+
+Add custom styling in `docs/stylesheets/extra.css`:
+
+```css
+/* Custom styles for documentation */
+.version-info {
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 4px;
+}
 ```
 
-### Benefits
+### Custom Admonitions
 
-- **Proper Sync Status**: Dagster assets show correct sync status
-- **Avoid Unnecessary Re-materializations**: Only re-materialize when code or data actually changes
-- **SQLMesh-Native**: Uses SQLMesh's existing versioning system
+Use Material theme admonitions:
+
+```markdown
+!!! note "Note"
+This is a note with custom styling.
+
+!!! warning "Warning"
+This is a warning message.
+
+!!! tip "Pro Tip"
+This is a helpful tip.
+```
+
+### Navigation Customization
+
+Customize navigation in `mkdocs.yml`:
+
+```yaml
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick-start.md
+  - User Guide: user-guide/core-concepts.md
+  - Examples: examples/basic-usage.md
+  - Development: development/contributing.md
+```
+
+## 🔍 Quality Assurance
+
+### Link Validation
+
+```bash
+make docs-quality
+```
+
+Checks for broken links and build issues.
+
+### Content Review
+
+- Review all documentation before pushing
+- Ensure examples are up-to-date
+- Check for typos and formatting issues
+- Verify all links work correctly
+
+### Performance
+
+- Keep images optimized
+- Minimize custom CSS/JS
+- Use efficient Markdown syntax
+- Regular cleanup of unused files
+
+# Documentation Workflow and Deployment Guide
+
+This rule explains how to update, build, and deploy documentation for the dg-sqlmesh project.
+
+## 📚 Documentation Structure
+
+The documentation is built using **MkDocs** with the **Material theme** and is located in the `docs/` directory:
+
+- `docs/index.md` - Homepage with project overview
+- `docs/getting-started/` - Installation and setup guides
+- `docs/user-guide/` - Core concepts and architecture
+- `docs/examples/` - Code examples and usage patterns
+- `docs/development/` - Contributing guidelines
+
+## 🚀 Local Development
+
+### Start Development Server
+
+```bash
+make docs-serve
+```
+
+This starts MkDocs on `http://localhost:8000` with live reload.
+
+### Build Documentation Locally
+
+```bash
+make docs-build
+```
+
+Builds the documentation site in the `site/` directory.
+
+### Clean Build Artifacts
+
+```bash
+make docs-clean
+```
+
+Removes the `site/` directory and build artifacts.
+
+### Full Documentation Workflow
+
+```bash
+make docs
+```
+
+Runs: clean → build → validation check
+
+## 🔧 Make Commands
+
+The [Makefile](mdc:Makefile) provides several documentation-related commands:
+
+- **`docs-serve`** - Start development server on localhost:8000
+- **`docs-build`** - Build documentation site
+- **`docs-clean`** - Clean build artifacts
+- **`docs-deploy`** - Prepare for deployment (clean + build)
+- **`docs-quality`** - Check documentation quality and links
+- **`docs`** - Complete workflow (clean + build + check)
+
+## 🌐 GitHub Pages Deployment
+
+### Automatic Deployment
+
+Documentation is automatically deployed to GitHub Pages via the [GitHub Actions workflow](mdc:.github/workflows/docs.yml).
+
+**Triggers:**
+
+- Push to `main` branch
+- Changes to `docs/**`, `mkdocs.yml`, or `.github/workflows/docs.yml`
+- Manual workflow dispatch
+
+**Deployment URL:** `https://fosk06.github.io/dagster-sqlmesh/`
+
+### Workflow Steps
+
+1. **Build** - Installs dependencies and builds MkDocs site
+2. **Setup Pages** - Configures GitHub Pages with `enablement: true`
+3. **Upload** - Uploads built site as artifact
+4. **Deploy** - Deploys to GitHub Pages (only on `main` branch)
+
+## 📝 Updating Documentation
+
+### 1. Make Changes
+
+Edit files in the `docs/` directory or `mkdocs.yml`
+
+### 2. Test Locally
+
+```bash
+make docs-serve  # View changes in browser
+make docs-build  # Verify build works
+```
+
+### 3. Commit and Push
+
+```bash
+git add docs/ mkdocs.yml
+git commit -m "docs: update [description of changes]"
+git push origin main
+```
+
+### 4. Automatic Deployment
+
+The GitHub Actions workflow will automatically:
+
+- Build the documentation
+- Deploy to GitHub Pages
+- Update the live site
+
+## ⚠️ Important Notes
+
+- **No manual deployment needed** - GitHub Actions handles everything
+- **Only deploys from `main`** - PRs only build, don't deploy
+- **Live reload** - Use `make docs-serve` for development
+- **Build validation** - Use `make docs-quality` to check for issues
+
+## 🐛 Troubleshooting
+
+### Build Fails
+
+```bash
+make docs-clean  # Clean artifacts
+make docs-build  # Try building again
+```
+
+### Development Server Issues
+
+```bash
+# Kill any existing processes
+pkill -f mkdocs
+# Start fresh
+make docs-serve
+```
+
+### GitHub Pages Not Updating
+
+- Check GitHub Actions workflow status
+- Verify changes are on `main` branch
+- Wait a few minutes for deployment to complete
+
+## 📋 Best Practices
+
+1. **Always test locally** with `make docs-serve` before pushing
+2. **Use descriptive commit messages** starting with `docs:`
+3. **Keep documentation in sync** with code changes
+4. **Validate builds** with `make docs-quality`
+5. **Check deployment** after pushing to `main`
+
+## 🔗 Related Files
+
+- [mkdocs.yml](mdc:mkdocs.yml) - MkDocs configuration
+- [.github/workflows/docs.yml](mdc:.github/workflows/docs.yml) - Deployment workflow
+- [Makefile](mdc:Makefile) - Build commands
+- [docs/](mdc:docs/) - Documentation source files
+
+## 📖 Documentation Content Guidelines
+
+### Writing Style
+
+- Use clear, concise language
+- Include code examples where helpful
+- Use emojis sparingly but effectively
+- Maintain consistent formatting
+
+### Code Examples
+
+- Use proper syntax highlighting
+- Include complete, runnable examples
+- Show both simple and advanced use cases
+- Test all code examples locally
+
+### Structure
+
+- Start with overview and quick start
+- Progress from basic to advanced concepts
+- Include troubleshooting sections
+- Provide clear navigation between sections
+
+## 🎨 MkDocs Configuration
+
+### Theme Settings
+
+The documentation uses Material for MkDocs with:
+
+- **Navigation**: Sidebar with search
+- **Responsive design**: Mobile and desktop optimized
+- **Code highlighting**: Syntax highlighting for all languages
+- **Search**: Full-text search across documentation
+
+### Plugins
+
+- **git-revision-date-localized**: Shows last update dates
+- **minify**: Optimizes HTML output
+- **search**: Full-text search functionality
+
+## 🚀 Advanced Features
+
+### Custom CSS/JS
+
+Add custom styling in `docs/stylesheets/extra.css`:
+
+```css
+/* Custom styles for documentation */
+.version-info {
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 4px;
+}
+```
+
+### Custom Admonitions
+
+Use Material theme admonitions:
+
+```markdown
+!!! note "Note"
+This is a note with custom styling.
+
+!!! warning "Warning"
+This is a warning message.
+
+!!! tip "Pro Tip"
+This is a helpful tip.
+```
+
+### Navigation Customization
+
+Customize navigation in `mkdocs.yml`:
+
+```yaml
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick-start.md
+  - User Guide: user-guide/core-concepts.md
+  - Examples: examples/basic-usage.md
+  - Development: development/contributing.md
+```
+
+## 🔍 Quality Assurance
+
+### Link Validation
+
+```bash
+make docs-quality
+```
+
+Checks for broken links and build issues.
+
+### Content Review
+
+- Review all documentation before pushing
+- Ensure examples are up-to-date
+- Check for typos and formatting issues
+- Verify all links work correctly
+
+### Performance
+
+- Keep images optimized
+- Minimize custom CSS/JS
+- Use efficient Markdown syntax
+- Regular cleanup of unused files
 
 ---
-
-description:
-globs:
-alwaysApply: false
-
----
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/fosk06) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [fosk06/dagster-sqlmesh](https://github.com/fosk06/dagster-sqlmesh) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
