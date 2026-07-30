@@ -1,43 +1,69 @@
-## execution
+## git-commit
 
-> Repository execution and verification commands.
+> Use this when the user asks for a git commit, commit message, or commit command.
 
 
-# Execution Rules
+# Git Commit Rules
 
-Default verification commands:
+## Pre-Commit Process
 
-- `git diff --check`
-- `bash -n scripts/create-harness.sh`
-- `./scripts/create-harness.sh --dry-run --profile generic <name> <target-dir>`
+If the current directory is not a git repository (bootstrap initial state), report the steps below as `Not Applicable` and proceed with document/file validation only.
+
+Before committing, always run in this order:
+
+1. `git status` — confirm full working tree state (unstaged + untracked)
+2. `git add <files>` — stage intended files
+3. `git status` — verify nothing is missed before committing
+4. `git diff --cached` — review staged content
+
+NEVER use `git diff --cached` alone as the only pre-commit check.
+It does not show unstaged modifications or untracked files.
+
+## Commit Approval
 
 MUST:
 
-- Choose the narrowest verification command that proves the change.
-- Report any command you could not run and why.
-- Check the Active Work pointer in `docs/STATUS.md` and the target Work file's Verification/Checkpoints before broader validation.
-- Follow any verification scope defined in the active plan or relevant backlog.
-- Use `docs/backlog/HARNESS.md` for harness/workflow verification scope.
-- Treat failed verification as `FAIL -> RECOVER -> PLAN`; do not proceed to checkpoint until the failure is reported and resolved or explicitly accepted.
+- Commit only after validation is complete or the remaining risk is explicitly accepted.
+- Before committing, follow the Approval Matrix: report validation result, diff summary, and proposed commit message, then wait for explicit user approval.
+- Before committing or opening a PR, report STATUS Finalization: whether `docs/STATUS.md` update is needed, why, and the required Approval Matrix proposal if needed.
+- Before committing or opening a PR, report Tracking Finalization: whether backlog/Work/DR tracker updates are needed, why, and which tracker files changed if any.
+- If `docs/STATUS.md` needs to change before commit, provide the Approval Matrix state-change proposal and wait for explicit user approval before editing it. Phase/focus/recent decision changes still require a full `STATUS Update Proposal`.
+- If not committing after a completed task, record the reason and remaining risk in the session summary.
 
-NEVER:
+## Commit Message
 
-- Run destructive commands without explicit approval.
-- Run privileged commands.
-- Assume a Java, Gradle, Docker, database, or application runtime exists in this repository.
-- Use alternate build tools unless the repository explicitly requires them.
+MUST use Conventional Commits with Bilingual Rules (per `docs/decisions/DR-007-language-policy.md`):
 
-## CI Trigger Structure
+**Type prefix** — always in English: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `style`, `ci`, `config`, `perf`, `build`, `revert`
 
-- `pull_request` targeting `main` or `develop`: docs, prompts, tool rules, scaffold, and workflow changes run lightweight validation.
-- `push` to `main`: same lightweight validation for release-bound changes.
-- develop branch push: no CI trigger unless explicitly added later.
+**Subject line** — Korean primary; English for technical terms and identifiers.
 
-## Verification Commands
+- Use Korean verbs and sentence endings.
+- Keep English for proper nouns, tool names, file paths, IDs (e.g., `DR-007`, `STATUS.md`).
+- Example: `docs: [Korean subject using DR-007 and Bilingual Rules identifiers]`
 
-- `git diff --check` — whitespace and patch hygiene
-- `bash -n scripts/create-harness.sh` — scaffold shell syntax
-- `./scripts/create-harness.sh --dry-run --profile generic sample /tmp/sample` — generic scaffold plan check
+**Body** — Korean primary with English technical terms inline; explain *why*, not *what*.
+
+**PR body** — same DR-007 language policy as commit messages: Korean primary + Bilingual Rules.
+
+MUST:
+
+- Keep the message specific to the staged or requested change.
+- Avoid claiming work that is not included in the diff.
+
+NEVER include metadata:
+
+- `--trailer`
+- `Co-authored-by`
+- `Signed-off-by`
+
+When the user asks ONLY for a commit command, output ONLY:
+
+```bash
+git commit -m "type: [Korean subject]"
+```
+
+Do not include explanations, multiple commands, or metadata in that case.
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
