@@ -1,77 +1,76 @@
 ## claudebin-com
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> ├── app/             # Next.js App Router pages
 
-# CLAUDE.md
+# Claudebin Web - TypeScript UI Engineering Standards
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Structure
 
-## Project Overview
-
-Claudebin is a "pastebin for vibes" - a web app for publishing and sharing Claude Code sessions.
-
-## Commands
-
-```bash
-# Development
-bun dev               # Start web app in dev mode
-
-# Build
-bun build             # Build the app
-
-# Code Quality
-bun check             # Biome check (runs on pre-commit)
-bun format            # Biome format
-bun lint              # Biome lint
-bun type-check        # TypeScript check
-```
-
-## Architecture
-
-**Structure:**
-- `app/` - Next.js 16 web app (App Router, Turbopack)
-- `docs/` - Architecture documentation
-- `supabase/` - Database migrations
-
-**App Structure (`app/src/`):**
 ```
 src/
-├── app/          # Next.js App Router pages
-├── components/   # Reusable UI components
-│   └── ui/       # shadcn/ui components
-├── sections/     # Page-level section components
-├── utils/        # Utilities, constants, helpers
-├── copy/         # i18n translations (en-EN.json)
-├── i18n/         # i18n config
-└── static/       # CSS, fonts
+├── app/             # Next.js App Router pages
+├── components/      # Reusable UI components
+│   └── ui/          # shadcn/ui components
+├── sections/        # Page-level section components
+├── utils/           # Utilities, constants, helpers
+├── copy/            # i18n translations (en-EN.json)
+├── i18n/            # i18n config
+└── static/          # CSS, fonts
 ```
 
-**Key Libraries:**
-- Web: next-intl, shadcn/ui (Base UI), Tailwind CSS
-- Data: @supabase/supabase-js, ramda
-- Build: Next.js
+## Critical Rules
 
-## Code Conventions
+### NEVER Use Tailwind Arbitrary Values
 
-### Arrow Functions
+```tsx
+// Wrong
+<div className="w-[347px] text-[#ff0000] mt-[23px]" />
 
-**ALWAYS use arrow functions** over function declarations:
-```typescript
-// GOOD
-const myFunction = () => { };
-const asyncFunction = async () => { };
-
-// BAD
-function myFunction() { }
+// Correct
+<div className="w-full max-w-md text-destructive mt-6" />
 ```
 
-### Biome Configuration
+**If you need a custom value:** Add it to `globals.css` @theme first.
 
-- Double quotes, 2-space indent, semicolons required
-- 80-char line width
-- Organize imports on save
+### ALWAYS Use `const`
 
-### Component Structure
+```tsx
+// Correct
+const items = data.items;
+
+// Wrong
+let items = data.items;
+```
+
+Use `let` only when reassignment is absolutely necessary.
+
+### Import Ordering
+
+```tsx
+// 1. CSS imports
+import "@/static/css/globals.css";
+
+// 2. Vendors (React, third-party)
+import { useRef } from "react";
+
+// 3. Custom hooks
+import { useUiState } from "@/hooks/useUiState";
+
+// 4. UI components (shadcn/ui)
+import { Button } from "@/components/ui/Button";
+
+// 5. Custom components
+import { HomeIntro } from "@/components/home-intro";
+
+// 6. Sections
+import { SessionSection } from "@/sections/SessionSection";
+```
+
+Each group separated by blank line. Always use `@/*` path alias.
+
+## Component Conventions
+
+### Structure
 
 Components are single files using kebab-case naming (no directories):
 
@@ -83,12 +82,36 @@ components/
 └── icon/         # Icon components
 ```
 
+### Arrow Functions Only
+
+```tsx
+// Correct
+export const DashboardAppBar = () => { ... }
+
+// Wrong
+export function DashboardAppBar() { ... }
+```
+
+### Props
+
+- Use `type` (never `interface`)
+- Spread native HTML attributes: `& HTMLAttributes<HTMLElement>`
+- Set defaults in parameters: `variant = "default"`
+
+```tsx
+type ButtonProps = {
+  variant?: ButtonVariant;
+} & HTMLButtonAttributes<HTMLButtonElement>;
+
+export const Button = ({ variant = "default", ...props }: ButtonProps) => { ... }
+```
+
 ### Type Patterns
 
 Use `as const` for variant unions:
 
 ```typescript
-export const ButtonVariants = ["default", "transparent"] as const;
+export const ButtonVariants = ["default", "outline", "ghost"] as const;
 export type ButtonVariant = (typeof ButtonVariants)[number];
 export type ButtonVariantMapping = Record<ButtonVariant, string>;
 ```
@@ -104,38 +127,6 @@ type ChipOutlinedProps = ChipBaseProps & { variant: "outlined"; color?: never };
 export type ChipProps = ChipDefaultProps | ChipOutlinedProps;
 ```
 
-### Styling
-
-Use Tailwind with variant mapping objects:
-
-```typescript
-const buttonVariantClassNames: ButtonVariantMapping = {
-  transparent: "cursor-pointer",
-  default: "cursor-pointer rounded-sm px-2 py-1 text-gray-600 hover:bg-blue-500"
-};
-
-// Use cn() for class merging
-className={cn("base-classes", buttonVariantClassNames[variant])}
-```
-
-### Naming Conventions
-
-- **Files**: kebab-case for components (`home-intro.tsx`), camelCase for everything else (`helpers.ts`, `constants.ts`)
-- **NEVER use hyphens in non-component filenames** - use camelCase instead
-- **Types**: `ComponentNameProps`, `ComponentNameVariant`, `ComponentNameVariantMapping`
-- **Mapping objects**: `xxxClassNames` (e.g., `buttonVariantClassNames`)
-- **Const arrays**: Plural form (`ButtonVariants`)
-
-### Import Order
-
-1. React/Next.js imports
-2. External libraries
-3. Type imports from `@/`
-4. Components/sections from `@/`
-5. Utils/helpers from `@/`
-
-Always use `@/*` path alias.
-
 ### Exports
 
 Components export directly from their file:
@@ -145,35 +136,110 @@ Components export directly from their file:
 export const HomeIntro = () => { ... };
 ```
 
-### Props
+### Event Handlers
 
-- Spread native HTML attributes: `& HTMLAttributes<HTMLElement>`
-- Set defaults in parameters: `variant = "default"`
-- Keep props minimal with sensible defaults
+Named handlers only, never inline callbacks:
 
-### Comments
+```tsx
+// Wrong
+<Button onClick={() => console.log("clicked")}>Click</Button>;
 
-Use `// ABOUTME:` prefix for explanation comments on complex patterns.
+// Correct
+const handleClick = () => {
+  console.log("clicked");
+};
 
-### Animations
-
-Define animations in `/src/utils/keyframes.ts` and reuse across components.
-
-### i18n
-
-Use `next-intl` with translations in `/src/copy/en-EN.json`.
-
-Rich text renderers are defined inline:
-
-```typescript
-{t.rich("error404.doesNotExist", {
-  serif: (chunks: ReactNode) => (
-    <span className="font-serif italic text-blue-500">{chunks}</span>
-  ),
-})}
+<Button onClick={handleClick}>Click</Button>;
 ```
 
-Translation strings use XML-like tags matching renderer keys:
+Naming: `handle[Action]` (e.g., `handleSignUp`, `handleSubmit`)
+
+### Naming Conventions
+
+- **Files**: kebab-case for components (`home-intro.tsx`), camelCase for utils (`helpers.ts`)
+- **Types**: `ComponentNameProps`, `ComponentNameVariant`, `ComponentNameVariantMapping`
+- **Mapping objects**: `xxxClassNames` (e.g., `buttonVariantClassNames`)
+- **Const arrays**: Plural form (`ButtonVariants`)
+
+## Styling
+
+### Variant Mapping Objects
+
+```typescript
+const buttonVariantClassNames: ButtonVariantMapping = {
+  default: "bg-primary text-primary-foreground",
+  outline: "border border-input bg-background",
+  ghost: "hover:bg-accent hover:text-accent-foreground"
+};
+
+// Use cn() for class merging
+className={cn("base-classes", buttonVariantClassNames[variant])}
+```
+
+### Tailwind Rules
+
+- Reference `globals.css` @theme for all values
+- Use semantic color names (`primary`, `secondary`, `muted`)
+- Use spacing scale (`gap-4`, `p-6`, `mt-8`)
+- Check `globals.css` @theme before styling anything
+
+### Tailwind Class Ordering
+
+Order classes by visual hierarchy (outside-in, structure to details):
+
+1. **Layout** - display, position, flex/grid setup (`flex`, `grid`, `absolute`, `relative`)
+2. **Flex/Grid modifiers** - alignment, justify, direction (`items-center`, `justify-between`, `flex-col`)
+3. **Sizing** - width, height, max/min (`w-full`, `max-w-6xl`, `h-screen`)
+4. **Spacing** - margin, padding, gap (`mx-auto`, `p-2`, `gap-8`)
+5. **Background** - colors, gradients, images (`bg-gray-100`, `bg-radial`)
+6. **Border** - border, rounded (`border`, `border-gray-500/20`, `rounded-3xl`)
+7. **Typography** - font, text, leading (`text-xl`, `font-bold`, `leading-normal`)
+8. **Effects** - shadow, opacity, blur (`shadow-lg`, `opacity-50`)
+9. **Transitions** - transition, duration, ease (`transition`, `duration-200`)
+10. **Selectors** - child/descendant selectors last (`[&_video]:w-full`)
+
+```tsx
+// Correct ordering
+<div className="flex items-center w-full max-w-6xl mx-auto p-2 bg-radial from-gray-100/50 to-gray-200/50 border border-gray-500/20 rounded-3xl [&_video]:w-full [&_video]:rounded-2xl" />
+
+// Categories visible:
+// flex items-center          → layout + flex modifiers
+// w-full max-w-6xl           → sizing
+// mx-auto p-2                → spacing
+// bg-radial from-* to-*      → background
+// border border-* rounded-*  → border
+// [&_video]:*                → selectors
+```
+
+## Internationalization
+
+- ALL rendered strings MUST be in `copy/en-EN.json`
+- Use `useTranslations` hook for all text
+- Add strings to translations BEFORE using in components
+- ALWAYS use a single `t` variable with fully qualified paths (explicit namespace)
+
+```tsx
+// Correct - always use explicit paths
+const t = useTranslations();
+<p>{t("common.prompts", { count: 10 })}</p>
+<p>{t("thread.created", { date: "12/01/2026" })}</p>
+
+// Wrong - don't use separate translation variables
+const common = useTranslations("common");
+const thread = useTranslations("thread");
+```
+
+Rich text with inline renderers:
+
+```tsx
+{
+  t.rich("error404.doesNotExist", {
+    serif: (chunks: ReactNode) => <span className="font-serif italic">{chunks}</span>,
+  });
+}
+```
+
+Translation strings use XML-like tags:
 
 ```json
 {
@@ -181,10 +247,58 @@ Translation strings use XML-like tags matching renderer keys:
 }
 ```
 
+## Clean Code
+
+### Variables
+
+- Use meaningful, pronounceable names
+- Never use single-letter variables
+- Use default parameters
+
+```tsx
+// Bad
+items.filter((i) => i.id !== id);
+
+// Good
+items.filter((item) => item.id !== id);
+```
+
+### Functions
+
+- Do one thing (single responsibility)
+- Limit parameters (2 or fewer, use object destructuring)
+- Avoid side effects - don't mutate
+- Encapsulate conditionals
+- Avoid negative conditionals
+
+### Error Handling
+
+- Don't ignore caught errors
+- Use async/await over promise chains
+
+### Comments
+
+- Use `// ABOUTME:` prefix for explanation comments on complex patterns
+- Only comment WHY, not WHAT
+- Delete commented code (use version control)
+
+### Animations
+
+Define in `/src/utils/keyframes.ts` and reuse across components.
+
+## Code Organization
+
+- One component per file
+- Co-locate related files (component, types, hooks)
+- Group by feature, not by type
+- Keep functions small and focused
+- Extract complex logic into custom hooks
+- Prefer composition over prop drilling
+
 ## Commit Convention
 
 Follow conventional commits: `feat`, `fix`, `docs`, `chore`, `style`, `refactor`, `ci`, `test`, `revert`, `perf`
 
 ---
 > Source: [wunderlabs-dev/claudebin.com](https://github.com/wunderlabs-dev/claudebin.com) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
