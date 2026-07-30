@@ -1,8 +1,6 @@
 # glm-claude
 
-> Source: [alchaincyf/glm-claude](https://github.com/alchaincyf/glm-claude) — distributed by [TomeVault](https://tomevault.io)
-
-一键启动使用 GLM 模型的 Claude Code - GLM-powered Claude Code wrapper
+> Source: [alchaincyf/glm-claude](https://github.com/alchaincyf/glm-claude). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,11 +15,7 @@ Original source: `CLAUDE.md` in [alchaincyf/glm-claude](https://github.com/alcha
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [ai-proofreading](https://github.com/alchaincyf/glm-claude/tree/main/skills/ai-proofreading)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/alchaincyf/glm-claude](https://github.com/alchaincyf/glm-claude)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/alchaincyf/glm-claude](https://github.com/alchaincyf/glm-claude)
 
 ---
 
