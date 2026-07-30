@@ -11,87 +11,99 @@ This project uses **meta-ads-mcp** to manage Facebook & Instagram advertising vi
 Use `mcp__meta-ads__<tool>` for all Meta advertising operations.
 
 ### Campaign Lifecycle
-- `create_campaign` — Create a new campaign (objective: CONVERSIONS, TRAFFIC, etc.)
-- `create_adset` — Create an ad set (targeting, budget, schedule)
-- `create_ad` — Create an ad (links a creative to an ad set)
-- `create_creative` — Create an ad creative (image, video, carousel)
-- `update_campaign` / `update_adset` / `update_ad` — Modify settings, pause/resume
-- `delete_campaign` / `delete_adset` / `delete_ad` — Remove entities
-- `list_campaigns` / `list_adsets` / `list_ads` — List with filtering and pagination
+| Tool | When to Use |
+|---|---|
+| `create_campaign` | Create a new campaign (choose objective: CONVERSIONS, TRAFFIC, etc.) |
+| `create_adset` | Create an ad set within a campaign (targeting, budget, schedule) |
+| `create_ad` | Create an ad within an ad set (links a creative) |
+| `create_creative` | Create an ad creative (image, video, carousel, etc.) |
+| `update_campaign` / `update_adset` / `update_ad` | Modify settings, pause/resume |
+| `delete_campaign` / `delete_adset` / `delete_ad` | Remove entities |
 
 ### Performance & Reporting
-- `get_account_insights` — Account-level metrics
-- `get_campaign_insights` — Campaign-level breakdown
-- `get_adset_insights` — Ad set-level breakdown
-- `get_ad_insights` — Ad-level breakdown
-- `create_async_report` — Large async reports
-- `get_async_report` — Poll and retrieve async report results
+| Tool | When to Use |
+|---|---|
+| `get_account_insights` | Account-level metrics (spend, impressions, clicks, conversions) |
+| `get_campaign_insights` | Campaign-level breakdown |
+| `get_adset_insights` | Ad set-level breakdown |
+| `get_ad_insights` | Ad-level breakdown |
+| `create_async_report` | Large reports that take time to generate |
+| `get_async_report` | Poll and retrieve async report results |
 
 ### Audiences & Targeting
-- `create_custom_audience` — Create audience from customer data
-- `create_lookalike_audience` — Create lookalike from existing audience
-- `search_targeting` — Find interests, behaviors, demographics
-- `get_reach_estimate` — Estimate audience size
-- `add_users_to_audience` / `remove_users_from_audience` — Manage audience members
+| Tool | When to Use |
+|---|---|
+| `create_custom_audience` | Create audience from customer data |
+| `create_lookalike_audience` | Create lookalike from existing audience |
+| `search_targeting` | Find interests, behaviors, demographics to target |
+| `get_reach_estimate` | Estimate audience size for a targeting spec |
+| `add_users_to_audience` | Add users to a custom audience |
 
 ### Media Assets
-- `upload_image` — Upload ad image from URL
-- `upload_video` — Upload ad video from URL
-- `list_images` / `list_videos` — Browse existing media
+| Tool | When to Use |
+|---|---|
+| `upload_image` | Upload an ad image from URL |
+| `upload_video` | Upload an ad video from URL |
+| `list_images` / `list_videos` | Browse existing media assets |
 
 ### Automation & Testing
-- `create_rule` — Set up automated rules (pause if CPA > X)
-- `create_experiment` — Create A/B tests
-- `get_experiment_results` — Check A/B test outcomes
+| Tool | When to Use |
+|---|---|
+| `create_rule` | Set up automated rules (pause if CPA > X, etc.) |
+| `create_experiment` | Create A/B test between ad sets |
+| `get_experiment_results` | Check A/B test outcomes |
 
 ### Catalog & Commerce
-- `create_catalog` — Create product catalog for dynamic ads
-- `create_feed` / `upload_feed` — Manage product data feeds
+| Tool | When to Use |
+|---|---|
+| `create_catalog` | Create a product catalog for dynamic ads |
+| `create_feed` | Set up a product data feed |
+| `upload_feed` | Push product data to a feed |
 
-### Ad Library
-- `search_ad_library` — Search public ad data (competitor research)
-
-### Auth & Token
-- `exchange_token` — Convert short-lived token to long-lived
-- `debug_token` — Inspect token metadata and permissions
+### Ad Library & Research
+| Tool | When to Use |
+|---|---|
+| `search_ad_library` | Search public ad data (competitor research) |
 
 ## Common Workflows
 
-### Create a full campaign
+### Create a full campaign from scratch
 1. `create_campaign` with objective
-2. `upload_image` or `upload_video` for media
-3. `create_creative` with uploaded media
+2. `upload_image` or `upload_video` for ad media
+3. `create_creative` with the uploaded media
 4. `create_adset` with targeting, budget, schedule
-5. `create_ad` linking creative to ad set
+5. `create_ad` linking the creative to the ad set
 
 ### Check performance and optimize
-1. `get_campaign_insights` with date range
+1. `get_campaign_insights` with date range and breakdowns
 2. Identify underperformers
-3. `update_adset` to pause or adjust budgets
+3. `update_adset` to pause low-ROAS ad sets or adjust budgets
 4. `create_rule` to automate future optimizations
 
 ### A/B test creatives
 1. Create two ad sets with different creatives
-2. `create_experiment` to run the test
+2. `create_experiment` to set up the test
 3. `get_experiment_results` after sufficient data
 
 ### Build a lookalike audience
 1. `create_custom_audience` from customer list
-2. `add_users_to_audience` with hashed user data
-3. `create_lookalike_audience` from the source audience
+2. `add_users_to_audience` with hashed emails/phones
+3. `create_lookalike_audience` from the custom audience
 
 ## Resources
+
 - `ads://account` — Account overview (status, balance, currency)
 - `ads://campaigns-overview` — Active campaigns with budgets
 - `ads://spending-today` — Today's spend, impressions, clicks, reach
 
-## Rules
-- Ad account ID must be numeric without `act_` prefix
-- Use `exchange_token` to convert short-lived tokens to long-lived
-- Use `debug_token` to diagnose permission issues
-- Async reports needed for large date ranges or many breakdowns
-- All monetary values use the account's currency
+## Important Notes
+
+- Ad account ID should be numeric without the `act_` prefix
+- Use `exchange_token` to convert short-lived tokens to long-lived ones
+- `debug_token` helps diagnose permission issues
+- Async reports are needed for large date ranges or many breakdowns
+- All monetary values are in the account's currency (check with `get_ad_account`)
 
 ---
 > Source: [mikusnuz/meta-ads-mcp](https://github.com/mikusnuz/meta-ads-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
