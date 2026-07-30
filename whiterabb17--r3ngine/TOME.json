@@ -1,0 +1,44 @@
+{
+  "name": "r3ngine",
+  "owner": "whiterabb17",
+  "repo": "r3ngine",
+  "description": "r3ngine is the V3 rebirth of the automated reconnaissance framework for web applications with a focus on dynamic streamlined recon process, backed by a database, & simple yet intuitive User Interface. r3ngine makes it easy for penetration testers to gather recon with min config & with the help of r3ngine's correlation, making recon effortles",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/whiterabb17/r3ngine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-30T06:32:38Z"
+}
