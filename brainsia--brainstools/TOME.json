@@ -4,7 +4,7 @@
   "repo": "BRAINSTools",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BRAINSia/BRAINSTools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T09:37:26Z"
+  "distributed_at": "2026-07-30T00:15:10Z"
 }
