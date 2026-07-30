@@ -1,26 +1,25 @@
 # lovable-boilerplate
 
-> Tome by [chihebnabil](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io)
-
-A Lovable-inspired React boilerplate that brings no-code AI UI generation into clean code. Fully open, customizable, and structured to work seamlessly with GitHub Copilot
+> Tome by [chihebnabil](https://github.com/chihebnabil/lovable-boilerplate), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate).
+Original source: `` in [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — a repo with 55+ stars on GitHub.
+From [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — a repo with 62+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
