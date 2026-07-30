@@ -1,8 +1,6 @@
 # minisql
 
-> Source: [RichardKnop/minisql](https://github.com/RichardKnop/minisql) — distributed by [TomeVault](https://tomevault.io)
-
-Embedded single file SQL database written in Golang
+> Source: [RichardKnop/minisql](https://github.com/RichardKnop/minisql). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
