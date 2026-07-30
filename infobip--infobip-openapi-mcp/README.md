@@ -1,8 +1,6 @@
 # AI instruction files for infobip-openapi-mcp
 
-> Sourced from [infobip/infobip-openapi-mcp](https://github.com/infobip/infobip-openapi-mcp) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Infobip OpenAPI MCP is a framework for exposing OpenAPI documented HTTP APIs as MCP servers. It is based on Spring AI and made to run as a Spring Boot application. It is powering Infobip's own MCP servers, and you can use it to implement your own MCP servers.
+> Sourced from [infobip/infobip-openapi-mcp](https://github.com/infobip/infobip-openapi-mcp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [infobip/infobip-openapi-mcp](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [infobip/infobip-openapi-mcp](https://github.com/infobip/infobip-openapi-mcp) — a repo with 28+ stars on GitHub.
+From [infobip/infobip-openapi-mcp](https://github.com/infobip/infobip-openapi-mcp) — a repo with 41+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
