@@ -1,0 +1,9 @@
+{
+  "name": "datadog--integrations-core",
+  "displayName": "integrations-core",
+  "description": "integrations-core",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/integrations-core",
+  "skills": []
+}
