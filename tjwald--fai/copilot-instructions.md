@@ -1,40 +1,23 @@
 ## fai
 
-> This file provides guidance to agents when working with code in this repository.
+> This file provides guidance to agents when working in Architect mode within this repository.
 
 # AGENTS.md
 
-This file provides guidance to agents when working with code in this repository.
+This file provides guidance to agents when working in Architect mode within this repository.
 
-## Commands
-- **Build**: `dotnet build FAI.slnx`
-- **Lint**: `dotnet format` (part of pre-commit hooks)
-- **Test**: `dotnet test` (Infrastructure initialized using `xunit.v3` and MTP in `test/` folder)
-- **Post-Test**:
-    - Always run `dotnet format` after tests pass.
-    - Commit units of work after tests pass.
+## Architectural Principles (Non-Obvious)
+- **Extreme Performance**: The core goal is 7X-14X speedup over standard Python stacks. Every design decision must prioritize throughput and latency.
+- **Pipeline Abstraction**: The library centers on [`IPipeline<TIn, TOut>`](src/FAI.Core/Abstractions.cs:88). It separates "what" to run (Inference Steps) from "how" to execute (Pipeline Batch Executors).
+- **Batching Strategy**: Performance comes from specialized batching. Architects should consider new implementations of [`IPipelineBatchExecutor`](src/FAI.Core/Abstractions.cs:70) for specific hardware or data patterns (e.g., [`TokenCountSortingBatchExecutor`](src/FAI.NLP/PipelineBatchExecutors/TokenCountSortingBatchExecutor.cs)).
+- **Hardware Agnostic**: Inference logic should be decoupled from the framework (ONNX, PyTorch, etc.) and hardware (CPU, GPU, OpenVino).
 
-## Code Style (Non-Obvious)
-- **Formatting**: 4 spaces, `LF` line endings, 160 chars max width.
-- **Naming**: `_camelCase` for private/static fields; `PascalCase` for types, methods, and properties.
-- **Modern C# (.NET 10 / C# 14)**:
-    - Prefer collection expressions `[1, 2, 3]` over `new float[] { 1, 2, 3 }`.
-    - Use `System.Threading.Lock` instead of `new object()` for locking.
-- **Tensors**: Uses `System.Numerics.Tensors` (dotnet 9+ feature).
-
-## Stability & Testing
-- **Library Stability**: When working on tests, NEVER change the library code unless implementing a new feature (follow TDD).
-- **Testing Style Guide**:
-    - **Assertions**: Use explicit collection matching for ranges and outputs. Avoid partial assertions like `Assert.Single` when the full state can be verified.
-    - **Mocks**: When testing components that offload work (e.g., `BackgroundPipelineBatchExecutor`), always verify that the exact data passed to the component reached the inner dependency.
-    - **DI Testing**: Focus on verifying that the correct implementation types are resolved and that the component chain is assembled in the intended order.
-    - **Collection Expressions**: Use `[1, 2, 3]` instead of `new int[] { 1, 2, 3 }` in all test code.
-
-## Critical Patterns
-- **Middleware Chain**: `IPipelineBatchExecutor` follows a decorator/middleware pattern.
-- **DI Fluent API**: Use `PipelineBuilder<TIn, TOut>` to assemble pipelines; executors are added in stack order (last added runs after previous).
-- **Abstractions**: All ML tasks must implement `IInferenceSteps<TInput, TOutput>` or extend `InferenceSteps<...>`.
+## Core Layout
+- `FAI.Core`: Foundation interfaces and base execution logic.
+- `FAI.NLP` / `FAI.Vision`: Domain-specific implementations (tokenizers, preprocessors).
+- `FAI.Onnx`: Concrete model execution using ONNX Runtime.
+- `*.Extensions.DI`: Fluent builders and ServiceCollection integration.
 
 ---
 > Source: [tjwald/FAI](https://github.com/tjwald/FAI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
