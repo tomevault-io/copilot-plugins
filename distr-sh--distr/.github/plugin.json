@@ -1,7 +1,7 @@
 {
   "name": "distr-sh--distr",
   "displayName": "distr",
-  "description": "The Open Source control plane for self-managed, BYOC, and on-prem deployments. Everything you need to distribute applications to self-managed customers out of the box. Supporting Docker Compose, Docke",
+  "description": "distr",
   "version": "1.0.0",
   "author": "distr-sh",
   "homepage": "https://github.com/distr-sh/distr",
