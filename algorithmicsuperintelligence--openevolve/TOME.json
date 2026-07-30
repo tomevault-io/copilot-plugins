@@ -2,9 +2,9 @@
   "name": "openevolve",
   "owner": "algorithmicsuperintelligence",
   "repo": "openevolve",
-  "description": "Open-source implementation of AlphaEvolve",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/algorithmicsuperintelligence/openevolve",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T22:51:50Z"
+  "distributed_at": "2026-07-30T08:13:14Z"
 }
