@@ -1,7 +1,7 @@
 {
   "name": "richardknop--minisql",
   "displayName": "minisql",
-  "description": "Embedded single file SQL database written in Golang",
+  "description": "minisql",
   "version": "1.0.0",
   "author": "RichardKnop",
   "homepage": "https://github.com/RichardKnop/minisql",
