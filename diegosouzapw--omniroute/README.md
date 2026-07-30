@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [diegosouzapw/OmniRoute](https://github.com/dieg
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) — a repo with 23235+ stars on GitHub.
+From [diegosouzapw/OmniRoute](https://github.com/diegosouzapw/OmniRoute) — a repo with 0+ stars on GitHub.
 
 ---
 
