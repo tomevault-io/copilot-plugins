@@ -2,9 +2,9 @@
   "name": "anthropic-max-router",
   "owner": "nsxdavid",
   "repo": "anthropic-max-router",
-  "description": "Dual API router (Anthropic + OpenAI compatible) for Claude MAX Plan - Use flat-rate billing with ANY    AI tool: OpenAI SDK, LangChain, Anthropic SDK, and more",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nsxdavid/anthropic-max-router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T07:45:23Z"
+  "distributed_at": "2026-07-30T09:48:34Z"
 }
