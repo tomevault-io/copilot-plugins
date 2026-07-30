@@ -2,9 +2,9 @@
   "name": "opentu",
   "owner": "ljquan",
   "repo": "opentu",
-  "description": "\u5f00\u653e\u7684AI\u5e94\u7528\u5e73\u53f0",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ljquan/opentu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T03:02:53Z"
+  "distributed_at": "2026-07-30T17:44:52Z"
 }
