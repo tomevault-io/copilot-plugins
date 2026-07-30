@@ -1,8 +1,6 @@
 # 1code
 
-> Tome by [21st-dev](https://github.com/21st-dev/1code) — distributed by [TomeVault](https://tomevault.io)
-
-Orchestration layer for coding agents (Claude Code, Codex)
+> Tome by [21st-dev](https://github.com/21st-dev/1code), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [21st-dev/1code](https://github.com/21st-dev/1co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [21st-dev/1code](https://github.com/21st-dev/1code) — a repo with 5454+ stars on GitHub.
+From [21st-dev/1code](https://github.com/21st-dev/1code) — a repo with 5636+ stars on GitHub.
 
 ---
 
