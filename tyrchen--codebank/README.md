@@ -1,8 +1,6 @@
 # codebank
 
-> Tome by [tyrchen](https://github.com/tyrchen/codebank) — distributed by [TomeVault](https://tomevault.io)
-
-A powerful code documentation generator that creates structured markdown documentation from your codebase. Supports multiple languages including Rust, Python, TypeScript, and C with intelligent parsing and formatting. Features test code filtering, summary generation, and customizable documentation strategies.
+> Tome by [tyrchen](https://github.com/tyrchen/codebank), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [tyrchen/codebank](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tyrchen/codebank](https://github.com/tyrchen/codebank)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/tyrchen/codebank](https://github.com/tyrchen/codebank)
 
 ---
 
