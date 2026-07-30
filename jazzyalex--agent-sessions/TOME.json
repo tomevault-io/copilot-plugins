@@ -4,7 +4,7 @@
   "repo": "agent-sessions",
   "description": "Session browser + Agent Cockpit +  Analytics + Limits tracker for Codex CLI,  Claude Code, OpenCode, Gemini CLI, Factory Droid , GitHub Copilot CLI & OpenClaw. Search/filter ALL past sessions,  archive sessions, resume instantly, see rate limits in real-time. Native macOS app.",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,51 @@
       "path": "skills/sc-skill",
       "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/skills/sc-skill",
       "description": ""
+    },
+    {
+      "name": "agent-sessions",
+      "path": "skills/sc-skill/SKILL.md",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/skills/sc-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sessions",
+      "path": ".claude/skills/deploy/SKILL.md",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/.claude/skills/deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sessions",
+      "path": "skills/add-agent-support/SKILL.md",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/skills/add-agent-support/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sessions",
+      "path": "skills/agent-support-matrix/SKILL.md",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/skills/agent-support-matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sessions",
+      "path": "skills/agent-session-format-check/SKILL.md",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/skills/agent-session-format-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sessions",
+      "path": ".claude/skills/release-notes/SKILL.md",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/.claude/skills/release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-sessions",
+      "path": "tools/handover/SKILL.md",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/tools/handover/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/jazzyalex/agent-sessions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T07:32:25Z"
+  "distributed_at": "2026-07-30T21:50:35Z"
 }
