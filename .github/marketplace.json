@@ -1199,6 +1199,51 @@
       "description": "AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods"
     },
     {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
+      "name": "jestjs--jest",
+      "source": "./jestjs--jest",
+      "description": "jest"
+    },
+    {
       "name": "cli--cli",
       "source": "./cli--cli",
       "description": "cli"
@@ -7504,6 +7549,11 @@
       "description": "vibe"
     },
     {
+      "name": "algorithmicsuperintelligence--openevolve",
+      "source": "./algorithmicsuperintelligence--openevolve",
+      "description": "openevolve"
+    },
+    {
       "name": "hugohe3--ppt-master",
       "source": "./hugohe3--ppt-master",
       "description": "AI generates natively editable PPTX from any document \u2014 real PowerPoint shapes, not images \u2014 no design skills needed"
@@ -7597,6 +7647,86 @@
       "name": "apache--storm",
       "source": "./apache--storm",
       "description": "storm"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
+    },
+    {
+      "name": "microsoft--security-101",
+      "source": "./microsoft--security-101",
+      "description": "Security-101"
     },
     {
       "name": "microsoft--security-101",
@@ -15169,6 +15299,11 @@
       "description": "diffsitter"
     },
     {
+      "name": "wasmcloud--wasmcloud",
+      "source": "./wasmcloud--wasmcloud",
+      "description": "wasmCloud"
+    },
+    {
       "name": "kcl-lang--kcl",
       "source": "./kcl-lang--kcl",
       "description": "kcl"
@@ -20812,6 +20947,36 @@
       "name": "besty0728--unity-skills",
       "source": "./besty0728--unity-skills",
       "description": "Unity-Skills"
+    },
+    {
+      "name": "microsoft--ai-dev-gallery",
+      "source": "./microsoft--ai-dev-gallery",
+      "description": "ai-dev-gallery"
+    },
+    {
+      "name": "microsoft--ai-dev-gallery",
+      "source": "./microsoft--ai-dev-gallery",
+      "description": "ai-dev-gallery"
+    },
+    {
+      "name": "microsoft--ai-dev-gallery",
+      "source": "./microsoft--ai-dev-gallery",
+      "description": "ai-dev-gallery"
+    },
+    {
+      "name": "microsoft--ai-dev-gallery",
+      "source": "./microsoft--ai-dev-gallery",
+      "description": "ai-dev-gallery"
+    },
+    {
+      "name": "microsoft--ai-dev-gallery",
+      "source": "./microsoft--ai-dev-gallery",
+      "description": "ai-dev-gallery"
+    },
+    {
+      "name": "microsoft--ai-dev-gallery",
+      "source": "./microsoft--ai-dev-gallery",
+      "description": "ai-dev-gallery"
     },
     {
       "name": "vinceglb--filekit",
@@ -26617,6 +26782,21 @@
       "name": "davis7dotsh--better-context",
       "source": "./davis7dotsh--better-context",
       "description": "A better way to get up to date context on libraries/technologies in your projects"
+    },
+    {
+      "name": "mixpanel--mixpanel-android",
+      "source": "./mixpanel--mixpanel-android",
+      "description": "mixpanel-android"
+    },
+    {
+      "name": "mixpanel--mixpanel-android",
+      "source": "./mixpanel--mixpanel-android",
+      "description": "mixpanel-android"
+    },
+    {
+      "name": "mixpanel--mixpanel-android",
+      "source": "./mixpanel--mixpanel-android",
+      "description": "mixpanel-android"
     },
     {
       "name": "mixpanel--mixpanel-android",
@@ -37809,6 +37989,11 @@
       "description": "cloud-code"
     },
     {
+      "name": "beardedtinker--home-assistant-config",
+      "source": "./beardedtinker--home-assistant-config",
+      "description": "Home-Assistant_Config"
+    },
+    {
       "name": "qualisero--awesome-pi-agent",
       "source": "./qualisero--awesome-pi-agent",
       "description": "Awesome list of add-ons, hooks, tools, skills, and resources for the pi coding agent (pi-mono)."
@@ -40714,6 +40899,11 @@
       "description": "playwright-vscode"
     },
     {
+      "name": "poppastring--dasblog-core",
+      "source": "./poppastring--dasblog-core",
+      "description": "dasblog-core"
+    },
+    {
       "name": "graykode--abtop",
       "source": "./graykode--abtop",
       "description": "Like htop, but for AI coding agents. Monitor Claude    Code & Codex CLI sessions, tokens, context window,    rate limits, and ports in real-time."
@@ -40972,6 +41162,46 @@
       "name": "scottcjn--rustchain",
       "source": "./scottcjn--rustchain",
       "description": "Rustchain"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
     },
     {
       "name": "getmeridian--meridian",
@@ -47164,6 +47394,11 @@
       "description": "moco"
     },
     {
+      "name": "fiberplane--fiberplane",
+      "source": "./fiberplane--fiberplane",
+      "description": "fiberplane"
+    },
+    {
       "name": "mint-sjtu--roboclaw",
       "source": "./mint-sjtu--roboclaw",
       "description": "RoboClaw is an Embodied AI Assistant."
@@ -53199,6 +53434,11 @@
       "description": "mmdet-rfla"
     },
     {
+      "name": "networkmanager-rs--nmrs",
+      "source": "./networkmanager-rs--nmrs",
+      "description": "nmrs"
+    },
+    {
       "name": "dial9-rs--dial9-tokio-telemetry",
       "source": "./dial9-rs--dial9-tokio-telemetry",
       "description": "Tokio Telemetry you can run in production"
@@ -55337,6 +55577,11 @@
       "name": "getsentry--sentry-unity",
       "source": "./getsentry--sentry-unity",
       "description": "sentry-unity"
+    },
+    {
+      "name": "aidotnet--thor",
+      "source": "./aidotnet--thor",
+      "description": "Thor"
     },
     {
       "name": "tzachbon--smart-ralph",
@@ -59134,6 +59379,16 @@
       "description": "hurl.nvim"
     },
     {
+      "name": "windwalker-io--framework",
+      "source": "./windwalker-io--framework",
+      "description": "framework"
+    },
+    {
+      "name": "windwalker-io--framework",
+      "source": "./windwalker-io--framework",
+      "description": "framework"
+    },
+    {
       "name": "remorses--usecomputer",
       "source": "./remorses--usecomputer",
       "description": "Fast computer automation CLI for AI agents. Control any desktop with screenshots, clicks, typing, scrolling, and more."
@@ -61529,6 +61784,31 @@
       "description": "igniter-js"
     },
     {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
       "name": "millionco--debug-agent",
       "source": "./millionco--debug-agent",
       "description": "Debugging skill for AI agents"
@@ -61972,6 +62252,11 @@
       "name": "mcg-nju--adamixer",
       "source": "./mcg-nju--adamixer",
       "description": "AdaMixer"
+    },
+    {
+      "name": "toheart--goanalysis",
+      "source": "./toheart--goanalysis",
+      "description": "goanalysis"
     },
     {
       "name": "ucsandman--dashclaw",
@@ -70209,6 +70494,11 @@
       "description": "lucid-agents"
     },
     {
+      "name": "0x80--isolate-package",
+      "source": "./0x80--isolate-package",
+      "description": "isolate-package"
+    },
+    {
       "name": "crisng95--flowkit",
       "source": "./crisng95--flowkit",
       "description": "AI agent can create video content better than you. No reason why you do it manually in google flow!"
@@ -74144,6 +74434,16 @@
       "description": "PromptDet"
     },
     {
+      "name": "luligu--matterbridge-hass",
+      "source": "./luligu--matterbridge-hass",
+      "description": "matterbridge-hass"
+    },
+    {
+      "name": "luligu--matterbridge-hass",
+      "source": "./luligu--matterbridge-hass",
+      "description": "matterbridge-hass"
+    },
+    {
       "name": "natolambert--colloquium",
       "source": "./natolambert--colloquium",
       "description": "A markdown native slides tool for academics building with agents."
@@ -77374,6 +77674,11 @@
       "description": "dish-ai-commit"
     },
     {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
       "name": "kaihv--open-banking-chile",
       "source": "./kaihv--open-banking-chile",
       "description": "Open source scrapers para bancos chilenos. Obt\u00e9n tus movimientos y saldo como JSON. Contribuye con tu banco!"
@@ -78922,6 +79227,31 @@
       "name": "faldor20--jj-tui",
       "source": "./faldor20--jj-tui",
       "description": "jj_tui"
+    },
+    {
+      "name": "mgiovani--ai-cursor-init",
+      "source": "./mgiovani--ai-cursor-init",
+      "description": "ai-cursor-init"
+    },
+    {
+      "name": "mgiovani--ai-cursor-init",
+      "source": "./mgiovani--ai-cursor-init",
+      "description": "ai-cursor-init"
+    },
+    {
+      "name": "mgiovani--ai-cursor-init",
+      "source": "./mgiovani--ai-cursor-init",
+      "description": "ai-cursor-init"
+    },
+    {
+      "name": "mgiovani--ai-cursor-init",
+      "source": "./mgiovani--ai-cursor-init",
+      "description": "ai-cursor-init"
+    },
+    {
+      "name": "mgiovani--ai-cursor-init",
+      "source": "./mgiovani--ai-cursor-init",
+      "description": "ai-cursor-init"
     },
     {
       "name": "akazwz--hostc",
@@ -115184,6 +115514,41 @@
       "description": "moru"
     },
     {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "better-ccusage"
+    },
+    {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "better-ccusage"
+    },
+    {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "better-ccusage"
+    },
+    {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "better-ccusage"
+    },
+    {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "better-ccusage"
+    },
+    {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "better-ccusage"
+    },
+    {
+      "name": "cobra91--better-ccusage",
+      "source": "./cobra91--better-ccusage",
+      "description": "better-ccusage"
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -116637,6 +117002,11 @@
       "name": "bigdevsoon--100-days-of-code",
       "source": "./bigdevsoon--100-days-of-code",
       "description": "100-days-of-code"
+    },
+    {
+      "name": "opr-project--openplacerecognition",
+      "source": "./opr-project--openplacerecognition",
+      "description": "OpenPlaceRecognition"
     },
     {
       "name": "tmdgusya--engineering-discipline",
@@ -124554,6 +124924,26 @@
       "description": "skills"
     },
     {
+      "name": "automattic--vip-cli",
+      "source": "./automattic--vip-cli",
+      "description": "vip-cli"
+    },
+    {
+      "name": "automattic--vip-cli",
+      "source": "./automattic--vip-cli",
+      "description": "vip-cli"
+    },
+    {
+      "name": "automattic--vip-cli",
+      "source": "./automattic--vip-cli",
+      "description": "vip-cli"
+    },
+    {
+      "name": "automattic--vip-cli",
+      "source": "./automattic--vip-cli",
+      "description": "vip-cli"
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -127062,6 +127452,16 @@
       "name": "vict00r99--rune-stone",
       "source": "./vict00r99--rune-stone",
       "description": "Rune-stone"
+    },
+    {
+      "name": "superdoc-dev--docx-corpus",
+      "source": "./superdoc-dev--docx-corpus",
+      "description": "docx-corpus"
+    },
+    {
+      "name": "superdoc-dev--docx-corpus",
+      "source": "./superdoc-dev--docx-corpus",
+      "description": "docx-corpus"
     },
     {
       "name": "ursushoribilismusic--agentic-fleet-hub",
@@ -132629,6 +133029,11 @@
       "description": "lednetwf_ble"
     },
     {
+      "name": "nostria-app--nostria",
+      "source": "./nostria-app--nostria",
+      "description": "nostria"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -133642,6 +134047,11 @@
       "name": "synapsecns--sanguine",
       "source": "./synapsecns--sanguine",
       "description": "sanguine"
+    },
+    {
+      "name": "nlothian--vibe-prolog",
+      "source": "./nlothian--vibe-prolog",
+      "description": "Vibe-Prolog"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -137737,6 +138147,11 @@
       "name": "takuphilchan--offgrid-llm",
       "source": "./takuphilchan--offgrid-llm",
       "description": "offgrid-llm"
+    },
+    {
+      "name": "fenwei-dev--mcp2skill",
+      "source": "./fenwei-dev--mcp2skill",
+      "description": "mcp2skill"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -146484,6 +146899,11 @@
       "description": "LicenseManagerX"
     },
     {
+      "name": "genmini-ai--opencanvas",
+      "source": "./genmini-ai--opencanvas",
+      "description": "OpenCanvas"
+    },
+    {
       "name": "rust-works--succinctly",
       "source": "./rust-works--succinctly",
       "description": "Succinct data structures"
@@ -149982,6 +150402,51 @@
       "name": "tunafish2k--jmcomic-downloader-web",
       "source": "./tunafish2k--jmcomic-downloader-web",
       "description": "jmcomic-downloader-web"
+    },
+    {
+      "name": "goosefx1--gfx-web-app",
+      "source": "./goosefx1--gfx-web-app",
+      "description": "gfx-web-app"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
+    },
+    {
+      "name": "alkoleft--bsl-graph",
+      "source": "./alkoleft--bsl-graph",
+      "description": "bsl-graph"
     },
     {
       "name": "izittmarvin--memcoach",
@@ -153727,6 +154192,16 @@
       "name": "wheatandcat--memoir",
       "source": "./wheatandcat--memoir",
       "description": "memoir"
+    },
+    {
+      "name": "namastexlabs--murmurai",
+      "source": "./namastexlabs--murmurai",
+      "description": "murmurai"
+    },
+    {
+      "name": "namastexlabs--murmurai",
+      "source": "./namastexlabs--murmurai",
+      "description": "murmurai"
     },
     {
       "name": "janbjorge--rekal",
@@ -157732,6 +158207,11 @@
       "name": "zf020114--dardet",
       "source": "./zf020114--dardet",
       "description": "DARDet"
+    },
+    {
+      "name": "containers--selinuxd",
+      "source": "./containers--selinuxd",
+      "description": "selinuxd"
     },
     {
       "name": "yoloshii--mcp-code-execution-enhanced",
@@ -163484,6 +163964,11 @@
       "description": "dogokit-akita"
     },
     {
+      "name": "tonkotsu-ai--handle",
+      "source": "./tonkotsu-ai--handle",
+      "description": "handle"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -165747,6 +166232,31 @@
       "name": "cjjapan--financial-chart",
       "source": "./cjjapan--financial-chart",
       "description": "financial_chart"
+    },
+    {
+      "name": "shellyusa--hubitat-drivers",
+      "source": "./shellyusa--hubitat-drivers",
+      "description": "Hubitat-Drivers"
+    },
+    {
+      "name": "shellyusa--hubitat-drivers",
+      "source": "./shellyusa--hubitat-drivers",
+      "description": "Hubitat-Drivers"
+    },
+    {
+      "name": "shellyusa--hubitat-drivers",
+      "source": "./shellyusa--hubitat-drivers",
+      "description": "Hubitat-Drivers"
+    },
+    {
+      "name": "shellyusa--hubitat-drivers",
+      "source": "./shellyusa--hubitat-drivers",
+      "description": "Hubitat-Drivers"
+    },
+    {
+      "name": "shellyusa--hubitat-drivers",
+      "source": "./shellyusa--hubitat-drivers",
+      "description": "Hubitat-Drivers"
     },
     {
       "name": "affitor--open-affiliate",
@@ -170342,6 +170852,11 @@
       "name": "owshq-academy--btc-zero-prd-claude-code",
       "source": "./owshq-academy--btc-zero-prd-claude-code",
       "description": "btc-zero-prd-claude-code"
+    },
+    {
+      "name": "microsoftdocs--azure-devops-yaml-schema",
+      "source": "./microsoftdocs--azure-devops-yaml-schema",
+      "description": "azure-devops-yaml-schema"
     },
     {
       "name": "r44vc0rp--itui",
@@ -179897,6 +180412,51 @@
       "name": "alexewerlof--slc",
       "source": "./alexewerlof--slc",
       "description": "slc"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
+    },
+    {
+      "name": "fosk06--dagster-sqlmesh",
+      "source": "./fosk06--dagster-sqlmesh",
+      "description": "dagster-sqlmesh"
     },
     {
       "name": "compozy--kb",
