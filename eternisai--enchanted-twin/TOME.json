@@ -2,9 +2,9 @@
   "name": "enchanted-twin",
   "owner": "EternisAI",
   "repo": "enchanted-twin",
-  "description": "Digital Twin",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EternisAI/enchanted-twin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T20:49:55Z"
+  "distributed_at": "2026-07-30T02:56:32Z"
 }
