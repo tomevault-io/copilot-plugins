@@ -1,72 +1,43 @@
-## project-conventions
+## project-status
 
-> PriceGrab project conventions (override selected global rules)
+> PriceGrab shipped state and product backlog (read first)
 
 
-# PriceGrab — Project Conventions
+# PriceGrab — status & backlog (agent memory)
 
-These conventions apply to this repository only. They override matching global rules
-(e.g., the "commits in Spanish" rule from the user's global preferences). Any rule
-not addressed here continues to follow the user's global preferences.
+Full detail: [`docs/project-status.md`](../../docs/project-status.md). Refresh that
+file when shipping or parking work. Summary below (as of **2026-07-19**).
 
-## Commit messages
+## Now
 
-- Write commit messages in **English**.
-- Use **Conventional Commits** prefixes: `feat:`, `fix:`, `docs:`, `chore:`,
-  `refactor:`, `test:`, `style:`, `perf:`, `ci:`, `build:`.
-- Subject line: imperative mood, ≤ 72 characters, no trailing period.
-- Body (optional): wrap at ~72 columns, explain the *why*, not the *what*.
+- **Shipped**: **v0.1.8** / `versionCode` **9** — up to **3** offers; savings name
+  the **second-cheapest** offer; launcher art `ART_SCALE=0.72`,
+  `ART_OFFSET_X=-17`, `ART_OFFSET_Y=-45`.
+- **Dist**: F-Droid **Mode B** + GitHub Releases; no Play Store.
+- **Open ops**: F-Droid still has **0.1.7** as `disable: not repro` — **do not
+  re-tag 0.1.7**; let **0.1.8** auto-update. Investigate with `diffoscope` only
+  if 0.1.8 also fails.
+- **Active feature pointer**: `.specify/feature.json` →
+  `specs/005-multi-offer-compare`. Next Spec Kit letters start **after W**.
 
-## Branching & PR flow
+## Features shipped
 
-- **Never push directly to `main`.** Always work on a feature branch and open a PR.
-- Branch naming: `<type>/<short-slug>` — e.g. `feat/compare-screen`,
-  `fix/decimal-parsing-es`, `chore/bootstrap-project`.
-- Delete the remote branch after the PR is merged.
-- Keep `main` protected (required reviews + passing CI) once CI exists.
+001 compare two → 002 reset/undo → 003 visual polish → 004 quantity units →
+005 multi-offer (max 3).
 
-## Publishing & remotes
+## Backlog (deferred — pick via new Spec Kit feature)
 
-- `git push` and `gh pr create` are allowed without prior confirmation, as long as:
-  - The push targets a **feature branch**, never `main` directly.
-  - The branch content has been reviewed by the agent against `.gitignore`, the
-    constitution and this file (no secrets, no legacy prototype sources, no
-    `*.aia` files, no AI assistant state).
-  - When CI fails on an open PR, follow-up "fix CI" commits may be pushed to the
-    **same** feature branch without asking, until the PR is green or the agent
-    hits a blocker it cannot resolve.
-- **Only Marco merges pull requests.** Never run `gh pr merge`, never enable
-  auto-merge, never squash/rebase/merge via the API. Leaving the PR "ready for
-  review" is the end state for the agent.
-- **Never push to `main` directly**, not even for a one-liner. Always open a PR.
-- **Never force-push to `main`** under any circumstance. Force-pushing a feature
-  branch is allowed only when strictly necessary (e.g. rebase to resolve
-  conflicts) and must be preceded by a note to Marco in the PR.
-- Never commit legacy prototype sources (`*.aia`) or any sensitive authentication
-  material (tokens, keystores, `.env`, cloud credentials, AI assistant state). Rely on
-  `.gitignore` to enforce this; verify with `git status` before every commit.
+- Spec Out of Scope: 4+ offers; density g↔ml; US units; currency/FX; buy-N;
+  history; splash; settings/Material You; custom font; motion; tablet;
+  Reset confirm; deeper Undo; F-Droid 0.1.7 repro (if 0.1.8 also fails)
+- Ideas (not specified yet): favorites/templates; copy result; widget/shortcut;
+  pack-vs-loose; free-text offer labels; richer % + €/kg hero; export/share
 
-## Spec-Driven Development
+## Conventions (pointers)
 
-- All non-trivial changes flow through Spec Kit:
-  `/speckit.specify` → `/speckit.clarify` (if needed) → `/speckit.plan` →
-  `/speckit.tasks` → `/speckit.implement`.
-- Every PR must reference its spec and confirm compliance with the principles in
-  `.specify/memory/constitution.md`.
-
-## Documentation language
-
-- User-facing documentation (`README.md`, UI strings) MUST be available in both
-  Spanish and English.
-- Internal engineering documentation (ADRs, specs, plans, task lists, commit
-  messages, code comments) is written in English.
-
-## Project status memory
-
-- Keep [`docs/project-status.md`](../../docs/project-status.md) current when
-  shipping a release or deferring a product idea (backlog).
-- Agents should read that file (and the `project-status` Cursor rule) before
-  proposing the next feature.
+- Chat: Spanish with Marco. Artifacts: English. UI/store: ES+EN.
+- Never push/merge `main`. Cadence: planning → impl → release-prep → tag after QA.
+- Playbooks: `docs/release.md`, `docs/fdroid.md`. Ledger: `specs/001-…/tasks.md`.
 
 ---
 > Source: [mablanco/pricegrab](https://github.com/mablanco/pricegrab) — distributed by [TomeVault](https://tomevault.io).
