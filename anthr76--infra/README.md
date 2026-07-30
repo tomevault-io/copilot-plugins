@@ -1,14 +1,15 @@
 # infra
 
-> Source: [anthr76/infra](https://github.com/anthr76/infra) — distributed by [TomeVault](https://tomevault.io)
+> Source: [anthr76/infra](https://github.com/anthr76/infra). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [anthr76/infra](https://github.com/anthr76/infra).
+Original source: `` in [anthr76/infra](https://github.com/anthr76/infra).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
