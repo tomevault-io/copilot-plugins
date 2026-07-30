@@ -1,8 +1,6 @@
 # acdc
 
-> Source: [nlopes/acdc](https://github.com/nlopes/acdc) — distributed by [TomeVault](https://tomevault.io)
-
-Toolkit for AsciiDoc™ in rust
+> Source: [nlopes/acdc](https://github.com/nlopes/acdc). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [nlopes/acdc](https://github.com/nlopes/acdc).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nlopes/acdc](https://github.com/nlopes/acdc) — a repo with 39+ stars on GitHub.
+From [nlopes/acdc](https://github.com/nlopes/acdc) — a repo with 43+ stars on GitHub.
 
 ---
 
