@@ -1,0 +1,58 @@
+## design-system-enforcer
+
+> Auto-route Frontend Expert suite skills — chat-first, judgment first, slash optional
+
+
+# Frontend Expert (auto)
+
+**Users should not need slash commands.** Map natural language to skills yourself. Pillars: `docs/pillars.md`.
+
+## Intent → load (mandatory)
+
+| User intent (examples) | Load skills in order |
+|------------------------|----------------------|
+| Build/change UI, page, screen, component, layout, styling | `frontend-judgment` (if non-trivial) → `design-tokens` → (+ **`marketing-landing`** if landing) → `ui-components` → **`responsive-ui`** → **`motion`** (light) → `anti-ai-slop` → `ui-feel` → `accessibility` |
+| + form / validasi | above + `forms-validation` |
+| + API list/detail / async data | above + `data-fetching` |
+| + shell / sidebar / routing | above + `app-shell-routing` |
+| + architecture / folder / state | + `fe-architecture` |
+| + SEO / meta / OG | + `fe-seo` |
+| Mobile / responsive / semua device | **`responsive-ui` MUST** |
+| Marketing landing / homepage / logo cloud / testimonials | + **`marketing-landing`** (section stack **hand-roll** — not `@tailark`/block registry) → `motion` → `fe-seo` as needed |
+| Animation / transition / motion / marquee / parallax / text reveal | above + `motion` (families/patterns in `motion-families.md`; hand-roll — not registry default) |
+| Match Figma / mock / pixel perfect / fidelity | `design-fidelity` → `design-tokens` → `responsive-ui` → `ui-feel` |
+| Lighthouse / axe / DevTools / measured scores | `fe-devtools` → `accessibility` → `web-performance` |
+| Hierarchy / unclear primary / competing CTAs | `frontend-judgment` Hierarchy pass → `anti-ai-slop` → `ui-feel` |
+| Typography / type scale / multi-h1 | `frontend-judgment` Typography ladder → `ui-feel` |
+| Figma Auto Layout / Fill / Hug | `responsive-ui` (Auto Layout ↔ CSS) |
+| Feels off / rapihin detail / micro polish | `ui-feel` (+ `anti-ai-slop` if generik) — one pass |
+| Design audit, AI slop, "UI jelek/generik", visual review | `anti-ai-slop` → `ui-feel` → `design-tokens` → `responsive-ui` → `accessibility` → `web-performance` (+ `marketing-landing` if landing) |
+| Tests / TDD / coverage / regresi UI | `frontend-testing` → `ui-components` → `accessibility` |
+| Polish / rapihin **sampai bagus** / until audit passes | `ui-quality-loop` (max 3) |
+| Slow UI / LCP / optimize performance | `web-performance` |
+| WebGL / shader / Plasma / animated canvas background | **`webgl` required** |
+| Sentry / analytics / observability | `monitoring` |
+
+## Expert judgment
+
+For blank-canvas or ambiguous UI: offer **2–3 approaches + tradeoffs + one recommendation** before coding. Skip for tiny clear fixes or “just implement”. See skill `frontend-judgment`.
+
+## Rules (compliance — do not silently skip)
+
+- Prefer project design system if one exists; else walk token decision tree in `references/token-preset-scoring.md`
+- **Responsive: MUST** — `responsive-ui`; Conventions `Responsive: 320/768/1024/1440 checked` + **full-width primary CTA <768**
+- **Hierarchy + Typography: MUST** on blank-canvas / layout polish — Hierarchy pass + one h1 / type ladder (`frontend-judgment`)
+- **Icons: MUST use [Reicon](https://reicon.dev)** unless project icon lib or text-only waiver
+- Light **Motion** defaults on shell/dashboard (`motion`) unless waived; marketing: name families/patterns and hand-roll (registry install is not the pack default)
+- **Shell chrome:** theme in **topbar** (icon); profile = **avatar → account menu**; product filters = **custom select** (`app-shell-routing` / `ui-components`)
+- **Marketing landing:** section stack via `marketing-landing` / `landing-sections.md` — not hero-only; **hand-roll** (not block-registry install)
+- WebGL/shader/plasma → load **`webgl`**; prefer Plasma
+- No raw hex, purple/indigo defaults, Lorem ipsum, or `rounded-2xl` everywhere
+- Handle loading / error / empty; keyboard accessible
+- Before DONE on UI builds, output the **Conventions check** from `references/compliance-gates.md`
+- Optional shortcuts only: `/ui`, `/design`, `/audit`, `/test-ui`, `/polish`
+- Audits: do not fabricate visual metrics without tokens/screenshots
+
+---
+> Source: [sukirman1901/frontend-expert](https://github.com/sukirman1901/frontend-expert) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-30 -->
