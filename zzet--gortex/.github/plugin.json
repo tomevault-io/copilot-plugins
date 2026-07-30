@@ -1,7 +1,7 @@
 {
   "name": "zzet--gortex",
   "displayName": "gortex",
-  "description": "High-performance code intelligence engine that indexes repositories into an in-memory knowledge graph and exposes it via CLI, MCP Server, and web UI.  Built for AI coding agents - expose only needed i",
+  "description": "gortex",
   "version": "1.0.0",
   "author": "zzet",
   "homepage": "https://github.com/zzet/gortex",
