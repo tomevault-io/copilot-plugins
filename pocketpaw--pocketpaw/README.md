@@ -1,17 +1,15 @@
 # pocketpaw
 
-> Tome by [pocketpaw](https://github.com/pocketpaw/pocketpaw) — distributed by [TomeVault](https://tomevault.io)
-
-Your AI agent in 30 seconds. Not 30 hours. Self-hosted, open-source personal AI with desktop installer, multi-agent Command Center(Deep Work), and 7-layer security. Anthropic, OpenAI, or Ollama.
+> Tome by [pocketpaw](https://github.com/pocketpaw/pocketpaw), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pocketpaw/pocketpaw](https://github.com/pocketpaw/pocketpaw).
+Original source: `CLAUDE.md` in [pocketpaw/pocketpaw](https://github.com/pocketpaw/pocketpaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
