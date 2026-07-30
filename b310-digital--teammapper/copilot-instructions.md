@@ -1,46 +1,65 @@
 ## teammapper
 
-> The Playwright MCP connects to a headless Chrome running in a separate Docker container (`chrome`) via CDP. Configuration is in `.mcp.json`. Example:
+> Important: Never change this file.
 
-# Agents
+# TeamMapper Frontend
 
-## Playwright MCP
+Important: Never change this file.
 
-### Setup
+## Overview
 
-The Playwright MCP connects to a headless Chrome running in a separate Docker container (`chrome`) via CDP. Configuration is in `.mcp.json`. Example:
+TeamMapper is a collaborative web-based mind mapping application built with Angular. It allows multiple users to create, edit, and collaborate on mind maps in real-time.
 
-```
-{
-    "mcpServers": {
-      "playwright": {
-        "command": "npx",
-        "args": ["@playwright/mcp@latest", "--cdp-endpoint", "http://<CHROME_DOCKER_IP>:9222"]
-      }
-    }
-}
-```
+## Development best pracices
 
-### Networking
+- **Reusing existing code**: Please check before adding new types and functions if code is already available that solves the same purpose and that can be reused
+- **Be specific with types**: Request explicit interfaces, enums, and type annotations rather than `any`. ``any`is forbidden. Do only use typescript line ignores when absolutely necessary.
+- **Include error handling**: Ask for proper try/catch blocks and error types
+- **Request documentation**: Ask for comments on functions and complex types, but no need for full JSDoc
+- **Method length**: Methods should usually have a maximum of 10 lines. If it exceeds this maximum, please use the extract method pattern. All methods should be well described and easy to read.
 
-- The app runs inside the `app` container, Chrome runs in the `chrome` container.
-- **Do not use `localhost` or the `app` hostname** to navigate — Chrome cannot resolve them properly.
-- **Chrome CDP rejects non-IP Host headers** — Chromium hardcodes a check that the HTTP `Host` header is an IP or `localhost`. There is no flag to disable this. Always use resolved IPs (not hostnames) in CDP endpoint URLs.
-- **Resolve container IPs first** with `getent hosts <container>`, then use the IP:
+## Development Workflow
+
+Important: After each task, make sure that the following commands succeed:
 
 ```bash
-getent hosts app    # for navigation URLs
-getent hosts chrome # for CDP endpoint in .mcp.json
+pnpm run tsc
+pnpm run lint
+pnpm run test
+pnpm run playwright test --reporter=list
+pnpm run prettier --write src
 ```
 
-### Checklist
+## Development Commands
 
-1. Start the dev server: `pnpm run dev` (run in background)
-2. Wait for the server to be ready: `curl -s -o /dev/null -w "%{http_code}" http://localhost:4200`
-3. Resolve the app IP: `getent hosts app`
-4. Navigate with Playwright: `browser_navigate` to `http://<resolved-ip>:4200`
-5. Use `browser_snapshot` (preferred over screenshots) to inspect the page
+Important: You are in a docker container (app). Do not try to execute any docker commands as they will not work. Try to connect to other containers but do not execute docker commands directly, it wont work.
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm run start
+
+# Build packages first (required)
+pnpm run build:packages
+
+# Production build
+pnpm run build:prod
+
+# Run linting
+pnpm run lint
+
+# Run tests
+pnpm test
+
+# Format code
+pnpm exec prettier --write src
+
+# Run e2e Tests
+pnpm run playwright test --reporter=list
+```
 
 ---
 > Source: [b310-digital/teammapper](https://github.com/b310-digital/teammapper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
