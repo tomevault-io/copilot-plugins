@@ -7,14 +7,14 @@ VHK — AI 코딩 세션을 목표·증거·기억·규칙으로 묶는 한국�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [byh3071-cpu/vhk](https://github.com/byh3071-cpu/vhk).
+Original source: `GEMINI.md` in [byh3071-cpu/vhk](https://github.com/byh3071-cpu/vhk).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [byh3071-cpu/vhk](https://github.com/byh3071-cpu/vhk) — a repo with 12+ stars on GitHub.
