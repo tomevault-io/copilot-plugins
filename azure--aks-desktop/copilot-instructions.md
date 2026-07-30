@@ -1,98 +1,158 @@
 ## aks-desktop
 
-> Navigation guide for AI coding agents. For Headlamp plugin API examples see [`plugins/aks-desktop/AGENTS.md`](./plugins/aks-desktop/AGENTS.md).
+> This file provides guidance for AI coding agents working on this Headlamp plugin.
 
 # AGENTS.md
 
-Navigation guide for AI coding agents. For Headlamp plugin API examples see [`plugins/aks-desktop/AGENTS.md`](./plugins/aks-desktop/AGENTS.md).
+This file provides guidance for AI coding agents working on this Headlamp plugin.
 
-## Architecture Layers
+## Available Scripts
 
-| Layer | Path | Purpose | When to change |
-| --- | --- | --- | --- |
-| **Plugin** | `plugins/aks-desktop/` | AKS-specific UI, Azure integration, Kubernetes operations | Most changes go here |
-| **Build** | `build/` | Plugin setup, external tool bundling (Azure CLI, Python), post-build verification | Packaging, bundled tool versions, installer behavior |
-| **Headlamp fork** | `headlamp/` (submodule) | Electron shell, backend server, frontend framework | Only when plugin system cannot achieve the goal |
+The following npm scripts are available for development and testing:
 
-Headlamp fork commits must use a prefix:
+- **`npm run format`** - Format code with prettier
+- **`npm run lint`** - Lint code with eslint for coding issues
+- **`npm run lint-fix`** - Automatically fix linting issues
+- **`npm run build`** - Build the plugin for production
+- **`npm run tsc`** - Type check code with TypeScript compiler
+- **`npm run test`** - Run tests with vitest
+- **`npm start`** - Start development server watching for changes
+- **`npm run storybook`** - Start Storybook for component development
+- **`npm run storybook-build`** - Build static Storybook
+- **`npm run i18n`** - Extract translatable strings for internationalization
+- **`npm run package`** - Create a tarball of the plugin package
 
-- `aksd:` -- AKS Desktop-specific changes
-- `upstreamable:` -- bug fixes, performance improvements, or features to contribute back upstream
+## Plugin Development Resources
 
-See [`MAINTENANCE.md`](./MAINTENANCE.md) for the full fork rebase workflow.
+### Example Plugins
 
-## Decision Tree -- "Where does my change go?"
+Explore these example plugins in `node_modules/@kinvolk/headlamp-plugin/examples/` to learn common patterns:
 
-| Change type | Location |
-| --- | --- |
-| Azure CLI operations | `plugins/aks-desktop/src/utils/azure/<domain-module>.ts` (e.g., `az-acr.ts`, `az-identity.ts`, `aks.ts`) |
-| Kubernetes operations | `plugins/aks-desktop/src/utils/kubernetes/` |
-| GitHub integration | `plugins/aks-desktop/src/utils/github/` |
-| New UI feature | `plugins/aks-desktop/src/components/<FeatureName>/` |
-| Shared hooks | `plugins/aks-desktop/src/hooks/` |
-| Shared types | `plugins/aks-desktop/src/types/` |
-| Component-local types | Co-located in the component directory (e.g., `plugins/aks-desktop/src/components/DeployWizard/components/types.ts`) |
-| Plugin registration | `plugins/aks-desktop/src/index.tsx` |
-| Build / packaging | `build/` |
-| Headlamp core | `headlamp/` (commit prefix: `aksd:` or `upstreamable:`) |
+- **activity** - Shows how to add activity tracking and monitoring
+- **app-menus** - Demonstrates adding custom menus to the app bar
+- **change-logo** - Shows how to customize the Headlamp logo
+- **cluster-chooser** - Demonstrates cluster selection UI
+- **custom-theme** - Shows how to create custom themes
+- **customizing-map** - Demonstrates customizing resource visualization maps
+- **details-view** - Shows how to customize resource detail views
+- **dynamic-clusters** - Demonstrates dynamic cluster configuration
+- **headlamp-events** - Shows how to work with Kubernetes events
+- **pod-counter** - Simple example counting pods and displaying in app bar
+- **projects** - Demonstrates project/namespace organization
+- **resource-charts** - Shows how to add custom charts for resources
+- **sidebar** - Demonstrates customizing the sidebar navigation
+- **tables** - Shows how to create custom resource tables
+- **ui-panels** - Demonstrates adding custom UI panels
 
-## Module Boundary Rules
+### Official Plugins
 
-> In the sections below, `src/` is shorthand for `plugins/aks-desktop/src/`.
+Check out production-ready plugins in `node_modules/@kinvolk/headlamp-plugin/official-plugins/` for advanced patterns:
 
-- Feature components (`src/components/<Feature>/`) own their sub-components, hooks, utils, types, and tests.
-- Cross-feature shared code lives in `src/utils/`, `src/hooks/`, or `src/types/`.
-- Never import from another feature component's internals. If two features need the same logic, extract it to a shared location.
-- No barrel files (enforced by ESLint `no-barrel-files` rule).
+#### Using Custom Resource Definitions (CRDs)
 
-## Common Patterns
+- **cert-manager** - Complete CRD integration for cert-manager resources
+  - Files: `official-plugins/cert-manager/src/resources/` (certificate.ts, issuer.ts, clusterIssuer.ts, etc.)
+  - Shows how to register and display custom resources for certificates, issuers, challenges, and orders
+- **flux** - GitOps CRDs for Flux resources
+  - Files: `official-plugins/flux/src/` (kustomization, helmrelease, gitrepository resources)
+  - Demonstrates working with Flux CRDs for GitOps workflows
+- **keda** - Kubernetes Event Driven Autoscaling CRDs
+  - Files: `official-plugins/keda/src/resources/` (scaledobject.ts, scaledjob.ts, triggerauthentication.ts)
+  - Shows CRD integration for event-driven autoscaling
+- **karpenter** - Node provisioning CRDs
+  - Files: `official-plugins/karpenter/src/` (NodeClass, EC2NodeClass resources)
+  - Demonstrates multiple CRD deployment types (EKS Auto Mode, self-installed)
 
-### Adding a wizard step
+#### Visualizing Relationships with Maps
 
-Wizard steps live in `src/components/<Wizard>/components/`. Each step is a standalone component (e.g., `BasicsStep.tsx`, `NetworkingStep.tsx`). See `DeployWizard` for the canonical example:
+- **keda** - Map view showing KEDA resource relationships
+  - File: `official-plugins/keda/src/mapView.tsx`
+  - Uses edge creation (`makeKubeToKubeEdge`) to visualize connections between ScaledObjects, ScaledJobs, and TriggerAuthentications
+  - Shows how to build graph visualizations of resource dependencies
 
-1. Create `<StepName>Step.tsx` in the wizard's `components/` directory.
-2. Add the step to the wizard's step list in the parent wizard component.
-3. Add tests (co-located `.test.tsx`) and optionally a `.stories.tsx`.
+#### Adding Metrics and Charts
 
-### Azure CLI command (`runAzCommand`)
+- **prometheus** - Advanced charts for workload resources
+  - Files: `official-plugins/prometheus/src/components/Chart/`
+  - Provides CPU, memory, network, and disk charts using Prometheus metrics
+  - Includes specialized charts for Karpenter (KarpenterChart, KarpenterNodeClaimCreationChart)
+  - Shows KEDA metrics (KedaActiveJobsChart, KedaScalerMetricsChart, KedaHPAReplicasChart)
+  - File: `official-plugins/prometheus/src/request.tsx` for fetching Prometheus data
+- **opencost** - Cost metrics and visualization
+  - File: `official-plugins/opencost/src/detail.tsx`
+  - Uses `recharts` library (AreaChart, CartesianGrid, Tooltip) to display cost data
+  - Shows how to fetch and display custom metrics from external services
+  - Demonstrates time-series data visualization with stacked area charts
 
-New Azure CLI calls should go through `runAzCommand<T>()` in `src/utils/azure/az-cli-core.ts`, which provides structured error handling and typed responses. Domain-specific modules (e.g., `az-acr.ts`, `az-identity.ts`, `aks.ts`) wrap this function with typed helpers. Some older modules still call `runCommandAsync('az', ...)` directly. To add a new Azure operation:
+#### Other Advanced Patterns
 
-1. Add a typed wrapper in the appropriate `src/utils/azure/<domain>.ts` module, or create a new domain module if none fits.
-2. Call `runAzCommand<T>(args, debugLabel, errorContext, parseOutput)` and pass a `parseOutput` callback (for JSON output: `stdout => JSON.parse(stdout)`) -- it handles process execution, error wrapping, and returns `{ success, data, error }`.
-3. Keep each azure util module single-responsibility.
+- **ai-assistant** - AI integration for cluster management
+- **app-catalog** - Helm chart catalog powered by ArtifactHub
+- **backstage** - Integration with Backstage developer portal
 
-### Route and sidebar entry
+### Key Topics and Examples
 
-Register routes and sidebar entries in `src/index.tsx`:
+#### Adding Items to the App Bar
 
-1. Call `registerRoute()` with the path, component, and sidebar entry name.
-2. Call `registerSidebarEntry()` for navigation.
-3. Gate Azure-specific routes behind `Headlamp.isRunningAsApp()`.
+- **Example:** `pod-counter` - Shows `registerAppBarAction` to add items to top bar
+- **File:** `examples/pod-counter/src/index.tsx`
 
-### Project tab or overview section
+#### Customizing the Sidebar
 
-Use `registerProjectDetailsTab()` or `registerProjectOverviewSection()` in `src/index.tsx`. Gate behind `isAksProject()` to show only for AKS-managed projects.
+- **Example:** `sidebar` - Demonstrates `registerSidebarEntry` and `registerSidebarEntryFilter`
+- **File:** `examples/sidebar/src/index.tsx`
 
-## Testing Conventions
+#### Working with Resource Details
 
-- **Co-located tests**: `<Component>.test.tsx` alongside the component file.
-- **Accessibility tests**: `<Component>.guidepup.test.tsx` files use guidepup for screen-reader-level a11y testing.
-- **Fixtures**: `__fixtures__/` directories within feature components for shared test data.
-- **Integration tests**: `src/utils/test/` for cross-module tests (Azure CLI, cluster settings, namespace utils).
-- **Stories**: `.stories.tsx` files for Storybook visual testing, co-located with components.
+- **Example:** `details-view` - Shows how to customize resource detail pages
+- **File:** `examples/details-view/src/index.tsx`
 
-## File Size Guidance
+#### Creating Custom Tables
 
-- Aim for under 400 lines per file. If a file exceeds this, look for opportunities to extract sub-components, hooks, or utility functions.
-- Azure util modules (`src/utils/azure/`) should each cover a single domain (ACR, identity, federation, etc.). Split rather than grow a catch-all module.
+- **Example:** `tables` - Demonstrates custom table implementations
+- **File:** `examples/tables/src/index.tsx`
 
-## Cross-References
+#### Adding Charts and Visualizations
 
-- **Headlamp plugin API examples and patterns**: [`plugins/aks-desktop/AGENTS.md`](./plugins/aks-desktop/AGENTS.md)
-- **Fork maintenance and rebase workflow**: [`MAINTENANCE.md`](./MAINTENANCE.md)
+- **Example:** `resource-charts` - Shows how to add custom charts
+- **File:** `examples/resource-charts/src/index.tsx`
+
+#### Theme Customization
+
+- **Example:** `custom-theme` - Demonstrates theme customization
+- **File:** `examples/custom-theme/src/index.tsx`
+
+#### Internationalization (i18n)
+
+- Use `npm run i18n -- <locale>` to add new locales (e.g., `npm run i18n -- es` for Spanish)
+- Translation files are in `locales/<locale>/translation.json`
+- Use `useTranslation()` hook from `@kinvolk/headlamp-plugin/i18n`
+
+## Development Workflow
+
+1. **Start Development:** Run `npm start` to watch for changes
+2. **Make Changes:** Edit files in `src/`
+3. **Type Check:** Run `npm run tsc` to check for TypeScript errors
+4. **Lint:** Run `npm run lint` to check for code quality issues
+5. **Format:** Run `npm run format` to format code
+6. **Test:** Run `npm run test` to run tests
+7. **Build:** Run `npm run build` to create production build
+
+## Best Practices
+
+- Follow the patterns shown in the example plugins
+- Use TypeScript for type safety
+- Keep plugins focused on a single feature or enhancement
+- Document your plugin's functionality in the README.md
+
+## API Documentation
+
+For detailed API documentation, visit:
+
+- [Headlamp Plugin API Reference](https://headlamp.dev/docs/latest/development/api/)
+- [Plugin Development Guide](https://headlamp.dev/docs/latest/development/plugins/)
+- [UI Component Storybook](https://headlamp.dev/docs/latest/development/frontend/#storybook)
 
 ---
 > Source: [Azure/aks-desktop](https://github.com/Azure/aks-desktop) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
