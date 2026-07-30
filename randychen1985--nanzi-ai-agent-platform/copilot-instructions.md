@@ -1,16 +1,23 @@
-## code-merged-sync
+## pull-request-template
 
-> 用户说「代码已合」时只做 git 同步，不执行 ./dev.sh
+> 创建或更新 GitHub PR 时必须按仓库 PULL_REQUEST_TEMPLATE.md 填写
 
 
-# 代码已合：仅本地 git 同步
+# Pull Request 规范
 
-当用户说「代码已合」「PR 合了」「已合并」等时：
+用户要求创建 / 更新 PR（含「创建 pr」「提 PR」「改 PR 描述」）时：
 
-1. **立即执行 git 同步**，不要只口头确认。
-2. 按 `AGENTS.md`：`fetch` → 更新 `main` → `dev-agentscope` merge/rebase `main` → 必要时 `push` → 汇报两侧最新 commit 是否与远程一致。
-3. **禁止**执行 `./dev.sh`（与平时改代码相同：一律由用户在控制台手动跑）。
-4. 同步完成后提醒用户自行执行 `./dev.sh`。
+1. **先读取** 仓库根目录 `PULL_REQUEST_TEMPLATE.md`，按其章节结构写 PR 标题与正文。
+2. **禁止**只用 Cursor 默认的 `## Summary` / `## Test plan` 两段式交差。
+3. 正文须包含模板中的区块（可按实际变更勾选，无内容的小节可写「无」或省略空 checkbox，但标题层级保持一致）：
+   - `# Pull Request: …` 标题行
+   - `## 概要 (Overview)`
+   - `## 核心变更 (Key Changes)`（功能新增 / UI·UX / 缺陷修复）
+   - `## 变更清单 (Commit Log)`（短 hash + 提交说明表）
+   - `## 测试覆盖 (Testing)`
+   - `## 其他备注 (Notes)`
+4. 按模板 `[!IMPORTANT]`：**提交前更新** `tests/CHECKLIST.md` 中与本次变更对应的自动化测试清单，并在 PR 中注明已更新。
+5. 中文撰写；勾选已完成项用 `[x]`，待验证项保留 `[ ]`。
 
 ---
 > Source: [RandyChen1985/nanzi-ai-agent-platform](https://github.com/RandyChen1985/nanzi-ai-agent-platform) — distributed by [TomeVault](https://tomevault.io).
