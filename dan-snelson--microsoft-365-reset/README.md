@@ -1,17 +1,16 @@
 # Microsoft-365-Reset
 
-> Source: [dan-snelson/Microsoft-365-Reset](https://github.com/dan-snelson/Microsoft-365-Reset) — distributed by [TomeVault](https://tomevault.io)
-
-We. All. Miss. Paul.
+> Source: [dan-snelson/Microsoft-365-Reset](https://github.com/dan-snelson/Microsoft-365-Reset). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dan-snelson/Microsoft-365-Reset](https://github.com/dan-snelson/Microsoft-365-Reset).
+Original source: `` in [dan-snelson/Microsoft-365-Reset](https://github.com/dan-snelson/Microsoft-365-Reset).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
