@@ -2,9 +2,9 @@
   "name": "hermes-agent-windows",
   "owner": "pengchengxia75-arch",
   "repo": "hermes-agent-windows",
-  "description": "Hermes Agent with native Windows support and one-line PowerShell installer",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pengchengxia75-arch/hermes-agent-windows",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T08:23:39Z"
+  "distributed_at": "2026-07-30T21:47:05Z"
 }
