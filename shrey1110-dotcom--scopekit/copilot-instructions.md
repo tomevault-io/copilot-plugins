@@ -1,0 +1,23 @@
+## repo-context-mcp
+
+> Route repo-context-mcp calls through context broker first
+
+
+Use repo-context-mcp v2 as a context broker.
+
+Order:
+
+1. Use `context_status` if unsure whether index/cache exists.
+2. Use `context_pack` first with `budgetTokens: 1000`.
+3. Use `impact_pack` for changed files/diff tasks.
+4. Use `get_symbol_context` only for exact function/class verification.
+5. Use `graph_query` / `graph_symbol` only if `context_pack` is insufficient.
+6. Use `search_code` / `repo_map` only if context/graph are missing or insufficient.
+7. Read full files only when editing or verifying exact implementation details.
+
+Warning:
+If telemetry shows `repo_map`/`search_code` as dominant discovery tools, routing is not using v2 correctly.
+
+---
+> Source: [shrey1110-dotcom/ScopeKit](https://github.com/shrey1110-dotcom/ScopeKit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
