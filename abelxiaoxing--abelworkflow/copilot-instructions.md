@@ -1,0 +1,58 @@
+## abelworkflow
+
+> - Tool/model interactions: **English**
+
+# Configuration
+
+## Language
+
+- Tool/model interactions: **English**
+- User-facing output: **Chinese**
+
+## Code Style
+
+- Concise, efficient, no redundancy
+- Minimal comments/docs (only when necessary)
+- Targeted changes only; never touch unrelated functionality
+
+## Development Context
+
+Development context: work is currently in the development phase, and this is a development repository.
+Do not retain runtime user state in the repository or shipped artifacts, and do not preserve compatibility layers for unreleased behavior.
+Prefer deleting obsolete code paths; keep code and prompts concise and avoid over-engineering.
+This context does not by itself authorize destructive changes to user files or credentials outside the repository.
+
+## Context Rules
+
+- Use local codebase retrieval with `rg`, `rg --files`, `git grep`, and direct file reads.
+- Rely only on project code plus `grok/context7` results
+- If information is insufficient or uncertain, state it explicitly
+
+## Workflow
+
+```
+/abel-init → /abel-design → /abel-implement(TDD)
+                           ↘ /abel-diagnose (bug fix)
+```
+
+## Universal Constraints
+
+1. Use `unified diff patch` format for proposed/applied changes
+2. Before applying changes, state assumptions and unknowns explicitly; stop and ask the user on any critical unknown
+
+## Stage Skill Matrix
+
+| Skill | Design | Implement | Diagnose | Capability & Triggers |
+| --- | :---: | :---: | :---: | --- |
+| /grok-search | ✅ | ❌ | ✅ | Deep research, concept understanding. Trigger: architectural patterns, best practices |
+| /context7-auto-research | ✅ | ✅ | ✅ | Official docs retrieval. Trigger: framework/library usage, APIs |
+| /dev-browser | ○ | ✅ | ✅ | Browser automation. Trigger: E2E testing, UI verification |
+| /time | ○ | ✅ | ○ | Time/timezone operations. Trigger: scheduling logic |
+
+Legend: ✅ Primary, ○ Optional, ❌ Forbidden
+
+OpenSpec commands: `/opsx:propose` `/opsx:explore` `/opsx:apply` `/opsx:update` `/opsx:sync` `/opsx:archive` `openspec view` `openspec status`
+
+---
+> Source: [abelxiaoxing/AbelWorkflow](https://github.com/abelxiaoxing/AbelWorkflow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-30 -->
