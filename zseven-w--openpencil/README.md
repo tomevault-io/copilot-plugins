@@ -1,8 +1,6 @@
 # AI instruction files for openpencil
 
-> Sourced from [ZSeven-W/openpencil](https://github.com/ZSeven-W/openpencil) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-The world's first open-source AI-native vector design tool and the first to feature concurrent Agent Teams. Design-as-Code. Turn prompts into UI directly on the live canvas. A modern alternative to Pencil.
+> Sourced from [ZSeven-W/openpencil](https://github.com/ZSeven-W/openpencil), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [ZSeven-W/openpencil](https://github.com/ZSeven-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ZSeven-W/openpencil](https://github.com/ZSeven-W/openpencil)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ZSeven-W/openpencil](https://github.com/ZSeven-W/openpencil)
 
 ---
 
