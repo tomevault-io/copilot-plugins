@@ -1,63 +1,48 @@
-## testing
+## workflow
 
-> Optional Spring Boot example-pack testing rules. Apply only when editing an adopted project or spring-boot profile output.
+> Workflow canonical adapter and intent routing rules.
 
 
-# Optional Spring Boot Testing Rules
+# Workflow Rules
 
-These rules are not part of the generic AI Workflow Harness core. They are kept
-as an optional example/profile surface for projects that adopt the harness with
-Spring Boot backend tests.
+This file is the Cursor adapter for workflow procedures.
+Detailed procedures live in `skills/workflow/*.md`.
 
-## Test Layer Annotations
+## Step 0
 
-| Layer | Annotation | Context |
-|-------|-----------|---------|
-| Unit | `@ExtendWith(MockitoExtension.class)` + `@MockitoSettings(strictness = Strictness.LENIENT)` | No Spring context |
-| Controller slice | `@WebMvcTest` + `@ActiveProfiles("test")` | Spring MVC only |
-| MyBatis slice | `@MybatisTest` + `@ActiveProfiles("test")` | MyBatis mapper only |
-| Integration | `@SpringBootTest` + `@AutoConfigureMockMvc` + `@ActiveProfiles("test")` | Full Spring context |
+When the user's intent matches a workflow operation, first load the matching canonical file:
 
-## Integration Test Infrastructure
+| Intent | Canonical procedure |
+| --- | --- |
+| Session start / current state summary | `skills/workflow/session-start.md` |
+| Session summary / handoff | `skills/workflow/session-summary.md` |
+| Select next work | `skills/workflow/work-select.md` |
+| Register / add a work item | `skills/workflow/work-register.md` |
+| Start / plan a specific task | `skills/workflow/work-plan.md` |
+| Resume interrupted work | `skills/workflow/work-resume.md` |
+| Close Work as Done | `skills/workflow/work-close.md` |
+| Debug a scoped issue | `skills/workflow/work-debug.md` |
+| Create strategy/comparison/position brief or classify a document | `skills/workflow/work-brief.md` |
+| Run optional cross-agent review relay | `skills/workflow/cross-review.md` |
+| Create presentation/report/review material | `skills/workflow/work-doc.md` |
+| Repository health / cascade audit | `skills/workflow/repo-health.md` |
+| Record a decision as DR | `skills/workflow/record-decision.md` |
+| Merge / PR branch integration | Follow `docs/GIT-WORKFLOW.md` when present |
 
-Prefer the adopted project's established integration-test infrastructure.
+## Hard Stops
 
-MUST:
+- If the required `skills/workflow/{command}.md` file is missing or unreadable, stop before editing files, changing state, committing, opening a PR, or merging. Report the missing canonical file and ask the user how to proceed.
+- Before any file edit, state change, commit, PR creation, or merge, enforce branch isolation, the Approval Matrix, and validation-before-commit/PR gates.
+- Do not duplicate detailed checklists or cascade matrices in this adapter. Use the canonical workflow file for detailed procedure.
 
-- Keep integration-test environment settings in shared test configuration, not per-test ad hoc system properties.
-- Reuse the established integration-test infrastructure pattern in existing service tests.
-- Record infrastructure changes through the adopted project's decision process.
+## Entry Mechanism
 
-NEVER:
+Cursor has no Claude slash command file and no Codex skill directory. This rule maps natural-language intent to the canonical workflow file.
 
-- Reintroduce local-only test overrides without an explicit decision.
-- Depend on separately running local services for integration tests unless the adopted project documents that requirement.
+## Language Policy
 
-## Assertion and Mocking Style
-
-MUST:
-
-- Use AssertJ: `assertThat(...)`, `assertThatThrownBy(...)`
-- Prefer BDD style: `given(mock).willReturn(value)` over Mockito `when/thenReturn`
-- Keep `@MockitoSettings(strictness = Strictness.LENIENT)` — project standard; do not remove without reason.
-
-NEVER:
-
-- Use JUnit 5 raw assertions (`assertEquals`, `assertTrue`) — replace with AssertJ
-- Use `@Data` on mock objects
-- Use `@Autowired` field injection in test classes — use constructor injection if needed
-
-## Naming Conventions
-
-- Method name: `methodName_scenario_expectedBehavior` (English)
-- `@DisplayName`: Korean display names are intentional. Do not translate existing display names to English.
-- Test class name: `{TargetClass}Test`
-
-## Verification Command
-
-- Unit / module change: use the adopted project's narrow test command.
-- Full test suite: use the adopted project's full verification command.
-- If required local infrastructure is unavailable, report the environment failure and propose a narrower unit-test command instead of silently weakening coverage.
+- This Cursor rule is English Only.
+- Korean-primary workflow details belong in `skills/workflow/*.md`, `docs/*.md`, prompts, and Claude/Codex adapters as defined by `docs/decisions/DR-007-language-policy.md`.
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
