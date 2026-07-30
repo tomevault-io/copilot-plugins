@@ -1,650 +1,278 @@
 ## infra
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This repository contains ### Kubernetes & GitOps
 
-# CLAUDE.md
+# Infrastructure Repository Instructions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This repository contains ### Kubernetes & GitOps
+- Follow GitOps principles: all changes via Git commits
+- Use Kustomize for configuration management, avoid raw YAML duplication
+- **Namespace Organization**: Each directory under `k8s/base/` maps 1:1 to a Kubernetes namespace (e.g., `k8s/base/volsync-system/` → `volsync-system` namespace)
+- **Helm Repositories**: All HelmRepository resources belong in `k8s/base/flux-system/helm-chart-repositories/`
+- **Secret Management**: Use existing ClusterSecretStore (`gcp-kutara-prod`) via External Secrets, never commit secrets
+- Implement proper resource requests/limits for all workloads
+- Use NetworkPolicies for security isolation
+- Apply consistent labeling: `app.kubernetes.io/name`, `app.kubernetes.io/component`
+- Use HelmReleases with versioned charts, avoid `latest` tags
+- **VolSync Backup Strategy**: Use VolSync ReplicationSource for PVC backups to rsync.net with proper scheduling
+- Implement monitoring for all custom applications
+- **Dependency Management**: All container images, Helm chart versions, and dependencies should be managed by Renovate
+- Pin specific versions for container images and Helm charts to enable automated updates via Renovate PRsete infrastructure-as-code for a sophisticated home lab environment using GitOps principles. It includes Terraform for infrastructure provisioning, Kubernetes configurations, and Flux for continuous delivery.
 
 ## Repository Overview
 
-This is a multi-environment, multi-cloud infrastructure-as-code repository for a home lab environment using GitOps principles. It manages Terraform configurations for cloud resources, Kubernetes workloads via Flux CD, and on-premises virtualization.
+This is a multi-environment, multi-cloud infrastructure repository that includes:
 
-**Related Repositories:**
-- [anthr76/snowflake](https://github.com/anthr76/snowflake) - System-level configuration for nodes, routers, and infrastructure components
+- **Infrastructure-as-Code (IaC)**: Terraform configurations for cloud resources, DNS, and virtualization
+- **GitOps**: Flux CD for Kubernetes application deployment and management
+- **Multi-Cloud**: Google Cloud Platform (GCP), Cloudflare, Backblaze B2, DigitalOcean
+- **Virtualization**: Libvirt/QEMU for on-premises VMs running Fedora CoreOS
+- **Kubernetes**: Multiple clusters with comprehensive workload management
+- **Secret Management**: SOPS for encrypted secrets, External Secrets for Kubernetes
 
-**Additional Context:**
-- See `.github/instructions/.instructions.md` for comprehensive coding standards and guidelines
+**Related Repositories**:
+- **System Configuration**: [anthr76/snowflake](https://github.com/anthr76/snowflake) - Contains system-level configuration for nodes, routers, and infrastructure components## Directory Structure
 
-## Development Environment
-
-This repository uses [Flox](https://flox.dev/) (Nix-based development environments) for consistent tooling. All required tools are automatically available:
-
-```bash
-# Enter the development environment (automatically via direnv, or manually)
-flox activate
-
-# All tools are now available: kubectl, flux, helm, sops, age, just, etc.
-```
-
-The environment is defined in `.flox/env/manifest.toml`. direnv auto-activates it
-on `cd` via `.envrc` (`eval "$(flox activate)"`).
-
-**Never manually install tools** - they are managed via the Flox manifest. To add a
-tool: `flox install <package>` (or edit `.flox/env/manifest.toml`).
-
-`kubectl-volsync` is a custom Go build (not in the catalog) defined under
-`.flox/pkgs/kubectl-volsync/`. Build it once with `flox build kubectl-volsync`; the
-manifest's activation hook then adds `./result-kubectl-volsync/bin` to PATH.
-
-## Common Commands
-
-### Task Automation
-All automation tasks are defined in the `Justfile`. Use `just` instead of custom scripts:
-
-```bash
-# List all available tasks
-just --list
-
-# Reconcile all Flux GitRepositories and Kustomizations
-just flux-reconcile
-
-# Sync Flux GitRepos, Kustomizations, and HelmReleases
-just flux-sync
-
-# Suspend all Flux resources
-just flux-suspend
-
-# Resume all Flux resources
-just flux-resume
-
-# Install Fedora CoreOS for RPI4 (legacy - being phased out)
-just burn-fcos-pi4
-```
-
-### Kubernetes Operations
-
-```bash
-# Switch cluster context
-kubectl config use-context <context-name>
-
-# Manually reconcile a specific Flux resource
-flux reconcile source git flux-system
-flux reconcile kustomization <name>
-
-# Check Flux status
-flux get all -A
-
-# View Flux logs
-flux logs --all-namespaces
-```
-
-### Terraform Operations
-
-```bash
-# Format Terraform files
-terraform fmt -recursive
-
-# Plan changes
-cd armature/prod/<environment>/<service>
-terraform plan
-
-# Apply changes
-terraform apply
-```
-
-### Secret Management
-
-```bash
-# Decrypt a SOPS-encrypted file
-sops -d <file>.sops.yaml
-
-# Encrypt a file with SOPS
-sops -e <file>.yaml > <file>.sops.yaml
-
-# Edit encrypted file in-place
-sops <file>.sops.yaml
-```
-
-## Architecture
-
-### Directory Structure
-
-- **`armature/prod/`** - Production infrastructure Terraform configurations
+- `armature/prod/` - Production infrastructure Terraform configurations
   - `cloud-dns/` - Cloudflare DNS management
-  - `gcp/` - Google Cloud Platform resources (bootstrap, projects: kutara, top22) - **Being phased out for Talos**
-  - `scr1/` - Primary on-premises site (VMs, FCOS configs, switch configs)
-  - `nwk1/` - Secondary network site
+  - `gcp/` - Google Cloud Platform resources (bootstrap, projects, GKE)
+  - `scr1/` - On-premises site resources and VMs
+  - `nwk1/` - Network site resources
   - `b2/` - Backblaze B2 storage buckets
-  - `tf-states/` - Terraform state configurations
-
-- **`k8s/`** - Kubernetes manifests
-  - `base/` - Base Kustomize configurations (each subdirectory = namespace)
-  - `clusters/` - Cluster-specific overlays (qgr1-cluster-0, civo-mgmt-0)
-  - `rbac/` - RBAC configurations
-
-- **`docs/`** - Infrastructure documentation
-
-### Kubernetes Namespace Organization
-
-**Critical Rule:** Each directory under `k8s/base/` maps 1:1 to a Kubernetes namespace.
-
-Examples:
-- `k8s/base/flux-system/` → `flux-system` namespace
-- `k8s/base/home/` → `home` namespace
-- `k8s/base/media/` → `media` namespace
-- `k8s/base/volsync-system/` → `volsync-system` namespace
-
-Namespaces include: database, default, federation, flux-system, home, infra, kube-system, media, monitoring, networking, rook-ceph, volsync-system, kamaji-system, tailscale, tenant-cluster-qgr1, external-secrets, reloader, descheduler, node-feature-discovery.
-
-### Terraform Organization
-
-- **Remote State:** Managed in Terraform Cloud (organizations: "kutara", "rabbito-home")
-- **Provider Versions:** Always pinned in `required_providers` blocks
-- **Secrets:** Stored in `*.sops.yaml` files, loaded via data sources
-- **Naming Convention:** `{service}-{environment}-{resource_type}`
-
-Standard Terraform files: `main.tf`, `variables.tf`, `providers.tf`, `outputs.tf`, `*.sops.yaml`
-
-### GitOps with Flux
-
-- **Flux Operator:** Used for managing Flux installation (see `k8s/base/flux-system/flux-operator/`)
-- **HelmRepositories:** All HelmRepository CRs belong in `k8s/base/flux-system/helm-chart-repositories/`
-- **Kustomize:** Used for all configuration management
-- **Cluster Overlays:** Located in `k8s/clusters/<cluster-name>/`
-- **Secret Management:** Migrating to Bitwarden Secrets Manager (see migration notes below)
-
-## Critical Guidelines
-
-### Dependency Management with Renovate
-
-**All version updates go through Renovate.** Renovate manages:
-- Container image tags in HelmReleases and Kubernetes manifests
-- Helm chart versions in HelmRelease `spec.chart.spec.version`
-- Terraform module versions
-- GitHub Actions versions
-
-Configuration: `.github/renovate.json5`
-
-**Never manually update versions that Renovate manages.** Always pin specific versions rather than using `latest` or floating tags.
-
-### Kubernetes Best Practices
-
-1. **Namespace Mapping:** Follow the 1:1 directory-to-namespace mapping in `k8s/base/`
-2. **HelmRepositories:** Always add to `k8s/base/flux-system/helm-chart-repositories/`
-3. **Secret Management:** Migrating to Bitwarden Secrets Manager - see migration notes
-4. **Resource Management:** Always specify resource requests/limits
-5. **Versioning:** Pin chart versions and container images for Renovate tracking
-6. **Labels:** Apply consistent labels: `app.kubernetes.io/name`, `app.kubernetes.io/component`
-7. **NetworkPolicies:** Implement for security isolation
-8. **Monitoring:** Add monitoring for all custom applications
-
-### Terraform Best Practices
-
-1. **Provider Versions:** Always pin in `required_providers` blocks
-2. **Module Versioning:** Pin module versions for Renovate to manage
-3. **State Management:** Use Terraform Cloud remote backends
-4. **Secret Handling:** Use SOPS for sensitive variables (`*.sops.yaml`)
-5. **Formatting:** Run `terraform fmt` before committing
-6. **Variable Validation:** Implement proper validation and descriptions
-
-### Security
-
-- **SOPS:** All secrets encrypted with age keys (see `.sops.yaml` for rules)
-- **Pre-commit Hooks:** Run automatically to prevent secret leaks (see `.pre-commit-config.yaml`)
-- **Secret Management:** Migrating from External Secrets to Bitwarden Secrets Manager
-- **IAM:** Implement least-privilege policies
-- **Audit Logging:** Enabled for critical resources
-
-### Automation and Scripting
-
-- **Prefer Justfile:** Use `just` commands over custom shell scripts
-- **Avoid Custom Scripts:** Tasks should be in the Justfile
-- **Development Tools:** Managed via the Flox manifest (`.flox/env/manifest.toml`), not system installation
-- **Task Documentation:** All Justfile tasks have clear descriptions
+- `k8s/` - Kubernetes manifests organized by namespace and cluster
+  - `base/` - Base Kustomize configurations
+  - `clusters/` - Cluster-specific overlays
+- `docs/` - Documentation for the infrastructure setup
 
 ## Technology Stack
 
-### Cloud & Infrastructure
-- **Terraform:** IaC provisioning (state in Terraform Cloud) - **Being phased out for most infra**
-- **Google Cloud Platform:** Cloud infrastructure, GKE, Secret Manager - **Being phased out**
-- **Cloudflare:** DNS management and CDN
-- **NixOS:** Declarative Linux distribution for infrastructure nodes
-
-### Kubernetes Stack
-- **Flux CD:** GitOps continuous delivery operator
-- **Kustomize:** Configuration management
-- **Helm:** Package management via HelmReleases
-- **MetalLB:** Load balancer for bare metal
-- **Cilium:** Container networking (CNI) with Gateway API
-- **Rook Ceph:** Distributed storage
-- **VolSync:** Asynchronous PVC replication to rsync.net for backup
-- **External Secrets:** Secret synchronization - **Being replaced by Bitwarden Secrets Manager**
-- **CloudNative-PG:** PostgreSQL operator
-
-### Key Applications
-- **Home Automation:** Home Assistant, ESPHome, Zigbee2MQTT, Z-Wave JS UI
-- **Media:** Plex ecosystem, qBittorrent, cross-seed
-- **Monitoring:** Prometheus, Grafana, Alert Manager
-- **Networking:** Unifi Controller
-- **Databases:** PostgreSQL, Redis, CouchDB
-
-## Active Migrations & Important Maintenance Notes
-
-### 1. Secret Management: Migrating to Bitwarden Secrets Manager
-
-**Status:** Active Migration
-
-The cluster is migrating away from External Secrets (GCP Secret Manager) to **Bitwarden Secrets Manager** for all secrets.
-
-**Impact:**
-- External Secrets Operator and `gcp-kutara-prod` ClusterSecretStore are being phased out
-- All secret references will use Bitwarden Secrets Manager
-- SOPS remains for repository-level encrypted secrets
-
-**When adding new secrets:**
-- Use Bitwarden Secrets Manager instead of External Secrets
-- Avoid creating new ExternalSecret resources
-- Check existing patterns for Bitwarden integration
-
-### 2. Infrastructure Management: Terraform Removal
-
-**Status:** Active Migration
-
-Terraform is being removed for all or mostly all infrastructure managed in the [anthr76/snowflake](https://github.com/anthr76/snowflake) repository.
-
-**Impact:**
-- Infrastructure provisioning moving away from Terraform
-- System-level configuration managed entirely in snowflake repository
-- `armature/prod/` Terraform configurations may become legacy
-
-**When making infrastructure changes:**
-- Consider if the change should be in snowflake repository instead
-- Be aware Terraform configs may be deprecated soon
-
-### 3. OS Migration: NixOS Transition
-
-**Status:** Completed/Active
-
-**Infrastructure nodes have migrated to NixOS.** Fedora CoreOS (FCOS) and Talos Linux configurations are now legacy.
-
-**Impact:**
-- FCOS configurations in `armature/prod/scr1/fcos/` are deprecated
-- Just recipe `burn-fcos-pi4` is obsolete
-- New infrastructure nodes use NixOS (managed in snowflake repository)
-- Talos-specific infrastructure deprecated
-
-### 4. GCP Phase-out
-
-**Status:** Active Migration
-
-**Google Cloud Platform (GCP) is being phased out.**
-
-**Impact:**
-- `armature/prod/gcp/` configurations becoming legacy
-- GKE and GCP-specific resources being migrated away
-- Secret Manager (GCP) being replaced by Bitwarden
-
-### 5. Critical Migration: scr1 → qg1
-
-**Status:** High Priority, Breaking Change Required
-
-The `scr1` site designation needs migration to `qg1` due to physical infrastructure relocation. This affects:
-- DNS records (`*.scr1.rabbito.tech`)
-- Terraform states and resource references
-- Kubernetes cluster names and ingress
-- TLS certificates
-- Monitoring dashboards and alerts
-- VM hostnames and network configs
-
-When making changes involving `scr1`, be aware this will eventually be renamed to `qg1`.
-
-### 6. Dead Code Cleanup
-
-The repository contains significant commented/dead code that needs cleanup:
-- Commented Terraform resource blocks (especially in `armature/prod/b2/buckets.tf`, GKE configs)
-- Unused Kubernetes manifests
-- Legacy VM definitions
-- FCOS-related configurations
-
-When making changes, consider cleaning up obviously unused commented code in the same area.
-
-## VolSync Backup Strategy
-
-VolSync is used for PVC backup and disaster recovery:
-- **ReplicationSource:** Configured for PVCs requiring backup
-- **Destination:** rsync.net for off-site storage
-- **Scheduling:** Defined per-application in namespace configurations
-- **Namespace:** Resources in `k8s/base/volsync-system/`
-
-Documentation: `docs/volsync/`
-
-## Working with Flux
-
-### Cluster Structure
-
-- **Primary Cluster:** qgr1-cluster-0 (on-premises)
-- **Management Cluster:** civo-mgmt-0
-
-Cluster overlays in: `k8s/clusters/<cluster-name>/`
-
-### Flux Resource Organization
-
-```
-k8s/base/flux-system/
-├── cluster-config/          # Cluster-specific configurations
-├── flux-operator/           # Flux operator installation
-├── helm-chart-repositories/ # All HelmRepository CRs
-├── monitoring/              # Flux monitoring setup
-├── notifications/           # Flux notifications
-└── webhook/                 # Flux webhook receivers
-```
-
-### Common Flux Patterns
-
-1. **Adding a HelmRepository:** Always place in `k8s/base/flux-system/helm-chart-repositories/`
-2. **Adding a HelmRelease:** Place in appropriate namespace directory under `k8s/base/<namespace>/`
-3. **Using Secrets:** Transitioning to Bitwarden Secrets Manager
-4. **Cluster-specific overrides:** Use Kustomize overlays in `k8s/clusters/<cluster>/`
-
-## Pre-commit Hooks
-
-Configured in `.pre-commit-config.yaml`:
-- yamllint for YAML validation
-- Trailing whitespace and EOF fixes
-- SOPS secret detection (forbid-secrets)
-- Line ending normalization
-
-Run manually: `pre-commit run --all-files`
-
-## Cross-Repository Impact
-
-When making infrastructure changes affecting system-level configurations (networking, storage, security policies), consider the impact on the [anthr76/snowflake](https://github.com/anthr76/snowflake) repository which manages host-level configuration.
-
-With the ongoing Terraform removal, most infrastructure changes will likely belong in the snowflake repository rather than this one.
-
-## Gateway and Domain Patterns
-
-### Cilium Gateway API
-
-This cluster uses Cilium Gateway API for HTTP routing with two main gateways in the `kube-system` namespace:
-
-- **cilium-internal**
-  - For internal-only services
-  - Domain pattern: `*.qgr1.rabbito.tech`
-
-- **cilium-external**
-  - For publicly accessible services
-  - Domain pattern: `*.kutara.io`
-
-### HTTPRoute Configuration
-
-All applications should use `HTTPRoute` resources instead of traditional Ingress objects.
-
-**Internal Service Example:**
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: example-app
-  namespace: media
-spec:
-  parentRefs:
-    - name: cilium-internal
-      namespace: kube-system
-  hostnames:
-    - example-app.qgr1.rabbito.tech
-  rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
-        - name: example-app
-          port: 80
-```
-
-**External Service Example:**
-```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: example-app
-  namespace: media
-spec:
-  parentRefs:
-    - name: cilium-external
-      namespace: kube-system
-  hostnames:
-    - example-app.kutara.io
-  rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
-        - name: example-app
-          port: 80
-```
-
-### Domain Assignments
-
-**Internal Services (qgr1.rabbito.tech)** - Most media and automation services that don't need public access:
-- prowlarr.qgr1.rabbito.tech
-- sonarr.qgr1.rabbito.tech
-- radarr.qgr1.rabbito.tech
-- bazarr.qgr1.rabbito.tech
-- autobrr.qgr1.rabbito.tech
-- qb.qgr1.rabbito.tech
-- cross-seed.qgr1.rabbito.tech
-- tautulli.qgr1.rabbito.tech
-- nzbget.qgr1.rabbito.tech
-
-**External Services (kutara.io)** - Publicly accessible services:
-- plex.kutara.io - Plex media server
-- requests.kutara.io - Overseerr request management
-
-**TLS Configuration:** Certificates are managed by cert-manager using Let's Encrypt. Gateway resources handle certificate management at the gateway level rather than individual HTTPRoutes.
-
-## Media Namespace Conventions
-
-### App Template Chart
-
-All media applications use the bjw-s `app-template` Helm chart (version 4.x+) from the `bjw-s` HelmRepository in the `flux-system` namespace.
-
-**Standard HelmRelease structure:**
-```yaml
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: app-name
-  namespace: media
-spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 4.x.x
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-  values:
-    controllers:
-      app-name:
-        containers:
-          app:
-            # Container configuration
-```
-
-### Security Context Standard
-
-All applications run with hardened security contexts:
-
-```yaml
-pod:
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000
-    fsGroupChangePolicy: OnRootMismatch
-    seccompProfile:
-      type: RuntimeDefault
-
-containers:
-  app:
-    securityContext:
-      allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
-      capabilities:
-        drop:
-          - ALL
-```
-
-### Persistence Patterns
-
-**Config Storage** - Each application has its own config PVC (separate PersistentVolumeClaim resource):
-
-```yaml
-# config-pvc.yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: app-name-config-v1
-  namespace: media
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: fast-ceph-block
-
-# In HelmRelease values:
-persistence:
-  config:
-    existingClaim: app-name-config-v1
-```
-
-**Shared Media Storage** - Most applications mount the shared `media-v2` PVC:
-
-```yaml
-persistence:
-  media:
-    existingClaim: media-v2
-    globalMounts:
-      - path: /media
-```
-
-**Temporary Storage** - For temporary files and caches:
-
-```yaml
-persistence:
-  tmp:
-    type: emptyDir
-    globalMounts:
-      - path: /tmp
-```
-
-### Image Tag Patterns
-
-- Use SHA256-pinned tags for reproducibility
-- Format: `version@sha256:hash`
-- Example: `ghcr.io/onedr0p/plex:1.42.2@sha256:9ad8a3506e1d8ebda873a668603c1a2c10e6887969564561be669efd65ae8871`
-
-### Health Probes
-
-Standard liveness and readiness probes using HTTP endpoints:
-
-```yaml
-probes:
-  liveness:
-    enabled: true
-  readiness:
-    enabled: true
-  startup:
-    enabled: true
-    spec:
-      failureThreshold: 30
-      periodSeconds: 10
-```
-
-Common health endpoints:
-- Arr apps (Radarr, Sonarr, Prowlarr): `/ping`
-- Bazarr: `/health`
-- Plex: `/identity`
-- Tautulli: `/status`
-- Autobrr: `/api/healthz/liveness`
-
-### Resource Limits
-
-Standard resource limits by application type:
-
-- **Lightweight apps** (10m CPU, 1Gi RAM): Prowlarr, Bazarr, Tautulli, Autobrr
-- **Media processing** (100m CPU, 4-8Gi RAM): Radarr, Sonarr, Nzbget
-- **Heavy apps** (100m CPU, 16Gi RAM): Plex
-- **Torrent clients** (10m CPU, 512Mi RAM): qbittorrent
-
-### App-Template Migration (v1/v2 → v4)
-
-The v4 chart uses a different structure:
-
-**Old (v1/v2):**
-```yaml
-values:
-  image:
-    repository: ...
-  service:
-    main:
-      ports:
-        http:
-          port: 80
-```
-
-**New (v4):**
-```yaml
-values:
-  controllers:
-    app-name:
-      containers:
-        app:
-          image:
-            repository: ...
-  service:
-    app:
-      controller: app-name
-      ports:
-        http:
-          port: 80
-```
-
-### UID/GID Changes
-
-When changing security context from 568:568 to 1000:1000, you may need to fix permissions on PVCs:
+### Infrastructure & Cloud
+- **Terraform**: Infrastructure provisioning and state management
+- **Terraform Cloud**: Remote state management (organization: "kutara", "rabbito-home")
+- **Google Cloud Platform**: Cloud infrastructure, GKE, Secret Manager
+- **Cloudflare**: DNS management and CDN
+- **Backblaze B2**: Object storage for backups
+- **Fedora CoreOS**: Immutable OS for containers and Kubernetes nodes
+- **Libvirt/QEMU**: Virtualization for on-premises infrastructure
+- **System Configuration**: Node and router configurations managed in [anthr76/snowflake](https://github.com/anthr76/snowflake)
+
+### Development & Automation
+- **Flox**: Nix-based development environment for consistent tooling across contributors
+- **Justfile**: Task automation and command standardization (preferred over shell scripts)
+- **Renovate**: Automated dependency management for container images, Helm charts, and Terraform modules
+
+### Kubernetes & GitOps
+- **Flux CD**: GitOps continuous delivery operator
+- **Kustomize**: Kubernetes configuration management
+- **Helm**: Package management via HelmReleases
+- **SOPS**: Secrets encryption with age/PGP keys
+- **External Secrets**: Kubernetes secret synchronization
+- **MetalLB**: Load balancer for bare metal Kubernetes
+- **Cilium**: Container networking (CNI)
+- **Rook Ceph**: Distributed storage
+- **VolSync**: Asynchronous PVC replication for backup and disaster recovery
+
+### Applications & Services
+- **Home Automation**: Home Assistant, ESPHome, Zigbee2MQTT, Z-Wave JS UI
+- **Media Services**: Plex ecosystem, cross-seed, qBittorrent
+- **Monitoring**: Prometheus, Grafana, Alert Manager
+- **Networking**: Unifi Controller, pfSense
+- **Databases**: PostgreSQL (CloudNative-PG), Redis, CouchDB
+- **Backup & Replication**: VolSync for PVC backup/restore to external storage (rsync.net)
+
+## Coding Standards & Guidelines
+
+### Terraform
+- Use consistent resource naming: `{service}-{environment}-{resource_type}`
+- Always specify provider versions in `required_providers` blocks
+- Use data sources for external references (e.g., SOPS files)
+- Implement proper variable validation and descriptions
+- Use `terraform fmt` and follow HashiCorp style guidelines
+- Store state remotely in Terraform Cloud
+- Use SOPS for sensitive variables (*.sops.yaml files)
+- **Module Versioning**: Pin Terraform module versions for Renovate to manage updates
+- Avoid using `latest` or branch references for module sources
+
+### Kubernetes & Flux
+- Follow GitOps principles: all changes via Git commits
+- Use Kustomize for configuration management, avoid raw YAML duplication
+- Implement proper resource requests/limits for all workloads
+- Use NetworkPolicies for security isolation
+- Apply consistent labeling: `app.kubernetes.io/name`, `app.kubernetes.io/component`
+- Use HelmReleases with versioned charts, avoid `latest` tags
+- Implement monitoring for all custom applications
+- Use External Secrets for secret management, never commit secrets
+
+### File Naming & Organization
+- Terraform files: `main.tf`, `variables.tf`, `providers.tf`, `outputs.tf`
+- **Kubernetes Namespace Mapping**: Each directory under `k8s/base/` must map 1:1 to a Kubernetes namespace
+  - Example: `k8s/base/volsync-system/` contains resources for the `volsync-system` namespace
+  - Example: `k8s/base/home/` contains resources for the `home` namespace
+- **Helm Repositories**: All HelmRepository CRs belong in `k8s/base/flux-system/helm-chart-repositories/`
+- **External Secrets**: Use the existing `gcp-kutara-prod` ClusterSecretStore for all secret management
+- **Avoid Custom Scripts**: Use Justfile for automation instead of shell scripts or custom tooling
+- **Development Environment**: Use the Flox manifest (`.flox/env/manifest.toml`) for managing development tools and dependencies
+- Use meaningful directory names that reflect their purpose
+- Keep related resources grouped logically
+
+### Security Best Practices
+- Never commit unencrypted secrets or sensitive data
+- Use SOPS for secret encryption with appropriate key management
+- Implement least-privilege IAM policies
+- Use service accounts with minimal required permissions
+- Enable audit logging for all critical resources
+- Regularly rotate credentials and certificates
+
+### Automation & Scripting Guidelines
+- **Prefer Justfile**: Use `just` commands over shell scripts for automation
+- **Avoid Custom Scripts**: Custom shell scripts should be rare; use Justfile tasks instead
+- **Development Tools**: Manage tool dependencies via the Flox manifest (`.flox/env/manifest.toml`), not system-level installation
+- **Task Documentation**: All Justfile tasks should have clear descriptions and usage examples
+
+### Documentation
+- Update relevant documentation for any infrastructure changes
+- Include migration guides for breaking changes
+- Document any manual intervention requirements
+- Keep README files updated with current deployment procedures
+
+## Development Workflow
+
+### Development Environment Setup
+This repository uses [Flox](https://flox.dev/) (Nix-based development environments) to ensure consistent tooling across all contributors:
 
 ```bash
-kubectl exec -it <pod-name> -n media -- chown -R 1000:1000 /config
+# Enter the development environment (installs all required tools)
+flox activate
+
+# Verify tools are available
+just --version
+kubectl version --client
+flux version
 ```
 
-Or use an init container:
+**Benefits of Flox**:
+- Consistent tool versions across all developers
+- Automatic installation of required dependencies
+- No need to manually install kubectl, flux, etc.
+- Environment isolation prevents version conflicts
 
-```yaml
-initContainers:
-  fix-permissions:
-    image: busybox:latest
-    command: ['sh', '-c', 'chown -R 1000:1000 /config']
-    volumeMounts:
-      - name: config
-        mountPath: /config
-```
+**Development Environment File**: `.flox/env/manifest.toml` defines all required tools
+and their versions. `kubectl-volsync` is a custom Go build under
+`.flox/pkgs/kubectl-volsync/`; run `flox build kubectl-volsync` once to compile it.
 
-## Additional Resources
+### Dependency Management with Renovate
+This repository uses **Renovate** for automated dependency management. All version updates should go through Renovate:
 
-- **Detailed Guidelines:** See `.github/instructions/.instructions.md` for comprehensive coding standards, file organization, and Kubernetes/Terraform best practices
-- **Documentation:** Check `docs/` directory for specific setup guides (VolSync, secrets, etc.)
-- **Community:** [k8s@home Discord](https://discord.gg/5sutTcCav5)
+- **Container Images**: All `image.tag` values in HelmReleases and Kubernetes manifests
+- **Helm Chart Versions**: Chart versions in HelmRelease `spec.chart.spec.version`
+- **Terraform Modules**: Module version constraints in Terraform configurations
+- **GitHub Actions**: Action versions in workflow files
+- **Base Images**: Dockerfile FROM statements and container registry references
+
+**Renovate Guidelines**:
+- Never manually update versions that Renovate manages
+- Review Renovate PRs for breaking changes and release notes
+- Use semantic versioning constraints where appropriate
+- Pin specific versions rather than using `latest` or floating tags
+- Test Renovate updates in staging before merging to production
+
+### Making Changes
+1. **Environment Setup**: Use `flox activate` to enter the development environment with all required tools
+2. Create feature branch from `main`
+3. Test changes in development/staging environment first
+4. Use `just` commands for common operations (defined in Justfile) instead of custom scripts
+5. Validate Terraform with `terraform plan`
+6. Test Kubernetes changes with dry-run deployments
+7. Update documentation as needed
+
+### Flux Operations
+- Use `kubectl` with Flux annotations for manual reconciliation
+- Monitor Flux controller logs for deployment status
+- Use `flux` CLI for debugging GitOps issues
+- Suspend/resume resources during maintenance windows
+
+### Tools & Commands
+- `just` - Task runner with predefined infrastructure operations (preferred over custom scripts)
+- `flux` - Flux CLI for GitOps operations
+- `kubectl` - Kubernetes cluster interaction
+- `terraform` - Infrastructure provisioning
+- `sops` - Secret encryption/decryption
+- `kustomize` - Configuration management
+- **Renovate** - Automated dependency updates via pull requests for container images, Helm charts, and Terraform modules
+- **Flox** - Development environment management with Nix for consistent tooling and dependencies
+
+## Environment-Specific Notes
+
+### Production Environments
+- `scr1` - Primary on-premises site with Kubernetes cluster
+  - **⚠️ HIGH PRIORITY**: `scr1` should eventually be renamed to `qg1` due to physical location change
+  - This migration is complex due to extensive cross-references in DNS, Terraform states, Kubernetes configs, and certificates
+  - Breaking change that requires careful planning and coordinated updates across the entire infrastructure
+- `nwk1` - Secondary network site
+- All production changes require careful planning and staging
+
+### Cloud Resources
+- GCP projects use random suffixes for uniqueness
+- Terraform states are managed remotely
+- Cross-cloud networking configured via Cloudflare
+
+### Backup Strategy
+- Backblaze B2 for object storage backups
+- **VolSync**: Persistent volume replication to rsync.net for off-site backup and disaster recovery
+- Persistent volumes backed by Ceph storage
+- Configuration backed up via Git repository
+
+## Repository Maintenance Notes
+
+### Dead Code Cleanup Required
+This repository contains significant amounts of dead/commented code that needs cleanup:
+
+- **Terraform**: Many `.tf` files contain large commented blocks (e.g., `armature/prod/b2/buckets.tf`, GKE configurations)
+- **Kubernetes**: Unused manifest files and deprecated configurations
+- **Legacy Infrastructure**: Old VM definitions, unused network configurations
+- **Commented Resources**: Extensively commented-out Terraform resources that should be removed or uncommented
+
+**Guidelines for Dead Code Cleanup**:
+- Remove commented code blocks that are confirmed unused
+- Archive old configurations to separate branches if needed for reference
+- Document reasoning for any temporarily disabled resources
+- Prioritize cleanup during major refactoring efforts
+- Always verify dependencies before removing seemingly unused code
+
+### Critical Migration: scr1 → qg1
+**Status**: High Priority, Breaking Change Required
+
+The `scr1` site designation needs to be migrated to `qg1` due to physical infrastructure relocation. This affects:
+
+- **DNS Records**: `*.scr1.rabbito.tech` domains and subdomains
+- **Terraform States**: Remote state names and resource references
+- **Kubernetes Clusters**: Cluster names and ingress configurations
+- **Certificates**: TLS certificates tied to scr1 domains
+- **Monitoring**: Grafana dashboards, Prometheus rules, alert configurations
+- **Documentation**: All references in docs and README files
+- **Hostnames**: VM hostnames and network configurations
+
+**Migration Strategy Needed**:
+1. Inventory all scr1 references across the repository
+2. Plan DNS migration strategy with minimal downtime
+3. Coordinate Terraform state migrations
+4. Update Kubernetes cluster configurations
+5. Regenerate certificates for new domains
+6. Update monitoring and alerting rules
+7. Comprehensive testing in staging environment
+
+When making suggestions or changes, always consider the impact on the entire infrastructure ecosystem and follow the established patterns and conventions used throughout the repository. Be aware of the extensive dead code cleanup needed and the high-priority scr1→qg1 migration requirements.
+
+## Cross-Repository Dependencies
+
+### System Configuration Repository
+For system-level configuration of nodes, routers, and infrastructure components, refer to:
+- **Repository**: [anthr76/snowflake](https://github.com/anthr76/snowflake)
+- **Scope**: Operating system configurations, network device settings, base system setup
+- **Relationship**: The snowflake repository handles host-level configuration while this repository manages containerized applications and cloud infrastructure
+
+When making infrastructure changes that affect system-level configurations (networking, storage, security policies), consider the impact on configurations managed in the snowflake repository.
 
 ---
 > Source: [anthr76/infra](https://github.com/anthr76/infra) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
