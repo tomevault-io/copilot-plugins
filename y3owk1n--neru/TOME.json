@@ -2,9 +2,9 @@
   "name": "neru",
   "owner": "y3owk1n",
   "repo": "neru",
-  "description": "Keyboard-driven navigation for macOS and partial linux (possible for windows) - Navigate and click without touching your mouse.",
+  "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,27 @@
       "path": ".opencode/skills/test",
       "github_url": "https://github.com/y3owk1n/neru/tree/main/.opencode/skills/test",
       "description": ""
+    },
+    {
+      "name": "neru",
+      "path": ".opencode/skills/lint/SKILL.md",
+      "github_url": "https://github.com/y3owk1n/neru/tree/main/.opencode/skills/lint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neru",
+      "path": ".opencode/skills/test/SKILL.md",
+      "github_url": "https://github.com/y3owk1n/neru/tree/main/.opencode/skills/test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "neru",
+      "path": ".opencode/skills/greptile-review/SKILL.md",
+      "github_url": "https://github.com/y3owk1n/neru/tree/main/.opencode/skills/greptile-review/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/y3owk1n/neru",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T01:37:11Z"
+  "distributed_at": "2026-07-30T21:15:17Z"
 }
