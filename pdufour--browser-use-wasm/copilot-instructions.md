@@ -1,23 +1,20 @@
-## green-circle-commit
+## llm-intent-parsing
 
-> Green Circle commit message format for perf wins
+> Voice transcripts and the Goal "Run task" input go through **one** LLM path: the
 
+# LLM task parsing (ShowUI navigation mode)
 
-# Green Circle commits
+Voice transcripts and the Goal "Run task" input go through **one** LLM path: the
+ShowUI-2B **UI Navigation** mode from the model card (`src/actions/navigation.js`)
+— task + screenshot → `{'action', 'value', 'position'}` dicts.
 
-Only commit E2E perf wins when `npm run test` passes 3/3.
+## Rules
 
-**Message format:** `{taskMs}ms 🟢 {E2EModelId} {description}`
-
-- **taskMs** — best (lowest) Run task inference ms across the 3× run, from local `e2e-results.txt` (gitignored) / `[perf:e2e] task inference` (Green Circle metric). Not task wall, not load time.
-- **E2EModelId** — model under test in `npm run test` (today **ShowUI-2B** only; see `blackbox-e2e.mdc`).
-- **description** — short what changed.
-
-Examples:
-
-- `2100ms 🟢 ShowUI-2B navigation-mode Run task`
-
-Do not omit the model id. Do not use wall ms for the prefix number.
+- **Zero Regex Parsing:** NEVER use regular expressions or manual string matching to map natural language to actions — no phrase→tool parsers in shipped code. The E2E harness injects **structured tool calls** (`__e2eVoiceTool`); it never parses phrases.
+- **Card-verbatim prompts:** The navigation system prompt, action space, and format come from the ShowUI-2B model card. No custom tool-call JSON prompts, no second intent model/prompt.
+- **One inference per utterance:** transcript = `Task:`, screenshot = observation. Execute the returned action sequence (`executeNavigationAction`); do not fan out per-action inferences.
+- **Async Flow:** Parsing is asynchronous — promise-chain interpretation and execution.
+- **Client-Side Only:** Inference happens entirely in the browser wllama worker.
 
 ---
 > Source: [pdufour/browser-use-wasm](https://github.com/pdufour/browser-use-wasm) — distributed by [TomeVault](https://tomevault.io).
