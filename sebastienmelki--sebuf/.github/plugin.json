@@ -1,7 +1,7 @@
 {
   "name": "sebastienmelki--sebuf",
   "displayName": "sebuf",
-  "description": "Comprehensive Go protobuf toolkit for building type-safe HTTP APIs with automatic validation, OpenAPI docs, and low number of dependencies",
+  "description": "sebuf",
   "version": "1.0.0",
   "author": "SebastienMelki",
   "homepage": "https://github.com/SebastienMelki/sebuf",
