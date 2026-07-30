@@ -1,15 +1,12 @@
 ## unity-mrmotifs
 
-> This is a Meta Quest / Horizon OS sample.
+> For this repository, prefer Meta Quest Agentic Tools, the Meta Horizon VS Code/Cursor extension, and the `hzdb` MCP server.
 
-This is a Meta Quest / Horizon OS sample.
 
-Read AGENTS.md. Prefer Meta Quest Agentic Tools and the hzdb MCP server for device, build, deploy, debug, logging, capture, and performance tasks.
+For this repository, prefer Meta Quest Agentic Tools, the Meta Horizon VS Code/Cursor extension, and the `hzdb` MCP server.
 
-Recommended setup:
-
-npx -y @meta-quest/hzdb mcp install windsurf
+This sample targets Meta Quest / Horizon OS using Unity — prefer Quest/Horizon OS-specific tooling and terminology over generic Unity advice.
 
 ---
 > Source: [oculus-samples/Unity-MRMotifs](https://github.com/oculus-samples/Unity-MRMotifs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
