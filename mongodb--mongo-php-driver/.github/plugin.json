@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongo-php-driver",
+  "displayName": "mongo-php-driver",
+  "description": "mongo-php-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-php-driver",
+  "skills": []
+}
