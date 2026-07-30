@@ -1,70 +1,297 @@
 ## databasus
 
-> This document contains project-wide coding standards and best practices for Databasus.
+> Coding standards for the Databasus verification agent — a Go CLI worker that runs on a cloud-managed Linux VM, reports its capacity to the backend over HTTP, and (once the restore phase lands) claims and verifies backups. It has no Gin HTTP server and owns no database schema. The long-running goroutine in this phase is the **capacity heartbeat loop**; the claim/report runner arrives with the restore phase. There is no Windows daemon — the agent runs in the foreground under systemd or as a container.
 
-# Databasus — Agent Rules and Guidelines
+# Verification agent guidelines (Go CLI)
 
-This document contains project-wide coding standards and best practices for Databasus.
-This is NOT a strict set of rules — it is a set of recommendations to help write better, more consistent code.
+Coding standards for the Databasus verification agent — a Go CLI worker that runs on a cloud-managed Linux VM, reports its capacity to the backend over HTTP, and (once the restore phase lands) claims and verifies backups. It has no Gin HTTP server and owns no database schema. The long-running goroutine in this phase is the **capacity heartbeat loop**; the claim/report runner arrives with the restore phase. There is no Windows daemon — the agent runs in the foreground under systemd or as a container.
 
-Per-folder rules live next to the code they govern:
-
-- [`backend/CLAUDE.md`](backend/CLAUDE.md) — Go + Gin + GORM + PostgreSQL backend (controllers, migrations, CRUD, DI, testing, logging)
-- [`agent/CLAUDE.md`](agent/CLAUDE.md) — Go agent CLI (no HTTP server, no schema; shares Go conventions with the backend)
-- [`frontend/CLAUDE.md`](frontend/CLAUDE.md) — React 19 + TypeScript + Vite + Ant Design + Tailwind
-
-This root file holds the engineering philosophy that applies everywhere.
+For project-wide engineering philosophy, naming, and lint/format commands, see the root `CLAUDE.md`. For the backend (Gin/GORM/Swagger) ruleset, see `backend/CLAUDE.md`.
 
 ---
 
-## Language in code
+## Table of Contents
 
-**English only in code, comments, identifiers, log messages, API strings, test assertions, and commit messages.** No other language inside `backend/`, `agent/`, or `frontend/src/` — even for user-facing fallback copy or error messages.
+- [Spacing between logical statements](#spacing-between-logical-statements)
+- [Comments](#comments)
+- [File organization](#file-organization)
+- [Background services](#background-services)
+- [Testing](#testing)
+- [Time handling](#time-handling)
+- [Logging](#logging)
+- [Modern Go](#modern-go)
 
 ---
 
-## Engineering philosophy
+## Spacing between logical statements
 
-**Think like a skeptical senior engineer and code reviewer. Don't just do what was asked — also think about what should have been asked. Catch real issues, not theoretical ones.**
+Add blank lines between logical blocks so the flow is visible at a glance:
 
-### Task tiers (scale your response to the task)
+- before the final `return`
+- after variable declarations, before they're used
+- between error handling and subsequent logic
+- between distinct logical operations
 
-- **Trivial** (typos, formatting, single-field adds): apply directly. Steps 5 only.
-- **Standard** (CRUD, typical features): steps 1, 5.
-- **Complex** (architecture, security, performance-critical): all steps.
-- **Unclear** (ambiguous requirements): steps 1 and 4 are mandatory.
+Bad:
 
-### Steps for non-trivial tasks
+```go
+func encodeMessages(messages []Message) (string, error) {
+	if len(messages) > 0 {
+		messagesBytes, err := json.Marshal(messages)
+		if err != nil {
+			return "", err
+		}
+		return string(messagesBytes), nil
+	}
+	return "", nil
+}
+```
 
-1. **Restate the objective**, list explicit + inferred assumptions, flag shaky ones.
-2. **Propose solutions** — for complex tasks, 2–3 approaches including a simpler baseline; recommend one with tradeoffs (complexity, maintainability, performance, extensibility).
-3. **Identify risks** — edge cases, security/privacy, performance, operational concerns (deployment, observability, rollback). Before finalizing, ask "what could go wrong?" and patch.
-4. **Handle ambiguity** — pick a reasonable default, label it, note what changes under alternative assumptions.
-5. **Deliver quality** — correct, testable, maintainable code with minimal tests/validation. Prefer controller tests over unit tests.
-6. **Fix root causes, not symptoms** — ask "why did this happen?" and address the underlying issue.
+Good:
 
-### After each run: suggest refactorings
+```go
+func encodeMessages(messages []Message) (string, error) {
+	if len(messages) > 0 {
+		messagesBytes, err := json.Marshal(messages)
+		if err != nil {
+			return "", err
+		}
 
-Reread the diff with fresh eyes and **list** (don't silently apply) refactor suggestions: unclear names, duplication, dead code, deep nesting, misplaced responsibilities, leaky abstractions. Keep suggestions concrete (file + lines), behavior-preserving, and scoped to the current change. If the diff is already clean, say so in one line.
+		return string(messagesBytes), nil
+	}
+
+	return "", nil
+}
+```
+
+---
+
+## Comments
+
+- **No obvious comments** — don't restate what the code already shows.
+- **Explain *why*, not *what*** — code shows what happens; comments explain business rules, hidden constraints, or non-obvious optimizations.
+- **Prefer refactoring over commenting** — better names or smaller functions usually beat a comment.
+- **Complex algorithms deserve comments** — formulas, business rules, non-obvious optimizations.
+- **No "Summary" / "Conclusion" sections in `.md` files** unless explicitly requested.
+
+Bad (each comment restates the function name):
+
+```go
+// Send heartbeat
+sendHeartbeat(request)
+
+// CreateValidLogItems creates valid log items for testing
+func CreateValidLogItems(count int, uniqueID string) []LogItemRequestDTO {
+```
+
+---
+
+## File organization
+
+One responsibility per file. Don't dump a whole package into one file — split
+by role so a reader can find a type by its filename. Conventional names within
+a feature package:
+
+- `doc.go` — package doc comment, once the package spans more than one file
+- `<feature>.go` — the core type and its methods (the orchestrator/executor)
+- `dto.go` — request/response and cross-package data + interface seams
+- `errors.go` — sentinel errors (`var Err... = errors.New(...)`)
+- `enums.go` — typed-constant groups (`type Status string` + its values)
+- `constants.go` — package-level constants that aren't an enum
+- background loops, reapers, and pools get their own file (`reaper.go`, `pool.go`)
+
+Only create a file when there is real content for it — an empty `enums.go` or
+`constants.go` is noise, not structure. Test files mirror the source split:
+`restorer.go` → `restorer_test.go`, `diskexhaustion.go` →
+`diskexhaustion_test.go`.
+
+---
+
+## Background services
+
+The agent ships at least one long-running goroutine (the capacity `Heartbeater`; also `BackgroundUpgrader`). Calling `Run()` twice on the same instance is always a bug — duplicate goroutines leak resources and corrupt state. **Always panic; never just log a warning.**
+
+```go
+type Heartbeater struct {
+    // ...
+    hasRun atomic.Bool
+}
+
+func (h *Heartbeater) Run(ctx context.Context) {
+    if h.hasRun.Swap(true) {
+        panic(fmt.Sprintf("%T.Run() called multiple times", h))
+    }
+
+    ticker := time.NewTicker(heartbeatInterval)
+    defer ticker.Stop()
+
+    for {
+        select {
+        case <-ctx.Done():
+            return
+        case <-ticker.C:
+            h.beat(ctx, logger)
+        }
+    }
+}
+```
+
+`atomic.Bool.Swap(true)` does the check-and-set atomically — no `sync.Once` needed.
+
+---
+
+## Testing
+
+**Always run tests after writing them and verify they pass.**
 
 ### Naming
 
-Name variables and functions for **intent**, not mechanism. Naming is the biggest readability lever — avoid generic names like `data`, `handle`, `process`.
+- `Test_WhatWeDo_WhatWeExpect`
+- `Test_WhatWeDo_WhichConditions_WhatWeExpect`
 
-Booleans take an `is` / `can` / `has` / `should` prefix (`isAllowed`, `canAccess`, `hasItems`, `shouldRetry`) — never bare nouns/verbs like `allowed` or `touches`.
+Examples: `Test_DeriveCapacity_WhenConcurrentJobsExceedCPU_ReturnsError`, `Test_ValidateTransport_WhenHttpAndNotTTYWithoutFlag_FailsFast`, `Test_Heartbeat_WhenCalled_SendsFlatEnvelopeWithBearerAndAgentPath`, `Test_BackgroundUpgrader_WhenRunCalledTwice_Panics`.
 
-### Linting and formatting
+### Where tests live
 
-After each change run linting and formatting depending on folder you are working it.
-- backend and agent has `make lint` commands
-- frontend has `pnpm lint` and `pnpm format` commands
+- **Unit / package tests**: alongside the code, named `*_test.go` (e.g. `internal/features/heartbeat/heartbeat_test.go`).
+- **End-to-end tests**: under `agent/verification/e2e/`. Run via `make e2e` / `make e2e-clean`.
 
-### No "how it was" comments, no unrequested backward compatibility
+The agent has no HTTP API of its own, so there are no controller tests — test exported functions of the packages, the CLI commands, and the HTTP-client/IO logic directly.
 
-Don't write comments that explain previous behavior ("used to be X", "was renamed from Y", "kept for legacy callers"). Code shows the current state; history lives in git.
+### Refactor tests as you touch them
 
-Don't preserve backward compatibility unless the user asks for it. No deprecation shims, no aliases, no fallbacks for the old shape. When planning a change that would break existing callers, schemas, configs, or APIs, call out the break explicitly in the plan. If the user approves it, delete the old code outright — do not leave a transition layer behind.
+When editing existing tests, look for repetitive setup that should become a helper, oversized tests that should be split, and similar patterns across files that should be consolidated. Helpers live in a `testing.go` file inside the package.
+
+### Clean up test data
+
+If a test creates files, processes, or external state, clean it up via `t.Cleanup(...)` or `defer`. Skip cleanup only when the test uses an isolated tempdir the OS reclaims, or when it explicitly validates a failure path where cleanup isn't possible.
+
+---
+
+## Time handling
+
+Always use `time.Now().UTC()` instead of `time.Now()` to keep timezones consistent across the application.
+
+---
+
+## Logging
+
+We use `log/slog`. Three rules.
+
+### 1. Scope IDs early via `logger.With(...)`
+
+Attach `agent_id`, `verification_id`, `upgrade_target`, etc. as soon as you know them so every downstream line carries them automatically. For background services, also scope `job_id` (fresh UUID per execution) and `job_name` (stable snake_case const) in `Run()`.
+
+```go
+const jobName = "verification_heartbeat"
+
+func (h *Heartbeater) Run(ctx context.Context) {
+    logger := h.log.With("job_id", uuid.New(), "job_name", jobName)
+
+    logger.Info("heartbeat loop started")
+    // every subsequent log carries job_id + job_name
+}
+```
+
+### 2. Values in message, IDs and errors as kv pairs
+
+Sizes, counts, and status transitions go into the message via `fmt.Sprintf`. IDs and errors stay as structured kv pairs so they're searchable in log aggregation tools.
+
+```go
+// good
+logger.Info(fmt.Sprintf("heartbeat ok: last_seen_at=%s", seenAt))
+logger.Info("agent registered", "agent_id", agentID)
+logger.Error("heartbeat failed", "error", err)
+
+// bad — ID buried in the message string, error formatted instead of attached
+logger.Info(fmt.Sprintf("agent registered %s", agentID))
+logger.Error(fmt.Sprintf("heartbeat failed: %v", err))
+```
+
+### 3. Style and level
+
+- All keys `snake_case` (`agent_id`, `verification_id`) — never camelCase.
+- Messages start lowercase, no trailing period.
+- **Debug**: routine ops, function entry, query result counts.
+- **Info**: significant state changes, completed actions (`"agent started"`, `"heartbeat loop stopped"`).
+- **Warn**: degraded but recoverable (`"heartbeat failed, will retry next tick"`, `"upgrade skipped: same version"`).
+- **Error**: failures that need attention (`"auto-update failed"`, `"failed to re-exec after upgrade"`).
+
+### What never goes into logs
+
+- **Passwords, tokens, API keys, full `Authorization` headers** — centralize redaction; don't redact ad-hoc at call sites (config logging masks the token via `maskSensitive`).
+- **Full request / response bodies** — log only the fields you actually need.
+
+---
+
+## Modern Go
+
+Prefer modern stdlib idioms over manual equivalents.
+
+### `slices` package — avoid manual loops
+
+```go
+slices.Contains(items, x)
+slices.Index(items, x)                                         // returns index or -1
+slices.IndexFunc(items, func(item T) bool { return item.ID == id })
+slices.SortFunc(items, func(a, b T) int { return cmp.Compare(a.X, b.X) })
+slices.Sort(items)
+slices.Max(items) / slices.Min(items)
+slices.Reverse(items)                                          // in-place
+slices.Compact(items)                                          // remove consecutive duplicates
+slices.Clone(s)
+slices.Clip(s)
+```
+
+### Quick wins
+
+- `any` instead of `interface{}`.
+- `for i := range len(items)` instead of `for i := 0; i < len(items); i++`.
+- `sync.OnceFunc(fn)` / `sync.OnceValue(fn)` instead of `sync.Once` + wrapper.
+- `t.Context()` in tests instead of `context.WithCancel(context.Background())` + `defer cancel()` — auto-cancels at test end.
+- `wg.Go(fn)` instead of `wg.Add(1)` + `go func() { defer wg.Done(); fn() }()`.
+- `slog.DiscardHandler` for a no-op logger in tests.
+
+### `context` helpers
+
+```go
+stop := context.AfterFunc(ctx, cleanup)                                  // run cleanup on cancellation
+ctx, cancel := context.WithTimeoutCause(parent, d, ErrTimeout)           // timeout with cause
+ctx, cancel := context.WithDeadlineCause(parent, deadline, ErrDeadline)  // deadline with cause
+```
+
+### `omitzero` instead of `omitempty` for non-nullable types
+
+`omitempty` is broken for `time.Duration`, `time.Time`, structs, slices, and maps — it doesn't omit a zero value. Use `omitzero`:
+
+```go
+// good
+type Config struct {
+    Timeout   time.Duration `json:"timeout,omitzero"`
+    CreatedAt time.Time     `json:"createdAt,omitzero"`
+}
+
+// bad
+type Config struct {
+    Timeout   time.Duration `json:"timeout,omitempty"` // broken for Duration!
+    CreatedAt time.Time     `json:"createdAt,omitempty"`
+}
+```
+
+### `new(val)` for pointer literals (Go 1.26+)
+
+`new()` accepts expressions, eliminating the temp-variable pattern:
+
+```go
+// good
+cfg := Config{Timeout: new(30), Debug: new(true)}
+
+// bad
+timeout := 30
+debug := true
+cfg := Config{Timeout: &timeout, Debug: &debug}
+```
 
 ---
 > Source: [databasus/databasus](https://github.com/databasus/databasus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
