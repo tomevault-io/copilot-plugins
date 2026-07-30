@@ -1,0 +1,9 @@
+{
+  "name": "pgedge--pgedge-rag-server",
+  "displayName": "pgedge-rag-server",
+  "description": "pgedge-rag-server",
+  "version": "1.0.0",
+  "author": "pgEdge",
+  "homepage": "https://github.com/pgEdge/pgedge-rag-server",
+  "skills": []
+}
