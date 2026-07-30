@@ -1,83 +1,107 @@
-## java-spring-cursor-rules
+## platform-context-exporter
 
-> Java Spring Cursor Rules
+> Process map for VAN QA environment validation
 
-You are an expert in Java programming, Spring Boot, Spring Framework, Maven, JUnit, and related Java technologies.
+# VAN QA: ENVIRONMENT VALIDATION
 
-Code Style and Structure
-- Write clean, efficient, and well-documented Java code with accurate Spring Boot examples.
-- Use Spring Boot best practices and conventions throughout your code.
-- Implement RESTful API design patterns when creating web services.
-- Use descriptive method and variable names following camelCase convention.
-- Structure Spring Boot applications: controllers, services, repositories, models, configurations.
+> **TL;DR:** This component verifies that the build environment is properly set up with required tools and permissions.
 
-Spring Boot Specifics
-- Use Spring Boot starters for quick project setup and dependency management.
-- Implement proper use of annotations (e.g., @SpringBootApplication, @RestController, @Service).
-- Utilize Spring Boot's auto-configuration features effectively.
-- Implement proper exception handling using @ControllerAdvice and @ExceptionHandler.
+## 3️⃣ ENVIRONMENT VALIDATION PROCESS
 
-Naming Conventions
-- Use PascalCase for class names (e.g., UserController, OrderService).
-- Use camelCase for method and variable names (e.g., findUserById, isOrderValid).
-- Use ALL_CAPS for constants (e.g., MAX_RETRY_ATTEMPTS, DEFAULT_PAGE_SIZE).
+```mermaid
+graph TD
+    Start["Environment Validation"] --> CheckEnv["Check Build Environment"]
+    CheckEnv --> VerifyBuildTools["Verify Build Tools"]
+    VerifyBuildTools --> ToolsStatus{"Build Tools<br>Available?"}
+    
+    ToolsStatus -->|"Yes"| CheckPerms["Check Permissions<br>and Access"]
+    ToolsStatus -->|"No"| InstallTools["Install Required<br>Build Tools"]
+    InstallTools --> RetryTools["Retry Verification"]
+    RetryTools --> ToolsStatus
+    
+    CheckPerms --> PermsStatus{"Permissions<br>Sufficient?"}
+    PermsStatus -->|"Yes"| EnvSuccess["Environment Validated<br>✅ PASS"]
+    PermsStatus -->|"No"| FixPerms["Fix Permission<br>Issues"]
+    FixPerms --> RetryPerms["Retry Permission<br>Check"]
+    RetryPerms --> PermsStatus
+    
+    style Start fill:#4da6ff,stroke:#0066cc,color:white
+    style EnvSuccess fill:#10b981,stroke:#059669,color:white
+    style ToolsStatus fill:#f6546a,stroke:#c30052,color:white
+    style PermsStatus fill:#f6546a,stroke:#c30052,color:white
+```
 
-Java and Spring Boot Usage
-- Use Java 17 or later features when applicable (e.g., records, sealed classes, pattern matching).
-- Leverage Spring Boot 3.x features and best practices.
-- Use Spring Data JPA for database operations when applicable.
-- Implement proper validation using Bean Validation (e.g., @Valid, custom validators).
+### Environment Validation Implementation:
+```powershell
+# Example: Validate environment for a web project
+function Validate-Environment {
+    $requiredTools = @(
+        @{Name = "git"; Command = "git --version"},
+        @{Name = "node"; Command = "node --version"},
+        @{Name = "npm"; Command = "npm --version"}
+    )
+    
+    $missingTools = @()
+    $permissionIssues = @()
+    
+    # Check build tools
+    foreach ($tool in $requiredTools) {
+        try {
+            Invoke-Expression $tool.Command | Out-Null
+        } catch {
+            $missingTools += $tool.Name
+        }
+    }
+    
+    # Check write permissions in project directory
+    try {
+        $testFile = ".__permission_test"
+        New-Item -Path $testFile -ItemType File -Force | Out-Null
+        Remove-Item -Path $testFile -Force
+    } catch {
+        $permissionIssues += "Current directory (write permission denied)"
+    }
+    
+    # Check if port 3000 is available (commonly used for dev servers)
+    try {
+        $listener = New-Object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Loopback, 3000)
+        $listener.Start()
+        $listener.Stop()
+    } catch {
+        $permissionIssues += "Port 3000 (already in use or access denied)"
+    }
+    
+    # Display results
+    if ($missingTools.Count -eq 0 -and $permissionIssues.Count -eq 0) {
+        Write-Output "✅ Environment validated successfully"
+        return $true
+    } else {
+        if ($missingTools.Count -gt 0) {
+            Write-Output "❌ Missing tools: $($missingTools -join ', ')"
+        }
+        if ($permissionIssues.Count -gt 0) {
+            Write-Output "❌ Permission issues: $($permissionIssues -join ', ')"
+        }
+        return $false
+    }
+}
+```
 
-Configuration and Properties
-- Use application.properties or application.yml for configuration.
-- Implement environment-specific configurations using Spring Profiles.
-- Use @ConfigurationProperties for type-safe configuration properties.
+## 📋 ENVIRONMENT VALIDATION CHECKPOINT
 
-Dependency Injection and IoC
-- Use constructor injection over field injection for better testability.
-- Leverage Spring's IoC container for managing bean lifecycles.
+```
+✓ CHECKPOINT: ENVIRONMENT VALIDATION
+- All required build tools installed? [YES/NO]
+- Project directory permissions sufficient? [YES/NO]
+- Required ports available? [YES/NO]
 
-Testing
-- Write unit tests using JUnit 5 and Spring Boot Test.
-- Use MockMvc for testing web layers.
-- Implement integration tests using @SpringBootTest.
-- Use @DataJpaTest for repository layer tests.
+→ If all YES: Continue to Minimal Build Test.
+→ If any NO: Fix environment issues before continuing.
+```
 
-Performance and Scalability
-- Implement caching strategies using Spring Cache abstraction.
-- Use async processing with @Async for non-blocking operations.
-- Implement proper database indexing and query optimization.
-
-Security
-- Implement Spring Security for authentication and authorization.
-- Use proper password encoding (e.g., BCrypt).
-- Implement CORS configuration when necessary.
-
-Logging and Monitoring
-- Use SLF4J with Logback for logging.
-- Implement proper log levels (ERROR, WARN, INFO, DEBUG).
-- Use Spring Boot Actuator for application monitoring and metrics.
-
-API Documentation
-- Use Springdoc OpenAPI (formerly Swagger) for API documentation.
-
-Data Access and ORM
-- Use Spring Data JPA for database operations.
-- Implement proper entity relationships and cascading.
-- Use database migrations with tools like Flyway or Liquibase.
-
-Build and Deployment
-- Use Maven for dependency management and build processes.
-- Implement proper profiles for different environments (dev, test, prod).
-- Use Docker for containerization if applicable.
-
-Follow best practices for:
-- RESTful API design (proper use of HTTP methods, status codes, etc.).
-- Microservices architecture (if applicable).
-- Asynchronous processing using Spring's @Async or reactive programming with Spring WebFlux.
-
-Adhere to SOLID principles and maintain high cohesion and low coupling in your Spring Boot application design.
+**Next Step (on PASS):** Load `van-qa-checks/build-test.mdc`.
+**Next Step (on FAIL):** Check `van-qa-utils/common-fixes.mdc` for environment fixes. 
 
 ---
 > Source: [alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
