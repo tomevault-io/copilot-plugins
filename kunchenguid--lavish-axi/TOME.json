@@ -2,9 +2,9 @@
   "name": "lavish-axi",
   "owner": "kunchenguid",
   "repo": "lavish-axi",
-  "description": "HTML is the new markdown. Lavish is the new editor for your HTML artifacts.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "gh-axi",
+      "path": "skills/gh-axi/SKILL.md",
+      "github_url": "https://github.com/kunchenguid/lavish-axi/tree/main/skills/gh-axi/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/kunchenguid/lavish-axi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T19:54:09Z"
+  "distributed_at": "2026-07-30T19:18:48Z"
 }
