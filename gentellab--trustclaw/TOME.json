@@ -4,7 +4,7 @@
   "repo": "trustclaw",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GenTelLab/trustclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T23:42:05Z"
+  "distributed_at": "2026-07-30T05:39:57Z"
 }
