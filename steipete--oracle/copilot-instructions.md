@@ -1,38 +1,104 @@
 ## oracle
 
-> Oracle-specific notes:
+> Oracle supports Gemini in two distinct ways:
 
-# AGENTS.MD
+# Gemini Integration
 
-Oracle-specific notes:
+Oracle supports Gemini in two distinct ways:
 
-- ChatGPT project URLs: steipete@gmail.com -> https://chatgpt.com/g/g-p-691edc9fec088191b553a35093da1ea8-oracle/project; studpete@gmail.com -> https://chatgpt.com/g/g-p-69505ed97e3081918a275477a647a682/project. Prefer studpete URL if steipete project not found.
-- Pro browser runs: allow up to 10 minutes; never click "Answer now"; keep at least 1–2 Pro live tests (reattach must stay Pro); move other tests to faster models where safe.
-- Live smoke tests: OpenAI live tests are opt-in. Run `ORACLE_LIVE_TEST=1 pnpm vitest run tests/live/openai-live.test.ts` with a real `OPENAI_API_KEY` when you need the background path; gpt-5-pro can take ~10 minutes.
-- Wait defaults: gpt-5-pro API runs detach by default; use `--wait` to stay attached. gpt-5.1 and browser runs block by default; every run prints `oracle session <id>` for reattach.
-- Session storage: Oracle stores session data under `~/.oracle`; delete it if you need a clean slate.
-- CLI output: the first line of any top-level CLI start banner should use the oracle emoji, e.g. `🧿 oracle (<version>) ...`; keep it only for the initial command headline. Exception: the TUI exit message also keeps the emoji.
-- Model access note (2025-11-23): gpt-5.1-pro and grok-4.1 are not yet available on Peter’s keys; live tests that require them will fail until access is granted.
-- Oracle CLI on Node 25: if `pnpm dlx @steipete/oracle --help` fails with a missing `node_sqlite3.node`, rebuild sqlite3 in the pnpm dlx cache using system Python: `PYTHON=/usr/bin/python3 /Users/steipete/Projects/oracle/runner npx node-gyp rebuild` from the sqlite3 package dir printed in the error, then rerun the command.
-- Before a release, skim manual smokes in `docs/manual-tests.md` and rerun any that cover your change surface (especially browser/serve paths).
-- If browser smokes echo the prompt (Instant), rerun with `--browser-keep-browser --verbose` in tmux, then inspect DOM with `pnpm tsx scripts/browser-tools.ts eval ...` to confirm assistant turns exist; we fixed a case by refreshing assistant snapshots post-send.
-- Browser “Pro thinking” gate: never click/auto-click ChatGPT’s “Answer now” button. Treat it as a placeholder and wait 10m–1h for the real assistant response (auto-clicking skips long thinking and changes behavior).
-- Browser smokes should preserve Markdown (lists, fences); if output looks flattened or echoed, inspect the captured assistant turn via `browser-tools.ts eval` before shipping.
-- Working on Windows? Read and update `docs/windows-work.md` before you start.
-- Sparkle signing key lives at `/Users/steipete/Library/CloudStorage/Dropbox/Backup/Sparkle`; set `SPARKLE_PRIVATE_KEY_FILE` to that path when notarizing the notifier.
-- Browser cookie sync + Node 25: if browser runs fail with “Failed to load keytar… Cannot find module '../build/Release/keytar.node'” and no cookies are applied, rebuild keytar in the pnpm dlx cache: run `PYTHON=/usr/bin/python3 /Users/steipete/Projects/oracle/runner npx node-gyp rebuild` inside the keytar directory printed in the error, then rerun the oracle command.
-- npm publish OTP: prepare/tag/release first, then run `npm publish ...` and stop at `Enter OTP:`; ask user for the OTP and continue (ok to handle OTP in chat).
+1. **Gemini API mode** (`--engine api`) via `GEMINI_API_KEY`
+2. **Gemini web (cookie) mode** (`--engine browser`) via your signed-in Chrome cookies at `gemini.google.com` (no API key required)
 
-Browser-mode debug notes (ChatGPT URL override)
+## Usage (API)
 
-- When a ChatGPT folder/workspace URL is set, Cloudflare can block automation even after cookie sync. Use `--browser-keep-browser` to leave Chrome open, solve the interstitial manually, then rerun.
-- If a run stalls/looks finished but CLI didn’t stream output, check the latest session (`oracle status`) and open it (`oracle session <id> --render`) to confirm completion.
-- Active Chrome port/pid live in session metadata (`~/.oracle/sessions/<id>/meta.json`). Connect with `npx tsx scripts/browser-tools.ts eval --port <port> "({ href: window.location.href, ready: document.readyState })"` to inspect the page.
-- To debug with agent-tools, launch Chrome via an Oracle browser run (cookies copied) and keep it open (`--browser-keep-browser`). Then use `~/Projects/agent-scripts/bin/browser-tools ... --port <port>` with the port from `~/.oracle/sessions/<id>/meta.json`. Avoid starting a fresh browser-tools Chrome when you need the synced cookies.
-- Double-hop nav is implemented (root then target URL), but Cloudflare may still need manual clearance or inline cookies.
-- After finishing a feature, ask whether it matters to end users; if yes, update the changelog. Read the top ~100 lines first and group related edits into one entry instead of scattering multiple bullets.
-- Beta publishing: when asked to ship a beta to npm, bump the version with a beta suffix (e.g., `0.4.4-beta.1`) before publishing; npm will not let you overwrite an existing beta tag without a new version.
+1. **Get an API Key:** Obtain a key from [Google AI Studio](https://aistudio.google.com/).
+2. **Set Environment Variable:** Export the key as `GEMINI_API_KEY`.
+   ```bash
+   export GEMINI_API_KEY="your-google-api-key"
+   ```
+3. **Run Oracle:** Use the `--model` (or `-m`) flag to select Gemini.
+   ```bash
+   oracle --engine api --model gemini --prompt "Explain quantum entanglement"
+   ```
+   Use an explicit current model ID:
+   ```bash
+   oracle --engine api --model gemini-3.5-flash --prompt "..."
+   ```
+   Gemini 3.1 Pro is also available; Oracle dispatches it to Google's preview model id:
+   ```bash
+   oracle --engine api --model gemini-3.1-pro --prompt "..."
+   ```
+   For the lowest-cost current model:
+   ```bash
+   oracle --engine api --model gemini-3.1-flash-lite --prompt "..."
+   ```
+
+## Usage (Gemini web / cookies)
+
+Gemini web mode is a cookie-based client for `gemini.google.com`. It does **not** use `GEMINI_API_KEY` and does **not** drive ChatGPT.
+
+Prereqs:
+
+- Chrome installed.
+- Signed into `gemini.google.com` in the Chrome profile Oracle uses (default: `Default` profile).
+
+Examples:
+
+```bash
+# Text run
+oracle --engine browser --model gemini-3.5-flash --prompt "Say OK."
+
+# Deep Think browser run (manual-login profile recommended on macOS)
+oracle --engine browser --browser-manual-login \
+  --model gemini-3-deep-think \
+  --prompt "Think carefully, then answer in one paragraph."
+
+# Generate an image (writes an output file)
+oracle --engine browser --model gemini-3.1-pro \
+  --prompt "a cute robot holding a banana" \
+  --generate-image out.jpg --aspect 1:1
+
+# Edit an image (input via --edit-image, output via --output)
+oracle --engine browser --model gemini-3.1-pro \
+  --prompt "add sunglasses" \
+  --edit-image in.png --output out.jpg
+```
+
+Notes:
+
+- Current explicit IDs are `gemini-3.1-flash-lite`, `gemini-3.5-flash`, and `gemini-3.1-pro`.
+- Legacy `gemini-3-pro`, `gemini-2.5-pro`, and `gemini-2.5-flash` browser names remain accepted and map to current Gemini web models.
+- If your logged-in Gemini account can’t access the requested model, Oracle auto-falls back to Gemini 3.1 Flash-Lite and logs the fallback in verbose mode.
+- This path runs fully in Node/TypeScript (no Python/venv dependency).
+- `--browser-model-strategy` only affects ChatGPT automation; Gemini web always uses the explicit Gemini model ID.
+- `gemini-3-deep-think` is browser-only for now. `--engine api` rejects it instead of silently falling back to regular Gemini Pro.
+- Oracle intentionally does not expose generic `low` / `medium` / `high` Gemini aliases. Explicit IDs keep model choice, billing, and thinking-effort configuration distinct.
+- If Chrome cookie extraction fails, the missing-cookie error now includes any cookie-reader warnings plus `--browser-manual-login` / `--browser-inline-cookies-file` guidance.
+
+## Implementation details
+
+### Gemini API adapter
+
+- `src/oracle/gemini.ts` — adapter using `@google/genai` that returns a `ClientLike`.
+  - Model IDs: `gemini-3.1-flash-lite` and `gemini-3.5-flash` use their stable API IDs; `gemini-3.1-pro` maps to `gemini-3.1-pro-preview`; legacy `gemini-3-pro` maps to `gemini-3-pro-preview`.
+  - Request mapping: `OracleRequestBody` → Gemini request; `web_search_preview` maps to Gemini search tooling.
+  - Response mapping: Gemini responses → `OracleResponse`.
+  - Streaming: wraps Gemini’s async iterator as `ResponseStreamLike`.
+- `src/oracle/run.ts` — selects `GEMINI_API_KEY` vs `OPENAI_API_KEY` based on model prefix.
+- `src/oracle/config.ts` / `src/oracle/types.ts` — model config + `ModelName`.
+
+### Gemini web client (cookie-based)
+
+- `src/gemini-web/models.ts` — centralizes current private web model headers, legacy aliases, and fallback selection.
+- `src/gemini-web/client.ts` — talks to `gemini.google.com` and downloads generated images via authenticated `gg-dl` redirects.
+- `src/gemini-web/executor.ts` — browser-engine executor for Gemini (loads Chrome cookies and runs the web client).
+
+## Testing
+
+- Unit/regression: `pnpm vitest run tests/gemini.test.ts tests/gemini-web`
+- Live (API): `ORACLE_LIVE_TEST=1 pnpm vitest run tests/live/gemini-live.test.ts`
+- Live (Gemini web/cookies): `ORACLE_LIVE_TEST=1 pnpm vitest run tests/live/gemini-web-live.test.ts`
 
 ---
 > Source: [steipete/oracle](https://github.com/steipete/oracle) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
