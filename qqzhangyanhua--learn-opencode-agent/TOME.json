@@ -4,7 +4,7 @@
   "repo": "learn-opencode-agent",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qqzhangyanhua/learn-opencode-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T06:42:27Z"
+  "distributed_at": "2026-07-30T04:33:24Z"
 }
