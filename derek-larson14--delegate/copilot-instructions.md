@@ -1,48 +1,21 @@
 ## delegate
 
-> Context for Claude Code about this workspace.
+> [What this project is]
 
-# CLAUDE.md
+# Project: [Name]
 
-Context for Claude Code about this workspace.
+## What
 
-## About
+[What this project is]
 
-[Replace with what you're working on]
+## Status
 
-## Projects
+[Current state]
 
-- [Your actual projects]
+## Context
 
-## Files
-
-- `tasks.md` - Your tasks (decisions, outreach, messaging, strategy, writing first drafts)
-- `delegation.md` - Claude's task queue (research, code, data analysis, file org, setup, prototyping)
-- `roadmap.md` - Goals and milestones
-- `outreach.md` - Outreach tracking
-- `network.md` - Your network
-- `scratch/` - Claude's working notes (research, analysis, thinking)
-- `archive/claude-completed.md` - Auto-archived delegation tasks (task-archiver plugin moves checked items here)
-- `archive/archived-tasks.md` - Auto-archived user tasks
-- `.claude/commands/` - Slash commands
-- `ops/logs/` - Review logs
-
-## Delegation
-
-`delegation.md` is Claude's task queue. You add items there, then run `/delegate` to process them. Claude proposes what to take on, confirms with you, then executes.
-
-**Split of work:**
-- **Claude handles:** Research, code/scripts, data analysis, file organization, setup, prototyping, summarization, refactoring, exploration
-- **You handle:** Decisions, relationship DMs, outreach, pricing, strategy, writing first drafts — anything that needs your voice or judgment
-
-When Claude finishes a task, it marks the item `[x]` with a note about what was done. Over time this becomes a log of what Claude has shipped for you.
-
-## Style
-
-- Be direct
-- Skip the fluff
-- [Your preferences]
+[Anything Claude should know]
 
 ---
 > Source: [derek-larson14/delegate](https://github.com/derek-larson14/delegate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
