@@ -2,7 +2,7 @@
   "name": "tiaportal-mcp",
   "owner": "heilingbrunner",
   "repo": "tiaportal-mcp",
-  "description": "A Visual Studio Code extension to connect to Siemens TIA Portal and interact with TIA Portal projects directly from VS Code with GitHub Copilot.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/heilingbrunner/tiaportal-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:40:04Z"
+  "distributed_at": "2026-07-30T10:54:17Z"
 }
