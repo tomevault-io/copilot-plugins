@@ -1,38 +1,114 @@
 ## opensearch
 
-> - **Run dev**: `bun run dev` (watches src/index.ts)
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-# Agent Guidelines for OpenSearch Project
 
-## Build/Test Commands
-- **Run dev**: `bun run dev` (watches src/index.ts)
-- **Run CLI**: `bun run cli` (starts interactive CLI)
-- **Run tests**: `bun test` (runs all tests)
-- **Run single test**: `bun test <test-file>` (e.g., `bun test test/generate-query.test.ts`)
-- **Format/Lint**: Use Biome via `bunx biome format .` and `bunx biome lint .`
+Default to using Bun instead of Node.js.
 
-## Code Style & Conventions
-- **Runtime**: Use Bun instead of Node.js/npm/pnpm (see .cursor/rules)
-- **Formatting**: Tabs for indentation, single quotes for strings (biome.json)
-- **Imports**: Organize imports enabled, use path aliases `@/*` for src, `@baml-client` for BAML
-- **Types**: Strict TypeScript, interfaces for data structures, explicit return types
-- **Naming**: PascalCase for React components/BAML functions, camelCase for variables/functions
-- **Files**: .tsx for React components, .ts for utilities, .baml for BAML functions
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-## BAML Integration
-- **Source files**: Only edit files in `baml_src/` directory (*.baml files)
-- **Generated code**: `baml_client/` is auto-generated from `baml_src/` - never edit directly
-- **Functions**: Import and call via `import { b } from '@baml-client'; await b.SomeFunction(...)`
-- **Types**: All classes/enums exported from `@baml-client` (e.g., `import { SearchResult } from '@baml-client'`)
-- **Naming**: BAML functions use PascalCase (e.g., `GenerateQuery`, `Reflect`)
-- **Prompts**: Include `{{ ctx.output_format }}` and `{{ _.role("user") }}` for user inputs
-- **Schema**: Prefer enums over confidence numbers, use classes for structured outputs
+## APIs
 
-## Error Handling & Testing
-- Use Bun's built-in test framework with `import { test, expect } from "bun:test"`
-- Async/await for BAML function calls and API interactions
-- Type-safe error handling with proper TypeScript types
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
+
+## Testing
+
+Use `bun test` to run tests.
+
+```ts#index.test.ts
+import { test, expect } from "bun:test";
+
+test("hello world", () => {
+  expect(1).toBe(1);
+});
+```
+
+## Frontend
+
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [K-Mistele/opensearch](https://github.com/K-Mistele/opensearch) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
