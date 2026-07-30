@@ -1,8 +1,6 @@
 # AI instruction files for agentic
 
-> Sourced from [Cluster444/agentic](https://github.com/Cluster444/agentic) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-An agentic workflow tool that provides context engineering support for opencode
+> Sourced from [Cluster444/agentic](https://github.com/Cluster444/agentic), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Cluster444/agentic](https://github.com/Cluster4
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Cluster444/agentic](https://github.com/Cluster444/agentic) — a repo with 506+ stars on GitHub.
+From [Cluster444/agentic](https://github.com/Cluster444/agentic) — a repo with 600+ stars on GitHub.
 
 ---
 
