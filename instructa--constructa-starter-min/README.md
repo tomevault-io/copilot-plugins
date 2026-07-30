@@ -1,8 +1,6 @@
 # AI instruction files for constructa-starter-min
 
-> Sourced from [instructa/constructa-starter-min](https://github.com/instructa/constructa-starter-min) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Minimal Tanstack Starter with shadcn, tailwind v4
+> Sourced from [instructa/constructa-starter-min](https://github.com/instructa/constructa-starter-min), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [instructa/constructa-starter-min](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/instructa/constructa-starter-min](https://github.com/instructa/constructa-starter-min)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/instructa/constructa-starter-min](https://github.com/instructa/constructa-starter-min)
 
 ---
 
