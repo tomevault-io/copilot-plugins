@@ -1,23 +1,18 @@
-## 20-platform-preset-selector
+## 30-quality-gates
 
-> Select the right platform preset before implementation
+> Quality and operational gates for data engineering work
 
 
-# Platform Preset Selector
+# Quality Gates
 
-Before implementation, select the matching preset from `presets/`.
+For production-facing data work:
 
-Examples:
-
-- `aws-data-engineering`
-- `gcp-data-engineering`
-- `databricks-lakehouse-engineering`
-- `apache-spark-engineering`
-- `apache-airflow-orchestration`
-- `apache-kafka-streaming`
-- `apache-iceberg-lakehouse`
-
-Do not mix platform assumptions silently.
+- use `data-quality-and-contract-testing`
+- use `data-observability-and-sla-management`
+- use `incident-triage-and-pipeline-recovery` for incident work
+- for `/backfill` or replay work, require `safe-backfill-and-replay-orchestration` and `templates/backfill-plan.yaml` evidence
+- for Kafka or serverless Spark changes, load `kafka-resilience-and-schema-evolution` or `spark-serverless-reliability-and-state-management` as appropriate
+- require evidence for correctness, replay safety, and publish readiness
 
 ---
 > Source: [vaquarkhan/data-engineering-agent-skills](https://github.com/vaquarkhan/data-engineering-agent-skills) — distributed by [TomeVault](https://tomevault.io).
