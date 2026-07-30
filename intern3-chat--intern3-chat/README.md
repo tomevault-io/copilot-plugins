@@ -1,8 +1,6 @@
 # intern3-chat
 
-> Tome by [intern3-chat](https://github.com/intern3-chat/intern3-chat) — distributed by [TomeVault](https://tomevault.io)
-
-Built for interns by interns
+> Tome by [intern3-chat](https://github.com/intern3-chat/intern3-chat), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
