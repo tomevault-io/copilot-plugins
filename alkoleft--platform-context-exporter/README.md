@@ -1,8 +1,6 @@
 # AI instruction files for platform-context-exporter
 
-> Sourced from [alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Инструмент для выгрузки синтаксис помощника в файлы
+> Sourced from [alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [alkoleft/platform-context-exporter](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
