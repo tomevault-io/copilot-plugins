@@ -1,0 +1,69 @@
+{
+  "name": "tekhne",
+  "owner": "pantheon-org",
+  "repo": "tekhne",
+  "description": "Agents Skills",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dockerfile-generator",
+      "path": "skills/infrastructure/dockerfile/generator",
+      "github_url": "https://github.com/pantheon-org/tekhne/tree/main/skills/infrastructure/dockerfile/generator",
+      "description": ""
+    },
+    {
+      "name": "azure-pipelines-generator",
+      "path": "skills/ci-cd/azure-pipelines/generator",
+      "github_url": "https://github.com/pantheon-org/tekhne/tree/main/skills/ci-cd/azure-pipelines/generator",
+      "description": ""
+    },
+    {
+      "name": "terraform-validator",
+      "path": "skills/infrastructure/terraform/validator",
+      "github_url": "https://github.com/pantheon-org/tekhne/tree/main/skills/infrastructure/terraform/validator",
+      "description": ""
+    },
+    {
+      "name": "terraform-generator",
+      "path": "skills/infrastructure/terraform/generator",
+      "github_url": "https://github.com/pantheon-org/tekhne/tree/main/skills/infrastructure/terraform/generator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pantheon-org/tekhne",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-30T02:31:04Z"
+}
