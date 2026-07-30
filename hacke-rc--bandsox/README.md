@@ -1,8 +1,6 @@
 # Bandsox
 
-> Source: [HACKE-RC/Bandsox](https://github.com/HACKE-RC/Bandsox) — distributed by [TomeVault](https://tomevault.io)
-
-Sanboxes for AI agents and humans
+> Source: [HACKE-RC/Bandsox](https://github.com/HACKE-RC/Bandsox). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
