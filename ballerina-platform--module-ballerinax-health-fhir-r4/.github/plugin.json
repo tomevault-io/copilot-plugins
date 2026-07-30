@@ -1,0 +1,9 @@
+{
+  "name": "ballerina-platform--module-ballerinax-health-fhir-r4",
+  "displayName": "module-ballerinax-health.fhir.r4",
+  "description": "module-ballerinax-health.fhir.r4",
+  "version": "1.0.0",
+  "author": "ballerina-platform",
+  "homepage": "https://github.com/ballerina-platform/module-ballerinax-health.fhir.r4",
+  "skills": []
+}
