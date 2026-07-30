@@ -1,98 +1,41 @@
 ## ha-unraid
 
-> > Read **`AGENTS.md`** for comprehensive project documentation.
+> Refer to `AGENTS.md` for full project documentation.
 
-# GitHub Copilot Instructions — ha-unraid
 
-> Read **`AGENTS.md`** for comprehensive project documentation.
-> Path-specific `*.instructions.md` files in `.github/instructions/` auto-load per file type.
-> Reusable task prompts are in `.github/prompts/`.
+# configuration.yaml Guidelines — ha-unraid
 
-## Project Identity
+Refer to `AGENTS.md` for full project documentation.
 
-- **Domain**: `unraid`
-- **Class prefix**: `Unraid`
-- **Code path**: `custom_components/unraid/`
-- **Test path**: `tests/`
-- **Python**: 3.13+ | **HA**: 2026.5.0+ | **Dep**: `unraid-api>=1.10.0`
-- **Platforms**: `sensor`, `binary_sensor`, `switch`, `button`
-- **iot_class**: `local_polling`
+## Integration Setup Model
 
-## Code Quality Baseline
+Unraid is **UI-configured only** (`config_flow: true`).
 
-- Ruff linter + formatter, line length 88, target `py313`
-- `from __future__ import annotations` in every file
-- Type hints on all public functions
-- Constants in `const.py` with `Final` annotations
-- Run `./script/lint` before committing
+- Do not add a `unraid:` YAML integration block.
+- Use YAML only for HA-wide features (logger, automations, scripts, templates).
 
-## Architecture Quick Reference
+## Preferred YAML Patterns
 
-### Triple Coordinator Pattern
+- Use modern action syntax (`action:`), not deprecated `service:` in examples.
+- Keep examples minimal and production-safe.
+- Use two-space indentation.
 
-| Coordinator                | Interval | Scope                                    |
-| -------------------------- | -------- | ---------------------------------------- |
-| `UnraidSystemCoordinator`  | 30s      | Metrics, Docker, VMs, UPS, notifications |
-| `UnraidStorageCoordinator` | 5min     | Array, disks, parity, shares             |
-| `UnraidInfraCoordinator`   | 15min    | Services, registration, cloud, plugins   |
+## Debug Logging Snippet
 
-### Entity Hierarchy
-
-```
-CoordinatorEntity → UnraidBaseEntity → UnraidEntity (with EntityDescription)
+```yaml
+logger:
+  default: info
+  logs:
+    custom_components.unraid: debug
+    unraid_api: debug
 ```
 
-Platform entities use MRO: `PlatformEntity, UnraidBaseEntity`
+## Polling Reminder
 
-### Runtime Data
-
-Access via `entry.runtime_data` (typed as `UnraidRuntimeData`). Never use `hass.data[DOMAIN]`.
-
-## Workflow Rules
-
-- Lint after every change: `./script/lint`
-- Test: `pytest` or `./script/test`
-- Entity names via `_attr_translation_key` + `strings.json`
-- Icons via `icons.json` keyed by translation key
-- Unique IDs: `{server_uuid}_{resource_id}`
-- Handle `None` coordinator data gracefully
-
-## Path-Specific Instruction Files
-
-These files auto-load in Copilot based on `applyTo` patterns:
-
-| Pattern                                           | File                                 | Scope                                         |
-| ------------------------------------------------- | ------------------------------------ | --------------------------------------------- |
-| `**/*.py`                                         | `python.instructions.md`             | Python conventions                            |
-| `**/entity.py`, `**/entities/*.py`                | `entities.instructions.md`           | Entity hierarchy, state, actions              |
-| `**/coordinator.py`, `**/coordinators/*.py`       | `coordinator.instructions.md`        | Triple coordinator, error handling            |
-| `__init__.py`, `config_flow.py`, `coordinator.py` | `api.instructions.md`                | `UnraidClient` usage and API-layer boundaries |
-| `config_flow.py`                                  | `config_flow.instructions.md`        | SSL, versions, options flow                   |
-| `diagnostics.py`                                  | `diagnostics.instructions.md`        | Diagnostic data, security                     |
-| `repairs.py`                                      | `repairs.instructions.md`            | Repair flows                                  |
-| `tests/**/*.py`                                   | `tests.instructions.md`              | Fixtures, mocking, scenarios                  |
-| `strings.json`, `translations/`                   | `translations.instructions.md`       | Translation structure                         |
-| `icons.json`                                      | `json.instructions.md`               | Icon definitions                              |
-| `manifest.json`                                   | `manifest.instructions.md`           | Integration metadata                          |
-| `quality_scale.yaml`                              | `yaml.instructions.md`               | Quality self-assessment                       |
-| `**/configuration.yaml`                           | `configuration_yaml.instructions.md` | Local HA dev config patterns                  |
-| `**/*.md`                                         | `markdown.instructions.md`           | Documentation standards                       |
-| `services.yaml`                                   | `service_actions.instructions.md`    | Service actions                               |
-| `services.yaml`                                   | `services_yaml.instructions.md`      | Service definition schema                     |
-
-## Reusable Task Prompts
-
-Available in `.github/prompts/` for common development tasks:
-
-- **Add New Sensor** — Sensor entity creation guide
-- **Add Entity Platform** — New platform setup
-- **Add Config Option** — Options flow field addition
-- **Add Action** — Custom service action creation
-- **Debug Coordinator Issue** — Coordinator troubleshooting
-- **Create Implementation Plan** — Feature planning template
-- **Review Integration** — Quality audit checklist
-- **Update Translations** — Translation management
+Polling intervals are fixed by integration design. For ad-hoc refreshes, use
+`homeassistant.update_entity` in automations instead of adding YAML polling
+options.
 
 ---
 > Source: [ruaan-deysel/ha-unraid](https://github.com/ruaan-deysel/ha-unraid) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
