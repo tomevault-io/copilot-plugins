@@ -4,7 +4,7 @@
   "repo": "pure",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pure-fish/pure",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T10:23:50Z"
+  "distributed_at": "2026-07-30T21:42:45Z"
 }
