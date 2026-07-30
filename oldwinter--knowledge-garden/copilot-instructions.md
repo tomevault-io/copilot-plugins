@@ -1,39 +1,30 @@
 ## knowledge-garden
 
-> This repository is an Obsidian-based digital garden. Notes are Markdown with YAML frontmatter, organized using Zettelkasten/PARA. Publishing is controlled by the `publish: true` flag and automated by a Python script.
+> - 本仓库是 Obsidian 数字花园（PKM），核心理念：原子化笔记、双链、MOC 导航、持续进化。
 
+# 工作区结构与方法论总览
 
-# Repository Guidelines
+- 本仓库是 Obsidian 数字花园（PKM），核心理念：原子化笔记、双链、MOC 导航、持续进化。
+- 目录结构约定、方法论与工作流详见：[🧰 本库使用指南.md](mdc:🍀 花园导览/🧰 本库指南/🧰 本库使用指南.md)、[AGENTS.md](mdc:AGENTS.md)。
 
-This repository is an Obsidian-based digital garden. Notes are Markdown with YAML frontmatter, organized using Zettelkasten/PARA. Publishing is controlled by the `publish: true` flag and automated by a Python script.
+## 目录结构
+- `🍀 花园导览/`：导航入口、MOC、结构说明、发布指南；主要用于本库部分公开发表的内容给读者的导航
+- `📥 Inbox/`：收集箱，临时笔记、灵感
+- `Atlas/`：核心知识区（Bases、Canvas、Dataviews、Draws 等），详见 [Atlas.md](mdc:Atlas/_ Atlas Readme.md)
+- `Cards/`：卡片化永久笔记
+- `Calendar/`：日历区（每日、周、月、年报）
+- `Extras/`：附加区（配置、模板、脚本）
+- `Sources/`：外部资料（文章、书籍、剪藏等）
+- `Spaces/`：PARA 工作空间（0-Project/1-Project 等），详见 [Projects Readme.md](mdc:Spaces/1-Project/_ Spaces Readme.md)
 
-## Project Structure & Module Organization
-- Notes: `🍀 花园导览/`, `📥 Inbox/`, `Atlas/`, `Cards/`, `Calendar/`, `Extras/`, `Sources/`, `Spaces/`.
-- Script: `publish_by_frontmatter.py` at the repo root.
-- Metadata: YAML frontmatter per note; backlinks via `[[...]]`; tags via `#标签`.
+## 链接与引用规范（摘要）
+- 在对话中：使用绝对路径 Markdown 链接；在仓库内 Markdown：使用 `[[双链]]` 或相对路径 Markdown 链接。
+- 详见链接规范规则：[linking.mdc](mdc:.cursor/rules/linking.mdc)
 
-## Build, Test, and Development Commands
-- Run publish: `python publish_by_frontmatter.py` — selects notes with `publish: true`, copies to the publish repo, and performs Git actions.
-- Configure inside the script: `VAULT_PATH`, `SHOWCASE_PATH`, `FORCE_INCLUDE_DIRS`.
-- Link check: in Obsidian, use “检查失效链接” to validate backlinks before publishing.
-
-## Coding Style & Naming Conventions
-- Markdown: Chinese prose; English for technical terms. Headings `#` → `####`. Use `[[双链]]`, `#标签`, atomic notes, and MOCs. Emoji prefixes are allowed (e.g., `🧰`, `📂`). Frontmatter fields include `publish`, `title`, `date created`, `date modified`, `tags`.
-- Python: Follow PEP 8, 4-space indent, descriptive names. Keep configuration constants together and avoid hard-coding secrets.
-
-## Testing Guidelines
-- Publishing: (1) ensure `publish: true` is set, (2) run the script, (3) confirm sensitive files are excluded, (4) verify Git actions succeed and only intended files appear in the publish repo.
-- Links: use Obsidian’s “检查失效链接”; spot-check external URLs in edited notes.
-
-## Commit & Pull Request Guidelines
-- Commits: imperative mood and focused scope. Examples: `Cards: add MOC for AI notes`, `script: filter sensitive files`.
-- PRs: clear description, linked issues, before/after screenshots for MOCs/Canvas, and notes on any script or config changes.
-
-## Security & Configuration Tips
-- Keep personal data and keys out of notes; `.gitignore` should exclude sensitive artifacts.
-- The publish script filters sensitive files, but always review changes before pushing.
+## 发布
+- 基于 frontmatter 的 `publish: true` 控制；脚本：[publish_by_frontmatter.py](mdc:publish_by_frontmatter.py)
+- 详见发布规则：[publish-flow.mdc](mdc:.cursor/rules/publish-flow.mdc)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/oldwinter)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/oldwinter)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [oldwinter/knowledge-garden](https://github.com/oldwinter/knowledge-garden) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
