@@ -1,6 +1,6 @@
 # fledge
 
-> Tome by [fledge-iot](https://github.com/fledge-iot/fledge) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [fledge-iot](https://github.com/fledge-iot/fledge), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
