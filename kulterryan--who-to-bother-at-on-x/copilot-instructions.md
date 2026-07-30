@@ -1,4 +1,4 @@
-## ultracite
+## who-to-bother-at-on-x
 
 > This project uses **Ultracite**, a zero-config Biome preset that enforces strict code quality standards through automated formatting and linting.
 
@@ -128,4 +128,4 @@ Most formatting and common issues are automatically fixed by Biome. Run `npx ult
 
 ---
 > Source: [kulterryan/who-to-bother-at-on-x](https://github.com/kulterryan/who-to-bother-at-on-x) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
