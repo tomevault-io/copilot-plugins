@@ -1,8 +1,6 @@
 # AI instruction files for community-integrations
 
-> Sourced from [dagster-io/community-integrations](https://github.com/dagster-io/community-integrations) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Community supported integrations for the Dagster platform.
+> Sourced from [dagster-io/community-integrations](https://github.com/dagster-io/community-integrations), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [dagster-io/community-integrations](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/dagster-io/community-integrations](https://github.com/dagster-io/community-integrations)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/dagster-io/community-integrations](https://github.com/dagster-io/community-integrations)
 
 ---
 
