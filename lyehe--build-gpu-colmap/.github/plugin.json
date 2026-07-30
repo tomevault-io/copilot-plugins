@@ -1,0 +1,9 @@
+{
+  "name": "lyehe--build-gpu-colmap",
+  "displayName": "build_gpu_colmap",
+  "description": "build_gpu_colmap",
+  "version": "1.0.0",
+  "author": "lyehe",
+  "homepage": "https://github.com/lyehe/build_gpu_colmap",
+  "skills": []
+}
