@@ -1,0 +1,9 @@
+{
+  "name": "apache--rocketmq-clients",
+  "displayName": "rocketmq-clients",
+  "description": "rocketmq-clients",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/rocketmq-clients",
+  "skills": []
+}
