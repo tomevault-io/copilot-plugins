@@ -1,0 +1,9 @@
+{
+  "name": "wibus-wee--cradle-app",
+  "displayName": "cradle-app",
+  "description": "\ud83d\udd27 One layer above your AI tools. Your AI coding tools are brilliant. Managing them is a mess. :electron: Cradle is the command center that coordinates all of them.",
+  "version": "1.0.0",
+  "author": "wibus-wee",
+  "homepage": "https://github.com/wibus-wee/cradle-app",
+  "skills": []
+}
