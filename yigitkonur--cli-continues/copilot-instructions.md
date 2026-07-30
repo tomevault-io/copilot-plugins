@@ -1,42 +1,51 @@
 ## cli-continues
 
-> - Session data is NEVER modified. Any PR that writes to `~/.claude/`, `~/.codex/`, `~/.copilot/`, `~/.gemini/`, `~/.factory/`, `~/.cursor/`, or `~/.local/share/opencode/` is a critical bug.
+> - Avoid `any` — use `unknown` for external data (JSON.parse results, JSONL lines), then narrow with type guards
 
-# continues — Code Review Standards
 
-## Read-Only Semantics
+# TypeScript Review Guidelines
 
-- Session data is NEVER modified. Any PR that writes to `~/.claude/`, `~/.codex/`, `~/.copilot/`, `~/.gemini/`, `~/.factory/`, `~/.cursor/`, or `~/.local/share/opencode/` is a critical bug.
-- Handoff files (`.continues-handoff.md`) write only to the project's own working directory — never to tool storage paths.
+## Type Safety
 
-## ESM Conventions
+- Avoid `any` — use `unknown` for external data (JSON.parse results, JSONL lines), then narrow with type guards
+- Define interfaces for all object shapes that cross module boundaries — not inline object literals
+- Use `as const` for literal arrays like `TOOL_NAMES` to get narrower inferred types
 
-- All local imports must use `.js` extensions, even for `.ts` source files: `import { foo } from './bar.js'`
-- Never use `require()` — this is an ESM-only codebase (`"type": "module"` in `package.json`)
-- Use `process.exitCode = N` instead of `process.exit(N)` — allows cleanup handlers to run
+```typescript
+// Avoid
+const parsed = JSON.parse(line) as any;
+return parsed.type;
 
-## Error Handling
+// Prefer
+const parsed = JSON.parse(line) as unknown;
+if (typeof parsed !== 'object' || parsed === null || !('type' in parsed)) return;
+// Narrowed — safe to access (parsed as Record<string, unknown>)
+```
 
-- Use typed errors from `src/errors.ts` (`ParseError`, `SessionNotFoundError`, `ToolNotAvailableError`) for user-facing error paths — not bare `throw new Error()`
-- Parsers must silently skip malformed session data with `catch {}` — never propagate parse errors to the caller
+## Discriminated Unions
 
-## Registry Completeness
+- Use `switch (d.category)` for narrowing `StructuredToolSample` — not `instanceof` checks
+- New tool sample types must be added to the `StructuredToolSample` union in `src/types/index.ts`
+- The `category` field is the discriminant — never use string-equality checks outside of switch
 
-- Every `SessionSource` member in `src/types/tool-names.ts` must have a registered `ToolAdapter` in `src/parsers/registry.ts`
-- The completeness assertion at the bottom of `registry.ts` throws at module load if any adapter is missing — a missing entry crashes the CLI at startup
-- Adding a tool to `TOOL_NAMES` without a registry entry is always a bug; changes to `SessionSource` require coordinated updates in the registry, fixtures, and tests
+## Async Patterns
 
-## Code Quality
+- All file I/O must be async: use `fs.promises.*` not `fs.readFileSync` / `fs.writeFileSync`
+- JSONL files must be streamed with `readline.createInterface` — never loaded into memory wholesale
+- Avoid blocking the event loop in parsers — they run in parallel via `Promise.allSettled`
 
-- Biome handles all formatting and style — do not introduce ESLint, Prettier, or TSLint configs
-- No synchronous file I/O (`readFileSync`, `writeFileSync`) in parser code — blocks the event loop when scanning large session directories
-- Shared helpers `cleanSummary`, `extractRepoFromCwd`, and `homeDir` live in `src/utils/parser-helpers.ts` — do not duplicate them in individual parsers
+## Import Rules
 
-## Performance
+- Local imports must end in `.js`: `import { foo } from './bar.js'` — required for Node.js ESM module resolution
+- Never import from `dist/` in source files
+- Prefer named exports over default exports for better refactoring support
 
-- Parsers run in parallel via `Promise.allSettled` in the session index builder — a slow parser delays only its own results
-- The session index uses a 5-minute TTL cache at `~/.continues/sessions.jsonl` — cache bypasses should be explicitly justified
+## Defensive Patterns
+
+- Use optional chaining (`?.`) and nullish coalescing (`??`) for optional fields from parsed session data
+- Sessions returned from parsers must be sorted by `updatedAt` descending (newest first)
+- Use `process.exitCode = N` over `process.exit(N)` to allow SIGTERM/SIGINT handlers to run
 
 ---
 > Source: [yigitkonur/cli-continues](https://github.com/yigitkonur/cli-continues) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
