@@ -2,9 +2,9 @@
   "name": "gortex",
   "owner": "zzet",
   "repo": "gortex",
-  "description": "High-performance code intelligence engine that indexes repositories into an in-memory knowledge graph and exposes it via CLI, MCP Server, and web UI.  Built for AI coding agents - expose only needed information - one get_editing_context call replaces 5-10 file reads, cutting token usage by ~94%.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zzet/gortex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T14:35:53Z"
+  "distributed_at": "2026-07-30T14:17:44Z"
 }
