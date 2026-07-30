@@ -1,0 +1,9 @@
+{
+  "name": "google--perfetto",
+  "displayName": "perfetto",
+  "description": "perfetto",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/perfetto",
+  "skills": []
+}
