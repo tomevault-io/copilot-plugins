@@ -2,9 +2,9 @@
   "name": "ralphify",
   "owner": "computerlovetech",
   "repo": "ralphify",
-  "description": "Stop stressing over not having an agent running. Ralph is always running \ud83c\udfc3\u200d\u2642",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/computerlovetech/ralphify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T01:54:40Z"
+  "distributed_at": "2026-07-30T02:44:02Z"
 }
