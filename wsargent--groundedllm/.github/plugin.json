@@ -1,0 +1,9 @@
+{
+  "name": "wsargent--groundedllm",
+  "displayName": "groundedllm",
+  "description": "groundedllm",
+  "version": "1.0.0",
+  "author": "wsargent",
+  "homepage": "https://github.com/wsargent/groundedllm",
+  "skills": []
+}
