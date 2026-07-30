@@ -2,7 +2,7 @@
   "name": "viber3d",
   "owner": "instructa",
   "repo": "viber3d",
-  "description": "A modern starter kit for 3D browser games powered by r3f and threejs - ",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/instructa/viber3d",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T14:01:10Z"
+  "distributed_at": "2026-07-30T21:42:12Z"
 }
