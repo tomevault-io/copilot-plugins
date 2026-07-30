@@ -4,7 +4,7 @@
   "repo": "matterbridge-hass",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Luligu/matterbridge-hass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T06:55:45Z"
+  "distributed_at": "2026-07-30T08:00:40Z"
 }
