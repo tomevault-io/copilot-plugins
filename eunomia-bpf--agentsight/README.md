@@ -1,23 +1,21 @@
 # agentsight
 
-> Tome by [eunomia-bpf](https://github.com/eunomia-bpf/agentsight) — distributed by [TomeVault](https://tomevault.io)
-
-Zero instrucment LLM and AI agent (e.g. claude code, gemini-cli) observability in eBPF
+> Tome by [eunomia-bpf](https://github.com/eunomia-bpf/agentsight), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight).
+Original source: `AGENTS.md` in [eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/eunomia-bpf/agentsight](https://github.com/eunomia-bpf/agentsight)
 
 ---
 
