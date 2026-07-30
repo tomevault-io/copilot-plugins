@@ -1,146 +1,311 @@
 ## sonicjs
 
-> Use when scope is bounded AND output would bloat main context:
+> Cloudflare-native headless CMS built with **Hono.js** + TypeScript on **Cloudflare Workers** / **D1**.
 
-# SonicJS Agent Guidelines
+# SonicJS AI Development Guidelines
 
-These instructions mirror the workflow Claude Code already follows in Conductor so every coding agent behaves consistently.
+Cloudflare-native headless CMS built with **Hono.js** + TypeScript on **Cloudflare Workers** / **D1**.
 
-## Token-Efficient Tooling (use FIRST, before grep/Read sprees)
+## Core Technology Stack
+- **Framework**: Hono.js
+- **Runtime**: Cloudflare Workers
+- **Database**: Cloudflare D1 (SQLite) with Drizzle ORM (legacy only — document layer is raw SQL)
+- **Validation**: Zod
+- **Testing**: Vitest (unit + real-SQLite) + Playwright (E2E)
+- **Frontend**: HTMX + HTML tagged templates (admin UI)
+- **Auth**: Better Auth (session + RBAC) — `c.get('user') === { userId, email, role }`
+- **Deployment**: Wrangler
 
-This repo is indexed by **codegraph** (684 files, 5693 nodes). Use it as the default code-lookup tool. Hook also rewrites shell commands via **rtk** for 60-90% bash savings. Default response mode is **caveman** for terse output.
+## Workspace boundary (Conductor)
 
-### Decision tree — code exploration
+- Work in `.conductor/hong-kong-v3/`. **Never read or write** `/Users/lane/Dev/refs/sonicjs/` (sibling main checkout).
+- Target branch: `origin/v3`. PRs: `gh pr create --base v3`. Diff: `git diff origin/v3...`.
 
-| Intent | Tool | Why |
-|--------|------|-----|
-| "How does X work / where does X live / trace flow X→Y" | `mcp__codegraph__codegraph_explore` | ONE call returns verbatim source grouped by file. Replaces many Read/Grep. |
-| "Just the location of symbol named X" | `mcp__codegraph__codegraph_search` | Cheapest — name + path only. |
-| "What calls this / what does this call / blast radius" | `codegraph_callers` / `codegraph_callees` / `codegraph_impact` | Edges already indexed; grep can't follow dynamic dispatch. |
-| Pinpoint known file edit | `Read` + `Edit` | Codegraph not needed for known path. |
-| Truly open-ended cross-cutting search | `Agent` w/ `Explore` or `cavecrew-investigator` | Compressed output, protects main context. |
+## Architecture direction: Document Model (authoritative)
 
-**Rule:** Before any 3+ Grep/Read combo for "where is X", call `codegraph_explore` first. Treat codegraph as a pre-built index — don't re-run searches it already answers.
+The project is migrating from per-feature tables (`content`, `media`, `testimonials`, `email_log`, …) to a unified **document repository**. **All new features build on the document model. Do not add new feature tables.**
 
-### rtk (Rust Token Killer)
+Full design + remediation runbook: `docs/ai/plans/document-model-poc-plan.md` (Appendix A = original design; §1–§7 = current implementation status, defect IDs `D1`–`D48`).
 
-- Bash commands auto-rewritten by hook — transparent, 0 overhead. No action needed.
-- `rtk gain` to audit savings; `rtk discover` to find missed opportunities.
-- Don't bypass rtk with raw shell unless debugging.
+### The 5 document tables (migration `0002_documents.sql`)
+1. **`document_types`** — registered schemas (code/plugin-owned).
+2. **`documents`** — every content/media/plugin record + every historical version. Queryable scalar fields are exposed as **indexed JSON `VIRTUAL` generated columns** (`q_*`) on this table — `json_extract(data, '$.path')`.
+3. **`document_references`** — typed strong/weak edges (FK to `documents`); powers "where used" and reference-aware delete.
+4. **`document_facets`** — indexed rows for multi-valued scalar fields (e.g. `tags`) — the one case generated columns can't cover.
+5. **`document_permissions`** — per-document ACL overrides on top of type-level base grants.
 
-### caveman mode
+### Implementation rules (non-negotiable — each line is a bug already shipped)
 
-- Active by default (full). Drops articles/filler. Code blocks, commits, security warnings stay normal.
-- Toggle: `/caveman lite|full|ultra`, off via "stop caveman".
+| # | Rule |
+|---|------|
+| **R1** | All document writes use raw `env.DB.prepare(sql).bind(...)` inside `env.DB.batch([...])`. **Never** put Drizzle query-builder objects (`db.update()`, `db.insert()`) into a `batch`. |
+| **R2** | `VIRTUAL` generated columns and partial / expression UNIQUE indexes live **only** in raw migrations (`0002`, `0003`, and future ALTERs via `MigrationService.ensureDocumentGeneratedColumns`). Never declare them in `db/schema.ts` (Drizzle can't express them). |
+| **R3** | Every document read/write is tenant-scoped. Go through `DocumentRepository` (injects `this.tenantId`) or include `AND tenant_id = ?`. POC tenant = literal `'default'`. |
+| **R4** | Document route handlers must not build raw document SQL. Use `DocumentRepository.list()` / `DocumentsService`. (Legacy `content`/`media` routes are the exception — and are being decommissioned.) |
+| **R5** | Count placeholders/columns/binds by hand before committing any `INSERT`. Mock tests can't catch arithmetic bugs (R10). |
+| **R6** | `version_number` is derived in SQL: `(SELECT COALESCE(MAX(version_number),0)+1 FROM documents WHERE root_id = ?)`. Never compute in JS — the partial unique index `idx_documents_unique_version` will reject concurrent collisions. |
+| **R7** | Derived rows (`document_facets`, `document_references`) exist **only** for the current-draft and published rows of a root. Delete explicitly on supersede/unpublish — never rely on `ON DELETE CASCADE` (D1 FK enforcement is not guaranteed). |
+| **R8** | Escape every user-controlled value rendered into HTML with `escapeHtml` from `utils/sanitize`. |
+| **R9** | After editing any `packages/core/migrations/*.sql`: run `cd packages/core && npm run generate:migrations`, re-sync the `my-sonicjs-app/migrations/` copies (byte-identical), commit the regenerated `src/db/migrations-bundle.ts`. |
+| **R10** | Unit tests on the pure-mock DB cannot verify SQL, constraints, batch atomicity, generated columns, or bind counts. Real coverage requires the `better-sqlite3` harness — `documents.sqlite.test.ts` + the `*.integration.test.ts` route harness. |
+| **R11** | New E2E specs are numbered **68+** (highest existing is 67). |
+| **R12** | POC runs **alongside** legacy paths. Do not drop legacy plugin tables in the POC — decommission only after read-flip + backfill + grep-gate (see plan §"Decommissioning"). |
 
-### Delegation — cavecrew subagents
+### Key behaviors to preserve
 
-Use when scope is bounded AND output would bloat main context:
-- `cavecrew-investigator` — read-only locator ("where is X / what calls Y / map this dir"). ~60% smaller tool result vs vanilla Explore.
-- `cavecrew-builder` — surgical 1-2 file edit (typo, single-fn rewrite, mechanical rename). Refuses 3+ files.
-- `cavecrew-reviewer` — diff/PR review, one line per finding.
+- **Two axes**: `is_current_draft` and `is_published` are **separate** — a published doc stays live while an editor saves new drafts. `status` (`draft`/`published`/`archived`) is a derived UI label only.
+- **Timestamps**: `documents.created_at`/`updated_at` are stored in **seconds** (legacy `content` used ms). Use `documentSecondsToMs()` from `services/documents.ts` at every response/render boundary that expects ms.
+- **Pagination**: keyset on `(updated_at, id)` for all JSON APIs. `OFFSET` only allowed in admin HTML page-number tables, and only with an explicit comment.
+- **ACL**: `isAllowed` precedence = **deny wins → explicit allow → base grants**. Authed callers' `principalSet` must include `{ type: 'role', id: <role> }` (base grants only match `public` + `role`).
+- **Generated-column budget**: D1 hard limit is 100 columns/table. Adding `q_*` columns goes through `MigrationService.ensureDocumentGeneratedColumns()` (idempotent `table_xinfo` + ALTER) — **not** a new migration file (D45 pattern).
+- **PII / right-to-erasure**: types with PII set `settings.pii = true` and **hard-erase** all versions (facets → refs → permissions → all `documents` rows in one batch) + delete R2 object.
 
-Skip cavecrew for: known-path edits, multi-file features, anything codegraph answers in one call.
+### Collections are code-only (no DB table)
 
-### Anti-patterns (token waste)
+Collections are registered via `registerCollections([...])` in the app entry point and live in the **in-memory `CollectionRegistry`** (singleton, populated at bootstrap). The `collections` DB table was dropped in PR 4 of the drop-db-collections plan (`docs/ai/plans/drop-db-collections-plan.md`). Never add a `collections` table or `syncCollections()` call.
 
-- ❌ Running `grep -r` across the repo when `codegraph_search` would answer.
-- ❌ Reading 5+ files to understand a flow — `codegraph_explore` returns the relevant slice.
-- ❌ Spawning a subagent just to read one known file.
-- ❌ Verbose narration. Caveman mode handles that — keep updates to one sentence.
+`autoRegisterCollectionDocumentTypes` runs at bootstrap and reads from `getCollectionRegistry().listActive()` to register a `document_type` row for every code-defined collection (id == collection name). All `/admin/content` writes go to `documents`.
 
-## Project Structure & Stack
-- Monorepo managed with npm workspaces. Core Hono + Workers code, routes, middleware, templates, plugins, utils, and DB lives in `packages/core/src`.
-- Shared templates/components: `packages/templates/`. CLI scaffolder: `packages/create-app/`. Helper scripts: `packages/scripts/`.
-- Marketing/docs site is `www/` (Next.js + MDX). Long-form docs, AI plans, and architecture notes live in `docs/`.
-- E2E specs use Playwright in `tests/e2e/` (configs in `tests/playwright*.config.ts`). Postman and smoke docs sit under `tests/`.
-- `my-sonicjs-app/` is the sand-boxed sample install; recreate freely and use it to exercise migrations (`npm run setup:db` produces a fresh branch-specific D1 DB).
+To add a collection: create a `CollectionConfig` export + call `registerCollections()` — no migration needed.
 
-## Preferred Workflow (Claude Code parity)
-1. **Understand & Plan** – Read the issue and affected modules, skim relevant docs, and outline a plan/todo list before heavy editing. Keep changes minimal and targeted.
-2. **Prep Environment** – From `my-sonicjs-app/`, run `npm run setup:db` for a clean Cloudflare D1 database tied to the worktree. Run `npm install` at repo root if dependencies changed.
-3. **Implement** – Match existing TypeScript/Hono patterns (server templates, plugins, Drizzle schema, HTMX UI). Keep types explicit and favor async/await.
-4. **Add Tests** – Unit tests go beside the feature in `packages/core/src/__tests__`. Every change also needs an accompanying Playwright spec under `tests/e2e/##-description.spec.ts`.
-5. **Verify** – Run `npm run type-check`, `npm test`, and `npm run e2e` locally. Use `npm run e2e:smoke` or `npm run e2e:ui` only for debugging, but ensure the full suite passes before sign-off.
-6. **Document** – Update README/docs or AI plans when APIs, migrations, or workflows change. Mention any fixtures or DB prep needed in the PR/test plan.
+### Bootstrap order
 
-## Build & Test Commands
-- Install deps: `npm install`
-- Build core only: `npm run build:core`; full build + sample app: `npm run build`
-- Dev servers: `npm run dev` (proxies to `my-sonicjs-app`), `npm run dev:www` (marketing)
-- Type safety: `npm run type-check`
-- Unit tests: `npm test` or `npm run test:watch`
-- Playwright E2E: `npm run e2e`, smoke subset via `npm run e2e:smoke`, headed/UI via `npm run e2e:ui`
-- Sample-app DB reset: `npm run db:reset` (or `npm run setup:db` inside `my-sonicjs-app`)
+```
+migrations (0001 core, 0002 documents)
+→ MigrationService.ensureDocumentGeneratedColumns (q_* self-heal)
+→ loadCollectionConfigs → CollectionRegistry.register  ← code-only; no DB sync
+→ autoRegisterCollectionDocumentTypes (reads registry)
+→ bootstrapDocumentTypes (seed system types)
+→ plugin onBoot
+```
 
-### Local secrets (`my-sonicjs-app/.dev.vars`)
-- `wrangler dev` reads `my-sonicjs-app/.dev.vars` for local secrets. Auth refuses to initialize without `BETTER_AUTH_SECRET` (>=16 chars); requests to `/auth/*` then return 500 with "BETTER_AUTH_SECRET is missing or too short".
-- `npm run workspace` (and `npm run db:reset` → `setup-worktree-db.sh`) auto-create `.dev.vars` with a fresh `openssl rand -hex 32` secret. Re-runs are idempotent — won't overwrite.
-- Manual fix if file is missing: `cd my-sonicjs-app && cp .dev.vars.example .dev.vars` then set `BETTER_AUTH_SECRET="$(openssl rand -hex 32)"`. `.dev.vars` is gitignored — never commit it. For prod/preview use `wrangler secret put BETTER_AUTH_SECRET`.
+Entry point: `packages/core/src/middleware/bootstrap.ts`.
 
-## Coding Style & Patterns
-- TypeScript-first ES modules. Keep exported/public signatures fully typed; lean on Zod validation where applicable.
-- Use established folder conventions for routes (`packages/core/src/routes`), templates (`packages/core/src/templates`), plugins (`packages/core/src/plugins`), and Drizzle schema (`packages/core/src/db`).
-- Naming: `camelCase` variables/functions, `PascalCase` classes/components, dash-case filenames and migrations (`NNN_description.sql`).
-- Tests end with `.test.ts` or `.integration.test.ts`; Playwright specs are numerically prefixed (`##-flow-name.spec.ts`).
-- Favor small, composable functions and glass-morphism UI patterns already defined in admin templates.
+### Auth principals (Better Auth)
 
-## Testing Expectations (Non-Negotiable)
-- **Unit coverage**: Write explicit assertions (avoid brittle snapshots) in `packages/core/src/__tests__`. Cover both success and edge cases.
-- **E2E coverage**: Every feature/fix must add or update a Playwright spec in `tests/e2e/`. Include happy path + critical error handling. Use helpers like `tests/e2e/utils/test-helpers.ts` for login/setup.
-- **Regression focus**: When fixing bugs, first reproduce with a failing test (unit or e2e) before applying the fix.
-- Document any required seed data or setup in the PR/test plan so reviewers and CI know how to run it.
+```ts
+c.get('user') // { userId, email, role }
 
-## Commit, PR, and CI Workflow
-- Branches are created by Conductor; keep names descriptive (`fix-auth-timeout`, `feat-media-upload`).
-- Follow the Claude Code commit template:
-  ```
-  <type>: <short description>
+// Authed routes:
+const principalSet = [
+  { type: 'user', id: user.userId },
+  { type: 'role', id: user.role },
+]
 
-  - Bullet summary of key changes
+// Public routes:
+const principalSet = [{ type: 'public', id: '*' }]
+```
 
-  Fixes #<issue-number>
+Base grants only match `public` + `role`, so the `role` principal is mandatory for authed callers (R11 rule in plan). Tenant constant POC-wide: literal `'default'`.
 
-  Generated with Claude Code
-  Co-Authored-By: Claude <noreply@anthropic.com>
-  ```
-  Types: `fix`, `feat`, `refactor`, `test`, `docs`, `chore`.
-- Before creating a PR run: `npm run type-check && npm test && npm run e2e`. CI repeats these plus deploys a Workers preview with a fresh D1 instance.
-- PR body should mirror `.github/pull_request_template.md`: include summary, linked issue, detailed change bullets, and explicit test commands + outcomes (unit + E2E).
-- Keep docs in sync (`docs/`, `www/src/app/*.mdx`, READMEs). Mention any migrations or plugin contract changes.
+### Drizzle vs raw SQL split
 
-## Available Agents
+- `db/schema.ts` = legacy tables only (no `documents*`, no `q_*`, no partial unique indexes). R2.
+- All document SQL lives in raw migrations (`0002`, future `0003+`) + `DocumentsService` / `DocumentRepository`.
 
-Specialized agents are defined in `.claude/commands/`. All agents are prefixed with `sonicjs-` for namespacing.
+### Migration numbering
 
-For detailed documentation, see [docs/ai/claude-agents.md](docs/ai/claude-agents.md).
+- `0001_core.sql` — Better Auth tables.
+- `0002_documents.sql` — document repository (5 tables + `q_*` generated cols + partial unique indexes).
+- **Next free: `0003_*`.** (`collections` table never created on greenfield — no drop migration needed.)
+- Adding queryable scalar fields: use `MigrationService.ensureDocumentGeneratedColumns()` self-heal — **not** a new migration file (D45 pattern).
 
-### Development Agents
-| Agent | Purpose |
-|-------|---------|
-| `/sonicjs-fullstack-dev` | Full stack development with planning, testing, and documentation |
-| `/sonicjs-pr-fixer` | Fix PRs: cherry-pick forks, enable Dependabot e2e, fix conflicts/tests |
-| `/sonicjs-pr-maker` | Create PRs, monitor CI/CD, analyze failures, auto-fix issues |
-| `/sonicjs-release-engineer` | Manage releases and versioning |
+### Files (cheat-sheet)
 
-### Marketing & Content Agents
-| Agent | Purpose |
-|-------|---------|
-| `/sonicjs-release-announcement` | Generate release announcements |
-| `/sonicjs-seo` | SEO expert for optimization recommendations |
-| `/sonicjs-seo-blog` | Generate SEO-optimized blog posts |
-| `/sonicjs-seo-audit` | Audit website for SEO improvements |
-| `/sonicjs-seo-keywords` | Keyword research for content |
-| `/sonicjs-seo-sitemap` | Generate/update sitemaps |
-| `/sonicjs-seo-discord-sync` | Sync Discord content for searchability |
-| `/sonicjs-social-post` | Generate social media posts |
-| `/sonicjs-blog-image` | Generate blog images via DALL-E |
+| Concern | File |
+|---|---|
+| Schema | `packages/core/migrations/0001_core.sql`, `0002_documents.sql` |
+| Collection registry | `packages/core/src/services/collection-registry.ts` (`getCollectionRegistry`, `CollectionRegistry`) |
+| Collection registration | `registerCollections([...])` in app entry point (`my-sonicjs-app/src/index.ts`); read-only admin list at `/admin/collections` |
+| Self-heal `q_*` columns | `packages/core/src/services/migrations.ts` (`ensureDocumentGeneratedColumns`) |
+| Bootstrap | `packages/core/src/middleware/bootstrap.ts` |
+| Write API | `packages/core/src/services/documents.ts` (`create`, `saveDraft`, `publish`, `unpublish`, `erase`) |
+| Read chokepoint | `packages/core/src/services/document-repository.ts` (`list`, `listPublished`, `listDrafts`, `isAllowed`) |
+| Projection | `packages/core/src/services/document-projection.ts` |
+| ACL resolver | `packages/core/src/services/document-permissions.ts` |
+| Type registry | `packages/core/src/services/document-type-registry.ts`, `document-types-seed.ts` |
+| Public API | `packages/core/src/routes/api.ts`, `api-content-crud.ts`, `api-documents.ts` |
+| Admin routes | `packages/core/src/routes/admin-content.ts` (primary), `admin-documents.ts` |
+| Media adapter | `packages/core/src/services/media-documents.ts` |
+| Real-DB tests | `__tests__/services/documents.sqlite.test.ts`, `__tests__/**/*.integration.test.ts` |
+| D1 test adapter | `packages/core/src/__tests__/utils/d1-sqlite.ts` (better-sqlite3 → D1 shim) |
 
-## AI/Tooling Notes
-- Claude Desktop memory is shared via `docs/ai/claude-memory.json`. Copy `.claude/settings.shared.json` to `.claude/settings.local.json` and install the `@modelcontextprotocol/server-memory` MCP server if you need consistent AI context.
-- Graphiti MCP integration is documented in `docs/graphiti-setup.md`; update API keys there and restart Claude Desktop when tooling changes.
-- Maintain `docs/ai/project-plan.md` and related AI plans as living documents—log new strategies or testing insights there when relevant.
+### Do not Read (token traps)
+
+- `packages/core/src/db/migrations-bundle.ts` — generated, ~33KB.
+- `packages/core/dist/**` — build output.
+- `my-sonicjs-app/migrations/*.sql` — byte-identical copies of `packages/core/migrations/`. Read the originals.
+- `docs/ai/claude-memory.json` — MCP memory store.
+- `node_modules/**`, `.wrangler/**`, `playwright-report/**`, `test-results/**`.
+
+### Adding a new feature → checklist
+
+1. **Register a document type** in your plugin's `onBoot` (don't add a table). Source = `'system'` for plugin-owned, `'user'` for collection-driven. For user collections, `autoRegisterCollectionDocumentTypes` handles this automatically at bootstrap — no manual step needed.
+2. **Add queryable fields** as `q_*` entries in `ensureDocumentGeneratedColumns` (no new migration file). Stay under the 100-column budget.
+3. **Writes**: go through `DocumentsService` (which uses raw `prepare/bind/batch` — R1) — tenant defaults to `'default'`.
+4. **Reads**: go through `DocumentRepository.list()` (R4) — never inline `prepare` in a handler.
+5. **Public exposure**: set `settings.baseGrants.public = ['read']` only if the data is non-PII.
+6. **PII**: set `settings.pii = true` and ensure the erase path covers it.
+7. **Tests**: add at least one `*.sqlite.test.ts` or `*.integration.test.ts` case. Mock tests prove nothing about SQL (R10).
+8. **E2E**: add a Playwright spec (numbered 68+). Write it; do NOT run it locally — CI validates it.
+
+### Status snapshot (avoid re-investigating)
+
+- **Auto `content`→`documents` backfill**: descoped (new installs only). Manual `scripts/backfill-content.ts` preserves `created_at` if ever needed.
+- **Media library read-flip**: in progress, slice 3 (`MediaDocumentService.list()` done; admin handlers + `api-media` DELETE still on legacy `media`).
+- **Workflow plugin**: routes commented out, dead code; not on critical path for `content` DROP.
+- **`content`/`media` table DROP**: blocked (D34/D35 + media read-flip pending).
+- **`collections` table**: never created on greenfield. Collections are code-only via `CollectionRegistry` and `registerCollections()`. Do not add a `collections` table or `syncCollections()` call.
+
+## Token-Efficient Tooling (REQUIRED before grep/Read sprees)
+
+Repo indexed by **codegraph**. Bash auto-proxied by **rtk**. Default reply mode **caveman**.
+
+- **Code lookup**: call `mcp__codegraph__codegraph_explore` FIRST for any "how does X work / trace flow / where is X used" question. ONE call returns verbatim source grouped by file — replaces 5–20 Grep/Read calls.
+- **Symbol location only**: `codegraph_search`.
+- **Call graph / impact**: `codegraph_callers`, `codegraph_callees`, `codegraph_impact`.
+- **Bash**: hook rewrites to `rtk <cmd>` automatically. `rtk gain` audits savings.
+- **Replies**: caveman mode (full) — drop articles/filler. Code/commits/security warnings stay normal. Toggle `/caveman` or "stop caveman".
+- **Subagent delegation** (compressed output, ~60% smaller results): `cavecrew-investigator` (locate), `cavecrew-builder` (1–2 file edit), `cavecrew-reviewer` (diff review).
+
+Anti-patterns: `grep -r` across repo when codegraph answers; reading 5+ files to learn a flow; spawning a subagent for a known file; verbose narration.
+
+## E2E Testing
+
+Every feature/fix ships with a Playwright spec in `tests/e2e/`. Write the spec, but **do NOT run E2E tests locally** — they require a running wrangler dev server, consume excessive memory, and are validated by CI on PR. Running them locally is too expensive.
+
+### CI test selection strategy (dynamic)
+
+CI runs **smoke tests + tests tagged to changed areas only** — not the full suite. This keeps PR feedback fast.
+
+**Tag every test** with `@smoke` (critical path, always runs) or a feature tag (`@media`, `@content`, `@auth`, `@api-keys`, `@database`, `@collections`, etc.):
+
+```typescript
+test('does the thing @media', async ({ page }) => { … })
+// or on the describe block:
+test.describe('Media Upload @media', () => { … })
+```
+
+**Tag mapping** (CI uses `git diff --name-only` → selects tags to run):
+
+| Changed path pattern | Tags to run |
+|---|---|
+| `src/routes/admin-content*` or `src/services/documents*` | `@smoke @content` |
+| `src/routes/admin-media*` or `src/services/media*` | `@smoke @media` |
+| `src/routes/api*` | `@smoke @api` |
+| `src/middleware/auth*` or `src/routes/admin-settings*` | `@smoke @auth` |
+| `src/services/api-keys*` or related | `@smoke @api-keys` |
+| `src/routes/admin-database*` | `@smoke @database` |
+| `packages/core/migrations/*` | `@smoke @content @media @api` |
+| Anything else / multiple areas | `@smoke` only |
+
+CI invocation: `npx playwright test --grep "@smoke|@<detected-tag>"`.
+
+**When writing a new spec**: choose the tightest matching feature tag. If it spans multiple features, use the primary one + `@smoke` if it tests login/nav/core flow.
+
+Workflow:
+1. Implement
+2. Add `tests/e2e/<NN>-<slug>.spec.ts` (NN = next sequential; current floor 68 — R11)
+3. Tag tests with `@smoke` and/or appropriate feature tag
+4. Commit implementation + tests together — CI selects and runs relevant tests
+
+Spec skeleton:
+
+```typescript
+import { test, expect } from '@playwright/test'
+import { loginAsAdmin } from './utils/test-helpers'
+
+test.describe('Feature Name @feature-tag', () => {
+  test.beforeEach(async ({ page }) => {
+    await loginAsAdmin(page)
+  })
+
+  test('does the thing', async ({ page }) => {
+    // …
+  })
+})
+```
+
+Cover: user interactions, data persistence, UI state, error/validation paths, integration points.
+
+## Verification commands
+
+```bash
+# Type safety (core)
+cd packages/core && npm run type-check
+
+# Unit + real-DB tests (root → @sonicjs-cms/core)
+npm test
+npm test -- <pattern>            # single test by name/path
+
+# Local D1 — reset + migrate + seed
+cd my-sonicjs-app && npm run setup:db
+
+# Dev server (wrangler :8787) — use only when explicitly needed, not for testing
+cd my-sonicjs-app && npm run dev
+
+# Migration bundle regen (after any packages/core/migrations/*.sql edit)
+cd packages/core && npm run generate:migrations
+```
+
+After **any** `packages/core/migrations/*.sql` change: regenerate the bundle, re-sync `my-sonicjs-app/migrations/`, commit the regenerated `migrations-bundle.ts` (R9).
+
+**Lock file trap (macOS → Linux CI):** Any `npm install` on macOS regenerates `package-lock.json` without Linux optional packages (`@emnapi/runtime`, `@emnapi/core`, `wrangler/node_modules/esbuild`), breaking `npm ci` in CI. After any `npm install` that touches `package-lock.json`, immediately run a full delete-and-reinstall to restore cross-platform entries:
+```bash
+rm -rf node_modules package-lock.json && npm install
+```
+Then commit the regenerated `package-lock.json`. Never commit a lock file produced by `npm install --workspace=...` directly.
+
+D1's **100 bound params/statement** and **100 columns/table** limits do not reproduce on local SQLite — cover with logic unit tests (chunk counts, column budget).
+
+## Development Workflow
+
+1. **Plan first** — read the codebase (use `codegraph_explore`), write a plan to `project-plan.md`.
+2. **Todo management** — discrete checkable items.
+3. **Get approval** before starting non-trivial work.
+4. **Iterative** — mark items done as you go.
+5. **High-level updates** — terse explanations per step.
+6. **Minimal changes** — no scope creep, no premature abstractions.
+7. **Review section** in `project-plan.md` summarizing what shipped.
+
+## Key Principles
+
+- **Edge-first** (Cloudflare global edge).
+- **TypeScript-first**.
+- **Configuration over UI** (developer-centric).
+- **AI-friendly** (clean structure, codegraph-indexed).
+- **Document model is the data model** — new tables need an explicit reason in the design plan.
+
+## Admin UI
+
+Glass-morphism / catalyst design system. Reference patterns before building new pages:
+
+- Pages: `packages/core/src/templates/pages/admin-*.template.ts`
+- Layout: `packages/core/src/templates/layouts/admin-layout-v2.template.ts` (legacy), catalyst layout for new work
+- Components: `packages/core/src/templates/components/`
+- Routes: `packages/core/src/routes/admin.ts`, `admin-content.ts`
+
+Use `codegraph_explore` to inspect current patterns before building new pages.
+
+## Security
+
+- Never expose secrets in code or tests.
+- Validate all user input at the boundary (Zod).
+- Escape all user-controlled HTML output (R8 — `escapeHtml` from `utils/sanitize`).
+- ACL gates every document mutation in admin routes (Phase 2b — `denyIfNotAllowed` helper).
+- Public API enforces `isAllowed` with `[{type:'public',id:'*'}]` — no `is_published`-only fast paths (D5).
+- Tenant scope (`tenant_id`) on every doc query (R3).
+
+## Claude AI Memory Setup
+
+Project uses Claude's memory MCP server for shared cross-session context.
+
+1. `cp .claude/settings.shared.json .claude/settings.local.json`
+2. `npm install -g @modelcontextprotocol/server-memory`
+3. Restart Claude Desktop
+
+Storage: `docs/ai/claude-memory.json` (tracked in git).
 
 ---
 > Source: [SonicJs-Org/sonicjs](https://github.com/SonicJs-Org/sonicjs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
