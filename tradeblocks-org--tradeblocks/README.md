@@ -1,8 +1,6 @@
 # AI instruction files for tradeblocks
 
-> Sourced from [tradeblocks-org/tradeblocks](https://github.com/tradeblocks-org/tradeblocks) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Portfolio analytics analysis for OptionsOmega portfolio back tests
+> Sourced from [tradeblocks-org/tradeblocks](https://github.com/tradeblocks-org/tradeblocks), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [tradeblocks-org/tradeblocks](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tradeblocks-org/tradeblocks](https://github.com/tradeblocks-org/tradeblocks)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/tradeblocks-org/tradeblocks](https://github.com/tradeblocks-org/tradeblocks)
 
 ---
 
