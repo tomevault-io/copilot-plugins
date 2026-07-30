@@ -1,0 +1,9 @@
+{
+  "name": "opengeos--geoagent",
+  "displayName": "GeoAgent",
+  "description": "GeoAgent",
+  "version": "1.0.0",
+  "author": "opengeos",
+  "homepage": "https://github.com/opengeos/GeoAgent",
+  "skills": []
+}
