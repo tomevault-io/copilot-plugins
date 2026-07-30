@@ -4,7 +4,7 @@
   "repo": "teammapper",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/b310-digital/teammapper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T18:57:16Z"
+  "distributed_at": "2026-07-30T09:06:47Z"
 }
