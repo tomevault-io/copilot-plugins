@@ -1,168 +1,138 @@
 ## persian-tools
 
-> This document provides instructions for various AI coding agents working on the persian-tools library. Each agent should follow these guidelines while respecting their specific capabilities and interfaces.
+> - **Persian/Farsi**: Uses specific Unicode ranges (U+06xx)
 
-# AI Agent Instructions for persian-tools
+# Persian Language Processing Instructions
 
-## Overview
-This document provides instructions for various AI coding agents working on the persian-tools library. Each agent should follow these guidelines while respecting their specific capabilities and interfaces.
+## Understanding Persian Text
 
-## General Agent Guidelines
+### Character Sets
+- **Persian/Farsi**: Uses specific Unicode ranges (U+06xx)
+- **Arabic**: Shares some characters but has differences
+- **Mixed content**: Often contains both Persian and English
 
-### Code Understanding
-- **Context First**: Always read and understand existing code patterns before making changes
-- **Persian Expertise**: Understand Persian language nuances, RTL text, and cultural context
-- **Type Safety**: Maintain strict TypeScript typing throughout the codebase
-- **Testing Focus**: Write comprehensive tests for all functionality
-
-### Development Workflow
-1. **Analyze**: Understand the existing codebase structure
-2. **Plan**: Break down complex tasks into smaller, manageable steps
-3. **Implement**: Write code following established patterns
-4. **Test**: Create thorough test coverage
-5. **Document**: Update relevant documentation
-
-### Code Quality Standards
-- Follow existing naming conventions and code style
-- Use explicit types and avoid `any`
-- Write JSDoc comments for public APIs
-- Include error handling and input validation
-- Maintain backward compatibility
-
-## Agent-Specific Instructions
-
-### GitHub Copilot
-- Leverage the `.github/copilot-instructions.md` file
-- Focus on incremental improvements and bug fixes
-- Suggest relevant completions based on context
-- Respect existing code patterns and conventions
-
-### Claude (Anthropic)
-- Use step-by-step reasoning for complex problems
-- Provide detailed explanations for Persian language decisions
-- Consider edge cases and error scenarios
-- Offer multiple implementation approaches when relevant
-
-### Gemini (Google)
-- Utilize multimodal capabilities for documentation review
-- Focus on performance optimization opportunities
-- Suggest modern JavaScript/TypeScript patterns
-- Provide comprehensive testing strategies
-
-## Persian Language Expertise Required
-
-All agents must understand:
-- Persian vs Arabic character differences
-- Persian digit systems (۰-۹)
-- Half-space (ZWNJ) usage in Persian text
-- RTL text direction implications
-- Iranian banking and ID number formats
-- Jalali calendar system
-- Persian number-to-words conversion patterns
-
-## Common Tasks and Approaches
-
-### Adding New Utilities
-1. Create module directory under `src/modules/`
-2. Implement main function with proper typing
-3. Add comprehensive tests in `test/`
-4. Update main `index.ts` exports
-5. Document in README if user-facing
-
-### Bug Fixes
-1. Reproduce the issue with a test case
-2. Identify root cause
-3. Implement minimal fix
-4. Ensure no regressions
-5. Update tests to prevent recurrence
-
-### Performance Improvements
-1. Profile current performance
-2. Identify bottlenecks
-3. Implement optimizations
-4. Benchmark improvements
-5. Maintain API compatibility
-
-### Documentation Updates
-1. Keep README.md current with examples
-2. Update JSDoc comments
-3. Maintain CHANGELOG.md
-4. Update type definitions
-
-## Error Handling Patterns
-
+### Key Differences: Persian vs Arabic
 ```typescript
-// Standard error handling approach
-export function validateInput(input: string): ValidationResult {
-  if (!isString(input) {
-    throw new TypeError('Input must be a string');
-  }
-  
-  if (input.length === 0) {
-    return { valid: false, error: 'Input cannot be empty' };
-  }
-  
-  // Validation logic...
-  return { valid: true, normalized: input };
+// Persian-specific characters
+const PERSIAN_CHARS = ['پ', 'چ', 'ژ', 'گ', 'ی', 'ک'];
+// Arabic characters that visually resemble Persian-specific characters (not direct equivalents)
+const ARABIC_CHARS = ['ب', '', '', '', 'ي', 'ك'];
+/**
+ * Persian to Arabic character mapping for normalization purposes
+ */
+const PERSIAN_TO_ARABIC_MAP: Record<string, string> = {
+  'پ': 'ب', // Persian Peh to Arabic Beh
+  'چ': '',  // No direct Arabic equivalent for Persian Cheh
+  'ژ': '',  // No direct Arabic equivalent for Persian Jeh
+  'گ': '',  // No direct Arabic equivalent for Persian Gaf
+  'ی': 'ي', // Persian Yeh to Arabic Yeh
+  'ک': 'ك', // Persian Kaf to Arabic Kaf
+};
+```
+
+### Persian Digits
+```typescript
+// Persian/Farsi digits
+const PERSIAN_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+// Arabic-Indic digits (different from Persian)
+const ARABIC_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+```
+
+## Text Processing Guidelines
+
+### Direction Handling (RTL)
+- Persian text flows right-to-left
+- Numbers and English text within Persian flow left-to-right
+- Handle mixed content properly
+
+### Normalization
+```typescript
+// Common normalization patterns
+export function normalizePersianText(text: string): string {
+  return text
+    .replace(/ي/g, 'ی')  // Arabic ya to Persian ya
+    .replace(/ك/g, 'ک')  // Arabic kaf to Persian kaf
+    .replace(/\u200C+/g, '\u200C')  // Normalize ZWNJ (half-space)
+    .trim();
 }
 ```
 
-## Testing Requirements
+### Half-Space (ZWNJ) Handling
+- Zero Width Non-Joiner (U+200C) is crucial in Persian
+- Used between word parts that shouldn't be joined
+- Example: می‌خواهم (I want) vs میخواهم (incorrect)
 
-### Test Coverage
-- All exported functions must have tests
-- Include positive and negative test cases
-- Test edge cases (empty strings, null, undefined)
-- Test Persian-specific scenarios
+### Common Persian Patterns
 
-### Test Structure
+#### Names and Titles
 ```typescript
-describe('functionName', () => {
-  describe('valid inputs', () => {
-    it('should handle basic case', () => {
-      // Test implementation
-    });
-  });
-  
-  describe('invalid inputs', () => {
-    it('should throw error for invalid input', () => {
-      // Error test implementation
-    });
-  });
-  
-  describe('edge cases', () => {
-    it('should handle empty string', () => {
-      // Edge case implementation
-    });
-  });
-});
+// Persian name patterns
+const PERSIAN_NAME_PREFIXES = ['آقا', 'خانم', 'دکتر', 'مهندس'];
+const PERSIAN_NAME_SUFFIXES = ['زاده', 'پور', 'نژاد', 'آبادی'];
 ```
 
-## Performance Considerations
+#### Numbers in Persian Context
+```typescript
+// Ordinal suffixes in Persian
+const ORDINAL_SUFFIXES = ['ام', 'م', 'ین', 'ست'];
 
-- Use lazy loading for large datasets
-- Implement caching for expensive operations
-- Consider memory usage for large text processing
-- Optimize for both single-use and batch operations
+// Number to words conversion
+function convertToFarsiWords(num: number): string {
+  // Implementation for Persian number words
+  // یک، دو، سه، چهار، پنج...
+}
+```
 
-## Security Guidelines
+#### Banking and Financial
+```typescript
+// Iranian banking specifics
+interface IranianBankAccount {
+  shebaCode: string;    // IR + 24 digits
+  cardNumber: string;   // 16 digits
+  bankCode: string;     // 3 digits
+}
+```
 
-- Validate all inputs thoroughly
-- Avoid executing dynamic code
-- Don't expose sensitive data in error messages
-- Use safe parsing methods for user data
+## Cultural Context
 
-## Collaboration Guidelines
+### Calendar Systems
+- **Jalali (Persian) Calendar**: Official calendar in Iran
+- **Gregorian Calendar**: International standard
+- Need conversion utilities between both
 
-When multiple agents work on the same codebase:
-- Communicate changes clearly
-- Maintain consistent coding style
-- Avoid conflicting modifications
-- Respect ongoing work by other agents
-- Follow established branching strategies
+### Geographic Context
+```typescript
+// Iranian provinces and cities
+interface IranProvince {
+  name: string;
+  persianName: string;
+  capital: string;
+  coordinates: [number, number];
+}
+```
 
-Remember: The goal is to maintain a high-quality, reliable Persian language utility library that serves the Persian-speaking developer community effectively.
+### Phone Numbers
+- Iranian mobile: +98 9xx xxx xxxx
+- Landline patterns vary by province
+- Handle both formats properly
+
+## Best Practices
+
+1. **Always test with real Persian text**
+2. **Consider both formal and informal Persian**
+3. **Handle mixed Persian/English content**
+4. **Respect cultural conventions**
+5. **Use appropriate Unicode normalization**
+6. **Test with various Persian fonts and renderers**
+
+## Common Pitfalls to Avoid
+
+- Don't confuse Persian and Arabic characters
+- Don't ignore half-space (ZWNJ) importance
+- Don't assume left-to-right text flow
+- Don't hardcode Persian text without proper encoding
+- Don't forget about Persian number systems
 
 ---
 > Source: [persian-tools/persian-tools](https://github.com/persian-tools/persian-tools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
