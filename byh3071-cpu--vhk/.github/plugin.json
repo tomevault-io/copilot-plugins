@@ -1,0 +1,9 @@
+{
+  "name": "byh3071-cpu--vhk",
+  "displayName": "vhk",
+  "description": "VHK \u2014 AI \ucf54\ub529 \uc138\uc158\uc744 \ubaa9\ud45c\u00b7\uc99d\uac70\u00b7\uae30\uc5b5\u00b7\uaddc\uce59\uc73c\ub85c \ubb36\ub294 \ud55c\uad6d\uc5b4 CLI. \uaddc\uce59 \ub3d9\uae30\ud654, MCP 35 tools, verify/review/preflight \uac8c\uc774\ud2b8.",
+  "version": "1.0.0",
+  "author": "byh3071-cpu",
+  "homepage": "https://github.com/byh3071-cpu/vhk",
+  "skills": []
+}
