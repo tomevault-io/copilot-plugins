@@ -1,7 +1,7 @@
 {
   "name": "eunomia-bpf--agentsight",
   "displayName": "agentsight",
-  "description": "Zero instrucment LLM and AI agent (e.g. claude code, gemini-cli) observability in eBPF",
+  "description": "agentsight",
   "version": "1.0.0",
   "author": "eunomia-bpf",
   "homepage": "https://github.com/eunomia-bpf/agentsight",
