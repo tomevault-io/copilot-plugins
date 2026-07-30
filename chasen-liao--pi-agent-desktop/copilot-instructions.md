@@ -1,88 +1,80 @@
-## nodejs
+## react
 
-> Node.js and Express.js best practices for backend development
+> React best practices and patterns for modern web applications
 
-# Node.js and Express.js Best Practices
+# React Best Practices
 
-## Project Structure
-- Use proper directory structure
-- Implement proper module organization
-- Use proper middleware organization
-- Keep routes organized by domain
-- Implement proper error handling
-- Use proper configuration management
+## Component Structure
+- Use functional components over class components
+- Keep components small and focused
+- Extract reusable logic into custom hooks
+- Use composition over inheritance
+- Implement proper prop types with TypeScript
+- Split large components into smaller, focused ones
 
-## Express Setup
-- Use proper middleware setup
-- Implement proper routing
-- Use proper error handling
-- Configure proper security middleware
-- Implement proper validation
-- Use proper static file serving
+## Hooks
+- Follow the Rules of Hooks
+- Use custom hooks for reusable logic
+- Keep hooks focused and simple
+- Use appropriate dependency arrays in useEffect
+- Implement cleanup in useEffect when needed
+- Avoid nested hooks
 
-## API Design
-- Use proper REST principles
-- Implement proper versioning
-- Use proper request validation
-- Handle errors properly
-- Implement proper response formats
-- Document APIs properly
-
-## Database Integration
-- Use proper ORM/ODM
-- Implement proper migrations
-- Use proper connection pooling
-- Implement proper transactions
-- Use proper query optimization
-- Handle database errors properly
-
-## Authentication
-- Implement proper JWT handling
-- Use proper password hashing
-- Implement proper session management
-- Use proper OAuth integration
-- Implement proper role-based access
-- Handle auth errors properly
-
-## Security
-- Use proper CORS setup
-- Implement proper rate limiting
-- Use proper security headers
-- Implement proper input validation
-- Use proper encryption
-- Handle security vulnerabilities
+## State Management
+- Use useState for local component state
+- Implement useReducer for complex state logic
+- Use Context API for shared state
+- Keep state as close to where it's used as possible
+- Avoid prop drilling through proper state management
+- Use state management libraries only when necessary
 
 ## Performance
-- Use proper caching
-- Implement proper async operations
-- Use proper connection pooling
-- Implement proper logging
-- Use proper monitoring
-- Handle high traffic properly
+- Implement proper memoization (useMemo, useCallback)
+- Use React.memo for expensive components
+- Avoid unnecessary re-renders
+- Implement proper lazy loading
+- Use proper key props in lists
+- Profile and optimize render performance
+
+## Forms
+- Use controlled components for form inputs
+- Implement proper form validation
+- Handle form submission states properly
+- Show appropriate loading and error states
+- Use form libraries for complex forms
+- Implement proper accessibility for forms
+
+## Error Handling
+- Implement Error Boundaries
+- Handle async errors properly
+- Show user-friendly error messages
+- Implement proper fallback UI
+- Log errors appropriately
+- Handle edge cases gracefully
 
 ## Testing
-- Write proper unit tests
-- Implement proper integration tests
-- Use proper test runners
-- Implement proper mocking
+- Write unit tests for components
+- Implement integration tests for complex flows
+- Use React Testing Library
+- Test user interactions
 - Test error scenarios
-- Use proper test coverage
+- Implement proper mock data
 
-## Deployment
-- Use proper Docker setup
-- Implement proper CI/CD
-- Use proper environment variables
-- Configure proper logging
-- Implement proper monitoring
-- Handle deployment errors
+## Accessibility
+- Use semantic HTML elements
+- Implement proper ARIA attributes
+- Ensure keyboard navigation
+- Test with screen readers
+- Handle focus management
+- Provide proper alt text for images
 
-## Best Practices
-- Follow Node.js best practices
-- Use proper async/await
-- Implement proper error handling
-- Use proper logging
-- Handle process signals properly
-- Document code properly
+## Code Organization
+- Group related components together
+- Use proper file naming conventions
+- Implement proper directory structure
+- Keep styles close to components
+- Use proper imports/exports
+- Document complex component logic
 
 ---
 > Source: [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop) — distributed by [TomeVault](https://tomevault.io).
