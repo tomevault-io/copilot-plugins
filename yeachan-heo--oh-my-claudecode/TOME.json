@@ -2,7 +2,7 @@
   "name": "oh-my-claudecode",
   "owner": "Yeachan-Heo",
   "repo": "oh-my-claudecode",
-  "description": "Teams-first Multi-agent orchestration for Claude Code",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Yeachan-Heo/oh-my-claudecode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T10:33:29Z"
+  "distributed_at": "2026-07-30T13:33:56Z"
 }
