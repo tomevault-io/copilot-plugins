@@ -1,21 +1,21 @@
 # dp_sdk_core
 
-> Source: [KaminDeng/dp_sdk_core](https://github.com/KaminDeng/dp_sdk_core) — distributed by [TomeVault](https://tomevault.io)
+> Source: [KaminDeng/dp_sdk_core](https://github.com/KaminDeng/dp_sdk_core). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KaminDeng/dp_sdk_core](https://github.com/KaminDeng/dp_sdk_core).
+Original source: `CLAUDE.md` in [KaminDeng/dp_sdk_core](https://github.com/KaminDeng/dp_sdk_core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/KaminDeng/dp_sdk_core](https://github.com/KaminDeng/dp_sdk_core)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/KaminDeng/dp_sdk_core](https://github.com/KaminDeng/dp_sdk_core)
 
 ---
 
