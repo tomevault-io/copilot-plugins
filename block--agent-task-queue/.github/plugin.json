@@ -1,0 +1,9 @@
+{
+  "name": "block--agent-task-queue",
+  "displayName": "agent-task-queue",
+  "description": "agent-task-queue",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/agent-task-queue",
+  "skills": []
+}
