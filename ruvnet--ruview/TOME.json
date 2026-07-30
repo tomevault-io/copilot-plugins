@@ -1,0 +1,273 @@
+{
+  "name": "RuView",
+  "owner": "ruvnet",
+  "repo": "RuView",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/stream-chain/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/stream-chain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/skill-builder/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/skill-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/swarm-advanced/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/swarm-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/pair-programming/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/pair-programming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/hooks-automation/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/hooks-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/flow-nexus-swarm/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/flow-nexus-swarm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/agentdb-learning/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/agentdb-learning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/github-multi-repo/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/github-multi-repo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/sparc-methodology/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/sparc-methodology/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/flow-nexus-neural/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/flow-nexus-neural/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/github-code-review/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/github-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/hive-mind-advanced/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/hive-mind-advanced/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/swarm-orchestration/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/swarm-orchestration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/agentdb-optimization/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/agentdb-optimization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/performance-analysis/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/performance-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/verification-quality/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/verification-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/agentdb-vector-search/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/agentdb-vector-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/reasoningbank-agentdb/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/reasoningbank-agentdb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-core/skills/agentdb-init/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-core/skills/agentdb-init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/agentdb-memory-patterns/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/agentdb-memory-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-core/skills/agentdb-status/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-core/skills/agentdb-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/github-release-management/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/github-release-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/github-project-management/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/github-project-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-graph/skills/agentdb-cypher/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-graph/skills/agentdb-cypher/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/github-workflow-automation/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/github-workflow-automation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "ui/.claude/skills/reasoningbank-intelligence/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/ui/.claude/skills/reasoningbank-intelligence/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-memory/skills/agentdb-recall/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-memory/skills/agentdb-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-graph/skills/agentdb-traverse/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-graph/skills/agentdb-traverse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-learning/skills/agentdb-learn/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-learning/skills/agentdb-learn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-memory/skills/agentdb-remember/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-memory/skills/agentdb-remember/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-graph/skills/agentdb-hyperedge/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-graph/skills/agentdb-hyperedge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-learning/skills/agentdb-feedback/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-learning/skills/agentdb-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-causal/skills/agentdb-causal-link/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-causal/skills/agentdb-causal-link/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-memory/skills/agentdb-skill-create/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-memory/skills/agentdb-skill-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-search/skills/agentdb-hybrid-search/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-search/skills/agentdb-hybrid-search/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-causal/skills/agentdb-causal-explain/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-causal/skills/agentdb-causal-explain/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-search/skills/agentdb-explainable-recall/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-search/skills/agentdb-explainable-recall/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agentdb",
+      "path": "plugins/agentdb-causal/skills/agentdb-hierarchical-store/SKILL.md",
+      "github_url": "https://github.com/ruvnet/RuView/tree/main/plugins/agentdb-causal/skills/agentdb-hierarchical-store/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ruvnet/RuView",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-30T19:02:36Z"
+}
