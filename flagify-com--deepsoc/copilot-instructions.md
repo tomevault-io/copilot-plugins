@@ -1,23 +1,33 @@
 ## deepsoc
 
-> - 如果涉及到大的功能/组件的调整，优先创建新的文件，减少修改大文件的机会，方便多人合作时候代码合并，降低影响；
+> These instructions apply to every file in this repository.
 
-# 文件修改时候注意事项
-- 如果涉及到大的功能/组件的调整，优先创建新的文件，减少修改大文件的机会，方便多人合作时候代码合并，降低影响；
-- 每次文件调整后，请在`changelog.md`中记录，方便后续理解和修改；
-- 如果调整内容较多，涉及到架构调整，请适当更新`DeepSOC架构文档.md`文件；
-- 如果调整了.env文件，请在`sample.env`文件中同步更新，方便用户首次使用时候可以直接参考；
+# Repository Guidelines for Codex
 
-# 前端开发要求
+These instructions apply to every file in this repository.
 
-- 涉及到前端样式调整时候，尽可能使用分散的css文件，这样可以避免多人开发时候的样式文件冲突；
-- 元素新增/修改，应尽可能保持和原有的元素样式风格一致；
+- **Do not create new branches.** Work directly on the default branch.
 
-# 测试方法、工具和要求
-- 所有测试方法和工具，请在`test`目录下创建，；
-- 临时创建的工具，请放到`tools`目录下;
-- 在测试工具中，增加功能描述和测试程序执行的方法；
+## Development workflow
+
+- Use **Python&nbsp;3.8+**.
+- After editing a `.py` file, run `python -m py_compile` on that file to catch syntax errors.
+- When adding major features or making broad changes, create new modules instead of heavily rewriting old ones. Summarize important updates in `changelog.md`.
+- Update `DeepSOC架构文档.md` whenever the architecture changes.
+- Keep `sample.env` synchronized with any `.env` modifications.
+- Place tests in the `test` directory. Temporary or helper scripts belong in `tools` and should include brief usage instructions.
+
+## Running the project
+
+Initialize the database and start all services with:
+
+```bash
+python main.py -init          # first-time database setup
+python tools/run_all_agents.py  # launch the web service and agent roles
+```
+
+See `README.md` for further details.
 
 ---
 > Source: [flagify-com/deepsoc](https://github.com/flagify-com/deepsoc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
