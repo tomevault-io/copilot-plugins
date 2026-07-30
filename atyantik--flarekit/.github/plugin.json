@@ -1,7 +1,7 @@
 {
   "name": "atyantik--flarekit",
   "displayName": "flarekit",
-  "description": "Flarekit is a scalable, modular, and developer-friendly monorepo ecosystem designed to build and deploy high-performance web applications leveraging Cloudflare Infrastructure. It provides seamless int",
+  "description": "flarekit",
   "version": "1.0.0",
   "author": "Atyantik",
   "homepage": "https://github.com/Atyantik/flarekit",
