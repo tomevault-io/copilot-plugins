@@ -2,9 +2,9 @@
   "name": "sebuf",
   "owner": "SebastienMelki",
   "repo": "sebuf",
-  "description": "Comprehensive Go protobuf toolkit for building type-safe HTTP APIs with automatic validation, OpenAPI docs, and low number of dependencies",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SebastienMelki/sebuf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T07:23:29Z"
+  "distributed_at": "2026-07-30T00:44:22Z"
 }
