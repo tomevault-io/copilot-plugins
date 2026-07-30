@@ -1,0 +1,51 @@
+{
+  "name": "docflow",
+  "owner": "EvolveHQ",
+  "repo": "docflow",
+  "description": "ADR-driven documentation workflow for the Claude Code and pi coding agents: scaffold and manage Architecture Decision Records (ADRs), a plan queue, and AGENTS.md conventions \u2014 a bootstrap skill plus lifecycle skills to author, queue, ship, and audit ADRs.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-convention",
+      "path": "plugins/docflow/skills/add-convention",
+      "github_url": "https://github.com/EvolveHQ/docflow/tree/main/plugins/docflow/skills/add-convention",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/EvolveHQ/docflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-30T00:31:07Z"
+}
