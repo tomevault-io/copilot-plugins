@@ -1,6 +1,6 @@
-# Trinity-RFT
+# AI instruction files for Trinity-RFT
 
-> Config by [agentscope-ai](https://github.com/agentscope-ai/Trinity-RFT) — distributed by [TomeVault](https://tomevault.io/claim/agentscope-ai)
+> Sourced from [agentscope-ai/Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `AGENTS.md` in [agentscope-ai/Trinity-RFT](https://github.com/a
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/agentscope-ai](https://tomevault.io/claim/agentscope-ai)
+From [agentscope-ai/Trinity-RFT](https://github.com/agentscope-ai/Trinity-RFT) — a repo with 669+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/agentscope-ai) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-s -->
