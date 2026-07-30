@@ -1,146 +1,69 @@
 ## apps
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> TypeScript/React coding standards - prefer null coalescing, optional chaining, ternaries for rendering, optional types, and organized string constants
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# TypeScript Best Practices
 
-## Project Overview
+## Null Coalescing & Optional Chaining
 
-Audius is a decentralized, community-owned music-sharing protocol. This is a monorepo containing:
+Use `??` and `?.` instead of `&&`/`||` for null checks.
 
-- Web and desktop applications (React + Vite)
-- Mobile applications (React Native)
-- Backend services (Discovery Provider, Content Node)
-- Blockchain smart contracts (Ethereum and Solana)
-- SDK and common libraries
+```typescript
+// ✅ Good
+const value = user?.name ?? 'Anonymous'
+const displayName = user?.profile?.displayName ?? 'Unknown'
 
-## Common Development Commands
-
-### Essential Commands
-
-Only run these commands in the directories related to the changes being made. Do not run in root unless needed.
-
-```bash
-# Install dependencies and setup development environment
-npm install
-
-# Run the protocol stack locally (requires Docker)
-npm run protocol
-
-# Connect client to local protocol
-audius-compose connect
-
-# Run web application
-npm run web:dev      # Against local services
-npm run web:stage    # Against staging
-npm run web:prod     # Against production
-
-# Run mobile applications
-npm run ios:dev      # iOS local development
-npm run android:dev  # Android local development
-
-# Testing
-npm run test         # Run all tests via Turbo
-npm run web:test     # Web unit tests
-npm run web:e2e      # Web E2E tests (Playwright)
-
-# Code Quality
-npm run lint         # Run linting
-npm run lint:fix     # Fix linting issues
-npm run verify       # Run all checks (typecheck, lint, etc.)
-
-# Build
-npm run build        # Build all packages via Turbo
+// ❌ Bad
+const value = (user && user.name) || 'Anonymous'
+const displayName =
+  (user && user.profile && user.profile.displayName) || 'Unknown'
 ```
 
-### Protocol Interaction Commands
+## Conditional Rendering
 
-```bash
-# Service management
-audius-compose up    # Start services
-audius-compose down  # Stop services
-audius-compose logs  # View logs
+Use ternaries instead of `&&` for JSX conditional rendering.
 
-# User actions
-audius-cmd create-user
-audius-cmd upload-track
-audius-cmd stream
+```tsx
+// ✅ Good
+return !user ? null : <UserProfile user={user} />
+return list.length === 0 ? null : <List items={list} />
+
+// ❌ Bad
+return user && <UserProfile user={user} />
+return list.length && <List items={list} />
 ```
 
-## Architecture & Key Patterns
+## String Constants
 
-### Monorepo Structure
+Organize user-facing strings in a `messages` object at the top of components.
 
-- **packages/web**: React web client with Vite, Redux Toolkit, Emotion CSS
-- **packages/mobile**: React Native app for iOS/Android
-- **packages/mobile/examples**: Runnable mobile examples (auth/sign-in, upload) with READMEs for AI and developer reference—see [packages/mobile/examples/README.md](packages/mobile/examples/README.md)
-- **packages/common**: Shared code between web and mobile (state, models, utilities)
-- **packages/sdk**: JavaScript SDK for interacting with Audius protocol
-- **packages/harmony**: Design system components and tokens
-- **packages/discovery-provider**: Python backend that indexes blockchain data
-- **mediorum**: Content node for storing/serving audio files
+```tsx
+// ✅ Good
+const messages = {
+  title: 'Welcome',
+  error: 'Something went wrong'
+}
 
-### State Management
+return <h1>{messages.title}</h1>
 
-- Redux Toolkit with sagas for side effects
-- Slices organized by domain (e.g., user, track, playlist)
-- Common state shared between web and mobile in packages/common/src/store
+// ❌ Bad
+return <h1>Welcome</h1>
+```
 
-### API Communication
+## Flex Component Direction
 
-- SDK (@audius/sdk) handles all protocol interactions
-- Services layer in packages/common/src/services
-- API adapters for web3 and traditional HTTP endpoints
-- **Mobile examples**: For auth (sign-in/OAuth-style), upload, etc., see `packages/mobile/examples/`; each example has a README with run instructions and source-of-truth file paths.
+Flex components default to column direction on mobile and row direction on web. Use the `column` prop directly instead of `direction='column'`, or omit the prop entirely for the default responsive behavior.
 
-### Styling Approach
+```tsx
+// ✅ Good
+<Flex>...</Flex>          // Default: Mobile column, Web row
+<Flex column>...</Flex>   // Explicit column on both platforms
 
-- Web: Emotion CSS with theme system
-- Mobile: React Native StyleSheet with shared theme
-- Design tokens from @audius/harmony
-
-### Testing Strategy
-
-- Unit tests: Vitest (web), Jest (mobile/services)
-- E2E tests: Playwright (web), Detox (mobile)
-- Test files colocated with source files
-
-### Key Development Patterns
-
-- TypeScript throughout with strict mode
-- Feature flags for progressive rollout
-- Offline support with optimistic updates
-- Web3 integration for blockchain features
-
-## Important Notes
-
-### When Making Changes
-
-- Always run `npm run verify` before committing
-- Mobile changes require testing on both iOS and Android
-- Backend changes may require protocol restart
-- Design system changes affect both web and mobile
-
-### Environment Variables
-
-- Web: See packages/web/.env.dev
-- Mobile: See packages/mobile/.env.dev
-- Protocol: Configured via dev-tools/startup
-
-### Common Pitfalls
-
-- Protocol must be running for local development
-- Mobile requires proper native environment setup
-- Some features require blockchain interaction
-- Audio processing happens on content nodes
-
-## Code Style and Best Practices
-
-- Always default to using `isPending` instead of `isLoading` as it comes to tanquery hooks
+// ❌ Bad
+<Flex direction='column'>...</Flex>
+```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AudiusProject)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/AudiusProject)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [AudiusProject/apps](https://github.com/AudiusProject/apps) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
