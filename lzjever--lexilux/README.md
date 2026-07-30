@@ -1,23 +1,21 @@
 # lexilux
 
-> Tome by [lzjever](https://github.com/lzjever/lexilux) — distributed by [TomeVault](https://tomevault.io)
-
-Unified LLM API client library for Python. Simple API for Chat, Embedding, Rerank, and Tokenizer. OpenAI-compatible with streaming support and unified usage tracking.
+> Tome by [lzjever](https://github.com/lzjever/lexilux), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lzjever/lexilux](https://github.com/lzjever/lexilux).
+Original source: `AGENTS.md` in [lzjever/lexilux](https://github.com/lzjever/lexilux).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lzjever/lexilux](https://github.com/lzjever/lexilux)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/lzjever/lexilux](https://github.com/lzjever/lexilux)
 
 ---
 
