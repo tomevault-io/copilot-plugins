@@ -1,8 +1,6 @@
 # AI instruction files for midscene
 
-> Sourced from [web-infra-dev/midscene](https://github.com/web-infra-dev/midscene) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-AI-powered, vision-driven UI automation for every platform.
+> Sourced from [web-infra-dev/midscene](https://github.com/web-infra-dev/midscene), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [web-infra-dev/midscene](https://github.com/web-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [web-infra-dev/midscene](https://github.com/web-infra-dev/midscene) — a repo with 13528+ stars on GitHub.
+From [web-infra-dev/midscene](https://github.com/web-infra-dev/midscene) — a repo with 14145+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
