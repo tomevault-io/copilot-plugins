@@ -1,8 +1,6 @@
 # AI instruction files for rails-instructions
 
-> Sourced from [levifig/rails-instructions](https://github.com/levifig/rails-instructions) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Set of instructions for your favorite AI agent (e.g. Cursor, Copilot, Claude, etc) for a "DHH-driven" Ruby on Rails development philosophy.
+> Sourced from [levifig/rails-instructions](https://github.com/levifig/rails-instructions), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [levifig/rails-instructions](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/levifig/rails-instructions](https://github.com/levifig/rails-instructions)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/levifig/rails-instructions](https://github.com/levifig/rails-instructions)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
