@@ -1,6 +1,6 @@
 # AI instruction files for cursorrules
 
-> Sourced from [kinopeee/cursorrules](https://github.com/kinopeee/cursorrules) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [kinopeee/cursorrules](https://github.com/kinopeee/cursorrules), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
