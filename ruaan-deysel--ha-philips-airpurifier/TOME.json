@@ -2,9 +2,9 @@
   "name": "ha-philips-airpurifier",
   "owner": "ruaan-deysel",
   "repo": "ha-philips-airpurifier",
-  "description": "Philips Air Purifier Integration for Home Assistant",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ruaan-deysel/ha-philips-airpurifier",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T20:56:34Z"
+  "distributed_at": "2026-07-30T06:45:34Z"
 }
