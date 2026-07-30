@@ -31,7 +31,7 @@ you **MUST** also read [agent_docs/reviewing.md](./agent_docs/reviewing.md).
 - **README Generation:** **DON'T** edit `README.md` directly. It is generated
   from `src/lib.rs`. Edit the top-level doc comment in `src/lib.rs` instead.
   - **To regenerate:**
-    `./cargo.sh +stable run --manifest-path tools/generate-readme/Cargo.toml > README.md`
+    `(cd .. && cargo -q run --manifest-path tools/Cargo.toml -p generate-readme) > README.md`
 
 <!-- TODO-check-disable -->
 - **TODOs:** **DON'T** use `TODO` comments unless you explicitly intend to block
@@ -54,9 +54,10 @@ memory safety.
 - `src/`: Core library source code.
 - `zerocopy-derive/`: Source code and tests for the procedural macros.
 - `tests/`: UI and integration tests for the main crate.
-- `tools/`: Internal tools and scripts.
-- `ci/`: CI configuration and scripts.
-- `githooks/`: Git hooks for pre-commit/pre-push checks.
+- `../tools/`: Internal tools and scripts shared by this repository.
+- `ci/`: Zerocopy-specific CI scripts.
+- `../ci/`: Repository-wide CI scripts.
+- `../githooks/`: Git hooks for pre-commit/pre-push checks.
 - `testdata/`: Data used for testing.
 - `testutil/`: Utility code for tests.
 
@@ -77,11 +78,10 @@ that your change is valid and follows the style guidelines.
 
 #### Pre-submission Checks
 
-Run `./githooks/pre-push` before submitting. This runs a comprehensive suite of
+Run `../githooks/pre-push` before submitting. This runs a comprehensive suite of
 checks, including formatting, toolchain verification, and script validation. It
 catches many issues that would otherwise fail in CI.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/google)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/google)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [google/zerocopy](https://github.com/google/zerocopy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
