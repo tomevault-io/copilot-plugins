@@ -1,0 +1,9 @@
+{
+  "name": "eric-he-cn--course-pilot",
+  "displayName": "course-pilot",
+  "description": "This is an LLM agent for college students to study courses by themselves. Upload your textbook and enjoy the learning experience now!",
+  "version": "1.0.0",
+  "author": "Eric-he-cn",
+  "homepage": "https://github.com/Eric-he-cn/course-pilot",
+  "skills": []
+}
