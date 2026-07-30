@@ -1,60 +1,70 @@
 ## unreal-mcp
 
-> - This is a dual-process system: the TypeScript MCP server lives in `src/`, and the Unreal Editor bridge plugin lives in `Plugins/McpAutomationBridge/`.
+> Direct plugin MCP implementation for Streamable HTTP/SSE at `/mcp`. This subtree owns protocol metadata, sessions, dynamic tool visibility, and translation into the bridge subsystem; it does not own editor action implementations.
 
-# Copilot instructions for Unreal MCP
+# NATIVE MCP
 
-## Architecture
-- This is a dual-process system: the TypeScript MCP server lives in `src/`, and the Unreal Editor bridge plugin lives in `Plugins/McpAutomationBridge/`.
-- Typical flow is schema validation -> tool registry dispatch -> domain handler -> `executeAutomationRequest()` -> WebSocket bridge -> C++ subsystem -> game-thread handler.
-- Keep workspace-wide guidance here and rely on the closer `AGENTS.md` files for area-specific detail under `src/tools/`, `src/tools/handlers/`, `src/automation/`, `tests/`, and `Plugins/McpAutomationBridge/`.
+Direct plugin MCP implementation for Streamable HTTP/SSE at `/mcp`. This subtree owns protocol metadata, sessions, dynamic tool visibility, and translation into the bridge subsystem; it does not own editor action implementations.
 
-## Critical constraints
-- Keep stdout JSON-only. Runtime logs must go through the project logger; do not use `console.log` in runtime code. See `routeStdoutLogsToStderr()` in `src/index.ts`.
-- `.env` loading is intentionally quiet to avoid corrupting MCP I/O. Keep it that way in `src/config.ts`.
-- Do not bypass the tool routing stack. Register tool behavior via `toolRegistry.register()` and send Unreal work through `executeAutomationRequest()`, not raw WebSocket calls.
-- Preserve path normalization. Prefer `/Game/...` asset paths and do not add new code that depends on `/Content/...` input staying unnormalized.
+## STRUCTURE
+| Area | Responsibility |
+|------|----------------|
+| `DynamicTools/` | Enabled state, categories, protected tools, list-changed notification |
+| `Protocol/` | JSON-RPC parse/build helpers and MCP tool-result envelopes |
+| `Registry/` | Canonical-name gate, static definitions, cached schemas |
+| `Routing/` | Consolidated parent-tool action routing helpers |
+| `Tools/<Category>/` | Self-describing name, description, category, schema, dispatch metadata |
+| `Transport/` | Bind/listen, HTTP parsing, sessions, SSE, pending requests, shutdown |
 
-## UE 5.7 safety
-- Do not use `UPackage::SavePackage()` in plugin code. Use the safe helper wrappers in `Plugins/McpAutomationBridge/Source/McpAutomationBridge/Public/McpAutomationBridgeHelpers.h`.
-- For Blueprint component templates, let SCS own nodes and templates through `CreateNode()` and `AddNode()` patterns.
-- Do not introduce new `ANY_PACKAGE` usage; use modern lookup patterns such as `nullptr` where required by newer UE versions.
+## CANONICAL SURFACE
+`FMcpToolRegistry::Register()` accepts exactly these 23 names:
 
-## Build and test
-- `npm run dev`: run the server from TypeScript.
-- `npm run build:core`: compile the TypeScript server.
-- `npm run automation:sync`: sync the Unreal plugin into a target project.
-- `npm run test:unit`: run Vitest unit tests without Unreal.
-- `npm run test:smoke`: run the offline smoke path using mock connection mode.
-- `npm test`: run the MCP integration suite. This requires Unreal Editor with the bridge plugin available.
-- `npm run test:all`: run the integration entrypoints; treat this as Unreal-dependent unless you intentionally configured mock coverage.
+```text
+manage_tools, manage_asset, manage_blueprint, control_actor, control_editor, manage_level
+build_environment, animation_physics, system_control, manage_sequence, inspect
+manage_audio, manage_geometry, manage_effect, manage_gas, manage_character, manage_combat
+manage_ai, manage_inventory, manage_interaction, manage_networking, manage_level_structure, manage_pcg
+```
 
-## Connection and runtime behavior
-- The Unreal plugin listens on loopback by default and commonly uses ports `8090` and `8091`.
-- The TypeScript bridge connects as a WebSocket client and can be steered with env such as `MCP_AUTOMATION_CLIENT_PORT`, `MCP_AUTOMATION_PORT`, or `MCP_AUTOMATION_WS_PORTS`.
-- Mock mode is an explicit development path: set `MOCK_UNREAL_CONNECTION=true` when you need the bridge layer to succeed without a live editor.
-- Connection setup includes handshake and capability negotiation in `src/automation/`; keep protocol changes aligned across TypeScript and plugin code.
+- `MCP_REGISTER_TOOL` only attempts static registration. The source tree may contain more registrars; non-canonical names are silently filtered and duplicate names are ignored.
+- Do not infer the exposed native surface from the number of `McpTool_*.cpp` files. `Registry/McpToolRegistry.cpp` is authoritative.
+- Adding a registrar alone cannot expose a new parent tool. Update the canonical gate deliberately, keep TS/native parity, and justify context growth.
+- `tools/list` filters accepted registry entries by dynamic enabled state; `tools/call` enforces the same state before dispatch.
 
-## Tooling conventions
-- Tool schemas and action enums live in `src/tools/consolidated-tool-definitions.ts`. Treat that file as the source of truth for inputs and outputs.
-- Output schemas are registered during startup and validated before responses leave the server. Keep new tool outputs schema-backed.
-- Console commands are safety-filtered in `src/utils/command-validator.ts`; do not add bypasses.
-- Unreal requests are queued and retried through the existing command queue utilities; reuse that path instead of inventing parallel transport logic.
+## TOOL DEFINITIONS
+- Tool definitions are metadata only. Build schemas with `McpSchemaBuilder`; do not hand-assemble repetitive schema JSON.
+- Pattern A returns the parent tool name from `GetDispatchAction()` and lets the handler read the sub-action.
+- Pattern B returns an empty dispatch action; transport extracts `GetActionFieldName()` from arguments and dispatches that value.
+- Transport mirrors `action` into `subAction` for handlers that still require the older payload field. Do not spread additional alias normalization.
+- Keep definition names, action enums, required fields, routing helpers, TS schemas, and handler payload expectations aligned.
+- `manage_tools` is intercepted locally and returns a one-shot response; other tool calls queue through `UMcpAutomationBridgeSubsystem` and complete over SSE.
 
-## Making changes
-- New MCP action flow:
-	1. Add the action enum and schemas in `src/tools/consolidated-tool-definitions.ts`.
-	2. Route the action in `src/tools/consolidated-tool-handlers.ts` or the relevant handler module under `src/tools/handlers/`.
-	3. Implement the Unreal side in the appropriate handler under `Plugins/McpAutomationBridge/Source/` and register it in `UMcpAutomationBridgeSubsystem::InitializeHandlers()`.
-	4. Add or update tests in `tests/integration.mjs`, `tests/mcp-tools/`, or colocated unit tests as appropriate.
-- Keep TypeScript strict. Avoid `as any` in runtime code.
-- If you change versions, update all version-bearing files together, including `package.json`, `server.json`, `src/index.ts`, and `Plugins/McpAutomationBridge/McpAutomationBridge.uplugin`.
+## DYNAMIC TOOLS
+- Startup enables all accepted tools when `bLoadAllToolsOnStart` is true; otherwise it enables the `core` category.
+- `manage_tools` and `inspect` are protected tools. The `core` category cannot be disabled.
+- State changes must emit `notifications/tools/list_changed`; preserve locking around tool/category state and cached registry schemas.
 
-## Reference points
-- Use `src/tools/handlers/` for examples of handler structure and `executeAutomationRequest()` usage.
-- Use `tests/AGENTS.md` for integration test conventions, expected result strings, and timeout tiers.
-- Use `Plugins/McpAutomationBridge/AGENTS.md` for plugin-side patterns and Unreal-specific caveats.
+## TRANSPORT LIFECYCLE
+- `POST /mcp` handles JSON-RPC; `GET /mcp` opens the persistent notification SSE stream; `DELETE /mcp` terminates a session and its streams.
+- `initialize` must carry an id and returns `Mcp-Session-Id`. All later requests and notification streams require a valid session header.
+- Client notifications receive HTTP 202 after validation. `tools/call` owns its socket until the streamed result completes.
+- Return JSON-RPC errors through `McpJsonRpc` and tool outcomes through MCP `content[]` plus `isError`; never leak raw handler JSON as the top-level response.
+- Do not block socket threads on Unreal work. Shutdown intentionally pumps game-thread tasks while draining active connections and async writes.
+
+## SECURITY
+- Empty/`localhost` listen hosts normalize to loopback. A disallowed non-loopback host falls back to `127.0.0.1`.
+- When capability auth is enabled, require `X-MCP-Capability-Token` before method dispatch.
+- Browser Origin/CORS access is allowed only under capability-token protection; preserve origin rejection and preflight behavior.
+- Keep request-size limits, session expiry, method/path checks, write serialization, and socket ownership accounting intact.
+
+## VALIDATION
+```bash
+npm run test:native-parity
+npm run test:params
+```
+
+- Parity verifies canonical TS/native parent tools; the strict parameter audit catches schema and action mismatches.
 
 ---
 > Source: [ChiR24/Unreal_mcp](https://github.com/ChiR24/Unreal_mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
