@@ -1,7 +1,7 @@
 {
   "name": "nearai--ironclaw",
   "displayName": "ironclaw",
-  "description": "IronClaw is OpenClaw inspired implementation in Rust focused on privacy and security",
+  "description": "ironclaw",
   "version": "1.0.0",
   "author": "nearai",
   "homepage": "https://github.com/nearai/ironclaw",
