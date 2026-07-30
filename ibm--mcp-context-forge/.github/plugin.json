@@ -1,7 +1,7 @@
 {
   "name": "ibm--mcp-context-forge",
   "displayName": "mcp-context-forge",
-  "description": "An AI Gateway, registry, and proxy that sits in front of any MCP, A2A, or REST/gRPC APIs, exposing a unified endpoint with centralized discovery, guardrails and management. Optimizes Agent & Tool call",
+  "description": "mcp-context-forge",
   "version": "1.0.0",
   "author": "IBM",
   "homepage": "https://github.com/IBM/mcp-context-forge",
