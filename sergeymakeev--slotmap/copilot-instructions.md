@@ -1,269 +1,268 @@
 ## slotmap
 
-> - **No diagrams**: Do not create Mermaid diagrams unless explicitly requested
+> - **Use `/* */` for multi-line comments** instead of Doxygen `/** */`
 
 
+# Comment Writing Style Rules
 
-# Coding Style Rules
+## Comment Block Format
+- **Use `/* */` for multi-line comments** instead of Doxygen `/** */`
+- **Use `**bold text**` for headings and important concepts**
+- **Add blank lines within comments for visual separation**
+- **Remove formal documentation tags** like `@brief`, `@tparam`, `@code`
+- **Write comments in natural, conversational style**
 
-## Documentation and Communication
-- **No diagrams**: Do not create Mermaid diagrams unless explicitly requested
-- **Concise summaries**: Keep explanations brief and focused
-- **No verbose documentation**: Avoid lengthy explanations of obvious concepts
+## Comment Content Guidelines
+- **Explain design rationale and trade-offs** rather than just describing what code does
+- **Include performance implications** when relevant
+- **Mention limitations and constraints** of the implementation
+- **Explain use cases and ideal scenarios** for the code
+- **Focus on "why" decisions were made** rather than mechanical "what"
 
-## Code Comments
-- **Minimal commenting**: Only comment tricky or non-obvious code
-- **No redundant comments**: Don't explain what the code obviously does
-- **Focus on why, not what**: When commenting, explain reasoning rather than mechanics
+## Assertion Comments
+- **Place assertion explanations directly above the assertion**
+- **Explain what condition is being checked and why it should be true**
+- **Provide context about the invariant being maintained**
 
-## Code Duplication Elimination
-- **Use template metaprogramming**: Eliminate duplication with templates rather than copying similar classes
-- **Template parameters for behavior**: When applicable use bool template parameters to control const/non-const variants
-- **Type aliases for clean APIs**: Provide familiar names while using unified implementations
-- **Follow standard library patterns**: Use patterns like `std::conditional_t` and SFINAE for type safety
-- **Single source of truth**: Maintain logic in one place to reduce maintenance burden
-
-## Control Flow and Nesting
-- **Prefer early exits**: Use guard clauses and early returns to minimize nesting
-- **Avoid deep conditionals**: Keep the main logic at the top level rather than buried in if statements
-- **Handle edge cases first**: Deal with special cases early and return, leaving the main path unindented
-- **Linear flow**: Structure code so the primary logic flows top-to-bottom without deep nesting
-
-## Examples
-
-### ❌ Bad (over-commented):
-```cpp
-// Increment the size member variable
-++m_size;
-
-// Loop through all fields
-for (size_t i = 0; i < num_fields; ++i) {
-    // Calculate the field offset
-    layout.field_offsets[i] = layout.total_size;
-}
-```
-
-### ✅ Good (minimal comments):
-```cpp
-++m_size;
-
-for (size_t i = 0; i < num_fields; ++i) {
-    layout.field_offsets[i] = layout.total_size;
-    layout.total_size += capacity * s_field_layout.element_sizes[i];
-    // Align for optimal cache performance
-    layout.total_size = (layout.total_size + CPU_CACHE_LINE_SIZE - 1) & ~(CPU_CACHE_LINE_SIZE - 1);
-}
-```
-
-### ❌ Bad (duplicated iterator classes):
-```cpp
-class my_iterator {
-    T* current_;
-    // ... 50 lines of iterator implementation
-};
-
-class my_const_iterator {
-    const T* current_;
-    // ... 50 lines of nearly identical iterator implementation
-};
-```
-
-### ✅ Good (unified template implementation):
-```cpp
-template<bool IsConst>
-class my_iterator_impl {
-    using pointer = std::conditional_t<IsConst, const T*, T*>;
-    using reference = std::conditional_t<IsConst, const T&, T&>;
-    
-    pointer current_;
-    // ... single implementation that works for both cases
-    
-    // Allow non-const to const conversion
-    template<bool OtherIsConst, typename = std::enable_if_t<IsConst && !OtherIsConst>>
-    my_iterator_impl(const my_iterator_impl<OtherIsConst>& other) : current_(other.current_) {}
-};
-
-// Clean API through type aliases
-using my_iterator = my_iterator_impl<false>;
-using my_const_iterator = my_iterator_impl<true>;
-```
-
-### ❌ Bad (deep nesting):
-```cpp
-list_node(list_node&& other) noexcept
-{
-    if (other.is_linked())
-    {
-        // Take over the other node's position in the list
-        next_ = other.next_;
-        prev_ = other.prev_;
-        
-        // In a circular list, linked nodes are guaranteed to have valid pointers when the node is linked
-        assert(next_ != nullptr && prev_ != nullptr);
-        next_->prev_ = this;
-        prev_->next_ = this;
-        
-        // Leave other node in unlinked state
-        other.next_ = nullptr;
-        other.prev_ = nullptr;
-    }
-}
-```
-
-### ✅ Good (early exit, linear flow):
-```cpp
-list_node(list_node&& other) noexcept
-{
-    if (!other.is_linked())
-    {
-        return;
-    }
-
-    // Take over the other node's position in the list
-    next_ = other.next_;
-    prev_ = other.prev_;
-    
-    // In a circular list, linked nodes are guaranteed to have valid pointers when the node is linked
-    assert(next_ != nullptr && prev_ != nullptr);
-    next_->prev_ = this;
-    prev_->next_ = this;
-    
-    // Leave other node in unlinked state
-    other.next_ = nullptr;
-    other.prev_ = nullptr;
-}
-``` 
-# Coding Style Rules
-
-## Documentation and Communication
-- **No diagrams**: Do not create Mermaid diagrams unless explicitly requested
-- **Concise summaries**: Keep explanations brief and focused
-- **No verbose documentation**: Avoid lengthy explanations of obvious concepts
-
-## Code Comments
-- **Minimal commenting**: Only comment tricky or non-obvious code
-- **No redundant comments**: Don't explain what the code obviously does
-- **Focus on why, not what**: When commenting, explain reasoning rather than mechanics
-
-## Code Duplication Elimination
-- **Use template metaprogramming**: Eliminate duplication with templates rather than copying similar classes
-- **Template parameters for behavior**: When applicable use bool template parameters to control const/non-const variants
-- **Type aliases for clean APIs**: Provide familiar names while using unified implementations
-- **Follow standard library patterns**: Use patterns like `std::conditional_t` and SFINAE for type safety
-- **Single source of truth**: Maintain logic in one place to reduce maintenance burden
-
-## Control Flow and Nesting
-- **Prefer early exits**: Use guard clauses and early returns to minimize nesting
-- **Avoid deep conditionals**: Keep the main logic at the top level rather than buried in if statements
-- **Handle edge cases first**: Deal with special cases early and return, leaving the main path unindented
-- **Linear flow**: Structure code so the primary logic flows top-to-bottom without deep nesting
+## Visual Formatting in Comments
+- **Use ASCII art for diagrams with proper spacing**:
+  ```cpp
+  // 
+  //   Empty: sentinel->sentinel
+  //   Non-empty: head<->...nodes...<->tail<->sentinel
+  // 
+  ```
+- **Group related comments with blank line separation**
+- **Prefer comments above code rather than trailing comments**
 
 ## Examples
 
-### ❌ Bad (over-commented):
+### ✅ Good Comment Style:
 ```cpp
-// Increment the size member variable
-++m_size;
+/*
 
-// Loop through all fields
-for (size_t i = 0; i < num_fields; ++i) {
-    // Calculate the field offset
-    layout.field_offsets[i] = layout.total_size;
-}
+**Intrusive doubly-linked list**
+
+This is a circular intrusive doubly-linked list using a sentinel node.
+
+The sentinel acts as both head and tail, allowing for uniform insert/remove operations without special cases or null checks.
+Since the list is circular, an empty list has sentinel->next and sentinel->prev pointing to itself.
+
+This design avoids dynamic memory allocation and provides O(1) insertion and removal.
+
+Ideal for performance-critical systems where memory layout and control matter.
+The main limitation is that a node can only belong to one list at a time.
+
+*/
+
+// Ensure that both pointers are either null (unlinked) or non-null (linked)
+assert((next_ != nullptr && prev_ != nullptr) || (next_ == nullptr && prev_ == nullptr));
+
+// Optimized: only check one pointer since both are always null or non-null together
+// This invariant is maintained by the circular list design
+return next_ != nullptr;
 ```
 
-### ✅ Good (minimal comments):
+### ❌ Avoid This Style:
 ```cpp
-++m_size;
+/**
+ * @brief Intrusive doubly-linked list
+ * @tparam Member Pointer to the list_node member
+ */
 
-for (size_t i = 0; i < num_fields; ++i) {
-    layout.field_offsets[i] = layout.total_size;
-    layout.total_size += capacity * s_field_layout.element_sizes[i];
-    // Align for optimal cache performance
-    layout.total_size = (layout.total_size + CPU_CACHE_LINE_SIZE - 1) & ~(CPU_CACHE_LINE_SIZE - 1);
-}
+assert(condition); // Check condition
 ```
 
-### ❌ Bad (duplicated iterator classes):
-```cpp
-class my_iterator {
-    T* current_;
-    // ... 50 lines of iterator implementation
-};
+## When to Comment
+- **Complex algorithms** requiring explanation
+- **Design decisions** that aren't obvious from code
+- **Performance optimizations** and their rationale
+- **Safety invariants** and why assertions exist
+- **Non-obvious constraints** or requirements
+- **Tricky pointer arithmetic** or memory operations
 
-class my_const_iterator {
-    const T* current_;
-    // ... 50 lines of nearly identical iterator implementation
-};
+## When NOT to Comment
+- **Obvious operations** like simple assignments
+- **Standard container operations** that are self-explanatory  
+- **Trivial getters/setters**
+- **Simple loop iterations**
+- **Basic arithmetic** unless it represents something non-obvious
+
+## Specific Patterns from User Edits
+
+### Class/Function Documentation
+```cpp
+/*
+
+**Class or Function Name**
+
+Brief description of what it does and why it exists.
+
+Explanation of design decisions, trade-offs, and constraints.
+Include performance characteristics and ideal use cases.
+Mention any limitations or caveats.
+
+*/
 ```
 
-### ✅ Good (unified template implementation):
+### Assertion Documentation
 ```cpp
-template<bool IsConst>
-class my_iterator_impl {
-    using pointer = std::conditional_t<IsConst, const T*, T*>;
-    using reference = std::conditional_t<IsConst, const T&, T&>;
-    
-    pointer current_;
-    // ... single implementation that works for both cases
-    
-    // Allow non-const to const conversion
-    template<bool OtherIsConst, typename = std::enable_if_t<IsConst && !OtherIsConst>>
-    my_iterator_impl(const my_iterator_impl<OtherIsConst>& other) : current_(other.current_) {}
-};
+// Explain what invariant is being checked and why it should hold
+assert(condition);
 
-// Clean API through type aliases
-using my_iterator = my_iterator_impl<false>;
-using my_const_iterator = my_iterator_impl<true>;
+// Additional context about optimization or design rationale
+// explaining why this approach was chosen
 ```
 
-### ❌ Bad (deep nesting):
+### Visual Diagrams
 ```cpp
-list_node(list_node&& other) noexcept
-{
-    if (other.is_linked())
-    {
-        // Take over the other node's position in the list
-        next_ = other.next_;
-        prev_ = other.prev_;
-        
-        // In a circular list, linked nodes are guaranteed to have valid pointers when the node is linked
-        assert(next_ != nullptr && prev_ != nullptr);
-        next_->prev_ = this;
-        prev_->next_ = this;
-        
-        // Leave other node in unlinked state
-        other.next_ = nullptr;
-        other.prev_ = nullptr;
-    }
-}
+// 
+//   State 1: description
+//   State 2: description
+// 
 ```
 
-### ✅ Good (early exit, linear flow):
+### Design Decision Comments
 ```cpp
-list_node(list_node&& other) noexcept
-{
-    if (!other.is_linked())
-    {
-        return;
-    }
+// Explain the problem this code solves.
+// Note: mention any alternatives considered and why this approach was chosen.
+code_here();
+```
 
-    // Take over the other node's position in the list
-    next_ = other.next_;
-    prev_ = other.prev_;
-    
-    // In a circular list, linked nodes are guaranteed to have valid pointers when the node is linked
-    assert(next_ != nullptr && prev_ != nullptr);
-    next_->prev_ = this;
-    prev_->next_ = this;
-    
-    // Leave other node in unlinked state
-    other.next_ = nullptr;
-    other.prev_ = nullptr;
-}
-``` 
+## Comment Placement Rules
+- **Above the code** rather than at the end of lines
+- **Group related explanations** with blank lines for separation
+- **Explain before showing** - context first, then implementation# Comment Writing Style Rules
+
+## Comment Block Format
+- **Use `/* */` for multi-line comments** instead of Doxygen `/** */`
+- **Use `**bold text**` for headings and important concepts**
+- **Add blank lines within comments for visual separation**
+- **Remove formal documentation tags** like `@brief`, `@tparam`, `@code`
+- **Write comments in natural, conversational style**
+
+## Comment Content Guidelines
+- **Explain design rationale and trade-offs** rather than just describing what code does
+- **Include performance implications** when relevant
+- **Mention limitations and constraints** of the implementation
+- **Explain use cases and ideal scenarios** for the code
+- **Focus on "why" decisions were made** rather than mechanical "what"
+
+## Assertion Comments
+- **Place assertion explanations directly above the assertion**
+- **Explain what condition is being checked and why it should be true**
+- **Provide context about the invariant being maintained**
+
+## Visual Formatting in Comments
+- **Use ASCII art for diagrams with proper spacing**:
+  ```cpp
+  // 
+  //   Empty: sentinel->sentinel
+  //   Non-empty: head<->...nodes...<->tail<->sentinel
+  // 
+  ```
+- **Group related comments with blank line separation**
+- **Prefer comments above code rather than trailing comments**
+
+## Examples
+
+### ✅ Good Comment Style:
+```cpp
+/*
+
+**Intrusive doubly-linked list**
+
+This is a circular intrusive doubly-linked list using a sentinel node.
+
+The sentinel acts as both head and tail, allowing for uniform insert/remove operations without special cases or null checks.
+Since the list is circular, an empty list has sentinel->next and sentinel->prev pointing to itself.
+
+This design avoids dynamic memory allocation and provides O(1) insertion and removal.
+
+Ideal for performance-critical systems where memory layout and control matter.
+The main limitation is that a node can only belong to one list at a time.
+
+*/
+
+// Ensure that both pointers are either null (unlinked) or non-null (linked)
+assert((next_ != nullptr && prev_ != nullptr) || (next_ == nullptr && prev_ == nullptr));
+
+// Optimized: only check one pointer since both are always null or non-null together
+// This invariant is maintained by the circular list design
+return next_ != nullptr;
+```
+
+### ❌ Avoid This Style:
+```cpp
+/**
+ * @brief Intrusive doubly-linked list
+ * @tparam Member Pointer to the list_node member
+ */
+
+assert(condition); // Check condition
+```
+
+## When to Comment
+- **Complex algorithms** requiring explanation
+- **Design decisions** that aren't obvious from code
+- **Performance optimizations** and their rationale
+- **Safety invariants** and why assertions exist
+- **Non-obvious constraints** or requirements
+- **Tricky pointer arithmetic** or memory operations
+
+## When NOT to Comment
+- **Obvious operations** like simple assignments
+- **Standard container operations** that are self-explanatory  
+- **Trivial getters/setters**
+- **Simple loop iterations**
+- **Basic arithmetic** unless it represents something non-obvious
+
+## Specific Patterns from User Edits
+
+### Class/Function Documentation
+```cpp
+/*
+
+**Class or Function Name**
+
+Brief description of what it does and why it exists.
+
+Explanation of design decisions, trade-offs, and constraints.
+Include performance characteristics and ideal use cases.
+Mention any limitations or caveats.
+
+*/
+```
+
+### Assertion Documentation
+```cpp
+// Explain what invariant is being checked and why it should hold
+assert(condition);
+
+// Additional context about optimization or design rationale
+// explaining why this approach was chosen
+```
+
+### Visual Diagrams
+```cpp
+// 
+//   State 1: description
+//   State 2: description
+// 
+```
+
+### Design Decision Comments
+```cpp
+// Explain the problem this code solves.
+// Note: mention any alternatives considered and why this approach was chosen.
+code_here();
+```
+
+## Comment Placement Rules
+- **Above the code** rather than at the end of lines
+- **Group related explanations** with blank lines for separation
+- **Explain before showing** - context first, then implementation
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/SergeyMakeev)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/SergeyMakeev)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [SergeyMakeev/SlotMap](https://github.com/SergeyMakeev/SlotMap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
