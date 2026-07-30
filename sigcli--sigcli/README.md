@@ -1,8 +1,6 @@
 # sigcli
 
-> Tome by [sigcli](https://github.com/sigcli/sigcli) — distributed by [TomeVault](https://tomevault.io)
-
-The authentication CLI & Proxy for AI agents. Give agents access, not your credentials.
+> Tome by [sigcli](https://github.com/sigcli/sigcli), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [sigcli/sigcli](https://github.com/sigcli/sigcli
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sigcli/sigcli](https://github.com/sigcli/sigcli) — a repo with 27+ stars on GitHub.
+From [sigcli/sigcli](https://github.com/sigcli/sigcli) — a repo with 274+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
