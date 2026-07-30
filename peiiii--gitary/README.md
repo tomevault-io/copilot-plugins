@@ -1,6 +1,6 @@
 # gitary
 
-> Source: [Peiiii/gitary](https://github.com/Peiiii/gitary) — distributed by [TomeVault](https://tomevault.io)
+> Source: [Peiiii/gitary](https://github.com/Peiiii/gitary). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [Peiiii/gitary](https://github.com/Pei
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Peiiii/gitary](https://github.com/Peiiii/gitary) — a repo with 0+ stars on GitHub.
+From [Peiiii/gitary](https://github.com/Peiiii/gitary) — a repo with 81+ stars on GitHub.
 
 ---
 
