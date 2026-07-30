@@ -1,8 +1,6 @@
 # cursor-rules-deploy
 
-> Tome by [rosendolu](https://github.com/rosendolu/cursor-rules-deploy) — distributed by [TomeVault](https://tomevault.io)
-
-CLI tool for deploying Cursor AI rules and templates
+> Tome by [rosendolu](https://github.com/rosendolu/cursor-rules-deploy), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [rosendolu/cursor-rules-deploy](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rosendolu/cursor-rules-deploy](https://github.com/rosendolu/cursor-rules-deploy)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/rosendolu/cursor-rules-deploy](https://github.com/rosendolu/cursor-rules-deploy)
 
 ---
 
