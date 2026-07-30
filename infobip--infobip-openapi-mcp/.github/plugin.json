@@ -1,7 +1,7 @@
 {
   "name": "infobip--infobip-openapi-mcp",
   "displayName": "infobip-openapi-mcp",
-  "description": "Infobip OpenAPI MCP is a framework for exposing OpenAPI documented HTTP APIs as MCP servers. It is based on Spring AI and made to run as a Spring Boot application. It is powering Infobip's own MCP ser",
+  "description": "infobip-openapi-mcp",
   "version": "1.0.0",
   "author": "infobip",
   "homepage": "https://github.com/infobip/infobip-openapi-mcp",
