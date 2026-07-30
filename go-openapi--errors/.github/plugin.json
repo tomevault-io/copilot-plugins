@@ -1,0 +1,9 @@
+{
+  "name": "go-openapi--errors",
+  "displayName": "errors",
+  "description": "errors",
+  "version": "1.0.0",
+  "author": "go-openapi",
+  "homepage": "https://github.com/go-openapi/errors",
+  "skills": []
+}
