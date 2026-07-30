@@ -2,7 +2,7 @@
   "name": "claude-secure-coding-rules",
   "owner": "TikiTribe",
   "repo": "claude-secure-coding-rules",
-  "description": "Secure Coding Rules for Claude Code with a particular emphasis on AIML projects",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TikiTribe/claude-secure-coding-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T14:04:40Z"
+  "distributed_at": "2026-07-30T10:02:29Z"
 }
