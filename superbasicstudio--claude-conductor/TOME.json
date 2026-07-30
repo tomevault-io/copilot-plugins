@@ -2,7 +2,7 @@
   "name": "claude-conductor",
   "owner": "superbasicstudio",
   "repo": "claude-conductor",
-  "description": "Claude Conductor - a simple Claude Code framework",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/superbasicstudio/claude-conductor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T17:04:05Z"
+  "distributed_at": "2026-07-30T12:56:15Z"
 }
