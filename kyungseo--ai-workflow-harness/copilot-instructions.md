@@ -1,31 +1,63 @@
-## safety-critical
+## testing
 
-> Critical safety limits for destructive, privileged, infrastructure, and environment-changing actions.
+> Optional Spring Boot example-pack testing rules. Apply only when editing an adopted project or spring-boot profile output.
 
 
-# Safety Rules
+# Optional Spring Boot Testing Rules
 
-CRITICAL: Safety rules override convenience.
+These rules are not part of the generic AI Workflow Harness core. They are kept
+as an optional example/profile surface for projects that adopt the harness with
+Spring Boot backend tests.
 
-NEVER run destructive or privileged commands without explicit user approval:
+## Test Layer Annotations
 
-- `rm -rf`
-- `sudo`
-- `kubectl`
-- `terraform`
-- cloud provider CLI commands
-- commands that delete data, reset history, rotate secrets, or mutate shared infrastructure
+| Layer | Annotation | Context |
+|-------|-----------|---------|
+| Unit | `@ExtendWith(MockitoExtension.class)` + `@MockitoSettings(strictness = Strictness.LENIENT)` | No Spring context |
+| Controller slice | `@WebMvcTest` + `@ActiveProfiles("test")` | Spring MVC only |
+| MyBatis slice | `@MybatisTest` + `@ActiveProfiles("test")` | MyBatis mapper only |
+| Integration | `@SpringBootTest` + `@AutoConfigureMockMvc` + `@ActiveProfiles("test")` | Full Spring context |
 
-NEVER:
+## Integration Test Infrastructure
 
-- Make infrastructure or environment changes unless the user explicitly asks for that exact action.
-- Read or expose `.env`, secret files, credentials, full tokens, or password values unless the user explicitly approves a specific need.
+Prefer the adopted project's established integration-test infrastructure.
 
 MUST:
 
-- Ask before any operation with irreversible or hard-to-reverse impact.
-- Prefer read-only inspection commands when diagnosing infrastructure or environment issues.
-- Explain the risk and reversal cost before proposing high-impact actions.
+- Keep integration-test environment settings in shared test configuration, not per-test ad hoc system properties.
+- Reuse the established integration-test infrastructure pattern in existing service tests.
+- Record infrastructure changes through the adopted project's decision process.
+
+NEVER:
+
+- Reintroduce local-only test overrides without an explicit decision.
+- Depend on separately running local services for integration tests unless the adopted project documents that requirement.
+
+## Assertion and Mocking Style
+
+MUST:
+
+- Use AssertJ: `assertThat(...)`, `assertThatThrownBy(...)`
+- Prefer BDD style: `given(mock).willReturn(value)` over Mockito `when/thenReturn`
+- Keep `@MockitoSettings(strictness = Strictness.LENIENT)` — project standard; do not remove without reason.
+
+NEVER:
+
+- Use JUnit 5 raw assertions (`assertEquals`, `assertTrue`) — replace with AssertJ
+- Use `@Data` on mock objects
+- Use `@Autowired` field injection in test classes — use constructor injection if needed
+
+## Naming Conventions
+
+- Method name: `methodName_scenario_expectedBehavior` (English)
+- `@DisplayName`: Korean display names are intentional. Do not translate existing display names to English.
+- Test class name: `{TargetClass}Test`
+
+## Verification Command
+
+- Unit / module change: use the adopted project's narrow test command.
+- Full test suite: use the adopted project's full verification command.
+- If required local infrastructure is unavailable, report the environment failure and propose a narrower unit-test command instead of silently weakening coverage.
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
