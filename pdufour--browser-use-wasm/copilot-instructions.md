@@ -1,50 +1,40 @@
-## no-dom-grounding
+## no-grounding-query-overfit
 
-> Client-side grounding from screenshot only — never live DOM
+> No query rewrites, candidate sweeps, or coord scoring for navigation
 
 
-# No DOM cheating for grounding
+# No navigation query overfitting
 
-**Client-side only** — see `.cursor/rules/client-side-only.mdc`.
+**Client-side inference only** — see `no-dom-grounding.mdc`. Coords come from **one** ShowUI navigation inference on the **SnapDOM screenshot** (model-card `_NAV_SYSTEM` prompt), not from post-hoc query tricks or layout heuristics.
 
-Click coordinates must come **only** from the **loaded VLA + wllama (browser worker)** on the **SnapDOM screenshot buffer**. Never derive, fix, or validate grounding using live page DOM or a server.
+## One task, one inference
 
-## Allowed
+| Path | Task string |
+|------|-------------|
+| **Run task UI** | User Goal text verbatim (trim only) |
+| **Voice tools** | Tool `target` / phrase from the voice controller — **not** rewritten option text |
 
-- **SnapDOM** capture of `#capture-target` (screenshot pixels).
-- **VLA inference** in `wllama/worker.js` → `[x, y]` normalized 0–1 on that screenshot.
-- **Overlay** on `#screenshot-img`: map model norm coords → pixels on the **displayed screenshot** (`getBoundingClientRect` of the screenshot image element only).
-- **E2E**: UI clicks, `#raw-output` text, `#click-marker` vs screenshot image — **pixel samples on the screenshot at the model’s point** (canvas/`naturalWidth`).
+Run inference once per user action. No fanout.
 
-## Forbidden (production and tests)
+## Forbidden in `src/` (production and eval-facing paths)
 
-- Reading **live** `#btn-submit`, `#btn-cancel`, `getBoundingClientRect()` on page controls to **place or score** the marker.
-- `querySelector` / element IDs to **compute** expected `[x, y]`.
-- Mock/fake wllama clients that return DOM-derived coordinates.
-- Importing `src/actions/navigation.ts` in Playwright specs to assert internal helpers (see `blackbox-e2e.mdc`).
-- Label-text/selector control lookup to **execute** form actions — execution acts on the element at the grounded point only (see `vision-only-execution.mdc`).
+- **Query rewriting** — mapping weak labels to other strings (`11` → `select 11`, option → `select ${option} in ${target}`, `click 12` → `calendar 12`, etc.)
+- **Label candidates / query sweeps** — trying multiple task strings and picking a “winner”
+- **Layout scoring** — aspect-based point ranking, “left column” / “header band” heuristics to choose among multiple model outputs
+- **Mind2Web- or fixture-specific label hacks** — special cases for MTA, Budget, calendar cells, `LO`, junk field names `0` / `1` / `00`
+- **Eval-oracle logic in product code** — bbox distance, NEAR bands, or dataset attributes to select queries or coords (harness stays in `tests/mind2web/mind2web-grounding-eval.mjs` scoring only — see `mind2web-eval.mdc`)
 
-Capture may use element **size** (`offsetWidth` / `offsetHeight`) only to choose SnapDOM resolution — not for grounding coords.
+## Allowed (generic product fixes)
 
-## E2E grounding checks (blackbox)
-
-1. `#raw-output` contains `Parsed click` and a `[x, y]` in `[0, 1]`.
-2. `#click-marker` visible on the screenshot panel.
-3. **Screenshot pixels** at the marker (from model output): e.g. Submit → greenish (`G` dominant); Cancel vs Submit → markers **> 0.08** apart on same capture.
-
-Do **not** compare marker position to live DOM layout regions (`groundingHitsTarget`, `getCaptureLayout`, `assertMarkerTargetsRegion`).
+- **Model load / vision** — `n_ctx`, vision tokens, JPEG quality, tall-page **generic** resize in `snapdom/vision-resize.ts` (not per-site tuning)
+- **Shared system prompt** — the card-verbatim `_NAV_SYSTEM` template in `actions/navigation.ts`
+- **Capture pipeline** — generic SnapDOM fixes in `src/snapdom/capture.ts` (no fixture-tuned hacks — `capture-no-demo-hacks.mdc`)
 
 ## If accuracy is poor
 
-Fix wllama load params, vision resize, prompt/prefill, and capture quality — **not** DOM snapping or Python sidecars.
+Fix worker/WASM, vision resize, capture quality, or prompts — **not** more label variants or coord pickers.
 
-## If “nothing works” in the browser
-
-1. `npm run dev` → open **http://127.0.0.1:5173/** (not `file://`, not Live Server on `dist/`).
-2. **Chrome or Edge** only; enable GPU acceleration in system settings.
-3. `npm run cache:model` once; wait for status **loaded in browser WASM worker**.
-4. **Capture page** before **Run task**; goal should be a short instruction (`click Submit`).
-5. If load says `abort signal` → hard-refresh, click **Load** again (app retries fresh cache once).
+When tempted to add `resolveGroundingLabel`-style helpers: **stop**. That path overfits Mind2Web noise and breaks production voice/E2E semantics.
 
 ---
 > Source: [pdufour/browser-use-wasm](https://github.com/pdufour/browser-use-wasm) — distributed by [TomeVault](https://tomevault.io).
