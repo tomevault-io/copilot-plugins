@@ -1,0 +1,26 @@
+{
+  "name": "pantheon-org--tekhne",
+  "displayName": "tekhne",
+  "description": "Agents Skills",
+  "version": "1.0.0",
+  "author": "pantheon-org",
+  "homepage": "https://github.com/pantheon-org/tekhne",
+  "skills": [
+    {
+      "name": "dockerfile-generator",
+      "description": ""
+    },
+    {
+      "name": "azure-pipelines-generator",
+      "description": ""
+    },
+    {
+      "name": "terraform-validator",
+      "description": ""
+    },
+    {
+      "name": "terraform-generator",
+      "description": ""
+    }
+  ]
+}
