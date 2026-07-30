@@ -2,7 +2,7 @@
   "name": "Rune-stone",
   "owner": "vict00r99",
   "repo": "Rune-stone",
-  "description": "A specification pattern for consistent AI code generation.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vict00r99/Rune-stone",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T17:09:40Z"
+  "distributed_at": "2026-07-30T04:08:17Z"
 }
