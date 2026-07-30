@@ -1524,6 +1524,11 @@
       "description": "tutorials"
     },
     {
+      "name": "github--awesome-copilot",
+      "source": "./github--awesome-copilot",
+      "description": "awesome-copilot"
+    },
+    {
       "name": "huggingface--pytorch-image-models",
       "source": "./huggingface--pytorch-image-models",
       "description": "pytorch-image-models"
@@ -8594,6 +8599,11 @@
       "description": "A rust implementation of the Quip Network's quantum virtual machine."
     },
     {
+      "name": "talebook--talebook",
+      "source": "./talebook--talebook",
+      "description": "talebook"
+    },
+    {
       "name": "alibaba--qlexpress",
       "source": "./alibaba--qlexpress",
       "description": "QLExpress"
@@ -13772,6 +13782,11 @@
       "name": "makieorg--makie-jl",
       "source": "./makieorg--makie-jl",
       "description": "Makie.jl"
+    },
+    {
+      "name": "microvm-nix--microvm-nix",
+      "source": "./microvm-nix--microvm-nix",
+      "description": "microvm.nix"
     },
     {
       "name": "michaelshimeles--ralphy",
@@ -19392,6 +19407,16 @@
       "name": "clickhouse--clickhouse-java",
       "source": "./clickhouse--clickhouse-java",
       "description": "clickhouse-java"
+    },
+    {
+      "name": "iotexproject--iotex-core",
+      "source": "./iotexproject--iotex-core",
+      "description": "iotex-core"
+    },
+    {
+      "name": "iotexproject--iotex-core",
+      "source": "./iotexproject--iotex-core",
+      "description": "iotex-core"
     },
     {
       "name": "iotexproject--iotex-core",
@@ -25397,6 +25422,26 @@
       "name": "hugo-fixit--fixit",
       "source": "./hugo-fixit--fixit",
       "description": "FixIt"
+    },
+    {
+      "name": "kinopeee--cursorrules",
+      "source": "./kinopeee--cursorrules",
+      "description": "cursorrules"
+    },
+    {
+      "name": "kinopeee--cursorrules",
+      "source": "./kinopeee--cursorrules",
+      "description": "cursorrules"
+    },
+    {
+      "name": "kinopeee--cursorrules",
+      "source": "./kinopeee--cursorrules",
+      "description": "cursorrules"
+    },
+    {
+      "name": "kinopeee--cursorrules",
+      "source": "./kinopeee--cursorrules",
+      "description": "cursorrules"
     },
     {
       "name": "fand--vfx-js",
@@ -39519,6 +39564,11 @@
       "description": "equinox"
     },
     {
+      "name": "apache--rocketmq-clients",
+      "source": "./apache--rocketmq-clients",
+      "description": "rocketmq-clients"
+    },
+    {
       "name": "thedecipherist--claude-code-mastery",
       "source": "./thedecipherist--claude-code-mastery",
       "description": "The complete guide to Claude Code: CLAUDE.md, hooks, skills, MCP servers, and commands"
@@ -44574,6 +44624,11 @@
       "description": "Indigo"
     },
     {
+      "name": "ackee-blockchain--trident",
+      "source": "./ackee-blockchain--trident",
+      "description": "trident"
+    },
+    {
       "name": "agentic-box--memora",
       "source": "./agentic-box--memora",
       "description": "Give your AI agents persistent memory."
@@ -45667,6 +45722,11 @@
       "name": "ocamllabs--vscode-ocaml-platform",
       "source": "./ocamllabs--vscode-ocaml-platform",
       "description": "vscode-ocaml-platform"
+    },
+    {
+      "name": "cloudwego--abcoder",
+      "source": "./cloudwego--abcoder",
+      "description": "abcoder"
     },
     {
       "name": "avids2--memorix",
@@ -58454,6 +58514,11 @@
       "description": "fabric8-analytics-vscode-extension"
     },
     {
+      "name": "pdtpartners--nix-ninja",
+      "source": "./pdtpartners--nix-ninja",
+      "description": "nix-ninja"
+    },
+    {
       "name": "uzaaft--libghostty-rs",
       "source": "./uzaaft--libghostty-rs",
       "description": "libghostty-rs"
@@ -62444,6 +62509,41 @@
       "description": "helm-www"
     },
     {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
+      "name": "helm--helm-www",
+      "source": "./helm--helm-www",
+      "description": "helm-www"
+    },
+    {
       "name": "b-m-capital-research--honeclaw",
       "source": "./b-m-capital-research--honeclaw",
       "description": "HoneClaw (Hone-Financial) is dedicated to being a professional investment assistant that truly understands you."
@@ -63992,6 +64092,11 @@
       "name": "xiaomi-research--unidrivevla",
       "source": "./xiaomi-research--unidrivevla",
       "description": "unidrivevla"
+    },
+    {
+      "name": "eustasy--bubbly",
+      "source": "./eustasy--bubbly",
+      "description": "Bubbly"
     },
     {
       "name": "vaayne--mori",
@@ -92309,6 +92414,11 @@
       "description": "p4-fusion"
     },
     {
+      "name": "packtpublishing--data-structures-and-algorithms-for-game-programming-in-cpp",
+      "source": "./packtpublishing--data-structures-and-algorithms-for-game-programming-in-cpp",
+      "description": "Data-Structures-and-Algorithms-for-Game-Programming-in-CPP"
+    },
+    {
       "name": "everettjf--liney",
       "source": "./everettjf--liney",
       "description": "Liney is a native macOS terminal workspace built with AppKit, SwiftUI, and Ghostty, designed for multi-repo workflows, worktree switching, and focused vibe coding."
@@ -95137,6 +95247,26 @@
       "name": "fangyi-chen--sqr",
       "source": "./fangyi-chen--sqr",
       "description": "SQR"
+    },
+    {
+      "name": "rick12000--confopt",
+      "source": "./rick12000--confopt",
+      "description": "confopt"
+    },
+    {
+      "name": "rick12000--confopt",
+      "source": "./rick12000--confopt",
+      "description": "confopt"
+    },
+    {
+      "name": "rick12000--confopt",
+      "source": "./rick12000--confopt",
+      "description": "confopt"
+    },
+    {
+      "name": "rick12000--confopt",
+      "source": "./rick12000--confopt",
+      "description": "confopt"
     },
     {
       "name": "butttons--dora",
@@ -101024,6 +101154,16 @@
       "description": "kleinkram"
     },
     {
+      "name": "eternisai--enchanted-twin",
+      "source": "./eternisai--enchanted-twin",
+      "description": "enchanted-twin"
+    },
+    {
+      "name": "eternisai--enchanted-twin",
+      "source": "./eternisai--enchanted-twin",
+      "description": "enchanted-twin"
+    },
+    {
       "name": "insajin--autopus-adk",
       "source": "./insajin--autopus-adk",
       "description": "Autopus-ADK is of the agents, by the agents. for the agents. Multi-model orchestration (consensus/pipeline/debate/fastest). Architecture-as-Code, Lore decision tracking, SPEC/EARS engine."
@@ -103242,6 +103382,11 @@
       "name": "hkust-knowcomp--deeprefine-skill",
       "source": "./hkust-knowcomp--deeprefine-skill",
       "description": "An agent skill to evolve the quality of LLM-Wiki (Graphify) at test time."
+    },
+    {
+      "name": "lukso-network--lsp-smart-contracts",
+      "source": "./lukso-network--lsp-smart-contracts",
+      "description": "lsp-smart-contracts"
     },
     {
       "name": "pikapikaspeedup--antigravity-mobility-cli",
@@ -107974,6 +108119,71 @@
       "description": "gitary"
     },
     {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
+      "name": "peiiii--gitary",
+      "source": "./peiiii--gitary",
+      "description": "gitary"
+    },
+    {
       "name": "sonarsource--sonarqube-agent-plugins",
       "source": "./sonarsource--sonarqube-agent-plugins",
       "description": "SonarQube Plugin for AI Agents"
@@ -110682,6 +110892,16 @@
       "name": "langhuihui--gotask",
       "source": "./langhuihui--gotask",
       "description": "gotask"
+    },
+    {
+      "name": "ascend--modelzoo-pytorch",
+      "source": "./ascend--modelzoo-pytorch",
+      "description": "ModelZoo-PyTorch"
+    },
+    {
+      "name": "ascend--modelzoo-pytorch",
+      "source": "./ascend--modelzoo-pytorch",
+      "description": "ModelZoo-PyTorch"
     },
     {
       "name": "edisonwong520--wanny",
@@ -114352,6 +114572,131 @@
       "name": "kylehowells--swift-justhtml",
       "source": "./kylehowells--swift-justhtml",
       "description": "swift-justhtml"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
+    },
+    {
+      "name": "bigdevsoon--100-days-of-code",
+      "source": "./bigdevsoon--100-days-of-code",
+      "description": "100-days-of-code"
     },
     {
       "name": "bigdevsoon--100-days-of-code",
@@ -118622,6 +118967,16 @@
       "name": "bivlab-ustc--detrdistill",
       "source": "./bivlab-ustc--detrdistill",
       "description": "DETRDistill"
+    },
+    {
+      "name": "computerlovetech--ralphify",
+      "source": "./computerlovetech--ralphify",
+      "description": "ralphify"
+    },
+    {
+      "name": "computerlovetech--ralphify",
+      "source": "./computerlovetech--ralphify",
+      "description": "ralphify"
     },
     {
       "name": "knowsuchagency--fulcrum",
@@ -131444,6 +131799,11 @@
       "description": "antigravity-ide-mobile"
     },
     {
+      "name": "digitalfabrik--integreat-app",
+      "source": "./digitalfabrik--integreat-app",
+      "description": "integreat-app"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -133947,6 +134307,101 @@
       "name": "sumonmselim--agentguard",
       "source": "./sumonmselim--agentguard",
       "description": "agentguard"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
+    },
+    {
+      "name": "otavia-projects--otavia",
+      "source": "./otavia-projects--otavia",
+      "description": "otavia"
     },
     {
       "name": "otavia-projects--otavia",
@@ -144034,6 +144489,11 @@
       "description": "\ud83d\udd27 One layer above your AI tools. Your AI coding tools are brilliant. Managing them is a mess. :electron: Cradle is the command center that coordinates all of them."
     },
     {
+      "name": "team-atlanta--aixcc-asc-atlantis",
+      "source": "./team-atlanta--aixcc-asc-atlantis",
+      "description": "aixcc-asc-atlantis"
+    },
+    {
       "name": "rust-works--succinctly",
       "source": "./rust-works--succinctly",
       "description": "Succinct data structures"
@@ -145697,6 +146157,16 @@
       "name": "openziti--ziti-doc",
       "source": "./openziti--ziti-doc",
       "description": "ziti-doc"
+    },
+    {
+      "name": "zzh-tju--zoneeval",
+      "source": "./zzh-tju--zoneeval",
+      "description": "ZoneEval"
+    },
+    {
+      "name": "zzh-tju--zoneeval",
+      "source": "./zzh-tju--zoneeval",
+      "description": "ZoneEval"
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -149307,6 +149777,11 @@
       "name": "londonaicentre--flip",
       "source": "./londonaicentre--flip",
       "description": "FLIP"
+    },
+    {
+      "name": "drmikecrowe--mbfcext",
+      "source": "./drmikecrowe--mbfcext",
+      "description": "mbfcext"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -172467,6 +172942,16 @@
       "name": "mikeckennedy--gittyup",
       "source": "./mikeckennedy--gittyup",
       "description": "gittyup"
+    },
+    {
+      "name": "purseclab--deepsurf",
+      "source": "./purseclab--deepsurf",
+      "description": "deepSURF"
+    },
+    {
+      "name": "atmos-lang--atmos",
+      "source": "./atmos-lang--atmos",
+      "description": "atmos"
     },
     {
       "name": "skywind3000--gamesample",
@@ -201487,6 +201972,36 @@
       "name": "chasen-liao--pi-agent-desktop",
       "source": "./chasen-liao--pi-agent-desktop",
       "description": "Pi Agent Desktop \u2014 \u57fa\u4e8e Electron \u7684 Pi \u7f16\u7a0b\u667a\u80fd\u4f53\u684c\u9762\u5ba2\u6237\u7aef (\u884d\u751f\u81ea pi-web)"
+    },
+    {
+      "name": "chasen-liao--pi-agent-desktop",
+      "source": "./chasen-liao--pi-agent-desktop",
+      "description": "Pi Agent Desktop \u2014 \u57fa\u4e8e Electron \u7684 Pi \u7f16\u7a0b\u667a\u80fd\u4f53\u684c\u9762\u5ba2\u6237\u7aef (\u884d\u751f\u81ea pi-web)"
+    },
+    {
+      "name": "chasen-liao--pi-agent-desktop",
+      "source": "./chasen-liao--pi-agent-desktop",
+      "description": "Pi Agent Desktop \u2014 \u57fa\u4e8e Electron \u7684 Pi \u7f16\u7a0b\u667a\u80fd\u4f53\u684c\u9762\u5ba2\u6237\u7aef (\u884d\u751f\u81ea pi-web)"
+    },
+    {
+      "name": "vaquarkhan--data-engineering-agent-skills",
+      "source": "./vaquarkhan--data-engineering-agent-skills",
+      "description": "Production-grade Agent Skills for data engineering AI agents: 73 workflows, platform presets, safe backfill/replay, Kafka & Spark reliability, MCP observability, and VS Code/JetBrains installers."
+    },
+    {
+      "name": "vaquarkhan--data-engineering-agent-skills",
+      "source": "./vaquarkhan--data-engineering-agent-skills",
+      "description": "Production-grade Agent Skills for data engineering AI agents: 73 workflows, platform presets, safe backfill/replay, Kafka & Spark reliability, MCP observability, and VS Code/JetBrains installers."
+    },
+    {
+      "name": "vaquarkhan--data-engineering-agent-skills",
+      "source": "./vaquarkhan--data-engineering-agent-skills",
+      "description": "Production-grade Agent Skills for data engineering AI agents: 73 workflows, platform presets, safe backfill/replay, Kafka & Spark reliability, MCP observability, and VS Code/JetBrains installers."
+    },
+    {
+      "name": "vaquarkhan--data-engineering-agent-skills",
+      "source": "./vaquarkhan--data-engineering-agent-skills",
+      "description": "Production-grade Agent Skills for data engineering AI agents: 73 workflows, platform presets, safe backfill/replay, Kafka & Spark reliability, MCP observability, and VS Code/JetBrains installers."
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -251434,6 +251949,11 @@
       "description": "VHK \u2014 AI \ucf54\ub529 \uc138\uc158\uc744 \ubaa9\ud45c\u00b7\uc99d\uac70\u00b7\uae30\uc5b5\u00b7\uaddc\uce59\uc73c\ub85c \ubb36\ub294 \ud55c\uad6d\uc5b4 CLI. \uaddc\uce59 \ub3d9\uae30\ud654, MCP 35 tools, verify/review/preflight \uac8c\uc774\ud2b8."
     },
     {
+      "name": "pramoddutta--advanceplaywrightframework1x",
+      "source": "./pramoddutta--advanceplaywrightframework1x",
+      "description": "AdvancePlaywrightFramework1x"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -275892,6 +276412,11 @@
       "name": "evolvehq--docflow",
       "source": "./evolvehq--docflow",
       "description": "ADR-driven documentation workflow for the Claude Code and pi coding agents: scaffold and manage Architecture Decision Records (ADRs), a plan queue, and AGENTS.md conventions \u2014 a bootstrap skill plus l"
+    },
+    {
+      "name": "shrey1110-dotcom--scopekit",
+      "source": "./shrey1110-dotcom--scopekit",
+      "description": "ScopeKit"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -316672,6 +317197,21 @@
       "name": "lmcache--kvcache-view",
       "source": "./lmcache--kvcache-view",
       "description": "KV cache visualizations"
+    },
+    {
+      "name": "pantheon-org--tekhne",
+      "source": "./pantheon-org--tekhne",
+      "description": "Agents Skills"
+    },
+    {
+      "name": "cminn10--ai-novel-workspace",
+      "source": "./cminn10--ai-novel-workspace",
+      "description": "AI \u8f85\u52a9\u5c0f\u8bf4\u521b\u4f5c\u5de5\u4f5c\u533a\u3002\u901a\u8fc7\u7ed3\u6784\u5316\u7684\u6587\u98ce\u5206\u6790\u3001\u9879\u76ee\u8bb0\u5fc6\u7ba1\u7406\u548c\u6e10\u8fdb\u5f0f\u89c4\u5219\u79ef\u7d2f\uff0c\u5b9e\u73b0\u98ce\u683c\u7a33\u5b9a\u3001\u524d\u540e\u4e00\u81f4\u7684\u957f\u7bc7\u5c0f\u8bf4\u521b\u4f5c\u3002"
+    },
+    {
+      "name": "rdeangel--rda-msg-board",
+      "source": "./rdeangel--rda-msg-board",
+      "description": "A message board / clock / more for ESP8266 and ESP32 boards"
     },
     {
       "name": "ocrbase-hq--ocrbase",
