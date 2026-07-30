@@ -1,8 +1,8 @@
 {
-  "name": "pyspur",
+  "name": "PySpur",
   "owner": "PySpur-Dev",
-  "repo": "pyspur",
-  "description": "A visual playground for agentic workflows: Iterate over your agents 10x faster",
+  "repo": "PySpur",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/PySpur-Dev/pyspur",
+  "source_url": "https://github.com/PySpur-Dev/PySpur",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T09:32:22Z"
+  "distributed_at": "2026-07-30T11:15:31Z"
 }
