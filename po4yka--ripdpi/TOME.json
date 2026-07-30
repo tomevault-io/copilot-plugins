@@ -2,9 +2,9 @@
   "name": "RIPDPI",
   "owner": "po4yka",
   "repo": "RIPDPI",
-  "description": "Android app for internet speed-up during active DPI with a local SOCKS5 proxy and VPN mode, powered by in-repo Rust native modules. Features adaptive DPI evasion strategies, encrypted DNS (DoH/DoT/DNSCrypt), per-network policy memory, handover-aware live re-evaluation, and integrated network diagnostics.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,69 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "rust-sanitizers-miri",
+      "path": ".claude/skills/rust-sanitizers-miri",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-sanitizers-miri",
+      "description": ""
+    },
+    {
+      "name": "rust-android-jni",
+      "path": ".claude/skills/rust-android-jni",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-android-jni",
+      "description": ""
+    },
+    {
+      "name": "rust-android-build",
+      "path": ".claude/skills/rust-android-build",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-android-build",
+      "description": ""
+    },
+    {
+      "name": "rust-android-telemetry",
+      "path": ".claude/skills/rust-android-telemetry",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-android-telemetry",
+      "description": ""
+    },
+    {
+      "name": "rust-lints",
+      "path": ".claude/skills/rust-lints",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-lints",
+      "description": ""
+    },
+    {
+      "name": "rust-async-internals",
+      "path": ".claude/skills/rust-async-internals",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-async-internals",
+      "description": ""
+    },
+    {
+      "name": "rust-test-tools",
+      "path": ".claude/skills/rust-test-tools",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-test-tools",
+      "description": ""
+    },
+    {
+      "name": "rust-discipline",
+      "path": ".claude/skills/rust-discipline",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.claude/skills/rust-discipline",
+      "description": ""
+    },
+    {
+      "name": "RIPDPI",
+      "path": "docs/design/rds/SKILL.md",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/docs/design/rds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RIPDPI",
+      "path": ".agents/skills/ripdpi-app-network-architect/SKILL.md",
+      "github_url": "https://github.com/po4yka/RIPDPI/tree/main/.agents/skills/ripdpi-app-network-architect/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/po4yka/RIPDPI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T17:25:19Z"
+  "distributed_at": "2026-07-30T21:16:41Z"
 }
