@@ -1,8 +1,6 @@
 # cyto
 
-> Source: [ArcInstitute/cyto](https://github.com/ArcInstitute/cyto) — distributed by [TomeVault](https://tomevault.io)
-
-A mapper for 10x-flex single cell sequencing reads with fixed abstract geometries
+> Source: [ArcInstitute/cyto](https://github.com/ArcInstitute/cyto). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
