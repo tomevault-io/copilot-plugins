@@ -1,8 +1,6 @@
 # opencode-mobile
 
-> Source: [Shahfarzane/opencode-mobile](https://github.com/Shahfarzane/opencode-mobile) — distributed by [TomeVault](https://tomevault.io)
-
-Native iOS app for OpenCode AI coding agent — built with Expo & React Native. Real-time streaming, QR pairing, Face ID, terminal access, and git ops from your phone.
+> Source: [Shahfarzane/opencode-mobile](https://github.com/Shahfarzane/opencode-mobile). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Shahfarzane/opencode-mobile](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Shahfarzane/opencode-mobile](https://github.com/Shahfarzane/opencode-mobile) — a repo with 43+ stars on GitHub.
+From [Shahfarzane/opencode-mobile](https://github.com/Shahfarzane/opencode-mobile) — a repo with 94+ stars on GitHub.
 
 ---
 
