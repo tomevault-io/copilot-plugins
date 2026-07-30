@@ -1,0 +1,9 @@
+{
+  "name": "acorderob--sd-webui-prompt-postprocessor",
+  "displayName": "sd-webui-prompt-postprocessor",
+  "description": "sd-webui-prompt-postprocessor",
+  "version": "1.0.0",
+  "author": "acorderob",
+  "homepage": "https://github.com/acorderob/sd-webui-prompt-postprocessor",
+  "skills": []
+}
