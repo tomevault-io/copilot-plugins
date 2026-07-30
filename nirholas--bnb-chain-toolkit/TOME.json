@@ -4,7 +4,7 @@
   "repo": "bnb-chain-toolkit",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -47,5 +47,5 @@
   ],
   "source_url": "https://github.com/nirholas/bnb-chain-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T21:58:12Z"
+  "distributed_at": "2026-07-30T21:58:44Z"
 }
