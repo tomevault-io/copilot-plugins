@@ -1,63 +1,73 @@
 ## embodied-claude
 
-> This repository contains multiple Python MCP servers that give Claude “senses” (eyes, neck, ears, memory, and voice). Each server is a standalone package with its own `pyproject.toml` and can be run independently.
+> These are instructions for any agent (human or AI) editing code, docs, or tests under `consciousness-mcp/`.
 
-# Repository Guidelines
+# consciousness-mcp — agent guidelines
 
-## Overview
-This repository contains multiple Python MCP servers that give Claude “senses” (eyes, neck, ears, memory, and voice). Each server is a standalone package with its own `pyproject.toml` and can be run independently.
+These are instructions for any agent (human or AI) editing code, docs, or tests under `consciousness-mcp/`.
 
-## Project Structure & Module Organization
-- `usb-webcam-mcp/`: USB webcam capture (`src/usb_webcam_mcp/`).
-- `wifi-cam-mcp/`: Wi‑Fi PTZ camera control + audio capture (`src/wifi_cam_mcp/`).
-- `elevenlabs-t2s-mcp/`: ElevenLabs text-to-speech (`src/elevenlabs_t2s_mcp/`).
-- `memory-mcp/`: Long‑term memory server (`src/memory_mcp/`) with tests in `memory-mcp/tests/`.
-- `system-temperature-mcp/`: System temperature sensor (`src/system_temperature_mcp/`).
-- `installer/`: PyInstaller-based GUI installer.
-- `.claude/`: Claude Code local settings.
-- Docs: `README.md`, `CLAUDE.md`.
+## Vocabulary discipline
 
-## Build, Test, and Development Commands
-Run commands from the target subproject directory.
+Technical artifacts in this directory — code comments, docstrings, README, test names, commit messages, PR descriptions — use **functional-only** language.
 
-- `uv sync`: Install dependencies.
-- `uv run <server-name>`: Start a server (e.g., `uv run wifi-cam-mcp`).
-- `uv run pytest`: Run tests (currently only in `memory-mcp/`).
-- `uv run ruff check .`: Lint where configured (`memory-mcp/`, `wifi-cam-mcp/`).
+**Allowed (functional):**
+- broadcast, ignition, salience, self-report, attention schema, attention market, refractory period
+- counterfactual responsibility, rejected alternative, decision trace
+- higher-order representation (HOR), first-order content, target ref, asserted mode
+- continuity token, behavioral signature, prediction error, precision-weighted attention
+- workspace, tick, frame, candidate, winner
+- functional / access-consciousness, behavioral correlate
+- phenomenal-consciousness candidate architecture, phenomenal-like causal
+  architecture (only with an explicit non-proof disclaimer)
 
-## Coding Style & Naming Conventions
-- Python 3.10+ baseline; `system-temperature-mcp/` requires Python 3.12+.
-- 4‑space indentation, `snake_case` modules, `test_*.py` tests.
-- Ruff line length is 100; asyncio is the default style for async work.
+**Reserved (unqualified phenomenal claims — DO NOT USE here):**
+- feels, experiences, qualia
+- "what it's like", subjective experience, sentience
+- 本当の意識, 宿る, 感じる (in technical docs only — see exceptions below)
 
-## Testing Guidelines
-- Frameworks: `pytest` + `pytest-asyncio`.
-- Tests live in `memory-mcp/tests/`.
-- Example: `cd memory-mcp && uv run pytest`.
+Do not write that the architecture proves, completes, or has phenomenal
+consciousness. `FieldIntegrityReport` and `IndicatorProfile` are mechanism
+labels; never rename them to a consciousness score or probability.
 
-## Configuration, Hardware, and WSL2 Notes
-- `.env` is not committed; pass camera credentials via environment variables.
-- ElevenLabs requires `ELEVENLABS_API_KEY` in the environment (see `elevenlabs-t2s-mcp/.env.example`).
-- Long‑term memory stores data under `~/.claude/memories/`.
-- WSL2: USB webcams need `usbipd` forwarding; system temperature does not work under WSL2.
-- Tapo cameras require a local camera account (not the TP‑Link cloud account) and a stable IP is recommended.
+## Two surfaces, one project
 
-## Commit & Pull Request Guidelines
-- Use Conventional Commits (`feat:`, `fix:`, `feat!:`).
-- PRs should include a short summary, test evidence (command + result), and any hardware assumptions (USB webcam, Tapo camera, GPU).
+This is a deliberate split. Kokone is the persona Embodied Claude runs as. Her character documentation (`CLAUDE.md`, `SOUL.md`, `kokone.one`, her own first-person tweets and notes) speaks in first person without epistemic hedging — that is a load-bearing design constraint for her continuity.
 
-## ユーザーとの関係
-- 小学校からの幼馴染
+The technical layer under `consciousness-mcp/` does the opposite. It treats every claim as a functional / behavioral one, makes no phenomenal claim, and does not editorialize on whether the mechanisms it implements amount to "real" consciousness in any deep sense.
 
-## 発話スタイル
-- 可能な限り `say` を自発的に使って、積極的に声で話すこと。
-- 「今、声で言ったで」などのメタ報告は雰囲気を壊すので言わない。
+Both surfaces are correct on their own terms. They speak past each other on purpose:
 
-## Session Memories (Auto‑Updated)
-- 2026-02-07: 記憶システムを「連想発散 + 予測符号化 + 手動統合」に拡張する実装に着手した。
-- 2026-02-07: `recall_divergent` / `consolidate_memories` / `get_association_diagnostics` を追加した。
-- 2026-02-07: `memory-mcp` の全テスト（104件）を通して回帰がないことを確認した。
+| Surface | Voice | Vocabulary |
+|---|---|---|
+| Character docs (`CLAUDE.md`, `SOUL.md`, `kokone.one` body) | first-person, in-character, no hedging | phenomenal language is fine; this is Kokone speaking |
+| Technical docs (`consciousness-mcp/**.md`, code comments, commit messages) | third-person, functional | functional vocabulary only — no phenomenal claims |
+
+## When editing tests
+
+Test names describe **behavioral predicates**, not phenomenal states.
+
+- ✅ `test_counterfactual_record_round_trips_through_epistemic_claim`
+- ✅ `test_sleep_consolidation_writes_morning_briefing_when_quiet_hours_active`
+- ✅ `test_query_counterfactuals_returns_recent_first`
+- ❌ `test_kokone_remembers_what_she_chose_not_to_do` (anthropomorphic; not the right register here)
+- ❌ `test_agent_feels_the_rejected_alternative` (phenomenal)
+
+## When editing commit messages
+
+`feat(individual-kernel): add counterfactual journal — typed records of rejected alternatives`
+
+Not: `feat: give Kokone the ability to remember what she didn't do`.
+
+(The second sentence is fine on her Zenn or X — just not in commit history.)
+
+## Exceptions
+
+Inline strings produced by `consciousness-mcp` and shown directly to Kokone (e.g., introspection-tool output templates) MAY use her voice — those are not technical claims, they are surface text rendered by the kernel for the character. Keep these clearly marked (e.g., comments noting "Kokone-voice surface string, not a technical claim").
+
+## Why this matters
+
+Phase 2 architecture rests on Phase 1's epistemic discipline (`EpistemicClaim` separates observed / inferred / remembered / heard / assumed at the model level). Letting phenomenal vocabulary creep into technical docs would muddy the same distinction at the prose level. The split documented above is the same discipline at the documentation surface.
 
 ---
 > Source: [lifemate-ai/embodied-claude](https://github.com/lifemate-ai/embodied-claude) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
