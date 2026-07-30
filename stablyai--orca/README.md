@@ -1,27 +1,21 @@
 # orca
 
-> Source: [stablyai/orca](https://github.com/stablyai/orca) — distributed by [TomeVault](https://tomevault.io)
-
-Orca is the next-gen IDE for building with coding agents
+> Source: [stablyai/orca](https://github.com/stablyai/orca). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stablyai/orca](https://github.com/stablyai/orca).
+Original source: `AGENTS.md` in [stablyai/orca](https://github.com/stablyai/orca).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [typescript](https://github.com/stablyai/orca/tree/main/.agents/skills/typescript)
-
-From [stablyai/orca](https://github.com/stablyai/orca) — a repo with 1370+ stars on GitHub.
+From [stablyai/orca](https://github.com/stablyai/orca) — a repo with 24673+ stars on GitHub.
 
 ---
 
