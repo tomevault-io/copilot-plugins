@@ -2,7 +2,7 @@
   "name": "rails-instructions",
   "owner": "levifig",
   "repo": "rails-instructions",
-  "description": "Set of instructions for your favorite AI agent (e.g. Cursor, Copilot, Claude, etc) for a \"DHH-driven\" Ruby on Rails development philosophy.",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/levifig/rails-instructions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:11:49Z"
+  "distributed_at": "2026-07-30T17:10:49Z"
 }
