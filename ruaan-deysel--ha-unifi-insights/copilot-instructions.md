@@ -1,26 +1,36 @@
 ## ha-unifi-insights
 
-> - Architecture: Home Assistant custom integration for UniFi Network/Protect using the vendored async clients in [../custom_components/unifi_insights/api](../custom_components/unifi_insights/api); data is centralized in [../custom_components/unifi_insights/coordinator.py](../custom_components/unifi_insights/coordinator.py) via `DataUpdateCoordinator` (30s interval), with websocket callbacks when Protect is available and stale-device cleanup against the device registry.
+> **Applies to:** Local Home Assistant configuration files
 
-# Copilot Instructions
 
-- Architecture: Home Assistant custom integration for UniFi Network/Protect using the vendored async clients in [../custom_components/unifi_insights/api](../custom_components/unifi_insights/api); data is centralized in [../custom_components/unifi_insights/coordinator.py](../custom_components/unifi_insights/coordinator.py) via `DataUpdateCoordinator` (30s interval), with websocket callbacks when Protect is available and stale-device cleanup against the device registry.
-- Runtime data: Coordinator stores `data` under `sites`, `devices`, `clients`, `stats`, and `protect` (cameras/lights/sensors/nvrs/viewers/chimes/liveviews/events); lookups go through helpers like `get_site`, `get_device`, `_model_to_dict` to normalize pydantic/camelCase structures.
-- Config/auth: [../custom_components/unifi_insights/config_flow.py](../custom_components/unifi_insights/config_flow.py) supports `local` (host + API key, optional verify_ssl) and `remote` (console_id + API key) modes; unique_id uses the API key; reauth/reconfigure mirrors the same validation by fetching sites.
-- Entry setup: [../custom_components/unifi_insights/**init**.py](../custom_components/unifi_insights/__init__.py) builds Network client for both modes, Protect client only for local, validates connectivity (fetch sites/cameras), then seeds coordinator and forwards platforms.
-- Constants/endpoints: [../custom_components/unifi_insights/const.py](../custom_components/unifi_insights/const.py) centralizes device/service names and UniFi Network/Protect endpoint paths; reuse these instead of hardcoding strings.
-- Data transforms: [../custom_components/unifi_insights/data_transforms.py](../custom_components/unifi_insights/data_transforms.py) maps library responses to internal field names (status → connected/disconnected, camelCase → snake_case); extend this when adding new API fields and keep tests updated in [../tests/test_data_transforms.py](../tests/test_data_transforms.py).
-- Entity bases: [../custom_components/unifi_insights/entity.py](../custom_components/unifi_insights/entity.py) provides `UnifiInsightsEntity` (network) and `UnifiProtectEntity` (protect) that handle availability, device_info (including MAC connections), and mixed camelCase/snake_case fields via `get_field`; prefer these bases for new entities.
-- Entities: Sensors, binary_sensors, cameras, lights, switches build from coordinator data and the above bases (see [../custom_components/unifi_insights/sensor.py](../custom_components/unifi_insights/sensor.py), [../custom_components/unifi_insights/binary_sensor.py](../custom_components/unifi_insights/binary_sensor.py), [../custom_components/unifi_insights/camera.py](../custom_components/unifi_insights/camera.py), [../custom_components/unifi_insights/light.py](../custom_components/unifi_insights/light.py), [../custom_components/unifi_insights/switch.py](../custom_components/unifi_insights/switch.py)). Protect availability is `state == CONNECTED`; network availability uses `is_device_online` helper.
-- Sensor patterns: Network sensors expose CPU/memory/uptime/tx/rx, client counts, and per-port metrics (only for ports with state UP). Many diagnostic entities are disabled by default; preserve registry defaults when adding new sensors.
-- Binary sensor patterns: Motion/person/vehicle/animal/package detection and ring events rely on coordinator-stored `lastMotion*`, `lastSmartDetectTypes`, `lastRing*`; doorbell detection falls back on `_camera_type`, API type strings, or name heuristics.
-- Services: [../custom_components/unifi_insights/services.py](../custom_components/unifi_insights/services.py) registers HA services for refresh, restart_device, Protect controls (recording/hdr/video mode, mic volume, light mode/level, PTZ move/patrol, chime volume/ringtone/repeat, alarm/liveview helpers), and Network actions (authorize_guest, voucher CRUD). Use `_get_protect_coordinator`/`_get_first_coordinator` and raise `HomeAssistantError` with user-facing messages.
-- Update flow: Coordinator fetches sites → per-site devices/clients/stats → Protect devices; cleans stale devices from the registry using previously seen IDs. When adding data, ensure the coordinator’s `data` schema remains consistent for entity lookups.
-- Testing/linting: `pytest` (configured in [../pyproject.toml](../pyproject.toml) with coverage >=90%, HTML/XML reports) and `./script/lint` (ruff format + check --fix). Type checks via mypy strict settings; ignore_missing_imports is on. Security checks via bandit.
-- Dev server: `./script/develop` boots Home Assistant using ./config with `PYTHONPATH` set to custom_components; ensure dependencies are installed via `./script/setup/bootstrap`.
-- Conventions: `PARALLEL_UPDATES` set to 0 for coordinator-driven entities, 1 for action-based Protect entities; prefer camelCase tolerance via `get_field`; keep service schemas in sync with `services.yaml`; avoid duplicating API paths or constants.
-- Vendored API package: [../custom_components/unifi_insights/api](../custom_components/unifi_insights/api) contains the local copy of the upstream UniFi API client; reuse its client methods (network_client/protect_client) rather than manual HTTP calls.
+# Configuration YAML Instructions
+
+**Applies to:** Local Home Assistant configuration files
+
+## YAML Configuration
+
+This integration uses **config flow only** — no YAML configuration for the integration itself.
+
+The `config/` directory contains the local development Home Assistant configuration.
+
+## Local Development Config
+
+- `config/configuration.yaml` — Main HA config for local dev
+- Adjust log levels here for debugging:
+  ```yaml
+  logger:
+    default: warning
+    logs:
+      custom_components.unifi_insights: debug
+  ```
+
+## Rules
+
+- NEVER add YAML-based configuration for the integration
+- Config flow is the only supported setup method
+- The `config/` directory is for local development only
+- Don't commit sensitive data in configuration files
 
 ---
 > Source: [ruaan-deysel/ha-unifi-insights](https://github.com/ruaan-deysel/ha-unifi-insights) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
