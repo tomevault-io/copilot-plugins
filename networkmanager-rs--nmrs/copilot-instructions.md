@@ -1,91 +1,84 @@
 ## nmrs
 
-> Context for AI agents working in this repository.
+> Guide for reviewing pull requests to `nmrs` — a Rust library for NetworkManager over D-Bus.
 
-# AGENTS.md
+# nmrs Code Review Guide
 
-Context for AI agents working in this repository.
+Guide for reviewing pull requests to `nmrs` — a Rust library for NetworkManager over D-Bus.
 
-## Project overview
+## Error Handling and Result Types
 
-`nmrs` is a Rust library for managing network connections via NetworkManager over D-Bus.
+Every fallible operation must return `nmrs::Result<T>`, which is `Result<T, ConnectionError>`. Do not use `.unwrap()`, `.panic!()`, or `.expect()` in library code. The only exception is `unwrap_or_else()` when there is a documented fallback value.
 
-## Architecture
+When examining error paths, ensure all errors use typed `ConnectionError` variants. Do not accept raw string errors or opaque error wrappers like `anyhow::Error`. This forces callers to handle specific failure modes. For example, `BluezUnavailable` should be distinct from `BluetoothToggleFailed` so consumers can decide whether to retry, skip Bluetooth, or propagate the error upward.
 
-```
-nmrs/src/
-  lib.rs                — public API surface, re-exports from api/
-  api/
-    network_manager.rs  — main entry point (NetworkManager struct)
-    models/             — public types, enums, errors, traits
-    builders/           — connection settings constructors (wifi, vpn, bluetooth)
-  core/                 — internal business logic (connection, scanning, VPN, state waiting)
-  dbus/                 — raw D-Bus proxy calls (NM, devices, access points)
-  monitoring/           — real-time D-Bus signal subscriptions
-  types/                — constants, device type registry
-  util/                 — validation, cert handling, helpers
-```
+Aggregate operations (like `set_airplane_mode`) that combine multiple independent D-Bus calls must document their partial-failure semantics. If Wi-Fi and WWAN toggle succeed but Bluetooth settle fails, the entire operation should not fail. Bluetooth failures should be logged as warnings and allow the aggregate operation to return `Ok()`. This prevents state divergence where the UI sees failure while the underlying radios are already in the desired state.
 
-`lib.rs` re-exports commonly used types at the crate root for convenience.
-Internal modules (`core`, `dbus`, `monitoring`, `types`, `util`) are not part of the public API.
+## D-Bus and NetworkManager Semantics
 
-## Build and test
+All D-Bus communication must go through `zbus` (v5.15.0+). Proxy calls should be wrapped cleanly in `dbus/` module functions and not exposed raw in the public API.
 
-Requires a running NetworkManager instance (or use the provided Dockerfile).
+When fetching radio state or toggling radios, be aware of the distinction between:
+- Software-enabled: the user-controlled toggle (readable and writable via D-Bus)
+- Hardware-enabled: the rfkill state (read-only from userspace)
 
-```bash
-cargo check                                               # quick compile check
-cargo fmt --all -- --check                                # formatting (default rustfmt, no config file)
-cargo clippy --all-targets --all-features -- -D warnings  # lints (warnings are errors in CI)
-cargo test -p nmrs --lib --all-features                   # unit tests only
-cargo test --doc --all-features --workspace               # doc tests
-cargo test --all-features --workspace                     # unit + integration (needs NM + wifi hardware)
-cargo test --test integration_test --all-features         # integration only
-```
+Both are necessary to determine actual radio capability. A radio can be software-enabled but hardware-killed, resulting in no functional connectivity.
 
-Integration tests require wifi hardware or `mac80211_hwsim`:
-```bash
-sudo modprobe mac80211_hwsim radios=2
-cargo test --test integration_test --all-features
-sudo modprobe -r mac80211_hwsim
-```
+For operations that affect multiple radios (Wi-Fi, WWAN, Bluetooth), use `futures::future::join3()` or similar combinators to execute them concurrently. Do not chain sequential `.await` calls. NetworkManager and BlueZ may have slow property changes, and Bluetooth adapters have a 2-second settlement timeout (`BLUEZ_POWER_SETTLE_TIMEOUT`). Concurrent fetches reduce total latency and expose timing issues early.
 
-## Toolchain
+When toggling Bluetooth adapters, the `Powered` property may take time to flip. The code must wait (with a timeout) for the property to actually settle on the target value before returning. A read-after-write of airplane mode state should not see stale Bluetooth state from before the toggle.
 
-- Edition 2024, resolver 3, stable Rust (MSRV: 1.90.0)
-- Workspace lints in root `Cargo.toml`: `unused = "warn"`, clippy allows `too_many_arguments` and `type_complexity`
-- CI runs: format, clippy, lib tests, doc tests, semver-checks (`cargo-semver-checks` for `nmrs`), cross-compile for aarch64
+## Testing for Bug Fixes
 
-## Code conventions
+Every bug fix must include a regression test that would fail if the bug were reintroduced. The test should not rely on graceful error handling or early returns; it must assert that the operation succeeded with `expect()` or `assert!()` and verify the expected state changed.
 
-- **Error handling**: all public fallible operations return `nmrs::Result<T>` (alias for `Result<T, ConnectionError>`). Use `ConnectionError` variants, not raw strings.
-- **Builder pattern**: config structs use `with_*` builder methods returning `Self` with `#[must_use]`. See `WireGuardConfig`, `OpenVpnConfig`, `EapOptions`.
-- **`#[non_exhaustive]`** on all public structs and enums.
-- **Doc comments** on all public items with examples where practical. Doc examples use `nmrs::` paths (crate root re-exports).
-- **No `unwrap()` in library code** — return errors via `?` or `ConnectionError`.
-  - `unwrap_or_else()` is allowed if the error is expected and there is a fallback value. Document this with a comment.
-- **Tests**: unit tests live in `#[cfg(test)] mod tests` within the module or in `api/models/tests.rs`. Integration tests in `nmrs/tests/`. Assert behavior, not implementation.
+For example, when Bluetooth settle failures caused `set_airplane_mode()` to fail entirely (while Wi-Fi was already toggled), the regression test must:
+1. Call `set_airplane_mode()` and use `.expect()` to assert it returned `Ok()`
+2. Verify the airplane mode state actually changed (not just that the call didn't panic)
+3. Document in a comment what the original bug was and how this test prevents it
 
-## Commit messages
+Do not write tests that gracefully skip on error or log warnings and return successfully. Those patterns hide regressions. The test must fail loudly if the operation returns an error when it should succeed.
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
+## Testing for New Behavior
 
-```
-type(#issue): description
-```
+When adding a new feature, write tests that verify the happy path and at least one error case. Test both the positive (feature works) and negative (error handling is correct) scenarios.
 
-Examples: `fix(#24): handle missing DNS in VPN config`, `feat: add OpenVPN proxy support`.
-Atomic commits — one logical change per commit.
+Tests belong in three places:
+- Unit tests in `#[cfg(test)] mod tests` within the module or in `api/models/tests.rs`
+- Integration tests in `nmrs/tests/` that require a running NetworkManager instance
+- Doc examples in public API functions (runnable with `cargo test --doc`)
 
-## Changelog
+Integration tests can skip gracefully if NetworkManager is unavailable (using `require_networkmanager!()` macro), but core unit tests must not depend on external services. Mock or inject dependencies where needed.
 
-[Keep a Changelog](https://keepachangelog.com/) format in `nmrs/CHANGELOG.md`.
-Sections: `Added`, `Changed`, `Fixed`. Link PRs/issues in parentheses.
+Test assertions should verify behavior, not implementation. Avoid testing internal helper function calls or private state; test the public API's observable output. When testing aggregate operations, verify that all three radio states are queried concurrently, not that the code uses `join3()` internally.
 
-## Things to watch out for
+## D-Bus Proxy Calls and Lifetimes
 
-- The `VpnCredentials` type is deprecated — prefer `WireGuardConfig` for new WireGuard code.
+Proxy objects from `zbus` (like `NMProxy`, `BluezAdapterProxy`) are tied to the `Connection` lifetime. When creating proxies, ensure they are not stored in long-lived structs without proper lifetime annotations. Pass `&Connection` to internal functions and construct fresh proxies as needed.
+
+D-Bus signal subscriptions (for monitoring state changes) must be properly scoped and dropped when no longer needed. Use streaming futures and explicit drop guards to avoid resource leaks.
+
+## Code Organization
+
+Keep layers separate:
+- `api/`: Public API surface and high-level operations (e.g., `set_airplane_mode`)
+- `core/`: Internal business logic that orchestrates D-Bus calls
+- `dbus/`: Raw D-Bus proxy wrappers and method calls
+- `types/`: Constants and device type registry
+- `util/`: Validation helpers, cert handling
+
+Do not re-export internal modules in `lib.rs`. The public API should be self-contained and not expose implementation details.
+
+## Documentation
+
+Every public item needs a doc comment. If the API is non-obvious, include an example. Use the crate-root path (`nmrs::Type`) in examples since that is how consumers will access the type.
+
+Document non-fatal failure modes. If a Bluetooth operation fails but the aggregate succeeds, explain this in the function's doc comment so callers are not surprised by the behavior.
+
+---
+
+**For architecture and conventions, see [AGENTS.md](./AGENTS.md).**
 
 ---
 > Source: [networkmanager-rs/nmrs](https://github.com/networkmanager-rs/nmrs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
