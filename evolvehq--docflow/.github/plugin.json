@@ -1,0 +1,14 @@
+{
+  "name": "evolvehq--docflow",
+  "displayName": "docflow",
+  "description": "ADR-driven documentation workflow for the Claude Code and pi coding agents: scaffold and manage Architecture Decision Records (ADRs), a plan queue, and AGENTS.md conventions \u2014 a bootstrap skill plus l",
+  "version": "1.0.0",
+  "author": "EvolveHQ",
+  "homepage": "https://github.com/EvolveHQ/docflow",
+  "skills": [
+    {
+      "name": "add-convention",
+      "description": ""
+    }
+  ]
+}
