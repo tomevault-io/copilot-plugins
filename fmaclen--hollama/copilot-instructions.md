@@ -1,230 +1,192 @@
 ## hollama
 
-> - **DOM Event Handling Syntax**
+> - **Enable TypeScript with `lang="ts"`**
 
-- **DOM Event Handling Syntax**
-  - Replace Svelte 4 `on:eventname` directive with direct property binding: `{eventname}` or `eventname={handler}`.
-  - Use lowercase event names for standard DOM events (e.g., `onclick`, `oninput`, `onkeydown`).
+- **Enable TypeScript with `lang="ts"`**
+  - Add `lang="ts"` to the `<script>` tag to enable TypeScript syntax and type checking.
 
   ```svelte
   <script lang="ts">
-    let count = $state(0);
-    let text = $state('');
+    // ✅ DO: Enable TypeScript
+    let message: string = 'Hello, TypeScript!';
+  </script>
 
-    function handleClick() {
-      count++;
+  <p>{message}</p>
+  ```
+
+- **Typing State Variables (`$state`)**
+  - Provide explicit types for `$state` variables when needed, especially if the initial value doesn't fully infer the type (e.g., `null` or `undefined`).
+
+  ```svelte
+  <script lang="ts">
+    // ✅ DO: Type state variables
+    let count: number = $state(0);
+    let user: { name: string; id: number } | null = $state(null);
+    let items: string[] = $state([]);
+  </script>
+  ```
+
+- **Typing Props (`$props`)**
+  - Define an interface or type alias for your component's props.
+  - Use the type when destructuring `$props()`.
+  - Use `generics="T"` attribute on the `<script>` tag for generic components.
+
+  ```svelte
+  <!-- Filename: TypedProps.svelte -->
+  <script lang="ts" generics="T extends { id: number }">
+    // ✅ DO: Define an interface for props
+    interface Props {
+      title: string;
+      items: T[];
+      onClickItem?: (item: T) => void;
+      value?: string = $bindable('default'); // Type bindable props too
     }
 
+    // ✅ DO: Apply the type to $props()
+    let { title, items, onClickItem, value }: Props = $props();
+  </script>
+
+  <h2>{title}</h2>
+  <input bind:value={value} />
+  <ul>
+    {#each items as item}
+      <li onclick={() => onClickItem?.(item)}>{JSON.stringify(item)}</li>
+    {/each}
+  </ul>
+  ```
+
+- **Typing Snippet Props**
+  - Snippets are functions, so type them accordingly in your props interface.
+  - Specify parameter types and the return type (usually `any` or `Snippet` from `svelte`).
+
+  ```svelte
+  <!-- Filename: ListWithTypedSnippets.svelte -->
+  <script lang="ts" generics="T">
+    import type { Snippet } from 'svelte';
+
+    interface Props {
+      items: T[];
+      // ✅ DO: Type snippet props as functions
+      itemRenderer: Snippet<{ item: T, index: number }>; // Parameter object type
+      header?: Snippet; // Optional snippet with no params
+    }
+
+    let { items, itemRenderer, header }: Props = $props();
+  </script>
+
+  {#if header}
+    <div class="list-header">{@render header()}</div>
+  {/if}
+  <ul>
+    {#each items as item, index}
+      <li>{@render itemRenderer({ item, index })}</li>
+    {/each}
+  </ul>
+  ```
+
+- **Typing DOM Events**
+  - Use standard DOM event types (e.g., `MouseEvent`, `KeyboardEvent`, `Event`, `CustomEvent`) for event handlers.
+  - Cast `event.target` if you need to access specific element properties.
+
+  ```svelte
+  <script lang="ts">
     function handleInput(event: Event) {
-      text = (event.target as HTMLInputElement).value;
+      // ✅ DO: Cast target to access specific properties
+      const target = event.target as HTMLInputElement;
+      console.log('Input value:', target.value);
     }
-
-    function handleEnter(event: KeyboardEvent) {
-      if (event.key === 'Enter') {
-        console.log('Enter pressed!');
-      }
-    }
-  </script>
-
-  <!-- ✅ DO: Use property syntax -->
-  <button onclick={handleClick}>
-    Clicks: {count}
-  </button>
-
-  <!-- Also works with inline handlers -->
-  <button onclick={() => count--}>
-    Decrement
-  </button>
-
-  <!-- Shorthand works if handler name matches event -->
-  <button onclick={handleClick}> 
-    {/* If function was named `onclick` -> <button {onclick}> */}
-    Click Me
-  </button>
-
-  <input oninput={handleInput} placeholder="Type here" bind:value={text} />
-  <input onkeydown={handleEnter} placeholder="Press Enter" />
-  ```
-
-- **Component Events via Callback Props**
-  - Svelte 5 replaces `createEventDispatcher` with callback props.
-  - Define function props in the child component to be called when an event occurs.
-  - The parent component passes handler functions as props to the child.
-
-  ```svelte
-  <!-- Filename: ChildComponent.svelte -->
-  <script lang="ts">
-    // ✅ DO: Accept callback props
-    let { notify, sendData } = $props<{ 
-      notify: () => void,
-      sendData?: (data: { message: string }) => void
-    }>();
-
-    let internalValue = $state('Some data');
-
-    function triggerNotify() {
-      notify(); // Call the parent's handler
-    }
-
-    function triggerSendData() {
-      sendData?.({ message: internalValue }); // Call optional handler
-    }
-  </script>
-
-  <button onclick={triggerNotify}>Notify Parent</button>
-  <button onclick={triggerSendData}>Send Data to Parent</button>
-  ```
-
-  ```svelte
-  <!-- Filename: App.svelte -->
-  <script lang="ts">
-    import ChildComponent from './ChildComponent.svelte';
-
-    function handleNotification() {
-      console.log('Notification received from child!');
-    }
-
-    function handleData(data: { message: string }) {
-      console.log('Data from child:', data.message);
-    }
-  </script>
-
-  <!-- ✅ DO: Pass handlers as props -->
-  <ChildComponent notify={handleNotification} sendData={handleData} />
-  ```
-
-- **Bubbling/Forwarding Events**
-  - To forward a DOM event from an element inside a child component to the parent, accept a corresponding callback prop (e.g., `onclick`).
-  - Spread props (`{...props}`) onto an element to automatically forward all standard attributes and event handlers passed by the parent.
-
-  ```svelte
-  <!-- Filename: ForwardingButton.svelte -->
-  <script lang="ts">
-    // ✅ DO: Accept standard event handler props like onclick
-    // Or simply capture all props
-    let { children, ...props } = $props(); 
-  </script>
-
-  <!-- Spreading props forwards onclick, onmouseover, etc. -->
-  <button {...props}>
-    {@render children?.()}
-  </button>
-  ```
-
-  ```svelte
-  <!-- Filename: App.svelte -->
-  <script lang="ts">
-    import ForwardingButton from './ForwardingButton.svelte';
-
-    function handleParentClick() {
-      console.log('Button click handled in parent!');
-    }
-  </script>
-
-  <ForwardingButton onclick={handleParentClick}>
-    Click Me (Forwards)
-  </ForwardingButton>
-  ```
-
-- **Event Modifiers are Manual**
-  - Modifiers like `once`, `preventDefault`, `stopPropagation`, `passive`, `capture` are no longer built-in syntax (`|modifier`).
-  - Implement `preventDefault` and `stopPropagation` directly within your handler function.
-  - Use higher-order functions or helper utilities for modifiers like `once`.
-  - Use specific event properties like `onclickcapture` for the `capture` modifier.
-  - For `passive` / `nonpassive`, use a custom action or the `on` utility from `svelte/events` to attach the listener with options.
-
-  ```svelte
-  <script lang="ts">
-    import { on } from 'svelte/events';
-    import { onDestroy } from 'svelte';
 
     function handleClick(event: MouseEvent) {
-      // ✅ DO: Call preventDefault directly
-      event.preventDefault();
-      console.log('Default prevented. Link navigation stopped.');
+      console.log('Clicked at:', event.clientX, event.clientY);
     }
-
-    let runCount = 0;
-    function handleOnce() {
-      // ✅ DO: Implement `once` logic manually
-      if (runCount === 0) {
-        console.log('Ran only once!');
-        runCount++;
-      }
-    }
-
-    // Example using svelte/events for passive
-    let buttonElement: HTMLButtonElement;
-    onDestroy(
-      on(window, 'scroll', () => { 
-        console.log('Passive scroll listener'); 
-      }, { passive: true })
-    );
-
   </script>
 
-  <a href="https://google.com" onclick={handleClick}>
-    Click (Prevents Default)
-  </a>
+  <input oninput={handleInput} />
+  <button onclick={handleClick}>Click Me</button>
+  ```
 
-  <button onclick={handleOnce}>Click Me Once</button>
+- **Typing Element References (`bind:this`)**
+  - Provide the specific HTML element type for variables bound with `bind:this`.
 
-  <!-- ✅ DO: Use `onclickcapture` for capture phase -->
-  <div onclickcapture={() => console.log('Capture phase')} 
-       onclick={() => console.log('Bubble phase')}>
-    <button>Capture Test</button>
+  ```svelte
+  <script lang="ts">
+    // ✅ DO: Type element references
+    let canvasElement: HTMLCanvasElement | undefined = $state();
+    let mainDiv: HTMLDivElement | undefined = $state();
+
+    $effect(() => {
+      if (canvasElement) {
+        const ctx = canvasElement.getContext('2d');
+        // ... use ctx
+      }
+    });
+  </script>
+
+  <div bind:this={mainDiv}>
+    <canvas bind:this={canvasElement}></canvas>
   </div>
   ```
 
-- **Multiple Handlers on One Element**
-  - Only one handler prop (e.g., `onclick`) can be assigned per element.
-  - If you need multiple functions to run for the same event, combine them within a single inline arrow function.
-
-  ```svelte
-  <script lang="ts">
-    function logger(event: Event) {
-      console.log('Event target:', event.target);
-    }
-    function counter(event: MouseEvent) {
-      console.log('Button clicked!');
-    }
-  </script>
-
-  <!-- ✅ DO: Combine handlers in an inline function -->
-  <button onclick={(e) => {
-    logger(e);
-    counter(e);
-  }}>
-    Click Me (Multiple Actions)
-  </button>
-  ```
-
-- **Preserving Local Handlers When Spreading Props**
-  - If spreading props (`{...props}`) and also defining a local handler (e.g., `onclick`), ensure the local logic runs by calling it alongside the prop handler.
+- **Typing Wrapper Components (`HTMLAttributes`, `HTMLButtonAttributes`, etc.)**
+  - For components wrapping native elements, import and use the corresponding attribute types from `svelte/elements`.
+  - Spread the rest of the props (`{...rest}`) onto the native element.
 
   ```svelte
   <!-- Filename: CustomButton.svelte -->
   <script lang="ts">
-    let props = $props();
+    import type { HTMLButtonAttributes } from 'svelte/elements';
 
-    function localHandler(event: MouseEvent) {
-      console.log('CustomButton local logic ran!');
-      // Maybe add a class, etc.
-    }
+    // ✅ DO: Use HTML element attribute types for wrappers
+    type Props = HTMLButtonAttributes & { 
+      variant?: 'primary' | 'secondary';
+    };
+
+    let { children, variant = 'primary', ...rest }: Props = $props();
   </script>
 
-  <button 
-    {...props} 
-    onclick={(e) => {
-      localHandler(e);      // Run local logic first
-      props.onclick?.(e);  // Then run parent's handler if it exists
-    }}
-  >
-    Enhanced Button
+  <button class={`variant-${variant}`} {...rest}>
+    {@render children?.()}
   </button>
   ```
 
+- **Extending Svelte HTML Typings**
+  - For custom elements or non-standard attributes/events, augment the `svelteHTML.IntrinsicElements` interface in a `.d.ts` file.
+
+  ```typescript
+  // Filename: global.d.ts
+  declare namespace svelteHTML {
+    interface IntrinsicElements {
+      'my-web-component': {
+        someProp: string;
+        count?: number;
+        'on:customEvent': (e: CustomEvent<{ detail: string }>) => void;
+      };
+    }
+
+    // Add custom attributes to standard elements
+    interface HTMLAttributes<T> {
+      'data-testid'?: string;
+    }
+  }
+  ```
+
+  ```svelte
+  <!-- Filename: App.svelte -->
+  <script lang="ts">
+    function handleCustom(e: CustomEvent<{ detail: string }>) {
+      console.log('Custom event detail:', e.detail);
+    }
+  </script>
+
+  <my-web-component 
+    someProp="value" 
+    count={5}
+    on:customEvent={handleCustom} 
+  />
+
+  <div data-testid="my-div">Standard div with custom attribute</div>
+  ```
+
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/fmaclen)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/fmaclen)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [fmaclen/hollama](https://github.com/fmaclen/hollama) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
