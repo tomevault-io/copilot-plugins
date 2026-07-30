@@ -1,6 +1,6 @@
 # AI instruction files for open_deep_research
 
-> Sourced from [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [langchain-ai/open_deep_research](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research)
 
 ---
 
