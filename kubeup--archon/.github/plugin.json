@@ -1,0 +1,9 @@
+{
+  "name": "kubeup--archon",
+  "displayName": "archon",
+  "description": "archon",
+  "version": "1.0.0",
+  "author": "kubeup",
+  "homepage": "https://github.com/kubeup/archon",
+  "skills": []
+}
