@@ -4,7 +4,7 @@
   "repo": "routup",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/routup/routup",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T12:42:41Z"
+  "distributed_at": "2026-07-30T01:32:50Z"
 }
