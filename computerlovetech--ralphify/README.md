@@ -1,16 +1,15 @@
 # ralphify
 
-> Source: [computerlovetech/ralphify](https://github.com/computerlovetech/ralphify) — distributed by [TomeVault](https://tomevault.io)
-
-Stop stressing over not having an agent running. Ralph is always running 🏃‍♂
+> Source: [computerlovetech/ralphify](https://github.com/computerlovetech/ralphify). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [computerlovetech/ralphify](https://github.com/computerlovetech/ralphify).
+Original source: `` in [computerlovetech/ralphify](https://github.com/computerlovetech/ralphify).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
@@ -21,6 +20,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
