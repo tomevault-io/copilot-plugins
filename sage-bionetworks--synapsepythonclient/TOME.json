@@ -4,7 +4,7 @@
   "repo": "synapsePythonClient",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sage-Bionetworks/synapsePythonClient",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T11:35:24Z"
+  "distributed_at": "2026-07-30T03:51:36Z"
 }
