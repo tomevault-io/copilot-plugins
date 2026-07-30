@@ -4,7 +4,7 @@
   "repo": "mlflow-oidc-auth",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mlflow-oidc/mlflow-oidc-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T03:39:02Z"
+  "distributed_at": "2026-07-30T00:01:45Z"
 }
