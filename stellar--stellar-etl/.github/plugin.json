@@ -1,0 +1,9 @@
+{
+  "name": "stellar--stellar-etl",
+  "displayName": "stellar-etl",
+  "description": "stellar-etl",
+  "version": "1.0.0",
+  "author": "stellar",
+  "homepage": "https://github.com/stellar/stellar-etl",
+  "skills": []
+}
