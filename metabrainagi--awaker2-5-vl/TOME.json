@@ -4,7 +4,7 @@
   "repo": "Awaker2.5-VL",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MetabrainAGI/Awaker2.5-VL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T03:59:13Z"
+  "distributed_at": "2026-07-30T12:09:19Z"
 }
