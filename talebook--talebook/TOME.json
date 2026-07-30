@@ -4,7 +4,7 @@
   "repo": "talebook",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/talebook/talebook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T01:18:09Z"
+  "distributed_at": "2026-07-30T02:41:42Z"
 }
