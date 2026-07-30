@@ -4,7 +4,7 @@
   "repo": "isolate-package",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0x80/isolate-package",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T15:47:40Z"
+  "distributed_at": "2026-07-30T07:50:44Z"
 }
