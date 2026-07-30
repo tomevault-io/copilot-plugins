@@ -1,8 +1,6 @@
 # AgentLint
 
-> Source: [0xmariowu/AgentLint](https://github.com/0xmariowu/AgentLint) — distributed by [TomeVault](https://tomevault.io)
-
-The linter for your agent harness. Works with Claude Code, Codex, and Cursor.
+> Source: [0xmariowu/AgentLint](https://github.com/0xmariowu/AgentLint). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
