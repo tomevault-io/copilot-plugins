@@ -2,9 +2,9 @@
   "name": "twd",
   "owner": "BRIKEV",
   "repo": "twd",
-  "description": "TWD is designed for runtime-first SPAs and SSR setups where routing and data are explicit and testable.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BRIKEV/twd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T05:12:01Z"
+  "distributed_at": "2026-07-30T20:49:25Z"
 }
