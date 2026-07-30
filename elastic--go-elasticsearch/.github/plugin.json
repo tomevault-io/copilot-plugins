@@ -1,0 +1,9 @@
+{
+  "name": "elastic--go-elasticsearch",
+  "displayName": "go-elasticsearch",
+  "description": "go-elasticsearch",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/go-elasticsearch",
+  "skills": []
+}
