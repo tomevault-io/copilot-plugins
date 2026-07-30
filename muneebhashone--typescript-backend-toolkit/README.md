@@ -1,8 +1,6 @@
 # typescript-backend-toolkit
 
-> Tome by [muneebhashone](https://github.com/muneebhashone/typescript-backend-toolkit) — distributed by [TomeVault](https://tomevault.io)
-
-Production-ready Express.js/TypeScript framework with auto-generated OpenAPI, Artisan-style CLI, plugin system, JWT/sessions, BullMQ, React Email, Socket.io, Django-style admin, multi-provider storage/cache/email, Zod validation
+> Tome by [muneebhashone](https://github.com/muneebhashone/typescript-backend-toolkit), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [muneebhashone/typescript-backend-tool
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [muneebhashone/typescript-backend-toolkit](https://github.com/muneebhashone/typescript-backend-toolkit) — a repo with 321+ stars on GitHub.
+From [muneebhashone/typescript-backend-toolkit](https://github.com/muneebhashone/typescript-backend-toolkit) — a repo with 322+ stars on GitHub.
 
 ---
 
