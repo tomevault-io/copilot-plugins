@@ -1,8 +1,6 @@
 # semanticworkbench
 
-> Tome by [microsoft](https://github.com/microsoft/semanticworkbench) — distributed by [TomeVault](https://tomevault.io)
-
-A versatile tool designed to help prototype intelligent assistants, agents and multi-agentic systems 
+> Tome by [microsoft](https://github.com/microsoft/semanticworkbench), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [microsoft/semanticworkbench](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/microsoft/semanticworkbench](https://github.com/microsoft/semanticworkbench)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/microsoft/semanticworkbench](https://github.com/microsoft/semanticworkbench)
 
 ---
 
