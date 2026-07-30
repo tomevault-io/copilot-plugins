@@ -2,9 +2,9 @@
   "name": "OpenCanvas",
   "owner": "genmini-ai",
   "repo": "OpenCanvas",
-  "description": "Generate stunning presentations from any topic or PDF in minutes - with AI evaluation and self-evolution",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/genmini-ai/OpenCanvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T20:11:07Z"
+  "distributed_at": "2026-07-30T07:42:34Z"
 }
