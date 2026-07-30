@@ -1,8 +1,6 @@
 # AI instruction files for docx-corpus
 
-> Sourced from [superdoc-dev/docx-corpus](https://github.com/superdoc-dev/docx-corpus) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-The largest open corpus of classified docx documents
+> Sourced from [superdoc-dev/docx-corpus](https://github.com/superdoc-dev/docx-corpus), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
