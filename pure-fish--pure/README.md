@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pure-fish/pure](https://github.com/pure-fish/pure).
+Original source: `` in [pure-fish/pure](https://github.com/pure-fish/pure).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [pure-fish/pure](https://github.com/pure-fish/pure) — a repo with 1568+ stars on GitHub.
+From [pure-fish/pure](https://github.com/pure-fish/pure) — a repo with 1569+ stars on GitHub.
 
 ---
 
