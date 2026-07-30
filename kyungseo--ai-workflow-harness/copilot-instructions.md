@@ -1,45 +1,29 @@
-## java-spring
+## output-format
 
-> Optional Spring Boot example-pack coding rules. Apply only when editing an adopted project or spring-boot profile output.
+> Default response structure for project work. Lead with the conclusion and make verification explicit.
 
 
-# Optional Spring Boot Example Rules
+# Output Format
 
-These rules are not part of the generic AI Workflow Harness core. They are kept
-as an optional example/profile surface for projects that adopt the harness with
-Spring Boot backend code.
+Default response order:
 
-MUST:
-
-- Follow the Java and Spring conventions already present in the adopted project.
-- Keep package names aligned with the adopted project's namespace.
-- Use the adopted project's declared build tool and verification commands.
-- Use MyBatis `#{}` parameters. Use `${}` only with whitelist validation and an explanatory comment.
-- Use Lombok intentionally: prefer `@Getter`, `@Builder`, `@RequiredArgsConstructor`, and `@Slf4j`; do not use `@Data`.
-- Keep annotation processor order consistent with the adopted project.
-- Keep shared exception and response handling in the adopted project's established shared module.
-
-NEVER:
-
-- Add service-specific domain logic to `common-core`.
-- Add default secret values for `JWT_SECRET`, `DB_PASSWORD`, or similar sensitive settings.
-- Log full tokens, passwords, or `Authorization` header values.
-
-## Comments
+1. Conclusion
+2. Changes
+3. Verification
+4. Risks
 
 MUST:
 
-- Add class-level Javadoc only for: architecture boundaries, security-sensitive logic, complex state.
-  Skip for DTOs, mappers, and standard CRUD controllers.
-- Use `// Korean reason — English technical term` for inline comments. Explain WHY, not WHAT.
-- Let `@Operation`, `@Schema`, and `@DisplayName` serve as documentation in their contexts.
+- Lead with the main result or recommendation.
+- State assumptions when they affect the decision.
+- Include reversal cost for technical decisions.
+- Mention verification commands, scenarios, or checks.
+- Mention state-change needs when Work state, checkpoints, blockers, or next actions change.
+- Do not edit `docs/STATUS.md` without explicit user approval; first provide the Approval Matrix state-change proposal. Active Work pointer changes may be one line naming the Work ID, while phase/focus/recent decision changes require a full `STATUS Update Proposal` with section, reason, resulting state, and reversal cost.
+- For planned work, include the current state machine phase and next transition.
+- For completed work, state whether the result is `CHECKPOINT`, `END`, or `FAIL/RECOVER`.
 
-NEVER:
-
-- Add comments that repeat what the code already expresses.
-- Add file headers (no-header policy; LICENSE file covers the project).
-
-Full reference: `docs/HARNESS-MAINTAINER-GUIDE.md`
+Keep responses concise unless the user asks for detailed analysis.
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
