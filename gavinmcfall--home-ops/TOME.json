@@ -4,7 +4,7 @@
   "repo": "home-ops",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gavinmcfall/home-ops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T22:55:06Z"
+  "distributed_at": "2026-07-30T23:36:48Z"
 }
