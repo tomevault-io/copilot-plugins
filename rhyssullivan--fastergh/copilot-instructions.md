@@ -1,62 +1,42 @@
-## vendored-repos
+## fastergh
 
-> Reference repositories are available under `.context/` for understanding patterns and implementations.
+> Local guide for autonomous agents working in `packages/typescript-config`.
 
+# AGENTS.md - packages/typescript-config
 
-# Vendored Context Repositories
+Local guide for autonomous agents working in `packages/typescript-config`.
 
-Reference repositories are available under `.context/` for understanding patterns and implementations.
+## Design stance
 
-## Effect
+- Treat this package as greenfield-first.
+- Breaking changes are acceptable when they simplify workspace TS configuration.
+- Prefer clean shared config design over preserving legacy config quirks.
 
-The Effect repository is available at `.context/effect/`.
+## Commands
 
-- **Use for**: Canonical patterns, APIs, and best practices for Effect-based code
-- **Updating**: `git subtree pull --prefix=.context/effect effect-upstream main --squash`
+Run from `packages/typescript-config` unless noted.
 
-## Better Auth
+- Typecheck: `bun run typecheck` (currently a placeholder script)
+- Lint (repo root): `bun run lint`
+- Build (repo root): `bun run build`
 
-The Better Auth repository is available at `.context/better-auth/`.
+This package currently has no local test script.
+If tests are added, prefer Vitest and document single-file invocation.
 
-- **Use for**: Authentication patterns and implementations for Convex
+## Code style
 
-## Convex Backend
+- Formatting/linting are governed by root `biome.json`.
+- Keep config exports small, explicit, and well-named.
+- Prefer strict defaults and avoid surprising compiler behavior.
+- Use Bun workflows only.
 
-The Convex backend repository is available at `.context/convex-backend/`.
+## Rule sources to honor
 
-- **Use for**: Understanding Convex internals and backend patterns
-
-## Convex JS
-
-The Convex JS client library is available at `.context/convex-js/`.
-
-- **Use for**: Client-side Convex patterns and API usage
-
-## Effect Atom
-
-The Effect Atom repository is available at `.context/effect-atom/`.
-
-- **Use for**: Reactive state management with Effect in React components
-- **Key patterns**:
-  - `Atom.runtime(Layer)` - Create a runtime with service layer
-  - `Atom.family((param) => atom)` - Create parameterized atoms
-  - `runtime.atom(Effect)` - Create an atom that runs an Effect
-  - `runtime.fn<Input>()(fn)` - Create a function atom for triggering Effects
-  - `useAtomValue(atom)` - Read atom value in React
-  - `useAtomSet(atom)` - Get setter for writable/function atoms
-
-## Vercel AI SDK
-
-The Vercel AI SDK is available at `.context/vercel-ai/`.
-
-- **Use for**: AI integration patterns, streaming responses, and tool calling
-
-## AI Elements
-
-The AI Elements library is available at `.context/ai-elements/`.
-
-- **Use for**: React components for AI chat interfaces
+- Root agent guide: `/home/rhys/quickhub/AGENTS.md`.
+- Cursor rules exist in `/home/rhys/quickhub/.cursor/rules/*.mdc` and are mandatory.
+- No `.cursorrules` file exists.
+- No `.github/copilot-instructions.md` file exists.
 
 ---
 > Source: [RhysSullivan/fastergh](https://github.com/RhysSullivan/fastergh) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
