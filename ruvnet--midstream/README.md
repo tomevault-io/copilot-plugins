@@ -1,23 +1,62 @@
 # midstream
 
-> Tome by [ruvnet](https://github.com/ruvnet/midstream) — distributed by [TomeVault](https://tomevault.io)
-
-MidStream is a powerful platform that makes AI conversations smarter and more responsive. Instead of waiting for an AI to finish speaking before understanding what it's saying, MidStream analyzes responses as they stream in real-time—enabling instant insights, pattern detection, and intelligent decision-making.
+> Tome by [ruvnet](https://github.com/ruvnet/midstream), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ruvnet/midstream](https://github.com/ruvnet/midstream).
+Original source: `AGENTS.md` in [ruvnet/midstream](https://github.com/ruvnet/midstream).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ruvnet/midstream](https://github.com/ruvnet/midstream) — a repo with 109+ stars on GitHub.
+## Bundled Skills (38)
+
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/stream-chain/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/skill-builder/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/swarm-advanced/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/pair-programming/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/hooks-automation/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/flow-nexus-swarm/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/agentdb-learning/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/github-multi-repo/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/sparc-methodology/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/flow-nexus-neural/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/github-code-review/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/hive-mind-advanced/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/swarm-orchestration/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/agentdb-optimization/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/performance-analysis/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/verification-quality/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/agentdb-vector-search/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/reasoningbank-agentdb/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-core/skills/agentdb-init/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/agentdb-memory-patterns/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-core/skills/agentdb-status/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/github-release-management/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/github-project-management/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-graph/skills/agentdb-cypher/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/github-workflow-automation/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/ui/.claude/skills/reasoningbank-intelligence/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-memory/skills/agentdb-recall/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-graph/skills/agentdb-traverse/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-learning/skills/agentdb-learn/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-memory/skills/agentdb-remember/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-graph/skills/agentdb-hyperedge/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-learning/skills/agentdb-feedback/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-causal/skills/agentdb-causal-link/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-memory/skills/agentdb-skill-create/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-search/skills/agentdb-hybrid-search/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-causal/skills/agentdb-causal-explain/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-search/skills/agentdb-explainable-recall/SKILL.md)
+- [agentdb](https://github.com/ruvnet/midstream/tree/main/plugins/agentdb-causal/skills/agentdb-hierarchical-store/SKILL.md)
+
+From [ruvnet/midstream](https://github.com/ruvnet/midstream) — a repo with 0+ stars on GitHub.
 
 ---
 
