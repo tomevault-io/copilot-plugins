@@ -4,7 +4,7 @@
   "repo": "ten-days-of-voice-agents-2025",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/murf-ai/ten-days-of-voice-agents-2025",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T11:05:52Z"
+  "distributed_at": "2026-07-30T10:30:43Z"
 }
