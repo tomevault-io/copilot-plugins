@@ -1,0 +1,9 @@
+{
+  "name": "azure--azure-monitor-baseline-alerts",
+  "displayName": "azure-monitor-baseline-alerts",
+  "description": "azure-monitor-baseline-alerts",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/azure-monitor-baseline-alerts",
+  "skills": []
+}
