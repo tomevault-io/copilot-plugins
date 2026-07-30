@@ -1,23 +1,22 @@
 # AI instruction files for nostria
 
-> Sourced from [nostria-app/nostria](https://github.com/nostria-app/nostria) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Nostria: Your Social Network. Built for human connections. See your friends again. Nostria is social without the noise.
+> Sourced from [nostria-app/nostria](https://github.com/nostria-app/nostria), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nostria-app/nostria](https://github.com/nostria-app/nostria).
+Original source: `` in [nostria-app/nostria](https://github.com/nostria-app/nostria).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nostria-app/nostria](https://github.com/nostria-app/nostria) — a repo with 50+ stars on GitHub.
+From [nostria-app/nostria](https://github.com/nostria-app/nostria) — a repo with 57+ stars on GitHub.
 
 ---
 
