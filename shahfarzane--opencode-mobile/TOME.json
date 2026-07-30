@@ -2,7 +2,7 @@
   "name": "opencode-mobile",
   "owner": "Shahfarzane",
   "repo": "opencode-mobile",
-  "description": "Native iOS app for OpenCode AI coding agent \u2014 built with Expo & React Native. Real-time streaming, QR pairing, Face ID, terminal access, and git ops from your phone.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Shahfarzane/opencode-mobile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:48:57Z"
+  "distributed_at": "2026-07-30T06:51:29Z"
 }
