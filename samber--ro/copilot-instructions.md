@@ -1,161 +1,374 @@
 ## ro
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> When adding a new method to the `ro` library, follow these guidelines to create or update documentation files in the `docs/data/` directory.
 
-# CLAUDE.md
+# Adding New Method Documentation
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+When adding a new method to the `ro` library, follow these guidelines to create or update documentation files in the `docs/data/` directory.
 
-## Project Overview
+## File Structure
 
-`samber/ro` is a Go implementation of the ReactiveX spec — a library for reactive/stream programming with Observables, Observers, and Operators. It uses Go 1.18+ generics extensively. The library is v0 and follows SemVer strictly.
+Documentation files follow the naming pattern `core-{method-name}.md` for core methods and `plugin-{plugin-name}-{method-name}.md` for plugins.
 
-## Build & Test Commands
+### Frontmatter Format
 
-```bash
-make build                    # Build all modules
-make test                     # Run all tests with race detector
-make lint                     # Run golangci-lint + license header check
-make lint-fix                 # Auto-fix lint issues
-make bench                    # Run benchmarks
-make coverage                 # Generate coverage report (cover.html)
+Each documentation file must start with a frontmatter section:
+
+```yaml
+---
+name: methodName
+slug: methodname
+sourceRef: file.go#L123
+type: core
+category: filtering
+signatures:
+  - "func MethodName(params)"
+  - "func (receiver *Type) MethodName(params)"
+  - "func MethodNameI(params)"
+  - "func MethodNameWithContext(params)"
+playUrl: https://go.dev/play/p/EXAMPLE
+variantHelpers:
+  - core#slice#methodname
+  - core#slice#methodnamei
+  - core#slice#methodnamewithcontext
+similarHelpers:
+  - core#slice#filtermethodname
+  - plugin#encoding-json#othermethodname
+position: 0
+---
 ```
 
-Run a single test:
-```bash
-go test -race -run TestFunctionName ./...
-```
+### Frontmatter Fields
 
-Run tests for a specific plugin:
-```bash
-cd plugins/encoding/json && go test -race ./...
-```
+- **name**: The display name of the helper (PascalCase)
+- **slug**: URL-friendly name (kebab-case, matches filename without `core-` prefix)
+- **sourceRef**: Source file reference with line number (format: `operator_conditional.go#L123`). Line numbers drift whenever the referenced Go file is edited (added imports, new operators, reordered code...). After changing a `.go` file, re-check every `sourceRef` pointing into it: run `gopls symbols <file>` to list the file's operators/functions with their current line numbers, then update the affected `sourceRef` fields accordingly.
+- **type**: `core`, `plugin`. The category must match the file name.
+- **category**: The functional category. For plugins, the category must match the file name. Some plugins might have a sub-sub-category: in that case use "-" (eg: plugin > `encoding-json` or plugin > `samber-hot` or plugin > `logger-logrus`).
+- **signatures**: Array of function signatures as strings. Do not list signatures from other type/category.
+- **playUrl**: Go Playground URL with working example
+- **variantHelpers**: Array of variant method names. Must contain at least the default method of named above. Variation XxxxWithContext or XxxxF or Xxxx2/3/4/5/... or XxxxI must be listed here. Don't list methods from other packages (type/category) of this library (must be similarHelpers instead).
+- **similarHelpers**: Array of related helper names (leave empty if none). Eg: equivalent in other package/category, or helper composition (map vs filtermap), or method with callback (Last vs LastBy).
+- **position**: Position in the list (0, 10, 20, 30...). Order must follow the order in source code. Helpers are grouped by type+category and displayed on a page. Position number is reset for each page.
 
-## Multi-Module Architecture
+## Content Structure
 
-This is a **Go workspace** (`go.work`) with many independent modules. The root module is `github.com/samber/ro`. Each plugin under `plugins/` has its own `go.mod`. Some plugins are commented out in `go.work` because they require newer Go versions.
+After the frontmatter, include:
 
-The SIMD plugin (`plugins/exp/simd`) requires `GOEXPERIMENT=simd` and `GOWORK=off` to build/test.
+1. **Brief description**: One sentence explaining what the helper does
+2. **Code example**: Working Go code demonstrating usage
+3. **Expected output**: Comment showing the result
 
-## Code Layout
-
-- **Root package (`ro`)** — Core types and all built-in operators
-- **`internal/`** — Internal helpers: `xsync` (mutex wrappers), `xatomic`, `xrand`, `xtime`, `xerrors`, `constraints`
-- **`testing/`** — Package `rotesting` with `AssertSpec[T]` interface for fluent test assertions
-- **`plugins/`** — Each plugin is a separate Go module with its own `go.mod`. Categories: encoding, observability, rate limiting, I/O, data manipulation, etc.
-- **`ee/`** — Enterprise Edition (separate license). Contains `otel` and `prometheus` plugins, plus licensing infrastructure. See [`ee/README.md`](ee/README.md) and the [`ee/cmd/license` CLI](ee/cmd/license/README.md)
-- **`examples/`** — Working example applications (each is its own module)
-- **`docs/`** — Docusaurus documentation site. Has its own [`CLAUDE.md`](docs/CLAUDE.md) for doc-writing conventions
-
-## Operator Pattern
-
-All chainable operators follow this signature pattern:
-```go
-func OperatorName[T any](params) func(Observable[T]) Observable[R]
-```
-
-Example:
-
-```go
-func Filter[T any](predicate func(item T) bool) func(Observable[T]) Observable[T] {
-	return func(source Observable[T]) Observable[T] {
-		return NewUnsafeObservableWithContext(func(subscriberCtx context.Context, destination Observer[T]) Teardown {
-			sub := source.SubscribeWithContext(
-				subscriberCtx,
-				NewObserverWithContext(
-					func(ctx context.Context, value T) {
-						ok := predicate(value)
-						if ok {
-							destination.NextWithContext(ctx, value)
-						}
-					},
-					destination.ErrorWithContext,
-					destination.CompleteWithContext,
-				),
-			)
-
-			return sub.Unsubscribe
-		})
-	}
-}
-```
-
-They return a function that transforms one Observable into another, enabling composition via `Pipe()`.
-
-### Operator Variant Suffixes
-
-Most operators have variants created by combining these suffixes:
-
-- **`I`** — Adds an `index int64` parameter to the callback (e.g., `FilterI`, `MapI`)
-- **`WithContext`** — Adds `context.Context` to the callback signature (e.g., `FilterWithContext`, `MapWithContext`)
-- **`Err`** — The callback can return an `error` that terminates the stream (e.g., `MapErr`)
-
-These suffixes combine in a fixed order: **`Err` + `I` + `WithContext`**. Examples:
-- `Map` → `MapI` → `MapWithContext` → `MapIWithContext`
-- `MapErr` → `MapErrI` → `MapErrWithContext` → `MapErrIWithContext`
-
-Other naming patterns:
-- **Numbered suffixes** (2, 3, 4, 5...) — Arity variants for multi-observable operators (e.g., `CombineLatest2`, `Zip3`, `MergeWith1`). Also used for type-safe pipe: `Pipe1` through `Pipe11`
-- **`Op`** — Operator version of a creation function, for use inside `Pipe()` (e.g., `PipeOp`)
-
-## Core Operators vs Plugins
-
-**Core operators** live in the root `ro` package and have no external dependencies beyond `samber/lo`. They cover the standard ReactiveX operator categories (creation, transformation, filtering, combining, etc.) and are imported as `github.com/samber/ro`.
-
-**Plugins** are separate Go modules under `plugins/`, each with its own `go.mod` and third-party dependencies. They follow the same `func(Observable[T]) Observable[R]` signature pattern and compose with core operators via `Pipe()`. Plugins wrap external libraries (e.g., `zap`, `sentry`, `fsnotify`) or provide domain-specific operators (e.g., JSON encoding, CSV I/O, rate limiting). Import them separately, e.g., `github.com/samber/ro/plugins/encoding/json`.
-
-## Testing Conventions
-
-- Tests use `testify` assertions and `go.uber.org/goleak` for goroutine leak detection
-- Test files follow Go convention: `foo_test.go` alongside `foo.go`
-- Example tests use `_example_test.go` suffix
-- The `plugins/testify` plugin provides reactive stream assertion helpers
-
-Typical test pattern — use `Collect()` to gather all emitted values and assert:
+```markdown
+Brief description of what this helper does.
 
 ```go
-func TestOperatorTransformationMap(t *testing.T) {
-	t.Parallel()
-	is := assert.New(t)
+obs := ro.Pipe[int, int](
+    ro.Just(1, 2, 3, 4),
+    ro.MethodName(example),
+)
 
-	values, err := Collect(
-		Map(func(v int) int { return v * 2 })(Just(1, 2, 3)),
-	)
-	is.Equal([]int{2, 4, 6}, values)
-	is.NoError(err)
+sub := obs.Subscribe(ro.PrintObserver[bool]())
+defer sub.Unsubscribe()
 
-	// Test error propagation
-	values, err = Collect(
-		Map(func(v int) int { return v * 2 })(Throw[int](assert.AnError)),
-	)
-	is.Equal([]int{}, values)
-	is.EqualError(err, assert.AnError.Error())
-}
+// expected result
+```
 ```
 
-Always test edge cases with `Empty[T]()` (empty source) and `Throw[T](assert.AnError)` (error source). Also test early unsubscription, context propagation, and context cancellation where applicable.
+## Code Style Guidelines
 
-## Contributing Conventions
+- Use `Pipe` instead of `PipeX` variants.
+- Use `NewObserver` or `NewObserverWithContext` instead of `Observer{...}`. Prefer NewObserver when no context is used.
+- Example: `NewObserver(next, error, complete)` instead of `Observer{Next: next, Error: error, Complete: complete}`
+- Use OnNext/OnNextWithContext/OnError/OnErrorWithContext/OnComplete/OnCompleteWithContext instead of NewObserver/NewObserverWithContext, when only a single callback is needed.
 
-Full guides: [`docs/docs/contributing.md`](docs/docs/contributing.md) (contributing) and [`docs/docs/hacking.md`](docs/docs/hacking.md) (writing custom operators/plugins).
+Multiple examples can be used for demonstration the method, such as edge cases. If multiple signatures/variants are grouped under this documentation, it could be useful to describe some (all?) of them. You can create examples by yourself or read _example_test.go files.
 
-- **Operator naming**: Must be self-explanatory and respect ReactiveX/RxJS standards. Inspired by https://reactivex.io/documentation/operators.html and https://rxjs.dev/api
-- **Context propagation**: Operators must not break the context chain. Always use `SubscribeWithContext`, `NextWithContext`, `ErrorWithContext`, `CompleteWithContext`. The `WithContext` variant callbacks receive and return a `context.Context`
-- **Callback naming**: `predicate` for bool-returning callbacks, `transform`/`project` for value-transforming callbacks, `callback` for void callbacks
-- **Variadic operators**: Some operators accept `...Observable[T]` for flexibility (e.g., `Zip`, `Merge`, `MergeWith`)
-- **Type aliases**: Some operators use `~[]T` constraints to accept named slice types, not just `[]T` (e.g., `Flatten`)
-- **Documentation**: Each operator needs a Go Playground link in its comment, a markdown doc in [`docs/data/`](docs/data/) (one file per operator, e.g. `core-map.md`, `plugin-encoding-json-marshal.md`), an example in `ro_example_test.go`, and an entry in `docs/static/llms.txt`. See [`docs/CLAUDE.md`](docs/CLAUDE.md) for the full doc-file format
-- **License headers**: All `.go` files require license headers (`licenses/header.apache.txt` for open source, `licenses/header.ee.txt` for `ee/`). Run `make lint` to verify. Full license texts: [`licenses/LICENSE.apache.md`](licenses/LICENSE.apache.md) (Apache 2.0, open-source code) and [`licenses/LICENSE.ee.md`](licenses/LICENSE.ee.md) (EE code under `ee/`)
-- **Update the documentation**: when updating a feature of the project, you MUST update the documentation. See @./docs/CLAUDE.md
+## Grouping Related Methods
 
-## References
+**IMPORTANT: Distinguish between variants and similar helpers**
 
-- **Contribution guidelines**: @./docs/docs/contributing.md
-- **Extending ro guidelines**: @./docs/docs/hacking.md
-- **Documentation guidelines**: @./docs/CLAUDE.md
-- **Troubleshooting guidelines**: @./docs/docs/troubleshooting/
-- If you need more context on the project, read the **LLMs documentation**: @./docs/static/llms.txt
+### Variants vs Similar Helpers
+
+**Variants** should be grouped in a single file when:
+- They are true variations of the same base functionality with **identical core behavior**
+- They only differ by adding context (`WithContext`), index (`I`), or both (`IWithContext`) parameters
+- They have the same fundamental purpose and behavior pattern
+- Examples: `Filter()`, `FilterI()`, `FilterWithContext()`, `FilterIWithContext()`
+- Examples: `CombineLatest()`, `CombineLatest2()`, `CombineLatest3()`, `CombineLatest4()`
+
+**Similar helpers** should be documented as separate files when:
+- They have **different core behavior** or functionality
+- They solve different problems or use different algorithms
+- They are composed differently (e.g., `Map` vs `FilterMap` vs `MapErr`)
+- Examples: `BufferWhen` vs `BufferWithCount` (different buffering strategies), `CombineLatest` vs `CombineLatestWith` (different calling patterns)
+
+### Guidelines for Method Grouping
+
+**Group together as variants (single file):**
+- Base method + context/index variants: `Method()`, `MethodI()`, `MethodWithContext()`, `MethodIWithContext()`
+- Simple parameter variations of the exact same behavior
+
+**Create separate files for similar helpers:**
+- Different base functionality: `BufferWhen` (boundary-based) vs `BufferWithCount` (count-based)
+- Different calling patterns: `CombineLatest2` (static) vs `CombineLatestWith2` (pipe operator)
+- Different algorithms: `Merge` (interleave) vs `Concat` (sequential)
+- Composed methods: `MergeMap` (merge + projection) vs `Merge` (simple merge)
+
+### Variant Helper Naming
+
+When methods are true variants that belong in the same file:
+- Use consistent suffixes:
+  - `I` suffix for variants having index argument in predicate callback
+  - `WithContext` suffix when `context.Context` is provided
+  - `IWithContext` suffix when both index and context are provided
+
+Don't invent variants. They must exist in the source code.
+
+### Examples of Correct Grouping
+
+**✅ Correct - Variants in single file:**
+```yaml
+---
+name: Filter
+slug: filter
+signatures:
+  - "func Filter[T any](predicate func(item T) bool)"
+  - "func FilterI[T any](predicate func(item T, index int64) bool)"
+  - "func FilterWithContext[T any](predicate func(ctx context.Context, item T) (context.Context, bool))"
+  - "func FilterIWithContext[T any](predicate func(ctx context.Context, item T, index int64) (context.Context, bool))"
+variantHelpers:
+  - core#filtering#filter
+  - core#filtering#filteri
+  - core#filtering#filterwithcontext
+  - core#filtering#filteriwithcontext
+similarHelpers: []
+---
+```
+
+**❌ Incorrect - Similar helpers grouped:**
+```yaml
+# WRONG: BufferWhen and BufferWithCount are different strategies
+---
+name: BufferWhen
+slug: bufferwhen
+signatures:
+  - "func BufferWhen[T any, B any](boundary Observable[B])"
+  - "func BufferWithCount[T any](size int)"
+# ...
+---
+```
+
+**✅ Correct - Similar helpers in separate files:**
+```yaml
+# File: core-map.md
+---
+name: Map
+slug: map
+signatures:
+  - "func Map[T any, R any](project func(item T) R)"
+  - "func MapWithContext[T any, R any](project func(ctx context.Context, item T) (context.Context, R))"
+  - "func MapI[T any, R any](project func(item T, index int64) R)"
+  - "func MapIWithContext[T any, R any](project func(ctx context.Context, item T, index int64) (context.Context, R))"
+similarHelpers: [core#transformation#mapto, core#transformation#maperr, core#transformation#flatmap]
+---
+
+# File: core-maperr.md
+---
+name: MapErr
+slug: maperr
+signatures:
+signatures:
+  - "func MapErr[T any, R any](project func(item T) (R, error))"
+  - "func MapErrWithContext[T any, R any](project func(ctx context.Context, item T) (R, error))"
+  - "func MapErrI[T any, R any](project func(item T, index int64) (R, error))"
+  - "func MapErrIWithContext[T any, R any](project func(ctx context.Context, item T, index int64) (R, error))"
+similarHelpers:
+  - core#transformation#map
+---
+```
+
+When multiple methods operate on the same struct or serve similar purposes, consolidate them into a single file:
+
+**Example**: Map methods:
+- `Map()` base method
+- `MapI()` add index to predicate callback
+- `MapWithContext()` add context to predicate callback
+- `MapIWithContext()` add index and context to predicate callback
+
+In such cases:
+1. Use the primary method name in the filename (e.g., `core-map.md`)
+2. Include all related signatures in the `signatures` array
+3. List all related methods in `variantHelpers` array
+4. Document each method in its own section with `### MethodName` headers
+
+### Content structure for Plugin
+
+When the method is part of a plugin, add the `import` section on top of code block. Example:
+
+```go
+import (
+  "github.com/samber/ro"
+  rostrings "github.com/samber/ro/plugin/strings"
+)
+
+obs := ro.Pipe[string, string](
+    ro.Just("hello world"),
+    rostrings.Capitalize[string](),
+)
+
+sub := obs.Subscribe(ro.PrintObserver[string]())
+defer sub.Unsubscribe()
+
+// Next: Hello world
+// Completed
+```
+
+### Signatures
+
+Real method signature will have the following form: `func All[T any](predicate func(T) bool) func(Observable[T]) Observable[bool]`. Please remove the returned `func(Observable[X]) Observable[Y]` and just write `func All[T any](predicate func(T) bool)` to the markdown file, because the developer already knows implicitly a function is returned.
+
+## Naming Conventions
+
+### Categories
+
+Available categories for core methods: `combining`, `conditional`, `connectable`, `context`, `creation`, `error-handling`, `filtering`, `math`, `sink`, `transformation`, `utility`...
+
+For plugins, categories are actually the name of the plugin. Each category or plugin must have its dedicated markdown file in `/docs/docs/operator/` or `/docs/docs/plugins/` directories.
+
+### Helper Names
+- Follow Go naming conventions (PascalCase for exported)
+- Use descriptive names that clearly indicate purpose
+- For function variants, use consistent suffixes:
+  - `F` suffix for function-based versions (lazy evaluation)
+  - `I` suffix for variants having `index int` argument in predicate callback
+  - `WithContext` suffix when context.Context is provided
+  - `X` suffix for helpers with varying arguments (eg: MustX: Must2, Must3, Must4...)
+
+### Description and examples
+
+Be concise and descriptive, for explain what the method does. Also describe variants.
+
+We need at least 1 example, but more example is good, especially to describe edge cases. You can find existing code examples in xxxx_example_test.go files.
+
+Don't be too descriptive: obvious examples don't need to be repeated. Example: for the `FromSlice` operator, we don't need example for empty slice.
+
+## Go Playground Examples
+
+Every helper must have a working Go Playground example:
+1. Create a minimal, self-contained example
+2. Use realistic but simple data
+3. Include the expected result as a comment
+4. Test the example to ensure it works
+
+When creating the go playground example, please run it to be sure it compiles and returns the expected output. If invalid, loop until it works.
+
+Add these examples in the source code comments, on top of methods, with a syntax like `// Play: <url>`. Eg:
+
+```go
+// Map applies a given project function to each item emitted by an Observable and emits the result.
+// Play: https://go.dev/play/p/JhTBEQFQGYr
+func Map[T, R any](project func(item T) R) func(Observable[T]) Observable[R] {
+```
+
+If the documentation is created at the same time of the helper source code, then the Go playground execution might fail, since we need to merge+release the source code first to make this new helper available to Go playground compiler. In that case, skip the creation of the example and set no URL.
+
+## Validation Scripts (CI only)
+
+The `docs/scripts/` directory contains documentation validation scripts (exposed via `docs/package.json`). They check cross-references, frontmatter consistency, signature sync, and more. **These scripts are run automatically by CI — you do not need to run them manually.** Your responsibility is to follow the doc format described in this file and the [end-to-end checklist in hacking.md](./docs/hacking.md#add--port-an-operator-end-to-end).
+
+To validate your work locally, run the standard Go checks from the repository root:
+
+```bash
+make test   # Go tests with race detector
+make lint   # golangci-lint + license headers (make lint-fix to auto-correct)
+```
+
+## Examples: Complete Files
+
+```yaml
+---
+name: All
+slug: all
+sourceRef: operator_conditional.go#L24
+type: core
+category: conditional
+signatures:
+  - "func All[T any](predicate func(T) bool)"
+  - "func AllWithContext[T any](predicate func(context.Context, T) bool)"
+  - "func AllI[T any](predicate func(T, int) bool)"
+  - "func AllIWithContext[T any](predicate func(context.Context, T, int) bool)"
+playUrl: https://go.dev/play/p/EXAMPLE
+variantHelpers:
+  - core#conditional#all
+  - core#conditional#allwithcontext
+  - core#conditional#alli
+  - core#conditional#alliwithcontext
+similarHelpers: []
+position: 0
+---
+
+Determines whether all elements of an observable sequence satisfy a condition.
+
+```go
+obs := ro.Pipe[int, int](
+    ro.Just(1, 2, 3, 4, 5),
+    ro.All(func(i int) bool {
+        return i > 0
+    }),
+)
+
+sub := obs.Subscribe(ro.PrintObserver[bool]())
+defer sub.Unsubscribe()
+
+// Next: true
+// Completed
+```
+
+## With index and context
+
+```go
+obs := ro.Pipe[int, int](
+    ro.Just(1, 2, 3, 4, 5),
+    ro.AllIWithContext(func(ctx context.Context, n int, index int64) bool {
+        return n > 0
+    }),
+)
+
+sub := obs.Subscribe(ro.NewObserver[string](
+    func(value string) {
+        fmt.Printf("Next: %s\n", value)
+    },
+    func(err error) {
+        fmt.Printf("Error: %v\n", err)
+    },
+    func() {
+        fmt.Println("Completed")
+    },
+))
+defer sub.Unsubscribe()
+
+// Next: true
+// Completed
+```
+```
+
+## Checklist
+
+Before submitting:
+
+- [ ] Frontmatter is complete and correctly formatted
+- [ ] Filename matches slug (with `core-` or `plugin-` prefix)
+- [ ] Source reference points to correct line number
+- [ ] Type and category are appropriate
+- [ ] All signatures are included and properly formatted
+- [ ] Go Playground example works and demonstrates usage
+- [ ] Expected output is shown as a comment
+- [ ] Similar helpers are listed if applicable
+- [ ] Related helpers are consolidated into single file when appropriate
+- [ ] Markdown doc follows the format above (CI runs the validation scripts automatically)
+- [ ] Helper is added to llms.txt
 
 ---
 > Source: [samber/ro](https://github.com/samber/ro) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
