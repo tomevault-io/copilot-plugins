@@ -1,230 +1,75 @@
 ## genie
 
-> bun run check        # Full gate: typecheck + lint + dead-code + test
+> The single standard every execution group applies. Curate this file into every worker's prompt. Derived from the `skill-management` skill (Fable 5/Mythos 5 tuning): newer Claude models handle ambiguity, long runs, and verification well — skills must be shorter, outcome-driven, and less prescriptive.
 
-# Genie CLI
+# Fable 5 Skill Conventions — skills-fable5-revamp
 
-## Commands
+The single standard every execution group applies. Curate this file into every worker's prompt. Derived from the `skill-management` skill (Fable 5/Mythos 5 tuning): newer Claude models handle ambiguity, long runs, and verification well — skills must be shorter, outcome-driven, and less prescriptive.
 
-```bash
-bun run check        # Full gate: typecheck + lint + dead-code + test
-bun run build        # Bundle to dist/genie.js (bun target, minified, single file)
-bun run typecheck    # tsc --noEmit
-bun run lint         # biome check .
-bun run dead-code    # bunx knip (has pre-existing false positives for biome/commitlint/husky)
-bun test             # All tests
-bun test src/lib/wish-state.test.ts  # Single file
-```
+## Structural rules
 
-## Docs
+1. `SKILL.md` starts with `---` at byte 0; frontmatter has `name` + `description`; `name` matches the directory.
+2. Description is the retrieval hook, not the manual: one or two sentences — when to load + what behavior changes. No feature lists.
+3. Command files (omni `commands/*.md`) keep their existing frontmatter shape (`description`, `arguments`) — content-only rewrite.
+4. **No renames, moves, or deletions of existing files.** New sibling files under the skill dir (`references/`, `prompts/`, `templates/`) are allowed and encouraged.
 
-`docs/` is a symlink to `.docs-vendor/genie/` where `.docs-vendor` is a git submodule of `automagik-dev/docs` (Mintlify, public site at automagik.dev). Engineers see and edit `docs/` as if it were a regular subfolder of the genie repo — the submodule machinery is mostly invisible.
+## Budget rules (testable)
 
-- **Operator-facing pages** (e.g., `docs/installation.mdx`, `docs/security/key-rotation.mdx`, `docs/incident-response/canisterworm.mdx`) appear on the public Mintlify site at `automagik.dev/genie/...`.
-- **Engineering-internal pages** live under `docs/_internal/` (architecture deep-dives, observability internals, agent-frontmatter contracts, CLI reference dumps, spawn-flow runbooks, detector specs). These are excluded from the public Mintlify build via `**/_internal/` in `automagik-dev/docs/.mintignore` — visible inside the genie repo, hidden from public docs.
+| Surface | Ceiling |
+|---------|---------|
+| `SKILL.md` | ≤ 200 lines (aim ~120) |
+| `commands/*.md` | ≤ 40 lines |
+| `agents/*.md` | ≤ 40 lines |
+| `rules/*.md` | ≤ 30 lines |
 
-**Workflow when editing docs:**
+- Bulk content moves to sibling files loaded on demand: embedded system prompts → `prompts/<name>.md` (the skill instructs Claude to Read it at dispatch time); catalogs/API dumps/long examples → `references/<topic>.md`.
+- Every fact gets ONE canonical home. Other files link to it ("see `references/x.md`", "see the `omni-ops` skill § Routes") instead of restating it.
+- Exceeding a ceiling requires a one-line justification in the group report.
+- Ceilings are not targets: most files should land near the ~120-line aim. Summing every ceiling (≈ 3,568) does NOT meet the wish's ≤ 3,300 repo-total — the total is the binding constraint.
 
-```bash
-# Make changes (the symlink follows into .docs-vendor/genie/)
-$EDITOR docs/installation.mdx
+## Fable 5 behavioral clauses
 
-# Commit + push the docs change to automagik-dev/docs
-cd .docs-vendor
-git checkout -b feat/<topic>
-git add genie/installation.mdx
-git commit -m "docs(genie): ..."
-git push -u origin feat/<topic>
-gh pr create --base main
+Where a skill orchestrates work, adapt these clauses into it (adapt wording to the skill's voice; do not paste verbatim into all files):
 
-# After the docs PR merges, bump the genie superproject pointer
-cd ..   # back to genie repo root
-git submodule update --remote .docs-vendor
-git add .docs-vendor
-git commit -m "chore: bump .docs-vendor to docs main"
-```
+- **Act on enough info** (interactive skills — brainstorm, wizard, pm): "When you have enough information to act, act. Do not re-derive settled facts or re-litigate decisions the user already made. Recommend one path and proceed when it follows from the request."
+- **Tight scope** (fix, work, refine): "Do the simplest thing that satisfies the request. No unrequested features, refactors, abstractions, or compat shims."
+- **Grounded progress** (work, dream, fix, report, docs — anything that dispatches or reports): "Before reporting progress, audit each claim against tool output from this session. Say exactly what is verified, what failed, what was skipped. Never present intentions as completed work."
+- **Real checkpoints only** (all): pause only for destructive/irreversible actions, genuine scope changes, credentials, or ambiguity that changes the safe action. Delete enumerated pause-condition lists.
+- **Assessment vs action** (trace, review, report): when the deliverable is findings, report and stop — no unrequested fixes.
+- **Deliberate parallelism** (work, dream, council, pm): delegate only independent subtasks; give each subagent explicit context, expected evidence, and stop conditions; verify side effects before reporting success.
+- **Outcome-first final message** (all): lead with what happened, then evidence, then next action. Complete sentences; no arrow-chains or private shorthand.
 
-CI in `automagik-dev/genie` runs `actions/checkout@v4` with `submodules: recursive` for any workflow that needs docs content (`docs-lint.yml`, `runbook-test.yml`); the rest of CI ignores the submodule.
+## Delete on sight
 
-## Architecture
+- Step-by-step narration of behavior Fable 5 does unprompted (how to read files, how to ask questions, generic "be careful" advice).
+- Duplicated CLI reference already canonical elsewhere (link instead).
+- Stale content: session-specific examples, dead flags, old model names, motivational filler.
+- Exhaustive option surveys and forced question rituals before every action.
+- ANY reasoning-extraction language ("show your chain of thought", "write out your thinking", "transcribe reasoning"). Replace with: "summarize the decision and evidence", "report the checks performed and their results".
 
-```
-src/genie.ts                    CLI entry point (commander)
-src/lib/                        Core modules (state, registry, locking, messaging, providers)
-src/lib/transcript.ts           Provider-agnostic transcript abstraction (Claude + Codex)
-src/lib/codex-logs.ts           Codex JSONL parsing + SQLite discovery
-src/lib/claude-logs.ts          Claude log parsing + transcript adapter
-src/term-commands/              CLI command handlers
-  agent/                        genie agent — spawn, stop, resume, kill, list, show, log, send, answer, register, directory, inbox, brief
-  task/                         genie task — extends core CRUD with status, reset, board, project, releases, type
-  team/                         genie team — create, hire, fire, list, disband
-  exec/                         genie exec — list, show, terminate (debug)
-src/hooks/                      Git hook system (branch-guard, auto-spawn, identity-inject)
-src/genie-commands/             Setup/utility commands (setup, doctor, update, session)
-src/types/                      Shared types (genie-config Zod schema)
-skills/                         Skill prompt files (brainstorm, wish, work, review, etc.)
-```
+## Current CLI reality (verified 2026-07-04 — re-ground everything in this)
 
-## CLI Namespaces
+The skills were written for the pre-v5 daemon/team CLI. That surface is DEAD. Baseline: `bun run skills:lint` exits 1 with **118 missing-command references across 13 skill files** (`genie agent` ×37, `genie team` ×30, `genie wish` ×11, `genie events` ×10, `genie project`/`metrics`/`spawn`/`sessions`/`send`/`chat`/`broadcast`/`dir`, plus dead `task` subcommands).
 
-Top-level aliases (`genie spawn`, `genie kill`, etc.) are shortcuts for the `genie agent` namespace. Both forms work identically.
+- **Live genie v5 surface** (`genie --help`): `board`, `doctor`, `hook`, `init`, `install` (recreated by G8 as the install.sh finishing step), `launch <slug>`, `mcp`, `omni`, `setup`, `shortcuts`, `task`, `uninstall`, `update`. Task namespace: `checkout`, `create`, `done`, `export`, `list`, `status`.
+- **Orchestration model shift**: cross-session tmux agents (`genie spawn/team/send/events`, PG events) → **zero-daemon**: task DB (`genie task …`), per-group worktrees via `genie launch <slug>`, and Claude Code **native teams** (Agent tool to dispatch subagents, SendMessage for follow-ups). The shipped v5 `review` skill is the canonical example of the native-team voice — match it (but ignore its own 3 stale `genie agent` fences; Group 2 removes them).
+- **Rewrite rule**: every stale invocation is replaced with its live v5 equivalent, or the flow is rewritten to the native-team model, or the passage is deleted. Never leave a dead command in a bash fence; never invent one — check `genie <ns> --help` / `omni <ns> --help` first.
+- **Per-file check** (parallel-safe, run on YOUR files only): `grep -rEn 'genie (agent|team|wish|events|project|metrics|spawn|sessions|send|chat|broadcast|dir)\b' <your files>` must return nothing. Repo-wide `bun run skills:lint` green is the Group 7 gate.
+- **Omni CLI** is live and rich (verbs `say/react/listen/imagine/film/music/speak/see/history/done`, plus `chats`, `instances`, `automations`, `channels`, `persons`, `follow-up`, `a2a`, `voice`, `media`, …). No automated lint exists in the omni repo — verify each retained `omni <cmd>` against `omni --help` manually.
+- **Ignore the genie repo's CLAUDE.md for CLI facts**: its "CLI Namespaces" section still teaches the dead daemon-era surface (`genie agent/team/…`) and auto-loads into every worker session. Trust `--help` output and this section instead. (Fixing CLAUDE.md itself is a follow-up wish, not this one.)
 
-### Agent Commands
-```bash
-# Top-level aliases (shortcuts)
-genie spawn <name>                    # Alias for: genie agent spawn <name>
-genie kill <name>                     # Alias for: genie agent kill <name>
-genie stop <name>                     # Alias for: genie agent stop <name>
-genie resume [name]                   # Alias for: genie agent resume [name]
-genie ls                              # Alias for: genie agent list
-genie log [agent]                     # Alias for: genie agent log [agent]
-genie read <name>                     # Read terminal output from agent pane
-genie history <name>                  # Show compressed session history
-genie answer <name> <choice>          # Alias for: genie agent answer <name> <choice>
+## Preserve exactly (frozen contracts)
 
-# Full namespace commands
-genie agent spawn <name>              # Spawn agent (resolves from directory or built-ins)
-genie agent list                      # List agents with runtime status
-genie agent log <name>                # Unified log (default)
-genie agent log <name> --raw          # Pane capture
-genie agent log <name> --transcript   # Compressed transcript
-genie agent send '<msg>' --to <name>  # Direct message (hierarchy-enforced)
-genie agent send '<msg>' --broadcast  # Team broadcast
-genie agent inbox                     # View inbox
-genie agent brief --team <name>       # Cold-start summary
-genie agent answer <name> <choice>    # Answer prompt
-genie agent show <name>               # Agent + executor detail
-genie agent stop/kill/resume <name>   # Lifecycle management
-genie agent register <name>           # Register agent locally + Omni
-genie agent directory [name]          # List/show directory entries
-```
+- CLI invocations must be real: every `genie <cmd>` / `omni <cmd>` in a bash fence must exist in the current CLI (see § Current CLI reality — check help output, don't guess).
+- The wish→review→work handoff contract: template path (`templates/wish-template.md`), lint gates (`bun run wishes:lint`), task linkage (`genie task create --wish <slug> --group <name>`), status vocabulary (DRAFT / SHIP / FIX-FIRST / BLOCKED), wish artifact paths (`.genie/wishes/<slug>/WISH.md`).
+- Keyword-routing tables (genie router, omni-ops) — compress, never drop routes.
+- `allowed-tools` frontmatter in omni skills.
+- The three-tier omni design (omni router → omni-agent / omni-setup / omni-ops) and skill namespaces.
 
-### Task Commands
-```bash
-genie task create --title 'x'         # Create task
-genie task list                       # List tasks
-genie task status <slug>              # Wish group status
-genie task done <ref>                 # Mark group done
-genie task board/project/releases/type  # Planning hierarchy
-```
+## Per-group report (evidence required)
 
-### Team Commands
-```bash
-genie team create/hire/fire/list/disband  # Team lifecycle
-```
-
-### Other
-```bash
-genie exec list/show/terminate           # Executor debug
-genie run <spec>                         # Wish/spec runner (top-level)
-```
-
-## State File Locations (CRITICAL — fragmented across 4 scopes)
-
-| State | Location | Scope | Format |
-|-------|----------|-------|--------|
-| Wish state | `<repo>/.genie/state/<slug>.json` | Per-repo CWD, shared across worktrees | JSON |
-| Worker registry | `~/.genie/workers.json` | Global | JSON |
-| Team configs | `~/.genie/teams/<name>.json` | Global | JSON |
-| Mailbox | `<repo>/.genie/mailbox/<worker>.json` | Per-repo | JSON |
-| Team chat | `<repo>/.genie/chat/<team>.jsonl` | Per-repo worktree | JSONL |
-| Session store | `~/.genie/sessions.json` | Global | JSON |
-| Native teams | `~/.claude/teams/<team>/` | Global (Claude Code) | JSON |
-
-Worktrees share the main repo's `.genie/` via `git rev-parse --git-common-dir`. Worker registry is global, not per-worktree.
-
-## Environment Variables
-
-| Var | Effect |
-|-----|--------|
-| `GENIE_HOME` | Relocates ALL global state from `~/.genie` |
-| `GENIE_AGENT_NAME` | Agent identity for hook dispatch. MUST be set for auto-spawn to work. |
-| `GENIE_TEAM` | Default team when `--team` not provided |
-| `CLAUDECODE=1` | Enables Claude Code features (set in team-lead command) |
-| `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` | Enables native teammate UI |
-| `GENIE_IDLE_TIMEOUT_MS` | Auto-suspend idle workers after N ms |
-
-`GENIE_AGENT_NAME` and the 5 native team CLI flags must stay in sync — if any are missing, Claude Code won't recognize the agent as a team member.
-
-## Build
-
-Single-file bundle: `bun build` inlines all dependencies into `dist/genie.js` (~305KB minified). No runtime deps to co-locate. The shebang `#!/usr/bin/env bun` makes it executable. `chmod +x` is applied after build.
-
-## Testing
-
-- Framework: `bun:test` (import from `'bun:test'`)
-- Pattern: colocated `*.test.ts` next to source
-- Fixtures: tmpdir with cleanup in afterEach
-- Git tests: real git repos in `/tmp`, not mocks
-- Concurrency tests: `Promise.allSettled()` pattern
-- Isolation: set `process.env.GENIE_HOME` to tmpdir to isolate global state
-- macOS RAM-disk (opt-in): `GENIE_TEST_MAC_RAM=1 bun test` mounts a 1 GiB
-  hdiutil-backed volume at `/Volumes/genie-test-ram` and points pgserve at
-  `/Volumes/genie-test-ram/pgserve`. Matches Linux `/dev/shm` throughput for
-  the pgserve test harness. Unset = ephemeral temp dir (no change). The volume
-  is detached on daemon reap; a manual `hdiutil detach /Volumes/genie-test-ram`
-  is safe — the next run recreates it.
-
-## Code Style
-
-- Biome: single quotes, 2-space indent, 120 line width, trailing commas
-- Conventional commits (commitlint)
-- No `console.log` in source (biome rule, relaxed in tests)
-
-## Gotchas
-
-- **File lock timeout force-removes are intentional** — prevents permanent deadlocks from crashed processes. The `open('wx')` after unlink is still atomic, so only one process wins.
-- **Hook dispatch has a 15s hard timeout** — handlers that take longer silently timeout, blocking the tool use. No retry.
-- **tmux is required for agent spawn** — no fallback. `hasBinary()` checks PATH before launch.
-- **System prompt injection can fail silently** — `buildTeamLeadCommand()` writes to `~/.genie/prompts/<team>.md`. If write fails, the command still generates but Claude Code dies on startup trying to read the missing file.
-- **Mailbox delivery is best-effort** — message is persisted to disk (durable), but tmux pane injection is not retried. Dead pane = message stays `deliveredAt: null` forever.
-- **`bun run dead-code`** (knip) has pre-existing false positives for biome/commitlint/husky devDeps — not regressions.
-
-## PR Review Rules
-
-When reviewing comments from automated bots (CodeRabbit, Gemini, Codex):
-
-1. **Read the actual code** before accepting any finding — bots often misread control flow
-2. **Check if behavior is pre-existing** — extracted/moved code inherits existing tradeoffs, not new bugs
-3. **Trace fallback chains** — bots flag the first code path without checking if later candidates handle the edge case
-4. **Distinguish theoretical from practical** — "could happen if X" is not a bug if X never occurs in real usage
-5. **Never blindly accept severity ratings** — a bot labeling something CRITICAL doesn't make it critical. Verify actual impact
-6. **Check idempotency** — many "collision" or "race" concerns are mitigated by idempotent operations the bot didn't trace
-
-## Engineering Discipline
-
-- Type boundaries first — input shapes, output shapes, error variants. Implementation follows naturally.
-- APIs before implementations — the surface is the contract, the code is the detail.
-- Plugin architecture is not optional; every capability is a pluggable unit with a defined interface.
-- Test alongside implementation, not after — tests are a spec, not a safety net.
-- If something is hard to test, the abstraction is wrong.
-- DX is first-class — the framework must be obvious to a new contributor in under 30 minutes.
-- Keep PRs focused on a single abstraction change; mixed concerns belong in separate branches.
-- Deprecate loudly, remove decisively — never let dead code haunt the codebase.
-- Elegance means fewer moving parts, not fewer lines.
-
-## QA Discipline
-
-- Assume code is broken until a failing test proves it can be fixed, and a passing test proves it stays fixed.
-- Edge cases are the real interface — test the boundaries of every command, flag, and plugin contract.
-- CLI correctness includes exit codes, stderr output, and error message format — not just happy-path stdout.
-- Plugin contracts are sacred — any deviation between declaration and consumption is a defect, not a difference.
-- Watch it fail for the right reason before marking it pass.
-- Build a failure inventory first: what are the ten most likely ways this could break?
-- Regression log: if something broke once, a test permanently owns that scenario.
-- Test CLI commands as a user would invoke them, not just as unit tests exercise them.
-- Report blockers immediately — a workaround is a hidden defect.
-
-## Release Discipline
-
-- Shipping cadence is a promise — missed releases erode trust faster than bugs do.
-- DX friction is a product bug, not a support ticket. Top-5 DX issues tracked at all times.
-- Scope freeze 3 days before release — no scope additions in the final window.
-- Breaking changes require a deprecation story before landing.
-- Every contributor PR makes an advocate — celebrate contributions specifically, not generically.
-- Triage incoming issues within 24 hours: label, assign, prioritize.
-- Sprint summary is one page: shipped, blocked, next.
+Each group ends with: per-file before→after line counts, lint/validation output pasted verbatim, list of new sibling files created, and any ceiling justifications. No "should work" claims — only verified results.
 
 ---
 > Source: [automagik-dev/genie](https://github.com/automagik-dev/genie) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
