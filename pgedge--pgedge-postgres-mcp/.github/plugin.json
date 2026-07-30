@@ -1,0 +1,9 @@
+{
+  "name": "pgedge--pgedge-postgres-mcp",
+  "displayName": "pgedge-postgres-mcp",
+  "description": "pgedge-postgres-mcp",
+  "version": "1.0.0",
+  "author": "pgEdge",
+  "homepage": "https://github.com/pgEdge/pgedge-postgres-mcp",
+  "skills": []
+}
