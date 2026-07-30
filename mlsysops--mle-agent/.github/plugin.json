@@ -1,0 +1,9 @@
+{
+  "name": "mlsysops--mle-agent",
+  "displayName": "MLE-agent",
+  "description": "MLE-agent",
+  "version": "1.0.0",
+  "author": "MLSysOps",
+  "homepage": "https://github.com/MLSysOps/MLE-agent",
+  "skills": []
+}
