@@ -1,0 +1,9 @@
+{
+  "name": "shotsan--zed-custom",
+  "displayName": "zed-custom",
+  "description": "Enhanced AI agent fork of Zed: persistent memory, LSP symbol search, headless web browsing & Azure Anthropic caching.",
+  "version": "1.0.0",
+  "author": "shotsan",
+  "homepage": "https://github.com/shotsan/zed-custom",
+  "skills": []
+}
