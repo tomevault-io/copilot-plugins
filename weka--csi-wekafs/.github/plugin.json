@@ -1,0 +1,9 @@
+{
+  "name": "weka--csi-wekafs",
+  "displayName": "csi-wekafs",
+  "description": "csi-wekafs",
+  "version": "1.0.0",
+  "author": "weka",
+  "homepage": "https://github.com/weka/csi-wekafs",
+  "skills": []
+}
