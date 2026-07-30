@@ -2,7 +2,7 @@
   "name": "FAI",
   "owner": "tjwald",
   "repo": "FAI",
-  "description": "Fast ML Inference Building Blocks Library in C#",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tjwald/FAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T22:54:15Z"
+  "distributed_at": "2026-07-30T05:00:28Z"
 }
