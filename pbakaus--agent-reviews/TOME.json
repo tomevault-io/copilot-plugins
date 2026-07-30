@@ -2,9 +2,9 @@
   "name": "agent-reviews",
   "owner": "pbakaus",
   "repo": "agent-reviews",
-  "description": "Token efficient, automated Github review workflows and bug fixing.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agent-reviews",
+      "path": "skills/resolve-reviews/SKILL.md",
+      "github_url": "https://github.com/pbakaus/agent-reviews/tree/main/skills/resolve-reviews/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reviews",
+      "path": "skills/resolve-agent-reviews/SKILL.md",
+      "github_url": "https://github.com/pbakaus/agent-reviews/tree/main/skills/resolve-agent-reviews/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-reviews",
+      "path": "skills/resolve-human-reviews/SKILL.md",
+      "github_url": "https://github.com/pbakaus/agent-reviews/tree/main/skills/resolve-human-reviews/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/pbakaus/agent-reviews",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T13:52:33Z"
+  "distributed_at": "2026-07-30T22:27:57Z"
 }
