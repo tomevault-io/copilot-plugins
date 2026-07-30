@@ -4,7 +4,7 @@
   "repo": "ruv-FANN",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -269,5 +269,5 @@
   ],
   "source_url": "https://github.com/ruvnet/ruv-FANN",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T18:55:47Z"
+  "distributed_at": "2026-07-30T19:03:57Z"
 }
