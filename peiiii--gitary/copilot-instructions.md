@@ -1,155 +1,123 @@
 ## gitary
 
-> This rule provides a structured approach to analyze multiple technical solutions and determine the optimal recommendation. Use this when the user requests multiple solutions or when comparing different approaches.
+> 1. **组件行数 < 150 行且职责单一**
 
+# Business Component Splitting Guidelines
 
-# Multi-Solution Comparison & Recommendation System
+## 核心原则：避免过早过度拆分
 
-## Overview
-This rule provides a structured approach to analyze multiple technical solutions and determine the optimal recommendation. Use this when the user requests multiple solutions or when comparing different approaches.
+### 🚫 不要过早拆分的情况
 
-## Process Flow
+1. **组件行数 < 150 行且职责单一**
+   - 如果组件逻辑清晰，功能集中，不要为了"架构"而拆分
+   - 保持组件的内聚性比过度拆分更重要
 
-### 1. **Solution Analysis Phase**
-- Identify the core problem/requirement
-- Generate 2-4 distinct solution approaches
-- Analyze each solution systematically
+2. **没有明确的复用需求**
+   - 如果组件只在特定业务场景使用，不要抽象为通用组件
+   - 避免"未来可能用到"的过度设计
 
-### 2. **Evaluation Framework**
-For each solution, evaluate:
-- **Technical Feasibility** (1-5 scale)
-- **Maintainability** (1-5 scale)  
-- **Performance Impact** (1-5 scale)
-- **Development Time** (1-5 scale)
-- **Reusability** (1-5 scale)
-- **Risk Level** (Low/Medium/High)
+3. **业务逻辑紧密耦合**
+   - 如果子组件之间业务逻辑高度相关，拆分反而增加复杂性
+   - 保持相关逻辑在同一个组件中
 
-### 3. **Solution Presentation Format**
+### ✅ 适合拆分的情况
 
-#### Solution A: [Name]
-**Approach:** Brief description
-**Pros:**
-- Point 1
-- Point 2
-- Point 3
+1. **组件超过 200 行且包含多个职责**
+   - 例如：布局组件包含侧边栏、内容区、右侧边栏管理
+   - 每个子组件有明确的独立职责
 
-**Cons:**
-- Point 1
-- Point 2
+2. **有明确的复用需求**
+   - 多个页面或功能都需要类似的组件
+   - 可以抽象出通用的业务逻辑
 
-**Technical Details:**
-- Implementation approach
-- Key technologies/components
-- Estimated effort
+3. **需要独立测试**
+   - 复杂的业务逻辑需要单独测试
+   - 子组件可以独立验证
 
-**Risk Assessment:** [Low/Medium/High]
+### 🎯 拆分策略
 
----
-
-#### Solution B: [Name]
-[Same format as above]
-
----
-
-### 4. **Recommendation Matrix**
-
-| Solution | Feasibility | Maintainability | Performance | Dev Time | Reusability | Risk | **Total Score** |
-|----------|-------------|------------------|-------------|----------|-------------|------|-----------------|
-| Solution A | X/5 | X/5 | X/5 | X/5 | X/5 | Low | **XX/25** |
-| Solution B | X/5 | X/5 | X/5 | X/5 | X/5 | Medium | **XX/25** |
-
-### 5. **Final Recommendation**
-**🏆 Recommended Solution:** [Solution Name]
-
-**Why This Solution:**
-- Primary reason
-- Secondary reason
-- Long-term benefits
-
-**Implementation Priority:** [High/Medium/Low]
-**Estimated Timeline:** [Time estimate]
-**Next Steps:** [Immediate actions]
-
-## Usage Examples
-
-### Example 1: Component Architecture
-**Problem:** Need to create a reusable button component system
-
-**Solutions:**
-1. **Atomic Design Pattern** - Create base button + variants
-2. **Compound Component Pattern** - Button + Button.Icon + Button.Text
-3. **Render Props Pattern** - Flexible but complex
-4. **HOC Pattern** - Higher-order component wrapper
-
-### Example 2: State Management
-**Problem:** Choose state management for a React app
-
-**Solutions:**
-1. **useState + useContext** - Simple, built-in
-2. **Zustand** - Lightweight, simple API
-3. **Redux Toolkit** - Powerful, established
-4. **Jotai** - Atomic, React-focused
-
-## Response Template
-
+#### 1. 渐进式拆分
 ```
-## 🔍 Problem Analysis
-[Brief problem description]
-
-## 🚀 Solution Comparison
-
-### Solution A: [Name]
-**Approach:** [Description]
-**Pros:** [List]
-**Cons:** [List]
-**Technical Details:** [Implementation details]
-**Risk Assessment:** [Low/Medium/High]
-
-### Solution B: [Name]
-[Same format]
-
-### Solution C: [Name]
-[Same format]
-
-## 📊 Evaluation Matrix
-
-| Solution | Feasibility | Maintainability | Performance | Dev Time | Reusability | Risk | **Total Score** |
-|----------|-------------|------------------|-------------|----------|-------------|------|-----------------|
-| Solution A | X/5 | X/5 | X/5 | X/5 | X/5 | Low | **XX/25** |
-| Solution B | X/5 | X/5 | X/5 | X/5 | X/5 | Medium | **XX/25** |
-| Solution C | X/5 | X/5 | X/5 | X/5 | X/5 | High | **XX/25** |
-
-## 🏆 Final Recommendation
-
-**Recommended Solution:** [Solution Name]
-
-**Why This Solution:**
-- [Primary reason]
-- [Secondary reason]
-- [Long-term benefits]
-
-**Implementation Priority:** [High/Medium/Low]
-**Estimated Timeline:** [Time estimate]
-**Next Steps:** [Immediate actions]
+第一阶段：保持原组件，添加注释和类型
+第二阶段：提取工具函数和 hooks
+第三阶段：必要时才拆分子组件
 ```
 
-## Key Principles
+#### 2. 拆分优先级
+```
+高优先级：工具函数、hooks、类型定义
+中优先级：UI 子组件
+低优先级：业务逻辑组件
+```
 
-1. **Always provide 2-4 solutions** - Don't overwhelm with too many options
-2. **Use consistent evaluation criteria** - Apply the same framework to all solutions
-3. **Quantify when possible** - Use 1-5 scales and risk levels
-4. **Consider long-term implications** - Think beyond immediate implementation
-5. **Provide clear next steps** - Give actionable guidance after recommendation
-6. **Balance technical and business factors** - Consider both technical merit and practical constraints
+#### 3. 拆分粒度控制
+- **不要**为了拆分而拆分
+- **要**为了可维护性而拆分
+- **保持**组件的业务完整性
 
-## When to Use
+### 📝 实际案例
 
-- **Architecture decisions** - Component structure, state management, data flow
-- **Technology selection** - Libraries, frameworks, tools
-- **Implementation approaches** - Different ways to solve the same problem
-- **Refactoring strategies** - Multiple paths to improve existing code
-- **Performance optimization** - Different approaches to improve speed/efficiency
+#### ✅ 好的拆分（chat-layout）
+- 原组件：63 行，但包含多个布局职责
+- 拆分后：主组件 + 左侧边栏 + 内容区域
+- 每个子组件职责明确，便于测试和维护
+
+#### ❌ 过度拆分
+- 将 50 行的简单组件拆分成 3-4 个子组件
+- 为了"架构"而拆分，没有实际收益
+- 增加了文件数量和导入复杂度
+
+### 🔍 拆分前检查清单
+
+在拆分组件前，请确认：
+
+1. **必要性检查**
+   - [ ] 组件确实超过 200 行或包含多个职责？
+   - [ ] 有明确的复用需求？
+   - [ ] 拆分能显著提升可维护性？
+
+2. **复杂度评估**
+   - [ ] 拆分后的组件关系是否清晰？
+   - [ ] 是否会增加不必要的 props 传递？
+   - [ ] 是否会影响业务逻辑的理解？
+
+3. **收益分析**
+   - [ ] 拆分后的代码是否更容易理解？
+   - [ ] 是否便于独立测试？
+   - [ ] 是否减少了重复代码？
+
+### 💡 最佳实践
+
+1. **保持简单**
+   - 优先考虑重构现有组件
+   - 只有在真正需要时才拆分
+
+2. **关注业务价值**
+   - 拆分应该解决实际问题
+   - 不是为了满足"最佳实践"而拆分
+
+3. **渐进式改进**
+   - 先优化现有组件
+   - 再考虑必要的拆分
+   - 持续评估拆分的效果
+
+### 🚨 警告信号
+
+如果出现以下情况，说明可能过度拆分了：
+
+- 单个功能需要导入 5+ 个组件
+- 子组件之间的 props 传递变得复杂
+- 业务逻辑分散在多个文件中，难以追踪
+- 为了拆分而创建了"中间层"组件
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Peiiii) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+
+**记住**：好的架构是服务于业务需求的，不是为了架构而架构。在拆分组件时，始终问自己："这样做真的让代码更好了吗？"
+description:
+globs:
+alwaysApply: false
+---
+
+---
+> Source: [Peiiii/gitary](https://github.com/Peiiii/gitary) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
