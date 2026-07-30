@@ -1,0 +1,9 @@
+{
+  "name": "kube-hpc--hkube",
+  "displayName": "hkube",
+  "description": "hkube",
+  "version": "1.0.0",
+  "author": "kube-HPC",
+  "homepage": "https://github.com/kube-HPC/hkube",
+  "skills": []
+}
