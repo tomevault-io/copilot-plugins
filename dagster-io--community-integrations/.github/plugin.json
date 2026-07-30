@@ -1,7 +1,7 @@
 {
   "name": "dagster-io--community-integrations",
   "displayName": "community-integrations",
-  "description": "Community supported integrations for the Dagster platform.",
+  "description": "community-integrations",
   "version": "1.0.0",
   "author": "dagster-io",
   "homepage": "https://github.com/dagster-io/community-integrations",
