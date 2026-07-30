@@ -1,7 +1,7 @@
 {
   "name": "yigitkonur--cli-continues",
   "displayName": "cli-continues",
-  "description": "resume any AI coding session in another tool \u2014 Claude Code, Copilot, Gemini, Codex, Cursor",
+  "description": "cli-continues",
   "version": "1.0.0",
   "author": "yigitkonur",
   "homepage": "https://github.com/yigitkonur/cli-continues",
