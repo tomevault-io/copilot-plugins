@@ -1,0 +1,9 @@
+{
+  "name": "k3s-io--k3s",
+  "displayName": "k3s",
+  "description": "k3s",
+  "version": "1.0.0",
+  "author": "k3s-io",
+  "homepage": "https://github.com/k3s-io/k3s",
+  "skills": []
+}
