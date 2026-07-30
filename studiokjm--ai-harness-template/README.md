@@ -1,8 +1,6 @@
 # ai-harness-template
 
-> Tome by [studioKjm](https://github.com/studioKjm/ai-harness-template) — distributed by [TomeVault](https://tomevault.io)
-
-AI Harness Engineering Template — guardrails, gates, and boundaries for AI coding agents. One-command install. Zero dependencies.
+> Tome by [studioKjm](https://github.com/studioKjm/ai-harness-template), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [studioKjm/ai-harness-template](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [studioKjm/ai-harness-template](https://github.com/studioKjm/ai-harness-template) — a repo with 26+ stars on GitHub.
+From [studioKjm/ai-harness-template](https://github.com/studioKjm/ai-harness-template) — a repo with 40+ stars on GitHub.
 
 ---
 
