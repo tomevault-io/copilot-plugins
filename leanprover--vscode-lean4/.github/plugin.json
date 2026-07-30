@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--vscode-lean4",
+  "displayName": "vscode-lean4",
+  "description": "vscode-lean4",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/vscode-lean4",
+  "skills": []
+}
