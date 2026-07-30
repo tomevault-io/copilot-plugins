@@ -1,26 +1,37 @@
-## helm-testing
+## python-imports
 
-> Helm chart conventions for the nv-config-manager project
+> Python imports must be at the top of the file
 
 
-# Helm Chart Conventions
+# Python Imports
 
-## Template Testing
+All imports MUST be placed at the top of the file, following standard Python conventions (stdlib, third-party, local). Do NOT place imports inside functions, methods, or conditional blocks.
 
-When running `helm template` for testing or dry-run validation, always use `values-ci.yaml`:
+The only exception is when a top-level import would cause a **circular dependency**. In that case, add a brief comment explaining why.
 
-```bash
-helm template test . --values values-ci.yaml
-```
+```python
+# ✅ Correct — imports at the top
+from datetime import UTC, datetime
 
-Do NOT use `values.yaml` alone — it requires secrets/vault paths that aren't populated outside of a real deployment. `values-ci.yaml` provides the necessary overrides for local and CI testing.
+from kubernetes.client import CoreV1Api
 
-## Observability Values
+from nv_config_manager_installer.schema import NVConfigManagerInstallConfig
 
-To test with the observability stack enabled, layer `values-observability.yaml` on top:
 
-```bash
-helm template test . --values values-ci.yaml --values values-observability.yaml
+def do_something():
+    v1 = CoreV1Api()
+    ...
+
+# ❌ Wrong — import buried inside a function
+def do_something():
+    from kubernetes.client import CoreV1Api
+    v1 = CoreV1Api()
+    ...
+
+# ✅ Exception — circular dependency with comment
+def get_app():
+    from nv_config_manager_installer.tui.app import NVConfigManagerApp  # avoid circular import
+    return NVConfigManagerApp()
 ```
 
 ---
