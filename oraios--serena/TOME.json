@@ -2,9 +2,9 @@
   "name": "serena",
   "owner": "oraios",
   "repo": "serena",
-  "description": "A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities  - the IDE for your agent",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oraios/serena",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T21:34:23Z"
+  "distributed_at": "2026-07-30T00:07:00Z"
 }
