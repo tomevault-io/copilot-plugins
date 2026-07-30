@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [stepfun-ai/Step-3.5-Flash](https://github.com/stepfun-ai/Step-3.5-Flash).
+Original source: `CLAUDE.md` in [stepfun-ai/Step-3.5-Flash](https://github.com/stepfun-ai/Step-3.5-Flash).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
