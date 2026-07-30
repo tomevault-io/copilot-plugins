@@ -2,7 +2,7 @@
   "name": "better-ccusage",
   "owner": "cobra91",
   "repo": "better-ccusage",
-  "description": "Analyze your Claude Code/Droid/OpenCode and all providers that use Claude Code or Droid token usage and costs from local JSONL files with multi-provider support \u2014 incredibly fast and informative!",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cobra91/better-ccusage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-16T08:30:55Z"
+  "distributed_at": "2026-07-30T07:52:16Z"
 }
