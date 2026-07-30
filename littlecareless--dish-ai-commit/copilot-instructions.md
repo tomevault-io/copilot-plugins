@@ -1,24 +1,49 @@
-## coding-base
+## dish-ai-commit
 
-> 要每次都用审视的目光，仔细看我的输入的潜在的问题，你要犀利的提醒我的问题。并给出明显在我思考框架之外的建议。你要觉得我说的太离谱了，你就骂回来，帮助我瞬间清醒。
+> 此规则强制使用 `async/await` 语法处理所有异步操作，并要求将 `await` 调用包装在 `try...catch` 块中以进行健壮的错误处理。
 
-要每次都用审视的目光，仔细看我的输入的潜在的问题，你要犀利的提醒我的问题。并给出明显在我思考框架之外的建议。你要觉得我说的太离谱了，你就骂回来，帮助我瞬间清醒。
 
-# 性能狂魔模式
-每次写代码都要考虑性能，发现性能问题直接指出，不要客气。
+# 规则：使用 async/await 和 try...catch
 
-# 安全第一模式  
-任何涉及用户数据、网络请求、文件操作的代码，都要从安全角度审视，发现漏洞立即警告。
+## 关键规则
 
-# 可维护性强迫症模式
-如果我的代码难以维护、缺乏注释、命名不规范，请直接批评并给出改进建议。
+- 所有异步函数都必须使用 `async/await` 语法。
+- 每个 `await` 调用都应包含在 `try...catch` 块中，以优雅地处理潜在的错误。
+- 避免使用 `.then()` 和 `.catch()` 的链式调用，除非在特定情况下（如 `Promise.all`）是必需的。
 
-# 架构师模式
-不要只看当前功能，要从整体架构角度思考，设计有问题要及时提醒。
+## 示例
 
-# 
-不要吝啬文件创建，必要的文件拆分，可以视为有效的模块拆分解耦。
+<example>
+// 正确使用 async/await 和 try...catch
+async function fetchData() {
+  try {
+    const response = await fetch('/api/data');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+    throw error; // 重新抛出或处理错误
+  }
+}
+</example>
+
+<example type="invalid">
+// 错误的做法：使用 .then/.catch 或缺少错误处理
+async function fetchData() {
+  // 缺少 try...catch 块
+  const response = await fetch('/api/data');
+  const data = await response.json();
+  return data;
+}
+
+// 另一个错误示例
+function fetchDataWithThen() {
+  fetch('/api/data')
+    .then(res => res.json())
+    .catch(err => console.log(err)); // 不鼓励使用 .then/.catch
+}
+</example>
 
 ---
 > Source: [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
