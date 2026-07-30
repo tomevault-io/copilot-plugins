@@ -1,52 +1,54 @@
-## mfe-architecture-rules-ref
+## mfe-architecture
 
-> Micro-frontend architecture: MFE boundary rules — quick reference. Load when this topic is in scope; part of mfe-skills.
+> Provides micro-frontend architecture vocabulary, principles, and decisions framework grounded in Building Micro-Frontends (O'Reilly). Use when a user asks "should we use micro-frontends?", "how do I split my frontend into MFEs?", "what is a micro-frontend?", "help me define MFE boundaries", "should I use horizontal or vertical split?", "how do micro-frontends communicate?", or "is my architecture a distributed monolith?". Requires independent deployment or multi-team scaling as the explicit context. Does not activate for single-team frontend architecture, component design, or build tooling questions with no cross-team deployment angle.
 
 
-# MFE boundary rules — quick reference
+# Micro-frontend core concepts
 
-**Version**: 1.2 | **Skill**: understanding-mfe-architecture | **Full rules**: load reviewing-mfe-boundaries skill
+Canonical vocabulary, principles, and decisions framework for micro-frontend architecture, as defined in *Building Micro-Frontends* (O'Reilly) and the Micro-Frontend Canvas (buildingmicrofrontends.com).
 
-For full rule definitions, violation signals, and code-checkable patterns across all toolchains (React, Angular/Native Federation, Module Federation v1/v2, Single SPA), load `reviewing-mfe-boundaries` skill.
+## Task routing
 
-## Boundary health check
+Identify the task type first, then load the appropriate reference file. Do not load all files at once.
 
-Use this checklist when reviewing whether existing boundaries are well-formed. A well-formed boundary satisfies all seven:
-
-1. Is the API surface minimal — fewer than 5 props to the container?
-2. Is the micro-frontend context-aware — does it retrieve its own data given minimal input?
-3. Is it less extensible than a component — not designed for reuse across domains?
-4. Is it coarse-grained — not fine enough to require constant coordination with its container?
-5. Can it deploy without coordinating with other teams?
-6. Does it have a graceful fallback if it fails to load?
-7. Does a single team own it end-to-end?
-
-If any answer is no, the boundary needs to be revisited before implementation begins.
-
-## Rule summary
-
-| Rule | Core principle | Primary violation signal |
+| Task | Load | First action |
 |---|---|---|
-| 1 — Business subdomain | Represents a domain, not a UI element | Named after UI element; reused across domains |
-| 2 — Minimal API surface | Fewer than 5 props; identifiers not objects | Domain objects passed as props; container fetches data for the MFE |
-| 3 — Hide implementation details | API contract agreed upfront; internals hidden | Direct import from another MFE's package |
-| 4 — Events not shared state | Event emitter or storage only; no shared state managers | Redux/Zustand/MobX shared across MFE boundaries |
-| 5 — Independent deployment | No versioned URL pinning; no build-time coupling | Shell hard-codes versioned remote URL; CI `needs:` coupling |
-| 6 — Isolate failure | Fallback in shell for every remote mount | No fallback at mount point in the shell |
-| 7 — Coarse-grained | Max 3 MFEs per view; shell first segment via manifest; MFE hardcodes sub-routes | Shell owning `/catalog/product/:id`; shell hard-coded MFE routes; shell `catalog:*` handlers |
-| 8 — Single-team ownership | One team owns full lifecycle | Multiple teams in CODEOWNERS for same MFE |
+| Should we use MFEs? | `references/boundary-design.md` | Apply the organisational readiness gate before any implementation advice |
+| Defining or reviewing boundaries | `references/boundary-design.md` | Ask about team ownership before discussing technology |
+| Reviewing boundary validity or architecture for principle violations | `references/rules.md` → or load `reviewing-mfe-boundaries` skill for code-level detail | Run the boundary health check for validity; scan against the eight rules for violations |
+| Choosing composition, routing, or communication | `references/decisions-framework.md` | Confirm split strategy (vertical vs horizontal) before composition; shell owns first URL segment, MFE owns sub-routes |
+| Micro-Frontend Canvas facilitation | Install **micro-frontend-canvas** skill (see `references/canvas-pointer.md`) | Confirm domain is identified; do not facilitate Canvas from this skill |
+| Generating or reviewing MFE code | Load `reviewing-mfe-boundaries` skill | This skill handles code-level boundary enforcement |
 
-## Additional governance extensions
+If the user's terminology differs from the canonical definitions in the reference files, map it once to the canonical term, then continue using theirs.
 
-These complement (not replace) the eight boundary rules:
+Do not revert to generic frontend advice once this skill is active. Micro-frontend principles apply at the boundary between independently deployed units — not within a single unit.
 
-| Extension | Principle | Primary violation signal |
-|---|---|---|
-| Feature flags scope | Flags stay inside owning MFE for behaviour rollout | Shell/runtime toggles selecting fine-grained MFE behaviour |
-| Edge strategy | Use edge when it improves routing/rollout outcomes | Edge rendering adopted with no latency or rollout benefit |
-| SSR ownership | Split by route/domain; teams own compute for their pages | SSR infra centralised while domain ownership is ambiguous |
-| Browser composition in SSR | RSC/Islands still require coarse boundaries | Fragment-level decomposition causing shell coordination logic |
-| Fitness functions | Enforce boundaries continuously in CI | No tests for cross-MFE imports or shared allowlist drift |
+## When not to activate
+
+Stand down if the question is purely about component composition, state management within a single deployed unit, or build tooling with no independent-deployment or team-scaling angle.
+
+---
+
+## Examples
+
+**Example 1 — adoption decision**
+User says: "We have three teams and our React monorepo is becoming a bottleneck. Should we migrate to micro-frontends?"
+Expected: Apply the organisational readiness gate. Ask about release independence before recommending. Load `references/boundary-design.md`.
+
+**Example 2 — boundary design**
+User says: "We've just done event storming and identified checkout, catalog, and account as bounded contexts. How should we split our frontend?"
+Expected: Load `references/boundary-design.md`. Ask which team owns each context before proposing a split. Point to the **micro-frontend-canvas** skill for a Canvas session per MFE.
+
+**Example 3 — communication pattern**
+User says: "We have two MFEs on the same page. When a user adds to cart in the catalog MFE, the basket MFE needs to update. How?"
+Expected: Load `references/decisions-framework.md`. Recommend event emitter. Explicitly rule out shared state managers.
+
+**Example 4 — architecture review**
+User says: "Is our current setup a distributed monolith?"
+Expected: Load `references/rules.md`. Run the boundary health check. Ask for team and deployment context.
+
+_Reference detail is split into separate rules in `.cursor/rules/` — load on demand._
 
 ---
 > Source: [lucamezzalira/mfe-skills](https://github.com/lucamezzalira/mfe-skills) — distributed by [TomeVault](https://tomevault.io).
