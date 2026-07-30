@@ -1,8 +1,6 @@
 # AI instruction files for Unreal_mcp
 
-> Sourced from [ChiR24/Unreal_mcp](https://github.com/ChiR24/Unreal_mcp) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A comprehensive Model Context Protocol (MCP) server that enables AI assistants to control Unreal Engine through the native C++ Automation Bridge plugin. Built with TypeScript and C++.
+> Sourced from [ChiR24/Unreal_mcp](https://github.com/ChiR24/Unreal_mcp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [ChiR24/Unreal_mcp](https://github.com/ChiR24/Un
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ChiR24/Unreal_mcp](https://github.com/ChiR24/Unreal_mcp)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ChiR24/Unreal_mcp](https://github.com/ChiR24/Unreal_mcp)
 
 ---
 
