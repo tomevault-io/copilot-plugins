@@ -16,7 +16,7 @@ Original source: `` in [redf0x1/camofox-browser](https://github.com/redf0x1/camo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — a repo with 334+ stars on GitHub.
+From [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — a repo with 0+ stars on GitHub.
 
 ---
 
