@@ -4,7 +4,7 @@
   "repo": "bnb-chain-toolkit",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -39,13 +39,13 @@
   ],
   "skills": [
     {
-      "name": "bnb-chain-toolkit",
-      "path": "erc8004-agents/SKILL.md",
-      "github_url": "https://github.com/nirholas/bnb-chain-toolkit/tree/main/erc8004-agents/SKILL.md",
+      "name": "atomic-grind",
+      "path": "skills/grind",
+      "github_url": "https://github.com/nirholas/bnb-chain-toolkit/tree/main/skills/grind",
       "description": ""
     }
   ],
   "source_url": "https://github.com/nirholas/bnb-chain-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T01:38:52Z"
+  "distributed_at": "2026-07-30T21:54:17Z"
 }
