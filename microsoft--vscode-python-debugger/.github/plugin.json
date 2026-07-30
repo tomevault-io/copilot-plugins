@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--vscode-python-debugger",
+  "displayName": "vscode-python-debugger",
+  "description": "vscode-python-debugger",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/vscode-python-debugger",
+  "skills": []
+}
