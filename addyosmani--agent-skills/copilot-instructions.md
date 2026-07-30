@@ -1,177 +1,131 @@
 ## agent-skills
 
-> This file provides guidance to AI coding agents (Claude Code, Cursor, Copilot, Antigravity, etc.) when working with code in this repository.
+> Specialist personas that play a single role with a single perspective. Each persona is a Markdown file consumed as a system prompt by your harness (Claude Code, Cursor, Copilot, etc.).
 
-# AGENTS.md
+# Agent Personas
 
-This file provides guidance to AI coding agents (Claude Code, Cursor, Copilot, Antigravity, etc.) when working with code in this repository.
+Specialist personas that play a single role with a single perspective. Each persona is a Markdown file consumed as a system prompt by your harness (Claude Code, Cursor, Copilot, etc.).
 
-## Repository Overview
+| Persona | Role | Best for |
+|---------|------|----------|
+| [code-reviewer](../agents/code-reviewer.md) | Senior Staff Engineer | Five-axis review before merge |
+| [security-auditor](../agents/security-auditor.md) | Security Engineer | Vulnerability detection, OWASP-style audit |
+| [test-engineer](../agents/test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
+| [web-performance-auditor](../agents/web-performance-auditor.md) | Web Performance Engineer | Core Web Vitals audit, loading/rendering/network analysis |
 
-A collection of skills for Claude.ai and Claude Code for senior software engineers. Skills are packaged instructions and scripts that extend Claude and your coding agents capabilities.
+## How personas relate to skills and commands
 
-## OpenCode Integration
+Three layers, each with a distinct job:
 
-OpenCode uses a **skill-driven execution model** powered by the `skill` tool and this repository's `/skills` directory.
+| Layer | What it is | Example | Composition role |
+|-------|-----------|---------|------------------|
+| **Skill** | A workflow with steps and exit criteria | `code-review-and-quality` | The *how* — invoked from inside a persona or command |
+| **Persona** | A role with a perspective and an output format | `code-reviewer` | The *who* — adopts a viewpoint, produces a report |
+| **Command** | A user-facing entry point | `/review`, `/ship` | The *when* — composes personas and skills |
 
-### Core Rules
+The user (or a slash command) is the orchestrator. **Personas do not call other personas.** Skills are mandatory hops inside a persona's workflow.
 
-- If a task matches a skill, you MUST invoke it
-- Skills are located in `skills/<skill-name>/SKILL.md`
-- Never implement directly if a skill applies
-- Always follow the skill instructions exactly (do not partially apply them)
+## When to use each
 
-### Intent → Skill Mapping
+### Direct persona invocation
+Pick this when you want one perspective on the current change and the user is in the loop.
 
-The agent should automatically map user intent to skills:
+- "Review this PR" → invoke `code-reviewer` directly
+- "Are there security issues in `auth.ts`?" → invoke `security-auditor` directly
+- "What tests are missing for the checkout flow?" → invoke `test-engineer` directly
+- "Audit Core Web Vitals on the product page" → invoke `web-performance-auditor` directly
 
-- Feature / new functionality → `spec-driven-development`, then `incremental-implementation`, `test-driven-development`
-- Planning / breakdown → `planning-and-task-breakdown`
-- Bug / failure / unexpected behavior → `debugging-and-error-recovery`
-- Code review → `code-review-and-quality`
-- Refactoring / simplification → `code-simplification`
-- API or interface design → `api-and-interface-design`
-- UI work → `frontend-ui-engineering`
+### Slash command (single persona behind it)
+Pick this when there's a repeatable workflow you'd otherwise re-explain every time.
 
-### Lifecycle Mapping (Implicit Commands)
+- `/review` → wraps `code-reviewer` with the project's review skill
+- `/test` → wraps `test-engineer` with TDD skill
+- `/webperf` → wraps `web-performance-auditor` for performance-focused audits on web apps
 
-OpenCode does not support slash commands like `/spec` or `/plan`.
+### Slash command (orchestrator — fan-out)
+Pick this only when **independent** investigations can run in parallel and produce reports that a single agent then merges.
 
-Instead, the agent must internally follow this lifecycle:
+- `/ship` → fans out to `code-reviewer` + `security-auditor` + `test-engineer` in parallel, then synthesizes their reports into a go/no-go decision
 
-- DEFINE → `spec-driven-development`
-- PLAN → `planning-and-task-breakdown`
-- BUILD → `incremental-implementation` + `test-driven-development`
-- VERIFY → `debugging-and-error-recovery`
-- REVIEW → `code-review-and-quality`
-- SHIP → `shipping-and-launch`
+This is the only orchestration pattern this repo endorses. See [references/orchestration-patterns.md](../references/orchestration-patterns.md) for the full pattern catalog and anti-patterns.
 
-### Execution Model
-
-For every request:
-
-1. Determine if any skill applies (even 1% chance)
-2. Invoke the appropriate skill using the `skill` tool
-3. Follow the skill workflow strictly
-4. Only proceed to implementation after required steps (spec, plan, etc.) are complete
-
-### Anti-Rationalization
-
-The following thoughts are incorrect and must be ignored:
-
-- "This is too small for a skill"
-- "I can just quickly implement this"
-- "I’ll gather context first"
-
-Correct behavior:
-
-- Always check for and use skills first
-
-This ensures OpenCode behaves similarly to Claude Code with full workflow enforcement.
-
-## Creating a New Skill
-
-### Directory Structure
+## Decision matrix
 
 ```
-skills/
-  {skill-name}/           # kebab-case directory name
-    SKILL.md              # Required: skill definition
-    scripts/              # Required: executable scripts
-      {script-name}.sh    # Bash scripts (preferred)
-  {skill-name}.zip        # Required: packaged for distribution
+Is the work a single perspective on a single artifact?
+├── Yes → Direct persona invocation
+└── No  → Are the sub-tasks independent (no shared mutable state, no ordering)?
+         ├── Yes → Slash command with parallel fan-out (e.g. /ship)
+         └── No  → Sequential slash commands run by the user (/spec → /plan → /build → /test → /review)
 ```
 
-### Naming Conventions
+## Worked example: valid orchestration
 
-- **Skill directory**: `kebab-case` (e.g. `web-quality`)
-- **SKILL.md**: Always uppercase, always this exact filename
-- **Scripts**: `kebab-case.sh` (e.g., `deploy.sh`, `fetch-logs.sh`)
-- **Zip file**: Must match directory name exactly: `{skill-name}.zip`
+`/ship` is the canonical fan-out orchestrator in this repo:
 
-### SKILL.md Format
-
-```markdown
----
-name: {skill-name}
-description: {One sentence describing when to use this skill. Include trigger phrases like "Deploy my app", "Check logs", etc.}
----
-
-# {Skill Title}
-
-{Brief description of what the skill does.}
-
-## How It Works
-
-{Numbered list explaining the skill's workflow}
-
-## Usage
-
-```bash
-bash /mnt/skills/user/{skill-name}/scripts/{script}.sh [args]
+```
+/ship
+  ├── (parallel) code-reviewer    → review report
+  ├── (parallel) security-auditor → audit report
+  └── (parallel) test-engineer    → coverage report
+                  ↓
+        merge phase (main agent)
+                  ↓
+        go/no-go decision + rollback plan
 ```
 
-**Arguments:**
-- `arg1` - Description (defaults to X)
+Why this works:
+- Each sub-agent operates on the same diff but produces a **different perspective**
+- They have no dependencies on each other → genuine parallelism, real wall-clock savings
+- Each runs in a fresh context window → main session stays uncluttered
+- The merge step is small and benefits from full context, so it stays in the main agent
 
-**Examples:**
-{Show 2-3 common usage patterns}
+## Worked example: invalid orchestration (do not build this)
 
-## Output
+A `meta-orchestrator` persona whose job is "decide which other persona to call":
 
-{Show example output users will see}
-
-## Present Results to User
-
-{Template for how Claude should format results when presenting to users}
-
-## Troubleshooting
-
-{Common issues and solutions, especially network/permissions errors}
+```
+/work-on-pr → meta-orchestrator
+                  ↓ (decides "this needs a review")
+              code-reviewer
+                  ↓ (returns)
+              meta-orchestrator (paraphrases result)
+                  ↓
+              user
 ```
 
-### Best Practices for Context Efficiency
+Why this fails:
+- Pure routing layer with no domain value
+- Adds two paraphrasing hops → information loss + 2× token cost
+- The user already knows they want a review; let them call `/review` directly
+- Replicates work that slash commands and `AGENTS.md` intent-mapping already do
 
-Skills are loaded on-demand — only the skill name and description are loaded at startup. The full `SKILL.md` loads into context only when the agent decides the skill is relevant. To minimize context usage:
+## Rules for personas
 
-- **Keep SKILL.md under 500 lines** — put detailed reference material in separate files
-- **Write specific descriptions** — helps the agent know exactly when to activate the skill
-- **Use progressive disclosure** — reference supporting files that get read only when needed
-- **Prefer scripts over inline code** — script execution doesn't consume context (only output does)
-- **File references work one level deep** — link directly from SKILL.md to supporting files
+1. A persona is a single role with a single output format. If you find yourself adding a second role, create a second persona.
+2. **Personas do not invoke other personas.** Composition is the job of slash commands or the user. On Claude Code this is also a hard platform constraint — *"subagents cannot spawn other subagents"* — so the rule is enforced for you.
+3. A persona may invoke skills (the *how*).
+4. Every persona file ends with a "Composition" block stating where it fits.
 
-### Script Requirements
+## Claude Code interop
 
-- Use `#!/bin/bash` shebang
-- Use `set -e` for fail-fast behavior
-- Write status messages to stderr: `echo "Message" >&2`
-- Write machine-readable output (JSON) to stdout
-- Include a cleanup trap for temp files
-- Reference the script path as `/mnt/skills/user/{skill-name}/scripts/{script}.sh`
+The personas in this repo are designed to work as Claude Code subagents and as Agent Teams teammates without modification:
 
-### Creating the Zip Package
+- **As subagents:** auto-discovered when this plugin is enabled (no path config needed). Use the Agent tool with `subagent_type: code-reviewer` (or `security-auditor`, `test-engineer`). `/ship` is the canonical example.
+- **As Agent Teams teammates** (experimental, requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`): reference the same persona name when spawning a teammate. The persona's body is **appended to** the teammate's system prompt as additional instructions (not a replacement), so your persona text sits on top of the team-coordination instructions the lead installs (SendMessage, task-list tools, etc.).
 
-After creating or updating a skill:
+Subagents only report results back to the main agent. Agent Teams let teammates message each other directly. Use subagents when reports are enough; use Agent Teams when sub-agents need to challenge each other's findings (e.g. competing-hypothesis debugging). See [references/orchestration-patterns.md](../references/orchestration-patterns.md) for the full mapping.
 
-```bash
-cd skills
-zip -r {skill-name}.zip {skill-name}/
-```
+Plugin agents do not support `hooks`, `mcpServers`, or `permissionMode` frontmatter — those fields are silently ignored. Avoid relying on them when authoring new personas here.
 
-### End-User Installation
+## Adding a new persona
 
-Document these two installation methods for users:
-
-**Claude Code:**
-```bash
-cp -r skills/{skill-name} ~/.claude/skills/
-```
-
-**claude.ai:**
-Add the skill to project knowledge or paste SKILL.md contents into the conversation.
-
-If the skill requires network access, instruct users to add required domains at `claude.ai/settings/capabilities`.
+1. Create `agents/<role>.md` with the same frontmatter format used by existing personas.
+2. Define the role, scope, output format, and rules.
+3. Add a **Composition** block at the bottom (Invoke directly when / Invoke via / Do not invoke from another persona).
+4. Add the persona to the table at the top of this file.
+5. If the persona enables a new orchestration pattern, document it in `references/orchestration-patterns.md` rather than inventing the pattern in the persona file itself.
 
 ---
 > Source: [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
