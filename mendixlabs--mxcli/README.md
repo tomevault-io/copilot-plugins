@@ -1,23 +1,29 @@
-# mxcli
+# AI instruction files for mxcli
 
-> Config by [mendixlabs](https://github.com/mendixlabs/mxcli) — distributed by [TomeVault](https://tomevault.io/claim/mendixlabs)
+> Sourced from [mendixlabs/mxcli](https://github.com/mendixlabs/mxcli), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mendixlabs/mxcli](https://github.com/mendixlabs/mxcli).
+Original source: `` in [mendixlabs/mxcli](https://github.com/mendixlabs/mxcli).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mendixlabs](https://tomevault.io/claim/mendixlabs)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/mendixlabs/mxcli](https://github.com/mendixlabs/mxcli)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mendixlabs) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install mendixlabs/mxcli
+```
+Source: [github.com/mendixlabs/mxcli](https://github.com/mendixlabs/mxcli).
+
+<!-- genome:a-i-q -->
