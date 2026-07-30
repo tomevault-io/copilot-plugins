@@ -1,8 +1,6 @@
 # AI instruction files for flarekit
 
-> Sourced from [Atyantik/flarekit](https://github.com/Atyantik/flarekit) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Flarekit is a scalable, modular, and developer-friendly monorepo ecosystem designed to build and deploy high-performance web applications leveraging Cloudflare Infrastructure. It provides seamless integration with modern web technologies, enabling rapid development with a focus on speed, modularity, and reliability.
+> Sourced from [Atyantik/flarekit](https://github.com/Atyantik/flarekit), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
