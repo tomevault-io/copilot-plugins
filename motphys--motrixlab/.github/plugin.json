@@ -1,7 +1,7 @@
 {
   "name": "motphys--motrixlab",
   "displayName": "MotrixLab",
-  "description": "A general-purpose machine learning architecture designed for robot training",
+  "description": "MotrixLab",
   "version": "1.0.0",
   "author": "Motphys",
   "homepage": "https://github.com/Motphys/MotrixLab",
