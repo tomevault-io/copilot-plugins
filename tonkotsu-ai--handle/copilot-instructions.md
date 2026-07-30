@@ -1,84 +1,46 @@
 ## handle
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Shared package consumed by two sibling projects:
 
-# CLAUDE.md
+# shared/ — `@handle-ai/handle-shared`
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Shared package consumed by two sibling projects:
 
-## Project Overview
+- **`ext/`** (Chrome extension) — `"@handle-ai/handle-shared": "file:../shared"` via npm workspaces
+- **`handle-app/`** (Electron desktop app at `../handle-app`) — depends on `@handle-ai/handle-shared` via the `handle` git submodule at `./handle/shared/`
 
-Handle is a design feedback tool that bridges a Chrome extension with AI coding agents via MCP (Model Context Protocol). Users visually select and edit elements on a webpage, then send structured feedback to a coding agent.
+## Structure
 
-## Monorepo Structure
-
-- **`ext/`** — Chrome extension (WXT + React + Tailwind)
-- **`mcp/`** — MCP server (Node.js + Socket.IO)
-
-## Commands
-
-### Extension (`ext/`)
-```bash
-npm run dev          # WXT dev server with hot reload
-npm run dev:demo     # Vite demo app (standalone UI testing)
-npm run build        # Production build
-npm run zip          # Package for Chrome Web Store
 ```
-Load the dev extension from `ext/.output/chrome-mv3` in Chrome.
-
-### Tests (run from `handle/`)
-```bash
-npx vitest run                    # Run all unit tests (shared + ext)
-npx vitest run shared/            # Run shared/ tests only
-npx vitest run --watch            # Watch mode
+src/
+├── types.ts              # Shared type definitions (ElementId, StyleData, EditEntry, etc.)
+├── utils/
+│   ├── color.ts          # Color parsing/conversion (hex, rgba, oklch)
+│   └── dom.ts            # DOM visibility helpers
+├── components/
+│   ├── ColorPicker.tsx   # Color swatch + input editor
+│   ├── IconPicker.tsx    # Lucide icon search/selection
+│   ├── StyleEditor.tsx   # Multi-section property editor (Layout, Appearance, Typography, Content)
+│   └── ElementRow.tsx    # Expandable element hierarchy row
+├── hooks/
+│   └── useEditTracker.ts # Tracks style/text/icon edits for diff generation
+└── index.ts              # Barrel exports
 ```
 
-Vitest config at `vitest.config.ts` — jsdom environment, includes `shared/src/**/*.test.{ts,tsx}` and `ext/__tests__/**/*.test.{ts,tsx}`.
+## String-template content script pattern
 
-Key test files:
-- `shared/src/utils/color.test.ts` — color parsing, conversion, opacity helpers
-- `shared/src/utils/dom.test.ts` — buildDomTree, selectorPath, detectComponent, hasFrameworkMarkers, isElementVisible
-- `shared/src/hooks/useEditTracker.test.ts` — edit tracking hook (recordEdit, changeCount, feedback description)
+`handle-app` injects a content script into its Electron webview as a **string** via `executeJavaScript()`. This means it cannot use TypeScript imports at runtime. To share DOM logic with it:
 
-### MCP Server (`mcp/`)
-```bash
-npm run build        # Compile TypeScript to dist/
-npm start            # Run MCP server (stdio transport)
-node test-e2e.mjs    # End-to-end test (spawns server, validates Socket.IO + MCP flow)
-```
+1. Write the canonical typed implementation in `utils/` (e.g., `dom.ts`)
+2. Also export a **plain JS string constant** (e.g., `visibleElementAtPointSnippet`) containing the same logic
+3. `handle-app` imports the string constant and interpolates it into its content script template
 
-## Architecture
+This keeps a single source of truth while supporting the injection constraint.
 
-### Data Flow
-1. Extension content script (`entrypoints/contents/handle.ts`) intercepts DOM clicks, extracts element hierarchy and computed styles
-2. Background script (`entrypoints/background.ts`) enriches elements with React component names via Fiber inspection (`__reactFiber$`)
-3. Sidepanel UI (`components/SidePanel.tsx`) displays hierarchy, allows style/text/icon editing, tracks changes
-4. On "Send to Coding Agent", sidepanel sends feedback via Socket.IO to the MCP server
-5. MCP server (`mcp/src/index.ts`) returns feedback to the agent through the `get_design_feedback` tool
+## No build step
 
-### Extension ↔ MCP Connection
-- MCP server binds Socket.IO to an OS-assigned port and registers session info in `~/.handle/sessions/`
-- A discovery HTTP server runs on well-known port **58932** (`GET /api/sessions`)
-- Extension polls discovery endpoint every 3s to find active sessions, then connects with session ID auth
-
-### Key Extension Components
-- **SidePanel** — Main container; manages Socket.IO connection, element hierarchy state, and edit tracking
-- **StyleEditor** — Multi-section property editor (Layout, Appearance, Typography, Content)
-- **ElementRow** — Expandable hierarchy display with tag/id/class/component info
-- **SendBar** — Session selector and feedback submission
-- **IconPicker** — Lucide icon search and selection
-
-## Code Style
-
-### Prettier (ext/)
-- No semicolons, double quotes, 2-space indent, 80 char width
-- Import sorting: builtins → third-party → `~/` aliases → relative
-
-### TypeScript
-- Strict mode in both packages
-- `ext/` uses `~` path alias mapping to project root
-- `mcp/` targets ES2022 with NodeNext module resolution
+This package has no build script. Consumers compile it directly from `src/index.ts` via their own bundlers (WXT for ext/, Vite for handle-app).
 
 ---
 > Source: [tonkotsu-ai/handle](https://github.com/tonkotsu-ai/handle) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
