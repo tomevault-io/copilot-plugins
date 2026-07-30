@@ -1,8 +1,6 @@
 # OpenIsle
 
-> Source: [nagisa77/OpenIsle](https://github.com/nagisa77/OpenIsle) — distributed by [TomeVault](https://tomevault.io)
-
-完全开源的社区平台
+> Source: [nagisa77/OpenIsle](https://github.com/nagisa77/OpenIsle). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [nagisa77/OpenIsle](https://github.com/nagisa77/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nagisa77/OpenIsle](https://github.com/nagisa77/OpenIsle) — a repo with 663+ stars on GitHub.
+From [nagisa77/OpenIsle](https://github.com/nagisa77/OpenIsle) — a repo with 679+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
