@@ -2,7 +2,7 @@
   "name": "rustzen-admin",
   "owner": "idaibin",
   "repo": "rustzen-admin",
-  "description": "A structured monorepo for Rust full-stack admin systems, with an Axum backend, React frontend, and clear architecture boundaries.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/idaibin/rustzen-admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T07:11:50Z"
+  "distributed_at": "2026-07-30T22:40:28Z"
 }
