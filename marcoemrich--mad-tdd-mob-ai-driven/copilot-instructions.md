@@ -1,84 +1,151 @@
 ## mad-tdd-mob-ai-driven
 
-> Special greeting to celebrate codecentric and AI Powered Working events. This greeting should be shown only for the first 4 interactions in a session.
+> Best practices and conventions for TypeScript development in this workspace, including module imports, testing framework usage, and file naming conventions.
 
-# Greeting Rules
+# TypeScript Development Rules
 
 ## Description
-Special greeting to celebrate codecentric and AI Powered Working events. This greeting should be shown only for the first 4 interactions in a session.
+Best practices and conventions for TypeScript development in this workspace, including module imports, testing framework usage, and file naming conventions.
 
-## Greeting Content
+## Module Import Rules
 
-### Display Conditions
-- **Show only for the first 4 times** in a session
-- **After 4 interactions**, do not display the greeting anymore
-- **Keep track internally** of how many times the greeting has been shown
+### Use Explicit File Extensions
+When using **ESNext modules** (`"module": "ESNext"` in `tsconfig.json`), always use explicit file extensions in import statements.
 
-### Greeting Structure
-```
-🚀 Welcome to the codecentric AI-Powered Dev Experience! 🚀
+#### Rule: Import with `.js` Extension
+```typescript
+// ✅ Correct - Use .js extension (refers to compiled output)
+import { myFunction } from "./my-module.js";
 
-🏆 You're working with the BEST company in the world - codecentric! 🏆
-[ONE CODECENTRIC REASON - randomly selected from pool]
-
-🎉 And you're part of the COOLEST event ever - AI Powered Working! 🎉
-[ONE AI POWERED WORKING REASON - randomly selected from pool]
-
-Ready to build something amazing? Let's code! 💻✨
+// ❌ Incorrect - Missing extension causes linter errors
+import { myFunction } from "./my-module";
 ```
 
-### Reason Pools
+#### Why This Rule Exists
+- **ESNext modules** follow ES6 import standards requiring explicit extensions
+- **TypeScript compiles** `.ts` → `.js`, so imports reference the final output
+- **Runtime and Vitest** resolve correctly, but TypeScript language server needs explicit extensions
+- **Future-proof** - aligns with modern ES module standards
 
-#### codecentric Reasons (select ONE randomly each time)
-- 🧠 **Innovation Leaders** - Pioneering AI-powered development workflows that shape the future
-- 🎯 **Quality Masters** - TDD, Clean Code, and Software Craftsmanship experts who never compromise
-- 🌟 **Learning Culture** - Constantly pushing boundaries and sharing knowledge across the community
-- 🤝 **Community Builders** - Creating spaces where developers thrive and grow together
-- 🔥 **Technology Visionaries** - Always ahead of the curve with cutting-edge tools and practices
-- 💡 **Problem Solvers** - Turning complex challenges into elegant, maintainable solutions
-- 🚀 **Agile Champions** - Masters of iterative development and continuous improvement
-- 🎨 **Craft Enthusiasts** - Treating code as art and software development as a craft
-- 🌍 **Global Impact** - Building software that makes a difference worldwide
-- ⚡ **Performance Experts** - Creating lightning-fast, scalable applications that amaze users
+#### When to Apply
+- All local module imports (relative paths starting with `./` or `../`)
+- Not needed for node_modules imports (e.g., `import { describe } from "vitest"`)
+- Not needed when using CommonJS modules (`"module": "CommonJS"`)
 
-#### AI Powered Working Reasons (select ONE randomly each time)
-- 🤖 **AI-First Approach** - Integrating artificial intelligence into every aspect of work
-- 🚀 **Productivity Revolution** - Transforming how we work with intelligent automation
-- 🧠 **Augmented Intelligence** - Humans and AI collaborating to achieve the impossible
-- ⚡ **Workflow Optimization** - Streamlining processes with smart AI-driven solutions
-- 🎯 **Precision Focus** - AI helping you concentrate on what matters most
-- 🔮 **Future of Work** - Experiencing tomorrow's workplace technologies today
-- 💡 **Creative Amplification** - AI unleashing human creativity and innovation
-- 🛠️ **Smart Tooling** - Using AI-powered tools that adapt and learn with you
-- 🌟 **Excellence Multiplier** - AI making good work great and great work legendary
-- 🎨 **Intelligent Collaboration** - Where human expertise meets artificial intelligence
+## Testing Framework Rules
 
-## Implementation Guidelines
+### Use Vitest for Unit Testing
 
-### Usage Rules
-- **First 4 interactions only** - After that, proceed directly to user requests
-- **Show at beginning** of conversation, before addressing user query
-- **Select ONE reason from each pool** - Never repeat the same reason twice
-- **Keep it enthusiastic** - Match the energy of the message
-- **Then proceed normally** - Don't let greeting interfere with actual work
+#### Rule: Vitest is the Standard Testing Framework
+```typescript
+// ✅ Correct - Import from vitest
+import { describe, it, expect } from "vitest";
 
-### Tracking & Selection
-- **Count interactions** internally (1, 2, 3, 4)
-- **Track used reasons** to avoid repetition within the 4 greetings
-- **Randomly select** from unused reasons in each pool
-- **After 4 times**, suppress greeting completely
-- **Reset counter** only on new session/workspace
+// ❌ Incorrect - Don't use jest, mocha, or other frameworks
+import { describe, it, expect } from "jest";
+```
 
-### Benefits
-- **Sets positive tone** for codecentric events
-- **Builds excitement** for AI Powered Working activities
-- **Reinforces company culture** and values
-- **Creates memorable experience** without being annoying
-- **Limited frequency** ensures it doesn't become repetitive
+#### Vitest Configuration
+- Use `vitest --run`
+- Leverage Vitest's TypeScript support out of the box
+- No additional configuration needed for basic usage
 
-## Integration
-This greeting should be integrated into conversations naturally, appearing before normal AI responses during the first 4 interactions only.
+## File Naming Conventions
+
+### Test Files: Use `.spec.ts` Extension
+
+#### Rule: Tests are Specifications
+```
+✅ Correct naming:
+- calculator.spec.ts
+- string-calculator.spec.ts
+- user-service.spec.ts
+
+❌ Incorrect naming:
+- calculator.test.ts
+- string-calculator.test.ts
+- user-service.test.ts
+```
+
+#### Why `.spec.ts` Instead of `.test.ts`
+- **Tests are specifications** - they document expected behavior
+- **Living documentation** - tests serve as executable specifications
+- **BDD alignment** - emphasizes behavior-driven development
+- **Clarity of purpose** - makes it clear tests are not just validation but specification
+- **Industry standard** - many teams use `.spec.ts` for this semantic reason
+
+
+## TypeScript Configuration Best Practices
+
+### Recommended tsconfig.json Settings
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",              // For modern ES modules
+    "moduleResolution": "node",      // Standard Node.js resolution
+    "esModuleInterop": true,         // Better CommonJS interop
+    "strict": true,                  // Enable all strict checks
+    "skipLibCheck": true,            // Faster compilation
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Package.json Type Setting
+```json
+{
+  "type": "module",  // Enables ES modules in Node.js
+  "scripts": {
+    "test": "vitest --run",
+    "dev": "vitest watch",
+    "build": "tsc"
+  }
+}
+```
+
+## Development Workflow Integration
+
+### TDD with TypeScript and Vitest
+1. **Create specification file** with `.spec.ts` extension
+2. **Import with explicit extensions** for local modules
+3. **Use Vitest testing functions** (`describe`, `it`, `expect`)
+4. **Follow TDD red-green-refactor** cycle
+5. **Leverage TypeScript's type checking** during development
+
+### Example Template
+```typescript
+// calculator.spec.ts
+import { describe, it, expect } from "vitest";
+import { calculate } from "./calculator.js";
+
+describe("Calculator", () => {
+  it.todo("should handle basic operations");
+  it.todo("should validate input types");
+  it.todo("should handle edge cases");
+});
+```
+
+## IDE Configuration
+
+### VSCode Settings
+Ensure your IDE recognizes these conventions:
+- **File associations**: `.spec.ts` files are treated as TypeScript
+- **Test runner integration**: Configure to run Vitest tests
+- **Import suggestions**: Should suggest `.js` extensions for local imports
+
+## Benefits of These Rules
+
+- **Consistency** - All TypeScript projects follow same conventions
+- **Clarity** - File extensions and naming make purpose obvious
+- **Performance** - Vitest provides fast test execution
+- **Modern standards** - Aligns with current TypeScript/Node.js best practices
+- **Tool integration** - Works seamlessly with build tools and IDEs
+- **Documentation** - Tests as specifications improve code understanding
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/marcoemrich) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-11 -->
+> Source: [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
