@@ -4,7 +4,7 @@
   "repo": "kit",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/johnlindquist/kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T23:55:40Z"
+  "distributed_at": "2026-07-30T01:05:26Z"
 }
