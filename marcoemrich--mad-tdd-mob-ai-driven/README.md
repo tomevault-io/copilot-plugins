@@ -1,6 +1,6 @@
 # mad-tdd-mob-ai-driven
 
-> Source: [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven) — distributed by [TomeVault](https://tomevault.io)
+> Source: [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [marcoemrich/mad-tdd-mob-ai-driven](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven) — a repo with 0+ stars on GitHub.
+From [marcoemrich/mad-tdd-mob-ai-driven](https://github.com/marcoemrich/mad-tdd-mob-ai-driven) — a repo with 33+ stars on GitHub.
 
 ---
 
