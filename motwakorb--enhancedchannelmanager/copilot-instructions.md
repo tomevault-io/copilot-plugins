@@ -1,156 +1,178 @@
 ## enhancedchannelmanager
 
-> Before reading code, editing files, or exploring the codebase for ANY code task:
+> > Full system architecture diagram: `docs/architecture.md`
 
-# Agent Instructions
+# Frontend Agent Instructions
 
-## STOP — Read Beads, Then Create a Bead
+> Full system architecture diagram: `docs/architecture.md`
+> Coding conventions (naming, file pairing, components, hooks, CSS naming,
+> state classes, API layer, tests): `docs/style_guide.md` is canonical.
+> This file covers stack/structure orientation only — it defers to the
+> style guide for any rule about how code should be written.
 
-Before reading code, editing files, or exploring the codebase for ANY code task:
+## Worktree workaround
 
-1. **Read existing beads** for context on past work:
-   ```bash
-   bd list --status closed
-   bd ready
-   ```
-2. **Create a bead** for the current task:
-   ```bash
-   bd create enhancedchannelmanager "Brief description"
-   ```
-
-No exceptions. No "I'll do it later." The bead comes before the first Read, Grep, or Edit.
-After the work is deployed and verified, close it: `bd close <bead-id>`
-
-## Beads Quick Reference
+Agents spawned into `.claude/worktrees/agent-*/` find `frontend/node_modules` absent
+and `npm`/`node` unavailable. Fix it in one step from the worktree root:
 
 ```bash
-bd ready                      # Find available work
-bd show <id>                  # View issue details
-bd update <id> --status in_progress  # Claim work
-bd close <id>                 # Complete work
-bd list --status closed       # View closed beads for context
-bd sync                       # Sync beads data only (NOT for code commits)
+bash scripts/worktree-bootstrap.sh
 ```
 
-- Always use `enhancedchannelmanager` as the repository name
-- **NEVER chain `bd create` and `bd close`** — run them as separate commands
-- The `.git/beads-worktrees/dev` worktree is **only for beads issue tracking** (sparse checkout of `.beads/` only — no code files). Do NOT edit code there.
+The script creates a writable `frontend/node_modules` directory with local `.vite-temp`
+and `.vite` dirs (prevents EACCES from root-owned main checkout), symlinking all
+packages and `.bin` from the main checkout. Plain-symlink bootstrap is NOT sufficient
+— see `docs/shipping.md` → "Worktree quirks" for why.
 
-## Reference Guides
+Then invoke tooling via `.bin` directly (no `npm run`):
 
-| Guide | Location |
-|-|-|
-| Architecture Diagram | `docs/architecture.md` |
-| Project Architecture | `/home/user/.claude/projects/-home-user/memory/architecture.md` |
-| Beads (Issue Tracking) | `/home/user/.claude/projects/-home-user/memory/beads.md` |
-| CSS Guidelines | `/home/user/.claude/projects/-home-user/memory/css-guidelines.md` |
-| Dispatcharr API | `/home/user/.claude/projects/-home-user/memory/dispatcharr-api.md` |
-| Discord Release Notes | `/home/user/.claude/projects/-home-user/memory/discord.md` |
-| Testing Details | `/home/user/.claude/projects/-home-user/memory/testing.md` |
-| Shipping Workflow | `/home/user/.claude/projects/-home-user/memory/shipping.md` |
-
-See `docs/architecture.md` for a full system architecture diagram (Mermaid).
-
-## Development Workflow
-
-**Always work from the `dev` branch.** The root checkout at `/home/user/ecm/enhancedchannelmanager` is on `dev`. All edits, builds, and deploys happen here — no worktrees.
-
-- Container name: `ecm-ecm-1`
-
-### Container-First Development
-
-We iterate fast by deploying to the live container before committing:
-
-1. **Create a bead** (see "STOP" section above — must happen before any code exploration)
-2. **Edit code** locally
-3. **Copy to container and test**:
-   ```bash
-   docker cp <local-file> ecm-ecm-1:/app/<destination-path>
-   ```
-   Repeat steps 2-3 until the fix works. Do NOT commit until told to "ship the fix."
-
-**Frontend deploy:**
 ```bash
-cd /home/user/ecm/enhancedchannelmanager/frontend && npm run build
-docker exec ecm-ecm-1 sh -c 'rm -rf /app/static/assets/*'
+./frontend/node_modules/.bin/vitest run
+./frontend/node_modules/.bin/eslint frontend/src --max-warnings 0
+./frontend/node_modules/.bin/tsc --noEmit
+./frontend/node_modules/.bin/vite build
+```
+
+Add `node` to `PATH`. The correct fnm path on this host:
+
+```bash
+export PATH="$HOME/.local/share/fnm/node-versions/v24.13.0/installation/bin:./frontend/node_modules/.bin:$PATH"
+```
+
+Note: fnm root is `$HOME/.local/share/fnm/` — NOT `$HOME/.fnm/` (that path does not
+exist on this host).
+
+Full explanation and root cause: `docs/shipping.md` → "Worktree quirks".
+
+## Framework & Stack
+
+- **React 18** + **TypeScript** (strict mode) + **Vite** build tool
+- Entry: `src/main.tsx` → `AuthProvider` → `ProtectedRoute` → `App`
+- Dev server: port 5173, proxies `/api` to `http://localhost:8000`
+
+## Directory Structure
+
+```
+frontend/src/
+├── App.tsx                    # Main app, centralized state via useState hooks
+├── TabNavigation.tsx          # Tab switching (data-tab attributes)
+├── main.tsx                   # Entry point
+├── index.css                  # CSS variables & theme
+├── components/                # ~60+ components
+│   ├── tabs/                  # Tab content (M3UManagerTab, EPGManagerTab, etc.)
+│   ├── autoCreation/          # Rule builder (ActionEditor, ConditionEditor, RuleBuilder)
+│   ├── ffmpegBuilder/         # FFmpeg configuration
+│   ├── settings/              # Settings subsections
+│   ├── CustomSelect.tsx/.css  # Custom dropdown (replaces native <select>)
+│   ├── ChannelsPane.tsx       # Channel management (~274KB)
+│   ├── ScheduledTasksSection.tsx
+│   └── [modals, editors, panels...]
+├── contexts/                  # React Context providers
+│   └── NotificationContext.tsx # Toast notification system
+├── hooks/                     # Custom hooks (~15 files)
+│   ├── useAuth.tsx            # Auth state
+│   ├── useEditMode.ts         # Edit mode with change tracking
+│   ├── useChangeHistory.ts    # Undo/redo
+│   └── useAsyncOperation.ts   # Async loading/error tracking
+├── services/                  # API layer
+│   ├── api.ts                 # Main API client (~2600 lines)
+│   ├── httpClient.ts          # fetchJson(), buildQuery()
+│   └── autoCreationApi.ts     # Auto-creation endpoints
+├── types/                     # TypeScript definitions
+│   ├── index.ts               # All shared types (~37KB)
+│   └── autoCreation.ts        # Auto-creation types
+└── utils/                     # Utility functions
+```
+
+## Component Conventions
+
+See `docs/style_guide.md` — sections **Naming Conventions**, **Filenames**,
+and **Module Organization → Frontend (React)** — for the canonical rules
+on file pairing, casing, the `CustomSelect` requirement, modal naming,
+and Material Icons usage.
+
+## State Management
+
+- **No Redux** — state centralized in `App.tsx` via `useState` hooks, passed as props
+- **Context** for cross-cutting concerns: `AuthContext`, `NotificationContext`
+- **Custom hooks** for complex logic: `useEditMode`, `useChangeHistory`, `useSelection`
+- **localStorage** for persisted filters: `streamProviderFilters`, `streamGroupFilters`
+
+## CSS & Styling
+
+CSS naming, state classes, layer architecture, theme variables, and the
+shared-class catalog live in `docs/css_guidelines.md` (authoritative for
+CSS) with a summary in `docs/style_guide.md` → **CSS Conventions**.
+
+Quick orientation only: theme variables live in `:root` in `index.css`,
+the dark theme is the default, and each component owns its own `.css`
+file (no CSS modules, no styled-components).
+
+## Tab Navigation
+
+```typescript
+type TabId = 'm3u-manager' | 'epg-manager' | 'channel-manager' | 'guide' |
+             'logo-manager' | 'm3u-changes' | 'auto-creation' | 'journal' | 'stats' | 'settings'
+```
+
+- Tabs have `data-tab={tab.id}` attribute on buttons
+- Active state: `.tab-button.active` class
+- Tab content lazy-loaded with `React.lazy()` + `Suspense`
+- FFMPEG Builder tab also exists (id: `ffmpeg-builder`)
+
+## Types
+
+- Main types in `src/types/index.ts`: `Channel`, `Stream`, `EPGSource`, `ChannelGroup`, etc.
+- Auto-creation types in `src/types/autoCreation.ts`: `Action`, `Condition`, `Rule`
+- Request types: `*CreateRequest`, `*UpdateRequest`
+- Response types: `*Response`
+
+## API Layer
+
+Convention rules (named exports per endpoint, all HTTP via `fetchJson()`)
+are in `docs/style_guide.md` → **Module Organization → Frontend (React)**.
+Quick orientation:
+
+```typescript
+// services/api.ts — named exports per endpoint
+export async function getChannels(): Promise<Channel[]>
+export async function getEPGSources(): Promise<EPGSource[]>
+export async function getChannelGroups(): Promise<ChannelGroup[]>
+```
+
+Endpoints match backend routes (e.g., `/api/channels`, `/api/m3u`).
+
+## Testing
+
+Test conventions (naming, AAA structure, colocation, MSW setup) live in
+`docs/style_guide.md` → **Test Conventions**, with deeper testing strategy
+in `docs/testing.md`.
+
+Quick commands:
+
+- Run: `npm test` (Vitest + @testing-library/react)
+- Run watch: `npm run test:watch`
+
+## Build & Deploy
+
+```bash
+cd frontend && npm run build       # Output to dist/
+docker exec ecm-ecm-1 sh -c 'rm -rf /app/static/assets/*'  # Clean stale bundles
 docker cp dist/. ecm-ecm-1:/app/static/
 ```
-Always clean `/app/static/assets/` before copying — `docker cp` only adds files, never removes stale bundles.
 
-**Backend deploy** (to `/app/`, NOT `/app/backend/` — entrypoint runs `cd /app && uvicorn main:app`):
-```bash
-docker cp backend/main.py ecm-ecm-1:/app/main.py
-docker cp backend/routers/. ecm-ecm-1:/app/routers/
-docker restart ecm-ecm-1   # No --reload; restart required
-```
+Always clean `/app/static/assets/` before copying — `docker cp` only adds files, never removes old bundles.
 
-**Python packages** use `uv` (not pip): `docker exec ecm-ecm-1 uv pip install <package>`
+## CSS Class Patterns for E2E Tests
 
-### Shipping (When User Says "Ship the Fix")
-
-Follow `/home/user/.claude/projects/-home-user/memory/shipping.md`.
-
-Summary: Quality gates → Update bead → Bump version → Rebuild → Close bead → Update README if needed → Commit → Push to dev → File follow-up beads.
-
-**Quality gate commands:**
-- Backend: `python -m py_compile backend/main.py && cd backend && python -m pytest tests/ --tb=short --no-header -p no:warnings 2>&1 | tail -1`
-- Frontend: `cd frontend && npm test && npm run build`
-
-**Non-negotiable rules:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing — that leaves work stranded locally
-- NEVER say "ready to push when you are" — YOU must push
-
-## Backend Architecture
-
-- **Modular routers**: `backend/routers/` has 20+ domain-focused modules (channels, m3u, epg, settings, etc.)
-- **Router registry**: `routers/__init__.py` has `all_routers` list; `main.py` includes them via `app.include_router()`
-- **main.py** retains: app lifecycle, middleware, auth, startup/shutdown
-- **Mock patches**: When testing router endpoints, patch `routers.<module>.X` not `main.X`
-- **Auth middleware**: Global middleware in `main.py` blocks unauthenticated `/api/*` requests. All endpoints are secure by default. To make an endpoint public, add its path to `AUTH_EXEMPT_PATHS` in `main.py`. Respects `RequireAuthIfEnabled` semantics (skips enforcement when auth disabled or setup not complete).
-
-## Dev Branch Patterns
-
-- Use `CustomSelect` component (not native `<select>`) for dropdowns
-- Actions/conditions use `order-number-input` for the reorder number in card headers only
-- Form fields in action editor use `action-input` CSS class (not `order-number-input`)
-- `getChannelGroups()` is already imported in ActionEditor for the Target Group selector
-
-## Types Reference
-
-- `EPGSource` type: `frontend/src/types/index.ts` (has `id`, `name`, etc.)
-- `Action` interface: `frontend/src/types/autoCreation.ts` (has `epg_id?: number`, `channel_number?: string | number`)
-- API: `getEPGSources()` in `frontend/src/services/api.ts`
-
-## Context Efficiency
-
-### Subagent Discipline
-
-**Context-aware delegation:**
-- Under ~50k context: prefer inline work for tasks under ~5 tool calls.
-- Over ~50k context: prefer subagents for self-contained tasks, even simple ones — the per-call token tax on large contexts adds up fast.
-
-When using subagents, include output rules: "Final response under 2000 characters. List outcomes, not process."
-Never call TaskOutput twice for the same subagent. If it times out, increase the timeout — don't re-read.
-
-### File Reading
-
-Read files with purpose. Before reading a file, know what you're looking for.
-Use Grep to locate relevant sections before reading entire large files.
-Never re-read a file you've already read in this session.
-For files over 500 lines, use offset/limit to read only the relevant section.
-
-### Responses
-
-Don't echo back file contents you just read — the user can see them.
-Don't narrate tool calls ("Let me read the file..." / "Now I'll edit..."). Just do it.
-Keep explanations proportional to complexity. Simple changes need one sentence, not three paragraphs.
-
-**Tables — STRICT RULES (apply everywhere, always):**
-- Markdown tables: use minimum separator (`|-|-|`). Never pad with repeated hyphens (`|---|---|`).
-- NEVER use box-drawing / ASCII-art tables with characters like `┌`, `┬`, `─`, `│`, `└`, `┘`, `├`, `┤`, `┼`. These are completely banned.
-- No exceptions. Not for "clarity", not for alignment, not for terminal output.
+- `.channels-pane`, `.streams-pane` — Main pane containers
+- `.tab-navigation`, `.tab-button` — Tab nav
+- `.settings-tab`, `.settings-nav-item` — Settings page
+- `.filter-active` — Active filter indicator (logic: true when any filter is NOT showing all)
+- `data-testid` attributes on key elements for stable E2E selectors
+- `action-input` class for form fields in action editor
+- `order-number-input` class for reorder number in card headers only
 
 ---
 > Source: [MotWakorb/enhancedchannelmanager](https://github.com/MotWakorb/enhancedchannelmanager) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
