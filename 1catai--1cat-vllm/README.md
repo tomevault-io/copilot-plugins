@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [1CatAI/1Cat-vLLM](https://github.com/1CatAI/1Ca
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [1CatAI/1Cat-vLLM](https://github.com/1CatAI/1Cat-vLLM) — a repo with 538+ stars on GitHub.
+From [1CatAI/1Cat-vLLM](https://github.com/1CatAI/1Cat-vLLM) — a repo with 539+ stars on GitHub.
 
 ---
 
