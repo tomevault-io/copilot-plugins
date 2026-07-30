@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [openshift/origin](https://github.com/openshift/origin).
+Original source: `AGENTS.md` in [openshift/origin](https://github.com/openshift/origin).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [openshift/origin](https://github.com/openshift/origin) — a repo with 8672+ stars on GitHub.
+From [openshift/origin](https://github.com/openshift/origin) — a repo with 8673+ stars on GitHub.
 
 ---
 
