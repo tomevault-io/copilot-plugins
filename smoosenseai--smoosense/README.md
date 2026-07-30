@@ -1,8 +1,6 @@
 # smoosense
 
-> Tome by [SmooSenseAI](https://github.com/SmooSenseAI/smoosense) — distributed by [TomeVault](https://tomevault.io)
-
-Interactively browse multimodal tabular data
+> Tome by [SmooSenseAI](https://github.com/SmooSenseAI/smoosense), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
