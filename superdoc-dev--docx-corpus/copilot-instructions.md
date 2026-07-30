@@ -1,114 +1,55 @@
 ## docx-corpus
 
-> The largest open corpus of .docx files (~800K documents) for document processing research. Built by [SuperDoc](https://superdoc.dev) — DOCX editing and tooling.
+> Python ML pipeline that classifies ~800K .docx documents by **document type** (10 classes) and **topic** (9 classes).
 
-# docx-corpus
+# Classification Pipeline
 
-The largest open corpus of .docx files (~800K documents) for document processing research. Built by [SuperDoc](https://superdoc.dev) — DOCX editing and tooling.
+Python ML pipeline that classifies ~800K .docx documents by **document type** (10 classes) and **topic** (9 classes).
 
-## Architecture
+Uses the FineWeb-Edu pattern: LLM labels a small sample → train lightweight classifier → apply at scale.
 
-This is a **data pipeline monorepo** with two runtimes:
+## Pipeline steps (run in order)
 
-- **TypeScript (Bun)** — infrastructure: scraping, extraction, embedding
-- **Python** — data science: classification, export, publishing
+1. **`sample.py`** — Stratified sampling from PostgreSQL. Samples proportionally across languages (en, ru, cs, pl, es), stratified by word count terciles and source domain diversity.
+2. **`label.py`** — Async LLM labeling with Claude. Supports resume (appends to JSONL). Rate-limited with configurable parallelism.
+3. **`train.py`** — Fine-tunes two independent xlm-roberta-base classifiers (document_type and topic). Supports `--modal` for cloud GPU training. Outputs models to `./models/`.
+4. **`classify.py`** — Batch inference on the full corpus. Supports `--modal` for parallel cloud workers (20x speedup). Fetches text from R2, runs both models, writes results to PostgreSQL.
+5. **`evaluate.py`** — Quality metrics. Two modes: `labels` (analyzes JSONL) and `corpus` (queries DB).
 
-```
-apps/cli/               → corpus <command> (scrape, extract, embed, status)
-apps/cdx-filter/        → AWS Lambda for Common Crawl CDX filtering
-packages/shared/        → DB client (Bun.sql), R2 storage, UI helpers
-packages/scraper/       → Downloads .docx from Common Crawl WARC archives
-packages/extractor/     → Text extraction via Docling
-packages/embedder/      → Embeddings via Google gemini-embedding-001
-scripts/classification/ → ML classification pipeline (Python)
-db/                     → PostgreSQL schema + migrations
-```
+## Key files
 
-## Pipeline
-
-Each stage writes to the same PostgreSQL database (`documents` table):
-
-1. **Scrape** (TS) — Common Crawl → .docx files in R2 (`status = 'uploaded'`)
-2. **Extract** (TS) — Docling → text in R2 (`extracted_at`, `word_count`, `language`)
-3. **Embed** (TS) — Google API → pgvector (`embedding`, `embedded_at`)
-4. **Classify** (Python) — ModernBERT → labels (`document_type`, `document_topic`)
-
-## Scraper deduplication
-
-The scraper maintains **exact parity** between CDX URLs and database records: every URL in a crawl's CDX files has exactly one record in the `documents` table under that `crawl_id`.
-
-### Document statuses
-
-- `uploaded` — valid .docx saved to R2, ID is `{contentHash}`
-- `failed` — WARC download failed or content is invalid docx, ID is `failed-{urlHash}` (download error) or `{contentHash}` (validation error)
-- `duplicate` — same content already exists under a different URL, ID is `dup-{urlHash}`
-
-### ID scheme
-
-IDs are content-addressed for storage mapping (`documents/{id}.docx`):
-
-| Scenario | ID | Reason |
-|---|---|---|
-| Uploaded | `{sha256(content)}` | Maps to R2 storage key |
-| Download failed | `failed-{sha256(url)}` | No content available, use URL hash |
-| Validation failed | `{sha256(content)}` | Content exists but isn't valid docx |
-| Content duplicate | `dup-{sha256(url+crawlId)}` | Scoped per crawl so each crawl keeps its own dup record |
-
-### Dedup paths
-
-The scraper handles three dedup scenarios in order:
-
-1. **URL-dedup** (instant, no download) — URL already in `processedHashes` Set (md5 hashes loaded from all crawls at startup). Includes uploaded, duplicate, AND failed URLs by default. If the URL exists under a different `crawl_id`, creates a cross-crawl `duplicate` record under the current crawl. If already under the current crawl, silently skips.
-
-2. **Content-dedup** (requires WARC download) — URL is new but content hash matches an existing document. Creates a `duplicate` record pointing to the original.
-
-3. **Same-URL retry** (within same crawl) — Same URL appears multiple times in CDX files (different WARC captures). After a successful WARC download, the URL is added to `processedHashes` so subsequent entries are skipped.
-
-### Stale record cleanup
-
-When a WARC download succeeds, the scraper deletes any previous `failed-{urlHash}` record for that URL. This prevents duplicate records when a URL fails on one attempt but succeeds on a later retry (since the failed and successful records have different IDs).
-
-### Re-run safety
-
-Running the scraper on the same crawl again is safe:
-- `--force`: re-downloads everything from scratch
-- `--retry-failed`: re-downloads only previously failed URLs
-- Default: all known URLs (uploaded + duplicate + failed) are skipped instantly
+- **`taxonomy.json`** — Single source of truth for the 2D taxonomy (10 document types × 9 topics). Both prompt building and model training reference this.
+- **`common.py`** — Shared utilities: DB connection (`psycopg2`), text fetching from `https://docxcorp.us/extracted/`, taxonomy loading.
+- **`pyproject.toml`** — Python dependencies. Install with `pip install -e .` or `uv pip install -e .`.
 
 ## Database
 
-Single `documents` table in PostgreSQL (NeonDB) with pgvector. All pipeline stages write to this table.
+Writes to the same `documents` table as the TS pipeline:
+- `document_type` — one of 10 types (legal, forms, reports, etc.)
+- `document_topic` — one of 9 topics (government, education, healthcare, etc.)
+- `classification_confidence` — min(type_confidence, topic_confidence)
+- `classification_model` — e.g. "claude-haiku-4-5" or "xlm-roberta-base-v2" (format: `{base_model}-{taxonomy_version}`, see `_classification_model_name` in `classify.py`)
 
-- **Connection**: `DATABASE_URL` env var (Bun.sql for TS, psycopg2 for Python)
-- **Schema**: `db/schema.sql` (canonical), `db/migrations/` (incremental)
-- **Key columns**: `id` (SHA-256 hash), `status`, `extracted_at`, `embedded_at`, `document_type`, `document_topic`
+Connection via `DATABASE_URL` env var loaded from `../../.env`.
 
-## Storage
+## Modal (cloud GPU)
 
-Documents and extracted text live in Cloudflare R2:
-- `documents/{hash}.docx` — original files
-- `extracted/{hash}.txt` — extracted text
+Both `train.py` and `classify.py` support a `--modal` flag for cloud execution:
+- Training uses a single GPU (T4 default, configurable with `--gpu`)
+- Classification fans out across `--workers` parallel containers for ~160 docs/s aggregate
+- Models are persisted in a Modal Volume (`classifier-models`)
+- DB credentials are stored in a Modal Secret (`docx-db`)
 
-Text is also available at `https://docxcorp.us/extracted/{id}.txt`.
+## Conventions
 
-## Commands
-
-```bash
-bun install                        # Install TS dependencies
-bun run corpus scrape --crawl 3    # Scrape from Common Crawl
-bun run corpus extract             # Extract text
-bun run corpus embed               # Generate embeddings
-bun run corpus status              # Show pipeline stats
-```
-
-## Key conventions
-
-- Use `bun` for all TS tooling (not node/npm/pnpm)
-- DB client is in `packages/shared/db.ts` — all pipeline stages use `DbClient`
-- Storage abstraction in `packages/shared/storage.ts` — R2 or local
-- Environment: `.env` at project root (gitignored), see `.env.example`
-- Python scripts manage their own deps via `pyproject.toml`
+- Python 3.11+, no type stubs needed
+- Uses `psycopg2` for DB (not Bun.sql — this is Python)
+- Uses `python-dotenv` to load `.env` from project root
+- Text is fetched via HTTP from the public R2 endpoint, not direct R2 access
+- All scripts support `--help` for usage
+- JSONL files are the interchange format between steps
+- Data files (*.jsonl, models/) are gitignored — store locally in `~/data/docx-corpus/classification/`
 
 ---
 > Source: [superdoc-dev/docx-corpus](https://github.com/superdoc-dev/docx-corpus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
