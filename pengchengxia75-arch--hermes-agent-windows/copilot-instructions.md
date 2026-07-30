@@ -1,477 +1,333 @@
 ## hermes-agent-windows
 
-> Instructions for AI coding assistants and developers working on the hermes-agent codebase.
-
-# Hermes Agent - Development Guide
-
-Instructions for AI coding assistants and developers working on the hermes-agent codebase.
-
-## Development Environment
-
-```bash
-source venv/bin/activate  # ALWAYS activate before running Python
-```
-
-## Project Structure
-
-```
-hermes-agent/
-├── run_agent.py          # AIAgent class — core conversation loop
-├── model_tools.py        # Tool orchestration, _discover_tools(), handle_function_call()
-├── toolsets.py           # Toolset definitions, _HERMES_CORE_TOOLS list
-├── cli.py                # HermesCLI class — interactive CLI orchestrator
-├── hermes_state.py       # SessionDB — SQLite session store (FTS5 search)
-├── agent/                # Agent internals
-│   ├── prompt_builder.py     # System prompt assembly
-│   ├── context_compressor.py # Auto context compression
-│   ├── prompt_caching.py     # Anthropic prompt caching
-│   ├── auxiliary_client.py   # Auxiliary LLM client (vision, summarization)
-│   ├── model_metadata.py     # Model context lengths, token estimation
-│   ├── models_dev.py         # models.dev registry integration (provider-aware context)
-│   ├── display.py            # KawaiiSpinner, tool preview formatting
-│   ├── skill_commands.py     # Skill slash commands (shared CLI/gateway)
-│   └── trajectory.py         # Trajectory saving helpers
-├── hermes_cli/           # CLI subcommands and setup
-│   ├── main.py           # Entry point — all `hermes` subcommands
-│   ├── config.py         # DEFAULT_CONFIG, OPTIONAL_ENV_VARS, migration
-│   ├── commands.py       # Slash command definitions + SlashCommandCompleter
-│   ├── callbacks.py      # Terminal callbacks (clarify, sudo, approval)
-│   ├── setup.py          # Interactive setup wizard
-│   ├── skin_engine.py    # Skin/theme engine — CLI visual customization
-│   ├── skills_config.py  # `hermes skills` — enable/disable skills per platform
-│   ├── tools_config.py   # `hermes tools` — enable/disable tools per platform
-│   ├── skills_hub.py     # `/skills` slash command (search, browse, install)
-│   ├── models.py         # Model catalog, provider model lists
-│   ├── model_switch.py   # Shared /model switch pipeline (CLI + gateway)
-│   └── auth.py           # Provider credential resolution
-├── tools/                # Tool implementations (one file per tool)
-│   ├── registry.py       # Central tool registry (schemas, handlers, dispatch)
-│   ├── approval.py       # Dangerous command detection
-│   ├── terminal_tool.py  # Terminal orchestration
-│   ├── process_registry.py # Background process management
-│   ├── file_tools.py     # File read/write/search/patch
-│   ├── web_tools.py      # Web search/extract (Parallel + Firecrawl)
-│   ├── browser_tool.py   # Browserbase browser automation
-│   ├── code_execution_tool.py # execute_code sandbox
-│   ├── delegate_tool.py  # Subagent delegation
-│   ├── mcp_tool.py       # MCP client (~1050 lines)
-│   └── environments/     # Terminal backends (local, docker, ssh, modal, daytona, singularity)
-├── gateway/              # Messaging platform gateway
-│   ├── run.py            # Main loop, slash commands, message dispatch
-│   ├── session.py        # SessionStore — conversation persistence
-│   └── platforms/        # Adapters: telegram, discord, slack, whatsapp, homeassistant, signal
-├── acp_adapter/          # ACP server (VS Code / Zed / JetBrains integration)
-├── cron/                 # Scheduler (jobs.py, scheduler.py)
-├── environments/         # RL training environments (Atropos)
-├── tests/                # Pytest suite (~3000 tests)
-└── batch_runner.py       # Parallel batch processing
-```
-
-**User config:** `~/.hermes/config.yaml` (settings), `~/.hermes/.env` (API keys)
-
-## File Dependency Chain
-
-```
-tools/registry.py  (no deps — imported by all tool files)
-       ↑
-tools/*.py  (each calls registry.register() at import time)
-       ↑
-model_tools.py  (imports tools/registry + triggers tool discovery)
-       ↑
-run_agent.py, cli.py, batch_runner.py, environments/
-```
-
----
-
-## AIAgent Class (run_agent.py)
-
-```python
-class AIAgent:
-    def __init__(self,
-        model: str = "anthropic/claude-opus-4.6",
-        max_iterations: int = 90,
-        enabled_toolsets: list = None,
-        disabled_toolsets: list = None,
-        quiet_mode: bool = False,
-        save_trajectories: bool = False,
-        platform: str = None,           # "cli", "telegram", etc.
-        session_id: str = None,
-        skip_context_files: bool = False,
-        skip_memory: bool = False,
-        # ... plus provider, api_mode, callbacks, routing params
-    ): ...
-
-    def chat(self, message: str) -> str:
-        """Simple interface — returns final response string."""
-
-    def run_conversation(self, user_message: str, system_message: str = None,
-                         conversation_history: list = None, task_id: str = None) -> dict:
-        """Full interface — returns dict with final_response + messages."""
-```
-
-### Agent Loop
-
-The core loop is inside `run_conversation()` — entirely synchronous:
-
-```python
-while api_call_count < self.max_iterations and self.iteration_budget.remaining > 0:
-    response = client.chat.completions.create(model=model, messages=messages, tools=tool_schemas)
-    if response.tool_calls:
-        for tool_call in response.tool_calls:
-            result = handle_function_call(tool_call.name, tool_call.args, task_id)
-            messages.append(tool_result_message(result))
-        api_call_count += 1
-    else:
-        return response.content
-```
-
-Messages follow OpenAI format: `{"role": "system/user/assistant/tool", ...}`. Reasoning content is stored in `assistant_msg["reasoning"]`.
-
----
-
-## CLI Architecture (cli.py)
-
-- **Rich** for banner/panels, **prompt_toolkit** for input with autocomplete
-- **KawaiiSpinner** (`agent/display.py`) — animated faces during API calls, `┊` activity feed for tool results
-- `load_cli_config()` in cli.py merges hardcoded defaults + user config YAML
-- **Skin engine** (`hermes_cli/skin_engine.py`) — data-driven CLI theming; initialized from `display.skin` config key at startup; skins customize banner colors, spinner faces/verbs/wings, tool prefix, response box, branding text
-- `process_command()` is a method on `HermesCLI` — dispatches on canonical command name resolved via `resolve_command()` from the central registry
-- Skill slash commands: `agent/skill_commands.py` scans `~/.hermes/skills/`, injects as **user message** (not system prompt) to preserve prompt caching
-
-### Slash Command Registry (`hermes_cli/commands.py`)
-
-All slash commands are defined in a central `COMMAND_REGISTRY` list of `CommandDef` objects. Every downstream consumer derives from this registry automatically:
-
-- **CLI** — `process_command()` resolves aliases via `resolve_command()`, dispatches on canonical name
-- **Gateway** — `GATEWAY_KNOWN_COMMANDS` frozenset for hook emission, `resolve_command()` for dispatch
-- **Gateway help** — `gateway_help_lines()` generates `/help` output
-- **Telegram** — `telegram_bot_commands()` generates the BotCommand menu
-- **Slack** — `slack_subcommand_map()` generates `/hermes` subcommand routing
-- **Autocomplete** — `COMMANDS` flat dict feeds `SlashCommandCompleter`
-- **CLI help** — `COMMANDS_BY_CATEGORY` dict feeds `show_help()`
-
-### Adding a Slash Command
-
-1. Add a `CommandDef` entry to `COMMAND_REGISTRY` in `hermes_cli/commands.py`:
-```python
-CommandDef("mycommand", "Description of what it does", "Session",
-           aliases=("mc",), args_hint="[arg]"),
-```
-2. Add handler in `HermesCLI.process_command()` in `cli.py`:
-```python
-elif canonical == "mycommand":
-    self._handle_mycommand(cmd_original)
-```
-3. If the command is available in the gateway, add a handler in `gateway/run.py`:
-```python
-if canonical == "mycommand":
-    return await self._handle_mycommand(event)
-```
-4. For persistent settings, use `save_config_value()` in `cli.py`
-
-**CommandDef fields:**
-- `name` — canonical name without slash (e.g. `"background"`)
-- `description` — human-readable description
-- `category` — one of `"Session"`, `"Configuration"`, `"Tools & Skills"`, `"Info"`, `"Exit"`
-- `aliases` — tuple of alternative names (e.g. `("bg",)`)
-- `args_hint` — argument placeholder shown in help (e.g. `"<prompt>"`, `"[name]"`)
-- `cli_only` — only available in the interactive CLI
-- `gateway_only` — only available in messaging platforms
-- `gateway_config_gate` — config dotpath (e.g. `"display.tool_progress_command"`); when set on a `cli_only` command, the command becomes available in the gateway if the config value is truthy. `GATEWAY_KNOWN_COMMANDS` always includes config-gated commands so the gateway can dispatch them; help/menus only show them when the gate is open.
-
-**Adding an alias** requires only adding it to the `aliases` tuple on the existing `CommandDef`. No other file changes needed — dispatch, help text, Telegram menu, Slack mapping, and autocomplete all update automatically.
-
----
-
-## Adding New Tools
-
-Requires changes in **3 files**:
-
-**1. Create `tools/your_tool.py`:**
-```python
-import json, os
-from tools.registry import registry
-
-def check_requirements() -> bool:
-    return bool(os.getenv("EXAMPLE_API_KEY"))
-
-def example_tool(param: str, task_id: str = None) -> str:
-    return json.dumps({"success": True, "data": "..."})
-
-registry.register(
-    name="example_tool",
-    toolset="example",
-    schema={"name": "example_tool", "description": "...", "parameters": {...}},
-    handler=lambda args, **kw: example_tool(param=args.get("param", ""), task_id=kw.get("task_id")),
-    check_fn=check_requirements,
-    requires_env=["EXAMPLE_API_KEY"],
-)
-```
-
-**2. Add import** in `model_tools.py` `_discover_tools()` list.
-
-**3. Add to `toolsets.py`** — either `_HERMES_CORE_TOOLS` (all platforms) or a new toolset.
-
-The registry handles schema collection, dispatch, availability checking, and error wrapping. All handlers MUST return a JSON string.
-
-**Path references in tool schemas**: If the schema description mentions file paths (e.g. default output directories), use `display_hermes_home()` to make them profile-aware. The schema is generated at import time, which is after `_apply_profile_override()` sets `HERMES_HOME`.
-
-**State files**: If a tool stores persistent state (caches, logs, checkpoints), use `get_hermes_home()` for the base directory — never `Path.home() / ".hermes"`. This ensures each profile gets its own state.
-
-**Agent-level tools** (todo, memory): intercepted by `run_agent.py` before `handle_function_call()`. See `todo_tool.py` for the pattern.
-
----
-
-## Adding Configuration
-
-### config.yaml options:
-1. Add to `DEFAULT_CONFIG` in `hermes_cli/config.py`
-2. Bump `_config_version` (currently 5) to trigger migration for existing users
-
-### .env variables:
-1. Add to `OPTIONAL_ENV_VARS` in `hermes_cli/config.py` with metadata:
-```python
-"NEW_API_KEY": {
-    "description": "What it's for",
-    "prompt": "Display name",
-    "url": "https://...",
-    "password": True,
-    "category": "tool",  # provider, tool, messaging, setting
-},
-```
-
-### Config loaders (two separate systems):
-
-| Loader | Used by | Location |
-|--------|---------|----------|
-| `load_cli_config()` | CLI mode | `cli.py` |
-| `load_config()` | `hermes tools`, `hermes setup` | `hermes_cli/config.py` |
-| Direct YAML load | Gateway | `gateway/run.py` |
-
----
-
-## Skin/Theme System
-
-The skin engine (`hermes_cli/skin_engine.py`) provides data-driven CLI visual customization. Skins are **pure data** — no code changes needed to add a new skin.
-
-### Architecture
-
-```
-hermes_cli/skin_engine.py    # SkinConfig dataclass, built-in skins, YAML loader
-~/.hermes/skins/*.yaml       # User-installed custom skins (drop-in)
-```
-
-- `init_skin_from_config()` — called at CLI startup, reads `display.skin` from config
-- `get_active_skin()` — returns cached `SkinConfig` for the current skin
-- `set_active_skin(name)` — switches skin at runtime (used by `/skin` command)
-- `load_skin(name)` — loads from user skins first, then built-ins, then falls back to default
-- Missing skin values inherit from the `default` skin automatically
-
-### What skins customize
-
-| Element | Skin Key | Used By |
-|---------|----------|---------|
-| Banner panel border | `colors.banner_border` | `banner.py` |
-| Banner panel title | `colors.banner_title` | `banner.py` |
-| Banner section headers | `colors.banner_accent` | `banner.py` |
-| Banner dim text | `colors.banner_dim` | `banner.py` |
-| Banner body text | `colors.banner_text` | `banner.py` |
-| Response box border | `colors.response_border` | `cli.py` |
-| Spinner faces (waiting) | `spinner.waiting_faces` | `display.py` |
-| Spinner faces (thinking) | `spinner.thinking_faces` | `display.py` |
-| Spinner verbs | `spinner.thinking_verbs` | `display.py` |
-| Spinner wings (optional) | `spinner.wings` | `display.py` |
-| Tool output prefix | `tool_prefix` | `display.py` |
-| Per-tool emojis | `tool_emojis` | `display.py` → `get_tool_emoji()` |
-| Agent name | `branding.agent_name` | `banner.py`, `cli.py` |
-| Welcome message | `branding.welcome` | `cli.py` |
-| Response box label | `branding.response_label` | `cli.py` |
-| Prompt symbol | `branding.prompt_symbol` | `cli.py` |
-
-### Built-in skins
-
-- `default` — Classic Hermes gold/kawaii (the current look)
-- `ares` — Crimson/bronze war-god theme with custom spinner wings
-- `mono` — Clean grayscale monochrome
-- `slate` — Cool blue developer-focused theme
-
-### Adding a built-in skin
-
-Add to `_BUILTIN_SKINS` dict in `hermes_cli/skin_engine.py`:
-
-```python
-"mytheme": {
-    "name": "mytheme",
-    "description": "Short description",
-    "colors": { ... },
-    "spinner": { ... },
-    "branding": { ... },
-    "tool_prefix": "┊",
-},
-```
-
-### User skins (YAML)
-
-Users create `~/.hermes/skins/<name>.yaml`:
-
-```yaml
-name: cyberpunk
-description: Neon-soaked terminal theme
-
-colors:
-  banner_border: "#FF00FF"
-  banner_title: "#00FFFF"
-  banner_accent: "#FF1493"
-
-spinner:
-  thinking_verbs: ["jacking in", "decrypting", "uploading"]
-  wings:
-    - ["⟨⚡", "⚡⟩"]
-
-branding:
-  agent_name: "Cyber Agent"
-  response_label: " ⚡ Cyber "
-
-tool_prefix: "▏"
-```
-
-Activate with `/skin cyberpunk` or `display.skin: cyberpunk` in config.yaml.
-
----
-
-## Important Policies
-### Prompt Caching Must Not Break
-
-Hermes-Agent ensures caching remains valid throughout a conversation. **Do NOT implement changes that would:**
-- Alter past context mid-conversation
-- Change toolsets mid-conversation
-- Reload memories or rebuild system prompts mid-conversation
-
-Cache-breaking forces dramatically higher costs. The ONLY time we alter context is during context compression.
-
-### Working Directory Behavior
-- **CLI**: Uses current directory (`.` → `os.getcwd()`)
-- **Messaging**: Uses `MESSAGING_CWD` env var (default: home directory)
-
-### Background Process Notifications (Gateway)
-
-When `terminal(background=true, check_interval=...)` is used, the gateway runs a watcher that
-pushes status updates to the user's chat. Control verbosity with `display.background_process_notifications`
-in config.yaml (or `HERMES_BACKGROUND_NOTIFICATIONS` env var):
-
-- `all` — running-output updates + final message (default)
-- `result` — only the final completion message
-- `error` — only the final message when exit code != 0
-- `off` — no watcher messages at all
-
----
-
-## Profiles: Multi-Instance Support
-
-Hermes supports **profiles** — multiple fully isolated instances, each with its own
-`HERMES_HOME` directory (config, API keys, memory, sessions, skills, gateway, etc.).
-
-The core mechanism: `_apply_profile_override()` in `hermes_cli/main.py` sets
-`HERMES_HOME` before any module imports. All 119+ references to `get_hermes_home()`
-automatically scope to the active profile.
-
-### Rules for profile-safe code
-
-1. **Use `get_hermes_home()` for all HERMES_HOME paths.** Import from `hermes_constants`.
-   NEVER hardcode `~/.hermes` or `Path.home() / ".hermes"` in code that reads/writes state.
-   ```python
-   # GOOD
-   from hermes_constants import get_hermes_home
-   config_path = get_hermes_home() / "config.yaml"
-
-   # BAD — breaks profiles
-   config_path = Path.home() / ".hermes" / "config.yaml"
-   ```
-
-2. **Use `display_hermes_home()` for user-facing messages.** Import from `hermes_constants`.
-   This returns `~/.hermes` for default or `~/.hermes/profiles/<name>` for profiles.
-   ```python
-   # GOOD
-   from hermes_constants import display_hermes_home
-   print(f"Config saved to {display_hermes_home()}/config.yaml")
-
-   # BAD — shows wrong path for profiles
-   print("Config saved to ~/.hermes/config.yaml")
-   ```
-
-3. **Module-level constants are fine** — they cache `get_hermes_home()` at import time,
-   which is AFTER `_apply_profile_override()` sets the env var. Just use `get_hermes_home()`,
-   not `Path.home() / ".hermes"`.
-
-4. **Tests that mock `Path.home()` must also set `HERMES_HOME`** — since code now uses
-   `get_hermes_home()` (reads env var), not `Path.home() / ".hermes"`:
-   ```python
-   with patch.object(Path, "home", return_value=tmp_path), \
-        patch.dict(os.environ, {"HERMES_HOME": str(tmp_path / ".hermes")}):
-       ...
-   ```
-
-5. **Gateway platform adapters should use token locks** — if the adapter connects with
-   a unique credential (bot token, API key), call `acquire_scoped_lock()` from
-   `gateway.status` in the `connect()`/`start()` method and `release_scoped_lock()` in
-   `disconnect()`/`stop()`. This prevents two profiles from using the same credential.
-   See `gateway/platforms/telegram.py` for the canonical pattern.
-
-6. **Profile operations are HOME-anchored, not HERMES_HOME-anchored** — `_get_profiles_root()`
-   returns `Path.home() / ".hermes" / "profiles"`, NOT `get_hermes_home() / "profiles"`.
-   This is intentional — it lets `hermes -p coder profile list` see all profiles regardless
-   of which one is active.
-
-## Known Pitfalls
-
-### DO NOT hardcode `~/.hermes` paths
-Use `get_hermes_home()` from `hermes_constants` for code paths. Use `display_hermes_home()`
-for user-facing print/log messages. Hardcoding `~/.hermes` breaks profiles — each profile
-has its own `HERMES_HOME` directory. This was the source of 5 bugs fixed in PR #3575.
-
-### DO NOT use `simple_term_menu` for interactive menus
-Rendering bugs in tmux/iTerm2 — ghosting on scroll. Use `curses` (stdlib) instead. See `hermes_cli/tools_config.py` for the pattern.
-
-### DO NOT use `\033[K` (ANSI erase-to-EOL) in spinner/display code
-Leaks as literal `?[K` text under `prompt_toolkit`'s `patch_stdout`. Use space-padding: `f"\r{line}{' ' * pad}"`.
-
-### `_last_resolved_tool_names` is a process-global in `model_tools.py`
-`_run_single_child()` in `delegate_tool.py` saves and restores this global around subagent execution. If you add new code that reads this global, be aware it may be temporarily stale during child agent runs.
-
-### DO NOT hardcode cross-tool references in schema descriptions
-Tool schema descriptions must not mention tools from other toolsets by name (e.g., `browser_navigate` saying "prefer web_search"). Those tools may be unavailable (missing API keys, disabled toolset), causing the model to hallucinate calls to non-existent tools. If a cross-reference is needed, add it dynamically in `get_tool_definitions()` in `model_tools.py` — see the `browser_navigate` / `execute_code` post-processing blocks for the pattern.
-
-### Tests must not write to `~/.hermes/`
-The `_isolate_hermes_home` autouse fixture in `tests/conftest.py` redirects `HERMES_HOME` to a temp dir. Never hardcode `~/.hermes/` paths in tests.
-
-**Profile tests**: When testing profile features, also mock `Path.home()` so that
-`_get_profiles_root()` and `_get_default_hermes_home()` resolve within the temp dir.
-Use the pattern from `tests/hermes_cli/test_profiles.py`:
-```python
-@pytest.fixture
-def profile_env(tmp_path, monkeypatch):
-    home = tmp_path / ".hermes"
-    home.mkdir()
-    monkeypatch.setattr(Path, "home", lambda: tmp_path)
-    monkeypatch.setenv("HERMES_HOME", str(home))
-    return home
-```
-
----
-
-## Testing
-
-```bash
-source venv/bin/activate
-python -m pytest tests/ -q          # Full suite (~3000 tests, ~3 min)
-python -m pytest tests/test_model_tools.py -q   # Toolset resolution
-python -m pytest tests/test_cli_init.py -q       # CLI config loading
-python -m pytest tests/gateway/ -q               # Gateway tests
-python -m pytest tests/tools/ -q                 # Tool-level tests
-```
-
-Always run the full suite before pushing changes.
+> > **Hermes Agent — Implementation Notes**
+
+# Design System: Claude (Anthropic)
+
+
+> **Hermes Agent — Implementation Notes**
+>
+> The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
+> - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
+> - **Font stack (CSS):** `font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;`
+> - **Mono stack (CSS):** `font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;`
+> ```html
+> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+> ```
+> Use `write_file` to create HTML, serve via `generative-widgets` skill (cloudflared tunnel).
+> Verify visual accuracy with `browser_vision` after generating.
+
+## 1. Visual Theme & Atmosphere
+
+Claude's interface is a literary salon reimagined as a product page — warm, unhurried, and quietly intellectual. The entire experience is built on a parchment-toned canvas (`#f5f4ed`) that deliberately evokes the feeling of high-quality paper rather than a digital surface. Where most AI product pages lean into cold, futuristic aesthetics, Claude's design radiates human warmth, as if the AI itself has good taste in interior design.
+
+The signature move is the custom Anthropic Serif typeface — a medium-weight serif with generous proportions that gives every headline the gravitas of a book title. Combined with organic, hand-drawn-feeling illustrations in terracotta (`#c96442`), black, and muted green, the visual language says "thoughtful companion" rather than "powerful tool." The serif headlines breathe at tight-but-comfortable line-heights (1.10–1.30), creating a cadence that feels more like reading an essay than scanning a product page.
+
+What makes Claude's design truly distinctive is its warm neutral palette. Every gray has a yellow-brown undertone (`#5e5d59`, `#87867f`, `#4d4c48`) — there are no cool blue-grays anywhere. Borders are cream-tinted (`#f0eee6`, `#e8e6dc`), shadows use warm transparent blacks, and even the darkest surfaces (`#141413`, `#30302e`) carry a barely perceptible olive warmth. This chromatic consistency creates a space that feels lived-in and trustworthy.
+
+**Key Characteristics:**
+- Warm parchment canvas (`#f5f4ed`) evoking premium paper, not screens
+- Custom Anthropic type family: Serif for headlines, Sans for UI, Mono for code
+- Terracotta brand accent (`#c96442`) — warm, earthy, deliberately un-tech
+- Exclusively warm-toned neutrals — every gray has a yellow-brown undertone
+- Organic, editorial illustrations replacing typical tech iconography
+- Ring-based shadow system (`0px 0px 0px 1px`) creating border-like depth without visible borders
+- Magazine-like pacing with generous section spacing and serif-driven hierarchy
+
+## 2. Color Palette & Roles
+
+### Primary
+- **Anthropic Near Black** (`#141413`): The primary text color and dark-theme surface — not pure black but a warm, almost olive-tinted dark that's gentler on the eyes. The warmest "black" in any major tech brand.
+- **Terracotta Brand** (`#c96442`): The core brand color — a burnt orange-brown used for primary CTA buttons, brand moments, and the signature accent. Deliberately earthy and un-tech.
+- **Coral Accent** (`#d97757`): A lighter, warmer variant of the brand color used for text accents, links on dark surfaces, and secondary emphasis.
+
+### Secondary & Accent
+- **Error Crimson** (`#b53333`): A deep, warm red for error states — serious without being alarming.
+- **Focus Blue** (`#3898ec`): Standard blue for input focus rings — the only cool color in the entire system, used purely for accessibility.
+
+### Surface & Background
+- **Parchment** (`#f5f4ed`): The primary page background — a warm cream with a yellow-green tint that feels like aged paper. The emotional foundation of the entire design.
+- **Ivory** (`#faf9f5`): The lightest surface — used for cards and elevated containers on the Parchment background. Barely distinguishable but creates subtle layering.
+- **Pure White** (`#ffffff`): Reserved for specific button surfaces and maximum-contrast elements.
+- **Warm Sand** (`#e8e6dc`): Button backgrounds and prominent interactive surfaces — a noticeably warm light gray.
+- **Dark Surface** (`#30302e`): Dark-theme containers, nav borders, and elevated dark elements — warm charcoal.
+- **Deep Dark** (`#141413`): Dark-theme page background and primary dark surface.
+
+### Neutrals & Text
+- **Charcoal Warm** (`#4d4c48`): Button text on light warm surfaces — the go-to dark-on-light text.
+- **Olive Gray** (`#5e5d59`): Secondary body text — a distinctly warm medium-dark gray.
+- **Stone Gray** (`#87867f`): Tertiary text, footnotes, and de-emphasized metadata.
+- **Dark Warm** (`#3d3d3a`): Dark text links and emphasized secondary text.
+- **Warm Silver** (`#b0aea5`): Text on dark surfaces — a warm, parchment-tinted light gray.
+
+### Semantic & Accent
+- **Border Cream** (`#f0eee6`): Standard light-theme border — barely visible warm cream, creating the gentlest possible containment.
+- **Border Warm** (`#e8e6dc`): Prominent borders, section dividers, and emphasized containment on light surfaces.
+- **Border Dark** (`#30302e`): Standard border on dark surfaces — maintains the warm tone.
+- **Ring Warm** (`#d1cfc5`): Shadow ring color for button hover/focus states.
+- **Ring Subtle** (`#dedc01`): Secondary ring variant for lighter interactive surfaces.
+- **Ring Deep** (`#c2c0b6`): Deeper ring for active/pressed states.
+
+### Gradient System
+- Claude's design is **gradient-free** in the traditional sense. Depth and visual richness come from the interplay of warm surface tones, organic illustrations, and light/dark section alternation. The warm palette itself creates a "gradient" effect as the eye moves through cream → sand → stone → charcoal → black sections.
+
+## 3. Typography Rules
+
+### Font Family
+- **Headline**: `Anthropic Serif`, with fallback: `Georgia`
+- **Body / UI**: `Anthropic Sans`, with fallback: `Arial`
+- **Code**: `Anthropic Mono`, with fallback: `Arial`
+
+*Note: These are custom typefaces. For external implementations, Georgia serves as the serif substitute and system-ui/Inter as the sans substitute.*
+
+### Hierarchy
+
+| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
+|------|------|------|--------|-------------|----------------|-------|
+| Display / Hero | Anthropic Serif | 64px (4rem) | 500 | 1.10 (tight) | normal | Maximum impact, book-title presence |
+| Section Heading | Anthropic Serif | 52px (3.25rem) | 500 | 1.20 (tight) | normal | Feature section anchors |
+| Sub-heading Large | Anthropic Serif | 36–36.8px (~2.3rem) | 500 | 1.30 | normal | Secondary section markers |
+| Sub-heading | Anthropic Serif | 32px (2rem) | 500 | 1.10 (tight) | normal | Card titles, feature names |
+| Sub-heading Small | Anthropic Serif | 25–25.6px (~1.6rem) | 500 | 1.20 | normal | Smaller section titles |
+| Feature Title | Anthropic Serif | 20.8px (1.3rem) | 500 | 1.20 | normal | Small feature headings |
+| Body Serif | Anthropic Serif | 17px (1.06rem) | 400 | 1.60 (relaxed) | normal | Serif body text (editorial passages) |
+| Body Large | Anthropic Sans | 20px (1.25rem) | 400 | 1.60 (relaxed) | normal | Intro paragraphs |
+| Body / Nav | Anthropic Sans | 17px (1.06rem) | 400–500 | 1.00–1.60 | normal | Navigation links, UI text |
+| Body Standard | Anthropic Sans | 16px (1rem) | 400–500 | 1.25–1.60 | normal | Standard body, button text |
+| Body Small | Anthropic Sans | 15px (0.94rem) | 400–500 | 1.00–1.60 | normal | Compact body text |
+| Caption | Anthropic Sans | 14px (0.88rem) | 400 | 1.43 | normal | Metadata, descriptions |
+| Label | Anthropic Sans | 12px (0.75rem) | 400–500 | 1.25–1.60 | 0.12px | Badges, small labels |
+| Overline | Anthropic Sans | 10px (0.63rem) | 400 | 1.60 | 0.5px | Uppercase overline labels |
+| Micro | Anthropic Sans | 9.6px (0.6rem) | 400 | 1.60 | 0.096px | Smallest text |
+| Code | Anthropic Mono | 15px (0.94rem) | 400 | 1.60 | -0.32px | Inline code, terminal |
+
+### Principles
+- **Serif for authority, sans for utility**: Anthropic Serif carries all headline content with medium weight (500), giving every heading the gravitas of a published title. Anthropic Sans handles all functional UI text — buttons, labels, navigation — with quiet efficiency.
+- **Single weight for serifs**: All Anthropic Serif headings use weight 500 — no bold, no light. This creates a consistent "voice" across all headline sizes, as if the same author wrote every heading.
+- **Relaxed body line-height**: Most body text uses 1.60 line-height — significantly more generous than typical tech sites (1.4–1.5). This creates a reading experience closer to a book than a dashboard.
+- **Tight-but-not-compressed headings**: Line-heights of 1.10–1.30 for headings are tight but never claustrophobic. The serif letterforms need breathing room that sans-serif fonts don't.
+- **Micro letter-spacing on labels**: Small sans text (12px and below) uses deliberate letter-spacing (0.12px–0.5px) to maintain readability at tiny sizes.
+
+## 4. Component Stylings
+
+### Buttons
+
+**Warm Sand (Secondary)**
+- Background: Warm Sand (`#e8e6dc`)
+- Text: Charcoal Warm (`#4d4c48`)
+- Padding: 0px 12px 0px 8px (asymmetric — icon-first layout)
+- Radius: comfortably rounded (8px)
+- Shadow: ring-based (`#e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px`)
+- The workhorse button — warm, unassuming, clearly interactive
+
+**White Surface**
+- Background: Pure White (`#ffffff`)
+- Text: Anthropic Near Black (`#141413`)
+- Padding: 8px 16px 8px 12px
+- Radius: generously rounded (12px)
+- Hover: shifts to secondary background color
+- Clean, elevated button for light surfaces
+
+**Dark Charcoal**
+- Background: Dark Surface (`#30302e`)
+- Text: Ivory (`#faf9f5`)
+- Padding: 0px 12px 0px 8px
+- Radius: comfortably rounded (8px)
+- Shadow: ring-based (`#30302e 0px 0px 0px 0px, ring 0px 0px 0px 1px`)
+- The inverted variant for dark-on-light emphasis
+
+**Brand Terracotta**
+- Background: Terracotta Brand (`#c96442`)
+- Text: Ivory (`#faf9f5`)
+- Radius: 8–12px
+- Shadow: ring-based (`#c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px`)
+- The primary CTA — the only button with chromatic color
+
+**Dark Primary**
+- Background: Anthropic Near Black (`#141413`)
+- Text: Warm Silver (`#b0aea5`)
+- Padding: 9.6px 16.8px
+- Radius: generously rounded (12px)
+- Border: thin solid Dark Surface (`1px solid #30302e`)
+- Used on dark theme surfaces
+
+### Cards & Containers
+- Background: Ivory (`#faf9f5`) or Pure White (`#ffffff`) on light surfaces; Dark Surface (`#30302e`) on dark
+- Border: thin solid Border Cream (`1px solid #f0eee6`) on light; `1px solid #30302e` on dark
+- Radius: comfortably rounded (8px) for standard cards; generously rounded (16px) for featured; very rounded (32px) for hero containers and embedded media
+- Shadow: whisper-soft (`rgba(0,0,0,0.05) 0px 4px 24px`) for elevated content
+- Ring shadow: `0px 0px 0px 1px` patterns for interactive card states
+- Section borders: `1px 0px 0px` (top-only) for list item separators
+
+### Inputs & Forms
+- Text: Anthropic Near Black (`#141413`)
+- Padding: 1.6px 12px (very compact vertical)
+- Border: standard warm borders
+- Focus: ring with Focus Blue (`#3898ec`) border-color — the only cool color moment
+- Radius: generously rounded (12px)
+
+### Navigation
+- Sticky top nav with warm background
+- Logo: Claude wordmark in Anthropic Near Black
+- Links: mix of Near Black (`#141413`), Olive Gray (`#5e5d59`), and Dark Warm (`#3d3d3a`)
+- Nav border: `1px solid #30302e` (dark) or `1px solid #f0eee6` (light)
+- CTA: Terracotta Brand button or White Surface button
+- Hover: text shifts to foreground-primary, no decoration
+
+### Image Treatment
+- Product screenshots showing the Claude chat interface
+- Generous border-radius on media (16–32px)
+- Embedded video players with rounded corners
+- Dark UI screenshots provide contrast against warm light canvas
+- Organic, hand-drawn illustrations for conceptual sections
+
+### Distinctive Components
+
+**Model Comparison Cards**
+- Opus 4.5, Sonnet 4.5, Haiku 4.5 presented in a clean card grid
+- Each model gets a bordered card with name, description, and capability badges
+- Border Warm (`#e8e6dc`) separation between items
+
+**Organic Illustrations**
+- Hand-drawn-feeling vector illustrations in terracotta, black, and muted green
+- Abstract, conceptual rather than literal product diagrams
+- The primary visual personality — no other AI company uses this style
+
+**Dark/Light Section Alternation**
+- The page alternates between Parchment light and Near Black dark sections
+- Creates a reading rhythm like chapters in a book
+- Each section feels like a distinct environment
+
+## 5. Layout Principles
+
+### Spacing System
+- Base unit: 8px
+- Scale: 3px, 4px, 6px, 8px, 10px, 12px, 16px, 20px, 24px, 30px
+- Button padding: asymmetric (0px 12px 0px 8px) or balanced (8px 16px)
+- Card internal padding: approximately 24–32px
+- Section vertical spacing: generous (estimated 80–120px between major sections)
+
+### Grid & Container
+- Max container width: approximately 1200px, centered
+- Hero: centered with editorial layout
+- Feature sections: single-column or 2–3 column card grids
+- Model comparison: clean 3-column grid
+- Full-width dark sections breaking the container for emphasis
+
+### Whitespace Philosophy
+- **Editorial pacing**: Each section breathes like a magazine spread — generous top/bottom margins create natural reading pauses.
+- **Serif-driven rhythm**: The serif headings establish a literary cadence that demands more whitespace than sans-serif designs.
+- **Content island approach**: Sections alternate between light and dark environments, creating distinct "rooms" for each message.
+
+### Border Radius Scale
+- Sharp (4px): Minimal inline elements
+- Subtly rounded (6–7.5px): Small buttons, secondary interactive elements
+- Comfortably rounded (8–8.5px): Standard buttons, cards, containers
+- Generously rounded (12px): Primary buttons, input fields, nav elements
+- Very rounded (16px): Featured containers, video players, tab lists
+- Highly rounded (24px): Tag-like elements, highlighted containers
+- Maximum rounded (32px): Hero containers, embedded media, large cards
+
+## 6. Depth & Elevation
+
+| Level | Treatment | Use |
+|-------|-----------|-----|
+| Flat (Level 0) | No shadow, no border | Parchment background, inline text |
+| Contained (Level 1) | `1px solid #f0eee6` (light) or `1px solid #30302e` (dark) | Standard cards, sections |
+| Ring (Level 2) | `0px 0px 0px 1px` ring shadows using warm grays | Interactive cards, buttons, hover states |
+| Whisper (Level 3) | `rgba(0,0,0,0.05) 0px 4px 24px` | Elevated feature cards, product screenshots |
+| Inset (Level 4) | `inset 0px 0px 0px 1px` at 15% opacity | Active/pressed button states |
+
+**Shadow Philosophy**: Claude communicates depth through **warm-toned ring shadows** rather than traditional drop shadows. The signature `0px 0px 0px 1px` pattern creates a border-like halo that's softer than an actual border — it's a shadow pretending to be a border, or a border that's technically a shadow. When drop shadows do appear, they're extremely soft (0.05 opacity, 24px blur) — barely visible lifts that suggest floating rather than casting.
+
+### Decorative Depth
+- **Light/Dark alternation**: The most dramatic depth effect comes from alternating between Parchment (`#f5f4ed`) and Near Black (`#141413`) sections — entire sections shift elevation by changing the ambient light level.
+- **Warm ring halos**: Button and card interactions use ring shadows that match the warm palette — never cool-toned or generic gray.
+
+## 7. Do's and Don'ts
+
+### Do
+- Use Parchment (`#f5f4ed`) as the primary light background — the warm cream tone IS the Claude personality
+- Use Anthropic Serif at weight 500 for all headlines — the single-weight consistency is intentional
+- Use Terracotta Brand (`#c96442`) only for primary CTAs and the highest-signal brand moments
+- Keep all neutrals warm-toned — every gray should have a yellow-brown undertone
+- Use ring shadows (`0px 0px 0px 1px`) for interactive element states instead of drop shadows
+- Maintain the editorial serif/sans hierarchy — serif for content headlines, sans for UI
+- Use generous body line-height (1.60) for a literary reading experience
+- Alternate between light and dark sections to create chapter-like page rhythm
+- Apply generous border-radius (12–32px) for a soft, approachable feel
+
+### Don't
+- Don't use cool blue-grays anywhere — the palette is exclusively warm-toned
+- Don't use bold (700+) weight on Anthropic Serif — weight 500 is the ceiling for serifs
+- Don't introduce saturated colors beyond Terracotta — the palette is deliberately muted
+- Don't use sharp corners (< 6px radius) on buttons or cards — softness is core to the identity
+- Don't apply heavy drop shadows — depth comes from ring shadows and background color shifts
+- Don't use pure white (`#ffffff`) as a page background — Parchment (`#f5f4ed`) or Ivory (`#faf9f5`) are always warmer
+- Don't use geometric/tech-style illustrations — Claude's illustrations are organic and hand-drawn-feeling
+- Don't reduce body line-height below 1.40 — the generous spacing supports the editorial personality
+- Don't use monospace fonts for non-code content — Anthropic Mono is strictly for code
+- Don't mix in sans-serif for headlines — the serif/sans split is the typographic identity
+
+## 8. Responsive Behavior
+
+### Breakpoints
+| Name | Width | Key Changes |
+|------|-------|-------------|
+| Small Mobile | <479px | Minimum layout, stacked everything, compact typography |
+| Mobile | 479–640px | Single column, hamburger nav, reduced heading sizes |
+| Large Mobile | 640–767px | Slightly wider content area |
+| Tablet | 768–991px | 2-column grids begin, condensed nav |
+| Desktop | 992px+ | Full multi-column layout, expanded nav, maximum hero typography (64px) |
+
+### Touch Targets
+- Buttons use generous padding (8–16px vertical minimum)
+- Navigation links adequately spaced for thumb navigation
+- Card surfaces serve as large touch targets
+- Minimum recommended: 44x44px
+
+### Collapsing Strategy
+- **Navigation**: Full horizontal nav collapses to hamburger on mobile
+- **Feature sections**: Multi-column → stacked single column
+- **Hero text**: 64px → 36px → ~25px progressive scaling
+- **Model cards**: 3-column → stacked vertical
+- **Section padding**: Reduces proportionally but maintains editorial rhythm
+- **Illustrations**: Scale proportionally, maintain aspect ratios
+
+### Image Behavior
+- Product screenshots scale proportionally within rounded containers
+- Illustrations maintain quality at all sizes
+- Video embeds maintain 16:9 aspect ratio with rounded corners
+- No art direction changes between breakpoints
+
+## 9. Agent Prompt Guide
+
+### Quick Color Reference
+- Brand CTA: "Terracotta Brand (#c96442)"
+- Page Background: "Parchment (#f5f4ed)"
+- Card Surface: "Ivory (#faf9f5)"
+- Primary Text: "Anthropic Near Black (#141413)"
+- Secondary Text: "Olive Gray (#5e5d59)"
+- Tertiary Text: "Stone Gray (#87867f)"
+- Borders (light): "Border Cream (#f0eee6)"
+- Dark Surface: "Dark Surface (#30302e)"
+
+### Example Component Prompts
+- "Create a hero section on Parchment (#f5f4ed) with a headline at 64px Anthropic Serif weight 500, line-height 1.10. Use Anthropic Near Black (#141413) text. Add a subtitle in Olive Gray (#5e5d59) at 20px Anthropic Sans with 1.60 line-height. Place a Terracotta Brand (#c96442) CTA button with Ivory text, 12px radius."
+- "Design a feature card on Ivory (#faf9f5) with a 1px solid Border Cream (#f0eee6) border and comfortably rounded corners (8px). Title in Anthropic Serif at 25px weight 500, description in Olive Gray (#5e5d59) at 16px Anthropic Sans. Add a whisper shadow (rgba(0,0,0,0.05) 0px 4px 24px)."
+- "Build a dark section on Anthropic Near Black (#141413) with Ivory (#faf9f5) headline text in Anthropic Serif at 52px weight 500. Use Warm Silver (#b0aea5) for body text. Borders in Dark Surface (#30302e)."
+- "Create a button in Warm Sand (#e8e6dc) with Charcoal Warm (#4d4c48) text, 8px radius, and a ring shadow (0px 0px 0px 1px #d1cfc5). Padding: 0px 12px 0px 8px."
+- "Design a model comparison grid with three cards on Ivory surfaces. Each card gets a Border Warm (#e8e6dc) top border, model name in Anthropic Serif at 25px, and description in Olive Gray at 15px Anthropic Sans."
+
+### Iteration Guide
+1. Focus on ONE component at a time
+2. Reference specific color names — "use Olive Gray (#5e5d59)" not "make it gray"
+3. Always specify warm-toned variants — no cool grays
+4. Describe serif vs sans usage explicitly — "Anthropic Serif for the heading, Anthropic Sans for the label"
+5. For shadows, use "ring shadow (0px 0px 0px 1px)" or "whisper shadow" — never generic "drop shadow"
+6. Specify the warm background — "on Parchment (#f5f4ed)" or "on Near Black (#141413)"
+7. Keep illustrations organic and conceptual — describe "hand-drawn-feeling" style
 
 ---
 > Source: [pengchengxia75-arch/hermes-agent-windows](https://github.com/pengchengxia75-arch/hermes-agent-windows) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
