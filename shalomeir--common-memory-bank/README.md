@@ -1,8 +1,6 @@
 # common-memory-bank
 
-> Source: [shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank) — distributed by [TomeVault](https://tomevault.io)
-
-A collection of integrated memory bank rules for AI development tools.
+> Source: [shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [shalomeir/common-memory-bank](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
