@@ -15459,6 +15459,11 @@
       "description": "td"
     },
     {
+      "name": "pakerwreah--calendr",
+      "source": "./pakerwreah--calendr",
+      "description": "Calendr"
+    },
+    {
       "name": "josephburnett--jd",
       "source": "./josephburnett--jd",
       "description": "jd"
@@ -15467,6 +15472,16 @@
       "name": "y4tacker--javasec",
       "source": "./y4tacker--javasec",
       "description": "JavaSec"
+    },
+    {
+      "name": "pakerwreah--calendr",
+      "source": "./pakerwreah--calendr",
+      "description": "Calendr"
+    },
+    {
+      "name": "pakerwreah--calendr",
+      "source": "./pakerwreah--calendr",
+      "description": "Calendr"
     },
     {
       "name": "public-clis--twitter-cli",
@@ -16062,6 +16077,11 @@
       "name": "stripe--stripe-cli",
       "source": "./stripe--stripe-cli",
       "description": "stripe-cli"
+    },
+    {
+      "name": "azure--aks",
+      "source": "./azure--aks",
+      "description": "AKS"
     },
     {
       "name": "yanjieze--gmr",
@@ -29799,6 +29819,36 @@
       "description": "ical4j"
     },
     {
+      "name": "pfrest--pfsense-pkg-restapi",
+      "source": "./pfrest--pfsense-pkg-restapi",
+      "description": "pfSense-pkg-RESTAPI"
+    },
+    {
+      "name": "pfrest--pfsense-pkg-restapi",
+      "source": "./pfrest--pfsense-pkg-restapi",
+      "description": "pfSense-pkg-RESTAPI"
+    },
+    {
+      "name": "pfrest--pfsense-pkg-restapi",
+      "source": "./pfrest--pfsense-pkg-restapi",
+      "description": "pfSense-pkg-RESTAPI"
+    },
+    {
+      "name": "pfrest--pfsense-pkg-restapi",
+      "source": "./pfrest--pfsense-pkg-restapi",
+      "description": "pfSense-pkg-RESTAPI"
+    },
+    {
+      "name": "pfrest--pfsense-pkg-restapi",
+      "source": "./pfrest--pfsense-pkg-restapi",
+      "description": "pfSense-pkg-RESTAPI"
+    },
+    {
+      "name": "pfrest--pfsense-pkg-restapi",
+      "source": "./pfrest--pfsense-pkg-restapi",
+      "description": "pfSense-pkg-RESTAPI"
+    },
+    {
       "name": "danielmiessler--substrate",
       "source": "./danielmiessler--substrate",
       "description": "An Open-source Framework for Human Understanding, Meaning, and Progress."
@@ -31717,6 +31767,16 @@
       "name": "havendv--h-notifyicon",
       "source": "./havendv--h-notifyicon",
       "description": "H.NotifyIcon"
+    },
+    {
+      "name": "alwurts--simple-ai",
+      "source": "./alwurts--simple-ai",
+      "description": "simple-ai"
+    },
+    {
+      "name": "alwurts--simple-ai",
+      "source": "./alwurts--simple-ai",
+      "description": "simple-ai"
     },
     {
       "name": "flowelement-ai--m-flow",
@@ -36379,6 +36439,11 @@
       "description": "evo-ai"
     },
     {
+      "name": "alpine-collective--alpinejs-devtools",
+      "source": "./alpine-collective--alpinejs-devtools",
+      "description": "alpinejs-devtools"
+    },
+    {
       "name": "chorus-aidlc--chorus",
       "source": "./chorus-aidlc--chorus",
       "description": "The Agent Harness for AI-Human Collaboration, inspired by the AI-DLC (AI-Driven Development Lifecycle)"
@@ -37739,6 +37804,11 @@
       "description": "operator"
     },
     {
+      "name": "miantiao-me--cloud-code",
+      "source": "./miantiao-me--cloud-code",
+      "description": "cloud-code"
+    },
+    {
       "name": "qualisero--awesome-pi-agent",
       "source": "./qualisero--awesome-pi-agent",
       "description": "Awesome list of add-ons, hooks, tools, skills, and resources for the pi coding agent (pi-mono)."
@@ -38407,6 +38477,11 @@
       "name": "jannikmi--timezonefinder",
       "source": "./jannikmi--timezonefinder",
       "description": "timezonefinder"
+    },
+    {
+      "name": "mnehmos--mnehmos-multi-agent-framework",
+      "source": "./mnehmos--mnehmos-multi-agent-framework",
+      "description": "mnehmos.multi-agent.framework"
     },
     {
       "name": "dannote--figma-use",
@@ -40897,6 +40972,51 @@
       "name": "scottcjn--rustchain",
       "source": "./scottcjn--rustchain",
       "description": "Rustchain"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
+    },
+    {
+      "name": "getmeridian--meridian",
+      "source": "./getmeridian--meridian",
+      "description": "meridian"
     },
     {
       "name": "docfork--docfork",
@@ -44737,6 +44857,26 @@
       "name": "epam--indigo",
       "source": "./epam--indigo",
       "description": "Indigo"
+    },
+    {
+      "name": "nirholas--xactions",
+      "source": "./nirholas--xactions",
+      "description": "XActions"
+    },
+    {
+      "name": "nirholas--xactions",
+      "source": "./nirholas--xactions",
+      "description": "XActions"
+    },
+    {
+      "name": "nirholas--xactions",
+      "source": "./nirholas--xactions",
+      "description": "XActions"
+    },
+    {
+      "name": "nirholas--xactions",
+      "source": "./nirholas--xactions",
+      "description": "XActions"
     },
     {
       "name": "nirholas--xactions",
@@ -51627,6 +51767,11 @@
       "name": "lehuygiang28--vnpay",
       "source": "./lehuygiang28--vnpay",
       "description": "vnpay"
+    },
+    {
+      "name": "sotopia-lab--sotopia",
+      "source": "./sotopia-lab--sotopia",
+      "description": "sotopia"
     },
     {
       "name": "aidotnet--yxaicode",
@@ -61339,6 +61484,51 @@
       "description": "TeViT"
     },
     {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
+      "name": "felipebarcelospro--igniter-js",
+      "source": "./felipebarcelospro--igniter-js",
+      "description": "igniter-js"
+    },
+    {
       "name": "millionco--debug-agent",
       "source": "./millionco--debug-agent",
       "description": "Debugging skill for AI agents"
@@ -67084,6 +67274,46 @@
       "description": "assemblyai-python-sdk"
     },
     {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
+      "name": "lfnovo--esperanto",
+      "source": "./lfnovo--esperanto",
+      "description": "esperanto"
+    },
+    {
       "name": "marianfoo--sap-ai-mcp-servers",
       "source": "./marianfoo--sap-ai-mcp-servers",
       "description": "A complete list of SAP MCP Servers and SAP AI Skills"
@@ -69702,6 +69932,81 @@
       "name": "apache--pekko-http",
       "source": "./apache--pekko-http",
       "description": "pekko-http"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
+    },
+    {
+      "name": "hukusuke1007--flutter-app-template",
+      "source": "./hukusuke1007--flutter-app-template",
+      "description": "flutter_app_template"
     },
     {
       "name": "hukusuke1007--flutter-app-template",
@@ -75714,6 +76019,11 @@
       "description": "CosmosDB"
     },
     {
+      "name": "plagueho--cosmosdb",
+      "source": "./plagueho--cosmosdb",
+      "description": "CosmosDB"
+    },
+    {
       "name": "jduncan-rva--skill-porter",
       "source": "./jduncan-rva--skill-porter",
       "description": "Universal tool to convert Claude Code skills to Gemini CLI extensions and vice versa"
@@ -77007,6 +77317,61 @@
       "name": "glowbom--glowby",
       "source": "./glowbom--glowby",
       "description": "glowby"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
+    },
+    {
+      "name": "littlecareless--dish-ai-commit",
+      "source": "./littlecareless--dish-ai-commit",
+      "description": "dish-ai-commit"
     },
     {
       "name": "kaihv--open-banking-chile",
@@ -79909,6 +80274,16 @@
       "description": "sillyChat"
     },
     {
+      "name": "surprise-tech--huoxing-links",
+      "source": "./surprise-tech--huoxing-links",
+      "description": "huoxing-links"
+    },
+    {
+      "name": "surprise-tech--huoxing-links",
+      "source": "./surprise-tech--huoxing-links",
+      "description": "huoxing-links"
+    },
+    {
       "name": "hoangnb24--skills",
       "source": "./hoangnb24--skills",
       "description": "skills"
@@ -81247,6 +81622,11 @@
       "name": "andriykalashnykov--spring-microservices-k8s",
       "source": "./andriykalashnykov--spring-microservices-k8s",
       "description": "spring-microservices-k8s"
+    },
+    {
+      "name": "dedalus-labs--dedalus-mcp-python",
+      "source": "./dedalus-labs--dedalus-mcp-python",
+      "description": "dedalus-mcp-python"
     },
     {
       "name": "erha19--ping-island",
@@ -84322,6 +84702,16 @@
       "name": "yuxiang1995--icdar2021-mfd",
       "source": "./yuxiang1995--icdar2021-mfd",
       "description": "ICDAR2021_MFD"
+    },
+    {
+      "name": "ntcoding--living-architecture",
+      "source": "./ntcoding--living-architecture",
+      "description": "living-architecture"
+    },
+    {
+      "name": "ntcoding--living-architecture",
+      "source": "./ntcoding--living-architecture",
+      "description": "living-architecture"
     },
     {
       "name": "ntcoding--living-architecture",
@@ -101194,6 +101584,21 @@
       "description": "liliumai"
     },
     {
+      "name": "shahfarzane--opencode-mobile",
+      "source": "./shahfarzane--opencode-mobile",
+      "description": "opencode-mobile"
+    },
+    {
+      "name": "shahfarzane--opencode-mobile",
+      "source": "./shahfarzane--opencode-mobile",
+      "description": "opencode-mobile"
+    },
+    {
+      "name": "shahfarzane--opencode-mobile",
+      "source": "./shahfarzane--opencode-mobile",
+      "description": "opencode-mobile"
+    },
+    {
       "name": "weaviate--agent-skills",
       "source": "./weaviate--agent-skills",
       "description": "Agent Skills to empower developers building AI applications with Weaviate."
@@ -108502,6 +108907,11 @@
       "name": "sallyn0225--gemini-rss-app",
       "source": "./sallyn0225--gemini-rss-app",
       "description": "gemini-rss-app"
+    },
+    {
+      "name": "hermeticormus--libreuiux-claude-code",
+      "source": "./hermeticormus--libreuiux-claude-code",
+      "description": "LibreUIUX-Claude-Code"
     },
     {
       "name": "dotnet--maui-labs",
@@ -119407,6 +119817,11 @@
       "name": "lootlocker--unity-sdk",
       "source": "./lootlocker--unity-sdk",
       "description": "unity-sdk"
+    },
+    {
+      "name": "link2004--novim",
+      "source": "./link2004--novim",
+      "description": "novim"
     },
     {
       "name": "0xranx--agentbrief",
@@ -133224,6 +133639,11 @@
       "description": "sanguine"
     },
     {
+      "name": "synapsecns--sanguine",
+      "source": "./synapsecns--sanguine",
+      "description": "sanguine"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -134607,6 +135027,16 @@
       "name": "johnfkoo951--cmds-eagle",
       "source": "./johnfkoo951--cmds-eagle",
       "description": "cmds-eagle"
+    },
+    {
+      "name": "suge8--bready",
+      "source": "./suge8--bready",
+      "description": "Bready"
+    },
+    {
+      "name": "suge8--bready",
+      "source": "./suge8--bready",
+      "description": "Bready"
     },
     {
       "name": "suge8--bready",
@@ -137304,6 +137734,11 @@
       "description": "open-zeu"
     },
     {
+      "name": "takuphilchan--offgrid-llm",
+      "source": "./takuphilchan--offgrid-llm",
+      "description": "offgrid-llm"
+    },
+    {
       "name": "andrew-malitchuk--kite-aos",
       "source": "./andrew-malitchuk--kite-aos",
       "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards."
@@ -138732,6 +139167,96 @@
       "name": "azure--kafka-sink-azure-kusto",
       "source": "./azure--kafka-sink-azure-kusto",
       "description": "kafka-sink-azure-kusto"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
+    },
+    {
+      "name": "ruaan-deysel--ha-philips-airpurifier",
+      "source": "./ruaan-deysel--ha-philips-airpurifier",
+      "description": "ha-philips-airpurifier"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -167284,6 +167809,11 @@
       "description": "developer-portal"
     },
     {
+      "name": "ardanlabs--usdl",
+      "source": "./ardanlabs--usdl",
+      "description": "usdl"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -176852,6 +177382,11 @@
       "name": "chanzuckerberg--cryoet-data-portal",
       "source": "./chanzuckerberg--cryoet-data-portal",
       "description": "cryoet-data-portal"
+    },
+    {
+      "name": "dnyoussef--context-cascade",
+      "source": "./dnyoussef--context-cascade",
+      "description": "context-cascade"
     },
     {
       "name": "inureyes--gyeol",
@@ -318869,6 +319404,41 @@
       "description": "AbelWorkflow"
     },
     {
+      "name": "mablanco--pricegrab",
+      "source": "./mablanco--pricegrab",
+      "description": "Android app that compares two prices with different quantities and tells you which one is cheaper per unit. Modern UI, accessible, bilingual (ES/EN), offline-first."
+    },
+    {
+      "name": "whiterabb17--r3ngine",
+      "source": "./whiterabb17--r3ngine",
+      "description": "r3ngine is the V3 rebirth of the automated reconnaissance framework for web applications with a focus on dynamic streamlined recon process, backed by a database, & simple yet intuitive User Interface."
+    },
+    {
+      "name": "czarnak--tia-git-addin",
+      "source": "./czarnak--tia-git-addin",
+      "description": "TIA Portal V21 Add-In eabling comfortable work with TIA Portal Version Control."
+    },
+    {
+      "name": "mablanco--pricegrab",
+      "source": "./mablanco--pricegrab",
+      "description": "Android app that compares two prices with different quantities and tells you which one is cheaper per unit. Modern UI, accessible, bilingual (ES/EN), offline-first."
+    },
+    {
+      "name": "sirmarkz--staff-engineer-mode",
+      "source": "./sirmarkz--staff-engineer-mode",
+      "description": "Staff-level engineering judgment for coding agents, from design to production."
+    },
+    {
+      "name": "mablanco--pricegrab",
+      "source": "./mablanco--pricegrab",
+      "description": "Android app that compares two prices with different quantities and tells you which one is cheaper per unit. Modern UI, accessible, bilingual (ES/EN), offline-first."
+    },
+    {
+      "name": "ali--claude-colab",
+      "source": "./ali--claude-colab",
+      "description": "claude-colab"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -342962,6 +343532,11 @@
       "name": "yfge--agent-harness-skills",
       "source": "./yfge--agent-harness-skills",
       "description": "Turn real software repos into agent-ready engineering environments with entrypoints, validation, evidence, and delivery records."
+    },
+    {
+      "name": "automation-development-office--ado",
+      "source": "./automation-development-office--ado",
+      "description": "This repository will house the Automation Development Office Ansible collection"
     },
     {
       "name": "cheerhuan--save-your-token",
