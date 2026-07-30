@@ -1,0 +1,9 @@
+{
+  "name": "skills--build-applications-w-copilot-agent-mode",
+  "displayName": "build-applications-w-copilot-agent-mode",
+  "description": "build-applications-w-copilot-agent-mode",
+  "version": "1.0.0",
+  "author": "skills",
+  "homepage": "https://github.com/skills/build-applications-w-copilot-agent-mode",
+  "skills": []
+}
