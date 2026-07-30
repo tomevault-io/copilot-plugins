@@ -1,0 +1,9 @@
+{
+  "name": "paloaltonetworks--lab-aws-gwlb-vmseries",
+  "displayName": "lab-aws-gwlb-vmseries",
+  "description": "lab-aws-gwlb-vmseries",
+  "version": "1.0.0",
+  "author": "PaloAltoNetworks",
+  "homepage": "https://github.com/PaloAltoNetworks/lab-aws-gwlb-vmseries",
+  "skills": []
+}
