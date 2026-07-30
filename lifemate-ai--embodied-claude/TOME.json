@@ -2,7 +2,7 @@
   "name": "embodied-claude",
   "owner": "lifemate-ai",
   "repo": "embodied-claude",
-  "description": "Claude\u306b\u8eab\u4f53\u6027\u3092\u4e0e\u3048\u308bMCP\u7fa4",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lifemate-ai/embodied-claude",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T04:21:30Z"
+  "distributed_at": "2026-07-30T04:50:51Z"
 }
