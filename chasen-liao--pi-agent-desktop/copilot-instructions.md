@@ -1,54 +1,88 @@
-## nextjs
+## nodejs
 
-> Next.js with TypeScript and Tailwind UI best practices
+> Node.js and Express.js best practices for backend development
 
-# Next.js Best Practices
+# Node.js and Express.js Best Practices
 
 ## Project Structure
-- Use the App Router directory structure
-- Place components in `app` directory for route-specific components
-- Place shared components in `components` directory
-- Place utilities and helpers in `lib` directory
-- Use lowercase with dashes for directories (e.g., `components/auth-wizard`)
+- Use proper directory structure
+- Implement proper module organization
+- Use proper middleware organization
+- Keep routes organized by domain
+- Implement proper error handling
+- Use proper configuration management
 
-## Components
-- Use Server Components by default
-- Mark client components explicitly with 'use client'
-- Wrap client components in Suspense with fallback
-- Use dynamic loading for non-critical components
-- Implement proper error boundaries
-- Place static content and interfaces at file end
+## Express Setup
+- Use proper middleware setup
+- Implement proper routing
+- Use proper error handling
+- Configure proper security middleware
+- Implement proper validation
+- Use proper static file serving
+
+## API Design
+- Use proper REST principles
+- Implement proper versioning
+- Use proper request validation
+- Handle errors properly
+- Implement proper response formats
+- Document APIs properly
+
+## Database Integration
+- Use proper ORM/ODM
+- Implement proper migrations
+- Use proper connection pooling
+- Implement proper transactions
+- Use proper query optimization
+- Handle database errors properly
+
+## Authentication
+- Implement proper JWT handling
+- Use proper password hashing
+- Implement proper session management
+- Use proper OAuth integration
+- Implement proper role-based access
+- Handle auth errors properly
+
+## Security
+- Use proper CORS setup
+- Implement proper rate limiting
+- Use proper security headers
+- Implement proper input validation
+- Use proper encryption
+- Handle security vulnerabilities
 
 ## Performance
-- Optimize images: Use WebP format, size data, lazy loading
-- Minimize use of 'useEffect' and 'setState'
-- Favor Server Components (RSC) where possible
-- Use dynamic loading for non-critical components
-- Implement proper caching strategies
+- Use proper caching
+- Implement proper async operations
+- Use proper connection pooling
+- Implement proper logging
+- Use proper monitoring
+- Handle high traffic properly
 
-## Data Fetching
-- Use Server Components for data fetching when possible
-- Implement proper error handling for data fetching
-- Use appropriate caching strategies
-- Handle loading and error states appropriately
+## Testing
+- Write proper unit tests
+- Implement proper integration tests
+- Use proper test runners
+- Implement proper mocking
+- Test error scenarios
+- Use proper test coverage
 
-## Routing
-- Use the App Router conventions
-- Implement proper loading and error states for routes
-- Use dynamic routes appropriately
-- Handle parallel routes when needed
+## Deployment
+- Use proper Docker setup
+- Implement proper CI/CD
+- Use proper environment variables
+- Configure proper logging
+- Implement proper monitoring
+- Handle deployment errors
 
-## Forms and Validation
-- Use Zod for form validation
-- Implement proper server-side validation
-- Handle form errors appropriately
-- Show loading states during form submission
-
-## State Management
-- Minimize client-side state
-- Use React Context sparingly
-- Prefer server state when possible
-- Implement proper loading states
+## Best Practices
+- Follow Node.js best practices
+- Use proper async/await
+- Implement proper error handling
+- Use proper logging
+- Handle process signals properly
+- Document code properly
 
 ---
 > Source: [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop) — distributed by [TomeVault](https://tomevault.io).
