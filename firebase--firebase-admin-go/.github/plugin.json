@@ -1,0 +1,9 @@
+{
+  "name": "firebase--firebase-admin-go",
+  "displayName": "firebase-admin-go",
+  "description": "firebase-admin-go",
+  "version": "1.0.0",
+  "author": "firebase",
+  "homepage": "https://github.com/firebase/firebase-admin-go",
+  "skills": []
+}
