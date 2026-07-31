@@ -1,8 +1,6 @@
 # AI instruction files for jam-nodes
 
-> Sourced from [wespreadjam/jam-nodes](https://github.com/wespreadjam/jam-nodes) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Extensible workflow node framework for building automation pipelines. Define, register, and execute typed nodes with Zod validation.
+> Sourced from [wespreadjam/jam-nodes](https://github.com/wespreadjam/jam-nodes), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [wespreadjam/jam-nodes](https://github.com/wespr
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [wespreadjam/jam-nodes](https://github.com/wespreadjam/jam-nodes) — a repo with 139+ stars on GitHub.
+From [wespreadjam/jam-nodes](https://github.com/wespreadjam/jam-nodes) — a repo with 198+ stars on GitHub.
 
 ---
 
