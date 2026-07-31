@@ -1,7 +1,7 @@
 {
   "name": "nlweb-ai--nlweb",
   "displayName": "NLWeb",
-  "description": "Main reference implementation for NLWeb, implemented in Python.",
+  "description": "NLWeb",
   "version": "1.0.0",
   "author": "nlweb-ai",
   "homepage": "https://github.com/nlweb-ai/NLWeb",
