@@ -1,0 +1,9 @@
+{
+  "name": "redhatproductsecurity--osidb",
+  "displayName": "osidb",
+  "description": "osidb",
+  "version": "1.0.0",
+  "author": "RedHatProductSecurity",
+  "homepage": "https://github.com/RedHatProductSecurity/osidb",
+  "skills": []
+}
