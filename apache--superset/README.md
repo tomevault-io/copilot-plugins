@@ -5,18 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [apache/superset](https://github.com/apache/superset).
+Original source: `.cursor/rules/*.mdc` in [apache/superset](https://github.com/apache/superset).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [apache/superset](https://github.com/apache/superset) — a repo with 73996+ stars on GitHub.
+From [apache/superset](https://github.com/apache/superset) — a repo with 73995+ stars on GitHub.
 
 ---
 
