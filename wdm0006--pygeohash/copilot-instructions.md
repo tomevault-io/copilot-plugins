@@ -1,70 +1,66 @@
 ## pygeohash
 
-> - Follow PEP 8 style guide for Python code
+> - Use `sphinx-quickstart` to initialize the documentation structure
 
-# Python Coding Standards
+# Sphinx Documentation Standards
 
-## Code Style
-- Follow PEP 8 style guide for Python code
-- Use 4 spaces for indentation (no tabs)
-- Maximum line length of 88 characters (Black default)
-- Use snake_case for variables, functions, and methods
-- Use CamelCase for classes
-- Use UPPER_CASE for constants
-- Add a blank line at the end of each file
+## Project Setup
+- Use `sphinx-quickstart` to initialize the documentation structure
+- Configure `conf.py` with appropriate project information
+- Use the ReadTheDocs theme for consistent styling
+- Enable necessary extensions (e.g., `autodoc`, `napoleon`, `viewcode`)
 
-## Imports
-- Group imports in the following order:
-  1. Standard library imports
-  2. Related third-party imports
-  3. Local application/library specific imports
-- Use absolute imports when possible
-- Avoid wildcard imports (`from module import *`)
-- Use import aliases for long module names
+## Directory Structure
+- Keep documentation source files in the `docs/` directory
+- Organize documentation into logical sections (e.g., user guide, API reference)
+- Use a clear and consistent file naming convention
+- Include an `index.rst` file as the documentation entry point
 
-## Documentation
+## Documentation Style
+- Write in clear, concise language
+- Use present tense and active voice
+- Be consistent with terminology
+- Include examples where appropriate
+- Target the appropriate audience (users, developers, etc.)
+
+## reStructuredText Formatting
+- Use proper heading hierarchy (=, -, ~, ^, ")
+- Use bullet lists for unordered items and numbered lists for sequences
+- Use code blocks with appropriate language for syntax highlighting
+- Use cross-references to link between documentation sections
+- Include images and diagrams where they add value
+
+## API Documentation
+- Use autodoc to generate API documentation from docstrings
 - Document all public modules, classes, methods, and functions
-- Use docstrings that follow the Google style guide
-- Include type hints for function parameters and return values
-- Document parameters, return values, and exceptions raised
+- Follow Google or NumPy docstring style consistently
+- Include type information for parameters and return values
+- Document exceptions that may be raised
 
-## Error Handling
-- Use specific exception types instead of generic ones
-- Handle exceptions at the appropriate level
-- Use context managers (`with` statements) for resource management
-- Avoid catching exceptions without proper handling
+## Examples and Tutorials
+- Include practical examples for common use cases
+- Provide step-by-step tutorials for complex operations
+- Ensure all examples are tested and working
+- Use `literalinclude` to include code examples from actual source files
 
-## Code Organization
-- Keep functions and methods short and focused
-- Follow the Single Responsibility Principle
-- Use classes to encapsulate related functionality
-- Separate concerns into different modules
+## Building and Testing
+- Build documentation locally before committing changes
+- Check for and fix all warnings during the build process
+- Verify that cross-references work correctly
+- Test documentation on different screen sizes
 
-## Testing
-- Write unit tests for all code
-- Use meaningful test names
-- Test both normal and edge cases
-- Mock external dependencies in tests
+## Deployment
+- Configure automatic documentation builds on ReadTheDocs or GitHub Pages
+- Include a link to the documentation in the project README
+- Version documentation to match software releases
+- Provide a changelog or release notes section
 
-## Performance
-- Prefer list/dict/set comprehensions over loops when appropriate
-- Use generators for large data sets
-- Profile code before optimizing
-- Consider using NumPy/Pandas for numerical operations
-
-## Tools
-- Use Black for code formatting
-- Use Ruff for linting and static analysis
-- Use mypy for type checking
-- Use isort for import sorting
-
-## Version Control
-- Write meaningful commit messages
-- Keep commits focused on a single change
-- Use feature branches for development
-- Review code before merging 
+## Maintenance
+- Keep documentation up-to-date with code changes
+- Review and update documentation during each release cycle
+- Address user feedback and questions in the documentation
+- Remove outdated or deprecated information 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/wdm0006)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/wdm0006)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [wdm0006/pygeohash](https://github.com/wdm0006/pygeohash) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
