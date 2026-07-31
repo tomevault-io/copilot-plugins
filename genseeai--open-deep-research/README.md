@@ -1,6 +1,6 @@
 # open_deep_research
 
-> Tome by [GenseeAI](https://github.com/GenseeAI/open_deep_research) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [GenseeAI](https://github.com/GenseeAI/open_deep_research), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
