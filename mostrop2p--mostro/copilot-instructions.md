@@ -1,0 +1,56 @@
+## mostro
+
+> - Runtime code lives in `src/`.
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+- Runtime code lives in `src/`.
+  - `src/app/` – order flows and business logic.
+  - `src/lightning/` – LND bindings and Lightning helpers.
+  - `src/rpc/` – gRPC service and types.
+  - `src/config/` – settings and loaders.
+- DB migrations in `migrations/`. Reusable assets in `static/`.
+- Docker assets in `docker/`. Cross‑compile targets in `archs/`.
+
+## Build, Test, and Development Commands
+- `cargo build` – compile daemon (debug).
+- `cargo run` – start Mostro using current `settings.toml`.
+- `cargo test` – run module tests; keep green before pushing.
+- `cargo fmt` – apply Rustfmt profile.
+- `cargo clippy --all-targets --all-features` – lints must be clean.
+- `make docker-up` / `make docker-down` – start/stop local relay stack.
+- After schema changes: add a file under `migrations/`; `mostrod` applies pending migrations on connect.
+
+## Coding Style & Naming Conventions
+- Rust 2021: 4‑space indent, `snake_case` functions, `PascalCase` types, `SCREAMING_SNAKE` constants.
+- Document non‑obvious public APIs with `///`.
+- Prefer `tracing` spans over ad‑hoc logging.
+- Keep config templates in `settings.tpl.toml`.
+
+## Testing Guidelines
+- Co‑locate tests in their modules under `mod tests`.
+- Name descriptively, e.g., `handles_expired_hold_invoice`.
+- Mirror fixtures under `src/app/` where applicable.
+- Run `cargo test` locally after schema or query changes.
+
+## Commit & Pull Request Guidelines
+- **Write in English.** Commit messages, PR titles and bodies, issue and review comments, documentation, and code comments are all English, regardless of the language a contributor or maintainer is speaking in elsewhere. Mostro has contributors who do not read Spanish, and a repository that mixes languages is one they cannot review.
+- Base work on `main`; keep topics scoped.
+- Commit subject: imperative, ≤50 chars; sign with `git commit -S`.
+- Squash fixups before review.
+- PRs: link the motivating issue, include `cargo test` output, and call out schema or config changes to ease verification.
+- **Protocol/tag changes:** prefer single-kind (single event domain) PRs. Cross-kind changes require a scope declaration and compatibility statement in the PR body (see `CONTRIBUTING.md § Protocol / Tag Changes`).
+
+## Documentation Guidelines
+- Do not hardcode source code line numbers in documentation (e.g., `src/app/take_buy.rs:11`). Line numbers drift as the codebase evolves, misleading developers. Reference file paths (`src/app/take_buy.rs`) or function names (`fn take_buy_action`) instead, which are far more stable and easily searchable.
+- Add a language specifier to every fenced code block. Static analysis (markdownlint MD040) flags blocks without a language identifier. Example: ` ```flutter test ` instead of bare ` ``` `.
+
+## Security & Configuration Tips
+- Do not commit populated `settings.toml`. Copy from `settings.tpl.toml` to `~/.mostro/settings.toml` for local runs.
+- Protect LND credentials before `make docker-build`.
+- Scrub logs that might leak invoices or Nostr keys; rotate secrets promptly if exposed.
+
+---
+> Source: [MostroP2P/mostro](https://github.com/MostroP2P/mostro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
