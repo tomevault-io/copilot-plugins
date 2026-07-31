@@ -1,7 +1,7 @@
 {
   "name": "theredbluepill--arc-interactive",
   "displayName": "arc-interactive",
-  "description": "A collection of community game environments for the ARC-AGI-3 benchmark.",
+  "description": "arc-interactive",
   "version": "1.0.0",
   "author": "theredbluepill",
   "homepage": "https://github.com/theredbluepill/arc-interactive",
