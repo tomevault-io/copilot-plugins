@@ -1,0 +1,9 @@
+{
+  "name": "googlecontainertools--skaffold",
+  "displayName": "skaffold",
+  "description": "skaffold",
+  "version": "1.0.0",
+  "author": "GoogleContainerTools",
+  "homepage": "https://github.com/GoogleContainerTools/skaffold",
+  "skills": []
+}
