@@ -1,4 +1,4 @@
-## ultracite
+## fullstack-start-template
 
 > Ultracite Rules
 
@@ -277,4 +277,4 @@
 
 ---
 > Source: [CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
