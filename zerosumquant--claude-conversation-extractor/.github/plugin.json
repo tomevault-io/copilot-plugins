@@ -1,0 +1,9 @@
+{
+  "name": "zerosumquant--claude-conversation-extractor",
+  "displayName": "claude-conversation-extractor",
+  "description": "claude-conversation-extractor",
+  "version": "1.0.0",
+  "author": "ZeroSumQuant",
+  "homepage": "https://github.com/ZeroSumQuant/claude-conversation-extractor",
+  "skills": []
+}
