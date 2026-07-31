@@ -1,437 +1,348 @@
 ## ddns
 
-> > **Comprehensive guide for AI agents working on the DDNS (Dynamic DNS) project**
+> - **Minimize Terminal Usage**: Use terminal commands sparingly to reduce complexity
 
-# AGENTS.md - AI Agent Guide for DDNS Project
 
-> **Comprehensive guide for AI agents working on the DDNS (Dynamic DNS) project**
+# Python Coding Standards and Best Practices
 
-## Table of Contents
+## Core Principles
 
-1. [Project Overview](#project-overview)
-2. [Project Architecture](#project-architecture)
-3. [Getting Started](#getting-started)
-4. [Development Guide](#development-guide)
-5. [Testing & Validation](#testing--validation)
-6. [Troubleshooting](#troubleshooting)
-7. [Best Practices](#best-practices)
+## Gihub Copilot Agent Usage
 
----
+- **Minimize Terminal Usage**: Use terminal commands sparingly to reduce complexity
+- **Windows Compatibility**: Avoid `&&` and `||` operators that may not work on all shells
+- **No Directory Changes**: Avoid `cd` commands; you are always in the project root
+- **terminal Usage**: run command `python3` instead of `python`, and this is the only command you should use
 
-## Project Overview
+### Dependencies and Environment
 
-### What is DDNS?
+- **Standard Library Only**: Use only Python standard library modules unless explicitly permitted
+- **Self-Contained**: Code must run without third-party dependencies on Windows, macOS, and Linux
+- **No External Dependencies**: Avoid pip packages to ensure maximum compatibility and easy deployment
 
-DDNS is a Python-based Dynamic DNS client that automatically updates DNS records to match the current IP address. It supports:
+### Python 2.7 and 3.x Compatibility
 
-- **Multiple DNS Providers**: 15+ providers including Cloudflare, DNSPod, AliDNS, etc.
-- **Dual Stack**: IPv4 and IPv6 support
-- **Multiple Platforms**: Docker, binary executables, pip installation, and source code
-- **Flexible Configuration**: Command-line arguments, JSON files, and environment variables
-- **Advanced Features**: Multi-domain support, HTTP proxy, caching, scheduled tasks
-
-### Key Technologies
-
-- **Language**: Python (2.7+ and 3.x compatible)
-- **Testing**: unittest (default) and pytest (optional)
-- **Linting/Formatting**: ruff
-- **CI/CD**: GitHub Actions
-- **Containerization**: Docker (multi-architecture support)
-- **Packaging**: PyPI, Nuitka (for binaries)
-
-### Project Status
-
-- **License**: MIT
-- **Python Versions**: 2.7, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14
-- **Platforms**: Windows, Linux, macOS
-- **Architectures**: amd64, arm64, arm/v7, arm/v6, 386, ppc64le, riscv64, s390x
-
----
+- **Primary Target**: Python 3.x is preferred
+- **Legacy Support**: When Python 2.7 compatibility is required, use `six` library patterns
+- **Forbidden Features**:
+  - NO f-strings (not supported in Python 2.7)
+  - NO `async`/`await` syntax
+  - Avoid Python 3.6+ exclusive features when compatibility is needed
+- **Unicode String Handling**:
+    - **IMPORTANT**: Ruff formatter automatically converts `u"string"` to `"string"`
+    - In Python 2, `u"\n"` and `"\n"` are different types (unicode vs bytes)
+    - Prefer `# fmt: skip` on the exact line that must preserve a Unicode literal
+    - Example:
+        ```python
+        unicode_string = u"hello\nworld"  # fmt: skip
+        ```
 
 ## Project Architecture
 
 ### Directory Structure
 
-Here is the folder and file structure for the DDNS project.
+```txt
+ddns/                    # Main application code
+├── provider/           # DNS provider implementations
+│   ├── _base.py       # Abstract base classes (SimpleProvider, BaseProvider)
+│   └── *.py           # Provider-specific implementations
+├── util/              # Utility functions and classes
+│   ├── http.py        # HTTP client functionality
+│   ├── config.py      # Configuration management
+│   └── *.py           # Other utilities
+└── __init__.py        # Package initialization
 
-**Format:** `<TAB depth>{filename}:<TAB>{description}`
+tests/                   # Unit tests
+├── base_test.py        # Shared test utilities and base classes
+├── test_provider_*.py  # Provider-specific tests
+└── README.md          # Testing documentation
 
-```text
-.github/:	GitHub configuration
-	workflows/:	CI/CD workflows (build, publish, test)
-	instructions/:	Agent instructions (python.instructions.md)
-	copilot-instructions.md:	GitHub Copilot instructions
-
-ddns/:	Main application code
-	__init__.py:	Package initialization and version info
-	__main__.py:	Entry point for module execution
-	cache.py:	Cache management
-	ip.py:	IP address detection logic
-
-	config/:	Configuration management
-		__init__.py
-		cli.py:	Command-line argument parsing
-		config.py:	Configuration loading and merging
-		env.py:	Environment variable parsing
-		file.py:	JSON file configuration
-
-	provider/:	DNS provider implementations
-		__init__.py:	Provider registry
-		_base.py:	Abstract base classes (SimpleProvider, BaseProvider)
-		_signature.py:	HMAC signature utilities
-		alidns.py:	Alibaba Cloud DNS
-		aliesa.py:	Alibaba Cloud ESA
-		callback.py:	Custom webhook callbacks
-		cloudflare.py:	Cloudflare DNS
-		cloudns.py:	ClouDNS
-		debug.py:	Debug provider
-		dnscom.py:	DNS.COM
-		dnspod.py:	DNSPod (China)
-		dnspod_com.py:	DNSPod International
-		edgeone.py:	Tencent EdgeOne
-		edgeone_dns.py:	Tencent EdgeOne DNS
-		he.py:	Hurricane Electric
-		huaweidns.py:	Huawei Cloud DNS
-		namesilo.py:	NameSilo
-		noip.py:	No-IP
-		tencentcloud.py:	Tencent Cloud DNS
-		west.py:	West.cn DNS
-
-	scheduler/:	Task scheduling implementations
-		__init__.py
-		_base.py:	Base scheduler class
-		cron.py:	Cron-based scheduler (Linux/macOS)
-		launchd.py:	macOS launchd scheduler
-		schtasks.py:	Windows Task Scheduler
-		systemd.py:	Linux systemd timer
-
-	util/:	Utility modules
-		__init__.py
-		comment.py:	Comment handling
-		fileio.py:	File I/O operations
-		http.py:	HTTP client with proxy support
-		try_run.py:	Safe command execution
-
-tests/:	Unit tests
-	__init__.py:	Test initialization (path setup)
-	base_test.py:	Shared test utilities and base classes
-	README.md:	Testing documentation
-	config/:	Test configuration files
-	scripts/:	Test helper scripts
-	test_cache.py:	Cache tests
-	test_config_*.py:	Configuration tests
-	test_ip.py:	IP detection tests
-	test_provider_*.py:	Provider-specific tests
-	test_scheduler_*.py:	Scheduler tests
-	test_util_*.py:	Utility tests
-
-docs/:	Documentation (VitePress-based)
-	.vitepress/:	VitePress configuration and theme
-	
-	config/:	Configuration documentation (Chinese)
-		cli.md:	CLI usage guide
-		env.md:	Environment variables guide
-		json.md:	JSON configuration guide
-
-	dev/:	Developer guides (Chinese)
-		provider.md:	Provider development guide
-		config.md:	Configuration system design
-
-	providers/:	Provider-specific documentation (Chinese)
-		README.md:	Provider list and overview
-		51dns.md:	51DNS provider guide
-		alidns.md:	Alibaba Cloud DNS guide
-		aliesa.md:	Alibaba Cloud ESA guide
-		callback.md:	Custom webhook callbacks guide
-		cloudflare.md:	Cloudflare DNS guide
-		cloudns.md:	ClouDNS guide
-		debug.md:	Debug provider guide
-		dnscom.md:	DNS.COM provider guide
-		dnspod.md:	DNSPod (China) guide
-		dnspod_com.md:	DNSPod International guide
-		edgeone.md:	Tencent EdgeOne guide
-		edgeone_dns.md:	Tencent EdgeOne DNS guide
-		he.md:	Hurricane Electric guide
-		huaweidns.md:	Huawei Cloud DNS guide
-		namesilo.md:	NameSilo guide
-		noip.md:	No-IP guide
-		tencentcloud.md:	Tencent Cloud DNS guide
-		west.md:	West.cn DNS guide
-
-	en/:	English documentation
-		config/:	English configuration guides (mirrors config/)
-		dev/:	English developer guides (mirrors dev/)
-		providers/:	English provider guides (mirrors providers/)
-		docker.md:	Docker documentation
-		install.md:	Installation guide
-
-	public/:	Public static assets
-		img/:	Images and diagrams
-		schema/:	JSON schema files (symlink)
-		tests/:	Test configuration examples
-
-	docker.md:	Docker documentation (Chinese)
-	install.md:	Installation guide (Chinese)
-	release.md:	Release notes (Chinese)
-
-docker/:	Docker configuration
-	Dockerfile:	Main Dockerfile
-	glibc.Dockerfile:	glibc-based build
-	musl.Dockerfile:	musl-based build
-	entrypoint.sh:	Container entrypoint script
-
-schema/:	JSON schemas
-	v2.json:	Legacy schema v2
-	v2.8.json:	Legacy schema v2.8
-	v4.0.json:	Previous schema v4.0
-	v4.1.json:	Latest schema v4.1
-
-run.py:	Direct run script
-install.sh:	One-click install script
-pyproject.toml:	Python project configuration
-setup.cfg:	Setup configuration
-.gitignore:	Git ignore rules
-LICENSE:	MIT License
-README.md:	Main README (Chinese)
-README.en.md:	Main README (English)
+doc/                     # Documentation
+├── cli.md              # Command line interface documentation
+├── docker.md           # Docker usage and deployment guide
+├── env.md              # Environment variables reference
+├── json.md             # JSON configuration format
+├── dev/                # Developer documentation
+│   └── provider.md     # Provider development guide
+├── providers/          # Provider-specific documentation
+│   ├── dnspod.md       # DNSPod configuration guide
+│   ├── cloudflare.md   # Cloudflare configuration guide
+│   └── *.md            # Other provider guides
+└── img/                # Documentation images and diagrams
+    ├── ddns.png        # Project logo and icons
+    └── ddns.svg        # Vector graphics and diagrams
+      
+schema/                  # JSON schemas
+├── v2.8.json           # Legacy configuration schema v2.8
+├── v2.json             # Legacy configuration schema v2
+└── v4.0.json           # Current configuration schema v4.0
 ```
 
-### Module Dependencies
+### Provider Architecture
 
-```text
-ddns/__main__.py
-    ├── ddns.config.*           # Configuration loading
-    │   ├── cli                 # Command-line parsing
-    │   ├── env                 # Environment variables
-    │   ├── file                # JSON file loading
-    │   └── config              # Config merging and validation
-    │
-    ├── ddns.ip                 # IP address detection
-    │   └── ddns.util.http      # HTTP client for public IP APIs
-    │
-    ├── ddns.provider.*         # DNS provider implementations
-    │   ├── _base               # Base classes (SimpleProvider, BaseProvider)
-    │   ├── _signature          # HMAC signature for cloud APIs
-    │   └── ddns.util.http      # HTTP client for API requests
-    │
-    ├── ddns.cache              # Caching to reduce API calls
-    │   └── ddns.util.fileio    # File operations
-    │
-    └── ddns.scheduler.*        # Task scheduling
-        └── ddns.util.try_run   # Safe command execution
+#### SimpleProvider (Basic DNS Provider)
+
+**Purpose**: For DNS providers that only support simple record updates without querying existing records.
+
+**Must Implement**:
+
+- `set_record(domain, value, record_type="A", ttl=None, line=None, **extra)`
+  - Updates or creates DNS records
+  - Should handle both creation and update logic, if supported by the provider
+  - Must return `True` on success, `False` on failure with appropriate error logging
+  - Should never raise exceptions for API failures
+
+**Optional**:
+
+- `_validate()` - Custom authentication validation (has default implementation)
+
+**Available Methods**:
+
+- `_http(method, url, ...)` - HTTP/HTTPS requests with automatic error handling
+- `_mask_sensitive_data(data)` - Log-safe data masking for security (supports URL-encoded data)
+
+#### BaseProvider (Full CRUD DNS Provider - Recommended for Most Providers)
+
+**Purpose**: For DNS providers supporting complete DNS record management with query capabilities.
+
+**Must Implement**:
+
+- `_query_zone_id(domain)` - Retrieves zone ID for a domain by calling domain info or list domains/zones API
+- `_query_record(zone_id, subdomain, main_domain, record_type, line, extra)` - Finds existing DNS record by calling list records or query record API
+- `_create_record(zone_id, subdomain, main_domain, value, record_type, ttl, line, extra)` - Creates new DNS record by calling create record API
+- `_update_record(zone_id, old_record, value, record_type, ttl, line, extra)` - Updates existing DNS record by calling update record API
+
+**Recommended Practices**:
+
+- Implement a `_request()` method for signed/authenticated HTTP requests:
+  - Should raise `Exception` or `RuntimeError` on blocking errors for fast failure
+  - Should return `None` or appropriate default on recoverable errors (e.g., NotFound)
+- Use `self.logger` for consistent logging throughout the provider
+
+**Inherited Methods**:
+
+- `_http()` - HTTP requests with authentication error handling (raises RuntimeError on 401/403)
+- `set_record()` - Automatic record management (orchestrates the above abstract methods)
+
+## Code Quality Standards
+
+### Type Hints and Annotations
+
+```python
+# Use complete type hints for all functions
+def update_record(self, record_id, value, ttl=None):
+    # type: (str, str, int | None) -> bool
+    """Update DNS record with new value."""
+    pass
 ```
 
-### Core Components
+### Logging Best Practices
 
-#### 1. Provider System
+```python
+# Use structured logging with appropriate levels and consistent formatting
+self.logger.info("Updating record: %s => %s", domain, value)
+self.logger.debug("API response: %s", response_data)
+self.logger.warning("Record not found: %s", domain)
+self.logger.error("API call failed: %s", error)
+self.logger.critical("Authentication invalid: %s", auth_error)
 
-- **BaseProvider**: Full CRUD DNS provider (query, create, update records)
-  - Used by: Cloudflare, AliDNS, DNSPod, TencentCloud, EdgeOne, etc.
-  - Features: Automatic zone detection, record management, caching support
-
-- **SimpleProvider**: Simple update-only DNS provider
-  - Used by: HE.net, No-IP, Debug, Callback
-  - Features: Direct record updates without querying
-
-#### 2. Configuration System
-
-Three-layer priority system:
-1. **Command-line arguments** (highest priority) - via `ddns.config.cli`
-2. **JSON configuration files** - via `ddns.config.file`
-3. **Environment variables** (lowest priority) - via `ddns.config.env`
-
-#### 3. IP Detection System
-
-Multiple methods supported (via `ddns.ip`):
-- Network interface (by index number)
-- Default route IP
-- Public IP (via external APIs)
-- URL-based (custom API endpoint)
-- Regex matching (from ifconfig/ipconfig output)
-- Command execution (custom script)
-- Shell execution (system shell command)
-
-#### 4. Scheduler System
-
-Platform-specific implementations:
-- **Linux**: systemd timers or cron
-- **macOS**: launchd or cron
-- **Windows**: Task Scheduler (schtasks)
-- **Docker**: Built-in cron with configurable intervals
-
----
-
-## Getting Started
-
-### Agent Quick Start
-
-Classify the task first, then read only the nearest code, tests, docs, and schema for that lane.
-
-- **Provider**: `ddns/provider/`, `tests/test_provider_*.py`, `docs/providers/`, `docs/en/providers/`
-- **Config/schema**: `ddns/config/`, `schema/`, `tests/test_config_*.py`, `docs/config/`, `docs/en/config/`
-- **IP/HTTP**: `ddns/ip.py`, `ddns/util/http.py`, `tests/test_ip.py`, `tests/test_util_http*.py`
-- **Scheduler**: `ddns/scheduler/`, `tests/test_scheduler_*.py`
-- **Docs/packaging**: `README*.md`, `docs/`, `pyproject.toml`, `setup.cfg`, `docker/`, `.github/workflows/`
-
-Use `rg` / `rg --files` for discovery, make narrow edits, validate the touched behavior, and report any command that could not run.
-
-### Useful Commands
-
-```bash
-python -m ddns --help
-python run.py --help
-pip install ddns
-ddns --help
-docker run --rm newfuture/ddns:latest --help
-curl -fsSL https://ddns.newfuture.cc/install.sh | sh
-python -m ddns -c config.json
-python -m ddns --dns=cloudflare --id=EMAIL --token=TOKEN --ipv4=domain.com
-python -m ddns --debug
-python -m ddns --dns=debug --ipv4=test.com --debug
-ddns task --install 5
-ddns task --enable
+# Always mask sensitive data in logs to prevent credential exposure
+self.logger.info("Request URL: %s", self._mask_sensitive_data(url))
 ```
 
-Linux/macOS scheduled tasks use systemd, cron, or launchd; Windows uses the release binary and `ddns task --install 5`.
+## Documentation Standards
 
----
+### Documentation Guidelines
 
-## Development Guide
+- **User Documentation** (`doc/`): End-user guides, CLI usage, and deployment instructions
+- **Developer Documentation** (`doc/dev/`): API guides, architecture documentation, and contribution guidelines
+- **Code Documentation**: Inline docstrings and comments within source files
+- **Configuration Documentation**: JSON schemas with examples and validation rules
 
-### Hard Rules
+### Docstring Format
 
-Follow `.github/instructions/python.instructions.md` for Python files.
-
-- Use only standard-library runtime dependencies.
-- Preserve Python 2.7 and 3.x compatibility: no f-strings, annotations, async/await, or Python 3-only syntax.
-- Use type comments, for example `# type: (...) -> ReturnType`.
-- Keep CLI flags, provider names, config keys, schemas, and cache behavior backward compatible unless explicitly asked otherwise.
-- Do not reformat unrelated files or modernize stable code for style alone.
-
-### Change Flow
-
-1. Read the closest existing implementation and matching tests.
-2. Mirror established patterns instead of inventing new abstractions.
-3. Change code, tests, schema, and docs together when behavior is user-facing.
-4. Run focused validation first; run the full suite for shared modules.
-5. Summarize changes, validation, and residual risk.
-
-### Provider Changes
-
-- Use `BaseProvider` for query/create/update APIs and `SimpleProvider` for update-only APIs.
-- Register new providers in `ddns/provider/__init__.py`.
-- Add mocked tests in `tests/test_provider_<provider>.py`; never require real credentials or live provider APIs.
-- Update both `docs/providers/<provider>.md` and `docs/en/providers/<provider>.md`.
-- Update schema, README lists, or docs navigation when a new provider or option needs discovery.
-- See `docs/dev/provider.md` and `docs/en/dev/provider.md` for full provider method signatures.
-
-### Documentation
-
-Keep Chinese and English docs aligned. Preserve code blocks, option names, JSON keys, CLI flags, and provider IDs exactly across translations. Link Chinese docs to Chinese pages and English docs to `docs/en/` pages.
-
----
-
-## Testing & Validation
-
-Run the smallest useful test first, then broaden when shared behavior changed.
-
-```bash
-python -m unittest tests.test_provider_cloudflare -v
-python -m unittest tests.test_config_config -v
-python -m unittest tests.test_ip -v
-python -m unittest discover tests -v
-python -m pytest tests/ -v  # optional, when pytest is installed
-ruff check --fix --unsafe-fixes .
-ruff format .
+```python
+def create_record(self, zone_id, name, value, record_type="A"):
+    # type: (str, str, str, str) -> bool
+    """
+    Create a new DNS record in the specified zone.
+    
+    Args:
+        zone_id (str): DNS zone identifier
+        name (str): Record name (subdomain)
+        value (str): Record value (IP address, etc.)
+        record_type (str): Record type (A, AAAA, CNAME, etc.)
+        
+    Returns:
+        bool: True if creation successful, False otherwise
+        
+    Raises:
+        RuntimeError: When authentication fails (401/403 errors)
+        ValueError: When required parameters are invalid
+    """
+    pass
 ```
 
-Use these focused targets as a guide:
+### Inline Comments
 
-- Provider: `python -m unittest tests.test_provider_<provider> -v`
-- Config/schema: `python -m unittest discover tests -p "test_config*.py" -v`
-- IP/HTTP: `python -m unittest tests.test_ip tests.test_util_http tests.test_util_http_retry tests.test_util_http_proxy_list -v`
-- Scheduler: `python -m unittest tests.test_scheduler_<name> -v`
-- Broad shared change: `python -m unittest discover tests -v`
-
-For touched files or examples:
-
-```bash
-python -m py_compile ddns/provider/myprovider.py
-python -c "import json; json.load(open('config.json'))"
+```python
+# Explain complex business logic with clear, concise comments
+# Attempt to resolve zone automatically by walking up the domain hierarchy
+domain_parts = domain.split(".")
+for i in range(2, len(domain_parts) + 1):
+    candidate_zone = ".".join(domain_parts[-i:])
+    zone_id = self._query_zone_id(candidate_zone)
+    if zone_id:
+        break
 ```
 
-Provider tests should import from `base_test`; other tests should import from `tests/__init__.py`. Mock HTTP calls and assert request details, response parsing, and error handling.
+## Testing Guidelines
 
----
+All tests must be placed in the `tests/` directory, with a shared base test class for common functionality.
 
-## Troubleshooting
+### Test Structure
 
-1. Reproduce with the smallest command, fixture, or unit test.
-2. Locate the layer: config parsing, IP detection, provider mapping, HTTP transport, cache, or scheduler.
-3. Read the nearest passing test and nearest similar implementation.
-4. Fix root cause, add a regression test when behavior changed, and re-run focused validation.
+```python
+# tests/test_provider_example.py
+from base_test import BaseProviderTestCase, MagicMock, patch
 
-Common checks:
+class TestExampleProvider(BaseProviderTestCase):
+    def setUp(self):
+        super(TestExampleProvider, self).setUp()
+        self.provider = ExampleProvider(self.id, self.token)
 
-- Import error: file exists, provider registered, test path setup uses `tests/__init__.py` or `tests/base_test.py`.
-- Syntax error: remove Python 3-only syntax and keep Python 2.7 compatibility.
-- Auth/signature issue: verify credential shape and signing with mocked tests; never print real tokens.
-- Record not updated: inspect cache, record type, line, TTL, domain split, and provider response parsing.
-- Proxy/network issue: compare with `ddns/util/http.py`; use `--proxy=DIRECT` or `--ssl=false` only as diagnostics.
-- Schema mismatch: update `schema/v4.1.json` and matching config tests together.
-- Test failure: inspect mock return values and `mock_http.call_args`.
-- Linting issue: run `ruff check --fix --unsafe-fixes .` and `ruff format .`.
-
-```bash
-python -m ddns --debug --dns=myprovider --ipv4=test.com
-python -m ddns --debug --log_file=debug.log
-python -m ddns --dns=debug --ipv4=test.com --debug
-rm -f /tmp/ddns.cache
+    @patch("ddns.provider.example._http")
+    def test_create_record_success(self, mock_http):
+        # Arrange
+        mock_http.return_value = {"id": "record123", "status": "success"}
+        
+        # Act
+        result = self.provider._create_record("zone1", "test", "example.com", "1.2.3.4", "A", None, None, {})
+        
+        # Assert
+        self.assertTrue(result)
+        mock_http.assert_called_once()
 ```
 
-Use cache removal only when debugging stale local state. Avoid destructive git recovery unless the user explicitly requests it.
+## Performance and Security
 
----
+### HTTP Client Usage
 
-## Best Practices
+```python
+# Always use the base class _http method for consistent behavior
+response = self._http("POST", "/api/records", 
+                     body={"name": name, "value": value},
+                     headers={"Content-Type": "application/json"})
 
-- Prefer small, reviewable changes that follow existing patterns.
-- Fix root causes and add tests for regressions.
-- Preserve user changes in the working tree; never reset or reformat unrelated files.
-- Treat configs, logs, environment variables, API tokens, and provider credentials as sensitive.
-- Prefer mocked or dry-run validation; ask before using real credentials, provider APIs, or scheduler installation on a host.
-- Use structured parsers for JSON, URLs, and HTTP data.
-- Refactor only when it directly supports the task or removes clear local duplication.
-- Ask before renaming files/providers/config keys, moving directories, mass search-and-replace, multi-module refactors, changing cache/schema compatibility, or running commands against real external services.
-- For large changes, explain goal, impact, validation plan, and safer alternatives first.
-- When asked to commit or draft PR text, use conventional commits such as `fix(util.http): handle proxy errors`.
+# Handle authentication errors appropriately
+# Note: 401/403 errors will automatically raise RuntimeError
+if response is None:
+    self.logger.error("API request failed")
+    return False
+```
 
----
+## Development Workflow
 
-## Summary
+### Code Validation
 
-This guide provides comprehensive instructions for AI agents working on the DDNS project. Key points:
+- **Install Ruff**: Before making changes, install ruff linter/formatter: `pip3 install ruff`
+- **Linting**: Run `ruff check --fix --unsafe-fixes .` before each commit to fix linting issues
+- **Formatting**: Run `ruff format .` before each commit to format code consistently
+- **Type Checking**: Ensure Pylance compatibility
+- **Testing**: Run tests before committing changes
+- **Documentation**: Update relevant documentation when making changes
 
-1. **Architecture**: Modular Python project with provider system, configuration management, and task scheduling
-2. **Development**: Follow Python standards, maintain Python 2.7 compatibility, use ruff for linting
-3. **Testing**: Use unittest (primary) or pytest (optional), write comprehensive tests
-4. **Building**: Support for Python source, PyPI, Docker, and binary executables
-5. **Documentation**: Maintain both Chinese and English versions
-6. **Safety**: Avoid unnecessary changes, ask before large edits, respect existing code
+### Documentation Maintenance
 
-For detailed information on specific topics, refer to:
-- **Python Standards**: `.github/instructions/python.instructions.md`
-- **Repository Instructions**: `.github/copilot-instructions.md`
-- **Provider Development**: `docs/dev/provider.md`
-- **Testing Guide**: `tests/README.md`
-- **Configuration**: `docs/config/*.md`
+- **API Changes**: Update docstrings and `doc/dev/provider.md` for provider interface changes
+- **Configuration Changes**: Update JSON schemas in `schema/` directory
+- **User-Facing Changes**: Update CLI documentation in `doc/config/cli.md`
+- **Examples**: Keep code examples in documentation synchronized with actual implementation
 
----
+### Terminal Usage Guidelines for Copilot Agent
 
-**Version**: 1.0.6
-**Last Updated**: 2026-06-15
-**Maintained by**: DDNS Project Contributors
+- **Minimize Usage**: Use terminal commands sparingly to reduce complexity
+- **Windows Compatibility**: Avoid `&&` and `||` operators that may not work on all shells
+- **No Directory Changes**: Use absolute paths instead of `cd` commands for reliability
+- **Avoid Manual Compilation**: Use editor extensions for syntax checking instead of `python -c`
+
+### Common Anti-Patterns to Avoid
+
+```python
+# DON'T: Use f-strings (incompatible with Python 2.7)
+error_msg = f"Failed to update {domain}"  # Not supported in Python 2.7
+
+# DO: Use .format() or % formatting for compatibility
+error_msg = "Failed to update {}".format(domain)
+error_msg = "Failed to update %s" % domain
+error_msg = "Failed to update "+ domain # Concatenation is also acceptable
+
+# DON'T: Use broad type ignores that hide potential issues
+result = api_call()  # type: ignore
+
+# DO: Use specific ignores only when absolutely necessary
+result = api_call()  # type: ignore[attr-defined]
+
+# DON'T: Return inconsistent types that confuse callers
+def get_record(self, name):
+    if found:
+        return {"id": "123", "name": name}
+    return False  # Inconsistent return type
+
+# DO: Return consistent types with clear semantics
+def get_record(self, name):
+    if found:
+        return {"id": "123", "name": name}
+    return None  # Consistent with Optional[dict]
+
+# DON'T: Use bare except clauses that hide errors
+try:
+    result = api_call()
+except:
+    return None
+
+# DO: Catch specific exceptions and handle appropriately
+try:
+    result = api_call()
+except (ValueError, TypeError) as e:
+    self.logger.error("API call failed: %s", e)
+    return None
+```
+
+## Creating a New Provider
+
+### Development Steps
+
+To create a new DNS provider, follow these steps:
+
+1. **Create a new file** in the `ddns/provider/` directory, e.g., `myprovider.py`.
+2. **Implement the provider class** inheriting from `BaseProvider` or `SimpleProvider` as appropriate based on the API capabilities.
+   - For the **BaseProvider** interface, implement these required methods:
+     - `_query_zone_id(domain)`
+     - `_query_record(zone_id, subdomain, main_domain, record_type, line, extra)`
+     - `_create_record(zone_id, subdomain, main_domain, value, record_type, ttl, line, extra)`
+     - `_update_record(zone_id, old_record, value, record_type, ttl, line, extra)`
+   - For the **SimpleProvider** interface, implement this required method:
+     - `set_record(domain, value, record_type="A", ttl=None, line=None, **extra)`
+3. **Implement the `_request()` method** for authenticated API calls.
+4. **Add the provider to the `ddns/__init__.py`** file to make it available in the main package.
+5. **Add unit tests** in the `tests/` directory to cover all methods and edge cases.
+6. **Update schema** in `schema/v4.0.json` if the provider requires new configuration options.
+7. **Create documentation** in `doc/providers/myprovider.md` for configuration and usage instructions.
+8. **Run all tests** to ensure compatibility and correctness.
+
+For detailed implementation guidance, refer to the provider development guide in `doc/dev/provider.md`.
+
+### Conventional Commits
+
+commit message and pull request title format should follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification (`<type>(<scope>): <description>`):
+
+```plaintext
+feat(provider.myprovider): add myprovider support
+fix(util.http): correct authentication logic
+docs(provider.myprovider): update myprovider configuration guide
+```
 
 ---
 > Source: [NewFuture/DDNS](https://github.com/NewFuture/DDNS) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
