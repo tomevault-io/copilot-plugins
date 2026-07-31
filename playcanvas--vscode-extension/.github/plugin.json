@@ -1,0 +1,9 @@
+{
+  "name": "playcanvas--vscode-extension",
+  "displayName": "vscode-extension",
+  "description": "vscode-extension",
+  "version": "1.0.0",
+  "author": "playcanvas",
+  "homepage": "https://github.com/playcanvas/vscode-extension",
+  "skills": []
+}
