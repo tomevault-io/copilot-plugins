@@ -2,7 +2,7 @@
   "name": "AgValoniaGPS",
   "owner": "AgOpenGPS-Official",
   "repo": "AgValoniaGPS",
-  "description": "Multi-platform (Windows/Linux/MacOS/iOS/Android) Rewrite of AgOpenGPS to Avalonia/.Net10/C# technology stack. Uses MVVM pattern to separate backend services from UI",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgOpenGPS-Official/AgValoniaGPS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-21T05:39:47Z"
+  "distributed_at": "2026-07-31T15:15:45Z"
 }
