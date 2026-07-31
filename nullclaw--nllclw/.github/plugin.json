@@ -1,0 +1,9 @@
+{
+  "name": "nullclaw--nllclw",
+  "displayName": "nllclw",
+  "description": "Tiny Zig 0.16 local AI assistant with OpenAI-compatible providers, memory, tools, Telegram, and WebSocket.",
+  "version": "1.0.0",
+  "author": "nullclaw",
+  "homepage": "https://github.com/nullclaw/nllclw",
+  "skills": []
+}
