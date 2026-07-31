@@ -4,7 +4,7 @@
   "repo": "pgstac",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stac-utils/pgstac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T21:16:47Z"
+  "distributed_at": "2026-07-31T17:04:03Z"
 }
