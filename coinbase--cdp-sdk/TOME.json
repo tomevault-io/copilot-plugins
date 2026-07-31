@@ -2,7 +2,7 @@
   "name": "cdp-sdk",
   "owner": "coinbase",
   "repo": "cdp-sdk",
-  "description": "Client libraries for managing EVM and Solana wallets while relying on CDP to secure private keys.",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/coinbase/cdp-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T03:46:07Z"
+  "distributed_at": "2026-07-31T15:16:29Z"
 }
