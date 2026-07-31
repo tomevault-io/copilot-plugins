@@ -1,8 +1,6 @@
 # cupcake
 
-> Source: [eqtylab/cupcake](https://github.com/eqtylab/cupcake) — distributed by [TomeVault](https://tomevault.io)
-
-A native policy enforcement layer for AI coding agents. Built on OPA/Rego.
+> Source: [eqtylab/cupcake](https://github.com/eqtylab/cupcake). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [eqtylab/cupcake](https://github.com/eqtylab/cup
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/eqtylab/cupcake](https://github.com/eqtylab/cupcake)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/eqtylab/cupcake](https://github.com/eqtylab/cupcake)
 
 ---
 
