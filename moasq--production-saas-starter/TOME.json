@@ -2,7 +2,7 @@
   "name": "production-saas-starter",
   "owner": "moasq",
   "repo": "production-saas-starter",
-  "description": "Production-ready B2B SaaS Starter Kit (Go + Next.js). Modular Monolith. Hexagonal Arch.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moasq/production-saas-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T11:34:27Z"
+  "distributed_at": "2026-07-31T10:13:33Z"
 }
