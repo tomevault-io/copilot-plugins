@@ -1,0 +1,9 @@
+{
+  "name": "stripe--stripe-java",
+  "displayName": "stripe-java",
+  "description": "stripe-java",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/stripe-java",
+  "skills": []
+}
