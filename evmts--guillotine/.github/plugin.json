@@ -1,7 +1,7 @@
 {
   "name": "evmts--guillotine",
   "displayName": "guillotine",
-  "description": "An ultra-high performance and flexible EVM. Written in zig",
+  "description": "guillotine",
   "version": "1.0.0",
   "author": "evmts",
   "homepage": "https://github.com/evmts/guillotine",
