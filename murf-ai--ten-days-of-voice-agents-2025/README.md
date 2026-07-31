@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [murf-ai/ten-days-of-voice-agents-2025](https://github.com/murf-ai/ten-days-of-voice-agents-2025).
+Original source: `CLAUDE.md` in [murf-ai/ten-days-of-voice-agents-2025](https://github.com/murf-ai/ten-days-of-voice-agents-2025).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
