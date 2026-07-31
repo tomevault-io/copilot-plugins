@@ -1,51 +1,24 @@
 ## mcp-agent-langchainjs
 
-> This is a multi-component LangChain.js demo showcasing AI agents with Model Context Protocol (MCP) integration. The system demonstrates a burger ordering platform with three main service layers:
+> Instructions for working with GenAIScript files
 
-# MCP Agent LangChain.js Project Instructions
 
-## Architecture Overview
+## GenAIScript Code Generation Instructions
 
-This is a multi-component LangChain.js demo showcasing AI agents with Model Context Protocol (MCP) integration. The system demonstrates a burger ordering platform with three main service layers:
+GenAIScript is a custom runtime for node.js. It provides a set of unique APIs and support the TypeScript syntax, ESM, await/async.
 
-- **Agent Layer**: AI chat interface (`agent-webapp` + `agent-api`) using LangChain.js agents with MCP tools
-- **Business Layer**: Burger ordering API (`burger-api`) and webapp (`burger-webapp`)
-- **MCP Layer**: Model Context Protocol server (`burger-mcp`) exposing burger API as LLM tools
+- GenAIScript documentation: https://microsoft.github.io/genaiscript/llms-full.txt
+- GenAIScript ambient type definitions: https://microsoft.github.io/genaiscript/genaiscript.d.ts
 
-### Component Communication Flow
+## Guidance for Code Generation
 
-```
-agent-webapp → agent-api → burger-mcp → burger-api
-```
-
-The agent uses LangChain.js with Azure OpenAI, connects to the MCP server via StreamableHTTPClientTransport, and the MCP server proxies requests to the burger API.
-
-## Key Architectural Patterns
-
-### Authentication & State Management
-
-- Azure Static Web Apps authentication provides `userId` context
-- Cosmos DB for chat history storage using `@langchain/azure-cosmosdb`
-- User context flows: SWA auth → agent-api → MCP tools (for user-specific operations)
-
-### TypeScript & Build Conventions
-
-- Shared XO linting config with project-specific overrides
-- NPM workspace-based dependency management
-- `.js` extensions required in imports for ESM compatibility
-- Keep the code simple and straighforward: avoid unnecessary complexity and ensure clarity in implementation.
-- Do not use comments except where absolutely necessary, code should be self-explanatory.
-
-### Infrastructure as Code
-
-- Bicep templates in `infra/` for Azure deployment
-- `azure.yaml` defines multi-service deployment strategy:
-  - `burger-api`, `agent-api`: Azure Functions (Flex Consumption)
-  - `burger-mcp`: Azure Functions (Flex Consumption)
-  - `*-webapp`: Static Web Apps
-- Environment variables flow through Azure App Settings
-- @azure Rule - Use Azure Best Practices: When generating code for Azure, running terminal commands for Azure, or performing operations related to Azure, invoke your `azure_development-get_best_practices` tool if available.
+- you always generate TypeScript code using ESM modules for Node.JS.
+- you prefer using APIs from GenAIScript `genaiscript.d.ts` rather than node.js. Do NOT use node.js imports.
+- you keep the code simple, avoid exception handlers or error checking.
+- you add `TODOs` where you are unsure so that the user can review them
+- you use the global types in genaiscript.d.ts are already loaded in the global context, no need to import them.
+- save generated code in the `./genaisrc` folder with `.genai.mts` extension
 
 ---
 > Source: [Azure-Samples/mcp-agent-langchainjs](https://github.com/Azure-Samples/mcp-agent-langchainjs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
