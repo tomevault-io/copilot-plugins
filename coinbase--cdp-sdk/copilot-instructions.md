@@ -1,30 +1,45 @@
-## repository-structure
+## cdp-sdk
 
-> This is the Coinbase Developer Platform (CDP) SDK repository containing multi-language client libraries for creating, managing, and using crypto wallets. The SDK supports TypeScript, Python, and Go implementations.
+> AI instruction file for cdp-sdk by coinbase
 
 
-## Overview
-
-This is the Coinbase Developer Platform (CDP) SDK repository containing multi-language client libraries for creating, managing, and using crypto wallets. The SDK supports TypeScript, Python, and Go implementations.
-
-## Repository Structure
-
-- `typescript/` - TypeScript/Node.js SDK implementation
-- `python/` - Python SDK implementation
-- `go/` - Go SDK implementation
-- `examples/` - Working examples for all languages
-- `openapi.yaml` - OpenAPI specification for the CDP API
-
-## Root Level Development Commands
+## Development Commands
 
 ```bash
-# Update OpenAPI specification
-make update-openapi
+# Install dependencies
+pnpm install
 
-# Check if OpenAPI spec is up to date
-make check-openapi
+# Build the SDK
+pnpm build
+
+# Run tests
+pnpm test
+
+# Run E2E tests
+pnpm test:e2e
+
+# Lint code
+pnpm lint
+
+# Fix linting issues
+pnpm lint:fix
+
+# Format code
+pnpm format
+
+# Check formatting
+pnpm format:check
+
+# Generate docs
+pnpm run docs
+
+# Generate Markdown docs
+pnpm run docs:md
+
+# Generate OpenAPI client
+pnpm orval
 ```
 
 ---
 > Source: [coinbase/cdp-sdk](https://github.com/coinbase/cdp-sdk) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
