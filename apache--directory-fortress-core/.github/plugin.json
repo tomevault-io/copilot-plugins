@@ -1,0 +1,9 @@
+{
+  "name": "apache--directory-fortress-core",
+  "displayName": "directory-fortress-core",
+  "description": "directory-fortress-core",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/directory-fortress-core",
+  "skills": []
+}
