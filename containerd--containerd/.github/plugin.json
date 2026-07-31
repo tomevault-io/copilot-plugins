@@ -1,0 +1,9 @@
+{
+  "name": "containerd--containerd",
+  "displayName": "containerd",
+  "description": "containerd",
+  "version": "1.0.0",
+  "author": "containerd",
+  "homepage": "https://github.com/containerd/containerd",
+  "skills": []
+}
