@@ -1,60 +1,55 @@
 ## podly-pure-podcasts
 
-> Project-specific rules:
+> Writing tests
 
-Project-specific rules:
-- Do not create Alembic migrations yourself; request the user to generate migrations after model changes using `./scripts/create_migration.sh "<message>"`.
-- Only use ./scripts/ci.sh to run tests & lints - do not attempt to run directly
-- Expect ./scripts/ci.sh to modify files because it runs formatting and auto-fixes; review the working tree after running it.
-- use uv (not pipenv)
-- All database writes must go through the `writer` service. Do not use `db.session.commit()` directly in application code. Use `writer_client.action()` instead.
-- If you change behavior, including bug fixes, add or update test coverage for it.
-- For frontend work, use `npm` in `frontend/` and keep `package-lock.json` authoritative; do not switch package managers.
+# Testing Conventions
 
-## Cursor Cloud specific instructions
+This document describes testing conventions used in the Podly project.
 
-Podly is a Python 3.11 Flask app plus a separate **writer** process (IPC on `127.0.0.1:50001`) and a React/Vite frontend. System **ffmpeg** is required for audio tests and processing (`apt install ffmpeg` if missing).
+## Fixtures and Dependency Injection
 
-### Dependencies and CI
+The project uses pytest fixtures for dependency injection and test setup. Common fixtures are defined in [src/tests/conftest.py](mdc:src/tests/conftest.py).
 
-- Python deps: `uv sync --extra dev` (requires `uv` on `PATH`, typically `~/.local/bin`; Python 3.11 is selected via `pyproject.toml` `requires-python`).
-- Frontend deps: `cd frontend && npm ci`.
-- Lint, typecheck, and unit tests: `./scripts/ci.sh` only (do not invoke ruff/pytest directly).
-- Integration workflow (live server): `./scripts/ci.sh --int` or `PODLY_TEST_URL=http://127.0.0.1:5001 uv run python scripts/check_integration_workflow.py` with `DEVELOPER_MODE=true`.
+Key fixtures include:
+- `app` - Flask application context for testing
+- `test_config` - Configuration loaded from config.yml
+- `mock_db_session` - Mock database session
+- Mock classes for core components (TranscriptionManager, AdClassifier, etc.)
 
-### Running locally without Docker
+## SQLAlchemy Model Mocking
 
-Defaults assume Docker paths (`/app/src/instance`). On bare metal, set instance dirs before starting services:
+When testing code that uses SQLAlchemy models, prefer creating custom mock classes over using `MagicMock(spec=ModelClass)` to avoid Flask context issues:
 
-```bash
-export PODLY_INSTANCE_DIR=/workspace/src/instance
-export PODLY_PODCAST_DATA_DIR=/workspace/src/instance/data
-export DEVELOPER_MODE=true
-export PYTHONPATH=/workspace/src
-mkdir -p "$PODLY_INSTANCE_DIR/data/in" "$PODLY_INSTANCE_DIR/data/srv" "$PODLY_INSTANCE_DIR/logs"
+```python
+# Example from test_podcast_downloader.py
+class MockPost:
+    """A mock Post class that doesn't require Flask context."""
+    def __init__(self, id=1, title="Test Episode", download_url="https://example.com/podcast.mp3"):
+        self.id = id
+        self.title = title
+        self.download_url = download_url
 ```
 
-Start **writer** first, wait until port `50001` accepts TCP, then start the web app:
+See [src/tests/test_podcast_downloader.py](mdc:src/tests/test_podcast_downloader.py) for a complete example.
 
-```bash
-uv run python -m app.writer
-uv run python src/main.py   # http://127.0.0.1:5001 (PORT env overrides)
-```
+## Dependency Injection
 
-Use tmux for long-running processes. Optional: `PODLY_DISABLE_SCHEDULER=1` reduces background work during manual testing.
+Prefer injecting dependencies via the contstructor rather than patching. See [src/tests/test_podcast_processor.py](mdc:src/tests/test_podcast_processor.py) for examples of:
+- Creating test fixtures with mock dependencies
+- Testing error handling with failing components
+- Using Flask app context when needed
 
-### Docker (optional)
+## Improving Coverage
 
-`./run_podly_docker.sh --dev` sets `DEVELOPER_MODE=true` and is the documented path when Docker is available. See `docs/contributors.md`.
+When writing tests to improve coverage:
+1. Focus on one module at a time
+2. Create mock objects for dependencies
+3. Test successful and error paths 
+4. Use `monkeypatch` to replace functions that access external resources
+5. Use `tmp_path` fixture for file operations
 
-### Frontend dev server
-
-`cd frontend && npm run dev` → Vite on `:5173`, proxies API to `http://localhost:5001` (`BACKEND_TARGET` in `vite.config.ts`). Production UI is built with `npm run build` into Flask static assets (Docker image does this automatically).
-
-### Secrets
-
-Real transcription/LLM processing needs `.env.local` (copy from `.env.local.example`, e.g. `GROQ_API_KEY`). Developer-mode integration tests do not require API keys.
+See [src/tests/test_feeds.py](mdc:src/tests/test_feeds.py) for comprehensive examples of these patterns.
 
 ---
 > Source: [podly-pure-podcasts/podly_pure_podcasts](https://github.com/podly-pure-podcasts/podly_pure_podcasts) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
