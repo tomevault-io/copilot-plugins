@@ -1,0 +1,9 @@
+{
+  "name": "rocm--aotriton",
+  "displayName": "aotriton",
+  "description": "aotriton",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/aotriton",
+  "skills": []
+}
