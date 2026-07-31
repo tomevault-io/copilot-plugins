@@ -1,8 +1,6 @@
 # AI instruction files for AutoAgents
 
-> Sourced from [liquidos-ai/AutoAgents](https://github.com/liquidos-ai/AutoAgents) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A  multi-agent framework written in Rust that enables you to build, deploy, and coordinate multiple intelligent agents
+> Sourced from [liquidos-ai/AutoAgents](https://github.com/liquidos-ai/AutoAgents), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [liquidos-ai/AutoAgents](https://github.com/liqu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/liquidos-ai/AutoAgents](https://github.com/liquidos-ai/AutoAgents)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/liquidos-ai/AutoAgents](https://github.com/liquidos-ai/AutoAgents)
 
 ---
 
