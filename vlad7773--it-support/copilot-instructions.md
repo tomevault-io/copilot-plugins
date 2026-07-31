@@ -1,52 +1,94 @@
-## it-support
+## rulesduplom
 
-> description: Guidelines for writing Postgres SQL
+> description: TypeScript and React development guidelines
 
-# Postgres SQL Style Guide
-description: Guidelines for writing Postgres SQL
+---
+description: TypeScript and React development guidelines
 alwaysApply: false
 ---
 
-# Postgres SQL Style Guide
+# TypeScript and React Style Guide
 
-## General
+## General Rules
 
-- Use lowercase for SQL reserved words to maintain consistency and readability.
-- Employ consistent, descriptive identifiers for tables, columns, and other database objects.
-- Use white space and indentation to enhance the readability of your code.
-- Store dates in ISO 8601 format (`yyyy-mm-ddThh:mm:ss.sssss`).
-- Include comments for complex logic, using '/* ... */' for block comments and '--' for line comments.
+Write concise, technical TypeScript. Follow Standard.js rules.
 
-## Naming Conventions
+Use functional, declarative patterns; avoid classes.
 
-- Avoid SQL reserved words and ensure names are unique and under 63 characters.
-- Use snake_case for tables and columns.
-- Prefer plurals for table names
-- Prefer singular names for columns.
+Favor loops and small helper modules over duplicate code.
 
-## Tables
+Use descriptive names with auxiliary verbs (e.g. isLoading, hasError).
 
-- Avoid prefixes like 'tbl_' and ensure no table name matches any of its column names.
-- Always add an `id` column of type `identity generated always` unless otherwise specified.
-- Create all tables in the `public` schema unless otherwise specified.
-- Always add the schema to SQL queries for clarity.
-- Always add a comment to describe what the table does. The comment can be up to 1024 characters.
+## Component Structure
 
-## Columns
+File layout: exported component → subcomponents → hooks/helpers → static content.
 
-- Use singular names and avoid generic names like 'id'.
-- For references to foreign tables, use the singular of the table name with the `_id` suffix. For example `user_id` to reference the `users` table
-- Always use lowercase except in cases involving acronyms or when readability would be enhanced by an exception.
+Define props with interfaces/types, not prop-types.
 
-#### Examples:
+Use the function keyword for components:
 
-```sql
-create table books (
-  id bigint generated always as identity primary key,
-  title text not null,
-  author_id bigint references authors (id)
-);
-comment on table books is 'A list of all the books in the library.';
+```ts
+interface ButtonProps {
+  label: string
+  onClick?: () => void
+}
+
+export function Button({ label, onClick }: ButtonProps) {
+  return <button onClick={onClick}>{label}</button>
+}
+```
+
+## React Hooks
+
+Call hooks (useState, useEffect, etc.) only at the top level.
+
+Extract reusable logic into custom hooks (useAuth, useFormValidation).
+
+Memoize with React.memo, useCallback, useMemo where appropriate.
+
+Avoid inline functions in JSX—pull handlers out or wrap in useCallback.
+
+## Best Practices
+
+Favor composition (render props, children) over inheritance.
+
+Use React.lazy + Suspense for code splitting.
+
+Use refs only for direct DOM access.
+
+Prefer controlled components for forms.
+
+Implement an error boundary component.
+
+Clean up effects in useEffect to prevent leaks.
+
+Use guard clauses (early returns) for error handling.
+
+## Styling
+
+Co‑locate a .scss file with each component.
+
+Leverage SCSS features:
+- Variables ($primary-color, $spacing)
+- Mixins (@mixin flexCenter)
+- Parent selector & for pseudo‑classes (&:hover)
+- Partials (_variables.scss, _mixins.scss) imported in styles/index.scss
+
+Name classes in camelCase or BEM (.card__header).
+
+Keep global styles minimal (e.g. reset, typography).
+
+## Forms
+
+Use controlled inputs.
+
+For simple forms, write custom hooks; for complex ones, use react-hook-form with generics (e.g. <Controller>).
+
+Separate client‑side and server‑side validation.
+
+
+
+Optionally integrate a schema library (e.g. Joi) if needed
 
 ---
 > Source: [Vlad7773/it_support](https://github.com/Vlad7773/it_support) — distributed by [TomeVault](https://tomevault.io).
