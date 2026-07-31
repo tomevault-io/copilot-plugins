@@ -1,136 +1,64 @@
 ## elfmem
 
-> USE WHEN: …   DON'T USE WHEN: …   COST: …   RETURNS: …   NEXT: …
+> Tests verify **behaviour through the public API** using mock infrastructure. The full test suite must run in seconds. See `docs/testing_principles.md` for rationale.
 
-# elf — Adaptive Memory for LLM Agents
+# Test Principles — elfmem
 
-**elf** (`elfmem` package) is a self-aware adaptive memory system. Agents learn, reinforce, and forget knowledge the way biological memory works — fast ingestion, deep consolidation at pauses, decay-based archival at rest. SQLite-backed. Zero infrastructure.
+Tests verify **behaviour through the public API** using mock infrastructure. The full test suite must run in seconds. See `docs/testing_principles.md` for rationale.
 
-## Core Mental Model
-
-**Three rhythms** (every design decision maps to one of these):
-- **Heartbeat** — `learn()`: milliseconds, no LLM, pure inbox insert
-- **Breathing** — `dream()` / `consolidate()`: seconds, LLM-powered dedup + contradiction detection
-- **Sleep** — `curate()`: minutes, decay archival + graph pruning + top-K reinforcement
-
-**Five frames** — always select before retrieving context:
-`self` · `attention` · `task` · `world` · `short_term`
-
-**Knowledge lifecycle:** BIRTH → GROWTH → MATURITY → DECAY → ARCHIVE
-Decay is session-aware (holidays don't kill knowledge). Reinforcement resets the clock.
-
-## Code Style
-
-**SIMPLE · ELEGANT · FLEXIBLE · ROBUST** — full patterns in `docs/coding_principles.md`
-
-- **Functional Python** — pure functions, input → output, compose pipelines from ≤50-line functions
-- **Fail fast** — exceptions bubble up; catch only at CLI/MCP system boundaries
-- **No defensive code** — no broad `except`, no `try/except` in business logic
-- **Complete type hints** — every function, public and private
-- **Docstrings follow this template** on every public method:
-  ```
-  USE WHEN: …   DON'T USE WHEN: …   COST: …   RETURNS: …   NEXT: …
-  ```
-
-## Agent-First Contract
-
-Every design decision serves the agent's one-shot loop: read → call → interpret → next.
-
-- All operations return **typed result objects** with `__str__`, `summary`, `to_dict()`
-- All exceptions carry a **`.recovery` field** — the exact code/command to fix the problem
-- **`guide()`** returns runtime self-documentation; never raises on bad input
-- **Idempotent**: duplicate `learn()` → graceful reject; empty `consolidate()` → zero counts, not error
-- **Progressive disclosure**: Tier 1 (zero config, zero ceremony) must always work
-
-Full principles: `docs/agent_friendly_principles.md`
-
-## LLM / Embedding Infrastructure
-
-- **Production**: `AnthropicLLMAdapter` (claude-* models) or `OpenAILLMAdapter` (all others),
-  selected by `make_llm_adapter()` in `adapters/factory.py`. Embeddings via `OpenAIEmbeddingAdapter`.
-  All wired by `MemorySystem.from_config()`.
-- **Tests**: always `MockLLMService` + `MockEmbeddingService` — **never real API calls**
-- Config: `ElfmemConfig` via YAML / env vars / dict / `None` (sensible defaults)
-
-## Changelog
-
-**Update `CHANGELOG.md` whenever you change user-facing behaviour.** This includes code,
-config schema, CLI commands, MCP tools, and documentation. Internal refactors that have no
-observable effect on users do not need an entry.
-
-**Format** — [Keep a Changelog](https://keepachangelog.com/en/1.1.0/):
-
-```markdown
-## [Unreleased]
-
-### Added      ← new capability the user didn't have before
-### Changed    ← behaviour that existed but now works differently (may break callers)
-### Deprecated ← still works but will be removed; tell users what to use instead
-### Removed    ← gone; tell users what to use instead
-### Fixed      ← something that was broken and now isn't
-### Security   ← vulnerability fix
-```
-
-**Rules:**
-- If `[Unreleased]` does not exist at the top of the file, add it before the most recent
-  versioned section.
-- One bullet per logical change. Lead with the affected symbol or command, not with "Fixed a bug".
-- Breaking changes go in `### Changed` or `### Removed` and **must** describe the migration path.
-- Never edit a released version section (anything with a date). Only add to `[Unreleased]`.
-- The release workflow versions `[Unreleased]` to `[x.y.z] — YYYY-MM-DD` and tags the commit.
-- **Version sync on release**: When releasing, ensure `pyproject.toml` version (line 7) matches
-  the version being released. Update CHANGELOG.md `[Unreleased]` header to `[x.y.z] — YYYY-MM-DD`.
-  Git tag must be `vx.y.z` (must match).
-
-## Git Workflow (Protected Main)
-
-**NEVER commit directly to `main` branch.** All work happens on feature branches.
-
-**Workflow:**
-1. Create feature branch: `git checkout -b feature-name`
-2. Make all commits on the feature branch
-3. Push feature branch: `git push origin feature-name`
-4. Create PR: `feature-name` → `main` (requires review)
-5. After PR merge, tag on main:
-   ```bash
-   git fetch origin
-   git checkout main
-   git reset --hard origin/main  # Ensure local main == origin/main
-   git tag -a vX.Y.Z -m "Release X.Y.Z"
-   git push origin vX.Y.Z
-   ```
-
-**If you accidentally diverge main:**
-```bash
-git fetch origin
-git checkout main
-git reset --hard origin/main  # Discard local-only commits
-```
-
-**Why:** Protected main ensures all changes go through code review (PR), prevents accidental commits, and keeps release tags clean and authoritative.
-
-## Public API
+## Infrastructure (non-negotiable)
 
 ```python
-from elfmem import MemorySystem, ElfmemConfig, ConsolidationPolicy
-# All result types and exceptions also importable from root — see src/elfmem/__init__.py
+# ✅ Always: in-memory SQLite + mock services (no LLM cost, no file I/O)
+@pytest.fixture
+async def system(test_engine, mock_llm, mock_embedding) -> MemorySystem:
+    cfg = ElfmemConfig(memory=MemoryConfig(inbox_threshold=3))  # low for fast cycles
+    return MemorySystem(engine=test_engine, llm_service=mock_llm, embedding_service=mock_embedding, config=cfg)
+
+# ❌ Never: these create a file-based DB + real LiteLLM adapters
+SmartMemory.open(db_path_str)
+MemorySystem.from_config(db_path)
 ```
 
-## Key Paths
+**Use conftest fixtures:** `test_engine` (in-memory SQLite, `StaticPool`), `mock_llm`, `mock_embedding`, `db_conn`.
+Set `inbox_threshold=3` (not the default 10) whenever a test runs learn→dream cycles.
 
-| Path | Purpose |
-|------|---------|
-| `src/elfmem/api.py` | `MemorySystem` — all public operations |
-| `src/elfmem/types.py` | Result types, exceptions |
-| `src/elfmem/operations/` | `learn`, `consolidate`, `curate`, `outcome`, `recall` |
-| `src/elfmem/adapters/factory.py` | `make_llm_adapter()` / `make_embedding_adapter()` |
-| `src/elfmem/adapters/anthropic.py` | `AnthropicLLMAdapter` — Claude via official SDK |
-| `src/elfmem/adapters/openai.py` | `OpenAILLMAdapter` + `OpenAIEmbeddingAdapter` |
-| `src/elfmem/adapters/mock.py` | `MockLLMService`, `MockEmbeddingService` |
-| `tests/conftest.py` | Shared test fixtures — always use these |
-| `CHANGELOG.md` | **Update this for every user-facing change** |
-| `docs/amgs_architecture.md` | Full technical specification |
+## What to Test
+
+- **Public API** — `MemorySystem` methods, result types, exception contracts
+- **Behaviour** — what operations do, not how they do it internally
+- **Integration** — the full path through the system with mock services
+- **Error contracts** — correct exception type raised, `.recovery` field present
+
+## What NOT to Test
+
+- Private methods and internals (`_stage_5_mmr_diversity`, `_pending`, `_archive_decayed_blocks`)
+- Formatting or exact string content (`assert str(r) == "Stored block a1b2…"`)
+- Deprecated wrappers (`SmartMemory`)
+- Third-party library internals
+- Vacuous assertions that always pass (`assert x is not None or x is None`)
+
+## Pattern
+
+```python
+# Arrange-Act-Assert. One logical assertion per test.
+async def test_learn_increments_inbox(self, system):
+    await system.learn("Some knowledge")
+    assert (await system.status()).inbox_count == 1
+
+# State inspection: use status() not internal attributes
+# Pending count:  (await system.status()).pending_count
+# Threshold:      (await system.status()).inbox_threshold
+# Float tolerance: assert abs(result - expected) < 0.001
+```
+
+## Performance Rules
+
+- No real LLM calls — `MockLLMService` is synchronous and deterministic
+- No file I/O — in-memory SQLite only (`test_engine`, never `db_path_str`)
+- No `time.sleep()`, no polling
+- `inbox_threshold=3` for any test running learn → consolidate cycles
 
 ---
 > Source: [emson/elfmem](https://github.com/emson/elfmem) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
