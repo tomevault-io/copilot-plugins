@@ -2,7 +2,7 @@
   "name": "django-rest-framework-mcp",
   "owner": "zacharypodbela",
   "repo": "django-rest-framework-mcp",
-  "description": "Quickly build MCP servers that expose your Django Rest Framework APIs as tools for LLMs and agentic applications to work with",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zacharypodbela/django-rest-framework-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T08:04:44Z"
+  "distributed_at": "2026-07-31T11:46:51Z"
 }
