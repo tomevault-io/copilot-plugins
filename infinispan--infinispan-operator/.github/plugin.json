@@ -1,0 +1,9 @@
+{
+  "name": "infinispan--infinispan-operator",
+  "displayName": "infinispan-operator",
+  "description": "infinispan-operator",
+  "version": "1.0.0",
+  "author": "infinispan",
+  "homepage": "https://github.com/infinispan/infinispan-operator",
+  "skills": []
+}
