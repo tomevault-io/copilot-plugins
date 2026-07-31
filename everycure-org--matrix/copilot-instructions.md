@@ -1,38 +1,11 @@
 ## matrix
 
-> Adjust the comment style to the language generated. This way we let people know the file
-
-## 1. Always add the following note to the code you generate:
-```
-# NOTE: This <file/function/class> was partially generated using AI assistance.
-```
-
-Adjust the comment style to the language generated. This way we let people know the file
-was generated, which helps reviewing it with a different lens (i.e. not relying on a
-senior colleague having put a lot of thought into it but being a bit more critical /
-reflecting about it)
+> - when editing terraform, use `terragrunt validate` to ensure the files are correct. Run it in the respective terraform folder. So if editing the `dev` run it in `infra/deployments/hub/dev/`
 
 
-## Coding style
-
-- We use Google style python docstrings
-- we use pytest for testing
-- we use pyspark for large scale data preprocessing
-- our pipeline leverages kedro for structuring our code
-- we use pandera for data validation
-- we use fastapi for API building
-- we use pydantic for data validation and settings management
-- we use uv for building and packaging
-- we like functional programming 
-- we love performance and use joblib to cache expensive functions (.cache folder by default)
-- when writing unit tests, organise the test in a "GivenWhenThen" format, making the purpose of the test explicit
-- when writing unit tests, do not generate unit tests that hardly test anything of value. Only generate them when the full test is clean, intuitive and valuable. Else just generate a stub describing what to test so the developer completes the test themselves. 
-- comments should never describe _changes_ to the code, but _why_ behind the changes. When editing code, do not add comments explaining a change between two versions but only use comments to explain a broader _why_ of the code _as it is_ now.
-
-## LiteLLM provider changes
-
-- When adding or editing LiteLLM providers, follow `docs/src/infrastructure/LiteLLM-New-Provider-Guide.md` so secrets, ExternalSecret mappings, and `proxy_config.model_list` stay in sync.
+- when editing terraform, use `terragrunt validate` to ensure the files are correct. Run it in the respective terraform folder. So if editing the `dev` run it in `infra/deployments/hub/dev/`
+- we use terragrunt in combination with terraform. Be mindful of the setup in [root.hcl](mdc:infra/root.hcl) 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/everycure-org) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [everycure-org/matrix](https://github.com/everycure-org/matrix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
