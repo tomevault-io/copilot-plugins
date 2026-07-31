@@ -1,88 +1,197 @@
-## tailwindcss-v4-help
+## tailwindcss-v4
 
-> > Tailwind CSS offers a utility-first CSS framework that enables developers to create custom designs quickly and efficiently, promoting consistency and maintainability without the complexities of traditional CSS.
+> description: Tailwindcss 4 rules
 
 
-# tailwindcss.com llms.txt
+---
+description: Tailwindcss 4 rules
+---
+# Tailwind CSS 4 Rules
 
-> Tailwind CSS offers a utility-first CSS framework that enables developers to create custom designs quickly and efficiently, promoting consistency and maintainability without the complexities of traditional CSS.
+## Overview
 
-- [Tailwind CSS Order Utilities](https://tailwindcss.com/docs/order): Explains how to use Tailwind CSS order utilities for flex and grid layouts.
-- [Font Family Documentation](https://tailwindcss.com/docs/font-family): Guide on how to use and customize font families in Tailwind CSS.
-- [Box Decoration Break Guide](https://tailwindcss.com/docs/box-decoration-break): Explain how to use the box decoration break utilities in Tailwind CSS for styling elements.
-- [List Style Position Guide](https://tailwindcss.com/docs/list-style-position): To explain how to use Tailwind CSS utilities for setting list style positions in web design.
-- [Aspect Ratio Documentation](https://tailwindcss.com/docs/aspect-ratio): Guide on using aspect ratio utilities in Tailwind CSS for responsive design.
-- [Grid Template Columns](https://tailwindcss.com/docs/grid-template-columns): This page details how to use grid-template-columns in Tailwind CSS for creating responsive grid layouts.
-- [Tailwind CSS Modifiers](https://tailwindcss.com/docs/hover-focus-and-other-states): This page explains how to use Tailwind CSS modifiers for hover, focus, and other states.
-- [Tailwind CSS Flex Guide](https://tailwindcss.com/docs/flex): Guide on using Tailwind CSS flex utilities for responsive design and customization.
-- [Tailwind CSS Gap Utilities](https://tailwindcss.com/docs/gap): Explain the usage of gap utilities in Tailwind CSS for layout spacing.
-- [Join Tailwind CSS Discord](https://tailwindcss.com/discord): Join the Tailwind CSS community on Discord.
-- [Text Alignment Guide](https://tailwindcss.com/docs/text-align): Guide to using text alignment utilities in Tailwind CSS.
-- [Align Self Documentation](https://tailwindcss.com/docs/align-self): Guide on using Tailwind CSS ’align-self' utility class for flexible item alignment in layouts.
-- [Tailwind CSS IntelliSense Setup](https://tailwindcss.com/docs/intellisense): Provide guidance on setting up Tailwind CSS IntelliSense for better coding experience in various editors.
-- [Tailwind CSS Padding Guide](https://tailwindcss.com/docs/padding): Detailing the usage and classes for padding in Tailwind CSS.
-- [Grid Auto Flow](https://tailwindcss.com/docs/grid-auto-flow): Guide on using Tailwind CSS classes for controlling grid auto-placement in layouts.
-- [Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide): Guide for upgrading to Tailwind CSS v3.0, detailing new features and necessary changes.
-- [Min-Height Documentation](https://tailwindcss.com/docs/min-height): Explains how to use min-height utilities in Tailwind CSS for styling elements effectively.
-- [Tailwind CSS Margin Documentation](https://tailwindcss.com/docs/margin): This page documents margin utilities in Tailwind CSS for styling components.
-- [Place Items in Tailwind CSS](https://tailwindcss.com/docs/place-items): Explain the usage of the 'place-items' utility in Tailwind CSS for grid item alignment.
-- [Max Height Documentation](https://tailwindcss.com/docs/max-height): Provides documentation for setting maximum height using Tailwind CSS utilities.
-- [Text Decoration in Tailwind](https://tailwindcss.com/docs/text-decoration): Explains how to use text decoration utilities in Tailwind CSS for styling text.
-- [Text Decoration Thickness](https://tailwindcss.com/docs/text-decoration-thickness): Explain how to set text decoration thickness in Tailwind CSS.
-- [Flex Direction Documentation](https://tailwindcss.com/docs/flex-direction): This page explains the flex-direction utilities in Tailwind CSS for arranging flex items.
-- [Tailwind CSS Overview](https://tailwindcss.com/): Promotes Tailwind CSS as a utility-first CSS framework to enhance web development efficiency and customization.
-- [Z-Index Documentation](https://tailwindcss.com/docs/z-index): Provides guidelines for using z-index utilities in Tailwind CSS for stacking elements.
-- [Grid Auto Rows Documentation](https://tailwindcss.com/docs/grid-auto-rows): Provide documentation for using grid auto rows in Tailwind CSS.
-- [Justify Items Documentation](https://tailwindcss.com/docs/justify-items): To explain the usage of the justify-items utility in Tailwind CSS for grid item alignment.
-- [Place Self Documentation](https://tailwindcss.com/docs/place-self): This page details the usage of the 'place-self' utility classes in Tailwind CSS for grid item alignment.
-- [Grid Row Documentation](https://tailwindcss.com/docs/grid-row): To provide documentation on using grid row utilities in Tailwind CSS for layout customization.
-- [Grid Template Rows](https://tailwindcss.com/docs/grid-template-rows): Explains the usage of grid-template-rows utilities in Tailwind CSS for creating responsive grid layouts.
-- [Tailwind CSS Plugins Guide](https://tailwindcss.com/docs/plugins): Guide for creating and using Tailwind CSS plugins to enhance styling capabilities.
-- [Grid Column Documentation](https://tailwindcss.com/docs/grid-column): To provide documentation for using grid column utilities in Tailwind CSS, including classes and customization options.
-- [Responsive Design Guide](https://tailwindcss.com/docs/responsive-design): Explain how to implement responsive design using Tailwind CSS utility classes across different breakpoints.
-- [Text Decoration Color Guide](https://tailwindcss.com/docs/text-decoration-color): Explain how to customize text decoration colors in Tailwind CSS.
-- [Customizing Spacing in Tailwind](https://tailwindcss.com/docs/customizing-spacing): Guide to customizing Tailwind CSS spacing settings in the configuration file.
-- [Justify Self in Tailwind CSS](https://tailwindcss.com/docs/justify-self): Explain how to use the justify-self utility in Tailwind CSS for grid item alignment.
-- [Font Weight Documentation](https://tailwindcss.com/docs/font-weight): Detailing font weight utilities in Tailwind CSS for styling text.
-- [Tailwind CSS Directives](https://tailwindcss.com/docs/functions-and-directives): This page explains the functions and directives used in Tailwind CSS for styling applications.
-- [Tailwind CSS Resources](https://tailwindcss.com/resources): Provide design resources and community support for Tailwind CSS users.
-- [Font Size Documentation](https://tailwindcss.com/docs/font-size): This page details how to use font size utilities in Tailwind CSS for responsive typography styling.
-- [Tailwind CSS Sizing Guide](https://tailwindcss.com/docs/size): Explain how to use sizing utilities in Tailwind CSS for fixed, percentage, and customizable sizes.
-- [Tailwind CSS Configuration Guide](https://tailwindcss.com/docs/configuration): Guide for configuring Tailwind CSS in web projects.
-- [Overscroll Behavior Guide](https://tailwindcss.com/docs/overscroll-behavior): Explains how to utilize overscroll behavior utilities in Tailwind CSS for controlling scrolling effects.
-- [Tailwind CSS Positioning](https://tailwindcss.com/docs/position): This page explains different CSS positioning utilities in Tailwind CSS for effective layout design.
-- [Optimizing Tailwind CSS](https://tailwindcss.com/docs/optimizing-for-production): Guide for optimizing Tailwind CSS for production use, focusing on file size and performance enhancement techniques.
-- [Dark Mode Implementation](https://tailwindcss.com/docs/dark-mode): Guide to implementing dark mode in Tailwind CSS.
-- [Utility-First CSS Explained](https://tailwindcss.com/docs/utility-first): Explains the utility-first CSS approach for styling with Tailwind CSS.
-- [Letter Spacing Documentation](https://tailwindcss.com/docs/letter-spacing): This page outlines how to use and customize letter spacing utilities in Tailwind CSS.
-- [Tailwind CSS Updates](https://tailwindcss.com/blog): Showcases updates, releases, and announcements related to Tailwind CSS and its ecosystem.
-- [Tailwind CSS Width Utilities](https://tailwindcss.com/docs/width): This page outlines the width utility classes available in Tailwind CSS for setting element widths.
-- [Tailwind CSS Clear Utility](https://tailwindcss.com/docs/clear): This page details the usage of the 'clear' utility in Tailwind CSS for managing floated elements.
-- [Tailwind CSS Browser Support](https://tailwindcss.com/docs/browser-support): Details supported browsers and features for Tailwind CSS usage.
-- [Line Height Documentation](https://tailwindcss.com/docs/line-height): Explains how to use and customize line-height utilities in Tailwind CSS.
-- [Flex Basis Documentation](https://tailwindcss.com/docs/flex-basis): Describes how to use the flex-basis utility in Tailwind CSS for flex item sizing.
-- [Break Before Utilities](https://tailwindcss.com/docs/break-before): Explain the use of 'break-before' utilities in Tailwind CSS for controlling element breaks in layouts.
-- [Preflight in Tailwind CSS](https://tailwindcss.com/docs/preflight): Explains Preflight styles in Tailwind CSS for consistent design across browsers.
-- [Tailwind CSS Overflow Guide](https://tailwindcss.com/docs/overflow): This page explains how to use overflow utilities in Tailwind CSS.
-- [Max Width Utilities](https://tailwindcss.com/docs/max-width): Guide on using max-width utilities in Tailwind CSS for responsive design.
-- [Flex Wrap Documentation](https://tailwindcss.com/docs/flex-wrap): Provide documentation on Tailwind CSS's flex-wrap utility and its usage in responsive design.
-- [Editor Setup Guide](https://tailwindcss.com/docs/editor-setup): Guide users on setting up Tailwind CSS in various code editors.
-- [Flex Grow Documentation](https://tailwindcss.com/docs/flex-grow): Explains how to use the flex-grow utility in Tailwind CSS for responsive design.
-- [Float Utilities Documentation](https://tailwindcss.com/docs/float): Guide on using float utilities in Tailwind CSS for layout design.
-- [Box Sizing Documentation](https://tailwindcss.com/docs/box-sizing): Explain the box-sizing utilities in Tailwind CSS for layout design.
-- [Break After Utility](https://tailwindcss.com/docs/break-after): Explain how to use the 'break-after' utility in Tailwind CSS for controlling column and page breaks.
-- [Reusing Styles in Tailwind](https://tailwindcss.com/docs/reusing-styles): Learn strategies for reusing styles in Tailwind CSS projects effectively.
-- [Align Items in Tailwind](https://tailwindcss.com/docs/align-items): This page explains how to use the align-items utility in Tailwind CSS for styling flexbox layouts.
-- [Configuring Tailwind Screens](https://tailwindcss.com/docs/screens): Guide on configuring screen breakpoints in Tailwind CSS.
-- [Visibility in Tailwind CSS](https://tailwindcss.com/docs/visibility): Explains how to control element visibility using Tailwind CSS utilities.
-- [Tailwind CSS Display Utilities](https://tailwindcss.com/docs/display): This page explains the display utilities in Tailwind CSS for layout control.
-- [Font Smoothing Guide](https://tailwindcss.com/docs/font-smoothing): Explains how to implement font smoothing in Tailwind CSS.
-- [Tailwind CSS Place Content](https://tailwindcss.com/docs/place-content): This page explains how to use the 'place-content' utility in Tailwind CSS for layout control.
-- [Tailwind CSS Presets Guide](https://tailwindcss.com/docs/presets): Explains how to use presets in Tailwind CSS for project customization and management.
-- [Line Clamp Documentation](https://tailwindcss.com/docs/line-clamp): To explain how to use the line clamp utility in Tailwind CSS for truncating multi-line text.
-- [Grid Auto Columns Guide](https://tailwindcss.com/docs/grid-auto-columns): Explains the usage of grid auto columns in Tailwind CSS.
-- [Align Content in Tailwind](https://tailwindcss.com/docs/align-content): Explains the usage of the align-content property in Tailwind CSS with examples.
-- [Integrating Tailwind with Preprocessors](https://tailwindcss.com/docs/using
+Tailwind CSS 4 introduces a major shift towards CSS-first configuration, modern web features, and improved performance. This guide covers the key changes and best practices getting rid of old standards like tailwind.config.js
+
+## Installation & Setup
+
+### Basic Setup
+```css
+@import "tailwindcss";
+```
+
+### CSS-First Configuration
+```css
+@import "tailwindcss";
+
+@theme {
+  --font-family-display: "Satoshi", "sans-serif";
+  --breakpoint-3xl: 1920px;
+  --color-neon-pink: oklch(71.7% 0.25 360);
+}
+```
+
+### Custom Theme Setup
+```css
+@import "tailwindcss";
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities" layer(utilities);
+
+@theme {
+  --color-*: initial;
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  /* ... */
+}
+```
+
+## Modern CSS Features
+
+### Cascade Layers
+```css
+@layer theme, base, components, utilities;
+
+@layer utilities {
+  .mx-6 {
+    margin-inline: calc(var(--spacing) * 6);
+  }
+}
+```
+
+### Registered Custom Properties
+```css
+@property --tw-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+```
+
+### Color Mix
+```css
+.bg-blue-500\/50 {
+  background-color: color-mix(in oklab, var(--color-blue-500) 50%, transparent);
+}
+```
+
+## Container Queries
+
+### Basic Container Query
+```html
+<div class="@container">
+  <div class="grid grid-cols-1 @sm:grid-cols-3 @lg:grid-cols-4">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+### Max-Width Container Query
+```html
+<div class="@container">
+  <div class="grid grid-cols-3 @max-md:grid-cols-1">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+### Container Query Ranges
+```html
+<div class="@container">
+  <div class="flex @min-md:@max-xl:hidden">
+    <!-- ... -->
+  </div>
+</div>
+```
+
+## Dynamic Utilities
+
+### Grid Columns
+```html
+<div class="grid grid-cols-15">
+  <!-- ... -->
+</div>
+```
+
+### Data Attributes
+```html
+<div data-current class="opacity-75 data-current:opacity-100">
+  <!-- ... -->
+</div>
+```
+
+### Dynamic Spacing
+```css
+@layer theme {
+  :root {
+    --spacing: 0.25rem;
+  }
+}
+
+@layer utilities {
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+  .w-17 {
+    width: calc(var(--spacing) * 17);
+  }
+}
+```
+
+## Breaking Changes
+
+### Removed Features
+- Deprecated utilities (text-opacity-*, flex-grow-*, decoration-slice)
+- PostCSS plugin and CLI in main package
+- Default border color (now defaults to currentColor)
+- Default ring width (now 1px instead of 3px)
+
+### New Features
+- P3 color palette with oklch
+- 3D transform utilities
+- @starting-style for transitions
+- not-* variant
+- color-scheme support
+- field-sizing
+- complex shadows
+- inert support
+
+## Performance Optimizations
+
+### Build Performance
+- Full builds: 5x faster
+- Incremental builds: 100x faster
+- Measured in microseconds
+
+### Modern Web Optimizations
+- Native cascade layers
+- Registered custom properties
+- color-mix() support
+- Logical properties for RTL
+
+## Theme Variables
+
+### Accessing Theme Values
+```html
+<div class="p-[calc(var(--spacing-6)-1px)]">
+  <!-- ... -->
+</div>
+```
+
+### UI Library Integration
+```jsx
+import { motion } from "framer-motion"
+// Theme values are available as CSS variables
+```
+
+## Best Practices
+
+1. Use CSS-first configuration over JavaScript config
+2. Leverage modern CSS features for better performance
+3. Use container queries for component-based responsive design
+4. Take advantage of dynamic utilities for flexible layouts
+5. Use P3 color palette for more vivid colors
+6. Implement proper cascade layers for better CSS organization
+7. Use logical properties for better RTL support
+8. Leverage CSS variables for theme customization
 
 ---
 > Source: [fivelity/usmp](https://github.com/fivelity/usmp) — distributed by [TomeVault](https://tomevault.io).
