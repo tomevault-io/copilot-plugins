@@ -2,7 +2,7 @@
   "name": "mix",
   "owner": "recreate-run",
   "repo": "mix",
-  "description": "Multimodal agents SDK",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/recreate-run/mix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T08:13:33Z"
+  "distributed_at": "2026-07-31T11:04:34Z"
 }
