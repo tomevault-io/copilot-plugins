@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [appboypov/pew-pew-plaza-packs](https://github.com/appboypov/pew-pew-plaza-packs).
+Original source: `CLAUDE.md` in [appboypov/pew-pew-plaza-packs](https://github.com/appboypov/pew-pew-plaza-packs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
