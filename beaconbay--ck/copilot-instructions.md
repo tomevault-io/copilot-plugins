@@ -1,95 +1,352 @@
 ## ck
 
-> This file contains project-specific instructions for Claude and other AI agents working on the ck codebase.
+> Quick reference for AI agents using ck semantic code search.
 
-# Claude Development Guide
+# ck for AI Coding Assistants
 
-This file contains project-specific instructions for Claude and other AI agents working on the ck codebase.
-Whenever you actually use ck and it does something unexpected, jot it down in a file could UNEXPECTED.md - supply what you ran, what you expected to happen, what happened instead.
+Quick reference for AI agents using ck semantic code search.
 
-
-## Release Process
-
-### Version Tagging Convention
-
-**IMPORTANT**: Tags follow the format `X.Y.Z` (NO `v` prefix) to match current standard:
+## Quick Start
 
 ```bash
-# Correct format (current standard since 0.3.8+)
-git tag 0.4.1
-git tag 0.3.9
+# Index the project (run once at start)
+ck --index .
 
-# Old format (deprecated, do not use)
-git tag v0.3.4
+# Semantic search (find by meaning)
+ck --sem "error handling" src/
+
+# Check index status
+ck --status .
 ```
 
-Always check existing tags first: `git tag --sort=-version:refname`
+## Search Modes
 
-### Pre-Commit Quality Checks
+| Mode | Flag | Use When | Example |
+|------|------|----------|---------|
+| Semantic | `--sem` | Finding concepts, patterns | "retry logic", "input validation" |
+| Lexical | `--lex` | Finding exact terms, names | "getUserById", "TODO" |
+| Hybrid | `--hybrid` | Balancing precision/recall | "JWT token validation" |
+| Regex | `--regex` | Pattern matching | `class.*Handler` |
 
-**ALWAYS** run these commands in order before any commit:
+## Essential Flags
 
-1. **Linting**: `cargo clippy` - Fix all warnings
-2. **Formatting**: `cargo fmt` - Format all code  
-3. **Testing**: `cargo test` - Ensure all tests pass
-
-### Version Bump Process
-
-When bumping versions:
-
-1. **Update workspace version**: `Cargo.toml` (workspace level)
-2. **Update ALL crate versions**: Use find/replace across all `Cargo.toml` files
-   ```bash
-   find . -name "Cargo.toml" -exec sed -i '' 's/version = "OLD"/version = "NEW"/g' {} \;
-   ```
-3. **Update documentation versions**: Check `PRD.txt` and other docs
-4. **Update CHANGELOG.md**: Add comprehensive release notes (see format below)
-
-### CHANGELOG.md Format
-
-Always update CHANGELOG.md with new releases. Follow this structure:
-
-```markdown
-## [X.Y.Z] - YYYY-MM-DD
-
-### Added
-- **Feature name**: Clear user-facing description
-- **Technical capability**: What it enables
-
-### Fixed  
-- **Bug description**: What was broken and how it's fixed
-- **Performance issue**: Specific improvements made
-
-### Technical
-- **Implementation details**: For maintainers and contributors
-- **Dependencies**: New dependencies added
+### Threshold (quality control)
+```bash
+--threshold 0.7   # High-confidence (recommended default)
+--threshold 0.5   # Balanced (default if not specified)
+--threshold 0.3   # Exploratory (cast wide net)
 ```
 
-### Development Notes
+### Result Limiting
+```bash
+--limit 20        # Recommended default for AI agents
+--limit 10        # Quick overview
+--limit 50        # Comprehensive analysis
+```
 
-- **Test coverage**: Maintain comprehensive test coverage (currently 65+ tests)
-- **Cross-platform**: Ensure features work on Windows, macOS, and Linux
-- **Performance**: Consider impact on indexing and search performance
-- **User experience**: Maintain grep compatibility and intuitive CLI design
+### Output Formats
+```bash
+--jsonl           # Recommended: stream-friendly, one object per line
+--json            # Single array (good for small results)
+--no-snippet      # Metadata only (faster, smaller)
+--snippet-length 150  # Custom snippet size
+```
 
-### Common Patterns in this Codebase
+### Show Scores
+```bash
+--scores          # Display relevance scores with results
+```
 
-- **Error handling**: Use `anyhow::Result` consistently
-- **Async/await**: Tokio runtime for async operations  
-- **Parallel processing**: Rayon for CPU-intensive tasks
-- **File I/O**: Memory-mapped files for large data access
-- **Configuration**: Workspace-level dependency management
+## Command Patterns
 
-### Quality Standards
+### Codebase Onboarding
+```bash
+ck --index .
+ck --sem "main entry point" .
+ck --sem "application initialization" .
+ck --sem "authentication" .
+ck --sem "database queries" .
+```
 
-- All clippy warnings must be resolved
-- Code must be formatted with `cargo fmt`
-- All tests must pass
-- New features require comprehensive test coverage
-- Breaking changes require major version bump
-- --help reflects any new features
-- README incorporates any new user features (e.g. flags etc)
+### Code Search
+```bash
+# Semantic search with high confidence
+ck --sem --threshold 0.7 --limit 20 "error handling" src/
+
+# Lexical search for exact terms
+ck --lex "TODO" .
+
+# Hybrid search for balanced results
+ck --hybrid --limit 20 "connection pooling" src/
+
+# Get structured output
+ck --jsonl --sem --threshold 0.7 "pattern" src/
+```
+
+### Code Review
+```bash
+# Find security patterns
+ck --sem "authentication logic" src/
+ck --sem "input validation" src/
+
+# Find code quality issues
+ck --lex "TODO" .
+ck --lex "FIXME" .
+
+# Find performance patterns
+ck --sem "caching" src/
+ck --sem "database connection" src/
+```
+
+### Refactoring
+```bash
+# Find all implementations of a pattern
+ck --sem --threshold 0.8 "user validation" src/
+
+# Find similar code
+ck --sem "error response formatting" src/
+
+# Find duplicate logic
+ck --sem --threshold 0.8 "duplicate logic" src/
+```
+
+## Performance Guidelines
+
+### Optimal Defaults for AI Agents
+```bash
+ck --sem --threshold 0.7 --limit 20 "query" src/
+```
+
+### Index Management
+- **Index once** per session at project start: `ck --index .`
+- Incremental updates happen automatically
+- Only rebuild if index is stale: `ck --clean . && ck --index .`
+
+### Speed Tips
+```bash
+# Use limit to control result count
+ck --sem --limit 10 "query" src/
+
+# Use no-snippet for faster parsing
+ck --jsonl --no-snippet --sem "query" src/
+
+# Check index before heavy operations
+ck --status .
+```
+
+## Common Workflows
+
+### Pattern 1: Understanding New Codebase
+```bash
+ck --index .
+ck --sem "main entry point" .
+ck --sem "configuration" .
+ck --sem "authentication" .
+ck --sem "database" .
+ck --sem "API endpoints" .
+```
+
+### Pattern 2: Finding Specific Code
+```bash
+# Use semantic for concepts
+ck --sem --threshold 0.7 "JWT authentication" src/
+
+# Use lexical for exact names
+ck --lex "authenticateUser" src/
+
+# Use hybrid for balance
+ck --hybrid "user session" src/
+```
+
+### Pattern 3: Structured Output for Parsing
+```bash
+# JSONL output (recommended)
+ck --jsonl --sem --threshold 0.7 --limit 20 "pattern" src/
+
+# Metadata only (no code snippets)
+ck --jsonl --no-snippet --sem "pattern" src/
+```
+
+## Troubleshooting
+
+### Irrelevant Results
+```bash
+# Increase threshold
+ck --sem --threshold 0.8 "query" src/
+
+# Switch to hybrid
+ck --hybrid "query" src/
+
+# Use lexical for exact terms
+ck --lex "ExactFunctionName" src/
+```
+
+### Too Few Results
+```bash
+# Lower threshold
+ck --sem --threshold 0.3 "query" src/
+
+# Increase limit
+ck --sem --limit 50 "query" src/
+
+# Try hybrid mode
+ck --hybrid "query" src/
+```
+
+### Slow Searches
+```bash
+# Limit results
+ck --sem --limit 10 "query" src/
+
+# Use metadata only
+ck --jsonl --no-snippet --sem "query" src/
+
+# Check index status
+ck --status .
+```
+
+### Index Out of Date
+```bash
+ck --status .
+ck --index .  # If stale
+```
+
+## Model Selection
+
+Default model (`bge-small`) works well for most cases. Switch only if needed:
+
+```bash
+# Code-specialized model
+ck --switch-model jina-code .
+
+# Large context model
+ck --switch-model nomic-v1.5 .
+```
+
+## Output Formats Explained
+
+### Human-Readable (default)
+```bash
+ck --sem "pattern" src/
+```
+
+### JSONL (recommended for agents)
+```bash
+ck --jsonl --sem "pattern" src/
+# Output: one JSON object per line
+# {"file": "...", "line": 42, "content": "...", "score": 0.847}
+```
+
+### JSON
+```bash
+ck --json --sem "pattern" src/
+# Output: single JSON array
+# [{"file": "...", "line": 42, ...}, ...]
+```
+
+## Best Practices Checklist
+
+✅ **Do**:
+- Index once at project start: `ck --index .`
+- Use `--threshold 0.7` as default
+- Use `--limit 20` to manage context windows
+- Use `--jsonl` for structured output
+- Use semantic search for concepts
+- Use lexical search for exact identifiers
+
+❌ **Don’t**:
+- Re-index unnecessarily (automatic incremental updates)
+- Use threshold > 0.9 (too restrictive)
+- Use threshold < 0.3 (too noisy)
+- Skip `--limit` on exploratory searches (overwhelming output)
+
+## Performance Benchmarks
+
+| Operation | Time | Notes |
+|-----------|------|-------|
+| Initial index (100K LOC) | ~10s | One-time cost |
+| Semantic search | <500ms | After initial index |
+| Hybrid search | <300ms | Leverages both indices |
+| Lexical search | <100ms | Full-text index only |
+| Incremental update | <1s | Only changed files |
+
+## MCP Integration
+
+If using ck via MCP protocol (Claude Desktop, etc.):
+
+```bash
+# Start MCP server
+ck --serve
+
+# Configure in Claude Desktop
+claude mcp add ck-search -s user -- ck --serve
+```
+
+MCP-specific notes:
+- Use pagination for large results (automatic)
+- Default page size of 25 is good for most cases
+- Use threshold parameter to filter results
+- Check index status before heavy searches
+
+## Complete Example Session
+
+```bash
+# 1. Index the project
+ck --index .
+
+# 2. Check index status
+ck --status .
+
+# 3. Find authentication code
+ck --sem --threshold 0.7 --limit 20 "authentication" src/
+
+# 4. Get structured output for parsing
+ck --jsonl --sem --threshold 0.7 --limit 20 "authentication" src/
+
+# 5. Find all TODOs
+ck --lex "TODO" .
+
+# 6. Find error handling patterns
+ck --sem --threshold 0.7 "error handling" src/
+
+# 7. Get complete code sections
+ck --sem --full-section "retry logic" src/
+```
+
+## Quick Command Reference
+
+```bash
+# Basic searches
+ck --sem "concept" src/                    # Semantic
+ck --lex "keyword" src/                    # Lexical
+ck --hybrid "query" src/                   # Hybrid
+ck --regex "pattern" src/                  # Regex
+
+# With quality control
+ck --sem --threshold 0.7 "concept" src/    # High confidence
+ck --sem --limit 20 "concept" src/         # Limit results
+ck --sem --scores "concept" src/           # Show scores
+
+# Structured output
+ck --jsonl --sem "concept" src/            # JSONL format
+ck --json --sem "concept" src/             # JSON format
+ck --jsonl --no-snippet --sem "concept" src/  # Metadata only
+
+# Index management
+ck --index .                               # Build index
+ck --status .                              # Check status
+ck --clean .                               # Remove index
+ck --inspect src/file.rs                   # Inspect chunking
+
+# Advanced
+ck --sem --full-section "pattern" src/     # Complete code sections
+ck --switch-model jina-code .              # Change embedding model
+```
+
+## Additional Resources
+
+For complete documentation, visit: https://beaconbay.github.io/ck/
 
 ---
 > Source: [BeaconBay/ck](https://github.com/BeaconBay/ck) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
