@@ -1,8 +1,6 @@
 # opencode.nvim
 
-> Tome by [sudo-tee](https://github.com/sudo-tee/opencode.nvim) — distributed by [TomeVault](https://tomevault.io)
-
-neovim frontend for opencode - a terminal-based AI coding agent
+> Tome by [sudo-tee](https://github.com/sudo-tee/opencode.nvim), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [sudo-tee/opencode.nvim](https://github.com/sudo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/sudo-tee/opencode.nvim](https://github.com/sudo-tee/opencode.nvim)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/sudo-tee/opencode.nvim](https://github.com/sudo-tee/opencode.nvim)
 
 ---
 
