@@ -2,9 +2,9 @@
   "name": "liam",
   "owner": "liam-hq",
   "repo": "liam",
-  "description": "Automatically generates beautiful and easy-to-read ER diagrams from your database.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liam-hq/liam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T15:47:54Z"
+  "distributed_at": "2026-07-31T05:49:05Z"
 }
