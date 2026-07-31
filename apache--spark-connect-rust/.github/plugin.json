@@ -1,0 +1,9 @@
+{
+  "name": "apache--spark-connect-rust",
+  "displayName": "spark-connect-rust",
+  "description": "spark-connect-rust",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/spark-connect-rust",
+  "skills": []
+}
