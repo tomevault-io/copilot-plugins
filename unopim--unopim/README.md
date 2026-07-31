@@ -1,8 +1,6 @@
 # unopim
 
-> Source: [unopim/unopim](https://github.com/unopim/unopim) — distributed by [TomeVault](https://tomevault.io)
-
-Unopim is a free and open-source Laravel-based Product Information Management (PIM) system that helps businesses manage and enrich product data from a single platform. Built to scale beyond 10M+ products, now evolving with Agentic PIM capabilities.
+> Source: [unopim/unopim](https://github.com/unopim/unopim). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [unopim/unopim](https://github.com/unopim/unopim
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [unopim/unopim](https://github.com/unopim/unopim) — a repo with 9932+ stars on GitHub.
+From [unopim/unopim](https://github.com/unopim/unopim) — a repo with 10700+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
