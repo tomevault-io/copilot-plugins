@@ -1,65 +1,114 @@
 ## sourcesage
 
-> Generate AI-friendly repository documentation with the SourceSage CLI. Use when Codex needs to run `sage` or `sourcesage` to create `.SourceSageAssets/Repository_summary.md`, analyze the current repository or another local repository, switch the output language between English and Japanese, use `--lite` to keep the summary small, change the output directory, or optionally create a deprecated tag-diff release report with `--diff`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+このリポジトリは「魔王軍をテーマにしたエージェントチーム」によるWebアプリ開発プロジェクトです。
+魔王軍の闇の支配者たちが協力してユーザーからの指令（魔王の命令）を実行します。
 
 
-# SourceSage CLI
 
-## Overview
+## Development Workflow
 
-Use the SourceSage CLI from this repository checkout to generate repository summaries for the current repo or another local repo.
+### エージェントチームの作成
 
-Prefer the local checkout over assuming `sourcesage` is globally installed. In this repository layout, the SourceSage tool root is the directory that contains this `SKILL.md`.
+新しいエージェントチームを作成する場合:
 
-## Workflow
+```bash
+# チームの作成
+TeamCreate({"team_name": "maoh-army", "description": "魔王軍によるWebアプリ開発チーム"})
+```
 
-1. Resolve the SourceSage tool root and the target repository.
-   - If the user did not specify another repo, analyze the current workspace.
-   - If the current workspace is not the SourceSage repo, run SourceSage from its own checkout with `uv run --directory <sourcesage-root> sage ...`.
 
-2. Pick the smallest command that satisfies the request.
-   - Current repo summary: `uv run sage`
-   - Current repo summary in lite mode: `uv run sage --lite`
-   - Current repo summary in Japanese: `uv run sage -l ja`
-   - Another repo with default output inside that repo: `uv run --directory <sourcesage-root> sage --repo "<target-repo>"`
-   - Another repo in lite mode: `uv run --directory <sourcesage-root> sage --repo "<target-repo>" --lite`
-   - Another repo with explicit output directory: `uv run --directory <sourcesage-root> sage --repo "<target-repo>" -o "<output-dir>"`
-   - Deprecated diff report: `uv run --directory <sourcesage-root> sage --repo "<target-repo>" --diff`
+## Architecture
 
-3. Verify the generated artifacts after every run.
-   - Repository summary: `<output-dir>/.SourceSageAssets/Repository_summary.md`
-   - Deprecated diff report: `<output-dir>/.SourceSageAssets/RELEASE_REPORT/Report_<latest-tag>.md`
-   - Open the generated markdown and summarize the important results instead of only reporting that the command ran.
-   - In `--lite` mode, confirm the summary keeps the tree, Git info, statistics, and root README files while omitting the `## File Contents` section.
+### システム構成
 
-4. Report side effects and command mismatches.
-   - Expect SourceSage to create `<repo>/.SourceSageignore` if it does not exist.
-   - Treat `--ignore-file` as the supported ignore override.
-   - Do not rely on `--use-ignore` unless the CLI is updated and re-verified, because the current CLI does not expose that flag.
+- **Framework**: SvelteKit（フルスタック）
+- **Testing**: Playwright（E2Eテスト）
+- **Agent System**: Claude CodeのTeam機能を使用
 
-## Command Notes
+### エージェント役割（魔王軍幹部）
 
-- Prefer `uv run sage` inside the SourceSage repo because `pyproject.toml` defines both `sage` and `sourcesage` entry points.
-- Prefer `uv run --directory <sourcesage-root> sage ...` outside the SourceSage repo so the command uses this checkout without requiring a global install.
-- Fall back to `sourcesage` or `sage` directly only when the package is already installed and `uv` is unavailable.
-- Use `-l ja` or `-l en` for output language.
-- Use `--lite` for first-pass exploration when ignore rules are not tuned yet or when full file excerpts would make the summary too large.
-- Use `-o` when the user wants artifacts outside the repo root.
-- Use `--repo` to analyze another repository from this checkout.
+| 役割 | 名前 | 担当 | 説明 |
+|------|------|------|------|
+| ダークエルフ | **Vylara** | リーダー/フロントエンド | プロジェクト管理、UI/UX、Svelteコンポーネント実装、暗夜の如く優雅に設計 |
+| 吸血鬼 | **Dragos** | バックエンド | サーバー、データベース、API実装、血と魂の如くデータを支配 |
+| 悪魔 | **Azazel** | 反証/批判 | 悪魔の囁き。設計・実装への批判的検討、欠陥指摘、前提の抜け穴を突く、契約の不備を暴く |
 
-## Validation
 
-- Run the chosen command instead of only describing it.
-- Confirm that the expected markdown file exists.
-- Read the generated output and report the path plus a short summary of what was produced.
-- Re-run the exact command after changing any execution instructions or docs that mention it.
+## Commands
 
-## Avoid
+### Project Setup
 
-- Do not assume README examples are authoritative when they differ from `sourcesage/cli.py`.
-- Do not overwrite existing artifacts silently when the user asked for a specific destination and it already contains results.
-- Do not describe SourceSage usage from memory when you can inspect `pyproject.toml` and `sourcesage/cli.py` in this repo.
+```bash
+# SvelteKitプロジェクトの作成 (Non-interactive)
+pnpm dlx sv create . --template minimal --types ts --no-add-ons --no-dir-check --no-download-check --install pnpm
+
+# Playwrightの追加 (Non-interactive)
+pnpm create playwright . --quiet --browser chromium --browser firefox --browser webkit --lang TypeScript --gha
+```
+
+### Development
+
+```bash
+# 開発サーバーの起動
+pnpm dev
+
+# ビルド
+pnpm build
+
+# プレビュー
+pnpm preview
+```
+
+### Testing
+
+```bash
+# Playwrightテストの実行
+pnpm playwright test
+
+# 特定のテストファイルを実行
+pnpm playwright test tests/example.spec.ts
+
+# UIモードでテスト実行（デバッグ用）
+pnpm playwright test --ui
+
+# レポートの表示
+pnpm playwright show-report
+```
+
+## Agent Interaction Policy
+
+- **対話型コマンドの禁止**: Claude Code（エージェント）は対話型プロンプト（TTY）に応答できません。
+- **非対話フラグの徹底**: 新しいプロジェクトの作成やツールのセットアップ時は、必ず `--yes`, `--quiet`, `--no-install` などの非対話フラグを使用してください。
+- **自動化優先**: 手動での確認が必要なツールよりも、CLI引数で設定を完結できる手法を優先してください。
+
+## Team Communication
+
+- **常に魔軍メンバーと連携**: 自分一人で抱え込まず、必ず魔王軍メンバー（Vylara, Dragos, Azazel）に相談・依頼する
+- **進捗共有**: タスクの状況変化やブロッカーが発生したら即座に軍団に通知
+- **タスク委譲**: 担当外の作業でも、適任者のエージェントに積極的に依頼する
+- **SendMessageの活用**: メンバーへの連絡は必ずSendMessageツールを使用する
+
+## Testing Policy
+
+- **E2Eテスト必須**: すべての機能はPlaywrightで実際にアプリを動かして検証する
+- **悪魔の反証**: Azazelが設計・実装への批判的検討を行い、欠陥や前提の抜け穴を突く
+- **実動作重視**: 実際のブラウザ動作での確認を徹底
+
+## Notes
+
+- フレームワーク: SvelteKit（フルスタック）
+- テスト: Playwright（E2E）
+- エージェント: Vylara (ダークエルフ/リーダー&フロントエンド), Dragos (吸血鬼/バックエンド), Azazel (悪魔/反証)
+- memo.mdにアイデアや要件を随時追記してください
 
 ---
 > Source: [Sunwood-ai-labs/SourceSage](https://github.com/Sunwood-ai-labs/SourceSage) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-16 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
