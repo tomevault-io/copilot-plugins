@@ -1,6 +1,6 @@
 # r2morph
 
-> Source: [seifreed/r2morph](https://github.com/seifreed/r2morph). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [seifreed/r2morph](https://github.com/seifreed/r2morph). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
