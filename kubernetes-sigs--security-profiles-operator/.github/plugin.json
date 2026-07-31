@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--security-profiles-operator",
+  "displayName": "security-profiles-operator",
+  "description": "security-profiles-operator",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/security-profiles-operator",
+  "skills": []
+}
