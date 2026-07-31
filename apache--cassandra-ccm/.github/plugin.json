@@ -1,0 +1,9 @@
+{
+  "name": "apache--cassandra-ccm",
+  "displayName": "cassandra-ccm",
+  "description": "cassandra-ccm",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/cassandra-ccm",
+  "skills": []
+}
