@@ -5,13 +5,13 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [koel/koel](https://github.com/koel/koel).
+Original source: `.cursor/rules/*.mdc` in [koel/koel](https://github.com/koel/koel).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
