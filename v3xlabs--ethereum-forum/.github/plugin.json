@@ -1,0 +1,9 @@
+{
+  "name": "v3xlabs--ethereum-forum",
+  "displayName": "ethereum-forum",
+  "description": "An aggregator for all things Ethereum & ACD",
+  "version": "1.0.0",
+  "author": "v3xlabs",
+  "homepage": "https://github.com/v3xlabs/ethereum-forum",
+  "skills": []
+}
