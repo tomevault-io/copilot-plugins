@@ -1,27 +1,22 @@
 # gsap-skills
 
-> Source: [greensock/gsap-skills](https://github.com/greensock/gsap-skills) — distributed by [TomeVault](https://tomevault.io)
-
-Official AI skills for GSAP. These skills teach AI coding agents how to correctly use GSAP (GreenSock Animation Platform), including best practices, common animation patterns, and plugin usage.
+> Source: [greensock/gsap-skills](https://github.com/greensock/gsap-skills). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [greensock/gsap-skills](https://github.com/greensock/gsap-skills).
+Original source: `` in [greensock/gsap-skills](https://github.com/greensock/gsap-skills).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [gsap-frameworks](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-frameworks)
-
-From [greensock/gsap-skills](https://github.com/greensock/gsap-skills) — a repo with 2655+ stars on GitHub.
+From [greensock/gsap-skills](https://github.com/greensock/gsap-skills) — a repo with 12433+ stars on GitHub.
 
 ---
 
