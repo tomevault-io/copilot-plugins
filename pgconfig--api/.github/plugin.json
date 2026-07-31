@@ -1,0 +1,9 @@
+{
+  "name": "pgconfig--api",
+  "displayName": "api",
+  "description": "api",
+  "version": "1.0.0",
+  "author": "pgconfig",
+  "homepage": "https://github.com/pgconfig/api",
+  "skills": []
+}
