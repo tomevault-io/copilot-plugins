@@ -1,7 +1,7 @@
 {
   "name": "liquidos-ai--autoagents",
   "displayName": "AutoAgents",
-  "description": "A  multi-agent framework written in Rust that enables you to build, deploy, and coordinate multiple intelligent agents",
+  "description": "AutoAgents",
   "version": "1.0.0",
   "author": "liquidos-ai",
   "homepage": "https://github.com/liquidos-ai/AutoAgents",
