@@ -1,8 +1,6 @@
 # production-saas-starter
 
-> Source: [moasq/production-saas-starter](https://github.com/moasq/production-saas-starter) — distributed by [TomeVault](https://tomevault.io)
-
-Production-ready B2B SaaS Starter Kit (Go + Next.js). Modular Monolith. Hexagonal Arch.
+> Source: [moasq/production-saas-starter](https://github.com/moasq/production-saas-starter). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
