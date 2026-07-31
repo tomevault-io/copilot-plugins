@@ -1,0 +1,9 @@
+{
+  "name": "cloudera--hue",
+  "displayName": "hue",
+  "description": "hue",
+  "version": "1.0.0",
+  "author": "cloudera",
+  "homepage": "https://github.com/cloudera/hue",
+  "skills": []
+}
