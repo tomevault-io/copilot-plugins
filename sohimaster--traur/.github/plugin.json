@@ -1,7 +1,7 @@
 {
   "name": "sohimaster--traur",
   "displayName": "traur",
-  "description": "trust scoring for AUR packages written in Rust",
+  "description": "traur",
   "version": "1.0.0",
   "author": "Sohimaster",
   "homepage": "https://github.com/Sohimaster/traur",
