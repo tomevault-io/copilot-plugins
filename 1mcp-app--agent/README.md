@@ -1,8 +1,6 @@
 # agent
 
-> Tome by [1mcp-app](https://github.com/1mcp-app/agent) — distributed by [TomeVault](https://tomevault.io)
-
-A unified Model Context Protocol server implementation that aggregates multiple MCP servers into one.
+> Tome by [1mcp-app](https://github.com/1mcp-app/agent), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [1mcp-app/agent](https://github.com/1mcp-app/age
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [1mcp-app/agent](https://github.com/1mcp-app/agent) — a repo with 439+ stars on GitHub.
+From [1mcp-app/agent](https://github.com/1mcp-app/agent) — a repo with 476+ stars on GitHub.
 
 ---
 
