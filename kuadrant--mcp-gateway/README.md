@@ -1,8 +1,6 @@
 # mcp-gateway
 
-> Source: [Kuadrant/mcp-gateway](https://github.com/Kuadrant/mcp-gateway) — distributed by [TomeVault](https://tomevault.io)
-
-An envoy-based MCP Gateway that integrates with Istio and policy attachment mechanisms for authN, authZ, rate limiting and more.
+> Source: [Kuadrant/mcp-gateway](https://github.com/Kuadrant/mcp-gateway). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [Kuadrant/mcp-gateway](https://github.com/Kuadra
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Kuadrant/mcp-gateway](https://github.com/Kuadrant/mcp-gateway) — a repo with 66+ stars on GitHub.
+From [Kuadrant/mcp-gateway](https://github.com/Kuadrant/mcp-gateway) — a repo with 92+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
