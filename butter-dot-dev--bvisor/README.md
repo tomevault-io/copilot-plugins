@@ -1,8 +1,6 @@
 # AI instruction files for bVisor
 
-> Sourced from [butter-dot-dev/bVisor](https://github.com/butter-dot-dev/bVisor) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Embedded bash sandbox for agents, inspired by gVisor
+> Sourced from [butter-dot-dev/bVisor](https://github.com/butter-dot-dev/bVisor), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [butter-dot-dev/bVisor](https://github.com/butte
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/butter-dot-dev/bVisor](https://github.com/butter-dot-dev/bVisor)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/butter-dot-dev/bVisor](https://github.com/butter-dot-dev/bVisor)
 
 ---
 
