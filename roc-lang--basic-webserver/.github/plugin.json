@@ -1,0 +1,9 @@
+{
+  "name": "roc-lang--basic-webserver",
+  "displayName": "basic-webserver",
+  "description": "basic-webserver",
+  "version": "1.0.0",
+  "author": "roc-lang",
+  "homepage": "https://github.com/roc-lang/basic-webserver",
+  "skills": []
+}
