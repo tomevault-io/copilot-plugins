@@ -1,80 +1,53 @@
 ## smartsub
 
-> **Primary Directive**: "Evidence > assumptions | Code > documentation | Efficiency > verbosity"
+> - 本地构建：`yarn build:local`
 
-# Claude Project Memory Template
+# 开发指南
 
-**Primary Directive**: "Evidence > assumptions | Code > documentation | Efficiency > verbosity"
+## 开发环境设置
 
-## Project Context
+1. 安装依赖：
+```bash
+yarn install
+```
 
-- **Current Branch**: `[BRANCH_NAME]` (if applicable)
-- **Main Branch**: `[DEFAULT_BRANCH]` (for PRs)
-- **Active Work**: `[CURRENT_FOCUS]` (if applicable)
-- **Task Documents**: `[TASK_DOC_PATH]` (if applicable)
+2. 启动开发服务器：
+```bash
+yarn dev
+```
 
-## Universal Execution Rules
+## 构建说明
 
-### 1. Task Document Compliance
+- 开发构建：`yarn build`
+- 本地构建：`yarn build:local`
 
-- **Read task documents COMPLETELY** before starting (if provided)
-- **Follow specifications EXACTLY** when they exist
-- **Do NOT deviate** from the specified plan without explicit approval
-- **Ask for clarification** when requirements are unclear
+## 重要依赖
 
-### 2. Phase-by-Phase Execution
+- Electron - 桌面应用框架
+- Next.js - React 框架
+- Whisper.cpp - 语音识别
+- FFmpeg - 音视频处理
+- i18next - 国际化支持
 
-- **Work sequentially** - Complete current phase before moving to next
-- **Respect dependencies** - Tasks often depend on previous completions
-- **Use checkpoints** between phases (git commits/stash as appropriate)
-- **Document progress** before moving to next phase
+## 开发注意事项
 
-### 3. Testing & Validation
+1. 主进程代码位于 `main/` 目录
+2. 渲染进程代码位于 `renderer/` 目录
+3. 使用 TypeScript 进行开发
+4. 遵循项目的代码格式化规则（使用 Prettier）
+5. 注意处理跨进程通信
+6. 注意处理文件系统操作的安全性
+7. 如果需要安装三方依赖，使用 `yarn` 命令
+8. 新增页面或者组件，需要考虑多语言文档的支持
+9. 尽量保持组件和工具的高度抽离和封装，避免同一文件太多的组件和逻辑代码
 
-- **Test after changes** - Run project's test suite to verify
-- **Zero tolerance for errors** - Code must pass all checks
-- **Run specified tests** - Use project's testing framework
-- **Validate before commit** - Ensure all checks pass
+## 调试技巧
 
-### 3. Quality Assurance
-
-- **Validate deliverables** - Verify outputs meet specified requirements
-- **Check completeness** - Ensure all requirements are addressed
-- **Review before handoff** - Validate quality standards are met
-
-### 4. Git Commit Strategy
-
-- **Atomic commits** - One logical change per commit
-- **Clear messages** - Follow project's commit format
-- **Immediate commits** - Don't batch unless specified
-- **No broken commits** - Each commit should leave code in working state
-
-### 5. Documentation Updates
-
-- **Update as you go** - Don't leave documentation for later
-- **Record decisions** - Document why, not just what
-- **Track issues** - Note any problems or deviations
-- **Mark completions** - Update task status when done
-
-## Subagent Guidance
-
-### a. Failure Protocol
-
-**STOP → REVERT → ANALYZE → ADJUST → RETRY → ESCALATE** (after 2 failures)
-
-### b. Execution Strategy
-
-- **Auto-delegate first** - Let Claude Code route tasks intelligently based on context
-- **Explicit invoke** - Format: `"Use the [agent-name] subagent to [task description]"`
-- **Parallel execution** - Max 3 concurrent agents for independent tasks
-- **Sequential chains** - For dependent outputs: architect → developer → tester → reviewer
-
-### c. Coordination Rules
-
-- **Clear handoffs** - Document state changes between agents
-- **Summarize results** - Present concise summary of subagent outputs to user
-- **Resource management** - Terminate agents when expertise no longer needed
+1. 主进程调试：使用 Chrome DevTools
+2. 渲染进程调试：使用 Next.js 开发工具
+3. 使用 `console.log` 进行日志记录
+4. 使用 Electron 的开发者工具进行调试
 
 ---
 > Source: [buxuku/SmartSub](https://github.com/buxuku/SmartSub) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
