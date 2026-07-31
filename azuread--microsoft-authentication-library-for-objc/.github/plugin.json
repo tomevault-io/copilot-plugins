@@ -1,0 +1,9 @@
+{
+  "name": "azuread--microsoft-authentication-library-for-objc",
+  "displayName": "microsoft-authentication-library-for-objc",
+  "description": "microsoft-authentication-library-for-objc",
+  "version": "1.0.0",
+  "author": "AzureAD",
+  "homepage": "https://github.com/AzureAD/microsoft-authentication-library-for-objc",
+  "skills": []
+}
