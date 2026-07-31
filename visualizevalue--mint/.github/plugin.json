@@ -1,7 +1,7 @@
 {
   "name": "visualizevalue--mint",
   "displayName": "mint",
-  "description": "An open source internet protocol enabling the creation and collection of digital artifacts on the Ethereum Virtual Machine",
+  "description": "mint",
   "version": "1.0.0",
   "author": "visualizevalue",
   "homepage": "https://github.com/visualizevalue/mint",
