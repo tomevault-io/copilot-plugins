@@ -1,7 +1,7 @@
 {
   "name": "unopim--unopim",
   "displayName": "unopim",
-  "description": "Unopim is a free and open-source Laravel-based Product Information Management (PIM) system that helps businesses manage and enrich product data from a single platform. Built to scale beyond 10M+ produ",
+  "description": "unopim",
   "version": "1.0.0",
   "author": "unopim",
   "homepage": "https://github.com/unopim/unopim",
