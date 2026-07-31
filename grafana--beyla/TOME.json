@@ -4,7 +4,7 @@
   "repo": "beyla",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/grafana/beyla",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T01:33:13Z"
+  "distributed_at": "2026-07-31T07:38:12Z"
 }
