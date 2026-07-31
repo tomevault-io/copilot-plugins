@@ -2,9 +2,9 @@
   "name": "Agents-for-net",
   "owner": "microsoft",
   "repo": "Agents-for-net",
-  "description": "This repository is for active development of the Microsoft 365 Agent SDK components for .NET",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/Agents-for-net",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-31T22:10:55Z"
+  "distributed_at": "2026-07-31T21:33:20Z"
 }
