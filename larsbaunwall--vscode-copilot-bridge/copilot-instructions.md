@@ -1,36 +1,147 @@
 ## vscode-copilot-bridge
 
-> Always skim [AGENTS.md](../AGENTS.md) before making changes—the document is the single source of truth for architecture, performance targets, and workflow expectations.
+> Guidelines for TypeScript Development targeting TypeScript 5.x and ES2022 output
 
-## Copilot Usage Notes
 
-Always skim [AGENTS.md](../AGENTS.md) before making changes—the document is the single source of truth for architecture, performance targets, and workflow expectations.
+# TypeScript Development
 
-### Hot-path rules
+> These instructions assume projects are built with TypeScript 5.x (or newer) compiling to an ES2022 JavaScript baseline. Adjust guidance if your runtime requires older language targets or down-level transpilation.
 
-- Reuse the helpers in `src/http/utils.ts` (`writeUnauthorized`, `writeNotFound`, `writeRateLimit`, `writeErrorResponse`) instead of hand-written JSON responses.
-- Preserve the SSE contract in `src/http/routes/chat.ts`: emit role chunk first, follow with `data: { ... }` payloads, and terminate with `data: [DONE]`.
-- When streaming, keep `socket.setNoDelay(true)` on the response socket to avoid latency regressions.
-- Honor `state.activeRequests` concurrency guard and return early 429s via `writeRateLimit`.
+## Core Intent
 
-### Tool calling compatibility
+- Respect the existing architecture and coding standards.
+- Prefer readable, explicit solutions over clever shortcuts.
+- Extend current abstractions before inventing new ones.
+- Prioritize maintainability and clarity, short methods and classes, clean code.
+- Keep edits aligned with [AGENTS.md](../../AGENTS.md) and `.github/copilot-instructions.md`.
 
-- `mergeTools` already merges deprecated `functions`; prefer extending it over new code paths.
-- The bridge treats `tool_choice: "required"` like `"auto"` and ignores `parallel_tool_calls`—reflect this limitation in docs if behavior changes.
-- Stream tool call deltas using `delta.tool_calls` chunks containing JSON-encoded argument strings. Downstream clients should replace, not append, argument fragments.
+## Programming Language: TypeScript
 
-### Scope & contracts
+**TypeScript Best Practices:**
+- Use strict TypeScript configuration with `"strict": true`
+- Prefer interfaces over type aliases for object shapes
+- Use explicit return types for all public functions
+- Avoid `any` type - use `unknown` or proper typing instead
+- Use utility types (Pick, Omit, Partial) for type transformations
+- Implement proper null/undefined checking
 
-- Public endpoints are `/health`, `/v1/models`, `/v1/chat/completions`. Changing contracts requires README updates and a version bump.
-- Keep the bridge loopback-only unless a new configuration knob is explicitly approved.
-- Update configuration docs when introducing new `bridge.*` settings and run `npm run compile` before handing off changes.
+## Code Style: Clean Code
 
-### Workflow
+**Clean Code Principles:**
+- Write self-documenting code with meaningful names
+- Keep functions small and focused on a single responsibility
+- Avoid deep nesting and complex conditional statements
+- Use consistent formatting and indentation
+- Write code that tells a story and is easy to understand
+- Refactor ruthlessly to eliminate code smells
 
-- Plan with the todo-list tool, keep diffs minimal, and avoid formatting unrelated regions.
-- Capture limitations or behavior differences (e.g., missing OpenAI response fields) in comments or docs so clients aren’t surprised.
-- Summarize reality after each change: what was touched, how it was verified, and any follow-ups.
+## General Guardrails
+
+- Target TypeScript 5.x / ES2022 and prefer native features over polyfills.
+- Use pure ES modules; never emit `require`, `module.exports`, or CommonJS helpers.
+- Rely on the project's build, lint, and test scripts unless asked otherwise.
+- Note design trade-offs when intent is not obvious.
+- Reuse the HTTP helpers in `src/http/utils.ts` (`writeUnauthorized`, `writeNotFound`, `writeRateLimit`, `writeErrorResponse`) instead of writing ad-hoc JSON responses.
+- Preserve the SSE contract in `src/http/routes/chat.ts`: send the role chunk first, follow with `data: { ... }` payloads, and always terminate with `data: [DONE]`.
+- When streaming, call `res.socket?.setNoDelay(true)` before emitting chunks to avoid latency regressions.
+- Honor the concurrency guard (`state.activeRequests`) and return early 429 responses via `writeRateLimit` when limits are exceeded.
+- Communicate limitations of the VS Code LM API, e.g., `tool_choice: "required"` behaving like `"auto"` and lack of `parallel_tool_calls` support.
+
+## Project Organization
+
+- Follow the repository's folder and responsibility layout for new code.
+- Use kebab-case filenames (e.g., `user-session.ts`, `data-service.ts`) unless told otherwise.
+- Keep tests, types, and helpers near their implementation when it aids discovery.
+- Reuse or extend shared utilities before adding new ones.
+
+## Naming & Style
+
+- Use PascalCase for classes, interfaces, enums, and type aliases; camelCase for everything else.
+- Skip interface prefixes like `I`; rely on descriptive names.
+- Name things for their behavior or domain meaning, not implementation.
+
+## Formatting & Style
+
+- Run the repository's lint/format scripts (e.g., `npm run lint`) before submitting.
+- Match the project's indentation, quote style, and trailing comma rules.
+- Keep functions focused; extract helpers when logic branches grow.
+- Favor immutable data and pure functions when practical.
+
+## Type System Expectations
+
+- Avoid `any` (implicit or explicit); prefer `unknown` plus narrowing.
+- Use discriminated unions for realtime events and state machines.
+- Centralize shared contracts instead of duplicating shapes.
+- Express intent with TypeScript utility types (e.g., `Readonly`, `Partial`, `Record`).
+
+## Async, Events & Error Handling
+
+- Use `async/await`; wrap awaits in try/catch with structured errors.
+- Guard edge cases early to avoid deep nesting.
+- Send errors through the project's logging/telemetry utilities.
+- Surface user-facing errors via the repository's notification pattern.
+- Debounce configuration-driven updates and dispose resources deterministically.
+- Prefer the pre-serialized error helpers for fast paths and document any new reason codes in README + status handlers.
+
+## Architecture & Patterns
+
+- Follow the repository's dependency injection or composition pattern; keep modules single-purpose.
+- Observe existing initialization and disposal sequences when wiring into lifecycles.
+- Keep transport, domain, and presentation layers decoupled with clear interfaces.
+- Supply lifecycle hooks (e.g., `initialize`, `dispose`) and targeted tests when adding services.
+
+## External Integrations
+
+- Instantiate clients outside hot paths and inject them for testability.
+- Never hardcode secrets; load them from secure sources.
+- Apply retries, backoff, and cancellation to network or IO calls.
+- Normalize external responses and map errors to domain shapes.
+
+## Security Practices
+
+- Validate and sanitize external input with schema validators or type guards.
+- Avoid dynamic code execution and untrusted template rendering.
+- Encode untrusted content before rendering HTML; use framework escaping or trusted types.
+- Use parameterized queries or prepared statements to block injection.
+- Keep secrets in secure storage, rotate them regularly, and request least-privilege scopes.
+- Favor immutable flows and defensive copies for sensitive data.
+- Use vetted crypto libraries only.
+- Patch dependencies promptly and monitor advisories.
+
+## Configuration & Secrets
+
+- Reach configuration through shared helpers and validate with schemas or dedicated validators.
+- Handle secrets via the project's secure storage; guard `undefined` and error states.
+- Document new configuration keys and update related tests.
+
+## UI & UX Components
+
+- Sanitize user or external content before rendering.
+- Keep UI layers thin; push heavy logic to services or state managers.
+- Use messaging or events to decouple UI from business logic.
+
+## Testing Expectations
+
+- Add or update unit tests with the project's framework and naming style.
+- Expand integration or end-to-end suites when behavior crosses modules or platform APIs.
+- Run targeted test scripts for quick feedback before submitting.
+- Avoid brittle timing assertions; prefer fake timers or injected clocks.
+
+## Performance & Reliability
+
+- Lazy-load heavy dependencies and dispose them when done.
+- Defer expensive work until users need it.
+- Batch or debounce high-frequency events to reduce thrash.
+- Track resource lifetimes to prevent leaks.
+- Avoid repeated configuration reads in hot paths; cache settings when practical.
+- Maintain streaming code paths without buffering entire responses; only accumulate when `stream: false`.
+
+## Documentation & Comments
+
+- Add JSDoc to public APIs; include `@remarks` or `@example` when helpful.
+- Write comments that capture intent, and remove stale notes during refactors.
+- Update architecture or design docs when introducing significant patterns.
 
 ---
 > Source: [larsbaunwall/vscode-copilot-bridge](https://github.com/larsbaunwall/vscode-copilot-bridge) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
