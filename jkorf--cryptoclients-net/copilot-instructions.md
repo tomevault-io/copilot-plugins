@@ -1,74 +1,67 @@
 ## cryptoclients-net
 
-> This repository is **CryptoClients.Net**, a C#/.NET aggregate client library for multiple cryptocurrency exchange APIs. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using CryptoClients.Net when working with multiple cryptocurrency exchanges in C#/.NET. Apply when generating aggregate exchange, shared API, WebSocket, order book, tracker, or dynamic credential code.
 
-# Copilot Instructions for CryptoClients.Net
 
-This repository is **CryptoClients.Net**, a C#/.NET aggregate client library for multiple cryptocurrency exchange APIs. It is part of the CryptoExchange.Net ecosystem.
+# CryptoClients.Net Conventions
 
-When generating code that consumes CryptoClients.Net, follow these conventions.
+This codebase uses **CryptoClients.Net** for multi-exchange cryptocurrency API access. Do not write raw `HttpClient` calls to exchange endpoints.
 
-## Use CryptoClients.Net for multi-exchange workflows
-
-Do not generate raw `HttpClient` calls to exchange endpoints. Use `ExchangeRestClient`, `ExchangeSocketClient`, shared API interfaces, or the exchange-specific clients exposed from the aggregate clients.
-
-## Client setup
+## Client setup pattern
 
 ```csharp
 using CryptoClients.Net;
-using CryptoClients.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
 
-IExchangeRestClient restClient = new ExchangeRestClient();
-IExchangeSocketClient socketClient = new ExchangeSocketClient();
+var restClient = new ExchangeRestClient();
+var socketClient = new ExchangeSocketClient();
 ```
 
-For services, prefer `services.AddCryptoClients(...)` and inject `IExchangeRestClient`, `IExchangeSocketClient`, `IExchangeOrderBookFactory`, `IExchangeTrackerFactory`, or `IExchangeUserClientProvider`.
-
-## Result handling
-
-Aggregate REST calls return `ExchangeWebResult<T>` or arrays of them. Socket subscriptions return `ExchangeResult<UpdateSubscription>` or arrays of them. Always check `.Success` before reading `.Data`.
-
-## API structure
-
-- `restClient.GetSpotTickerAsync(...)` and similar aggregate methods query one or more exchanges through shared APIs.
-- `restClient.GetSpotTickerClient("Binance")` and similar helpers return a shared client interface for a specific exchange when supported.
-- `restClient.Binance`, `restClient.Kucoin`, `restClient.OKX`, etc. expose the full exchange-specific REST clients.
-- `socketClient.SubscribeToTickerUpdatesAsync(...)` and similar methods subscribe on one or more exchanges.
-- `socketClient.Binance`, `socketClient.Kucoin`, `socketClient.OKX`, etc. expose the full exchange-specific socket clients.
-
-## Shared symbols
-
-Use `SharedSymbol`, not hardcoded exchange symbol formats, when using aggregate or shared API methods:
+For application code, prefer DI:
 
 ```csharp
-var symbol = new SharedSymbol(TradingMode.Spot, "BTC", SharedSymbol.UsdOrStable);
-var ticker = await restClient.GetSpotTickerAsync("Binance", new GetTickerRequest(symbol));
+services.AddCryptoClients(options => options.OutputOriginalData = true);
 ```
 
-For cross-exchange USD/stable quote routing, prefer `SharedSymbol.UsdOrStable` instead of hardcoding `USDT` when USDC/USD variants are acceptable.
+## Result pattern
 
-## Credentials
+Aggregate methods return `ExchangeWebResult<T>`, `ExchangeWebResult<T>[]`, `ExchangeResult<UpdateSubscription>`, or `ExchangeResult<UpdateSubscription>[]`. Always check `.Success` before reading `.Data`.
 
-Use `ExchangeCredentials` for typed configuration, or `SetApiCredentials(exchange, DynamicCredentials)` for runtime-driven credentials. Do not assume every exchange uses only API key and API secret.
+```csharp
+var ticker = await restClient.GetSpotTickerAsync(
+    "Binance",
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", SharedSymbol.UsdOrStable)));
 
-## WebSocket pattern
+if (!ticker.Success) { /* ticker.Error */ return; }
+var price = ticker.Data.LastPrice;
+```
 
-For aggregate subscriptions, check each returned subscription result. Use `await subscription.Data.CloseAsync()` to close one successful aggregate subscription, or `await socketClient.UnsubscribeAllAsync()` on shutdown to close everything. For direct exchange socket clients, use the direct client's `UnsubscribeAsync(subscription.Data)` method.
+## API surface
 
-## Avoid
+- Aggregate REST: `restClient.GetSpotTickerAsync(...)`, `GetFuturesTickerAsync(...)`, `GetOrderBookAsync(...)`, `PlaceSpotOrderAsync(...)`, etc.
+- Shared REST clients: `restClient.GetSpotTickerClient(exchange)`, `GetBalancesClient(...)`, `GetFuturesOrderClient(...)`, etc.
+- Direct exchange REST: `restClient.Binance`, `restClient.Bybit`, `restClient.OKX`, etc.
+- Aggregate sockets: `socketClient.SubscribeToTickerUpdatesAsync(...)`, `SubscribeToOrderBookUpdatesAsync(...)`, `SubscribeToBalanceUpdatesAsync(...)`, etc.
+- Shared socket clients: `socketClient.GetTickerClient(...)`, `GetOrderBookClient(...)`, `GetSpotOrderClient(...)`, etc.
+- Direct exchange sockets: `socketClient.Binance`, `socketClient.Kucoin`, `socketClient.OKX`, etc.
 
-- Raw exchange HTTP calls.
-- Synchronous `.Result` or `.Wait()`.
-- Instantiating clients per request.
-- Reading `.Data` before checking `.Success`.
-- Assuming every exchange supports every shared interface.
-- Guessing credential fields or symbol formats.
+## Hard rules
+
+- Never skip checking `Success`.
+- Use `SharedSymbol` for aggregate/shared APIs. For cross-exchange USD/stable quote routing, prefer `SharedSymbol.UsdOrStable` instead of hardcoding `USDT` when USDC/USD variants are acceptable.
+- Handle per-exchange failures independently in multi-exchange results.
+- Use `Get*Client(...)` null checks when routing manually.
+- Use `ExchangeCredentials` or `DynamicCredentials`; do not guess credential shapes.
+- Call `subscription.Data.CloseAsync()` for one aggregate WebSocket subscription, direct exchange `UnsubscribeAsync(subscription.Data)` for direct socket clients, or `UnsubscribeAllAsync()` for all aggregate subscriptions.
+- Use direct exchange properties for full exchange-specific APIs.
 
 ## Reference
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, and `llms-full.txt` in the repository root, plus `docs/ai-api-map.md` and `Examples/ai-friendly/`.
+- `AGENTS.md` in repo root for detailed assistant patterns.
+- `llms.txt` and `llms-full.txt` in repo root for AI context.
+- `docs/ai-api-map.md` for intent-to-method routing.
+- `Examples/ai-friendly/` for compile-checked examples.
 
 ---
 > Source: [JKorf/CryptoClients.Net](https://github.com/JKorf/CryptoClients.Net) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
