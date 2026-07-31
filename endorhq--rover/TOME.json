@@ -2,7 +2,7 @@
   "name": "rover",
   "owner": "endorhq",
   "repo": "rover",
-  "description": "A manager for AI coding agents that works with Claude Code, Cursor, Gemini, Codex, and Qwen.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/endorhq/rover",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T11:16:09Z"
+  "distributed_at": "2026-07-31T04:42:54Z"
 }
