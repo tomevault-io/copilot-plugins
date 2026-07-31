@@ -2,7 +2,7 @@
   "name": "bVisor",
   "owner": "butter-dot-dev",
   "repo": "bVisor",
-  "description": "Embedded bash sandbox for agents, inspired by gVisor",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/butter-dot-dev/bVisor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T22:24:48Z"
+  "distributed_at": "2026-07-31T06:58:10Z"
 }
