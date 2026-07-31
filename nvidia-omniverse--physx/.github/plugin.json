@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--physx",
+  "displayName": "PhysX",
+  "description": "PhysX",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/PhysX",
+  "skills": []
+}
