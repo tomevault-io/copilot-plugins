@@ -1,0 +1,9 @@
+{
+  "name": "intel--pcm",
+  "displayName": "pcm",
+  "description": "pcm",
+  "version": "1.0.0",
+  "author": "intel",
+  "homepage": "https://github.com/intel/pcm",
+  "skills": []
+}
