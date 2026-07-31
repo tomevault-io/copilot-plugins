@@ -4,7 +4,7 @@
   "repo": "ThetaEvolve",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ypwang61/ThetaEvolve",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T02:09:49Z"
+  "distributed_at": "2026-07-31T07:05:41Z"
 }
