@@ -1,0 +1,9 @@
+{
+  "name": "cilium--cilium",
+  "displayName": "cilium",
+  "description": "cilium",
+  "version": "1.0.0",
+  "author": "cilium",
+  "homepage": "https://github.com/cilium/cilium",
+  "skills": []
+}
