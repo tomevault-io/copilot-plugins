@@ -1,8 +1,6 @@
 # honeclaw
 
-> Source: [B-M-Capital-Research/honeclaw](https://github.com/B-M-Capital-Research/honeclaw) — distributed by [TomeVault](https://tomevault.io)
-
-HoneClaw (Hone-Financial) is dedicated to being a professional investment assistant that truly understands you.
+> Source: [B-M-Capital-Research/honeclaw](https://github.com/B-M-Capital-Research/honeclaw). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
