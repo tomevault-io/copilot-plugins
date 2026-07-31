@@ -1,23 +1,61 @@
-## pre-commit-hygiene
+## release-cycle
 
-> Before git commit — scan for secrets, personal paths, and portability issues
+> Release cycle — compile, package, test, install. Always follow release-cycle skill; avoid known packaging pitfalls.
 
 
-# Pre-commit hygiene
+# Release cycle (mandatory for agents)
 
-Before **every** `git commit` (human or agent):
+**Canonical doc:** `.cursor/skills/release-cycle/SKILL.md` — read before compile/package/test/install work.
 
-1. Run `./scripts/check-commit-hygiene.sh --staged` (or rely on `.githooks/pre-commit` after `./scripts/install-git-hooks.sh`).
-2. Never stage: `config/test.env`, `config/smr.yaml`, `test_model_api_key.txt`, `dist/`, `test-data/`.
-3. Never commit real API keys — use `api_key_env`, `config/test.env` (gitignored), or `config/test.env.example` placeholders only.
-4. Never commit personal/machine paths:
-   - macOS `/Users/<real-user>/…`
-   - Windows `C:/Users/<real-user>/…` (use `SMR_WINDOWS_USER`, `SMR_GUEST_STAGING`, `windows-user` placeholders)
-   - LAN IPs / `HostName` in repo (belong in `~/.ssh/config` + `config/test.env`)
-5. Tests/scripts: no hardcoded OS usernames or machine paths; use `load_test_env.sh`, `vm-ssh.sh`, `windows-user` placeholders. Optional blocklist: copy `config/local-hygiene.env.example` → `config/local-hygiene.env` (gitignored).
-6. Multi-platform: prefer env vars + documented defaults in `config/test.env.example`; avoid host-specific paths in Rust/Python/PS1 under `crates/` and `scripts/`.
+## Entry commands (do not invent ad-hoc flows)
 
-If the check fails, fix the finding or unstage the file — do not bypass with `--no-verify` unless the user explicitly requests it.
+| Host | Full validation | Single platform / phase |
+|------|-----------------|-------------------------|
+| macOS | `./scripts/release-full.sh` | `./scripts/release-cycle.sh [phase]` |
+| macOS package only | `./scripts/package-all.sh` | `./scripts/package-macos.sh` |
+| Windows | `.\scripts\windows\release-cycle.ps1` | `-Phase package` / `-CliOnly` |
+
+Always:
+
+```bash
+export CARGO_TARGET_DIR="$PWD/target"   # bash
+$env:CARGO_TARGET_DIR = "$PWD\target"  # PowerShell
+```
+
+## Before every package run
+
+1. `./scripts/sync-admin-ui.sh` (or compile phase — already calls it)
+2. `./scripts/clean-dist.sh` — removes stale logs/IExpress junk; cleans UTM `C:\Users\Public\smr-*` when SSH up
+3. `./scripts/uninstall.sh` / `uninstall.ps1` before install tests — free :8080
+
+## Windows installer — NSIS only
+
+- **Use:** `scripts/vm/package-windows-gui.sh` (Mac+UTM) or `scripts/package.ps1` (Windows native)
+- **Never:** IExpress / `SafeRoute-*-x64-Setup.exe` naming — scripts removed from repo
+- **Canonical artifact:** `dist/SafeRoute_{version}_x64-setup.exe`
+- NSIS build must **fail hard** if Tauri build fails — do not reuse old `*-setup.exe`
+
+## Stale UI / stale server (do not repeat)
+
+- GUI may reuse an old `smr.exe` on :8080 when semver matches but embedded admin UI differs
+- `/health` returns `ui=` digest — GUI must refuse mismatch
+- After UI changes: rebuild `smr-cli`, repackage, reinstall
+
+## Logs and paths
+
+- Artifact paths: `scripts/dist-layout.sh` → `dist/LATEST-INSTALLERS.txt`
+- Use **fixed** log names under `dist/` (e.g. `macos-release-cycle.log`) — no timestamped `package-all-*.log` in `dist/` root
+- Detailed test logs: `dist/test-runs/` only
+
+## Live tests
+
+- Require gitignored `config/test.env` (from `config/test.env.example`) — never commit keys
+- UTM tests run via **`SMR_WINDOWS_USER` SSH** only (`vm-ssh.sh`)
+
+## VM (SSH only)
+
+- Account: **`SMR_WINDOWS_USER`** from `config/test.env` — all VM ops via `vm-ssh.sh`
+- If `ssh windows-vm` fails: **stop** — user fixes manually in UTM console; no automated SSH fix in repo
 
 ---
 > Source: [lowoodz/AgentMirror](https://github.com/lowoodz/AgentMirror) — distributed by [TomeVault](https://tomevault.io).
