@@ -1,8 +1,6 @@
 # traur
 
-> Source: [Sohimaster/traur](https://github.com/Sohimaster/traur) — distributed by [TomeVault](https://tomevault.io)
-
-trust scoring for AUR packages written in Rust
+> Source: [Sohimaster/traur](https://github.com/Sohimaster/traur). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [Sohimaster/traur](https://github.com/Sohimaster
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Sohimaster/traur](https://github.com/Sohimaster/traur) — a repo with 95+ stars on GitHub.
+From [Sohimaster/traur](https://github.com/Sohimaster/traur) — a repo with 191+ stars on GitHub.
 
 ---
 
