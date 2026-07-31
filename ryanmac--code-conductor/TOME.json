@@ -2,7 +2,7 @@
   "name": "code-conductor",
   "owner": "ryanmac",
   "repo": "code-conductor",
-  "description": "Ship 10x faster by running multiple Claude Code sub agents in parallel. GitHub-native orchestration for AI coding agents\u2014no conflicts, no complexity, just pure parallelized productivity.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ryanmac/code-conductor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T03:43:01Z"
+  "distributed_at": "2026-07-31T01:40:06Z"
 }
