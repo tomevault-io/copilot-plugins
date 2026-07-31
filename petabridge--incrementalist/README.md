@@ -1,6 +1,6 @@
-# Incrementalist
+# AI instruction files for Incrementalist
 
-> Config by [petabridge](https://github.com/petabridge/Incrementalist) — distributed by [TomeVault](https://tomevault.io/claim/petabridge)
+> Sourced from [petabridge/Incrementalist](https://github.com/petabridge/Incrementalist), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [petabridge/Incrementalist](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/petabridge](https://tomevault.io/claim/petabridge)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/petabridge/Incrementalist](https://github.com/petabridge/Incrementalist)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/petabridge) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:a-e-q -->
