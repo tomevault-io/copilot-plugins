@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [invoke-ai/InvokeAI](https://github.com/invoke-ai/InvokeAI).
+Original source: `CLAUDE.md` in [invoke-ai/InvokeAI](https://github.com/invoke-ai/InvokeAI).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [invoke-ai/InvokeAI](https://github.com/invoke-ai/InvokeAI) — a repo with 27643+ stars on GitHub.
+From [invoke-ai/InvokeAI](https://github.com/invoke-ai/InvokeAI) — a repo with 27651+ stars on GitHub.
 
 ---
 
