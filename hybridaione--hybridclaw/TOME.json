@@ -2,9 +2,9 @@
   "name": "hybridclaw",
   "owner": "HybridAIOne",
   "repo": "hybridclaw",
-  "description": "Enterprise-ready self-hosted AI assistant runtime with sandboxed execution, secure credentials, approvals, and memory",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HybridAIOne/hybridclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T02:59:41Z"
+  "distributed_at": "2026-07-31T14:40:05Z"
 }
