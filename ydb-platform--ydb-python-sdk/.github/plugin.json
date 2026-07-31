@@ -1,0 +1,9 @@
+{
+  "name": "ydb-platform--ydb-python-sdk",
+  "displayName": "ydb-python-sdk",
+  "description": "ydb-python-sdk",
+  "version": "1.0.0",
+  "author": "ydb-platform",
+  "homepage": "https://github.com/ydb-platform/ydb-python-sdk",
+  "skills": []
+}
