@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--azuredisk-csi-driver",
+  "displayName": "azuredisk-csi-driver",
+  "description": "azuredisk-csi-driver",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/azuredisk-csi-driver",
+  "skills": []
+}
