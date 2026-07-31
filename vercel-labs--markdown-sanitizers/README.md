@@ -1,6 +1,6 @@
 # markdown-sanitizers
 
-> Config by [vercel-labs](https://github.com/vercel-labs/markdown-sanitizers) — distributed by [TomeVault](https://tomevault.io/claim/vercel-labs)
+> Tome by [vercel-labs](https://github.com/vercel-labs/markdown-sanitizers), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -13,10 +13,12 @@ Original source: `CLAUDE.md` in [vercel-labs/markdown-sanitizers](https://github
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/vercel-labs](https://tomevault.io/claim/vercel-labs)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/vercel-labs/markdown-sanitizers](https://github.com/vercel-labs/markdown-sanitizers)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/vercel-labs) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:t-e-q -->
