@@ -1,0 +1,9 @@
+{
+  "name": "apache--unomi",
+  "displayName": "unomi",
+  "description": "unomi",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/unomi",
+  "skills": []
+}
