@@ -2,7 +2,7 @@
   "name": "community-archive",
   "owner": "TheExGenesis",
   "repo": "community-archive",
-  "description": "An open tweet database and API anyone can build on.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheExGenesis/community-archive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T19:30:28Z"
+  "distributed_at": "2026-07-31T13:31:09Z"
 }
