@@ -1,0 +1,9 @@
+{
+  "name": "jaegertracing--jaeger-idl",
+  "displayName": "jaeger-idl",
+  "description": "jaeger-idl",
+  "version": "1.0.0",
+  "author": "jaegertracing",
+  "homepage": "https://github.com/jaegertracing/jaeger-idl",
+  "skills": []
+}
