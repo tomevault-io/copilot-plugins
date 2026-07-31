@@ -1,8 +1,6 @@
 # rover
 
-> Tome by [endorhq](https://github.com/endorhq/rover) — distributed by [TomeVault](https://tomevault.io)
-
-A manager for AI coding agents that works with Claude Code, Cursor, Gemini, Codex, and Qwen.
+> Tome by [endorhq](https://github.com/endorhq/rover), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
