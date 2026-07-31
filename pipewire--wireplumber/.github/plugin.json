@@ -1,0 +1,9 @@
+{
+  "name": "pipewire--wireplumber",
+  "displayName": "wireplumber",
+  "description": "wireplumber",
+  "version": "1.0.0",
+  "author": "PipeWire",
+  "homepage": "https://github.com/PipeWire/wireplumber",
+  "skills": []
+}
