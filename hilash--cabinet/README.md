@@ -1,8 +1,6 @@
 # cabinet
 
-> Source: [hilash/cabinet](https://github.com/hilash/cabinet) — distributed by [TomeVault](https://tomevault.io)
-
-AI-first knowledge base and startup OS
+> Source: [hilash/cabinet](https://github.com/hilash/cabinet). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
