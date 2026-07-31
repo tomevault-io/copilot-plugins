@@ -1,4 +1,4 @@
-## after-each-chat
+## genoarmory
 
 > Always write a chat-end JSON summary to ./tmp
 
@@ -33,4 +33,4 @@ At the **end of every chat turn**, do the following without exception:
 
 ---
 > Source: [MAGICS-LAB/GenoArmory](https://github.com/MAGICS-LAB/GenoArmory) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
