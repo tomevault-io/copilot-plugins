@@ -1,7 +1,7 @@
 {
   "name": "tavily-ai--tavily-cookbook",
   "displayName": "tavily-cookbook",
-  "description": "Code and guides designed to help developers build with Tavily, offering copy-able code snippets that you can easily integrate into your own projects. ",
+  "description": "tavily-cookbook",
   "version": "1.0.0",
   "author": "tavily-ai",
   "homepage": "https://github.com/tavily-ai/tavily-cookbook",
