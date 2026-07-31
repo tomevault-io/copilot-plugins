@@ -1,152 +1,180 @@
 ## astron-agent
 
-> Astron Agent is an enterprise-grade Agentic Workflow development platform. It includes the console frontend and backend, multiple core microservices, a plugin system, and deployment and infrastructure configuration. The repository uses a multi-language, multi-module structure. The primary languages are TypeScript, Java, Python, and Go.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-## Project Overview
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Astron Agent is an enterprise-grade Agentic Workflow development platform. It includes the console frontend and backend, multiple core microservices, a plugin system, and deployment and infrastructure configuration. The repository uses a multi-language, multi-module structure. The primary languages are TypeScript, Java, Python, and Go.
+## Development Commands
 
-## Repository Structure
+### Starting Development Server
 
-### Console
+```bash
+npm run dev                 # Start development server with hot reload on port 3000
+npm run test               # Start test server on localhost
+```
 
-- `console/frontend`
-  - React 18 + TypeScript + Vite frontend application
-  - Responsible for the console UI, agent creation, chat interface, workflow visualization, model management, plugin marketplace, and related features
-- `console/backend`
-  - Java Spring Boot backend
-  - Responsible for console REST APIs, SSE, authentication, management capabilities, and business aggregation
-  - Main submodules:
-    - `hub`
-    - `toolkit`
-    - `commons`
+### Building the Application
 
-### Core Microservices
+```bash
+npm run build              # Production build
+npm run build:dev          # Development build
+npm run build:test         # Test environment build
+npm run build-demo         # Demo environment build
+npm run preview            # Preview production build locally
+```
 
-- `core/agent`
-  - Python FastAPI service
-  - Responsible for the agent execution engine, Chat/CoT/CoT Process Agent, plugin invocation, and session context handling
-- `core/workflow`
-  - Python FastAPI service
-  - Responsible for workflow orchestration, execution, debugging, versioning, and event handling
-- `core/knowledge`
-  - Python FastAPI service
-  - Responsible for the knowledge base, document processing, vectorization, retrieval, and RAG integration
-- `core/memory`
-  - Python module
-  - Responsible for conversation history, short-term and long-term memory, and session persistence
-- `core/tenant`
-  - Go service
-  - Responsible for multi-tenancy, space isolation, organization management, and resource quota management
-- `core/plugin`
-  - Plugin capability directory
-  - Includes plugin services such as `aitools`, `rpa`, and `link`
-- `core/common`
-  - Python shared capability module
-  - Responsible for abstractions around authentication, logging, observability, databases, cache, message queues, object storage, and other infrastructure concerns
+### Code Quality & Linting
 
-### Other Directories
+```bash
+npm run lint               # Run ESLint
+npm run lint:fix           # Fix ESLint errors automatically
+npm run format             # Format code with Prettier
+npm run format:check       # Check if code is formatted correctly
+npm run type-check         # TypeScript type checking without emitting files
+npm run quality            # Run all checks: format, lint, and type-check
+```
 
-- `docs`
-  - Project documentation, deployment, configuration, and module descriptions
-  - For architectural understanding, refer first to `docs/PROJECT_MODULES_zh.md`
-- `docker`
-  - Docker Compose and related infrastructure configuration
-- `helm`
-  - Helm Charts and Kubernetes deployment configuration
+## Architecture Overview
 
-## Typical Communication Flows
+This is a React TypeScript frontend application built with Vite, serving as a console/admin interface for an AI agent platform. The application follows a modern React architecture with several key patterns:
 
-- Frontend -> Console Backend: HTTP/REST, SSE
-- Console Backend -> Core Services: HTTP/REST
-- Core Services -> Core Services: Kafka event-driven communication
+### Core Technologies
 
-## Behavioral Guidelines to Reduce Common LLM Coding Mistakes
+- **Build Tool**: Vite with React plugin
+- **UI Framework**: React 18 with TypeScript
+- **Component Library**: Ant Design (antd) 5.19.1
+- **Routing**: React Router v6 with lazy loading
+- **State Management**: Multiple approaches:
+  - Zustand for global state
+  - Recoil with persistence for some state
+  - Local component state with hooks
+- **Internationalization**: i18next with browser language detection
+- **Authentication**: Casdoor JS SDK for SSO authentication
+- **HTTP Client**: Axios with comprehensive interceptors
 
-Merge these with project-specific instructions as needed.
+### Key Architecture Patterns
 
-Tradeoff: These guidelines prioritize caution over speed. Use judgment for trivial tasks.
+#### 1. Authentication & Authorization
 
-### 1. Think Before Coding
+- Uses Casdoor SDK for SSO authentication with PKCE flow
+- Automatic token refresh with JWT expiration handling
+- Request interceptors add authentication headers and space/enterprise context
+- Multi-environment configuration support (development, test, production)
 
-Do not assume. Do not hide confusion. Surface tradeoffs.
+#### 2. Multi-Space Architecture
 
-Before implementing:
+The application supports both personal and enterprise (team) spaces:
 
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them instead of choosing silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Identify what is confusing and ask.
+- **Personal Space**: Individual user workspace
+- **Enterprise Space**: Team/organization workspace with enterprise-id context
+- Space switching is handled through dedicated hooks and stores
+- All API requests automatically include space-id and enterprise-id headers
 
-### 2. Simplicity First
+#### 3. Internationalization
 
-Write the minimum code that solves the problem. Nothing speculative.
+- Supports Chinese (zh) and English (en) locales
+- Language detection from browser and localStorage
+- Dynamic language switching updates HTTP request headers
+- Integrated with Ant Design's locale providers
 
-- Do not add features beyond what was asked.
-- Do not add abstractions for single-use code.
-- Do not add "flexibility" or "configurability" that was not requested.
-- Do not add error handling for impossible scenarios.
-- If you write 200 lines and the same result could be achieved in 50, rewrite it.
-- Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+#### 4. Routing Structure
 
-### 3. Surgical Changes
+```
+/                          # Root redirects to /home
+/home                      # Home page
+/management/               # Management section
+  ├── bot-api              # Bot API management
+  ├── model                # Model management
+  └── release              # Release management
+/space/                    # Personal space management
+/enterprise/:enterpriseId # Enterprise space management
+/store/plugin              # Plugin store
+/chat/:botId/:version?     # Chat interface
+/work_flow/:id/arrange     # Workflow editor
+```
 
-Touch only what you must. Clean up only your own mess.
+#### 5. Component Organization
 
-When editing existing code:
+```
+src/
+├── components/           # Reusable UI components
+├── pages/               # Route-based page components
+├── layouts/             # Layout components (sidebar, header)
+├── hooks/               # Custom React hooks
+├── store/               # State management (Zustand/Recoil stores)
+├── services/            # API service layer
+├── utils/               # Utility functions
+├── config/              # Configuration files
+├── locales/             # i18n translations
+├── styles/              # Global styles and Sass files
+└── types/               # TypeScript type definitions
+```
 
-- Do not "improve" adjacent code, comments, or formatting.
-- Do not refactor things that are not broken.
-- Match the existing style, even if you would normally do it differently.
-- If you notice unrelated dead code, mention it. Do not delete it.
+#### 6. HTTP Request Architecture
 
-When your changes create orphans:
+- Centralized Axios configuration with request/response interceptors
+- Automatic token refresh handling
+- Request deduplication to prevent duplicate API calls
+- Comprehensive error handling with business logic error codes
+- Environment-specific base URL configuration
+- Support for file downloads with authentication headers
 
-- Remove imports, variables, or functions that become unused because of your changes.
-- Do not remove pre-existing dead code unless asked.
-- Use this test: every changed line should trace directly to the user's request.
+#### 7. State Management Pattern
 
-### 4. Goal-Driven Execution
+Multiple stores handle different domains:
 
-Define success criteria. Iterate until verified.
+- `user-store`: User authentication and profile data
+- `space-store`: Current space context (personal/enterprise)
+- `enterprise-store`: Enterprise management data
+- `global-store`: Global application state
+- `chat-store`: Chat interface state
+- And specialized stores for specific features
 
-Turn tasks into verifiable goals:
+### Development Environment Configuration
 
-- "Add validation" -> "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" -> "Write a test that reproduces it, then make it pass"
-- "Refactor X" -> "Ensure tests pass before and after"
+#### Environment Files
 
-For multi-step tasks, state a brief plan:
+- `.env.development` - Development environment
+- `.env.test` - Test environment
+- `.env.production` - Production environment
 
-1. [Step] -> verify: [check]
-2. [Step] -> verify: [check]
-3. [Step] -> verify: [check]
+#### Key Environment Variables
 
-Strong success criteria allow you to work independently in a loop. Weak criteria such as "make it work" require constant clarification.
+- `CONSOLE_CASDOOR_URL` - Casdoor authentication server URL
+- `CONSOLE_CASDOOR_ID` - Casdoor client ID
+- `CONSOLE_CASDOOR_APP` - Casdoor application name
+- `CONSOLE_CASDOOR_ORG` - Casdoor organization name
+- `VITE_BASE_URL` - API base URL
+- `CONSOLE_API_URL` - Console API URL override
 
-These guidelines are working if there are fewer unnecessary changes in diffs, fewer rewrites caused by overcomplication, and more clarifying questions before implementation rather than after mistakes.
+#### Proxy Configuration
 
-## Modification Recommendations
+Development server proxies API requests:
 
-- Before making changes, first identify the target module. Do not modify shared layers directly before understanding the call chain.
-- If a change involves multiple services, make the call chain and dependency direction explicit.
-- If Kafka, Redis, MinIO, or authentication is involved, evaluate the impact on other services first.
+- `/xingchen-api` → Backend API server
+- `/chat-` → Chat service endpoints
+- `/workflow` → Workflow service endpoints
 
-## Important Notes
+### Code Style & Standards
 
-- Before implementation, first confirm the target module, upstream and downstream dependencies, and the verification approach.
-- Prefer official SDKs when writing code.
-- Do not focus only on whether the feature works. It must also satisfy the corresponding language module's formatting, linting, type checking, static analysis, and testing requirements.
-- If the work is a bug fix, unit tests and integration tests are not required. If it is a complete feature request, unit tests are mandatory, and integration tests should also be added when feasible.
-- If it is a complete feature request or a complex bug, add logs at key points as much as reasonably possible to help with troubleshooting, but do not add excessive logging.
+- Uses ESLint with TypeScript and React plugins
+- Prettier for code formatting
+- Strict TypeScript configuration with comprehensive type checking
+- Path aliases: `@/*` maps to `src/*`
 
-## Key Workflow Expectations
+### Key Dependencies
 
-1. If unit tests or integration tests are involved, assign the test scenarios and test code to a new subagent for execution. The subagent should report test results back to the main agent. If tests fail, the main agent should fix the issue and hand testing back to the subagent. Repeat this loop for up to 5 rounds. If tests still do not pass after 5 rounds, inform the user. In addition, if any local environment issue appears during testing, ask the user whether local dependencies should be installed. After the user agrees, install the required local environment automatically and continue testing.
-2. After the feature work and testing are completed, ask the user whether the project needs to be redeployed. If the user confirms redeployment is needed, start a new subagent to execute the `.codex/skills/astron-agent-server-deploy` skill.
+- **Monaco Editor**: Code editing capabilities
+- **ReactFlow**: Workflow visualization
+- **ECharts**: Data visualization
+- **Markdown Rendering**: Multiple markdown processors
+- **File Handling**: Excel, image processing, QR codes
+- **Crypto**: Encryption utilities for sensitive data
+
+This architecture enables a scalable, maintainable frontend for managing AI agents, workflows, and enterprise collaboration features.
 
 ---
 > Source: [iflytek/astron-agent](https://github.com/iflytek/astron-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
