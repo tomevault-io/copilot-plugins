@@ -1,0 +1,9 @@
+{
+  "name": "openshift--lvm-operator",
+  "displayName": "lvm-operator",
+  "description": "lvm-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/lvm-operator",
+  "skills": []
+}
