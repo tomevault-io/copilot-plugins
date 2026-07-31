@@ -1,0 +1,9 @@
+{
+  "name": "dsccommunity--sqlserverdsc",
+  "displayName": "SqlServerDsc",
+  "description": "SqlServerDsc",
+  "version": "1.0.0",
+  "author": "dsccommunity",
+  "homepage": "https://github.com/dsccommunity/SqlServerDsc",
+  "skills": []
+}
