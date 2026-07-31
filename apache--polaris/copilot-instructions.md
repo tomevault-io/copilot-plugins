@@ -2,6 +2,7 @@
 
 > Licensed to the Apache Software Foundation (ASF) under one
 
+
 <!--
   Licensed to the Apache Software Foundation (ASF) under one
   or more contributor license agreements.  See the NOTICE file
@@ -21,20 +22,29 @@
   under the License.
 -->
 
-When reviewing pull requests, stay silent unless the diff gives a concrete
-reason to believe a high-value documentation, security, or test coverage update
-may be missing.
+Look for changes that may need human review for missing documentation, tests, or
+security notes.
 
-Only comment when you can name the changed behavior, the likely impacted
-documentation or test area, and why the diff suggests an omission.
+Comment only when the diff changes one of these areas and no matching update is
+visible:
 
-Prefer no comment over speculative advice. Do not state that documentation,
-tests, security, or implementation are correct or complete. Use cautious
-language such as "Please check whether..." or "A human reviewer should verify..."
+- security boundaries, authentication, authorization, secrets, credentials,
+  trust assumptions, external integrations, storage access, network exposure, or
+  privilege model
+- coding-agent expectations, contribution workflow, build/test commands, review
+  policy, or repository conventions
+- user-visible behavior, configuration, CLI behavior, Helm behavior, APIs,
+  deployment behavior, or operational guidance
 
-No comment is not approval and does not imply that the PR is correct, complete,
-sufficiently tested, secure, or fully documented.
+Likely documentation targets include `SECURITY-THREAT-MODEL.md`, `SECURITY.md`,
+`AGENTS.md`, `README.md`, `CONTRIBUTING.md`, Helm README files,
+`site/content/in-dev/**`, and user-facing site docs tracked in this repository
+under `site/content/**`. Do not ask reviewers to update generated or
+build-time-only release docs unless those files are present in the PR diff.
+
+When reviewing updates to an existing PR, do not repeat prior comments. Only
+comment on newly introduced or newly changed risks visible in the latest diff.
 
 ---
 > Source: [apache/polaris](https://github.com/apache/polaris) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
