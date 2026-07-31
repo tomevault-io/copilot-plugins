@@ -1,8 +1,6 @@
 # draftnrun
 
-> Source: [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — distributed by [TomeVault](https://tomevault.io)
-
-Mono repo for Draft'n run source code.
+> Source: [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ From [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — a repo with 30+
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
