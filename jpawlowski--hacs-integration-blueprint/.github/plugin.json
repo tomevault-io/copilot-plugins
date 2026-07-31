@@ -1,7 +1,7 @@
 {
   "name": "jpawlowski--hacs-integration-blueprint",
   "displayName": "hacs.integration_blueprint",
-  "description": "AI-enabled Modern Home Assistant Custom Integration Blueprint",
+  "description": "hacs.integration_blueprint",
   "version": "1.0.0",
   "author": "jpawlowski",
   "homepage": "https://github.com/jpawlowski/hacs.integration_blueprint",
