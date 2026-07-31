@@ -1,0 +1,179 @@
+## ai-orchestrator
+
+> Handles small, targeted changes using the lightest available model. Intended for single-function fixes, import updates, renames, and constant additions.
+
+[README](../README.md) · [Architecture](ARCHITECTURE.md) · **Agents** · [Skills & Commands](SKILLS.md) · [Cluster](CLUSTER.md)
+
+---
+
+# Agents
+
+Agents are markdown files in `agents/`. Each file defines the behavior of a subagent that Claude Code can spawn. The `/implement` command orchestrates agents automatically; agents can also be invoked on demand.
+
+## [Planner](../agents/planner.md)
+
+Analyzes a coding task, explores the codebase, and writes `.claude/context/task_context.md`. It never writes production code.
+
+- **Triggered by**: `/implement`, always first, before any code is written
+- **Model**: Claude Sonnet (orchestrator itself — no Ollama call)
+- **Ollama**: not used for planning — Claude reads files directly and writes the plan
+
+The planner checks for `.claude/context/project_overview.md` on every run (Phase 0). If it exists, the planner runs `git status --short` and `git diff --name-only HEAD~1 HEAD` to detect stale entries — any file from `## Key Files` that appears in the output is marked [STALE] and re-read fully. Files not marked stale are trusted from the cache. If the overview does not exist, the planner does a full codebase exploration.
+
+The output `task_context.md` contains: the task description, a step-by-step plan, exact function signatures, copy-pasted code patterns, anti-patterns to avoid, and full contents of every file that will be changed.
+
+After writing `task_context.md`, the planner updates `.claude/context/project_overview.md` with any new architectural findings.
+
+## [pre-reviewer]
+
+Checks that Claude's plan complies with domain-specific standards before implementation begins. Not an architectural validator — Claude already made those decisions. A mechanical checklist against the rules loaded by triage.
+
+- **Triggered by**: `/implement` (Step 1.5), after Claude has written the task context
+- **Ollama role**: `pre-reviewer` (qwen2.5-coder:7b)
+
+Reads `## Plan`, `## Exact Signatures`, `## Anti-patterns`, and `## Files to Change` from `task_context.md`, plus `## Domain Standards` and `## Constraints` from `triage.md`. Verifies compliance with domain rules (e.g. HEALTHCHECK syntax for docker, no hardcoded secrets for security, correct HTTP verbs for api). Writes verdict to `.claude/context/pre_review.md`. If non-compliant, Claude updates the plan before coder runs.
+
+## [coder](../agents/coder.md)
+
+Reads `task_context.md` and implements the changes by calling Ollama for code generation, then applies them with Edit and Write tools.
+
+- **Triggered by**: `/implement`, after planner completes
+- **Ollama role**: `coder` (model: `hf.co/bartowski/Qwen2.5-Coder-14B-Instruct-GGUF:IQ4_XS`)
+
+The coder does not re-explore the codebase. It reads `task_context.md` and `triage.md` directly — the orchestrator passes only file paths, not content. For non-trivial generation it calls:
+
+```bash
+bash ~/.claude/call_ollama.sh --role coder --prompt-file "$TMP_PROMPT"
+```
+
+After applying changes, it runs `python3 -m py_compile` (Python) or `tsc --noEmit` (TypeScript) per changed file, and writes a structured summary to `.claude/context/coder_output.md` with sections: `## Verdict`, `## Changed Files`, `## Skipped`, `## Issues`.
+
+## [reviewer](../agents/reviewer.md)
+
+Reviews code diffs against project standards, runs a syntax check, and calls Ollama for logic and bug analysis. Returns `APPROVED` or `NEEDS CHANGES` with a list of issues.
+
+- **Triggered by**: `/implement`, after coder and build check; tiered — fast then deep, per changed file, in parallel
+- **Ollama role**: `reviewer` (qwen2.5-coder:7b) for deep review; `quick-coder` (qwen2.5-coder:7b) for fast review
+
+Two-tier review per changed file:
+
+1. **Fast review** (`quick-coder`) — syntax, style, obvious bugs. Writes `.claude/context/review_fast_<filename>.md`.
+2. **Deep review** (`reviewer`) — logic, security, architecture. Runs only if fast review flagged issues or triage detected `security`/`api`/`complex` domains. Writes `.claude/context/review_deep_<filename>.md`.
+
+Each output file has the same structure:
+
+```markdown
+## Verdict
+APPROVED | NEEDS CHANGES
+
+## Issues
+- `<path>:<line>` [<Rule>] <description> — Fix: <fix>
+
+## Notes
+- <optional observations>
+```
+
+The fix loop reads only files with `Verdict: NEEDS CHANGES` and re-reviews only those files after the fix.
+
+## [quick-coder](../agents/quick-coder.md)
+
+Handles small, targeted changes using the lightest available model. Intended for single-function fixes, import updates, renames, and constant additions.
+
+- **Triggered by**: user or agent request for a change under ~30 lines that does not require planning
+- **Ollama role**: `quick-coder` (qwen2.5-coder:7b)
+
+The agent follows the **Expert Committer Rules** defined in `plugins/committer/commands/commit.md`. If the task turns out to require more than one file or more than ~30 lines, quick-coder stops and recommends using `/implement` instead. Prompts must be short because the model has a 4096-token context window.
+
+No review step follows quick-coder for trivial changes.
+
+## [commit](../agents/commit.md)
+
+Stages and commits all pending changes. Generates the commit message via Ollama.
+
+- **Triggered by**: user says "commit", "make a commit", "save changes", or uses `/commit`
+- **Ollama role**: `commit` (qwen2.5-coder:7b)
+
+The agent never asks for confirmation. It runs `git status`, gets the diff, generates a conventional-commits message (prefix: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`), then stages and commits. It never commits `venv/`, `dist/`, `*.egg-info/`, `__pycache__/`, or `.env` files.
+
+## [doc-writer](../agents/doc-writer.md)
+
+Creates or updates documentation after code changes. Reads the git diff, calls Ollama to draft content, then applies changes to markdown files.
+
+- **Triggered by**: user asks to write, create, or update documentation, README, or docs
+- **Claude model**: Sonnet (inherited)
+- **Ollama role**: `reviewer` (qwen2.5-coder:7b)
+
+All content is derived from the git diff. The agent never invents API details or documents code that was not changed. It uses Edit for targeted updates to existing files and Write for new files.
+
+## [test-agent](../agents/test-agent.md)
+
+Writes tests for code that was just implemented, runs them, and performs one fix round if they fail.
+
+- **Triggered by**: on demand, after the coder agent has written code
+- **Claude model**: Sonnet (inherited)
+- **Ollama role**: `coder` (model: `hf.co/bartowski/Qwen2.5-Coder-14B-Instruct-GGUF:IQ4_XS`)
+
+The agent reads `task_context.md` to understand what was built, detects the language and test framework from indicator files, reads existing test files to mirror their style, generates new tests via Ollama, writes them to the appropriate location, and runs them.
+
+If tests fail, the agent sends the full error output back to Ollama for a fix and runs again. It stops after one fix round and reports any remaining failures.
+
+Framework detection:
+
+| Indicator | Language | Framework | Run command |
+|-----------|----------|-----------|-------------|
+| `tsconfig.json` | TypeScript | Jest or Vitest | `npx jest` / `npx vitest run` |
+| `pubspec.yaml` | Flutter/Dart | flutter test | `flutter test` |
+| `Package.swift` | Swift | XCTest | `swift test` |
+| `CMakeLists.txt` | C++ | GoogleTest / Catch2 | `ctest` |
+| `pyproject.toml` | Python | pytest | `python -m pytest -v` |
+| `*.sh` | Bash | Shunit2 | `shunit2` |
+
+## [debugger](../agents/debugger.md)
+
+Analyzes errors, stack traces, and logs to find the fundamental cause of a failure. Proposes a hotfix and a systemic countermeasure.
+
+- **Triggered by**: user sharing an error log, stack trace, or asking "why did this happen"
+- **Claude model**: Sonnet (inherited)
+- **Ollama role**: `debugger` (qwen2.5-coder:7b)
+
+The agent ALWAYS loads `skills/root-cause-analysis/SKILL.md` before starting the analysis. It gathers the logs and relevant source code, conducts a systematic 5-Whys analysis, and outputs a structured Root Cause Analysis report.
+
+- **CI Integration**: Can be used in pipelines to automatically analyze failed logs (via `scripts/ci-debugger.js`).
+
+## [architect](../agents/architect.md)
+
+Evaluates designs, proposed refactors, and technology choices using fundamental truths instead of analogies.
+
+- **Triggered by**: `/implement` (`architect-first` route), user asking "is this the right approach?", or refactor requests
+- **Model**: Claude Sonnet (orchestrator itself — no Ollama call)
+
+The agent ALWAYS loads `skills/first-principles/SKILL.md`. It identifies the core job to be done, challenges all current assumptions, identifies ground truths, and builds up the recommended solution from those fundamentals. It is the primary agent for "Phase 1: Planning".
+
+### Local Use & Mentorship (Onboarding)
+
+Developers can use the Architect agent directly in their AI IDE (Cursor, VS Code + Copilot/Cline) or Claude Code to learn project standards and architectural patterns.
+
+**How to invoke:**
+
+1. **Mention the Agent**: In your chat, point to `agents/architect.md` (using `@` or as context).
+2. **Ask for Guidance**: Provide the path to the project or folder you are working on.
+
+**Example Prompts:**
+
+- *"Read `agents/architect.md` and tell me: how do we correctly add a new endpoint in `src/routes/` according to our standards?"*
+- *"Based on our architectural rules, is this the right way to handle database transactions in this module?"*
+- *"I am new here. Can you explain the project structure of `src/` using the Architect's identity?"*
+
+## [devops](../agents/devops.md)
+
+Architects CI/CD pipelines, cloud infrastructure (AWS), and develops MCP servers.
+
+- **Triggered by**: user asks for "CI/CD", "deploy", "AWS", "Docker", "Kubernetes", or "MCP server"
+- **Claude model**: Sonnet (inherited)
+- **Ollama role**: `devops` (qwen2.5-coder:7b)
+
+The agent leverages specialized skills: `skills/ci-cd-pipelines/SKILL.md`, `skills/aws-cloud-patterns/SKILL.md`, and `skills/devops-automation/SKILL.md`. It is responsible for ensuring that all development is cloud-ready and properly automated.
+
+---
+> Source: [Mybono/ai-orchestrator](https://github.com/Mybono/ai-orchestrator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
