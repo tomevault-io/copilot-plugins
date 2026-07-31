@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--wp-cli",
+  "displayName": "wp-cli",
+  "description": "wp-cli",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/wp-cli",
+  "skills": []
+}
