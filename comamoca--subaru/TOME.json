@@ -2,9 +2,9 @@
   "name": "subaru",
   "owner": "Comamoca",
   "repo": "subaru",
-  "description": "A Gleam WASM runner that allows executing Gleam code dynamically using WebAssembly.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Comamoca/subaru",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T10:24:58Z"
+  "distributed_at": "2026-07-31T16:54:22Z"
 }
