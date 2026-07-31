@@ -4,7 +4,7 @@
   "repo": "superset",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/apache/superset",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T08:20:49Z"
+  "distributed_at": "2026-07-31T01:59:03Z"
 }
