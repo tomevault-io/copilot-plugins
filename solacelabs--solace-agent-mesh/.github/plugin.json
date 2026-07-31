@@ -1,0 +1,9 @@
+{
+  "name": "solacelabs--solace-agent-mesh",
+  "displayName": "solace-agent-mesh",
+  "description": "solace-agent-mesh",
+  "version": "1.0.0",
+  "author": "SolaceLabs",
+  "homepage": "https://github.com/SolaceLabs/solace-agent-mesh",
+  "skills": []
+}
