@@ -1,0 +1,32 @@
+## openiothub
+
+> 本应用使用 **go_router**；禁止硬编码路径字符串，带参跳转须与 `AppNavigator` / `go_app_router` 约定一致。
+
+# 页面路由规范
+
+本应用使用 **go_router**；禁止硬编码路径字符串，带参跳转须与 `AppNavigator` / `go_app_router` 约定一致。
+
+## 跳转方式
+
+- **无参数**：`context.push(AppRoutes.xxx)` 或 `context.go(AppRoutes.xxx)`（需整栈替换时）
+- **带参数**：优先 `AppNavigator.pushXxx(context, ...)`（内部 `GoRouter.of(context).push` + `extra`）
+
+## 新增页面
+
+1. **`lib/router/app_routes.dart`**：增加路径常量；仅**无需登录**的页面将路径加入 `publicPaths`，并在 `lib/router/go_routes/` 对应文件中注册 `GoRoute`。
+2. **`lib/router/go_app_router.dart`**：在 `createOpenIoTHubRouter` 的 `routes` 中增加 `GoRoute`，从 `state.extra` 读参（可用文件内 `_routeExtraMap` / `_extraString` 等辅助函数）。
+3. **`lib/router/app_navigator.dart`**（推荐）：增加 `pushXxx`，`extra` 的 key 使用 `AppNavigator.arg*` 常量。
+
+## 业务代码
+
+- 使用 `context.push` / `context.go`（需 `import 'package:go_router/go_router.dart';`）或 `AppNavigator`。
+- 避免 `Navigator.pushNamed`（与 `MaterialApp.router` 不配套）。
+- 尽量避免 `Navigator.push(context, MaterialPageRoute(...))`；若必须打开未注册页，保持局部可维护即可。
+
+## 跨包路径
+
+子包使用 `RoutePaths`（`lib/core/route_paths.dart`），主应用 `AppRoutes` 中对应项应引用 `RoutePaths.xxx`，与 go_router 路径保持一致。
+
+---
+> Source: [OpenIoTHub/OpenIoTHub](https://github.com/OpenIoTHub/OpenIoTHub) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
