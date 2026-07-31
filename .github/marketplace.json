@@ -1144,6 +1144,11 @@
       "description": "\u03c0 RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection \u2014 all without a single pixel of video."
     },
     {
+      "name": "run-llama--llama-index",
+      "source": "./run-llama--llama-index",
+      "description": "llama_index"
+    },
+    {
       "name": "expo--expo",
       "source": "./expo--expo",
       "description": "expo"
@@ -2082,6 +2087,11 @@
       "name": "blakeblackshear--frigate",
       "source": "./blakeblackshear--frigate",
       "description": "frigate"
+    },
+    {
+      "name": "seleniumhq--selenium",
+      "source": "./seleniumhq--selenium",
+      "description": "selenium"
     },
     {
       "name": "seleniumhq--selenium",
@@ -5544,6 +5554,11 @@
       "description": "tinacms"
     },
     {
+      "name": "tinacms--tinacms",
+      "source": "./tinacms--tinacms",
+      "description": "tinacms"
+    },
+    {
       "name": "567-labs--instructor",
       "source": "./567-labs--instructor",
       "description": "instructor"
@@ -5622,6 +5637,11 @@
       "name": "nevamind-ai--memu",
       "source": "./nevamind-ai--memu",
       "description": "Memory for 24/7 proactive agents like OpenClaw."
+    },
+    {
+      "name": "dbt-labs--dbt-core",
+      "source": "./dbt-labs--dbt-core",
+      "description": "dbt-core"
     },
     {
       "name": "dbt-labs--dbt-core",
@@ -5802,6 +5822,36 @@
       "name": "the-pocket--pocketflow-tutorial-codebase-knowledge",
       "source": "./the-pocket--pocketflow-tutorial-codebase-knowledge",
       "description": "PocketFlow-Tutorial-Codebase-Knowledge"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
     },
     {
       "name": "nearai--ironclaw",
@@ -9069,6 +9119,11 @@
       "description": "intentkit"
     },
     {
+      "name": "crestalnetwork--intentkit",
+      "source": "./crestalnetwork--intentkit",
+      "description": "intentkit"
+    },
+    {
       "name": "k3d-io--k3d",
       "source": "./k3d-io--k3d",
       "description": "k3d"
@@ -9712,6 +9767,11 @@
       "name": "hellodigua--chatlab",
       "source": "./hellodigua--chatlab",
       "description": "Rediscover your social memories with local, AI-powered analysis. \u672c\u5730\u5316\u7684\u804a\u5929\u8bb0\u5f55\u5206\u6790\u5de5\u5177\uff0c\u901a\u8fc7 AI Agent \u56de\u987e\u4f60\u7684\u793e\u4ea4\u8bb0\u5fc6\u3002"
+    },
+    {
+      "name": "helicone--helicone",
+      "source": "./helicone--helicone",
+      "description": "helicone"
     },
     {
       "name": "helicone--helicone",
@@ -10762,6 +10822,11 @@
       "name": "gosom--google-maps-scraper",
       "source": "./gosom--google-maps-scraper",
       "description": "google-maps-scraper"
+    },
+    {
+      "name": "chakra-ui--zag",
+      "source": "./chakra-ui--zag",
+      "description": "zag"
     },
     {
       "name": "chakra-ui--zag",
@@ -13874,6 +13939,11 @@
       "description": "rio"
     },
     {
+      "name": "actor-framework--actor-framework",
+      "source": "./actor-framework--actor-framework",
+      "description": "actor-framework"
+    },
+    {
       "name": "akuity--kargo",
       "source": "./akuity--kargo",
       "description": "kargo"
@@ -16824,6 +16894,16 @@
       "description": "ChineseResearchLaTeX"
     },
     {
+      "name": "huangwb8--chineseresearchlatex",
+      "source": "./huangwb8--chineseresearchlatex",
+      "description": "ChineseResearchLaTeX"
+    },
+    {
+      "name": "huangwb8--chineseresearchlatex",
+      "source": "./huangwb8--chineseresearchlatex",
+      "description": "ChineseResearchLaTeX"
+    },
+    {
       "name": "nugetpackageexplorer--nugetpackageexplorer",
       "source": "./nugetpackageexplorer--nugetpackageexplorer",
       "description": "NuGetPackageExplorer"
@@ -16944,6 +17024,36 @@
       "description": "NeMo-Agent-Toolkit"
     },
     {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
+    },
+    {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
+    },
+    {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
+    },
+    {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
+    },
+    {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
+    },
+    {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
+    },
+    {
       "name": "miantiao-me--hacker-podcast",
       "source": "./miantiao-me--hacker-podcast",
       "description": "\u4e00\u4e2a\u57fa\u4e8e AI \u7684 Hacker News \u4e2d\u6587\u64ad\u5ba2\u9879\u76ee\uff0c\u6bcf\u5929\u81ea\u52a8\u6293\u53d6 Hacker News \u70ed\u95e8\u6587\u7ae0\uff0c\u901a\u8fc7 AI \u751f\u6210\u4e2d\u6587\u603b\u7ed3\u5e76\u8f6c\u6362\u4e3a\u64ad\u5ba2\u5185\u5bb9\u3002"
@@ -16992,6 +17102,11 @@
       "name": "google--zerocopy",
       "source": "./google--zerocopy",
       "description": "zerocopy"
+    },
+    {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
     },
     {
       "name": "cksystemsteaching--selfie",
@@ -18187,6 +18302,11 @@
       "name": "samchon--nestia",
       "source": "./samchon--nestia",
       "description": "nestia"
+    },
+    {
+      "name": "aws--amazon-ecs-agent",
+      "source": "./aws--amazon-ecs-agent",
+      "description": "amazon-ecs-agent"
     },
     {
       "name": "danielpaulus--go-ios",
@@ -31209,6 +31329,11 @@
       "description": "scenario"
     },
     {
+      "name": "langwatch--scenario",
+      "source": "./langwatch--scenario",
+      "description": "scenario"
+    },
+    {
       "name": "tempoxyz--tempo",
       "source": "./tempoxyz--tempo",
       "description": "the blockchain for payments"
@@ -33829,6 +33954,16 @@
       "description": "Unreal_mcp"
     },
     {
+      "name": "chir24--unreal-mcp",
+      "source": "./chir24--unreal-mcp",
+      "description": "Unreal_mcp"
+    },
+    {
+      "name": "chir24--unreal-mcp",
+      "source": "./chir24--unreal-mcp",
+      "description": "Unreal_mcp"
+    },
+    {
       "name": "davideast--stitch-mcp",
       "source": "./davideast--stitch-mcp",
       "description": "A CLI for moving AI-generated UI designs from Google\u2019s Stitch platform into your development workflow."
@@ -35247,6 +35382,11 @@
       "name": "chinachu--mirakurun",
       "source": "./chinachu--mirakurun",
       "description": "Mirakurun"
+    },
+    {
+      "name": "pbeenigg--littlecrawler",
+      "source": "./pbeenigg--littlecrawler",
+      "description": "LittleCrawler"
     },
     {
       "name": "terryso--claude-auto-resume",
@@ -41159,6 +41299,11 @@
       "description": "couchers"
     },
     {
+      "name": "awslabs--fullstack-solution-template-for-agentcore",
+      "source": "./awslabs--fullstack-solution-template-for-agentcore",
+      "description": "fullstack-solution-template-for-agentcore"
+    },
+    {
       "name": "sonarsource--sonarqube-mcp-server",
       "source": "./sonarsource--sonarqube-mcp-server",
       "description": "SonarQube MCP Server"
@@ -44782,6 +44927,11 @@
       "name": "cardigann--cardigann",
       "source": "./cardigann--cardigann",
       "description": "cardigann"
+    },
+    {
+      "name": "livekit--rust-sdks",
+      "source": "./livekit--rust-sdks",
+      "description": "rust-sdks"
     },
     {
       "name": "millionco--claude-doctor",
@@ -48834,6 +48984,11 @@
       "description": "XActions"
     },
     {
+      "name": "aristanetworks--avd",
+      "source": "./aristanetworks--avd",
+      "description": "avd"
+    },
+    {
       "name": "clickhouse--agent-skills",
       "source": "./clickhouse--agent-skills",
       "description": "The official Agent Skills for ClickHouse and ClickHouse Cloud"
@@ -51432,6 +51587,16 @@
       "name": "rootcause-rs--rootcause",
       "source": "./rootcause-rs--rootcause",
       "description": "rootcause"
+    },
+    {
+      "name": "apache--unomi",
+      "source": "./apache--unomi",
+      "description": "unomi"
+    },
+    {
+      "name": "apache--unomi",
+      "source": "./apache--unomi",
+      "description": "unomi"
     },
     {
       "name": "apache--unomi",
@@ -61899,6 +62064,16 @@
       "description": "python-sdk"
     },
     {
+      "name": "dapr--python-sdk",
+      "source": "./dapr--python-sdk",
+      "description": "python-sdk"
+    },
+    {
+      "name": "dapr--python-sdk",
+      "source": "./dapr--python-sdk",
+      "description": "python-sdk"
+    },
+    {
       "name": "nvidia--aicr",
       "source": "./nvidia--aicr",
       "description": "Tooling for optimized, validated, and reproducible GPU-accelerated AI runtime in Kubernetes"
@@ -64349,6 +64524,11 @@
       "description": "ProxyPilot"
     },
     {
+      "name": "ooples-finance-llc--ooplesfinance-stockindicators",
+      "source": "./ooples-finance-llc--ooplesfinance-stockindicators",
+      "description": "OoplesFinance.StockIndicators"
+    },
+    {
       "name": "wordflowlab--article-writer",
       "source": "./wordflowlab--article-writer",
       "description": "\u4f7f\u7528Claude Code\uff0cCursor, codex, gemini \u5199\u5fae\u4fe1\u516c\u4f17\u53f7\u6587\u7ae0\u5de5\u5177\u3002"
@@ -65327,6 +65507,11 @@
       "name": "superclaude-org--supergemini-framework",
       "source": "./superclaude-org--supergemini-framework",
       "description": "SuperGemini_Framework"
+    },
+    {
+      "name": "yumnumm--eqmonitor",
+      "source": "./yumnumm--eqmonitor",
+      "description": "EQMonitor"
     },
     {
       "name": "yumnumm--eqmonitor",
@@ -74734,6 +74919,11 @@
       "description": "osbuild-composer"
     },
     {
+      "name": "osbuild--osbuild-composer",
+      "source": "./osbuild--osbuild-composer",
+      "description": "osbuild-composer"
+    },
+    {
       "name": "themattberman--meta-ads-kit",
       "source": "./themattberman--meta-ads-kit",
       "description": "Open source AI ad manager. Replace 20 min of Ads Manager with a 2-min briefing. Built with OpenClaw + social-cli."
@@ -79369,6 +79559,11 @@
       "description": "oisy-wallet"
     },
     {
+      "name": "dfinity--oisy-wallet",
+      "source": "./dfinity--oisy-wallet",
+      "description": "oisy-wallet"
+    },
+    {
       "name": "hamza5--file-brain",
       "source": "./hamza5--file-brain",
       "description": "Smart local file search app that understands your files"
@@ -81064,6 +81259,11 @@
       "description": "Innovator-VL"
     },
     {
+      "name": "kubernetes-csi--node-driver-registrar",
+      "source": "./kubernetes-csi--node-driver-registrar",
+      "description": "node-driver-registrar"
+    },
+    {
       "name": "tsoniclang--tsonic",
       "source": "./tsoniclang--tsonic",
       "description": "Compile TS to native code via NativeAOT"
@@ -81407,6 +81607,21 @@
       "name": "idaibin--rustzen-admin",
       "source": "./idaibin--rustzen-admin",
       "description": "rustzen-admin"
+    },
+    {
+      "name": "owasp--opencre",
+      "source": "./owasp--opencre",
+      "description": "OpenCRE"
+    },
+    {
+      "name": "owasp--opencre",
+      "source": "./owasp--opencre",
+      "description": "OpenCRE"
+    },
+    {
+      "name": "owasp--opencre",
+      "source": "./owasp--opencre",
+      "description": "OpenCRE"
     },
     {
       "name": "owasp--opencre",
@@ -82192,6 +82407,36 @@
       "name": "cyb3rward0g--floki",
       "source": "./cyb3rward0g--floki",
       "description": "floki"
+    },
+    {
+      "name": "droibit--flutter-custom-tabs",
+      "source": "./droibit--flutter-custom-tabs",
+      "description": "flutter_custom_tabs"
+    },
+    {
+      "name": "droibit--flutter-custom-tabs",
+      "source": "./droibit--flutter-custom-tabs",
+      "description": "flutter_custom_tabs"
+    },
+    {
+      "name": "droibit--flutter-custom-tabs",
+      "source": "./droibit--flutter-custom-tabs",
+      "description": "flutter_custom_tabs"
+    },
+    {
+      "name": "droibit--flutter-custom-tabs",
+      "source": "./droibit--flutter-custom-tabs",
+      "description": "flutter_custom_tabs"
+    },
+    {
+      "name": "droibit--flutter-custom-tabs",
+      "source": "./droibit--flutter-custom-tabs",
+      "description": "flutter_custom_tabs"
+    },
+    {
+      "name": "microsoft--promptpex",
+      "source": "./microsoft--promptpex",
+      "description": "promptpex"
     },
     {
       "name": "xenios-jp--xenios",
@@ -101549,6 +101794,11 @@
       "description": "infra"
     },
     {
+      "name": "render-oss--cli",
+      "source": "./render-oss--cli",
+      "description": "cli"
+    },
+    {
       "name": "lidr-academy--ai-specs",
       "source": "./lidr-academy--ai-specs",
       "description": "This repository contains a comprehensive set of development rules, standards, and AI agent configurations designed to work seamlessly with multiple AI coding copilots. The setup is portable and can be"
@@ -107797,6 +108047,11 @@
       "name": "jeecgboot--jeecg-ai",
       "source": "./jeecgboot--jeecg-ai",
       "description": "jeecg-ai"
+    },
+    {
+      "name": "zentinelproxy--zentinel",
+      "source": "./zentinelproxy--zentinel",
+      "description": "zentinel"
     },
     {
       "name": "nickcirv--engram",
@@ -130314,6 +130569,11 @@
       "description": "SwarmWatch"
     },
     {
+      "name": "github-samples--agents-in-sdlc",
+      "source": "./github-samples--agents-in-sdlc",
+      "description": "agents-in-sdlc"
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -139309,6 +139569,71 @@
       "description": "glm-claude"
     },
     {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
+      "name": "netcorepal--netcorepal-cloud-template",
+      "source": "./netcorepal--netcorepal-cloud-template",
+      "description": "netcorepal-cloud-template"
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -140812,6 +141137,11 @@
       "name": "laguagu--claude-code-nextjs-skills",
       "source": "./laguagu--claude-code-nextjs-skills",
       "description": "claude-code-nextjs-skills"
+    },
+    {
+      "name": "infinispan--infinispan-operator",
+      "source": "./infinispan--infinispan-operator",
+      "description": "infinispan-operator"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -147819,6 +148149,31 @@
       "description": "system-tests"
     },
     {
+      "name": "datadog--system-tests",
+      "source": "./datadog--system-tests",
+      "description": "system-tests"
+    },
+    {
+      "name": "datadog--system-tests",
+      "source": "./datadog--system-tests",
+      "description": "system-tests"
+    },
+    {
+      "name": "datadog--system-tests",
+      "source": "./datadog--system-tests",
+      "description": "system-tests"
+    },
+    {
+      "name": "datadog--system-tests",
+      "source": "./datadog--system-tests",
+      "description": "system-tests"
+    },
+    {
+      "name": "datadog--system-tests",
+      "source": "./datadog--system-tests",
+      "description": "system-tests"
+    },
+    {
       "name": "lktiep--cortex-hub",
       "source": "./lktiep--cortex-hub",
       "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents."
@@ -154014,6 +154369,11 @@
       "description": "rustic-prompt"
     },
     {
+      "name": "everycure-org--matrix",
+      "source": "./everycure-org--matrix",
+      "description": "matrix"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -155542,6 +155902,151 @@
       "name": "evgenyvinnik--llm-driven-system-design",
       "source": "./evgenyvinnik--llm-driven-system-design",
       "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "richardknop--minisql",
+      "source": "./richardknop--minisql",
+      "description": "minisql"
     },
     {
       "name": "evgenyvinnik--llm-driven-system-design",
@@ -159804,6 +160309,16 @@
       "description": "Ed-Fi-Data-Standard"
     },
     {
+      "name": "microsoft--ignite25-lab511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search",
+      "source": "./microsoft--ignite25-lab511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search",
+      "description": "ignite25-LAB511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search"
+    },
+    {
+      "name": "microsoft--ignite25-prel13-observe-manage-and-scale-agentic-ai-apps-with-microsoft-foundry",
+      "source": "./microsoft--ignite25-prel13-observe-manage-and-scale-agentic-ai-apps-with-microsoft-foundry",
+      "description": "ignite25-PREL13-observe-manage-and-scale-agentic-ai-apps-with-microsoft-foundry"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -163784,6 +164299,11 @@
       "description": "Unity-Client-for-L2J"
     },
     {
+      "name": "microsoft--ignite25-lab512-prototyping-multimodal-agents-with-microsoft-foundry-and-the-ai-toolkit",
+      "source": "./microsoft--ignite25-lab512-prototyping-multimodal-agents-with-microsoft-foundry-and-the-ai-toolkit",
+      "description": "ignite25-LAB512-prototyping-multimodal-agents-with-microsoft-foundry-and-the-ai-toolkit"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -165902,6 +166422,16 @@
       "name": "dvcol--neo-svelte",
       "source": "./dvcol--neo-svelte",
       "description": "neo-svelte"
+    },
+    {
+      "name": "dvcol--neo-svelte",
+      "source": "./dvcol--neo-svelte",
+      "description": "neo-svelte"
+    },
+    {
+      "name": "catchen--eslint-suggestion-action",
+      "source": "./catchen--eslint-suggestion-action",
+      "description": "eslint-suggestion-action"
     },
     {
       "name": "66reapollo2--agentsge",
@@ -170357,6 +170887,11 @@
       "name": "danielsarmiento04--kairos-rs",
       "source": "./danielsarmiento04--kairos-rs",
       "description": "kairos-rs"
+    },
+    {
+      "name": "konflux-ci--build-definitions",
+      "source": "./konflux-ci--build-definitions",
+      "description": "build-definitions"
     },
     {
       "name": "konflux-ci--build-definitions",
@@ -177124,6 +177659,11 @@
       "description": "cert-manager-operator"
     },
     {
+      "name": "microsoft--ignite25-lab571-build-a-pizza-ordering-agent-with-microsoft-foundry-and-mcp",
+      "source": "./microsoft--ignite25-lab571-build-a-pizza-ordering-agent-with-microsoft-foundry-and-mcp",
+      "description": "ignite25-LAB571-build-a-pizza-ordering-agent-with-microsoft-foundry-and-mcp"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -179197,6 +179737,11 @@
       "name": "seojoonkim--gaslight-my-ai",
       "source": "./seojoonkim--gaslight-my-ai",
       "description": "Gaslight-My-AI"
+    },
+    {
+      "name": "mattt--swift-toml",
+      "source": "./mattt--swift-toml",
+      "description": "swift-toml"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -182072,6 +182617,16 @@
       "name": "openshift--sippy",
       "source": "./openshift--sippy",
       "description": "sippy"
+    },
+    {
+      "name": "the-codegen-project--cli",
+      "source": "./the-codegen-project--cli",
+      "description": "cli"
+    },
+    {
+      "name": "project-codeflare--codeflare-sdk",
+      "source": "./project-codeflare--codeflare-sdk",
+      "description": "codeflare-sdk"
     },
     {
       "name": "r44vc0rp--itui",
@@ -235117,6 +235672,11 @@
       "name": "sx4im--chronos",
       "source": "./sx4im--chronos",
       "description": "Deterministic simulation testing for Node.js & TypeScript \u2014 find race conditions and replay them bit-for-bit from a single seed."
+    },
+    {
+      "name": "0xmulight--human-social-copy",
+      "source": "./0xmulight--human-social-copy",
+      "description": "AI/\u5de5\u5177/crypto \u5185\u5bb9\u5199\u6210\u771f\u4eba\u98ce\u683c\u7684\u4e2d\u6587\u793e\u4ea4\u5a92\u4f53\u6587\u6848\u3002\u7528\u4e8e\u5199\u63a8\u6587\u3001X\u5e16\u5b50\u3001\u4e2d\u6587\u793e\u4ea4\u5206\u4eab\u3002"
     },
     {
       "name": "13point5--agent-canvas",
