@@ -1,6 +1,6 @@
-# mise
+# AI instruction files for mise
 
-> Config by [jdx](https://github.com/jdx/mise) — distributed by [TomeVault](https://tomevault.io/claim/jdx)
+> Sourced from [jdx/mise](https://github.com/jdx/mise), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `.cursor/rules/*.mdc` in [jdx/mise](https://github.com/jdx/mise
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jdx](https://tomevault.io/claim/jdx)
+From [jdx/mise](https://github.com/jdx/mise) — a repo with 31159+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jdx) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install jdx/mise
+```
+Source: [github.com/jdx/mise](https://github.com/jdx/mise).
+
+<!-- genome:a-i-s -->
