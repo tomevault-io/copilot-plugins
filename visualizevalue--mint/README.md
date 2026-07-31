@@ -1,8 +1,6 @@
 # AI instruction files for mint
 
-> Sourced from [visualizevalue/mint](https://github.com/visualizevalue/mint) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-An open source internet protocol enabling the creation and collection of digital artifacts on the Ethereum Virtual Machine
+> Sourced from [visualizevalue/mint](https://github.com/visualizevalue/mint), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
