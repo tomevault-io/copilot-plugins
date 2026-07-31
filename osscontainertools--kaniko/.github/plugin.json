@@ -1,0 +1,9 @@
+{
+  "name": "osscontainertools--kaniko",
+  "displayName": "kaniko",
+  "description": "kaniko",
+  "version": "1.0.0",
+  "author": "osscontainertools",
+  "homepage": "https://github.com/osscontainertools/kaniko",
+  "skills": []
+}
