@@ -4,7 +4,7 @@
   "repo": "zag",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chakra-ui/zag",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T11:39:54Z"
+  "distributed_at": "2026-07-31T01:53:20Z"
 }
