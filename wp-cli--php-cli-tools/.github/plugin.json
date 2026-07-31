@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--php-cli-tools",
+  "displayName": "php-cli-tools",
+  "description": "php-cli-tools",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/php-cli-tools",
+  "skills": []
+}
