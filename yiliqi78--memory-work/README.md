@@ -1,8 +1,6 @@
 # memory-work
 
-> Source: [yiliqi78/memory-work](https://github.com/yiliqi78/memory-work) — distributed by [TomeVault](https://tomevault.io)
-
-An AI-first knowledge management system with evolvable memory
+> Source: [yiliqi78/memory-work](https://github.com/yiliqi78/memory-work). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [yiliqi78/memory-work](https://github.com/yiliqi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [yiliqi78/memory-work](https://github.com/yiliqi78/memory-work) — a repo with 125+ stars on GitHub.
+From [yiliqi78/memory-work](https://github.com/yiliqi78/memory-work) — a repo with 133+ stars on GitHub.
 
 ---
 
