@@ -1,58 +1,101 @@
-## routers
+## draftnrun
 
-> - Every router uses `APIRouter(prefix=..., tags=[...])` and is registered in `main.py`.
+> Draft'n Run frontend architecture — directory layout, component patterns, API and data-fetching conventions
 
 
-## Router Conventions
+# Back-office architecture
 
-- Every router uses `APIRouter(prefix=..., tags=[...])` and is registered in `main.py`.
-- Endpoints MUST use auth dependencies from `auth_router.py` — never manual token validation.
-- Input validation: manual checks, raise `HTTPException` with descriptive `detail`.
-- Pagination: use `page` (1-based) and `page_size` query params where applicable.
-- Domain/service errors should be raised as `ServiceError` subclasses in the service layer and handled globally in `main.py`.
-- Secrets/credentials: never return in API responses.
-- When adding a new router: register in `main.py`, add to `ada_backend/docs/api-reference.md`, update cursor rules if new patterns emerge.
-- Graph save APIs now have versioned routes; keep legacy and `/v2/...` behavior isolated with dedicated schemas to avoid breaking clients.
-- V2 graph endpoints: granular endpoints (`POST/PUT/DELETE .../components`, `PUT .../map`) for front/MCP. Git sync calls the same service functions internally (no HTTP endpoint). Both paths use the same building blocks (`create_or_update_component_instance`, `upsert_component_node`, `upsert_edge`, etc.).
+## Directory structure
 
-## WebSocket Router Pattern
-
-WebSocket endpoints (`run_stream_router.py`, `graph_display_stream_router.py`, `qa_stream_router.py`) follow a shared pattern:
-
-- Auth via `get_bearer_token_from_websocket()` from `ada_backend/utils/websocket_auth.py` (JWT from `Authorization` header or `?token=` query param). Browser WebSocket APIs don't support custom headers, so the frontend passes the JWT as a query parameter.
-- Redis Pub/Sub subscriber runs in a background `threading.Thread`; messages are bridged to an `asyncio.Queue` via `loop.call_soon_threadsafe()`.
-- Ping keepalive: send `{"type": "ping"}` every 25 seconds of inactivity.
-- Close codes: `4401` (unauthorized), `4403` (forbidden), `4404` (not found), `4510` (Redis unavailable).
-- Cleanup: `stop_event.set()` + `thread.join(timeout=2.0)` in the `finally` block.
-
-## Error Handling Pattern
-
-Routers should stay thin and avoid repetitive `try/except` blocks for domain errors.
-
-- Do not catch and re-map `ServiceError` subclasses in routers. Let `@app.exception_handler(ServiceError)` translate them to HTTP responses.
-- Do not add router-level `except Exception` boilerplate to return `"Internal server error"`. The global unhandled exception handler is responsible for that path.
-- Keep router-level exception handling only when transport-specific behavior is needed (for example, dynamic provider status from `LLMProviderError`/`NangoClientError`, or temporary `ValueError` fallback until migrated to typed `ServiceError`).
-- If a router still raises `HTTPException` directly, use a caller-facing message and never leak tracebacks/SQL details.
-- For expected client mistakes in router-level fallbacks, log with `LOGGER.warning(...)`; reserve `LOGGER.error(..., exc_info=True)` for infrastructure failures.
-
-```python
-# BAD: service exceptions are re-wrapped in router
-try:
-    return get_project_service(session, project_id)
-except ProjectNotFound as e:
-    raise HTTPException(status_code=404, detail=str(e)) from e
-
-# GOOD: service exception propagates to global ServiceError handler
-return get_project_service(session, project_id)
-
-# GOOD: temporary fallback for non-typed validation errors
-try:
-    return retry_run(...)
-except ValueError as e:
-    LOGGER.warning("Invalid retry request for run %s: %s", run_id, e)
-    raise HTTPException(status_code=400, detail="Invalid retry request") from e
 ```
+src/
+  api/              # Domain-specific API modules (one file per domain)
+  assets/           # Images, styles (auth.scss, misc.scss)
+  components/       # Reusable components
+    charts/         #   Chart.js wrappers (BarChart, LineChart, etc.)
+    dialogs/        #   GenericConfirmDialog, HelpRequestDialog
+    shared/         #   EmptyState, ErrorState, skeletons, VersionSelector, etc.
+    studio/         #   Studio/flow builder (Vue Flow nodes, edges, panels)
+    knowledge/      #   Knowledge base CRUD & editor
+    monitoring/     #   Monitoring/observability dashboards
+    qa/             #   QA testing & evaluation
+    workflows/      #   Workflow-specific UI
+    agents/         #   Agent-specific UI
+    observability/  #   Observability detail views
+  composables/      # Vue composables
+    queries/        #   TanStack Query hooks (one per domain)
+  layouts/          # default.vue (sidebar + main), blank.vue (auth pages)
+  navigation/       # Sidebar nav item config (vertical/)
+  pages/            # File-based routing (unplugin-vue-router)
+  plugins/          # App plugins (vuetify, casl, router, gtm, hotjar)
+  services/         # Backend integration (auth, Google Drive, scopeoApi barrel)
+  stores/           # Pinia stores — auth, org, config (only these three)
+  types/            # TypeScript type definitions
+  utils/            # Helpers (logger, colorConverter, validators, formatters, etc.)
+```
+
+## Component conventions
+
+- **Naming:** PascalCase file names (`AgentChatHistory.vue`).
+- **Max size:** ~400 lines per `.vue` file. Extract sub-components or composables when approaching the limit.
+- **Script:** Always `<script setup lang="ts">`.
+- **Props/Emits:** Use generic type parameter syntax (`defineProps<T>()`, `defineEmits<T>()`).
+
+## API modules (`src/api/`)
+
+One file per domain — e.g. `agents.ts`, `workflows.ts`, `knowledge.ts`.
+Each exports named API objects (e.g. `export const agentsApi = { ... }`).
+
+`src/api/index.ts` re-exports everything individually AND as a `scopeoApi` barrel for backward compatibility.
+New code should import domain-specific APIs directly (`import { agentsApi } from '@/api/agents'`).
+
+## Data fetching — TanStack Query
+
+All server reads go through composables in `src/composables/queries/`.
+One file per domain (e.g. `useAgentsQuery.ts`, `useProjectsQuery.ts`).
+
+Rules:
+- All server state managed via TanStack Query — never manual `ref` for API data.
+- `queryKey` must be a computed array for cache management.
+- Use `enabled: computed(...)` for conditional fetching.
+- Inline edits: patch cache with `setQueryData` (no `invalidateQueries`).
+- Destructive/structural changes: `invalidateQueries` is acceptable.
+- Slow APIs: optimistic updates via `onMutate` + `onError` rollback.
+
+## State management — Pinia
+
+Only three stores:
+- `auth` — user session, login/logout
+- `org` — current organization context
+- `config` — theme (light/dark/system), nav collapsed state
+
+Do not create new stores for server data — use TanStack Query composables.
+
+## Naming conventions
+
+- "Workflow" and "Project" are used interchangeably in the UI. Backend calls them "workflows"; the frontend routes and some components use "projects".
+- Agent = a workflow with exactly one component.
+
+## Layout
+
+- **Default layout:** `VNavigationDrawer` sidebar (`AppSidebar.vue`) + `VMain` content area. No global top bar.
+- **Blank layout:** Used for auth pages (login, register, forgot-password, etc.).
+- Sidebar supports rail (collapsed) mode, persisted in config store.
+- Nav items defined in `src/navigation/vertical/`.
+
+## Icons
+
+Use Iconify with `tabler` as the primary icon set.
+Additional sets available: `mdi`, `ph`, `fa`, `logos`.
+Import via `@iconify/vue` `<Icon>` component.
+
+## Routing
+
+File-based routing via `unplugin-vue-router`.
+Org-scoped pages live under `src/pages/org/[orgId]/`.
+Auth pages live under `src/pages/auth/` and `src/pages/` root.
+Route guards use CASL `canNavigate()`.
 
 ---
 > Source: [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
