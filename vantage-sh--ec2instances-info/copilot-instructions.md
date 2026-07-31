@@ -1,105 +1,32 @@
 ## ec2instances-info
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Test rules
 
-# CLAUDE.md
+Any tests use Vitest. Never use Jest. Never use Jest related libraries. Tests go in the same folder as the application logic suffixed .test.ts. Don't use Object.defineProperty, instead use the vi.mock functionality at the root (have a global variable and then in beforeAll create the mock function which points to it and in afterAll destroy the mocks in the root of the test file). For component tests, use "@/utils/testing/componentTests" with the default import componentTests. The signature for this module is the following:
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+```ts
+type TestItem<Props extends Record<string, unknown>> = {
+    name: string;
+    props: Props;
+    skipAxe?: boolean; // defaults to false if undefined, omly set to true if its purely a logic test
+    patch?: {
+        before?: () => void;
+        after?: () => void;
+    };
+    test?: (component: import("@testing-library/react").RenderResult, testUtils: {
+        rerunAxe: () => Promise<void>;
+        rerender: () => void;
+    }) => void | Promise<void>;
+};
 
-## Project Overview
-
-EC2Instances.info is a cloud instance comparison website supporting AWS (EC2, RDS, ElastiCache, Redshift, OpenSearch), Azure VMs, and GCP instances. The project consists of:
-
-- **next/**: Next.js 16 frontend (React 19, Tailwind CSS 4, TypeScript)
-- **scraper/**: Go-based data scraper for AWS, Azure, and GCP APIs
-- **imagegen/**: Go-based OG image generator (outputs to `www/`)
-- **www/**: Static output data (instances.json, OG images, compressed variants)
-
-## Common Commands
-
-### Frontend Development (run from `next/` directory)
-
-```bash
-nvm use                    # Use correct Node version (.nvmrc specifies v22)
-npm ci                     # Install dependencies
-npm run init               # Compress data (required before first dev run)
-npm run dev                # Start dev server with Turbopack
-npm run check-types        # TypeScript type checking
-npm run test               # Run Vitest tests
-npm run build              # Full build (init + llms + next build)
+export default function componentTests<Test extends TestItem<any>>(
+    tests: Test[],
+    component: React.ComponentType<Test["props"]>,
+): void;
 ```
 
-### Formatting (run from root)
-
-```bash
-make format                # Run gofmt and prettier via Docker
-```
-
-### Data Fetching
-
-```bash
-# Quick way (if not touching scraper or imagegen):
-curl -L https://instances.vantagestaging.sh/www_pre_build.tar.gz | tar -xzf -
-
-# Full scrape (requires AWS, Azure, GCP credentials):
-./fetch_data.sh
-
-# Generate OG images (requires NEXT_PUBLIC_URL; run from root):
-make generate-images
-```
-
-### Full Release Build
-
-Don't do this generally unless explicitly asked.
-
-```bash
-make all                   # fetch-data + generate-images + compress-www + next build
-```
-
-## Architecture
-
-### Frontend Structure (next/)
-
-- **app/**: Next.js App Router pages
-    - `aws/ec2/[slug]/`, `aws/rds/[slug]/`, etc. - Instance detail pages
-    - `azure/`, `gcp/` - Cloud provider listing pages
-- **components/**: React components (Radix UI, shadcn/ui patterns)
-- **utils/**: Shared utilities and data processing
-- **llms/**: LLM-generated content for SEO
-- **imageGen/**: Font and icon assets used by the Go imagegen tool
-
-### Data Flow
-
-1. Go scraper fetches from AWS/Azure/GCP APIs → writes JSON to `www/`
-2. EC2 launch dates (`date_introduced`) are enriched from [instancetyp.es/timeline.json](https://instancetyp.es/timeline.json) during each scrape
-3. Go imagegen reads JSON from `www/`, generates OG images → writes PNGs to `www/`
-4. `npm run init` compresses JSON data with LZMA
-5. Frontend loads compressed data client-side via `@/utils/data/`
-
-### Scraper Structure (scraper/)
-
-- **aws/**, **azure/**, **gcp/**: Provider-specific scrapers
-- **utils/**: Shared scraper utilities
-- Requires environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_SUBSCRIPTION_ID`, `GCP_PROJECT_ID`, `GCP_CLIENT_EMAIL`, `GCP_PRIVATE_KEY`
-- When running the scraper, the cwd is important. Run within the root.
-
-## Testing Guidelines
-
-- Use **Vitest** (never Jest)
-- Tests go in same folder as source, suffixed `.test.ts`
-- Component tests use `@/utils/testing/componentTests` helper which handles describe/test blocks automatically
-- Never use `describe` or `test` directly in component tests - use the test table pattern
-- Use `vi.mock()` at module root instead of `Object.defineProperty`
-- Don't use `@testing-library/jest-dom` or `screen` - use `component.container`
-- Prefer `.ts` over `.tsx` for tests
-- No snapshot tests - use assertions
-
-## Git Workflow
-
-- PRs target `develop` (staging)
-- `main` is production
-- Run `make format` before PRs
+This module will create the describe/test logic for vitest so don't add that. In component tests, NEVER use describe or test. The componentTests function will do that for you, instead make a test table and inline it inside the test function. Try to find uses to pass judgement. Don't use "@testing-library/jest-dom". If this is a component test, presume you are in a DOM. Prefer .ts over .tsx. Do not do snapshot tests. Instead prefer asserting. Do not use screen, instead use component.container in the test function. You will need to import any test utilities (such as expect) from vitest.
 
 ---
 > Source: [vantage-sh/ec2instances.info](https://github.com/vantage-sh/ec2instances.info) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
