@@ -1,0 +1,9 @@
+{
+  "name": "nickolastazes--auth-by-watchen",
+  "displayName": "auth-by-watchen",
+  "description": "Auth by Watchen is an opinionated Next.js boilerplate with built-in authentication that combines traditional social logins with embedded crypto wallets, designed to help founders build Web3 applicatio",
+  "version": "1.0.0",
+  "author": "nickolastazes",
+  "homepage": "https://github.com/nickolastazes/auth-by-watchen",
+  "skills": []
+}
