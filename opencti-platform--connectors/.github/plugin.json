@@ -1,0 +1,9 @@
+{
+  "name": "opencti-platform--connectors",
+  "displayName": "connectors",
+  "description": "connectors",
+  "version": "1.0.0",
+  "author": "OpenCTI-Platform",
+  "homepage": "https://github.com/OpenCTI-Platform/connectors",
+  "skills": []
+}
