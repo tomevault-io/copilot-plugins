@@ -1,7 +1,7 @@
 {
   "name": "ocean-industries-concept-lab--openbridge-webcomponents",
   "displayName": "openbridge-webcomponents",
-  "description": "OpenBridge design system implemented as Lit-based web components with support for all major frontend frameworks.",
+  "description": "openbridge-webcomponents",
   "version": "1.0.0",
   "author": "Ocean-Industries-Concept-Lab",
   "homepage": "https://github.com/Ocean-Industries-Concept-Lab/openbridge-webcomponents",
