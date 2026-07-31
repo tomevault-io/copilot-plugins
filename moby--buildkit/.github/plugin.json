@@ -1,0 +1,9 @@
+{
+  "name": "moby--buildkit",
+  "displayName": "buildkit",
+  "description": "buildkit",
+  "version": "1.0.0",
+  "author": "moby",
+  "homepage": "https://github.com/moby/buildkit",
+  "skills": []
+}
