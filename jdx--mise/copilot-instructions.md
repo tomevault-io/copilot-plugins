@@ -1,42 +1,19 @@
 ## mise
 
-> how to write commit and PR titles
+> - `cargo build --all-features` - build the project
 
 
-## Conventional Commits (REQUIRED)
+- `cargo build --all-features` - build the project
+- `target/debug/mise` - run the built binary
+- `mise run test:e2e [test_filename]...` - run e2e tests
+- `mise run test:unit` - run unit tests
+- `mise run lint` - run linting
+- `mise run lint-fix` - run linting and fix issues
 
-All commit messages and PR titles MUST follow conventional commit format:
+Don't run e2e tests by trying to execute them directly, always use `mise run test:e2e [test_filename]...`
 
-### Format
-```
-<type>(<scope>): <description>
-```
-
-### Types
-- `feat:` - New features
-- `fix:` - Bug fixes  
-- `refactor:` - Code refactoring
-- `docs:` - Documentation
-- `style:` - Code style/formatting
-- `perf:` - Performance improvements
-- `test:` - Testing changes
-- `chore:` - Maintenance tasks
-- `chore(deps):` - Dependency updates
-
-### Examples
-```
-feat(cli): add new command for tool management
-fix(config): resolve parsing issue with nested tables
-refactor(backend): simplify plugin loading logic
-doc(api): update configuration examples
-test(e2e): add tests for tool installation
-chore(deps): update Rust dependencies
-```
-
-### Common Scopes
-`registry`, `aqua`, `cli`, `config`, `backend`, `tool`, `env`, `task`, `api`, `ui`, `core`, `deps`, `schema`, `doctor`, `shim`, `security`
+Run `mise run lint-fix` and `git add` any lint fixes before trying to commit.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jdx)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jdx)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [jdx/mise](https://github.com/jdx/mise) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
