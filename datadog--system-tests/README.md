@@ -1,6 +1,6 @@
 # system-tests
 
-> Tome by [DataDog](https://github.com/DataDog/system-tests) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [DataDog](https://github.com/DataDog/system-tests), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [DataDog/system-tests](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/DataDog/system-tests](https://github.com/DataDog/system-tests)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/DataDog/system-tests](https://github.com/DataDog/system-tests)
 
 ---
 
