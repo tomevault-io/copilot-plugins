@@ -1,40 +1,143 @@
 ## vmmachinehwversionupdater
 
-> This file serves as the foundational instruction set for Gemini CLI. It references and prioritizes the specialized instructions found in the `.github/instructions/` directory.
+> applyTo: "**/*.{sln,slnx,csproj,props,targets}"
 
-# VmMachineHwVersionUpdater Project Mandates
+---
+applyTo: "**/*.{sln,slnx,csproj,props,targets}"
+---
 
-This file serves as the foundational instruction set for Gemini CLI. It references and prioritizes the specialized instructions found in the `.github/instructions/` directory.
+# .NET Project Structure (Fowl/dotnet-template Convention)
 
-## Core Directives
+When creating, restructuring, or reviewing .NET projects, follow this directory convention 
+(based on https://gist.github.com/davidfowl/ed7564297c61fe9ab814 
+and https://github.com/dotnet-template/project-layout):
 
-- **One Type Per File**: Every interface and class MUST be stored in its own separate file. Never combine interfaces and implementations in a single `.cs` file.
-- **Null Safety**: All parameters must be validated for null using `ArgumentNullException.ThrowIfNull` or primary constructor null-coalescing checks.
-- **File-Scoped Namespaces**: Always use `namespace Project.Module;` syntax.
-- **Testing**: Every change must be verified with unit tests following the established patterns in `testing.instructions.md`.
+## Target Structure
 
-## Detailed Instructions
+```
+$/
+  artifacts/        # Build outputs (nupkgs, dlls, pdbs) — in .gitignore only, do not commit
+  build/            # Build customizations (custom MSBuild targets, CI scripts)
+  deployments/      # IaaS, PaaS, container orchestration (docker-compose, k8s, terraform)
+  docs/             # Documentation (Markdown, help files)
+  lib/              # Dependencies that CANNOT exist as a NuGet package
+  packages/         # NuGet packages — in .gitignore only, do not commit
+  samples/          # Sample projects (optional)
+  scripts/          # Utility scripts (publish, install, analysis, migrations)
+  src/              # Product code — all main projects
+  tests/            # Test projects (Unit, Integration)
+  .editorconfig     # Cross-platform IDE settings
+  .gitattributes    # Git attributes
+  .gitignore        # Git ignore rules
+  build.cmd         # Build bootstrapper (Windows)
+  build.sh          # Build bootstrapper (*nix)
+  global.json       # .NET SDK version
+  LICENSE           # License (for OSS projects)
+  NuGet.Config      # NuGet package sources
+  README.md         # Project description
+  {solution}.sln    # Solution file in root (classic format)
+  {solution}.slnx   # Solution file in root (new XML format, from .NET 9)
+```
 
-The following specialized instruction sets take absolute precedence over general defaults:
+## Restructuring Rules
 
-- [Avalonia UI & MVVM](.github/instructions/avalonia-mvvm.instructions.md)
-- [Build System & Configuration](.github/instructions/build-system.instructions.md)
-- [C# Code Style](.github/instructions/code-style.instructions.md)
-- [Command Patterns](.github/instructions/commands.instructions.md)
-- [Dependency Injection](.github/instructions/dependency-injection.instructions.md)
-- [Project Structure](.github/instructions/dotnet-project-structure.instructions.md)
-- [Models & Enums](.github/instructions/models-enums.instructions.md)
-- [Settings & App Flow](.github/instructions/settings-appflow.instructions.md)
-- [Unit Testing Standards](.github/instructions/testing.instructions.md)
-- [VM Parsing Logic](.github/instructions/vm-parsing.instructions.md)
+### Moving Projects
 
-## Development Workflow
+- All product code projects (Libraries, Apps, APIs, Workers) → `src/`
+- All test projects (`*.Tests`, `*.IntegrationTests`, `*.Benchmarks`) → `tests/`
+- Project folders keep their name (e.g., `src/MyApp.Core/`, `tests/MyApp.Core.Tests/`)
 
-1. **Research**: Map the codebase and validate assumptions.
-2. **Strategy**: Formulate a plan before execution.
-3. **Execution**: Apply surgical changes and include automated tests.
-4. **Validation**: Run project-specific build and test commands to confirm success.
+### Moving Scripts
+
+- `publish.ps1` and other utility scripts from root or project folders → `scripts/`
+- **Path Adjustments:** Paths within scripts (e.g., to `.csproj` files) MUST be adjusted to the new structure.
+  - Scripts in the `scripts/` folder usually reference projects via `..\src\ProjectName\ProjectName.csproj`.
+  - Existing scripts in subfolders (e.g., `src/ProjectName/`) must also be updated if they reference moved dependencies or directories.
+
+### Publishing Configuration (`scripts/`)
+
+When using central publishing scripts, the following files must be maintained:
+
+- **`scripts/publish.json`**: Configuration file for the publishing process.
+  - `pipelineName`: Name of the overall publishing pipeline.
+  - `profiles`: An array of publishing profiles.
+    - `project`: Name of the project (matches folder name in `src/`).
+    - `runtimes`: List of target runtimes (e.g., `["win-x64", "win-arm64"]`).
+    - `targetFramework`: .NET version (e.g., `net10.0`).
+    - `selfContained`: `true` or `false`.
+    - `withAppLauncher`: Whether the `AppLauncher` should be used.
+- **`scripts/publish.ps1`**: PowerShell script to execute build and publish.
+  - The script executes from the repository root.
+  - It references projects via `src\{ProjectName}\{ProjectName}.csproj`.
+  - It ensures that binaries are copied to `C:\Apps\{ProjectName}\{RuntimeSuffix}` (where `RuntimeSuffix` is the runtime without the `win-` prefix, e.g., `x64`).
+  - If `withAppLauncher` is true, it copies a central `AppLauncher.exe` to the project's root folder in `C:\Apps`.
+
+### Adjusting Solution Files (.sln or .slnx)
+
+- This can be the classic `.sln` format or the new XML-based `.slnx` format.
+- `.slnx`: Update project paths in `<Project Path="..." />` elements, 
+  create solution folders via `<Folder Name="/src/">` and `<Folder Name="/tests/">`.
+- `.sln`: Update project paths in `Project(...)` entries and `SolutionFolder` GUIDs.
+- Solution items (`Directory.Build.props`, `global.json`, `NuGet.Config`) stay in the root.
+
+### Adjusting IDE and Tool Configurations
+
+- **.vscode/**: Adjust paths in `launch.json` (e.g., `program`, `cwd`) and `tasks.json` (e.g., `args` for `dotnet build`) to the new project locations in `src/` or `tests/`.
+- **.idea/**: If present, check project mappings in `.idea` folders (e.g., Rider/ReSharper settings).
+- **Other Tools**: Update paths in `.runsettings`, `benchmarkdotnet` configurations, or similar tool files.
+
+### ProjectReference Paths in .csproj
+
+- Projects within `src/` reference each other via `..\..\` relative paths 
+  (e.g., `..\MyApp.Core\MyApp.Core.csproj`).
+- Test projects in `tests/` reference `src/` projects via 
+  `..\..\src\{Project}\{Project}.csproj`.
+
+### Separation of `build/` vs. `scripts/`
+
+- **`build/`** → Files that customize the build process itself: custom MSBuild targets, 
+  `.props`/`.targets` files, CI pipeline definitions (YAML), Cake/FAKE scripts.
+- **`scripts/`** → Executable scripts for concrete operations: 
+  `publish.ps1`, `migrate.ps1`, `setup.sh`, analysis scripts, etc.
+
+### Creating Directories
+
+- `src/` and `tests/` — always
+- `docs/`, `build/`, `samples/`, `scripts/`, `deployments/`, `lib/` — only as needed
+- `artifacts/` and `packages/` — DO NOT create, only add to `.gitignore`
+
+### Root Files
+
+- `Directory.Build.props`, `Directory.Packages.props`, `global.json`, `NuGet.Config` → Root
+- `.editorconfig` → Root (ensure it exists)
+- `.gitignore` → Root, must at least contain:
+  ```
+  [Oo]bj/
+  [Bb]in/
+  .nuget/
+  _ReSharper.*
+  packages/
+  artifacts/
+  *.user
+  *.suo
+  *.userprefs
+  *DS_Store
+  *.sln.ide
+  .vs/
+  ```
+
+### Validation
+
+- After restructuring: `dotnet build` → 0 errors
+- After restructuring: `dotnet test` → no new errors
+- Check CI/CD pipelines for changed paths
+
+### What is NOT changed
+
+- Project contents (*.cs, *.axaml etc.) — only move, do not modify
+- PackageReference entries — only adjust ProjectReference paths
+- Namespaces — remain unchanged (unless explicitly requested)
 
 ---
 > Source: [evilbaschdi/VmMachineHwVersionUpdater](https://github.com/evilbaschdi/VmMachineHwVersionUpdater) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
