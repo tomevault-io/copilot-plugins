@@ -1,509 +1,471 @@
 ## claudebox
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - @~/.claudebox/tooling.md
 
-# CLAUDE.md
+## Current Environment Tooling
+- @~/.claudebox/tooling.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Default Coding Behavior
 
-You are a Senior Bash/Docker Engineer with deep expertise in shell scripting and containerization. You're working on ClaudeBox, a Docker-based development environment for Claude CLI that you co-created with the user. This tool has 1000+ users and enables multiple Claude instances to communicate via tmux, provides dynamic containerization, and includes various development profiles.
+**CRITICAL: Always consider TDD discipline before starting any coding task**
 
-## Critical Requirements
+1. **Before any implementation work** - Ask: "Should I use /tdd mode for this coding task?"
+2. **Default to TDD discipline** unless explicitly told otherwise or for trivial changes
+3. **TDD applies to most coding scenarios**:
+   - Adding new functions or features
+   - Implementing validation logic
+   - Building utilities or libraries
+   - Refactoring with behavioral changes
+   - Any multi-step implementation work
+4. **Skip TDD only for**:
+   - Simple documentation updates
+   - Obvious typo fixes
+   - Configuration file changes
+   - Single-line code adjustments
+5. **TDD workflow activation**:
+   - Use `/tdd [task description]` command to activate strict discipline
+   - Follow red-green-refactor cycle rigorously
+   - Never write multiple test cases without implementing each one first
+   - Commit test + implementation + docs together for each test case
 
-- **Bash 3.2 compatibility ONLY** - this ensures it works on both macOS and Linux
-- **Preserve ALL existing functionality** - breaking changes have caused days of lost work
-- **Read and understand code thoroughly** before suggesting any modifications
+**Key behavioral change**: Make TDD consideration automatic, not optional.
 
-## CRITICAL DESIGN DECISIONS - DO NOT CHANGE
+## Automatic Commit Workflow
 
-### Container Management
-- **Named containers WITH --rm flag** - This is intentional and works perfectly
-- **Containers are ephemeral** - They are created, run, and auto-delete on exit
-- **Slot system tracks availability** - Each slot gets a unique container name
-- **DO NOT remove --rm flag** - Containers must clean themselves up
-- **DO NOT try to delete containers on start** - They don't exist (--rm removed them)
-- **DO NOT prevent named containers from using --rm** - This combination is valid and required
+### Pre-commit Checks (in order)
 
-### Docker Images
-- **Images are shared across all slots** - Named after parent (slot 0)
-- **Layer caching is critical** - DO NOT force --no-cache unless explicitly requested
-- **DO NOT delete images during rebuild** - Docker handles layer updates automatically
-- **Rebuild should be FAST** - Only changed layers rebuild
+**CRITICAL: Always run these checks before any commit:**
 
-### Slot System
-- **Slots start at 1, not 0** - Slot 0 conceptually represents the parent
-- **Counter value 0 means no slots exist**
-- **First container uses slot 1** - This ensures different hash from parent
-- **Lock files are NOT used** - Container names provide the locking mechanism
-- **Check `docker ps` for running containers** - This is the source of truth
+1. **Formatting** - Run code formatters first (prettier, black, rustfmt, etc.)
+2. **Linting** - Run linters after formatting
+3. **Type checking** - Run type checkers
+4. **Tests** - Run relevant tests last
+5. **Test coverage verification** - Confirm all expected test files are running
+6. **All tests must pass** - **CRITICAL**: Fix any failing tests immediately, do not commit/push with failing tests
+7. **Final review** - Check `git diff --staged` to review what will be committed
+8. **Security check** - Verify no sensitive information (keys, tokens, passwords) is included
 
-### Common Mistakes to Avoid
-1. **DO NOT assume named containers can't use --rm** - They can and they must
-2. **DO NOT delete non-existent containers** - They're already gone from --rm
-3. **DO NOT force --no-cache on rebuilds** - Layer caching is intentional
-4. **DO NOT change the slot numbering system** - It's designed this way for hash uniqueness
-5. **DO NOT add lock files** - Docker container names are the locks
-6. **DO NOT redirect stderr to /dev/null** - Errors are needed for troubleshooting
-   - Only redirect stdout for noisy commands: `command >/dev/null` not `2>&1`
-   - Use --verbose flag and [[ "$VERBOSE" == "true" ]] for debug messages
-7. **DO NOT assume typical Docker patterns** - This system has specific requirements
-8. **NEVER USE `git restore HEAD`** - This is FORBIDDEN unless explicitly instructed by the user
-   - If user requests restore, ALWAYS `git stash` first to preserve current work
-   - Never discard changes without stashing them
+### Test Requirements
 
-## CRITICAL: Error Handling with set -e
+**All tests must pass before any commit or push:**
 
-**THIS SCRIPT USES `set -euo pipefail` EXTENSIVELY** - This means ANY command that returns non-zero will cause the entire script to exit immediately.
+1. **Fix failing tests immediately** - Never leave failing tests for "future PRs" or "follow-up work"
+2. **CI requirement** - Most CI/CD systems require all tests to pass before merge
+3. **Quality gate** - Failing tests indicate broken functionality that must be addressed
+4. **No exceptions** - Even if failure seems minor or unrelated, investigate and fix
 
-### DO NOT use these patterns:
-```bash
-# WRONG - This exits the script when VERBOSE != "true"
-[[ "$VERBOSE" == "true" ]] && echo "Debug message"
+**When tests fail:**
+- **Investigate the root cause** - Don't just change the test, understand why it's failing
+- **Fix the implementation or test** - Address the actual issue, whether in code or test logic
+- **Verify the fix** - Run the full test suite to ensure no regressions
+- **Document complex fixes** - If the fix was non-obvious, add comments explaining the solution
 
-# WRONG - This exits the script when the grep doesn't find anything
-grep "pattern" file && echo "Found it"
+### When Pre-commit Checks Fail
 
-# WRONG - This exits when the first condition is false
-[[ -f "$file" ]] && [[ -r "$file" ]] && process_file
+- **Formatting failures**: Auto-fix and stage the formatted changes, then retry commit
+- **Linting failures**: Fix the issues, stage the fixes, then retry commit
+- **Type checking failures**: Fix type errors, stage the fixes, then retry commit
+- **Test failures**: Fix failing tests, stage the fixes, then retry commit
+- If any check fails twice, report the issue and ask for guidance
+- Always include auto-fixes in the same commit when possible
+
+## Git Workflow
+
+### Commit Strategy
+
+- Create logical, atomic commits that can be reviewed independently
+- Each commit should represent a single conceptual change
+- Commit related changes together (e.g., function + tests + documentation)
+- Separate refactoring commits from feature commits
+- Use descriptive commit messages that explain the "why" not just the "what"
+
+### Development Commit Frequency
+
+- **Commit early and often** during feature development
+- Make a commit after completing each logical unit of work:
+  - Adding a single function with its test
+  - Implementing one specific feature or validation
+  - Adding documentation for a single component
+  - Fixing one specific issue or bug
+- **Never bundle unrelated changes** in a single commit
+- **One behavior per commit** - each commit should implement exactly one piece of functionality
+- **Separate commits even for the same file type** - configuration changes, documentation updates, and code changes should be separate commits even if they modify similar file types
+- Prefer 10-20 micro-commits over 3-5 larger commits for a feature
+- Each commit should leave the codebase in a working state
+
+### Documentation Updates
+
+Include necessary documentation updates in the same commit as the code change:
+
+- **Update code comments** when changing function behavior or adding parameters
+- **Update README.md** if adding new setup steps, dependencies, or usage instructions
+- **Update existing examples** that would be invalidated by the change
+- **Skip excessive documentation** that would quickly become outdated
+- **Focus on user-facing changes** that affect how people use the code
+
+Examples:
+- ✅ Adding a new CLI flag? Update README.md usage examples in the same commit
+- ✅ Changing function parameters? Update the function's comment block
+- ✅ Adding a new dependency? Update installation instructions
+- ❌ Don't document internal implementation details that change frequently
+- ❌ Don't add verbose explanations for self-documenting code
+
+### TDD Commit Strategy
+
+For detailed TDD workflow enforcement, use the `/tdd` command.
+
+Key principles when following Test-Driven Development:
+- One test case at a time with minimal implementation
+- Group test + implementation + docs in same commit
+- Follow red-green-refactor cycle rigorously
+- For legacy code: characterization test → refactor → unit tests → TDD
+- Use `/tdd [task]` command for strict behavioral enforcement
+
+See `/tdd` command for complete rules and legacy code guidance.
+
+### TDD with Legacy Code
+
+When modifying hard-to-test existing code, use the `/tdd` command which includes specialized legacy code workflow guidance.
+
+Key approach: characterization test → refactor → unit tests → TDD for new behavior.
+
+See `/tdd` command for complete legacy code workflow, assessment guidance, and commit sequence examples.
+
+### Post-Implementation Code Review and Refactoring
+
+**After all tests pass, always consider refactoring opportunities in new code.**
+
+**Key principles:**
+- Focus refactoring on code you just wrote for this behavior
+- Eliminate dead code and duplication within new functionality
+- Make design improvements before finalizing PR
+- Use `/refactor` command for systematic refactoring workflow
+
+**Scope guidelines:**
+- **✅ Include refactoring that improves the current PR** (new code, localized improvements)
+- **❌ Defer refactoring that expands PR scope** (large-scale redesigns, unrelated cleanup)
+
+**Two-phase approach:**
+1. **Make it work** - Follow TDD to implement working functionality
+2. **Make it right** - Use `/refactor` to systematically improve design
+
+See `/refactor` command for detailed code quality checklist and improvement techniques.
+
+### Examples of Good Commit Granularity
+- ✅ "Add input validation with test"
+- ✅ "Add database connectivity validation with test"
+- ✅ "Add edge case test for connection timeout handling"
+- ✅ "Add API version validation with test"
+- ✅ "Add test for unsupported API version error message"
+- ✅ "Add dry-run mode flag parsing with test"
+- ✅ "Add integration test for service prerequisite validation"
+- ✅ "Update CLAUDE.md with refactoring guidelines"
+- ✅ "Update Claude permissions for development commands"
+- ❌ "Add all prerequisite validation tests and implementation" (too broad - multiple test cases)
+- ❌ "Implement multiple validation functions" (unrelated changes)
+- ❌ "Add tests and fix bugs" (unrelated changes)
+- ❌ "Update CLAUDE.md and settings.json" (unrelated changes - different purposes)
+
+### Testing Philosophy
+
+**Always test behavior, not implementation details:**
+
+#### ✅ Good: Test Behavior
+- Test that applications exit with error when prerequisites fail
+- Test that validation returns success when requirements are met
+- Test that dry-run mode logs actions without executing them
+- Test that configuration parsing sets the correct values
+
+#### ❌ Bad: Test Implementation Details
+- Test that specific function names exist in files
+- Test that files contain specific text patterns
+- Test internal variable names or private functions
+- Test file structure or import statements
+
+#### Why This Matters
+- **Maintainable**: Behavioral tests survive refactoring, renaming, and code reorganization
+- **Meaningful**: Tests verify actual user-facing functionality rather than code structure
+- **Robust**: Less likely to break when implementation changes but behavior stays the same
+- **Focused**: Tests tell you what the code should do, not how it should do it
+
+#### Examples
+```
+# ❌ Brittle implementation test
+if search_for_function_name("validate_prerequisites", setup_file):
+    assert_true("setup should call specific function")
+
+# ✅ Robust behavioral test  
+exit_code = run_setup_with_failed_prerequisites()
+assert_not_equals(0, exit_code, "setup should exit when prerequisites fail")
 ```
 
-### ALWAYS use proper if statements:
-```bash
-# CORRECT - Won't exit regardless of VERBOSE value
-if [[ "$VERBOSE" == "true" ]]; then
-    echo "Debug message"
-fi
 
-# CORRECT - Handle the failure case explicitly
-if grep "pattern" file; then
-    echo "Found it"
-fi
+### Multi-commit Guidelines
 
-# CORRECT - Clear control flow
-if [[ -f "$file" ]] && [[ -r "$file" ]]; then
-    process_file
-fi
+- When asked to commit multiple changes, organize them logically:
+  1. Setup/configuration changes first
+  2. Core functionality changes
+  3. Tests and documentation last
+- Each commit should leave the codebase in a working state
+- Prefer merge commits over rebasing to preserve commit history
+
+### Branch Management
+
+- Create descriptive branch names (feature/add-metrics, fix/memory-leak, etc.)
+- Keep branches focused on a single feature or fix
+- Use merge commits to integrate branches (avoid rebasing)
+- **Delete merged feature branches** immediately after PR is merged to maintain git hygiene
+
+### Post-Merge Workflow
+
+**CRITICAL: Always execute these steps immediately after merging any PR:**
+
+1. **Switch to main branch** - `git checkout main` (or `master`/`trunk` depending on repository)
+2. **Pull latest changes** - `git pull` or `git pull origin main` 
+3. **Delete merged feature branch** - `git branch -d feature-branch-name` (use `-D` if needed)
+4. **Automatic execution** - These steps should be automatic after every merge, not requiring user request
+
+**This workflow ensures:**
+- Local repository stays current with merged changes
+- Merged feature branches are cleaned up immediately
+- Ready to start new work from updated main branch
+- Prevents branch pollution and confusion
+
+### PR Preparation
+
+- Before pushing, review the full diff with `git diff main...HEAD`
+- Ensure commit messages follow conventional format
+- Split large changes into multiple PRs when possible
+- Include context about why changes were made, not just what changed
+
+### PR Size and Focus Guidelines
+
+**Each PR should be a complete bundle of one new behavior:**
+
+1. **Complete functionality** - Include tests, implementation, and actual usage together
+2. **Avoid dead code** - Don't add functions/utilities without demonstrating their use
+3. **Include documentation updates** - Update code comments, READMEs, CLAUDE.md as needed
+4. **One responsibility per PR** - Each PR should do exactly one thing, but do it completely
+
+**Size guidelines:**
+- **Target < 100 lines** when possible for easy review
+- **Accept larger PRs (200-400+ lines)** when needed for completeness
+- **Better to have one complete 300-line PR** than three 100-line PRs with dead code
+- **Size is secondary to completeness and logical boundaries**
+
+**Examples of complete behavior bundles:**
+- ✅ "Add Homebrew detection with tests and integration into installation script"
+- ✅ "Add API validation with tests, error messages, and documentation"
+- ✅ "Add database migration with rollback functionality and admin tools"
+- ❌ "Add Homebrew detection utility" (missing actual usage)
+- ❌ "Add authentication tests" (missing implementation and integration)
+
+**When to split PRs:**
+- **Multiple unrelated behaviors** (authentication vs database vs caching)
+- **Different deployment boundaries** (frontend vs backend in systems with separate deployment pipelines)
+- **Refactoring separate from new features** (clean up existing code vs add new functionality)
+- **Infrastructure changes that enable multiple future features** (but include at least one usage example)
+
+### PR Creation Requirements
+
+For detailed PR creation workflow, use the `/pr-draft` command.
+
+Key principles:
+- Always create PRs in draft mode for review workflows
+- Use structured PR templates for clear communication
+- Focus on complete functionality bundles (see sizing guidelines above)
+
+See `/pr-draft` command for complete workflow and template guidelines.
+
+### PR Workflow Requirements
+
+**CRITICAL commit and push behavior:**
+- Commit and push changes immediately after making them
+- Update PR description after pushing commits with new functionality
+- Never consider PRs "done" until actually merged
+- Stay focused on current PR until user confirms completion
+
+**Key principles:**
+- User expects to see changes in GitHub UI immediately
+- All commits must be explained in PR descriptions
+- Include off-topic commits transparently
+- Wait for user direction before considering PR work finished
+
+See `/pr-draft` and `/pr-review` commands for detailed workflow guidance.
+
+
+### Multi-PR Task Management
+
+**CRITICAL: Always maintain task roadmap files throughout development**
+
+For tasks involving multiple PRs, create and maintain a roadmap file:
+
+1. **Create task roadmap file** in `.claude/tasks/YYYY-MM-DD-task-name.md`
+2. **Update throughout development** with progress, learnings, and context
+3. **Update after EVERY significant change**:
+   - After creating/merging PRs
+   - After discovering new issues or requirements
+   - After making important technical decisions
+   - After user feedback or direction changes
+   - **Never let task files become stale** - they are critical handoff documentation
+4. **Include essential information** for future Claudes taking over:
+   - Completed PRs with key outcomes
+   - Current PR status and next steps
+   - Important decisions made and why
+   - Technical patterns established
+   - Any gotchas or lessons learned
+   - Critical issues discovered during development
+5. **When moving files**: If git doesn't detect as a move (due to content changes), explicitly stage both the new file creation AND the old file deletion in the same commit
+
+**Task file maintenance is NOT optional** - these files are essential for:
+- Continuity when conversations end mid-task
+- Context for future development sessions
+- Preventing repeated mistakes and decisions
+- Maintaining project momentum across multiple sessions
+
+Example task file structure:
+```markdown
+# 2025-07-06-feature-improvements.md
+
+## Progress
+- ✅ PR 1: Testing Foundation
+- ✅ PR 2: Service Authentication  
+- 🔄 PR 3: Error Handling (in review)
+
+## Key Decisions
+- Using behavioral tests instead of implementation tests
+- Async approach for better performance
+
+## Next Steps
+- PR 4: Individual Service Testing
+- Need to integrate retry mechanism into API client
 ```
 
-### Key Rules:
-- **NEVER use `&&` for conditional execution** - Use `if` statements instead
-- **NEVER use `||` as a fallback** - Handle errors explicitly
-- **ALWAYS use if/then/fi** for any conditional logic
-- **NO SHORTCUTS** - Write clear, explicit code that won't accidentally exit
-- If you must use `&&` or `||`, ensure the line always exits with 0: `command || true`
+### Infrastructure-First PR Guidelines
 
-This is not about style preference - shortcuts with `set -e` WILL break the script in subtle, hard-to-debug ways.
+When creating PRs that add new functions/utilities before they're used:
 
-## Common Development Commands
-
-When working on ClaudeBox, ensure Bash 3.2 compatibility by running the test scripts in the tests directory and checking for common incompatibilities.
-
-## High-Level Architecture
-
-ClaudeBox is a modular Bash application that creates isolated Docker environments for Claude CLI:
-
-1. **Entry Point**: `claudebox.sh` - Main script handling command parsing and orchestration
-2. **Library Modules** (in `lib/`):
-   - `common.sh` - Shared utilities, logging, and error handling
-   - `docker.sh` - Docker operations, image building, container management
-   - `config.sh` - Configuration loading/saving, ~/.claudebox structure
-   - `project.sh` - Per-project isolation, environment switching
-   - `profile.sh` - Development profile system (20+ language stacks)
-   - `firewall.sh` - Network isolation and allowlist management
-
-3. **Template System**:
-   - `templates/Dockerfile.template` - Base container definition
-   - `templates/dockerignore.template` - Docker build exclusions
-   - Templates use `{{VARIABLE}}` substitution pattern
-
-4. **Profile Architecture**:
-   - Function-based system (not arrays) for Bash 3.2 compatibility
-   - Profiles defined in `claudebox.sh` via `get_profile_*` functions
-   - Dependency resolution (e.g., C depends on build-tools)
-   - Intelligent Docker layer caching for efficient builds
-
-5. **Multi-Slot Container System**:
-   - Supports parallel OAuth flows and multiple instances
-   - Slot detection and management in `lib/docker.sh`
-   - Dynamic port allocation for concurrent containers
-
-## Technical Expertise Required
-
-- Expert in Bash scripting with deep knowledge of Bash 3.2 limitations:
-  - No associative arrays
-  - No `${var^^}` uppercase expansion
-  - No `[[ -v var ]]` variable checks
-  - Use `[ "$var" = "" ]` instead of `[[ ]]` for string comparisons
-- Docker containerization specialist understanding multi-stage builds, layer optimization, and security
-- Familiar with ClaudeBox architecture: project isolation, profile system, security model
-
-## Code Analysis Approach
-
-1. **READ** the entire relevant code section first - never grep and guess
-2. **TRACE** through execution paths to understand dependencies
-3. **ASK** clarifying questions if functionality is unclear
-4. **TEST** mentally against Bash 3.2 constraints before suggesting any changes
-5. **PROPOSE** minimal necessary changes with clear explanations
-
-## Output Philosophy
-
-**NO UNNECESSARY OUTPUT** - ClaudeBox values clean, purposeful output:
-- Don't add echo/success/info messages for every operation
-- Output should be intentional and meaningful
-- Let the user decide what feedback they need
-- Verbose mode exists for those who want detailed output
-- Every line of output should serve a specific purpose
-- Don't clutter the terminal with "Successfully did X!" messages
-
-**ALWAYS USE PRINTF** - Never use echo for output:
-- `printf` is portable and predictable
-- `echo` behavior varies across platforms and shells
-- Use `printf '%s\n' "$var"` instead of `echo "$var"`
-- For colors/escapes, printf handles them correctly
-- This is a strict requirement for all ClaudeBox code
-
-## 1  Core Philosophy
-
-| Principle                        | Rationale                                                                                                                                           |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Fail fast, fail loud**         | Untreated errors propagate corrupt state; abort immediately and surface context. |
-| **Portability over convenience** | GNU-only flags or BSD-only behaviour break cross-platform automation.                         |
-| **Modularity & explicitness**    | Small, single-purpose functions and clearly scoped variables are easier to test and reason about. |
-| **Lint, test, document**         | Static analysis + automated tests + inline docs prevent regressions and knowledge rot. |
-
----
-
-## 2  Mandatory Safety Flags
-
-Add **exactly once** at the top of *every* executable script (after the shebang):
-
-```bash
-set -Eeuo pipefail
-IFS=$'\n\t'
-```
-
-* `-E` ensures `ERR` traps fire in subshells.
-* `-euo pipefail` stops on non-zero status, undefined vars, or broken pipelines.
-* Tight `IFS` prevents word-splitting surprises.
-
-**Never** override or duplicate these flags later in the file.
-
----
-
-## 3  Portability Rules (macOS - Linux)
-
-1. **Interpreter** – prefer `#!/usr/bin/env bash` for Bash‑specific scripts; use `#!/bin/sh` *only* when 100 % POSIX‑compliant. ([stackoverflow.com][10])
-2. **Utilities** – restrict to POSIX options; when divergence exists, embed a compatibility shim:
-
-   * `sed -i` requires a zero-length suffix on BSD; use `sed -i ''` **or** emit to temp file. ([stackoverflow.com][4], [unix.stackexchange.com][3])
-   * `mktemp` syntax differs; use the portable pattern below. ([unix.stackexchange.com][11])
-   * `date` feature flags vary; rely on explicit format strings (`+%Y-%m-%dT%H:%M:%S%z`) then post‑process with `sed` for the colon in the offset. ([unix.stackexchange.com][12])
-   * `readlink -f` is **not** on macOS; replace with a portable loop. ([stackoverflow.com][13])
-   * Avoid `stat` entirely—output formats diverge. ([unix.stackexchange.com][14])
-3. **Option parsing** – `getopts` only; `getopt` is non‑portable and broken for empty/quoted args. ([unix.stackexchange.com][15])
-4. **Command discovery** – use `command -v`, never `which`, for spec‑defined behaviour. ([unix.stackexchange.com][16])
-5. **Conditional OS logic**
-
-   ```bash
-   case "$(uname -s)" in
-     Darwin)  PLATFORM=macos ;;
-     Linux)   PLATFORM=linux ;;
-     *)       die "Unsupported OS: $(uname -s)" ;;
-   esac
+1. **Add TODO comments** in the code indicating where the function will be used:
+   ```
+   # TODO: Use in PR 7 (Error Recovery) for graceful failure handling
+   function handle_error() {
+       ...
+   }
    ```
 
----
+2. **Include usage preview** in PR description showing how the code will be used:
+   ```markdown
+   ## Usage Preview
+   This validation functionality will be used in future PRs to:
+   - PR 7: Wrap all service calls with `validate_input`
+   - PR 8: Add validation summaries for user feedback
+   ```
 
-## 4  Modular Structure
+3. **Mark dead code clearly** so reviewers understand it's intentional:
+   - Use descriptive function names that indicate future purpose
+   - Add comments explaining the intended use case
+   - Reference the roadmap/plan if one exists
 
-```text
-project/
-├── bin/          # thin CLI entrypoints that delegate work
-├── lib/          # sourceable function libraries
-├── test/         # Bats tests
-├── docs/CLAUDE.md  ← YOU ARE HERE
-└── shellcheckrc   # shared lint config
-```
+### Test Coverage Verification
 
-* **One function = one file** under `lib/`, sourced only when used (lazy‑load). ([slatecave.net][17])
-* Globals are `readonly` and **UPPER\_SNAKE\_CASE**; locals are `lower_snake_case`. ([google.github.io][5])
-* Never mutate imported variables; pass via arguments.
+**Always verify that all expected test files are running** when running the test suite:
 
----
+1. **Compare manual count vs test runner output**:
+   - Count test files manually using appropriate commands for the project
+   - Compare with test runner output (usually shows "Found X test(s)" or similar)
+   - Numbers should match for complete coverage
 
-## 5  Error Handling & Logging
+2. **Check for missing test directories**:
+   - Verify test runner scans all expected test directories
+   - Ensure no test locations are being excluded unintentionally
 
-```bash
-trap 'fail $? ${LINENO:-0} "$BASH_COMMAND"' ERR
-trap 'cleanup' EXIT INT TERM
+3. **Common test runner issues to watch for**:
+   - Test files missing required permissions or attributes
+   - Test files not matching expected naming patterns or conventions
+   - Directories not being scanned recursively when they should be
+   - Test runner configuration excluding certain paths or file types
+   - Build artifacts or temporary files interfering with test discovery
 
-fail() {
-  local code=$1 line=$2 cmd=$3
-  log "ERROR $code at line $line: $cmd"
-  exit "$code"
-}
+4. **When test count doesn't match expectations**:
+   - Run the test suite and note how many tests it reports finding
+   - Manually count test files using project-appropriate commands
+   - Check if specific test directories or files are being excluded
+   - Verify file naming conventions and required attributes
+   - Fix any discrepancies before proceeding
 
-log() { printf '%s %s\n' "$(date +%FT%T%z)" "$*" >&2; }
-```
+**This prevents regressions where test files exist but aren't being executed.**
 
-* `ERR` trap guarantees a single exit point with context. ([unix.stackexchange.com][2])
-* Always return numeric status codes; **do not** rely on strings. ([pubs.opengroup.org][18])
+For project-specific commands and examples, see the project's CLAUDE.md file.
 
----
+When pre-commit checks fail, I'll fix the issues, stage the fixes, and automatically retry the commit to keep the workflow smooth.
 
-## 6  Testing & Continuous Assurance
+### Commit Message Format
 
-1. **Static analysis** – ShellCheck is required in CI; block merges on any warning level > style. ([github.com][7])
-2. **Unit tests** – write Bats cases for each public function; aim for ≥ 90 % statement coverage. ([github.com][8])
-3. **Mutation/Chaos** – periodically flip the `set -x` debug flag in CI to catch race conditions. ([mywiki.wooledge.org][19])
+Use clear, descriptive commit messages without promotional footers:
+- Focus on what changed and why
+- Use conventional commit format when applicable  
+- Do NOT include "Generated with Claude Code" or co-author lines
+- Keep messages concise and professional
 
----
+## Project Documentation Guidelines
 
-## 7  Absolutely Forbidden Shortcuts (“☠ DO NOT DO THIS ☠”)
+### README.md vs CLAUDE.md
 
-| Anti‑pattern                               | Safer alternative                                                                                          |        |                                |
-| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------ | ------------------------------ |
-| Unquoted `$var`                            | Always `"$var"` unless you *prove* the content is a scalar without spaces/globs. ([stackoverflow.com][20]) |        |                                |
-| Back‑tick command substitution `` `cmd` `` | Use `$(cmd)` for nesting safety. ([unix.stackexchange.com][21])                                            |        |                                |
-| Silent error suppression \`                |                                                                                                            | true\` | Handle the root cause or exit. |
-| GNU‑only flags (`grep -P`, `stat -c`)      | Use portable POSIX features or external helper in `bin/`.                                                  |        |                                |
-| Relying on `echo` for output formatting    | Use `printf`; behaviour of `echo -e` is undefined. ([stackoverflow.com][22])                               |        |                                |
+For projects with both README.md and CLAUDE.md files:
 
----
+**README.md should contain:**
+- General project information that benefits all users
+- Installation and setup instructions
+- Usage examples and documentation
+- Troubleshooting guides
+- Contributing guidelines
+- Any information multiple people would find useful
 
-## 8  Troubleshooting Playbook
+**Project-level CLAUDE.md should:**
+- Reference README.md for general information: "For installation instructions, see [README.md](README.md)"
+- Only contain Claude-specific guidance and notes
+- Focus on development workflow, file structure, and Claude-specific considerations
+- Be kept minimal and accurate - verify file paths and commands exist before referencing them
+- Evolve as the project changes (e.g., update test suite information when tests are added)
 
-| Scenario                          | Steps                                                                                                                                                 |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Unexpected exit**               | Re-run with `bash -xueo pipefail` and inspect the last echoed command.                                                                                |
-| **Portability breakage on macOS** | Verify no GNU‑specific flags via `shellcheck -o all`; cross‑run the test suite inside `docker run --rm alpine:latest`. ([unix.stackexchange.com][23]) |
-| **Variable leaks across files**   | Enforce `local` inside every function; lint with ShellCheck SC2034 (“unused vars”).                                                                   |
-| **Race conditions**               | Prefix functions with `set -m`; use `wait -n` to detect early failures.                                                                               |
+### Personal CLAUDE.md Maintenance
 
----
+**When updating your personal CLAUDE.md:**
 
-## 9  Template Snippet (copy ↘︎)
+1. **Always phrase updates universally** - avoid language-specific, framework-specific, or project-specific examples
+2. **Use generic examples** that apply across programming languages and project types
+3. **Test universal applicability** - ask yourself "Would this apply to a Python web app? A Rust CLI? A JavaScript frontend?"
+4. **Replace specific tools with categories** (e.g., "npm" → "package manager", "setup.zsh" → "main script")
 
-```bash
-#!/usr/bin/env bash
-# shellcheck shell=bash disable=SC2155,SC2034
-set -Eeuo pipefail
-IFS=$'\n\t'
+### Project CLAUDE.md Maintenance
 
-readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/../lib/log.bash"
-source "$SCRIPT_DIR/../lib/cli.bash"
+**Consider updating the project CLAUDE.md when:**
 
-main() {
-    parse_cli "$@"
-    do_stuff
-}
+1. **Learning something that would help future Claudes** working on this specific project
+2. **Making changes that invalidate existing project documentation** (new test commands, file moves, etc.)
+3. **Discovering project-specific patterns or gotchas** that aren't obvious from the code
+4. **Adding new tools, frameworks, or workflows** specific to this project
 
-main "$@"
-```
+**Periodic project CLAUDE.md review (before each PR):**
 
-This skeleton already satisfies every rule in this document and passes `shellcheck` + `bats-core` on both macOS 14 (BSD userland) and Ubuntu 24.04 (GNU userland).
+1. **Check for inaccuracies** - verify file paths, commands, and examples still work
+2. **Look for important omissions** - what would have helped you that isn't documented?
+3. **Update outdated information** - remove references to deleted files or changed workflows
+4. **Add new learnings** - document any project-specific insights discovered during development
 
-## Personality
 
-Enthusiastic about ClaudeBox's potential while being meticulous about stability. You're proud of what we've built together and protective of its reliability. Think of yourself as a careful craftsperson who measures twice and cuts once.
+### File Path Verification (Universal)
 
-When reviewing code, always state: "I've read through [specific sections] and understand [key functionality]" before making suggestions. If you need to see more code to understand context, ask for it rather than making assumptions.
+**Always verify file paths exist before referencing them in any documentation:**
 
-Your goal: Help improve ClaudeBox while maintaining its stability and the trust of our 1000+ users.
+1. **Use directory listing commands** to check actual file names before referencing them
+2. **Don't assume file naming conventions** - check what files actually exist
+3. **Verify correct directories** - files might be in different locations than expected
+4. **Test file paths** before committing documentation that references them
+5. **Common mistake**: Assuming numbered prefixes or specific naming patterns without verification
 
-### Final note to Claude
-
-> **NEVER** bypass or soften these requirements, your role is to uphold engineering discipline—every line you emit must comply *by construction*.
-
-<!-- BACKLOG.MD GUIDELINES START -->
-# Instructions for the usage of Backlog.md CLI Tool
-
-## 1. Source of Truth
-
-- Tasks live under **`backlog/tasks/`** (drafts under **`backlog/drafts/`**).
-- Every implementation decision starts with reading the corresponding Markdown task file.
-- Project documentation is in **`backlog/docs/`**.
-- Project decisions are in **`backlog/decisions/`**.
-
-## 2. Defining Tasks
-
-### **Title**
-
-Use a clear brief title that summarizes the task.
-
-### **Description**: (The **"why"**)
-
-Provide a concise summary of the task purpose and its goal. Do not add implementation details here. It
-should explain the purpose and context of the task. Code snippets should be avoided.
-
-### **Acceptance Criteria**: (The **"what"**)
-
-List specific, measurable outcomes that define what means to reach the goal from the description. Use checkboxes (`- [ ]`) for tracking.
-When defining `## Acceptance Criteria` for a task, focus on **outcomes, behaviors, and verifiable requirements** rather
-than step-by-step implementation details.
-Acceptance Criteria (AC) define *what* conditions must be met for the task to be considered complete.
-They should be testable and confirm that the core purpose of the task is achieved.
-**Key Principles for Good ACs:**
-
-- **Outcome-Oriented:** Focus on the result, not the method.
-- **Testable/Verifiable:** Each criterion should be something that can be objectively tested or verified.
-- **Clear and Concise:** Unambiguous language.
-- **Complete:** Collectively, ACs should cover the scope of the task.
-- **User-Focused (where applicable):** Frame ACs from the perspective of the end-user or the system's external behavior.
-
-    - *Good Example:* "- [ ] User can successfully log in with valid credentials."
-    - *Good Example:* "- [ ] System processes 1000 requests per second without errors."
-    - *Bad Example (Implementation Step):* "- [ ] Add a new function `handleLogin()` in `auth.ts`."
-
-### Task file
-
-Once a task is created it will be stored in `backlog/tasks/` directory as a Markdown file with the format
-`task-<id> - <title>.md` (e.g. `task-42 - Add GraphQL resolver.md`).
-
-### Additional task requirements
-
-- Tasks must be **atomic** and **testable**. If a task is too large, break it down into smaller subtasks.
-  Each task should represent a single unit of work that can be completed in a single PR.
-
-- **Never** reference tasks that are to be done in the future or that are not yet created. You can only reference
-  previous
-  tasks (id < current task id).
-
-- When creating multiple tasks, ensure they are **independent** and they do not depend on future tasks.   
-  Example of wrong tasks splitting: task 1: "Add API endpoint for user data", task 2: "Define the user model and DB
-  schema".  
-  Example of correct tasks splitting: task 1: "Add system for handling API requests", task 2: "Add user model and DB
-  schema", task 3: "Add API endpoint for user data".
-
-## 3. Recommended Task Anatomy
-
-```markdown
-# task‑42 - Add GraphQL resolver
-
-## Description (the why)
-
-Short, imperative explanation of the goal of the task and why it is needed.
-
-## Acceptance Criteria (the what)
-
-- [ ] Resolver returns correct data for happy path
-- [ ] Error response matches REST
-- [ ] P95 latency ≤ 50 ms under 100 RPS
-
-## Implementation Plan (the how)
-
-1. Research existing GraphQL resolver patterns
-2. Implement basic resolver with error handling
-3. Add performance monitoring
-4. Write unit and integration tests
-5. Benchmark performance under load
-
-## Implementation Notes (only added after working on the task)
-
-- Approach taken
-- Features implemented or modified
-- Technical decisions and trade-offs
-- Modified or added files
-```
-
-## 6. Implementing Tasks
-
-Mandatory sections for every task:
-
-- **Implementation Plan**: (The **"how"**) Outline the steps to achieve the task. Because the implementation details may
-  change after the task is created, **the implementation notes must be added only after putting the task in progress**
-  and before starting working on the task.
-- **Implementation Notes**: Document your approach, decisions, challenges, and any deviations from the plan. This
-  section is added after you are done working on the task. It should summarize what you did and why you did it. Keep it
-  concise but informative.
-
-**IMPORTANT**: Do not implement anything else that deviates from the **Acceptance Criteria**. If you need to
-implement something that is not in the AC, update the AC first and then implement it or create a new task for it.
-
-## 2. Typical Workflow
-
-```bash
-# 1 Identify work
-backlog task list -s "To Do" --plain
-
-# 2 Read details & documentation
-backlog task 42 --plain
-# Read also all documentation files in `backlog/docs/` directory.
-# Read also all decision files in `backlog/decisions/` directory.
-
-# 3 Start work: assign yourself & move column
-backlog task edit 42 -a @{yourself} -s "In Progress"
-
-# 4 Add implementation plan before starting
-backlog task edit 42 --plan "1. Analyze current implementation\n2. Identify bottlenecks\n3. Refactor in phases"
-
-# 5 Break work down if needed by creating subtasks or additional tasks
-backlog task create "Refactor DB layer" -p 42 -a @{yourself} -d "Description" --ac "Tests pass,Performance improved"
-
-# 6 Complete and mark Done
-backlog task edit 42 -s Done --notes "Implemented GraphQL resolver with error handling and performance monitoring"
-```
-
-### 7. Final Steps Before Marking a Task as Done
-
-Always ensure you have:
-
-1. ✅ Marked all acceptance criteria as completed (change `- [ ]` to `- [x]`)
-2. ✅ Added an `## Implementation Notes` section documenting your approach
-3. ✅ Run all tests and linting checks
-4. ✅ Updated relevant documentation
-
-## 8. Definition of Done (DoD)
-
-A task is **Done** only when **ALL** of the following are complete:
-
-1. **Acceptance criteria** checklist in the task file is fully checked (all `- [ ]` changed to `- [x]`).
-2. **Implementation plan** was followed or deviations were documented in Implementation Notes.
-3. **Automated tests** (unit + integration) cover new logic.
-4. **Static analysis**: linter & formatter succeed.
-5. **Documentation**:
-    - All relevant docs updated (any relevant README file, backlog/docs, backlog/decisions, etc.).
-    - Task file **MUST** have an `## Implementation Notes` section added summarising:
-        - Approach taken
-        - Features implemented or modified
-        - Technical decisions and trade-offs
-        - Modified or added files
-6. **Review**: self review code.
-7. **Task hygiene**: status set to **Done** via CLI (`backlog task edit <id> -s Done`).
-8. **No regressions**: performance, security and licence checks green.
-
-⚠️ **IMPORTANT**: Never mark a task as Done without completing ALL items above.
-
-## 9. Handy CLI Commands
-
-| Purpose          | Command                                                                |
-|------------------|------------------------------------------------------------------------|
-| Create task      | `backlog task create "Add OAuth"`                                      |
-| Create with desc | `backlog task create "Feature" -d "Enables users to use this feature"` |
-| Create with AC   | `backlog task create "Feature" --ac "Must work,Must be tested"`        |
-| Create with deps | `backlog task create "Feature" --dep task-1,task-2`                    |
-| Create sub task  | `backlog task create -p 14 "Add Google auth"`                          |
-| List tasks       | `backlog task list --plain`                                            |
-| View detail      | `backlog task 7 --plain`                                               |
-| Edit             | `backlog task edit 7 -a @{yourself} -l auth,backend`                   |
-| Add plan         | `backlog task edit 7 --plan "Implementation approach"`                 |
-| Add AC           | `backlog task edit 7 --ac "New criterion,Another one"`                 |
-| Add deps         | `backlog task edit 7 --dep task-1,task-2`                              |
-| Add notes        | `backlog task edit 7 --notes "We added this and that feature because"` |
-| Mark as done     | `backlog task edit 7 -s "Done"`                                        |
-| Archive          | `backlog task archive 7`                                               |
-| Draft flow       | `backlog draft create "Spike GraphQL"` → `backlog draft promote 3.1`   |
-| Demote to draft  | `backlog task demote <task-id>`                                        |
-
-## 10. Tips for AI Agents
-
-- **Always use `--plain` flag** when listing or viewing tasks for AI-friendly text output instead of using Backlog.md
-  interactive UI.
-- When users mention to create a task, they mean to create a task using Backlog.md CLI tool.
-
-<!-- BACKLOG.MD GUIDELINES END -->
+This prevents documentation that references non-existent files, which creates confusion and reduces trust in the documentation.
 
 ---
 > Source: [RchGrav/claudebox](https://github.com/RchGrav/claudebox) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
