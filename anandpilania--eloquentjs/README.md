@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [AnandPilania/eloquentjs](https://github.com/AnandPilania/eloquentjs).
+Original source: `GEMINI.md` in [AnandPilania/eloquentjs](https://github.com/AnandPilania/eloquentjs).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [AnandPilania/eloquentjs](https://github.com/AnandPilania/eloquentjs) — a repo with 73+ stars on GitHub.
