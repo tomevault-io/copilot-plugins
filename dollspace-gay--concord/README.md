@@ -1,6 +1,6 @@
 # concord
 
-> Source: [dollspace-gay/concord](https://github.com/dollspace-gay/concord) — distributed by [TomeVault](https://tomevault.io)
+> Source: [dollspace-gay/concord](https://github.com/dollspace-gay/concord). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
