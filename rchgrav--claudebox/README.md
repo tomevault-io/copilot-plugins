@@ -1,8 +1,6 @@
 # claudebox
 
-> Source: [RchGrav/claudebox](https://github.com/RchGrav/claudebox) — distributed by [TomeVault](https://tomevault.io)
-
-The Ultimate Claude Code Docker Development Environment - Run Claude AI's coding assistant in a fully containerized, reproducible environment with pre-configured development profiles.
+> Source: [RchGrav/claudebox](https://github.com/RchGrav/claudebox). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [RchGrav/claudebox](https://github.com/RchGrav/c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [RchGrav/claudebox](https://github.com/RchGrav/claudebox) — a repo with 1042+ stars on GitHub.
+From [RchGrav/claudebox](https://github.com/RchGrav/claudebox) — a repo with 1124+ stars on GitHub.
 
 ---
 
