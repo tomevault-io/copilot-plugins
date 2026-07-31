@@ -1,17 +1,15 @@
 # Wand-Enhancer
 
-> Source: [k1tbyte/Wand-Enhancer](https://github.com/k1tbyte/Wand-Enhancer) — distributed by [TomeVault](https://tomevault.io)
-
-Advanced UX and interoperability extension for Wand (WeMod) app
+> Source: [k1tbyte/Wand-Enhancer](https://github.com/k1tbyte/Wand-Enhancer). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [k1tbyte/Wand-Enhancer](https://github.com/k1tbyte/Wand-Enhancer).
+Original source: `CLAUDE.md` in [k1tbyte/Wand-Enhancer](https://github.com/k1tbyte/Wand-Enhancer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
