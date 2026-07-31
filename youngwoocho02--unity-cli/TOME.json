@@ -2,9 +2,9 @@
   "name": "unity-cli",
   "owner": "youngwoocho02",
   "repo": "unity-cli",
-  "description": "Control Unity Editor from the command line. No MCP, no Python, no dependencies \u2014 just a single binary.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/youngwoocho02/unity-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T03:55:20Z"
+  "distributed_at": "2026-07-31T14:52:28Z"
 }
