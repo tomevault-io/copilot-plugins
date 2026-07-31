@@ -1,8 +1,6 @@
 # steadytext
 
-> Source: [julep-ai/steadytext](https://github.com/julep-ai/steadytext) — distributed by [TomeVault](https://tomevault.io)
-
-Deterministic text generation and embeddings with zero configuration
+> Source: [julep-ai/steadytext](https://github.com/julep-ai/steadytext). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [julep-ai/steadytext](https://github.com/julep-a
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [julep-ai/steadytext](https://github.com/julep-ai/steadytext) — a repo with 43+ stars on GitHub.
+From [julep-ai/steadytext](https://github.com/julep-ai/steadytext) — a repo with 44+ stars on GitHub.
 
 ---
 
