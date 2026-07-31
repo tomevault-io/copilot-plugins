@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thymikee/jest-preset-angular](https://github.com/thymikee/jest-preset-angular).
+Original source: `` in [thymikee/jest-preset-angular](https://github.com/thymikee/jest-preset-angular).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [thymikee/jest-preset-angular](https://github.com/thymikee/jest-preset-angular) — a repo with 918+ stars on GitHub.
+From [thymikee/jest-preset-angular](https://github.com/thymikee/jest-preset-angular) — a repo with 919+ stars on GitHub.
 
 ---
 
