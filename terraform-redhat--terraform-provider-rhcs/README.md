@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [terraform-redhat/terraform-provider-rhcs](https://github.com/terraform-redhat/terraform-provider-rhcs).
+Original source: `.cursor/rules/*.mdc` in [terraform-redhat/terraform-provider-rhcs](https://github.com/terraform-redhat/terraform-provider-rhcs).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [terraform-redhat/terraform-provider-rhcs](https://github.com/terraform-redhat/terraform-provider-rhcs) — a repo with 49+ stars on GitHub.
