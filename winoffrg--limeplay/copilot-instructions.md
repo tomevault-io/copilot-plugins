@@ -1,48 +1,63 @@
 ## limeplay
 
-> Limeplay is a **shadcn/ui-based, headless media player UI library** built on Shaka Player. Users install components via `npx shadcn add @limeplay/xxx`.
+> Use when creating, editing, or reviewing Limeplay UI components
 
-# Limeplay — Architecture Context
 
-Limeplay is a **shadcn/ui-based, headless media player UI library** built on Shaka Player. Users install components via `npx shadcn add @limeplay/xxx`.
+# UI Component Patterns
 
-## Stack
+## Structure
 
-React 19, Next.js 16, Tailwind CSS v4, Zustand + Immer, Shaka Player, fumadocs (docs).
+Components are headless, composable, and follow compound component pattern where appropriate.
 
-## Architecture
+```tsx
+"use client"
 
-- **Feature composition**: `createMediaKit({ features: [...] as const })` — each feature is `xxxFeature()` returning `MediaFeature<XxxStore>` with `createSlice`, `key`, and optional `Setup` component
-- **State access**: Per-feature selectors `useXxxStore(s => s.field)` — always granular, never entire slices
-- **Events**: `MediaEventEmitter` via `useMediaEvents()` → `events.on("eventname", handler)` — 18 lowercase event names matching native format
-- **Setup auto-mount**: Feature `Setup` components mount inside `MediaProvider` automatically — no manual wiring
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { useXxxStore } from "@/registry/default/hooks/use-xxx"
 
-## Available Features
+interface RootProps extends React.ComponentProps<"div"> {
+  asChild?: boolean
+}
 
-`mediaFeature`, `playerFeature`, `playbackFeature`, `volumeFeature`, `timelineFeature`, `playlistFeature`, `captionsFeature`, `playbackRateFeature`, `pictureInPictureFeature`, `assetFeature`
+function Root({ asChild, ...props }: RootProps) {
+  const Comp = asChild ? Slot : "div"
+  const someState = useXxxStore((s) => s.field)
+  return <Comp {...props} />
+}
 
-## Workspace Layout
+export { Root }
+```
 
-- `apps/www/registry/default/hooks/` — Feature hooks (source of truth)
-- `apps/www/registry/default/ui/` — UI components (source of truth)
-- `apps/www/registry/default/blocks/` — Composed reference implementations
-- `apps/www/registry/default/examples/` — Demo components for docs
-- `apps/www/registry/collection/` — Registry metadata (`registry-hooks.ts`, `registry-ui.ts`, `registry-examples.ts`, `registry-lib.ts`, `registry-blocks.ts`)
-- `apps/www/content/docs/` — Documentation (fumadocs MDX)
-- `apps/www/registry/pro/` — Pro/premium blocks
+## Rules
 
-## Deleted APIs (DO NOT USE)
+- Always support `asChild` via `@radix-ui/react-slot`
+- Never block event propagation — compose events
+- Use granular `useXxxStore(s => s.field)` selectors — never select entire slices
+- All controls must have ARIA labels, keyboard support, and focus-visible styles
+- Use CSS variables from shadcn/ui theme — no custom colors
+- Support dark mode
+- No opinionated styles — keep headless
+- `"use client"` directive required
 
-`usePlayback()`, `useVolume()`, `useTimeline()`, `usePlaybackRate()`, `usePictureInPicture()`, `useMedia()`, `PlayerHooks`, `usePlayerStates`, `useVolumeStates`, `useTimelineStates`, `createPlaybackStore`, `createVolumeStore`, `createMediaStore`, `mediaRef`, all `on*` callback fields.
+## Registry
 
-## Key Patterns
+After creating/modifying a component, update `apps/www/registry/collection/registry-ui.ts`:
 
-- Event handlers in effects: read state lazily via `api.getState()` inside handlers, NOT closed-over render variables
-- Async load functions: use abort/generation guards after each `await`
-- Polling intervals: suspend when not observable (paused/ended)
-- Components: support `asChild` via `@radix-ui/react-slot`, never block event propagation
-- Imports in docs: use `@/hooks/limeplay/*` and `@/components/limeplay/*` — NEVER `@/registry/...`
+```ts
+{
+  name: "xxx-control",
+  type: "registry:ui",
+  dependencies: [],              // npm e.g. ["@radix-ui/react-slot"]
+  registryDependencies: [],      // e.g. ["media-provider", "use-xxx"]
+  files: [{
+    path: "ui/xxx-control.tsx",
+    target: "components/limeplay/xxx-control.tsx",
+    type: "registry:ui",
+  }],
+}
+```
 
 ---
 > Source: [WINOFFRG/limeplay](https://github.com/WINOFFRG/limeplay) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
