@@ -1,8 +1,6 @@
 # AI instruction files for spring-ai-agentcore
 
-> Sourced from [spring-ai-community/spring-ai-agentcore](https://github.com/spring-ai-community/spring-ai-agentcore) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Spring Boot integrations for Amazon Bedrock AgentCore
+> Sourced from [spring-ai-community/spring-ai-agentcore](https://github.com/spring-ai-community/spring-ai-agentcore), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [spring-ai-community/spring-ai-agentcore](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [spring-ai-community/spring-ai-agentcore](https://github.com/spring-ai-community/spring-ai-agentcore) — a repo with 35+ stars on GitHub.
+From [spring-ai-community/spring-ai-agentcore](https://github.com/spring-ai-community/spring-ai-agentcore) — a repo with 51+ stars on GitHub.
 
 ---
 
