@@ -2,8 +2,8 @@
   "name": "communitytools",
   "owner": "transilienceai",
   "repo": "communitytools",
-  "description": "Open-source Claude Code skills, agents, and slash commands for AI-powered penetration testing, bug bounty hunting, and security research",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "ai-threat-testing",
-      "path": "projects/pentest/.claude/skills/ai-threat-testing",
-      "github_url": "https://github.com/transilienceai/communitytools/tree/main/projects/pentest/.claude/skills/ai-threat-testing",
-      "description": ""
-    },
-    {
-      "name": "hackerone",
-      "path": "projects/pentest/.claude/skills/hackerone",
-      "github_url": "https://github.com/transilienceai/communitytools/tree/main/projects/pentest/.claude/skills/hackerone",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/transilienceai/communitytools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T19:43:05Z"
+  "distributed_at": "2026-07-31T19:43:50Z"
 }
