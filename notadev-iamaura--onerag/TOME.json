@@ -2,7 +2,7 @@
   "name": "OneRAG",
   "owner": "notadev-iamaura",
   "repo": "OneRAG",
-  "description": "Production-ready RAG Framework (Python/FastAPI). 1-line config swaps: 6 Vector DBs (Weaviate, Pinecone, Qdrant, ChromaDB, pgvector, MongoDB), 5 LLMs (Gemini, OpenAI, Claude, Ollama, OpenRouter). OpenAI-compatible API. 2100+ tests.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/notadev-iamaura/OneRAG",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:50:18Z"
+  "distributed_at": "2026-07-31T22:11:34Z"
 }
