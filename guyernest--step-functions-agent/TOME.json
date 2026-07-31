@@ -2,7 +2,7 @@
   "name": "step-functions-agent",
   "owner": "guyernest",
   "repo": "step-functions-agent",
-  "description": "CDK project to build AWS Serverless AI Agent with Lambda and Step Functions.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/guyernest/step-functions-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T08:13:45Z"
+  "distributed_at": "2026-07-31T08:49:01Z"
 }
