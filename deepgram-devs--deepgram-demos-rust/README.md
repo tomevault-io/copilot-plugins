@@ -1,8 +1,6 @@
 # deepgram-demos-rust
 
-> Tome by [deepgram-devs](https://github.com/deepgram-devs/deepgram-demos-rust) — distributed by [TomeVault](https://tomevault.io)
-
-Useful demo applications for Deepgram Voice AI APIs, using the Rust language! 🦀
+> Tome by [deepgram-devs](https://github.com/deepgram-devs/deepgram-demos-rust), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
