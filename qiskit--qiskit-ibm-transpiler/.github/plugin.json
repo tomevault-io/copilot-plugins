@@ -1,0 +1,9 @@
+{
+  "name": "qiskit--qiskit-ibm-transpiler",
+  "displayName": "qiskit-ibm-transpiler",
+  "description": "qiskit-ibm-transpiler",
+  "version": "1.0.0",
+  "author": "Qiskit",
+  "homepage": "https://github.com/Qiskit/qiskit-ibm-transpiler",
+  "skills": []
+}
