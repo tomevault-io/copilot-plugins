@@ -1,10 +1,9 @@
 ## activities-next
 
-> **Read `AGENTS.md` at the repository root before doing anything**, and follow it for all project rules. If `AGENTS.override.md` exists in the checkout, read it too — it takes precedence over `AGENTS.md` wherever the two conflict (a layer on top, not a replacement).
+> Project rules for activities.next — always read AGENTS.md first
 
-# Gemini agents – activities.next
 
-**Read `AGENTS.md` at the repository root before doing anything**, and follow it for all project rules. If `AGENTS.override.md` exists in the checkout, read it too — it takes precedence over `AGENTS.md` wherever the two conflict (a layer on top, not a replacement).
+Read `AGENTS.md` at the repository root before doing anything, and follow it for all project rules. If `AGENTS.override.md` exists in the checkout, read it too — it takes precedence over `AGENTS.md` wherever the two conflict (a layer on top, not a replacement).
 
 Key gates (full details and the task recipes are in `AGENTS.md`):
 
@@ -17,4 +16,4 @@ Key gates (full details and the task recipes are in `AGENTS.md`):
 
 ---
 > Source: [llun/activities.next](https://github.com/llun/activities.next) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
