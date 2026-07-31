@@ -1,0 +1,9 @@
+{
+  "name": "openshift--microshift",
+  "displayName": "microshift",
+  "description": "microshift",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/microshift",
+  "skills": []
+}
