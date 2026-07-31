@@ -1,133 +1,151 @@
 ## ha-strava
 
-> ConfigEntry migration rules and patterns for the ha_strava project
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# Migration Patterns (Home Assistant ConfigEntry)
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This rule documents how versioned ConfigEntry migrations are implemented for `ha_strava`, including entity `unique_id` transformations to support multi-user without breaking historical data.
+## Development Setup
 
-## Quick Start (add a new migration)
+```bash
+# Create virtualenv and install all dependencies
+bash tools/setup_virtualenv.sh
 
-1. Increment target version by handling `version == N` in `async_migrate_entry` and return `{ "version": N+1, "data": new_data }`.
-2. Preserve existing `entry.data` while adding any new keys (do not remove user data).
-3. Migrate entity registry `unique_id`s via a dedicated helper (pattern-based, idempotent).
-4. Keep entity IDs unchanged to preserve history; change only `unique_id`.
-5. Log progress at INFO level; continue on individual entity errors.
-6. Add tests covering: version bump, data preservation, idempotency, and error handling.
+# Or manually:
+pip install -r requirements_dev.txt
+pip install -r requirements_test.txt
+pre-commit install
+```
 
-## Versioning Model
+A devcontainer is available (`.devcontainer/`) for VS Code / Codespaces — it pre-installs all dependencies and wires up the HA test environment.
 
-- ConfigEntry migrations are gated by `config_entry.version` and executed by `async_migrate_entry`.
-- Migrations should be incremental and stepwise: handle `version == N`, then return `version = N+1` with any updated `data`.
-- Do not perform network I/O during migration; limit work to local transformations (entity registry, config entry data).
+## Commands
 
-## Entrypoint and Responsibilities
+```bash
+# Run all tests
+python -m pytest
 
-- `async_migrate_entry(hass, config_entry)` orchestrates version upgrades and delegates entity transformations.
-- Each step MUST:
-  - Preserve existing `config_entry.data` fields.
-  - Add explicit migration markers in `data` when useful for auditability.
-  - Invoke entity registry migration helpers to update `unique_id`s.
-  - Return `{ "version": next_version, "data": new_data }` or `None` if no migration is required.
+# Run a single test file
+pytest tests/custom_components/ha_strava/test_coordinator.py -v
 
-## Current Upgrade Path
+# Run a specific test
+pytest tests/custom_components/ha_strava/test_sensor.py::test_name -v
 
-| From | To  | Purpose                                                                                                   |
-| ---- | --- | --------------------------------------------------------------------------------------------------------- |
-| 1    | 2   | Multi-user support: add athlete-specific prefixes to entity `unique_id`s; mark migration in `entry.data`. |
+# Coverage report
+pytest --cov=custom_components/ha_strava --cov-report=term-missing
 
-### v1 → v2 Data Markers
+# Linting (also runs via pre-commit)
+black custom_components/ tests/
+isort custom_components/ tests/
+flake8 custom_components/ tests/
+pylint custom_components/ha_strava/
+```
 
-- `_migrated_to_multi_user: True`
-- `_original_athlete_id: <config_entry.unique_id>`
-- `_migration_version: "1_to_2"`
+## Architecture
 
-## Entity Registry Migration Rules
+This is a Home Assistant custom component integrating Strava athlete data. One config entry per Strava athlete (multi-user supported). `iot_class: cloud_push` — webhook-driven, not polled.
 
-Update only `unique_id`. Do not change `entity_id`.
+**Entry point flow:**
 
-- Summary stats
+1. `async_setup_entry()` in `__init__.py` — sets up coordinator, registers `StravaWebhookView` at `/api/strava/webhook`, loads platforms (sensor, camera, button)
+2. `StravaDataUpdateCoordinator` (`coordinator.py`) — fetches activities, stats, gear, and photos via OAuth2 session; updates are triggered by webhooks, not a polling loop
+3. Webhook POST routes incoming events by `owner_id` to the correct coordinator (enabling multi-user)
 
-  - Old: `strava_stats_{summary}_{activity_type}_{metric}`
-  - New: `strava_stats_{athlete_id}_{summary}_{activity_type}_{metric}`
+**Key modules:**
 
-- Activity sensors
+| File             | Role                                                                               |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| `__init__.py`    | Setup/teardown, webhook endpoint, webhook subscription                             |
+| `config_flow.py` | OAuth2 auth flow + options flow (activity types, gear, photos, units)              |
+| `coordinator.py` | Strava API calls, data caching, exponential backoff                                |
+| `sensor.py`      | All sensor entities: per-activity-type metrics, recent activities, summaries, gear |
+| `camera.py`      | Photo carousel (up to 30 images, 24h cache)                                        |
+| `button.py`      | Manual refresh buttons per activity type                                           |
+| `const.py`       | All constants: OAuth URLs, 50+ activity types, config keys, sensor attributes      |
+| `services.yaml`  | Service definitions exposed to HA                                                  |
+| `strings.json`   | UI strings (source of truth); `translations/en.json` mirrors it                    |
 
-  - Old: `strava_{activity_index}_{sensor_index}`
-  - New: `strava_{athlete_id}_{activity_index}_{sensor_index}`
+**Sensor entity classes in `sensor.py`:**
 
-- Camera
+- `StravaStatsSensor` — per-activity attribute sensors (distance, time, elevation, HR, power, etc.)
+- `StravaSummaryStatsSensor` — recent/YTD/all-time aggregate stats per activity type
+- `StravaGearSensor` — gear name and distance per bike/shoe item
 
-  - Old: `strava_cam`
-  - New: `strava_cam_{athlete_id}`
+Entity `unique_id` pattern: `strava_{athlete_id}_{activity_index}_{sensor_index}` (athlete ID ensures namespace isolation across multi-user setups).
 
-- Activity photos
-  - Old: `strava_{activity_index}_photos`
-  - New: `strava_{athlete_id}_{activity_index}_photos`
+**Multi-user:**
+Each Strava account requires its own Strava API app (Strava limits one athlete per app). `unique_id` for each config entry = athlete ID. Webhook handler matches `owner_id` to route to the correct entry's coordinator.
 
-Idempotency rules:
+**OAuth2:**
+Uses `config_entry_oauth2_flow.OAuth2Session` with `LocalOAuth2Implementation`. Authorization callback domain must be `my.home-assistant.io`.
 
-- Skip entities already matching new format.
-- If a mapping cannot be derived, skip safely and log at DEBUG.
-- On registry update errors, log at ERROR and continue.
+**Webhook lifecycle:**
+`renew_webhook_subscription()` in `__init__.py` calls Strava's webhook API to (re)register. Subscription ID persists in the config entry. On unload, the subscription is deleted.
 
-## Data Preservation
+## Branching & PR Workflow
 
-- Keep `entry.data` intact; copy-and-extend to `new_data`.
-- Maintain `entity_id` continuity; only `unique_id` changes so historical data remains intact.
-- Device associations should remain unchanged (only `unique_id` is updated).
+- **Never commit directly to `main` or `develop`**
+- All changes must be on a dedicated feature/fix branch (`feat/`, `fix/`, `chore/`, `refactor/`, `docs/`)
+- PRs must target `develop` (not `main`) — `main` is only updated via release merges from `develop`
+- Branch naming: short, lowercase, hyphen-separated (e.g. `feat/pace-numeric-sensor`, `fix/gear-entity-id`)
+- **Always increment the version in `manifest.json` before opening a PR to `develop`**
 
-## Logging and Error Handling
+## Code Standards
 
-- INFO:
-  - Start of migration and from→to version.
-  - Count of entities discovered and successfully migrated.
-- DEBUG:
-  - Per-entity migration decisions and skips.
-- ERROR:
-  - Per-entity update failures; migration continues.
+- Max line length: 120 characters (Black, flake8, pylint all configured to this)
+- Type hints required on all functions
+- All HA callbacks must be `async def` — no synchronous I/O in the event loop
+- Pre-commit hooks enforce black, isort, flake8, pylint — run `pre-commit run --all-files` to check
+- Logger: `_LOGGER = logging.getLogger(__name__)` — use `debug` for routine flow, `warning` for recoverable issues, `error` for failures; never log credentials or tokens
+- All constants go in `const.py` — no magic strings or numbers in business logic
+- When adding or renaming UI-visible strings, update `strings.json` and `translations/en.json` in sync
 
-## Performance Constraints
+## Testing Patterns
 
-- Runs during setup; avoid network calls.
-- Perform local, deterministic transformations only.
-- Keep loops linear in the number of entities.
+Tests use `pytest-homeassistant-custom-component`. Fixtures live in `tests/custom_components/ha_strava/conftest.py` — it provides `mock_config_entry`, `mock_strava_activities`, `mock_oauth_flow`, and other standard fixtures.
 
-## Testing Requirements
+```python
+async def test_example(hass, mock_config_entry):
+    # Use hass fixture from pytest-homeassistant-custom-component
+    ...
+```
 
-- Add/maintain tests that verify:
-  - Version step returns the expected `version` and data markers.
-  - `entry.data` keys are preserved.
-  - All relevant entity formats are migrated; unknown/new-format entities are skipped.
-  - Idempotency: re-running migration performs no-op.
-  - Error handling: individual failures do not abort the migration.
+`asyncio_mode = auto` is set in `pytest.ini`, so async tests don't need `@pytest.mark.asyncio`.
 
-Useful references in this repo:
+Test file layout mirrors source: `tests/custom_components/ha_strava/test_<module>.py`. Mock API responses at the `OAuth2Session` boundary, not at the HTTP layer.
 
-- Migration logic: `custom_components/ha_strava/__init__.py` (search for `async_migrate_entry`)
-- Test patterns: See `testing-patterns.mdc` for migration testing patterns
-- Camera migration test: `tests/custom_components/ha_strava/test_camera.py` (test_pickle_migration)
+## Strava API Constraints
 
-## Developer Checklist (per migration step)
+- Rate limits: 100 requests/15 min, 1000 requests/day — coordinator caches aggressively and retries with exponential backoff (max 3 attempts)
+- Activities endpoint returns max 200 per call
+- Photos cached for 24 hours
+- Base URL for athlete data: `https://www.strava.com/api/v3/athlete`
 
-- Update `async_migrate_entry` with `version == N` handler returning `N+1`.
-- Extend entity `unique_id` rules if formats change; ensure idempotency.
-- Add data markers if needed; never remove user-provided data.
-- Write tests covering upgrade, data preservation, idempotency, and errors.
-- Run validation scripts and test suite.
+## OAuth2 & Webhook Patterns
 
-## Fast Navigation (search prompts)
+**OAuth2 flow:** `config_flow.py` uses `config_entry_oauth2_flow` with `extra_authorize_data` (sets `approval_prompt=force`, `response_type=code`). Callback domain must be `my.home-assistant.io`.
 
-- "async_migrate_entry" in `custom_components/ha_strava/__init__.py`
-- "async_migrate_entity_registry" in `custom_components/ha_strava/__init__.py`
-- "\_migrated_to_multi_user" across repo
-- "strava*stats*" and "strava_cam" in tests
+**Webhook subscription:** `renew_webhook_subscription()` registers with Strava's push subscription API using `conf_callback_url`. Subscription ID stored in config entry data. On unload, subscription is deleted via `_delete_webhook_subscription()`.
 
-## Related Rules
+**Webhook routing:** `StravaWebhookView` (registered at `/api/strava/webhook`) reads `owner_id` from the POST body and dispatches to the matching coordinator via `hass.data[DOMAIN]`.
 
-- See `testing-patterns.mdc` for required test coverage and patterns.
+## Multi-User Isolation
+
+- Each config entry = one athlete (Strava limits one athlete per API app)
+- Entity `unique_id`: `strava_{athlete_id}_{activity_index}_{sensor_index}`
+- Events fired as `{DOMAIN}_{athlete_id}_update` — listeners are athlete-scoped
+- Coordinator, image cache, and options are all per-config-entry
+- Cleanup on unload: cancel listeners, delete webhook subscription, remove coordinator
+
+## ConfigEntry Migration
+
+- Version tracked in `manifest.json` and `__init__.py` (`async_migrate_entry`)
+- Increment `VERSION` and `MINOR_VERSION` in the manifest when adding a migration step
+- Each migration step must be idempotent and preserve all existing user data
+- Log migration progress at `info` level; raise `ConfigEntryNotReady` on unrecoverable errors
+- Always write tests for each migration version transition
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/craibo) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [craibo/ha_strava](https://github.com/craibo/ha_strava) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
