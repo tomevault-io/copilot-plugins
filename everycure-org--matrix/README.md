@@ -1,6 +1,6 @@
 # matrix
 
-> Tome by [everycure-org](https://github.com/everycure-org/matrix) — distributed by [TomeVault](https://tomevault.io/claim/everycure-org)
+> Tome by [everycure-org](https://github.com/everycure-org/matrix), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [everycure-org/matrix](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/everycure-org#quality)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/everycure-org/matrix](https://github.com/everycure-org/matrix)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install everycure-org/matrix
 ```
-Or browse all formats at [https://tomevault.io/claim/everycure-org](https://tomevault.io/claim/everycure-org).
+Source: [github.com/everycure-org/matrix](https://github.com/everycure-org/matrix).
 
 <!-- genome:t-i-q -->
