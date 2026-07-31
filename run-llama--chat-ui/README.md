@@ -1,8 +1,6 @@
 # chat-ui
 
-> Tome by [run-llama](https://github.com/run-llama/chat-ui) — distributed by [TomeVault](https://tomevault.io)
-
-Chat UI components for LLM apps
+> Tome by [run-llama](https://github.com/run-llama/chat-ui), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [run-llama/chat-ui](https://github.com/run-llama
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [run-llama/chat-ui](https://github.com/run-llama/chat-ui) — a repo with 583+ stars on GitHub.
+From [run-llama/chat-ui](https://github.com/run-llama/chat-ui) — a repo with 588+ stars on GitHub.
 
 ---
 
