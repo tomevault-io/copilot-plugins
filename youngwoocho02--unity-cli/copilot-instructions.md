@@ -67,12 +67,15 @@ CLI option, command, parameter를 수정하면 관련된 모든 곳을 함께 �
 
 ### 버전 관리
 
-CLI(Go)와 Connector(C#)는 독립 버전. 변경된 쪽만 올린다.
+CLI(Go)와 Connector(C#)는 같은 릴리스 버전으로 맞춘다.
 
-- **Connector** (unity-connector/package.json): C# 코드 변경 시 버전 갱신
-- **CLI** (git tag vX.Y.Z): Go 코드 변경 시 태그 생성 + push → CI가 Release 빌드
-
-둘 다 바뀌면 둘 다 올린다. 한쪽만 바뀌면 한쪽만.
+- **CLI**: git tag는 `vX.Y.Z`
+- **CLI binary**: `.github/workflows/release.yml`의 `-X main.Version=${VERSION}`로 tag가 주입되고, `main.go`가 `cmd.Version`에 전달한다. 소스 기본값 `dev`는 배포 버전으로 쓰지 않는다.
+- **Connector**: `unity-connector/package.json` 버전은 `X.Y.Z`
+- **Connector heartbeat**: `unity-connector/Editor/Heartbeat.cs`의 `CONNECTOR_VERSION`도 같은 `X.Y.Z`로 갱신한다.
+- 개발 빌드의 CLI `Version=dev`는 비교 예외지만, 배포 빌드는 항상 Connector 버전과 같아야 한다.
+- Go 코드나 C# 커넥터 코드 중 하나만 바뀌어도, 배포 시에는 tag와 `package.json` 버전을 같은 번호로 갱신한다.
+- CLI는 실행 전 Connector heartbeat의 `connectorVersion`을 읽어 버전이 다르거나 없으면 에러를 낸다. 버전 갱신 누락을 정상 동작으로 넘기지 않는다.
 
 ### 작업 마무리 시
 
@@ -94,7 +97,7 @@ Commit all unstaged changes before finishing. Unrelated changes should be commit
 "커밋하고 올려" 지시 시 아래를 한 번에 수행:
 
 1. Verification 전부 실행
-2. 변경된 쪽 버전 갱신 (Connector package.json / CLI tag)
+2. CLI tag `vX.Y.Z`와 Connector `unity-connector/package.json` `X.Y.Z` 버전을 같은 번호로 갱신
 3. 커밋 + push
 4. CLI 변경 있으면 새 tag push
 5. CI(CI + Release) 완료 대기 (`gh run watch --exit-status`, background)
@@ -108,4 +111,4 @@ Commit all unstaged changes before finishing. Unrelated changes should be commit
 
 ---
 > Source: [youngwoocho02/unity-cli](https://github.com/youngwoocho02/unity-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
