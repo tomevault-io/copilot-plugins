@@ -1,8 +1,6 @@
 # AI instruction files for GenoArmory
 
-> Sourced from [MAGICS-LAB/GenoArmory](https://github.com/MAGICS-LAB/GenoArmory) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-GenoArmory: A Unified Evaluation Framework for Adversarial Attacks on Genomic Foundation Models
+> Sourced from [MAGICS-LAB/GenoArmory](https://github.com/MAGICS-LAB/GenoArmory), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `.cursor/rules/*.mdc` in [MAGICS-LAB/GenoArmory](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/MAGICS-LAB/GenoArmory](https://github.com/MAGICS-LAB/GenoArmory)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/MAGICS-LAB/GenoArmory](https://github.com/MAGICS-LAB/GenoArmory)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
