@@ -1,7 +1,7 @@
 {
   "name": "coinbase--cdp-sdk",
   "displayName": "cdp-sdk",
-  "description": "Client libraries for managing EVM and Solana wallets while relying on CDP to secure private keys.",
+  "description": "cdp-sdk",
   "version": "1.0.0",
   "author": "coinbase",
   "homepage": "https://github.com/coinbase/cdp-sdk",
