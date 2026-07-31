@@ -1,21 +1,22 @@
 # DDNS
 
-> Source: [NewFuture/DDNS](https://github.com/NewFuture/DDNS). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [NewFuture/DDNS](https://github.com/NewFuture/DDNS). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NewFuture/DDNS](https://github.com/NewFuture/DDNS).
+Original source: `` in [NewFuture/DDNS](https://github.com/NewFuture/DDNS).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [NewFuture/DDNS](https://github.com/NewFuture/DDNS) — a repo with 4687+ stars on GitHub.
+From [NewFuture/DDNS](https://github.com/NewFuture/DDNS) — a repo with 4688+ stars on GitHub.
 
 ---
 
