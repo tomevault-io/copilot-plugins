@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [jdx/mise](https://github.com/jdx/mise
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jdx/mise](https://github.com/jdx/mise) — a repo with 31159+ stars on GitHub.
+From [jdx/mise](https://github.com/jdx/mise) — a repo with 31160+ stars on GitHub.
 
 ---
 
