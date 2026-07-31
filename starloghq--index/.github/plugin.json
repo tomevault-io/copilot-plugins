@@ -1,0 +1,9 @@
+{
+  "name": "starloghq--index",
+  "displayName": "index",
+  "description": "Vet a package before your AI coding agent uses it \u2014 authoritative facts (CVEs, license, maintenance) via an MCP server + CLI. Local, no account.",
+  "version": "1.0.0",
+  "author": "starloghq",
+  "homepage": "https://github.com/starloghq/index",
+  "skills": []
+}
