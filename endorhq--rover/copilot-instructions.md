@@ -1,265 +1,97 @@
 ## rover
 
-> This file provides guidance to AI agents (Claude Code, Cursor, etc.) when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to AI agents (Claude Code, Cursor, etc.) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-Rover is a TypeScript-based workspace that helps developers and AI agents spin up services instantly. The project is organized as a **monorepo** with multiple packages, each serving different purposes in the Rover ecosystem.
-
-### Repository Structure
-
-```
-rover/
-├── packages/
-│   ├── cli/          # Main CLI tool (TypeScript)
-│   ├── extension/    # VS Code extension (TypeScript)
-│   └── telemetry/    # Telemetry library (TypeScript)
-├── package.json      # Root workspace configuration
-└── AGENTS.md        # This file
-```
+This is the VSCode extension for Rover - a TypeScript-based extension that provides VS Code integration for the Rover CLI tool. The extension displays Rover tasks in a tree view and provides a detailed webview panel for task inspection and management.
 
 ## Essential Development Commands
 
-### Workspace Commands (run from root)
-
 ```bash
 # Development workflow
-pnpm dev              # Start all packages in development mode
+npm run compile          # Compile TypeScript and run linting
+npm run watch           # Watch mode for development (runs both TypeScript watch and esbuild watch)
+npm run watch:esbuild   # Watch mode for esbuild bundling only
+npm run watch:tsc       # Watch mode for TypeScript compilation only
+npm run package         # Build for production (used by vscode:prepublish)
 
-# Building
-pnpm build            # Build all packages
+# Quality assurance
+npm run check          # Run TypeScript type checking without emit
+npm run lint           # Run ESLint on source files
+npm test               # Run VS Code extension tests
+npm run pretest        # Prepare for testing (compile + lint)
 
 # Testing
-pnpm test             # Run tests for all packages
-
-# Type checking
-pnpm check            # TypeScript type checking for all packages
-
-# Linting & Formatting
-pnpm lint             # Lint all files (with auto-fix)
-pnpm format           # Format all files
-```
-
-### Package-Specific Commands
-
-```bash
-# CLI package (packages/cli/)
-cd packages/cli
-pnpm dev           # Development mode with watch
-pnpm build         # Type-check and build
-pnpm check         # TypeScript type checking
-pnpm test          # Run tests with Vitest
-pnpm test:watch    # Run tests in watch mode
-pnpm test:ui       # Open Vitest UI
-pnpm test:coverage # Run tests with coverage
-
-# Extension package (packages/extension/)
-cd packages/extension
-pnpm compile       # Compile TypeScript
-pnpm watch         # Watch mode for development
-pnpm package       # Build for production
-pnpm test          # Run VS Code extension tests
-
-# Telemetry package (packages/telemetry/)
-cd packages/telemetry
-pnpm dev           # Development mode with watch
-pnpm build         # Build for production
-pnpm check         # TypeScript type checking
+npm run compile-tests   # Compile test files
+npm run watch-tests    # Watch mode for test compilation
 ```
 
 ## Architecture
 
-### CLI Package (`packages/cli/`)
+The extension follows VS Code extension patterns with these key components:
 
-- **Entry point**: `src/index.ts` - Sets up the CLI using Commander.js
-- **Commands**: `src/commands/` - Each command is implemented as a separate module
-- **Build output**: `dist/index.mjs` - Single bundled ES module file
-- **Libraries**: `src/lib/` - Core functionality (Git, Docker, AI agents, configs)
-- **Utilities**: `src/utils/` - Helper functions and utilities
-- **Testing**: Uses Vitest with real Git operations and mocked external dependencies
+### Core Structure
 
-Key architectural decisions:
+- **Entry Point**: `src/extension.ts` - Extension activation and command registration
+- **Tree Provider**: `src/providers/TaskTreeProvider.ts` - Implements VS Code tree data provider for Rover tasks
+- **Task Items**: `src/providers/TaskItem.ts` - Tree view item representation
+- **Webview Panel**: `src/panels/TaskDetailsPanel.ts` - Rich task details view with HTML interface
+- **CLI Integration**: `src/rover/cli.ts` - Wrapper for Rover CLI commands
+- **Type Definitions**: `src/rover/types.ts` - TypeScript interfaces for Rover data structures
 
-- Uses tsdown for bundling
-- AI providers implement a common interface for easy switching between Claude and Gemini
-- Commands interact with Git worktrees for isolated task execution
-- Docker containers execute AI agent tasks
+### Key Architectural Decisions
 
-### Extension Package (`packages/extension/`)
+- **Build System**: Uses esbuild for fast bundling, outputs to `dist/extension.js`
+- **CLI Integration**: Communicates with Rover CLI via child process execution
+- **Auto-refresh**: Tree view automatically refreshes every 5 seconds (configurable)
+- **Webview**: Task details use inline HTML template to avoid bundling issues
+- **Error Handling**: Comprehensive error handling with VS Code notifications
 
-- **Entry point**: `src/extension.mts` - VS Code extension activation
-- **Providers**: Tree data providers for Rover tasks
-- **Panels**: Webview panels for detailed task information
-- **Views**: Lit-based webview components
-- **CLI Integration**: Communicates with Rover CLI via child processes
+### VS Code Integration Points
 
-### Telemetry Package (`packages/telemetry/`)
+- **Activity Bar**: Custom "Rover" view container with rocket icon
+- **Tree View**: "Tasks" view showing all Rover tasks with status indicators
+- **Commands**: Registered commands for task creation, inspection, deletion, logs, shell access
+- **Context Menus**: Right-click actions on task items
+- **Configuration**: Settings for CLI path and auto-refresh interval
+- **Status Bar**: Progress indicators during task creation
+- **Terminal Integration**: Opens Rover shell sessions in VS Code terminal
+- **Output Channels**: Displays task logs in VS Code output panel
 
-- **Shared telemetry library** used by CLI and extension
-- **Event tracking** for usage analytics
-- **Privacy-focused** implementation
+### Data Flow
+
+1. Extension loads and creates `TaskTreeProvider` instance
+2. Tree provider calls `RoverCLI.getTasks()` to fetch task list
+3. Tasks display in tree view with real-time status updates
+4. User actions trigger CLI commands through `RoverCLI` wrapper
+5. Task details panel uses webview messaging for rich interactions
 
 ## Technical Details
 
-- **TypeScript**: Strict mode enabled, targeting ES2022
-- **Module system**: ES modules with Node.js compatibility
-- **Node version**: Requires Node.js 20+ and pnpm 10+ (see root package.json engines)
-- **Monorepo**: Uses pnpm workspaces for package management
+- **TypeScript**: Strict mode enabled, targeting ES2022 with Node16 modules
+- **VS Code API**: Uses latest vscode engine (^1.102.0)
+- **Build Target**: Single bundled JavaScript file for distribution
+- **Dependencies**: Minimal runtime dependencies, development tools only
+- **Testing**: VS Code extension test framework with Mocha
 
-### Process Execution
+### File Structure Patterns
 
-**Always use `launch` (async) and `launchSync` from `packages/core/src/os.ts` to spawn processes. Do not use the Node.js `child_process` API directly.**
+- Commands are registered in `extension.ts` activation function
+- Each provider implements appropriate VS Code interface (`TreeDataProvider`)
+- Webview panels manage their own HTML content and messaging
+- CLI wrapper provides typed interfaces for all Rover operations
+- Types mirror the JSON responses from Rover CLI commands
 
-These functions are wrappers around [execa](https://github.com/sindresorhus/execa) that provide consistent behavior across the codebase:
+### Extension Configuration
 
-- `launch(command, args?, options?)` - Async process execution. Returns an execa result object.
-- `launchSync(command, args?, options?)` - Synchronous process execution. Returns an execa sync result object.
-
-Key behaviors handled by these wrappers:
-- Proper argument escaping via `parseCommandString` and execa template strings
-- Detached process groups by default (prevents child termination on parent signals)
-- Verbose logging when `VERBOSE` is enabled
-- Consistent stdio option expansion
-
-## Build Pipeline
-
-The project uses tsdown for bundling with two distinct build modes controlled by the `TSUP_DEV` environment variable.
-
-### Production Build (`pnpm build`)
-
-- **Minified output** for smaller bundle size
-- **No source maps** generated
-- **Workspace packages kept external** (imported from their `dist/` folders)
-- Used for releases and distribution
-
-### Development Build (`pnpm build-dev` or `pnpm dev`)
-
-- **No minification** for readable stack traces
-- **Source maps enabled** pointing to original TypeScript files
-- **Workspace packages bundled and aliased** to their TypeScript source (`src/index.ts`)
-- Enables full debugging with accurate line numbers across all packages
-
-Key differences in `packages/cli/tsdown.config.ts`:
-
-| Feature     | Production | Development                    |
-| ----------- | ---------- | ------------------------------ |
-| `minify`    | `true`     | `false`                        |
-| `sourcemap` | `false`    | `true`                         |
-| `alias`     | `{}`       | Points to workspace `src/*.ts` |
-
-### Running with Source-Mapped Stack Traces
-
-After building in dev mode, use `pnpm start` in the CLI package to run with full source maps:
-
-```bash
-# Build all packages in dev mode
-pnpm build-dev
-
-# Run CLI with source-mapped backtraces (from packages/cli/)
-cd packages/cli
-pnpm start <command>
-
-# Example: run the list command with full TypeScript backtraces
-pnpm start list
-```
-
-## Testing Philosophy & Guidelines
-
-### Critical Testing Principles
-
-**🚨 NEVER make tests pass by changing the test to ignore real bugs. Always fix the underlying code issue.**
-
-1. **Fix Code, Not Tests**: If a test fails due to an implementation bug:
-   - ✅ **DO**: Fix the bug in the implementation code
-   - ❌ **DON'T**: Modify the test to ignore the bug
-   - ❌ **DON'T**: Add `.skip()` or change assertions to make tests green
-
-2. **Mock Strategy**:
-   - **Mock only external dependencies** (APIs, CLI tools like Docker/Claude/Gemini)
-   - **Use real implementations** for core logic (Git operations, file system, environment detection)
-   - **Create real test environments** (temporary Git repos, actual project files)
-
-3. **Test Environment**:
-   - Tests create real temporary directories with actual Git repositories
-   - Project files (package.json, tsconfig.json, etc.) are created to test environment detection
-   - File system operations use real files, not mocks
-
-### Running Tests
-
-```bash
-# All tests
-pnpm test
-
-# Test per package
-pnpm --filter @endorhq/rover test
-pnpm --filter @endorhq/agent test
-pnpm --filter rover-core test
-pnpm --filter rover-schemas test
-```
-
-### Validation
-
-After implementing changes, always run these commands before considering the work complete:
-
-1. `pnpm check` — TypeScript type checking across all packages
-2. `pnpm lint` — Lint all files (with auto-fix)
-3. `pnpm format` — Format all files
-4. `pnpm test` — Run tests for all packages
-
-You can focus formatting/linting on changed files by running `pnpm exec biome format --changed` or `pnpm exec biome lint --changed`.
-
-## AI Agent Guidelines
-
-### When Working on Commands
-
-1. **Read existing command structure** in `packages/cli/src/commands/`
-2. **Follow established patterns** for error handling, validation, and user interaction
-3. **Add comprehensive tests** for new functionality
-4. **Mock external dependencies** but test core logic with real operations
-
-### When Adding Features
-
-1. **Check if the feature belongs in CLI, extension, or telemetry package**
-2. **Update package.json scripts** if new build/dev commands are needed
-3. **Consider cross-package dependencies** and update imports accordingly
-4. **Test integration** between packages when applicable
-
-### When Debugging Failed Tests
-
-1. **Examine the actual failure** - understand what the code is doing wrong
-2. **Fix the implementation** - never change tests to mask bugs
-3. **Verify the fix** - ensure the corrected code passes existing and new tests
-4. **Consider edge cases** - add additional tests if the bug reveals gaps
-
-## Important File Patterns
-
-### CLI Package
-
-- Commands: `src/commands/*.ts`
-- Tests: `src/commands/__tests__/*.test.ts`
-- Library code: `src/lib/*.ts`
-- Utilities: `src/utils/*.ts`
-
-### Extension Package
-
-- Main entry: `src/extension.mts`
-- Providers: `src/providers/*.mts`
-- Views: `src/views/*.mts`
-- Tests: `src/test/*.test.ts`
-
-### Configuration Files
-
-- Root: `package.json`, `tsconfig.json` (workspace config)
-- CLI: `packages/cli/package.json`, `vitest.config.ts`
-- Extension: `packages/extension/package.json`
-- Telemetry: `packages/telemetry/package.json`
-
-Remember: This is a development tool that interacts with Git repositories and executes containerized AI agents. Reliability and correctness are critical - never compromise test integrity for convenience.
+- `rover.cliPath`: Path to Rover CLI executable (default: "rover")
+- `rover.autoRefreshInterval`: Tree refresh interval in ms (default: 5000, 0 to disable)
 
 ---
 > Source: [endorhq/rover](https://github.com/endorhq/rover) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
