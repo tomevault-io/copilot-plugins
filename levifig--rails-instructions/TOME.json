@@ -4,7 +4,7 @@
   "repo": "rails-instructions",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/levifig/rails-instructions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T17:39:51Z"
+  "distributed_at": "2026-07-31T06:55:18Z"
 }
