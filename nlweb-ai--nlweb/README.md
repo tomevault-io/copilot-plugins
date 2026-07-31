@@ -1,8 +1,6 @@
 # AI instruction files for NLWeb
 
-> Sourced from [nlweb-ai/NLWeb](https://github.com/nlweb-ai/NLWeb) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Main reference implementation for NLWeb, implemented in Python.
+> Sourced from [nlweb-ai/NLWeb](https://github.com/nlweb-ai/NLWeb), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [nlweb-ai/NLWeb](https://github.com/nlweb-ai/NLW
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nlweb-ai/NLWeb](https://github.com/nlweb-ai/NLWeb) — a repo with 6208+ stars on GitHub.
+From [nlweb-ai/NLWeb](https://github.com/nlweb-ai/NLWeb) — a repo with 6241+ stars on GitHub.
 
 ---
 
