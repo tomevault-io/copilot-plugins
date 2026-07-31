@@ -1,8 +1,6 @@
 # scenario
 
-> Tome by [langwatch](https://github.com/langwatch/scenario) — distributed by [TomeVault](https://tomevault.io)
-
-Agentic testing for agentic codebases
+> Tome by [langwatch](https://github.com/langwatch/scenario), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [langwatch/scenario](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/langwatch/scenario](https://github.com/langwatch/scenario)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/langwatch/scenario](https://github.com/langwatch/scenario)
 
 ---
 
