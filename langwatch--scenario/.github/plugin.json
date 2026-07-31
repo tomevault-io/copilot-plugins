@@ -1,7 +1,7 @@
 {
   "name": "langwatch--scenario",
   "displayName": "scenario",
-  "description": "Agentic testing for agentic codebases",
+  "description": "scenario",
   "version": "1.0.0",
   "author": "langwatch",
   "homepage": "https://github.com/langwatch/scenario",
