@@ -1,0 +1,9 @@
+{
+  "name": "konflux-ci--build-definitions",
+  "displayName": "build-definitions",
+  "description": "build-definitions",
+  "version": "1.0.0",
+  "author": "konflux-ci",
+  "homepage": "https://github.com/konflux-ci/build-definitions",
+  "skills": []
+}
