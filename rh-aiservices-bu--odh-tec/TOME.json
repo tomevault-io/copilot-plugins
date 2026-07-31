@@ -2,7 +2,7 @@
   "name": "odh-tec",
   "owner": "rh-aiservices-bu",
   "repo": "odh-tec",
-  "description": "ODH Tools & Extensions Companion",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rh-aiservices-bu/odh-tec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T23:38:13Z"
+  "distributed_at": "2026-07-31T11:53:10Z"
 }
