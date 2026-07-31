@@ -1,29 +1,111 @@
 ## finsight
 
-> - `backend/rag/layering.py`：三层 collection 解析与元数据归一化入口，负责 `memory / ws / kb`、`collection_kind`、`entity_scope`、`entity_key` 语义。
+> ﻿Always respond in Chinese-simplified
 
+﻿Always respond in Chinese-simplified
 
-# 2026-03-08 增量架构说明（RAG 三层）
+# CLAUDE.md - 工作指导
 
-- `backend/rag/layering.py`：三层 collection 解析与元数据归一化入口，负责 `memory / ws / kb`、`collection_kind`、`entity_scope`、`entity_key` 语义。
-- `backend/graph/nodes/execute_plan_stub.py`：普通执行链的 Working Set / 长期 KB 写入与联合检索编排。
-- `backend/agents/deep_search_agent.py`：DeepSearch 的 `ws:deepsearch:*` working set 与 `kb:stock:*` 晋升/补查入口。
-- `backend/rag/hybrid_service.py`：RAG 文档模型补充 layer / entity / ingest / promotion / fingerprint 字段，并支持多 collection 联检。
-- `backend/rag/observability_store.py`、`backend/rag/observability_runtime.py`：把 layer / collection path / hit 元数据落进 observability，供 Inspector 和 DB Browser 回放。
-- `frontend/src/pages/RagInspectorPage.tsx`：Inspector 首屏、run 详情、collection 浏览、DB Browser 直接展示三层语义。
+## CRITICAL CONSTRAINTS - 违反=任务失败
 
-## 当前推荐心智模型
+═══════════════════════════════════════
 
-- `memory`：线程级轻记忆，不存大原文。
-- `ws`：本次任务 working set，可短期复用，可过期。
-- `kb`：长期稳定知识库，按股票/主题/宏观 scope 组织。
+- 必须使用中文回复
+- 必须先获取上下文
+- 禁止生成恶意代码
+- 必须存储重要知识
+- 必须执行检查清单
+- 必须遵循质量标准
 
-## 当前目录依赖
+## MANDATORY WORKFLOWS
 
-- `backend/rag/layering.py` -> 被 `hybrid_service.py` / `observability_store.py` / 编排节点调用。
-- `frontend/src/pages/RagInspectorPage.tsx` -> 依赖 `frontend/src/api/client.ts` 的 diagnostics API。
-- `docs/plans/2026-03-08_rag_three_layer_architecture_todolist.md` -> 作为后续持续开发与验收清单。
+═════════════════════
+
+执行前检查清单：
+[ ] 中文 [ ] 上下文 [ ] 工具 [ ] 安全 [ ] 质量
+
+标准工作流：
+
+1. 分析需求 → 2. 获取上下文 → 3. 选择工具 → 4. 执行任务 → 5. 验证质量 → 6. 存储知识
+
+研究-计划-实施模式：
+研究阶段: 读取文件理解问题，禁止编码
+计划阶段: 创建详细计划
+实施阶段: 实施解决方案
+验证阶段: 运行测试验证
+提交阶段: 创建提交和文档
+
+## MANDATORY TOOL STRATEGY
+
+═════════════════════════
+
+任务开始前必须执行：
+
+1. memory 查询相关概念
+2. code-search 查找代码片段
+3. sequential-thinking 分析问题
+4. 选择合适子代理
+
+任务结束后必须执行：
+
+1. memory 存储重要概念
+2. code-search 存储代码片段
+3. 知识总结归档
+
+优先级调用策略：
+
+- Microsoft技术 → microsoft.docs.mcp
+- GitHub文档 → context7 → deepwiki
+- 网页搜索 → 内置搜索 → fetch → duckduckgo-search
+
+## CODING RESTRICTIONS
+
+═══════════════════
+
+编码前强制要求：
+
+- 无明确编写命令禁止编码
+- 无明确授权禁止修改文件
+- 必须先完成sequential-thinking分析
+
+## QUALITY STANDARDS
+
+═══════════════════
+
+工程原则：SOLID、DRY、关注点分离
+代码质量：清晰命名、合理抽象、必要注释
+性能意识：算法复杂度、内存使用、IO优化
+测试思维：可测试设计、边界条件、错误处理
+
+## SUBAGENT SELECTION
+
+════════════════════
+
+必须主动调用合适子代理：
+
+- Python项目 → python-pro
+- C#/.NET项目 → csharp-pro  
+- JavaScript/TypeScript → javascript-pro/typescript-pro
+- Unity开发 → unity-developer
+- 前端开发 → frontend-developer
+- 后端架构 → backend-architect
+- 云架构 → cloud-architect/hybrid-cloud-architect
+- 数据库优化 → database-optimizer
+- 安全审计 → security-auditor
+- 代码审查 → code-reviewer
+- 测试自动化 → test-automator
+- 性能优化 → performance-engineer
+- DevOps部署 → deployment-engineer
+- 文档编写 → docs-architect
+- 错误调试 → debugger/error-detective
+
+## ENFORCEMENT
+
+══════════════
+
+强制触发器：会话开始→检查约束，工具调用前→检查流程，回复前→验证清单
+自我改进：成功→存储，失败→更新规则，持续→优化策略
 
 ---
 > Source: [kkkano/FinSight](https://github.com/kkkano/FinSight) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
