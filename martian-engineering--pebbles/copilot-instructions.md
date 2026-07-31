@@ -1,0 +1,146 @@
+## pebbles
+
+> *NOTE!!! Wherever `pb` is referenced below, substitute `go run ./cmd/pb` instead — we're still in development and have
+
+# Pebbles Workflow
+
+*NOTE!!! Wherever `pb` is referenced below, substitute `go run ./cmd/pb` instead — we're still in development and have
+not yet created a binary.*
+
+We track work in Pebbles instead of Markdown. Run `pb help` to see how. Always start a session with this command.
+
+## Development Workflow
+
+We track work in Pebbles instead of Markdown. Here are some of the key commands:
+
+```bash
+pb help                    # Show CLI usage
+pb list                    # List open/in_progress issues (default)
+pb list --all              # List ALL issues including closed
+pb list --status closed    # Filter by specific status
+pb ready                   # Show issues ready to work (no blockers)
+pb show <issue-id>         # Show issue details
+pb update <issue-id> --status in_progress
+pb update <issue-id> --title "New title"  # Update issue title
+pb close <issue-id>
+pb dep tree <issue-id>     # Visualize dependencies
+```
+
+**Note:** `pb list` defaults to showing only open and in_progress issues. Use `--all` to include closed issues, or `--status <status>` to filter by a specific status.
+
+**Environment:** Set `PEBBLES_DIR` to override the default `.pebbles` directory. Useful in worktree workflows where you want to point to the main repo's pebbles data.
+
+You should generally begin by running `pb help`.
+
+Current epics are tracked with dependencies. Check `pb list` to see all issues and `pb ready` for unblocked work.
+
+### Beginning Work
+
+IMPORTANT: Before doing any work, always create a Pebbles issue or, if appropriate, epic.
+
+### Plan Mode Workflow
+
+When working on complex features that require planning (via `EnterPlanMode`), follow this workflow:
+
+1. **During plan mode**: Explore the codebase, understand patterns, and write a detailed plan to the plan file
+2. **Before exiting plan mode**: Ensure the plan captures all subtasks, configuration decisions, and dependencies
+3. **First implementation step**: After exiting plan mode, **always** create Pebbles issues before writing any code:
+   - Create an **epic** for the overall feature/deployment
+   - Create **subtasks** as individual Pebbles issues, one per discrete piece of work
+   - Each issue description should capture relevant context from the plan (what to implement, key decisions, file paths)
+   - Link subtasks to the epic using `pb dep add --type parent-child <subtask-id> <epic-id>`
+   - Add **execution dependencies** between subtasks using `pb dep add <task-a> <task-b>` (task-a depends on task-b)
+
+4. **Then proceed with implementation**: Work through the subtasks using the normal task workflow
+
+**Dependency direction**:
+- `pb dep add A B` means "A depends on B" (B blocks A)
+- For epic/subtask relationship: `pb dep add --type parent-child <subtask-id> <epic-id>`
+
+**Example**:
+```bash
+# After exiting plan mode for "RDS Deployment" epic:
+pb create --title="RDS Deployment & pg-sync Service" --type=epic --description="..."
+pb create --title="Create RDS Terraform module" --type=task --description="..."  # Returns task1-id
+pb create --title="Add RDS to dev environment" --type=task --description="..."   # Returns task2-id
+
+# Link subtasks to the epic (hierarchy + .N suffixes)
+pb dep add --type parent-child <task1-id> <epic-id>
+pb dep add --type parent-child <task2-id> <epic-id>
+
+# Add execution dependency (task2 waits for task1)
+pb dep add <task2-id> <task1-id>
+```
+
+### Prioritizing Work
+
+Always start by checking for in-progress work:
+
+1. **Check for in-progress epics**: Run `pb list` and look for epics with status `in_progress`
+2. **Focus on epic tasks**: If an epic is in-progress, prioritize tasks that block that epic
+3. **Check ready work**: Use `pb ready` to see unblocked tasks, then choose tasks related to in-progress epics
+4. **Mark epics in-progress**: When starting work on an epic's tasks, mark the epic as `in_progress` if not already marked
+
+### Task Workflow
+
+When working on individual issues, follow this workflow:
+
+1. **Start work**: `pb update <issue-id> --status in_progress` (for both epics and tasks)
+2. **Complete the work**: Implement the feature/fix
+3. **Close the issue**: `pb close <issue-id>`
+4. **Commit immediately**: Create a git commit after closing each issue with:
+   - Summary of completed issue(s) in the commit message
+   - List of changes made
+   - Reference to issue IDs that were closed
+   - **Regeneration prompt** for non-trivial changes (see below)
+
+### Regeneration Prompts in Commits
+
+For non-trivial commits, add a `Regeneration-Prompt:` block that captures intent:
+
+```
+feat(telegram): add caption splitting
+
+<body>
+
+Regeneration-Prompt: |
+  <Goal>: What problem are we solving?
+  <Constraints>: What must be preserved or followed?
+  <Context>: What influenced decisions?
+  <Scope>: What files/areas are affected?
+```
+
+The prompt should be sufficient for a fresh agent to recreate similar code without seeing the diff. Skip for trivial commits (typos, version bumps).
+
+This ensures a clean audit trail where commits map directly to completed work items.
+
+### Discovering Issues During Development
+
+When bugs, inconsistencies, or improvements are discovered during development:
+
+1. **Create an issue immediately**: Use `pb create` to document the problem as soon as it's discovered
+2. **Err on the side of creating issues**: Better to have tracked issues than forgotten problems
+3. **Link to relevant epics**: Use `pb dep add <epic-id> <issue-id>` so the epic depends on the newly discovered issue
+4. **Don't let issues block current work**: If the discovered issue isn't critical, create it and continue with the current task
+5. **Document what was found**: Include enough detail in the issue description for someone else (or future you) to understand the problem
+
+### Committing Pebbles Data
+
+**IMPORTANT**: Always commit `.pebbles/events.jsonl` as part of your workflow.
+
+The pebbles event log is the source of truth for issue tracking and should be version-controlled alongside your code. Commit pebbles changes:
+- After creating new issues
+- After closing issues
+- After any status updates
+- As part of your feature commits (include pebbles changes in the same commit or a separate tracking commit)
+
+Examples of when to create issues:
+- User testing reveals unexpected behavior
+- Inconsistent UI/UX patterns across screens
+- Missing functionality that should be added for completeness
+- Technical debt or code that needs refactoring
+- Documentation that needs updating
+
+---
+> Source: [Martian-Engineering/pebbles](https://github.com/Martian-Engineering/pebbles) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
