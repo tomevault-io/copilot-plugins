@@ -1,6 +1,6 @@
 # vscode-jupyter
 
-> Source: [microsoft/vscode-jupyter](https://github.com/microsoft/vscode-jupyter). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [microsoft/vscode-jupyter](https://github.com/microsoft/vscode-jupyter). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
