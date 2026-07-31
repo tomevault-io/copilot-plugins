@@ -1,0 +1,9 @@
+{
+  "name": "openshift--local-storage-operator",
+  "displayName": "local-storage-operator",
+  "description": "local-storage-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/local-storage-operator",
+  "skills": []
+}
