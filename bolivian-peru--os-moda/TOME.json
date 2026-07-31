@@ -2,9 +2,9 @@
   "name": "os-moda",
   "owner": "bolivian-peru",
   "repo": "os-moda",
-  "description": "Your server fixes itself at 3am. You sleep. AI-native operating system built on NixOS.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bolivian-peru/os-moda",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T00:47:16Z"
+  "distributed_at": "2026-07-31T00:13:34Z"
 }
