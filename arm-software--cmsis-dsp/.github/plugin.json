@@ -1,0 +1,9 @@
+{
+  "name": "arm-software--cmsis-dsp",
+  "displayName": "CMSIS-DSP",
+  "description": "CMSIS-DSP",
+  "version": "1.0.0",
+  "author": "ARM-software",
+  "homepage": "https://github.com/ARM-software/CMSIS-DSP",
+  "skills": []
+}
