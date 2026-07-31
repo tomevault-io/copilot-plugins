@@ -8,151 +8,245 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Commerce Operations Foundation MCP Server - implements the Order Network eXchange Standard (onX) providing a standardized interface between AI agents and fulfillment systems via the Model Context Protocol (MCP).
-
-## Project Structure
-
-```
-/server          - Core MCP server implementation (main development here)
-/adapter-template - Template for creating custom fulfillment adapters
-/schemas         - JSON Schema definitions for domain models
-/backends        - Backend-specific capability manifests
-/docs            - Specification and integration guides
-```
+This is a Model Context Protocol (MCP) server for fulfillment/commerce operations. It provides a standardized interface between AI assistants and fulfillment systems through a pluggable adapter architecture.
 
 ## Development Commands
 
-All primary development happens in `/server`. Run these from the `server/` directory:
-
+### Build and Development
 ```bash
-# Build
-npm run build          # Compile TypeScript
+npm run build          # Compile TypeScript to dist/
 npm run dev            # Run with hot reload (vite-node)
 npm start              # Run production build
-
-# Test
-npm test               # Build + run all tests
-npm run test:unit      # Unit tests only
-npm run test:integration  # Integration tests
-npx vitest tests/unit/adapters/adapter-factory.test.ts  # Single test file
-npx vitest tests/unit --grep "pattern"                  # Tests matching pattern
-
-# Quality
-npm run lint           # ESLint
-npm run format         # Prettier
-npm run typecheck      # Type checking
+npm run typecheck      # Type checking without emission
+npm run clean          # Remove dist/ directory
 ```
 
-For adapter development (`adapter-template/`):
+### Testing
 ```bash
-npm run build          # tsc
-npm run dev            # tsc --watch
-npm test               # Jest with ES modules
+npm test               # Build + run all tests
+npm run test:unit      # Unit tests only
+npm run test:integration  # Integration tests only
+npm run test:watch     # Watch mode
+npm run test:ui        # Vitest UI interface
+npm run test:coverage  # Coverage report
+```
+
+### Code Quality
+```bash
+npm run lint           # ESLint check
+npm run format         # Format with Prettier
+```
+
+### Running Single Tests
+```bash
+# Run specific test file
+npx vitest tests/unit/adapters/adapter-factory.test.ts
+
+# Run tests matching pattern
+npx vitest tests/unit --grep "AdapterFactory"
 ```
 
 ## Architecture
 
-### MCP Server (server/)
+### Three-Layer Architecture
 
-Three-layer architecture:
-1. **Protocol Layer** - MCP SDK integration, stdio transport, request routing
-2. **Service Layer** - `ServiceOrchestrator` facade, `AdapterManager`, health monitoring, validation
-3. **Adapter Layer** - `AdapterFactory` with dynamic loading (built-in, NPM, or local adapters)
+1. **Protocol Layer** (`src/server.ts`, `src/index.ts`)
+   - MCP SDK integration using stdio transport
+   - Request/response handling (tools/list, tools/call, ping)
+   - Error transformation (protocol errors vs tool errors)
 
-**Tools**: 5 action tools + 7 query tools defined in `src/tools/`, registered via `registerTools()` in `ToolRegistry`
+2. **Service Layer** (`src/services/`)
+   - `ServiceOrchestrator`: Main facade coordinating all operations
+   - `AdapterManager`: Adapter lifecycle management
+   - `HealthMonitor`: System health and metrics
+   - `ErrorHandler`: Error processing and standardization
+   - `Transformer`: Data transformation between layers
+   - `Validator`: JSON Schema validation
 
-**Configuration**: Environment variables override config file which overrides defaults. Key vars: `ADAPTER_TYPE`, `ADAPTER_NAME/PACKAGE/PATH`, `LOG_LEVEL`
+3. **Adapter Layer** (`src/adapters/`)
+   - `AdapterFactory`: Creates and caches adapter instances
+   - `IFulfillmentAdapter`: Interface all adapters implement
+   - Built-in adapters (e.g., `MockAdapter`)
+   - Dynamic loading: supports built-in, NPM packages, and local files
 
-See [server/CLAUDE.md](server/CLAUDE.md) for detailed server architecture.
+### Tool System
+
+Tools are defined in `src/tools/` and registered through the explicit list in `registerTools`:
+- **Actions**: `create-sales-order`, `cancel-order`, `update-order`, `fulfill-order`, `create-return`
+- **Queries**: `get-orders`, `get-customers`, `get-products`, `get-product-variants`, `get-inventory`, `get-fulfillments`, `get-returns`
+
+All tools extend `BaseTool` which provides:
+- JSON Schema validation via `inputSchema`
+- `execute()` method for implementation
+- Access to `ServiceOrchestrator` via `serviceLayer`
+
+`ToolRegistry.initialize()` calls `registerTools`, so add new tools by updating that function.
+
+### Configuration System
+
+Configuration is loaded and merged in priority order:
+1. Environment variables (highest priority)
+2. Configuration file (if present)
+3. Default values (lowest priority)
+
+Key configuration paths:
+- `src/config/config-manager.ts`: Singleton manager with event emitters
+- `src/config/config-loader.ts`: Multi-source loading
+- `src/config/environment.ts`: Environment variable parsing
+- `src/config/config-validator.ts`: Schema validation
+
+Environment variables (see `.env.example`):
+- `ADAPTER_TYPE`: built-in | npm | local
+- `ADAPTER_NAME`: For built-in adapters (e.g., "mock")
+- `ADAPTER_PACKAGE`: NPM package name
+- `ADAPTER_PATH`: Local file path
+- `LOG_LEVEL`: debug | info | warn | error
+
+### Error Handling
+
+Two distinct error types:
+1. **Protocol Errors**: Thrown as `McpError` (e.g., MethodNotFound, InvalidRequest)
+2. **Tool Execution Errors**: Returned as error responses with `isError: true`
+
+Error processing pipeline:
+- `ErrorHandler` (service layer): Standardizes domain errors
+- `ErrorAdapter` (protocol layer): Transforms to MCP responses
+- Adapter-specific errors: surface via `AdapterError` codes (e.g. `ORDER_NOT_FOUND`, `INSUFFICIENT_INVENTORY`)
+
+### Type System
+
+Core types in `src/types/`:
+- `adapter.ts`: Adapter interface and result types
+- `fulfillment.ts`: Domain models (Order, Product, Customer, etc.)
+- `config.ts`: Configuration schemas
+- `mcp.ts`: MCP protocol types
+
+All source uses ES modules with `.js` extensions in imports (required for ES module resolution).
+
+## Creating Custom Adapters
+
+1. Implement `IFulfillmentAdapter` interface from `src/types/adapter.ts`
+2. Support the lifecycle hooks plus the twelve shipped operations (`createSalesOrder`, `cancelOrder`, `updateOrder`, `fulfillOrder`, `createReturn`, `getOrders`, `getCustomers`, `getProducts`, `getProductVariants`, `getInventory`, `getFulfillments`, `getReturns`)
+
+For built-in adapters:
+1. Create adapter in `src/adapters/your-adapter/`
+2. Register in `AdapterFactory.builtInAdapters` Map
+3. Set `ADAPTER_TYPE=built-in` and `ADAPTER_NAME=your-adapter`
+
+For NPM adapters:
+1. Publish package implementing the interface
+2. Set `ADAPTER_TYPE=npm` and `ADAPTER_PACKAGE=@company/adapter`
+
+For local adapters:
+1. Create file implementing the interface
+2. Set `ADAPTER_TYPE=local` and `ADAPTER_PATH=/path/to/adapter.js`
+
+## Important Implementation Notes
 
 ### ES Module Requirements
+- All imports must use `.js` extension (e.g., `from './file.js'`)
+- Use `import` and `export`, not `require`
+- `type: "module"` is set in package.json
 
-- All imports use `.js` extension
-- `type: "module"` in package.json
-- Use `import`/`export`, not `require`
+### Test Isolation
+- Vitest runs with `singleThread: true` to prevent race conditions
+- Tests must clean up adapters via `AdapterFactory.clearInstances()`
+- Setup file: `tests/setup.ts`
 
----
+### MCP Response Format
+Success responses must contain:
+```typescript
+{
+  content: [{ type: "text", text: string }],
+  isError: false
+}
+```
 
-# MCP Server Principles
+Error responses:
+```typescript
+{
+  content: [{ type: "text", text: string }],
+  isError: true
+}
+```
 
-The MCP server acts as an adapter between a generic tool schema and a concrete backend. It does not implement business logic, does not infer missing data, and remains fully backend-agnostic.
+### ServiceOrchestrator Initialization
+The orchestrator must be initialized before use:
+```typescript
+await serviceOrchestrator.initialize(adapterConfig);
+```
 
----
+This connects the adapter and initializes domain services.
 
-## Core Principles
+### Health Monitoring
+`HealthMonitor` automatically tracks:
+- Operation success/failure rates
+- Response times
+- Adapter health status
 
-### 1. Backend-Agnostic Behavior
+Access via `ServiceOrchestrator.checkHealth()` and `getMetrics()`.
 
-- The MCP server must not assume or enforce backend-specific requirements.
-- It implements only the tool specification and passes requests/responses through.
-- It performs no additional validation beyond the minimal schema validation defined by the MCP tool.
+## Security Considerations
 
-### 2. No Business Logic Inside the MCP Server
+### Dynamic Adapter Loading
+- Adapters execute with full system permissions
+- Only load from trusted sources
+- All loading is logged for transparency
+- Consider containerization for production
 
-- The MCP server must not fill in missing fields.
-- It must not generate placeholder values (e.g., "Unknown", "N/A").
-- It must not attempt to "fix" or "repair" incomplete requests.
-- It must not apply heuristics to guess user intent or missing data.
+### Production Hardening
+- Debug logging auto-disabled in production
+- Sanitization auto-enabled in production
+- Request timeouts capped at 60s
+- See `ConfigManager.applySecurityPolicies()`
 
-### 3. Transparent Error Propagation
+## Claude Desktop Integration
 
-- Backend errors must be returned to the agent exactly as received.
-- The MCP server must not modify, hide, or reinterpret backend errors.
-- The agent is responsible for asking the user for missing information.
+MCP servers run via stdio transport. Configuration example:
+```json
+{
+  "mcpServers": {
+    "cof-mcp": {
+      "command": "node",
+      "args": ["/absolute/path/to/dist/index.js"],
+      "env": {
+        "ADAPTER_TYPE": "built-in",
+        "ADAPTER_NAME": "mock",
+        "LOG_LEVEL": "info"
+      }
+    }
+  }
+}
+```
 
----
+Location:
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+- Linux: `~/.config/Claude/claude_desktop_config.json`
 
-## Error Handling Philosophy
+## Common Patterns
 
-### Behavior When Required Fields Are Missing
+### Adding a New Tool
+1. Create file in `src/tools/[category]/your-tool.ts`
+2. Extend `BaseTool<TInput, TOutput>`
+3. Define `name`, `description`, `inputSchema`
+4. Implement `execute(input: TInput): Promise<TOutput>`
+5. Registry auto-discovers and registers it
 
-If the backend requires additional fields (e.g., `customerName`) that are not mandatory in the MCP schema:
+### Adding a Service Operation
+1. Add method to appropriate service class
+2. Add delegating method to `ServiceOrchestrator`
+3. Include health monitoring (`recordSuccess`/`recordFailure`)
+4. Update adapter interface if needed
 
-1. The MCP server forwards the request unchanged to the backend.
-2. The backend returns an error.
-3. The MCP server returns this error unchanged to the agent.
-4. The agent asks the user for the missing information.
+### Working with Transformers
+`Transformer` class handles data mapping between:
+- MCP tool inputs → Adapter requests
+- Adapter responses → Tool outputs
+- Domain models → Standardized formats
 
-### General Error Handling Rules
-
-- The MCP server must propagate backend errors transparently.
-- It must never attempt to repair or complete invalid requests.
-- Backend-specific error codes and messages should pass through unchanged.
-
----
-
-## Capability Definition
-
-Each backend integration must define its own **capability manifest** that specifies:
-
-1. **Actions** (write operations) - Methods that modify state
-2. **Queries** (read operations) - Methods that retrieve data without side effects
-3. **Error documentation** - Backend-specific error handling rules
-
-See the `backends/` directory for backend-specific capability definitions.
-
----
-
-## Usage Rules for Claude
-
-These rules apply to all MCP server integrations:
-
-- Claude MUST use only the methods defined in the backend's capability manifest.
-- Claude MUST NOT invent new methods or assume additional capabilities.
-- Claude MUST choose the correct method based on user intent (read vs. write).
-- Claude MUST follow all error-handling rules defined in the backend's error documentation.
-- Claude MUST NOT attempt to bypass the MCP server or call backend endpoints directly.
-
----
-
-## Backend Integrations
-
-| Backend | Capability Manifest |
-|---------|---------------------|
-| [your-backend] | [backends/your-backend/CAPABILITIES.md](backends/your-backend/CAPABILITIES.md) |
-
-> To add a new backend, create a new directory under `backends/` with a `CAPABILITIES.md` file following the same structure.
+Located in `src/services/transformer.ts`.
 
 ---
 > Source: [commerce-operations-foundation/mcp-reference-server](https://github.com/commerce-operations-foundation/mcp-reference-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
