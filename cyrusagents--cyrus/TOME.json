@@ -2,9 +2,9 @@
   "name": "cyrus",
   "owner": "cyrusagents",
   "repo": "cyrus",
-  "description": "The Claude Code background agent for Linear, Slack, Github, GitLab etc. you deploy anywhere. Supports Codex, Cursor and Gemini too.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyrusagents/cyrus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T01:12:52Z"
+  "distributed_at": "2026-07-31T19:35:18Z"
 }
