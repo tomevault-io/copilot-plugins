@@ -2284,6 +2284,11 @@
       "description": "uppy"
     },
     {
+      "name": "transloadit--uppy",
+      "source": "./transloadit--uppy",
+      "description": "uppy"
+    },
+    {
       "name": "vercel--turborepo",
       "source": "./vercel--turborepo",
       "description": "turborepo"
@@ -2622,6 +2627,11 @@
       "name": "archivebox--archivebox",
       "source": "./archivebox--archivebox",
       "description": "ArchiveBox"
+    },
+    {
+      "name": "humansignal--label-studio",
+      "source": "./humansignal--label-studio",
+      "description": "label-studio"
     },
     {
       "name": "humansignal--label-studio",
@@ -5792,6 +5802,26 @@
       "name": "the-pocket--pocketflow-tutorial-codebase-knowledge",
       "source": "./the-pocket--pocketflow-tutorial-codebase-knowledge",
       "description": "PocketFlow-Tutorial-Codebase-Knowledge"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
     },
     {
       "name": "nearai--ironclaw",
@@ -9689,6 +9719,11 @@
       "description": "helicone"
     },
     {
+      "name": "helicone--helicone",
+      "source": "./helicone--helicone",
+      "description": "helicone"
+    },
+    {
       "name": "flashinfer-ai--flashinfer",
       "source": "./flashinfer-ai--flashinfer",
       "description": "flashinfer"
@@ -13094,6 +13129,36 @@
       "description": "flutter_inappwebview"
     },
     {
+      "name": "pichillilorenzo--flutter-inappwebview",
+      "source": "./pichillilorenzo--flutter-inappwebview",
+      "description": "flutter_inappwebview"
+    },
+    {
+      "name": "pichillilorenzo--flutter-inappwebview",
+      "source": "./pichillilorenzo--flutter-inappwebview",
+      "description": "flutter_inappwebview"
+    },
+    {
+      "name": "pichillilorenzo--flutter-inappwebview",
+      "source": "./pichillilorenzo--flutter-inappwebview",
+      "description": "flutter_inappwebview"
+    },
+    {
+      "name": "pichillilorenzo--flutter-inappwebview",
+      "source": "./pichillilorenzo--flutter-inappwebview",
+      "description": "flutter_inappwebview"
+    },
+    {
+      "name": "pichillilorenzo--flutter-inappwebview",
+      "source": "./pichillilorenzo--flutter-inappwebview",
+      "description": "flutter_inappwebview"
+    },
+    {
+      "name": "pichillilorenzo--flutter-inappwebview",
+      "source": "./pichillilorenzo--flutter-inappwebview",
+      "description": "flutter_inappwebview"
+    },
+    {
       "name": "mesa--mesa",
       "source": "./mesa--mesa",
       "description": "mesa"
@@ -13147,6 +13212,11 @@
       "name": "shuakami--qq-chat-exporter",
       "source": "./shuakami--qq-chat-exporter",
       "description": "\ud83d\ude80 QQ\u804a\u5929\u8bb0\u5f55\u3001\u8868\u60c5\u5305\u5bfc\u51fa\u5de5\u5177 | \u81ea\u52a8\u5316\u63d0\u53d6\u56fe\u7247/\u6587\u5b57/\u56fe\u7247\u6d88\u606f\uff0c\u652f\u6301TXT/JSON\u5bfc\u51fa\uff0c\u9ad8\u6548\u5907\u4efd\uff0c\u652f\u6301NT QQ "
+    },
+    {
+      "name": "transformerlensorg--transformerlens",
+      "source": "./transformerlensorg--transformerlens",
+      "description": "TransformerLens"
     },
     {
       "name": "transformerlensorg--transformerlens",
@@ -14277,6 +14347,11 @@
       "name": "neomjs--neo",
       "source": "./neomjs--neo",
       "description": "neo"
+    },
+    {
+      "name": "mongodb--mongo-csharp-driver",
+      "source": "./mongodb--mongo-csharp-driver",
+      "description": "mongo-csharp-driver"
     },
     {
       "name": "mongodb--mongo-csharp-driver",
@@ -16734,6 +16809,21 @@
       "description": "ChineseResearchLaTeX"
     },
     {
+      "name": "huangwb8--chineseresearchlatex",
+      "source": "./huangwb8--chineseresearchlatex",
+      "description": "ChineseResearchLaTeX"
+    },
+    {
+      "name": "huangwb8--chineseresearchlatex",
+      "source": "./huangwb8--chineseresearchlatex",
+      "description": "ChineseResearchLaTeX"
+    },
+    {
+      "name": "huangwb8--chineseresearchlatex",
+      "source": "./huangwb8--chineseresearchlatex",
+      "description": "ChineseResearchLaTeX"
+    },
+    {
       "name": "nugetpackageexplorer--nugetpackageexplorer",
       "source": "./nugetpackageexplorer--nugetpackageexplorer",
       "description": "NuGetPackageExplorer"
@@ -16817,6 +16907,11 @@
       "name": "dingtalk-real-ai--dingtalk-workspace-cli",
       "source": "./dingtalk-real-ai--dingtalk-workspace-cli",
       "description": "dingtalk-workspace-cli"
+    },
+    {
+      "name": "nvidia--nemo-agent-toolkit",
+      "source": "./nvidia--nemo-agent-toolkit",
+      "description": "NeMo-Agent-Toolkit"
     },
     {
       "name": "nvidia--nemo-agent-toolkit",
@@ -18207,6 +18302,11 @@
       "name": "fxn--zeitwerk",
       "source": "./fxn--zeitwerk",
       "description": "zeitwerk"
+    },
+    {
+      "name": "maintainerr--maintainerr",
+      "source": "./maintainerr--maintainerr",
+      "description": "Maintainerr"
     },
     {
       "name": "observal--observal",
@@ -24039,6 +24139,16 @@
       "description": "happier"
     },
     {
+      "name": "happier-dev--happier",
+      "source": "./happier-dev--happier",
+      "description": "happier"
+    },
+    {
+      "name": "happier-dev--happier",
+      "source": "./happier-dev--happier",
+      "description": "happier"
+    },
+    {
       "name": "seleniumhq--seleniumhq-github-io",
       "source": "./seleniumhq--seleniumhq-github-io",
       "description": "seleniumhq.github.io"
@@ -29202,6 +29312,16 @@
       "name": "tencentcloudbase--cloudbase-ai-toolkit",
       "source": "./tencentcloudbase--cloudbase-ai-toolkit",
       "description": "Backend for AI coding agents on CloudBase \u2014 database, auth, functions via Plugin, Skills & MCP."
+    },
+    {
+      "name": "open-cluster-management-io--ocm",
+      "source": "./open-cluster-management-io--ocm",
+      "description": "ocm"
+    },
+    {
+      "name": "open-cluster-management-io--ocm",
+      "source": "./open-cluster-management-io--ocm",
+      "description": "ocm"
     },
     {
       "name": "deviceinsight--kafkactl",
@@ -38894,6 +39014,11 @@
       "description": "apps"
     },
     {
+      "name": "audiusproject--apps",
+      "source": "./audiusproject--apps",
+      "description": "apps"
+    },
+    {
       "name": "preetsuthar17--hextaui",
       "source": "./preetsuthar17--hextaui",
       "description": "Ready-to-use foundation components/blocks built on top of shadcn/ui."
@@ -41542,6 +41667,11 @@
       "name": "awslabs--generative-ai-cdk-constructs",
       "source": "./awslabs--generative-ai-cdk-constructs",
       "description": "generative-ai-cdk-constructs"
+    },
+    {
+      "name": "spear-sim--spear",
+      "source": "./spear-sim--spear",
+      "description": "spear"
     },
     {
       "name": "mitkox--vllm-turboquant",
@@ -51309,6 +51439,16 @@
       "description": "unomi"
     },
     {
+      "name": "apache--unomi",
+      "source": "./apache--unomi",
+      "description": "unomi"
+    },
+    {
+      "name": "apache--unomi",
+      "source": "./apache--unomi",
+      "description": "unomi"
+    },
+    {
       "name": "elixir-volt--quickbeam",
       "source": "./elixir-volt--quickbeam",
       "description": "JavaScript runtime for the BEAM \u2014 Web APIs backed by OTP, native DOM, and a built-in TypeScript toolchain."
@@ -51712,6 +51852,11 @@
       "name": "haiyang-w--git",
       "source": "./haiyang-w--git",
       "description": "GiT"
+    },
+    {
+      "name": "labsai--eddi",
+      "source": "./labsai--eddi",
+      "description": "EDDI"
     },
     {
       "name": "run-llama--llama-agents",
@@ -52307,6 +52452,11 @@
       "name": "avslab--basilisk",
       "source": "./avslab--basilisk",
       "description": "basilisk"
+    },
+    {
+      "name": "surrealdb--surrealdb-js",
+      "source": "./surrealdb--surrealdb-js",
+      "description": "surrealdb.js"
     },
     {
       "name": "nexmoe--eve",
@@ -54867,6 +55017,11 @@
       "name": "newlifex--xcoder",
       "source": "./newlifex--xcoder",
       "description": "XCoder"
+    },
+    {
+      "name": "osscontainertools--kaniko",
+      "source": "./osscontainertools--kaniko",
+      "description": "kaniko"
     },
     {
       "name": "get-convex--agent",
@@ -61729,6 +61884,21 @@
       "description": "python-sdk"
     },
     {
+      "name": "dapr--python-sdk",
+      "source": "./dapr--python-sdk",
+      "description": "python-sdk"
+    },
+    {
+      "name": "dapr--python-sdk",
+      "source": "./dapr--python-sdk",
+      "description": "python-sdk"
+    },
+    {
+      "name": "dapr--python-sdk",
+      "source": "./dapr--python-sdk",
+      "description": "python-sdk"
+    },
+    {
       "name": "nvidia--aicr",
       "source": "./nvidia--aicr",
       "description": "Tooling for optimized, validated, and reproducible GPU-accelerated AI runtime in Kubernetes"
@@ -65157,6 +65327,11 @@
       "name": "superclaude-org--supergemini-framework",
       "source": "./superclaude-org--supergemini-framework",
       "description": "SuperGemini_Framework"
+    },
+    {
+      "name": "yumnumm--eqmonitor",
+      "source": "./yumnumm--eqmonitor",
+      "description": "EQMonitor"
     },
     {
       "name": "yumnumm--eqmonitor",
@@ -69612,6 +69787,11 @@
       "name": "alphagov--router",
       "source": "./alphagov--router",
       "description": "router"
+    },
+    {
+      "name": "quantified-uncertainty--squiggle",
+      "source": "./quantified-uncertainty--squiggle",
+      "description": "squiggle"
     },
     {
       "name": "svkozak--pi-acp",
@@ -75759,6 +75939,11 @@
       "description": "ross"
     },
     {
+      "name": "cisco-talos--evidenceforge",
+      "source": "./cisco-talos--evidenceforge",
+      "description": "EvidenceForge"
+    },
+    {
       "name": "mysticaltech--marketingskills",
       "source": "./mysticaltech--marketingskills",
       "description": "Marketing skills for AI agents (Agent Skills spec). Fork of coreyhaines31/marketingskills with pre-built .skill files for easy installation."
@@ -79174,6 +79359,16 @@
       "description": "oisy-wallet"
     },
     {
+      "name": "dfinity--oisy-wallet",
+      "source": "./dfinity--oisy-wallet",
+      "description": "oisy-wallet"
+    },
+    {
+      "name": "dfinity--oisy-wallet",
+      "source": "./dfinity--oisy-wallet",
+      "description": "oisy-wallet"
+    },
+    {
       "name": "hamza5--file-brain",
       "source": "./hamza5--file-brain",
       "description": "Smart local file search app that understands your files"
@@ -81187,6 +81382,31 @@
       "name": "owasp--opencre",
       "source": "./owasp--opencre",
       "description": "OpenCRE"
+    },
+    {
+      "name": "owasp--opencre",
+      "source": "./owasp--opencre",
+      "description": "OpenCRE"
+    },
+    {
+      "name": "owasp--opencre",
+      "source": "./owasp--opencre",
+      "description": "OpenCRE"
+    },
+    {
+      "name": "owasp--opencre",
+      "source": "./owasp--opencre",
+      "description": "OpenCRE"
+    },
+    {
+      "name": "owasp--opencre",
+      "source": "./owasp--opencre",
+      "description": "OpenCRE"
+    },
+    {
+      "name": "idaibin--rustzen-admin",
+      "source": "./idaibin--rustzen-admin",
+      "description": "rustzen-admin"
     },
     {
       "name": "owasp--opencre",
@@ -90237,6 +90457,11 @@
       "name": "gura-conf--gura",
       "source": "./gura-conf--gura",
       "description": "gura"
+    },
+    {
+      "name": "dave-london--pare",
+      "source": "./dave-london--pare",
+      "description": "Pare"
     },
     {
       "name": "dave-london--pare",
@@ -115779,6 +116004,11 @@
       "description": "mixpanel-flutter"
     },
     {
+      "name": "mixpanel--mixpanel-flutter",
+      "source": "./mixpanel--mixpanel-flutter",
+      "description": "mixpanel-flutter"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -119497,6 +119727,11 @@
       "name": "claude-world--director-mode-lite",
       "source": "./claude-world--director-mode-lite",
       "description": "director-mode-lite"
+    },
+    {
+      "name": "nitaybz--apple-home-dashboard",
+      "source": "./nitaybz--apple-home-dashboard",
+      "description": "apple-home-dashboard"
     },
     {
       "name": "edisonwong520--wanny",
@@ -126137,6 +126372,11 @@
       "name": "svengronauer--bullet-safety-gym",
       "source": "./svengronauer--bullet-safety-gym",
       "description": "Bullet-Safety-Gym"
+    },
+    {
+      "name": "llun--activities-next",
+      "source": "./llun--activities-next",
+      "description": "activities.next"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -134732,6 +134972,11 @@
       "name": "chihebnabil--lovable-boilerplate",
       "source": "./chihebnabil--lovable-boilerplate",
       "description": "lovable-boilerplate"
+    },
+    {
+      "name": "rad-ui--ui",
+      "source": "./rad-ui--ui",
+      "description": "ui"
     },
     {
       "name": "ursushoribilismusic--agentic-fleet-hub",
@@ -149049,6 +149294,16 @@
       "description": "spring-ai-agentcore"
     },
     {
+      "name": "spring-ai-community--spring-ai-agentcore",
+      "source": "./spring-ai-community--spring-ai-agentcore",
+      "description": "spring-ai-agentcore"
+    },
+    {
+      "name": "spring-ai-community--spring-ai-agentcore",
+      "source": "./spring-ai-community--spring-ai-agentcore",
+      "description": "spring-ai-agentcore"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
@@ -152174,6 +152429,11 @@
       "description": "shot"
     },
     {
+      "name": "terraform-redhat--terraform-provider-rhcs",
+      "source": "./terraform-redhat--terraform-provider-rhcs",
+      "description": "terraform-provider-rhcs"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -153689,6 +153949,71 @@
       "description": "jazz"
     },
     {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "everycure-org--matrix",
+      "source": "./everycure-org--matrix",
+      "description": "matrix"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
+      "name": "ranrar--rustic-prompt",
+      "source": "./ranrar--rustic-prompt",
+      "description": "rustic-prompt"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -155117,6 +155442,141 @@
       "name": "richardknop--minisql",
       "source": "./richardknop--minisql",
       "description": "minisql"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
+    },
+    {
+      "name": "evgenyvinnik--llm-driven-system-design",
+      "source": "./evgenyvinnik--llm-driven-system-design",
+      "description": "llm-driven-system-design"
     },
     {
       "name": "evgenyvinnik--llm-driven-system-design",
@@ -165429,6 +165889,21 @@
       "description": "deepgram-demos-rust"
     },
     {
+      "name": "dvcol--neo-svelte",
+      "source": "./dvcol--neo-svelte",
+      "description": "neo-svelte"
+    },
+    {
+      "name": "dvcol--neo-svelte",
+      "source": "./dvcol--neo-svelte",
+      "description": "neo-svelte"
+    },
+    {
+      "name": "dvcol--neo-svelte",
+      "source": "./dvcol--neo-svelte",
+      "description": "neo-svelte"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -169884,6 +170359,11 @@
       "description": "kairos-rs"
     },
     {
+      "name": "konflux-ci--build-definitions",
+      "source": "./konflux-ci--build-definitions",
+      "description": "build-definitions"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -173907,6 +174387,21 @@
       "name": "node-llm--node-llm",
       "source": "./node-llm--node-llm",
       "description": "node-llm"
+    },
+    {
+      "name": "datastax--astrapy",
+      "source": "./datastax--astrapy",
+      "description": "astrapy"
+    },
+    {
+      "name": "datastax--astrapy",
+      "source": "./datastax--astrapy",
+      "description": "astrapy"
+    },
+    {
+      "name": "datastax--astrapy",
+      "source": "./datastax--astrapy",
+      "description": "astrapy"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -191714,6 +192209,41 @@
       "description": "agent-creds"
     },
     {
+      "name": "github-samples--turn-based-game-mcp",
+      "source": "./github-samples--turn-based-game-mcp",
+      "description": "turn-based-game-mcp"
+    },
+    {
+      "name": "github-samples--turn-based-game-mcp",
+      "source": "./github-samples--turn-based-game-mcp",
+      "description": "turn-based-game-mcp"
+    },
+    {
+      "name": "github-samples--turn-based-game-mcp",
+      "source": "./github-samples--turn-based-game-mcp",
+      "description": "turn-based-game-mcp"
+    },
+    {
+      "name": "github-samples--turn-based-game-mcp",
+      "source": "./github-samples--turn-based-game-mcp",
+      "description": "turn-based-game-mcp"
+    },
+    {
+      "name": "github-samples--turn-based-game-mcp",
+      "source": "./github-samples--turn-based-game-mcp",
+      "description": "turn-based-game-mcp"
+    },
+    {
+      "name": "github-samples--turn-based-game-mcp",
+      "source": "./github-samples--turn-based-game-mcp",
+      "description": "turn-based-game-mcp"
+    },
+    {
+      "name": "github-samples--turn-based-game-mcp",
+      "source": "./github-samples--turn-based-game-mcp",
+      "description": "turn-based-game-mcp"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -194177,6 +194707,11 @@
       "name": "mr-kam--cartograpy",
       "source": "./mr-kam--cartograpy",
       "description": "cartograpy"
+    },
+    {
+      "name": "jayren3996--edkit-jl",
+      "source": "./jayren3996--edkit-jl",
+      "description": "EDKit.jl"
     },
     {
       "name": "navikt--cplt",
@@ -355514,6 +356049,11 @@
       "description": "Tiny Zig 0.16 local AI assistant with OpenAI-compatible providers, memory, tools, Telegram, and WebSocket."
     },
     {
+      "name": "cezarpretto--spec-hub",
+      "source": "./cezarpretto--spec-hub",
+      "description": "spec-hub"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -487977,6 +488517,11 @@
       "name": "ding20041101-stack--lobe-chat",
       "source": "./ding20041101-stack--lobe-chat",
       "description": "lobe-chat"
+    },
+    {
+      "name": "alexarts74--trip-indo-mobile",
+      "source": "./alexarts74--trip-indo-mobile",
+      "description": "Trip between friends"
     }
   ]
 }
