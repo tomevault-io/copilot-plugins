@@ -1,0 +1,9 @@
+{
+  "name": "synology-community--terraform-provider-synology",
+  "displayName": "terraform-provider-synology",
+  "description": "terraform-provider-synology",
+  "version": "1.0.0",
+  "author": "synology-community",
+  "homepage": "https://github.com/synology-community/terraform-provider-synology",
+  "skills": []
+}
