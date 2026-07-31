@@ -1,0 +1,9 @@
+{
+  "name": "diplodoc-platform--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "diplodoc-platform",
+  "homepage": "https://github.com/diplodoc-platform/cli",
+  "skills": []
+}
