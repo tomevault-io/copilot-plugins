@@ -1,0 +1,9 @@
+{
+  "name": "dfinity--icp-cli",
+  "displayName": "icp-cli",
+  "description": "icp-cli",
+  "version": "1.0.0",
+  "author": "dfinity",
+  "homepage": "https://github.com/dfinity/icp-cli",
+  "skills": []
+}
