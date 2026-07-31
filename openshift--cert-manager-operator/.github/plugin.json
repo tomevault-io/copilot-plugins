@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cert-manager-operator",
+  "displayName": "cert-manager-operator",
+  "description": "cert-manager-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cert-manager-operator",
+  "skills": []
+}
