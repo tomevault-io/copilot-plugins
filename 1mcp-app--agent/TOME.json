@@ -2,7 +2,7 @@
   "name": "agent",
   "owner": "1mcp-app",
   "repo": "agent",
-  "description": "A unified Model Context Protocol server implementation that aggregates multiple MCP servers into one.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/1mcp-app/agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:51:48Z"
+  "distributed_at": "2026-07-31T19:02:27Z"
 }
