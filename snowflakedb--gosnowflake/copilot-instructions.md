@@ -1,25 +1,35 @@
 ## gosnowflake
 
-> 1. Unless it's necessary or told otherwise, try reusing existing files, both for implementation and tests.
+> - Follow Go formatting standards (use `gofmt`)
 
 
-# Go files rules
+# Cursor Rules for Go Snowflake Driver
 
-## General
+## General Development Standards
 
-1. Unless it's necessary or told otherwise, try reusing existing files, both for implementation and tests.
-2. If possible, try running relevant tests.
+### Code Quality
+- Follow Go formatting standards (use `gofmt`)
+- Use meaningful variable and function names
+- Include error handling for all operations that can fail
+- Write comprehensive documentation for public APIs
 
-## Tests
+### Project Structure
+- Place test files in the same package as the code being tested
+- Use `test_data/` directory for test fixtures and sample data
+- Group related functionality in logical packages
 
-1. Create a test file with the name same as prod code file by default.
-2. For assertions use our test helpers defined in assert_test.go.
+### Testing
+- Test files should be named `*_test.go`
+- **For test-specific rules, see `testing.mdc`**
+- Write both positive and negative test cases
+- Use table-driven tests for testing multiple scenarios
 
-## Logging
-
-1. Add reasonable logging - don't repeat logs, but add them when it's meaningful.
-2. Always consider log levels.
+### Code Review Guidelines
+- Ensure code follows Go best practices
+- Verify comprehensive test coverage
+- Check that error messages are descriptive and helpful for debugging
+- Validate that public APIs are properly documented
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/snowflakedb) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [snowflakedb/gosnowflake](https://github.com/snowflakedb/gosnowflake) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
