@@ -1,0 +1,9 @@
+{
+  "name": "alibaba--rtp-llm",
+  "displayName": "rtp-llm",
+  "description": "rtp-llm",
+  "version": "1.0.0",
+  "author": "alibaba",
+  "homepage": "https://github.com/alibaba/rtp-llm",
+  "skills": []
+}
