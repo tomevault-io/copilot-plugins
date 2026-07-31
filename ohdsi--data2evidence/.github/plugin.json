@@ -1,0 +1,9 @@
+{
+  "name": "ohdsi--data2evidence",
+  "displayName": "Data2Evidence",
+  "description": "Data2Evidence",
+  "version": "1.0.0",
+  "author": "OHDSI",
+  "homepage": "https://github.com/OHDSI/Data2Evidence",
+  "skills": []
+}
