@@ -4,7 +4,7 @@
   "repo": "bitwarden-cli-bio",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/jeanregisser",
+  "source_url": "https://github.com/jeanregisser/bitwarden-cli-bio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T23:42:16Z"
+  "distributed_at": "2026-07-31T23:04:38Z"
 }
