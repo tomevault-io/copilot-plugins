@@ -1,8 +1,6 @@
 # AI instruction files for mcp-reference-server
 
-> Sourced from [commerce-operations-foundation/mcp-reference-server](https://github.com/commerce-operations-foundation/mcp-reference-server) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-This is the reference implementation for the mcp server
+> Sourced from [commerce-operations-foundation/mcp-reference-server](https://github.com/commerce-operations-foundation/mcp-reference-server), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
