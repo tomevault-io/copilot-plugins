@@ -272,4 +272,4 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 ---
 > Source: [koel/koel](https://github.com/koel/koel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
