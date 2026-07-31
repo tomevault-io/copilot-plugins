@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-csi--csi-driver-smb",
+  "displayName": "csi-driver-smb",
+  "description": "csi-driver-smb",
+  "version": "1.0.0",
+  "author": "kubernetes-csi",
+  "homepage": "https://github.com/kubernetes-csi/csi-driver-smb",
+  "skills": []
+}
