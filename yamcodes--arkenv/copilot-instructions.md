@@ -1,77 +1,114 @@
 ## arkenv
 
-> pnpm package manager guidelines
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
 
-# pnpm Guidelines
+Default to using Bun instead of Node.js.
 
-This monorepo uses **pnpm** as the package manager.
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-## Package Manager
+## APIs
 
-- Always use `pnpm` for all package management operations
-- Never use `npm` or `yarn` commands
-- The project uses `pnpm@10.20.0` (specified in `packageManager` field)
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-The only exception to this rule are the examples in the `examples/` folder ,which are supposed to be standalone and run on their own, regardless of monorepo setup.
+## Testing
 
-## Common Commands
+Use `bun test` to run tests.
 
-```bash
-# Install dependencies
-pnpm install
+```ts#index.test.ts
+import { test, expect } from "bun:test";
 
-# Add a dependency to a workspace package
-pnpm add <package> --filter <workspace-name>
-
-# Add a dev dependency
-pnpm add -D <package> --filter <workspace-name>
-
-# Run a script in a specific package
-pnpm --filter <workspace-name> <script>
-
-# Run a script across all packages
-pnpm run <script>
+test("hello world", () => {
+  expect(1).toBe(1);
+});
 ```
 
-## Workspace Structure
+## Frontend
 
-This is a pnpm workspace monorepo. Packages are defined in:
-- `packages/` - Published npm packages
-- `apps/` - Applications (www, playgrounds)
-- `tooling/` - Development tools (not published)
-- `examples/` - Example projects
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-## Workspace Protocol
+Server:
 
-When referencing workspace packages, use the `workspace:*` protocol:
+```ts#index.ts
+import index from "./index.html"
 
-```json
-{
-  "dependencies": {
-    "arkenv": "workspace:*"
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
   }
-}
+})
 ```
 
-## Only Built Dependencies
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-Certain dependencies are configured to use `onlyBuiltDependencies` in `pnpm.onlyBuiltDependencies`. These are typically native dependencies that need special handling:
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
 
-- `@biomejs/biome`
-- `@sentry/cli`
-- `@swc/core`
-- `@tailwindcss/oxide`
-- `@vercel/speed-insights`
-- `esbuild`
-- `sharp`
+With the following `frontend.tsx`:
 
-## Lock File
+```tsx#frontend.tsx
+import React from "react";
 
-- Always commit `pnpm-lock.yaml`
-- Never manually edit the lock file
-- Run `pnpm install` to update the lock file when dependencies change
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/yamcodes) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [yamcodes/arkenv](https://github.com/yamcodes/arkenv) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
