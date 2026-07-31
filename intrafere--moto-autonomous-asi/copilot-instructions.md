@@ -1,16 +1,43 @@
-## workflow-runtime-updates
+## moto-autonomous-asi
 
-> - Aggregator, Compiler, and Autonomous Research are mutually exclusive runtime modes. Only one workflow mode may be active at a time, and starting any mode while another is running must be blocked.
+> MOTO cross-field workflow testing and deep verification requirements
 
 
-## Workflow Runtime Updates
+# Cross-Field Workflow Testing
 
-- Aggregator, Compiler, and Autonomous Research are mutually exclusive runtime modes. Only one workflow mode may be active at a time, and starting any mode while another is running must be blocked.
-- This rule explicitly supersedes any older wording in `part-1-and-part-2-cointeraction-architecture.mdc` that describes Aggregator and Compiler as concurrently runnable.
+## #1 Rule: The Testing System Must Remain a Removable Overlay
 
-- Compiler critique skip and autonomous critique skip both support pre-emptive use during active paper-writing. If critique is already active, the skip happens immediately. If critique has not started yet, the skip is queued and auto-applies when critique is reached.
-- This rule explicitly supersedes any older wording in `part-2-compiler-tool-design-specification.mdc` that describes compiler critique skip as active-critique-only.
+The testing system is its own system that sits on top of the current production
+program. Production code, launch paths, builds, and runtime behavior must never depend
+on the testing folders, test artifacts, test-only imports, or test-only state. A user
+must be able to delete the entire testing system (including `tests/` and generated test
+artifacts) and still have a fully functioning MOTO program with unchanged production
+behavior. This separability requirement takes priority over every other testing rule.
+
+MOTO uses a project-specific testing overlay that combines executable product-law
+invariants, deterministic state recombination, bounded real-code adapters with faked
+dependencies, isolated scenario/result artifacts, inverse target-risk analysis, and a
+support graph.
+
+- Treat `tests/workflow_harness/invariant_catalog.py` and
+  `tests/workflow_testing_plans/02_invariant_catalog.md` as the stable product-law catalog.
+  Add invariant IDs instead of renaming existing IDs.
+- Keep the overlay removable and behavior-neutral. Never add production dependencies on
+  the testing system, runtime shortcuts, hidden stops/caps, impossible state transitions,
+  or production-only test behavior.
+- Keep external providers, Lean/SMT, browser services, credentials, and mutable runtime
+  roots faked, blocked, or isolated unless a test explicitly owns that integration.
+- Record safely unobservable interactions as `blocked`; never report synthetic coverage
+  as a real-code pass.
+- Run focused tests while developing and `npm run test:workflows` after workflow-test or
+  deterministic-artifact changes.
+- Run `npm run test:deep` after every major build and after substantial orchestration,
+  persistence, provider, proof, prompt/RAG, event-contract, runtime-root, or cross-mode
+  change. It is additive: run `npm test` separately for normal backend/frontend coverage.
+- Regenerate deterministic cross-field artifacts with
+  `python -m tests.workflow_cross_field.artifacts` when their inputs change, then verify
+  that the checked-in projection is clean.
 
 ---
 > Source: [Intrafere/MOTO-Autonomous-ASI](https://github.com/Intrafere/MOTO-Autonomous-ASI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
