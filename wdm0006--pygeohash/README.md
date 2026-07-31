@@ -1,6 +1,6 @@
 # AI instruction files for pygeohash
 
-> Sourced from [wdm0006/pygeohash](https://github.com/wdm0006/pygeohash) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [wdm0006/pygeohash](https://github.com/wdm0006/pygeohash), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [wdm0006/pygeohash](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/wdm0006)
+From [wdm0006/pygeohash](https://github.com/wdm0006/pygeohash) — a repo with 178+ stars on GitHub.
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install wdm0006/pygeohash
 ```
-Or browse all formats at [https://tomevault.io/claim/wdm0006](https://tomevault.io/claim/wdm0006).
+Source: [github.com/wdm0006/pygeohash](https://github.com/wdm0006/pygeohash).
 
 <!-- genome:a-i-s -->
