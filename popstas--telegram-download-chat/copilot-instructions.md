@@ -1,142 +1,96 @@
 ## telegram-download-chat
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This module provides an MCP (Model Context Protocol) server that exposes Telegram chat functionality to AI assistants like Claude. It allows retrieving messages from Telegram chats through standardized MCP tools.
 
-# CLAUDE.md
+# MCP Server Module
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Overview
 
-## Project Overview
+This module provides an MCP (Model Context Protocol) server that exposes Telegram chat functionality to AI assistants like Claude. It allows retrieving messages from Telegram chats through standardized MCP tools.
 
-Telegram Download Chat is a Python CLI utility that downloads and analyzes Telegram chat history. It provides both command-line and GUI interfaces for downloading messages from chats, groups, channels, or archived exports and saving them in JSON/TXT formats.
+## Architecture
+
+```
+mcp/
+├── __init__.py            # Exports main, main_http, mcp
+├── server.py              # FastMCP server with tools
+├── connection_manager.py  # Telegram connection + task queue
+└── AGENTS.md             # This file
+```
 
 ### Key Components
 
-- **Core Engine** (`core/` package): Contains `TelegramChatDownloader` plus helper modules (`auth`, `config`, `download`, `entities`, `media`, `messages`, `context`, `render`) built on Telethon
-- **CLI Interface** (`cli.py`): Command-line interface with argument parsing and async message processing
-- **GUI Interface** (`gui_app.py`): PySide6-based graphical interface with threading for async operations
-- **MCP Server** (`mcp/` package): Model Context Protocol server exposing Telegram chat tools for AI assistants
-- **Configuration** (`paths.py`): Handles config file management and application directories
+1. **FastMCP Server** (`server.py`)
+   - Uses `mcp.server.fastmcp.FastMCP` for tool registration
+   - Lifecycle management via async context manager
+   - Supports stdio and HTTP transports
 
-### Architecture
+2. **Connection Manager** (`connection_manager.py`)
+   - Single persistent Telegram connection (no auto-reconnect)
+   - Task queue for serializing API calls
+   - Connection statistics for diagnostics
 
-The application follows a modular design:
-1. **Configuration Layer**: YAML-based config with API credentials and user settings
-2. **Telegram Client Layer**: Telethon wrapper for authenticated API communication
-3. **Processing Layer**: Message filtering, date splitting, format conversion
-4. **Interface Layer**: CLI and GUI frontends sharing the same core functionality
+3. **Task Queue**
+   - FIFO processing of requests
+   - Tracks client IDs for each request
+   - Prevents concurrent Telegram API calls
 
-## Development Commands
+## Design Decisions
 
-Use `.venv` virtual environment.
+### Simplified Connection Model
+- Connect once at startup, disconnect at shutdown
+- No automatic reconnection - if connection fails, client sees error
+- Rationale: Telegram connections are stable; reconnection adds complexity with little benefit
 
-### Setup Development Environment
+### Task Queue Pattern
+- All Telegram API calls go through the queue
+- One request processed at a time
+- Benefits:
+  - Avoids rate limiting from concurrent calls
+  - Provides clear request ordering
+  - Enables client tracking for diagnostics
+
+### Error Handling
+- Telethon errors (FloodWait, AuthKeyUnregistered, RPCError) converted to JSON responses
+- No retries - let the client decide
+- Errors recorded in stats for monitoring
+
+## MCP Tools
+
+| Tool | Purpose |
+|------|---------|
+| `telegram_get_messages` | Fetch messages from a chat with datetime filter |
+
+## Running the Server
+
 ```bash
-# Install in development mode with all dependencies
-pip install -e ".[dev,gui]"
+# stdio transport (for Claude Desktop)
+python -m telegram_download_chat.mcp
 
-# Or install from requirements
-pip install -r requirements.txt
-```
-
-### Testing
-```bash
-# Run tests
-pytest
-
-# Run tests with async support
-pytest -v
-
-# Run specific test
-pytest tests/test_telegram_download_chat.py::TestClass::test_method
-```
-
-### Code Quality
-```bash
-# Format code
-black src/ tests/
-
-# Sort imports
-isort src/ tests/
-
-# Type checking
-mypy src/
-```
-
-### Building
-```bash
-# Build package
-python -m build
-
-# Install from source
-pip install .
-
-# Build PyInstaller executables
-./build_macos.sh      # macOS
-./build_windows.ps1   # Windows
-```
-
-### Running
-```bash
-# CLI mode
-python -m telegram_download_chat username
-
-# GUI mode  
-python -m telegram_download_chat gui
-# or
-telegram-download-chat gui
-
-# From source
-python main.py  # Launches GUI by default
+# HTTP transport (for debugging/testing)
+python -m telegram_download_chat.mcp -t http -p 8000
 ```
 
 ## Configuration
 
-- Config file auto-created at OS-specific locations (see `paths.py`)
-- Requires Telegram API credentials from https://my.telegram.org
-- Example config in `config.example.yml`
-- Supports optional proxy via `proxy_url` in config or `--proxy-url` CLI flag (socks5/socks4/http)
-- GUI provides config editing interface
+The server uses the same config file as CLI/GUI (`config.yml`). Requires:
+- `api_id` and `api_hash` from https://my.telegram.org
+- Valid Telethon session (authenticate via CLI or GUI first)
 
-## Key Features to Understand
+## Testing
 
-### Message Processing
-- Downloads via Telethon's `iter_messages()` with pagination
-- Supports resume from interruption using temporary files
-- Can filter by date ranges, specific users, or message threads
-- Outputs JSON (full metadata), TXT (human-readable), and optionally HTML/PDF formats
-- Output is organized per-chat: `<chat_name>/messages.json`, `<chat_name>/messages.txt`, optionally `messages.html`/`messages.pdf`, and `<chat_name>/attachments/`
+No dedicated MCP tests currently. To test manually:
+1. Start server: `python -m telegram_download_chat.mcp -t http`
+2. Call `telegram_get_messages` with valid chat_id and min_datetime
 
-### Authentication
-- Uses Telethon sessions for persistent login
-- GUI handles phone/code/password flow
-- CLI opens browser for authentication
+## When Modifying This Code
 
-### Filtering & Splitting
-- `--subchat`: Extract message threads/replies
-- `--split`: Split output by month/year
-- `--user`: Filter by specific sender
-- `--max-date`: Messages on or before this date
-- `--min-date`: Messages on or after this date
-- `--media-placeholders`: Insert media type indicators (e.g. `[photo]`, `[file=name.pdf]`) in TXT output
-- `--media`: Download all media types with organized category directories (images/, videos/, documents/, audio/, stickers/, contacts/, locations/, polls/, etc.) and concurrent downloads (5 simultaneous). Supports photos, videos, documents, audio, stickers, contacts (VCF), geo locations (JSON), polls, dice, and games.
-
-### Export Formats
-- `--html`: Render a Telegram Web-style HTML page (uses Jinja2 templates)
-- `--pdf`: Render a PDF document (uses ReportLab)
-- Both flags work alongside existing JSON/TXT output and can be combined with `--media` for inline images
-
-### PyInstaller Integration
-- Custom hooks in `_pyinstaller/` for bundling
-- Platform-specific build scripts
-- GUI auto-launches when no CLI args provided
-
-### MCP Server
-- Exposes `telegram_get_messages` and `telegram_connection_status` tools
-- Uses task queue for serialized API calls
-- Supports stdio (Claude Desktop) and HTTP transports
-- Run with: `python -m telegram_download_chat.mcp`
+- Keep connection logic simple - no reconnection complexity
+- All Telegram calls must go through `_manager.execute()`
+- Add new tools with `@mcp.tool()` decorator
+- Include `readOnlyHint` and `idempotentHint` annotations for tools
+- Return JSON strings from tools (MCP protocol requirement)
 
 ---
 > Source: [popstas/telegram-download-chat](https://github.com/popstas/telegram-download-chat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
