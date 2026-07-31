@@ -1,115 +1,172 @@
 ## sentry-go
 
-> Single-module Go SDK with integration sub-modules in `github.com/getsentry/sentry-go`.
+> When creating or updating changelogs for the Sentry Go SDK, follow these rules:
 
-# Sentry Go SDK
+# Changelog Creation Guidelines
 
-Single-module Go SDK with integration sub-modules in `github.com/getsentry/sentry-go`.
+When creating or updating changelogs for the Sentry Go SDK, follow these rules:
 
-## Commit Attribution
+## Gathering Changes
 
-AI commits MUST include:
+Before creating a changelog entry, collect all changes since the last release tag:
 
-```
-Co-Authored-By: <agent model name> <agent-email-or-noreply@example.com>
-```
-
-## Before Every Commit
-
-1. `make fmt` 2. `make lint` 3. `make vet` 4. `make test-race`
-
-## Architecture
-
-### Core (`/`)
-
-The root package `sentry` contains the entire public API.
-
-### Attribute Package (`/attribute/`)
-
-Type-safe key-value builders used by structured logging and metrics:
-
-```go
-attribute.String("key", "value")
-attribute.Int("count", 42)
-attribute.Float64("ratio", 0.5)
-attribute.Bool("flag", true)
+### Find the Latest Release Tag
+```bash
+git tag --sort=-version:refname | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -1
 ```
 
-### Integration Sub-Modules
+### Get Commits Since Last Release
+```bash
+# Get commit hashes and messages since last tag
+git log --oneline $(git describe --tags --abbrev=0)..HEAD
 
-Each lives in its own directory with a separate `go.mod`:
+# Get detailed commit information
+git log --pretty=format:"%h %s (%an)" $(git describe --tags --abbrev=0)..HEAD
+```
 
-- **HTTP middleware** — `http/`, `gin/`, `echo/`, `fiber/`, `fasthttp/`, `iris/`, `negroni/`
-- **Logging hooks** — `logrus/`, `zerolog/`, `zap/`, `slog/`
-- **Instrumentation** — `httpclient/`, `otel/`
+### Analyze Changes
+For each commit since the last release:
+1. Check if it's a merge commit from a PR: `git show --stat <commit_hash>`
+2. For PR commits, fetch the PR details to understand the full context
+3. Categorize changes as Breaking Changes, Features, Deprecations, Bug Fixes, or Misc
+4. Identify any commits that should be excluded (internal refactoring, test-only changes, etc.)
 
-When adding a new integration, mirror an existing one.
+### Example Workflow
+```bash
+# Check current branch and recent commits
+git log --oneline --since="2024-01-01" | head -10
 
-### Transport Architecture
+# Get PR information for specific commits
+git show <commit_hash> --stat
 
-**Current: `transport.go` (active)** — `HTTPTransport` is the default implementation of an async transport. `HTTPSyncTransport` is the blocking variant for serverless.
+# Look at file changes to understand scope
+git diff --name-only <last_tag>..HEAD
+```
 
-**Next: `internal/telemetry/` + `internal/http/` (not yet enabled)** — Processor/buffer/scheduler architecture. Wired up in `client.go` (`setupTelemetryProcessor`) but **commented out** behind `DisableTelemetryBuffer`. Key parts:
+Always base changelog entries on the complete set of commits since the last release tag to ensure no changes are missed.
 
-- `internal/telemetry/processor.go` — orchestrator; routes items to category-specific buffers
-- `internal/telemetry/scheduler.go` — weighted round-robin; errors get 5x priority over logs
-- `internal/telemetry/ring_buffer.go` — circular buffer with overflow policies and batch/timeout flushing
-- `internal/telemetry/bucketed_buffer.go` — groups items by trace ID
-- `internal/http/transport.go` — `AsyncTransport` with `HasCapacity()` backpressure
-- `internal/protocol/` — `Envelope`, `TelemetryItem` interfaces; log/metric batch types
+## Version Structure
 
-The `internalAsyncTransportAdapter` in `transport.go` bridges old `Transport` to new `TelemetryTransport`.
+Use semantic versioning (e.g., `0.34.0`) with this format:
 
-## Coding Standards
+```markdown
+## [VERSION]
 
-- Follow existing conventions — check neighboring files first
-- Maintain existing Go versions and dependencies unless explicitly asked to change them
-- `gofmt -s` formatting, doc comments on exports
-- Public API in root package; internals in `/internal`
-- Thread safety required — guard shared state with mutexes
-- Update tests when modifying behavior
+The Sentry SDK team is happy to announce the immediate availability of Sentry Go SDK v[VERSION].
+```
 
-## Testing
+## Section Order
 
-Test tier preference (use the highest tier that covers what you need):
+Include sections in this exact order (only include sections that have content):
 
-1. **Integration tests** (default) — `sentry.Init` with `BeforeSend` callbacks, `httptest.Server` with real framework routers, `sentry.Flush` to collect events. Prefer tests that use the public API.
-2. **Context-level tests** — `NewTestContext` with `MockTransport` for span/transaction behavior when no HTTP server is needed.
-3. **Unit tests** (sparingly) — Direct `NewClient` + `MockScope` only for self-contained logic like `BeforeSend` callbacks or sampling decisions.
+1. **Breaking Changes** - Changes requiring code modifications
+2. **Deprecations** - Features marked for future removal
+3. **Features** - New functionality and enhancements  
+4. **Bug Fixes** - Fixes for existing functionality
+5. **Misc** - Other changes
 
-Conventions:
+## Formatting Rules
 
-- Table-driven tests for multiple inputs through the same code path
-- `t.Parallel()` for tests that don't share global state
-- `cmp.Diff` with `cmpopts.IgnoreFields` for `*Event` comparison — ignore `EventID`, `Timestamp`, `Sdk`, `sdkMetaData`
-- `testutils.FlushTimeout()` when calling `sentry.Flush` (longer timeout in CI)
-- `testify` for assertions, `internal/testutils/` for mocks
-- All tests must pass `make test-race`
+### Pull Request Links
+- Always use format: `([#NUMBER](https://github.com/getsentry/sentry-go/pull/NUMBER))`
+- For issues: `([#NUMBER](https://github.com/getsentry/sentry-go/issues/NUMBER))`
 
-What to test:
+### Code Examples
+- Use Go syntax highlighting: ````go
+- For breaking changes, show both before and after examples
+- Include relevant context, not just the changed line
 
-- Behavior users observe: Does middleware capture panics? Does `Flush` deliver events? Do trace headers propagate?
-- Edge cases at system boundaries: malformed DSN, nil `Hub`, concurrent captures, context cancellation
-- Regressions: reproduce the failure before applying the fix
+### Descriptions
+- Start with action verbs (Add, Fix, Remove, Update, etc.)
+- Be specific about what changed
+- Include component/module names when relevant
+- Keep concise but informative
 
-Thread safety:
+## Section Guidelines
 
-- The SDK is used concurrently. Any test touching shared state (`Hub`, `Scope`, `CurrentHub`) must either use `t.Parallel()` with isolated instances, or explicitly verify safety with goroutines and `sync.WaitGroup`.
+### Breaking Changes
+- Always provide migration examples with **Before:** and **After:** code blocks
+- Explain rationale for the change
+- Include timeline for removal if deprecating
 
-## Reference
+### Features
+- Focus on user-facing functionality
+- Include code examples for complex features
+- Link to documentation when relevant
 
-- [SDK Development Guide](https://develop.sentry.dev/sdk/)
-- [Commit Guidelines](https://develop.sentry.dev/engineering-practices/commit-messages/)
-- [Hubs & Scopes](https://develop.sentry.dev/sdk/unified-api/#hub)
+### Bug Fixes
+- Clearly describe what was fixed
+- Include component names (e.g., "Fix race condition in `Scope.GetSpan()` method")
+- Reference the specific issue if applicable
 
-## Skills
+### Deprecations
+- Include migration guidance
+- Specify removal timeline
+- Provide alternative solutions
 
-- `/commit` — Commit with Sentry conventional format
-- `/create-pr` — Create PRs following Sentry conventions
-- `/code-review` — Review PRs following Sentry practices
-- `/find-bugs` — Audit local changes for bugs and security issues
+## Content Guidelines
+
+### Include:
+- All user-facing changes
+- Breaking changes with migration guidance
+- New features and enhancements
+- Important bug fixes
+- Performance improvements
+- Security fixes
+- Deprecation notices
+
+### Exclude:
+- Internal refactoring (unless affects performance)
+- Test-only changes
+- Documentation-only changes (unless significant)
+- Build system changes
+- CI/CD changes
+
+## Example Structure
+
+```markdown
+## 0.34.1
+
+The Sentry SDK team is happy to announce the immediate availability of Sentry Go SDK v0.34.1.
+
+### Features
+
+- Allow flush to be used multiple times without issues, particularly for the batch logger ([#1051](https://github.com/getsentry/sentry-go/pull/1051))
+
+### Bug Fixes
+
+- Fix race condition in `Scope.GetSpan()` method by adding proper mutex locking ([#1044](https://github.com/getsentry/sentry-go/pull/1044))
+- Guard transport on `Close()` to prevent panic when called multiple times ([#1044](https://github.com/getsentry/sentry-go/pull/1044))
+```
+
+## Quality Checklist
+
+Before publishing:
+- [ ] Version number follows semantic versioning
+- [ ] All sections in correct order
+- [ ] All PR/issue links working
+- [ ] Code examples tested and accurate
+- [ ] Breaking changes include migration guidance
+- [ ] Descriptions clear and specific
+- [ ] Grammar and spelling correct
+- [ ] No internal-only changes included
+
+## Notes Section
+
+For significant releases, add a notes section:
+
+```markdown
+_NOTE:_
+Additional context, warnings, or important information about this release.
+```
+
+Use for:
+- Go version compatibility changes
+- Important upgrade considerations
+- Significant behavioral changes
+- Performance characteristics
+- Known limitations
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/getsentry)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/getsentry)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [getsentry/sentry-go](https://github.com/getsentry/sentry-go) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
