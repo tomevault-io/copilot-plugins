@@ -2,7 +2,7 @@
   "name": "conductr",
   "owner": "nanassound",
   "repo": "conductr",
-  "description": "A generative sequencer that combine LLM and local rule based sequencer",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nanassound/conductr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T11:39:02Z"
+  "distributed_at": "2026-07-31T08:32:16Z"
 }
