@@ -1,0 +1,9 @@
+{
+  "name": "automattic--mongoose",
+  "displayName": "mongoose",
+  "description": "mongoose",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/mongoose",
+  "skills": []
+}
