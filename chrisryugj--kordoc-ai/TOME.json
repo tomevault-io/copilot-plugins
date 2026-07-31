@@ -1,0 +1,44 @@
+{
+  "name": "kordoc-ai",
+  "owner": "chrisryugj",
+  "repo": "kordoc-ai",
+  "description": "KorDoc AI \u2014 HWP/HWPX/PDF/XLSX/DOCX \ubb38\uc11c \ubcc0\ud658\u00b7\uc694\uc57d\u00b7\ube44\uad50\u00b7\ubcd1\ud569 \ub370\uc2a4\ud06c\ud1b1 \ub3c4\uad6c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chrisryugj/kordoc-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-07-31T06:31:56Z"
+}
