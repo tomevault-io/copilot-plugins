@@ -1,0 +1,9 @@
+{
+  "name": "ethereum--eips",
+  "displayName": "EIPs",
+  "description": "EIPs",
+  "version": "1.0.0",
+  "author": "ethereum",
+  "homepage": "https://github.com/ethereum/EIPs",
+  "skills": []
+}
