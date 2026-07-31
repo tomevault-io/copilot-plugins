@@ -1,71 +1,158 @@
 ## mix
 
-> make dev          # start both frontend and backend (autoreloads and auto compiles)
+> ├── mix/           # Platform docs
 
-# Claude Code Integration
+# Documentation Guidelines
 
-## Development Commands
+## Structure
 
-<bash_commands>
-make dev          # start both frontend and backend (autoreloads and auto compiles)
-make tail-log     # Reads the current log file (last 100 lines of code)
-make clean
-make help
-make frontend-typecheck     # Always use this for frontend typechecking
+```
+docs/content/docs/
+├── mix/           # Platform docs
+│   ├── tools/
+│   ├── python-sdk/
+│   └── meta.json  # Required for folders with multiple pages
+└── api/           # Auto-generated from OpenAPI
+```
 
-</bash_commands>
+## Files
 
-- Do NOT build the program yourself to check for errors—ever. All output is written to `dev.log`. Run `make tail-log` to view it.
-- Do NOT stop the dev server. It stays running, auto-compiles, and auto-reloads via the Go `air` package, logging to `dev.log`.
-- Run `make` from the project's top-level directory. If it fails, you probably weren't there.
-- You MUST check the tail-log after finishing each task
-- ALWAYS update mix_agent/internal/http/rest_docs.go when modifying any backend API endpoints, request/response schemas, or validation rules
-- When adding new API fields/types, update the OpenAPI spec in rest_docs.go, then wait for the user to regenerate the SDK (version bump in package.json) - NEVER create local TypeScript type augmentations
-- Before writing database migrations, ALWAYS search for tool-specific patterns first (e.g., "goose sqlite foreign key") - don't write migrations based on general SQL knowledge alone
+- Naming: `kebab-case.mdx` (NOT `.md`)
+- Frontmatter: Required `title` and `description` (1-2 sentences max)
 
-## Architecture
+```yaml
+---
+title: Page title
+description: Brief description
+---
+```
 
-1. Backend - Golang
-2. Frontend - React app with tanstack router
+## Navigation (meta.json)
 
-## Tech Stack
+```json
+{
+  "title": "Mix",
+  "icon": "BookOpen",
+  "root": true,
+  "pages": [
+    "---Getting Started---",
+    "index",
+    "quickstart",
+    "---Architecture---",
+    "architecture-overview"
+  ]
+}
+```
 
-- ALWAYS use TanStack Query for data fetching
-- ALWAYS use uv for Python package management and virtual environments
-- Database query generation: Uses sqlc v1.29.0 (pinned in go.mod). Run `make sqlc-generate` after modifying SQL queries in `mix_agent/internal/db/sql/`
+Key rules:
 
-## Code style
+- Use `---Section Name---` for section headers
+- Page names match filenames WITHOUT `.mdx` extension
+- `root: true` for top-level sections
 
-1. As this is an early-stage startup, YOU MUST prioritize simple, readable code with minimal abstraction—avoid premature optimization. Strive for elegant, minimal solutions that reduce complexity.Focus on clear implementation that's easy to understand and iterate on as the product evolves.
-2. NEVER mock LLM API calls
-3. DO NOT preserve backward compatibility unless the user specifically requests it
-4. Do not handle errors (eg. API failures) gracefully, raise exceptions immediately.
-5. ALWAYS extract repeated strings (3+ occurrences) into named constants; use stdlib constants (`http.Method*`, `http.Status*`) instead of string literals
-6. ALWAYS add `t.Helper()` as the first line in any test helper function that takes `*testing.T` as a parameter
+## Content Organization
 
-## Go Error Handling
+Follow `meta.json` section structure: Getting Started → SDKs → Usage → Development → Others. Follow these rules strictly:
 
-Fail fast for business logic. Ignore non-critical operations.
+SDK pages:
 
-Return errors immediately:
+- Single .mdx file per language (NOT a folder)
+- Structure (comprehensive reference format):
+  1. Installation - Package installation instructions
+  2. API Selection Guide - Comparison table helping users choose between different APIs (e.g., `query()` vs `ClaudeSDKClient`)
+  3. Functions - Top-level functions with parameters, return types, examples
+  4. Classes - Main classes with methods, lifecycle, context manager support
+  5. Types - All configuration types, message types, content blocks, errors, hooks with complete property tables
+  6. Tool Input/Output Types - Complete schemas for all built-in tools (document structure, not exportable types)
+  7. Advanced Features - Real examples: continuous conversations, hooks, progress monitoring, custom tools
+  8. Example Usage - Common patterns with complete working code
+- Use progressive disclosure: simple APIs → configuration → advanced patterns
+- Include comparison tables for API/method selection decisions
+- Document ALL parameters with tables (parameter, type, default, description)
+- Provide working examples at each complexity level
+- Link to [mix-cookbooks](https://github.com/recreate-run/mix-cookbooks/tree/main/) for additional recipes under installation/quickstart
 
-- API calls, database operations, file I/O
-- User-facing operations
-- Business logic failures
+Architecture pages:
 
-Use `_` to explicitly ignore:
+- Purely conceptual - NO code snippets, NO how-to instructions
+- Explain system design, patterns, and decisions only
 
-- `defer file.Close()` - cleanup
-- `os.Setenv/Unsetenv` - env operations
-- `resp.Body.Close()` - HTTP cleanup
-- `server.Shutdown()` - graceful shutdown
-- `json.Encode()` after headers sent
-- Analytics/telemetry tracking
+Guides pages:
 
-- ALWAYS use context-aware functions (`http.NewRequestWithContext`, `exec.CommandContext`, `db.QueryRowContext`) - NEVER use non-context versions
-- NEVER return `(nil, nil)` - use sentinel errors like `var ErrNotFound = errors.New("not found")` for "not found" cases
-- ALWAYS use `%w` in `fmt.Errorf("msg: %w", err)`, `errors.Is(err, target)` for comparisons, and `errors.As(err, &target)` for type assertions - NEVER use `%v`, `==`, or direct type assertions on errors
+- Practical step-by-step tutorials with minimal paragraph intro (NOT bulleted)
+- Self-contained, concise, non-ambiguous steps
+- NO pros/cons sections
+- MUST include: 3+ screenshot/video placeholders
+
+## Content
+
+### Headings
+
+- NEVER use H1 (`#`) - Auto-generated from frontmatter
+- Start with H2 (`##`)
+
+### Code Blocks
+
+- Always specify language: ` ```bash `, ` ```python `, ` ```typescript `
+
+### Links
+
+- Internal: Must start with `/docs/` → `[link](/docs/mix/quickstart)`
+- External: Full URL → `[link](https://github.com/recreate-run/mix)`
+
+### Components
+
+Cards (Next Steps sections):
+
+```markdown
+<Cards>
+  <Card title="Title" href="/docs/path">
+    Description
+  </Card>
+</Cards>
+```
+
+Mermaid (diagrams):
+
+```markdown
+<Mermaid
+  chart="
+graph TB
+    A[Start] --> B[End]
+"
+/>
+```
+
+Steps (sequential instructions):
+
+```markdown
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+<Steps>
+<Step>
+### Step Title
+Content here
+</Step>
+</Steps>
+```
+
+## API Documentation
+
+DO NOT manually edit `content/docs/api/` - Auto-generated from OpenAPI specs.
+
+To update API docs:
+
+1. Modify backend in `mix_agent/internal/http/`
+2. ALWAYS update `mix_agent/internal/http/rest_docs.go`
+3. Regenerate docs
+
+## Style
+
+- Active voice, present tense
+- Start with practical examples, not theory
+- Include "Next Steps" section with Cards
+- NO emojis anywhere in documentation
 
 ---
 > Source: [recreate-run/mix](https://github.com/recreate-run/mix) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
