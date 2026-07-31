@@ -1,23 +1,21 @@
 # AI instruction files for os-moda
 
-> Sourced from [bolivian-peru/os-moda](https://github.com/bolivian-peru/os-moda) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Your server fixes itself at 3am. You sleep. AI-native operating system built on NixOS.
+> Sourced from [bolivian-peru/os-moda](https://github.com/bolivian-peru/os-moda), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bolivian-peru/os-moda](https://github.com/bolivian-peru/os-moda).
+Original source: `AGENTS.md` in [bolivian-peru/os-moda](https://github.com/bolivian-peru/os-moda).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [bolivian-peru/os-moda](https://github.com/bolivian-peru/os-moda) — a repo with 84+ stars on GitHub.
+From [bolivian-peru/os-moda](https://github.com/bolivian-peru/os-moda) — a repo with 114+ stars on GitHub.
 
 ---
 
