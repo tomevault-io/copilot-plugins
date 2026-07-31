@@ -1,8 +1,6 @@
 # AI instruction files for odh-tec
 
-> Sourced from [rh-aiservices-bu/odh-tec](https://github.com/rh-aiservices-bu/odh-tec) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-ODH Tools & Extensions Companion
+> Sourced from [rh-aiservices-bu/odh-tec](https://github.com/rh-aiservices-bu/odh-tec), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
