@@ -1,8 +1,6 @@
 # AI instruction files for django-rest-framework-mcp
 
-> Sourced from [zacharypodbela/django-rest-framework-mcp](https://github.com/zacharypodbela/django-rest-framework-mcp) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Quickly build MCP servers that expose your Django Rest Framework APIs as tools for LLMs and agentic applications to work with
+> Sourced from [zacharypodbela/django-rest-framework-mcp](https://github.com/zacharypodbela/django-rest-framework-mcp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
