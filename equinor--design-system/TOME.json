@@ -4,7 +4,7 @@
   "repo": "design-system",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/equinor/design-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T15:40:59Z"
+  "distributed_at": "2026-07-31T15:47:26Z"
 }
