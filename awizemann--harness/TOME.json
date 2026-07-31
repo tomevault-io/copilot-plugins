@@ -4,7 +4,7 @@
   "repo": "harness",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awizemann/harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T02:48:21Z"
+  "distributed_at": "2026-07-31T07:10:30Z"
 }
