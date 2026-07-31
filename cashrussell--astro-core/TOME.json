@@ -2,7 +2,7 @@
   "name": "astro-core",
   "owner": "CashRussell",
   "repo": "astro-core",
-  "description": "Migrated repository from migrated-repo",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CashRussell/astro-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:32:18Z"
+  "distributed_at": "2026-07-31T12:47:07Z"
 }
