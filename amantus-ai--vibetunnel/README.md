@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [amantus-ai/vibetunnel](https://github.com/amantus-ai/vibetunnel).
+Original source: `CLAUDE.md` in [amantus-ai/vibetunnel](https://github.com/amantus-ai/vibetunnel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
