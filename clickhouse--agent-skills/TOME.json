@@ -2,7 +2,7 @@
   "name": "agent-skills",
   "owner": "ClickHouse",
   "repo": "agent-skills",
-  "description": "The official Agent Skills for ClickHouse and ClickHouse Cloud",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ClickHouse/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:47:53Z"
+  "distributed_at": "2026-07-31T05:11:42Z"
 }
