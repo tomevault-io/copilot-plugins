@@ -1,113 +1,55 @@
 ## models
 
-> A Rust CLI/TUI for browsing AI models, benchmarks, and coding agents. Built with ratatui, crossterm, and tokio.
+> Registry-driven multi-source tab: a data-source switcher over 4 sources (AA,
 
-# Models — Claude Code Instructions
+# Benchmarks Tab
 
-## Project Overview
-A Rust CLI/TUI for browsing AI models, benchmarks, and coding agents. Built with ratatui, crossterm, and tokio.
+Registry-driven multi-source tab: a data-source switcher over 4 sources (AA,
+Epoch, Arena, LLM Stats), with every view (Detail, H2H, Scatter, Radar, sort,
+sidebar) rendered from per-source `MetricDef`s rather than hardcoded field names.
 
-## Build & Test
-```bash
-mise run fmt        # Format code (required before commit)
-mise run clippy     # Lint with -D warnings
-mise run test       # Run tests
-mise run build      # Build debug
-mise run run        # Run the TUI
-```
+## Files
+- `app.rs` — `BenchmarksApp` state, `BenchmarkFocus` (Creators/List/Details/Compare), `BottomView` (H2H/Scatter/Radar), `CreatorGrouping`, `ComparatorMode`, sort/filter types. Key fields: `active_source: usize`, `sort_key: SortKey`, `sort_descending`, `bottom_view`, `comparator: ComparatorMode`, `scatter_x`/`scatter_y`, `radar_group`, `show_sort_picker`/`sort_picker_selected`, `show_glossary`/`glossary_scroll: ScrollOffset`, `detail_scroll: ScrollOffset`. `MultiStore` itself lives on the top-level `App` (`app.multi_store`), not on `BenchmarksApp` — sub-app methods take `&SourceFile` as a parameter.
+- `render.rs` — `draw_benchmarks_main()`, `draw_source_bar()`, `build_benchmark_detail_lines()`, `build_glossary_lines()`, `draw_glossary()`, `draw_sort_picker()`, `compare_colors()` (8-color palette)
+- `compare.rs` — `draw_h2h_table_generic()`, `draw_scatter()`
+- `radar.rs` — `draw_radar()`, `axes_for_group()`, spoke/polygon math (`MAX_AXES = 6`)
 
-Always run the full check sequence before committing:
-```bash
-mise run fmt && mise run clippy && mise run test
-```
+## Source switcher
+- 1-line source bar above the existing content (`draw_source_bar`): bracketed label per `SOURCES` entry — active = Cyan+BOLD, loaded-inactive = DarkGray, loading = label + `◐` Yellow, failed = label + `✗` Red, then a DarkGray `{ } switch source` hint (mirrors the header's `[/] switch tabs`). Right-aligned for the active source: `updated {relative}` (DarkGray, the data's build-time last-change timestamp from `SourceMeta.fetched_at` — **not** the client fetch time; the app fetches fresh every launch) + ` self-reported` (Yellow) when `verified == false`. Source identity lives here only — no detail-panel attribution line, no status-bar flash on switch.
+- `{` / `}` cycle data source prev/next (tab-local; `[` / `]` stay global PrevTab/NextTab). Switching is **state-preserving** (`switch_source` → `reset_for_source`): it keeps `search_query`, the open-weights `source_filter`, `creator_grouping`, and the `reasoning_filter` (reset to `All` only when the target source carries no reasoning metadata, so a stuck invisible filter can't silently empty the list), and keeps a `ReleaseDate`/`Name` sort with its direction (a `Metric(i)` sort is source-specific → falls back to the new source's `default_sort`). Per-source view state still resets: selection/creator indices, all scrolls, `scatter_x`/`scatter_y`, `radar_group`, `bottom_view`, and all popups. Compare selections (`App.selections`) carry over by **exact `ModelRow.id` match, then `benchmarks::normalize_id` match** (the four sources spell the same model differently — `grok-4-3` vs `grok-4.3`, `DeepSeek-V3-1`, `zai-org/GLM-4-7`, dated Arena ids — so exact-only looked randomly flaky), order-preserving (compare-color stability) and deduped (normalization folds e.g. `-thinking` variants onto their base); ids with no counterpart drop, then `update_bottom_view` runs so a compare→browse demotion fires when <2 ids survive.
+- `r` — **refresh the active source** (`Message::RefreshBenchmarkSource`). Stale-while-revalidate: the current data keeps rendering while a fresh `fetch_source` runs on tokio, delivered as `Message::DataSourceRefreshed(idx, Option<SourceFile>)`. `Some(file)` → `set_loaded` + the same `finalize_loaded_source` enrichment + a **state-preserving rebuild** (`rebuild_preserving`: keeps sort/search/filters/grouping, remaps `selections` + the focused row by id, falls back a stale `Metric(i)` when the refreshed metric list shrank); status `Refreshed {name}`. `None` (fetch failed) → keep the existing loaded file untouched (never `set_failed`s good data); status `Failed to refresh {name} — keeping current data`. A `Loading`/`Failed` source stays recoverable via `r`.
+- Sources load progressively; selecting a still-loading/failed source shows the standard loading/error state.
 
-## Architecture
+## Column picker (`C`, browse mode)
+- `visible_columns: Vec<usize>` (metric indices, file order, default empty; **persisted** — picker save mirrors the selection into `config.benchmarks.columns` as per-source metric ids and writes config.toml; switch/first-load/refresh re-resolve saved ids via `App::restore_saved_columns`/`apply_saved_columns`, dropping stale ids) + picker state (`show_column_picker`/`column_picker_selected`/`column_picker_pending` — Enter applies the pending set, Esc discards). `C` guarded to browse mode in event.rs; `handle_column_picker_keys` intercepts all keys (incl. `q`) while open.
+- `effective_columns()` = visible columns plus the active sort `Metric(i)` appended when absent; ReleaseDate sort keeps the Released column; Name sort adds nothing. Metric columns are 11 wide, headers via `multi::short_label` (curated `short_label` else truncated label), sorted column's header Cyan+BOLD. Width cap keeps the name column ≥ 10 chars and drops excess visible columns from the right — the sort column always survives (resolved from `sort_key`, not by position).
 
-### Tabs
-- **Models Tab** (`src/tui/models/`) — browse models from models.dev API with 3-column layout (20% providers | 45% model list | 35% detail panel), RTFO capability indicators, adaptive provider panel
-- **Benchmarks Tab** (`src/tui/benchmarks/`) — compare model benchmarks from Artificial Analysis with browse/compare modes, H2H table, scatter plot, radar chart views
-- **Agents Tab** (`src/tui/agents/`) — track AI coding assistants with GitHub integration
-- **Status Tab** (`src/tui/status/`) — live provider health monitoring with detail view for incidents, components, and scheduled maintenance
+## Glossary popup (`i`)
+- State `show_glossary` + `glossary_scroll`. `draw_glossary` renders a `ScrollablePanel` (centered 60% × 70%, Cyan border, `Clear` background) over `build_glossary_lines(file, width)`: every metric in display order under the same dash-padded section headers as the detail panel. Per metric: label (Gray+BOLD, no direction marker); a meta line (`{kind blurb} · {direction blurb}` + `updated {date}` when `last_updated` is set, date-portion only); then the `description` (White) or an em-dash when `None`.
+- Key interception: `event.rs::handle_glossary_keys` runs **before** the global handler so `q` doesn't quit — `i`/`Esc` close, arrows/`j`/`k` scroll, everything else is swallowed. Scroll resets on open and on source switch.
 
-### Data Flow
-- Model data: fetched from models.dev API at startup (`src/api.rs`)
-- Benchmark data: fetched fresh from jsDelivr CDN on every launch (`src/benchmarks/fetch.rs`)
-- Agent/GitHub data: disk-cached with ETag conditional fetching (`src/agents/cache.rs`, `src/agents/github.rs`)
-- CLI agents: uses `fetch_releases_only` (1 API call, no repo metadata) — TUI uses full `fetch_conditional` (2 calls, includes stars/issues/license)
-- Status data: fetched from each provider's official status page (Statuspage, BetterStack, Instatus, etc.) with apistatuscheck.com as fallback (`src/status/fetch.rs`), provider registry and strategy mapping in `src/status/registry.rs`
-- Status source contract and normalization rules are documented in code comments within `src/status/` adapters
+## Key Patterns
+- Browse mode: Creators panel (left) + model list (center) + detail (right). Compare mode: selected models (left) + visualization (right, switchable via `BottomView`, `v` cycles).
+- `compare_colors()` returns 8 colors indexed modulo — H2H columns, scatter points, radar polygons, legend.
+- Radar presets are **dynamic**: `multi::radar_groups(file)` = metric groups with ≥3 `higher_is_better` metrics; `axes_for_group` takes the first `MAX_AXES (6)` higher-is-better metrics of the active group. `a` cycles groups. Radar needs ≥3 axes + ≥1 selection to draw.
+- Scatter axes are metric-index state (`scatter_x`/`scatter_y`); `x`/`y` cycle the active source's metrics; auto log-scale when value range ratio > 2.5.
+- Sort: dynamic `sort_options(file)` = `[ReleaseDate, Name, every metric]` (scrollable picker, `s` opens, `S` toggles direction). **No quick-sort number keys** — sorting is `s`/`S` only (quick sorts were removed: per-source targets couldn't be hinted with a stable footer shape). Re-selecting the active key in the picker toggles direction (`select_sort_key`). `default_sort` = ReleaseDate when any model has a date, else `Metric(0)`.
+- Detail panel uses `ScrollablePanel` + `detail_scroll`; `reset_detail_scroll()` on every selection/filter/sort/rebuild.
+- Detail metric rows carry **no** per-metric direction marker; the label column is a pure gutter (longest label + 4). Direction/scale live in the section-header suffix. Elo cells append ` ±{ci}`; Arena cells with a `votes` sample size append a dim ` · {N} votes`. There is **no** source-attribution line (removed — the source bar already names the active source).
+- Comparator column (`a` in browse mode, `Message::CycleComparator`): `ComparatorMode` cycles `FieldAvg → PeerAvg → Rank → Off` (default `FieldAvg`) and **persists** across source switches and refreshes (display preference — `reset_for_source`/`rebuild*` don't touch it). When not `Off`, each metric row carries a DarkGray cell in a **true aligned column** — the value cell (value + ±ci + votes) is padded to the model's widest value cell + 2 (`MetricRowLayout`; `value_cell_parts`/`value_cell_width` are shared by rendering and measurement so they can't drift): `avg {v}`, `peers({n}) {v}` (±183-day release window, self-excluded; em-dash when the model is dateless or the peer set is empty), or `#{rank}/{n}` (direction-aware, em-dash when the model lacks the value; field/peer averages still render in that case). Numeric helpers (`field_avg`/`peer_avg`/`rank`) are pure functions in `benchmarks/multi.rs`, computed over the source's **full** model list, not the filtered view. The detail title reflects the mode (` Details · vs field avg ` etc.). The `a` key is mode-dependent: comparator cycle in browse, radar-preset cycle in compare-mode Radar view.
+- Section header suffix (`group_header_suffix`) = `(kind · direction)` when the group is uniform on both, kind-alone or direction-alone when only one is uniform, plain `── Title ──` when mixed on both. Per-metric direction is preserved in the glossary meta line for mixed groups. Identity block now also carries Region/Type (creator-derived, em-dash when creator unknown) and Tools/Output (models.dev-backfilled onto `ModelRow.supports_tools`/`max_output`).
 
-### Async Pattern
-Background fetches use tokio::spawn + mpsc channels. Results arrive as `Message` variants processed in the main loop (`src/tui/mod.rs`). The app never blocks on network calls.
-
-### Agents & CLI
-See `src/agents/CLAUDE.md` and `src/cli/CLAUDE.md` for detailed module docs.
-- Binary aliases: `models agents <cmd>` or `agents <cmd>` via argv[0] symlink detection. Alias names configurable via `[aliases]` in config.toml (defaults: `agents`, `benchmarks`, `mstatus`)
-- Commands: `list`, `search`, `show`, `benchmarks`, `completions <shell>`, `link`, full agents suite (`status`, `latest`, `list-sources`, `<tool>`), full status suite (`list`, `show`, `status`, `sources`)
-- CLI pickers use shared `PickerTerminal` infrastructure in `src/cli/picker.rs`
-
-### Key Files
-
-Each module has its own `CLAUDE.md` with detailed documentation. Top-level highlights:
-
-- `src/formatting.rs` — shared utilities: `truncate`, `parse_date`, `format_tokens`, `format_stars`, `EM_DASH`, `cmp_opt_f64`
-- `src/data.rs` — Provider/Model data structures from models.dev API
-- `src/config.rs` — user config file (agents, cache, display, aliases settings). `AliasesConfig` struct + `AliasKind` enum for symlink routing
-- `src/provider_category.rs` — provider categorization logic
-- `src/benchmarks/` — `store.rs` (BenchmarkStore/Entry), `fetch.rs` (CDN fetcher), `traits.rs` (AA↔models.dev matching)
-- `src/status/` — `types.rs`, `registry.rs`, `assessment.rs`, `fetch.rs`, `adapters/` (per-source-family parsers)
-- `src/tui/` — `app.rs` (App state, Message enum), `event.rs` (NavAction dedup), `ui.rs` (shared helpers), `markdown.rs`, `widgets/` (ScrollablePanel, SoftCard, ScrollOffset, ComparisonLegend), per-tab subdirs: `models/`, `agents/`, `benchmarks/` (includes `radar.rs`), `status/` — each with `app.rs` (sub-app state) + `render.rs` (tab rendering)
-- `src/agents/health.rs` — agent-to-status-provider mapping for service health display in the Agents tab
-- `src/cli/` — `picker.rs` (shared PickerTerminal, nav helpers, style constants), `models.rs`/`benchmarks.rs`/`agents_ui.rs`/`status.rs` (inline pickers), `styles.rs`
-
-### GitHub Actions
-- `ci.yml` — runs on PR/push: fmt check, clippy, test
-- `release.yml` — triggered by `v*` tags: builds 5 targets in parallel with Rust caching, packages .deb/.rpm via cargo-binstall (pinned versions), generates SHA256SUMS, publishes to crates.io, and updates AUR package. Homebrew Core updates are handled in `Homebrew/homebrew-core` by Homebrew automation/maintainers, not from this repo. Pre-release tags (containing `-`) skip publish/AUR and mark the GitHub release as prerelease. Scoop Extras handles Windows updates via its own autoupdate mechanism.
-- `update-benchmarks.yml` — runs every 30 minutes: fetches AA API, commits if data changed
-
-## Conventions
-- Use `mise run <task>` for all CLI operations — never run bare commands
-- Keep clippy clean with `-D warnings`
-- Enum-based message passing (no callbacks)
-- No disk cache — benchmark data fetched fresh from CDN on every launch, empty store until CDN responds
-- `BenchmarkEntry` must derive both `Serialize` and `Deserialize`
-- New `BenchmarkEntry` fields require `#[serde(default)]`
-- Status detail semantics use parallel `*_state` metadata on `ProviderStatus`; UI and assessment logic should use helper methods instead of inferring meaning from empty vectors
+## Filters & creator grouping
+- Reasoning filter (`3`) is auto-hidden (key no-op, footer/help row omitted) when no model in the active source carries a reasoning status. Open-weights filter (`4`, `CycleBenchmarkSource`/`SourceFilter` — the open/closed *weights* filter, **not** the data source) + O/C indicators come from `ModelRow.open_weights` (AA via `apply_model_traits`, others via `enrich_from_models_dev`/`creator_openness`); em-dash where unknown.
+- Region grouping (`1`): US, China, Europe, Middle East, South Korea, Canada, India, Other. Type grouping (`2`): Startup, Giant, Research. Group headers are non-selectable separators (same pattern as Models tab). Classification is **table-driven** (`CreatorClass`/`CREATOR_CLASSES` in `app.rs`): one entity per row with `region` + `ctype` + all per-source slug aliases; `CreatorRegion::from_creator` and `CreatorType::from_creator` both resolve through the shared `creator_class` lookup so region/type can't drift apart.
 
 ## Gotchas
-- clippy `-D warnings` treats unused enum variant fields as errors — if a Message variant's payload is only passed through (e.g., error strings logged nowhere), use a unit variant instead
-- `Cargo.lock` must be committed after `Cargo.toml` version bumps
-- GitHub Actions `workflow_dispatch` only works when the workflow file exists on the default branch — cannot test from feature branches
-- Adding a new field to `BenchmarkEntry`: add field with `#[serde(default)]` — no cache versioning needed since data is fetched fresh every launch
-- The AA API uses `0` as a sentinel for missing performance data — jq transforms must convert `0` → `null` (e.g., `if . == 0 then null else . end`)
-- jq transforms use null-safe access (`?.` / `// null`) for nested objects — `mise.toml` and `update-benchmarks.yml` must stay in sync
-- Never use `eprintln!` in TUI mode — stderr output corrupts ratatui's alternate screen buffer, causing rendering glitches. Use `Message` variants or status bar updates instead. (`eprintln!` is fine in CLI-only code paths like `src/cli/agents.rs`)
-- Agents `GitHubData` fields `open_issues`, `license`, and `last_commit` are fetched/cached but never displayed in the UI — only `stars` (detail panel + sort) and `releases` are rendered. Kept for potential future use
-- `Paragraph::scroll((y, 0))` with `.wrap(Wrap { trim: false })` counts **visual (wrapped) lines**, not logical lines — scroll positions must account for line wrapping when jumping to specific content
-- Use `line.width()` (unicode-aware) not `.len()` (byte count) when computing wrapped line heights — ratatui wraps on display width, not byte length. Word-wrapping needs +1 buffer per wrapped line since `div_ceil` underestimates
-- TLS uses `rustls-tls-native-roots` (not `rustls-tls`) — loads certificates from the OS trust store to support corporate TLS-inspecting proxies
-- Status-source quirks to preserve: Better Stack resources use `public_name`; Status.io `status_code = 400` means degraded; incident.io incidents and Instatus components need second fetches; the Google adapter is currently summary-derived rather than preserving raw incident rows
-
-## Website (`website/`)
-Astro 6 + Tailwind 4 + TypeScript landing page. See `website/CLAUDE.md` for full details.
-```bash
-cd website
-mise run fmt && mise run typecheck && mise run build
-```
-Deployed to GitHub Pages at `/models`. Uses bun, not npm.
-
-## Releasing
-1. Bump version in `Cargo.toml`
-2. `mise run fmt && mise run clippy && mise run test`
-3. Commit `Cargo.toml` and `Cargo.lock` together
-4. `git tag v<version> && git push && git push --tags`
-5. Release workflow runs automatically: builds binaries, packages .deb/.rpm, publishes to crates.io, and updates AUR package. Homebrew Core bumps happen separately in `Homebrew/homebrew-core`.
-
-## Secrets
-- `AA_API_KEY` — Artificial Analysis API key (GitHub repo secret, local `.env`)
-- `AUR_SSH_PRIVATE_KEY` — SSH key for pushing to AUR (`~/.ssh/aur`)
-- `CARGO_REGISTRY_TOKEN` — crates.io publish token (GitHub repo secret)
+- `SourceFilter`/`CycleBenchmarkSource` are the open/closed-**weights** filter — the **data**-source switcher uses `active_source` + `CycleDataSourcePrev`/`CycleDataSourceNext`. Do not conflate them.
+- Compare mode list shows compact rows with reasoning/source indicators (R/AR/NR + O/C) — different format from browse mode.
+- Detail/glossary lines are built as `Line<'static>` (owned) so the compare-mode detail overlay can reuse `build_benchmark_detail_lines`.
+- `o` opens the model's page via `SourceDescriptor::model_url` (per-source strategy — see `src/benchmarks/CLAUDE.md`), **not** `{file.source.url}/models/{id}` (404s on Epoch/Arena). The Epoch path is async: a tokio task HEAD-probes (≤3s) and falls back to the model index on non-200, reporting the final URL back over `RuntimeHandles.url_rx` → status bar.
+- Use `line.width()` (unicode-aware) for label-column truncation; the arrow is width-1.
 
 ---
 > Source: [reyamira/models](https://github.com/reyamira/models) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
