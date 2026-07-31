@@ -1,7 +1,7 @@
 {
   "name": "provos--planai",
   "displayName": "planai",
-  "description": "PlanAI: A graph-based framework for complex task automation integrating traditional compute and LLM capabilities",
+  "description": "planai",
   "version": "1.0.0",
   "author": "provos",
   "homepage": "https://github.com/provos/planai",
