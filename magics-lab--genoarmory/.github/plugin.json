@@ -1,7 +1,7 @@
 {
   "name": "magics-lab--genoarmory",
   "displayName": "GenoArmory",
-  "description": "GenoArmory: A Unified Evaluation Framework for Adversarial Attacks on Genomic Foundation Models",
+  "description": "GenoArmory",
   "version": "1.0.0",
   "author": "MAGICS-LAB",
   "homepage": "https://github.com/MAGICS-LAB/GenoArmory",
