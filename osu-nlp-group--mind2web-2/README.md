@@ -1,8 +1,6 @@
 # AI instruction files for Mind2Web-2
 
-> Sourced from [OSU-NLP-Group/Mind2Web-2](https://github.com/OSU-NLP-Group/Mind2Web-2) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-[NeurIPS'25 D&B] Mind2Web-2 Benchmark: Evaluating Agentic Search with Agent-as-a-Judge
+> Sourced from [OSU-NLP-Group/Mind2Web-2](https://github.com/OSU-NLP-Group/Mind2Web-2), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [OSU-NLP-Group/Mind2Web-2](https://github.com/OS
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/OSU-NLP-Group/Mind2Web-2](https://github.com/OSU-NLP-Group/Mind2Web-2)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/OSU-NLP-Group/Mind2Web-2](https://github.com/OSU-NLP-Group/Mind2Web-2)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
