@@ -1,8 +1,6 @@
 # communitytools
 
-> Tome by [transilienceai](https://github.com/transilienceai/communitytools) — distributed by [TomeVault](https://tomevault.io)
-
-Open-source Claude Code skills, agents, and slash commands for AI-powered penetration testing, bug bounty hunting, and security research
+> Tome by [transilienceai](https://github.com/transilienceai/communitytools), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,15 +15,10 @@ Original source: `CLAUDE.md` in [transilienceai/communitytools](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [ai-threat-testing](https://github.com/transilienceai/communitytools/tree/main/projects/pentest/.claude/skills/ai-threat-testing)
-- [hackerone](https://github.com/transilienceai/communitytools/tree/main/projects/pentest/.claude/skills/hackerone)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/transilienceai/communitytools](https://github.com/transilienceai/communitytools)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/transilienceai/communitytools](https://github.com/transilienceai/communitytools)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
