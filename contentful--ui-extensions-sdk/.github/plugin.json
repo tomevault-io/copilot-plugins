@@ -1,0 +1,9 @@
+{
+  "name": "contentful--ui-extensions-sdk",
+  "displayName": "ui-extensions-sdk",
+  "description": "ui-extensions-sdk",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/ui-extensions-sdk",
+  "skills": []
+}
