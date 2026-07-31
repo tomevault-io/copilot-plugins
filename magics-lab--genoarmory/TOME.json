@@ -2,7 +2,7 @@
   "name": "GenoArmory",
   "owner": "MAGICS-LAB",
   "repo": "GenoArmory",
-  "description": "GenoArmory: A Unified Evaluation Framework for Adversarial Attacks on Genomic Foundation Models",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MAGICS-LAB/GenoArmory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T21:32:08Z"
+  "distributed_at": "2026-07-31T18:34:27Z"
 }
