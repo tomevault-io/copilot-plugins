@@ -1,8 +1,6 @@
 # agent-skills
 
-> Tome by [ClickHouse](https://github.com/ClickHouse/agent-skills) — distributed by [TomeVault](https://tomevault.io)
-
-The official Agent Skills for ClickHouse and ClickHouse Cloud
+> Tome by [ClickHouse](https://github.com/ClickHouse/agent-skills), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [ClickHouse/agent-skills](https://github.com/Cli
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills) — a repo with 401+ stars on GitHub.
+From [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills) — a repo with 494+ stars on GitHub.
 
 ---
 
