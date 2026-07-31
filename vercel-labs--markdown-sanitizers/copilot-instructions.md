@@ -8,154 +8,172 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a monorepo containing two related security-focused npm packages for hardening markdown against data exfiltration attacks through LLM prompt injection:
+This is a robust markdown sanitizer that filters URLs in markdown links and images against prefix allow-lists, with comprehensive HTML sanitization. The sanitizer uses a sophisticated markdown-to-HTML-to-markdown pipeline to ensure security while preserving markdown structure.
 
-1. **harden-react-markdown**: A wrapper for `react-markdown` that filters URLs with configurable allow-lists
-2. **markdown-to-markdown-sanitizer**: A markdown-to-markdown sanitizer for third-party rendering scenarios (GitHub, GitLab)
+## Core Architecture
 
-## Repository Structure
+### Processing Pipeline
 
-- `harden-react-markdown/`: React wrapper for secure markdown rendering
-- `markdown-to-markdown-sanitizer/`: Standalone markdown sanitizer with comprehensive security testing
+The sanitizer follows this flow:
+
+1. **Autolink Normalization** (`normalizeAutolinks`): Converts `<url>` syntax to explicit link format `[url](url)` and rejects URLs containing HTML entities
+2. **Markdown → HTML**: Uses unified/remark to parse markdown and convert to HTML
+3. **HTML Sanitization**: Uses DOMPurify with GitHub-compatible allow-lists to sanitize HTML
+4. **HTML → Markdown**: Uses Turndown with GFM plugin to convert back to markdown
+5. **Aggressive Escaping**: Custom escape function converts special characters to HTML entities
+
+### Key Components
+
+- `MarkdownSanitizer` (main class in `src/index.ts`): Orchestrates the entire pipeline
+- `UrlNormalizer` (`src/url-normalizer.ts`): Validates URLs against allow-lists and normalizes them
+- `HtmlSanitizer` (`src/html-sanitizer.ts`): DOMPurify wrapper with GitHub-compatible configuration
+- `SanitizeOptions` (`src/types.ts`): Configuration interface for URL prefixes and origins
+
+### Security Features
+
+- **URL Validation**: Comprehensive prefix matching with support for protocol-only prefixes
+- **HTML Entity Escaping**: Aggressive character-to-entity conversion for dangerous characters
+- **Length Limits**: Configurable maximum markdown length for DoS protection
 
 ## Development Commands
 
-Both packages use **pnpm** (not npm) as the package manager.
+Always use pnpm, not npm.
 
-### Root-level Commands
-
-```bash
-# Run tests for both packages
-pnpm test
-
-# Run tests for specific package
-pnpm run test:harden-react-markdown
-pnpm run test:markdown-to-markdown-sanitizer
-```
-
-### harden-react-markdown
+### Testing
 
 ```bash
-cd harden-react-markdown
-
-# Build the package
-pnpm run build
-
-# Run tests
-pnpm test
-
-# Run tests in watch mode
-pnpm run test:watch
-
-# Run tests with UI
-pnpm run test:ui
-
-# Prepare for publishing (build + test)
-pnpm run prepublishOnly
-```
-
-### markdown-to-markdown-sanitizer
-
-```bash
-cd markdown-to-markdown-sanitizer
-
-# Build the package
-pnpm run build
-
 # Run all tests
 pnpm test
 
-# Run tests in watch mode
-pnpm run test:watch
-
-# Run tests with UI
-pnpm run test:ui
-
-# Run tests with coverage
-pnpm run test:coverage
-
-# Type checking
-pnpm run check-types
-pnpm run check-types:tests
-pnpm run check-types:all
-
-# Linting
-pnpm run lint
-pnpm run lint:tests
-
-# Run single test file
+# Run specific test file
 pnpm test -- tests/basic-sanitization.test.ts
+
+# Run tests matching pattern
+pnpm test -- --testNamePattern="should sanitize"
 ```
 
-## Architecture Overview
+### Code Quality
 
-### harden-react-markdown
+```bash
+# TypeScript compilation
+pnpm run build
 
-- **Purpose**: Drop-in replacement for `react-markdown` with URL filtering
-- **Key Features**: URL prefix allow-lists for links and images, relative URL handling
-- **Security**: Blocks dangerous protocols, provides clear blocked content indicators
+# Type checking (source)
+pnpm run check-types
 
-### markdown-to-markdown-sanitizer
+# Type checking (tests)
+pnpm run check-types:tests
 
-- **Purpose**: Sanitizes markdown intended for third-party rendering
-- **Pipeline**: Markdown → HTML → DOMPurify → Turndown → Entity encoding
-- **Key Components**:
-  - `MarkdownSanitizer`: Main orchestration class
-  - `UrlNormalizer`: URL validation and prefix matching
-  - `HtmlSanitizer`: DOMPurify wrapper with GitHub-compatible rules
-- **Security**: 111+ bypass attempt tests, comprehensive URL validation, HTML entity escaping
+# Type checking (all)
+pnpm run check-types:all
 
-## Testing Strategy
+# Linting (source)
+pnpm run lint
 
-Both packages share the tests based on markdown-to-markdown-sanitizer/tests/bypass-attempts/\*.md.
-Adding more examples hardens both packages
+# Linting (tests)
+pnpm run lint:tests
+```
 
-### harden-react-markdown
+## Testing Architecture
 
-- Basic component functionality tests
-- URL filtering validation
-- Security bypass prevention
-- TypeScript type safety
+### Test Structure
 
-### markdown-to-markdown-sanitizer
+- `tests/bypass-attempts/`: 111 adversarial markdown files testing security bypasses
+- `tests/bypass-attempts.test.ts`: Runs all bypass attempts against 5 different markdown parsers
+- `tests/basic-sanitization.test.ts`: Core functionality tests
+- `tests/html-sanitization.test.ts`: HTML sanitization tests
+- `tests/security-attacks.test.ts`: XSS prevention tests
+- `tests/max-length-config.test.ts`: Maximum length configuration tests
 
-- **Bypass Testing**: 111 adversarial markdown files in `tests/bypass-attempts/`
-- **Multi-Parser Testing**: Tests against 5 different markdown parsers (remark, marked, markdown-it, showdown, commonmark)
-- **Comprehensive Coverage**: 800+ tests covering sanitization, HTML processing, edge cases
-- **Security Focus**: XSS prevention, protocol smuggling, encoding bypass attempts
+### Security Testing
 
-## Security Considerations
+The codebase includes extensive security testing with 111 bypass attempt files that test various attack vectors:
 
-Both packages are designed for **defensive security use only**:
+- Protocol smuggling and confusion
+- Unicode normalization attacks
+- Parser state confusion
+- Encoding bypass attempts
+- URL validation bypasses
+- HTML entity attacks
 
-- URL allow-listing to prevent data exfiltration
-- XSS prevention through HTML sanitization
-- Protocol filtering (javascript:, data:, etc.)
-- Comprehensive bypass attempt testing
+### Test Execution
 
-## Key Implementation Notes
+Tests use Vitest and run against multiple markdown parsers (remark, marked, markdown-it, showdown, commonmark) to ensure comprehensive coverage. The bypass tests expect empty arrays (no dangerous content) and flag any successful bypasses.
+
+## Key Implementation Details
+
+### Autolink Handling
+
+The sanitizer preprocesses autolinks (`<url>`) by:
+
+1. Matching with regex: `/<([a-z][a-z0-9+.-]*:\/\/[^\s<>]+)>/gi`
+2. Decoding HTML entities within the URL
+3. Rejecting the autolink if entities were found (returns empty string)
+4. Converting to explicit link format: `[sanitizedUrl](sanitizedUrl)`
 
 ### URL Normalization
 
-- Uses browser URL constructor for parsing
-- Supports protocol-only, domain, and path prefixes
-- Encodes markdown-dangerous characters as percent-encoded
-- Replaces invalid hrefs with `#`, removes invalid src attributes
+- Uses browser URL constructor for parsing and normalization
+- Supports relative URLs with `defaultOrigin` configuration
+- Validates against `allowedLinkPrefixes` and `allowedImagePrefixes`
+- Replaces invalid hrefs with `#` and removes invalid src attributes entirely
+- Encodes markdown-dangerous characters (`!()[]` `) as percent-encoded
 
-### HTML Sanitization (markdown-to-markdown-sanitizer)
+### HTML Sanitization
 
-- DOMPurify with GitHub-compatible allow-lists
-- Supports advanced HTML elements (details, tables, ruby)
+- Uses DOMPurify with GitHub-compatible tag and attribute allow-lists
+- Supports advanced HTML elements like `<details>`, `<kbd>`, `<samp>`, tables
 - Prefixes user-generated IDs with `user-content-`
-- Aggressive character-to-entity encoding for dangerous characters
+- Applies URL sanitization to all `href` and `src` attributes in HTML
 
-### Performance
+### Character Escaping
 
-- Configurable length limits prevent DoS attacks
-- Efficient markdown-to-HTML-to-markdown pipeline
+Recent implementation uses aggressive HTML entity encoding for dangerous characters:
+
+```typescript
+function encodeAllCharactersToEntities(str: string): string {
+  return str.replace(/./g, (char) => `&${char.charCodeAt(0).toString(16)};`);
+}
+```
+
+This is applied to strings containing: `<>&"'[]:()/!()`
+
+## Configuration
+
+### Required Options
+
+- `defaultOrigin`: Required for relative URL handling (e.g., "https://github.com")
+
+### URL Prefixes
+
+- `allowedLinkPrefixes`: Array of allowed prefixes for links
+- `allowedImagePrefixes`: Array of allowed prefixes for images
+- Supports protocol-only prefixes like `["https:", "http:"]`
+- Supports domain prefixes like `["https://example.com"]`
+- Supports path prefixes like `["https://example.com/api"]`
+
+### URL Length Limits
+
+- `urlMaxLength`: Default 200 characters, set to 0 for no limit
+- `maxMarkdownLength`: Default 100000 characters, set to 0 for no limit
+
+## Performance Considerations
+
+- Configurable length limits prevent memory issues with large documents
 - Character-by-character parsing avoids regex catastrophic backtracking
+- HTML sanitization only runs when needed
+- Efficient markdown-to-HTML-to-markdown pipeline
+
+## Security Best Practices
+
+When working with this codebase:
+
+1. Always test security changes against the bypass attempt files
+2. Use HTTPS prefixes in allow-lists
+3. Be specific with URL prefixes (avoid overly broad matches)
+4. Test with the comprehensive test suite before making changes
+5. Consider the markdown-to-HTML-to-markdown pipeline when making modifications
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/vercel-labs)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/vercel-labs)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [vercel-labs/markdown-sanitizers](https://github.com/vercel-labs/markdown-sanitizers) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
