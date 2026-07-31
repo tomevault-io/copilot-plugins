@@ -1,72 +1,102 @@
 ## wecube-platform
 
-> You are a senior full-stack developer. One of those rare 10x developers that has incredible knowledge.
+> wecube-portal 全局样式设计规范
 
-# Persona
 
-You are a senior full-stack developer. One of those rare 10x developers that has incredible knowledge.
+# 设计规范概览
+- 通过 CSS 自定义属性集中管理字体、色板、间距、控件尺寸与阴影，便于按需主题化。
+- 页面应优先引用 `design-system.less` 中的变量与辅助类，避免直接写死颜色或像素值。
+- 若需新增变量，先在 `:root` 中定义并附注用途，再在组件中消费。
 
-# Coding Guidelines
+# 设计 Tokens
+## 字体
+- `--font-family-base`: `"Times New Roman", "SourceHanSans", sans-serif`
+- `--font-size-sm/base/lg/xl`: `12/14/16/20px`
+- `--line-height-base`: `1.5`
 
-Follow these guidelines to ensure your code is clean, maintainable, and adheres to best practices. Remember, less code is better. Lines of code = Debt.
+## 颜色
+- 主色：`--color-primary` `#5384FF` ，hover `--color-primary-hover`
+- 状态：`--color-success #00CB91`、`--color-warning #F29360`、`--color-danger #FF4D4F`、`--color-info #8A97B8`
+- 文本：`--color-text-heading`、`--color-text-base`、`--color-text-secondary`
+- 边框：`--color-border`、`--color-border-strong`
+- 填充：`--color-fill-muted`、`--color-fill-card`
+- 透明主色：`--color-primary-ghost`
 
-# Key Mindsets
+## 圆角与间距
+- `--radius-sm/md/lg`: `4/6/10px`
+- `--space-xxs` 至 `--space-xl`: `2/4/8/12/16/24px`
+- 需要 pill 形圆角时使用 `--radius-pill` 并于消费处定义具体值（当前徽章使用）
 
-**1** **Simplicity**: Write simple and straightforward code.
-**2** **Readability**: Ensure your code is easy to read and understand.
-**3** **Performance**: Keep performance in mind but do not over-optimize at the cost of readability.
-**4** **Maintainability**: Write code that is easy to maintain and update.
-**5** **Testability**: Ensure your code is easy to test.
-**6** **Reusability**: Write reusable components and functions.
+## 控件尺寸
+- 按钮高度：`--btn-height-sm/md/lg = 32/36/40px`
+- `--btn-padding-x = 16px`；`--btn-font-weight = 500`
+- 表格：`--table-header-height 48px`、`--table-row-height 44px`、`--table-padding-x 16px`、`--table-padding-y 12px`、`--table-radius 8px`
+- 阴影：`--shadow-soft = 0 6px 20px rgba(15, 18, 34, 0.08)`
 
-Code Guidelines
+# 基础排版
+- `body`：使用基础字体、字号与 `--color-fill-muted` 背景。
+- 标题 `h1-h6`：采用 `--color-text-heading`、`font-weight:600`，并在 `h1/h2/h3` 分别绑定 `--font-size-xl/18px/--font-size-lg`。
+- 行内文本 (`p/span/label`) 默认 `--color-text-base`。
+- 链接使用主色，hover 切换为 `--color-primary-hover`。
 
-**1** **Utilize Early Returns**: Use early returns to avoid nested conditions and improve readability.
-**2** **Conditional Classes**: Prefer conditional classes over ternary operators for class attributes.
-**3** **Descriptive Names**: Use descriptive names for variables and functions. Prefix event handler functions with "handle" (e.g., handleClick, handleKeyDown).
-**4** **Constants Over Functions**: Use constants instead of functions where possible. Define types if applicable.
-**5** **Correct and DRY Code**: Focus on writing correct, best practice, DRY (Don't Repeat Yourself) code.
-**6** **Functional and Immutable Style**: Prefer a functional, immutable style unless it becomes much more verbose.
-**7** **Minimal Code Changes**: Only modify sections of the code related to the task at hand. Avoid modifying unrelated pieces of code. Accomplish goals with minimal code changes.
+# 按钮体系
+## 基线样式
+- 类选择器 `button, .btn`：`inline-flex` 布局，水平垂直居中，`gap: --space-xs`。
+- `height: --btn-height-md`，`padding: 0 --btn-padding-x`，`font-size: --font-size-base`，圆角 `--radius-md`。
+- 默认主色背景、白色文字、透明边；动画涵盖 `background/color/border-color`。
+- 禁用态 (`:disabled`) 使用 `--color-fill-muted` 背景、`--color-text-secondary` 文本、`--color-border` 边框。
 
-Comments and Documentation
+## 语义变体
+- `.btn--primary`：主色背景与边框。
+- `.btn--ghost`：`--color-primary-ghost` 背景、主色文字。
+- `.btn--success / warning / danger`：对应状态色背景与边框。
+- `.btn--secondary`：白底、`--color-text-base`、`--color-border`。
 
-* **Function Comments**: Add a comment at the start of each function describing what it does.
-* **JSDoc Comments**: Use JSDoc comments for JavaScript (unless it's TypeScript) and modern ES6 syntax.
-* **Chinese Comments**: All code comments must be written in Chinese (Simplified). This includes function descriptions, inline comments, TODO notes, and documentation. Use clear and concise Chinese to explain the purpose, logic, and important details of the code.
-* **Template Comments**: For Vue components, add HTML comments (`<!-- -->`) in the template section to document:
-  - Major functional sections (e.g., `<!-- 用户列表区域 -->`, `<!-- 搜索表单区域 -->`)
-  - Complex conditional rendering blocks (e.g., `<!-- 当用户有权限时显示 -->`)
-  - Important business logic areas (e.g., `<!-- 数据导出功能 -->`)
-  - Form sections and their purposes (e.g., `<!-- 基本信息表单 -->`, `<!-- 高级配置表单 -->`)
-  - List rendering with complex logic (e.g., `<!-- 动态渲染的角色列表 -->`)
-  - Modal/Drawer sections (e.g., `<!-- 新增用户弹窗 -->`, `<!-- 编辑角色抽屉 -->`)
-  - Important event handlers or data bindings that need explanation
-  - Sections that might be confusing without context
+## 尺寸与布局
+- `.btn--sm / .btn--lg`：重置 `height`、`font-size`、`padding` 以匹配 `--btn-height-sm/lg`。
+- `.btn--block`：宽度 100%，用于全宽按钮。
 
-Function Ordering
+# 表格规范
+- `table`：`border-collapse: separate`，`border: 1px solid --color-border`，圆角 `--table-radius`，`box-shadow: --shadow-soft`。
+- `thead th`：`height --table-header-height`，背景 `--color-fill-muted`，文字 `--color-text-secondary`。
+- `tbody td`：`height --table-row-height`，顶部分隔线 `--color-border`，字体 `--font-size-base`。
+- `tbody tr:hover`：`background: --color-primary-ghost`。
+- `.table--compact`：`padding var(--space-sm) var(--space-md)`，高度 38px。
+- `.table--spacious`：`padding var(--space-md) var(--space-xl)`，高度 52px。
+- `.table--borderless`：移除表格边框与阴影，同时去掉 `tbody` 分隔线。
 
-* Order functions with those that are composing other functions appearing earlier in the file. For example, if you have a menu with multiple buttons, define the menu function above the buttons.
+# 表单元素
+- `input/select/textarea`：继承基础字体、`height --btn-height-md`、`border-radius --radius-md`、`border 1px solid --color-border`、水平内边距 `--space-md`。
+- `:focus`：边框切换为主色，并添加 `0 0 0 2px var(--color-primary-ghost)` 外阴影。
+- `::placeholder` 使用 `--color-text-secondary`。
 
-Handling Bugs
+# 布局与卡片
+- `.gap-row`：行向 `flex`，`gap --space-lg`；`.gap-col`：列向 `flex`，`gap --space-md`。
+- `.card`：白底、`--radius-lg`、`padding --space-xl`、`box-shadow --shadow-soft`。
+- `.card__title`：`--font-size-lg`、`font-weight 600`、`margin-bottom --space-sm`。
+- `.card__meta`：`--font-size-sm`、`--color-text-secondary`。
 
-* **TODO Comments**: If you encounter a bug in existing code, or the instructions lead to suboptimal or buggy code, add comments starting with "TODO:" outlining the problems.
+# 徽章
+- `.badge`：`inline-flex`，高度 24px，水平内边距 `--space-sm`，圆角 `--radius-pill`，背景 `--color-primary-ghost`、文字主色。
+- `.badge--success / warning / danger`：使用对应状态透明背景与文本色。
 
-Example Pseudocode Plan and Implementation
+# 响应式策略
+- `@media (max-width: 1366px)`：`--font-size-base` 降至 13px。
+- `@media (max-width: 1024px)`：`--font-size-base` 12px，`--btn-height-md` 34px，`--table-row-height` 40px。
+- 在新增断点前先评估是否能复用现有变量或通过组件自身自适应解决。
 
-When responding to questions, use the Chain of Thought method. Outline a detailed pseudocode plan step by step, then confirm it, and proceed to write the code. Here’s an example:
+# 使用建议
+- 样式文件中优先引用变量而非硬编码；若需直接写值，需保证与变量等效并在 Review 中解释原因。
+- 组件库覆写时保持类命名 `block__element--modifier` 模式，与系统现有 `.btn--*`、`.table--*` 保持一致。
+- 若发现规范无法满足场景，先在文档内补充说明，再在 `design-system.less` 中同步实现，保证文档与实现一致。
 
-# Important: Minimal Code Changes
-
-**Only modify sections of the code related to the task at hand.**
-**Avoid modifying unrelated pieces of code.**
-**Avoid changing existing comments.**
-**Avoid any kind of cleanup unless specifically instructed to.**
-**Accomplish the goal with the minimum amount of code changes.**
-**Code change = potential for bugs and technical debt.**
-
-Follow these guidelines to produce high-quality code and improve your coding skills. If you have any questions or need clarification, don’t hesitate to ask!
+# 注释规范
+- **中文注释**：所有样式代码注释必须使用中文（简体）编写
+- **变量注释**：在 CSS 自定义属性定义处添加中文注释，说明该变量的用途和使用场景
+- **复杂样式注释**：对于非直观的样式实现、hack 方案或特殊布局技巧，必须添加中文注释解释其原理
+- **模块注释**：在样式文件或主要样式块开头添加中文注释，说明该模块的职责和适用范围
+- **TODO 注释**：使用 `// TODO: 中文说明` 格式标记待优化或待修复的样式问题
 
 ---
 > Source: [WeBankPartners/wecube-platform](https://github.com/WeBankPartners/wecube-platform) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
