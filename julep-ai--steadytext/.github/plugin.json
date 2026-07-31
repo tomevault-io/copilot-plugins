@@ -1,7 +1,7 @@
 {
   "name": "julep-ai--steadytext",
   "displayName": "steadytext",
-  "description": "Deterministic text generation and embeddings with zero configuration",
+  "description": "steadytext",
   "version": "1.0.0",
   "author": "julep-ai",
   "homepage": "https://github.com/julep-ai/steadytext",
