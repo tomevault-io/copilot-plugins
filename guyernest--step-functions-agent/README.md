@@ -1,8 +1,6 @@
 # step-functions-agent
 
-> Tome by [guyernest](https://github.com/guyernest/step-functions-agent) — distributed by [TomeVault](https://tomevault.io)
-
-CDK project to build AWS Serverless AI Agent with Lambda and Step Functions.
+> Tome by [guyernest](https://github.com/guyernest/step-functions-agent), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
