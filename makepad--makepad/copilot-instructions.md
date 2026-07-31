@@ -1,86 +1,63 @@
 ## makepad
 
-> <!-- Copyright 2025 The Fuchsia Authors
+> A child asks for changes by voice through the Game Maker app; you make them by
 
-<!-- Copyright 2025 The Fuchsia Authors
+# __PROJECT_NAME__ — a kid's game, live inside Makepad
 
-Licensed under a BSD-style license <LICENSE-BSD>, Apache License, Version 2.0
-<LICENSE-APACHE or https://www.apache.org/licenses/LICENSE-2.0>, or the MIT
-license <LICENSE-MIT or https://opensource.org/licenses/MIT>, at your option.
-This file may not be copied, modified, or distributed except according to
-those terms. -->
+A child asks for changes by voice through the Game Maker app; you make them by
+editing **`game.splash`** — the whole game is that one file, a Makepad splash
+script evaluated live. **Every clean edit hot-reloads the world the kid is
+watching, instantly, while you keep working.** A broken edit never replaces the
+running game — the last working world stays up and the error waits for you in
+`./tools/ag errors`.
 
-# Instructions for AI Agents
+**The complete `game.*` API reference is in your system prompt** (the Splash
+Game DSL Guide). Verbs not listed there do not exist. This file is the
+project-local workflow.
 
-## Agent Persona & Role
+## Checking your work — ALWAYS
 
-You are an expert Rust systems programmer contributing to **zerocopy**, a
-library for zero-cost memory manipulation which presents a safe API over what
-would otherwise be dangerous operations. Your goal is to write high-quality,
-sound, and performant Rust code that adheres to strict safety and soundness
-guidelines and works across multiple Rust toolchains and compilation targets.
+1. After every edit run `./tools/ag errors`. Empty = your edit is live in front
+   of the kid. An error = the kid still sees the OLD world; fix it.
+   (Broken edits and runtime crashes are also reported back to you
+   automatically as a "⚠ game error" message — but `ag errors` after each edit
+   remains YOUR check; don't wait to be told.)
+2. To playtest: `./tools/ag test 120 tools/tapes/selftest.json` restarts the
+   game, replays the frame-numbered input tape, and writes `.agent/sheet.png`
+   (a grid of frames over time) + `.agent/probe.txt` (pos/vel of probed tags
+   every 15 frames). **Read the image**, and read the numbers — "the jump
+   clears the step" should be a probe line you saw, not a hope.
+3. `./tools/ag peek` = 4 screenshots of the live game + entity state, without
+   interrupting the kid.
+4. `./tools/ag logs` tails the game log (your `game.log()` lines + eval reports).
+5. If the game feels slow: `./tools/ag perf` — per-phase frame profile (script,
+   physics, draw). Keep script under ~2ms; if `wait` dominates, it's not your
+   game's fault, leave it be.
 
-### Reviewing
+Tapes are JSON: `{"probe": ["player"], "events": [{"f":5,"press":"right"},
+{"f":30,"press":"jump"},{"f":33,"release":"jump"}]}` — actions are the input
+names (`left right up down jump shoot grab`). Same tape, same frames: runs are
+repeatable.
 
-You may be authoring changes, or you may be reviewing changes authored by other
-agents or humans. When reviewing changes, in addition to reading this document,
-you **MUST** also read [agent_docs/reviewing.md](./agent_docs/reviewing.md).
+## House style
 
-## Critical Rules
+- Everything is procedural: colored shapes and synthesized sound. No image,
+  model, or audio files — no files besides game.splash.
+- Give creatures a face (`game.part` eyes) and a name (`game.label`), and give
+  actions sounds (`game.sfx`) — without being asked. That's what makes it real.
+- Outdoor game? `game.sky({})` + `game.terrain({smooth: true, bands: [...]})`.
+- Small, visible changes. Tune constants and add shapes; avoid big rewrites.
+- Movers are ~0.8×1.6×0.8. Keep the playfield within the terrain you built.
 
-- **README Generation:** **DON'T** edit `README.md` directly. It is generated
-  from `src/lib.rs`. Edit the top-level doc comment in `src/lib.rs` instead.
-  - **To regenerate:**
-    `./cargo.sh +stable run --manifest-path tools/generate-readme/Cargo.toml > README.md`
+## Gotchas
 
-<!-- TODO-check-disable -->
-- **TODOs:** **DON'T** use `TODO` comments unless you explicitly intend to block
-  the PR (CI fails on `TODO`). Use `FIXME` for non-blocking issues.
-<!-- TODO-check-enable -->
-
-- **Documentation:** **DO** ensure that changes do not cause documentation to
-  become out of date (e.g., renaming files referenced here).
-
-## Project Context
-
-### Overview
-
-Zerocopy is a library designed to make zero-copy memory manipulation safe and
-easy. It relies heavily on Rust's type system and specific traits to ensure
-memory safety.
-
-### Project Structure
-
-- `src/`: Core library source code.
-- `zerocopy-derive/`: Source code and tests for the procedural macros.
-- `tests/`: UI and integration tests for the main crate.
-- `tools/`: Internal tools and scripts.
-- `ci/`: CI configuration and scripts.
-- `githooks/`: Git hooks for pre-commit/pre-push checks.
-- `testdata/`: Data used for testing.
-- `testutil/`: Utility code for tests.
-
-## Development Workflow
-
-When developing code changes, you **MUST** read
-[agent_docs/development.md](./agent_docs/development.md).
-
-### Before submitting
-
-Once you have made a change, you **MUST** read the relevant documents to ensure
-that your change is valid and follows the style guidelines.
-
-- [agent_docs/validation.md](./agent_docs/validation.md) for validating code
-  changes
-- [agent_docs/style.md](./agent_docs/style.md) for style and formatting
-  guidelines for files and commit messages
-
-#### Pre-submission Checks
-
-Run `./githooks/pre-push` before submitting. This runs a comprehensive suite of
-checks, including formatting, toolchain verification, and script validation. It
-catches many issues that would otherwise fail in CI.
+- **Hex colors containing the letter `e` need the `#x` prefix**: `#x2ecc71`.
+- `let` and `fn` go at the TOP of the file, before other statements.
+- The file re-runs from the top on each edit — don't accumulate state across
+  edits. `game.time()` restarts at 0 on every reload.
+- `on_touch` fires every overlapping tick — latch or remove, or you'll play 60
+  win jingles a second.
 
 ---
 > Source: [makepad/makepad](https://github.com/makepad/makepad) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
