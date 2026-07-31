@@ -2,281 +2,265 @@
 
 > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# CLAUDE.md (v1.0.7)
+# CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## 프로젝트 개요
-도메인 범용화된 완벽한 오픈소스 RAG 시스템. 2026년 기준 가장 진보된 RAG 기술들을 하나의 표준 파이프라인으로 통합한 엔터프라이즈급 솔루션입니다.
 
-- **버전**: 1.0.7
-- **상태**: ✅ **2,200+ 테스트 통과**, ✅ **보안 완비**, ✅ **DI 패턴 완성**, ✅ **Streaming API**, ✅ **WebSocket**
-- **주요 개선**: Reranker 확장 - Cohere, Local(sentence-transformers), OpenRouter 추가 (v1.2.1)
+React 19 + TypeScript + Material-UI로 구현된 RAG(Retrieval-Augmented Generation) 챗봇 프론트엔드 애플리케이션입니다. 사용자는 문서를 업로드하고, 업로드된 문서를 기반으로 AI 챗봇과 대화할 수 있으며, 문서 관리 및 시스템 통계를 확인할 수 있습니다.
 
-## 🚀 시작하기
+## 📚 주요 개발 문서
 
-두 가지 실행 방법을 제공합니다:
+프로젝트의 핵심 기능과 시스템에 대한 상세 문서는 `docs/` 디렉토리에서 확인할 수 있습니다:
 
-|  | Full API 서버 (`make start`) | CLI 챗봇 (`make easy-start`) |
-|---|---|---|
-| **Docker** | 필요 | 불필요 |
-| **Vector DB** | Weaviate (하이브리드 검색) | ChromaDB (로컬 파일) |
-| **인터페이스** | REST API + Swagger UI | 터미널 CLI |
-| **LLM** | 5종 (Gemini, OpenAI, Claude, OpenRouter, Ollama) | Gemini / OpenRouter / Ollama |
-| **용도** | 프로덕션, API 통합, 팀 개발 | 학습, 체험, 빠른 PoC |
+### 필수 읽기 문서
+- **[색상 관리 시스템 가이드](docs/COLOR_SYSTEM_GUIDE.md)** ⭐ **중요**
+  - 중앙 집중식 색상 관리 시스템 (`src/config/colors.ts`)
+  - `COLORS` 객체 및 `getColor()` 헬퍼 함수 사용법
+  - Light/Dark 모드 지원 방법
+  - ESLint 규칙: 하드코딩된 hex/rgba 색상 사용 금지
+  - **신규 컴포넌트 개발 시 반드시 참조**
 
-### 방법 A: Full API 서버 (Docker)
+### 기능별 문서
+- **[ChatEmptyState 설정 관리](docs/CHAT_EMPTY_STATE_SETTINGS.md)**: 챗봇 Empty State 메시지 및 추천 질문 설정
+- **[브랜드 설정 가이드](docs/BRAND_CONFIGURATION_GUIDE.md)**: 브랜드 색상, 로고, 타이틀 커스터마이징
+- **[기능 플래그 가이드](docs/FEATURE_FLAGS_GUIDE.md)**: Feature Flag 시스템 사용법
+- **[Railway 배포 가이드](docs/RAILWAY_DEPLOYMENT_GUIDE.md)**: Railway 플랫폼 배포 방법
 
+## 핵심 개발 명령어
+
+### 개발 서버
 ```bash
-git clone https://github.com/youngouk/OneRAG.git
-cd OneRAG && uv sync
-cp quickstart/.env.quickstart .env  # GOOGLE_API_KEY만 설정
-make start                           # → http://localhost:8000/docs
+npm run dev
+# Vite 개발 서버를 http://localhost:5000에서 시작합니다.
+# API 프록시는 vite.config.ts에서 Railway 백엔드로 설정되어 있습니다.
 ```
 
-### 방법 B: 로컬 CLI 챗봇 (Docker 불필요)
-
+### 빌드 및 배포
 ```bash
-git clone https://github.com/youngouk/OneRAG.git
-cd OneRAG && uv sync
-make easy-start                      # → 터미널에서 바로 대화
+npm run lint              # ESLint 검사 실행
+npm run lint -- --fix     # ESLint 자동 수정
+npm run build:warning-gate # 경고 게이트 포함 프로덕션 빌드 (dist/ 폴더에 생성)
+npm run preview           # 빌드 결과 미리보기
+npm run build:railway     # Railway 배포용 빌드 (lint + build + 런타임 설정 생성)
 ```
 
-API 키 없이도 검색은 작동합니다. AI 답변 생성을 사용하려면:
-- `GOOGLE_API_KEY` (무료: https://aistudio.google.com/apikey)
-- 또는 `OPENROUTER_API_KEY` (https://openrouter.ai/keys)
-
-**Quickstart 구조**:
-```
-quickstart/                  # Docker 기반
-├── .env.quickstart          # 최소 설정 템플릿
-├── sample_data.json         # 25개 FAQ 샘플 데이터
-└── load_sample_data.py      # Weaviate 데이터 로드
-
-easy_start/                  # Docker-Free
-├── .env.local               # 로컬 설정 템플릿
-├── chat.py                  # CLI 챗봇 (Rich UI)
-├── load_data.py             # ChromaDB 데이터 로드
-└── run.py                   # 원클릭 실행 오케스트레이터
-```
-
-**실행 명령어**:
-- `make start` - Docker 원클릭 실행 (Weaviate + API + 샘플데이터)
-- `make start-down` - 서비스 종료
-- `make start-logs` - 로그 확인
-- `make easy-start` - Docker-Free 로컬 CLI 챗봇 실행
-
-## 개발 명령어
-
+### 테스트
 ```bash
-# 초기 환경 설정 (spaCy 한국어 모델 포함 자동 설치)
-uv sync
-
-# 개발 서버 및 테스트
-make dev-reload         # 자동 리로드 (uvicorn --reload)
-make test               # 2,200+ 테스트 실행 (외부 로그 차단 격리 환경)
-make test-cov           # 테스트 커버리지 리포트
-
-# 코드 품질 관리 (CI/CD 통과 필수)
-make lint               # ruff 린트 검사
-make type-check         # mypy 엄격 모드 타입 체크
-make lint-imports       # 아키텍처 계층 검증 (Import Linter)
+npm run test              # Vitest 워치 모드로 테스트 실행
+npm run test:warning-gate # 경고 게이트 포함 테스트 1회 실행 (CI용)
+npm run warning-gate:self-test # 경고 게이트 자체 검증
+npm run test:ui           # Vitest UI로 테스트 실행
+npm run test:coverage     # 테스트 커버리지 리포트 생성
 ```
 
-## 아키텍처 핵심 (v1.0 고도화)
-
-### 1. 지능형 검색 (Hybrid Retrieval)
-- **Weaviate**: Dense(의미) + Sparse(BM25) 하이브리드.
-- **GraphRAG**: `NetworkXGraphStore`에 벡터 검색 엔진 통합. "SAMSUNG"으로 "삼성전자" 노드 탐색 가능.
-- **Reranker v2.1**: 3단계 계층 구조 (approach → provider → model)로 명확한 설정
-  - **approach**: `llm`, `cross-encoder`, `late-interaction`, `local` (4종)
-  - **provider**: google, openai, jina, cohere, openrouter, sentence-transformers (6종)
-  - **v1.2.1 신규**: Cohere (100+ 언어), Local (API 키 불필요), OpenRouter (다양한 LLM 모델 지원)
-
-### 2. 완벽한 보안 (Unified Security)
-- **PII Facade**: `PIIProcessor`가 단순 마스킹과 고도화된 AI 리뷰(`PIIReviewProcessor`)를 통합 관리.
-- **Admin Auth**: `/api/admin` 하위의 모든 엔드포인트에 `X-API-Key` 인증 전역 적용.
-
-### 3. 운영 유연성 (Dynamic Config)
-- **YAML Routing**: `routing_rules_v2.yaml`에서 서비스 핵심 키워드를 관리. 코드 수정 없이 복합 쿼리 판단 로직 변경 가능.
-- **환경별 설정**: `app/config/environments/`에 development, test, production 설정 분리. 환경 자동 감지 및 병합.
-- **강화된 검증**: Pydantic 기반 설정 검증으로 타입 안전성 및 범위 검증 (temperature, timeout 등).
-
-### 4. 에러 시스템 v2.0 (Bilingual)
-- **ErrorCode 기반**: 모든 에러가 구조화된 에러 코드 사용 (예: `GEN-001`, `SEARCH-003`)
-- **양언어 자동 전환**: `Accept-Language` 헤더 기반 한국어/영어 메시지 자동 선택
-- **사용자 친화적 메시지**: 기술 에러를 해결 방법과 함께 제공
-```python
-# 새 에러 형식
-raise GenerationError(ErrorCode.GENERATION_TIMEOUT, model="claude-sonnet-4-5")
-# → 한국어: "AI 모델 응답이 지연되고 있습니다. 해결 방법: 1) 잠시 후 다시 시도..."
-# → 영어: "AI model response is delayed. Solutions: 1) Please try again later..."
+### 환경 변수 설정
+개발 환경에서는 `.env` 파일에 다음 변수를 설정:
+```env
+VITE_API_BASE_URL=http://localhost:8000
+VITE_DEV_API_BASE_URL=http://localhost:8000
+VITE_DEV_WS_BASE_URL=ws://localhost:8000
+VITE_ACCESS_CODE=1127
 ```
 
-### 5. DI 컨테이너 (Dependency Injection)
-- **80+ Provider**: Singleton(70개) + Factory(10개) 패턴 완비
-- **9개 명시적 팩토리**: Agent, Evaluator, GraphRAG, Cache, MCP, Ingestion, VectorStore, Retriever, RerankerV2
-- **Deprecated 함수 정리 완료**: 모든 전역 헬퍼 함수 제거/리팩토링 완료 (v1.0.7)
-  - `get_cost_tracker()`, `get_mongodb_client()`, `get_prompt_manager()` 제거
-  - `get_circuit_breaker()` 제거, `get_performance_metrics()` → private 전환
-- **테스트 용이성**: 모든 의존성 주입 가능, Mock 교체 용이
+## 아키텍처 및 주요 설계 결정사항
 
-### 6. Multi-LLM Factory (v1.0.3)
-- **5개 Provider 지원**: Google Gemini, OpenAI GPT, Anthropic Claude, OpenRouter, Ollama
-- **자동 Fallback**: 주 LLM 실패 시 설정된 순서대로 자동 전환
-- **GPT5QueryExpansionEngine**: `llm_factory` 필수화로 OpenAI 직접 의존성 제거
+### 1. 라우팅 및 Feature Flag 시스템
+`App.tsx`는 애플리케이션의 진입점이며, Feature Flag에 따라 라우트를 조건부로 활성화합니다:
+- `/` - 랜딩 페이지 (활성화된 첫 번째 모듈로 자동 리다이렉션)
+- `/bot` - 챗봇 인터페이스 (`ChatPage`)
+- `/upload` - 문서 업로드 및 관리 (`UploadPage`)
+- `/prompts` - 프롬프트 관리 (`PromptsPage`)
+- `/analysis` - 분석 페이지 (`AnalysisPage`)
+- `/admin` - 관리자 대시보드 (`AdminDashboard`)
 
-### 7. Multi Vector DB (v1.0.5)
-- **Factory 패턴**: `VectorStoreFactory`, `RetrieverFactory`로 벡터 DB 동적 선택
-- **6종 벡터 DB 지원**: 환경변수 `VECTOR_DB_PROVIDER`로 선택
-  | Provider | 하이브리드 검색 | 특징 |
-  |----------|---------------|------|
-  | **weaviate** (기본) | ✅ Dense + BM25 | 셀프호스팅, 하이브리드 내장 |
-  | **chroma** | ❌ Dense 전용 | 경량, 로컬 개발용 |
-  | **pinecone** | ✅ Dense + Sparse | 서버리스 클라우드 |
-  | **qdrant** | ✅ Dense + Full-Text | 고성능 셀프호스팅 |
-  | **pgvector** | ❌ Dense 전용 | PostgreSQL 확장 |
-  | **mongodb** | ❌ Dense 전용 | Atlas Vector Search |
-- **선택적 의존성**: 필요한 DB만 설치 (`uv sync --extra pinecone` 등)
-
-### 8. Observability (v1.0.4)
-- **실시간 메트릭**: `/api/admin/realtime-metrics` 엔드포인트
-- **캐시 모니터링**: `cache_hit_rate`, `cache_hits`, `cache_misses`, `cache_saved_time_ms`
-- **비용 추적**: `total_cost_usd`, `cost_per_hour`, `total_llm_tokens`
-
-### 9. Streaming API (v1.0.8)
-- **POST /chat/stream**: SSE(Server-Sent Events) 기반 스트리밍 채팅 응답
-- **Content-Type**: `text/event-stream`
-- **이벤트 타입**: `metadata`, `chunk`, `done`, `error`
-- **Rate Limit**: 100회/15분
-- **Multi-LLM 지원**: Google Gemini, OpenAI GPT, Anthropic Claude 모두 스트리밍 지원
+**Context Provider 계층 구조**:
 ```
-# SSE 응답 예시
-event: metadata
-data: {"session_id": "abc-123", "search_results": 5}
-
-event: chunk
-data: {"data": "안녕", "chunk_index": 0}
-
-event: done
-data: {"session_id": "abc-123", "total_chunks": 10}
+ConfigProvider (런타임 설정)
+  └─ FeatureProvider (Feature Flag)
+       └─ Router
+            └─ AppRoutes
 ```
 
-상세 가이드: `docs/streaming-api-guide.md`
+모든 라우트는 `ErrorBoundary`와 `ProtectedRoute`로 감싸져 있습니다.
 
-### 10. WebSocket API (v1.0.9)
-- **WS /chat-ws**: 양방향 실시간 채팅 (SSE와 달리 클라이언트→서버 통신도 지원)
-- **연결**: `wss://{host}/chat-ws?session_id={session_id}`
-- **메시지 타입**: `message` (클라이언트), `stream_start`, `stream_token`, `stream_sources`, `stream_end`, `stream_error` (서버)
-- **RAG 파이프라인 통합**: 기존 `ChatService.stream_rag_pipeline()` 재사용
-```javascript
-// 클라이언트 → 서버
-{"type": "message", "message_id": "uuid", "content": "질문", "session_id": "abc"}
+### 2. API 통신 레이어 (`src/services/`)
+#### API URL 우선순위 (src/services/api.ts)
+1. **개발 모드**: `VITE_DEV_API_BASE_URL` 또는 Railway 프로덕션 백엔드
+2. **프로덕션**: `VITE_API_BASE_URL` 환경변수
+3. **런타임 설정**: `window.RUNTIME_CONFIG.API_BASE_URL`
+4. **폴백**: `http://localhost:8000`
 
-// 서버 → 클라이언트
-{"type": "stream_token", "message_id": "uuid", "token": "안녕", "index": 0}
+#### Axios 설정
+- **타임아웃**: 5분 (대용량 문서 처리 대응)
+- **재시도**: 최대 3회, 지수 백오프 (네트워크 오류, 5xx, 429 시)
+- **Request 인터셉터**: API Key, JWT 토큰, 세션 ID, CSRF 토큰 자동 추가
+- **Response 인터셉터**: 401 시 토큰 갱신, 전화번호 자동 마스킹
+
+#### API 모듈 구조
+- `documentAPI` - 문서 업로드, 조회, 삭제 (단일/일괄/전체)
+- `chatAPI` - 메시지 전송, 채팅 기록, 세션 관리
+- `healthAPI` - 서버 헬스 체크 (별도 타임아웃)
+- 추가 서비스: `promptService.ts`, `qdrantService.ts`, `adminService.ts`, `authService.ts`, `chatSettingsService.ts`
+
+### 3. 세션 관리
+- **저장 위치**: `localStorage` (`chatSessionId` 키)
+- **생성**: `chatAPI.startNewSession()` 호출 시 백엔드에서 생성
+- **사용**: 모든 채팅 API 요청에 `X-Session-Id` 헤더로 자동 포함
+- **새 세션 요청 시**: 기존 세션 ID를 보내지 않음 (인터셉터에서 처리)
+
+### 4. Feature Flag 시스템 (`src/config/features.ts`)
+모듈별 기능을 세밀하게 제어할 수 있는 Feature Flag 시스템:
+- **chatbot**: streaming, history, sessionManagement, markdown
+- **documentManagement**: upload, bulkDelete, search, pagination, dragAndDrop, preview
+- **admin**: userManagement, systemStats, qdrantManagement, accessControl
+- **prompts**: templates, history
+- **analysis**: realtime, export, visualization
+- **privacy**: maskPhoneNumbers
+
+우선순위: 런타임 구성 (`window.RUNTIME_CONFIG.FEATURES`) > 환경변수 (`VITE_FEATURE_*`) > 기본값
+
+### 5. 테마 시스템 (`src/theme/index.ts`)
+모노톤 디자인 시스템 기반의 MUI 테마:
+- **모든 색상**: `src/config/colors.ts`에서 중앙 관리
+- **Dark/Light 모드**: `COLORS` 객체에서 모드별 색상 자동 적용
+- **Typography**: Apple 시스템 폰트
+- **그림자/보더**: 모노톤 스타일로 통일
+
+### 6. 에러 처리 전략
+- **ErrorBoundary 컴포넌트**: React 컴포넌트 트리에서 발생하는 JavaScript 오류를 포착
+- **API 오류**: Axios 인터셉터에서 중앙 집중식 처리, 자동 재시도
+- **401 처리**: 토큰 갱신 시도 후 실패 시 로그아웃
+
+## 주요 디렉토리 구조
+
+```
+src/
+├── main.tsx                 # React 앱 진입점
+├── App.tsx                  # 라우팅 및 Provider 설정
+├── components/              # 재사용 가능한 컴포넌트
+│   ├── ChatTab.tsx         # 채팅 인터페이스
+│   ├── ChatEmptyState.tsx  # 채팅 초기 상태 UI
+│   ├── DocumentsTab.tsx    # 문서 목록 (검색, 페이지네이션, 삭제)
+│   ├── UploadTab.tsx       # 문서 업로드 (드래그앤드롭)
+│   ├── StatsTab.tsx        # 통계 대시보드
+│   ├── AppLayout.tsx       # 전역 레이아웃
+│   ├── AppHeader.tsx       # 앱 헤더
+│   ├── Sidebar.tsx         # 사이드바 네비게이션
+│   ├── MarkdownRenderer.tsx # 마크다운 렌더링
+│   ├── ErrorBoundary.tsx   # 에러 경계
+│   └── icons/              # 커스텀 아이콘 컴포넌트
+├── pages/                   # 페이지 컴포넌트 (lazy loading)
+│   ├── ChatPage.tsx        # /bot
+│   ├── UploadPage.tsx      # /upload
+│   ├── PromptsPage.tsx     # /prompts
+│   ├── AnalysisPage.tsx    # /analysis
+│   └── Admin/              # 관리자 페이지
+├── services/                # API 클라이언트
+│   ├── api.ts              # Axios 설정 및 주요 API
+│   ├── authService.ts      # 인증 관련 API
+│   ├── promptService.ts    # 프롬프트 관련 API
+│   ├── qdrantService.ts    # Qdrant 벡터 DB API
+│   ├── adminService.ts     # 관리자 API
+│   └── chatSettingsService.ts # 채팅 설정 API
+├── core/                    # 핵심 Provider 및 Context
+│   ├── ConfigProvider.tsx  # 런타임 설정 Provider
+│   ├── ConfigContext.ts    # 설정 Context
+│   ├── FeatureProvider.tsx # Feature Flag Provider
+│   ├── FeatureContext.ts   # Feature Flag Context
+│   ├── useConfig.ts        # 설정 훅
+│   ├── useFeature.ts       # Feature Flag 훅
+│   └── withFeature.tsx     # Feature Flag HOC
+├── config/                  # 설정 파일
+│   ├── colors.ts           # 색상 시스템 (COLORS, getColor)
+│   ├── brand.ts            # 브랜드 설정
+│   ├── features.ts         # Feature Flag 정의
+│   ├── layout.ts           # 레이아웃 설정
+│   └── chatEmptyStateSettings.ts # 챗봇 Empty State 설정
+├── theme/                   # MUI 테마
+│   └── index.ts            # 모노톤 테마 생성
+├── hooks/                   # 커스텀 React 훅
+│   ├── useDebounce.ts      # 입력 디바운싱
+│   ├── useVirtualList.ts   # 가상 스크롤 최적화
+│   ├── useOfflineDetection.ts # 오프라인 감지
+│   └── useKeyboardNavigation.ts # 키보드 네비게이션
+├── utils/                   # 유틸리티 함수
+│   ├── privacy.ts          # 개인정보 마스킹 (전화번호 등)
+│   ├── sanitize.ts         # XSS 방지 (DOMPurify)
+│   ├── logger.ts           # 로깅 유틸리티
+│   ├── performance.ts      # 성능 최적화 도구
+│   ├── accessibility.ts    # 접근성 유틸리티
+│   └── rateLimiter.ts      # Rate limiting
+├── test/                    # 테스트 설정
+│   ├── setup.ts            # Vitest 설정
+│   ├── axeHelper.ts        # 접근성 테스트 헬퍼
+│   └── mocks/              # MSW 모킹
+└── types/                   # TypeScript 타입 정의
+    ├── index.ts            # 공통 타입
+    └── global.d.ts         # 전역 타입 선언
 ```
 
-상세 가이드: `docs/websocket-api-guide.md`
+## 개발 시 주의사항
 
-### 11. OpenAI 호환 API (v1.1.0)
-- **POST /v1/chat/completions**: OpenAI SDK 형식의 채팅 완료 (RAG 파이프라인 포함)
-- **GET /v1/models**: 사용 가능한 모델 목록
-- **인증**: 없음 (Ollama 방식 — 로컬 서비스 전제)
-- **모델 선택**: `model` 필드에 슬래시 구분 (`provider/sub-model`)
-  - `gemini` — Google Gemini 기본 모델
-  - `ollama/qwen2.5:3b` — Ollama 특정 모델
-  - `openrouter/google/gemini-2.0-flash` — OpenRouter 경유
-  - `claude`, `openai` — 각 provider 기본 모델
-- **RAG Mode 기본**: 문서 검색 → 컨텍스트 조합 → LLM 답변 생성
-- **스트리밍 지원**: `"stream": true`로 SSE 스트리밍 응답
-```python
-# OpenAI SDK로 OneRAG에 연결
-from openai import OpenAI
-client = OpenAI(base_url="http://localhost:8000/v1", api_key="not-needed")
-resp = client.chat.completions.create(
-    model="gemini",
-    messages=[{"role": "user", "content": "RAG란?"}],
-)
-print(resp.choices[0].message.content)
-```
+### API 엔드포인트 추가 시
+1. `src/types/index.ts`에 타입 정의 추가
+2. `src/services/api.ts` 또는 해당 서비스 파일에 API 함수 추가
+3. 변환 레이어가 필요한 경우 `transformApiDocument` 패턴 참고
 
-상세 분석: `docs/TECHNICAL_DEBT_ANALYSIS.md`
+### 새 페이지/라우트 추가 시
+1. `src/pages/`에 페이지 컴포넌트 생성
+2. `App.tsx`에 lazy import 및 라우트 추가
+3. `ErrorBoundary`와 `ProtectedRoute`로 감싸기
+4. 필요시 Feature Flag 조건 추가
 
-## 코드 컨벤션 및 규칙
+### Feature Flag 추가 시
+1. `src/config/features.ts`에 인터페이스 및 기본값 추가
+2. `loadFeaturesFromEnv()`에 환경변수 매핑 추가
+3. 컴포넌트에서 `useIsModuleEnabled()` 또는 `useIsFeatureEnabled()` 사용
 
-- **TODO 금지**: 코드 내에 `TODO`, `FIXME` 주석을 남기지 않습니다. 발견 즉시 해결합니다.
-- **Test Isolation**: 테스트 시 `ENVIRONMENT=test`를 통해 Langfuse 등 외부 통신을 원천 차단합니다.
-- **Type Safety**: 모든 신규 함수는 명확한 타입 힌트가 필수이며 `mypy`를 통과해야 합니다.
+### Material-UI 컴포넌트 커스터마이징
+- `src/theme/index.ts`의 테마 설정 활용
+- `sx` prop 사용 시 `getColor()` 함수로 색상 적용
+- 다크모드: `(theme) => getColor('path.to.color', theme.palette.mode)`
 
-## 설정 관리 (v1.0.1 신규)
+## 코딩 규칙
 
-### 환경별 설정 파일
-```
-app/config/environments/
-├── development.yaml  # 개발: debug=true, reload=true, 상세 로깅
-├── test.yaml         # 테스트: 짧은 타임아웃, 일관성 우선
-└── production.yaml   # 프로덕션: 워커 4개, 캐시 활성화, 폴백 전략
-```
+### TypeScript
+- **`any` 타입 금지**: 명확한 타입 정의 필수
+- **타입 우선 정의**: API 응답 타입은 `src/types/index.ts`에 먼저 정의
+- **인터페이스 네이밍**: 접두사 없이 명확한 이름 사용 (예: `Document`, `ChatResponse`)
 
-### 환경 감지 로직
-- **다층 감지**: ENVIRONMENT, NODE_ENV, WEAVIATE_URL, FASTAPI_AUTH_KEY 종합 판단
-- **보안 강화**: 단일 환경 변수 조작으로 프로덕션 우회 불가
-- **자동 병합**: base.yaml + environments/{env}.yaml 자동 병합
+### React 컴포넌트
+- **함수형 컴포넌트 사용**: 클래스 컴포넌트 사용 금지
+- **컴포넌트 네이밍**: PascalCase
+- **훅 네이밍**: `use` 접두사 + camelCase
+- **lazy loading**: 페이지 컴포넌트는 `React.lazy()` 사용
 
-### 설정 검증 (Pydantic)
-- **타입 안전성**: temperature (0.0-2.0), max_tokens (1-128000), port (1-65535)
-- **환경별 규칙**: 프로덕션에서 debug=true 차단
-- **Graceful Degradation**: 검증 실패해도 시스템 동작 (경고 출력)
+### 색상 및 스타일링 ⭐
+- **색상 사용**: `src/config/colors.ts`의 `COLORS` 객체 또는 `getColor()` 함수만 사용
+- **하드코딩 금지**: hex (#...) 또는 rgba(...) 직접 사용 금지 (ESLint 규칙 `no-restricted-syntax`으로 강제)
+- **테마 지원**: 모든 색상은 light/dark 모드 지원 필수
+- **예외 처리**: 불가피한 경우 `/* eslint-disable no-restricted-syntax */` 주석 사용
+- **상세 가이드**: [색상 관리 시스템 가이드](docs/COLOR_SYSTEM_GUIDE.md) 참조
 
-상세 문서: `docs/config_management_improvements.md`
+### 코드 스타일
+- **들여쓰기**: 2 spaces
+- **따옴표**: 단일 인용부호(`'`)
+- **ESLint**: 자동 수정 가능한 오류는 `npm run lint -- --fix`로 해결
 
-## 시스템 완성도 (Current Score: 100/100)
+### 테스트
+- **테스트 프레임워크**: Vitest + happy-dom
+- **테스트 파일 위치**: `src/**/__tests__/*.test.ts` 또는 `src/**/*.test.ts`
+- **모킹**: MSW (Mock Service Worker) 사용 (`src/test/mocks/`)
+- **접근성 테스트**: axe-core 사용 (`src/test/axeHelper.ts`)
 
-| 항목 | 현황 | 비고 |
-|------|------|------|
-| **전체 테스트** | 2,200+ Pass | 단위/통합/안정성 테스트 완비 |
-| **Deprecated 함수** | 0건 | Phase 1,2,3 완료, 모든 deprecated 함수 제거/리팩토링 |
-| **보안 인증** | 완료 | 관리자 API 및 PII 보호 통합 |
-| **GraphRAG 지능** | 완료 | 벡터 검색 기반 엔티티 탐색 |
-| **설정 관리** | 완료 | 환경별 분리 및 검증 강화 |
-| **에러 시스템** | 완료 | 양언어(한/영) 자동 전환 v2.0 |
-| **DI 컨테이너** | 완료 | 80+ Provider, 9개 팩토리 (RerankerV2 추가) |
-| **Multi-LLM** | 완료 | 5개 Provider 지원, 자동 Fallback |
-| **Multi Vector DB** | 완료 | 6종 지원 (Weaviate, Chroma, Pinecone, Qdrant, pgvector, MongoDB) |
-| **Observability** | 완료 | 실시간 캐시 히트율/LLM 비용 모니터링 |
-| **Streaming API** | 완료 | SSE 기반 실시간 응답, Multi-LLM 스트리밍 지원 |
-| **WebSocket API** | 완료 | 양방향 실시간 채팅, RAG 파이프라인 통합 |
-| **Reranker 설정 v2.1** | 완료 | 4 approach, 6 provider (Cohere, Local 추가) |
-| **OpenAI 호환 API** | 완료 | /v1/chat/completions, /v1/models, 스트리밍 지원 |
-| **문서화** | 완료 | API Reference, 개발 가이드 등 12개 문서 |
-
-상세 기술부채 분석: `docs/TECHNICAL_DEBT_ANALYSIS.md`
-
-## 향후 보강 계획 (Feature Roadmap)
-
-15개 신규/개선 피처를 5단계로 나누어 추진합니다. 경쟁 프레임워크 분석(Dify, RAGFlow, Kotaemon 등) 및 2026 RAG 트렌드 기반.
-
-| Phase | 기간 | 핵심 피처 | 목표 |
-|-------|------|----------|------|
-| **Phase 1** | 1-2주 | Ollama 통합, Grok API, 다국어 easy-start | 글로벌 사용자 유입 |
-| **Phase 2** | 2-3주 | RAGAS 평가, 적응형 청킹, OpenAI 호환 API | 검색 품질 + 통합성 |
-| **Phase 3** | 3-4주 | 문서 관리 GUI, PDF 인용 하이라이트, 시맨틱 캐시 | 프론트엔드 UX |
-| **Phase 4** | 4-6주 | Agentic RAG, 데이터 커넥터, Auto-Metadata | 지능형 RAG |
-| **Phase 5** | 6-8주+ | 멀티모달 RAG, NoCode 빌더, 경량 그래프 RAG | 차세대 경쟁 우위 |
-
-상세 계획: `docs/plans/2026-02-25-feature-roadmap.md`
-
----
-**Claude Note**: 본 프로젝트는 이미 "완벽"한 상태이므로, 코드 수정 시 기존의 추상화 인터페이스(Protocol)와 DI 패턴을 엄격히 준수하십시오.
-- **에러**: 반드시 `ErrorCode` 기반 새 형식 사용
-- **LLM**: 반드시 `llm_factory`를 통해 호출
-- **Vector DB**: 새 벡터 DB 추가 시 `VectorStoreFactory`에 등록
-- **모니터링**: 새 메트릭 추가 시 `RealtimeMetrics` 모델 확장
-- **Reranker**: `RerankerFactoryV2` 사용, approach/provider/model 3단계 구조 준수
-  - **지원 approach**: llm, cross-encoder, late-interaction, local
-  - **지원 provider**: google, openai, jina, cohere, openrouter, sentence-transformers
+### Railway 배포 고려사항
+- `generate-config.js`는 빌드 후 `dist/config.js` 생성
+- 런타임 환경변수는 `window.RUNTIME_CONFIG`를 통해 주입
+- API URL/Key 변경 시 우선순위 체인 고려 필요
+- 개발 모드 기본 프록시는 Railway 프로덕션 백엔드로 설정됨
 
 ---
 > Source: [notadev-iamaura/OneRAG](https://github.com/notadev-iamaura/OneRAG) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
