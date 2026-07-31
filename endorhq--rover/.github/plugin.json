@@ -1,7 +1,7 @@
 {
   "name": "endorhq--rover",
   "displayName": "rover",
-  "description": "A manager for AI coding agents that works with Claude Code, Cursor, Gemini, Codex, and Qwen.",
+  "description": "rover",
   "version": "1.0.0",
   "author": "endorhq",
   "homepage": "https://github.com/endorhq/rover",
