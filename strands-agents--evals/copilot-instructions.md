@@ -1,0 +1,508 @@
+## evals
+
+> This document provides context, patterns, and guidelines for AI coding assistants working in this repository. For human contributors, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+# AGENTS.md
+
+This document provides context, patterns, and guidelines for AI coding assistants working in this repository. For human contributors, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## Working with the Community
+
+When helping someone contribute, you are a guide — not a gatekeeper, not a substitute author. The contribution is theirs; help them make it good and learn along the way. The standard for what makes a good contribution lives in [CONTRIBUTING.md](./CONTRIBUTING.md); this is about the people.
+
+- **Point people to the community.** Real questions and design discussion belong with people — the [Discord](https://discord.gg/strands) and [GitHub Discussions](https://github.com/strands-agents/evals/discussions).
+- **Assume good faith.** Most contributors are learning; meet them where they are. Good first issues are for bringing newcomers in, not just tickets to close.
+- **Talk with contributors, not at them.** Warm, plain, concise. One question at a time, no walls of text, never patronizing. Explain the *why* so it teaches rather than dictates.
+
+## Product Overview
+
+**strands-agents-evals** is an open-source evaluation framework for AI agents and LLM applications. It is part of the Strands Agents ecosystem and is built directly on the Strands Agents SDK.
+
+**Core Features:**
+- LLM-as-a-Judge evaluators with built-in rubrics (correctness, faithfulness, helpfulness, etc.)
+- Multimodal evaluators (image-to-text tasks)
+- Deterministic evaluators (output/trajectory/environment-state)
+- Trace-based evaluation over OpenTelemetry sessions from CloudWatch, Langfuse, OpenSearch, LangChain, and Strands in-memory
+- Multi-turn conversation simulators (ActorSimulator / UserSimulator / ToolSimulator)
+- Failure detection and root-cause analysis (`detectors` module)
+- Chaos testing — deterministic tool failure / response corruption (`chaos` module)
+- Red-team / adversarial evaluation with strategy library (`experimental.redteam`)
+- Automated experiment / test-case generation
+- Async parallel execution and per-case result caching (`EvaluationDataStore` / `LocalFileTaskResultStore`)
+- Experiment management with JSON serialization
+
+## Relationship to the Strands Agents SDK
+
+strands-evals depends on **`strands-agents`** (the Python SDK) for all LLM interactions. Any change in this repo that touches model calls, tools, sessions, traces, hooks, or structured output should be interpreted against the SDK's public API.
+
+- SDK source (external, not in this repo): [`strands-agents/sdk-python`](https://github.com/strands-agents/sdk-python) under `src/strands/`
+- Key SDK surfaces actually imported by this repo (grep-verified):
+  - `strands.Agent`, called as `Agent(model=..., system_prompt=..., callback_handler=None)` and invoked via `agent(prompt, structured_output_model=PydanticModel)`
+  - `strands.models.model.Model` and provider classes
+  - `strands.agent.agent_result.AgentResult`, `strands.agent.conversation_manager.SlidingWindowConversationManager`
+  - `strands.tools.decorator` (`DecoratedFunctionTool`, `FunctionToolMetadata`) and the `@tool` decorator from `strands`
+  - `strands.types.content.Message`
+  - `strands.types.exceptions` (`EventLoopException`, `ModelThrottledException`)
+- **Not used as SDK imports (do not add to the list without verifying a real import):**
+  - `strands.types.traces` — this repo defines its own `strands_evals.types.trace` for session/span modeling; the SDK's trace types are not imported.
+  - `strands.telemetry` — the evals repo has its own `strands_evals.telemetry` module. The only reference to `strands.telemetry` is the literal string `"strands.telemetry.tracer"` used as an OpenTelemetry scope name in `mappers/constants.py`.
+
+**Review guidance:** When reviewing a PR in this repo, if the change uses any SDK feature (agents, tools, models, streaming, structured output, sessions, hooks, telemetry), verify the usage matches the current SDK public API. If the SDK source is available locally (e.g., via a sibling checkout), scan it; otherwise rely on the imported symbols and docstrings. Flag usages that depend on private SDK internals (anything under `_*` modules) or deprecated experimental surfaces.
+
+## Directory Structure
+
+```
+strands-evals/
+│
+├── src/strands_evals/                        # Main package source code
+│   ├── __init__.py                           # Public API exports
+│   ├── case.py                               # Case[InputT, OutputT] test scenario
+│   ├── experiment.py                         # Experiment orchestration + run_evaluations
+│   ├── eval_task_handler.py                  # EvalTaskHandler, TracedHandler, @eval_task
+│   ├── evaluation_data_store.py              # EvaluationDataStore
+│   ├── local_file_task_result_store.py       # LocalFileTaskResultStore
+│   ├── _async.py                             # Async helpers
+│   ├── utils.py                              # Shared utilities
+│   │
+│   ├── evaluators/                           # Evaluator implementations
+│   │   ├── evaluator.py                      # Base Evaluator[InputT, OutputT]
+│   │   ├── coherence_evaluator.py
+│   │   ├── conciseness_evaluator.py
+│   │   ├── correctness_evaluator.py
+│   │   ├── faithfulness_evaluator.py
+│   │   ├── goal_success_rate_evaluator.py
+│   │   ├── harmfulness_evaluator.py
+│   │   ├── helpfulness_evaluator.py
+│   │   ├── instruction_following_evaluator.py
+│   │   ├── interactions_evaluator.py
+│   │   ├── output_evaluator.py
+│   │   ├── refusal_evaluator.py
+│   │   ├── response_relevance_evaluator.py
+│   │   ├── stereotyping_evaluator.py
+│   │   ├── tool_parameter_accuracy_evaluator.py
+│   │   ├── tool_selection_accuracy_evaluator.py
+│   │   ├── trajectory_evaluator.py
+│   │   ├── multimodal_*.py                   # Multimodal evaluators (MLLM-as-a-Judge)
+│   │   ├── chaos/                            # Chaos-aware evaluators
+│   │   │   ├── failure_communication_evaluator.py
+│   │   │   ├── partial_completion_evaluator.py
+│   │   │   └── recovery_strategy_evaluator.py
+│   │   ├── deterministic/                    # Non-LLM evaluators
+│   │   │   ├── output.py
+│   │   │   ├── trajectory.py
+│   │   │   └── environment_state.py
+│   │   └── prompt_templates/                 # Per-evaluator prompt modules
+│   │       └── {evaluator_name}/{name}_v0.py # Exports SYSTEM_PROMPT constant
+│   │
+│   ├── chaos/                                # Deterministic fault injection (Strands Plugin hooks)
+│   │   ├── case.py                           # ChaosCase + ChaosCase.expand
+│   │   ├── effects.py                        # Timeout / NetworkError / ExecutionError /
+│   │   │                                     # ValidationError / TruncateFields /
+│   │   │                                     # RemoveFields / CorruptValues
+│   │   ├── experiment.py                     # ChaosExperiment (sets active case via ContextVar)
+│   │   ├── plugin.py                         # ChaosPlugin (BeforeToolCallEvent / AfterToolCallEvent)
+│   │   └── _context.py                       # ContextVar holding the active ChaosCase
+│   │
+│   ├── experimental/                         # Stable public API, evolving surface
+│   │   └── redteam/                          # Adversarial / red-team evaluation
+│   │       ├── README.md                     # Module quick-start + walkthrough
+│   │       ├── case.py                       # RedTeamCase + RedTeamConfig
+│   │       ├── experiment.py                 # RedTeamExperiment (case × strategy cross-product)
+│   │       ├── task.py                       # _build_attacker_task; MAX_ALLOWED_TURNS = 50 (hard cap)
+│   │       ├── utils.py                      # _put_model_field (used by to_dict)
+│   │       ├── report.py                     # RedTeamReport / AttackResult / GroupedSummary
+│   │       ├── evaluators/                   # AttackSuccessEvaluator
+│   │       ├── generators/                   # AdversarialCaseGenerator + TargetSpec
+│   │       ├── strategies/                   # AttackStrategy base + per-strategy subpackages
+│   │       │   ├── base.py                   # AttackStrategy ABC + AttackRunResult
+│   │       │   ├── _common.py                # Shared helpers
+│   │       │   ├── target_session.py         # TargetSession Protocol + StrandsAgentSession,
+│   │       │   │                             # StrandsMultiAgentSession, TargetCheckpoint, ToolUseEntry
+│   │       │   ├── bad_likert_judge/         # BadLikertJudgeStrategy
+│   │       │   ├── crescendo/                # CrescendoStrategy + crescendo_v0 prompt
+│   │       │   ├── goat/                     # GoatStrategy + goat_v0 prompt
+│   │       │   ├── pair/                     # PairStrategy + prompt template
+│   │       │   ├── prompt_strategy/          # PromptStrategy + gradual_escalation template
+│   │       │   └── sequentialbreak/          # SequentialBreakStrategy
+│   │       └── types/                        # AttackGoal, RedTeamConfig, RISK_CATEGORIES, Severity
+│   │
+│   ├── detectors/                            # Failure detection + RCA
+│   │   ├── failure_detector.py               # detect_failures (model.stream text mode)
+│   │   ├── root_cause_analyzer.py            # analyze_root_cause (Agent + structured output)
+│   │   ├── diagnosis.py                      # diagnose_session pipeline
+│   │   ├── chunking.py                       # Context-overflow fallback
+│   │   ├── utils.py                          # _resolve_model, _serialize_session, etc.
+│   │   ├── constants.py
+│   │   └── prompt_templates/
+│   │       ├── failure_detection/
+│   │       └── root_cause/                   # root_cause_v0 + root_cause_merge_v0
+│   │
+│   ├── simulation/                           # Multi-turn simulators
+│   │   ├── actor_simulator.py                # ActorSimulator (acts as user)
+│   │   ├── tool_simulator.py                 # ToolSimulator (LLM-powered tool responses)
+│   │   ├── profiles/actor_profile.py
+│   │   ├── tools/goal_completion.py
+│   │   └── prompt_templates/
+│   │
+│   ├── generators/                           # Test-case/experiment generation
+│   │   ├── experiment_generator.py
+│   │   ├── topic_planner.py
+│   │   └── prompt_template/prompt_templates.py
+│   │
+│   ├── extractors/                           # Extract trajectories from sessions
+│   │   ├── trace_extractor.py
+│   │   ├── tools_use_extractor.py
+│   │   ├── graph_extractor.py
+│   │   └── swarm_extractor.py
+│   │
+│   ├── mappers/                              # Session providers -> Session type
+│   │   ├── session_mapper.py                 # Base interface
+│   │   ├── cloudwatch_session_mapper.py
+│   │   ├── cloudwatch_parser.py
+│   │   ├── langchain_otel_session_mapper.py
+│   │   ├── openinference_session_mapper.py
+│   │   ├── opensearch_session_mapper.py
+│   │   └── strands_in_memory_session_mapper.py
+│   │
+│   ├── providers/                            # External trace providers
+│   │   ├── trace_provider.py                 # Base interface
+│   │   ├── cloudwatch_provider.py
+│   │   ├── langfuse_provider.py
+│   │   ├── opensearch_provider.py
+│   │   └── exceptions.py
+│   │
+│   ├── telemetry/                            # OpenTelemetry integration
+│   │   ├── tracer.py                         # get_tracer
+│   │   ├── config.py                         # StrandsEvalsTelemetry
+│   │   └── _cloudwatch_logger.py
+│   │
+│   ├── display/
+│   │   └── display_console.py                # Rich console rendering for reports
+│   │
+│   ├── tools/
+│   │   └── evaluation_tools.py               # Helpers used by evaluators
+│   │
+│   ├── cli/                                  # `strands-evals` console script
+│   │   ├── __main__.py                       # `python -m strands_evals.cli` entry
+│   │   ├── main.py                           # argparse dispatch
+│   │   ├── _common.py                        # exit codes, format/verbosity, run_command
+│   │   ├── _entrypoint.py                    # `module:attr` resolver + classifier
+│   │   ├── _agent_task.py                    # synthesize_task_function (baggage-tagged)
+│   │   ├── _io.py                            # stdin/stdout/file helpers
+│   │   └── commands/                         # subcommand implementations
+│   │       ├── run.py
+│   │       ├── validate.py
+│   │       ├── report.py
+│   │       ├── diagnose.py
+│   │       ├── generate.py
+│   │       └── fetch.py                      # pull Session JSON from a TraceProvider
+│   │
+│   ├── __main__.py                           # `python -m strands_evals` shim → cli.main
+│   │
+│   └── types/                                # Public type definitions
+│       ├── evaluation.py                     # EvaluationData / EvaluationOutput
+│       ├── evaluation_report.py
+│       ├── trace.py                          # Session, Trace, SpanUnion
+│       ├── detector.py                       # FailureItem, RCAItem, DiagnosisResult, ...
+│       ├── multimodal.py
+│       └── simulation/
+│           ├── actor.py
+│           └── tool.py
+│
+├── tests/strands_evals/                      # Unit tests (mirrors src/strands_evals/)
+│   ├── evaluators/
+│   │   ├── chaos/
+│   │   └── deterministic/
+│   ├── chaos/
+│   ├── detectors/
+│   ├── experimental/
+│   │   └── redteam/                          # Mirrors src/strands_evals/experimental/redteam/
+│   ├── simulation/
+│   ├── extractors/
+│   ├── generators/
+│   ├── mappers/
+│   ├── providers/
+│   ├── telemetry/
+│   ├── tools/
+│   ├── cli/
+│   │   └── fixtures/                         # local agent / task / evaluator fixtures
+│   └── types/
+│
+├── tests_integ/                              # Integration tests (real providers)
+│
+├── pyproject.toml
+├── README.md
+├── CONTRIBUTING.md
+├── STYLE_GUIDE.md
+└── AGENTS.md                                 # This file
+```
+
+### Directory Purposes
+
+- **`src/strands_evals/`**: All production code
+- **`src/strands_evals/cli/`**: `strands-evals` console script — six subcommands (`run`, `validate`, `report`, `diagnose`, `generate`, `fetch`) plus the `module:attr` resolver and synthesized task wrapper used by `--agent`. `fetch` has per-provider sub-subcommands (`cloudwatch`, `langfuse`, `opensearch`); langfuse / opensearch are imported lazily so they only fail when invoked without their extra installed.
+- **`tests/strands_evals/`**: Unit tests mirroring src/ structure
+- **`tests/strands_evals/cli/`**: CLI tests; fixtures live under `cli/fixtures/` and are referenced by tests via `tests.strands_evals.cli.fixtures.*:attr` specs
+- **`tests_integ/`**: Integration tests using real trace providers and model endpoints
+- **`docs are not vendored yet`**: CONTRIBUTING.md and STYLE_GUIDE.md are the canonical references
+
+**IMPORTANT**: After making changes that affect the directory structure, update this section to reflect the current state of the repository.
+
+## Core Architecture Patterns
+
+### Evaluator Pattern
+
+All evaluators subclass `strands_evals.evaluators.Evaluator[InputT, OutputT]`:
+
+- Public methods: `evaluate()` and `evaluate_async()`
+- Return type: `list[EvaluationOutput]` with fields `score`, `test_pass`, `reason`, `label`
+- LLM calls use Strands Agent directly:
+  ```python
+  Agent(model=self.model, system_prompt=..., callback_handler=None)
+  ```
+- `model` parameter type: `Union[Model, str, None]`, supports all 13+ Strands model providers
+- Structured output pattern: `agent(prompt, structured_output_model=PydanticModel)` (sync). Async counterpart: `await agent.invoke_async(prompt, structured_output_model=PydanticModel)` — used in `experimental/redteam/generators/adversarial.py` and other async code paths.
+
+### Default Judge Model
+
+`DEFAULT_BEDROCK_MODEL_ID = "global.anthropic.claude-sonnet-4-6"` in `src/strands_evals/evaluators/evaluator.py`. Updated to sonnet-4-6 in PR #215.
+
+### Prompt Management
+
+- **No Jinja2**. Prompts are Python string constants in versioned modules.
+- Pattern: `evaluators/prompt_templates/{name}/{name}_v0.py` exports `SYSTEM_PROMPT`.
+- `get_template(version)` returns the module whose `SYSTEM_PROMPT` is used.
+- The `detectors/prompt_templates/root_cause/` directory has both `root_cause_v0.py` and `root_cause_merge_v0.py`, with `get_template` and `get_merge_template` selectors.
+
+### Case and Experiment
+
+- `Case[InputT, OutputT]`: one test scenario (`input`, `expected_output`, optional `trajectory`, `metadata`)
+- `Experiment[InputT, OutputT]`: collection of Cases plus evaluators
+- Entry point: `experiment.run_evaluations(task_function)` returns a single `EvaluationReport`. With multiple evaluators, results are flattened across (case, evaluator) pairs and each row is tagged via `cases[i]["evaluator"]`.
+- Async / parallel: `experiment.run_evaluations_async(task, max_workers=10, evaluation_data_store=...)`. The sync `run_evaluations` delegates to it with `max_workers=1`. Async tasks must use the async entry point.
+- Result caching: pass `evaluation_data_store=` (any `EvaluationDataStore` Protocol implementer; `LocalFileTaskResultStore` writes one JSON per case) to skip cases with cached `EvaluationData`.
+
+### Task Handlers
+
+`strands_evals.eval_task_handler` provides an `@eval_task` decorator that wraps a task function with normalization and optional telemetry collection.
+
+- `EvalTaskHandler` — base handler; normalizes return values to `dict` with at least `"output"`.
+- `TracedHandler(mapper=None)` — collects OpenTelemetry spans and maps them to a `Session` in `result["trajectory"]`. Defaults to `StrandsInMemorySessionMapper`. **Single shared exporter — sequential / `max_workers=1` only.**
+- The decorated function may return a `strands.Agent` (auto-invoked with `case.input`), a string, or a dict; it may take zero arguments or a single `Case`.
+
+### Session / Trace Types
+
+Defined in `strands_evals.types.trace`:
+
+- `Session` → `list[Trace]` → `list[SpanUnion]`
+- `SpanUnion = InferenceSpan | ToolExecutionSpan | AgentInvocationSpan`
+- Mapping functions live in `mappers/`, one per external source.
+
+### Detectors Module Public API
+
+Exported from `detectors/__init__.py`:
+
+- `detect_failures(session, *, confidence_threshold, model)` — uses `model.stream()` in text mode (tool-use structured output was observed to degrade detection quality). Falls back to chunked windows on context overflow.
+- `analyze_root_cause(session, failures=None, *, model)` — uses Strands Agent + structured output (`RCAStructuredOutput`). Three-tier fallback: direct → failure-path pruning (ancestors + up to 10 descendants) → chunked windows merged by LLM.
+- `diagnose_session(session, *, model, confidence_threshold)` — thin pipeline: `detect_failures` → `analyze_root_cause` → `DiagnosisResult`.
+
+Shared helpers live in `detectors/utils.py`. Types live in `types/detector.py`. `ConfidenceLevel` is an `Enum` (`.LOW` / `.MEDIUM` / `.HIGH`), not a `Literal`.
+
+## Coding Patterns and Best Practices
+
+### Code Conventions
+
+- **No `_internal/` directories anywhere** — this is an open-source repo, visible surface should be deliberate.
+- Private functions and modules use the `_` prefix.
+- **No litellm dependency** — all LLM calls go through `strands.Agent`. Do not introduce litellm.
+- Core runtime dependencies: `strands-agents`, `pydantic`, `rich`, `boto3`, `tenacity`, `opentelemetry-*`.
+
+### Type Annotations
+
+- Type annotations are required on all public signatures.
+- **Use Python built-in generic types and PEP 604 unions.** Prefer `list[X]`, `dict[K, V]`, `tuple[X, ...]`, `set[X]`, `type[X]`, and `X | None` over `typing.List`, `typing.Dict`, `typing.Tuple`, `typing.Set`, `typing.Type`, `typing.Optional[X]`, and `typing.Union[X, Y]`. The repo targets Python >=3.10, so PEP 585 (built-in generics) and PEP 604 (`|` unions) are available without `from __future__ import annotations`.
+- Only fall back to `typing` / `typing_extensions` for symbols that have no built-in equivalent: `Any`, `Callable`, `Iterable`, `Sequence`, `Mapping`, `Protocol`, `TypedDict`, `TypeVar`, `Generic`, `Literal`, `cast`, `overload`, `Self` (3.11+ via `typing`, 3.10 via `typing_extensions`).
+- Mypy runs via `hatch fmt --linter`. Strict checks disabled selectively in `pyproject.toml` for Generic-class patterns; see `[tool.mypy]` overrides.
+
+### Docstrings
+
+Use Google-style docstrings for public functions, classes, and modules. Use single backticks (`` `foo` ``) for inline code references, not RST-style double backticks (`` ``foo`` ``).
+
+### Logging Style
+
+See [STYLE_GUIDE.md](./STYLE_GUIDE.md). Structured fields first, human-readable message after a pipe:
+
+```python
+logger.debug("user_id=<%s>, action=<%s> | user performed action", user_id, action)
+```
+
+- Use `%s` string interpolation, not f-strings (logging performance).
+- Lowercase message, no punctuation.
+- Separate multiple statements with `|`.
+
+### Import Organization
+
+Auto-organized by ruff/isort:
+1. Standard library
+2. Third-party
+3. Local
+
+Imports must live at the top of the file.
+
+**No unnecessary dynamic imports.** Do not move an import inside a function or guard it with `try/except ImportError` unless one of the following is true:
+- The dependency is an **optional extra** (e.g., `langfuse`, `opensearch`, `langchain`) declared under `[project.optional-dependencies]`.
+- The import is genuinely **expensive** and only used on a rare code path (justify in a one-line comment).
+- It breaks a real **circular import** that cannot be resolved by restructuring.
+
+In particular: hard runtime deps declared in `pyproject.toml` (`pydantic`, `strands-agents`, `boto3`, `tenacity`, `rich`, etc.) and stdlib modules (`json`, `inspect`, `random`, `datetime`) must be imported at module top. `try: import x except ImportError` around a hard dep is dead error handling. Lazy imports inside test bodies hide collection-time errors and are not allowed.
+
+When a lazy import is justified, leave a one-line comment naming the reason (e.g. `# optional extra: langfuse`).
+
+### Naming
+
+- Variables/functions: `snake_case`
+- Classes: `PascalCase`
+- Constants: `UPPER_SNAKE_CASE`
+- Private: `_` prefix
+
+### Error Handling
+
+- Provide clear error messages with context.
+- Do not swallow exceptions silently.
+- For context-exceeded model errors in `detectors/`, use `_is_context_exceeded` from `detectors/utils.py`.
+
+## Testing Patterns
+
+### Unit Tests (`tests/strands_evals/`)
+
+- Mirror the `src/strands_evals/` structure exactly.
+- Mock external dependencies (LLMs, AWS services, trace providers).
+- `moto` is declared as a test dependency in `pyproject.toml` for AWS mocking, but no test file currently imports it. Treat it as available, not established prior art.
+- Use `pytest-asyncio` (`asyncio_mode = "auto"`) for async tests.
+
+### Integration Tests (`tests_integ/`)
+
+- Use real model providers and trace backends.
+- Require credentials via environment variables.
+
+### File Naming
+
+- Unit: `test_{module}.py` in `tests/strands_evals/{path}/`
+- Integration: `test_{feature}.py` in `tests_integ/`
+
+### Running Tests
+
+```bash
+hatch test                           # Unit tests
+hatch test -c                        # With coverage
+hatch run test-integ                 # Integration tests
+hatch test tests/strands_evals/evaluators/    # Targeted
+hatch test --all                     # All supported Python versions (3.10-3.13)
+```
+
+## Development Commands
+
+```bash
+# Environment
+hatch shell
+
+# Formatting & linting
+hatch fmt --formatter                 # Format
+hatch fmt --linter                    # Lint (ruff + mypy)
+
+# Testing
+hatch test
+hatch test -c
+hatch run test-integ
+
+# Full readiness check
+hatch run prepare                     # lint + format + test-lint + test --all
+
+# Pre-commit
+pre-commit install -t pre-commit -t commit-msg
+pre-commit run --all-files
+```
+
+## Creating a High-Quality PR
+
+If you are an agent opening a PR on behalf of a contributor, the human is the author and is accountable for everything you submit. Your job is to make the change easy for them to stand behind and easy for a maintainer to review. The single biggest predictor of a fast review and an accepted PR is a small, focused change that its author fully understands. (See [CONTRIBUTING.md](./CONTRIBUTING.md#using-ai-tools) for the human-facing version of this.)
+
+### Quality bar
+
+- **Understand before you submit.** The contributor should be able to explain why every line works and defend the design. If you generated code you cannot explain in plain terms, stop and explain it (or simplify it) before opening the PR.
+- **Keep it small and focused.** One logical change per PR. If you find yourself touching `evaluators/`, `detectors/`, and `cli/` in one branch, that is almost always several PRs. Smaller PRs are easier for maintainers to understand, guide, and merge.
+- **Open an issue first for anything significant.** Align on the approach before investing time — see "Finding contributions to work on" in CONTRIBUTING.md.
+- **Don't pad the change.** No drive-by reformatting, no unrelated refactors, no speculative abstractions or "while I'm here" cleanups. They make the diff hard to review and the change hard to trust.
+
+### Workflow
+
+1. **Scope it.** Confirm the change maps to one concern. Split anything that doesn't.
+2. **Follow the patterns in this file.** Built-in generics, structured logging, route LLM calls through `strands.Agent`, version prompts as `_v0.py` constants, mirror `src/` structure in `tests/`. See the "Coding Patterns and Best Practices" and "Things NOT to Do" sections.
+3. **Add tests.** New code needs a mirrored test file under `tests/strands_evals/...`. Make sure tests exercise the behavior, not just pass.
+4. **Run the full readiness check** before opening the PR:
+   ```bash
+   hatch run prepare   # lint + format + test-lint + test --all
+   ```
+   Don't open a PR with known lint, type, or test failures.
+5. **Self-review the diff.** Read it end to end as if you were the reviewer. Remove anything unrelated to the stated change. Confirm you can truthfully check every box in the PR template, including the item attesting that you have reviewed and understand every line of code in the PR, including any generated by AI tools.
+6. **Write it up.** Conventional-commit title (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`), short title, body that explains the **why** more than the **what**.
+
+### Commit and title conventions
+
+- Conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`.
+- Title should be short; the body carries detail.
+- CI runs `test-lint` and the full test matrix; don't merge with failures.
+
+## Things to Do
+
+- Use explicit return types for all functions.
+- Use built-in generics (`list`, `dict`, `tuple`, `set`, `type`) and PEP 604 unions (`X | None`, `A | B`) in annotations.
+- Write Google-style docstrings for public APIs.
+- Use structured logging format.
+- Mirror `src/` structure in `tests/`.
+- Run `hatch fmt --formatter` and `hatch fmt --linter` before committing.
+- Route all LLM calls through `strands.Agent`.
+- Version prompt templates as Python string constants in `{name}_v0.py`.
+- When editing `detectors/`, keep the three-tier RCA fallback and the `model.stream()` text-mode path for failure detection intact unless the PR explicitly targets those behaviors.
+- When editing `chaos/`, keep the `ContextVar`-based plugin dispatch and the discriminated-union effect serialization intact; `ChaosPlugin` should remain a thin reader of the active `ChaosCase`.
+- When editing `experimental/redteam/`, keep `AttackStrategy` instances stateless across cases (clear in `reset()`) and prefer extending the strategy library over modifying `RedTeamExperiment`'s cross-product loop.
+
+## Things NOT to Do
+
+- Don't create `_internal/` directories — this is open source.
+- Don't introduce litellm or wrap model providers outside `strands.Agent`.
+- Don't use Jinja2 for prompts; use Python string constants.
+- Don't use `typing.List`, `typing.Dict`, `typing.Tuple`, `typing.Set`, `typing.Type`, `typing.Optional`, or `typing.Union` in annotations. Use built-in generics and `|` instead.
+- Don't use f-strings in logging calls.
+- Don't add punctuation or capital letters to log messages.
+- Don't rely on private SDK internals (`strands._*`).
+- Don't put unit tests outside `tests/strands_evals/`.
+- Don't commit without running pre-commit hooks.
+
+## Review Guidance for AI Agents
+
+When reviewing a PR in this repo, scan for all of the following:
+
+1. **Evaluator changes**: confirm the class still extends `Evaluator[InputT, OutputT]`, still returns `list[EvaluationOutput]`, and still uses `Agent(...)` for LLM calls. Confirm the default model has not silently regressed from the current default.
+2. **Prompt changes**: check that a new version module (`{name}_v1.py`) was added rather than overwriting `_v0.py`, if the PR is billed as a prompt change rather than a bugfix.
+3. **Detector changes**: preserve the text-mode streaming in `failure_detector.py` and the three-tier fallback in `root_cause_analyzer.py` unless explicitly targeted.
+4. **Session/trace schema**: if the PR changes fields on `Session`, `Trace`, or `SpanUnion`, every mapper in `mappers/` must still produce valid instances. Check each.
+5. **SDK usage**: if the PR calls into `strands.*`, verify the symbol exists in the current SDK public API and is not under an `_` module or an experimental surface. When the SDK source is available as a sibling checkout (`../sdk-python/` or similar), read the relevant SDK file and confirm the signature matches.
+6. **Chaos changes**: new `ChaosEffect` subclasses must declare a `hook` (`"pre"` or `"post"`) and a unique `effect_type` literal so the discriminated union round-trips through Pydantic. The `ChaosPlugin` reads the active case from `_current_chaos_case` (ContextVar); don't rewire it to read from instance state. `ChaosCase.expand` is the public entry point for case × effect-map cross-products.
+7. **Red-team changes**: new strategies subclass `AttackStrategy` and clear runtime state in `reset()` (instances are shared across cases). `AttackSuccessEvaluator` must return a continuous 0.0-1.0 score and the four-anchor severity (`refused | partial | substantial | full`). For parallel runs, `RedTeamExperiment` requires `agent_factory=`, not `agent=`. Stability: `experimental.redteam` APIs may change in a minor release. Breaking changes (renames, removed args, changed defaults) go through a deprecation cycle with a `DeprecationWarning` for at least one minor version.
+8. **Dependencies**: no new litellm, no new Jinja2, no new `_internal/` directories.
+9. **Style & logging**: structured logging with `%s` interpolation, lowercase messages, no f-strings in logger calls.
+10. **Tests**: new code needs a mirrored test file in `tests/strands_evals/...`. Async code uses `pytest-asyncio` auto mode.
+
+## Additional Resources
+
+- [CONTRIBUTING.md](./CONTRIBUTING.md) — Human contributor guidelines
+- [STYLE_GUIDE.md](./STYLE_GUIDE.md) — Logging and style conventions
+- [Strands Agents Documentation](https://strandsagents.com/)
+- [Strands Agents Python SDK](https://github.com/strands-agents/sdk-python)
+- [Strands Agents Tools](https://github.com/strands-agents/tools)
+- [Strands Agents Samples](https://github.com/strands-agents/samples)
+
+---
+> Source: [strands-agents/evals](https://github.com/strands-agents/evals) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
