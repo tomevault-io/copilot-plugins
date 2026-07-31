@@ -1,7 +1,7 @@
 {
   "name": "1mcp-app--agent",
   "displayName": "agent",
-  "description": "A unified Model Context Protocol server implementation that aggregates multiple MCP servers into one.",
+  "description": "agent",
   "version": "1.0.0",
   "author": "1mcp-app",
   "homepage": "https://github.com/1mcp-app/agent",
