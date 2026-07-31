@@ -2,9 +2,9 @@
   "name": "melodee",
   "owner": "melodee-project",
   "repo": "melodee",
-  "description": "Industrial grade self-hosted streaming music server.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/melodee-project/melodee",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T21:47:58Z"
+  "distributed_at": "2026-07-31T08:35:06Z"
 }
