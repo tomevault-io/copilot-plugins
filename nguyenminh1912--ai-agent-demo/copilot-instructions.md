@@ -1,14 +1,14 @@
-## service-class-conventions
+## spring-boot-configuration
 
-> Defines the structure and implementation of service classes, enforcing the use of interfaces, ServiceImpl classes, DTOs for data transfer, and transactional management.
+> Governs application logic design in Spring Boot projects, defining the roles and responsibilities of RestControllers, Services, Repositories, and DTOs.
 
-- Service classes must be of type interface.
-- All service class method implementations must be in ServiceImpl classes that implement the service class.
-- All ServiceImpl classes must be annotated with @Service.
-- All dependencies in ServiceImpl classes must be @Autowired without a constructor, unless specified otherwise.
-- Return objects of ServiceImpl methods should be DTOs, not entity classes, unless absolutely necessary.
-- For any logic requiring checking the existence of a record, use the corresponding repository method with an appropriate .orElseThrow lambda method.
-- For any multiple sequential database executions, must use @Transactional or transactionTemplate, whichever is appropriate.
+- Framework: Java Spring Boot 3 Maven with Java 17 Dependencies: Spring Web, Spring Data JPA, Thymeleaf, Lombok, PostgreSQL driver
+- All request and response handling must be done only in RestController.
+- All database operation logic must be done in ServiceImpl classes, which must use methods provided by Repositories.
+- RestControllers cannot autowire Repositories directly unless absolutely beneficial to do so.
+- ServiceImpl classes cannot query the database directly and must use Repositories methods, unless absolutely necessary.
+- Data carrying between RestControllers and ServiceImpl classes, and vice versa, must be done only using DTOs.
+- Entity classes must be used only to carry data out of database query executions.
 
 ---
 > Source: [NguyenMinh1912/ai-agent-demo](https://github.com/NguyenMinh1912/ai-agent-demo) — distributed by [TomeVault](https://tomevault.io).
