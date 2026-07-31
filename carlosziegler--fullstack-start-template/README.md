@@ -1,23 +1,21 @@
 # fullstack-start-template
 
-> Source: [CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template) — distributed by [TomeVault](https://tomevault.io)
-
-This project provides a solid foundation for building modern web applications using a curated stack of technologies focused on developer experience, performance, and type safety.
+> Source: [CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template).
+Original source: `CLAUDE.md` in [CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template)
 
 ---
 
