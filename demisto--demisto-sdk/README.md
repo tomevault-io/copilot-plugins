@@ -1,6 +1,6 @@
 # demisto-sdk
 
-> Source: [demisto/demisto-sdk](https://github.com/demisto/demisto-sdk). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [demisto/demisto-sdk](https://github.com/demisto/demisto-sdk). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
