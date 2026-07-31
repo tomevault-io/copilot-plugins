@@ -1,6 +1,6 @@
 # AI instruction files for PixleyReader
 
-> Sourced from [Pixley-Growth/PixleyReader](https://github.com/Pixley-Growth/PixleyReader) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [Pixley-Growth/PixleyReader](https://github.com/Pixley-Growth/PixleyReader), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
