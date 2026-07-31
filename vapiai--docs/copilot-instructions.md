@@ -1,100 +1,112 @@
-## index
+## docs
 
-> Main documentation rules index and system overview
+> Guidelines for workflow documentation and complex multi-step processes
 
 
-# Vapi Documentation Rules System
+# Workflow Documentation Standards
 
-This is the main entry point for Vapi documentation rules. All documentation should follow these core principles and leverage specific rules based on content type.
+Workflows use visual decision trees and conditional logic for complex multi-step processes.
 
-## Core Documentation Standards
+## Workflow Purpose
 
-Every page must be:
+Perfect for:
+- Appointment scheduling with availability checks
+- Lead qualification with branching questions  
+- Complex customer service flows with escalation
+- Multi-step data collection and validation
 
-- **Clear** - Use plain language, avoid jargon
-- **Brief** - Keep sentences and paragraphs short  
-- **Task-oriented** - Present steps in logical order
-- **Scannable** - Use headings, spacing, and components effectively
-- **Outcome-focused** - Ensure every section supports user success
+## Documentation Structure
 
-## Active Rules
+### Core Sections Required
+1. **Overview** - Workflow purpose and business context
+2. **Flow diagram** - Visual representation of the decision tree
+3. **Configuration** - Step-by-step setup instructions
+4. **Variables and data** - Input/output data structures
+5. **Testing scenarios** - Comprehensive test cases
+6. **Integration points** - External systems and APIs
 
-### Always Applied
+## Content Guidelines
 
-- **This index** - System overview and rule navigation
-- **Core principles** ([core-principles.mdc](mdc:.cursor/rules/always-applied/core-principles.mdc)) - Writing style, tone, and fundamental standards
-- **Fern components** ([fern-components.mdc](mdc:.cursor/rules/always-applied/fern-components.mdc)) - Framework-specific component usage
+### Flow Visualization
+- Include visual flow diagrams showing decision paths
+- Use clear node labels and condition descriptions
+- Highlight error handling and edge case paths
+- Show data flow between steps
 
-### Content-Type Rules
+### Business Context
+- Explain the real-world problem being solved
+- Provide specific use case scenarios
+- Include success metrics and KPIs
+- Reference industry best practices
 
-These apply automatically based on file paths:
+### Technical Implementation
+- Detail all configuration steps
+- Include variable definitions and schemas
+- Provide API integration examples
+- Cover error handling strategies
 
-- **MDX Components** ([mdx-components.mdc](mdc:.cursor/rules/glob-based/mdx-components.mdc)) - For all `.mdx` files - front-matter, components, formatting
-- **Quickstart Guides** ([quickstart-guide.mdc](mdc:.cursor/rules/glob-based/quickstart-guide.mdc)) - For `/quickstart/` paths - tutorial structure and flow
-- **Examples** ([examples-documentation.mdc](mdc:.cursor/rules/glob-based/examples-documentation.mdc)) - For `/examples/` paths - use case implementations
-- **Workflows** ([workflows-documentation.mdc](mdc:.cursor/rules/glob-based/workflows-documentation.mdc)) - For `/workflows/` paths - complex multi-step processes  
+## Workflow Components
 
-### Agent-requested or Manually applied rules (applied via @rule-name when needed)
+### Decision Nodes
+Document:
+- Condition logic and evaluation criteria
+- Branch paths and outcomes
+- Fallback behaviors
+- Variable dependencies
 
-- **Code Standards** ([code-standards.mdc](mdc:.cursor/rules/code-standards.mdc)) - Code quality, testing standards
-- **Content Templates** ([content-templates.mdc](mdc:.cursor/rules/content-templates.mdc)) - Page templates and content patterns
+### Data Collection
+Document:
+- Input validation rules
+- Required vs optional fields
+- Data transformation logic
+- Storage and retrieval patterns
 
-## When to Consult Specific Rules
+### Integrations
+Document:
+- External API endpoints
+- Authentication requirements
+- Rate limiting considerations
+- Error response handling
 
-| Working on... | Consult Rule | For guidance on... |
-|---------------|--------------|-------------------|
-| Any `.mdx` file | [mdx-components.mdc](mdc:.cursor/rules/glob-based/mdx-components.mdc) + [fern-components.mdc](mdc:.cursor/rules/always-applied/fern-components.mdc) | Components, front-matter, formatting |
-| Getting started guides | [quickstart-guide.mdc](mdc:.cursor/rules/glob-based/quickstart-guide.mdc) | Tutorial structure, step flow, prerequisites |
-| Use case examples | [examples-documentation.mdc](mdc:.cursor/rules/glob-based/examples-documentation.mdc) | Implementation patterns, multi-modal examples |
-| Complex workflows | [workflows-documentation.mdc](mdc:.cursor/rules/glob-based/workflows-documentation.mdc) | Decision trees, data flow, business context |
-| Code examples | [code-standards.mdc](mdc:.cursor/rules/code-standards.mdc) | Quality, security, best practices |
-| New page types | [content-templates.mdc](mdc:.cursor/rules/content-templates.mdc) | Templates, patterns, structure |
-| Fern components | [fern-components.mdc](mdc:.cursor/rules/always-applied/fern-components.mdc) | Framework-specific components and features |
+## Templates
 
-## Quick Reference
-
-### Standard Opening
+### Workflow Overview
 ```mdx
 ## Overview
 
-[Brief description of what users will build/accomplish]
+Build [workflow type] with [key capabilities]. This workflow handles [business scenario] using [decision logic approach].
 
-**In this [guide/example], you'll learn to:**
-- [Specific actionable outcome 1]
-- [Specific actionable outcome 2]
+**Business Use Case:**
+[Describe the real-world problem this solves]
+
+**Workflow Capabilities:**
+- [Primary capability with decision logic]
+- [Secondary capability with data handling]
+- [Integration capability with external systems]
+
+**Flow Overview:**
+[High-level description of the workflow path]
 ```
 
-### Implementation / User Journey Tabs (Fern)
+### Testing Template
 ```mdx
-<CodeBlocks>
-```txt title="Dashboard"
-// Complete working example
-```
-```typescript title="TypeScript (Server SDK)"
-// Complete working example
-```
-```python title="Python (Server SDK)"
-# Complete working example
-```
-```bash title="cURL"
-# Complete working example
-```
-</CodeBlocks>
-```
+## Test the Workflow
 
-### Standard Closing
-```mdx
-## Next steps
+### Test Scenarios
 
-Now that you have [accomplished goal]:
-- **[Advanced topic]:** [Description with link]
-- **[Related feature]:** [Description with link]
-```
+| Scenario | Input | Expected Path | Expected Outcome |
+|----------|-------|---------------|------------------|
+| [Happy path] | [Sample input] | [Main flow] | [Success result] |
+| [Edge case 1] | [Edge input] | [Alternative path] | [Handled result] |
+| [Error case] | [Invalid input] | [Error handling] | [Error resolution] |
 
----
-
-**Rule of thumb:** Every sentence should clarify *why* or *how*—if it does neither, remove or rewrite it. 
+### Validation Steps
+1. Test each decision branch independently
+2. Verify data persistence across steps
+3. Confirm integration endpoints respond correctly
+4. Validate error handling and recovery
+``` 
 
 ---
 > Source: [VapiAI/docs](https://github.com/VapiAI/docs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
