@@ -1,8 +1,6 @@
 # conference-app-2025
 
-> Tome by [DroidKaigi](https://github.com/DroidKaigi/conference-app-2025) — distributed by [TomeVault](https://tomevault.io)
-
-The Official Conference App for DroidKaigi 2025
+> Tome by [DroidKaigi](https://github.com/DroidKaigi/conference-app-2025), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [DroidKaigi/conference-app-2025](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/DroidKaigi/conference-app-2025](https://github.com/DroidKaigi/conference-app-2025)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/DroidKaigi/conference-app-2025](https://github.com/DroidKaigi/conference-app-2025)
 
 ---
 
