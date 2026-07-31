@@ -1,0 +1,9 @@
+{
+  "name": "jaegertracing--spark-dependencies",
+  "displayName": "spark-dependencies",
+  "description": "spark-dependencies",
+  "version": "1.0.0",
+  "author": "jaegertracing",
+  "homepage": "https://github.com/jaegertracing/spark-dependencies",
+  "skills": []
+}
