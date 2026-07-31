@@ -1,8 +1,6 @@
 # AI instruction files for vibesql
 
-> Sourced from [rjwalters/vibesql](https://github.com/rjwalters/vibesql) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Vibe-coded NIST compatible database in Rust
+> Sourced from [rjwalters/vibesql](https://github.com/rjwalters/vibesql), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
