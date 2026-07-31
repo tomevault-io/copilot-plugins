@@ -1,8 +1,6 @@
 # AI instruction files for oneringai
 
-> Sourced from [aantich/oneringai](https://github.com/aantich/oneringai) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-One lib to rule them all (gen ai)
+> Sourced from [aantich/oneringai](https://github.com/aantich/oneringai), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [aantich/oneringai](https://github.com/aantich/o
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [aantich/oneringai](https://github.com/aantich/oneringai) — a repo with 55+ stars on GitHub.
+From [aantich/oneringai](https://github.com/aantich/oneringai) — a repo with 61+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
