@@ -1,8 +1,6 @@
 # poml
 
-> Tome by [microsoft](https://github.com/microsoft/poml) — distributed by [TomeVault](https://tomevault.io)
-
-Prompt Orchestration Markup Language
+> Tome by [microsoft](https://github.com/microsoft/poml), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [microsoft/poml](https://github.com/microsoft/po
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [microsoft/poml](https://github.com/microsoft/poml) — a repo with 4857+ stars on GitHub.
+From [microsoft/poml](https://github.com/microsoft/poml) — a repo with 4858+ stars on GitHub.
 
 ---
 
