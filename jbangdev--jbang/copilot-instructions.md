@@ -1,0 +1,39 @@
+## jbang
+
+> - Toolchain: Gradle build, Java 11 runtime (targets 8 bytecode).
+
+# JBang Agent Handbook
+
+- Toolchain: Gradle build, Java 11 runtime (targets 8 bytecode).
+- Build everything: `./gradlew build`; prefer Gradle tasks over direct javac.
+- Unit tests: `./gradlew test`; single test with `./gradlew test --tests "pkg.Class"`.
+- Always add unit tests, and if relevant integration tests for new features and bugfixes.
+- Integration tests: `./gradlew integrationTest`; filter via `--tests "pkg.ITClass"`.
+- Formatting: `./gradlew spotlessApply`; verify using `spotlessCheck`.
+- No extra linters; rely on compiler + spotless for CI hygiene.
+- Source layout: app in `src/main/java`, unit tests in `src/test/java`, IT in `src/it/java`.
+- Main entry point: `dev.jbang.Main`; CLI commands built with picocli.
+- Keep packages under `dev.jbang`; match existing folder hierarchy.
+- Imports ordered java → javax → org → com → dev.jbang → blank line.
+- Drop unused imports; never use wildcard or static-on-demand imports.
+- Formatting uses `misc/eclipse_formatting_nowrap.xml`; indent 4 spaces, no wrapping.
+- Naming: UpperCamelCase types, lowerCamelCase members, UPPER_SNAKE constants.
+- Types: prefer explicit generics; annotate nullability with `@jspecify` where applicable.
+- Avoid raw collections and unchecked casts; keep method signatures explicit.
+- Error handling: throw `dev.jbang.cli.ExitException` for controlled exits; let picocli report parameter issues.
+- Logging/output: use `dev.jbang.util.Util` helpers (e.g., `infoMsg`, `verboseMsg`).
+- Commits: use conventional/semantic format — `feat:`, `fix:`, `build:`, `docs:`, etc. PR titles follow the same convention.
+- Startup scripts live in `src/main/scripts/`: `jbang` (bash), `jbang.cmd` (CMD), `jbang.ps1` (PowerShell). The CMD script delegates downloads and JDK installs to `jbang.ps1`. Changes affecting downloads or bootstrap must be applied consistently across all three. Behavior (e.g., retry backoff) must be consistent across tools — watch for tool-specific quirks like `curl --retry-delay 0` meaning exponential backoff while `wget --waitretry=0` meaning no delay.
+- Environment variables follow `JBANG_*` naming. New env vars must have defaults in each script that actually uses them (e.g., `jbang.cmd` delegates downloads to `jbang.ps1`, so download-related vars only need defaults in `jbang` and `jbang.ps1`). Document new vars in `installation.adoc` ("Startup Script Environment Variables") and ensure consistent behavior across platforms.
+- Documentation is AsciiDoc under `docs/modules/ROOT/pages/` (e.g., `installation.adoc`, `troubleshooting.adoc`).
+- New features, CLI options, and environment variables **must** include documentation updates. When reviewing a PR, always check that user-facing changes have corresponding doc updates in `docs/modules/ROOT/pages/`. Key pages: `configuration.adoc` (options, auth, proxies), `installation.adoc` (env vars, setup), `running.adoc` (runtime behavior), `troubleshooting.adoc`.
+- Test infrastructure: `BaseTest` includes WireMock for HTTP mocking (records/replays requests). `BaseIT` provides `shell()` helpers for running CLI commands. Use `assumeTrue` for conditionally skipping tests (e.g., `assumeTrue(isCommandAvailable("bash"))` or `assumeTrue(isCommandAvailable("pwsh"))`).
+- Script tests should run the real scripts from `src/main/scripts/` — not synthetic copies or extracted functions. Use env var overrides (e.g., `JBANG_DOWNLOAD_URL`) to point real scripts at WireMock.
+- Authentication/credential chain: most-specific source wins. Order: URL userinfo → `.netrc` exact host → `GITHUB_TOKEN`/`GITLAB_TOKEN` → `.netrc` default → `JBANG_AUTH_BASIC_*`. For Maven repos, `settings.xml` `<server>` entries override all of the above when the server `<id>` matches. Shared logic lives in `NetUtil.getCredentialsForHost()`; don't duplicate the chain — call the shared method.
+- Security: never auto-escalate credentials to parent domains (e.g., don't send `github.com` credentials to `evil.github.com`). Credential lookup is exact-host only.
+- `.netrc` extensions: JBang-specific keys (e.g., `jbang-auth`) are namespaced to avoid collision with standard netrc fields. Other tools silently ignore them.
+- External process calls (e.g., `git credential fill`, `gh auth token`): always set a timeout, cache results per-host for the process lifetime, and fail gracefully (fall through to next auth source on error).
+
+---
+> Source: [jbangdev/jbang](https://github.com/jbangdev/jbang) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
