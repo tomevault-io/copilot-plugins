@@ -1,15 +1,14 @@
 # sci-components
 
-> Source: [chanzuckerberg/sci-components](https://github.com/chanzuckerberg/sci-components). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [chanzuckerberg/sci-components](https://github.com/chanzuckerberg/sci-components). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [chanzuckerberg/sci-components](https://github.com/chanzuckerberg/sci-components).
+Original source: `CLAUDE.md` in [chanzuckerberg/sci-components](https://github.com/chanzuckerberg/sci-components).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
