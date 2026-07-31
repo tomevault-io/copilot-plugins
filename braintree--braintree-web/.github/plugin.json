@@ -1,0 +1,9 @@
+{
+  "name": "braintree--braintree-web",
+  "displayName": "braintree-web",
+  "description": "braintree-web",
+  "version": "1.0.0",
+  "author": "braintree",
+  "homepage": "https://github.com/braintree/braintree-web",
+  "skills": []
+}
