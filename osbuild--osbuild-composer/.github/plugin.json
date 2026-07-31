@@ -1,0 +1,9 @@
+{
+  "name": "osbuild--osbuild-composer",
+  "displayName": "osbuild-composer",
+  "description": "osbuild-composer",
+  "version": "1.0.0",
+  "author": "osbuild",
+  "homepage": "https://github.com/osbuild/osbuild-composer",
+  "skills": []
+}
