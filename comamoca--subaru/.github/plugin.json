@@ -1,7 +1,7 @@
 {
   "name": "comamoca--subaru",
   "displayName": "subaru",
-  "description": "A Gleam WASM runner that allows executing Gleam code dynamically using WebAssembly.",
+  "description": "subaru",
   "version": "1.0.0",
   "author": "Comamoca",
   "homepage": "https://github.com/Comamoca/subaru",
