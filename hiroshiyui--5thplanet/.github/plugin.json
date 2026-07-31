@@ -1,0 +1,14 @@
+{
+  "name": "hiroshiyui--5thplanet",
+  "displayName": "5thPlanet",
+  "description": "An accuracy-first SEGA Saturn emulator in Rust.",
+  "version": "1.0.0",
+  "author": "hiroshiyui",
+  "homepage": "https://github.com/hiroshiyui/5thPlanet",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
