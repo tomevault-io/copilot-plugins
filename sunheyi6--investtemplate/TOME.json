@@ -2,9 +2,9 @@
   "name": "investTemplate",
   "owner": "sunheyi6",
   "repo": "investTemplate",
-  "description": "\u4e2a\u80a1\u5206\u6790\u6807\u51c6\u6a21\u7248",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sunheyi6/investTemplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T06:31:59Z"
+  "distributed_at": "2026-07-31T22:01:59Z"
 }
