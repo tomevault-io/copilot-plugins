@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [emersonfelipesp/netbox-proxbox](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [emersonfelipesp/netbox-proxbox](https://github.com/emersonfelipesp/netbox-proxbox) — a repo with 577+ stars on GitHub.
+From [emersonfelipesp/netbox-proxbox](https://github.com/emersonfelipesp/netbox-proxbox) — a repo with 578+ stars on GitHub.
 
 ---
 
