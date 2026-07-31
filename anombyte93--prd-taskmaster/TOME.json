@@ -4,7 +4,7 @@
   "repo": "prd-taskmaster",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anombyte93/prd-taskmaster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T14:38:04Z"
+  "distributed_at": "2026-07-31T13:18:04Z"
 }
