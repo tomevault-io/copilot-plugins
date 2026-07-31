@@ -6,91 +6,147 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Claude Code Plugin Development](#claude-code-plugin-development)
-  - [Plugin Structure](#plugin-structure)
-  - [Installing the Plugin](#installing-the-plugin)
-  - [Skills](#skills)
-  - [Configuration](#configuration)
-  - [Key Files](#key-files)
-  - [Config Location](#config-location)
+- [Agent Guidelines for astro-airflow-mcp](#agent-guidelines-for-astro-airflow-mcp)
+  - [Architecture](#architecture)
+  - [Code Conventions](#code-conventions)
+    - [HTTP Client](#http-client)
+    - [Adapter Pattern](#adapter-pattern)
+    - [MCP Tools](#mcp-tools)
+    - [Error Handling](#error-handling)
+  - [Airflow Version Differences](#airflow-version-differences)
+  - [Testing](#testing)
+  - [Files to Know](#files-to-know)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Claude Code Plugin Development
+# Agent Guidelines for astro-airflow-mcp
 
-## Plugin Structure
+Guidelines for AI coding assistants contributing to this repository.
+
+## Architecture
+
+MCP server for Apache Airflow with adapter pattern for version compatibility:
 
 ```
-project-root/
-├── .claude-plugin/
-│   ├── marketplace.json        # Marketplace catalog (strict: false)
-│   └── plugin.json             # Plugin manifest with hooks
-└── skills/                     # Skills (auto-discovered)
-    └── skill-name/
-        ├── SKILL.md            # Skill with YAML frontmatter
-        └── hooks/              # Hook scripts (co-located with skill)
-            └── *.sh
+src/astro_airflow_mcp/
+├── server.py          # Core infrastructure: config, auth, adapter management (FastMCP)
+├── tools/             # MCP tool implementations (grouped by domain)
+│   ├── dag.py         # DAG management (get, list, source, stats, pause, unpause)
+│   ├── task.py        # Task management (get, list, instance, logs, clear)
+│   ├── dag_run.py     # DAG run management (list, get, trigger, trigger_and_wait, delete, clear)
+│   ├── asset.py       # Asset/dataset tools (list, events, upstream events)
+│   ├── admin.py       # Admin tools (connections, variables, pools, plugins, providers, config, version)
+│   └── diagnostic.py  # Diagnostic tools (warnings, errors, explore, diagnose, health)
+├── resources.py       # MCP resources (read-only endpoints)
+├── prompts.py         # MCP prompts (guided workflows)
+├── adapters/
+│   ├── base.py        # Abstract adapter interface
+│   ├── airflow_v2.py  # Airflow 2.x API (/api/v1)
+│   └── airflow_v3.py  # Airflow 3.x API (/api/v2)
+├── models.py          # Pydantic models (documentation/type reference)
+└── plugin.py          # Airflow 3.x plugin integration
 ```
 
-## Installing the Plugin
+## Code Conventions
 
-```bash
-# Add the marketplace (from repo root)
-claude plugin marketplace add astronomer/agents
+### HTTP Client
 
-# Install the plugin
-claude plugin install astronomer-data@astronomer
+Use `httpx`, not `requests`. All HTTP calls should use `httpx.Client` and pass `self._verify` for SSL configuration:
 
-# Or test locally (session only)
-claude --plugin-dir .
+```python
+# Good
+with httpx.Client(timeout=30.0, verify=self._verify) as client:
+    response = client.get(url, headers=headers)
+
+# Bad
+response = requests.get(url, headers=headers)
 ```
 
-After adding skills or making changes, reinstall the plugin:
-```bash
-claude plugin uninstall astronomer-data@astronomer && claude plugin marketplace update && claude plugin install astronomer-data@astronomer
+### Adapter Pattern
+
+All Airflow API calls go through adapters. Never call Airflow API directly from MCP tools:
+
+```python
+# Good - use adapter
+adapter = _get_adapter()
+data = adapter.list_dags(limit=100)
+
+# Bad - direct API call
+response = httpx.get(f"{url}/api/v2/dags")
 ```
 
-## Skills
+When adding new API endpoints:
+1. Add abstract method to `adapters/base.py`
+2. Implement in both `airflow_v2.py` and `airflow_v3.py`
+3. Handle API differences (field names, paths, availability)
 
-Skills are markdown files with YAML frontmatter in `skills/<name>/SKILL.md`:
+### MCP Tools
 
-```yaml
----
-name: skill-name
-description: When to use this skill (Claude uses this to decide when to invoke it)
----
+Tools need descriptive docstrings for AI discovery:
 
-# Skill content here...
+```python
+@mcp.tool()
+def get_dag_details(dag_id: str) -> str:
+    """Get detailed information about a specific DAG.
+
+    Use this tool when the user asks about:
+    - "Show me details for DAG X"
+    - "What's the schedule for DAG Y?"
+
+    Args:
+        dag_id: The ID of the DAG
+
+    Returns:
+        JSON with DAG metadata
+    """
 ```
 
-- Skills are auto-discovered from the `skills/` directory
-- Claude invokes skills automatically based on the description matching user requests
-- Users can also invoke directly with `/plugin-name:skill-name` (e.g., `/astronomer-data:authoring-dags`)
+### Error Handling
 
-## Configuration
+Adapters handle missing endpoints gracefully:
 
-Plugin configuration is split across two files:
+```python
+try:
+    return self._call("newEndpoint")
+except NotFoundError:
+    return self._handle_not_found(
+        "newEndpoint",
+        alternative="Use alternativeEndpoint instead"
+    )
+```
 
-- **hooks**: Inlined in `.claude-plugin/plugin.json`, scripts co-located in `skills/<name>/hooks/`
-- **mcpServers**: Inlined in `.claude-plugin/plugin.json`
-- **skills**: Auto-discovered from `skills/` directory
-- **marketplace metadata**: Defined in `.claude-plugin/marketplace.json` (`strict: false`)
+## Airflow Version Differences
 
-Use `${CLAUDE_PLUGIN_ROOT}` to reference files within the plugin (required because plugins are copied to a cache location when installed).
+| Feature | Airflow 2.x | Airflow 3.x |
+|---------|-------------|-------------|
+| API path | `/api/v1` | `/api/v2` |
+| Auth | Basic auth | OAuth2/JWT |
+| Assets | `datasets` | `assets` |
+| DAG runs | `execution_date` | `logical_date` |
 
-**Important:** Hooks in `SKILL.md` frontmatter can use **relative paths** from the skill's directory (e.g., `./scripts/bar.py`). Use `${CLAUDE_PLUGIN_ROOT}` in `plugin.json` to reference the plugin root.
+## Testing
 
-## Key Files
+- Mock adapters, not HTTP libraries
+- Unit tests: `tests/`
+- Integration tests: `tests/integration/` (require running Airflow)
 
-- `.claude-plugin/plugin.json` - Plugin manifest with hooks and mcpServers
-- `.claude-plugin/marketplace.json` - Marketplace catalog (metadata only, `strict: false`)
-- `skills/*/SKILL.md` - Individual skills (auto-discovered)
-- `skills/*/hooks/*.sh` - Hook scripts (co-located with skills, referenced via relative paths from SKILL.md or `${CLAUDE_PLUGIN_ROOT}/skills/<name>/hooks/...` from plugin.json)
+```python
+# Good - mock adapter (patch in the tool module that imports it)
+mock_adapter = mocker.Mock()
+mock_adapter.list_dags.return_value = {"dags": [...]}
+mocker.patch("astro_airflow_mcp.tools.dag._get_adapter", return_value=mock_adapter)
 
-## Config Location
+# Bad - mock HTTP library
+mocker.patch("httpx.Client")
+```
 
-This plugin uses `~/.astro/agents/` for user configuration (warehouse credentials, etc.).
+## Files to Know
+
+- `server.py`: All MCP tools defined here
+- `adapters/base.py`: Interface contract for both versions
+- `models.py`: Type reference (not used for validation currently)
+- `docker-compose.test.yml`: Test against real Airflow instances
 
 ---
 > Source: [astronomer/agents](https://github.com/astronomer/agents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
