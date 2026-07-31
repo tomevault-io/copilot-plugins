@@ -4,7 +4,7 @@
   "repo": "baml",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BoundaryML/baml",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T08:44:26Z"
+  "distributed_at": "2026-07-31T20:34:39Z"
 }
