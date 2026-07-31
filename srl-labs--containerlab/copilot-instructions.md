@@ -1,38 +1,79 @@
 ## containerlab
 
-> This is a Go based repository that contains a cli tool for deploying network os containers to simulate networking topologies. Please follow these guidelines when contributing:
+> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
 
-This is a Go based repository that contains a cli tool for deploying network os containers to simulate networking topologies. Please follow these guidelines when contributing:
 
-## Code Standards
+# Karpathy behavioral guidelines
 
-### Required Before Each Commit
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-- The code should be formatted with `make format` command.
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-- The repository uses golangci-lint for linting Go code. Make sure linting passes with `make lint` command when golangci is locally installed or `make clint` when using docker container.
+## 1. Think Before Coding
 
-- Testing is done with `make test` command.
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-## Repository Structure
-- The CLI tool source code is located in the `cmd/` directory.
-- The core library code is located in the `core/` directory.
-- The documentation files are located in the `docs/` directory.
-- The constants files are located in the `constants/` directory.
-- The files responsible to define nodes of the topology are located in the `nodes/` directory.
-- The files responsible to define links of the topology are located in the `links/` directory.
-- The files responsible to container runtime operations are located in the `runtime/` directory.
-- The JSON schema files are located in the `schema/` directory.
+Before implementing:
 
-## Key Guidelines
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
-1. Follow Go best practices and idiomatic patterns
-2. Maintain existing code structure and organization
-3. Use table-driven tests for functions with multiple scenarios
-4. Use cmp.Diff when writing tests to show differences between expected and actual values.
-5. Write unit tests for new functionality.
-6. Document public APIs and complex logic. Suggest changes to the `docs/` folder when appropriate
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
 ---
 > Source: [srl-labs/containerlab](https://github.com/srl-labs/containerlab) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
