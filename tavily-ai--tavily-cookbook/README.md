@@ -1,8 +1,6 @@
 # tavily-cookbook
 
-> Tome by [tavily-ai](https://github.com/tavily-ai/tavily-cookbook) — distributed by [TomeVault](https://tomevault.io)
-
-Code and guides designed to help developers build with Tavily, offering copy-able code snippets that you can easily integrate into your own projects. 
+> Tome by [tavily-ai](https://github.com/tavily-ai/tavily-cookbook), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
