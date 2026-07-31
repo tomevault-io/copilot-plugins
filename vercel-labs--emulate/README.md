@@ -1,8 +1,6 @@
 # emulate
 
-> Tome by [vercel-labs](https://github.com/vercel-labs/emulate) — distributed by [TomeVault](https://tomevault.io)
-
-Local API emulation for CI and no-network sandboxes
+> Tome by [vercel-labs](https://github.com/vercel-labs/emulate), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,10 +14,6 @@ Original source: `AGENTS.md` in [vercel-labs/emulate](https://github.com/vercel-
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-## Bundled Skills (1)
-
-- [next](https://github.com/vercel-labs/emulate/tree/main/skills/next)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/vercel-labs/emulate](https://github.com/vercel-labs/emulate)
 
