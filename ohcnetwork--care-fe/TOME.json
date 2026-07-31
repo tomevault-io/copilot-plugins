@@ -4,7 +4,7 @@
   "repo": "care_fe",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ohcnetwork/care_fe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T09:42:22Z"
+  "distributed_at": "2026-07-31T20:44:08Z"
 }
