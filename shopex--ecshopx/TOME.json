@@ -2,9 +2,9 @@
   "name": "ECShopX",
   "owner": "ShopeX",
   "repo": "ECShopX",
-  "description": "The ECShopX Open Source E-Commerce System is free for commercial use, subject to the Apache 2.0 License. ",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ShopeX/ECShopX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T12:18:04Z"
+  "distributed_at": "2026-07-31T18:32:04Z"
 }
