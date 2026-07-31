@@ -1,18 +1,21 @@
-## 05-code-practices-quality
+## 06-documentation-standards
 
-> General coding standards (readability, comments, type hinting, linting, error handling).
+> Markdown usage, specific document types, and update frequency.
 
-# 05-code-practices-quality
+# 06-documentation-standards
 
-## Code Practices & Quality
+## Documentation Standards
 
 STRICT REQUIREMENT:
-- Readability & Maintainability: Use clear, concise, well-commented code.
-- Type Hinting: Use Python type hints and TypeScript interfaces extensively.
-- Linting & Formatting: Follow `flake8` and `black` for Python; `eslint` and `prettier` for TypeScript/Svelte.
-- Error Handling: Implement try/catch for JavaScript and try/except for Python.
-- Avoid Early Returns: Print error messages instead of exiting early.
-- Firestore Querying: Avoid `orderBy()`—fetch and sort in memory.
+- Maintain documentation in `docs/` using Markdown (`.md`).
+- API Documentation: Update `docs/API_DOCUMENTATION.md` with endpoint details.
+- Developer Guide: Ensure `docs/DEVELOPER_GUIDE.md` covers setup, testing, and contributions.
+- User Guide: Keep `docs/USER_GUIDE.md` updated for platform usage.
+- Maintain specialized documentation:
+  - `docs/SVELTE_STANDARDS.md`
+  - `docs/CUSTOM_WIDGET_DEVELOPMENT.md`
+  - `docs/THEME_SYSTEM.md`
+  - `docs/TROUBLESHOOTING.md`
 
 ---
 > Source: [fivelity/usmp](https://github.com/fivelity/usmp) — distributed by [TomeVault](https://tomevault.io).
