@@ -1,7 +1,7 @@
 {
   "name": "quarto-dev--quarto-markdown",
   "displayName": "quarto-markdown",
-  "description": "Standalone front-end parser for Quarto Markdown. NOT READY FOR PRODUCTION USE",
+  "description": "quarto-markdown",
   "version": "1.0.0",
   "author": "quarto-dev",
   "homepage": "https://github.com/quarto-dev/quarto-markdown",
