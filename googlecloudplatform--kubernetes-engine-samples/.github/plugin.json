@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--kubernetes-engine-samples",
+  "displayName": "kubernetes-engine-samples",
+  "description": "kubernetes-engine-samples",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/kubernetes-engine-samples",
+  "skills": []
+}
