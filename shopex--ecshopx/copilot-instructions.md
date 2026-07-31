@@ -1,142 +1,106 @@
-## workflow
+## ecshopx
 
-> Agent 系统工作流程规则
+> TDD Guard is a Claude Code hook that enforces Test-Driven Development by intercepting file operations.
 
+# TDD Guard
 
-# 工作流程规则
+## Project Goal
 
-## 执行流程
+TDD Guard is a Claude Code hook that enforces Test-Driven Development by intercepting file operations.
+When Claude Code attempts to edit or write files, TDD Guard:
 
-### 规划阶段
-1. **Planner 访谈**：理解需求，收集上下文
-2. **研究代码库**：调用 Explore/Librarian 收集信息
-3. **Advisor 咨询**：识别遗漏和风险（强制，自动进行）
-4. **生成计划**：创建 `.tasks/plans/{name}.md` 文件，**包含验收标准（WHEN/THEN）与由场景推导的测试用例（含边界）**，作为计划文件内的 **Acceptance & Test Cases** 章节
-5. **可选审查**：如果用户选择高精度模式，提交给 Reviewer 审查
-6. **用户审核测试用例**：用户审核计划内「Acceptance & Test Cases」章节中的测试用例并确认通过
+1. **Captures**: Intercepts Edit, MultiEdit, and Write operations
+2. **Analyzes**: Examines test results, file paths, and code changes
+3. **Validates**: Checks TDD compliance using an AI model
+4. **Blocks**: Prevents operations that skip tests or over-implement
+5. **Guides**: Explains violations and suggests corrections
 
-### 执行阶段
-**前置条件**：须在用户确认审核通过测试用例后，再开始执行。
+This automated enforcement maintains code quality without cluttering prompts with TDD reminders.
 
-1. **Orchestrator 读取计划**：解析 `.tasks/plans/{name}.md` 中的 TODO 列表
-2. **分析任务**：识别并行性和依赖关系
-3. **委派任务**：将任务分配给执行层 Agent（Developer、Architect、Explore、Librarian）
-4. **TDD 约束**：Developer 开发时须遵守 tdd-guard 规则（详见 `.cursor/rules/tdd-guard.mdc`：一次一个测试、最小实现、先红后绿再重构；被拦截后按 block 返回的 reason 继续执行）。若项目已启用 tdd-guard hook，Edit/Write 将受其校验与拦截。**禁止通过脚本或提示用户手动添加等方式绕过 tdd-guard**；必须在本会话内按 TDD 流程自动完成（见下方「Developer 约束」）。
-5. **验证完成**：每个任务后运行项目级验证
-6. **更新 Notepad**：维护学习记录（learnings.md, decisions.md, issues.md, problems.md）
-7. **循环直到完成**：重复步骤 2-6 直到所有 TODO 完成
+## Development Workflow
 
-## 子 Agent 委派方式
+### Commit Guidelines
 
-- 所有委派给子 Agent 的工作，**必须**通过 `mcp_task` 工具发起，并显式传入 `subagent_type`（如 `explore`、`librarian`、`advisor`、`reviewer`、`developer`、`architect`）。
-- **禁止**在当前会话中「扮演」子 Agent 并直接执行其职责（例如当前是 Planner 时，不得在本会话内直接做代码库搜索或写审查结论，而应调用 `mcp_task` 委派给对应 subagent_type）。
-- 委派时在 `mcp_task` 的 `prompt` 中提供任务描述与上下文；若需 6-Section 格式，将 6-Section 内容放入 `prompt`。
+- **Atomic commits**: Each commit represents one logical change with its tests
+- **Test and implementation together**: Never separate tests from the code they test
+- **Explain why, not what**: Commit messages should explain the reason for the change
+- **Conventional format**: Use prefixes to categorize changes: feat, fix, refactor, test, chore, docs
 
-## 强制规划原则
+Example: `feat: add network request filtering to reduce noise in captured data` (explains why, not just what)
 
-- **所有任务都必须经过规划阶段**：无论任务大小、复杂度如何，都必须由 Planner 创建执行计划
-- **不存在例外**：即使是简单的 bug 修复或小功能添加，也需要先规划再执行
-- **规划与执行分离**：规划者不执行，执行者不规划
+## Project Structure
 
-## Developer 约束（含 tdd-guard）
+The codebase is organized with core functionality in src/ and language-specific reporters:
 
-当委派任务给 Developer 且项目启用 tdd-guard 时，须遵守以下约束，**不得以任何方式绕过 tdd-guard**：
-
-1. **禁止绕过 tdd-guard**：
-   - 不得通过执行脚本（如 `sed`、`echo` 重定向、自定义 CLI）直接修改受 tdd-guard 校验的文件，以绕过 Edit/Write 拦截。
-   - 不得在回复中提示用户「请在本地手动添加某段代码」「请手动在 XXX 文件加入以下内容」等，将本应由 AI 在本会话内完成的实现转交给用户，从而规避 tdd-guard。
-2. **必须自动执行 TDD 流程**：
-   - 被 tdd-guard 拦截时，必须根据 block 返回的 `reason` 中的「正确的下一步」在本会话内继续操作（例如：仅添加最小实现、只加方法 stub、先建空类再跑测试）。
-   - 通过多次符合规则的 Edit/Write（一次一测、最小实现、先红后绿再重构）完成需求，而不是请求用户代为修改或通过脚本批量改文件。
-3. **Orchestrator 委派时**：在 MUST NOT DO 中应包含「不得通过脚本或提示用户手动添加代码的方式绕过 tdd-guard；须在本会话内按 TDD 流程自动完成」。
-
-## 验证要求
-
-每个委派任务后，Orchestrator 必须验证：
-1. **项目级诊断**：`phpunit` 必须返回 ZERO 错误
-2. **测试验证**：`phpunit` 所有测试必须通过
-3. **手动检查**：读取更改的文件，确认更改符合要求
-
-（本项目为 Lumen API，无构建步骤，构建验证可跳过。）
-
-## 计划名称约定
-
-- **`name` / `plan-name`**：由 Planner 在访谈中确定，建议使用短横线小写英文（如 `user-auth-refactor`）。
-- **一致性**：`plans`、`drafts`、`notepads` 使用同一 name（即 `.tasks/plans/{name}.md`、`.tasks/drafts/{name}.md`、`.tasks/notepads/{name}/` 中的 name 一致）。
-
-## Notepad 系统
-
-**目录结构**（唯一规范定义，其他文件引用此处）：
 ```
-.tasks/notepads/{plan-name}/
- learnings.md    # 约定、模式
- decisions.md     # 架构决策
- issues.md       # 问题、陷阱
- problems.md     # 未解决的阻塞
+reporters/                        # Language-specific test reporters
+├── go/                           # tdd-guard-go - Go test reporter
+├── jest/                         # tdd-guard-jest - Jest reporter (npm)
+├── phpunit/                      # tdd-guard/phpunit - PHPUnit reporter (composer)
+├── pytest/                       # tdd-guard-pytest - Pytest reporter (pip)
+├── rspec/                        # tdd-guard-rspec - RSpec reporter (gem)
+├── rust/                         # tdd-guard-rust - Rust test reporter (crates.io)
+├── storybook/                    # tdd-guard-storybook - Storybook test-runner reporter (npm)
+├── test/                         # Shared test artifacts and integration tests
+└── vitest/                       # tdd-guard-vitest - Vitest reporter (npm)
+
+src/                              # Main CLI application
+├── cli/                          # Hook entry point and context builder
+├── config/                       # Configuration management
+├── contracts/                    # Types and Zod schemas
+├── guard/                        # Guard enable/disable management
+├── hooks/                        # Claude Code hook parsing and processing
+├── linters/                      # ESLint integration for code quality
+├── processors/                   # Test result and lint processing
+├── providers/                    # Model and linter client factories
+├── storage/                      # Storage abstractions
+├── validation/                   # TDD principle validation
+│   ├── validator.ts              # Sends context to AI model and parses response
+│   ├── context/                  # Formats operations for AI validation
+│   ├── prompts/                  # TDD validation rules and AI instructions
+│   └── models/                   # Claude SDK and Anthropic API clients
+└── index.ts                      # Package entry point
+
+test/                             # Main test suite (hooks, integration, utils)
+docs/                             # Documentation (ADRs, configuration, etc.)
 ```
 
-**关键原则**：
-- 使用追加模式，不覆盖
-- 每个条目包含时间戳和任务ID
-- **必须包含作者字段**：使用生成该条目的 agent ID 作为作者名称
-- 执行者在每次任务后更新
+### Architecture
 
-## 6-Section Prompt Structure（委派任务格式）
+TDD Guard is organized as a TypeScript project with integrated language-specific reporters:
 
-Orchestrator 委派任务给执行层 Agent 时，必须使用以下 6-Section Prompt Structure：
+- **src/**: Core functionality including contracts, config, storage, and validation
+- **reporters/**: Language-specific test reporters (go, jest, phpunit, pytest, rspec, rust, storybook, vitest)
+- **test/**: Comprehensive test suite with integration tests and utilities
 
-```markdown
-## TASK
-{具体任务描述，包含要做什么}
+### Testing
 
-## EXPECTED OUTCOME
-{期望的结果，包含具体的交付物}
+#### Guidelines
 
-## REQUIRED TOOLS
-{建议的工具列表；执行时以完成任务为准，可选用未列出的工具。若任务明确依赖某工具（如仅允许 Read、不写代码），在 MUST DO / MUST NOT DO 中写明。Cursor 常用工具名示例：Read、Write、Edit、Grep、SemanticSearch、Shell}
+- **Use test helpers**: Extract setup logic into helper functions placed at the bottom of test files
+- **Use test factories**: Always use factories from `test/utils/` instead of creating data inline
+- **Group tests effectively**: Use `describe` blocks and `beforeEach` for common setup
+- **Keep tests concise**: Keep as little logic in the tests themselves as possible
 
-## MUST DO
-{必须执行的操作列表}
+#### Commands
 
-## MUST NOT DO
-{禁止执行的操作列表}
-
-## CONTEXT
-{上下文信息，包含相关文件路径、行号、引用等。委派 Developer 时须引用计划文件中 **Acceptance & Test Cases** 章节内与本任务相关的验收场景与测试用例（如计划文件路径 + 章节名 + 本任务对应的用例 ID 或段落）。}
+```bash
+npm run build             # Build main package and workspace reporters (jest, storybook, vitest)
+npm run test              # All unit tests and base integration tests
+npm run test:unit         # Fast unit tests only
+npm run test:reporters    # Test all reporter implementations
+npm run lint              # Check code style and quality
+npm run format            # Auto-format code with Prettier
+npm run checks            # Run all checks: typecheck, lint, format, and test
 ```
 
-**示例**：
-```markdown
-## TASK
-实现 UserService 类，包含 create、update、delete 方法
+### Key Design Principles
 
-## EXPECTED OUTCOME
-- 创建 `app/Services/UserService.php` 文件
-- 实现所有必需的方法
-- 所有测试通过
-
-## REQUIRED TOOLS
-- Read（读取现有代码）
-- Write / Edit（创建或修改文件）
-- Shell（运行测试）
-
-## MUST DO
-- 遵循 TDD 流程（RED-GREEN-REFACTOR）及 `.cursor/rules/tdd-guard.mdc` 中的 tdd-guard 规则：每次只写一个失败测试，再写最小实现使其通过，仅在测试全绿时重构；被拦截时按 block 的 reason 继续执行
-- 遵循代码库中现有的模式
-- 更新 Notepad 记录决策
-
-## MUST NOT DO
-- 不能跳过测试步骤
-- 不能通过脚本或提示用户手动添加代码的方式绕过 tdd-guard；须在本会话内按 TDD 流程自动完成
-- 不能修改计划文件
-- 不能创建计划文件
-
-## CONTEXT
-- 参考文件：`app/Services/BaseService.php` (第 1-50 行)
-- 测试文件：`tests/UserServiceTest.php`
-- 相关模式：Repository 模式
-```
+- **Interface-driven**: Core functionality defined by interfaces (`Storage`, `ModelClient`)
+- **Dependency injection**: Components receive dependencies as parameters
+- **Single responsibility**: Each module has one clear purpose
+- **Type safety**: Comprehensive TypeScript types with runtime validation
 
 ---
 > Source: [ShopeX/ECShopX](https://github.com/ShopeX/ECShopX) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
