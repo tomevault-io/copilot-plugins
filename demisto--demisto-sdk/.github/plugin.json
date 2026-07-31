@@ -1,0 +1,9 @@
+{
+  "name": "demisto--demisto-sdk",
+  "displayName": "demisto-sdk",
+  "description": "demisto-sdk",
+  "version": "1.0.0",
+  "author": "demisto",
+  "homepage": "https://github.com/demisto/demisto-sdk",
+  "skills": []
+}
